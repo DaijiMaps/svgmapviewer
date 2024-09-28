@@ -47,7 +47,3 @@ export function updateSvgMapViewerConfig(
     ...(configUser as SvgMapViewerConfig),
   }
 }
-
-export function getSvgMapViewerConfig() {
-  return svgMapViewerConfig
-}

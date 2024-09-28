@@ -1,7 +1,7 @@
 import { useMachine, useSelector } from '@xstate/react'
 import { RefObject, useCallback, useContext, useEffect } from 'react'
 import { SvgMapViewerConfigContext } from '../svgmapviewer'
-import { getSvgMapViewerConfig, svgMapViewerConfig } from './config'
+import { svgMapViewerConfig } from './config'
 import { configLayout, makeLayout } from './layout'
 import { useWindowResize } from './react-resize'
 import { Vec } from './vec'
@@ -56,9 +56,9 @@ export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
         configLayout(config.fontSize, config.origViewBox, body)
       ),
       searchCb: (p: Vec, psvg: Vec) =>
-        getSvgMapViewerConfig().searchStartCbs.forEach((cb) => cb(p, psvg)),
+        svgMapViewerConfig.searchStartCbs.forEach((cb) => cb(p, psvg)),
       lockCb: (ok: boolean) =>
-        getSvgMapViewerConfig().uiOpenDoneCbs.forEach((cb) => cb(ok)),
+        svgMapViewerConfig.uiOpenDoneCbs.forEach((cb) => cb(ok)),
     },
   })
 
