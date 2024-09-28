@@ -44,9 +44,7 @@ import {
 } from './touch'
 import { isDefined } from './utils'
 import { VecVec as Vec, vecMul, vecSub, vecVec } from './vec/prefixed'
-import { balloonMachine } from './xstate-balloon'
 import { scrollMachine } from './xstate-scroll'
-import { searchMachine } from './xstate-search'
 
 const DIST_LIMIT = 10
 
@@ -432,8 +430,6 @@ export const pointerMachine = setup({
   },
   actors: {
     scroll: scrollMachine,
-    search: searchMachine,
-    balloon: balloonMachine,
   },
 }).createMachine({
   type: 'parallel',
