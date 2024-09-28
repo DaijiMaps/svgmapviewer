@@ -2,20 +2,9 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 import { svgMapViewerConfig } from './lib/config'
+import type { SearchRes } from './lib/types'
 import { Vec } from './lib/vec'
-import { Info } from './main-info'
 import SearchWorker from './main-search-worker?worker&inline'
-
-export interface SearchReq {
-  p: Vec
-  psvg: Vec
-}
-
-export interface SearchRes {
-  p: Vec
-  psvg: Vec
-  info: Info
-}
 
 const worker = new SearchWorker()
 
