@@ -18,7 +18,6 @@ import {
   animationZoom,
 } from './animation'
 import { BoxBox, boxCenter } from './box/prefixed'
-import { SearchCb, UiOpenDoneCb } from './config'
 import { Drag, dragMove, dragStart } from './drag'
 import { keyToDir, keyToZoom } from './key'
 import {
@@ -42,6 +41,7 @@ import {
   resetTouches,
   Touches,
 } from './touch'
+import type { SearchCb, UiOpenDoneCb } from './types'
 import { isDefined } from './utils'
 import { VecVec as Vec, vecMul, vecSub, vecVec } from './vec/prefixed'
 import { scrollMachine } from './xstate-scroll'

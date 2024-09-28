@@ -2,7 +2,8 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { createActor } from 'xstate'
-import { SearchRes, svgMapViewerConfig } from './config'
+import { svgMapViewerConfig } from './config'
+import type { SearchRes } from './types'
 import { Vec } from './vec'
 import { SearchEvent, searchMachine } from './xstate-search'
 

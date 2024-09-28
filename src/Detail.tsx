@@ -1,8 +1,9 @@
 import { useSelector } from '@xstate/react'
 import { Balloon } from './Balloon'
 import './Detail.css'
-import { Info, svgMapViewerConfig } from './lib/config'
+import { svgMapViewerConfig } from './lib/config'
 import { selectDetail } from './lib/react-ui'
+import type { Info } from './lib/types'
 import { PointerRef } from './lib/xstate-pointer'
 import { UiRef } from './lib/xstate-ui'
 

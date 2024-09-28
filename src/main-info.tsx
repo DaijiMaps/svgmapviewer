@@ -1,4 +1,4 @@
-import { Info } from './lib/config'
+import type { Info } from './lib/types'
 
 export interface ShopInfo {
   tag: 'shop'
@@ -12,7 +12,7 @@ export interface FacilityInfo {
   address?: string
 }
 
-declare module './lib/config' {
+declare module './lib/types' {
   interface Info {
     x: ShopInfo | FacilityInfo
   }

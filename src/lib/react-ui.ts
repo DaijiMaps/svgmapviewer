@@ -1,8 +1,9 @@
 import { useMachine, useSelector } from '@xstate/react'
 import { useCallback, useEffect } from 'react'
-import { SearchRes, svgMapViewerConfig } from './config'
+import { svgMapViewerConfig } from './config'
 import { selectLayout } from './react-pointer'
 import { diag } from './size'
+import type { SearchRes } from './types'
 import { PointerRef } from './xstate-pointer'
 import { uiMachine, UiState } from './xstate-ui'
 

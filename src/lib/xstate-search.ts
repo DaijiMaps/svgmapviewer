@@ -1,17 +1,6 @@
 import { ActorRefFrom, enqueueActions, setup, StateFrom } from 'xstate'
-import { Info, SearchCb, UiOpenCb } from './config'
+import type { Info, SearchCb, SearchReq, SearchRes, UiOpenCb } from './types'
 import { Vec } from './vec'
-
-type Req = {
-  p: Vec
-  psvg: Vec
-}
-
-type Res = {
-  p: Vec
-  psvg: Vec
-  info: Info
-}
 
 export interface SearchInput {
   startCb: SearchCb
@@ -35,11 +24,11 @@ export const searchMachine = setup({
     events: {} as SearchEvent,
   },
   actions: {
-    start: enqueueActions(({ context }, { req }: { req: Req }) => {
+    start: enqueueActions(({ context }, { req }: { req: SearchReq }) => {
       context.startCb(req.p, req.psvg)
     }),
     notify: enqueueActions(
-      ({ context }, { res: { p, psvg, info } }: { res: Res }) => {
+      ({ context }, { res: { p, psvg, info } }: { res: SearchRes }) => {
         context.endCb(p, psvg, info)
       }
     ),
