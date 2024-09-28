@@ -35,22 +35,18 @@ export const searchMachine = setup({
   },
 }).createMachine({
   id: 'search',
-  context: ({ input }) => {
-    return { ...input, req: null }
-  },
+  context: ({ input }) => ({ ...input, req: null }),
   initial: 'Idle',
   states: {
     Idle: {
       on: {
         SEARCH: {
-          actions: [
-            {
-              type: 'start',
-              params: ({ event: { p, psvg } }) => ({
-                req: { p, psvg },
-              }),
-            },
-          ],
+          actions: {
+            type: 'start',
+            params: ({ event: { p, psvg } }) => ({
+              req: { p, psvg },
+            }),
+          },
           target: 'Searching',
         },
       },
@@ -58,14 +54,12 @@ export const searchMachine = setup({
     Searching: {
       on: {
         'SEARCH.DONE': {
-          actions: [
-            {
-              type: 'notify',
-              params: ({ event: { p, psvg, info } }) => ({
-                res: { p, psvg, info },
-              }),
-            },
-          ],
+          actions: {
+            type: 'notify',
+            params: ({ event: { p, psvg, info } }) => ({
+              res: { p, psvg, info },
+            }),
+          },
           target: 'Done',
         },
         'SEARCH.CANCEL': {

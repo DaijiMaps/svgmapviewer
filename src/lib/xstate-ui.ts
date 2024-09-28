@@ -152,16 +152,14 @@ export const uiMachine = setup({
               target: 'Menu',
             },
             DETAIL: {
-              actions: [
-                {
-                  type: 'detail',
-                  params: ({ event: { p, dir, info } }) => ({
-                    p,
-                    dir,
-                    info: info,
-                  }),
-                },
-              ],
+              actions: {
+                type: 'detail',
+                params: ({ event: { p, dir, info } }) => ({
+                  p,
+                  dir,
+                  info: info,
+                }),
+              },
               target: 'Detail',
             },
             HELP: {
@@ -217,7 +215,7 @@ export const uiMachine = setup({
               },
             },
             Closed: {
-              entry: ['detailDone'],
+              entry: 'detailDone',
               type: 'final',
             },
           },
