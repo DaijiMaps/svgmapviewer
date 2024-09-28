@@ -89,15 +89,13 @@ export function Balloon(props: Readonly<BalloonProps>): ReactNode {
   const detail = useSelector(uiRef, selectDetail)
 
   const layout = useSelector(props._pointerRef, selectLayout)
-  //const focus = useSelector(props._pointerRef, selectFocus)
 
   // XXX
   const vmin = Math.min(layout.container.width, layout.container.height) * 0.01
-  const container = { width: vmin * 40, height: vmin * 40 }
-  const ll = vmin * 10
 
-  const bw = container.width
-  const bh = container.height
+  const bw = vmin * 40
+  const bh = vmin * 40
+  const ll = vmin * 10
 
   const d = bw / 100
 
