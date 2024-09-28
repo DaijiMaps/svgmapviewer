@@ -1,5 +1,5 @@
 import { ActorRefFrom, enqueueActions, setup, StateFrom } from 'xstate'
-import { Info } from './config'
+import { Info, SearchCb, UiOpenCb } from './config'
 import { Vec } from './vec'
 
 type Req = {
@@ -14,13 +14,13 @@ type Res = {
 }
 
 export interface SearchInput {
-  startCb: (p: Vec, psvg: Vec) => void
-  endCb: (p: Vec, psvg: Vec, info: Info) => void
+  startCb: SearchCb
+  endCb: UiOpenCb
 }
 
 export interface SearchContext {
-  startCb: (p: Vec, psvg: Vec) => void
-  endCb: (p: Vec, psvg: Vec, info: Info) => void
+  startCb: SearchCb
+  endCb: UiOpenCb
 }
 
 export type SearchEvent =

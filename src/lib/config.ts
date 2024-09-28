@@ -2,7 +2,6 @@
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/no-mixed-types */
 /* eslint-disable functional/no-return-void */
-/* eslint-disable prettier/prettier */
 import { createElement } from 'react'
 import { Box } from './box/main'
 import { Vec } from './vec'
