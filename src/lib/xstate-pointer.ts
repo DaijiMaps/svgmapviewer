@@ -18,6 +18,7 @@ import {
   animationZoom,
 } from './animation'
 import { BoxBox, boxCenter } from './box/prefixed'
+import { SearchCb, UiOpenDoneCb } from './config'
 import { Drag, dragMove, dragStart } from './drag'
 import { keyToDir, keyToZoom } from './key'
 import {
@@ -53,21 +54,18 @@ const DIST_LIMIT = 10
 //// PointerDOMEvent
 //// _PointerEvent
 
-export type SearchCb = (client: Vec, svg: Vec) => void
-export type UiOpenCb = (ok: boolean) => void
-
 export type PointerInput = {
   containerRef: RefObject<HTMLDivElement>
   layout: Layout
   searchCb?: SearchCb
-  lockCb?: UiOpenCb
+  lockCb?: UiOpenDoneCb
 }
 
 export type PointerContext = {
   containerRef: RefObject<HTMLDivElement>
   layout: Layout
   searchCb?: SearchCb
-  lockCb?: UiOpenCb
+  lockCb?: UiOpenDoneCb
   locked: boolean
   focus: Vec
   mode: number

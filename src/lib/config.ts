@@ -24,7 +24,7 @@ export interface SearchRes {
   info: Readonly<Info>
 }
 
-export type SearchCb = (client: Vec, svg: Vec) => void
+export type SearchCb = (p: Vec, psvg: Vec) => void
 
 export type SearchDoneCb = (res: Readonly<null | SearchRes>) => void
 

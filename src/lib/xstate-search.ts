@@ -21,7 +21,6 @@ export interface SearchInput {
 export interface SearchContext {
   startCb: (p: Vec, psvg: Vec) => void
   endCb: (p: Vec, psvg: Vec, info: Info) => void
-  req: null | Req
 }
 
 export type SearchEvent =
@@ -36,24 +35,14 @@ export const searchMachine = setup({
     events: {} as SearchEvent,
   },
   actions: {
-    start: enqueueActions(({ enqueue, context }, { req }: { req: Req }) => {
-      enqueue.assign({
-        req: () => req,
-      })
+    start: enqueueActions(({ context }, { req }: { req: Req }) => {
       context.startCb(req.p, req.psvg)
     }),
     notify: enqueueActions(
       ({ context }, { res: { p, psvg, info } }: { res: Res }) => {
-        if (context.req !== null) {
-          context.endCb(p, psvg, info)
-        }
+        context.endCb(p, psvg, info)
       }
     ),
-    done: enqueueActions(({ enqueue }) => {
-      enqueue.assign({
-        req: () => null,
-      })
-    }),
   },
 }).createMachine({
   id: 'search',
@@ -96,7 +85,6 @@ export const searchMachine = setup({
       },
     },
     Done: {
-      entry: 'done',
       always: 'Idle',
     },
   },
