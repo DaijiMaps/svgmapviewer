@@ -35,7 +35,7 @@ export const searchMachine = setup({
   },
 }).createMachine({
   id: 'search',
-  context: ({ input }) => ({ ...input, req: null }),
+  context: ({ input }) => input,
   initial: 'Idle',
   states: {
     Idle: {
