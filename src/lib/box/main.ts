@@ -1,5 +1,5 @@
 import { V } from '../matrix'
-import { Size } from '../size'
+import { Size } from '../types'
 import { Vec } from '../vec'
 
 //// Box

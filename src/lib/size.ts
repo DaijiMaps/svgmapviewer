@@ -1,10 +1,5 @@
-import { Dir } from './types'
+import { Dir, Size } from './types'
 import { Vec } from './vec'
-
-export interface Size {
-  width: number
-  height: number
-}
 
 export function diag(size: Readonly<Size>, v: Vec): Dir {
   const a = size.width / size.height

@@ -26,9 +26,9 @@ function matrix(
 
 ////
 
-export type V = ImmutableShallow<[s: number, t: number]>
-export type H = ImmutableShallow<[p: number, q: number, r: number]>
-export type M = ImmutableShallow<[ab: V, cd: V, ef: V]>
+export type V = Readonly<ImmutableShallow<[s: number, t: number]>>
+export type H = Readonly<ImmutableShallow<[p: number, q: number, r: number]>>
+export type M = Readonly<ImmutableShallow<[ab: V, cd: V, ef: V]>>
 
 export const ab = ([ab]: M): V => ab
 export const cd = ([, cd]: M): V => cd

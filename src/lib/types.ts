@@ -6,6 +6,11 @@ import { Vec } from './vec'
 // top, right, bottom, left
 export type Dir = 0 | 1 | 2 | 3
 
+export interface Size {
+  width: number
+  height: number
+}
+
 interface Info {
   title: string
 }

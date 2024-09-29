@@ -1,5 +1,6 @@
 import { expect, test } from 'vitest'
-import { diag, Size } from './size'
+import { diag } from './size'
+import { Size } from './types'
 import { Vec } from './vec'
 
 test('diag', () => {
