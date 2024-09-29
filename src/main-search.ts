@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 import { svgMapViewerConfig } from './lib/config'
-import type { SearchRes } from './lib/types'
+import { SearchRes } from './lib/types'
 import { Vec } from './lib/vec'
 import SearchWorker from './main-search-worker?worker&inline'
 

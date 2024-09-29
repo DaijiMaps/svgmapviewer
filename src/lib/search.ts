@@ -3,7 +3,7 @@
 /* eslint-disable functional/no-return-void */
 import { createActor } from 'xstate'
 import { svgMapViewerConfig } from './config'
-import type { SearchRes } from './types'
+import { SearchRes } from './types'
 import { Vec } from './vec'
 import { SearchEvent, searchMachine } from './xstate-search'
 

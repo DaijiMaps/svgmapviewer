@@ -1,5 +1,5 @@
 import { ActorRefFrom, enqueueActions, setup, StateFrom } from 'xstate'
-import type { Info, SearchCb, SearchReq, SearchRes, UiOpenCb } from './types'
+import { Info, SearchCb, SearchReq, SearchRes, UiOpenCb } from './types'
 import { Vec } from './vec'
 
 export interface SearchInput {

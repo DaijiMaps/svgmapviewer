@@ -8,7 +8,6 @@ import {
   setup,
   StateFrom,
 } from 'xstate'
-import { Dir } from './dir'
 import {
   OpenClose,
   openCloseClose,
@@ -18,7 +17,7 @@ import {
   openCloseOpened,
   openCloseReset,
 } from './open-close'
-import type { Info } from './types'
+import { Dir, Info } from './types'
 import { Vec } from './vec'
 
 export interface UiInput {

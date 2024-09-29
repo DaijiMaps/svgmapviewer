@@ -3,6 +3,9 @@
 import { Box } from './box/main'
 import { Vec } from './vec'
 
+// top, right, bottom, left
+export type Dir = 0 | 1 | 2 | 3
+
 interface Info {
   title: string
 }

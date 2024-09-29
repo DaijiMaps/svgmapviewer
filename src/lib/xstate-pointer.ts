@@ -39,7 +39,7 @@ import {
   resetTouches,
   Touches,
 } from './touch'
-import type { SearchCb, UiOpenDoneCb } from './types'
+import { SearchCb, UiOpenDoneCb } from './types'
 import { isDefined } from './utils'
 import { VecVec as Vec, vecMul, vecSub, vecVec } from './vec/prefixed'
 import { scrollMachine } from './xstate-scroll'

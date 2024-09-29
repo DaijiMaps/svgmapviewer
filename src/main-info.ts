@@ -1,4 +1,4 @@
-import type { Info } from './lib/types'
+import { Info } from './lib/types'
 
 export interface ShopInfo {
   tag: 'shop'

@@ -1,4 +1,4 @@
-import { Dir } from './dir'
+import { Dir } from './types'
 import { Vec } from './vec'
 
 export interface Size {

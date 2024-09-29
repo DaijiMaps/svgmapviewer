@@ -1,6 +1,6 @@
 import { ReadonlyDeep } from 'type-fest/source/readonly-deep'
 import { expect, test } from 'vitest'
-import { ReallyReadonlyArray } from './array'
+import { ImmutableShallow } from './utils'
 
 export type A = ReadonlyDeep<{ a: { a: { a: number } } }>
 
@@ -11,7 +11,9 @@ test('ReadonlyDeep', () => {
   expect(a1).toStrictEqual(a2)
 })
 
-export type T = ReallyReadonlyArray<number>
+type ReallyReadonlyArray<T> = ImmutableShallow<ReadonlyArray<T>>
+
+type T = ReallyReadonlyArray<number>
 
 test('ReadonlyArray', () => {
   const t1: T = [1, 2]

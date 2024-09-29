@@ -8,7 +8,7 @@ import './index.css'
 import { Box } from './lib/box/main'
 import { svgMapViewerConfig, updateSvgMapViewerConfig } from './lib/config'
 import { searchSearchDone, searchSearchStart } from './lib/search'
-import type { SvgMapViewerConfig, SvgMapViewerConfigUser } from './lib/types'
+import { SvgMapViewerConfig, SvgMapViewerConfigUser } from './lib/types'
 
 export type { SvgMapViewerConfig, SvgMapViewerConfigUser }
 

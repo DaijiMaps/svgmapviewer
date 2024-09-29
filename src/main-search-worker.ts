@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
-import type { SearchReq, SearchRes } from './lib/types'
+import { SearchReq, SearchRes } from './lib/types'
 
 onmessage = function (e: Readonly<MessageEvent<SearchReq>>) {
   const p = e.data.p

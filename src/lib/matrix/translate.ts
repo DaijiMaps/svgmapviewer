@@ -1,4 +1,4 @@
-import type { M, V } from './main'
+import { M, V } from './main'
 
 export function translate([tx, ty]: V): M {
   return [

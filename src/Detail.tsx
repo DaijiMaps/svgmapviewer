@@ -3,7 +3,7 @@ import { Balloon, BalloonStyle } from './Balloon'
 import './Detail.css'
 import { svgMapViewerConfig } from './lib/config'
 import { selectDetail } from './lib/react-ui'
-import type { Info } from './lib/types'
+import { Info } from './lib/types'
 import { PointerRef } from './lib/xstate-pointer'
 import { UiRef } from './lib/xstate-ui'
 
