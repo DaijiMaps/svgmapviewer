@@ -1,4 +1,4 @@
-import { ActorRefFrom, enqueueActions, setup, StateFrom } from 'xstate'
+import { ActorRefFrom, setup, StateFrom } from 'xstate'
 import { Info, SearchCb, SearchReq, SearchRes, UiOpenCb } from './types'
 import { Vec } from './vec'
 
@@ -18,20 +18,16 @@ export type SearchEvent =
   | { type: 'SEARCH.CANCEL' }
 
 export const searchMachine = setup({
-  types: {
-    input: {} as SearchInput,
-    context: {} as SearchContext,
-    events: {} as SearchEvent,
+  types: {} as {
+    input: SearchInput
+    context: SearchContext
+    events: SearchEvent
   },
   actions: {
-    start: enqueueActions(({ context }, { req }: { req: SearchReq }) => {
-      context.startCb(req.p, req.psvg)
-    }),
-    notify: enqueueActions(
-      ({ context }, { res: { p, psvg, info } }: { res: SearchRes }) => {
-        context.endCb(p, psvg, info)
-      }
-    ),
+    start: ({ context }, { req }: { req: SearchReq }) =>
+      context.startCb(req.p, req.psvg),
+    end: ({ context }, { res: { p, psvg, info } }: { res: SearchRes }) =>
+      context.endCb(p, psvg, info),
   },
 }).createMachine({
   id: 'search',
@@ -55,7 +51,7 @@ export const searchMachine = setup({
       on: {
         'SEARCH.DONE': {
           actions: {
-            type: 'notify',
+            type: 'end',
             params: ({ event: { p, psvg, info } }) => ({
               res: { p, psvg, info },
             }),

@@ -31,10 +31,10 @@ export type StepEventStop = { type: 'STEP.STOP' }
 export type StepEvent = StepEventStart | StepEventTick | StepEventStop
 
 export const stepMachine = setup({
-  types: {
-    input: {} as StepInput,
-    context: {} as StepContext,
-    events: {} as StepEvent,
+  types: {} as {
+    input: StepInput
+    context: StepContext
+    events: StepEvent
   },
   guards: {
     isClose: ({ context: { P, Q, limit } }): boolean =>

@@ -55,10 +55,10 @@ export type UiInternalEvent = { type: 'DONE' }
 export type UiEvent = UiModeEvent | UiPartEvent | UiInternalEvent
 
 export const uiMachine = setup({
-  types: {
-    input: {} as UiInput,
-    context: {} as UiContext,
-    events: {} as UiEvent,
+  types: {} as {
+    input: UiInput
+    context: UiContext
+    events: UiEvent
   },
   guards: {
     isBalloonVisible: ({ context: { balloon } }) => openCloseIsVisible(balloon),

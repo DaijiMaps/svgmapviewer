@@ -39,10 +39,10 @@ export type ScrollEvent =
   | ScrollEventStepDone
 
 export const scrollMachine = setup({
-  types: {
-    input: {} as ScrollInput,
-    context: {} as ScrollContext,
-    events: {} as ScrollEvent,
+  types: {} as {
+    input: ScrollInput
+    context: ScrollContext
+    events: ScrollEvent
   },
   actions: {
     syncScroll: (

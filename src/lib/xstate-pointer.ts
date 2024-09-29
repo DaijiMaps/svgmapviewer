@@ -174,10 +174,10 @@ export type _PointerEvent =
 //// pointerMachine
 
 export const pointerMachine = setup({
-  types: {
-    input: {} as PointerInput,
-    context: {} as PointerContext,
-    events: {} as _PointerEvent,
+  types: {} as {
+    input: PointerInput
+    context: PointerContext
+    events: _PointerEvent
   },
   guards: {
     shouldDebug: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'd',

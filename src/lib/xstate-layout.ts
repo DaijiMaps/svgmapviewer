@@ -32,10 +32,10 @@ export type LayoutEvent =
   | { type: 'LAYOUT.ENDANIMATION'; animation: Animation }
 
 export const layoutMachine = setup({
-  types: {
-    input: {} as LayoutInput,
-    context: {} as LayoutContext,
-    events: {} as LayoutEvent,
+  types: {} as {
+    input: LayoutInput
+    context: LayoutContext
+    events: LayoutEvent
   },
   actions: {
     make: assign({
