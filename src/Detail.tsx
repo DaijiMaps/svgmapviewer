@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { Balloon } from './Balloon'
+import { Balloon, BalloonStyle } from './Balloon'
 import './Detail.css'
 import { svgMapViewerConfig } from './lib/config'
 import { selectDetail } from './lib/react-ui'
@@ -26,6 +26,7 @@ export function Detail(props: Readonly<DetailProps>) {
   return (
     <div className="content">
       <Balloon _uiRef={props._uiRef} _pointerRef={props._pointerRef} />
+      <BalloonStyle _uiRef={props._uiRef} />
       <div className="detail">
         {svgMapViewerConfig.renderInfo &&
           detail &&

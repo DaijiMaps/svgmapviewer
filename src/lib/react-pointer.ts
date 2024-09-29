@@ -181,6 +181,9 @@ export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
     },
     [send]
   )
+  const sendAnimationEnd = useCallback(() => {
+    pointerSend({ type: 'ANIMATION.END' })
+  }, [pointerSend])
 
   useEffect(() => {
     const e = containerRef.current
@@ -247,5 +250,6 @@ export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
     layout: useSelector(pointerRef, selectLayout),
     focus: useSelector(pointerRef, selectFocus),
     touches: useSelector(pointerRef, selectTouches),
+    sendAnimationEnd,
   }
 }

@@ -1,5 +1,4 @@
 import { PropsWithChildren, useRef } from 'react'
-import { BalloonStyle } from './Balloon'
 import { Container } from './Container'
 import { Debug } from './Debug'
 import { Detail } from './Detail'
@@ -22,28 +21,30 @@ import { Svg } from './Svg'
 export const Viewer = (props: Readonly<PropsWithChildren>) => {
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const { pointer, pointerSend, pointerRef, layout, touches } =
-    usePointer(containerRef)
+  const {
+    pointer,
+    pointerSend,
+    pointerRef,
+    layout,
+    touches,
+    sendAnimationEnd,
+  } = usePointer(containerRef)
 
   const { ui, uiRef } = useUi(pointerRef)
-
-  // XXX pointer === Locked
-  // XXX ui === Detail
 
   return (
     <>
       <Container ref={containerRef}>
-        <Svg
-          // eslint-disable-next-line functional/no-return-void
-          onAnimationEnd={() => pointerSend({ type: 'ANIMATION.END' })}
-          _viewBox={layout.svg}
-        >
+        <Svg onAnimationEnd={sendAnimationEnd} _viewBox={layout.svg}>
           {props.children}
         </Svg>
         <Shadow _uiRef={uiRef} />
+        <ShadowStyle _uiRef={uiRef} />
         <Detail _pointerRef={pointerRef} _uiRef={uiRef} />
       </Container>
       <Guides _pointerRef={pointerRef} />
+      <Header _pointerSend={pointerSend} />
+      <Footer _pointerSend={pointerSend} />
       {pointer.context.debug && (
         <Debug
           _container={containerRef.current}
@@ -53,8 +54,6 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
           _search={search.getSnapshot()}
         />
       )}
-      <Header _pointerSend={pointerSend} />
-      <Footer _pointerSend={pointerSend} />
       <style>
         {scrollStyle(layout)}
         {modeStyle(pointer)}
@@ -62,8 +61,6 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
         {moveStyle(pointer)}
         {zoomStyle(pointer)}
       </style>
-      <ShadowStyle _uiRef={uiRef} />
-      <BalloonStyle _uiRef={uiRef} />
     </>
   )
 }

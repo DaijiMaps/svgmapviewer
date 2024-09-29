@@ -1,11 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { boxCenter } from './lib/box/prefixed'
-import {
-  selectFocus,
-  selectLayout,
-  selectMode,
-  selectTouches,
-} from './lib/react-pointer'
+import { selectFocus, selectMode, selectTouches } from './lib/react-pointer'
 import { PointerRef } from './lib/xstate-pointer'
 
 const CursorPath = (props: Readonly<{ x: number; y: number; r: number }>) => {
@@ -33,16 +27,13 @@ a${r},${r} 0,0,1 0,${-r * 2}
 export const Cursor = (
   props: Readonly<{
     _pointerRef: PointerRef
+    _r: number
   }>
 ) => {
-  const { _pointerRef: pointerRef } = props
+  const { _pointerRef: pointerRef, _r: r } = props
   const mode = useSelector(pointerRef, selectMode)
-  const layout = useSelector(pointerRef, selectLayout)
   const focus = useSelector(pointerRef, selectFocus)
   const touches = useSelector(pointerRef, selectTouches)
-
-  const c = boxCenter(layout.container)
-  const r = layout.config.fontSize / 2
 
   return (
     <>
@@ -52,19 +43,6 @@ export const Cursor = (
           points={touches.points.map(({ x, y }) => `${x},${y}`).join(' ')}
           stroke="black"
           strokeWidth={r * 0.05}
-        />
-      )}
-      {mode === 'panning' && (
-        <path
-          d={`
-M${c.x},${c.y}
-m${r * -20},0
-h${r * 40}
-m${r * -20},${r * -20}
-v${r * 40}
-`}
-          stroke="black"
-          strokeWidth={(layout.config.fontSize * 0.05) / 2}
         />
       )}
     </>
