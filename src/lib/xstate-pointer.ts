@@ -65,7 +65,6 @@ export type PointerContext = {
   searchCb?: SearchCb
   lockCb?: UiOpenDoneCb
   focus: Vec
-  mode: Mode
   expand: number
   m: null | Vec
   z: null | number
@@ -74,6 +73,7 @@ export type PointerContext = {
   drag: null | Drag
   animation: null | Animation
   debug: boolean
+  mode: Mode
 }
 
 type PointerExternalEvent =
@@ -407,10 +407,10 @@ export const pointerMachine = setup({
       }
     },
     searchLock: enqueueActions(
-      ({ enqueue, context: { lockCb } }, { ok }: { ok: boolean }) => {
+      ({ enqueue, context: { mode, lockCb } }, { ok }: { ok: boolean }) => {
         if (lockCb !== undefined) {
           enqueue(() => lockCb(ok))
-          if (ok) {
+          if (mode === 'pointing' && ok) {
             enqueue.assign({
               mode: 'locked',
             })
@@ -419,16 +419,19 @@ export const pointerMachine = setup({
       }
     ),
     resetMode: enqueueActions(({ enqueue }) => {
+      // XXX check?
       enqueue.assign({
         mode: 'pointing',
       })
     }),
     setModeToPanning: enqueueActions(({ enqueue }) => {
+      // XXX check?
       enqueue.assign({
         mode: 'panning',
       })
     }),
     setModeToLocked: enqueueActions(({ enqueue }) => {
+      // XXX check?
       enqueue.assign({
         mode: 'locked',
       })
@@ -446,7 +449,6 @@ export const pointerMachine = setup({
     searchCb,
     lockCb,
     focus: boxCenter(layout.container),
-    mode: 'pointing',
     expand: 1,
     m: null,
     z: null,
@@ -455,6 +457,7 @@ export const pointerMachine = setup({
     drag: null,
     animation: null,
     debug: false,
+    mode: 'pointing',
   }),
   invoke: [
     {
