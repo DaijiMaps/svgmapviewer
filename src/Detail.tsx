@@ -3,21 +3,12 @@ import { Balloon, BalloonStyle } from './Balloon'
 import './Detail.css'
 import { svgMapViewerConfig } from './lib/config'
 import { selectDetail } from './lib/react-ui'
-import { Info } from './lib/types'
 import { PointerRef } from './lib/xstate-pointer'
 import { UiRef } from './lib/xstate-ui'
 
 export interface DetailProps {
   _uiRef: UiRef
   _pointerRef: PointerRef
-}
-
-export function RenderInfoDefault(props: Readonly<{ info: Info }>) {
-  return (
-    <div className="detail">
-      <h3>{props.info.title}</h3>
-    </div>
-  )
 }
 
 export function Detail(props: Readonly<DetailProps>) {
@@ -27,7 +18,13 @@ export function Detail(props: Readonly<DetailProps>) {
     <div className="content">
       <Balloon _uiRef={props._uiRef} _pointerRef={props._pointerRef} />
       <BalloonStyle _uiRef={props._uiRef} />
-      <div className="detail">
+      <div
+        className="detail"
+        // eslint-disable-next-line functional/no-return-void
+        onAnimationEnd={() =>
+          props._uiRef.send({ type: 'DETAIL.ANIMATION.END' })
+        }
+      >
         {svgMapViewerConfig.renderInfo &&
           detail &&
           detail.info &&

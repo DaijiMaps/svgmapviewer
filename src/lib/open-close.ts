@@ -3,6 +3,8 @@ export type OpenClose = Readonly<{
   animating: boolean
 }>
 
+export type OpenCloseOp = typeof openCloseOpen
+
 export function openCloseReset(open: boolean): OpenClose {
   return { open, animating: false }
 }

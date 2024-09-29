@@ -101,7 +101,7 @@ export function Balloon(props: Readonly<BalloonProps>): ReactNode {
 
   const p = { ll, bw, bh }
 
-  return !openCloseIsVisible(balloon) ? (
+  return balloon === undefined || !openCloseIsVisible(balloon) ? (
     <></>
   ) : (
     <svg
@@ -130,7 +130,11 @@ export function BalloonStyle(
   const balloon = useSelector(uiRef, selectBalloon)
   const detail = useSelector(uiRef, selectDetail)
 
-  if (!openCloseIsVisible(balloon) || detail === null) {
+  if (
+    balloon === undefined ||
+    !openCloseIsVisible(balloon) ||
+    detail === null
+  ) {
     return <></>
   } else {
     return <style>{balloonStyle(balloon, detail.p, detail.dir)}</style>

@@ -3,7 +3,6 @@ import {
   assign,
   enqueueActions,
   not,
-  or,
   raise,
   setup,
   StateFrom,
@@ -13,29 +12,26 @@ import {
   openCloseClose,
   openCloseClosed,
   openCloseIsVisible,
+  OpenCloseOp,
   openCloseOpen,
   openCloseOpened,
   openCloseReset,
 } from './open-close'
-import { Dir, Info } from './types'
-import { Vec } from './vec'
+import { Dir, SearchRes, UiCloseCb } from './types'
+
+export type UiPart = 'header' | 'footer' | 'shadow' | 'balloon' | 'detail'
 
 export interface UiInput {
-  closeDoneCbs: (() => void)[]
+  closeDoneCbs: UiCloseCb[]
 }
+
+export type UiDetailContent = SearchRes & { dir: Dir }
 
 export interface UiContext {
   canceling: boolean
-  closeDoneCbs: (() => void)[]
-  detail: null | {
-    p: Vec
-    dir: Dir
-    info: Info
-  }
-  header: OpenClose
-  footer: OpenClose
-  shadow: OpenClose
-  balloon: OpenClose
+  closeDoneCbs: UiCloseCb[]
+  detail: null | UiDetailContent
+  openCloseMap: Map<UiPart, OpenClose>
 }
 
 export type UiModeEvent =
@@ -43,16 +39,49 @@ export type UiModeEvent =
   | { type: 'CANCEL' }
   | { type: 'FLOOR' }
   | { type: 'MENU' }
-  | { type: 'DETAIL'; p: Vec; psvg: Vec; dir: Dir; info: Info }
+  | ({ type: 'DETAIL' } & UiDetailContent)
   | { type: 'HELP' }
 
 export type UiPartEvent =
+  | { type: 'HEADER.ANIMATION.END' }
+  | { type: 'FOOTER.ANIMATION.END' }
   | { type: 'SHADOW.ANIMATION.END' }
   | { type: 'BALLOON.ANIMATION.END' }
+  | { type: 'DETAIL.ANIMATION.END' }
 
 export type UiInternalEvent = { type: 'DONE' }
 
 export type UiEvent = UiModeEvent | UiPartEvent | UiInternalEvent
+
+function doOpenCloseMap(op: OpenCloseOp) {
+  return function (context: UiContext, part: UiPart) {
+    const m = context.openCloseMap
+    const a = m.get(part)
+    if (a === undefined) {
+      return m
+    } else {
+      const b = op(a)
+      return b === null ? m : m.set(part, b)
+    }
+  }
+}
+
+function handleOpenCloseMap(context: UiContext, part: UiPart) {
+  const m = context.openCloseMap
+  const oc = m.get(part)
+  if (oc === undefined) {
+    return m
+  } else {
+    const op = oc.open ? openCloseOpened : openCloseClosed
+    return doOpenCloseMap(op)(context, part)
+  }
+}
+
+function isVisible(context: UiContext, part: UiPart): boolean {
+  const m = context.openCloseMap
+  const oc = m.get(part)
+  return oc !== undefined && openCloseIsVisible(oc)
+}
 
 export const uiMachine = setup({
   types: {} as {
@@ -61,9 +90,11 @@ export const uiMachine = setup({
     events: UiEvent
   },
   guards: {
-    isBalloonVisible: ({ context: { balloon } }) => openCloseIsVisible(balloon),
-    isShadowVisible: ({ context: { shadow } }) => openCloseIsVisible(shadow),
-    isDetailVisible: or(['isBalloonVisible', 'isShadowVisible']),
+    isHeaderVisible: ({ context }) => isVisible(context, 'header'),
+    isFooterVisible: ({ context }) => isVisible(context, 'footer'),
+    isShadowVisible: ({ context }) => isVisible(context, 'shadow'),
+    isBalloonVisible: ({ context }) => isVisible(context, 'balloon'),
+    isDetailVisible: ({ context }) => isVisible(context, 'detail'),
   },
   actions: {
     startCancel: enqueueActions(({ enqueue }) => {
@@ -72,58 +103,10 @@ export const uiMachine = setup({
       })
     }),
     endCancel: enqueueActions(({ enqueue, context: { closeDoneCbs } }) => {
-      closeDoneCbs.forEach((cb) => cb())
+      enqueue(() => closeDoneCbs.forEach((cb) => cb()))
       enqueue.assign({
         canceling: () => false,
       })
-    }),
-    detail: assign({
-      detail: (_, { p, dir, info }: { p: Vec; dir: Dir; info: Info }) => ({
-        p: p,
-        dir: dir,
-        info: info,
-      }),
-    }),
-    detailDone: assign({
-      detail: () => null,
-    }),
-    openBalloon: assign({
-      balloon: ({ context }) => {
-        const x = openCloseOpen(context.balloon)
-        return x === null ? context.balloon : x
-      },
-    }),
-    closeBalloon: assign({
-      balloon: ({ context }) => {
-        const x = openCloseClose(context.balloon)
-        return x === null ? context.balloon : x
-      },
-    }),
-    handleBalloon: assign({
-      balloon: ({ context: { balloon } }) => {
-        const op = balloon.open ? openCloseOpened : openCloseClosed
-        const x = op(balloon)
-        return x === null ? balloon : x
-      },
-    }),
-    openShadow: assign({
-      shadow: ({ context }) => {
-        const x = openCloseOpen(context.shadow)
-        return x === null ? context.shadow : x
-      },
-    }),
-    closeShadow: assign({
-      shadow: ({ context }) => {
-        const x = openCloseClose(context.shadow)
-        return x === null ? context.shadow : x
-      },
-    }),
-    handleShadow: assign({
-      shadow: ({ context: { shadow } }) => {
-        const op = shadow.open ? openCloseOpened : openCloseClosed
-        const x = op(shadow)
-        return x === null ? shadow : x
-      },
     }),
   },
 }).createMachine({
@@ -133,10 +116,12 @@ export const uiMachine = setup({
     ...input,
     canceling: false,
     detail: null,
-    header: openCloseReset(true),
-    footer: openCloseReset(true),
-    shadow: openCloseReset(false),
-    balloon: openCloseReset(false),
+    openCloseMap: new Map()
+      .set('header', openCloseReset(true))
+      .set('footer', openCloseReset(true))
+      .set('shadow', openCloseReset(false))
+      .set('balloon', openCloseReset(false))
+      .set('detail', openCloseReset(false)),
   }),
   states: {
     Ui: {
@@ -151,14 +136,14 @@ export const uiMachine = setup({
               target: 'Menu',
             },
             DETAIL: {
-              actions: {
-                type: 'detail',
-                params: ({ event: { p, dir, info } }) => ({
+              actions: assign({
+                detail: ({ event: { p, psvg, info, dir } }) => ({
                   p,
+                  psvg,
+                  info,
                   dir,
-                  info: info,
                 }),
-              },
+              }),
               target: 'Detail',
             },
             HELP: {
@@ -183,11 +168,25 @@ export const uiMachine = setup({
               },
             },
             Opening: {
-              entry: ['openBalloon', 'openShadow'],
+              entry: [
+                assign({
+                  openCloseMap: ({ context }) =>
+                    doOpenCloseMap(openCloseOpen)(context, 'shadow'),
+                }),
+                assign({
+                  openCloseMap: ({ context }) =>
+                    doOpenCloseMap(openCloseOpen)(context, 'balloon'),
+                }),
+                assign({
+                  openCloseMap: ({ context }) =>
+                    doOpenCloseMap(openCloseOpen)(context, 'detail'),
+                }),
+              ],
               on: {
                 DONE: [
                   { guard: not('isShadowVisible') },
                   { guard: not('isBalloonVisible') },
+                  { guard: not('isDetailVisible') },
                   { target: 'Opened' },
                 ],
               },
@@ -201,11 +200,25 @@ export const uiMachine = setup({
               },
             },
             Closing: {
-              entry: ['closeBalloon', 'closeShadow'],
+              entry: [
+                assign({
+                  openCloseMap: ({ context }) =>
+                    doOpenCloseMap(openCloseClose)(context, 'shadow'),
+                }),
+                assign({
+                  openCloseMap: ({ context }) =>
+                    doOpenCloseMap(openCloseClose)(context, 'balloon'),
+                }),
+                assign({
+                  openCloseMap: ({ context }) =>
+                    doOpenCloseMap(openCloseClose)(context, 'detail'),
+                }),
+              ],
               on: {
                 DONE: [
                   { guard: 'isShadowVisible' },
                   { guard: 'isBalloonVisible' },
+                  { guard: 'isDetailVisible' },
                   {
                     actions: 'endCancel',
                     target: 'Closed',
@@ -214,7 +227,7 @@ export const uiMachine = setup({
               },
             },
             Closed: {
-              entry: 'detailDone',
+              entry: assign({ detail: () => null }),
               type: 'final',
             },
           },
@@ -224,11 +237,34 @@ export const uiMachine = setup({
     },
     Handler: {
       on: {
-        'BALLOON.ANIMATION.END': {
-          actions: ['handleBalloon', raise({ type: 'DONE' })],
-        },
+        // XXX HEADER.ANIMATION.END
+        // XXX FOOTER.ANIMATION.END
         'SHADOW.ANIMATION.END': {
-          actions: ['handleShadow', raise({ type: 'DONE' })],
+          actions: [
+            assign({
+              openCloseMap: ({ context }) =>
+                handleOpenCloseMap(context, 'shadow'),
+            }),
+            raise({ type: 'DONE' }),
+          ],
+        },
+        'BALLOON.ANIMATION.END': {
+          actions: [
+            assign({
+              openCloseMap: ({ context }) =>
+                handleOpenCloseMap(context, 'balloon'),
+            }),
+            raise({ type: 'DONE' }),
+          ],
+        },
+        'DETAIL.ANIMATION.END': {
+          actions: [
+            assign({
+              openCloseMap: ({ context }) =>
+                handleOpenCloseMap(context, 'detail'),
+            }),
+            raise({ type: 'DONE' }),
+          ],
         },
       },
     },
