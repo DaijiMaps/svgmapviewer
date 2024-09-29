@@ -30,7 +30,6 @@ import {
   scrollLayout,
   toSvg,
 } from './layout'
-import { Mode } from './mode'
 import {
   discardTouches,
   handleTouchEnd,
@@ -73,7 +72,7 @@ export type PointerContext = {
   drag: null | Drag
   animation: null | Animation
   debug: boolean
-  mode: Mode
+  mode: PointerMode
 }
 
 type PointerExternalEvent =
@@ -1291,3 +1290,5 @@ export type PointerGuard = GuardPredicate<
   undefined,
   never
 >
+
+export type PointerMode = 'pointing' | 'panning' | 'locked'
