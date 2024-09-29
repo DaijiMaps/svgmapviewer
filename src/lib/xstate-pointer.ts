@@ -45,11 +45,8 @@ import { isDefined } from './utils'
 import { VecVec as Vec, vecMul, vecSub, vecVec } from './vec/prefixed'
 import { scrollMachine } from './xstate-scroll'
 
+// XXX
 const DIST_LIMIT = 10
-
-//// PointerContext
-//// PointerDOMEvent
-//// _PointerEvent
 
 export type PointerInput = {
   containerRef: RefObject<HTMLDivElement>
@@ -1283,12 +1280,5 @@ export type PointerState = StateFrom<typeof pointerMachine>
 export type PointerSend = (events: _PointerEvent) => void
 
 export type PointerRef = ActorRefFrom<typeof pointerMachine>
-
-export type PointerGuard = GuardPredicate<
-  PointerContext,
-  _PointerEvent,
-  undefined,
-  never
->
 
 export type PointerMode = 'pointing' | 'panning' | 'locked'
