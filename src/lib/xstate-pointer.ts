@@ -10,7 +10,6 @@ import {
   StateFrom,
   stateIn,
 } from 'xstate'
-import { GuardPredicate } from 'xstate/guards'
 import {
   Animation,
   animationEndLayout,
