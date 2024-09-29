@@ -21,7 +21,6 @@ export const selectMode = (pointer: PointerState) => pointer.context.mode
 export const selectLayout = (pointer: PointerState) => pointer.context.layout
 export const selectFocus = (pointer: PointerState) => pointer.context.focus
 export const selectTouches = (pointer: PointerState) => pointer.context.touches
-export const selectLocked = (pointer: PointerState) => pointer.context.locked
 
 const usePointerKey = (send: PointerSend) => {
   const keyDown = useCallback(
@@ -226,23 +225,14 @@ export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
     if (e === null) {
       return
     }
-    pointereventmask = mode !== 0
-    toucheventmask = mode !== 0
-    wheeleventmask = mode !== 0
+    pointereventmask = mode !== 'pointing'
+    toucheventmask = mode !== 'pointing'
+    wheeleventmask = mode !== 'pointing'
+    // - xstate-pointer receives 'click' to cancel 'panning'
+    // - xstate-pointer ignores 'click' to pass throughh (emulated)
+    //  'click' to shadow; shadow receives 'click' to cancel 'locked'
+    clickeventmask = mode === 'locked'
   }, [containerRef, mode, sendWheel])
-
-  const locked = useSelector(pointerRef, selectLocked)
-
-  useEffect(() => {
-    const e = containerRef.current
-    if (e === null) {
-      return
-    }
-    pointereventmask = locked
-    toucheventmask = locked
-    wheeleventmask = locked
-    clickeventmask = locked
-  }, [containerRef, locked])
 
   useEffect(() => {
     if (pointer.hasTag('rendering')) {

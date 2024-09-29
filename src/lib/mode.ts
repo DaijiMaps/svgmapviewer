@@ -1,8 +1,3 @@
-export type Mode = 'pointing' | 'panning' | 'detail'
+export type Mode = 'pointing' | 'panning' | 'locked'
 
-export const modes = ['pointing', 'panning', 'detail']
-
-export function toggleMode(mode: number): number {
-  // XXX pointing <-> panning
-  return (mode + 1) % 2
-}
+export const modes = ['pointing', 'panning', 'locked']

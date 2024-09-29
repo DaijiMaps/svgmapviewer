@@ -47,14 +47,14 @@ export const Cursor = (
   return (
     <>
       <CursorPath x={focus.x} y={focus.y} r={r} />
-      {mode === 0 && touches.points.length > 1 && (
+      {mode === 'pointing' && touches.points.length > 1 && (
         <polyline
           points={touches.points.map(({ x, y }) => `${x},${y}`).join(' ')}
           stroke="black"
           strokeWidth={r * 0.05}
         />
       )}
-      {mode !== 0 && (
+      {mode === 'panning' && (
         <path
           d={`
 M${c.x},${c.y}

@@ -18,7 +18,7 @@ export function scrollStyle(layout: Layout) {
 }
 
 export function modeStyle(pointer: Readonly<PointerState>) {
-  return pointer.context.mode === 0
+  return pointer.context.mode === 'pointing'
     ? `
 .container {
 }

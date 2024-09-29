@@ -30,7 +30,7 @@ import {
   scrollLayout,
   toSvg,
 } from './layout'
-import { toggleMode } from './mode'
+import { Mode } from './mode'
 import {
   discardTouches,
   handleTouchEnd,
@@ -64,9 +64,8 @@ export type PointerContext = {
   layout: Layout
   searchCb?: SearchCb
   lockCb?: UiOpenDoneCb
-  locked: boolean
   focus: Vec
-  mode: number
+  mode: Mode
   expand: number
   m: null | Vec
   z: null | number
@@ -192,7 +191,7 @@ export const pointerMachine = setup({
     shouldExpand: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'e',
     shouldMove: (_, { ev }: { ev: KeyboardEvent }) =>
       'hjkl'.indexOf(ev.key) >= 0,
-    shouldToggleMode: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'm',
+    shouldPan: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'm',
     isMultiTouch: ({ context: { touches } }) => isMultiTouch(touches),
     isMultiTouchEnding: ({ context: { touches } }) =>
       isMultiTouchEnding(touches),
@@ -401,9 +400,6 @@ export const pointerMachine = setup({
       focus: ({ context: { touches, focus } }) =>
         touches.focus !== null ? touches.focus : focus,
     }),
-    toggleMode: assign({
-      mode: ({ context: { mode } }) => toggleMode(mode),
-    }),
     search: ({ context: { layout, searchCb, focus } }) => {
       if (isDefined(searchCb)) {
         const svg = toSvg(layout, focus)
@@ -416,15 +412,25 @@ export const pointerMachine = setup({
           enqueue(() => lockCb(ok))
           if (ok) {
             enqueue.assign({
-              locked: true,
+              mode: 'locked',
             })
           }
         }
       }
     ),
-    searchUnlock: enqueueActions(({ enqueue }) => {
+    resetMode: enqueueActions(({ enqueue }) => {
       enqueue.assign({
-        locked: false,
+        mode: 'pointing',
+      })
+    }),
+    setModeToPanning: enqueueActions(({ enqueue }) => {
+      enqueue.assign({
+        mode: 'panning',
+      })
+    }),
+    setModeToLocked: enqueueActions(({ enqueue }) => {
+      enqueue.assign({
+        mode: 'locked',
       })
     }),
   },
@@ -439,9 +445,8 @@ export const pointerMachine = setup({
     layout,
     searchCb,
     lockCb,
-    locked: false,
     focus: boxCenter(layout.container),
-    mode: 0,
+    mode: 'pointing',
     expand: 1,
     m: null,
     z: null,
@@ -547,7 +552,7 @@ export const pointerMachine = setup({
               },
               {
                 guard: {
-                  type: 'shouldToggleMode',
+                  type: 'shouldPan',
                   params: ({ event }) => ({ ev: event.ev }),
                 },
                 target: 'Touching.Panning',
@@ -728,7 +733,7 @@ export const pointerMachine = setup({
         Locked: {
           on: {
             'SEARCH.UNLOCK': {
-              actions: 'searchUnlock',
+              actions: 'resetMode',
               target: 'Idle',
             },
           },
@@ -1217,7 +1222,7 @@ export const pointerMachine = setup({
         Expanding: {
           on: {
             'EXPAND.DONE': {
-              actions: 'toggleMode',
+              actions: 'setModeToPanning',
               target: 'BeforePanning',
             },
             'UNEXPAND.DONE': {
@@ -1242,10 +1247,10 @@ export const pointerMachine = setup({
         Panning: {
           on: {
             CLICK: {
-              actions: ['toggleMode', 'getScroll'],
+              actions: ['resetMode', 'getScroll'],
             },
             CONTEXTMENU: {
-              actions: ['toggleMode', 'getScroll'],
+              actions: ['resetMode', 'getScroll'],
             },
             'SCROLL.GET.DONE': {
               actions: [
