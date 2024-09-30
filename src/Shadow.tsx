@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { useContext } from 'react'
 import { openCloseIsVisible } from './lib/open-close'
-import { selectShadow } from './lib/react-ui'
+import { selectOpenCloseShadow } from './lib/react-ui'
 import { UiRef } from './lib/xstate-ui'
 import './Shadow.css'
 import { SvgMapViewerConfigContext } from './svgmapviewer'
@@ -15,7 +15,7 @@ export function Shadow(props: Readonly<ShadowProps>) {
 
   const { _uiRef: uiRef } = props
 
-  const shadow = useSelector(uiRef, selectShadow)
+  const shadow = useSelector(uiRef, selectOpenCloseShadow)
 
   return !openCloseIsVisible(shadow) ? (
     <></>
@@ -33,7 +33,7 @@ export function Shadow(props: Readonly<ShadowProps>) {
 export function ShadowStyle(props: Readonly<ShadowProps>) {
   const { _uiRef: uiRef } = props
 
-  const shadow = useSelector(uiRef, selectShadow)
+  const shadow = useSelector(uiRef, selectOpenCloseShadow)
 
   if (!shadow.animating) {
     return (

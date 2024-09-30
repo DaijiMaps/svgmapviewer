@@ -3,7 +3,11 @@ import { ReactNode } from 'react'
 import './Balloon.css'
 import { OpenClose, openCloseIsVisible } from './lib/open-close'
 import { selectLayout } from './lib/react-pointer'
-import { selectBalloon, selectDetail } from './lib/react-ui'
+import {
+  selectDetail,
+  selectOpenCloseBalloon,
+  selectOpenCloseDetail,
+} from './lib/react-ui'
 import { Dir } from './lib/types'
 import { Vec } from './lib/vec'
 import { vecVec } from './lib/vec/prefixed'
@@ -85,7 +89,7 @@ export interface BalloonProps {
 export function Balloon(props: Readonly<BalloonProps>): ReactNode {
   const { _uiRef: uiRef } = props
 
-  const balloon = useSelector(uiRef, selectBalloon)
+  const balloon = useSelector(uiRef, selectOpenCloseBalloon)
   const detail = useSelector(uiRef, selectDetail)
 
   const layout = useSelector(props._pointerRef, selectLayout)
@@ -127,13 +131,18 @@ export function BalloonStyle(
 ): ReactNode {
   const { _uiRef: uiRef } = props
 
-  const balloon = useSelector(uiRef, selectBalloon)
-  const detail = useSelector(uiRef, selectDetail)
+  const content = useSelector(uiRef, selectDetail)
+  const balloon = useSelector(uiRef, selectOpenCloseBalloon)
+  const detail = useSelector(uiRef, selectOpenCloseDetail)
 
-  if (!openCloseIsVisible(balloon) || detail === null) {
+  if (
+    !openCloseIsVisible(balloon) ||
+    !openCloseIsVisible(detail) ||
+    content === null
+  ) {
     return <></>
   } else {
-    return <style>{balloonStyle(balloon, detail.p, detail.dir)}</style>
+    return <style>{balloonStyle(balloon, content.p, content.dir)}</style>
   }
 }
 

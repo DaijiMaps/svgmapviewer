@@ -171,12 +171,16 @@ export const uiMachine = setup({
             },
             Opening: {
               entry: [
+                { type: 'close', params: { part: 'header' } },
+                { type: 'close', params: { part: 'footer' } },
                 { type: 'open', params: { part: 'shadow' } },
                 { type: 'open', params: { part: 'balloon' } },
                 { type: 'open', params: { part: 'detail' } },
               ],
               on: {
                 DONE: [
+                  { guard: 'isHeaderVisible' },
+                  { guard: 'isFooterVisible' },
                   { guard: not('isShadowVisible') },
                   { guard: not('isBalloonVisible') },
                   { guard: not('isDetailVisible') },
@@ -194,12 +198,16 @@ export const uiMachine = setup({
             },
             Closing: {
               entry: [
+                { type: 'open', params: { part: 'header' } },
+                { type: 'open', params: { part: 'footer' } },
                 { type: 'close', params: { part: 'shadow' } },
                 { type: 'close', params: { part: 'balloon' } },
                 { type: 'close', params: { part: 'detail' } },
               ],
               on: {
                 DONE: [
+                  { guard: not('isHeaderVisible') },
+                  { guard: not('isFooterVisible') },
                   { guard: 'isShadowVisible' },
                   { guard: 'isBalloonVisible' },
                   { guard: 'isDetailVisible' },
@@ -221,8 +229,18 @@ export const uiMachine = setup({
     },
     Handler: {
       on: {
-        // XXX HEADER.ANIMATION.END
-        // XXX FOOTER.ANIMATION.END
+        'HEADER.ANIMATION.END': {
+          actions: [
+            { type: 'handle', params: { part: 'header' } },
+            raise({ type: 'DONE' }),
+          ],
+        },
+        'FOOTER.ANIMATION.END': {
+          actions: [
+            { type: 'handle', params: { part: 'footer' } },
+            raise({ type: 'DONE' }),
+          ],
+        },
         'SHADOW.ANIMATION.END': {
           actions: [
             { type: 'handle', params: { part: 'shadow' } },

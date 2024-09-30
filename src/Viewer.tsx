@@ -2,9 +2,9 @@ import { PropsWithChildren, useRef } from 'react'
 import { Container } from './Container'
 import { Debug } from './Debug'
 import { Detail } from './Detail'
-import { Footer } from './Footer'
+import { Footer, FooterStyle } from './Footer'
 import { Guides } from './Guides'
-import { Header } from './Header'
+import { Header, HeaderStyle } from './Header'
 import { usePointer } from './lib/react-pointer'
 import { useUi } from './lib/react-ui'
 import { search } from './lib/search'
@@ -21,7 +21,7 @@ import { Svg } from './Svg'
 export const Viewer = (props: Readonly<PropsWithChildren>) => {
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const { pointer, pointerSend, pointerRef } = usePointer(containerRef)
+  const { pointer, pointerRef } = usePointer(containerRef)
 
   const { ui, uiRef } = useUi(pointerRef)
 
@@ -34,8 +34,10 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
         <Detail _pointerRef={pointerRef} _uiRef={uiRef} />
       </Container>
       <Guides _pointerRef={pointerRef} />
-      <Header _pointerSend={pointerSend} />
-      <Footer _pointerSend={pointerSend} />
+      <Header _uiRef={uiRef} _pointerRef={pointerRef} />
+      <HeaderStyle _uiRef={uiRef} _pointerRef={pointerRef} />
+      <Footer _uiRef={uiRef} _pointerRef={pointerRef} />
+      <FooterStyle _uiRef={uiRef} _pointerRef={pointerRef} />
       {pointer.context.debug && (
         <Debug
           _container={containerRef.current}

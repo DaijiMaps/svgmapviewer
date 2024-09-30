@@ -12,10 +12,13 @@
   pointer-events: none;
 }
 
+.header > * {
+  pointer-events: initial;
+}
+
 .header > h1,
 .header > h2 {
   margin: 0.25em;
-  pointer-events: initial;
   cursor: default;
 }
 

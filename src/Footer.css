@@ -9,4 +9,9 @@
   align-items: center;
   justify-content: center;
   font-size: smaller;
+  pointer-events: none;
+}
+
+.footer > * {
+  pointer-events: initial;
 }

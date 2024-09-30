@@ -8,8 +8,11 @@ import { PointerRef } from './xstate-pointer'
 import { uiMachine, UiState } from './xstate-ui'
 
 export const selectDetail = (ui: UiState) => ui.context.detail
-export const selectBalloon = (ui: UiState) => ui.context.m['balloon']
-export const selectShadow = (ui: UiState) => ui.context.m['shadow']
+export const selectOpenCloseHeader = (ui: UiState) => ui.context.m['header']
+export const selectOpenCloseFooter = (ui: UiState) => ui.context.m['footer']
+export const selectOpenCloseShadow = (ui: UiState) => ui.context.m['shadow']
+export const selectOpenCloseBalloon = (ui: UiState) => ui.context.m['balloon']
+export const selectOpenCloseDetail = (ui: UiState) => ui.context.m['detail']
 
 export function useUi(pointerRef: PointerRef) {
   const [ui, uiSend, uiRef] = useMachine(uiMachine)
