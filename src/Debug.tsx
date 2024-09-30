@@ -1,6 +1,5 @@
 import './Debug.css'
 import { showBox, showNumber, showPoint } from './lib/show'
-import { Touches } from './lib/touch'
 import { PointerState } from './lib/xstate-pointer'
 import { SearchState } from './lib/xstate-search'
 import { UiState } from './lib/xstate-ui'
@@ -9,7 +8,6 @@ interface DebugProps {
   _container: null | HTMLDivElement
   _ui: UiState
   _pointer: PointerState
-  _touches: Touches
   _search: SearchState
 }
 
@@ -18,12 +16,12 @@ export const Debug = (props: Readonly<DebugProps>) => {
     _container: container,
     _ui: ui,
     _pointer: pointer,
-    _touches: touches,
     _search: search,
   } = props
   const {
     context: { layout },
   } = pointer
+  const touches = pointer.context.touches
 
   return (
     <div className="debug">

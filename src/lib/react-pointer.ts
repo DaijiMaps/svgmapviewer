@@ -44,61 +44,10 @@ const usePointerKey = (send: PointerSend) => {
   }, [keyDown, keyUp, send])
 }
 
-export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
-  const body = useWindowResize()
-  const config = useContext(SvgMapViewerConfigContext)
-
-  const [pointer, pointerSend, pointerRef] = useMachine(pointerMachine, {
-    input: {
-      containerRef,
-      layout: makeLayout(
-        configLayout(config.fontSize, config.origViewBox, body)
-      ),
-    },
-  })
-
-  const pointerSearchLock = useCallback(
-    (p: Vec, psvg: Vec) => pointerSend({ type: 'SEARCH.LOCK', p, psvg }),
-    [pointerSend]
-  )
-  const pointerSearchUnlock = useCallback(
-    () => pointerSend({ type: 'SEARCH.UNLOCK' }),
-    [pointerSend]
-  )
-
-  useEffect(() => {
-    svgMapViewerConfig.uiOpenCbs.push(pointerSearchLock)
-    svgMapViewerConfig.uiCloseDoneCbs.push(pointerSearchUnlock)
-  }, [pointerSearchLock, pointerSearchUnlock])
-
-  useEffect(() => {
-    const search = pointerRef.on('SEARCH', ({ p, psvg }) =>
-      svgMapViewerConfig.searchStartCbs.forEach((cb) => cb(p, psvg))
-    )
-    const lock = pointerRef.on('LOCK', ({ ok }) =>
-      svgMapViewerConfig.uiOpenDoneCbs.forEach((cb) => cb(ok))
-    )
-    return () => {
-      search.unsubscribe()
-      lock.unsubscribe()
-    }
-  }, [pointerRef])
-
-  useEffect(() => {
-    const style = getComputedStyle(document.body)
-
-    pointerSend({
-      type: 'LAYOUT',
-      config: configLayout(
-        parseFloat(style.fontSize),
-        config.origViewBox,
-        body
-      ),
-    })
-  }, [body, config.origViewBox, pointerSend])
-
-  usePointerKey(pointerSend)
-
+const usePointerEvent = (
+  containerRef: RefObject<HTMLDivElement>,
+  pointerSend: PointerSend
+) => {
   const send = useCallback(
     (
       event: ReactPointerEvent,
@@ -190,9 +139,6 @@ export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
     },
     [send]
   )
-  const sendAnimationEnd = useCallback(() => {
-    pointerSend({ type: 'ANIMATION.END' })
-  }, [pointerSend])
 
   useEffect(() => {
     const e = containerRef.current
@@ -229,6 +175,70 @@ export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
     sendTouchStart,
     sendWheel,
   ])
+}
+
+export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
+  const body = useWindowResize()
+  const config = useContext(SvgMapViewerConfigContext)
+
+  const [pointer, pointerSend, pointerRef] = useMachine(pointerMachine, {
+    input: {
+      containerRef,
+      layout: makeLayout(
+        configLayout(config.fontSize, config.origViewBox, body)
+      ),
+    },
+  })
+
+  usePointerKey(pointerSend)
+
+  usePointerEvent(containerRef, pointerSend)
+
+  const pointerSearchLock = useCallback(
+    (p: Vec, psvg: Vec) => pointerSend({ type: 'SEARCH.LOCK', p, psvg }),
+    [pointerSend]
+  )
+  const pointerSearchUnlock = useCallback(
+    () => pointerSend({ type: 'SEARCH.UNLOCK' }),
+    [pointerSend]
+  )
+
+  useEffect(() => {
+    svgMapViewerConfig.uiOpenCbs.push(pointerSearchLock)
+    svgMapViewerConfig.uiCloseDoneCbs.push(pointerSearchUnlock)
+  }, [pointerSearchLock, pointerSearchUnlock])
+
+  useEffect(() => {
+    const search = pointerRef.on('SEARCH', ({ p, psvg }) =>
+      svgMapViewerConfig.searchStartCbs.forEach((cb) => cb(p, psvg))
+    )
+    const lock = pointerRef.on('LOCK', ({ ok }) =>
+      svgMapViewerConfig.uiOpenDoneCbs.forEach((cb) => cb(ok))
+    )
+    return () => {
+      search.unsubscribe()
+      lock.unsubscribe()
+    }
+  }, [pointerRef])
+
+  useEffect(() => {
+    const style = getComputedStyle(document.body)
+
+    pointerSend({
+      type: 'LAYOUT',
+      config: configLayout(
+        parseFloat(style.fontSize),
+        config.origViewBox,
+        body
+      ),
+    })
+  }, [body, config.origViewBox, pointerSend])
+
+  useEffect(() => {
+    if (pointer.hasTag('rendering')) {
+      pointerSend({ type: 'RENDERED' })
+    }
+  }, [pointer, pointerSend])
 
   const mode = useSelector(pointerRef, selectMode)
 
@@ -244,21 +254,11 @@ export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
     // - xstate-pointer ignores 'click' to pass throughh (emulated)
     //  'click' to shadow; shadow receives 'click' to cancel 'locked'
     clickeventmask = mode === 'locked'
-  }, [containerRef, mode, sendWheel])
-
-  useEffect(() => {
-    if (pointer.hasTag('rendering')) {
-      pointerSend({ type: 'RENDERED' })
-    }
-  }, [pointer, pointerSend])
+  }, [containerRef, mode])
 
   return {
     pointer,
     pointerSend,
     pointerRef,
-    layout: useSelector(pointerRef, selectLayout),
-    focus: useSelector(pointerRef, selectFocus),
-    touches: useSelector(pointerRef, selectTouches),
-    sendAnimationEnd,
   }
 }

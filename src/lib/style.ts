@@ -1,6 +1,5 @@
 import { svgMapViewerConfig } from './config'
 import { toMatrixOuter } from './coord'
-import { Layout } from './layout'
 import { Matrix } from './matrix'
 import { matrixEmpty, matrixScaleAt, matrixToString } from './matrix/prefixed'
 import { matrixTranslate, transformPoint } from './transform'
@@ -8,7 +7,9 @@ import { ifNullOr, zoomToScale } from './utils'
 import { vecSub } from './vec/prefixed'
 import { PointerState } from './xstate-pointer'
 
-export function scrollStyle(layout: Layout) {
+export function scrollStyle(pointer: Readonly<PointerState>) {
+  const layout = pointer.context.layout
+
   return `
 .content {
   width: ${layout.scroll.width}px;
