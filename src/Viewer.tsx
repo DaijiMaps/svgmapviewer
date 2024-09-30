@@ -7,7 +7,7 @@ import { Guides } from './Guides'
 import { Header, HeaderStyle } from './Header'
 import { usePointer } from './lib/react-pointer'
 import { useUi } from './lib/react-ui'
-import { search } from './lib/search'
+import { searchRef } from './lib/search'
 import {
   dragStyle,
   modeStyle,
@@ -23,7 +23,7 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
 
   const { pointer, pointerRef } = usePointer(containerRef)
 
-  const { ui, uiRef } = useUi(pointerRef)
+  const { uiRef } = useUi(pointerRef)
 
   return (
     <>
@@ -38,14 +38,12 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
       <HeaderStyle _uiRef={uiRef} _pointerRef={pointerRef} />
       <Footer _uiRef={uiRef} _pointerRef={pointerRef} />
       <FooterStyle _uiRef={uiRef} _pointerRef={pointerRef} />
-      {pointer.context.debug && (
-        <Debug
-          _container={containerRef.current}
-          _ui={ui}
-          _pointerRef={pointerRef}
-          _search={search.getSnapshot()}
-        />
-      )}
+      <Debug
+        _container={containerRef.current}
+        _uiRef={uiRef}
+        _pointerRef={pointerRef}
+        _searchRef={searchRef}
+      />
       <style>
         {scrollStyle(pointer)}
         {modeStyle(pointer)}

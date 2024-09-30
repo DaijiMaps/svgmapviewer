@@ -1,28 +1,34 @@
 import './Debug.css'
 import { showBox, showNumber, showPoint } from './lib/show'
 import { PointerRef } from './lib/xstate-pointer'
-import { SearchState } from './lib/xstate-search'
-import { UiState } from './lib/xstate-ui'
+import { SearchRef } from './lib/xstate-search'
+import { UiRef } from './lib/xstate-ui'
 
 interface DebugProps {
   _container: null | HTMLDivElement
-  _ui: UiState
+  _uiRef: UiRef
   _pointerRef: PointerRef
-  _search: SearchState
+  _searchRef: SearchRef
 }
 
 export const Debug = (props: Readonly<DebugProps>) => {
   const {
     _container: container,
-    _ui: ui,
+    _uiRef: uiRef,
     _pointerRef: pointerRef,
-    _search: search,
+    _searchRef: searchRef,
   } = props
+  const ui = uiRef.getSnapshot()
   const pointer = pointerRef.getSnapshot()
+  const search = searchRef.getSnapshot()
   const {
     context: { layout },
   } = pointer
   const touches = pointer.context.touches
+
+  if (!pointer.context.debug) {
+    return <></>
+  }
 
   return (
     <div className="debug">
