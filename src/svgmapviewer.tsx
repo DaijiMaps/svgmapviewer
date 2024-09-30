@@ -31,8 +31,8 @@ export function svgmapviewer(configUser: Readonly<SvgMapViewerConfigUser>) {
     ...configUser,
   }
 
-  svgMapViewerConfig.searchStartCbs.push(searchSearchStart)
-  svgMapViewerConfig.searchDoneCbs.push(searchSearchDone)
+  svgMapViewerConfig.searchStartCbs.add(searchSearchStart)
+  svgMapViewerConfig.searchDoneCbs.add(searchSearchDone)
 
   createRoot(document.getElementById(config.root)!).render(
     <StrictMode>

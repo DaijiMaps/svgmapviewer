@@ -14,6 +14,6 @@ svgmapviewer({
   renderInfo: RenderInfo,
 })
 
-svgMapViewerConfig.searchCbs.push(workerSearchStart)
+svgMapViewerConfig.searchCbs.add(workerSearchStart)
 
 document.title = `svgmapviewer @ ${window.location.host}`

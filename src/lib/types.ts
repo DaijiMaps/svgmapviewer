@@ -56,14 +56,14 @@ export interface SvgMapViewerConfig {
   dragStepAlpha: number
   dragStepStepLimit: number
   dragStepMaxCount: number
-  searchStartCbs: SearchCb[]
-  searchCbs: SearchCb[]
-  searchDoneCbs: SearchDoneCb[]
-  searchEndCbs: SearchDoneCb[]
-  uiOpenCbs: UiOpenCb[]
-  uiOpenDoneCbs: UiOpenDoneCb[]
-  uiCloseCbs: UiCloseCb[]
-  uiCloseDoneCbs: UiCloseCb[]
+  searchStartCbs: Set<SearchCb>
+  searchCbs: Set<SearchCb>
+  searchDoneCbs: Set<SearchDoneCb>
+  searchEndCbs: Set<SearchDoneCb>
+  uiOpenCbs: Set<UiOpenCb>
+  uiOpenDoneCbs: Set<UiOpenDoneCb>
+  uiCloseCbs: Set<UiCloseCb>
+  uiCloseDoneCbs: Set<UiCloseCb>
   renderInfo: RenderInfo
 }
 

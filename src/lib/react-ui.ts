@@ -32,18 +32,13 @@ export function useUi(pointerRef: PointerRef) {
   const uiCancel = useCallback(() => uiSend({ type: 'CANCEL' }), [uiSend])
 
   useEffect(() => {
-    svgMapViewerConfig.searchEndCbs.push(uiDetail)
-    svgMapViewerConfig.uiOpenDoneCbs.push(uiOpen)
-    svgMapViewerConfig.uiCloseCbs.push(uiCancel)
+    svgMapViewerConfig.searchEndCbs.add(uiDetail)
+    svgMapViewerConfig.uiOpenDoneCbs.add(uiOpen)
+    svgMapViewerConfig.uiCloseCbs.add(uiCancel)
     return () => {
-      svgMapViewerConfig.searchEndCbs = svgMapViewerConfig.searchEndCbs.filter(
-        (cb) => cb !== uiDetail
-      )
-      svgMapViewerConfig.uiOpenDoneCbs =
-        svgMapViewerConfig.uiOpenDoneCbs.filter((cb) => cb !== uiOpen)
-      svgMapViewerConfig.uiCloseCbs = svgMapViewerConfig.uiCloseCbs.filter(
-        (cb) => cb !== uiCancel
-      )
+      svgMapViewerConfig.searchEndCbs.delete(uiDetail)
+      svgMapViewerConfig.uiOpenDoneCbs.delete(uiOpen)
+      svgMapViewerConfig.uiCloseCbs.delete(uiCancel)
     }
   }, [uiCancel, uiDetail, uiOpen])
 

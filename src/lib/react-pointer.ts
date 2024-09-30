@@ -230,16 +230,11 @@ export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
   )
 
   useEffect(() => {
-    svgMapViewerConfig.uiOpenCbs.push(pointerSearchLock)
-    svgMapViewerConfig.uiCloseDoneCbs.push(pointerSearchUnlock)
+    svgMapViewerConfig.uiOpenCbs.add(pointerSearchLock)
+    svgMapViewerConfig.uiCloseDoneCbs.add(pointerSearchUnlock)
     return () => {
-      svgMapViewerConfig.uiOpenCbs = svgMapViewerConfig.uiOpenCbs.filter(
-        (cb) => cb !== pointerSearchLock
-      )
-      svgMapViewerConfig.uiCloseDoneCbs =
-        svgMapViewerConfig.uiCloseDoneCbs.filter(
-          (cb) => cb !== pointerSearchUnlock
-        )
+      svgMapViewerConfig.uiOpenCbs.delete(pointerSearchLock)
+      svgMapViewerConfig.uiCloseDoneCbs.delete(pointerSearchUnlock)
     }
   }, [pointerSearchLock, pointerSearchUnlock])
 
