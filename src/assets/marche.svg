@@ -25,15 +25,15 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      showgrid="true"
-     inkscape:zoom="1.5524814"
-     inkscape:cx="314.01343"
-     inkscape:cy="686.96477"
+     inkscape:zoom="0.71357323"
+     inkscape:cx="397.29629"
+     inkscape:cy="561.25984"
      inkscape:window-width="1440"
      inkscape:window-height="900"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
-     inkscape:current-layer="g18">
+     inkscape:current-layer="g279">
     <inkscape:grid
        id="grid1"
        units="px"
@@ -329,9 +329,10 @@
        id="g12"
        inkscape:label="waters">
       <path
-         style="fill:#aaeeff;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;opacity:1"
-         d="m 440.00001,199.99999 -40,-80 20,-60 80,-39.99999 40,19.99999 20,40 20,20 -20,20 -20,40 -40,40 -20,20 h -20 z"
-         id="path9" />
+         id="path9"
+         style="opacity:1;fill:#aaeeff;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         d="m 500,20 -80,40 -20,60 40,80 20,20 h 20 l 20,-20 40,-40 20,-40 5.00001,-20.000008 L 560,80 540,40 Z m 40,60 h 10 l 10,20 -20,20 -10,20 v 20 l -20,10 -10,-30 10,-30 10,-20 z"
+         sodipodi:nodetypes="cccccccccccccccccccccccc" />
       <path
          style="opacity:1;fill:#aaeeff;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
          d="m 160.00001,779.99996 60,-39.99999 60,-20 60,20 0,119.99999 -60,60.00004 -100,-40.00004 z"
@@ -351,6 +352,11 @@
          d="m 250.00001,719.99997 v -40 l -30,-80 -40,-20 60,10 40,50 20,50 20,20 60,30 10,39.99999 30,50 -40,10 -20,40 -80,40.00004 60,-60.00004 V 739.99997 l -60,-20 -60,20 z"
          id="path237"
          sodipodi:nodetypes="ccccccccccccccccccc" />
+      <path
+         style="opacity:1;fill:#aaeeff;fill-opacity:0.5;stroke:none;stroke-width:5;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="m 580.00001,99.999992 -40,59.999998 20,-40 5,-19.999998 -5,-19.999999 -20,-39.999999 -40,-19.999999 45,0 15,19.999999 z"
+         id="path319"
+         sodipodi:nodetypes="cccccccccc" />
     </g>
     <g
        id="g3"
@@ -370,9 +376,9 @@
        inkscape:label="paths">
       <path
          style="fill:none;fill-opacity:0.27451;stroke:#ffffff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-         d="m 460.00001,959.99996 20,-100 -40,-139.99999 -100,-60 -100,-100 v -99.99999 l 20,-60 40,-20 h 40 l 100,-60 40,-59.99999 20,-40 60,-40 40,-80 -20,-60 -20,-39.9999940000003 40,-59.9999979999997"
+         d="m 460.00001,959.99996 20,-100 -40,-139.99999 -100,-60 -100,-100 v -99.99999 l 20,-60 40,-20 h 40 l 100,-60 40,-59.99999 20,-40 30,-40 h 30 l 40,-80 -20,-60 -20,-39.9999940000004 40,-59.9999979999996"
          id="path4"
-         sodipodi:nodetypes="ccccccccccccccccc" />
+         sodipodi:nodetypes="cccccccccccccccccc" />
       <path
          style="fill:none;fill-opacity:0.27451;stroke:#ffffff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
          d="m 260.00001,399.99998 v -40 l -40,-50 -40,-30 L 120,259.99999 l -40,-20"
@@ -391,6 +397,10 @@
          style="fill:none;fill-opacity:0.27451;stroke:#ffffff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
          d="m 480.00001,259.99999 -60,-60 -20,-40 -20,-60 20,-40 60,-39.99999 40,-20.000004 h 60"
          id="path8" />
+      <path
+         style="opacity:1;fill:none;fill-opacity:0.5;stroke:#ffffff;stroke-width:2.5;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="m 530.00001,179.99999 -10,-20 v -30 l 10,-20 20,-20 10,-20 20,-30"
+         id="path318" />
     </g>
     <g
        id="g13"
@@ -428,8 +438,8 @@
     </g>
     <g
        id="g27"
-       transform="translate(-44.999989,-33.750043)"
-       inkscape:label="objects">
+       inkscape:label="objects"
+       transform="translate(-44.999989,-33.750043)">
       <g
          id="g242"
          inkscape:label="trees">
@@ -1400,6 +1410,30 @@
              xlink:href="#use314"
              id="use317-68"
              transform="translate(202.19009,-147.49999)" />
+          <use
+             x="0"
+             y="0"
+             xlink:href="#use314"
+             id="use317-68-1"
+             transform="translate(282.19009,-327.49998)" />
+          <use
+             x="0"
+             y="0"
+             xlink:href="#use314"
+             id="use317-68-7"
+             transform="translate(292.19009,-347.49998)" />
+          <use
+             x="0"
+             y="0"
+             xlink:href="#use314"
+             id="use317-68-3"
+             transform="translate(312.19009,-377.49998)" />
+          <use
+             x="0"
+             y="0"
+             xlink:href="#use314"
+             id="use317-68-6"
+             transform="translate(312.19009,-347.49998)" />
         </g>
       </g>
       <g
