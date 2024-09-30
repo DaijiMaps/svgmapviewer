@@ -21,9 +21,8 @@ export function useUi(pointerRef: PointerRef) {
       if (res === null) {
         // just ignore
       } else {
-        const { p, psvg, info } = res
-        const dir = diag(layout.container, p)
-        uiSend({ type: 'DETAIL', p, psvg, dir, info: info })
+        const dir = diag(layout.container, res.p)
+        uiSend({ type: 'DETAIL', ...res, dir })
       }
     },
     [layout.container, uiSend]
