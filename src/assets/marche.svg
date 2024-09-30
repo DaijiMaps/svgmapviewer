@@ -313,7 +313,8 @@
          style="fill:#88aa00;fill-opacity:0.5;stroke:none;stroke-width:0.5"
          d="m 80,839.99996 -60,-119.99999 -39.999998,-100 V 399.99998 l 59.999998,-80 40,-59.99999 80.00001,-20 120,20 h 100 l 20,-40 -20,-40 -40,-80 40,-99.999994 h 40 l 120,-59.999998 100,59.999998 20,99.999994 -40,100 -80,79.99999 -80,80 -40,100 180,99.99999 20,60 -20,60 20,139.99999 -20,60 -100,60.00004 -100,20 h -120 l -120,-40 z"
          id="path1"
-         inkscape:label="area" />
+         inkscape:label="area"
+         sodipodi:nodetypes="ccccccccccccccccccccccccccccccc" />
       <path
          style="opacity:1;fill:#ffeeaa;stroke:none;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
          d="m 320.00001,399.99998 40,20 20,80 60,59.99999 60,20 40,40 v 60 l -80,20 -80,-40 -60,-60 -40,-60 0,-59.99999 v -40 z"
@@ -331,7 +332,7 @@
       <path
          id="path9"
          style="opacity:1;fill:#aaeeff;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-         d="m 500,20 -80,40 -20,60 40,80 20,20 h 20 l 20,-20 40,-40 20,-40 5.00001,-20.000008 L 560,80 540,40 Z m 40,60 h 10 l 10,20 -20,20 -10,20 v 20 l -20,10 -10,-30 10,-30 10,-20 z"
+         d="m 500,20 -80,40 -20,60 40,80 20,20 h 20 l 20,-20 30.00001,-30.00001 10,-40 25,-29.999998 L 560,80 540,40 Z m 40,60 h 10 l 10,20 -20,20 -10,20 v 20 l -20,10 -10,-30 10,-30 10,-20 z"
          sodipodi:nodetypes="cccccccccccccccccccccccc" />
       <path
          style="opacity:1;fill:#aaeeff;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
@@ -354,9 +355,9 @@
          sodipodi:nodetypes="ccccccccccccccccccc" />
       <path
          style="opacity:1;fill:#aaeeff;fill-opacity:0.5;stroke:none;stroke-width:5;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
-         d="m 580.00001,99.999992 -40,59.999998 20,-40 5,-19.999998 -5,-19.999999 -20,-39.999999 -40,-19.999999 45,0 15,19.999999 z"
+         d="m 580.00001,94.999992 -30,64.999998 -20,10 10,-40 25,-29.999998 -5,-19.999999 -20,-39.999999 -40,-19.999999 h 45 l 15,19.999999 z"
          id="path319"
-         sodipodi:nodetypes="cccccccccc" />
+         sodipodi:nodetypes="ccccccccccc" />
     </g>
     <g
        id="g3"
