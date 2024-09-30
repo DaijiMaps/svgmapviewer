@@ -5,7 +5,7 @@ import { createActor } from 'xstate'
 import { svgMapViewerConfig } from './config'
 import { SearchRes } from './types'
 import { Vec } from './vec'
-import { SearchEvent, searchMachine } from './xstate-search'
+import { searchMachine } from './xstate-search'
 
 export const search = createActor(searchMachine)
 
@@ -23,21 +23,9 @@ export function searchSearchStart(p: Vec, psvg: Vec) {
 }
 
 export function searchSearchDone(res: Readonly<null | SearchRes>) {
-  if (res === null) {
-    const ev: SearchEvent = {
-      type: 'SEARCH.CANCEL',
-    }
-    search.send(ev)
-  } else {
-    const { p, psvg, info } = res
-    const ev: SearchEvent = {
-      type: 'SEARCH.DONE',
-      p,
-      psvg,
-      info,
-    }
-    search.send(ev)
-  }
+  search.send(
+    res === null ? { type: 'SEARCH.CANCEL' } : { type: 'SEARCH.DONE', ...res }
+  )
 }
 
 search.start()
