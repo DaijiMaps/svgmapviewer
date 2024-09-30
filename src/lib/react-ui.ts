@@ -18,9 +18,7 @@ export function useUi(pointerRef: PointerRef) {
 
   const uiDetail = useCallback(
     (res: Readonly<null | SearchRes>) => {
-      if (res === null) {
-        // just ignore
-      } else {
+      if (res !== null) {
         const dir = diag(layout.container, res.p)
         uiSend({ type: 'DETAIL', ...res, dir })
       }
@@ -28,9 +26,7 @@ export function useUi(pointerRef: PointerRef) {
     [layout.container, uiSend]
   )
   const uiOpen = useCallback(
-    (ok: boolean) => {
-      uiSend({ type: ok ? 'OPEN' : 'CANCEL' })
-    },
+    (ok: boolean) => uiSend({ type: ok ? 'OPEN' : 'CANCEL' }),
     [uiSend]
   )
   const uiCancel = useCallback(() => uiSend({ type: 'CANCEL' }), [uiSend])
@@ -39,6 +35,16 @@ export function useUi(pointerRef: PointerRef) {
     svgMapViewerConfig.searchEndCbs.push(uiDetail)
     svgMapViewerConfig.uiOpenDoneCbs.push(uiOpen)
     svgMapViewerConfig.uiCloseCbs.push(uiCancel)
+    return () => {
+      svgMapViewerConfig.searchEndCbs = svgMapViewerConfig.searchEndCbs.filter(
+        (cb) => cb !== uiDetail
+      )
+      svgMapViewerConfig.uiOpenDoneCbs =
+        svgMapViewerConfig.uiOpenDoneCbs.filter((cb) => cb !== uiOpen)
+      svgMapViewerConfig.uiCloseCbs = svgMapViewerConfig.uiCloseCbs.filter(
+        (cb) => cb !== uiCancel
+      )
+    }
   }, [uiCancel, uiDetail, uiOpen])
 
   useEffect(() => {

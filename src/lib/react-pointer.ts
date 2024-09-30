@@ -145,15 +145,6 @@ const usePointerEvent = (
     if (e === null) {
       return
     }
-    e.removeEventListener('pointerdown', sendPointerDown)
-    e.removeEventListener('pointermove', sendPointerMove)
-    e.removeEventListener('pointerup', sendPointerUp)
-    e.removeEventListener('touchstart', sendTouchStart)
-    e.removeEventListener('touchmove', sendTouchMove)
-    e.removeEventListener('touchend', sendTouchEnd)
-    e.removeEventListener('click', sendClick)
-    e.removeEventListener('contextmenu', sendContextMenuu)
-    e.removeEventListener('wheel', sendWheel)
     e.addEventListener('pointerdown', sendPointerDown)
     e.addEventListener('pointermove', sendPointerMove)
     e.addEventListener('pointerup', sendPointerUp)
@@ -163,6 +154,17 @@ const usePointerEvent = (
     e.addEventListener('click', sendClick)
     e.addEventListener('contextmenu', sendContextMenuu)
     e.addEventListener('wheel', sendWheel)
+    return () => {
+      e.removeEventListener('pointerdown', sendPointerDown)
+      e.removeEventListener('pointermove', sendPointerMove)
+      e.removeEventListener('pointerup', sendPointerUp)
+      e.removeEventListener('touchstart', sendTouchStart)
+      e.removeEventListener('touchmove', sendTouchMove)
+      e.removeEventListener('touchend', sendTouchEnd)
+      e.removeEventListener('click', sendClick)
+      e.removeEventListener('contextmenu', sendContextMenuu)
+      e.removeEventListener('wheel', sendWheel)
+    }
   }, [
     containerRef,
     sendClick,
@@ -230,6 +232,15 @@ export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
   useEffect(() => {
     svgMapViewerConfig.uiOpenCbs.push(pointerSearchLock)
     svgMapViewerConfig.uiCloseDoneCbs.push(pointerSearchUnlock)
+    return () => {
+      svgMapViewerConfig.uiOpenCbs = svgMapViewerConfig.uiOpenCbs.filter(
+        (cb) => cb !== pointerSearchLock
+      )
+      svgMapViewerConfig.uiCloseDoneCbs =
+        svgMapViewerConfig.uiCloseDoneCbs.filter(
+          (cb) => cb !== pointerSearchUnlock
+        )
+    }
   }, [pointerSearchLock, pointerSearchUnlock])
 
   useEffect(() => {

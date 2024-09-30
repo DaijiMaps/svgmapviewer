@@ -44,3 +44,9 @@ export const ifUndefinedOrNullOr = <A>(a: U | N | A, b: A): A =>
 export type ImmutableShallow<T extends object> = {
   readonly [P in keyof T & {}]: T[P]
 }
+
+//// array delete
+
+export function arrayDelete<T>(a: readonly T[], x: T): T[] {
+  return a.filter((e) => e !== x)
+}

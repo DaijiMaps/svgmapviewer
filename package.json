@@ -17,17 +17,17 @@
     "./dist"
   ],
   "scripts": {
-    "dev:asas": "vite --config vite.config-asas.ts",
-    "dev:host:asas": "vite --config vite.config-asas.ts --host 0.0.0.0",
+    "dev:marche": "vite --config vite.config-marche.ts",
+    "dev:host:marche": "vite --config vite.config-marche.ts --host 0.0.0.0",
     "build": "tsc -b && vite build",
-    "build:asas": "tsc -b && vite build --config vite.config-asas.ts",
+    "build:marche": "tsc -b && vite build --config vite.config-marche.ts",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest --workspace=vitest.workspace.ts --project unit",
     "test:unit": "vitest --workspace=vitest.workspace.ts --project unit",
     "test:jsdom": "vitest --workspace=vitest.workspace.ts --project jsdom",
     "test:browser": "vitest --workspace=vitest.workspace.ts --project browser",
-    "pages:deploy:asas": "pnpm build:asas && cd dist && wrangler pages deploy ."
+    "pages:deploy:marche": "pnpm build:marche && cd dist && wrangler pages deploy ."
   },
   "dependencies": {
     "@xstate/react": "^4.1.2",
