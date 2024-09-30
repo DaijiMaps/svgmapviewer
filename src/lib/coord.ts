@@ -1,7 +1,7 @@
 import { BoxBox as Box, boxCopy } from './box/prefixed'
 import { LayoutConfig } from './layout'
 import { MatrixMatrix as Matrix, matrixMultiply } from './matrix/prefixed'
-import { fromTransform, invMove, Move, Scale } from './transform'
+import { fromTransform, invMove, invScale, Move, Scale } from './transform'
 import { vecScale } from './vec/prefixed'
 
 //// LayoutCoord
@@ -48,6 +48,10 @@ export const toMatrixOuter = ({ scroll }: Readonly<LayoutCoord>): Matrix => {
   return fromTransform(invMove(scroll))
 }
 
+export const fromMatrixOuter = ({ scroll }: Readonly<LayoutCoord>): Matrix => {
+  return fromTransform(scroll)
+}
+
 export const toMatrixSvg = ({
   scroll,
   svgOffset,
@@ -59,6 +63,20 @@ export const toMatrixSvg = ({
     fromTransform(svgScale),
     fromTransform(svgOffset),
     fromTransform(invMove(scroll)),
+  ].reduce((a, b) => matrixMultiply(a, b))
+}
+
+export const fromMatrixSvg = ({
+  scroll,
+  svgOffset,
+  svgScale,
+  svg,
+}: Readonly<LayoutCoord>): Matrix => {
+  return [
+    fromTransform(scroll),
+    fromTransform(invMove(svgOffset)),
+    fromTransform(invScale(svgScale)),
+    fromTransform(invMove(svg)),
   ].reduce((a, b) => matrixMultiply(a, b))
 }
 

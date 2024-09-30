@@ -2,7 +2,7 @@ import { pipe } from 'fp-ts/lib/function'
 import { expect, test } from 'vitest'
 import { animationEndLayout, animationMove, animationZoom } from './animation'
 import { BoxBox as Box, boxCenter, boxScaleAt } from './box/prefixed'
-import { toMatrixSvg } from './coord'
+import { fromMatrixSvg, toMatrixSvg } from './coord'
 import { dragMove, dragReset, dragStart } from './drag'
 import {
   configLayout,
@@ -38,13 +38,13 @@ test('zoom layout', () => {
   expect(layout.svgScale.s).toBe(0.1)
   const l0 = pipe(
     layout,
-    (l) => animationZoom(l, 0, 0, focus),
+    (l) => animationZoom(l, 0, focus),
     (a) => animationEndLayout(layout, a)
   )
   expect(l0.svgScale.s).toBe(layout.svgScale.s)
   const l1 = pipe(
     layout,
-    (l) => animationZoom(l, 0, 1, focus),
+    (l) => animationZoom(l, 1, focus),
     (a) => animationEndLayout(layout, a)
   )
   expect(l1.svgScale.s / layout.svgScale.s).toBe(1 / 2)
@@ -104,9 +104,9 @@ const U = (() => {
 
 test('expand + zoom', () => {
   const l1 = expandLayoutCenter(U.layout, 2)
-  const a1 = animationZoom(l1, 0, 1, U.focus)
+  const a1 = animationZoom(l1, 1, U.focus)
   const l2 = animationEndLayout(l1, a1)
-  const a2 = animationZoom(l2, 1, -1, U.focus)
+  const a2 = animationZoom(l2, -1, U.focus)
   const l3 = animationEndLayout(l2, a2)
   const l4 = expandLayoutCenter(l3, 1 / 2)
 
@@ -117,9 +117,9 @@ test('expand + zoom 2', () => {
   const focus = vecVec(0.25, 0.25)
 
   const l1 = expandLayoutCenter(U.layout, 2)
-  const a1 = animationZoom(l1, 0, 1, focus)
+  const a1 = animationZoom(l1, 1, focus)
   const l2 = animationEndLayout(l1, a1)
-  const a2 = animationZoom(l2, 1, -1, focus)
+  const a2 = animationZoom(l2, -1, focus)
   const l3 = animationEndLayout(l2, a2)
   const l4 = expandLayoutCenter(l3, 1 / 2)
 
@@ -136,7 +136,7 @@ test('expand + zoom 3', () => {
     }),
     ({ l, d }) => ({
       l,
-      a: animationZoom(l, 0, 1, focus),
+      a: animationZoom(l, 1, focus),
       d,
     }),
     ({ l, a, d }) => ({
@@ -146,7 +146,7 @@ test('expand + zoom 3', () => {
     }),
     ({ l, d }) => ({
       l,
-      a: animationZoom(l, 1, -1, focus),
+      a: animationZoom(l, -1, focus),
       d,
     }),
     ({ l, a, d }) => ({
@@ -186,6 +186,9 @@ test('boxScale', () => {
   const opsvg = transformPoint(toMatrixSvg(layout), o)
 
   expect(o.x).toBe(600)
+
+  const o2 = transformPoint(fromMatrixSvg(layout), opsvg)
+  expect(o2.x).toBe(o.x)
 
   const scroll = boxScaleAt(layout.scroll, s, o.x, o.y)
   const svg = boxScaleAt(layout.svg, s, opsvg.x, opsvg.y)
@@ -276,12 +279,12 @@ test('move + zoom', () => {
   const d1 = dragStart(layout.scroll, focus)
   const d2 = dragMove(d1, vecVec(0, 0))
   const l2 = recenterLayout(layout, d2.start)
-  const a1 = animationZoom(l2, 0, 1, focus)
+  const a1 = animationZoom(l2, 1, focus)
   const l3 = animationEndLayout(l2, a1)
-  const a2 = animationZoom(l3, 1, -1, focus)
+  const a2 = animationZoom(l3, -1, focus)
   const l4 = animationEndLayout(l3, a2)
   const d5 = dragStart(l4.scroll, focus)
-  const a6 = animationMove(d5, vecVec(-1, 0))
+  const a6 = animationMove(l4, d5, vecVec(-1, 0))
   const l5 = animationEndLayout(l4, a6)
   const l6 = relocLayout(l5, d5.move)
   const l7 = recenterLayout(l6, d5.start)

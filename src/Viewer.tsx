@@ -13,7 +13,7 @@ import {
   modeStyle,
   moveStyle,
   scrollStyle,
-  zoomStyle,
+  useZoomStyle,
 } from './lib/style'
 import { Shadow, ShadowStyle } from './Shadow'
 import { Svg } from './Svg'
@@ -24,6 +24,8 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
   const { pointer, pointerRef } = usePointer(containerRef)
 
   const { uiRef } = useUi(pointerRef)
+
+  const zoomStyle = useZoomStyle(pointerRef)
 
   return (
     <>
@@ -49,7 +51,7 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
         {modeStyle(pointer)}
         {dragStyle(pointer)}
         {moveStyle(pointer)}
-        {zoomStyle(pointer)}
+        {zoomStyle}
       </style>
     </>
   )

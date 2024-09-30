@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { BoxBox as Box } from './box/prefixed'
 
 export function getBodySize(): Box {
@@ -13,11 +13,16 @@ export function getBodySize(): Box {
 export function useWindowResize(): Box {
   const [size, setSize] = useState(getBodySize())
 
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      setSize(getBodySize())
-    })
+  const handler = useCallback(() => {
+    setSize(getBodySize())
   }, [])
+
+  useEffect(() => {
+    window.addEventListener('resize', handler)
+    return () => {
+      window.removeEventListener('resize', handler)
+    }
+  }, [handler])
 
   return size
 }

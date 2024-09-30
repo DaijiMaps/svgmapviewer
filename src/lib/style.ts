@@ -1,11 +1,8 @@
+import { useSelector } from '@xstate/react'
 import { svgMapViewerConfig } from './config'
-import { toMatrixOuter } from './coord'
 import { Matrix } from './matrix'
-import { matrixEmpty, matrixScaleAt, matrixToString } from './matrix/prefixed'
-import { matrixTranslate, transformPoint } from './transform'
-import { ifNullOr, zoomToScale } from './utils'
-import { vecSub } from './vec/prefixed'
-import { PointerState } from './xstate-pointer'
+import { matrixEmpty, matrixMatrix, matrixToString } from './matrix/prefixed'
+import { PointerRef, PointerState } from './xstate-pointer'
 
 export function scrollStyle(pointer: Readonly<PointerState>) {
   const layout = pointer.context.layout
@@ -48,7 +45,7 @@ export function dragStyle(pointer: Readonly<PointerState>) {
 }
 
 export function moveStyle(pointer: Readonly<PointerState>) {
-  const { layout, animation } = pointer.context
+  const { animation } = pointer.context
 
   if (!pointer.matches({ Animator: 'Busy' })) {
     return ''
@@ -58,14 +55,17 @@ export function moveStyle(pointer: Readonly<PointerState>) {
     return ''
   }
 
-  const d = vecSub(ifNullOr(animation.move, layout.scroll), layout.scroll)
-  const q = matrixTranslate(matrixEmpty, d)
+  // XXX immutability
+  const [[a, b], [c, d], [e, f]] = animation.move.q
 
-  return d.x === 0 && d.y === 0 ? `` : css(q)
+  return css(matrixMatrix(a, b, c, d, e, f))
 }
 
-export function zoomStyle(pointer: Readonly<PointerState>) {
-  const { layout, focus, zoom, animation } = pointer.context
+export function useZoomStyle(pointerRef: Readonly<PointerRef>) {
+  const context = useSelector(pointerRef, (s) => s.context)
+  const { animation } = context
+
+  const pointer = pointerRef.getSnapshot()
 
   if (!pointer.matches({ Animator: 'Busy' })) {
     return ''
@@ -75,12 +75,10 @@ export function zoomStyle(pointer: Readonly<PointerState>) {
     return ''
   }
 
-  const zd = animation.zoom.zoom - zoom
-  const s = zoomToScale(zd)
-  const { x, y } = transformPoint(toMatrixOuter(layout), focus)
-  const q = matrixScaleAt([s, s], [x, y])
+  // XXX immutability
+  const [[a, b], [c, d], [e, f]] = animation.zoom.q
 
-  return zd === 0 ? `` : css(q)
+  return css(matrixMatrix(a, b, c, d, e, f))
 }
 
 export const css = (q: Readonly<Matrix>) => {

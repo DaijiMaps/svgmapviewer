@@ -15,12 +15,14 @@ import {
   Animation,
   animationEndLayout,
   animationMove,
+  animationReset,
   animationZoom,
 } from './animation'
 import { BoxBox, boxCenter } from './box/prefixed'
 import { Drag, dragMove, dragStart } from './drag'
 import { keyToDir, keyToZoom } from './key'
 import {
+  emptyLayout,
   expandLayoutCenter,
   Layout,
   LayoutConfig,
@@ -48,7 +50,6 @@ const DIST_LIMIT = 10
 
 export type PointerInput = {
   containerRef: RefObject<HTMLDivElement>
-  layout: Layout
 }
 
 export type PointerContext = {
@@ -58,7 +59,6 @@ export type PointerContext = {
   expand: number
   m: null | Vec
   z: null | number
-  zoom: number
   touches: Touches
   drag: null | Drag
   animation: null | Animation
@@ -302,21 +302,20 @@ export const pointerMachine = setup({
       focus: ({ context: { focus, touches } }) =>
         touches.z !== null && touches.focus !== null ? touches.focus : focus,
     }),
+    zoomReset: assign({
+      z: (): null | number => null,
+    }),
     startZoom: assign({
-      animation: ({
-        context: { layout, focus, z, zoom, animation },
-      }): null | Animation =>
-        z === null ? animation : animationZoom(layout, zoom, z, focus),
-      z: () => null,
+      animation: ({ context: { layout, focus, z } }): null | Animation =>
+        z === null
+          ? animationReset(layout, makeLayout(layout.config))
+          : animationZoom(layout, z, focus),
     }),
     endAnimation: assign({
       layout: ({ context: { layout, animation } }): Layout =>
         animation === null ? layout : animationEndLayout(layout, animation),
-      zoom: ({ context: { animation, zoom } }): number =>
-        animation === null || animation.zoom === null
-          ? zoom
-          : animation.zoom.zoom,
       animation: () => null,
+      z: () => null,
     }),
     recenterLayout: assign({
       layout: ({ context: { layout, drag } }): Layout =>
@@ -332,7 +331,6 @@ export const pointerMachine = setup({
     }),
     resetLayout: assign({
       layout: ({ context: { layout } }): Layout => makeLayout(layout.config),
-      zoom: () => 0,
     }),
     resetFocus: assign({
       focus: ({ context: { layout } }): Vec => boxCenter(layout.container),
@@ -361,8 +359,12 @@ export const pointerMachine = setup({
       drag: () => null,
     }),
     startMove: assign({
-      animation: ({ context: { drag, animation, m } }): null | Animation =>
-        drag === null || m === null ? animation : animationMove(drag, m),
+      animation: ({
+        context: { layout, drag, animation, m },
+      }): null | Animation =>
+        drag === null || m === null
+          ? animation
+          : animationMove(layout, drag, m),
       z: () => null,
     }),
     endMove: assign({
@@ -421,10 +423,10 @@ export const pointerMachine = setup({
 }).createMachine({
   type: 'parallel',
   id: 'pointer',
-  context: ({ input: { containerRef, layout } }) => ({
+  context: ({ input: { containerRef } }) => ({
     containerRef,
-    layout,
-    focus: boxCenter(layout.container),
+    layout: emptyLayout,
+    focus: boxCenter(emptyLayout.container),
     expand: 1,
     m: null,
     z: null,
@@ -479,7 +481,8 @@ export const pointerMachine = setup({
             },
             'LAYOUT.RESET': {
               guard: 'idle',
-              actions: ['resetLayout', 'resetFocus'],
+              actions: 'zoomReset',
+              target: 'Resetting',
             },
             DEBUG: {
               actions: 'toggleDebug',
@@ -516,7 +519,8 @@ export const pointerMachine = setup({
                   type: 'shouldReset',
                   params: ({ event }) => ({ ev: event.ev }),
                 },
-                actions: ['resetLayout', 'resetFocus'],
+                actions: 'zoomReset',
+                target: 'Resetting',
               },
               {
                 guard: {
@@ -701,6 +705,15 @@ export const pointerMachine = setup({
         },
         Zooming: {
           entry: raise({ type: 'ZOOM' }),
+          on: {
+            'ZOOM.DONE': {
+              target: 'Idle',
+            },
+          },
+        },
+        Resetting: {
+          entry: raise({ type: 'ZOOM' }),
+          exit: ['resetLayout', 'resetFocus'],
           on: {
             'ZOOM.DONE': {
               target: 'Idle',
@@ -904,7 +917,7 @@ export const pointerMachine = setup({
         Busy: {
           on: {
             'ANIMATION.END': {
-              actions: 'endAnimation',
+              actions: [() => console.log('endAnimation'), 'endAnimation'],
               target: 'Idle',
             },
           },

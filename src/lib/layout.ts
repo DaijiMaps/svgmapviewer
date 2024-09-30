@@ -1,12 +1,12 @@
 import { pipe } from 'fp-ts/lib/function'
 import { ReadonlyDeep } from 'type-fest'
-import { AnimationZoom } from './animation'
 import {
   BoxBox as Box,
   boxCenter,
   boxCopy,
   boxMove,
   boxScaleAt,
+  boxUnit,
 } from './box/prefixed'
 import { fromScroll, LayoutCoord, makeCoord, toMatrixSvg } from './coord'
 import { fit } from './fit'
@@ -30,6 +30,21 @@ export type Layout = ReadonlyDeep<
     config: LayoutConfig
   }
 >
+
+export const emptyLayout: Layout = {
+  config: {
+    fontSize: 16,
+    container: boxUnit,
+    svg: boxUnit,
+    svgOffset: { x: 0, y: 0 },
+    svgScale: { s: 1 },
+  },
+  container: boxUnit,
+  scroll: boxUnit,
+  svg: boxUnit,
+  svgOffset: { x: 0, y: 0 },
+  svgScale: { s: 1 },
+}
 
 //// configLayout
 //// makeLayout
@@ -101,11 +116,15 @@ export const moveLayout = (layout: Layout, move: Vec): Layout => {
   }
 }
 
-export const zoomLayout = (layout: Layout, zoom: AnimationZoom): Layout => {
+export const zoomLayout = (
+  layout: Layout,
+  svg: Box,
+  svgScale: Scale
+): Layout => {
   return {
     ...layout,
-    svg: boxCopy(zoom.svg),
-    svgScale: zoom.svgScale,
+    svg: boxCopy(svg),
+    svgScale,
   }
 }
 

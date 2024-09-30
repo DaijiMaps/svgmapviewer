@@ -1,5 +1,7 @@
 import './Debug.css'
+import { fromMatrixSvg, toMatrixSvg } from './lib/coord'
 import { showBox, showNumber, showPoint } from './lib/show'
+import { transformPoint } from './lib/transform'
 import { PointerRef } from './lib/xstate-pointer'
 import { SearchRef } from './lib/xstate-search'
 import { UiRef } from './lib/xstate-ui'
@@ -30,6 +32,12 @@ export const Debug = (props: Readonly<DebugProps>) => {
     return <></>
   }
 
+  const m = toMatrixSvg(layout)
+  const invm = fromMatrixSvg(layout)
+
+  const focusSvg = transformPoint(m, pointer.context.focus)
+  const focus2 = transformPoint(invm, focusSvg)
+
   return (
     <div className="debug">
       <p>Debug</p>
@@ -54,8 +62,9 @@ export const Debug = (props: Readonly<DebugProps>) => {
           </li>
         ))}
         <li>focus: {showPoint(pointer.context.focus)}</li>
+        <li>focusSvg: {showPoint(focusSvg)}</li>
+        <li>focus2: {showPoint(focus2)}</li>
         <li>expand: {showNumber(pointer.context.expand)}</li>
-        <li>zoom: {showNumber(pointer.context.zoom)}</li>
         {container !== null && (
           <>
             <li>container.scrollLeft: {showNumber(container.scrollLeft)}</li>

@@ -2,7 +2,7 @@ import { useMachine, useSelector } from '@xstate/react'
 import { RefObject, useCallback, useContext, useEffect } from 'react'
 import { SvgMapViewerConfigContext } from '../svgmapviewer'
 import { svgMapViewerConfig } from './config'
-import { configLayout, makeLayout } from './layout'
+import { configLayout } from './layout'
 import { useWindowResize } from './react-resize'
 import { Vec } from './vec'
 import {
@@ -184,12 +184,7 @@ export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
   const config = useContext(SvgMapViewerConfigContext)
 
   const [pointer, pointerSend, pointerRef] = useMachine(pointerMachine, {
-    input: {
-      containerRef,
-      layout: makeLayout(
-        configLayout(config.fontSize, config.origViewBox, body)
-      ),
-    },
+    input: { containerRef },
   })
 
   ////
