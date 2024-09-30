@@ -33,7 +33,7 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
-     inkscape:current-layer="g24">
+     inkscape:current-layer="g27">
     <inkscape:grid
        id="grid1"
        units="px"
@@ -685,132 +685,10 @@
            style="opacity:1;fill:none;fill-opacity:0.5;stroke:#000000;stroke-width:0.140625;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
            d="m 266.00001,389.15623 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25"
            sodipodi:nodetypes="ccccccc" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#path121"
-           id="use121"
-           transform="translate(84.999999,-11)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#use121"
-           id="use122"
-           transform="translate(124.00001,-135.49999)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#use122"
-           id="use123"
-           transform="translate(78.000004,-236.99999)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#use122"
-           id="use123-4"
-           transform="translate(103,-191.99999)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#use122"
-           id="use123-1"
-           transform="translate(58.000003,-71.093751)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#use121"
-           id="use124"
-           transform="translate(224.00001,333.99999)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#use121"
-           id="use124-7"
-           transform="translate(239.00001,344.99999)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#use121"
-           id="use124-1"
-           transform="translate(133.00001,478.99998)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#use121"
-           id="use124-0"
-           transform="translate(115.00001,526.99998)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#use121"
-           id="use124-74"
-           transform="translate(110.00001,428.99998)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#use124"
-           id="use125"
-           transform="translate(-125,15.031245)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#use121"
-           id="use124-6"
-           transform="translate(-117,163.99999)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#use121"
-           id="use124-8"
-           transform="translate(-97.000004,25.000001)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#use121"
-           id="use124-9"
-           transform="translate(-87.000004,-15.999999)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#use121"
-           id="use124-08"
-           transform="translate(-53.999994,-2.9999995)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#path121"
-           id="use126"
-           transform="translate(-42.000004,-85.999997)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#path121"
-           id="use126-8"
-           transform="translate(-201,-96.499992)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#path121"
-           id="use126-8-2"
-           transform="translate(306.00001,-222.49999)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#path121"
-           id="use126-8-7"
-           transform="translate(251.00001,-103.49999)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#path121"
-           id="use126-8-4"
-           transform="translate(219.00001,-128.49999)" />
-        <use
-           x="0"
-           y="0"
-           xlink:href="#path121"
+        <path
            id="use126-8-1"
-           transform="translate(115,5.9999998)" />
+           style="fill:none;fill-opacity:0.5;stroke:#000000;stroke-width:0.140625;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 381.00001,395.15623 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 M 485.00002,260.65624 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m 29.75,26.125 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m 52.75,-117.875 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m -509.25001,127.125 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m 156.75,11.62499 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m 70.75,73.125 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 M 264,362.15623 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m -12.25,42.125 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m -22.24999,140.12499 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m 213.75001,186.15624 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m 8.75,81.09375 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m 2.75,99.125 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m 15.75,-46.875 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m 103.75,-132.87499 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m -17.25,-9.875 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m -44.25,-539.46873 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m 42.75,-119.78124 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m -27.25,-43.875 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 m -80.25,238.12499 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25 M 351.00001,378.15623 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25" />
       </g>
       <g
          id="g21"

@@ -8,8 +8,8 @@ export type SearchEvent =
   | { type: 'SEARCH.CANCEL' }
 
 export type SearchEmitted =
-  | { type: 'START'; p: Vec; psvg: Vec }
-  | { type: 'END'; p: Vec; psvg: Vec; info: Info }
+  | { type: 'SEARCH'; p: Vec; psvg: Vec }
+  | { type: 'SEARCH.DONE'; p: Vec; psvg: Vec; info: Info }
 
 export const searchMachine = setup({
   types: {} as {
@@ -26,11 +26,7 @@ export const searchMachine = setup({
     Idle: {
       on: {
         SEARCH: {
-          actions: emit(({ event: { p, psvg } }) => ({
-            type: 'START',
-            p,
-            psvg,
-          })),
+          actions: emit(({ event }) => event),
           target: 'Searching',
         },
       },
@@ -38,12 +34,7 @@ export const searchMachine = setup({
     Searching: {
       on: {
         'SEARCH.DONE': {
-          actions: emit(({ event: { p, psvg, info } }) => ({
-            type: 'END',
-            p,
-            psvg,
-            info,
-          })),
+          actions: emit(({ event }) => event),
           target: 'Done',
         },
         'SEARCH.CANCEL': {

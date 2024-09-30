@@ -191,19 +191,20 @@ export const uiMachine = setup({
             Opened: {
               on: {
                 CANCEL: {
-                  actions: 'startCancel',
                   target: 'Closing',
                 },
               },
             },
             Closing: {
               entry: [
+                'startCancel',
                 { type: 'open', params: { part: 'header' } },
                 { type: 'open', params: { part: 'footer' } },
                 { type: 'close', params: { part: 'shadow' } },
                 { type: 'close', params: { part: 'balloon' } },
                 { type: 'close', params: { part: 'detail' } },
               ],
+              exit: 'endCancel',
               on: {
                 DONE: [
                   { guard: not('isHeaderVisible') },
@@ -211,15 +212,13 @@ export const uiMachine = setup({
                   { guard: 'isShadowVisible' },
                   { guard: 'isBalloonVisible' },
                   { guard: 'isDetailVisible' },
-                  {
-                    actions: [emit({ type: 'CLOSE.DONE' }), 'endCancel'],
-                    target: 'Closed',
-                  },
+                  { target: 'Closed' },
                 ],
               },
             },
             Closed: {
-              entry: assign({ detail: () => null }),
+              entry: emit({ type: 'CLOSE.DONE' }),
+              exit: assign({ detail: () => null }),
               type: 'final',
             },
           },
