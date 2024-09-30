@@ -40,7 +40,7 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
         <Debug
           _container={containerRef.current}
           _ui={ui}
-          _pointer={pointer}
+          _pointerRef={pointerRef}
           _search={search.getSnapshot()}
         />
       )}

@@ -190,9 +190,33 @@ export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
     },
   })
 
+  ////
+  //// event handlers
+  ////
+
   usePointerKey(pointerSend)
 
   usePointerEvent(containerRef, pointerSend)
+
+  const mode = useSelector(pointerRef, selectMode)
+
+  useEffect(() => {
+    const e = containerRef.current
+    if (e === null) {
+      return
+    }
+    pointereventmask = mode !== 'pointing'
+    toucheventmask = mode !== 'pointing'
+    wheeleventmask = mode !== 'pointing'
+    // - xstate-pointer receives 'click' to cancel 'panning'
+    // - xstate-pointer ignores 'click' to pass throughh (emulated)
+    //  'click' to shadow; shadow receives 'click' to cancel 'locked'
+    clickeventmask = mode === 'locked'
+  }, [containerRef, mode])
+
+  ////
+  //// ui callbacks
+  ////
 
   const pointerSearchLock = useCallback(
     (p: Vec, psvg: Vec) => pointerSend({ type: 'SEARCH.LOCK', p, psvg }),
@@ -221,6 +245,10 @@ export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
     }
   }, [pointerRef])
 
+  ////
+  //// actions
+  ////
+
   useEffect(() => {
     const style = getComputedStyle(document.body)
 
@@ -239,22 +267,6 @@ export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
       pointerSend({ type: 'RENDERED' })
     }
   }, [pointer, pointerSend])
-
-  const mode = useSelector(pointerRef, selectMode)
-
-  useEffect(() => {
-    const e = containerRef.current
-    if (e === null) {
-      return
-    }
-    pointereventmask = mode !== 'pointing'
-    toucheventmask = mode !== 'pointing'
-    wheeleventmask = mode !== 'pointing'
-    // - xstate-pointer receives 'click' to cancel 'panning'
-    // - xstate-pointer ignores 'click' to pass throughh (emulated)
-    //  'click' to shadow; shadow receives 'click' to cancel 'locked'
-    clickeventmask = mode === 'locked'
-  }, [containerRef, mode])
 
   return {
     pointer,

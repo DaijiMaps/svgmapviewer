@@ -1,13 +1,13 @@
 import './Debug.css'
 import { showBox, showNumber, showPoint } from './lib/show'
-import { PointerState } from './lib/xstate-pointer'
+import { PointerRef } from './lib/xstate-pointer'
 import { SearchState } from './lib/xstate-search'
 import { UiState } from './lib/xstate-ui'
 
 interface DebugProps {
   _container: null | HTMLDivElement
   _ui: UiState
-  _pointer: PointerState
+  _pointerRef: PointerRef
   _search: SearchState
 }
 
@@ -15,9 +15,10 @@ export const Debug = (props: Readonly<DebugProps>) => {
   const {
     _container: container,
     _ui: ui,
-    _pointer: pointer,
+    _pointerRef: pointerRef,
     _search: search,
   } = props
+  const pointer = pointerRef.getSnapshot()
   const {
     context: { layout },
   } = pointer
