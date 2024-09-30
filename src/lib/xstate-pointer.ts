@@ -3,6 +3,7 @@ import {
   ActorRefFrom,
   and,
   assign,
+  emit,
   enqueueActions,
   not,
   raise,
@@ -39,8 +40,6 @@ import {
   resetTouches,
   Touches,
 } from './touch'
-import { SearchCb, UiOpenDoneCb } from './types'
-import { isDefined } from './utils'
 import { VecVec as Vec, vecMul, vecSub, vecVec } from './vec/prefixed'
 import { scrollMachine } from './xstate-scroll'
 
@@ -50,15 +49,11 @@ const DIST_LIMIT = 10
 export type PointerInput = {
   containerRef: RefObject<HTMLDivElement>
   layout: Layout
-  searchCb?: SearchCb
-  lockCb?: UiOpenDoneCb
 }
 
 export type PointerContext = {
   containerRef: RefObject<HTMLDivElement>
   layout: Layout
-  searchCb?: SearchCb
-  lockCb?: UiOpenDoneCb
   focus: Vec
   expand: number
   m: null | Vec
@@ -113,9 +108,10 @@ type PointerEventMoveZoomPan =
   | { type: 'PAN' }
   | { type: 'PAN.DONE' }
 type PointerEventSearch =
+  | { type: 'SEARCH'; p: Vec; psvg: Vec }
   | { type: 'SEARCH.LOCK'; p: Vec; psvg: Vec }
   | { type: 'SEARCH.UNLOCK' }
-type PointerEventLock = { type: 'LOCK' } | { type: 'UNLOCK' }
+type PointerEventLock = { type: 'LOCK'; ok: boolean } | { type: 'UNLOCK' }
 
 type PointerInternalEvent =
   | PointerEventAnimation
@@ -171,6 +167,10 @@ export type _PointerEvent =
   | PointerInternalEvent
   | PointerPointerEvent
 
+export type PointerEmitted =
+  | { type: 'SEARCH'; p: Vec; psvg: Vec }
+  | { type: 'LOCK'; ok: boolean }
+
 //// pointerMachine
 
 export const pointerMachine = setup({
@@ -178,6 +178,7 @@ export const pointerMachine = setup({
     input: PointerInput
     context: PointerContext
     events: _PointerEvent
+    emitted: PointerEmitted
   },
   guards: {
     shouldDebug: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'd',
@@ -395,24 +396,6 @@ export const pointerMachine = setup({
       focus: ({ context: { touches, focus } }) =>
         touches.focus !== null ? touches.focus : focus,
     }),
-    search: ({ context: { layout, searchCb, focus } }) => {
-      if (isDefined(searchCb)) {
-        const svg = toSvg(layout, focus)
-        searchCb(focus, svg)
-      }
-    },
-    searchLock: enqueueActions(
-      ({ enqueue, context: { mode, lockCb } }, { ok }: { ok: boolean }) => {
-        if (lockCb !== undefined) {
-          enqueue(() => lockCb(ok))
-          if (mode === 'pointing' && ok) {
-            enqueue.assign({
-              mode: 'locked',
-            })
-          }
-        }
-      }
-    ),
     resetMode: enqueueActions(({ enqueue }) => {
       // XXX check?
       enqueue.assign({
@@ -438,11 +421,9 @@ export const pointerMachine = setup({
 }).createMachine({
   type: 'parallel',
   id: 'pointer',
-  context: ({ input: { containerRef, layout, searchCb, lockCb } }) => ({
+  context: ({ input: { containerRef, layout } }) => ({
     containerRef,
     layout,
-    searchCb,
-    lockCb,
     focus: boxCenter(layout.container),
     expand: 1,
     m: null,
@@ -471,19 +452,15 @@ export const pointerMachine = setup({
           {
             guard: 'idle',
             actions: [
-              {
-                type: 'searchLock',
-                params: { ok: true },
-              },
+              emit({ type: 'LOCK', ok: true }),
+              assign({
+                mode: ({ context: { mode } }) =>
+                  mode === 'pointing' ? 'locked' : mode,
+              }),
             ],
           },
           {
-            actions: [
-              {
-                type: 'searchLock',
-                params: { ok: false },
-              },
-            ],
+            actions: emit({ type: 'LOCK', ok: false }),
           },
         ],
       },
@@ -580,9 +557,11 @@ export const pointerMachine = setup({
                   type: 'focus',
                   params: ({ event }) => ({ ev: event.ev }),
                 },
-                {
-                  type: 'search',
-                },
+                emit(({ context: { layout, focus } }) => ({
+                  type: 'SEARCH',
+                  p: focus,
+                  psvg: toSvg(layout, focus),
+                })),
               ],
               target: 'Idle',
             },

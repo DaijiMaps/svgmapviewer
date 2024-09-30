@@ -1,6 +1,7 @@
 import {
   ActorRefFrom,
   assign,
+  emit,
   enqueueActions,
   not,
   raise,
@@ -17,19 +18,14 @@ import {
   openCloseOpened,
   openCloseReset,
 } from './open-close'
-import { Dir, SearchRes, UiCloseCb } from './types'
+import { Dir, SearchRes } from './types'
 
 export type UiPart = 'header' | 'footer' | 'shadow' | 'balloon' | 'detail'
-
-export interface UiInput {
-  closeDoneCbs: UiCloseCb[]
-}
 
 export type UiDetailContent = SearchRes & { dir: Dir }
 
 export interface UiContext {
   canceling: boolean
-  closeDoneCbs: UiCloseCb[]
   detail: null | UiDetailContent
   openCloseMap: Map<UiPart, OpenClose>
 }
@@ -52,6 +48,8 @@ export type UiPartEvent =
 export type UiInternalEvent = { type: 'DONE' }
 
 export type UiEvent = UiModeEvent | UiPartEvent | UiInternalEvent
+
+export type UiEmitted = { type: 'CLOSE.DONE' }
 
 function doOpenCloseMap(op: OpenCloseOp) {
   return function (context: UiContext, part: UiPart) {
@@ -85,9 +83,9 @@ function isVisible(context: UiContext, part: UiPart): boolean {
 
 export const uiMachine = setup({
   types: {} as {
-    input: UiInput
     context: UiContext
     events: UiEvent
+    emitted: UiEmitted
   },
   guards: {
     isHeaderVisible: ({ context }) => isVisible(context, 'header'),
@@ -102,8 +100,7 @@ export const uiMachine = setup({
         canceling: () => true,
       })
     }),
-    endCancel: enqueueActions(({ enqueue, context: { closeDoneCbs } }) => {
-      enqueue(() => closeDoneCbs.forEach((cb) => cb()))
+    endCancel: enqueueActions(({ enqueue }) => {
       enqueue.assign({
         canceling: () => false,
       })
@@ -220,7 +217,7 @@ export const uiMachine = setup({
                   { guard: 'isBalloonVisible' },
                   { guard: 'isDetailVisible' },
                   {
-                    actions: 'endCancel',
+                    actions: [emit({ type: 'CLOSE.DONE' }), 'endCancel'],
                     target: 'Closed',
                   },
                 ],

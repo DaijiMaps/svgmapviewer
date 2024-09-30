@@ -14,11 +14,7 @@ export const selectShadow = (ui: UiState) =>
   ui.context.openCloseMap.get('shadow')
 
 export function useUi(pointerRef: PointerRef) {
-  const [ui, uiSend, uiRef] = useMachine(uiMachine, {
-    input: {
-      closeDoneCbs: svgMapViewerConfig.uiCloseDoneCbs,
-    },
-  })
+  const [ui, uiSend, uiRef] = useMachine(uiMachine)
 
   const layout = useSelector(pointerRef, selectLayout)
 
@@ -47,6 +43,15 @@ export function useUi(pointerRef: PointerRef) {
     svgMapViewerConfig.uiOpenDoneCbs.push(uiOpen)
     svgMapViewerConfig.uiCloseCbs.push(uiCancel)
   }, [uiCancel, uiDetail, uiOpen])
+
+  useEffect(() => {
+    const closeDone = uiRef.on('CLOSE.DONE', () =>
+      svgMapViewerConfig.uiCloseDoneCbs.forEach((cb) => cb())
+    )
+    return () => {
+      closeDone.unsubscribe()
+    }
+  }, [uiRef])
 
   return { ui, uiSend, uiRef }
 }

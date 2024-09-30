@@ -54,10 +54,6 @@ export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
       layout: makeLayout(
         configLayout(config.fontSize, config.origViewBox, body)
       ),
-      searchCb: (p: Vec, psvg: Vec) =>
-        svgMapViewerConfig.searchStartCbs.forEach((cb) => cb(p, psvg)),
-      lockCb: (ok: boolean) =>
-        svgMapViewerConfig.uiOpenDoneCbs.forEach((cb) => cb(ok)),
     },
   })
 
@@ -74,6 +70,19 @@ export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
     svgMapViewerConfig.uiOpenCbs.push(pointerSearchLock)
     svgMapViewerConfig.uiCloseDoneCbs.push(pointerSearchUnlock)
   }, [pointerSearchLock, pointerSearchUnlock])
+
+  useEffect(() => {
+    const search = pointerRef.on('SEARCH', ({ p, psvg }) =>
+      svgMapViewerConfig.searchStartCbs.forEach((cb) => cb(p, psvg))
+    )
+    const lock = pointerRef.on('LOCK', ({ ok }) =>
+      svgMapViewerConfig.uiOpenDoneCbs.forEach((cb) => cb(ok))
+    )
+    return () => {
+      search.unsubscribe()
+      lock.unsubscribe()
+    }
+  }, [pointerRef])
 
   useEffect(() => {
     const style = getComputedStyle(document.body)

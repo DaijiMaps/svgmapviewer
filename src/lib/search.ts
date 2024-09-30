@@ -7,15 +7,15 @@ import { SearchRes } from './types'
 import { Vec } from './vec'
 import { SearchEvent, searchMachine } from './xstate-search'
 
-export const search = createActor(searchMachine, {
-  input: {
-    startCb: (p, psvg) =>
-      svgMapViewerConfig.searchCbs.forEach((cb) => cb(p, psvg)),
-    endCb: (p, psvg, info) => {
-      svgMapViewerConfig.searchEndCbs.forEach((cb) => cb({ p, psvg, info }))
-      svgMapViewerConfig.uiOpenCbs.forEach((cb) => cb(p, psvg, info))
-    },
-  },
+export const search = createActor(searchMachine)
+
+search.on('START', ({ p, psvg }) => {
+  svgMapViewerConfig.searchCbs.forEach((cb) => cb(p, psvg))
+})
+
+search.on('END', ({ p, psvg, info }) => {
+  svgMapViewerConfig.searchEndCbs.forEach((cb) => cb({ p, psvg, info }))
+  svgMapViewerConfig.uiOpenCbs.forEach((cb) => cb(p, psvg, info))
 })
 
 export function searchSearchStart(p: Vec, psvg: Vec) {

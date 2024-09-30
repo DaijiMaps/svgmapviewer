@@ -1,48 +1,36 @@
-import { ActorRefFrom, setup, StateFrom } from 'xstate'
-import { Info, SearchCb, SearchReq, SearchRes, UiOpenCb } from './types'
+import { ActorRefFrom, emit, setup, StateFrom } from 'xstate'
+import { Info } from './types'
 import { Vec } from './vec'
-
-export interface SearchInput {
-  startCb: SearchCb
-  endCb: UiOpenCb
-}
-
-export interface SearchContext {
-  startCb: SearchCb
-  endCb: UiOpenCb
-}
 
 export type SearchEvent =
   | { type: 'SEARCH'; p: Vec; psvg: Vec }
   | { type: 'SEARCH.DONE'; p: Vec; psvg: Vec; info: Info }
   | { type: 'SEARCH.CANCEL' }
 
+export type SearchEmitted =
+  | { type: 'START'; p: Vec; psvg: Vec }
+  | { type: 'END'; p: Vec; psvg: Vec; info: Info }
+
 export const searchMachine = setup({
   types: {} as {
-    input: SearchInput
-    context: SearchContext
+    context: object
     events: SearchEvent
+    emitted: SearchEmitted
   },
-  actions: {
-    start: ({ context }, { req }: { req: SearchReq }) =>
-      context.startCb(req.p, req.psvg),
-    end: ({ context }, { res: { p, psvg, info } }: { res: SearchRes }) =>
-      context.endCb(p, psvg, info),
-  },
+  actions: {},
 }).createMachine({
   id: 'search',
-  context: ({ input }) => input,
+  context: {},
   initial: 'Idle',
   states: {
     Idle: {
       on: {
         SEARCH: {
-          actions: {
-            type: 'start',
-            params: ({ event: { p, psvg } }) => ({
-              req: { p, psvg },
-            }),
-          },
+          actions: emit(({ event: { p, psvg } }) => ({
+            type: 'START',
+            p,
+            psvg,
+          })),
           target: 'Searching',
         },
       },
@@ -50,12 +38,12 @@ export const searchMachine = setup({
     Searching: {
       on: {
         'SEARCH.DONE': {
-          actions: {
-            type: 'end',
-            params: ({ event: { p, psvg, info } }) => ({
-              res: { p, psvg, info },
-            }),
-          },
+          actions: emit(({ event: { p, psvg, info } }) => ({
+            type: 'END',
+            p,
+            psvg,
+            info,
+          })),
           target: 'Done',
         },
         'SEARCH.CANCEL': {
