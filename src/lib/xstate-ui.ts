@@ -27,7 +27,7 @@ export type UiDetailContent = SearchRes & { dir: Dir }
 export interface UiContext {
   canceling: boolean
   detail: null | UiDetailContent
-  openCloseMap: Map<UiPart, OpenClose>
+  openCloseMap: Record<UiPart, OpenClose>
 }
 
 export type UiModeEvent =
@@ -54,31 +54,24 @@ export type UiEmitted = { type: 'CLOSE.DONE' }
 function doOpenCloseMap(op: OpenCloseOp) {
   return function (context: UiContext, part: UiPart) {
     const m = context.openCloseMap
-    const a = m.get(part)
-    if (a === undefined) {
-      return m
-    } else {
-      const b = op(a)
-      return b === null ? m : m.set(part, b)
-    }
+    const a = m[part]
+    const b = op(a)
+    m[part] = b === null ? a : b
+    return m
   }
 }
 
 function handleOpenCloseMap(context: UiContext, part: UiPart) {
   const m = context.openCloseMap
-  const oc = m.get(part)
-  if (oc === undefined) {
-    return m
-  } else {
-    const op = oc.open ? openCloseOpened : openCloseClosed
-    return doOpenCloseMap(op)(context, part)
-  }
+  const oc = m[part]
+  const op = oc.open ? openCloseOpened : openCloseClosed
+  return doOpenCloseMap(op)(context, part)
 }
 
 function isVisible(context: UiContext, part: UiPart): boolean {
   const m = context.openCloseMap
-  const oc = m.get(part)
-  return oc !== undefined && openCloseIsVisible(oc)
+  const oc = m[part]
+  return openCloseIsVisible(oc)
 }
 
 export const uiMachine = setup({
@@ -113,12 +106,13 @@ export const uiMachine = setup({
     ...input,
     canceling: false,
     detail: null,
-    openCloseMap: new Map()
-      .set('header', openCloseReset(true))
-      .set('footer', openCloseReset(true))
-      .set('shadow', openCloseReset(false))
-      .set('balloon', openCloseReset(false))
-      .set('detail', openCloseReset(false)),
+    openCloseMap: {
+      header: openCloseReset(true),
+      footer: openCloseReset(true),
+      shadow: openCloseReset(false),
+      balloon: openCloseReset(false),
+      detail: openCloseReset(false),
+    },
   }),
   states: {
     Ui: {

@@ -17,7 +17,7 @@ export function Shadow(props: Readonly<ShadowProps>) {
 
   const shadow = useSelector(uiRef, selectShadow)
 
-  return shadow === undefined || !openCloseIsVisible(shadow) ? (
+  return !openCloseIsVisible(shadow) ? (
     <></>
   ) : (
     <div
@@ -35,7 +35,7 @@ export function ShadowStyle(props: Readonly<ShadowProps>) {
 
   const shadow = useSelector(uiRef, selectShadow)
 
-  if (shadow === undefined || !shadow.animating) {
+  if (!shadow.animating) {
     return (
       <style>
         {`
