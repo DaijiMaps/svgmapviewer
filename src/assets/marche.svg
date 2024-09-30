@@ -33,7 +33,7 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
-     inkscape:current-layer="g279">
+     inkscape:current-layer="layer1">
     <inkscape:grid
        id="grid1"
        units="px"
@@ -322,7 +322,7 @@
          sodipodi:nodetypes="cccccccccccccc" />
       <path
          style="opacity:1;fill:#ffeeaa;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
-         d="m 560.00001,749.99996 h 30 l 10,60 -10,20 -60,30 -30,10 -10,-30 10,-30 10,-10 v -20 l 10,-10 z"
+         d="m 560.00001,749.99996 h 30 l 10,60 -10,20 -60,30 -30,5 -10,-25 10,-30 10,-10 v -20 l 10,-10 z"
          id="path317"
          sodipodi:nodetypes="cccccccccccc" />
     </g>
@@ -404,9 +404,36 @@
          d="m 480.00001,259.99999 -60,-60 -20,-40 -20,-60 20,-40 60,-39.99999 40,-20.000004 h 60"
          id="path8" />
       <path
-         style="opacity:1;fill:none;fill-opacity:0.5;stroke:#ffffff;stroke-width:2.5;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         style="opacity:1;fill:none;fill-opacity:0.5;stroke:#ffffff;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
          d="m 530.00001,179.99999 -10,-20 v -30 l 10,-20 20,-20 10,-20 20,-30"
          id="path318" />
+      <path
+         style="opacity:1;fill:none;fill-opacity:0.5;stroke:#ffffff;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         d="m 470.00001,910 h -20 l -30,10 -15,-5 -10,-15.00004 5,-25 15,-10 15,-5 15,-15 -5,-15 5,-10 20,-10"
+         id="path321"
+         sodipodi:nodetypes="cccccccccccc" />
+      <path
+         style="opacity:1;fill:none;fill-opacity:0.5;stroke:#ffffff;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         d="m 240.00001,549.99997 -30,-10 -5,-30 -5,-14.99999 v -25 l 10,-20 10,-10 5,-20 15,-15 20,-5"
+         id="path322"
+         sodipodi:nodetypes="cccccccccc" />
+      <path
+         style="opacity:1;fill:none;fill-opacity:0.5;stroke:#ffffff;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         d="m 300.00001,379.99998 -20,-5 -5,-10 -15,-5"
+         id="path323" />
+      <path
+         style="opacity:1;fill:none;fill-opacity:0.5;stroke:#ffffff;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         d="m 480.00001,259.99999 15,14.99999 20,10"
+         id="path324" />
+      <path
+         style="opacity:1;fill:none;fill-opacity:0.5;stroke:#ffffff;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         d="m 570.00001,159.99999 10,15 v 15 l -10,15 -15,20 -10,20 -20,15 -5,14.99999 -5,10 -20,20 -15,20 -35,30 -15,25 -15,10 -20,5 -15,5"
+         id="path325" />
+      <path
+         style="opacity:1;fill:none;fill-opacity:0.5;stroke:#ffffff;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         d="m 585.00001,719.99997 5,15 5,14.99999 2,25 3,20 5,25 -10,20 -30,10 -25,10 -20,10 h -30 l -10,-10"
+         id="path326"
+         sodipodi:nodetypes="cccccccccccc" />
     </g>
     <g
        id="g13"
@@ -2625,6 +2652,264 @@
            xlink:href="#use224"
            id="use227"
            transform="translate(17.054695,16.999999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-9"
+           transform="translate(147.05471,613.99997)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-8"
+           transform="translate(149.05471,609.99997)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-3"
+           transform="translate(151.05471,604.99998)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-6"
+           transform="translate(154.05471,599.99998)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-7"
+           transform="translate(141.05471,521.99998)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-65"
+           transform="translate(143.05471,525.99998)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-0"
+           transform="translate(145.05471,529.99998)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-4"
+           transform="translate(61.054699,568.99998)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-1"
+           transform="translate(61.054699,562.99998)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-87"
+           transform="translate(64.054699,556.99998)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-5"
+           transform="translate(50.054699,642.99997)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-90"
+           transform="translate(46.054699,639.99997)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-19"
+           transform="translate(44.054699,633.99997)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-99"
+           transform="translate(-24.945303,638.99997)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-62"
+           transform="translate(-18.945302,634.99997)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-47"
+           transform="translate(-14.945302,632.99997)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-58"
+           transform="translate(-41.945303,701.99997)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-582"
+           transform="translate(-45.945303,699.99997)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-72"
+           transform="translate(-48.945303,695.99997)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-2"
+           transform="translate(125.05471,393.99998)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-475"
+           transform="translate(128.05471,399.99998)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-70"
+           transform="translate(129.05471,403.99998)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-68"
+           transform="translate(19.054698,314.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-79"
+           transform="translate(23.054698,316.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-18"
+           transform="translate(27.054698,319.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-37"
+           transform="translate(-44.945303,241.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-29"
+           transform="translate(-43.945303,245.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-870"
+           transform="translate(-42.945303,250.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-581"
+           transform="translate(-44.945303,179.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-477"
+           transform="translate(-40.945303,178.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-30"
+           transform="translate(-35.945303,177.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-59"
+           transform="translate(43.054699,87.999996)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-05"
+           transform="translate(45.054699,83.999996)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-75"
+           transform="translate(49.054699,79.999996)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-872"
+           transform="translate(103.0547,7.999999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-194"
+           transform="translate(102.0547,11.999999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-81"
+           transform="translate(100.0547,13.999999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-81-4"
+           transform="translate(-250.94531,245.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-81-0"
+           transform="translate(-248.94531,240.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-81-7"
+           transform="translate(-247.94531,238.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-81-9"
+           transform="translate(-238.94531,324.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-81-3"
+           transform="translate(-239.94531,320.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use224"
+           id="use227-81-94"
+           transform="translate(-241.94531,315.99999)" />
       </g>
       <g
          id="g82"
@@ -2794,14 +3079,14 @@
         <path
            id="path121"
            style="opacity:1;fill:none;fill-opacity:0.5;stroke:#000000;stroke-width:0.140625;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
-           d="m 266.12501,385.56248 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25"
+           d="m 266.00001,389.15623 h 2.25 m -2.25,-0.5625 h -2.25 m 2.25,3.375 v -3.9375 h 2.25"
            sodipodi:nodetypes="ccccccc" />
         <use
            x="0"
            y="0"
            xlink:href="#path121"
            id="use121"
-           transform="translate(93.875002,-6.4062498)" />
+           transform="translate(94.000005,-9.9999994)" />
         <use
            x="0"
            y="0"
@@ -2831,25 +3116,97 @@
            y="0"
            xlink:href="#use121"
            id="use124"
-           transform="translate(210,326.49999)" />
+           transform="translate(215,332.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use121"
+           id="use124-7"
+           transform="translate(230,343.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use121"
+           id="use124-1"
+           transform="translate(124,477.99998)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use121"
+           id="use124-0"
+           transform="translate(106,525.99998)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use121"
+           id="use124-74"
+           transform="translate(101,427.99998)" />
         <use
            x="0"
            y="0"
            xlink:href="#use124"
            id="use125"
-           transform="translate(-111,30.999995)" />
+           transform="translate(-125,15.031245)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use121"
+           id="use124-6"
+           transform="translate(-126.00001,162.99999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use121"
+           id="use124-8"
+           transform="translate(-106.00001,24)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use121"
+           id="use124-9"
+           transform="translate(-96.00001,-17)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#use121"
+           id="use124-08"
+           transform="translate(-63,-4)" />
         <use
            x="0"
            y="0"
            xlink:href="#path121"
            id="use126"
-           transform="translate(-41.125001,-82.906247)" />
+           transform="translate(-42.000004,-85.999997)" />
         <use
            x="0"
            y="0"
            xlink:href="#path121"
            id="use126-8"
-           transform="translate(-201.125,-92.906242)" />
+           transform="translate(-201,-96.499992)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#path121"
+           id="use126-8-2"
+           transform="translate(306.00001,-222.49999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#path121"
+           id="use126-8-7"
+           transform="translate(251.00001,-103.49999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#path121"
+           id="use126-8-4"
+           transform="translate(219.00001,-128.49999)" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#path121"
+           id="use126-8-1"
+           transform="translate(115,5.9999998)" />
       </g>
     </g>
     <g
