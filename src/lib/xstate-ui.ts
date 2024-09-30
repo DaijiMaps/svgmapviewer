@@ -22,12 +22,14 @@ import { Dir, SearchRes } from './types'
 
 export type UiPart = 'header' | 'footer' | 'shadow' | 'balloon' | 'detail'
 
+type OpenCloseMap = Record<UiPart, OpenClose>
+
 export type UiDetailContent = SearchRes & { dir: Dir }
 
 export interface UiContext {
   canceling: boolean
   detail: null | UiDetailContent
-  openCloseMap: Record<UiPart, OpenClose>
+  m: OpenCloseMap
 }
 
 export type UiModeEvent =
@@ -52,8 +54,7 @@ export type UiEvent = UiModeEvent | UiPartEvent | UiInternalEvent
 export type UiEmitted = { type: 'CLOSE.DONE' }
 
 function doOpenCloseMap(op: OpenCloseOp) {
-  return function (context: UiContext, part: UiPart) {
-    const m = context.openCloseMap
+  return function (m: OpenCloseMap, part: UiPart) {
     const a = m[part]
     const b = op(a)
     m[part] = b === null ? a : b
@@ -61,15 +62,13 @@ function doOpenCloseMap(op: OpenCloseOp) {
   }
 }
 
-function handleOpenCloseMap(context: UiContext, part: UiPart) {
-  const m = context.openCloseMap
+function handleOpenCloseMap(m: OpenCloseMap, part: UiPart) {
   const oc = m[part]
   const op = oc.open ? openCloseOpened : openCloseClosed
-  return doOpenCloseMap(op)(context, part)
+  return doOpenCloseMap(op)(m, part)
 }
 
-function isVisible(context: UiContext, part: UiPart): boolean {
-  const m = context.openCloseMap
+function isVisible(m: OpenCloseMap, part: UiPart): boolean {
   const oc = m[part]
   return openCloseIsVisible(oc)
 }
@@ -81,11 +80,11 @@ export const uiMachine = setup({
     emitted: UiEmitted
   },
   guards: {
-    isHeaderVisible: ({ context }) => isVisible(context, 'header'),
-    isFooterVisible: ({ context }) => isVisible(context, 'footer'),
-    isShadowVisible: ({ context }) => isVisible(context, 'shadow'),
-    isBalloonVisible: ({ context }) => isVisible(context, 'balloon'),
-    isDetailVisible: ({ context }) => isVisible(context, 'detail'),
+    isHeaderVisible: ({ context: { m } }) => isVisible(m, 'header'),
+    isFooterVisible: ({ context: { m } }) => isVisible(m, 'footer'),
+    isShadowVisible: ({ context: { m } }) => isVisible(m, 'shadow'),
+    isBalloonVisible: ({ context: { m } }) => isVisible(m, 'balloon'),
+    isDetailVisible: ({ context: { m } }) => isVisible(m, 'detail'),
   },
   actions: {
     startCancel: enqueueActions(({ enqueue }) => {
@@ -98,6 +97,18 @@ export const uiMachine = setup({
         canceling: () => false,
       })
     }),
+    open: assign({
+      m: ({ context: { m } }, { part }: { part: UiPart }) =>
+        doOpenCloseMap(openCloseOpen)(m, part),
+    }),
+    close: assign({
+      m: ({ context: { m } }, { part }: { part: UiPart }) =>
+        doOpenCloseMap(openCloseClose)(m, part),
+    }),
+    handle: assign({
+      m: ({ context: { m } }, { part }: { part: UiPart }) =>
+        handleOpenCloseMap(m, part),
+    }),
   },
 }).createMachine({
   type: 'parallel',
@@ -106,7 +117,7 @@ export const uiMachine = setup({
     ...input,
     canceling: false,
     detail: null,
-    openCloseMap: {
+    m: {
       header: openCloseReset(true),
       footer: openCloseReset(true),
       shadow: openCloseReset(false),
@@ -160,18 +171,9 @@ export const uiMachine = setup({
             },
             Opening: {
               entry: [
-                assign({
-                  openCloseMap: ({ context }) =>
-                    doOpenCloseMap(openCloseOpen)(context, 'shadow'),
-                }),
-                assign({
-                  openCloseMap: ({ context }) =>
-                    doOpenCloseMap(openCloseOpen)(context, 'balloon'),
-                }),
-                assign({
-                  openCloseMap: ({ context }) =>
-                    doOpenCloseMap(openCloseOpen)(context, 'detail'),
-                }),
+                { type: 'open', params: { part: 'shadow' } },
+                { type: 'open', params: { part: 'balloon' } },
+                { type: 'open', params: { part: 'detail' } },
               ],
               on: {
                 DONE: [
@@ -192,18 +194,9 @@ export const uiMachine = setup({
             },
             Closing: {
               entry: [
-                assign({
-                  openCloseMap: ({ context }) =>
-                    doOpenCloseMap(openCloseClose)(context, 'shadow'),
-                }),
-                assign({
-                  openCloseMap: ({ context }) =>
-                    doOpenCloseMap(openCloseClose)(context, 'balloon'),
-                }),
-                assign({
-                  openCloseMap: ({ context }) =>
-                    doOpenCloseMap(openCloseClose)(context, 'detail'),
-                }),
+                { type: 'close', params: { part: 'shadow' } },
+                { type: 'close', params: { part: 'balloon' } },
+                { type: 'close', params: { part: 'detail' } },
               ],
               on: {
                 DONE: [
@@ -232,28 +225,19 @@ export const uiMachine = setup({
         // XXX FOOTER.ANIMATION.END
         'SHADOW.ANIMATION.END': {
           actions: [
-            assign({
-              openCloseMap: ({ context }) =>
-                handleOpenCloseMap(context, 'shadow'),
-            }),
+            { type: 'handle', params: { part: 'shadow' } },
             raise({ type: 'DONE' }),
           ],
         },
         'BALLOON.ANIMATION.END': {
           actions: [
-            assign({
-              openCloseMap: ({ context }) =>
-                handleOpenCloseMap(context, 'balloon'),
-            }),
+            { type: 'handle', params: { part: 'balloon' } },
             raise({ type: 'DONE' }),
           ],
         },
         'DETAIL.ANIMATION.END': {
           actions: [
-            assign({
-              openCloseMap: ({ context }) =>
-                handleOpenCloseMap(context, 'detail'),
-            }),
+            { type: 'handle', params: { part: 'detail' } },
             raise({ type: 'DONE' }),
           ],
         },
