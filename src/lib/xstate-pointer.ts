@@ -70,6 +70,7 @@ type PointerExternalEvent =
   | { type: 'LAYOUT'; config: LayoutConfig }
   | { type: 'LAYOUT.RESET' }
   | { type: 'DEBUG' }
+  | { type: 'MODE'; mode: PointerMode }
   | { type: 'RENDERED' }
   | { type: 'ANIMATION.END' }
   | { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
@@ -452,6 +453,11 @@ export const pointerMachine = setup({
               actions: 'zoomHome',
               target: 'Homing',
             },
+            MODE: [
+              {
+                target: 'Touching.Panning',
+              },
+            ],
             DEBUG: {
               actions: 'toggleDebug',
             },
@@ -1208,6 +1214,9 @@ export const pointerMachine = setup({
               actions: ['resetMode', 'getScroll'],
             },
             CONTEXTMENU: {
+              actions: ['resetMode', 'getScroll'],
+            },
+            MODE: {
               actions: ['resetMode', 'getScroll'],
             },
             'SCROLL.GET.DONE': {
