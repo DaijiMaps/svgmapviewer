@@ -1,6 +1,6 @@
 import { useSelector } from '@xstate/react'
 import { useContext } from 'react'
-import { openCloseIsVisible } from './lib/open-close'
+import { openCloseIsVisible } from './lib/openclose'
 import { selectOpenCloseShadow } from './lib/ui-react'
 import { UiRef } from './lib/ui-xstate'
 import './Shadow.css'

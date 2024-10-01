@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { ReactNode } from 'react'
 import './Balloon.css'
-import { OpenClose, openCloseIsVisible } from './lib/open-close'
+import { OpenClose, openCloseIsVisible } from './lib/openclose'
 import { selectLayout } from './lib/pointer-react'
 import { PointerRef } from './lib/pointer-xstate'
 import { Dir } from './lib/types'

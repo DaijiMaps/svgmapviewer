@@ -16,7 +16,7 @@ import {
   openCloseOpen,
   openCloseOpened,
   openCloseReset,
-} from './open-close'
+} from './openclose'
 import { Dir, SearchRes } from './types'
 
 export type UiPart = 'header' | 'footer' | 'shadow' | 'balloon' | 'detail'

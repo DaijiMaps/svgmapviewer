@@ -3,15 +3,15 @@ import { RefObject, useCallback, useContext, useEffect } from 'react'
 import { SvgMapViewerConfigContext } from '../svgmapviewer'
 import { svgMapViewerConfig } from './config'
 import { configLayout } from './layout'
-import { useWindowResize } from './resize-react'
-import { Vec } from './vec'
 import {
   pointerMachine,
   PointerRef,
   PointerSend,
   PointerState,
   ReactPointerEvent,
-} from './xstate-pointer'
+} from './pointer-xstate'
+import { useWindowResize } from './resize-react'
+import { Vec } from './vec'
 
 let pointereventmask: boolean = false
 let toucheventmask: boolean = false
