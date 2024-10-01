@@ -1,8 +1,8 @@
 import { useSelector } from '@xstate/react'
 import { PropsWithChildren } from 'react'
 import { boxToViewBox } from './lib/box/prefixed'
-import { selectLayout } from './lib/react-pointer'
-import { PointerRef } from './lib/xstate-pointer'
+import { selectLayout } from './lib/pointer-react'
+import { PointerRef } from './lib/pointer-xstate'
 import './Svg.css'
 
 interface SvgProps {

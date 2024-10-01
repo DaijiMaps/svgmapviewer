@@ -5,8 +5,7 @@ import { Detail } from './Detail'
 import { Footer, FooterStyle } from './Footer'
 import { Guides } from './Guides'
 import { Header, HeaderStyle } from './Header'
-import { usePointer } from './lib/react-pointer'
-import { useUi } from './lib/react-ui'
+import { usePointer } from './lib/pointer-react'
 import { searchRef } from './lib/search'
 import {
   dragStyle,
@@ -15,6 +14,7 @@ import {
   useMoveStyle,
   useZoomStyle,
 } from './lib/style'
+import { useUi } from './lib/ui-react'
 import { Shadow, ShadowStyle } from './Shadow'
 import { Svg } from './Svg'
 

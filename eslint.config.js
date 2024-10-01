@@ -38,8 +38,8 @@ export default [
     ignores: [
       'src/main.ts',
       '**/*.test.{js,ts}',
-      '**/react-*.{js,ts}',
-      '**/xstate-*.{js,ts}',
+      '**/*-react.{js,ts}',
+      '**/*-xstate.{js,ts}',
     ],
   },
   {

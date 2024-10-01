@@ -2,7 +2,7 @@ import { RefObject } from 'react'
 import { ActorRefFrom, AnyActorRef, sendTo, setup } from 'xstate'
 import { BoxBox as Box } from './box/prefixed'
 import { getScroll, syncScroll } from './scroll'
-import { stepMachine } from './xstate-step'
+import { stepMachine } from './step-xstate'
 
 export type ScrollInput = {
   parent: AnyActorRef

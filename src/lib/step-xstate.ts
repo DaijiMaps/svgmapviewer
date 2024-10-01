@@ -1,9 +1,9 @@
 import { ActorRefFrom, AnyActorRef, assign, sendTo, setup } from 'xstate'
+import { animationFrameLogic } from './animation-frame-xstate'
 import { BoxBox as Box } from './box/prefixed'
 import { svgMapViewerConfig } from './config'
 import { isDefined, isNotNull } from './utils'
 import { vecInterpolate } from './vec/prefixed'
-import { animationFrameLogic } from './xstate-animation-frame'
 
 export type StepInput = {
   parent: AnyActorRef

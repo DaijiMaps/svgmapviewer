@@ -1,6 +1,6 @@
 import { useSelector } from '@xstate/react'
-import { selectFocus, selectMode, selectTouches } from './lib/react-pointer'
-import { PointerRef } from './lib/xstate-pointer'
+import { selectFocus, selectMode, selectTouches } from './lib/pointer-react'
+import { PointerRef } from './lib/pointer-xstate'
 
 const DefaultCursorPath = (
   props: Readonly<{ x: number; y: number; r: number }>

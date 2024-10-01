@@ -2,17 +2,17 @@ import { useSelector } from '@xstate/react'
 import { ReactNode } from 'react'
 import './Balloon.css'
 import { OpenClose, openCloseIsVisible } from './lib/open-close'
-import { selectLayout } from './lib/react-pointer'
+import { selectLayout } from './lib/pointer-react'
+import { PointerRef } from './lib/pointer-xstate'
+import { Dir } from './lib/types'
 import {
   selectDetail,
   selectOpenCloseBalloon,
   selectOpenCloseDetail,
-} from './lib/react-ui'
-import { Dir } from './lib/types'
+} from './lib/ui-react'
+import { UiRef } from './lib/ui-xstate'
 import { Vec } from './lib/vec'
 import { vecVec } from './lib/vec/prefixed'
-import { PointerRef } from './lib/xstate-pointer'
-import { UiRef } from './lib/xstate-ui'
 
 export interface BalloonPathProps {
   fg: boolean

@@ -1,10 +1,10 @@
 import './Debug.css'
 import { fromMatrixSvg, toMatrixSvg } from './lib/coord'
+import { PointerRef } from './lib/pointer-xstate'
+import { SearchRef } from './lib/search-xstate'
 import { showBox, showNumber, showPoint } from './lib/show'
 import { transformPoint } from './lib/transform'
-import { PointerRef } from './lib/xstate-pointer'
-import { SearchRef } from './lib/xstate-search'
-import { UiRef } from './lib/xstate-ui'
+import { UiRef } from './lib/ui-xstate'
 
 interface DebugProps {
   _container: null | HTMLDivElement

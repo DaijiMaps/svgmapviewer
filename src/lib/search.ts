@@ -2,9 +2,9 @@
 /* eslint-disable functional/no-return-void */
 import { createActor } from 'xstate'
 import { svgMapViewerConfig } from './config'
+import { searchMachine } from './search-xstate'
 import { SearchRes } from './types'
 import { Vec } from './vec'
-import { searchMachine } from './xstate-search'
 
 export const searchRef = createActor(searchMachine)
 

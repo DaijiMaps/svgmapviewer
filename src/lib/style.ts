@@ -2,7 +2,7 @@ import { useSelector } from '@xstate/react'
 import { svgMapViewerConfig } from './config'
 import { Matrix } from './matrix'
 import { matrixEmpty, matrixToString } from './matrix/prefixed'
-import { PointerRef, PointerState } from './xstate-pointer'
+import { PointerRef, PointerState } from './pointer-xstate'
 
 export function scrollStyle(pointer: Readonly<PointerState>) {
   const layout = pointer.context.layout

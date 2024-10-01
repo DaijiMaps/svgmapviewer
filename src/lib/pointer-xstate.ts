@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RefObject } from 'react'
 import {
   ActorRefFrom,
@@ -32,6 +31,7 @@ import {
   scrollLayout,
   toSvg,
 } from './layout'
+import { scrollMachine } from './scroll-xstate'
 import {
   discardTouches,
   handleTouchEnd,
@@ -43,7 +43,6 @@ import {
   Touches,
 } from './touch'
 import { VecVec as Vec, vecMul, vecSub, vecVec } from './vec/prefixed'
-import { scrollMachine } from './xstate-scroll'
 
 // XXX
 const DIST_LIMIT = 10

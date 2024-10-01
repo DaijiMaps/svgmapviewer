@@ -1,9 +1,9 @@
 import { useSelector } from '@xstate/react'
 import { useContext } from 'react'
 import './Header.css'
-import { selectOpenCloseHeader } from './lib/react-ui'
-import { PointerRef } from './lib/xstate-pointer'
-import { UiRef } from './lib/xstate-ui'
+import { PointerRef } from './lib/pointer-xstate'
+import { selectOpenCloseHeader } from './lib/ui-react'
+import { UiRef } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './svgmapviewer'
 
 interface HeaderProps {

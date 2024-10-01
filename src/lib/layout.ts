@@ -10,7 +10,7 @@ import {
 } from './box/prefixed'
 import { fromScroll, LayoutCoord, makeCoord, toMatrixSvg } from './coord'
 import { fit } from './fit'
-import { getBodySize } from './react-resize'
+import { getBodySize } from './resize-react'
 import { Move, Scale, transformPoint } from './transform'
 import { VecVec as Vec, vecScale, vecSub } from './vec/prefixed'
 

@@ -3,7 +3,7 @@ import { RefObject, useCallback, useContext, useEffect } from 'react'
 import { SvgMapViewerConfigContext } from '../svgmapviewer'
 import { svgMapViewerConfig } from './config'
 import { configLayout } from './layout'
-import { useWindowResize } from './react-resize'
+import { useWindowResize } from './resize-react'
 import { Vec } from './vec'
 import {
   pointerMachine,
