@@ -45,7 +45,7 @@ export const Footer = (props: Readonly<FooterProps>) => {
           // eslint-disable-next-line functional/no-return-void
           onClick={() => sendModePointing()}
         >
-          <svg viewBox="-5.5 -5.5 11 11">
+          <svg viewBox="-5.25 -5.25 10.5 10.5">
             <path d={pointingPath} />
           </svg>
         </div>
@@ -58,7 +58,7 @@ export const Footer = (props: Readonly<FooterProps>) => {
           // eslint-disable-next-line functional/no-return-void
           onClick={() => sendModePanning()}
         >
-          <svg viewBox="-5.5 -5.5 11 11">
+          <svg viewBox="-5.25 -5.25 10.5 10.5">
             <path d={panningPath} />
           </svg>
         </div>
