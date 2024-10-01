@@ -33,7 +33,7 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
-     inkscape:current-layer="g40">
+     inkscape:current-layer="g3">
     <inkscape:grid
        id="grid1"
        units="px"
@@ -369,13 +369,18 @@
        inkscape:label="woods">
       <path
          style="opacity:0.75;fill:#217821;stroke:none;stroke-width:0.5"
-         d="M -39.999999,459.99998 80.000004,519.99997 120,479.99998 l 20,0 20.00001,119.99999 80,80 -40,60 L 140,779.99996 l 20.00001,100 60,80.00004 -20,40 L 120,980 0,859.99996 -39.999999,739.99997 -80,579.99997 -100,499.99998 Z"
+         d="M -39.999999,459.99998 80.000004,519.99997 120,479.99998 h 20 l 20.00001,119.99999 80,80 -40,60 L 140,779.99996 l 20.00001,100 60,80.00004 -20,40 L 100,1139.9999 -140,1040 l -60,-180.00004 20,-259.99999 80,-99.99999 z"
          id="path2"
          sodipodi:nodetypes="ccccccccccccccccc" />
       <path
          style="fill:#217821;stroke:none;stroke-width:0.5;opacity:0.75"
          d="M 260.00001,79.99999 V -4e-6 l 40,-39.999998 100,-20 100,-19.999999 20,39.999999 -60,39.999998 -100,39.999994 v 60 l 40,100 -40,79.99999 -140,-19.99999 -60,-40 20,-80 z"
          id="path3" />
+      <path
+         style="opacity:0.75;fill:#217821;stroke:none;stroke-width:0.5"
+         d="m 800.00002,59.999993 -80,139.999997 60,99.99999 -85,75 -120.00001,-45 -155,130 v -40 l 30,-55 160,-159.99999 50,-124.999997 80.00001,-59.999998 z"
+         id="path27"
+         sodipodi:nodetypes="cccccccccccc" />
     </g>
     <g
        id="g4"
