@@ -63,7 +63,7 @@ export const toMatrixSvg = ({
     fromTransform(svgScale),
     fromTransform(svgOffset),
     fromTransform(invMove(scroll)),
-  ].reduce((a, b) => matrixMultiply(a, b))
+  ].reduce(matrixMultiply)
 }
 
 export const fromMatrixSvg = ({
@@ -77,7 +77,7 @@ export const fromMatrixSvg = ({
     fromTransform(invMove(svgOffset)),
     fromTransform(invScale(svgScale)),
     fromTransform(invMove(svg)),
-  ].reduce((a, b) => matrixMultiply(a, b))
+  ].reduce(matrixMultiply)
 }
 
 // inverse x/y

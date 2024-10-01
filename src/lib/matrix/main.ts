@@ -24,6 +24,20 @@ function matrix(
   ]
 }
 
+function copy([[a, b], [c, d], [e, f]]: Readonly<
+  [
+    Readonly<[a: number, b: number]>,
+    Readonly<[c: number, d: number]>,
+    Readonly<[e: number, f: number]>,
+  ]
+>): Matrix {
+  return [
+    [a, b],
+    [c, d],
+    [e, f],
+  ]
+}
+
 ////
 
 export type V = Readonly<ImmutableShallow<[s: number, t: number]>>
@@ -42,4 +56,4 @@ export const prod = ([p, q, r]: H, [s, t]: V, n: number): number =>
 
 export type { Matrix }
 
-export { empty, matrix, multiply }
+export { copy, empty, matrix, multiply }

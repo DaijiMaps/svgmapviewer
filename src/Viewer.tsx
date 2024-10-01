@@ -11,8 +11,8 @@ import { searchRef } from './lib/search'
 import {
   dragStyle,
   modeStyle,
-  moveStyle,
   scrollStyle,
+  useMoveStyle,
   useZoomStyle,
 } from './lib/style'
 import { Shadow, ShadowStyle } from './Shadow'
@@ -25,6 +25,7 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
 
   const { uiRef } = useUi(pointerRef)
 
+  const moveStyle = useMoveStyle(pointerRef)
   const zoomStyle = useZoomStyle(pointerRef)
 
   return (
@@ -50,7 +51,7 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
         {scrollStyle(pointer)}
         {modeStyle(pointer)}
         {dragStyle(pointer)}
-        {moveStyle(pointer)}
+        {moveStyle}
         {zoomStyle}
       </style>
     </>

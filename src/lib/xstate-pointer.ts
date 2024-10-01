@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RefObject } from 'react'
 import {
   ActorRefFrom,
   and,
   assign,
   emit,
-  enqueueActions,
   not,
   raise,
   setup,
@@ -14,8 +14,8 @@ import {
 import {
   Animation,
   animationEndLayout,
+  animationHome,
   animationMove,
-  animationReset,
   animationZoom,
 } from './animation'
 import { BoxBox, boxCenter } from './box/prefixed'
@@ -143,6 +143,7 @@ type PointerEventTouchStart = { type: 'TOUCH.START'; ev: TouchEvent }
 type PointerEventTouchMove = { type: 'TOUCH.MOVE'; ev: TouchEvent }
 type PointerEventTouchEnd = { type: 'TOUCH.END'; ev: TouchEvent }
 type PointerEventTouchCancel = { type: 'TOUCH.CANCEL'; ev: TouchEvent }
+type PointerEventScroll = { type: 'SCROLL'; ev: Event }
 
 export type ReactPointerEvent =
   | PointerEventClick
@@ -156,6 +157,7 @@ export type ReactPointerEvent =
   | PointerEventTouchMove
   | PointerEventTouchEnd
   | PointerEventTouchCancel
+  | PointerEventScroll
 
 export type PointerPointerEvent =
   | ReactPointerEvent
@@ -302,13 +304,13 @@ export const pointerMachine = setup({
       focus: ({ context: { focus, touches } }) =>
         touches.z !== null && touches.focus !== null ? touches.focus : focus,
     }),
-    zoomReset: assign({
+    zoomHome: assign({
       z: (): null | number => null,
     }),
     startZoom: assign({
       animation: ({ context: { layout, focus, z } }): null | Animation =>
         z === null
-          ? animationReset(layout, makeLayout(layout.config))
+          ? animationHome(layout, makeLayout(layout.config))
           : animationZoom(layout, z, focus),
     }),
     endAnimation: assign({
@@ -398,24 +400,9 @@ export const pointerMachine = setup({
       focus: ({ context: { touches, focus } }) =>
         touches.focus !== null ? touches.focus : focus,
     }),
-    resetMode: enqueueActions(({ enqueue }) => {
-      // XXX check?
-      enqueue.assign({
-        mode: 'pointing',
-      })
-    }),
-    setModeToPanning: enqueueActions(({ enqueue }) => {
-      // XXX check?
-      enqueue.assign({
-        mode: 'panning',
-      })
-    }),
-    setModeToLocked: enqueueActions(({ enqueue }) => {
-      // XXX check?
-      enqueue.assign({
-        mode: 'locked',
-      })
-    }),
+    resetMode: assign({ mode: 'pointing' }),
+    setModeToPanning: assign({ mode: 'panning' }),
+    setModeToLocked: assign({ mode: 'locked' }),
   },
   actors: {
     scroll: scrollMachine,
@@ -448,25 +435,6 @@ export const pointerMachine = setup({
     },
   ],
   states: {
-    Locker: {
-      on: {
-        'SEARCH.LOCK': [
-          {
-            guard: 'idle',
-            actions: [
-              emit({ type: 'LOCK', ok: true }),
-              assign({
-                mode: ({ context: { mode } }) =>
-                  mode === 'pointing' ? 'locked' : mode,
-              }),
-            ],
-          },
-          {
-            actions: emit({ type: 'LOCK', ok: false }),
-          },
-        ],
-      },
-    },
     Pointer: {
       initial: 'Idle',
       states: {
@@ -481,8 +449,8 @@ export const pointerMachine = setup({
             },
             'LAYOUT.RESET': {
               guard: 'idle',
-              actions: 'zoomReset',
-              target: 'Resetting',
+              actions: 'zoomHome',
+              target: 'Homing',
             },
             DEBUG: {
               actions: 'toggleDebug',
@@ -519,8 +487,8 @@ export const pointerMachine = setup({
                   type: 'shouldReset',
                   params: ({ event }) => ({ ev: event.ev }),
                 },
-                actions: 'zoomReset',
-                target: 'Resetting',
+                actions: 'zoomHome',
+                target: 'Homing',
               },
               {
                 guard: {
@@ -711,7 +679,7 @@ export const pointerMachine = setup({
             },
           },
         },
-        Resetting: {
+        Homing: {
           entry: raise({ type: 'ZOOM' }),
           exit: ['resetLayout', 'resetFocus'],
           on: {
@@ -917,7 +885,7 @@ export const pointerMachine = setup({
         Busy: {
           on: {
             'ANIMATION.END': {
-              actions: [() => console.log('endAnimation'), 'endAnimation'],
+              actions: 'endAnimation',
               target: 'Idle',
             },
           },
@@ -1254,6 +1222,25 @@ export const pointerMachine = setup({
             },
           },
         },
+      },
+    },
+    Locker: {
+      on: {
+        'SEARCH.LOCK': [
+          {
+            guard: 'idle',
+            actions: [
+              emit({ type: 'LOCK', ok: true }),
+              assign({
+                mode: ({ context: { mode } }) =>
+                  mode === 'pointing' ? 'locked' : mode,
+              }),
+            ],
+          },
+          {
+            actions: emit({ type: 'LOCK', ok: false }),
+          },
+        ],
       },
     },
   },

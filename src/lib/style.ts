@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { svgMapViewerConfig } from './config'
 import { Matrix } from './matrix'
-import { matrixEmpty, matrixMatrix, matrixToString } from './matrix/prefixed'
+import { matrixEmpty, matrixToString } from './matrix/prefixed'
 import { PointerRef, PointerState } from './xstate-pointer'
 
 export function scrollStyle(pointer: Readonly<PointerState>) {
@@ -44,8 +44,11 @@ export function dragStyle(pointer: Readonly<PointerState>) {
 `
 }
 
-export function moveStyle(pointer: Readonly<PointerState>) {
-  const { animation } = pointer.context
+export function useMoveStyle(pointerRef: Readonly<PointerRef>) {
+  const context = useSelector(pointerRef, (s) => s.context)
+  const { animation } = context
+
+  const pointer = pointerRef.getSnapshot()
 
   if (!pointer.matches({ Animator: 'Busy' })) {
     return ''
@@ -55,10 +58,8 @@ export function moveStyle(pointer: Readonly<PointerState>) {
     return ''
   }
 
-  // XXX immutability
-  const [[a, b], [c, d], [e, f]] = animation.move.q
-
-  return css(matrixMatrix(a, b, c, d, e, f))
+  // XXX
+  return css(animation.move.q as Matrix)
 }
 
 export function useZoomStyle(pointerRef: Readonly<PointerRef>) {
@@ -75,13 +76,11 @@ export function useZoomStyle(pointerRef: Readonly<PointerRef>) {
     return ''
   }
 
-  // XXX immutability
-  const [[a, b], [c, d], [e, f]] = animation.zoom.q
-
-  return css(matrixMatrix(a, b, c, d, e, f))
+  // XXX
+  return css(animation.zoom.q as Matrix)
 }
 
-export const css = (q: Readonly<Matrix>) => {
+export const css = (q: Matrix) => {
   const p = matrixEmpty
 
   return `

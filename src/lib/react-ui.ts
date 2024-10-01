@@ -5,7 +5,7 @@ import { diag } from './diag'
 import { selectLayout } from './react-pointer'
 import { SearchRes } from './types'
 import { PointerRef } from './xstate-pointer'
-import { uiMachine, UiState } from './xstate-ui'
+import { uiMachine, UiRef, UiSend, UiState } from './xstate-ui'
 
 export const selectDetail = (ui: UiState) => ui.context.detail
 export const selectOpenCloseHeader = (ui: UiState) => ui.context.m['header']
@@ -14,7 +14,11 @@ export const selectOpenCloseShadow = (ui: UiState) => ui.context.m['shadow']
 export const selectOpenCloseBalloon = (ui: UiState) => ui.context.m['balloon']
 export const selectOpenCloseDetail = (ui: UiState) => ui.context.m['detail']
 
-export function useUi(pointerRef: PointerRef) {
+export function useUi(pointerRef: PointerRef): {
+  ui: UiState
+  uiSend: UiSend
+  uiRef: UiRef
+} {
   const [ui, uiSend, uiRef] = useMachine(uiMachine)
 
   const layout = useSelector(pointerRef, selectLayout)

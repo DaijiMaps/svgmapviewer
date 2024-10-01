@@ -11,7 +11,5 @@ export function scale([sx, sy]: V): M {
 
 export function scaleAt(s: V, c: V): M {
   const [cx, cy] = c
-  return [translate(c), scale(s), translate([-cx, -cy])].reduce((prev, cur) =>
-    multiply(prev, cur)
-  )
+  return [translate(c), scale(s), translate([-cx, -cy])].reduce(multiply)
 }

@@ -7,6 +7,7 @@ import { useWindowResize } from './react-resize'
 import { Vec } from './vec'
 import {
   pointerMachine,
+  PointerRef,
   PointerSend,
   PointerState,
   ReactPointerEvent,
@@ -22,7 +23,7 @@ export const selectLayout = (pointer: PointerState) => pointer.context.layout
 export const selectFocus = (pointer: PointerState) => pointer.context.focus
 export const selectTouches = (pointer: PointerState) => pointer.context.touches
 
-const usePointerKey = (send: PointerSend) => {
+function usePointerKey(send: PointerSend) {
   const keyDown = useCallback(
     (ev: KeyboardEvent) => send({ type: 'KEY.DOWN', ev }),
     [send]
@@ -44,10 +45,10 @@ const usePointerKey = (send: PointerSend) => {
   }, [keyDown, keyUp, send])
 }
 
-const usePointerEvent = (
+function usePointerEvent(
   containerRef: RefObject<HTMLDivElement>,
   pointerSend: PointerSend
-) => {
+) {
   const send = useCallback(
     (
       event: ReactPointerEvent,
@@ -139,6 +140,12 @@ const usePointerEvent = (
     },
     [send]
   )
+  const sendScroll = useCallback(
+    (ev: Event) => {
+      send({ type: 'SCROLL', ev })
+    },
+    [send]
+  )
 
   useEffect(() => {
     const e = containerRef.current
@@ -154,6 +161,7 @@ const usePointerEvent = (
     e.addEventListener('click', sendClick)
     e.addEventListener('contextmenu', sendContextMenuu)
     e.addEventListener('wheel', sendWheel)
+    e.addEventListener('scroll', sendScroll)
     return () => {
       e.removeEventListener('pointerdown', sendPointerDown)
       e.removeEventListener('pointermove', sendPointerMove)
@@ -172,6 +180,7 @@ const usePointerEvent = (
     sendPointerDown,
     sendPointerMove,
     sendPointerUp,
+    sendScroll,
     sendTouchEnd,
     sendTouchMove,
     sendTouchStart,
@@ -179,7 +188,11 @@ const usePointerEvent = (
   ])
 }
 
-export const usePointer = (containerRef: RefObject<HTMLDivElement>) => {
+export function usePointer(containerRef: RefObject<HTMLDivElement>): {
+  pointer: PointerState
+  pointerSend: PointerSend
+  pointerRef: PointerRef
+} {
   const body = useWindowResize()
   const config = useContext(SvgMapViewerConfigContext)
 

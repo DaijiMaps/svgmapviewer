@@ -21,7 +21,7 @@ import {
 import { ifNullOr, zoomToScale } from './utils'
 import { VecVec as Vec, vecSub } from './vec/prefixed'
 
-export type AnimationMove = ReadonlyDeep<{
+export type AnimationMove = Readonly<{
   move: Box
   q: Matrix
 }>
@@ -73,7 +73,7 @@ export const animationZoom = (
   }
 }
 
-export const animationReset = (
+export const animationHome = (
   layout: Layout,
   nextLayout: Layout
 ): Animation => {

@@ -2,7 +2,6 @@ import {
   ActorRefFrom,
   assign,
   emit,
-  enqueueActions,
   not,
   raise,
   setup,
@@ -87,16 +86,8 @@ export const uiMachine = setup({
     isDetailVisible: ({ context: { m } }) => isVisible(m, 'detail'),
   },
   actions: {
-    startCancel: enqueueActions(({ enqueue }) => {
-      enqueue.assign({
-        canceling: () => true,
-      })
-    }),
-    endCancel: enqueueActions(({ enqueue }) => {
-      enqueue.assign({
-        canceling: () => false,
-      })
-    }),
+    startCancel: assign({ canceling: () => true }),
+    endCancel: assign({ canceling: () => false }),
     open: assign({
       m: ({ context: { m } }, { part }: { part: UiPart }) =>
         doOpenCloseMap(openCloseOpen)(m, part),
