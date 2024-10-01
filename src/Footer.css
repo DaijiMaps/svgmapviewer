@@ -35,11 +35,10 @@
 .mode-item:not(.selected) {
   opacity: 0.375;
 }
-.mode-item > span {
-  pointer-events: none;
-}
 .mode-item > svg {
   display: block;
+  width: 2em;
+  height: 2em;
   pointer-events: none;
 }
 .mode-item > svg > path {

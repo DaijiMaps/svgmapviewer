@@ -27,6 +27,7 @@
     "test:unit": "vitest --workspace=vitest.workspace.ts --project unit",
     "test:jsdom": "vitest --workspace=vitest.workspace.ts --project jsdom",
     "test:browser": "vitest --workspace=vitest.workspace.ts --project browser",
+    "deploy": "pnpm pages:deploy:marche",
     "pages:deploy:marche": "pnpm build:marche && cd dist && wrangler pages deploy ."
   },
   "dependencies": {

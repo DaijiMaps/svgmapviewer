@@ -1,5 +1,5 @@
 import { ActorRefFrom, AnyActorRef, assign, sendTo, setup } from 'xstate'
-import { animationFrameLogic } from './animation-frame-xstate'
+import { animationFrameLogic } from './animationframe-xstate'
 import { BoxBox as Box } from './box/prefixed'
 import { svgMapViewerConfig } from './config'
 import { isDefined, isNotNull } from './utils'
