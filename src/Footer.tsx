@@ -33,8 +33,6 @@ export const Footer = (props: Readonly<FooterProps>) => {
     <div
       className="footer"
       // eslint-disable-next-line functional/no-return-void
-      onClick={() => pointerRef.send({ type: 'DEBUG' })}
-      // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiRef.send({ type: 'FOOTER.ANIMATION.END' })}
     >
       <div className="mode">
@@ -61,7 +59,12 @@ export const Footer = (props: Readonly<FooterProps>) => {
           <span>panning</span>
         </div>
       </div>
-      <p>{config.copyright}</p>
+      <p
+        // eslint-disable-next-line functional/no-return-void
+        onClick={() => pointerRef.send({ type: 'DEBUG' })}
+      >
+        {config.copyright}
+      </p>
     </div>
   )
 }
