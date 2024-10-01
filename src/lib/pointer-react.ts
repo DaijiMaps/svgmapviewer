@@ -172,6 +172,7 @@ function usePointerEvent(
       e.removeEventListener('click', sendClick)
       e.removeEventListener('contextmenu', sendContextMenuu)
       e.removeEventListener('wheel', sendWheel)
+      e.removeEventListener('scroll', sendScroll)
     }
   }, [
     containerRef,
