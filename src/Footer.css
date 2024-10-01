@@ -38,3 +38,12 @@
 .mode-item > span {
   pointer-events: none;
 }
+.mode-item > svg {
+  display: block;
+  pointer-events: none;
+}
+.mode-item > svg > path {
+  stroke: black;
+  stroke-width: 0.375px;
+  fill: none;
+}

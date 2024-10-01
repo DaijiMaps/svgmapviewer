@@ -45,7 +45,9 @@ export const Footer = (props: Readonly<FooterProps>) => {
           // eslint-disable-next-line functional/no-return-void
           onClick={() => sendModePointing()}
         >
-          <span>pointing</span>
+          <svg viewBox="-5.5 -5.5 11 11" width="2em" height="2em">
+            <path d={pointingPath} stroke="black" strokeWidth="0.5" />
+          </svg>
         </div>
         <div
           className={clsx(
@@ -56,7 +58,9 @@ export const Footer = (props: Readonly<FooterProps>) => {
           // eslint-disable-next-line functional/no-return-void
           onClick={() => sendModePanning()}
         >
-          <span>panning</span>
+          <svg viewBox="-5.5 -5.5 11 11" width="2em" height="2em">
+            <path d={panningPath} stroke="black" strokeWidth="0.5" />
+          </svg>
         </div>
       </div>
       <p
@@ -112,3 +116,35 @@ export function FooterStyle(props: Readonly<FooterProps>) {
     )
   }
 }
+
+const pointingPath = `
+M0,0
+L-1,3
+L-5,-5
+L3,-1
+Z
+M-5,-5
+L5,5`
+
+const panningPath = `
+M0,5
+V-5
+M5,0
+H-5
+M5,0
+m-2,-1
+l2,1
+l-2,1
+M-5,0
+m2,1
+l-2,-1
+l2,-1
+M0,5
+m1,-2
+l-1,2
+l-1,-2
+M0,-5
+m-1,2
+l1,-2
+l1,2
+`
