@@ -56,6 +56,7 @@ export interface SvgMapViewerConfig {
   dragStepAlpha: number
   dragStepStepLimit: number
   dragStepMaxCount: number
+  scrollIdleTimeout: number
   searchStartCbs: Set<SearchCb>
   searchCbs: Set<SearchCb>
   searchDoneCbs: Set<SearchDoneCb>

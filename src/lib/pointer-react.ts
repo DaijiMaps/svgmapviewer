@@ -144,12 +144,11 @@ function usePointerEvent(
         window.clearTimeout(scrollIdleTimer)
       }
       scrollIdleTimer = window.setTimeout(() => {
-        pointerSend({ type: 'SCROLL.IDLE' })
+        send({ type: 'SCROLL', ev })
         scrollIdleTimer = null
-      }, 200)
-      send({ type: 'SCROLL', ev })
+      }, svgMapViewerConfig.scrollIdleTimeout)
     },
-    [pointerSend, send]
+    [send]
   )
 
   useEffect(() => {

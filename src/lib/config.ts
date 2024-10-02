@@ -28,6 +28,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   dragStepAlpha: 0.2,
   dragStepStepLimit: 10,
   dragStepMaxCount: 100,
+  scrollIdleTimeout: 200,
   searchStartCbs: new Set(),
   searchCbs: new Set(),
   searchDoneCbs: new Set(),

@@ -91,7 +91,6 @@ type PointerEventSlide =
   | { type: 'SLIDE.DONE' }
   | { type: 'SLIDE.DRAG.DONE' }
   | { type: 'SLIDE.DRAG.SLIDE' }
-export type PointerEventScrollIdle = { type: 'SCROLL.IDLE' }
 type PointerEventExpand =
   | { type: 'EXPAND'; n?: number }
   | { type: 'EXPAND.DONE' }
@@ -119,7 +118,6 @@ type PointerInternalEvent =
   | PointerEventDrag
   | PointerEventTouch
   | PointerEventSlide
-  | PointerEventScrollIdle
   | PointerEventExpand
   | PointerEventMoveZoomPan
   | PointerEventSearch
@@ -1230,7 +1228,7 @@ export const pointerMachine = setup({
               ],
               target: 'Expanding',
             },
-            'SCROLL.IDLE': {
+            SCROLL: {
               actions: ['resetMode', 'getScroll'],
               target: 'Updating',
             },
