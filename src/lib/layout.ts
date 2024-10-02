@@ -8,7 +8,16 @@ import {
   boxScaleAt,
   boxUnit,
 } from './box/prefixed'
-import { fromScroll, LayoutCoord, makeCoord, toMatrixSvg } from './coord'
+import { svgMapViewerConfig } from './config'
+import {
+  fromMatrixOuter,
+  fromMatrixSvg,
+  fromScroll,
+  LayoutCoord,
+  makeCoord,
+  toMatrixOuter,
+  toMatrixSvg,
+} from './coord'
 import { fit } from './fit'
 import { getBodySize } from './resize-react'
 import { Move, Scale, transformPoint } from './transform'
@@ -69,14 +78,13 @@ export function configLayout(
 export function makeLayout(config: LayoutConfig): Layout {
   const coord = makeCoord(config)
 
-  return {
+  const layout = {
     config,
     ...coord,
   }
-}
 
-export const toSvg = (layout: Layout, p: Vec): Vec =>
-  transformPoint(toMatrixSvg(layout), p)
+  return layout
+}
 
 //// expandLayoutCenter
 //// expandLayout
@@ -86,7 +94,7 @@ export const expandLayoutCenter = (layout: Layout, expand: number): Layout => {
 }
 
 export const expandLayout = (layout: Layout, s: number, focus: Vec): Layout => {
-  const o = toSvg(layout, focus)
+  const o = toSvg(focus, layout)
 
   return {
     ...layout,
@@ -147,3 +155,17 @@ export const scrollLayout = (layout: Layout, scroll: Box): Layout => {
     (l) => recenterLayout(l, boxCopy(layout.scroll))
   )
 }
+
+//// toSvg
+//// fromSvg
+//// toOuter
+//// fromOuter
+
+export const toSvg = (p: Vec, layout?: Layout): Vec =>
+  transformPoint(toMatrixSvg(layout ?? svgMapViewerConfig.layout), p)
+export const fromSvg = (p: Vec, layout?: Layout): Vec =>
+  transformPoint(fromMatrixSvg(layout ?? svgMapViewerConfig.layout), p)
+export const toOuter = (p: Vec, layout?: Layout): Vec =>
+  transformPoint(toMatrixOuter(layout ?? svgMapViewerConfig.layout), p)
+export const fromOuter = (p: Vec, layout?: Layout): Vec =>
+  transformPoint(fromMatrixOuter(layout ?? svgMapViewerConfig.layout), p)

@@ -9,6 +9,7 @@ import {
   PointerSend,
   PointerState,
   ReactPointerEvent,
+  selectLayout,
   selectMode,
 } from './pointer-xstate'
 import { useWindowResize } from './resize-react'
@@ -219,6 +220,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
 
   usePointerEvent(containerRef, pointerSend)
 
+  const layout = useSelector(pointerRef, selectLayout)
   const mode = useSelector(pointerRef, selectMode)
 
   useEffect(() => {
@@ -270,6 +272,10 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
       lock.unsubscribe()
     }
   }, [pointerRef])
+
+  useEffect(() => {
+    svgMapViewerConfig.layout = layout
+  }, [layout])
 
   ////
   //// actions

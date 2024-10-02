@@ -1,28 +1,83 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
+import Flatbush from 'flatbush'
 import { SearchReq, SearchRes } from './lib/types'
+import { VecVec as Vec } from './lib/vec/prefixed'
+import { addressEntries } from './main-data'
+
+type Address = string
+type Idx = string
+
+type FlatbushIndexes = Record<Idx, Address>
+
+interface AddressBuf {
+  fb: Flatbush
+  idxs: FlatbushIndexes
+}
+
+function makeAddressBuf() {
+  const l = addressEntries.length
+  const fb: Flatbush = new Flatbush(l)
+  const idxs: FlatbushIndexes = {}
+  // eslint-disable-next-line functional/no-loop-statements
+  for (const { a, psvg } of addressEntries) {
+    const idx = fb.add(psvg.x, psvg.y)
+    // eslint-disable-next-line functional/immutable-data
+    idxs[`${idx}`] = a
+  }
+  fb.finish()
+  return {
+    fb,
+    idxs,
+  }
+}
+
+const b: AddressBuf = makeAddressBuf()
+const m: Map<Address, Vec> = new Map(
+  addressEntries.map(({ a, psvg }) => [a, psvg])
+)
+
+interface SearchAddressRes {
+  address: Address
+  pp: Vec
+}
+
+export function searchAddress(psvg: Vec): SearchAddressRes | null {
+  const { fb, idxs } = b
+  const ns = fb.neighbors(psvg.x, psvg.y, 1, 100)
+  if (ns.length === 0) {
+    return null
+  }
+  const n = ns[0]
+  const address = idxs[`${n}`]
+  const pp = m.get(address)
+  if (pp === undefined) {
+    return null
+  }
+  return { address, pp }
+}
 
 onmessage = function (e: Readonly<MessageEvent<SearchReq>>) {
   const p = e.data.p
   const psvg = e.data.psvg
 
-  // XXX search nearest shop by point
-  // XXX search shop info by point
+  const xxx = searchAddress(psvg)
 
-  const ok = Math.round(e.timeStamp) % 5 == 0
+  const res: null | SearchRes =
+    xxx === null
+      ? null
+      : {
+          p,
+          psvg: xxx.pp,
+          info: {
+            title: `Found: POI: ${p.x},${p.y} (${xxx.pp.x},${xxx.pp.y})`,
+            x: {
+              tag: 'shop',
+              name: `${xxx.address} @ ${xxx.pp.x},${xxx.pp.y}`,
+              address: xxx.address,
+            },
+          },
+        }
 
-  const res: SearchRes = {
-    p,
-    psvg,
-    info: {
-      title: `Found: POI: ${p.x},${p.y} (${psvg.x},${psvg.y})`,
-      x: {
-        tag: 'shop',
-        name: 'Test',
-        address: 'A1-1-1',
-      },
-    },
-  }
-
-  new Promise(() => this.postMessage(!ok ? null : res))
+  this.postMessage(res)
 }

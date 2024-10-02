@@ -2,6 +2,7 @@
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/no-return-void */
 import { createElement } from 'react'
+import { emptyLayout } from './layout'
 import {
   Info,
   RenderInfo,
@@ -20,6 +21,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   height: 0,
   fontSize: 16,
   origViewBox: { x: 0, y: 0, width: 0, height: 0 },
+  layout: emptyLayout,
   title: 'svgmapviewer',
   subtitle: 'An (opinionated) interactive SVG map viewer',
   copyright: '@ Daiji Maps',

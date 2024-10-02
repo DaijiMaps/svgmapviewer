@@ -33,7 +33,7 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
-     inkscape:current-layer="g4">
+     inkscape:current-layer="g20">
     <inkscape:grid
        id="grid1"
        units="px"
@@ -795,14 +795,13 @@
            transform="matrix(0.23730469,0,0,0.23730469,610.03322,-26.64453)" />
       </g>
       <g
-         id="g229"
-         inkscape:label="infos"
-         transform="translate(21.91504,-20.711908)">
+         id="g1"
+         inkscape:label="infos">
         <use
            xlink:href="#AigaSymbols.svg:Information_Inv"
            style="fill:#000000;stroke:#000000"
            id="use1-4"
-           transform="matrix(0.23730469,0,0,0.23730469,98.592777,257.40623)" />
+           transform="matrix(0.23730469,0,0,0.23730469,120.50782,236.69432)" />
       </g>
       <g
          id="g317"

@@ -537,7 +537,7 @@ export const pointerMachine = setup({
                 emit(({ context: { layout, focus } }) => ({
                   type: 'SEARCH',
                   p: focus,
-                  psvg: toSvg(layout, focus),
+                  psvg: toSvg(focus, layout),
                 })),
               ],
               target: 'Idle',

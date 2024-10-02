@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-mixed-types */
 /* eslint-disable functional/no-return-void */
 import { Box } from './box/main'
+import { Layout } from './layout'
 import { Vec } from './vec'
 
 // top, right, bottom, left
@@ -38,6 +39,8 @@ export type UiOpenDoneCb = (ok: boolean) => void
 
 export type UiCloseCb = () => void
 
+export type Conv = (p: Vec) => Vec
+
 export type RenderInfo = (props: Readonly<{ info: Info }>) => JSX.Element
 
 export interface SvgMapViewerConfig {
@@ -48,6 +51,7 @@ export interface SvgMapViewerConfig {
   height: number
   fontSize: number
   origViewBox: Box
+  layout: Layout
   title: string
   subtitle: string
   copyright: string
