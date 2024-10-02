@@ -2,17 +2,9 @@ import { useMachine, useSelector } from '@xstate/react'
 import { useCallback, useEffect } from 'react'
 import { svgMapViewerConfig } from './config'
 import { diag } from './diag'
-import { selectLayout } from './pointer-react'
-import { PointerRef } from './pointer-xstate'
+import { PointerRef, selectLayout } from './pointer-xstate'
 import { SearchRes } from './types'
 import { uiMachine, UiRef, UiSend, UiState } from './ui-xstate'
-
-export const selectDetail = (ui: UiState) => ui.context.detail
-export const selectOpenCloseHeader = (ui: UiState) => ui.context.m['header']
-export const selectOpenCloseFooter = (ui: UiState) => ui.context.m['footer']
-export const selectOpenCloseShadow = (ui: UiState) => ui.context.m['shadow']
-export const selectOpenCloseBalloon = (ui: UiState) => ui.context.m['balloon']
-export const selectOpenCloseDetail = (ui: UiState) => ui.context.m['detail']
 
 export function useUi(pointerRef: PointerRef): {
   ui: UiState

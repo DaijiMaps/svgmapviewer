@@ -9,6 +9,7 @@ import {
   PointerSend,
   PointerState,
   ReactPointerEvent,
+  selectMode,
 } from './pointer-xstate'
 import { useWindowResize } from './resize-react'
 import { Vec } from './vec'
@@ -17,11 +18,6 @@ let pointereventmask: boolean = false
 let toucheventmask: boolean = false
 let wheeleventmask: boolean = false
 let clickeventmask: boolean = false
-
-export const selectMode = (pointer: PointerState) => pointer.context.mode
-export const selectLayout = (pointer: PointerState) => pointer.context.layout
-export const selectFocus = (pointer: PointerState) => pointer.context.focus
-export const selectTouches = (pointer: PointerState) => pointer.context.touches
 
 function usePointerKey(send: PointerSend) {
   const keyDown = useCallback(

@@ -2,10 +2,8 @@ import { useSelector } from '@xstate/react'
 import clsx from 'clsx'
 import { useCallback, useContext } from 'react'
 import './Footer.css'
-import { selectMode } from './lib/pointer-react'
-import { PointerRef } from './lib/pointer-xstate'
-import { selectOpenCloseFooter } from './lib/ui-react'
-import { UiRef } from './lib/ui-xstate'
+import { PointerRef, selectMode } from './lib/pointer-xstate'
+import { selectOpenCloseFooter, UiRef } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './svgmapviewer'
 
 interface FooterProps {

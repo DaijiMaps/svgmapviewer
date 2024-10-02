@@ -3,8 +3,7 @@ import { Cursor } from './Cursor'
 import './Guides.css'
 import { boxCenter } from './lib/box/prefixed'
 import { Layout } from './lib/layout'
-import { selectLayout, selectMode } from './lib/pointer-react'
-import { PointerRef } from './lib/pointer-xstate'
+import { PointerRef, selectLayout, selectMode } from './lib/pointer-xstate'
 import { Vec } from './lib/vec'
 
 export interface GuideParams {

@@ -1268,3 +1268,8 @@ export type PointerSend = (events: _PointerEvent) => void
 export type PointerRef = ActorRefFrom<typeof pointerMachine>
 
 export type PointerMode = 'pointing' | 'panning' | 'locked'
+
+export const selectMode = (pointer: PointerState) => pointer.context.mode
+export const selectLayout = (pointer: PointerState) => pointer.context.layout
+export const selectFocus = (pointer: PointerState) => pointer.context.focus
+export const selectTouches = (pointer: PointerState) => pointer.context.touches

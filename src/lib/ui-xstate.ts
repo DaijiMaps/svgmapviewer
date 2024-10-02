@@ -261,3 +261,10 @@ export type UiState = StateFrom<typeof uiMachine>
 export type UiSend = (events: UiEvent) => void
 
 export type UiRef = ActorRefFrom<typeof uiMachine>
+
+export const selectDetail = (ui: UiState) => ui.context.detail
+export const selectOpenCloseHeader = (ui: UiState) => ui.context.m['header']
+export const selectOpenCloseFooter = (ui: UiState) => ui.context.m['footer']
+export const selectOpenCloseShadow = (ui: UiState) => ui.context.m['shadow']
+export const selectOpenCloseBalloon = (ui: UiState) => ui.context.m['balloon']
+export const selectOpenCloseDetail = (ui: UiState) => ui.context.m['detail']
