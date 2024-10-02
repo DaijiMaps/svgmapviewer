@@ -1,0 +1,16 @@
+- distinguish Matrix (record) and M (tuple)
+  - tuple can use only `readonly'
+  - clean up usages of Readonly/ReadonlyDeep
+- Matrix -> CSSMatrix
+  - type CSSMatrix = Matrix | Matrix[]
+  - cssMatrixToString()
+  - use `transform: matrix(...) matrix(...) ...' notation in CSS
+- panning mode lock/recenter/unlock
+  - catch scroll event & detect idle (0.5s)
+- refactor style.ts
+  - use class (e.g. .container.mode-panning)
+  - use CSS var
+  - move more to static CSS definition
+- xstate: use only actor-ref (useActorRef)
+  - use ref.subscribe()
+  - don't use state (ref.getSnapshot())
