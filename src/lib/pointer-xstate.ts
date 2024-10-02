@@ -1229,48 +1229,11 @@ export const pointerMachine = setup({
               target: 'Expanding',
             },
             SCROLL: {
-              actions: ['resetMode', 'getScroll'],
-              target: 'Updating',
-            },
-          },
-        },
-        Updating: {
-          initial: 'Stopping',
-          onDone: 'Panning',
-          states: {
-            Stopping: {
-              on: {
-                'SCROLL.GET.DONE': {
-                  actions: [
-                    {
-                      type: 'scrollLayout',
-                      params: ({ event: { scroll } }) => ({ scroll }),
-                    },
-                    raise({ type: 'UNEXPAND' }),
-                  ],
-                  target: 'Expanding',
-                },
-              },
-            },
-            Expanding: {
-              on: {
-                'EXPAND.DONE': {
-                  actions: 'setModeToPanning',
-                  target: 'Done',
-                },
-                'UNEXPAND.DONE': {
-                  target: 'Starting',
-                },
-              },
-            },
-            Starting: {
-              always: {
-                actions: raise({ type: 'EXPAND', n: 9 }),
-                target: 'Expanding',
-              },
-            },
-            Done: {
-              type: 'final',
+              actions: [
+                'resetMode',
+                'getScroll',
+                raise({ type: 'PAN' }, { delay: 1 }),
+              ],
             },
           },
         },

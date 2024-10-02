@@ -16,8 +16,9 @@ import { Vec } from './vec'
 
 let pointereventmask: boolean = false
 let toucheventmask: boolean = false
-let wheeleventmask: boolean = false
 let clickeventmask: boolean = false
+let wheeleventmask: boolean = false
+let scrolleventmask: boolean = false
 
 let scrollIdleTimer: null | number = null
 
@@ -143,8 +144,13 @@ function usePointerEvent(
       if (scrollIdleTimer !== null) {
         window.clearTimeout(scrollIdleTimer)
       }
+      if (scrolleventmask) {
+        return
+      }
       scrollIdleTimer = window.setTimeout(() => {
-        send({ type: 'SCROLL', ev })
+        if (!scrolleventmask) {
+          send({ type: 'SCROLL', ev })
+        }
         scrollIdleTimer = null
       }, svgMapViewerConfig.scrollIdleTimeout)
     },
@@ -222,11 +228,12 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
     }
     pointereventmask = mode !== 'pointing'
     toucheventmask = mode !== 'pointing'
-    wheeleventmask = mode !== 'pointing'
     // - xstate-pointer receives 'click' to cancel 'panning'
     // - xstate-pointer ignores 'click' to pass throughh (emulated)
     //  'click' to shadow; shadow receives 'click' to cancel 'locked'
     clickeventmask = mode === 'locked'
+    wheeleventmask = mode !== 'pointing'
+    scrolleventmask = mode !== 'panning'
   }, [containerRef, mode])
 
   ////
