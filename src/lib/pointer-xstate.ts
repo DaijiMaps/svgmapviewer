@@ -91,7 +91,7 @@ type PointerEventSlide =
   | { type: 'SLIDE.DONE' }
   | { type: 'SLIDE.DRAG.DONE' }
   | { type: 'SLIDE.DRAG.SLIDE' }
-type PointerEventScrollIdle = { type: 'SCROLL.IDLE' }
+export type PointerEventScrollIdle = { type: 'SCROLL.IDLE' }
 type PointerEventExpand =
   | { type: 'EXPAND'; n?: number }
   | { type: 'EXPAND.DONE' }
@@ -1053,35 +1053,6 @@ export const pointerMachine = setup({
               target: 'Inactive',
             },
           },
-        },
-      },
-    },
-    ScrollMonitor: {
-      initial: 'Inactive',
-      states: {
-        Inactive: {
-          on: {
-            SCROLL: {
-              target: 'Active',
-            },
-          },
-        },
-        Active: {
-          after: {
-            250: {
-              target: 'Idle',
-            },
-          },
-          on: {
-            SCROLL: {
-              target: 'Active',
-              reenter: true,
-            },
-          },
-        },
-        Idle: {
-          entry: raise({ type: 'SCROLL.IDLE' }),
-          always: 'Inactive',
         },
       },
     },

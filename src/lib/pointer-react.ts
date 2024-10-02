@@ -19,6 +19,8 @@ let toucheventmask: boolean = false
 let wheeleventmask: boolean = false
 let clickeventmask: boolean = false
 
+let scrollIdleTimer: null | number = null
+
 function usePointerKey(send: PointerSend) {
   const keyDown = useCallback(
     (ev: KeyboardEvent) => send({ type: 'KEY.DOWN', ev }),
@@ -138,9 +140,16 @@ function usePointerEvent(
   )
   const sendScroll = useCallback(
     (ev: Event) => {
+      if (scrollIdleTimer !== null) {
+        window.clearTimeout(scrollIdleTimer)
+      }
+      scrollIdleTimer = window.setTimeout(() => {
+        pointerSend({ type: 'SCROLL.IDLE' })
+        scrollIdleTimer = null
+      }, 200)
       send({ type: 'SCROLL', ev })
     },
-    [send]
+    [pointerSend, send]
   )
 
   useEffect(() => {
