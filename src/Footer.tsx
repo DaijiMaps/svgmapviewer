@@ -124,7 +124,8 @@ L-5,-5
 L3,-1
 Z
 M-5,-5
-L5,5`
+L5,5
+`
 
 const panningPath = `
 M0,5
