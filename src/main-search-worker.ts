@@ -73,7 +73,7 @@ onmessage = function (e: Readonly<MessageEvent<SearchReq>>) {
             title: `Found: POI: ${p.x},${p.y} (${xxx.pp.x},${xxx.pp.y})`,
             x: {
               tag: 'shop',
-              name: `${xxx.address} @ ${xxx.pp.x},${xxx.pp.y}`,
+              name: `${xxx.address} @ ${xxx.pp.x}, ${xxx.pp.y}`,
               address: xxx.address,
             },
           },
