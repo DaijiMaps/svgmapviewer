@@ -91,6 +91,7 @@ type PointerEventSlide =
   | { type: 'SLIDE.DONE' }
   | { type: 'SLIDE.DRAG.DONE' }
   | { type: 'SLIDE.DRAG.SLIDE' }
+type PointerEventScrollIdle = { type: 'SCROLL.IDLE' }
 type PointerEventExpand =
   | { type: 'EXPAND'; n?: number }
   | { type: 'EXPAND.DONE' }
@@ -118,6 +119,7 @@ type PointerInternalEvent =
   | PointerEventDrag
   | PointerEventTouch
   | PointerEventSlide
+  | PointerEventScrollIdle
   | PointerEventExpand
   | PointerEventMoveZoomPan
   | PointerEventSearch
@@ -1054,6 +1056,35 @@ export const pointerMachine = setup({
         },
       },
     },
+    ScrollMonitor: {
+      initial: 'Inactive',
+      states: {
+        Inactive: {
+          on: {
+            SCROLL: {
+              target: 'Active',
+            },
+          },
+        },
+        Active: {
+          after: {
+            250: {
+              target: 'Idle',
+            },
+          },
+          on: {
+            SCROLL: {
+              target: 'Active',
+              reenter: true,
+            },
+          },
+        },
+        Idle: {
+          entry: raise({ type: 'SCROLL.IDLE' }),
+          always: 'Inactive',
+        },
+      },
+    },
     Mover: {
       initial: 'Idle',
       states: {
@@ -1227,6 +1258,50 @@ export const pointerMachine = setup({
                 raise({ type: 'UNEXPAND' }),
               ],
               target: 'Expanding',
+            },
+            'SCROLL.IDLE': {
+              actions: ['resetMode', 'getScroll'],
+              target: 'Updating',
+            },
+          },
+        },
+        Updating: {
+          initial: 'Stopping',
+          onDone: 'Panning',
+          states: {
+            Stopping: {
+              on: {
+                'SCROLL.GET.DONE': {
+                  actions: [
+                    {
+                      type: 'scrollLayout',
+                      params: ({ event: { scroll } }) => ({ scroll }),
+                    },
+                    raise({ type: 'UNEXPAND' }),
+                  ],
+                  target: 'Expanding',
+                },
+              },
+            },
+            Expanding: {
+              on: {
+                'EXPAND.DONE': {
+                  actions: 'setModeToPanning',
+                  target: 'Done',
+                },
+                'UNEXPAND.DONE': {
+                  target: 'Starting',
+                },
+              },
+            },
+            Starting: {
+              always: {
+                actions: raise({ type: 'EXPAND', n: 9 }),
+                target: 'Expanding',
+              },
+            },
+            Done: {
+              type: 'final',
             },
           },
         },
