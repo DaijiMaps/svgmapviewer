@@ -1229,13 +1229,14 @@ export const pointerMachine = setup({
               target: 'Expanding',
             },
             SCROLL: {
-              actions: [
-                'resetMode',
-                'getScroll',
-                raise({ type: 'PAN' }, { delay: 1 }),
-              ],
+              actions: ['resetMode', 'getScroll'],
+              target: 'Updating',
             },
           },
+        },
+        Updating: {
+          entry: raise({ type: 'PAN' }, { delay: 1 }),
+          always: 'Panning',
         },
       },
     },
