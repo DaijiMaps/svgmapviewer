@@ -348,8 +348,10 @@ export const pointerMachine = setup({
       expand: (_, { n }: { n: number }): number => n,
     }),
     focus: assign({
-      focus: (_, { ev }: { ev: MouseEvent | PointerEvent }): Vec =>
-        vecVec(ev.pageX, ev.pageY),
+      focus: (
+        { context: { mode, focus } },
+        { ev }: { ev: MouseEvent | PointerEvent }
+      ): Vec => (mode !== 'pointing' ? focus : vecVec(ev.pageX, ev.pageY)),
     }),
     startDrag: assign({
       drag: ({ context: { layout, focus } }): Drag =>
