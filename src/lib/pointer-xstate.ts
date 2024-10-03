@@ -74,6 +74,7 @@ type PointerExternalEvent =
   | { type: 'ANIMATION.END' }
   | { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
   | { type: 'SCROLL.SLIDE.DONE' }
+  | { type: 'ZOOM.ZOOM'; z: -1 | 1 }
 
 type PointerEventAnimation = { type: 'ANIMATION' } | { type: 'ANIMATION.DONE' }
 type PointerEventDrag =
@@ -307,6 +308,9 @@ export const pointerMachine = setup({
     zoomHome: assign({
       z: (): null | number => null,
     }),
+    zoomEvent: assign({
+      z: (_, { z }: { z: -1 | 1 }): number => z,
+    }),
     startZoom: assign({
       animation: ({ context: { layout, focus, z } }): null | Animation =>
         z === null
@@ -401,7 +405,11 @@ export const pointerMachine = setup({
         touches.focus !== null ? touches.focus : focus,
     }),
     resetMode: assign({ mode: 'pointing' }),
-    setModeToPanning: assign({ mode: 'panning' }),
+    setModeToPanning: assign({
+      mode: 'panning',
+      // XXX resetFocus
+      focus: ({ context: { layout } }): Vec => boxCenter(layout.container),
+    }),
     setModeToLocked: assign({ mode: 'locked' }),
   },
   actors: {
@@ -442,10 +450,13 @@ export const pointerMachine = setup({
           on: {
             LAYOUT: {
               guard: 'idle',
-              actions: {
-                type: 'layout',
-                params: ({ event: { config } }) => ({ config }),
-              },
+              actions: [
+                {
+                  type: 'layout',
+                  params: ({ event: { config } }) => ({ config }),
+                },
+                'resetFocus',
+              ],
             },
             'LAYOUT.RESET': {
               guard: 'idle',
@@ -457,6 +468,14 @@ export const pointerMachine = setup({
                 target: 'Touching.Panning',
               },
             ],
+            'ZOOM.ZOOM': {
+              guard: 'idle',
+              actions: {
+                type: 'zoomEvent',
+                params: ({ event: { z } }) => ({ z }),
+              },
+              target: 'Zooming',
+            },
             DEBUG: {
               actions: 'toggleDebug',
             },

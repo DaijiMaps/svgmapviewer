@@ -19,7 +19,13 @@ import {
 } from './openclose'
 import { Dir, SearchRes } from './types'
 
-export type UiPart = 'header' | 'footer' | 'shadow' | 'balloon' | 'detail'
+export type UiPart =
+  | 'header'
+  | 'footer'
+  | 'right'
+  | 'shadow'
+  | 'balloon'
+  | 'detail'
 
 type OpenCloseMap = Record<UiPart, OpenClose>
 
@@ -42,6 +48,7 @@ export type UiModeEvent =
 export type UiPartEvent =
   | { type: 'HEADER.ANIMATION.END' }
   | { type: 'FOOTER.ANIMATION.END' }
+  | { type: 'RIGHT.ANIMATION.END' }
   | { type: 'SHADOW.ANIMATION.END' }
   | { type: 'BALLOON.ANIMATION.END' }
   | { type: 'DETAIL.ANIMATION.END' }
@@ -81,6 +88,7 @@ export const uiMachine = setup({
   guards: {
     isHeaderVisible: ({ context: { m } }) => isVisible(m, 'header'),
     isFooterVisible: ({ context: { m } }) => isVisible(m, 'footer'),
+    isRightVisible: ({ context: { m } }) => isVisible(m, 'right'),
     isShadowVisible: ({ context: { m } }) => isVisible(m, 'shadow'),
     isBalloonVisible: ({ context: { m } }) => isVisible(m, 'balloon'),
     isDetailVisible: ({ context: { m } }) => isVisible(m, 'detail'),
@@ -111,6 +119,7 @@ export const uiMachine = setup({
     m: {
       header: openCloseReset(true),
       footer: openCloseReset(true),
+      right: openCloseReset(true),
       shadow: openCloseReset(false),
       balloon: openCloseReset(false),
       detail: openCloseReset(false),
@@ -231,6 +240,12 @@ export const uiMachine = setup({
             raise({ type: 'DONE' }),
           ],
         },
+        'RIGHT.ANIMATION.END': {
+          actions: [
+            { type: 'handle', params: { part: 'right' } },
+            raise({ type: 'DONE' }),
+          ],
+        },
         'SHADOW.ANIMATION.END': {
           actions: [
             { type: 'handle', params: { part: 'shadow' } },
@@ -265,6 +280,7 @@ export type UiRef = ActorRefFrom<typeof uiMachine>
 export const selectDetail = (ui: UiState) => ui.context.detail
 export const selectOpenCloseHeader = (ui: UiState) => ui.context.m['header']
 export const selectOpenCloseFooter = (ui: UiState) => ui.context.m['footer']
+export const selectOpenCloseRight = (ui: UiState) => ui.context.m['right']
 export const selectOpenCloseShadow = (ui: UiState) => ui.context.m['shadow']
 export const selectOpenCloseBalloon = (ui: UiState) => ui.context.m['balloon']
 export const selectOpenCloseDetail = (ui: UiState) => ui.context.m['detail']

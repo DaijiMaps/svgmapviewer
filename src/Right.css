@@ -1,49 +1,44 @@
-.footer {
+.right {
   padding: 0.4em;
-  width: 100vw;
+  height: 100vh;
+  height: 100svh;
   position: fixed;
-  bottom: 0;
-  left: 0;
+  top: 0%;
+  right: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: smaller;
   pointer-events: none;
 }
 
-.footer > * {
+.right > * {
   pointer-events: initial;
 }
 
-.mode {
+.zoom {
   font-size: large;
   margin: 0.4em;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.mode-item {
-  margin: 0 1.6px;
+.zoom-item {
+  margin: 1.6px 0;
   padding: 0.4em;
   border: 1.6px black solid;
 }
-.mode-item.selected {
-  pointer-events: none;
-}
-.mode-item:not(.selected) {
-  opacity: 0.375;
-}
-.mode-item > svg {
+.zoom-item > svg {
   display: block;
   width: 1.6em;
   height: 1.6em;
   pointer-events: none;
 }
-.mode-item > svg > path {
+.zoom-item > svg > path {
   stroke: black;
-  stroke-width: 0.4px;
+  stroke-width: 0.4;
   fill: none;
 }

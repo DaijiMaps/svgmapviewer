@@ -15,6 +15,7 @@ import {
   useZoomStyle,
 } from './lib/style'
 import { useUi } from './lib/ui-react'
+import { Right, RightStyle } from './Right'
 import { Shadow, ShadowStyle } from './Shadow'
 import { Svg } from './Svg'
 
@@ -41,6 +42,8 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
       <HeaderStyle _uiRef={uiRef} _pointerRef={pointerRef} />
       <Footer _uiRef={uiRef} _pointerRef={pointerRef} />
       <FooterStyle _uiRef={uiRef} _pointerRef={pointerRef} />
+      <Right _uiRef={uiRef} _pointerRef={pointerRef} />
+      <RightStyle _uiRef={uiRef} _pointerRef={pointerRef} />
       <Debug
         _container={containerRef.current}
         _uiRef={uiRef}
