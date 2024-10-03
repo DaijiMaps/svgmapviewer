@@ -33,6 +33,8 @@ export const syncScroll = (e: null | HTMLElement, b: Box): boolean => {
 
 export function getScroll(e: null | Readonly<HTMLElement>): null | BoxBox {
   if (e !== null) {
+    // forcibly stop scroll
+    e.scroll(e.scrollLeft, e.scrollTop)
     return boxBox(e.scrollLeft, e.scrollTop, e.scrollWidth, e.scrollHeight)
   }
   return null

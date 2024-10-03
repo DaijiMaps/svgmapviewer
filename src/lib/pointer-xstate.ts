@@ -108,6 +108,7 @@ type PointerEventMoveZoomPan =
   | { type: 'ZOOM.DONE' }
   | { type: 'PAN' }
   | { type: 'PAN.DONE' }
+  | { type: 'PAN.ZOOM' }
 type PointerEventSearch =
   | { type: 'SEARCH'; p: Vec; psvg: Vec }
   | { type: 'SEARCH.LOCK'; p: Vec; psvg: Vec }
@@ -1199,6 +1200,9 @@ export const pointerMachine = setup({
               actions: raise({ type: 'EXPAND', n: 9 }),
               target: 'Expanding',
             },
+            'PAN.ZOOM': {
+              target: 'Zooming',
+            },
           },
         },
         Expanding: {
@@ -1229,14 +1233,38 @@ export const pointerMachine = setup({
         Panning: {
           on: {
             CLICK: {
-              actions: ['resetMode', 'getScroll'],
+              target: 'Stopping',
             },
             CONTEXTMENU: {
-              actions: ['resetMode', 'getScroll'],
+              target: 'Stopping',
             },
             MODE: {
-              actions: ['resetMode', 'getScroll'],
+              target: 'Stopping',
             },
+            SCROLL: {
+              target: 'Updating',
+            },
+            'ZOOM.ZOOM': {
+              actions: [
+                {
+                  type: 'zoomEvent',
+                  params: ({ event: { z } }) => ({ z }),
+                },
+                // immediately receive PAN.ZOOM afrer unexpanded
+                raise({ type: 'PAN.ZOOM' }, { delay: 1 }),
+              ],
+              target: 'Stopping',
+            },
+          },
+        },
+        Updating: {
+          // immediately receive PAN afrer unexpanded
+          exit: raise({ type: 'PAN' }, { delay: 1 }),
+          always: 'Stopping',
+        },
+        Stopping: {
+          entry: ['resetMode', 'getScroll'],
+          on: {
             'SCROLL.GET.DONE': {
               actions: [
                 {
@@ -1247,15 +1275,16 @@ export const pointerMachine = setup({
               ],
               target: 'Expanding',
             },
-            SCROLL: {
-              actions: ['resetMode', 'getScroll'],
-              target: 'Updating',
-            },
           },
         },
-        Updating: {
-          entry: raise({ type: 'PAN' }, { delay: 1 }),
-          always: 'Panning',
+        Zooming: {
+          entry: raise({ type: 'ZOOM' }),
+          exit: raise({ type: 'PAN' }),
+          on: {
+            'ZOOM.DONE': {
+              target: 'Idle',
+            },
+          },
         },
       },
     },
