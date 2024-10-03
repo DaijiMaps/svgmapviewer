@@ -55,8 +55,12 @@ function MultiTouchCursor(
   return (
     <>
       {mode === 'pointing' && touches.points.length > 1 && (
-        <polyline
-          points={touches.points.map(({ x, y }) => `${x},${y}`).join(' ')}
+        <path
+          d={
+            touches.points.map(
+              ({ x, y }, i) => (i === 0 ? 'M' : 'L') + `${x},${y}`
+            ) + 'Z'
+          }
           stroke="black"
           strokeWidth={r * 0.05}
           fill="none"

@@ -7,7 +7,7 @@
    viewBox="-100 -100 793.70079 1122.5197"
    version="1.1"
    id="svg1"
-   inkscape:version="1.4-beta3 (01c8a1ca, 2024-08-28)"
+   inkscape:version="1.4-rc1 (61ec3f24, 2024-09-26)"
    sodipodi:docname="marche.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -33,7 +33,7 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
-     inkscape:current-layer="g20">
+     inkscape:current-layer="layer1">
     <inkscape:grid
        id="grid1"
        units="px"
@@ -388,9 +388,9 @@
        inkscape:label="paths">
       <path
          style="fill:none;fill-opacity:0.27451;stroke:#ffffff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-         d="m 460.00001,959.99996 20,-100 -40,-139.99999 -100,-60 -100,-100 v -99.99999 l 20,-60 40,-20 h 40 l 100,-60 40,-59.99999 20,-40 30,-40 h 30 l 40,-80 -20,-60 -20,-39.9999940000004 40,-59.9999979999996"
+         d="m 460.00001,959.99996 10,-50 10,-50 -15,-50 -15,-65 -10,-24.99999 -45,-30 -55,-30 -50,-45 -45,-50 -5,-15 v -89.99999 l 15,-50 5,-10 40,-20 h 40 l 55,-35 45,-25 40,-59.99999 20,-40 30,-40 h 30 l 25,-45 15,-35 -5,-29.999997 -15,-30.000003 -20,-39.9999940000007 40,-59.9999979999993"
          id="path4"
-         sodipodi:nodetypes="cccccccccccccccccc" />
+         sodipodi:nodetypes="cccccccccccccccccccccccccccc" />
       <path
          style="fill:none;fill-opacity:0.27451;stroke:#ffffff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
          d="m 260.00001,399.99998 v -40 l -40,-50 -40,-30 L 120,259.99999 l -40,-20"
@@ -398,17 +398,19 @@
          sodipodi:nodetypes="cccccc" />
       <path
          style="fill:none;fill-opacity:0.27451;stroke:#ffffff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-         d="m 440.00001,719.99997 80,20 60,-20 h 40"
-         id="path6" />
+         d="m 440.00001,719.99997 45,10 35,10 35,-10 25,-10 h 40"
+         id="path6"
+         sodipodi:nodetypes="cccccc" />
       <path
          style="fill:none;fill-opacity:0.27451;stroke:#ffffff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-         d="m 340.00001,379.99998 40,20 20,80 60,59.99999 60,20 40,40 20,60 v 60"
+         d="m 340.00001,379.99998 40,20 5,35 15,45 30,34.99999 30,25 60,20 40,40 20,60 5,30 -5,30"
          id="path7"
-         sodipodi:nodetypes="cccccccc" />
+         sodipodi:nodetypes="ccccccccccc" />
       <path
          style="fill:none;fill-opacity:0.27451;stroke:#ffffff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-         d="m 480.00001,259.99999 -60,-60 -20,-40 -20,-60 20,-40 60,-39.99999 40,-20.000004 h 60"
-         id="path8" />
+         d="m 480.00001,259.99999 -30,-25 -30,-35 -20,-40 -15,-45 -5,-24.999998 20,-30.000002 30,-19.999996 30,-19.999994 40,-20.000004 h 60"
+         id="path8"
+         sodipodi:nodetypes="ccccccccccc" />
       <path
          style="opacity:1;fill:none;fill-opacity:0.5;stroke:#ffffff;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
          d="m 530.00001,179.99999 -10,-20 v -30 l 10,-20 20,-20 10,-20 20,-30"
