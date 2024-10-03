@@ -59,6 +59,7 @@ function MultiTouchCursor(
           points={touches.points.map(({ x, y }) => `${x},${y}`).join(' ')}
           stroke="black"
           strokeWidth={r * 0.05}
+          fill="none"
         />
       )}
     </>
