@@ -1,5 +1,5 @@
 # svgmapviewer
 
-[/logo.svg]
+![logo](/assets/images/logo.svg)
 
 https://svgmapviewer.pages.dev/
