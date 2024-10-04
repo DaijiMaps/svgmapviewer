@@ -109,7 +109,10 @@ type PointerEventMoveZoomPan =
   | { type: 'ZOOM.DONE' }
   | { type: 'PAN' }
   | { type: 'PAN.DONE' }
+  | { type: 'PAN.UPDATE' }
   | { type: 'PAN.ZOOM' }
+  | { type: 'PAN.ZOOM.ZOOM' }
+  | { type: 'PAN.ZOOM.ZOOM.DONE' }
 type PointerEventSearch =
   | { type: 'SEARCH'; p: Vec; psvg: Vec }
   | { type: 'SEARCH.LOCK'; p: Vec; psvg: Vec }
@@ -555,6 +558,7 @@ export const pointerMachine = setup({
               },
             ],
             CLICK: {
+              guard: not('isPanEntryLocked'),
               actions: [
                 'resetTouches',
                 {
@@ -570,6 +574,7 @@ export const pointerMachine = setup({
               target: 'Idle',
             },
             CONTEXTMENU: {
+              guard: not('isPanEntryLocked'),
               target: 'Touching.Panning',
             },
             WHEEL: {
@@ -683,10 +688,40 @@ export const pointerMachine = setup({
               },
             },
             Panning: {
-              entry: raise({ type: 'PAN' }),
-              on: {
-                'PAN.DONE': {
-                  target: 'Done',
+              initial: 'Panning',
+              onDone: 'Done',
+              states: {
+                Panning: {
+                  entry: raise({ type: 'PAN' }),
+                  on: {
+                    'PAN.UPDATE': {
+                      target: 'Updating',
+                    },
+                    'PAN.ZOOM': {
+                      target: 'Zooming',
+                    },
+                    'PAN.DONE': {
+                      target: 'Done',
+                    },
+                  },
+                },
+                Updating: {
+                  on: {
+                    'PAN.DONE': {
+                      target: 'Panning',
+                    },
+                  },
+                },
+                Zooming: {
+                  entry: raise({ type: 'PAN.ZOOM.ZOOM' }, { delay: 1 }),
+                  on: {
+                    'PAN.ZOOM.ZOOM.DONE': {
+                      target: 'Panning',
+                    },
+                  },
+                },
+                Done: {
+                  type: 'final',
                 },
               },
             },
@@ -1200,14 +1235,19 @@ export const pointerMachine = setup({
       initial: 'Idle',
       states: {
         Idle: {
-          entry: raise({ type: 'PAN.DONE' }),
+          after: {
+            500: {
+              // XXX cancel this when updating/zooming?
+              actions: 'unlockPanEntry',
+            },
+          },
           on: {
             PAN: {
               // XXX expand to fit the whole map
               actions: raise({ type: 'EXPAND', n: 9 }),
               target: 'Expanding',
             },
-            'PAN.ZOOM': {
+            'PAN.ZOOM.ZOOM': {
               target: 'Zooming',
             },
           },
@@ -1219,6 +1259,7 @@ export const pointerMachine = setup({
               target: 'Panning',
             },
             'UNEXPAND.DONE': {
+              actions: raise({ type: 'PAN.DONE' }),
               target: 'Idle',
             },
           },
@@ -1238,12 +1279,15 @@ export const pointerMachine = setup({
               target: 'Stopping',
             },
             CONTEXTMENU: {
+              guard: not('isPanEntryLocked'),
               target: 'Stopping',
             },
             MODE: {
+              guard: not('isPanEntryLocked'),
               target: 'Stopping',
             },
             SCROLL: {
+              guard: not('isPanEntryLocked'),
               target: 'Updating',
             },
             'ZOOM.ZOOM': {
@@ -1252,20 +1296,18 @@ export const pointerMachine = setup({
                   type: 'zoomEvent',
                   params: ({ event: { z } }) => ({ z }),
                 },
-                // immediately receive PAN.ZOOM afrer unexpanded
-                raise({ type: 'PAN.ZOOM' }, { delay: 1 }),
+                raise({ type: 'PAN.ZOOM' }),
               ],
               target: 'Stopping',
             },
           },
         },
         Updating: {
-          // immediately receive PAN afrer unexpanded
-          exit: raise({ type: 'PAN' }, { delay: 1 }),
+          exit: raise({ type: 'PAN.UPDATE' }),
           always: 'Stopping',
         },
         Stopping: {
-          entry: ['resetMode', 'getScroll'],
+          entry: ['lockPanEntry', 'resetMode', 'getScroll'],
           on: {
             'SCROLL.GET.DONE': {
               actions: [
@@ -1284,6 +1326,7 @@ export const pointerMachine = setup({
           exit: raise({ type: 'PAN' }),
           on: {
             'ZOOM.DONE': {
+              actions: raise({ type: 'PAN.ZOOM.ZOOM.DONE' }),
               target: 'Idle',
             },
           },
