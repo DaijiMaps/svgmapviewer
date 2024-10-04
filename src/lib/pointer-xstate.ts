@@ -108,6 +108,7 @@ type PointerEventMoveZoomPan =
   | { type: 'ZOOM.DONE' }
   | { type: 'PAN' }
   | { type: 'PAN.DONE' }
+  | { type: 'PAN.ZOOM' }
 type PointerEventSearch =
   | { type: 'SEARCH'; p: Vec; psvg: Vec }
   | { type: 'SEARCH.LOCK'; p: Vec; psvg: Vec }
@@ -1200,6 +1201,9 @@ export const pointerMachine = setup({
               // XXX expand to fit the whole map
               actions: raise({ type: 'EXPAND', n: 9 }),
               target: 'Expanding',
+            },
+            'PAN.ZOOM': {
+              target: 'Zooming',
             },
           },
         },
