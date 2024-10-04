@@ -1213,9 +1213,25 @@ export const pointerMachine = setup({
               actions: 'setModeToPanning',
               target: 'BeforePanning',
             },
-            'UNEXPAND.DONE': {
-              target: 'Idle',
-            },
+            'UNEXPAND.DONE': [
+              // "zoom during panning" - 1
+              // if z is set: 'Zooming'
+              {
+                guard: ({ context }) => context.z !== null,
+                target: 'Zooming',
+              },
+              // "scroll reset (update) during panning"
+              // if mode is 'panning': 'Expanding'
+              {
+                guard: ({ context }) => context.mode === 'panning',
+                actions: raise({ type: 'EXPAND', n: 9 }),
+                target: 'Expanding',
+              },
+              // otherwise: 'Idle'
+              {
+                target: 'Idle',
+              },
+            ],
           },
         },
         // XXX work-around - ignore click right after touchend
@@ -1235,16 +1251,19 @@ export const pointerMachine = setup({
         Panning: {
           on: {
             CLICK: {
+              actions: 'resetMode',
               target: 'Stopping',
             },
             CONTEXTMENU: {
+              actions: 'resetMode',
               target: 'Stopping',
             },
             MODE: {
+              actions: 'resetMode',
               target: 'Stopping',
             },
             SCROLL: {
-              target: 'Updating',
+              target: 'Stopping',
             },
             'ZOOM.ZOOM': {
               actions: [
@@ -1252,20 +1271,13 @@ export const pointerMachine = setup({
                   type: 'zoomEvent',
                   params: ({ event: { z } }) => ({ z }),
                 },
-                // immediately receive PAN.ZOOM afrer unexpanded
-                raise({ type: 'PAN.ZOOM' }, { delay: 1 }),
               ],
               target: 'Stopping',
             },
           },
         },
-        Updating: {
-          // immediately receive PAN afrer unexpanded
-          exit: raise({ type: 'PAN' }, { delay: 1 }),
-          always: 'Stopping',
-        },
         Stopping: {
-          entry: ['resetMode', 'getScroll'],
+          entry: 'getScroll',
           on: {
             'SCROLL.GET.DONE': {
               actions: [
@@ -1281,10 +1293,12 @@ export const pointerMachine = setup({
         },
         Zooming: {
           entry: raise({ type: 'ZOOM' }),
-          exit: raise({ type: 'PAN' }),
           on: {
             'ZOOM.DONE': {
-              target: 'Idle',
+              // "zoom during panning" - 2
+              // re-enter panning with expand: 'Expanding'
+              actions: raise({ type: 'EXPAND', n: 9 }),
+              target: 'Expanding',
             },
           },
         },
