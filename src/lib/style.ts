@@ -86,7 +86,7 @@ export const css = (q: Matrix) => {
   return `
 .svg {
   will-change: transform;
-  animation: xxx ${svgMapViewerConfig.animationDuration}ms ease;
+  animation: xxx ${svgMapViewerConfig.animationDuration * 4}ms ease-out;
 }
 @keyframes xxx {
   from {
