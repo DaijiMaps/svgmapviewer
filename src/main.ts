@@ -10,7 +10,7 @@ svgmapviewer({
   href: marche,
   width: 793.70079,
   height: 1122.5197,
-  zoomFactor: 3,
+  zoomFactor: 2,
   renderInfo: RenderInfo,
 })
 
