@@ -292,7 +292,7 @@ export const pointerMachine = setup({
       m: ({ context: { layout } }, { ev }: { ev: KeyboardEvent }): Vec =>
         vecMul(
           keyToDir(ev.key),
-          vecVec(layout.container.width * 2, layout.container.height * 2)
+          vecVec(layout.container.width * 0.5, layout.container.height * 0.5)
         ),
     }),
     moveFocus: assign({
@@ -1123,7 +1123,7 @@ export const pointerMachine = setup({
           entry: raise({ type: 'MOVE.DONE' }),
           on: {
             MOVE: {
-              actions: raise({ type: 'EXPAND', n: 5 }),
+              actions: raise({ type: 'EXPAND', n: 3 }),
               target: 'Expanding',
             },
           },
