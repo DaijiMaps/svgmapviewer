@@ -1323,7 +1323,6 @@ export const pointerMachine = setup({
         },
         Zooming: {
           entry: raise({ type: 'ZOOM' }),
-          exit: raise({ type: 'PAN' }),
           on: {
             'ZOOM.DONE': {
               actions: raise({ type: 'PAN.ZOOM.ZOOM.DONE' }),
