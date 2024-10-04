@@ -63,6 +63,7 @@ export type PointerContext = {
   animation: null | Animation
   debug: boolean
   mode: PointerMode
+  panEntryLock: boolean
 }
 
 type PointerExternalEvent =
@@ -204,6 +205,7 @@ export const pointerMachine = setup({
       animation !== null && animation.zoom !== null,
     isZoomingIn: ({ context: { z } }) => z !== null && z > 0,
     isAnimating: ({ context: { animation } }) => animation !== null,
+    isPanEntryLocked: ({ context: { panEntryLock } }) => panEntryLock,
     idle: and([
       stateIn({ Pointer: 'Idle' }),
       stateIn({ Dragger: 'Inactive' }),
@@ -414,6 +416,8 @@ export const pointerMachine = setup({
       focus: ({ context: { layout } }): Vec => boxCenter(layout.container),
     }),
     setModeToLocked: assign({ mode: 'locked' }),
+    lockPanEntry: assign({ panEntryLock: true }),
+    unlockPanEntry: assign({ panEntryLock: false }),
   },
   actors: {
     scroll: scrollMachine,
@@ -434,6 +438,7 @@ export const pointerMachine = setup({
     animation: null,
     debug: false,
     mode: 'pointing',
+    panEntryLock: false,
   }),
   invoke: [
     {
@@ -1211,30 +1216,25 @@ export const pointerMachine = setup({
           on: {
             'EXPAND.DONE': {
               actions: 'setModeToPanning',
-              target: 'BeforePanning',
+              target: 'Panning',
             },
             'UNEXPAND.DONE': {
               target: 'Idle',
             },
           },
         },
-        // XXX work-around - ignore click right after touchend
-        // XXX otherwise PAN mode is exited immediately
-        BeforePanning: {
+        // work-around - ignore click right after touchend
+        // otherwise PAN mode is exited immediately
+        Panning: {
+          entry: 'lockPanEntry',
           after: {
             500: {
-              target: 'Panning',
+              actions: 'unlockPanEntry',
             },
           },
           on: {
             CLICK: {
-              target: 'Panning',
-            },
-          },
-        },
-        Panning: {
-          on: {
-            CLICK: {
+              guard: not('isPanEntryLocked'),
               target: 'Stopping',
             },
             CONTEXTMENU: {
