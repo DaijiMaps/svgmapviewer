@@ -1236,7 +1236,7 @@ export const pointerMachine = setup({
       states: {
         Idle: {
           after: {
-            500: {
+            250: {
               // XXX cancel this when updating/zooming?
               actions: 'unlockPanEntry',
             },
@@ -1269,7 +1269,7 @@ export const pointerMachine = setup({
         Panning: {
           entry: 'lockPanEntry',
           after: {
-            500: {
+            250: {
               actions: 'unlockPanEntry',
             },
           },
