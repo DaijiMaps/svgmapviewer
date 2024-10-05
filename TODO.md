@@ -1,3 +1,14 @@
+# UI
+
+- auto pilot
+- auto play
+- keyboard move with animation
+  - acceralation by typing hjkl multiple times
+  - stop by SPC key
+  - cancel animation
+
+# INTERNAL
+
 - distinguish Matrix (record) and M (tuple)
   - tuple can use only `readonly'
   - clean up usages of Readonly/ReadonlyDeep

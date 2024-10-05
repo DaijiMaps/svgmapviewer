@@ -260,6 +260,10 @@ export const pointerMachine = setup({
     toggleDebug: assign({
       debug: ({ context }): boolean => !context.debug,
     }),
+
+    //
+    // scroll
+    //
     syncScroll: ({ context: { layout }, system }): void => {
       system.get('scroll1').send({
         type: 'SYNC',
@@ -288,6 +292,10 @@ export const pointerMachine = setup({
         type: 'GET',
       })
     },
+
+    //
+    // move + zoom
+    //
     moveKey: assign({
       m: ({ context: { layout } }, { ev }: { ev: KeyboardEvent }): Vec =>
         vecMul(
@@ -317,6 +325,20 @@ export const pointerMachine = setup({
     zoomEvent: assign({
       z: (_, { z }: { z: -1 | 1 }): number => z,
     }),
+    startMove: assign({
+      animation: ({
+        context: { layout, drag, animation, m },
+      }): null | Animation =>
+        drag === null || m === null
+          ? animation
+          : animationMove(layout, drag, m),
+      z: () => null,
+    }),
+    endMove: assign({
+      layout: ({ context: { layout, drag } }): Layout =>
+        drag === null ? layout : relocLayout(layout, drag.move),
+      animation: () => null,
+    }),
     startZoom: assign({
       animation: ({ context: { layout, cursor, z } }): null | Animation =>
         z === null
@@ -329,6 +351,10 @@ export const pointerMachine = setup({
       animation: () => null,
       z: () => null,
     }),
+
+    //
+    // layout
+    //
     recenterLayout: assign({
       layout: ({ context: { layout, drag } }): Layout =>
         drag === null ? layout : recenterLayout(layout, drag.start),
@@ -344,13 +370,21 @@ export const pointerMachine = setup({
     resetLayout: assign({
       layout: ({ context: { layout } }): Layout => makeLayout(layout.config),
     }),
-    resetCursor: assign({
-      cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
-    }),
+
+    //
+    // expand
+    //
     expand: assign({
       layout: ({ context: { layout, expand } }, { n }: { n: number }): Layout =>
         expandLayoutCenter(layout, n / expand),
       expand: (_, { n }: { n: number }): number => n,
+    }),
+
+    //
+    // cursor
+    //
+    resetCursor: assign({
+      cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
     }),
     cursor: assign({
       cursor: (
@@ -358,6 +392,10 @@ export const pointerMachine = setup({
         { ev }: { ev: MouseEvent | PointerEvent }
       ): Vec => (mode !== 'pointing' ? cursor : vecVec(ev.pageX, ev.pageY)),
     }),
+
+    //
+    // drag
+    //
     startDrag: assign({
       drag: ({ context: { layout, cursor } }): Drag =>
         dragStart(layout.scroll, cursor),
@@ -372,20 +410,10 @@ export const pointerMachine = setup({
     endDrag: assign({
       drag: () => null,
     }),
-    startMove: assign({
-      animation: ({
-        context: { layout, drag, animation, m },
-      }): null | Animation =>
-        drag === null || m === null
-          ? animation
-          : animationMove(layout, drag, m),
-      z: () => null,
-    }),
-    endMove: assign({
-      layout: ({ context: { layout, drag } }): Layout =>
-        drag === null ? layout : relocLayout(layout, drag.move),
-      animation: () => null,
-    }),
+
+    //
+    // touch
+    //
     startTouches: assign({
       touches: ({ context: { touches } }, { ev }: { ev: TouchEvent }) =>
         handleTouchStart(touches, ev),
@@ -412,6 +440,10 @@ export const pointerMachine = setup({
       cursor: ({ context: { touches, cursor } }) =>
         touches.cursor !== null ? touches.cursor : cursor,
     }),
+
+    //
+    // mode
+    //
     resetMode: assign({ mode: 'pointing' }),
     setModeToPanning: assign({
       mode: 'panning',

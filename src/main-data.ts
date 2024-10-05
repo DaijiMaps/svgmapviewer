@@ -1,9 +1,11 @@
 import { BoxBox as Box } from './lib/box/prefixed'
-import { VecVec as Vec, vecSub } from './lib/vec/prefixed'
+import { VecVec as Vec, vecAdd, vecSub } from './lib/vec/prefixed'
 
 type Address = string
 
 const viewBox: Box = { x: -100, y: -100, width: 793.70079, height: 1122.5197 }
+
+const d: Vec = { x: 18 / 2, y: 18 / 2 }
 
 export const addressEntries: { a: Address; psvg: Vec }[] = [
   { a: 'Toilet1', psvg: { x: 166.12501, y: 293.49998 } },
@@ -19,4 +21,4 @@ export const addressEntries: { a: Address; psvg: Vec }[] = [
   { a: 'Fountains1', psvg: { x: 504.3047, y: 691.81295 } },
   { a: 'Fountains2', psvg: { x: 184.30469, y: 301.81297 } },
   { a: 'Fountains3', psvg: { x: 584.3047, y: -18.18702 } },
-].map(({ a, psvg }) => ({ a, psvg: vecSub(psvg, viewBox) }))
+].map(({ a, psvg }) => ({ a, psvg: vecAdd(vecSub(psvg, viewBox), d) }))
