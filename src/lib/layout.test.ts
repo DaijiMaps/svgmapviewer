@@ -20,7 +20,7 @@ const origViewBox: Box = { x: 0, y: 0, width: 100, height: 100 }
 
 const config = configLayout(16, origViewBox, container)
 const layout = makeLayout(config)
-const focus = boxCenter(container)
+const cursor = boxCenter(container)
 
 test('layout config', () => {
   // svg scaled to (1000, 1000)
@@ -38,13 +38,13 @@ test('zoom layout', () => {
   expect(layout.svgScale.s).toBe(0.1)
   const l0 = pipe(
     layout,
-    (l) => animationZoom(l, 0, focus),
+    (l) => animationZoom(l, 0, cursor),
     (a) => animationEndLayout(layout, a)
   )
   expect(l0.svgScale.s).toBe(layout.svgScale.s)
   const l1 = pipe(
     layout,
-    (l) => animationZoom(l, 1, focus),
+    (l) => animationZoom(l, 1, cursor),
     (a) => animationEndLayout(layout, a)
   )
   expect(l1.svgScale.s / layout.svgScale.s).toBe(1 / 2)
@@ -92,21 +92,21 @@ const U = (() => {
   const origViewBox: Box = { x: 0, y: 0, width: 1, height: 1 }
   const config = configLayout(16, origViewBox, container)
   const layout = makeLayout(config)
-  const focus = boxCenter(container)
+  const cursor = boxCenter(container)
   return {
     container,
     origViewBox,
     config,
     layout,
-    focus,
+    cursor,
   }
 })()
 
 test('expand + zoom', () => {
   const l1 = expandLayoutCenter(U.layout, 2)
-  const a1 = animationZoom(l1, 1, U.focus)
+  const a1 = animationZoom(l1, 1, U.cursor)
   const l2 = animationEndLayout(l1, a1)
-  const a2 = animationZoom(l2, -1, U.focus)
+  const a2 = animationZoom(l2, -1, U.cursor)
   const l3 = animationEndLayout(l2, a2)
   const l4 = expandLayoutCenter(l3, 1 / 2)
 
@@ -114,12 +114,12 @@ test('expand + zoom', () => {
 })
 
 test('expand + zoom 2', () => {
-  const focus = vecVec(0.25, 0.25)
+  const cursor = vecVec(0.25, 0.25)
 
   const l1 = expandLayoutCenter(U.layout, 2)
-  const a1 = animationZoom(l1, 1, focus)
+  const a1 = animationZoom(l1, 1, cursor)
   const l2 = animationEndLayout(l1, a1)
-  const a2 = animationZoom(l2, -1, focus)
+  const a2 = animationZoom(l2, -1, cursor)
   const l3 = animationEndLayout(l2, a2)
   const l4 = expandLayoutCenter(l3, 1 / 2)
 
@@ -136,7 +136,7 @@ test('expand + zoom 3', () => {
     }),
     ({ l, d }) => ({
       l,
-      a: animationZoom(l, 1, focus),
+      a: animationZoom(l, 1, cursor),
       d,
     }),
     ({ l, a, d }) => ({
@@ -146,7 +146,7 @@ test('expand + zoom 3', () => {
     }),
     ({ l, d }) => ({
       l,
-      a: animationZoom(l, -1, focus),
+      a: animationZoom(l, -1, cursor),
       d,
     }),
     ({ l, a, d }) => ({
@@ -221,7 +221,7 @@ test('recenter 1', () => {
 test('recenter 2', () => {
   const l2 = pipe(
     layout,
-    (l) => dragStart(l.scroll, focus),
+    (l) => dragStart(l.scroll, cursor),
     (d) => dragMove(d, vecVec(600, 500)),
     (d) => recenterLayout(layout, d.start)
   )
@@ -229,19 +229,19 @@ test('recenter 2', () => {
 })
 
 test('recenter 3', () => {
-  const l1 = expandLayout(layout, 2, focus)
-  const d1 = dragStart(l1.scroll, focus)
+  const l1 = expandLayout(layout, 2, cursor)
+  const d1 = dragStart(l1.scroll, cursor)
   const d2 = dragMove(d1, vecVec(0, 0))
   const d3 = dragMove(d2, vecVec(600, 500))
   const l2 = relocLayout(l1, d3.move)
   const l3 = recenterLayout(l2, d3.start)
-  const l4 = expandLayout(l3, 1 / 2, focus)
+  const l4 = expandLayout(l3, 1 / 2, cursor)
   expect(l4).toStrictEqual(layout)
 })
 
 test('recenter 4', () => {
-  const focus = vecVec(0, 0)
-  const d1 = pipe(layout, (l) => dragStart(l.scroll, focus))
+  const cursor = vecVec(0, 0)
+  const d1 = pipe(layout, (l) => dragStart(l.scroll, cursor))
   const ox1 = d1.start.x
   const x1 = layout.scroll.x
   expect(ox1).toBe(0)
@@ -276,14 +276,14 @@ test('recenter 4', () => {
 })
 
 test('move + zoom', () => {
-  const d1 = dragStart(layout.scroll, focus)
+  const d1 = dragStart(layout.scroll, cursor)
   const d2 = dragMove(d1, vecVec(0, 0))
   const l2 = recenterLayout(layout, d2.start)
-  const a1 = animationZoom(l2, 1, focus)
+  const a1 = animationZoom(l2, 1, cursor)
   const l3 = animationEndLayout(l2, a1)
-  const a2 = animationZoom(l3, -1, focus)
+  const a2 = animationZoom(l3, -1, cursor)
   const l4 = animationEndLayout(l3, a2)
-  const d5 = dragStart(l4.scroll, focus)
+  const d5 = dragStart(l4.scroll, cursor)
   const a6 = animationMove(l4, d5, vecVec(-1, 0))
   const l5 = animationEndLayout(l4, a6)
   const l6 = relocLayout(l5, d5.move)

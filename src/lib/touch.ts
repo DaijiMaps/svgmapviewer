@@ -27,7 +27,7 @@ type Vecs = ReadonlyDeep<Map<number, Vec[]>>
 export type Touches = ReadonlyDeep<{
   vecs: Vecs
   points: Vec[]
-  focus: null | Vec
+  cursor: null | Vec
   dists: number[]
   z: null | number
   horizontal: null | boolean
@@ -66,7 +66,7 @@ export function vecsToPoints(vecs: Vecs): Readonly<Vec[]> {
   )
 }
 
-function pointsToFocus(points: Readonly<Vec[]>): null | Vec {
+function pointsToCursor(points: Readonly<Vec[]>): null | Vec {
   return points.length < 2 ? null : vecMidpoint(points)
 }
 
@@ -91,12 +91,12 @@ export function handleTouchStart(
 ): Touches {
   const vecs: Vecs = vecsMonoid.concat(touches.vecs, changesToVecs(ev))
   const points = vecsToPoints(vecs)
-  const focus = pointsToFocus(points)
+  const cursor = pointsToCursor(points)
 
   const horizontal =
     points.length !== 2 ? null : Math.abs(vecAngle(points[0], points[1])) < 0.5
 
-  return { ...touches, vecs, points, focus, horizontal }
+  return { ...touches, vecs, points, cursor, horizontal }
 }
 
 export function handleTouchMove(
@@ -113,17 +113,17 @@ export function handleTouchMove(
     )
   )
   const points = vecsToPoints(vecs)
-  const focus = pointsToFocus(points)
+  const cursor = pointsToCursor(points)
   const [p, q] = points
-  if (focus === null || isUndefined(p) || isUndefined(q)) {
-    return { ...touches, vecs, points, focus }
+  if (cursor === null || isUndefined(p) || isUndefined(q)) {
+    return { ...touches, vecs, points, cursor }
   }
   const dists = updateDists(touches.dists, dist(p, q), limit)
   const z = calcZoom(dists)
   return {
     vecs,
     points,
-    focus,
+    cursor,
     dists,
     z,
     horizontal: touches.horizontal,
@@ -142,11 +142,11 @@ export function handleTouchEnd(
       changes.has(k) ? Option.none : Option.some(v)
   )
   const points = vecsToPoints(vecs)
-  const focus = pointsToFocus(points)
+  const cursor = pointsToCursor(points)
   return {
     vecs,
     points,
-    focus,
+    cursor,
     dists: vecs.size === 0 ? [] : touches.dists,
     z: vecs.size === 0 ? null : touches.z,
     horizontal: touches.horizontal,
@@ -157,7 +157,7 @@ export function resetTouches(): Touches {
   return {
     vecs: new Map(),
     points: [],
-    focus: null,
+    cursor: null,
     dists: [],
     z: null,
     horizontal: null,

@@ -35,8 +35,8 @@ export const Debug = (props: Readonly<DebugProps>) => {
   const m = toMatrixSvg(layout)
   const invm = fromMatrixSvg(layout)
 
-  const focusSvg = transformPoint(m, pointer.context.focus)
-  const focus2 = transformPoint(invm, focusSvg)
+  const cursorSvg = transformPoint(m, pointer.context.cursor)
+  const cursor2 = transformPoint(invm, cursorSvg)
 
   return (
     <div className="debug">
@@ -61,9 +61,9 @@ export const Debug = (props: Readonly<DebugProps>) => {
             {k as string}: {typeof v === 'string' ? v : JSON.stringify(v)}
           </li>
         ))}
-        <li>focus: {showPoint(pointer.context.focus)}</li>
-        <li>focusSvg: {showPoint(focusSvg)}</li>
-        <li>focus2: {showPoint(focus2)}</li>
+        <li>cursor: {showPoint(pointer.context.cursor)}</li>
+        <li>cursorSvg: {showPoint(cursorSvg)}</li>
+        <li>cursor2: {showPoint(cursor2)}</li>
         <li>expand: {showNumber(pointer.context.expand)}</li>
         {container !== null && (
           <>

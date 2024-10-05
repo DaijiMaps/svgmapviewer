@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react'
 import {
   PointerRef,
-  selectFocus,
+  selectCursor,
   selectMode,
   selectTouches,
 } from './lib/pointer-xstate'
@@ -37,9 +37,9 @@ function DefaultCursor(
   }>
 ) {
   const { _pointerRef: pointerRef, _r: r } = props
-  const focus = useSelector(pointerRef, selectFocus)
+  const cursor = useSelector(pointerRef, selectCursor)
 
-  return <DefaultCursorPath x={focus.x} y={focus.y} r={r} />
+  return <DefaultCursorPath x={cursor.x} y={cursor.y} r={r} />
 }
 
 function MultiTouchCursor(

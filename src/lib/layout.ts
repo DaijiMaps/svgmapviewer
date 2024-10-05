@@ -93,12 +93,12 @@ export const expandLayoutCenter = (layout: Layout, expand: number): Layout => {
   return expandLayout(layout, expand, boxCenter(layout.scroll))
 }
 
-export const expandLayout = (layout: Layout, s: number, focus: Vec): Layout => {
-  const o = toSvg(focus, layout)
+export const expandLayout = (layout: Layout, s: number, cursor: Vec): Layout => {
+  const o = toSvg(cursor, layout)
 
   return {
     ...layout,
-    scroll: boxScaleAt(layout.scroll, s, focus.x, focus.y),
+    scroll: boxScaleAt(layout.scroll, s, cursor.x, cursor.y),
     svgOffset: vecScale(layout.svgOffset, s),
     svg: boxScaleAt(layout.svg, s, o.x, o.y),
   }

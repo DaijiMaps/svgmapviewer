@@ -54,7 +54,7 @@ export type PointerInput = {
 export type PointerContext = {
   containerRef: RefObject<HTMLDivElement>
   layout: Layout
-  focus: Vec
+  cursor: Vec
   expand: number
   m: null | Vec
   z: null | number
@@ -295,9 +295,9 @@ export const pointerMachine = setup({
           vecVec(layout.container.width * 0.5, layout.container.height * 0.5)
         ),
     }),
-    moveFocus: assign({
-      m: ({ context: { layout, focus } }): Vec =>
-        vecSub(boxCenter(layout.container), focus),
+    moveCursor: assign({
+      m: ({ context: { layout, cursor } }): Vec =>
+        vecSub(boxCenter(layout.container), cursor),
     }),
     zoomKey: assign({
       z: (_, { ev }: { ev: KeyboardEvent }): number => keyToZoom(ev.key),
@@ -308,8 +308,8 @@ export const pointerMachine = setup({
     zoomTouches: assign({
       z: ({ context: { touches, z } }): null | number =>
         touches.z !== null ? touches.z : z,
-      focus: ({ context: { focus, touches } }) =>
-        touches.z !== null && touches.focus !== null ? touches.focus : focus,
+      cursor: ({ context: { cursor, touches } }) =>
+        touches.z !== null && touches.cursor !== null ? touches.cursor : cursor,
     }),
     zoomHome: assign({
       z: (): null | number => null,
@@ -318,10 +318,10 @@ export const pointerMachine = setup({
       z: (_, { z }: { z: -1 | 1 }): number => z,
     }),
     startZoom: assign({
-      animation: ({ context: { layout, focus, z } }): null | Animation =>
+      animation: ({ context: { layout, cursor, z } }): null | Animation =>
         z === null
           ? animationHome(layout, makeLayout(layout.config))
-          : animationZoom(layout, z, focus),
+          : animationZoom(layout, z, cursor),
     }),
     endAnimation: assign({
       layout: ({ context: { layout, animation } }): Layout =>
@@ -344,23 +344,23 @@ export const pointerMachine = setup({
     resetLayout: assign({
       layout: ({ context: { layout } }): Layout => makeLayout(layout.config),
     }),
-    resetFocus: assign({
-      focus: ({ context: { layout } }): Vec => boxCenter(layout.container),
+    resetCursor: assign({
+      cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
     }),
     expand: assign({
       layout: ({ context: { layout, expand } }, { n }: { n: number }): Layout =>
         expandLayoutCenter(layout, n / expand),
       expand: (_, { n }: { n: number }): number => n,
     }),
-    focus: assign({
-      focus: (
-        { context: { mode, focus } },
+    cursor: assign({
+      cursor: (
+        { context: { mode, cursor } },
         { ev }: { ev: MouseEvent | PointerEvent }
-      ): Vec => (mode !== 'pointing' ? focus : vecVec(ev.pageX, ev.pageY)),
+      ): Vec => (mode !== 'pointing' ? cursor : vecVec(ev.pageX, ev.pageY)),
     }),
     startDrag: assign({
-      drag: ({ context: { layout, focus } }): Drag =>
-        dragStart(layout.scroll, focus),
+      drag: ({ context: { layout, cursor } }): Drag =>
+        dragStart(layout.scroll, cursor),
     }),
     moveDrag: assign({
       drag: (
@@ -398,25 +398,25 @@ export const pointerMachine = setup({
       touches: ({ context: { touches } }, { ev }: { ev: TouchEvent }) =>
         handleTouchEnd(touches, ev),
     }),
-    focusTouches: assign({
-      focus: ({ context: { touches, focus } }) =>
-        touches.focus !== null ? touches.focus : focus,
+    cursorTouches: assign({
+      cursor: ({ context: { touches, cursor } }) =>
+        touches.cursor !== null ? touches.cursor : cursor,
     }),
     resetTouches: assign({
       touches: () => resetTouches(),
-      focus: ({ context: { touches, focus } }) =>
-        touches.focus !== null ? touches.focus : focus,
+      cursor: ({ context: { touches, cursor } }) =>
+        touches.cursor !== null ? touches.cursor : cursor,
     }),
     discardTouches: assign({
       touches: ({ context: { touches } }) => discardTouches(touches),
-      focus: ({ context: { touches, focus } }) =>
-        touches.focus !== null ? touches.focus : focus,
+      cursor: ({ context: { touches, cursor } }) =>
+        touches.cursor !== null ? touches.cursor : cursor,
     }),
     resetMode: assign({ mode: 'pointing' }),
     setModeToPanning: assign({
       mode: 'panning',
-      // XXX resetFocus
-      focus: ({ context: { layout } }): Vec => boxCenter(layout.container),
+      // XXX resetCursor
+      cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
     }),
     setModeToLocked: assign({ mode: 'locked' }),
     lockPanEntry: assign({ panEntryLock: true }),
@@ -431,7 +431,7 @@ export const pointerMachine = setup({
   context: ({ input: { containerRef } }) => ({
     containerRef,
     layout: emptyLayout,
-    focus: boxCenter(emptyLayout.container),
+    cursor: boxCenter(emptyLayout.container),
     expand: 1,
     m: null,
     z: null,
@@ -466,7 +466,7 @@ export const pointerMachine = setup({
                   type: 'layout',
                   params: ({ event: { config } }) => ({ config }),
                 },
-                'resetFocus',
+                'resetCursor',
               ],
             },
             'LAYOUT.RESET': {
@@ -562,13 +562,13 @@ export const pointerMachine = setup({
               actions: [
                 'resetTouches',
                 {
-                  type: 'focus',
+                  type: 'cursor',
                   params: ({ event }) => ({ ev: event.ev }),
                 },
-                emit(({ context: { layout, focus } }) => ({
+                emit(({ context: { layout, cursor } }) => ({
                   type: 'SEARCH',
-                  p: focus,
-                  psvg: toSvg(focus, layout),
+                  p: cursor,
+                  psvg: toSvg(cursor, layout),
                 })),
               ],
               target: 'Idle',
@@ -580,7 +580,7 @@ export const pointerMachine = setup({
             WHEEL: {
               guard: 'idle',
               actions: [
-                { type: 'focus', params: ({ event }) => ({ ev: event.ev }) },
+                { type: 'cursor', params: ({ event }) => ({ ev: event.ev }) },
                 {
                   type: 'zoomWheel',
                   params: ({ event }) => ({ ev: event.ev }),
@@ -590,7 +590,7 @@ export const pointerMachine = setup({
             },
             'POINTER.DOWN': {
               actions: {
-                type: 'focus',
+                type: 'cursor',
                 params: ({ event }) => ({ ev: event.ev }),
               },
             },
@@ -748,7 +748,7 @@ export const pointerMachine = setup({
         },
         Homing: {
           entry: raise({ type: 'ZOOM' }),
-          exit: ['resetLayout', 'resetFocus'],
+          exit: ['resetLayout', 'resetCursor'],
           on: {
             'ZOOM.DONE': {
               target: 'Idle',
@@ -799,7 +799,7 @@ export const pointerMachine = setup({
                     guard: 'sliding',
                     actions: [
                       {
-                        type: 'focus',
+                        type: 'cursor',
                         params: ({ event }) => ({ ev: event.ev }),
                       },
                       {
@@ -1020,7 +1020,7 @@ export const pointerMachine = setup({
                 type: 'startTouches',
                 params: ({ event }) => ({ ev: event.ev }),
               },
-              'focusTouches',
+              'cursorTouches',
               raise({ type: 'TOUCH.START.DONE' }),
             ],
           },
@@ -1033,7 +1033,7 @@ export const pointerMachine = setup({
                 type: 'moveTouches',
                 params: ({ event }) => ({ ev: event.ev }),
               },
-              'focusTouches',
+              'cursorTouches',
               raise({ type: 'TOUCH.MOVE.DONE' }),
             ],
           },
@@ -1044,7 +1044,7 @@ export const pointerMachine = setup({
               type: 'endTouches',
               params: ({ event }) => ({ ev: event.ev }),
             },
-            'focusTouches',
+            'cursorTouches',
             raise({ type: 'TOUCH.END.DONE' }),
           ],
         },
@@ -1371,5 +1371,5 @@ export type PointerMode = 'pointing' | 'panning' | 'locked'
 
 export const selectMode = (pointer: PointerState) => pointer.context.mode
 export const selectLayout = (pointer: PointerState) => pointer.context.layout
-export const selectFocus = (pointer: PointerState) => pointer.context.focus
+export const selectCursor = (pointer: PointerState) => pointer.context.cursor
 export const selectTouches = (pointer: PointerState) => pointer.context.touches

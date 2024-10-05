@@ -3,21 +3,21 @@ import { BoxBox as Box, boxCenter, boxCopy, boxMove } from './box/prefixed'
 import { VecVec as Vec, vecCopy, vecSub } from './vec/prefixed'
 
 export type Drag = ReadonlyDeep<{
-  focus: Vec
+  cursor: Vec
   start: Box
   move: Box
 }>
 
-export const dragStart = (scroll: Box, focus: Vec): Drag => {
+export const dragStart = (scroll: Box, cursor: Vec): Drag => {
   return {
-    focus: vecCopy(focus),
+    cursor: vecCopy(cursor),
     start: boxCopy(scroll),
     move: boxCopy(scroll),
   }
 }
 
 export const dragMove = (drag: Drag, p: Vec): Drag => {
-  const o = drag.focus
+  const o = drag.cursor
   const d = vecSub(p, o)
 
   return {
@@ -30,7 +30,7 @@ export const dragMove = (drag: Drag, p: Vec): Drag => {
 // XXX mainly for test (see "recenter 3")
 export const dragReset = (scroll: Box): Drag => {
   return {
-    focus: boxCenter(scroll),
+    cursor: boxCenter(scroll),
     start: boxCopy(scroll),
     move: boxCopy(scroll),
   }
