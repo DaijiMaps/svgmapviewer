@@ -1,0 +1,68 @@
+.content.svg {
+  background-color: rgba(204, 204, 204, 0.5);
+}
+
+.map {
+}
+
+.area {
+  fill: #88aa00;
+  fill-opacity: 0.5;
+}
+
+.building {
+  fill: lightgrey;
+}
+
+.pedestrian-area {
+  fill: white;
+  stroke: none;
+}
+
+.water {
+  fill: #aaeeff;
+}
+
+.stream {
+  fill: none;
+  stroke: #aaeeff;
+  stroke-width: 1px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.service {
+  fill: none;
+  stroke: white;
+  stroke-width: 4px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.footway {
+  fill: none;
+  stroke: white;
+  stroke-width: 1px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.footway-bridge {
+  fill: none;
+  stroke: black;
+  stroke-width: 1.5px;
+}
+
+.steps > .bg {
+  fill: none;
+  stroke: white;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1px;
+}
+.steps > .fg {
+  fill: none;
+  stroke: lightgrey;
+  stroke-width: 1px;
+  stroke-dasharray: 0.5, 0.5;
+}

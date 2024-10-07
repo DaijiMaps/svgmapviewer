@@ -6,9 +6,12 @@ import { emptyLayout } from './layout'
 import {
   Info,
   RenderInfo,
+  RenderMap,
   SvgMapViewerConfig,
   SvgMapViewerConfigUser,
 } from './types'
+
+const renderMapDefault: RenderMap = () => createElement('svg', {})
 
 const renderInfoDefault: RenderInfo = (props: Readonly<{ info: Info }>) =>
   createElement('p', {}, props.info.title)
@@ -39,6 +42,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   uiOpenDoneCbs: new Set(),
   uiCloseCbs: new Set(),
   uiCloseDoneCbs: new Set(),
+  renderMap: renderMapDefault,
   renderInfo: renderInfoDefault,
 }
 

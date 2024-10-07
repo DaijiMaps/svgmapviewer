@@ -8,11 +8,7 @@ function App() {
 
   return (
     <Viewer>
-      <use
-        href={`#${config.map}`}
-        width={config.width}
-        height={config.height}
-      />
+      <use href={`#${config.map}`} />
     </Viewer>
   )
 }

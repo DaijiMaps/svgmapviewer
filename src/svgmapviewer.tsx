@@ -40,12 +40,7 @@ export function svgmapviewer(configUser: Readonly<SvgMapViewerConfigUser>) {
       </SvgMapViewerConfigContext.Provider>
       <svg>
         <defs>
-          <image
-            id={config.map}
-            href={config.href}
-            width={config.width}
-            height={config.height}
-          />
+          <config.renderMap />
         </defs>
       </svg>
     </StrictMode>

@@ -41,6 +41,8 @@ export type UiCloseCb = () => void
 
 export type Conv = (p: Vec) => Vec
 
+export type RenderMap = () => JSX.Element
+
 export type RenderInfo = (props: Readonly<{ info: Info }>) => JSX.Element
 
 export interface SvgMapViewerConfig {
@@ -69,6 +71,7 @@ export interface SvgMapViewerConfig {
   uiOpenDoneCbs: Set<UiOpenDoneCb>
   uiCloseCbs: Set<UiCloseCb>
   uiCloseDoneCbs: Set<UiCloseCb>
+  renderMap: RenderMap
   renderInfo: RenderInfo
 }
 
