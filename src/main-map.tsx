@@ -10,10 +10,12 @@ import {
   r,
 } from './lib/map/geojson'
 import { V } from './lib/matrix'
+import { Assets } from './main-map-assets'
 
 export function RenderMap() {
   return (
     <>
+      <Assets />
       <path
         id="Xbench"
         d="M -0.7,0 V -0.4 M 0.7,0 v -0.4 m 0.3,0 h -2"
@@ -24,6 +26,13 @@ export function RenderMap() {
       <path
         id="Xguide-post"
         d="m 0,0 v -1.4 h -0.7 m 0,0.6 H 0 m 0,-0.3 h 0.7"
+        fill="none"
+        stroke="black"
+        strokeWidth="0.05"
+      />
+      <path
+        id="Xinfo-board"
+        d="M -0.4,0 V -0.7 M 0.4,0 v -0.7 m 0.1,0 h -1 v -0.7 h 1 z"
         fill="none"
         stroke="black"
         strokeWidth="0.05"
@@ -40,6 +49,8 @@ export function RenderMap() {
         <Steps />
         <Benches />
         <GuidePosts />
+        <InfoBoards />
+        <Facilities />
       </g>
     </>
   )
@@ -173,6 +184,37 @@ function GuidePosts() {
     <>
       {xs.map(([vx, vy], idx) => (
         <use key={idx} href="#Xguide-post" x={vx} y={vy} />
+      ))}
+    </>
+  )
+}
+
+function InfoBoards() {
+  const re = /"information"=>"(board|map)"/
+  const xs = mapData.points.features
+    .filter((f) => f.properties.other_tags?.match(re) ?? false)
+    .map((f) => f.geometry.coordinates as V)
+    .map(r) as Point[]
+
+  return (
+    <>
+      {xs.map(([vx, vy], idx) => (
+        <use key={idx} href="#Xinfo-board" x={vx} y={vy} />
+      ))}
+    </>
+  )
+}
+
+function Facilities() {
+  const xs = mapData.points.features
+    .filter((f) => f.properties.other_tags?.match(/"toilets"/) ?? false)
+    .map((f) => f.geometry.coordinates as V)
+    .map(r) as Point[]
+
+  return (
+    <>
+      {xs.map(([vx, vy], idx) => (
+        <use key={idx} href="#XToilets" x={vx} y={vy} />
       ))}
     </>
   )
