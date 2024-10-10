@@ -7,8 +7,8 @@ import {
   svgMapViewerConfig,
   matrixV as V,
 } from '@daijimaps/svgmapviewer'
-import { Assets } from './main-map-assets'
-import './Map.css'
+import { Assets } from './map-assets'
+import './map.css'
 
 export function RenderMap() {
   return (

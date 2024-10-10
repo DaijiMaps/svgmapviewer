@@ -1,4 +1,4 @@
-import { FacilityInfo, Info, ShopInfo } from './main-info'
+import { FacilityInfo, Info, ShopInfo } from './info'
 
 export interface Props {
   info: Info

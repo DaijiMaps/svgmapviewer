@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 import { SearchReq, SearchRes, VecVec as Vec } from '@daijimaps/svgmapviewer'
 import Flatbush from 'flatbush'
-import { addressEntries } from './main-data'
+import { addressEntries } from './data'
 
 type Address = string
 type Idx = string

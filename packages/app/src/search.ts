@@ -6,7 +6,7 @@ import {
   svgMapViewerConfig,
   VecVec as Vec,
 } from '@daijimaps/svgmapviewer'
-import SearchWorker from './main-search-worker?worker&inline'
+import SearchWorker from './search-worker?worker&inline'
 
 const worker = new SearchWorker()
 
