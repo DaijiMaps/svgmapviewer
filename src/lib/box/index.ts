@@ -1,6 +1,12 @@
 import { expandAt, expandAtCenter, expandAtOff, expandAtRatio } from './expand'
 import { box, Box, center, copy, move, toViewBox, unit } from './main'
-import { scaleAt, scaleAtCenter, scaleAtOff, scaleAtRatio } from './scale'
+import {
+  scale,
+  scaleAt,
+  scaleAtCenter,
+  scaleAtOff,
+  scaleAtRatio,
+} from './scale'
 import { fromTlBr, TlBr, toTlBr } from './tlbr'
 import { transform } from './transform'
 
@@ -16,6 +22,7 @@ export {
   expandAtRatio,
   fromTlBr,
   move,
+  scale,
   scaleAt,
   scaleAtCenter,
   scaleAtOff,

@@ -1,0 +1,5 @@
+1. select areas (areas.geojson, multipolygon)
+2. get extent (areas_extent.geojson, multipolygon)
+3. get origin (origin.geojson, point)
+4. get measures (measures.geojson, line)
+5. get viewbox (viewbox.geojson, line)

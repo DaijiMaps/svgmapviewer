@@ -120,7 +120,8 @@ function Bridges() {
   const xs = mapData.lines.features
     .filter(
       (f) =>
-        f.properties.highway === 'footway' &&
+        (f.properties.highway === 'footway' ||
+          f.properties.highway === 'pedestrian') &&
         f.properties.other_tags?.match(/"bridge"/)
     )
     .map((f) => f.geometry.coordinates) as Line[]
@@ -206,15 +207,36 @@ function InfoBoards() {
 }
 
 function Facilities() {
-  const xs = mapData.points.features
+  const toilets = mapData.points.features
     .filter((f) => f.properties.other_tags?.match(/"toilets"/) ?? false)
+    .map((f) => f.geometry.coordinates as V)
+    .map(r) as Point[]
+  const toilets2 = mapData.centroids.features
+    .filter((f) => f.properties.other_tags?.match(/"toilets"/) ?? false)
+    .map((f) => f.geometry.coordinates as V)
+    .map(r) as Point[]
+  const parkings = mapData.points.features
+    .filter((f) => f.properties.other_tags?.match(/"parking"/) ?? false)
+    .map((f) => f.geometry.coordinates as V)
+    .map(r) as Point[]
+  const parkings2 = mapData.centroids.features
+    .filter((f) => f.properties.other_tags?.match(/"parking"/) ?? false)
     .map((f) => f.geometry.coordinates as V)
     .map(r) as Point[]
 
   return (
     <>
-      {xs.map(([vx, vy], idx) => (
+      {toilets.map(([vx, vy], idx) => (
         <use key={idx} href="#XToilets" x={vx} y={vy} />
+      ))}
+      {toilets2.map(([vx, vy], idx) => (
+        <use key={idx} href="#XToilets" x={vx} y={vy} />
+      ))}
+      {parkings.map(([vx, vy], idx) => (
+        <use key={idx} href="#XParking" x={vx} y={vy} />
+      ))}
+      {parkings2.map(([vx, vy], idx) => (
+        <use key={idx} href="#XParking" x={vx} y={vy} />
       ))}
     </>
   )

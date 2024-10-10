@@ -1,4 +1,5 @@
 import areas from '../../data/areas.json'
+import centroids from '../../data/centroids.json'
 import lines from '../../data/lines.json'
 import measures from '../../data/measures.json'
 import multipolygons from '../../data/multipolygons.json'
@@ -6,7 +7,7 @@ import multilinestrings from '../../data/multistrings.json'
 import origin from '../../data/origin.json'
 import points from '../../data/points.json'
 import viewbox from '../../data/viewbox.json'
-import { BoxBox } from '../box/prefixed'
+import { BoxBox, boxScale } from '../box/prefixed'
 import { V } from '../matrix'
 
 export type Point = V
@@ -34,10 +35,8 @@ export function l(vs: Readonly<V[]>): string {
   return `M${s(vs[0])}` + vs.slice(1).map((a: V) => `L${s(a)}`)
 }
 
-export function r([x, y]: V): V {
-  const svgX = (x - ox) * sx
-  const svgY = (y - oy) * sy
-  return [svgX, svgY]
+export function r(p: V): V {
+  return Vmul(Vsub(p, o), distScale)
 }
 
 export function s([x, y]: V): string {
@@ -52,32 +51,66 @@ export const mapData = {
   lines,
   multilinestrings,
   multipolygons,
+  centroids,
   viewbox,
 }
 
-const [ox, oy]: V = mapData.origin.features[0].geometry.coordinates as V
-const px = mapData.measures.features[0].geometry.coordinates[1][0]
-const qy = mapData.measures.features[1].geometry.coordinates[1][1]
+const o: V = getOrigin()
 
-const op = px - ox
-const oq = qy - oy
+function calcScale(): V {
+  const [ox, oy]: V = mapData.origin.features[0].geometry.coordinates as V
 
-const distOP = mapData.measures.features[0].properties.length
-const distOQ = mapData.measures.features[1].properties.length
+  const p = mapData.measures.features[0]
+  const q = mapData.measures.features[1]
 
-const sx = distOP / op
-const sy = distOQ / oq
+  //const distP = p.properties.length
+  //const distQ = q.properties.length
 
-const vb0 = viewbox.features[0].geometry.coordinates
-const vbx = vb0[1][0] - vb0[0][0]
-const vby = vb0[1][1] - vb0[0][1]
-const vb1 = viewbox.features[1].geometry.coordinates
-const vbw = vb1[1][0] - vb1[0][0]
-const vbh = vb1[1][1] - vb1[0][1]
+  const dist: V = [p.properties.length, q.properties.length]
 
-export const geoJsonViewBox: BoxBox = {
-  x: vbx * sx,
-  y: vby * sy,
-  width: vbw * sx,
-  height: vbh * sy,
+  const px = p.geometry.coordinates[1][0]
+  const qy = q.geometry.coordinates[1][1]
+
+  //const op = px - ox
+  //const oq = qy - oy
+
+  const len: V = [px - ox, qy - oy]
+
+  //const sx = distP / op
+  //const sy = distQ / oq
+
+  const s: V = Vdiv(dist, len)
+
+  return s
 }
+
+function getOrigin(): V {
+  return mapData.origin.features[0].geometry.coordinates as V
+}
+
+function getViewBox(): BoxBox {
+  const vb0 = viewbox.features[0].geometry.coordinates
+  const [x, y] = Vsub(vb0[1] as V, vb0[0] as V)
+
+  const vb1 = viewbox.features[1].geometry.coordinates
+  const [width, height] = Vsub(vb1[1] as V, vb1[0] as V)
+
+  return { x, y, width, height }
+}
+
+function Vsub([ax, ay]: V, [bx, by]: V): V {
+  return [ax - bx, ay - by]
+}
+
+function Vmul([ax, ay]: V, [bx, by]: V): V {
+  return [ax * bx, ay * by]
+}
+
+function Vdiv([ax, ay]: V, [bx, by]: V): V {
+  return [ax / bx, ay / by]
+}
+
+const distScale: V = calcScale()
+const vb = getViewBox()
+
+export const geoJsonViewBox: BoxBox = boxScale(vb, distScale)
