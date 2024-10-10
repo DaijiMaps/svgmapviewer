@@ -32,7 +32,7 @@ import {
   vecVec,
   vecZero,
 } from './lib/vec/prefixed'
-import type { atrixH, MatrixMatrix, matrixV } from './lib/matrix/prefixed'
+import type { matrixH, MatrixMatrix, matrixV } from './lib/matrix/prefixed'
 import {
   matrixApply,
   matrixApplyF,
@@ -126,7 +126,7 @@ export {
 
 // matrix
 
-export type { atrixH, MatrixMatrix, matrixV }
+export type { matrixH, MatrixMatrix, matrixV }
 
 export {
   matrixApply,
