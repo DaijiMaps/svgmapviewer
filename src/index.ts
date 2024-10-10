@@ -69,6 +69,21 @@ import {
   boxTransform,
   boxUnit,
 } from './lib/box/prefixed'
+import {
+  geoJsonViewBox,
+  mapData,
+  Point,
+  Line,
+  MultiLineString,
+  MultiPolygon,
+  lineToPath,
+  multiLineStringToPath,
+  multiPolygonToPath,
+  a,
+  l,
+  r,
+  s,
+} from './lib/map/geojson'
 
 // svgmapviewer
 
@@ -152,4 +167,22 @@ export {
   boxToViewBox,
   boxTransform,
   boxUnit,
+}
+
+// map/geojson
+
+export {
+  geoJsonViewBox,
+  mapData,
+  Point,
+  Line,
+  MultiLineString,
+  MultiPolygon,
+  lineToPath,
+  multiLineStringToPath,
+  multiPolygonToPath,
+  a,
+  l,
+  r,
+  s,
 }
