@@ -3,11 +3,9 @@ import { svgMapViewerConfig } from './lib/config'
 import {
   Line,
   lineToPath,
-  mapData,
   MultiPolygon,
   multiPolygonToPath,
   Point,
-  r,
 } from './lib/map/geojson'
 import { V } from './lib/matrix'
 import { Assets } from './main-map-assets'
@@ -57,7 +55,7 @@ export function RenderMap() {
 }
 
 function Areas() {
-  const xs: MultiPolygon[] = mapData.areas.features.map(
+  const xs: MultiPolygon[] = svgMapViewerConfig.mapData.areas.features.map(
     (f) => f.geometry.coordinates
   ) as MultiPolygon[]
 
@@ -67,7 +65,7 @@ function Areas() {
 }
 
 function Buildings() {
-  const xs: MultiPolygon[] = mapData.multipolygons.features
+  const xs: MultiPolygon[] = svgMapViewerConfig.mapData.multipolygons.features
     .filter((f) => f.properties.building !== null)
     .map((f) => f.geometry.coordinates) as MultiPolygon[]
 
@@ -77,7 +75,7 @@ function Buildings() {
 }
 
 function PedestrianAreas() {
-  const xs: MultiPolygon[] = mapData.multipolygons.features
+  const xs: MultiPolygon[] = svgMapViewerConfig.mapData.multipolygons.features
     .filter((f) => f.properties.other_tags?.match(/"pedestrian"/))
     .map((f) => f.geometry.coordinates) as MultiPolygon[]
 
@@ -87,7 +85,7 @@ function PedestrianAreas() {
 }
 
 function Waters() {
-  const xs = mapData.multipolygons.features
+  const xs = svgMapViewerConfig.mapData.multipolygons.features
     .filter((f) => f.properties.natural === 'water')
     .map((f) => f.geometry.coordinates) as MultiPolygon[]
 
@@ -97,7 +95,7 @@ function Waters() {
 }
 
 function Streams() {
-  const xs = mapData.lines.features
+  const xs = svgMapViewerConfig.mapData.lines.features
     .filter((f) => f.properties.waterway === 'stream')
     .map((f) => f.geometry.coordinates) as Line[]
 
@@ -107,7 +105,7 @@ function Streams() {
 }
 
 function Services() {
-  const xs = mapData.lines.features
+  const xs = svgMapViewerConfig.mapData.lines.features
     .filter((f) => f.properties.highway === 'service')
     .map((f) => f.geometry.coordinates) as Line[]
 
@@ -117,7 +115,7 @@ function Services() {
 }
 
 function Bridges() {
-  const xs = mapData.lines.features
+  const xs = svgMapViewerConfig.mapData.lines.features
     .filter(
       (f) =>
         (f.properties.highway === 'footway' ||
@@ -132,7 +130,7 @@ function Bridges() {
 }
 
 function Footways() {
-  const xs = mapData.lines.features
+  const xs = svgMapViewerConfig.mapData.lines.features
     .filter(
       (f) =>
         f.properties.highway === 'footway' ||
@@ -146,7 +144,7 @@ function Footways() {
 }
 
 function Steps() {
-  const xs = mapData.lines.features
+  const xs = svgMapViewerConfig.mapData.lines.features
     .filter((f) => f.properties.highway === 'steps')
     .map((f) => f.geometry.coordinates) as Line[]
 
@@ -161,10 +159,10 @@ function Steps() {
 }
 
 function Benches() {
-  const xs = mapData.points.features
+  const xs = svgMapViewerConfig.mapData.points.features
     .filter((f) => f.properties.other_tags?.match(/"bench"/) ?? false)
     .map((f) => f.geometry.coordinates as V)
-    .map(r) as Point[]
+    .map(svgMapViewerConfig.mapCoordToSvg) as Point[]
 
   return (
     <>
@@ -176,10 +174,10 @@ function Benches() {
 }
 
 function GuidePosts() {
-  const xs = mapData.points.features
+  const xs = svgMapViewerConfig.mapData.points.features
     .filter((f) => f.properties.other_tags?.match(/"guidepost"/) ?? false)
     .map((f) => f.geometry.coordinates as V)
-    .map(r) as Point[]
+    .map(svgMapViewerConfig.mapCoordToSvg) as Point[]
 
   return (
     <>
@@ -192,10 +190,10 @@ function GuidePosts() {
 
 function InfoBoards() {
   const re = /"information"=>"(board|map)"/
-  const xs = mapData.points.features
+  const xs = svgMapViewerConfig.mapData.points.features
     .filter((f) => f.properties.other_tags?.match(re) ?? false)
     .map((f) => f.geometry.coordinates as V)
-    .map(r) as Point[]
+    .map(svgMapViewerConfig.mapCoordToSvg) as Point[]
 
   return (
     <>
@@ -207,22 +205,22 @@ function InfoBoards() {
 }
 
 function Facilities() {
-  const toilets = mapData.points.features
+  const toilets = svgMapViewerConfig.mapData.points.features
     .filter((f) => f.properties.other_tags?.match(/"toilets"/) ?? false)
     .map((f) => f.geometry.coordinates as V)
-    .map(r) as Point[]
-  const toilets2 = mapData.centroids.features
+    .map(svgMapViewerConfig.mapCoordToSvg) as Point[]
+  const toilets2 = svgMapViewerConfig.mapData.centroids.features
     .filter((f) => f.properties.other_tags?.match(/"toilets"/) ?? false)
     .map((f) => f.geometry.coordinates as V)
-    .map(r) as Point[]
-  const parkings = mapData.points.features
+    .map(svgMapViewerConfig.mapCoordToSvg) as Point[]
+  const parkings = svgMapViewerConfig.mapData.points.features
     .filter((f) => f.properties.other_tags?.match(/"parking"/) ?? false)
     .map((f) => f.geometry.coordinates as V)
-    .map(r) as Point[]
-  const parkings2 = mapData.centroids.features
+    .map(svgMapViewerConfig.mapCoordToSvg) as Point[]
+  const parkings2 = svgMapViewerConfig.mapData.centroids.features
     .filter((f) => f.properties.other_tags?.match(/"parking"/) ?? false)
     .map((f) => f.geometry.coordinates as V)
-    .map(r) as Point[]
+    .map(svgMapViewerConfig.mapCoordToSvg) as Point[]
 
   return (
     <>

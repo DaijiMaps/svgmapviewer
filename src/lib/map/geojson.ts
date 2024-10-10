@@ -1,15 +1,8 @@
-import areas from '../../data/areas.json'
-import centroids from '../../data/centroids.json'
-import lines from '../../data/lines.json'
-import measures from '../../data/measures.json'
-import multipolygons from '../../data/multipolygons.json'
-import multilinestrings from '../../data/multistrings.json'
-import origin from '../../data/origin.json'
-import points from '../../data/points.json'
-import viewbox from '../../data/viewbox.json'
 import { BoxBox, boxScale } from '../box/prefixed'
+import { svgMapViewerConfig } from '../config'
 import { V } from '../matrix'
 import {
+  emptyGeoJSON,
   LineGeoJSON,
   MultiLineGeoJSON,
   MultiPolygonGeoJSON,
@@ -28,15 +21,19 @@ export type MultiLineString = V[][]
 export type MultiPolygon = V[][][]
 
 export function lineToPath(vs: Readonly<Line>): string {
-  return l(vs.map(r))
+  return l(vs.map(svgMapViewerConfig.mapCoordToSvg))
 }
 
 export function multiLineStringToPath(vss: Readonly<MultiLineString>): string {
-  return vss.map((vs) => l(vs.map(r))).join('')
+  return vss.map((vs) => l(vs.map(svgMapViewerConfig.mapCoordToSvg))).join('')
 }
 
 export function multiPolygonToPath(vsss: Readonly<MultiPolygon>): string {
-  return vsss.map((vss) => vss.map((vs) => a(vs.map(r))).join('')).join('')
+  return vsss
+    .map((vss) =>
+      vss.map((vs) => a(vs.map(svgMapViewerConfig.mapCoordToSvg))).join('')
+    )
+    .join('')
 }
 
 export function a(vs: Readonly<V[]>): string {
@@ -45,10 +42,6 @@ export function a(vs: Readonly<V[]>): string {
 
 export function l(vs: Readonly<V[]>): string {
   return `M${s(vs[0])}` + vs.slice(1).map((a: V) => `L${s(a)}`)
-}
-
-export function r(p: V): V {
-  return Vmul(Vsub(p, o), distScale)
 }
 
 export function s([x, y]: V): string {
@@ -70,21 +63,20 @@ export type MapData = {
   centroids: PointGeoJSON<OsmPolygonProperties>
 }
 
-export const mapData: MapData = {
-  origin,
-  measures,
-  areas,
-  points,
-  lines,
-  multilinestrings,
-  multipolygons,
-  centroids,
-  viewbox,
+export const emptyMapData: MapData = {
+  areas: emptyGeoJSON,
+  origin: emptyGeoJSON,
+  measures: emptyGeoJSON,
+  viewbox: emptyGeoJSON,
+
+  points: emptyGeoJSON,
+  lines: emptyGeoJSON,
+  multilinestrings: emptyGeoJSON,
+  multipolygons: emptyGeoJSON,
+  centroids: emptyGeoJSON,
 }
 
-const o: V = getOrigin()
-
-function calcScale(): V {
+export function calcScale(mapData: Readonly<MapData>) {
   const [ox, oy]: V = mapData.origin.features[0].geometry.coordinates as V
 
   const p = mapData.measures.features[0]
@@ -106,16 +98,18 @@ function calcScale(): V {
   //const sx = distP / op
   //const sy = distQ / oq
 
-  const s: V = Vdiv(dist, len)
+  const distScale: V = Vdiv(dist, len)
 
-  return s
+  const toSvg = (p: V) => Vmul(Vsub(p, [ox, oy]), distScale)
+  const geoJsonViewBox = boxScale(getViewBox(mapData.viewbox), distScale)
+
+  return {
+    toSvg,
+    geoJsonViewBox,
+  }
 }
 
-function getOrigin(): V {
-  return mapData.origin.features[0].geometry.coordinates as V
-}
-
-function getViewBox(): BoxBox {
+export function getViewBox(viewbox: Readonly<LineGeoJSON>): BoxBox {
   const vb0 = viewbox.features[0].geometry.coordinates
   const [x, y] = Vsub(vb0[1] as V, vb0[0] as V)
 
@@ -125,19 +119,14 @@ function getViewBox(): BoxBox {
   return { x, y, width, height }
 }
 
-function Vsub([ax, ay]: V, [bx, by]: V): V {
+export function Vsub([ax, ay]: V, [bx, by]: V): V {
   return [ax - bx, ay - by]
 }
 
-function Vmul([ax, ay]: V, [bx, by]: V): V {
+export function Vmul([ax, ay]: V, [bx, by]: V): V {
   return [ax * bx, ay * by]
 }
 
-function Vdiv([ax, ay]: V, [bx, by]: V): V {
+export function Vdiv([ax, ay]: V, [bx, by]: V): V {
   return [ax / bx, ay / by]
 }
-
-const distScale: V = calcScale()
-const vb = getViewBox()
-
-export const geoJsonViewBox: BoxBox = boxScale(vb, distScale)

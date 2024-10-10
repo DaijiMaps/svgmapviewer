@@ -1,8 +1,15 @@
-export type CRS = {
+export interface CRS {
   type: string
   properties: {
     name: string
   }
+}
+
+export const emptyCRS: CRS = {
+  type: '',
+  properties: {
+    name: '',
+  },
 }
 
 //// coordinate
@@ -17,32 +24,32 @@ export type MultiPolygonCoordinate = PolygonCoordinate[]
 //// geometry
 
 export interface PointGeometry {
-  type: string
+  type: string // 'point' | 'Point'
   coordinates: PointCoordinate
 }
 
 export interface LineGeometry {
-  type: string
+  type: string // 'linestring' | 'LineString'
   coordinates: LineCoordinate
 }
 
 export interface PolygonGeometry {
-  type: string
+  type: string // 'polygon' | 'Polygon'
   coordinates: PolygonCoordinate
 }
 
 export interface MultiPointGeometry {
-  type: string
+  type: string // 'multipoint' | 'MultiPoint'
   coordinates: MultiPointCoordinate
 }
 
 export interface MultiLineGeometry {
-  type: string
+  type: string // 'multilinestring' | 'MultiLineString'
   coordinates: MultiLineCoordinate
 }
 
 export interface MultiPolygonGeometry {
-  type: string
+  type: string // 'multipolygon' | 'MultiPolygon'
   coordinates: MultiPolygonCoordinate
 }
 
@@ -126,4 +133,11 @@ export interface MultiPolygonGeoJSON<P = object> {
   name: string
   crs: CRS
   features: MultiPolygonFeature<P>[]
+}
+
+export const emptyGeoJSON = {
+  type: '',
+  name: '',
+  crs: emptyCRS,
+  features: [],
 }

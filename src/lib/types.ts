@@ -2,6 +2,8 @@
 /* eslint-disable functional/no-return-void */
 import { Box } from './box/main'
 import { Layout } from './layout'
+import { MapData } from './map/geojson'
+import { V } from './matrix'
 import { Vec } from './vec'
 
 // top, right, bottom, left
@@ -73,6 +75,8 @@ export interface SvgMapViewerConfig {
   uiCloseDoneCbs: Set<UiCloseCb>
   renderMap: RenderMap
   renderInfo: RenderInfo
+  mapData: MapData
+  mapCoordToSvg: (v: V) => V
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>

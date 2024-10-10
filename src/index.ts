@@ -21,17 +21,15 @@ import {
 } from './lib/box/prefixed'
 import {
   a,
-  geoJsonViewBox,
+  calcScale,
   l,
   Line,
   lineToPath,
-  mapData,
   MultiLineString,
   multiLineStringToPath,
   MultiPolygon,
   multiPolygonToPath,
   Point,
-  r,
   s,
 } from './lib/map/geojson'
 import type { matrixH, MatrixMatrix, matrixV } from './lib/matrix/prefixed'
@@ -176,12 +174,10 @@ export type { Line, MultiLineString, MultiPolygon, Point }
 
 export {
   a,
-  geoJsonViewBox,
+  calcScale,
   l,
   lineToPath,
-  mapData,
   multiLineStringToPath,
   multiPolygonToPath,
-  r,
   s,
 }

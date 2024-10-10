@@ -3,6 +3,8 @@
 /* eslint-disable functional/no-return-void */
 import { createElement } from 'react'
 import { emptyLayout } from './layout'
+import { emptyMapData } from './map/geojson'
+import { V } from './matrix'
 import {
   Info,
   RenderInfo,
@@ -44,6 +46,8 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   uiCloseDoneCbs: new Set(),
   renderMap: renderMapDefault,
   renderInfo: renderInfoDefault,
+  mapData: emptyMapData,
+  mapCoordToSvg: (v: V) => v,
 }
 
 export function updateSvgMapViewerConfig(
