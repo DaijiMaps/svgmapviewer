@@ -78,7 +78,7 @@ export interface SvgMapViewerConfig {
   renderMap: RenderMap
   renderInfo: RenderInfo
   mapData: MapData
-  mapCoordToSvg: (v: V) => V
+  mapConv: (v: V) => V
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>

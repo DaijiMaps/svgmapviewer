@@ -162,7 +162,7 @@ function Benches() {
   const xs = svgMapViewerConfig.mapData.points.features
     .filter((f) => f.properties.other_tags?.match(/"bench"/) ?? false)
     .map((f) => f.geometry.coordinates as V)
-    .map(svgMapViewerConfig.mapCoordToSvg) as Point[]
+    .map(svgMapViewerConfig.mapConv) as Point[]
 
   return (
     <>
@@ -177,7 +177,7 @@ function GuidePosts() {
   const xs = svgMapViewerConfig.mapData.points.features
     .filter((f) => f.properties.other_tags?.match(/"guidepost"/) ?? false)
     .map((f) => f.geometry.coordinates as V)
-    .map(svgMapViewerConfig.mapCoordToSvg) as Point[]
+    .map(svgMapViewerConfig.mapConv) as Point[]
 
   return (
     <>
@@ -193,7 +193,7 @@ function InfoBoards() {
   const xs = svgMapViewerConfig.mapData.points.features
     .filter((f) => f.properties.other_tags?.match(re) ?? false)
     .map((f) => f.geometry.coordinates as V)
-    .map(svgMapViewerConfig.mapCoordToSvg) as Point[]
+    .map(svgMapViewerConfig.mapConv) as Point[]
 
   return (
     <>
@@ -208,19 +208,19 @@ function Facilities() {
   const toilets = svgMapViewerConfig.mapData.points.features
     .filter((f) => f.properties.other_tags?.match(/"toilets"/) ?? false)
     .map((f) => f.geometry.coordinates as V)
-    .map(svgMapViewerConfig.mapCoordToSvg) as Point[]
+    .map(svgMapViewerConfig.mapConv) as Point[]
   const toilets2 = svgMapViewerConfig.mapData.centroids.features
     .filter((f) => f.properties.other_tags?.match(/"toilets"/) ?? false)
     .map((f) => f.geometry.coordinates as V)
-    .map(svgMapViewerConfig.mapCoordToSvg) as Point[]
+    .map(svgMapViewerConfig.mapConv) as Point[]
   const parkings = svgMapViewerConfig.mapData.points.features
     .filter((f) => f.properties.other_tags?.match(/"parking"/) ?? false)
     .map((f) => f.geometry.coordinates as V)
-    .map(svgMapViewerConfig.mapCoordToSvg) as Point[]
+    .map(svgMapViewerConfig.mapConv) as Point[]
   const parkings2 = svgMapViewerConfig.mapData.centroids.features
     .filter((f) => f.properties.other_tags?.match(/"parking"/) ?? false)
     .map((f) => f.geometry.coordinates as V)
-    .map(svgMapViewerConfig.mapCoordToSvg) as Point[]
+    .map(svgMapViewerConfig.mapConv) as Point[]
 
   return (
     <>

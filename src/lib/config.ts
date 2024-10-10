@@ -18,7 +18,7 @@ const renderMapDefault: RenderMap = () => createElement('svg', {})
 const renderInfoDefault: RenderInfo = (props: Readonly<{ info: Info }>) =>
   createElement('p', {}, props.info.title)
 
-function mapCoordToSvgDefault(p: V): V {
+function mapConvDefault(p: V): V {
   return p
 }
 
@@ -51,7 +51,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   renderMap: renderMapDefault,
   renderInfo: renderInfoDefault,
   mapData: emptyMapData,
-  mapCoordToSvg: mapCoordToSvgDefault,
+  mapConv: mapConvDefault,
 }
 
 export function updateSvgMapViewerConfig(

@@ -1,6 +1,7 @@
 import { BoxBox, boxScale } from '../box/prefixed'
 import { svgMapViewerConfig } from '../config'
 import { V } from '../matrix'
+import { Vdiv, Vmul, Vsub } from '../matrix/v'
 import { MapData } from './data'
 import { LineGeoJSON } from './geojson-types'
 
@@ -10,17 +11,17 @@ export type MultiLineString = V[][]
 export type MultiPolygon = V[][][]
 
 export function lineToPath(vs: Readonly<Line>): string {
-  return l(vs.map(svgMapViewerConfig.mapCoordToSvg))
+  return l(vs.map(svgMapViewerConfig.mapConv))
 }
 
 export function multiLineStringToPath(vss: Readonly<MultiLineString>): string {
-  return vss.map((vs) => l(vs.map(svgMapViewerConfig.mapCoordToSvg))).join('')
+  return vss.map((vs) => l(vs.map(svgMapViewerConfig.mapConv))).join('')
 }
 
 export function multiPolygonToPath(vsss: Readonly<MultiPolygon>): string {
   return vsss
     .map((vss) =>
-      vss.map((vs) => a(vs.map(svgMapViewerConfig.mapCoordToSvg))).join('')
+      vss.map((vs) => a(vs.map(svgMapViewerConfig.mapConv))).join('')
     )
     .join('')
 }
@@ -37,40 +38,7 @@ export function s([x, y]: V): string {
   return `${x},${y}`
 }
 
-export function calcScale(mapData: Readonly<MapData>) {
-  const [ox, oy]: V = mapData.origin.features[0].geometry.coordinates as V
-
-  const p = mapData.measures.features[0]
-  const q = mapData.measures.features[1]
-
-  //const distP = p.properties.length
-  //const distQ = q.properties.length
-
-  const dist: V = [p.properties.length, q.properties.length]
-
-  const px = p.geometry.coordinates[1][0]
-  const qy = q.geometry.coordinates[1][1]
-
-  //const op = px - ox
-  //const oq = qy - oy
-
-  const len: V = [px - ox, qy - oy]
-
-  //const sx = distP / op
-  //const sy = distQ / oq
-
-  const distScale: V = Vdiv(dist, len)
-
-  const toSvg = (p: V) => Vmul(Vsub(p, [ox, oy]), distScale)
-  const geoJsonViewBox = boxScale(getViewBox(mapData.viewbox), distScale)
-
-  return {
-    toSvg,
-    geoJsonViewBox,
-  }
-}
-
-export function getViewBox(viewbox: Readonly<LineGeoJSON>): BoxBox {
+function getViewBox(viewbox: Readonly<LineGeoJSON>): BoxBox {
   const vb0 = viewbox.features[0].geometry.coordinates
   const [x, y] = Vsub(vb0[1] as V, vb0[0] as V)
 
@@ -80,14 +48,28 @@ export function getViewBox(viewbox: Readonly<LineGeoJSON>): BoxBox {
   return { x, y, width, height }
 }
 
-export function Vsub([ax, ay]: V, [bx, by]: V): V {
-  return [ax - bx, ay - by]
-}
+export function calcScale(mapData: Readonly<MapData>) {
+  const o: V = mapData.origin.features[0].geometry.coordinates as V
 
-export function Vmul([ax, ay]: V, [bx, by]: V): V {
-  return [ax * bx, ay * by]
-}
+  const p = mapData.measures.features[0]
+  const q = mapData.measures.features[1]
 
-export function Vdiv([ax, ay]: V, [bx, by]: V): V {
-  return [ax / bx, ay / by]
+  const dist: V = [p.properties.length, q.properties.length]
+
+  const pq: V = [p.geometry.coordinates[1][0], q.geometry.coordinates[1][1]]
+
+  const len: V = Vsub(pq, o)
+
+  const distScale: V = Vdiv(dist, len)
+
+  // XXX svg <-> geo coordinate
+  // XXX XXX use matrix
+
+  const mapConv = (p: V) => Vmul(Vsub(p, o), distScale)
+  const mapViewBox = boxScale(getViewBox(mapData.viewbox), distScale)
+
+  return {
+    mapConv,
+    mapViewBox,
+  }
 }

@@ -23,4 +23,4 @@ export const mapData: MapData = {
   centroids,
 }
 
-export const { toSvg, geoJsonViewBox } = calcScale(mapData)
+export const { mapConv, mapViewBox } = calcScale(mapData)
