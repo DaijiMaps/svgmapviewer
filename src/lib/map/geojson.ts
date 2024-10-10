@@ -9,6 +9,12 @@ import points from '../../data/points.json'
 import viewbox from '../../data/viewbox.json'
 import { BoxBox, boxScale } from '../box/prefixed'
 import { V } from '../matrix'
+import {
+  LineGeoJSON,
+  MultiLineGeoJSON,
+  MultiPolygonGeoJSON,
+  PointGeoJSON,
+} from './geojson-types'
 
 export type Point = V
 export type Line = V[]
@@ -43,7 +49,21 @@ export function s([x, y]: V): string {
   return `${x},${y}`
 }
 
-export const mapData = {
+export type MapData = {
+  origin: PointGeoJSON
+  measures: LineGeoJSON<{
+    length: number
+  }>
+  areas: MultiPolygonGeoJSON
+  points: PointGeoJSON
+  lines: LineGeoJSON
+  multilinestrings: MultiLineGeoJSON
+  multipolygons: MultiPolygonGeoJSON
+  centroids: PointGeoJSON
+  viewbox: LineGeoJSON
+}
+
+export const mapData: MapData = {
   origin,
   measures,
   areas,
