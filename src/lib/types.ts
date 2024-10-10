@@ -6,6 +6,8 @@ import { MapData } from './map/geojson'
 import { V } from './matrix'
 import { Vec } from './vec'
 
+export type { MapData }
+
 // top, right, bottom, left
 export type Dir = 0 | 1 | 2 | 3
 

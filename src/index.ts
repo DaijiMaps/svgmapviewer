@@ -48,6 +48,7 @@ import {
   matrixToString,
   matrixTranslate,
 } from './lib/matrix/prefixed'
+import { Info, MapData, SearchReq, SearchRes } from './lib/types'
 import type { VecVec, VecVecs } from './lib/vec/prefixed'
 import {
   vecAdd,
@@ -83,6 +84,10 @@ import {
   SvgMapViewerConfig,
   SvgMapViewerConfigUser,
 } from './svgmapviewer'
+
+// types
+
+export type { Info, MapData, SearchReq, SearchRes }
 
 // svgmapviewer
 
