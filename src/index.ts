@@ -81,6 +81,7 @@ import {
 } from './lib/vec/prefixed'
 import {
   svgmapviewer,
+  svgMapViewerConfig,
   SvgMapViewerConfig,
   SvgMapViewerConfigUser,
 } from './svgmapviewer'
@@ -89,7 +90,7 @@ import {
 
 export type { SvgMapViewerConfig, SvgMapViewerConfigUser }
 
-export { svgmapviewer }
+export { svgmapviewer, svgMapViewerConfig }
 
 // vec
 

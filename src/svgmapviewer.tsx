@@ -11,6 +11,8 @@ import { SvgMapViewerConfig, SvgMapViewerConfigUser } from './lib/types'
 
 export type { SvgMapViewerConfig, SvgMapViewerConfigUser }
 
+export { svgMapViewerConfig }
+
 export const SvgMapViewerConfigContext = createContext(svgMapViewerConfig)
 
 export function svgmapviewer(configUser: Readonly<SvgMapViewerConfigUser>) {
