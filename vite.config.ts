@@ -22,7 +22,7 @@ export default defineConfig({
   plugins: [
     react(),
     libInjectCss(),
-    dts({ rollupTypes: true, tsconfigPath: './tsconfig.app.json' }),
+    dts({ rollupTypes: true, tsconfigPath: './tsconfig.app-lib.json' }),
     svgr({ include: '**/*.svg' }),
   ],
 })
