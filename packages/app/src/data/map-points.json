@@ -1,0 +1,2543 @@
+{
+  "type": "FeatureCollection",
+  "name": "points",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1665929600",
+        "name": null,
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713970499999988, 35.6872437]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1681472793",
+        "name": null,
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7080765, 35.68853] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1986321852",
+        "name": "千駄ヶ谷門",
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"access\"=>\"customers\",\"foot\"=>\"yes\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708846200000011, 35.6824631]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1986326956",
+        "name": "正門",
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"access\"=>\"private\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7149853, 35.6823689] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1986327007",
+        "name": "管理門",
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null
+      },
+      "geometry": { "type": "Point", "coordinates": [139.709902, 35.6880184] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1986327011",
+        "name": "旧新宿門",
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7088745, 35.6883052] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1986327021",
+        "name": "大木戸門",
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"access\"=>\"customers\",\"name:en\"=>\"Okido Gate\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713598499999989, 35.6867784]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375682573",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.713353, 35.684443] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375683808",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"toilets\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7132595, 35.6847844] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375685360",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7124325, 35.6854793] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375685411",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.712457, 35.685907] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375692281",
+        "name": "温室の遺構",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"archaeological_site\",\"name:en\"=>\"Remains of Conservatory\",\"name:es\"=>\"Restos de conservatorio\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.712172, 35.686965] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375692364",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"toilets\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.712321, 35.686835] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375698175",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.713206, 35.686181] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375701528",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"toilets\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7130809, 35.6859534] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375705842",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711061, 35.682593] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375705866",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\",\"backrest\"=>\"yes\",\"mapillary\"=>\"931416590976200\",\"survey:date\"=>\"2019-08-27\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.710882, 35.682714] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375705930",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.710673, 35.682886] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375705953",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.710534, 35.683017] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375705973",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.71042, 35.683178] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375706246",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7100678, 35.6828138] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375706289",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"toilets\",\"check_date\"=>\"2022-10-26\",\"fee\"=>\"no\",\"wheelchair\"=>\"yes\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.709856, 35.6828] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375706639",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"toilets\",\"wheelchair\"=>\"yes\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.709047, 35.682401] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375772036",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7108777, 35.6820516] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2375813045",
+        "name": "新宿御苑 避難門",
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null
+      },
+      "geometry": { "type": "Point", "coordinates": [139.704596, 35.68521] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376681203",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708634499999988, 35.6824163]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376682120",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\",\"covered\"=>\"no\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.708841, 35.68252] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376682642",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\",\"backrest\"=>\"yes\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7086892, 35.6827791] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376687810",
+        "name": "シラカシ",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"wood\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7094, 35.683027] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376688064",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.709912, 35.683783] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376688500",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\",\"backrest\"=>\"yes\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.708291, 35.683116] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376691112",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\",\"backrest\"=>\"yes\",\"mapillary\"=>\"1427262410949933\",\"survey:date\"=>\"2019-08-27\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.709379, 35.684111] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376691117",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.709564, 35.684018] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376691246",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.710021, 35.683666] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376691248",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.71016, 35.683505] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376693199",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.710764, 35.684065] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376693346",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7109209, 35.6838928] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376693425",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\",\"backrest\"=>\"yes\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711147399999987, 35.684189]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376694257",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\",\"backrest\"=>\"no\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711607, 35.683734] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376694258",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\",\"backrest\"=>\"yes\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711766, 35.683666] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376694260",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711919, 35.683621] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376695026",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711689, 35.68313] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376695254",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711551, 35.683205] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376695528",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711395, 35.683285] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376695536",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711339, 35.683278] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376695677",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711299, 35.683294] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376695809",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711244, 35.683384] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376695845",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711111, 35.683508] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376695910",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.71109, 35.68353] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376695911",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.71107, 35.683553] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376696002",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711056, 35.683584] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376696162",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711041, 35.683602] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376699580",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"toilets\",\"wheelchair\"=>\"no\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.705213, 35.6849034] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376707745",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.706719, 35.686441] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376707748",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.706952, 35.686535] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376707965",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.707267, 35.686477] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376708764",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.707395, 35.686498] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376709733",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.707564, 35.686542] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376710052",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\",\"backrest\"=>\"no\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.707918, 35.686557] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376710382",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"check_date\"=>\"2023-10-22\",\"vending\"=>\"drinks\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7080836, 35.6868478] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376710383",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"check_date\"=>\"2023-10-22\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7080676, 35.6868498] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376710508",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"check_date\"=>\"2023-10-22\",\"vending\"=>\"drinks\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7080531, 35.6868507] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376710690",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\",\"backrest\"=>\"no\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708445899999987, 35.6863987]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376710903",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.70895, 35.686231] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376712584",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711457, 35.68637] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376712597",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711537, 35.686165] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376717493",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7125, 35.68606] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376717759",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.712642, 35.685956] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376729774",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.71159, 35.6817033] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376730016",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7114154, 35.6817196] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376730714",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.711225, 35.681835] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376731152",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7109192, 35.6818039] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376731211",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.710687, 35.681721] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376731238",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7106943, 35.6817524] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376731430",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.710354, 35.68167] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376731436",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.710185, 35.681744] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376731479",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.710041, 35.681748] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376731665",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.709805, 35.681848] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376731668",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\",\"backrest\"=>\"yes\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.709682, 35.681898] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2376731674",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.709584, 35.681946] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680247",
+        "name": "ゆりのき売店",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"name:en\"=>\"Yurinoki Newsstand\",\"shop\"=>\"kiosk\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7082062, 35.6868424] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680250",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"drinking_water\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708911699999987, 35.6825955]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680253",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"waste_disposal\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7096512, 35.6826928] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680256",
+        "name": "コカ・コーラ",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"brand\"=>\"コカ・コーラ\",\"brand:en\"=>\"Coca-Cola\",\"brand:ja\"=>\"コカ・コーラ\",\"brand:wikidata\"=>\"Q2813\",\"check_date\"=>\"2022-10-26\",\"drink:cola\"=>\"yes\",\"indoor\"=>\"no\",\"name:en\"=>\"Coca-Cola\",\"name:ja\"=>\"コカ・コーラ\",\"operator\"=>\"Coca Cola\",\"vending\"=>\"drinks\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7098705, 35.682724] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680259",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"check_date\"=>\"2022-10-26\",\"indoor\"=>\"no\",\"operator\"=>\"Kirin\",\"vending\"=>\"drinks\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7098714, 35.6827411] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680271",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"waste_disposal\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711361900000014, 35.6839324]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680291",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"vending\"=>\"drinks\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.709454, 35.6850878] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680292",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"vending\"=>\"drinks\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709470399999987, 35.6850982]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680293",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"vending\"=>\"drinks\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7094869, 35.6851085] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680294",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"vending\"=>\"drinks\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7095033, 35.6851189] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680299",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"waste_disposal\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70982570000001, 35.6853028]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680337",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"vending\"=>\"drinks\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7132863, 35.6859637] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680343",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"vending\"=>\"drinks\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7132849, 35.6859742] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680350",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"vending\"=>\"drinks\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7132849, 35.6859853] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680356",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"vending\"=>\"drinks\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7132849, 35.6859924] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680364",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"waste_disposal\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7132838, 35.686027] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680370",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"clock\",\"check_date\"=>\"2022-10-26\",\"date\"=>\"yes\",\"display\"=>\"analog\",\"support\"=>\"pole\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7082388, 35.686581] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680377",
+        "name": "中央休憩所売店",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"name:en\"=>\"Central Rest Area Vendor\",\"shop\"=>\"kiosk\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7096076, 35.6851916] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2709680382",
+        "name": "大木戸休憩所 売店",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"name:en\"=>\"Okido rest area\",\"name:fr\"=>\"Aire de repos Okido\",\"shop\"=>\"kiosk\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713157099999989, 35.6859587]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "3648052675",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7116955, 35.6863319] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "4299452891",
+        "name": "Tickets",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"name:zh\"=>\"新宿御苑售票處\",\"shop\"=>\"ticket\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.707414, 35.6883506] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "4770383323",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"name:en\"=>\"Sendagaya gate\",\"name:fr\"=>\"Entrée Sendagaya\",\"opening_hours\"=>\"Mo-Su 09:00-16:00\",\"shop\"=>\"ticket\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.708882, 35.6824675] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "5248135498",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"telephone\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7088952, 35.6825249] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "5248135500",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"payment:coins\"=>\"yes\",\"vending\"=>\"locker\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708940399999989, 35.6824899]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "5248135501",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"recycling\",\"recycling:beverage_cartons\"=>\"no\",\"recycling:cans\"=>\"yes\",\"recycling:PET\"=>\"yes\",\"recycling:plastic\"=>\"no\",\"recycling:plastic_bottles\"=>\"no\",\"recycling:plastic_packaging\"=>\"no\",\"recycling_type\"=>\"container\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7098253, 35.685285] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "5248135503",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\",\"backrest\"=>\"yes\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7099656, 35.6851225] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "5248135505",
+        "name": "新宿御苑案内図",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"map\",\"tourism\"=>\"information\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7089741, 35.6825963] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "5248267318",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"vending\"=>\"public_transport_tickets\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7088737, 35.6824202] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "6673703585",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"toilets\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7078862, 35.6884949] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8354781339",
+        "name": "内藤町",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": "neighbourhood",
+        "man_made": null,
+        "other_tags": "\"alt_name:fr\"=>\"Naitōmachi\",\"name:en\"=>\"Naitō-machi\",\"name:fr\"=>\"Naitō-machi\",\"name:ja-Hira\"=>\"ないとうまち\",\"name:ja-Latn\"=>\"Naitō-machi\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711793699999987, 35.6856663]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8370128667",
+        "name": "千駄ヶ谷六丁目",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": "neighbourhood",
+        "man_made": null,
+        "other_tags": "\"name:en\"=>\"Sendagaya 6-chōme\",\"name:fr\"=>\"Sendagaya 6-chōme\",\"name:ja-Hira\"=>\"せんだがや6ちょうめ\",\"name:ja-Latn\"=>\"Sendagaya 6-chōme\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7067538, 35.6844266] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8592404564",
+        "name": "スターバックス",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"cafe\",\"brand\"=>\"スターバックス\",\"brand:en\"=>\"Starbucks\",\"brand:ja\"=>\"スターバックス\",\"brand:wikidata\"=>\"Q37158\",\"brand:wikipedia\"=>\"ja:スターバックス\",\"cuisine\"=>\"coffee_shop\",\"name:en\"=>\"Starbucks\",\"name:ja\"=>\"スターバックス\",\"official_name\"=>\"スターバックスコーヒー\",\"official_name:en\"=>\"Starbucks Coffee\",\"official_name:ja\"=>\"スターバックスコーヒー\",\"start_date\"=>\"2020-03-20\",\"takeaway\"=>\"yes\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7112942, 35.6836797] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8592404569",
+        "name": null,
+        "barrier": "lift_gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7139901, 35.6871675] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8592404586",
+        "name": null,
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"access\"=>\"permissive\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.713798, 35.6872646] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8594268737",
+        "name": "通用口",
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"access\"=>\"private\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7080086, 35.6884759] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8594323697",
+        "name": "ナショナルパークディスカバリーセンター",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"yes\",\"name:en\"=>\"National Parks Discovery Center\",\"tourism\"=>\"information\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7076271, 35.6885393] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8594323698",
+        "name": "カフェはなのき",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"cafe\",\"website\"=>\"https://fng.or.jp/shinjuku/place/rest/hananoki/\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7077161, 35.6885036] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8594323699",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"toilets\",\"fee\"=>\"no\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70844360000001, 35.6857521]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8594482189",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"leaf_cycle\"=>\"evergreen\",\"leaf_type\"=>\"broadleaved\",\"natural\"=>\"tree\",\"species\"=>\"Magnolia grandiflora\",\"species:ja\"=>\"タイサンボク\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7129909, 35.686368] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8594482190",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"leaf_cycle\"=>\"deciduous\",\"leaf_type\"=>\"needleleaved\",\"natural\"=>\"tree\",\"species\"=>\"Metasequoia glyptostroboides\",\"species:ja\"=>\"メタセコイア\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7111759, 35.6864465] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8594482191",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"leaf_cycle\"=>\"deciduous\",\"leaf_type\"=>\"broadleaved\",\"natural\"=>\"tree\",\"species\"=>\"Ulmus davidiana\",\"species:ja\"=>\"ハルニレ\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7106638, 35.6860346] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8594482192",
+        "name": "新宿門",
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"access\"=>\"customers\",\"name:en\"=>\"Shinjuku Gate\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7075241, 35.6883337] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8594482198",
+        "name": "臨時門",
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"access\"=>\"private\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.709069, 35.6880997] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "9022107223",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"drinking_water\",\"fountain\"=>\"bubbler\",\"image\"=>\"https://ipfs.io/ipfs/QmVKB2uPoycWvekKisU1s37CbW8jxMyShRC8GmnBQEtS1W/7Q5ygoyf--.1.jpg\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7113286, 35.6840143] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "9022122803",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"drinking_water\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7067198, 35.6869904] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10129677009",
+        "name": "ダイドードリンコ",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"vending_machine\",\"brand\"=>\"ダイドー\",\"brand:en\"=>\"DyDo\",\"brand:ja\"=>\"ダイドー\",\"brand:wikidata\"=>\"Q11316814\",\"check_date\"=>\"2022-10-26\",\"drink:soft_drink\"=>\"yes\",\"indoor\"=>\"no\",\"name:en\"=>\"DyDo Drinco\",\"name:ja\"=>\"ダイドードリンコ\",\"operator\"=>\"DyDo\",\"vending\"=>\"drinks\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7098427, 35.6827555] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10129677010",
+        "name": "伊藤園",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"alt_name:en\"=>\"ITOEN\",\"amenity\"=>\"vending_machine\",\"brand\"=>\"伊藤園\",\"brand:en\"=>\"Ito En\",\"brand:ja\"=>\"伊藤園\",\"brand:wikidata\"=>\"Q3079325\",\"check_date\"=>\"2022-10-26\",\"drink:tea\"=>\"yes\",\"indoor\"=>\"no\",\"name:en\"=>\"Ito En\",\"name:ja\"=>\"伊藤園\",\"operator\"=>\"ITO EN\",\"vending\"=>\"drinks\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7098263, 35.6827547] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10572568245",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"map\",\"tourism\"=>\"information\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.70568, 35.6861054] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10572568246",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\",\"backrest\"=>\"yes\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7063751, 35.6859109] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10572568252",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.706429, 35.6858662] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10572568280",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7109163, 35.6867835] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10572576625",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"map\",\"tourism\"=>\"information\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7090478, 35.6842416] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10572576629",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7088654, 35.6843491] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10572576630",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"tourism\"=>\"viewpoint\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7087845, 35.6849035] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10580964719",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"guidepost\",\"tourism\"=>\"information\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709176500000012, 35.6841537]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10580964720",
+        "name": null,
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7082326, 35.6837182] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10580964730",
+        "name": null,
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7056272, 35.6843553] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10580970036",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"guidepost\",\"tourism\"=>\"information\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.710260299999987, 35.6833578]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10580970037",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"guidepost\",\"tourism\"=>\"information\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.71147, 35.6823729] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10580975186",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"map\",\"tourism\"=>\"information\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.706018, 35.6865186] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10581091111",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709717399999988, 35.6853348]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10581091112",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"map\",\"tourism\"=>\"information\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709831400000013, 35.6852627]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10581091119",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"map\",\"tourism\"=>\"information\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70946570000001, 35.6849251]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10581091120",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"guidepost\",\"tourism\"=>\"information\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.709428, 35.6849489] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10581091121",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7092618, 35.6849535] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10581091122",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7092656, 35.684988] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10581091123",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"guidepost\",\"tourism\"=>\"information\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709677199999987, 35.6846759]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10581091124",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709878300000014, 35.6846345]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10581091125",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7099321, 35.6846192] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "10581091126",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.709647, 35.6845149] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "11772974489",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\",\"backrest\"=>\"no\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706734899999987, 35.6881685]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "11772989989",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\",\"backrest\"=>\"yes\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7064125, 35.6882655] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "11773079183",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7103803, 35.6826176] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "12206389201",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708579899999989, 35.6857248]
+      }
+    }
+  ]
+}

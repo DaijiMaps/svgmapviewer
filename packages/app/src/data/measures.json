@@ -1,0 +1,54 @@
+{
+  "type": "FeatureCollection",
+  "name": "measures",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "length": 505.11559606338824 },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.71, 35.685],
+          [139.715580100000011, 35.685]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "length": 411.70271338289626 },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.71, 35.685],
+          [139.71, 35.6812894]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "length": 524.59569072997931 },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.71, 35.685],
+          [139.7042047, 35.685]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "length": 434.50385901659126 },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.71, 35.685],
+          [139.71, 35.6889161]
+        ]
+      }
+    }
+  ]
+}

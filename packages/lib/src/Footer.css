@@ -1,0 +1,49 @@
+.footer {
+  padding: 0.4em;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: smaller;
+  pointer-events: none;
+}
+
+.footer > * {
+  pointer-events: initial;
+}
+
+.mode {
+  font-size: large;
+  margin: 0.4em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.mode-item {
+  margin: 0 1.6px;
+  padding: 0.4em;
+  border: 1.6px black solid;
+}
+.mode-item.selected {
+  pointer-events: none;
+}
+.mode-item:not(.selected) {
+  opacity: 0.375;
+}
+.mode-item > svg {
+  display: block;
+  width: 1.6em;
+  height: 1.6em;
+  pointer-events: none;
+}
+.mode-item > svg > path {
+  stroke: black;
+  stroke-width: 0.4px;
+  fill: none;
+}
