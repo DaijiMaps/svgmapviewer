@@ -15,6 +15,12 @@ import {
   MultiPolygonGeoJSON,
   PointGeoJSON,
 } from './geojson-types'
+import {
+  OsmLineProperties,
+  OsmLineStringProperties,
+  OsmPointProperties,
+  OsmPolygonProperties,
+} from './osm-types'
 
 export type Point = V
 export type Line = V[]
@@ -50,17 +56,18 @@ export function s([x, y]: V): string {
 }
 
 export type MapData = {
+  areas: MultiPolygonGeoJSON
   origin: PointGeoJSON
   measures: LineGeoJSON<{
     length: number
   }>
-  areas: MultiPolygonGeoJSON
-  points: PointGeoJSON
-  lines: LineGeoJSON
-  multilinestrings: MultiLineGeoJSON
-  multipolygons: MultiPolygonGeoJSON
-  centroids: PointGeoJSON
   viewbox: LineGeoJSON
+
+  points: PointGeoJSON<OsmPointProperties>
+  lines: LineGeoJSON<OsmLineProperties>
+  multilinestrings: MultiLineGeoJSON<OsmLineStringProperties>
+  multipolygons: MultiPolygonGeoJSON<OsmPolygonProperties>
+  centroids: PointGeoJSON<OsmPolygonProperties>
 }
 
 export const mapData: MapData = {
