@@ -3,7 +3,7 @@
 /* eslint-disable functional/no-return-void */
 import { createElement } from 'react'
 import { emptyLayout } from './layout'
-import { emptyMapData } from './map/geojson'
+import { emptyMapData } from './map/data'
 import { V } from './matrix'
 import {
   Info,

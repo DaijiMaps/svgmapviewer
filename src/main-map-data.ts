@@ -7,7 +7,8 @@ import multilinestrings from './data/multistrings.json'
 import origin from './data/origin.json'
 import points from './data/points.json'
 import viewbox from './data/viewbox.json'
-import { calcScale, MapData } from './lib/map/geojson'
+import { MapData } from './lib/map/data'
+import { calcScale } from './lib/map/geojson'
 
 export const mapData: MapData = {
   areas,
