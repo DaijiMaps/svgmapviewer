@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-return-void */
 import { Box } from './box/main'
 import { Layout } from './layout'
-import { MapData } from './map/geojson'
+import { MapData } from './map/data'
 import { V } from './matrix'
 import { Vec } from './vec'
 
