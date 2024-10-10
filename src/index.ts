@@ -1,8 +1,55 @@
+import type { BoxBox, BoxTlBr } from './lib/box/prefixed'
 import {
-  svgmapviewer,
-  SvgMapViewerConfig,
-  SvgMapViewerConfigUser,
-} from './svgmapviewer'
+  boxBox,
+  boxCenter,
+  boxCopy,
+  boxExpandAt,
+  boxExpandAtCenter,
+  boxExpandAtOff,
+  boxExpandAtRatio,
+  boxFromTlBr,
+  boxMove,
+  boxScale,
+  boxScaleAt,
+  boxScaleAtCenter,
+  boxScaleAtOff,
+  boxScaleAtRatio,
+  boxToTlBr,
+  boxToViewBox,
+  boxTransform,
+  boxUnit,
+} from './lib/box/prefixed'
+import {
+  a,
+  geoJsonViewBox,
+  l,
+  Line,
+  lineToPath,
+  mapData,
+  MultiLineString,
+  multiLineStringToPath,
+  MultiPolygon,
+  multiPolygonToPath,
+  Point,
+  r,
+  s,
+} from './lib/map/geojson'
+import type { matrixH, MatrixMatrix, matrixV } from './lib/matrix/prefixed'
+import {
+  matrixApply,
+  matrixApplyF,
+  matrixCopy,
+  matrixEmpty,
+  matrixMatrix,
+  matrixMultiply,
+  matrixMultiplyF,
+  matrixProd,
+  matrixRotate,
+  matrixScale,
+  matrixScaleAt,
+  matrixToString,
+  matrixTranslate,
+} from './lib/matrix/prefixed'
 import type { VecVec, VecVecs } from './lib/vec/prefixed'
 import {
   vecAdd,
@@ -32,58 +79,11 @@ import {
   vecVec,
   vecZero,
 } from './lib/vec/prefixed'
-import type { matrixH, MatrixMatrix, matrixV } from './lib/matrix/prefixed'
 import {
-  matrixApply,
-  matrixApplyF,
-  matrixCopy,
-  matrixEmpty,
-  matrixMatrix,
-  matrixMultiply,
-  matrixMultiplyF,
-  matrixProd,
-  matrixRotate,
-  matrixScale,
-  matrixScaleAt,
-  matrixToString,
-  matrixTranslate,
-} from './lib/matrix/prefixed'
-import type { BoxBox, BoxTlBr } from './lib/box/prefixed'
-import {
-  boxBox,
-  boxCenter,
-  boxCopy,
-  boxExpandAt,
-  boxExpandAtCenter,
-  boxExpandAtOff,
-  boxExpandAtRatio,
-  boxFromTlBr,
-  boxMove,
-  boxScale,
-  boxScaleAt,
-  boxScaleAtCenter,
-  boxScaleAtOff,
-  boxScaleAtRatio,
-  boxToTlBr,
-  boxToViewBox,
-  boxTransform,
-  boxUnit,
-} from './lib/box/prefixed'
-import {
-  geoJsonViewBox,
-  mapData,
-  Point,
-  Line,
-  MultiLineString,
-  MultiPolygon,
-  lineToPath,
-  multiLineStringToPath,
-  multiPolygonToPath,
-  a,
-  l,
-  r,
-  s,
-} from './lib/map/geojson'
+  svgmapviewer,
+  SvgMapViewerConfig,
+  SvgMapViewerConfigUser,
+} from './svgmapviewer'
 
 // svgmapviewer
 
@@ -171,18 +171,16 @@ export {
 
 // map/geojson
 
+export type { Line, MultiLineString, MultiPolygon, Point }
+
 export {
+  a,
   geoJsonViewBox,
-  mapData,
-  Point,
-  Line,
-  MultiLineString,
-  MultiPolygon,
+  l,
   lineToPath,
+  mapData,
   multiLineStringToPath,
   multiPolygonToPath,
-  a,
-  l,
   r,
   s,
 }
