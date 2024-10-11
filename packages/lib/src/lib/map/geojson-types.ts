@@ -1,3 +1,5 @@
+// XXX can't use tuple to read (import) JSON as external
+
 export interface CRS {
   type: string
   properties: {

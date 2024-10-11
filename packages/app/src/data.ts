@@ -1,28 +1,25 @@
-import {
-  BoxBox as Box,
-  VecVec as Vec,
-  vecAdd,
-  vecSub,
-} from '@daijimaps/svgmapviewer'
+import { VecVec as Vec } from '@daijimaps/svgmapviewer/vec'
 
 type Address = string
 
-const viewBox: Box = { x: -100, y: -100, width: 793.70079, height: 1122.5197 }
-
-const d: Vec = { x: 18 / 2, y: 18 / 2 }
-
-export const addressEntries: { a: Address; psvg: Vec }[] = [
-  { a: 'Toilet1', psvg: { x: 166.12501, y: 293.49998 } },
-  { a: 'Toilet2', psvg: { x: 483.43751, y: 701.18747 } },
-  { a: 'Toilet3', psvg: { x: 577.87501, y: -3.7500042 } },
-  { a: 'Toilet4', psvg: { x: 473.37501, y: 961.93746 } },
-  { a: 'Parking1', psvg: { x: 82.88086, y: 355.5078 } },
-  { a: 'Parking2', psvg: { x: 520.74513, y: 945.50777 } },
-  { a: 'Smoking1', psvg: { x: 30.03321, y: 443.35545 } },
-  { a: 'Smoking2', psvg: { x: 600.03322, y: 693.35544 } },
-  { a: 'Smoking3', psvg: { x: 610.03322, y: -26.64453 } },
-  { a: 'Info1', psvg: { x: 120.50782, y: 236.69432 } },
-  { a: 'Fountains1', psvg: { x: 504.3047, y: 691.81295 } },
-  { a: 'Fountains2', psvg: { x: 184.30469, y: 301.81297 } },
-  { a: 'Fountains3', psvg: { x: 584.3047, y: -18.18702 } },
-].map(({ a, psvg }) => ({ a, psvg: vecAdd(vecSub(psvg, viewBox), d) }))
+export const addressEntries: { a: Address; lonlat: Vec }[] = [
+  { a: 'Toilet1', lonlat: { x: 139.7132595, y: 35.6847844 } },
+  { a: 'Toilet2', lonlat: { x: 139.712321, y: 35.686835 } },
+  { a: 'Toilet3', lonlat: { x: 139.7130809, y: 35.6859534 } },
+  { a: 'Toilet4', lonlat: { x: 139.709856, y: 35.6828 } },
+  { a: 'Toilet5', lonlat: { x: 139.709047, y: 35.682401 } },
+  { a: 'Toilet6', lonlat: { x: 139.705213, y: 35.6849034 } },
+  { a: 'Toilet7', lonlat: { x: 139.7078862, y: 35.6884949 } },
+  { a: 'Toilet8', lonlat: { x: 139.70844360000001, y: 35.6857521 } },
+  { a: 'Toilet9', lonlat: { x: 139.7136036, y: 35.6865013 } },
+  { a: 'Toilet10', lonlat: { x: 139.707878636771142, y: 35.686922812053346 } },
+  { a: 'Toilet11', lonlat: { x: 139.706648639183186, y: 35.686963927959432 } },
+  { a: 'Toilet12', lonlat: { x: 139.7111965, y: 35.6838438 } },
+  { a: 'Toilet13', lonlat: { x: 139.711948145955347, y: 35.683465495929084 } },
+  { a: 'Toilet14', lonlat: { x: 139.708966200262296, y: 35.68416386267895 } },
+  { a: 'Toilet15', lonlat: { x: 139.710398045789958, y: 35.686975152058096 } },
+  { a: 'Toilet16', lonlat: { x: 139.709644076318483, y: 35.68541843935806 } },
+  { a: 'Toilet17', lonlat: { x: 139.707964383178165, y: 35.688219878353387 } },
+  { a: 'Toilet18', lonlat: { x: 139.7080349, y: 35.6881866 } },
+  { a: 'Toilet19', lonlat: { x: 139.71404045, y: 35.68692125 } },
+].map(({ a, lonlat }) => ({ a, lonlat: lonlat }))

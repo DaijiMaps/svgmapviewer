@@ -1,6 +1,6 @@
 import { useMachine, useSelector } from '@xstate/react'
 import { RefObject, useCallback, useContext, useEffect } from 'react'
-import { SvgMapViewerConfigContext } from '../svgmapviewer'
+import { SvgMapViewerConfigContext } from '../Root'
 import { svgMapViewerConfig } from './config'
 import { configLayout } from './layout'
 import {

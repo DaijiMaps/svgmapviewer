@@ -1,12 +1,9 @@
 /* eslint-disable functional/no-mixed-types */
 /* eslint-disable functional/no-return-void */
-import { Box } from './box/main'
+import { BoxBox } from './box/prefixed'
 import { Layout } from './layout'
-import { MapData } from './map/data'
-import { V } from './matrix'
+import { MapData } from './map'
 import { Vec } from './vec'
-
-export type { MapData }
 
 // top, right, bottom, left
 export type Dir = 0 | 1 | 2 | 3
@@ -16,11 +13,9 @@ export interface Size {
   height: number
 }
 
-interface Info {
+export interface Info {
   title: string
 }
-
-export type { Info }
 
 export interface SearchReq {
   p: Vec
@@ -56,7 +51,7 @@ export interface SvgMapViewerConfig {
   width: number
   height: number
   fontSize: number
-  origViewBox: Box
+  origViewBox: BoxBox
   layout: Layout
   title: string
   subtitle: string
@@ -78,7 +73,10 @@ export interface SvgMapViewerConfig {
   renderMap: RenderMap
   renderInfo: RenderInfo
   mapData: MapData
-  mapConv: (v: V) => V
+  mapCoord: {
+    toGeo: (p: Vec) => Vec
+    fromGeo: (p: Vec) => Vec
+  }
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>

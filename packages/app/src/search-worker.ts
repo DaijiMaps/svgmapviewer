@@ -1,6 +1,5 @@
-/* eslint-disable functional/no-return-void */
-/* eslint-disable functional/no-expression-statements */
-import { SearchReq, SearchRes, VecVec as Vec } from '@daijimaps/svgmapviewer'
+import { Info } from '@daijimaps/svgmapviewer'
+import { VecVec as Vec } from '@daijimaps/svgmapviewer/vec'
 import Flatbush from 'flatbush'
 import { addressEntries } from './data'
 
@@ -18,10 +17,11 @@ function makeAddressBuf() {
   const l = addressEntries.length
   const fb: Flatbush = new Flatbush(l)
   const idxs: FlatbushIndexes = {}
-  // eslint-disable-next-line functional/no-loop-statements
-  for (const { a, psvg } of addressEntries) {
-    const idx = fb.add(psvg.x, psvg.y)
-    // eslint-disable-next-line functional/immutable-data
+  for (const {
+    a,
+    lonlat: { x, y },
+  } of addressEntries) {
+    const idx = fb.add(x, y)
     idxs[`${idx}`] = a
   }
   fb.finish()
@@ -33,7 +33,7 @@ function makeAddressBuf() {
 
 const b: AddressBuf = makeAddressBuf()
 const m: Map<Address, Vec> = new Map(
-  addressEntries.map(({ a, psvg }) => [a, psvg])
+  addressEntries.map(({ a, lonlat }) => [a, lonlat])
 )
 
 interface SearchAddressRes {
@@ -41,9 +41,9 @@ interface SearchAddressRes {
   pp: Vec
 }
 
-export function searchAddress(psvg: Vec): SearchAddressRes | null {
+export function searchAddress(pgeo: Vec): SearchAddressRes | null {
   const { fb, idxs } = b
-  const ns = fb.neighbors(psvg.x, psvg.y, 1, 100)
+  const ns = fb.neighbors(pgeo.x, pgeo.y, 1, 100)
   if (ns.length === 0) {
     return null
   }
@@ -56,18 +56,18 @@ export function searchAddress(psvg: Vec): SearchAddressRes | null {
   return { address, pp }
 }
 
-onmessage = function (e: Readonly<MessageEvent<SearchReq>>) {
+onmessage = function (e: Readonly<MessageEvent<{ p: Vec; pgeo: Vec }>>) {
   const p = e.data.p
-  const psvg = e.data.psvg
+  const pgeo = e.data.pgeo
 
-  const xxx = searchAddress(psvg)
+  const xxx = searchAddress(pgeo)
 
-  const res: null | SearchRes =
+  const res: null | { p: Vec; pgeo: Vec; info: Info } =
     xxx === null
       ? null
       : {
           p,
-          psvg: xxx.pp,
+          pgeo: xxx.pp,
           info: {
             title: `Found: POI: ${p.x},${p.y} (${xxx.pp.x},${xxx.pp.y})`,
             x: {

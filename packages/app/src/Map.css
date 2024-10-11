@@ -16,7 +16,8 @@
 
 .pedestrian-area {
   fill: white;
-  stroke: none;
+  stroke: white;
+  stroke-width: 0.5px;
 }
 
 .water {
@@ -29,6 +30,11 @@
   stroke-width: 1px;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.forest {
+  fill: darkgreen;
+  fill-opacity: 0.25;
 }
 
 .service {

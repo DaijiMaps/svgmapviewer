@@ -1,12 +1,13 @@
+import { svgMapViewerConfig } from '@daijimaps/svgmapviewer'
 import {
   Line,
   lineToPath,
   MultiPolygon,
   multiPolygonToPath,
   Point,
-  svgMapViewerConfig,
-  matrixV as V,
-} from '@daijimaps/svgmapviewer'
+  Vunwrap,
+} from '@daijimaps/svgmapviewer/map'
+import { matrixV as V } from '@daijimaps/svgmapviewer/matrix'
 import { Assets } from './map-assets'
 import './map.css'
 
@@ -38,13 +39,13 @@ export function RenderMap() {
       <g id={svgMapViewerConfig.map} className="map">
         <Areas />
         <Buildings />
-        <PedestrianAreas />
         <Waters />
         <Streams />
         <Services />
-        <Bridges />
+        <PedestrianAreas />
         <Footways />
         <Steps />
+        <Forests />
         <Benches />
         <GuidePosts />
         <InfoBoards />
@@ -104,6 +105,16 @@ function Streams() {
   return <path className="stream" d={d} />
 }
 
+function Forests() {
+  const xs = svgMapViewerConfig.mapData.multipolygons.features
+    .filter((f) => f.properties.landuse === 'forest')
+    .map((f) => f.geometry.coordinates) as MultiPolygon[]
+
+  const d = xs.map(multiPolygonToPath).join('')
+
+  return <path className="forest" d={d} />
+}
+
 function Services() {
   const xs = svgMapViewerConfig.mapData.lines.features
     .filter((f) => f.properties.highway === 'service')
@@ -114,6 +125,7 @@ function Services() {
   return <path className="service" d={d} />
 }
 
+/*
 function Bridges() {
   const xs = svgMapViewerConfig.mapData.lines.features
     .filter(
@@ -128,6 +140,7 @@ function Bridges() {
 
   return <path className="footway-bridge" d={d} />
 }
+*/
 
 function Footways() {
   const xs = svgMapViewerConfig.mapData.lines.features
@@ -160,9 +173,9 @@ function Steps() {
 
 function Benches() {
   const xs = svgMapViewerConfig.mapData.points.features
-    .filter((f) => f.properties.other_tags?.match(/"bench"/) ?? false)
+    .filter((f) => f.properties.other_tags?.match(/"bench"/))
     .map((f) => f.geometry.coordinates as V)
-    .map(svgMapViewerConfig.mapConv) as Point[]
+    .map(conv) as Point[]
 
   return (
     <>
@@ -175,9 +188,9 @@ function Benches() {
 
 function GuidePosts() {
   const xs = svgMapViewerConfig.mapData.points.features
-    .filter((f) => f.properties.other_tags?.match(/"guidepost"/) ?? false)
+    .filter((f) => f.properties.other_tags?.match(/"guidepost"/))
     .map((f) => f.geometry.coordinates as V)
-    .map(svgMapViewerConfig.mapConv) as Point[]
+    .map(conv) as Point[]
 
   return (
     <>
@@ -191,9 +204,9 @@ function GuidePosts() {
 function InfoBoards() {
   const re = /"information"=>"(board|map)"/
   const xs = svgMapViewerConfig.mapData.points.features
-    .filter((f) => f.properties.other_tags?.match(re) ?? false)
+    .filter((f) => f.properties.other_tags?.match(re))
     .map((f) => f.geometry.coordinates as V)
-    .map(svgMapViewerConfig.mapConv) as Point[]
+    .map(conv) as Point[]
 
   return (
     <>
@@ -206,21 +219,25 @@ function InfoBoards() {
 
 function Facilities() {
   const toilets = svgMapViewerConfig.mapData.points.features
-    .filter((f) => f.properties.other_tags?.match(/"toilets"/) ?? false)
+    .filter((f) => f.properties.other_tags?.match(/"toilets"/))
     .map((f) => f.geometry.coordinates as V)
-    .map(svgMapViewerConfig.mapConv) as Point[]
+    .map(conv) as Point[]
   const toilets2 = svgMapViewerConfig.mapData.centroids.features
-    .filter((f) => f.properties.other_tags?.match(/"toilets"/) ?? false)
+    .filter(
+      (f) =>
+        f.properties.other_tags?.match(/"toilets"/) ||
+        f.properties.amenity === 'toilets'
+    )
     .map((f) => f.geometry.coordinates as V)
-    .map(svgMapViewerConfig.mapConv) as Point[]
+    .map(conv) as Point[]
   const parkings = svgMapViewerConfig.mapData.points.features
-    .filter((f) => f.properties.other_tags?.match(/"parking"/) ?? false)
+    .filter((f) => f.properties.other_tags?.match(/"parking"/))
     .map((f) => f.geometry.coordinates as V)
-    .map(svgMapViewerConfig.mapConv) as Point[]
+    .map(conv) as Point[]
   const parkings2 = svgMapViewerConfig.mapData.centroids.features
-    .filter((f) => f.properties.other_tags?.match(/"parking"/) ?? false)
+    .filter((f) => f.properties.other_tags?.match(/"parking"/))
     .map((f) => f.geometry.coordinates as V)
-    .map(svgMapViewerConfig.mapConv) as Point[]
+    .map(conv) as Point[]
 
   return (
     <>
@@ -238,4 +255,8 @@ function Facilities() {
       ))}
     </>
   )
+}
+
+function conv(p: V): V {
+  return Vunwrap(svgMapViewerConfig.mapCoord.fromGeo)(p)
 }

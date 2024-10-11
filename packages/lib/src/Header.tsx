@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import './Header.css'
 import { PointerRef } from './lib/pointer-xstate'
 import { selectOpenCloseHeader, UiRef } from './lib/ui-xstate'
-import { SvgMapViewerConfigContext } from './svgmapviewer'
+import { SvgMapViewerConfigContext } from './Root'
 
 interface HeaderProps {
   _uiRef: UiRef

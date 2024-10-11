@@ -1,5 +1,6 @@
 import { V } from '../matrix'
 import { matrixScale, matrixScaleAt } from '../matrix/prefixed'
+import { VecVec } from '../vec/prefixed'
 import { Box } from './main'
 import { transform } from './transform'
 
@@ -9,29 +10,33 @@ import { transform } from './transform'
 //// scaleAtCenter
 //// scaleAtOff
 
-export const scale = (b: Box, s: number | V): Box =>
+export const scale = (b: Box, s: number | V | VecVec): Box =>
   transform(b, matrixScale(toV(s)))
 
-export const scaleAt = (b: Box, s: number | V, cx: number, cy: number): Box =>
-  transform(b, matrixScaleAt(toV(s), [cx, cy]))
+export const scaleAt = (
+  b: Box,
+  s: number | V | VecVec,
+  cx: number,
+  cy: number
+): Box => transform(b, matrixScaleAt(toV(s), [cx, cy]))
 
 export const scaleAtRatio = (
   b: Box,
-  s: number | V,
+  s: number | V | VecVec,
   rx: number,
   ry: number
 ): Box => scaleAt(b, toV(s), b.x + b.width * rx, b.y + b.height * ry)
 
-export const scaleAtCenter = (b: Box, s: number | V): Box =>
+export const scaleAtCenter = (b: Box, s: number | V | VecVec): Box =>
   scaleAtRatio(b, s, 0.5, 0.5)
 
 export const scaleAtOff = (
   b: Box,
-  s: number | V,
+  s: number | V | VecVec,
   dx: number,
   dy: number
 ): Box => scaleAt(b, s, b.x + b.width * 0.5 + dx, b.y + b.height * 0.5 + dy)
 
-function toV(s: number | V): V {
-  return typeof s === 'number' ? [s, s] : s
+function toV(s: number | V | VecVec): V {
+  return typeof s === 'number' ? [s, s] : !('x' in s) ? s : [s.x, s.y]
 }

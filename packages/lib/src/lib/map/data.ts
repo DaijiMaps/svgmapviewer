@@ -1,15 +1,15 @@
 import {
   emptyGeoJSON,
   LineGeoJSON,
-  MultiLineGeoJSON,
   MultiPolygonGeoJSON,
   PointGeoJSON,
 } from './geojson-types'
 import {
-  OsmLineProperties,
-  OsmLineStringProperties,
-  OsmPointProperties,
-  OsmPolygonProperties,
+  OsmCentroidGeoJSON,
+  OsmLineGeoJSON,
+  OsmMultilinestringGeoJSON,
+  OsmMultipolygonGeoJSON,
+  OsmPointGeoJSON,
 } from './osm-types'
 
 export type MapData = {
@@ -20,11 +20,11 @@ export type MapData = {
   }>
   viewbox: LineGeoJSON
 
-  points: PointGeoJSON<OsmPointProperties>
-  lines: LineGeoJSON<OsmLineProperties>
-  multilinestrings: MultiLineGeoJSON<OsmLineStringProperties>
-  multipolygons: MultiPolygonGeoJSON<OsmPolygonProperties>
-  centroids: PointGeoJSON<OsmPolygonProperties>
+  points: OsmPointGeoJSON
+  lines: OsmLineGeoJSON
+  multilinestrings: OsmMultilinestringGeoJSON
+  multipolygons: OsmMultipolygonGeoJSON
+  centroids: OsmCentroidGeoJSON
 }
 
 export const emptyMapData: MapData = {

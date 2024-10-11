@@ -1,16 +1,12 @@
-import {
-  calcScale,
-  svgMapViewerConfig,
-  svgmapviewer,
-} from '@daijimaps/svgmapviewer'
+import { svgMapViewerConfig, svgmapviewer } from '@daijimaps/svgmapviewer'
+import { calcScale } from '@daijimaps/svgmapviewer/map'
 import { RenderMap } from './map'
 import { mapData } from './map-data'
 import { RenderInfo } from './render'
 import { workerSearchStart } from './search'
 
-const { mapConv, mapViewBox } = calcScale(mapData)
+const { mapCoord, mapViewBox } = calcScale(mapData)
 
-// eslint-disable-next-line functional/no-expression-statements
 svgmapviewer({
   root: 'root',
   map: 'map1',
@@ -20,11 +16,9 @@ svgmapviewer({
   renderInfo: RenderInfo,
   copyright: '@ Daiji Maps | map data @ OpenStreetMap contributers',
   mapData: mapData,
-  mapConv: mapConv,
+  mapCoord: mapCoord,
 })
 
-// eslint-disable-next-line functional/no-expression-statements
 svgMapViewerConfig.searchCbs.add(workerSearchStart)
 
-// eslint-disable-next-line functional/no-expression-statements, functional/immutable-data
 document.title = `svgmapviewer @ ${window.location.host}`

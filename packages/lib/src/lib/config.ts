@@ -4,21 +4,21 @@
 import { createElement } from 'react'
 import { emptyLayout } from './layout'
 import { emptyMapData } from './map/data'
-import { V } from './matrix'
-import {
+import type {
   Info,
   RenderInfo,
   RenderMap,
   SvgMapViewerConfig,
   SvgMapViewerConfigUser,
 } from './types'
+import { VecVec } from './vec/prefixed'
 
 const renderMapDefault: RenderMap = () => createElement('svg', {})
 
 const renderInfoDefault: RenderInfo = (props: Readonly<{ info: Info }>) =>
   createElement('p', {}, props.info.title)
 
-function mapConvDefault(p: V): V {
+function mapCoordDefault(p: VecVec): VecVec {
   return p
 }
 
@@ -51,7 +51,10 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   renderMap: renderMapDefault,
   renderInfo: renderInfoDefault,
   mapData: emptyMapData,
-  mapConv: mapConvDefault,
+  mapCoord: {
+    fromGeo: mapCoordDefault,
+    toGeo: mapCoordDefault,
+  },
 }
 
 export function updateSvgMapViewerConfig(

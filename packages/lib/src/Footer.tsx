@@ -4,7 +4,7 @@ import { useCallback, useContext } from 'react'
 import './Footer.css'
 import { PointerRef, selectMode } from './lib/pointer-xstate'
 import { selectOpenCloseFooter, UiRef } from './lib/ui-xstate'
-import { SvgMapViewerConfigContext } from './svgmapviewer'
+import { SvgMapViewerConfigContext } from './Root'
 
 interface FooterProps {
   _uiRef: UiRef

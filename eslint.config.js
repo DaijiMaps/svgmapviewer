@@ -36,7 +36,7 @@ export default [
   {
     ...functional.configs.recommended,
     ignores: [
-      'src/main.ts',
+      'packages/app/src/**/*',
       '**/*.test.{js,ts}',
       '**/*-react.{js,ts}',
       '**/*-xstate.{js,ts}',
@@ -44,7 +44,7 @@ export default [
   },
   {
     ...functional.configs.strict,
-    ignores: ['**/*', '!src/lib/{matrix,transform}.ts'],
+    ignores: ['**/*'],
   },
   prettierRecommended,
 ]

@@ -5,7 +5,7 @@ import { dist, qdist } from './dist'
 import { div, divF } from './div'
 import { compare, ord } from './fp-ts'
 import { interpolate, interpolateF } from './interpolate'
-import { one, vec, Vec, Vecs, zero } from './main'
+import { fromV, one, toV, vec, Vec, Vecs, zero } from './main'
 import { midpoint } from './midpoint'
 import { min, minF } from './min'
 import { mul, mulF } from './mul'
@@ -25,6 +25,7 @@ export {
   dist,
   div,
   divF,
+  fromV,
   interpolate,
   interpolateF,
   midpoint,
@@ -40,6 +41,7 @@ export {
   sub,
   subF,
   sum,
+  toV,
   vec,
   zero,
 }

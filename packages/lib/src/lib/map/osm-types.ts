@@ -1,3 +1,10 @@
+import {
+  LineGeoJSON,
+  MultiLineGeoJSON,
+  MultiPolygonGeoJSON,
+  PointGeoJSON,
+} from './geojson-types'
+
 export interface OsmPointProperties {
   osm_id: null | string
   name: null | string
@@ -57,3 +64,10 @@ export interface OsmPolygonProperties {
   tourism: null | string
   other_tags: null | string
 }
+
+export type OsmPointGeoJSON = PointGeoJSON<OsmPointProperties>
+export type OsmLineGeoJSON = LineGeoJSON<OsmLineProperties>
+export type OsmMultilinestringGeoJSON =
+  MultiLineGeoJSON<OsmLineStringProperties>
+export type OsmMultipolygonGeoJSON = MultiPolygonGeoJSON<OsmPolygonProperties>
+export type OsmCentroidGeoJSON = PointGeoJSON<OsmPolygonProperties>

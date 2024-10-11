@@ -1,4 +1,4 @@
-import { MapData } from '@daijimaps/svgmapviewer'
+import { MapData } from '@daijimaps/svgmapviewer/map'
 import areas from './data/areas.json'
 import centroids from './data/map-centroids.json'
 import lines from './data/map-lines.json'
