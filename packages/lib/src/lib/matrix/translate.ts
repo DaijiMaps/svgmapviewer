@@ -1,4 +1,4 @@
-import { M, V } from './main'
+import { M, V } from '../tuple'
 
 export function translate([tx, ty]: V): M {
   return [

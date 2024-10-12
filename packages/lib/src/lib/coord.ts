@@ -1,7 +1,7 @@
 import { BoxBox as Box, boxCopy } from './box/prefixed'
 import { LayoutConfig } from './layout'
 import { MatrixMatrix as Matrix, matrixMultiply } from './matrix/prefixed'
-import { fromTransform, invMove, invScale, Move, Scale } from './transform'
+import { Move, Scale, fromTransform, invMove, invScale } from './transform'
 import { vecScale } from './vec/prefixed'
 
 //// LayoutCoord

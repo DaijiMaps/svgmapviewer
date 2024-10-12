@@ -1,6 +1,7 @@
 import { expect, test } from 'vitest'
+import { V } from '../tuple'
 import { apply } from './apply'
-import { Matrix, V } from './main'
+import { Matrix } from './main'
 
 const m: Matrix = [
   [2, 0],

@@ -1,4 +1,4 @@
-import { M } from './main'
+import { M } from '../tuple'
 
 export function rotate(th: number): M {
   return [

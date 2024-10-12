@@ -1,5 +1,6 @@
+import { B } from '../tuple'
 import { VecVec as Vec } from '../vec/prefixed'
-import { B, Box } from './main'
+import { Box } from './main'
 
 //// TlBr
 //// toTlBr

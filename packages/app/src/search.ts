@@ -1,13 +1,12 @@
 import { Info, svgMapViewerConfig } from '@daijimaps/svgmapviewer'
 import { VecVec as Vec } from '@daijimaps/svgmapviewer/vec'
-import SearchWorker from './search-worker?worker&inline'
+import SearchWorker from './search-worker?worker'
 
 const worker = new SearchWorker()
 
 worker.onmessage = (
   e: Readonly<MessageEvent<null | { p: Vec; pgeo: Vec; info: Info }>>
 ) => {
-  // XXX from geo
   svgMapViewerConfig.searchDoneCbs.forEach((cb) =>
     cb(
       e.data === null
@@ -21,8 +20,15 @@ worker.onmessage = (
   )
 }
 
+worker.onerror = (ev) => {
+  console.log('error', ev)
+}
+
+worker.onmessageerror = (ev) => {
+  console.log('messageerror', ev)
+}
+
 export function workerSearchStart(p: Vec, psvg: Vec) {
-  // XXX to geo
   const pgeo = svgMapViewerConfig.mapCoord.toGeo(psvg)
   worker.postMessage({ p, pgeo })
 }

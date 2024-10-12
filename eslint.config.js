@@ -8,7 +8,7 @@ import ts from 'typescript-eslint'
 export default [
   {
     ignores: [
-      'dist',
+      '**/dist',
       '**/*.d.ts',
       '**/*.config.{js,ts}',
       '**/{vite,vitest}.*.{js,ts}',

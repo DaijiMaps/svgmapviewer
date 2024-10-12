@@ -84,9 +84,14 @@ export const css = (q: Matrix) => {
   const p = matrixEmpty
 
   return `
-.svg {
+.content {
   will-change: transform;
   animation: xxx ${svgMapViewerConfig.animationDuration}ms ease;
+}
+.content > .poi {
+/*
+  display: none;
+*/
 }
 @keyframes xxx {
   from {

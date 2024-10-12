@@ -1,5 +1,5 @@
 import type { MapData } from './data'
-import { calcScale, Vunwrap, Vwrap } from './geojson'
+import { calcScale } from './geojson'
 import type {
   LineCoordinate,
   LineFeature,
@@ -34,15 +34,8 @@ import type {
 } from './osm-types'
 import type { Line, MultiLineString, MultiPolygon, Point } from './path'
 import { lineToPath, multiLineStringToPath, multiPolygonToPath } from './path'
+import { POI } from './poi'
 
-export {
-  calcScale,
-  lineToPath,
-  multiLineStringToPath,
-  multiPolygonToPath,
-  Vunwrap,
-  Vwrap,
-}
 export type {
   Line,
   LineCoordinate,
@@ -78,3 +71,7 @@ export type {
   PolygonGeoJSON,
   PolygonGeometry,
 }
+
+export { calcScale, lineToPath, multiLineStringToPath, multiPolygonToPath }
+
+export type { POI }

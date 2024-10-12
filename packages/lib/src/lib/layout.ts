@@ -10,10 +10,10 @@ import {
 } from './box/prefixed'
 import { svgMapViewerConfig } from './config'
 import {
+  LayoutCoord,
   fromMatrixOuter,
   fromMatrixSvg,
   fromScroll,
-  LayoutCoord,
   makeCoord,
   toMatrixOuter,
   toMatrixSvg,

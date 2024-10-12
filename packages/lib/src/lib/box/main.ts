@@ -1,4 +1,4 @@
-import { V } from '../matrix'
+import { B, V } from '../tuple'
 import { Size } from '../types'
 import { Vec } from '../vec'
 
@@ -38,8 +38,6 @@ export function toViewBox({ x, y, width, height }: Box): string {
 }
 
 //// B
-
-export type B = Readonly<[tl: V, br: V]>
 
 export function mapF([tl, br]: B, f: (_v: V) => V): B {
   return [f(tl), f(br)]

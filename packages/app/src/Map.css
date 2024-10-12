@@ -48,7 +48,7 @@
 .footway {
   fill: none;
   stroke: white;
-  stroke-width: 1px;
+  stroke-width: 2px;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -56,7 +56,7 @@
 .footway-bridge {
   fill: none;
   stroke: black;
-  stroke-width: 1.5px;
+  stroke-width: 4px;
 }
 
 .steps > .bg {
@@ -64,11 +64,18 @@
   stroke: white;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 1px;
+  stroke-width: 2px;
 }
 .steps > .fg {
   fill: none;
   stroke: lightgrey;
-  stroke-width: 1px;
+  stroke-width: 2px;
   stroke-dasharray: 0.5, 0.5;
+}
+
+text,
+tspan {
+  font-size: 2.5px;
+  font-weight: initial;
+  text-anchor: middle;
 }

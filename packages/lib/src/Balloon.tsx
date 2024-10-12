@@ -5,10 +5,10 @@ import { OpenClose, openCloseIsVisible } from './lib/openclose'
 import { PointerRef, selectLayout } from './lib/pointer-xstate'
 import { Dir } from './lib/types'
 import {
+  UiRef,
   selectDetail,
   selectOpenCloseBalloon,
   selectOpenCloseDetail,
-  UiRef,
 } from './lib/ui-xstate'
 import { Vec } from './lib/vec'
 import { vecVec } from './lib/vec/prefixed'
@@ -165,7 +165,7 @@ function balloonStyle(
 
   if (!animating) {
     return `
-.detail{
+.detail {
   transform-origin: ${d.x}vmin ${d.y}vmin;
   transform: translate(${o.x}px, ${o.y}px) translate(${-d.x}vmin, ${-d.y}vmin) scale(1);
 }

@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-return-void */
 import { BoxBox } from './box/prefixed'
 import { Layout } from './layout'
-import { MapData } from './map'
+import { MapData, POI } from './map'
 import { Vec } from './vec'
 
 // top, right, bottom, left
@@ -77,6 +77,7 @@ export interface SvgMapViewerConfig {
     toGeo: (p: Vec) => Vec
     fromGeo: (p: Vec) => Vec
   }
+  mapPois: POI[]
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>

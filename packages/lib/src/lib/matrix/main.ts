@@ -1,4 +1,4 @@
-import { ImmutableShallow } from '../utils'
+import { H, M, V } from '../tuple'
 import { multiply } from './multiply'
 
 type Matrix = M
@@ -39,10 +39,6 @@ function copy([[a, b], [c, d], [e, f]]: Readonly<
 }
 
 ////
-
-export type V = Readonly<ImmutableShallow<[s: number, t: number]>>
-export type H = Readonly<ImmutableShallow<[p: number, q: number, r: number]>>
-export type M = Readonly<ImmutableShallow<[ab: V, cd: V, ef: V]>>
 
 export const ab = ([ab]: M): V => ab
 export const cd = ([, cd]: M): V => cd

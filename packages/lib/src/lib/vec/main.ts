@@ -1,5 +1,5 @@
 import { ReadonlyDeep } from 'type-fest'
-import { V } from '../matrix'
+import { V } from '../tuple'
 import { ImmutableShallow } from '../utils'
 
 type Vec = Readonly<

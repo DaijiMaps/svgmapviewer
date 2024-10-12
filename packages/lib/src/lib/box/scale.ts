@@ -1,5 +1,5 @@
-import { V } from '../matrix'
 import { matrixScale, matrixScaleAt } from '../matrix/prefixed'
+import { V } from '../tuple'
 import { VecVec } from '../vec/prefixed'
 import { Box } from './main'
 import { transform } from './transform'

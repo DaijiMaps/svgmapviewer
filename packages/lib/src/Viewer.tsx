@@ -18,6 +18,7 @@ import { useUi } from './lib/ui-react'
 import { Right, RightStyle } from './Right'
 import { Shadow, ShadowStyle } from './Shadow'
 import { Svg } from './Svg'
+import { Text } from './Text'
 
 export const Viewer = (props: Readonly<PropsWithChildren>) => {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -36,6 +37,7 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
         <Shadow _uiRef={uiRef} />
         <ShadowStyle _uiRef={uiRef} />
         <Detail _pointerRef={pointerRef} _uiRef={uiRef} />
+        <Text />
       </Container>
       <Guides _pointerRef={pointerRef} />
       <Header _uiRef={uiRef} _pointerRef={pointerRef} />

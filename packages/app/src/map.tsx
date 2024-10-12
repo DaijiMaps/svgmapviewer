@@ -1,54 +1,39 @@
 import { svgMapViewerConfig } from '@daijimaps/svgmapviewer'
 import {
   Line,
+  LineFeature,
   lineToPath,
   MultiPolygon,
+  MultiPolygonFeature,
   multiPolygonToPath,
-  Point,
-  Vunwrap,
+  OsmLineProperties,
+  OsmPointProperties,
+  OsmPolygonProperties,
+  PointFeature,
+  PointGeoJSON,
 } from '@daijimaps/svgmapviewer/map'
-import { matrixV as V } from '@daijimaps/svgmapviewer/matrix'
+import { V, vUnvec, vVec } from '@daijimaps/svgmapviewer/tuple'
 import { Assets } from './map-assets'
+import { trees } from './map-data'
 import './map.css'
 
 export function RenderMap() {
   return (
     <>
       <Assets />
-      <path
-        id="Xbench"
-        d="M -0.7,0 V -0.4 M 0.7,0 v -0.4 m 0.3,0 h -2"
-        fill="none"
-        stroke="black"
-        strokeWidth="0.05"
-      />
-      <path
-        id="Xguide-post"
-        d="m 0,0 v -1.4 h -0.7 m 0,0.6 H 0 m 0,-0.3 h 0.7"
-        fill="none"
-        stroke="black"
-        strokeWidth="0.05"
-      />
-      <path
-        id="Xinfo-board"
-        d="M -0.4,0 V -0.7 M 0.4,0 v -0.7 m 0.1,0 h -1 v -0.7 h 1 z"
-        fill="none"
-        stroke="black"
-        strokeWidth="0.05"
-      />
       <g id={svgMapViewerConfig.map} className="map">
-        <Areas />
-        <Buildings />
-        <Waters />
-        <Streams />
-        <Services />
-        <PedestrianAreas />
-        <Footways />
-        <Steps />
-        <Forests />
-        <Benches />
-        <GuidePosts />
-        <InfoBoards />
+        <g>
+          <Areas />
+          <Buildings />
+          <Waters />
+          <Streams />
+          <Services />
+          <PedestrianAreas />
+          <Footways />
+          <Steps />
+          <Forests />
+        </g>
+        <Objects />
         <Facilities />
       </g>
     </>
@@ -171,92 +156,172 @@ function Steps() {
   )
 }
 
-function Benches() {
-  const xs = svgMapViewerConfig.mapData.points.features
-    .filter((f) => f.properties.other_tags?.match(/"bench"/))
-    .map((f) => f.geometry.coordinates as V)
-    .map(conv) as Point[]
-
+function Objects() {
   return (
-    <>
-      {xs.map(([vx, vy], idx) => (
-        <use key={idx} href="#Xbench" x={vx} y={vy} />
-      ))}
-    </>
+    <g>
+      <Benches />
+      <GuidePosts />
+      <InfoBoards />
+      <Trees />
+    </g>
   )
 }
 
-function GuidePosts() {
-  const xs = svgMapViewerConfig.mapData.points.features
-    .filter((f) => f.properties.other_tags?.match(/"guidepost"/))
-    .map((f) => f.geometry.coordinates as V)
-    .map(conv) as Point[]
+function Benches() {
+  const re = /"bench"/
+  const vs = getAll({
+    points: (f) => !!f.properties.other_tags?.match(re),
+  })
+  return <RenderUses href="#Xbench" vs={vs} />
+}
 
-  return (
-    <>
-      {xs.map(([vx, vy], idx) => (
-        <use key={idx} href="#Xguide-post" x={vx} y={vy} />
-      ))}
-    </>
-  )
+function GuidePosts() {
+  const re = /"guidepost"/
+  const vs = getAll({
+    points: (f) => !!f.properties.other_tags?.match(re),
+  })
+  return <RenderUses href="#Xguide-post" vs={vs} />
 }
 
 function InfoBoards() {
   const re = /"information"=>"(board|map)"/
-  const xs = svgMapViewerConfig.mapData.points.features
-    .filter((f) => f.properties.other_tags?.match(re))
-    .map((f) => f.geometry.coordinates as V)
-    .map(conv) as Point[]
+  const vs = getAll({
+    points: (f) => !!f.properties.other_tags?.match(re),
+  })
+  return <RenderUses href="#Xinfo-boards" vs={vs} />
+}
 
+function Trees() {
+  const re = /"tree"/
+  const vs = getAll({
+    points: (f) => !!f.properties.other_tags?.match(re),
+  })
+  const vs2 = (trees as PointGeoJSON).features
+    .map((f) => f.geometry.coordinates as unknown as V)
+    .map(conv)
   return (
     <>
-      {xs.map(([vx, vy], idx) => (
-        <use key={idx} href="#Xinfo-board" x={vx} y={vy} />
-      ))}
+      <RenderUses href="#Xtree-16x16" vs={vs} />
+      <RenderUses href="#Xtree-4x8" vs={vs2} />
     </>
   )
 }
 
 function Facilities() {
-  const toilets = svgMapViewerConfig.mapData.points.features
-    .filter((f) => f.properties.other_tags?.match(/"toilets"/))
-    .map((f) => f.geometry.coordinates as V)
-    .map(conv) as Point[]
-  const toilets2 = svgMapViewerConfig.mapData.centroids.features
-    .filter(
-      (f) =>
-        f.properties.other_tags?.match(/"toilets"/) ||
-        f.properties.amenity === 'toilets'
-    )
-    .map((f) => f.geometry.coordinates as V)
-    .map(conv) as Point[]
-  const parkings = svgMapViewerConfig.mapData.points.features
-    .filter((f) => f.properties.other_tags?.match(/"parking"/))
-    .map((f) => f.geometry.coordinates as V)
-    .map(conv) as Point[]
-  const parkings2 = svgMapViewerConfig.mapData.centroids.features
-    .filter((f) => f.properties.other_tags?.match(/"parking"/))
-    .map((f) => f.geometry.coordinates as V)
-    .map(conv) as Point[]
+  return (
+    <g>
+      <Toilets />
+      <Parkings />
+    </g>
+  )
+}
 
+function Toilets() {
+  const vs = getAll({
+    points: (f) => !!f.properties.other_tags?.match(/"toilets"/),
+    centroids: (f) =>
+      !!f.properties.other_tags?.match(/"toilets"/) ||
+      f.properties.amenity === 'toilets',
+  })
+  return <RenderUses href="#XToilets" vs={vs} />
+}
+
+function Parkings() {
+  const vs = getAll({
+    points: (f) => !!f.properties.other_tags?.match(/"parking"/),
+    centroids: (f) => !!f.properties.other_tags?.match(/"parking"/),
+  })
+
+  return <RenderUses href="#XParking" vs={vs} />
+}
+
+function RenderUses(props: { href: string; vs: V[] }) {
   return (
     <>
-      {toilets.map(([vx, vy], idx) => (
-        <use key={idx} href="#XToilets" x={vx} y={vy} />
-      ))}
-      {toilets2.map(([vx, vy], idx) => (
-        <use key={idx} href="#XToilets" x={vx} y={vy} />
-      ))}
-      {parkings.map(([vx, vy], idx) => (
-        <use key={idx} href="#XParking" x={vx} y={vy} />
-      ))}
-      {parkings2.map(([vx, vy], idx) => (
-        <use key={idx} href="#XParking" x={vx} y={vy} />
+      {props.vs.map(([x, y], idx) => (
+        <use key={idx} href={props.href} x={x} y={y} />
       ))}
     </>
   )
 }
 
+/*
+function Labels() {
+  const re = /"tree"/
+  const vs = getAll({
+    points: (f) => !!f.properties.other_tags?.match(re),
+  })
+  const d = vs
+    .map(
+      ([x, y]) => `M${x},${y} m7.5,0 a7.5,7.5 0,0,1 -15,0a7.5,7.5 0,1,1 15,0z`
+    )
+    .join('')
+  return (
+    <g>
+      <path d={d} fill="white" fillOpacity="0.5" />
+      <text>
+        {vs.map(([x, y], idx) => (
+          <>
+            <tspan key={idx*4+0} x={x} y={y + 0.9 - 3.75}>
+              日本語
+            </tspan>
+            <tspan key={idx*4+1} x={x} y={y + 0.9}>
+              テスト
+            </tspan>
+            <tspan key={idx*4+2} x={x} y={y + 0.9 + 3.75}>
+              123
+            </tspan>
+          </>
+        ))}
+      </text>
+    </g>
+  )
+}
+*/
+
+type PointsFilter = (f: PointFeature<OsmPointProperties>) => boolean
+type LinesFilter = (f: LineFeature<OsmLineProperties>) => boolean
+type MultiPolygonsFilter = (
+  f: MultiPolygonFeature<OsmPolygonProperties>
+) => boolean
+type CentroidsFilter = (f: PointFeature<OsmPolygonProperties>) => boolean
+
+interface Filters {
+  points?: PointsFilter
+  lines?: LinesFilter
+  multipolygons?: MultiPolygonsFilter
+  centroids?: CentroidsFilter
+}
+
+const getAll = ({ points, lines, multipolygons, centroids }: Filters) =>
+  [
+    points === undefined ? [] : getPoints(points),
+    lines === undefined ? [] : getLines(lines),
+    multipolygons === undefined ? [] : getMultiPolygons(multipolygons),
+    centroids === undefined ? [] : getCentroids(centroids),
+  ].flatMap((vs) => vs)
+
+const getPoints = (filter: PointsFilter) =>
+  svgMapViewerConfig.mapData.points.features
+    .filter(filter)
+    .map((f) => f.geometry.coordinates as unknown as V)
+    .map(conv)
+const getLines = (filter: LinesFilter) =>
+  svgMapViewerConfig.mapData.lines.features
+    .filter(filter)
+    .map((f) => f.geometry.coordinates as unknown as V)
+    .map(conv)
+const getMultiPolygons = (filter: MultiPolygonsFilter) =>
+  svgMapViewerConfig.mapData.multipolygons.features
+    .filter(filter)
+    .map((f) => f.geometry.coordinates as unknown as V)
+    .map(conv)
+const getCentroids = (filter: CentroidsFilter) =>
+  svgMapViewerConfig.mapData.centroids.features
+    .filter(filter)
+    .map((f) => f.geometry.coordinates as unknown as V)
+    .map(conv)
+
 function conv(p: V): V {
-  return Vunwrap(svgMapViewerConfig.mapCoord.fromGeo)(p)
+  return vUnvec(svgMapViewerConfig.mapCoord.fromGeo(vVec(p)))
 }

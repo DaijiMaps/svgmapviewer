@@ -17,6 +17,11 @@ svgmapviewer({
   copyright: '@ Daiji Maps | map data @ OpenStreetMap contributers',
   mapData: mapData,
   mapCoord: mapCoord,
+  mapPois: [
+    { name: ['Test1'], pos: { x: 0, y: 0 } },
+    { name: ['Test2'], pos: { x: 100, y: 0 } },
+    { name: ['Test3'], pos: { x: 0, y: 100 } },
+  ],
 })
 
 svgMapViewerConfig.searchCbs.add(workerSearchStart)
