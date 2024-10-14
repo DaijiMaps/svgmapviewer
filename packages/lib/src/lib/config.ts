@@ -55,7 +55,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
     fromGeo: mapCoordDefault,
     toGeo: mapCoordDefault,
   },
-  mapPois: [],
+  mapNames: [],
 }
 
 export function updateSvgMapViewerConfig(

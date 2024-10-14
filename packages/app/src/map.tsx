@@ -1,21 +1,19 @@
 import { svgMapViewerConfig } from '@daijimaps/svgmapviewer'
 import {
   Line,
-  LineFeature,
   lineToPath,
   MultiPolygon,
-  MultiPolygonFeature,
   multiPolygonToPath,
-  OsmLineProperties,
-  OsmPointProperties,
-  OsmPolygonProperties,
-  PointFeature,
   PointGeoJSON,
 } from '@daijimaps/svgmapviewer/map'
-import { V, vUnvec, vVec } from '@daijimaps/svgmapviewer/tuple'
+import { V } from '@daijimaps/svgmapviewer/tuple'
 import { Assets } from './map-assets'
-import { trees } from './map-data'
+import { conv, getAll, trees } from './map-data'
 import './map.css'
+import { BenchPath } from './objects/bench'
+import { GuidePostPath } from './objects/guide-post'
+import { InfoBoardPath } from './objects/info-board'
+import { Tree16x16Path, Tree4x8Path } from './objects/tree'
 
 export function RenderMap() {
   return (
@@ -172,7 +170,7 @@ function Benches() {
   const vs = getAll({
     points: (f) => !!f.properties.other_tags?.match(re),
   })
-  return <RenderUses href="#Xbench" vs={vs} />
+  return <RenderObjects width={0.05} path={BenchPath} vs={vs} />
 }
 
 function GuidePosts() {
@@ -180,7 +178,7 @@ function GuidePosts() {
   const vs = getAll({
     points: (f) => !!f.properties.other_tags?.match(re),
   })
-  return <RenderUses href="#Xguide-post" vs={vs} />
+  return <RenderObjects width={0.05} path={GuidePostPath} vs={vs} />
 }
 
 function InfoBoards() {
@@ -188,7 +186,7 @@ function InfoBoards() {
   const vs = getAll({
     points: (f) => !!f.properties.other_tags?.match(re),
   })
-  return <RenderUses href="#Xinfo-boards" vs={vs} />
+  return <RenderObjects width={0.05} path={InfoBoardPath} vs={vs} />
 }
 
 function Trees() {
@@ -201,8 +199,8 @@ function Trees() {
     .map(conv)
   return (
     <>
-      <RenderUses href="#Xtree-16x16" vs={vs} />
-      <RenderUses href="#Xtree-4x8" vs={vs2} />
+      <RenderObjects width={0.4} path={Tree16x16Path} vs={vs} />
+      <RenderObjects width={0.3} path={Tree4x8Path} vs={vs2} />
     </>
   )
 }
@@ -245,6 +243,17 @@ function RenderUses(props: { href: string; vs: V[] }) {
   )
 }
 
+function RenderObjects(props: { width: number; path: string; vs: V[] }) {
+  return (
+    <path
+      fill="none"
+      stroke="black"
+      strokeWidth={props.width}
+      d={props.vs.map(([x, y]) => `M ${x},${y}` + props.path).join('')}
+    />
+  )
+}
+
 /*
 function Labels() {
   const re = /"tree"/
@@ -278,50 +287,3 @@ function Labels() {
   )
 }
 */
-
-type PointsFilter = (f: PointFeature<OsmPointProperties>) => boolean
-type LinesFilter = (f: LineFeature<OsmLineProperties>) => boolean
-type MultiPolygonsFilter = (
-  f: MultiPolygonFeature<OsmPolygonProperties>
-) => boolean
-type CentroidsFilter = (f: PointFeature<OsmPolygonProperties>) => boolean
-
-interface Filters {
-  points?: PointsFilter
-  lines?: LinesFilter
-  multipolygons?: MultiPolygonsFilter
-  centroids?: CentroidsFilter
-}
-
-const getAll = ({ points, lines, multipolygons, centroids }: Filters) =>
-  [
-    points === undefined ? [] : getPoints(points),
-    lines === undefined ? [] : getLines(lines),
-    multipolygons === undefined ? [] : getMultiPolygons(multipolygons),
-    centroids === undefined ? [] : getCentroids(centroids),
-  ].flatMap((vs) => vs)
-
-const getPoints = (filter: PointsFilter) =>
-  svgMapViewerConfig.mapData.points.features
-    .filter(filter)
-    .map((f) => f.geometry.coordinates as unknown as V)
-    .map(conv)
-const getLines = (filter: LinesFilter) =>
-  svgMapViewerConfig.mapData.lines.features
-    .filter(filter)
-    .map((f) => f.geometry.coordinates as unknown as V)
-    .map(conv)
-const getMultiPolygons = (filter: MultiPolygonsFilter) =>
-  svgMapViewerConfig.mapData.multipolygons.features
-    .filter(filter)
-    .map((f) => f.geometry.coordinates as unknown as V)
-    .map(conv)
-const getCentroids = (filter: CentroidsFilter) =>
-  svgMapViewerConfig.mapData.centroids.features
-    .filter(filter)
-    .map((f) => f.geometry.coordinates as unknown as V)
-    .map(conv)
-
-function conv(p: V): V {
-  return vUnvec(svgMapViewerConfig.mapCoord.fromGeo(vVec(p)))
-}

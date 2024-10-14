@@ -77,7 +77,7 @@ export interface SvgMapViewerConfig {
     toGeo: (p: Vec) => Vec
     fromGeo: (p: Vec) => Vec
   }
-  mapPois: POI[]
+  mapNames: POI[]
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>

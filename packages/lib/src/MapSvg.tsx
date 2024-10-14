@@ -2,13 +2,13 @@ import { useSelector } from '@xstate/react'
 import { PropsWithChildren } from 'react'
 import { boxToViewBox } from './lib/box/prefixed'
 import { PointerRef, selectLayout } from './lib/pointer-xstate'
-import './Svg.css'
+import './MapSvg.css'
 
-interface SvgProps {
+interface MapSvgProps {
   _pointerRef: PointerRef
 }
 
-export const Svg = (props: Readonly<PropsWithChildren<SvgProps>>) => {
+export const MapSvg = (props: Readonly<PropsWithChildren<MapSvgProps>>) => {
   const { _pointerRef: pointerRef } = props
 
   const layout = useSelector(pointerRef, selectLayout)
