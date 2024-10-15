@@ -1,33 +1,52 @@
+import { useSelector } from '@xstate/react'
+import { useEffect } from 'react'
+import { createRoot } from 'react-dom/client'
+import { createActor, emit, setup } from 'xstate'
 import './MapHtml.css'
 import { svgMapViewerConfig } from './lib/config'
 import { fromSvg, toOuter } from './lib/layout'
 import { POI } from './lib/map'
-import { PointerRef } from './lib/pointer-xstate'
-import { UiRef } from './lib/ui-xstate'
+import { PointerRef, selectLayout } from './lib/pointer-xstate'
 
-export interface MapHtml {
-  _uiRef: UiRef
+export interface MapHtmlProps {
   _pointerRef: PointerRef
 }
 
-export function MapHtml(/*props: Readonly<MapHtmlProps>*/) {
+export function MapHtml(props: Readonly<MapHtmlProps>) {
+  // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
+  useEffect(() => {
+    // eslint-disable-next-line functional/no-expression-statements
+    rootActor.send({ type: 'MAP.HTML', ref: props._pointerRef })
+  })
+
   return (
     <div className="content">
-      <div className="poi">
-        {svgMapViewerConfig.mapNames
-          .map(({ name, pos }) => ({ name, pos: toOuter(fromSvg(pos)) }))
-          .map(({ name, pos: { x, y } }, i) => (
-            <div
-              key={i}
-              className={`poi-item`}
-              style={{
-                transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
-              }}
-            >
-              <RenderPOI poi={{ name, pos: { x, y } }} />
-            </div>
-          ))}
-      </div>
+      <div id="map-html-content-root" />
+    </div>
+  )
+}
+
+export function MapHtmlContent(props: Readonly<MapHtmlProps>) {
+  const layout = useSelector(props._pointerRef, selectLayout)
+
+  return (
+    <div className="poi">
+      {svgMapViewerConfig.mapNames
+        .map(({ name, pos }) => ({
+          name,
+          pos: toOuter(fromSvg(pos, layout), layout),
+        }))
+        .map(({ name, pos: { x, y } }, i) => (
+          <div
+            key={i}
+            className={`poi-item`}
+            style={{
+              transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
+            }}
+          >
+            <RenderPOI poi={{ name, pos: { x, y } }} />
+          </div>
+        ))}
     </div>
   )
 }
@@ -41,3 +60,60 @@ function RenderPOI(props: Readonly<{ poi: POI }>) {
     </>
   )
 }
+
+function mountMapHtmlRoot(ref: Readonly<PointerRef>): boolean {
+  const root = document.querySelector(`#map-html-content-root`)
+  if (root === null) {
+    return false
+  }
+  if (root.shadowRoot !== null) {
+    return true
+  }
+  const shadowRoot = root.attachShadow({ mode: 'open' })
+  // eslint-disable-next-line functional/no-expression-statements
+  createRoot(shadowRoot).render(
+    <>
+      <MapHtmlContent _pointerRef={ref} />
+      <style>
+        {`
+.poi-item {
+  position: absolute;
+  padding: 0.5em;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+.poi-item > p {
+  margin: 0;
+}
+`}
+      </style>
+    </>
+  )
+  return true
+}
+
+type RootEvent = {
+  type: 'MAP.HTML'
+  ref: PointerRef
+}
+
+const rootLogic = setup({
+  types: {
+    events: {} as RootEvent,
+    emitted: {} as RootEvent,
+  },
+}).createMachine({
+  on: {
+    'MAP.HTML': {
+      actions: emit(({ event }) => event),
+    },
+  },
+})
+
+const rootActor = createActor(rootLogic)
+
+// eslint-disable-next-line functional/no-expression-statements
+rootActor.on('MAP.HTML', ({ ref }) => mountMapHtmlRoot(ref))
+
+// eslint-disable-next-line functional/no-expression-statements
+rootActor.start()
