@@ -33,6 +33,31 @@ export function MapHtml(props: Readonly<MapHtmlProps>) {
   )
 }
 
+export function MapHtmlContentRoot(
+  props: Readonly<{ ref: PointerRef }>
+): ReactNode {
+  const { ref } = props
+
+  return (
+    <>
+      <MapHtmlContent _pointerRef={ref} />
+      <style>
+        {`
+.poi-item {
+  position: absolute;
+  padding: 0.5em;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+.poi-item > p {
+  margin: 0;
+}
+`}
+      </style>
+    </>
+  )
+}
+
 export function MapHtmlContent(props: Readonly<MapHtmlProps>) {
   const layout = useSelector(props._pointerRef, selectLayout)
 
@@ -82,27 +107,6 @@ function mountShadow(id: string, children: Readonly<ReactNode>): boolean {
   return true
 }
 
-function mapHtmlContentRoot(ref: Readonly<PointerRef>): ReactNode {
-  return (
-    <>
-      <MapHtmlContent _pointerRef={ref} />
-      <style>
-        {`
-.poi-item {
-  position: absolute;
-  padding: 0.5em;
-  background-color: rgba(255, 255, 255, 0.5);
-  text-align: center;
-}
-.poi-item > p {
-  margin: 0;
-}
-`}
-      </style>
-    </>
-  )
-}
-
 type RootEvent = {
   type: 'MAP.HTML'
   ref: PointerRef
@@ -125,7 +129,7 @@ const rootActor = createActor(rootLogic)
 
 // eslint-disable-next-line functional/no-expression-statements
 rootActor.on('MAP.HTML', ({ ref }) =>
-  mountShadow('map-html-content-root', mapHtmlContentRoot(ref))
+  mountShadow('map-html-content-root', MapHtmlContentRoot({ ref }))
 )
 
 // eslint-disable-next-line functional/no-expression-statements
