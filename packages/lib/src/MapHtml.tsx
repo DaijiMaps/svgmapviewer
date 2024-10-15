@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { useEffect } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createActor, emit, setup } from 'xstate'
 import './MapHtml.css'
@@ -15,6 +15,13 @@ export interface MapHtmlProps {
 export function MapHtml(props: Readonly<MapHtmlProps>) {
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
   useEffect(() => {
+    const root = document.querySelector(`#map-html-content-root`)
+    if (root === null) {
+      return
+    }
+    if (root.shadowRoot !== null) {
+      return
+    }
     // eslint-disable-next-line functional/no-expression-statements
     rootActor.send({ type: 'MAP.HTML', ref: props._pointerRef })
   })
@@ -61,8 +68,8 @@ function RenderPOI(props: Readonly<{ poi: POI }>) {
   )
 }
 
-function mountMapHtmlRoot(ref: Readonly<PointerRef>): boolean {
-  const root = document.querySelector(`#map-html-content-root`)
+function mountShadow(id: string, children: Readonly<ReactNode>): boolean {
+  const root = document.querySelector(`#${id}`)
   if (root === null) {
     return false
   }
@@ -71,7 +78,12 @@ function mountMapHtmlRoot(ref: Readonly<PointerRef>): boolean {
   }
   const shadowRoot = root.attachShadow({ mode: 'open' })
   // eslint-disable-next-line functional/no-expression-statements
-  createRoot(shadowRoot).render(
+  createRoot(shadowRoot).render(children)
+  return true
+}
+
+function mapHtmlContentRoot(ref: Readonly<PointerRef>): ReactNode {
+  return (
     <>
       <MapHtmlContent _pointerRef={ref} />
       <style>
@@ -89,7 +101,6 @@ function mountMapHtmlRoot(ref: Readonly<PointerRef>): boolean {
       </style>
     </>
   )
-  return true
 }
 
 type RootEvent = {
@@ -113,7 +124,9 @@ const rootLogic = setup({
 const rootActor = createActor(rootLogic)
 
 // eslint-disable-next-line functional/no-expression-statements
-rootActor.on('MAP.HTML', ({ ref }) => mountMapHtmlRoot(ref))
+rootActor.on('MAP.HTML', ({ ref }) =>
+  mountShadow('map-html-content-root', mapHtmlContentRoot(ref))
+)
 
 // eslint-disable-next-line functional/no-expression-statements
 rootActor.start()

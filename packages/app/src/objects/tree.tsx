@@ -68,4 +68,5 @@ export function Tree16x16() {
   )
 }
 
-export const Tree16x16Path = `m 0,0 v -8 m 0,4 c 12,0 8,-12 0,-12 -8,0 -12,12 0,12 z`
+export const Tree16x16Path =
+  'm 0,0 v -8 m 0,4 c 12,0 8,-12 0,-12 -8,0 -12,12 0,12 z'
