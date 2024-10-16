@@ -30,29 +30,43 @@ function MapHtmlContentRoot(props: Readonly<{ ref: PointerRef }>): ReactNode {
 
   return (
     <>
-      <MapHtmlContent _pointerRef={ref} />
-      <style>
-        {`
-.poi-item {
-  position: absolute;
-  padding: 0.5em;
-  background-color: rgba(255, 255, 255, 0.5);
-  text-align: center;
-}
-.poi-item > p {
-  margin: 0;
-}
-`}
-      </style>
+      <MapHtmlContentSymbols _pointerRef={ref} />
+      <MapHtmlContentNames _pointerRef={ref} />
+      <style>{svgMapViewerConfig.mapHtmlStyle}</style>
     </>
   )
 }
 
-function MapHtmlContent(props: Readonly<MapHtmlProps>) {
+function MapHtmlContentSymbols(props: Readonly<MapHtmlProps>) {
   const layout = useSelector(props._pointerRef, selectLayout)
 
   return (
-    <div className="poi">
+    <div className="poi-symbols">
+      {svgMapViewerConfig.mapSymbols
+        .map(({ name, pos }) => ({
+          name,
+          pos: toOuter(fromSvg(pos, layout), layout),
+        }))
+        .map(({ name, pos: { x, y } }, i) => (
+          <div
+            key={i}
+            className={`poi-symbols-item`}
+            style={{
+              transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
+            }}
+          >
+            <RenderSymbol poi={{ name, pos: { x, y } }} />
+          </div>
+        ))}
+    </div>
+  )
+}
+
+function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
+  const layout = useSelector(props._pointerRef, selectLayout)
+
+  return (
+    <div className="poi-names">
       {svgMapViewerConfig.mapNames
         .map(({ name, pos }) => ({
           name,
@@ -61,7 +75,7 @@ function MapHtmlContent(props: Readonly<MapHtmlProps>) {
         .map(({ name, pos: { x, y } }, i) => (
           <div
             key={i}
-            className={`poi-item`}
+            className={`poi-names-item`}
             style={{
               transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
             }}
@@ -70,6 +84,16 @@ function MapHtmlContent(props: Readonly<MapHtmlProps>) {
           </div>
         ))}
     </div>
+  )
+}
+
+function RenderSymbol(props: Readonly<{ poi: POI }>) {
+  return (
+    <p>
+      {props.poi.name.map((n, j) => (
+        <span key={j} className={n} />
+      ))}
+    </p>
   )
 }
 

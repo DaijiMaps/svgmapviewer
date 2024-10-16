@@ -190,7 +190,7 @@ function InfoBoards() {
 }
 
 function Trees() {
-  const re = /"tree"/
+  const re = /"tree"|"wood"/
   const vs = getAll({
     points: (f) => !!f.properties.other_tags?.match(re),
   })
@@ -199,8 +199,8 @@ function Trees() {
     .map(conv)
   return (
     <>
-      <RenderObjects width={0.4} path={Tree16x16Path} vs={vs} />
-      <RenderObjects width={0.3} path={Tree4x8Path} vs={vs2} />
+      <RenderObjects width={0.3} path={Tree16x16Path} vs={vs} />
+      <RenderObjects width={0.15} path={Tree4x8Path} vs={vs2} />
     </>
   )
 }

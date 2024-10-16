@@ -181,7 +181,7 @@
       "properties": {
         "osm_id": "5363206",
         "osm_way_id": null,
-        "name": null,
+        "name": "丸花壇",
         "type": "multipolygon",
         "aeroway": null,
         "amenity": null,
@@ -193,8 +193,8 @@
         "geological": null,
         "historic": null,
         "land_area": null,
-        "landuse": "grass",
-        "leisure": null,
+        "landuse": null,
+        "leisure": "garden",
         "man_made": null,
         "military": null,
         "natural": null,
@@ -207,7 +207,7 @@
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [139.711694688284894, 35.686332588972725]
+        "coordinates": [139.711693163278113, 35.686337141260665]
       }
     },
     {
@@ -310,6 +310,108 @@
       "geometry": {
         "type": "Point",
         "coordinates": [139.712383940473444, 35.682360370083465]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "18154993",
+        "osm_way_id": null,
+        "name": null,
+        "type": "multipolygon",
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"highway\"=>\"pedestrian\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.710904682917715, 35.686786849738489]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "18158006",
+        "osm_way_id": null,
+        "name": "バラ花壇",
+        "type": "multipolygon",
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": "garden",
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"architect\"=>\"Henri Martinet\",\"architect:wikidata\"=>\"Q98605566\",\"architect:wikipedia\"=>\"ja:アンリ・マルチネ\",\"name:en\"=>\"Rose Garden\",\"name:es\"=>\"Jardín de las rosas\",\"name:fr\"=>\"Roseraie\",\"name:it\"=>\"Giardino delle rose\",\"name:ja-Hira\"=>\"ばら かだん\",\"name:ja-Latn\"=>\"Bara kadan\",\"name:ko\"=>\"장미화원\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713797879808311, 35.683270319499009]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "18167733",
+        "osm_way_id": null,
+        "name": "三角花壇",
+        "type": "multipolygon",
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": "garden",
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709695065600812, 35.686279495691338]
       }
     },
     {
@@ -826,74 +928,6 @@
       "type": "Feature",
       "properties": {
         "osm_id": null,
-        "osm_way_id": "228926575",
-        "name": "バラ花壇",
-        "type": null,
-        "aeroway": null,
-        "amenity": null,
-        "admin_level": null,
-        "barrier": null,
-        "boundary": null,
-        "building": null,
-        "craft": null,
-        "geological": null,
-        "historic": null,
-        "land_area": null,
-        "landuse": null,
-        "leisure": "garden",
-        "man_made": null,
-        "military": null,
-        "natural": null,
-        "office": null,
-        "place": null,
-        "shop": null,
-        "sport": null,
-        "tourism": null,
-        "other_tags": "\"architect\"=>\"Henri Martinet\",\"architect:wikidata\"=>\"Q98605566\",\"architect:wikipedia\"=>\"ja:アンリ・マルチネ\",\"name:en\"=>\"Rose Garden\",\"name:es\"=>\"Jardín de las rosas\",\"name:fr\"=>\"Roseraie\",\"name:it\"=>\"Giardino delle rose\",\"name:ja-Hira\"=>\"ばら かだん\",\"name:ja-Latn\"=>\"Bara kadan\",\"name:ko\"=>\"장미화원\""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.713579128036855, 35.683434197936513]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "osm_id": null,
-        "osm_way_id": "228926576",
-        "name": "バラ花壇",
-        "type": null,
-        "aeroway": null,
-        "amenity": null,
-        "admin_level": null,
-        "barrier": null,
-        "boundary": null,
-        "building": null,
-        "craft": null,
-        "geological": null,
-        "historic": null,
-        "land_area": null,
-        "landuse": null,
-        "leisure": "garden",
-        "man_made": null,
-        "military": null,
-        "natural": null,
-        "office": null,
-        "place": null,
-        "shop": null,
-        "sport": null,
-        "tourism": null,
-        "other_tags": "\"architect\"=>\"Henri Martinet\",\"architect:wikidata\"=>\"Q98605566\",\"architect:wikipedia\"=>\"ja:アンリ・マルチネ\",\"name:en\"=>\"Rose Garden\",\"name:es\"=>\"Jardín de las rosas\",\"name:fr\"=>\"Roseraie\",\"name:it\"=>\"Giardino delle rose\",\"name:ja-Hira\"=>\"ばら かだん\",\"name:ja-Latn\"=>\"Bara kadan\",\"name:ko\"=>\"장미화원\""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.714038694274649, 35.683089912738303]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "osm_id": null,
         "osm_way_id": "228926578",
         "name": "大温室",
         "type": null,
@@ -1327,108 +1361,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [139.710643544557541, 35.687145397139879]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "osm_id": null,
-        "osm_way_id": "229076863",
-        "name": null,
-        "type": null,
-        "aeroway": null,
-        "amenity": null,
-        "admin_level": null,
-        "barrier": null,
-        "boundary": null,
-        "building": null,
-        "craft": null,
-        "geological": null,
-        "historic": null,
-        "land_area": null,
-        "landuse": "grass",
-        "leisure": null,
-        "man_made": null,
-        "military": null,
-        "natural": null,
-        "office": null,
-        "place": null,
-        "shop": null,
-        "sport": null,
-        "tourism": null,
-        "other_tags": null
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.711777940141673, 35.686353350618703]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "osm_id": null,
-        "osm_way_id": "229076866",
-        "name": null,
-        "type": null,
-        "aeroway": null,
-        "amenity": null,
-        "admin_level": null,
-        "barrier": null,
-        "boundary": null,
-        "building": null,
-        "craft": null,
-        "geological": null,
-        "historic": null,
-        "land_area": null,
-        "landuse": "grass",
-        "leisure": null,
-        "man_made": null,
-        "military": null,
-        "natural": null,
-        "office": null,
-        "place": null,
-        "shop": null,
-        "sport": null,
-        "tourism": null,
-        "other_tags": null
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.711635405367957, 35.686382961675228]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "osm_id": null,
-        "osm_way_id": "229076867",
-        "name": null,
-        "type": null,
-        "aeroway": null,
-        "amenity": null,
-        "admin_level": null,
-        "barrier": null,
-        "boundary": null,
-        "building": null,
-        "craft": null,
-        "geological": null,
-        "historic": null,
-        "land_area": null,
-        "landuse": "grass",
-        "leisure": null,
-        "man_made": null,
-        "military": null,
-        "natural": null,
-        "office": null,
-        "place": null,
-        "shop": null,
-        "sport": null,
-        "tourism": null,
-        "other_tags": null
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.711677734144359, 35.686265734654043]
       }
     },
     {
@@ -2548,142 +2480,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [139.714722728806578, 35.685919351090874]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "osm_id": null,
-        "osm_way_id": "1215203401",
-        "name": null,
-        "type": null,
-        "aeroway": null,
-        "amenity": null,
-        "admin_level": null,
-        "barrier": null,
-        "boundary": null,
-        "building": null,
-        "craft": null,
-        "geological": null,
-        "historic": null,
-        "land_area": null,
-        "landuse": null,
-        "leisure": "garden",
-        "man_made": null,
-        "military": null,
-        "natural": null,
-        "office": null,
-        "place": null,
-        "shop": null,
-        "sport": null,
-        "tourism": null,
-        "other_tags": null
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.709708566666649, 35.686251]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "osm_id": null,
-        "osm_way_id": "1215203402",
-        "name": null,
-        "type": null,
-        "aeroway": null,
-        "amenity": null,
-        "admin_level": null,
-        "barrier": null,
-        "boundary": null,
-        "building": null,
-        "craft": null,
-        "geological": null,
-        "historic": null,
-        "land_area": null,
-        "landuse": null,
-        "leisure": "garden",
-        "man_made": null,
-        "military": null,
-        "natural": null,
-        "office": null,
-        "place": null,
-        "shop": null,
-        "sport": null,
-        "tourism": null,
-        "other_tags": null
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.709656466666644, 35.6862899]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "osm_id": null,
-        "osm_way_id": "1215203403",
-        "name": null,
-        "type": null,
-        "aeroway": null,
-        "amenity": null,
-        "admin_level": null,
-        "barrier": null,
-        "boundary": null,
-        "building": null,
-        "craft": null,
-        "geological": null,
-        "historic": null,
-        "land_area": null,
-        "landuse": null,
-        "leisure": "garden",
-        "man_made": null,
-        "military": null,
-        "natural": null,
-        "office": null,
-        "place": null,
-        "shop": null,
-        "sport": null,
-        "tourism": null,
-        "other_tags": null
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.709716633333329, 35.686308733333334]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "osm_id": null,
-        "osm_way_id": "1215203404",
-        "name": null,
-        "type": null,
-        "aeroway": null,
-        "amenity": null,
-        "admin_level": null,
-        "barrier": null,
-        "boundary": null,
-        "building": null,
-        "craft": null,
-        "geological": null,
-        "historic": null,
-        "land_area": null,
-        "landuse": null,
-        "leisure": "garden",
-        "man_made": null,
-        "military": null,
-        "natural": null,
-        "office": null,
-        "place": null,
-        "shop": null,
-        "sport": null,
-        "tourism": null,
-        "other_tags": null
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.709698528785651, 35.686280313240026]
       }
     },
     {
@@ -4186,74 +3982,6 @@
       "type": "Feature",
       "properties": {
         "osm_id": null,
-        "osm_way_id": "1322002403",
-        "name": null,
-        "type": null,
-        "aeroway": null,
-        "amenity": null,
-        "admin_level": null,
-        "barrier": null,
-        "boundary": null,
-        "building": null,
-        "craft": null,
-        "geological": null,
-        "historic": null,
-        "land_area": null,
-        "landuse": null,
-        "leisure": null,
-        "man_made": null,
-        "military": null,
-        "natural": null,
-        "office": null,
-        "place": null,
-        "shop": null,
-        "sport": null,
-        "tourism": null,
-        "other_tags": "\"highway\"=>\"pedestrian\""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.710906498828336, 35.686787445244946]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "osm_id": null,
-        "osm_way_id": "1322002404",
-        "name": null,
-        "type": null,
-        "aeroway": null,
-        "amenity": null,
-        "admin_level": null,
-        "barrier": null,
-        "boundary": null,
-        "building": null,
-        "craft": null,
-        "geological": null,
-        "historic": null,
-        "land_area": null,
-        "landuse": null,
-        "leisure": null,
-        "man_made": null,
-        "military": null,
-        "natural": null,
-        "office": null,
-        "place": null,
-        "shop": null,
-        "sport": null,
-        "tourism": null,
-        "other_tags": "\"highway\"=>\"pedestrian\""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.710933282816427, 35.686796228737677]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "osm_id": null,
         "osm_way_id": "1322002405",
         "name": null,
         "type": null,
@@ -4323,7 +4051,7 @@
       "properties": {
         "osm_id": null,
         "osm_way_id": "1322002409",
-        "name": null,
+        "name": "新宿御苑ミュージアム",
         "type": null,
         "aeroway": null,
         "amenity": null,

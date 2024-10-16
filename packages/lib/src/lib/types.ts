@@ -77,6 +77,8 @@ export interface SvgMapViewerConfig {
     toGeo: (p: Vec) => Vec
     fromGeo: (p: Vec) => Vec
   }
+  mapHtmlStyle: string
+  mapSymbols: POI[]
   mapNames: POI[]
 }
 
