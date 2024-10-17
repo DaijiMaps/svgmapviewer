@@ -267,11 +267,11 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
     const lock = pointerRef.on('LOCK', ({ ok }) =>
       svgMapViewerConfig.uiOpenDoneCbs.forEach((cb) => cb(ok))
     )
-    const zoomStart = pointerRef.on('ZOOM.START', ({ zoom, z }) => {
-      svgMapViewerConfig.zoomStartCbs.forEach((cb) => cb(zoom, z))
+    const zoomStart = pointerRef.on('ZOOM.START', ({ layout, zoom, z }) => {
+      svgMapViewerConfig.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
     })
-    const zoomEnd = pointerRef.on('ZOOM.END', ({ zoom }) => {
-      svgMapViewerConfig.zoomEndCbs.forEach((cb) => cb(zoom))
+    const zoomEnd = pointerRef.on('ZOOM.END', ({ layout, zoom }) => {
+      svgMapViewerConfig.zoomEndCbs.forEach((cb) => cb(layout, zoom))
     })
     return () => {
       search.unsubscribe()

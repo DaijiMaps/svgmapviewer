@@ -179,8 +179,8 @@ export type _PointerEvent =
 export type PointerEmitted =
   | { type: 'SEARCH'; p: Vec; psvg: Vec }
   | { type: 'LOCK'; ok: boolean }
-  | { type: 'ZOOM.START'; zoom: number; z: number }
-  | { type: 'ZOOM.END'; zoom: number }
+  | { type: 'ZOOM.START'; layout: Layout; zoom: number; z: number }
+  | { type: 'ZOOM.END'; layout: Layout; zoom: number }
 
 //// pointerMachine
 
@@ -991,7 +991,11 @@ export const pointerMachine = setup({
             'ANIMATION.END': {
               actions: [
                 'endAnimation',
-                emit(({ context: { zoom } }) => ({ type: 'ZOOM.END', zoom })),
+                emit(({ context: { layout, zoom } }) => ({
+                  type: 'ZOOM.END',
+                  layout,
+                  zoom,
+                })),
               ],
               target: 'Idle',
             },
@@ -1221,8 +1225,9 @@ export const pointerMachine = setup({
             'EXPAND.DONE': {
               actions: [
                 'startZoom',
-                emit(({ context: { z, zoom } }) => ({
+                emit(({ context: { layout, zoom, z } }) => ({
                   type: 'ZOOM.START',
+                  layout,
                   zoom,
                   z: z === null ? 0 : z,
                 })),

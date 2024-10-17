@@ -28,8 +28,8 @@ export interface SearchRes {
   info: Readonly<Info>
 }
 
-export type ZoomStartCb = (zoom: number, z: number) => void
-export type ZoomEndCb = (zoom: number) => void
+export type ZoomStartCb = (layout: Layout, zoom: number, z: number) => void
+export type ZoomEndCb = (layout: Layout, zoom: number) => void
 
 export type SearchCb = (p: Vec, psvg: Vec) => void
 

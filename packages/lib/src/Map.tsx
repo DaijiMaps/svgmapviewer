@@ -6,6 +6,7 @@ import { assign, setup } from 'xstate'
 import './index.css'
 import { SvgMapViewerConfig } from './lib'
 import { svgMapViewerConfig } from './lib/config'
+import { emptyLayout, Layout } from './lib/layout'
 
 export function RenderMap(props: Readonly<{ config: SvgMapViewerConfig }>) {
   const { state } = useRenderMap()
@@ -17,12 +18,14 @@ function useRenderMap() {
   const [state, send] = useMachine(renderMapMachine)
 
   const zoomStart = useCallback(
-    (zoom: number, z: number) => send({ type: 'ZOOM', zoom, z }),
+    (layout: Layout, zoom: number, z: number) =>
+      send({ type: 'ZOOM', layout, zoom, z }),
     [send]
   )
 
   const zoomEnd = useCallback(
-    (zoom: number) => send({ type: 'ZOOM', zoom, z: null }),
+    (layout: Layout, zoom: number) =>
+      send({ type: 'ZOOM', layout, zoom, z: null }),
     [send]
   )
 
@@ -38,7 +41,7 @@ function useRenderMap() {
   return { state }
 }
 
-type RenderMapContext = { zoom: number; z: null | number }
+type RenderMapContext = { layout: Layout; zoom: number; z: null | number }
 type RenderMapEvent = { type: 'ZOOM' } & RenderMapContext
 
 const renderMapMachine = setup({
@@ -48,7 +51,7 @@ const renderMapMachine = setup({
   },
 }).createMachine({
   id: 'render-map',
-  context: { zoom: 0, z: null },
+  context: { layout: emptyLayout, zoom: 1, z: null },
   on: {
     ZOOM: {
       actions: [
