@@ -15,7 +15,7 @@ import { GuidePostPath } from './objects/guide-post'
 import { InfoBoardPath } from './objects/info-board'
 import { Tree16x16Path, Tree4x8Path } from './objects/tree'
 
-export function RenderMap() {
+export function RenderMap(/*props: { zoom: number, z: null | number }*/) {
   return (
     <>
       <Assets />

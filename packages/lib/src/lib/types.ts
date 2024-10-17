@@ -28,6 +28,9 @@ export interface SearchRes {
   info: Readonly<Info>
 }
 
+export type ZoomStartCb = (zoom: number, z: number) => void
+export type ZoomEndCb = (zoom: number) => void
+
 export type SearchCb = (p: Vec, psvg: Vec) => void
 
 export type SearchDoneCb = (res: Readonly<null | SearchRes>) => void
@@ -40,7 +43,9 @@ export type UiCloseCb = () => void
 
 export type Conv = (p: Vec) => Vec
 
-export type RenderMap = () => JSX.Element
+export type RenderMap = (
+  props: Readonly<{ zoom: number; z: null | number }>
+) => JSX.Element
 
 export type RenderInfo = (props: Readonly<{ info: Info }>) => JSX.Element
 
@@ -62,6 +67,8 @@ export interface SvgMapViewerConfig {
   dragStepStepLimit: number
   dragStepMaxCount: number
   scrollIdleTimeout: number
+  zoomStartCbs: Set<ZoomStartCb>
+  zoomEndCbs: Set<ZoomEndCb>
   searchStartCbs: Set<SearchCb>
   searchCbs: Set<SearchCb>
   searchDoneCbs: Set<SearchDoneCb>

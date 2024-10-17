@@ -58,6 +58,7 @@ export type PointerContext = {
   expand: number
   m: null | Vec
   z: null | number
+  zoom: number
   touches: Touches
   drag: null | Drag
   animation: null | Animation
@@ -178,6 +179,8 @@ export type _PointerEvent =
 export type PointerEmitted =
   | { type: 'SEARCH'; p: Vec; psvg: Vec }
   | { type: 'LOCK'; ok: boolean }
+  | { type: 'ZOOM.START'; zoom: number; z: number }
+  | { type: 'ZOOM.END'; zoom: number }
 
 //// pointerMachine
 
@@ -350,6 +353,8 @@ export const pointerMachine = setup({
         animation === null ? layout : animationEndLayout(layout, animation),
       animation: () => null,
       z: () => null,
+      zoom: ({ context: { z, zoom } }) =>
+        z === null ? zoom : zoom * Math.pow(2, z),
     }),
 
     //
@@ -467,7 +472,7 @@ export const pointerMachine = setup({
     expand: 1,
     m: null,
     z: null,
-    zoom: 0,
+    zoom: 1,
     touches: resetTouches(),
     drag: null,
     animation: null,
@@ -984,7 +989,10 @@ export const pointerMachine = setup({
         Busy: {
           on: {
             'ANIMATION.END': {
-              actions: 'endAnimation',
+              actions: [
+                'endAnimation',
+                emit(({ context: { zoom } }) => ({ type: 'ZOOM.END', zoom })),
+              ],
               target: 'Idle',
             },
           },
@@ -1211,7 +1219,14 @@ export const pointerMachine = setup({
         Expanding: {
           on: {
             'EXPAND.DONE': {
-              actions: 'startZoom',
+              actions: [
+                'startZoom',
+                emit(({ context: { z, zoom } }) => ({
+                  type: 'ZOOM.START',
+                  zoom,
+                  z: z === null ? 0 : z,
+                })),
+              ],
               target: 'Animating',
             },
             'UNEXPAND.DONE': {

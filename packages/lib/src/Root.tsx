@@ -6,6 +6,7 @@ import App from './App'
 import './index.css'
 import { SvgMapViewerConfig } from './lib'
 import { svgMapViewerConfig } from './lib/config'
+import { RenderMap } from './Map'
 
 export const SvgMapViewerConfigContext = createContext(svgMapViewerConfig)
 
@@ -17,7 +18,7 @@ export function root(config: Readonly<SvgMapViewerConfig>) {
       </SvgMapViewerConfigContext.Provider>
       <svg>
         <defs>
-          <config.renderMap />
+          <RenderMap config={config} />
         </defs>
       </svg>
     </StrictMode>
