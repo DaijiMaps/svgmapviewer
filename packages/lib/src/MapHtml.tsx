@@ -3,8 +3,8 @@ import { ReactNode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createActor, emit, setup } from 'xstate'
 import { svgMapViewerConfig } from './lib/config'
+import { POI } from './lib/geo'
 import { fromSvg, toOuter } from './lib/layout'
-import { POI } from './lib/map'
 import { PointerRef, selectLayout } from './lib/pointer-xstate'
 
 export interface MapHtmlProps {

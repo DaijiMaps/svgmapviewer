@@ -1,9 +1,11 @@
 import decimal
+import glob
 import math
 import os
 import os.path
 import pathlib
 import re
+import sys
 import typing
 
 ################################################################################
@@ -26,61 +28,6 @@ prj: QgsProject = None
 ################################################################################
 
 #### COMMON FILES
-
-# Name/map*.osm
-# Name/map.qgz
-# Name/areas.geojson
-# Name/origin.geojson
-# Name/measures.geojson
-# Name/map-points.geojson
-# Name/map-lines.geojson
-# Name/map-multilinestrings.geojson
-# Name/map-multipolygons.geojson
-# Name/map-other_relations.geojson
-
-class Context:
-    prefix = ''
-    prjdir = ''
-    prj = ''
-
-    areasGJ = ''
-    areas_extentGJ = ''
-    originGJ = ''
-    measuresGJ = ''
-
-    map_pointsGJ = ''
-    map_linesGJ = ''
-    map_multilinestringsGJ = ''
-    map_multipolygonsGJ = ''
-    map_other_relationsGJ = ''
-
-    def __init__(self, prefix: str):
-        pwd = os.getcwd()
-        prjdir = '%s/%s' % (pwd, prefix)
-
-        self.prefix = prefix
-        self.prjdir = prjdir
-
-        self.prj = '%s/map.qgz' % prjdir
-
-        self.areasGJ = '%s/areas.geojson' % prjdir
-        self.areas_extentGJ = '%s/areas_extent.geojson' % prjdir
-        self.originGJ = '%s/origin.geojson' % prjdir
-        self.measuresGJ = '%s/measures.geojson' % prjdir
-
-        self.pointsGJ = '%s/map-points.geojson' % prjdir
-        self.linesGJ = '%s/map-lines.geojson' % prjdir
-        self.multilinestringsGJ = '%s/map-multilinestrings.geojson' % prjdir
-        self.multipolygonsGJ = '%s/map-multipolygons.geojson' % prjdir
-        self.other_relationsGJ = '%s/map-other_relations.geojson' % prjdir
-
-################################################################################
-
-def exit():
-    global qgs
-    qgs.exitQgis()
-    del qgs
-    print('DONE!')
 
 def path2name(p) -> str:
     return pathlib.PurePath(os.path.basename(p)).stem
@@ -105,6 +52,69 @@ osmLayerNames = [
     ('multilinestrings', 'multilinestring'),
     #('other_relations', 'Polygon')
 ]
+
+# ./map*.osm
+# ./map.qgz
+# ./src/data/areas.geojson
+# ./src/data/origin.geojson
+# ./src/data/measures.geojson
+# ./src/data/map-points.geojson
+# ./src/data/map-lines.geojson
+# ./src/data/map-multilinestrings.geojson
+# ./src/data/map-multipolygons.geojson
+# ./src/data/map-other_relations.geojson
+
+class Context:
+    prefix = ''
+    prjdir = ''
+    prj = ''
+    srcdir = ''
+
+    osmFiles = []
+
+    areasGJ = ''
+    areas_extentGJ = ''
+    originGJ = ''
+    measuresGJ = ''
+    viewboxGJ = ''
+
+    # points, lines, multilinestrings, multipolygons, other_relations
+    map_layerGJs = {}
+
+    def __init__(self):
+        prjdir = os.getcwd()
+        prefix = os.path.basename(prjdir)
+        srcdir = '%s/src/data' % prjdir
+
+        self.prefix = prefix
+        self.prjdir = prjdir
+        self.srcdir = srcdir
+
+        self.prj = '%s/map.qgz' % prjdir
+
+        # XXX osmFiles must NOT be []
+        self.osmFiles = glob.glob('%s/map*.osm' % prjdir)
+
+        self.areasGJ = '%s/areas.geojson' % srcdir
+        self.areas_extentGJ = '%s/areas_extent.geojson' % srcdir
+        self.originGJ = '%s/origin.geojson' % srcdir
+        self.measuresGJ = '%s/measures.geojson' % srcdir
+        self.viewboxGJ = '%s/viewbox.geojson' % srcdir
+
+        for (layername, _) in osmLayerNames:
+            self.map_layerGJs[layername] = '%s/map-%s.geojson' % (srcdir, layername)
+
+addrTmpl = 'A-1f-%s-%s-%d'
+
+ctx = Context()
+
+################################################################################
+
+def exit():
+    global qgs
+    qgs.exitQgis()
+    del qgs
+    print('DONE!')
 
 ################################################################################
 
@@ -246,21 +256,21 @@ def filter(l: QgsVectorLayer, typ: str, exp: str) -> QgsVectorLayer:
 
 #### OTHER OPERATIONS
 
-def readOsmAll(osmFiles: list[str]) -> dict[str, QgsVectorLayer]:
+def readOsmAll() -> dict[str, QgsVectorLayer]:
     selector: typing.Callable[[QgsVectorLayer], None] = lambda l: l.selectAll()
-    return readOsm(osmFiles, selector)
+    return readOsm(selector)
 
-def readOsmByAreas(osmFiles: list[str], areas: QgsVectorLayer) -> dict[str, QgsVectorLayer]:
+def readOsmByAreas(areas: QgsVectorLayer) -> dict[str, QgsVectorLayer]:
     selector: typing.Callable[[QgsVectorLayer], None] = lambda l: selectByLocation(l, 0, areas, 0)
-    return readOsm(osmFiles, selector)
+    return readOsm(selector)
 
-def readOsm(osmFiles: list[str], selector: typing.Callable[[QgsVectorLayer], None]) -> dict[str, QgsVectorLayer]:
+def readOsm(selector: typing.Callable[[QgsVectorLayer], None]) -> dict[str, QgsVectorLayer]:
     allLayers: dict[str, list[QgsVectorLayer]] = {}
     mapLayers: dict[str, QgsVectorLayer] = {}
 
     for (layername, typ) in osmLayerNames:
         layers: list[QgsVectorLayer] = []
-        for osm in osmFiles:
+        for osm in ctx.osmFiles:
             uri = '%s|layername=%s' % (osm, layername)
             name = path2name(osm)
             l = openVector(uri, name)
@@ -413,22 +423,22 @@ def createPointGeoJSON(outGJ: str, p: QgsPoint) -> tuple[QgsVectorFileWriter.Wri
     g = QgsGeometry.fromPoint(p)
     return createEmptyGeoJSON(outGJ, "point", g)
 
-def createPrj(prjPath: str):
-    if os.path.exists(prjPath):
+def createPrj():
+    if os.path.exists(ctx.prj):
         return
 
     global prj
     prj = QgsProject.instance()
     # XXX Add known vector layers
-    prj.write(prjPath)
+    prj.write(ctx.prj)
 
-def openPrj(prjPath: str):
-    if not os.path.exists(prjPath):
+def openPrj():
+    if not os.path.exists(ctx.prj):
         return
 
     global prj
     prj = QgsProject.instance()
-    prj.read(prjPath)
+    prj.read(ctx.prj)
 
 def classifyGeometries(l: QgsVectorLayer, areas: QgsVectorLayer) -> QgsVectorLayer:
     # - Classify each geometry in l by location
@@ -467,19 +477,23 @@ def classifyGeometries1(l: QgsVectorLayer, areas: QgsVectorLayer, predicate, pre
     )
 
 def extractFields(l: QgsVectorLayer, typ: str, field: str, pattern: str) -> QgsVectorLayer:
+    print('extractFields: field=%s pattern=%s' % (field, pattern))
+    p = re.compile(pattern)
     m = makeVector(typ, "XXX")
     m.startEditing()
     l.selectAll()
+    count = 0
     for f in l.selectedFeatures():
-        p = re.compile(pattern)
         v = f[field]
-        #print("field: %s" % v)
+        print("field: %s" % v)
         if p.match(str(v)) != None:
             print("extractFields: match!")
+            count = count + 1
             g = QgsFeature()
             g.setGeometry(f.geometry())
             m.addFeature(g)
     m.commitChanges()
+    print("%d features matched" % count)
     return m
 
 def guessOrigin(l: QgsVectorLayer) -> typing.Union[QgsVectorLayer, None]:
@@ -560,7 +574,8 @@ def tagAddresses(al: QgsVectorLayer, fname: str, srcShp, dstShp) -> QgsVectorLay
     #olayers.append(out)
     #return mergeVectorLayers(olayers, dstShp)
 
-def getAreas(gj: str) -> QgsVectorLayer:
+def getAreas() -> QgsVectorLayer:
+    gj = ctx.areasGJ
     return openVector('%s|geometrytype=MultiPolygon' % gj, "areas")
 
 def getOrigin(gj: str) -> QgsPoint:
@@ -580,6 +595,34 @@ def getRoundedOrigin(extent: QgsVectorLayer) -> QgsPoint:
     x = roundFloatToFracPrec(p.x(), 6)
     y = roundFloatToFracPrec(p.y(), 6)
     return QgsPoint(x, y)
+
+def getViewbox():
+    extent = openVector('%s|geometrytype=Polygon' % ctx.areas_extentGJ, "areas_extent")
+    f = next(extent.getFeatures())
+    minx = float(f['MINX'])
+    miny = float(f['MINY'])
+    maxx = float(f['MAXX'])
+    maxy = float(f['MAXY'])
+    p: QgsPoint = QgsPoint(minx, maxy)
+    q: QgsPoint = QgsPoint(maxx, miny)
+
+    o: QgsPoint = getOrigin(ctx.originGJ)
+
+    lop = QgsGeometry.fromPolyline(QgsLineString([o, p]))
+    lpq = QgsGeometry.fromPolyline(QgsLineString([p, q]))
+
+    m = createMeasures()
+    fields = m.fields()
+
+    m.startEditing()
+    for l in [lop, lpq]:
+        f = QgsFeature()
+        f.setGeometry(l)
+        f.setFields(fields)
+        m.addFeature(f)
+    m.commitChanges()
+
+    return m
 
 # if fracprec = 3:
 # 1.11111 -> 1.111
@@ -604,8 +647,8 @@ def getMeasures(extent: QgsVectorLayer, origin: QgsVectorLayer) -> QgsVectorLaye
     dp = o.distance(p.x(), p.y())
     dq = o.distance(q.x(), q.y())
 
-    lp = QgsGeometry.fromPolyline(QgsLineString(o, p))
-    lq = QgsGeometry.fromPolyline(QgsLineString(o, q))
+    lp = QgsGeometry.fromPolyline(QgsLineString([o, p]))
+    lq = QgsGeometry.fromPolyline(QgsLineString([o, q]))
     invx = -1 if (o.x() > p.x()) else 1
     invy = -1 if (o.y() < q.y()) else 1
     edp = calcEllipsoidalDistance(lp) * invx
@@ -621,7 +664,7 @@ def getMeasures(extent: QgsVectorLayer, origin: QgsVectorLayer) -> QgsVectorLaye
         f.setFields(fields)
         f['direction'] = dir
         f['distance'] = d
-        f['ellipsoidal.distance'] = ed
+        f['ellipsoidal_distance'] = ed
         m.addFeature(f)
     m.commitChanges()
 
@@ -631,7 +674,19 @@ def createMeasures() -> QgsVectorLayer:
     fields = QgsFields()
     fields.append(QgsField('direction', QVariant.String))
     fields.append(QgsField('distance', QVariant.Double))
-    fields.append(QgsField('ellipsoidal.distance', QVariant.Double))
+    fields.append(QgsField('ellipsoidal_distance', QVariant.Double))
+
+    m = makeVector("linestring", "XXX")
+    m.startEditing()
+    md = m.dataProvider()
+    md.addAttributes(fields)
+    m.updateFields()
+    m.commitChanges()
+
+    return m
+
+def createViewbox() -> QgsVectorLayer:
+    fields = QgsFields()
 
     m = makeVector("linestring", "XXX")
     m.startEditing()

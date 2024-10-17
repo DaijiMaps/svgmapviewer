@@ -10,8 +10,8 @@ export default defineConfig({
     lib: {
       entry: {
         box: 'src/lib/box/prefixed/index.ts',
+        geo: 'src/lib/geo/index.ts',
         index: 'src/lib/index.ts',
-        map: 'src/lib/map/index.ts',
         matrix: 'src/lib/matrix/prefixed/index.ts',
         tuple: 'src/lib/tuple/index.ts',
         vec: 'src/lib/vec/prefixed/index.ts',

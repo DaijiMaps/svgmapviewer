@@ -5,7 +5,7 @@ import {
   MultiPolygon,
   multiPolygonToPath,
   PointGeoJSON,
-} from '@daijimaps/svgmapviewer/map'
+} from '@daijimaps/svgmapviewer/geo'
 import { V } from '@daijimaps/svgmapviewer/tuple'
 import { Assets } from './map-assets'
 import { conv, getAll, trees } from './map-data'

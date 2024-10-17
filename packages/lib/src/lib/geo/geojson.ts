@@ -30,7 +30,10 @@ export function calcScale(mapData: Readonly<MapData>) {
   const p = mapData.measures.features[0]
   const q = mapData.measures.features[1]
 
-  const dist = vecVec(p.properties.length, q.properties.length)
+  const dist = vecVec(
+    p.properties.ellipsoidal_distance,
+    q.properties.ellipsoidal_distance
+  )
 
   const pq = vecVec(p.geometry.coordinates[1][0], q.geometry.coordinates[1][1])
 

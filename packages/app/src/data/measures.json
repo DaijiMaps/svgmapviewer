@@ -8,7 +8,11 @@
   "features": [
     {
       "type": "Feature",
-      "properties": { "length": 505.11559606338824 },
+      "properties": {
+        "direction": "x",
+        "distance": 0.0055801000000030854,
+        "ellipsoidal_distance": 505.11559606338824
+      },
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -19,34 +23,16 @@
     },
     {
       "type": "Feature",
-      "properties": { "length": 411.70271338289626 },
+      "properties": {
+        "direction": "y",
+        "distance": 0.0037106000000051154,
+        "ellipsoidal_distance": 411.70271338289626
+      },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [139.71, 35.685],
           [139.71, 35.6812894]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": { "length": 524.59569072997931 },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [139.71, 35.685],
-          [139.7042047, 35.685]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": { "length": 434.50385901659126 },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [139.71, 35.685],
-          [139.71, 35.6889161]
         ]
       }
     }

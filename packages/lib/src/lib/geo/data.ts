@@ -16,7 +16,9 @@ export type MapData = {
   areas: MultiPolygonGeoJSON
   origin: PointGeoJSON
   measures: LineGeoJSON<{
-    length: number
+    direction: string
+    distance: number
+    ellipsoidal_distance: number
   }>
   viewbox: LineGeoJSON
 

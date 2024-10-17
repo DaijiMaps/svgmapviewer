@@ -13,7 +13,7 @@
   "exports": {
     ".": "./dist/index.js",
     "./box": "./dist/box.js",
-    "./map": "./dist/map.js",
+    "./geo": "./dist/geo.js",
     "./matrix": "./dist/matrix.js",
     "./tuple": "./dist/tuple.js",
     "./vec": "./dist/vec.js"
