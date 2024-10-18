@@ -7,17 +7,31 @@ export type MultiLineString = V[][]
 export type MultiPolygon = V[][][]
 
 export function lineToPath(vs: Readonly<Line>): string {
-  return l(vs.map(vFromGeo))
+  return (
+    l(vs.map(vFromGeo))
+      // XXX truncate coord (1234.5678 to 1234.56)
+      .replaceAll(/([.]\d\d)\d*/g, '$1')
+  )
 }
 
 export function multiLineStringToPath(vss: Readonly<MultiLineString>): string {
-  return vss.map((vs) => l(vs.map(vFromGeo))).join('')
+  return (
+    vss
+      .map((vs) => l(vs.map(vFromGeo)))
+      .join('')
+      // XXX truncate coord (1234.5678 to 1234.56)
+      .replaceAll(/([.]\d\d)\d*/g, '$1')
+  )
 }
 
 export function multiPolygonToPath(vsss: Readonly<MultiPolygon>): string {
-  return vsss
-    .map((vss) => vss.map((vs) => a(vs.map(vFromGeo))).join(''))
-    .join('')
+  return (
+    vsss
+      .map((vss) => vss.map((vs) => a(vs.map(vFromGeo))).join(''))
+      .join('')
+      // XXX truncate coord (1234.5678 to 1234.56)
+      .replaceAll(/([.]\d\d)\d*/g, '$1')
+  )
 }
 
 const vFromGeo = (p: V): V =>

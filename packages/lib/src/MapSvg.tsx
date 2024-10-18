@@ -13,10 +13,11 @@ export const MapSvg = (props: Readonly<PropsWithChildren<MapSvgProps>>) => {
 
   const layout = useSelector(pointerRef, selectLayout)
 
+  // XXX truncate viewBox (1234.5678 to 1234.56)
   return (
     <svg
       className="content svg"
-      viewBox={boxToViewBox(layout.svg)}
+      viewBox={boxToViewBox(layout.svg).replaceAll(/([.]\d\d)\d*/g, '$1')}
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => pointerRef.send({ type: 'ANIMATION.END' })}
     >
