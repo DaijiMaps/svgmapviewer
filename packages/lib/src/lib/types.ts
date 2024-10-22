@@ -43,9 +43,13 @@ export type UiCloseCb = () => void
 
 export type Conv = (p: Vec) => Vec
 
-export type RenderMap = (
-  props: Readonly<{ zoom: number; z: null | number }>
-) => JSX.Element
+export interface RenderMapProps {
+  layout: Layout
+  zoom: number
+  z: null | number
+}
+
+export type RenderMap = (props: Readonly<RenderMapProps>) => JSX.Element
 
 export type RenderInfo = (props: Readonly<{ info: Info }>) => JSX.Element
 

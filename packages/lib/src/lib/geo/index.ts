@@ -75,3 +75,25 @@ export type {
 export { calcScale, lineToPath, multiLineStringToPath, multiPolygonToPath }
 
 export type { POI }
+
+//// filter types
+
+export type PointsFilter = (
+  f: Readonly<PointFeature<OsmPointProperties>>
+) => boolean
+export type LinesFilter = (
+  f: Readonly<LineFeature<OsmLineProperties>>
+) => boolean
+export type MultiPolygonsFilter = (
+  f: Readonly<MultiPolygonFeature<OsmPolygonProperties>>
+) => boolean
+export type CentroidsFilter = (
+  f: Readonly<PointFeature<OsmPolygonProperties>>
+) => boolean
+
+export interface AllFilters {
+  points?: PointsFilter
+  lines?: LinesFilter
+  multipolygons?: MultiPolygonsFilter
+  centroids?: CentroidsFilter
+}

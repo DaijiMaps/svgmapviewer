@@ -1,9 +1,12 @@
 import type { AddressEntries, SearchAddressRes, SearchContext } from './address'
 import { initAddresses, searchAddress } from './address'
 import { svgMapViewerConfig } from './config'
+import { Layout } from './layout'
 import { svgmapviewer } from './svgmapviewer'
 import type {
   Info,
+  RenderMap,
+  RenderMapProps,
   SearchReq,
   SearchRes,
   SvgMapViewerConfig,
@@ -12,7 +15,7 @@ import type {
 
 // types
 
-export type { Info, SearchReq, SearchRes }
+export type { Info, RenderMap, RenderMapProps, SearchReq, SearchRes }
 
 // svgmapviewer
 
@@ -29,3 +32,7 @@ export { svgMapViewerConfig }
 export type { AddressEntries, SearchAddressRes, SearchContext }
 
 export { initAddresses, searchAddress }
+
+// layout
+
+export type { Layout }

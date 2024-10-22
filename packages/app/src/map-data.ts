@@ -1,13 +1,13 @@
 import {
   calcScale,
-  LineFeature,
+  CentroidsFilter,
   MapData,
-  MultiPolygonFeature,
-  OsmLineProperties,
   OsmPointProperties,
   OsmPolygonProperties,
   POI,
+  Point,
   PointFeature,
+  PointsFilter,
 } from '@daijimaps/svgmapviewer/geo'
 import { V, vUnvec, vVec } from '@daijimaps/svgmapviewer/tuple'
 import areas from './data/areas.json'
@@ -163,43 +163,20 @@ function splitName(s: string): string[] {
     .map((s) => s.trim())
 }
 
-type PointsFilter = (f: PointFeature<OsmPointProperties>) => boolean
-type LinesFilter = (f: LineFeature<OsmLineProperties>) => boolean
-type MultiPolygonsFilter = (
-  f: MultiPolygonFeature<OsmPolygonProperties>
-) => boolean
-type CentroidsFilter = (f: PointFeature<OsmPolygonProperties>) => boolean
-
-interface Filters {
+export interface AllFilters {
   points?: PointsFilter
-  lines?: LinesFilter
-  multipolygons?: MultiPolygonsFilter
   centroids?: CentroidsFilter
 }
 
-export function getAll({ points, lines, multipolygons, centroids }: Filters) {
+export function getAll({ points, centroids }: AllFilters): V[] {
   return [
     points === undefined ? [] : getPoints(points),
-    lines === undefined ? [] : getLines(lines),
-    multipolygons === undefined ? [] : getMultiPolygons(multipolygons),
     centroids === undefined ? [] : getCentroids(centroids),
   ].flatMap((vs) => vs)
 }
 
-export function getPoints(filter: PointsFilter) {
+export function getPoints(filter: PointsFilter): Point[] {
   return mapData.points.features
-    .filter(filter)
-    .map((f) => f.geometry.coordinates as unknown as V)
-    .map(conv)
-}
-export function getLines(filter: LinesFilter) {
-  return mapData.lines.features
-    .filter(filter)
-    .map((f) => f.geometry.coordinates as unknown as V)
-    .map(conv)
-}
-export function getMultiPolygons(filter: MultiPolygonsFilter) {
-  return mapData.multipolygons.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)
     .map(conv)

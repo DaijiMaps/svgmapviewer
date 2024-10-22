@@ -21,10 +21,8 @@ import { BoxBox, boxCenter } from './box/prefixed'
 import { Drag, dragMove, dragStart } from './drag'
 import { keyToDir, keyToZoom } from './key'
 import {
-  emptyLayout,
   expandLayoutCenter,
   Layout,
-  LayoutConfig,
   makeLayout,
   recenterLayout,
   relocLayout,
@@ -48,6 +46,7 @@ import { VecVec as Vec, vecMul, vecSub, vecVec } from './vec/prefixed'
 const DIST_LIMIT = 10
 
 export type PointerInput = {
+  initialLayout: Layout
   containerRef: RefObject<HTMLDivElement>
 }
 
@@ -68,7 +67,7 @@ export type PointerContext = {
 }
 
 type PointerExternalEvent =
-  | { type: 'LAYOUT'; config: LayoutConfig }
+  | { type: 'LAYOUT'; layout: Layout }
   | { type: 'LAYOUT.RESET' }
   | { type: 'DEBUG' }
   | { type: 'MODE'; mode: PointerMode }
@@ -179,6 +178,7 @@ export type _PointerEvent =
 export type PointerEmitted =
   | { type: 'SEARCH'; p: Vec; psvg: Vec }
   | { type: 'LOCK'; ok: boolean }
+  | { type: 'LAYOUT'; layout: Layout }
   | { type: 'ZOOM.START'; layout: Layout; zoom: number; z: number }
   | { type: 'ZOOM.END'; layout: Layout; zoom: number }
 
@@ -257,9 +257,6 @@ export const pointerMachine = setup({
     ]),
   },
   actions: {
-    layout: assign({
-      layout: (_, { config }: { config: LayoutConfig }) => makeLayout(config),
-    }),
     toggleDebug: assign({
       debug: ({ context }): boolean => !context.debug,
     }),
@@ -465,10 +462,10 @@ export const pointerMachine = setup({
 }).createMachine({
   type: 'parallel',
   id: 'pointer',
-  context: ({ input: { containerRef } }) => ({
+  context: ({ input: { initialLayout, containerRef } }) => ({
     containerRef,
-    layout: emptyLayout,
-    cursor: boxCenter(emptyLayout.container),
+    layout: initialLayout,
+    cursor: boxCenter(initialLayout.container),
     expand: 1,
     m: null,
     z: null,
@@ -496,16 +493,6 @@ export const pointerMachine = setup({
       states: {
         Idle: {
           on: {
-            LAYOUT: {
-              guard: 'idle',
-              actions: [
-                {
-                  type: 'layout',
-                  params: ({ event: { config } }) => ({ config }),
-                },
-                'resetCursor',
-              ],
-            },
             'LAYOUT.RESET': {
               guard: 'idle',
               actions: 'zoomHome',
@@ -785,7 +772,11 @@ export const pointerMachine = setup({
         },
         Homing: {
           entry: raise({ type: 'ZOOM' }),
-          exit: ['resetLayout', 'resetCursor'],
+          exit: [
+            'resetLayout',
+            'resetCursor',
+            emit(({ context: { layout } }) => ({ type: 'LAYOUT', layout })),
+          ],
           on: {
             'ZOOM.DONE': {
               target: 'Idle',

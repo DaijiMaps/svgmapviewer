@@ -1,8 +1,6 @@
 import { useMachine, useSelector } from '@xstate/react'
-import { RefObject, useCallback, useContext, useEffect } from 'react'
-import { SvgMapViewerConfigContext } from '../Root'
+import { RefObject, useCallback, useEffect } from 'react'
 import { svgMapViewerConfig } from './config'
-import { configLayout } from './layout'
 import {
   pointerMachine,
   PointerRef,
@@ -12,7 +10,6 @@ import {
   selectLayout,
   selectMode,
 } from './pointer-xstate'
-import { useWindowResize } from './resize-react'
 import { Vec } from './vec'
 
 let pointereventmask: boolean = false
@@ -205,11 +202,8 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   pointerSend: PointerSend
   pointerRef: PointerRef
 } {
-  const body = useWindowResize()
-  const config = useContext(SvgMapViewerConfigContext)
-
   const [pointer, pointerSend, pointerRef] = useMachine(pointerMachine, {
-    input: { containerRef },
+    input: { initialLayout: svgMapViewerConfig.layout, containerRef },
   })
 
   ////
@@ -267,6 +261,9 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
     const lock = pointerRef.on('LOCK', ({ ok }) =>
       svgMapViewerConfig.uiOpenDoneCbs.forEach((cb) => cb(ok))
     )
+    const layout = pointerRef.on('LAYOUT', ({ layout }) =>
+      svgMapViewerConfig.zoomEndCbs.forEach((cb) => cb(layout, 1))
+    )
     const zoomStart = pointerRef.on('ZOOM.START', ({ layout, zoom, z }) => {
       svgMapViewerConfig.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
     })
@@ -276,6 +273,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
     return () => {
       search.unsubscribe()
       lock.unsubscribe()
+      layout.unsubscribe()
       zoomStart.unsubscribe()
       zoomEnd.unsubscribe()
     }
@@ -288,19 +286,6 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   ////
   //// actions
   ////
-
-  useEffect(() => {
-    const style = getComputedStyle(document.body)
-
-    pointerSend({
-      type: 'LAYOUT',
-      config: configLayout(
-        parseFloat(style.fontSize),
-        config.origViewBox,
-        body
-      ),
-    })
-  }, [body, config.origViewBox, pointerSend])
 
   useEffect(() => {
     if (pointer.hasTag('rendering')) {

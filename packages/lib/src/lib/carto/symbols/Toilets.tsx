@@ -1,6 +1,6 @@
 export function Toilets() {
   return (
-    <g id="XToilets" transform="matrix(1 0 0 1 -36 -36)">
+    <g id="XToilets" transform="translate(-36,-36)">
       <rect x="0.5" y="0.5" width="71" height="71" ry="6" stroke="white" />
       <g fill="white" stroke="none">
         <rect x="33.5" y="12" width="5" height="48" />

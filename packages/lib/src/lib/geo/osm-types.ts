@@ -5,65 +5,74 @@ import {
   PointGeoJSON,
 } from './geojson-types'
 
-export interface OsmPointProperties {
-  osm_id: null | string
-  name: null | string
-  barrier: null | string
-  highway: null | string
-  ref: null | string
-  address: null | string
-  is_in: null | string
-  place: null | string
-  man_made: null | string
-  other_tags: null | string
-}
+export type OsmPointPropertiesKey =
+  | 'osm_id'
+  | 'name'
+  | 'barrier'
+  | 'highway'
+  | 'ref'
+  | 'address'
+  | 'is_in'
+  | 'place'
+  | 'man_made'
+  | 'other_tags'
 
-export interface OsmLineProperties {
-  osm_id: null | string
-  name: null | string
-  highway: null | string
-  waterway: null | string
-  aerialway: null | string
-  barrier: null | string
-  man_made: null | string
-  z_order: null | number
-  other_tags: null | string
-}
+export type OsmLinePropertiesKey =
+  | 'osm_id'
+  | 'name'
+  | 'highway'
+  | 'waterway'
+  | 'aerialway'
+  | 'barrier'
+  | 'man_made'
+  //| 'z_order'
+  | 'other_tags'
 
-export interface OsmLineStringProperties {
-  osm_id: null | string
-  name: null | string
-  type: null | string
-  other_tags: null | string
-}
+export type OsmLineStringPropertiesKey =
+  | 'osm_id'
+  | 'name'
+  | 'type'
+  | 'other_tags'
 
-export interface OsmPolygonProperties {
-  osm_id: null | string
-  osm_way_id: null | string
-  name: null | string
-  type: null | string
-  aeroway: null | string
-  amenity: null | string
-  admin_level: null | string
-  barrier: null | string
-  boundary: null | string
-  building: null | string
-  craft: null | string
-  geological: null | string
-  historic: null | string
-  land_area: null | string
-  landuse: null | string
-  leisure: null | string
-  man_made: null | string
-  military: null | string
-  natural: null | string
-  office: null | string
-  place: null | string
-  shop: null | string
-  sport: null | string
-  tourism: null | string
-  other_tags: null | string
+export type OsmPolygonPropertiesKey =
+  | 'osm_id'
+  | 'osm_way_id'
+  | 'name'
+  | 'type'
+  | 'aeroway'
+  | 'amenity'
+  | 'admin_level'
+  | 'barrier'
+  | 'boundary'
+  | 'building'
+  | 'craft'
+  | 'geological'
+  | 'historic'
+  | 'land_area'
+  | 'landuse'
+  | 'leisure'
+  | 'man_made'
+  | 'military'
+  | 'natural'
+  | 'office'
+  | 'place'
+  | 'shop'
+  | 'sport'
+  | 'tourism'
+  | 'other_tags'
+
+export type OsmPointProperties = Record<OsmPointPropertiesKey, null | string>
+export type OsmLineProperties = Record<OsmLinePropertiesKey, null | string> & {
+  z_order: number
 }
+export type OsmLineStringProperties = Record<
+  OsmLineStringPropertiesKey,
+  null | string
+>
+export type OsmPolygonProperties = Record<
+  OsmPolygonPropertiesKey,
+  null | string
+>
 
 export type OsmPointGeoJSON = PointGeoJSON<OsmPointProperties>
 export type OsmLineGeoJSON = LineGeoJSON<OsmLineProperties>

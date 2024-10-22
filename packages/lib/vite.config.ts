@@ -10,6 +10,7 @@ export default defineConfig({
     lib: {
       entry: {
         box: 'src/lib/box/prefixed/index.ts',
+        carto: 'src/lib/carto/index.ts',
         geo: 'src/lib/geo/index.ts',
         index: 'src/lib/index.ts',
         matrix: 'src/lib/matrix/prefixed/index.ts',

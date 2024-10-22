@@ -1,6 +1,6 @@
 export function Parking() {
   return (
-    <g id="XParking" transform="scale(1)">
+    <g id="XParking">
       <rect
         x="-35.5"
         y="-35.5"
