@@ -5,6 +5,7 @@ import os
 import os.path
 import pathlib
 import re
+import shutil
 import sys
 import typing
 
@@ -18,10 +19,18 @@ from qgis.gui import *
 
 qgs = QgsApplication([], False)
 qgs.initQgis()
+freq = QgsFeatureRequest()
+freq.setInvalidGeometryCheck(QgsFeatureRequest.GeometrySkipInvalid)
 
 from plugins import processing
 from processing.core.Processing import Processing
+from processing.tools import dataobjects
+from qgis.core import QgsFeatureRequest
+
 Processing.initialize()
+
+context = dataobjects.createContext()
+context.setInvalidGeometryCheck(QgsFeatureRequest.GeometryNoCheck)
 
 prj: QgsProject = None
 
@@ -104,9 +113,24 @@ class Context:
         for (layername, _) in osmLayerNames:
             self.map_layerGJs[layername] = '%s/map-%s.geojson' % (srcdir, layername)
 
+    def jsonToGeoJson(self):
+        for json in glob.glob('%s/*.json' % self.srcdir):
+            (x, suffix) = os.path.splitext(json)
+            geojson = '%s.geojson' % x
+            if pathlib.Path(json).exists() and not pathlib.Path(geojson).exists():
+                shutil.move(json, geojson)
+
+    def geoJsonToJson(self):
+        for geojson in glob.glob('%s/*.geojson' % self.srcdir):
+            (x, suffix) = os.path.splitext(geojson)
+            json = '%s.json' % x
+            if pathlib.Path(geojson).exists() and not pathlib.Path(json).exists():
+                shutil.move(geojson, json)
+
 addrTmpl = 'A-1f-%s-%s-%d'
 
 ctx = Context()
+ctx.jsonToGeoJson()
 
 ################################################################################
 
@@ -114,6 +138,9 @@ def exit():
     global qgs
     qgs.exitQgis()
     del qgs
+
+    ctx.geoJsonToJson()
+
     print('DONE!')
 
 ################################################################################
@@ -127,14 +154,14 @@ def mergeVectorLayers(layers: list[str], dst: QgsVectorLayer) -> QgsVectorLayer:
         'OUTPUT' : dst
     }
     print(p)
-    return processing.run("qgis:mergevectorlayers", p)['OUTPUT']
+    return processing.run("qgis:mergevectorlayers", p, context = context)['OUTPUT']
 
 def fixGeometries(src: QgsVectorLayer, dst: QgsVectorLayer) -> QgsVectorLayer:
     p = {
         'INPUT': src,
         'OUTPUT' : dst
     }
-    return processing.run("qgis:fixgeometries", p)['OUTPUT']
+    return processing.run("qgis:fixgeometries", p, context = context)['OUTPUT']
 
 def deleteColumn(src: QgsVectorLayer, dst: QgsVectorLayer, column) -> QgsVectorLayer:
     p = {
@@ -142,14 +169,14 @@ def deleteColumn(src: QgsVectorLayer, dst: QgsVectorLayer, column) -> QgsVectorL
         'OUTPUT': dst,
         'COLUMN': column
     }
-    return processing.run("qgis:deletecolumn", p)['OUTPUT']
+    return processing.run("qgis:deletecolumn", p, context = context)['OUTPUT']
 
 def deleteDuplicateGeometries(src: QgsVectorLayer, dst: QgsVectorLayer) -> QgsVectorLayer:
     p = {
         'INPUT' : src,
         'OUTPUT' : dst
     }
-    return processing.run("qgis:deleteduplicategeometries", p)['OUTPUT']
+    return processing.run("qgis:deleteduplicategeometries", p, context = context)['OUTPUT']
 
 def selectByLocation(src: QgsVectorLayer, predicate: int, intersect: QgsVectorLayer = 0, method = 0) -> QgsVectorLayer:
     p = {
@@ -158,7 +185,7 @@ def selectByLocation(src: QgsVectorLayer, predicate: int, intersect: QgsVectorLa
         'INTERSECT' : intersect,
         'METHOD' : method,
     }
-    return processing.run("qgis:selectbylocation", p)['OUTPUT']
+    return processing.run("qgis:selectbylocation", p, context = context)['OUTPUT']
 
 def joinAttributesByLocation(src: QgsVectorLayer, join, predicates: int, dst: QgsVectorLayer, method = 0, discard = False) -> QgsVectorLayer:
     # https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectorgeneral.html#id58
@@ -183,7 +210,7 @@ def joinAttributesByLocation(src: QgsVectorLayer, join, predicates: int, dst: Qg
         'PREFIX' : '',
         'OUTPUT' : dst
     }
-    return processing.run("qgis:joinattributesbylocation", p)['OUTPUT']
+    return processing.run("qgis:joinattributesbylocation", p, context = context)['OUTPUT']
 
 locationPredicates = [
     (0, 'intersects'),
@@ -201,7 +228,7 @@ def centroids(src: QgsVectorLayer, dst: QgsVectorLayer) -> QgsVectorLayer:
         'INPUT' : src,
         'OUTPUT' : dst
     }
-    return processing.run("qgis:centroids", p)['OUTPUT']
+    return processing.run("qgis:centroids", p, context = context)['OUTPUT']
 
 def getExtent(src: QgsVectorLayer, dst: QgsVectorLayer) -> QgsVectorLayer:
     p = {
@@ -209,7 +236,7 @@ def getExtent(src: QgsVectorLayer, dst: QgsVectorLayer) -> QgsVectorLayer:
         'OUTPUT': dst,
         'ROUND_TO': 0,
     }
-    return processing.run("native:polygonfromlayerextent", p)['OUTPUT']
+    return processing.run("native:polygonfromlayerextent", p, context = context)['OUTPUT']
 
 ################################################################################
 
@@ -485,6 +512,8 @@ def extractFields(l: QgsVectorLayer, typ: str, field: str, pattern: str) -> QgsV
     count = 0
     for f in l.selectedFeatures():
         v = f[field]
+        if v == None or v == 'NULL':
+            continue
         print("field: %s" % v)
         if p.match(str(v)) != None:
             print("extractFields: match!")
@@ -629,7 +658,9 @@ def getViewbox():
 # 11.11111 -> 11.111
 # 111.11111 -> 111.111
 def roundFloatToFracPrec(n: float, fracprec: int) -> float:
-    prec = round(math.log(n, 10)) + 6
+    print('roundFloatToFracPrec n=%f fracprec=%f' % (n, fracprec))
+    prec = round(math.log(abs(n), 10)) + 6
+    print('roundFloatToFracPrec prec=%f' % prec)
     decimal.getcontext().prec = prec
     return float(decimal.Decimal(n) * decimal.Decimal(1))
 
@@ -792,6 +823,6 @@ def openVector(uri: str, name: str) -> QgsVectorLayer:
 
 # https://qgis.org/pyqgis/master/core/QgsVectorLayer.html
 # memory data provider
-# “point”, “linestring”, “polygon”, “multipoint”, ”multilinestring”, ”multipolygon”
+# geometry type: “point”, “linestring”, “polygon”, “multipoint”, ”multilinestring”, ”multipolygon”
 def makeVector(uri: str, name: str) -> QgsVectorLayer:
     return QgsVectorLayer(uri, name, "memory")

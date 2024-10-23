@@ -3,26 +3,13 @@ import os
 import os.path
 import sys
 
-prefix = sys.argv[1]
-
-prjdir = './%s' % prefix
-datdir = './%s' % prefix
-prjdat = '%s/map.qgz' % prjdir
-
-# INPUT
-areasGJ = '%s/areas.geojson' % datdir
-areas_extentGJ = '%s/areas_extent.geojson' % datdir
-
-# OUTPUT
-originGJ = '%s/origin.geojson' % datdir
+import common
 
 ####
 
-import common
+common.openPrj()
 
-common.openPrj(prjdir)
-
-areas = common.openVector(areasGJ, "areas")
+areas = common.openVector(common.ctx.areasGJ, "areas")
 
 extent = common.getExtent(areas, 'memory:')
 f = next(extent.getFeatures())
@@ -35,7 +22,7 @@ print(origin.x())
 print(origin.y())
 
 # XXX save origin.geojson
-res = common.createPointGeoJSON(originGJ, origin)
+res = common.createPointGeoJSON(common.ctx.originGJ, origin)
 print(res)
 
 common.exit()

@@ -45,9 +45,7 @@ function layerToPath(layer: Readonly<MapLayer>): string {
 function lineLayerToPath(layer: Readonly<MapLineLayer>): string {
   const xs =
     layer.filter !== undefined
-      ? (svgMapViewerConfig.mapData.lines.features
-          .filter(layer.filter)
-          .map((f) => f.geometry.coordinates) as unknown as Line[])
+      ? getLines(layer.filter)
       : layer.data !== undefined
         ? layer.data
         : []
@@ -59,11 +57,21 @@ function multiPolygonLayerToPath(
 ): string {
   const xs: MultiPolygon[] =
     layer.filter !== undefined
-      ? (svgMapViewerConfig.mapData.multipolygons.features
-          .filter(layer.filter)
-          .map((f) => f.geometry.coordinates) as unknown as MultiPolygon[])
+      ? getMultiPolygons(layer.filter)
       : layer.data !== undefined
         ? layer.data
         : []
   return xs.map(multiPolygonToPath).join('')
+}
+
+function getLines(filter: LinesFilter): Line[] {
+  return svgMapViewerConfig.mapData.lines.features
+    .filter(filter)
+    .map((f) => f.geometry.coordinates) as unknown as Line[]
+}
+
+function getMultiPolygons(filter: MultiPolygonsFilter): MultiPolygon[] {
+  return svgMapViewerConfig.mapData.multipolygons.features
+    .filter(filter)
+    .map((f) => f.geometry.coordinates) as unknown as MultiPolygon[]
 }

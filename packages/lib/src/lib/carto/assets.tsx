@@ -1,4 +1,4 @@
-import { Parking, Toilets } from '@daijimaps/svgmapviewer/carto-symbols'
+import { Parking, Toilets } from './symbols/index'
 
 export function RenderMapAssets() {
   return (

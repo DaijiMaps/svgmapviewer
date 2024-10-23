@@ -6,37 +6,20 @@ import common
 
 ####
 
-prefix = sys.argv[1]
+common.createPrj()
 
-pwd = os.getcwd()
+areas = common.getAreas()
 
-osmFiles = glob.glob('%s/%s/map*.osm' % (pwd, prefix))
-
-addrTmpl = 'A-1f-%s-%s-%d'
-
-prjdir = '%s/%s' % (pwd, prefix)
-datdir = prjdir
-prjdat = '%s/map.qgz' % prjdir
-
-# Templates
-areasGJ = '%s/areas.geojson' % datdir
-a1GJ = '%s/address1.geojson' % datdir
-a2GJ = '%s/address2.geojson' % datdir
-orgGJ = '%s/origin.geojson' % datdir
-
-####
-
-print('Creating project...', file = sys.stderr)
-common.createPrj(prjdat)
-
-areas = common.getAreas(areasGJ)
-
-mapLayers = common.readOsmByAreas(osmFiles, areas)
+mapLayers = common.readOsmByAreas(areas)
 
 for (layername, _) in common.osmLayerNames:
     l = mapLayers[layername]
-    gj = '%s/map-%s.geojson' % (datdir, layername)
+    gj = common.ctx.map_layerGJs[layername]
     common.dumpGeoJSON(l, gj)
+
+centroids = common.centroids(mapLayers['multipolygons'], 'memory:')
+gj = '%s/map-centroids.geojson' % common.ctx.srcdir
+common.dumpGeoJSON(centroids, gj)
 
 common.exit()
 

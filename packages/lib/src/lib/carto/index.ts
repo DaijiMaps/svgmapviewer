@@ -12,6 +12,7 @@ import {
 } from './markers'
 import { MapObjects, RenderMapObjects, RenderObjects } from './objects'
 import { renderAreasPath, renderLinePath, renderMultipolygonPath } from './path'
+import { RenderMapCommon, RenderMapCommonProps } from './render'
 import {
   MapSymbols,
   RenderMapSymbols,
@@ -44,3 +45,9 @@ export { RenderMapSymbols, RenderUses }
 export type { MapMarkers, RenderMapMarkersProps }
 
 export { RenderMapMarkers, RenderMarkers }
+
+//// common map render
+
+export { RenderMapCommon }
+
+export type { RenderMapCommonProps }

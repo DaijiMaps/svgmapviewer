@@ -23,6 +23,8 @@ import viewbox from './data/viewbox.json'
 
 export { trees }
 
+//// mapData
+
 export const mapData: MapData = {
   areas,
   origin,
@@ -36,7 +38,14 @@ export const mapData: MapData = {
   centroids,
 }
 
+//// mapCoord
+//// mapViewBox
+
 export const { mapCoord, mapViewBox } = calcScale(mapData)
+
+//// mapHtmlStyle
+//// mapSymbols
+//// mapNames
 
 export const mapHtmlStyle = `
 poi-names {
@@ -64,70 +73,22 @@ poi-names {
 }
 `
 
-/*
-`
-@font-face {
-  font-family: 'aiga';
-  src: url('aiga.eot?t=1728818923481');
-  src:
-    url('aiga.eot?t=1728818923481#iefix') format('embedded-opentype'),
-    url('aiga.woff2?t=1728818923481') format('woff2'),
-    url('aiga.woff?t=1728818923481') format('woff'),
-    url('aiga.ttf?t=1728818923481') format('truetype'),
-    url('aiga.svg?t=1728818923481#aiga') format('svg');
-}
+export const mapSymbols: POI[] = []
 
-[class^='aiga-'],
-[class*=' aiga-'] {
-  font-family: 'aiga' !important;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.aiga-toilets:before {
-  content: '\\ea01';
-}
-`
-*/
-
-export const mapSymbols: POI[] = [mapData.points, mapData.centroids].flatMap(
-  (d) =>
-    d.features.flatMap(
-      (
-        f: PointFeature<OsmPointProperties> | PointFeature<OsmPolygonProperties>
-      ) => {
-        //const pos = vVec(conv(f.geometry.coordinates as unknown as V))
-
-        if (
-          !!f.properties.other_tags?.match(/"toilets"/) ||
-          ('amenity' in f.properties && f.properties.amenity === 'toilets')
-        ) {
-          //return [{ name: ['aiga-toilets'], pos }]
-          return []
-        } else {
-          return []
-        }
-      }
-    )
-)
+type PointOrCentroidFeature =
+  | PointFeature<OsmPointProperties>
+  | PointFeature<OsmPolygonProperties>
 
 export const mapNames: POI[] = [mapData.points, mapData.centroids].flatMap(
   (d) =>
-    d.features.flatMap(
-      (
-        f: PointFeature<OsmPointProperties> | PointFeature<OsmPolygonProperties>
-      ) => {
-        const name = filterName(f)
-        const pos = vVec(conv(f.geometry.coordinates as unknown as V))
-        return name === null ? [] : [{ name: splitName(name), pos }]
-      }
-    )
+    d.features.flatMap((f: PointOrCentroidFeature) => {
+      const name = filterName(f)
+      const pos = vVec(conv(f.geometry.coordinates as unknown as V))
+      return name === null ? [] : [{ name: splitName(name), pos }]
+    })
 )
 
-function filterName(
-  f: PointFeature<OsmPointProperties> | PointFeature<OsmPolygonProperties>
-): null | string {
+function filterName(f: PointOrCentroidFeature): null | string {
   const name = f.properties.name
   if (name === null) {
     return null
@@ -163,6 +124,8 @@ function splitName(s: string): string[] {
     .map((s) => s.trim())
 }
 
+////  getAll
+
 export interface AllFilters {
   points?: PointsFilter
   centroids?: CentroidsFilter
@@ -181,6 +144,7 @@ export function getPoints(filter: PointsFilter): Point[] {
     .map((f) => f.geometry.coordinates as unknown as V)
     .map(conv)
 }
+
 export function getCentroids(filter: CentroidsFilter) {
   return mapData.centroids.features
     .filter(filter)

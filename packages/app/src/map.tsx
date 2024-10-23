@@ -4,36 +4,31 @@ import {
   MapMarkers,
   MapObjects,
   MapSymbols,
-  RenderMapLayers,
-  RenderMapMarkers,
-  RenderMapObjects,
-  RenderMapSymbols,
+  RenderMapCommon,
 } from '@daijimaps/svgmapviewer/carto'
+import {
+  benchPath,
+  guidePostPath,
+  infoBoardPath,
+  tree16x16Path,
+  tree4x8Path,
+} from '@daijimaps/svgmapviewer/carto-objects'
 import { MultiPolygon, PointGeoJSON } from '@daijimaps/svgmapviewer/geo'
 import { V } from '@daijimaps/svgmapviewer/tuple'
-import { RenderMapAssets } from './map-assets'
-import { conv, getAll, trees } from './map-data'
+import { conv, trees } from './map-data'
 import './map.css'
-import { BenchPath } from './objects/bench'
-import { GuidePostPath } from './objects/guide-post'
-import { InfoBoardPath } from './objects/info-board'
-import { Tree16x16Path, Tree4x8Path } from './objects/tree'
 
 export function RenderMap(props: RenderMapProps) {
-  return (
-    <>
-      <RenderMapAssets />
-      <g id={svgMapViewerConfig.map} className="map">
-        <RenderMapLayers mapLayers={getMapLayers()} />
-        <RenderMapObjects mapObjects={getMapObjects()} />
-        <RenderMapSymbols {...props} mapSymbols={getMapSymbols()} />
-        <RenderMapMarkers {...props} mapMarkers={getMapMarkers()} />
-      </g>
-    </>
-  )
+  const ops = {
+    getMapLayers,
+    getMapObjects,
+    getMapSymbols,
+    getMapMarkers,
+  }
+  return <RenderMapCommon {...props} {...ops} />
 }
 
-const getMapLayers: () => MapLayer[] = () => [
+export const getMapLayers: () => MapLayer[] = () => [
   {
     type: 'multipolygon',
     name: 'area',
@@ -82,78 +77,69 @@ const getMapLayers: () => MapLayer[] = () => [
     name: 'wall',
     filter: (f) => !!f.properties.barrier?.match(/^(wall|fence)$/),
   },
+  {
+    type: 'line',
+    name: 'retaining-wall',
+    filter: (f) => !!f.properties.barrier?.match(/^(retaining_wall)$/),
+  },
 ]
 
-const getMapObjects: () => MapObjects[] = () => [
+export const getMapObjects: () => MapObjects[] = () => [
   {
     name: 'benches',
-    path: BenchPath,
+    path: benchPath,
     width: 0.05,
-    vs: getAll({
-      points: (f) => !!f.properties.other_tags?.match(/"bench"/),
-    }),
+    pointsFilter: (f) => !!f.properties.other_tags?.match(/"bench"/),
   },
   {
     name: 'guide-posts',
-    path: GuidePostPath,
+    path: guidePostPath,
     width: 0.05,
-    vs: getAll({
-      points: (f) => !!f.properties.other_tags?.match(/"guidepost"/),
-    }),
+    pointsFilter: (f) => !!f.properties.other_tags?.match(/"guidepost"/),
   },
   {
     name: 'info-boards',
-    path: InfoBoardPath,
+    path: infoBoardPath,
     width: 0.05,
-    vs: getAll({
-      points: (f) =>
-        !!f.properties.other_tags?.match(/"information"=>"(board|map)"/),
-    }),
+    pointsFilter: (f) =>
+      !!f.properties.other_tags?.match(/"information"=>"(board|map)"/),
   },
   {
     name: 'trees1',
-    path: Tree16x16Path,
+    path: tree16x16Path,
     width: 0.3,
-    vs: getAll({
-      points: (f) => !!f.properties.other_tags?.match(/"tree"/),
-    }),
+    pointsFilter: (f) => !!f.properties.other_tags?.match(/"tree"/),
   },
   {
     name: 'trees2',
-    path: Tree4x8Path,
+    path: tree4x8Path,
     width: 0.15,
-    vs: (trees as PointGeoJSON).features
+    data: (trees as PointGeoJSON).features
       .map((f) => f.geometry.coordinates as unknown as V)
       .map(conv),
   },
 ]
 
-const getMapSymbols: () => MapSymbols[] = () => [
+export const getMapSymbols: () => MapSymbols[] = () => [
   {
     name: 'toilets',
     href: '#XToilets',
-    vs: getAll({
-      points: (f) => !!f.properties.other_tags?.match(/"toilets"/),
-      centroids: (f) =>
-        !!f.properties.other_tags?.match(/"toilets"/) ||
-        f.properties.amenity === 'toilets',
-    }),
+    pointsFilter: (f) => !!f.properties.other_tags?.match(/"toilets"/),
+    centroidsFilter: (f) =>
+      !!f.properties.other_tags?.match(/"toilets"/) ||
+      f.properties.amenity === 'toilets',
   },
   {
     name: 'parkings',
     href: '#XParking',
-    vs: getAll({
-      points: (f) => !!f.properties.other_tags?.match(/"parking"/),
-      centroids: (f) => !!f.properties.other_tags?.match(/"parking"/),
-    }),
+    pointsFilter: (f) => !!f.properties.other_tags?.match(/"parking"/),
+    centroidsFilter: (f) => !!f.properties.other_tags?.match(/"parking"/),
   },
 ]
 
-const getMapMarkers: () => MapMarkers[] = () => [
+export const getMapMarkers: () => MapMarkers[] = () => [
   {
     name: 'all',
-    vs: getAll({
-      points: (f) => !!f.properties.name?.match(/./),
-    }),
+    pointsFilter: (f) => !!f.properties.name?.match(/./),
   },
 ]

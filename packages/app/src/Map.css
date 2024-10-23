@@ -79,6 +79,13 @@
   stroke-width: 0.5px;
 }
 
+.retaining-wall {
+  fill: none;
+  stroke: black;
+  stroke-opacity: 0.1;
+  stroke-width: 0.5px;
+}
+
 text,
 tspan {
   font-size: 2.5px;
