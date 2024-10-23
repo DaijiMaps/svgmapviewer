@@ -1,27 +1,25 @@
 import { svgMapViewerConfig } from '../config'
 import { RenderMapProps } from '../types'
-import { RenderMapAssets } from './assets'
-import { MapLayer, RenderMapLayers } from './layers'
-import { MapMarkers, RenderMapMarkers } from './markers'
-import { MapObjects, RenderMapObjects } from './objects'
-import { MapSymbols, RenderMapSymbols } from './symbols'
+import { RenderMapLayers } from './layers'
+import { RenderMapMarkers } from './markers'
+import { RenderMapObjects } from './objects'
+import { RenderMapSymbols } from './symbols'
 
-export interface RenderMapCommonProps extends RenderMapProps {
-  getMapLayers: () => MapLayer[]
-  getMapObjects: () => MapObjects[]
-  getMapSymbols: () => MapSymbols[]
-  getMapMarkers: () => MapMarkers[]
-}
-
-export function RenderMapCommon(props: Readonly<RenderMapCommonProps>) {
+export function RenderMapCommon(props: Readonly<RenderMapProps>) {
   return (
     <>
-      <RenderMapAssets />
+      <svgMapViewerConfig.renderAssets />
       <g id={svgMapViewerConfig.map} className="map">
-        <RenderMapLayers mapLayers={props.getMapLayers()} />
-        <RenderMapObjects mapObjects={props.getMapObjects()} />
-        <RenderMapSymbols {...props} mapSymbols={props.getMapSymbols()} />
-        <RenderMapMarkers {...props} mapMarkers={props.getMapMarkers()} />
+        <RenderMapLayers mapLayers={svgMapViewerConfig.getMapLayers()} />
+        <RenderMapObjects mapObjects={svgMapViewerConfig.getMapObjects()} />
+        <RenderMapSymbols
+          {...props}
+          mapSymbols={svgMapViewerConfig.getMapSymbols()}
+        />
+        <RenderMapMarkers
+          {...props}
+          mapMarkers={svgMapViewerConfig.getMapMarkers()}
+        />
       </g>
     </>
   )

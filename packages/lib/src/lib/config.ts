@@ -2,18 +2,17 @@
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/no-return-void */
 import { createElement } from 'react'
+import { RenderMapCommon } from './carto'
+import { RenderMapAssetsDefault } from './carto/assets'
 import { emptyMapData } from './geo/data'
 import { emptyLayout } from './layout'
 import type {
   Info,
   RenderInfo,
-  RenderMap,
   SvgMapViewerConfig,
   SvgMapViewerConfigUser,
 } from './types'
 import { VecVec } from './vec/prefixed'
-
-const renderMapDefault: RenderMap = () => createElement('svg', {})
 
 const renderInfoDefault: RenderInfo = (props: Readonly<{ info: Info }>) =>
   createElement('p', {}, props.info.title)
@@ -50,7 +49,12 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   uiOpenDoneCbs: new Set(),
   uiCloseCbs: new Set(),
   uiCloseDoneCbs: new Set(),
-  renderMap: renderMapDefault,
+  renderAssets: RenderMapAssetsDefault,
+  getMapLayers: () => [],
+  getMapObjects: () => [],
+  getMapSymbols: () => [],
+  getMapMarkers: () => [],
+  renderMap: RenderMapCommon,
   renderInfo: renderInfoDefault,
   mapData: emptyMapData,
   mapCoord: {

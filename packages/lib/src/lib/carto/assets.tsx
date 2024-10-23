@@ -1,6 +1,6 @@
 import { Parking, Toilets } from './symbols/index'
 
-export function RenderMapAssets() {
+export function RenderMapAssetsDefault() {
   return (
     <g className="assets">
       <Symbols />

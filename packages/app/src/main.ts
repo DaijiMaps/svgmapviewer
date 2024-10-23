@@ -1,5 +1,10 @@
 import { svgMapViewerConfig, svgmapviewer } from '@daijimaps/svgmapviewer'
-import { RenderMap } from './map'
+import {
+  getMapLayers,
+  getMapMarkers,
+  getMapObjects,
+  getMapSymbols,
+} from './map'
 import {
   mapCoord,
   mapData,
@@ -16,7 +21,10 @@ svgmapviewer({
   map: 'map1',
   origViewBox: mapViewBox,
   zoomFactor: 2,
-  renderMap: RenderMap,
+  getMapLayers,
+  getMapObjects,
+  getMapSymbols,
+  getMapMarkers,
   renderInfo: RenderInfo,
   copyright: '@ Daiji Maps | map data @ OpenStreetMap contributers',
   mapData,

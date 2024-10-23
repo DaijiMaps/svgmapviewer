@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-mixed-types */
 /* eslint-disable functional/no-return-void */
 import { BoxBox } from './box/prefixed'
+import { MapLayer, MapMarkers, MapObjects, MapSymbols } from './carto'
 import { MapData, POI } from './geo'
 import { Layout } from './layout'
 import { Vec } from './vec'
@@ -49,6 +50,8 @@ export interface RenderMapProps {
   z: null | number
 }
 
+export type RenderAssets = () => JSX.Element
+
 export type RenderMap = (props: Readonly<RenderMapProps>) => JSX.Element
 
 export type RenderInfo = (props: Readonly<{ info: Info }>) => JSX.Element
@@ -81,6 +84,11 @@ export interface SvgMapViewerConfig {
   uiOpenDoneCbs: Set<UiOpenDoneCb>
   uiCloseCbs: Set<UiCloseCb>
   uiCloseDoneCbs: Set<UiCloseCb>
+  renderAssets: RenderAssets
+  getMapLayers: () => MapLayer[]
+  getMapObjects: () => MapObjects[]
+  getMapSymbols: () => MapSymbols[]
+  getMapMarkers: () => MapMarkers[]
   renderMap: RenderMap
   renderInfo: RenderInfo
   mapData: MapData

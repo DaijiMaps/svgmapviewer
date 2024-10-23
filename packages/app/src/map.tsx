@@ -1,10 +1,9 @@
-import { RenderMapProps, svgMapViewerConfig } from '@daijimaps/svgmapviewer'
+import { svgMapViewerConfig } from '@daijimaps/svgmapviewer'
 import {
   MapLayer,
   MapMarkers,
   MapObjects,
   MapSymbols,
-  RenderMapCommon,
 } from '@daijimaps/svgmapviewer/carto'
 import {
   benchPath,
@@ -17,16 +16,6 @@ import { MultiPolygon, PointGeoJSON } from '@daijimaps/svgmapviewer/geo'
 import { V } from '@daijimaps/svgmapviewer/tuple'
 import { conv, trees } from './map-data'
 import './map.css'
-
-export function RenderMap(props: RenderMapProps) {
-  const ops = {
-    getMapLayers,
-    getMapObjects,
-    getMapSymbols,
-    getMapMarkers,
-  }
-  return <RenderMapCommon {...props} {...ops} />
-}
 
 export const getMapLayers: () => MapLayer[] = () => [
   {
