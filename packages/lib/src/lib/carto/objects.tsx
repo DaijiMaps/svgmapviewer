@@ -23,6 +23,8 @@ export function RenderMapObjects(
   )
 }
 
+// XXX take size (width/height)
+// XXX calc stroke-width (0.05% of width/height)
 export interface MapObjects {
   name: string
   path: string

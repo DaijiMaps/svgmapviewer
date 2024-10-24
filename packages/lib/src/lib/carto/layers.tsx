@@ -13,7 +13,11 @@ export function RenderMapLayers(props: Readonly<{ mapLayers: MapLayer[] }>) {
     <g>
       {props.mapLayers.map((layer, i) => (
         <g key={i}>
-          <path className={layer.name} d={layerToPath(layer)} />
+          <path
+            className={layer.name}
+            width={layerToWidth(layer)}
+            d={layerToPath(layer)}
+          />
         </g>
       ))}
     </g>
@@ -25,6 +29,7 @@ export type MapLayer = MapLineLayer | MapMultiPolygonLayer
 export interface MapLineLayer {
   type: 'line'
   name: string
+  width?: number
   filter?: LinesFilter
   data?: Line[]
 }
@@ -34,6 +39,12 @@ export interface MapMultiPolygonLayer {
   name: string
   filter?: MultiPolygonsFilter
   data?: MultiPolygon[]
+}
+
+function layerToWidth(layer: Readonly<MapLayer>): undefined | number {
+  return layer.type === 'line' && typeof layer.width === 'number'
+    ? layer.width
+    : undefined
 }
 
 function layerToPath(layer: Readonly<MapLayer>): string {
