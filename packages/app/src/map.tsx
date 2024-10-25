@@ -37,8 +37,24 @@ export const getMapLayers: () => MapLayer[] = () => [
   },
   {
     type: 'line',
+    name: 'ditch',
+    filter: (f) =>
+      !!f.properties.waterway?.match(/^(ditch)$/) &&
+      !f.properties.other_tags?.match(/"tunnel"=>"(yes|culvert)"/),
+  },
+  {
+    type: 'line',
     name: 'stream',
-    filter: (f) => !!f.properties.waterway?.match(/^(stream|ditch)$/),
+    filter: (f) =>
+      !!f.properties.waterway?.match(/^(stream)$/) &&
+      !f.properties.other_tags?.match(/"tunnel"=>"(yes|culvert)"/),
+  },
+  {
+    type: 'line',
+    name: 'river',
+    filter: (f) =>
+      !!f.properties.waterway?.match(/^(river)$/) &&
+      !f.properties.other_tags?.match(/"tunnel"=>"(yes|culvert)"/),
   },
   {
     type: 'multipolygon',

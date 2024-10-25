@@ -27,10 +27,26 @@ body,
   fill: #aaeeff;
 }
 
+.ditch {
+  fill: none;
+  stroke: #aaeeff;
+  stroke-width: 0.25px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .stream {
   fill: none;
   stroke: #aaeeff;
   stroke-width: 1px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.river {
+  fill: none;
+  stroke: #aaeeff;
+  stroke-width: 5px;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
