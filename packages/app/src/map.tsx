@@ -124,6 +124,12 @@ export const getMapSymbols: () => MapSymbols[] = () => [
     pointsFilter: (f) => !!f.properties.other_tags?.match(/"parking"/),
     centroidsFilter: (f) => !!f.properties.other_tags?.match(/"parking"/),
   },
+  {
+    name: 'drinking-fountain',
+    href: '#XDrinkingFountain',
+    pointsFilter: (f) =>
+      !!f.properties.other_tags?.match(/"amenity"=>"drinking_water"/),
+  },
 ]
 
 export const getMapMarkers: () => MapMarkers[] = () => [

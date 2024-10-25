@@ -1,4 +1,5 @@
+import { DrinkingFountain } from './DrinkingFountain'
 import { Parking } from './Parking'
 import { Toilets } from './Toilets'
 
-export { Parking, Toilets }
+export { DrinkingFountain, Parking, Toilets }

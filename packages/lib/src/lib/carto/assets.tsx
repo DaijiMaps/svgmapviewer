@@ -1,4 +1,4 @@
-import { Parking, Toilets } from './symbols/index'
+import { DrinkingFountain, Parking, Toilets } from './symbols/index'
 
 export function RenderMapAssetsDefault() {
   return (
@@ -11,6 +11,7 @@ export function RenderMapAssetsDefault() {
 export function Symbols() {
   return (
     <g className="symbols">
+      <DrinkingFountain />
       <Parking />
       <Toilets />
     </g>
