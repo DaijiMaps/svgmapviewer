@@ -8,22 +8,30 @@
   "features": [
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "direction": null,
+        "distance": null,
+        "ellipsoidal_distance": null
+      },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [139.71, 35.685],
-          [139.7042047, 35.6889161]
+          [139.7042047, 35.688419646985615]
         ]
       }
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "direction": null,
+        "distance": null,
+        "ellipsoidal_distance": null
+      },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [139.7042047, 35.6889161],
+          [139.7042047, 35.688419646985615],
           [139.715580100000011, 35.6812894]
         ]
       }

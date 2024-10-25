@@ -1,4 +1,3 @@
-import { svgMapViewerConfig } from '@daijimaps/svgmapviewer'
 import {
   MapLayer,
   MapMarkers,
@@ -14,6 +13,7 @@ import {
 } from '@daijimaps/svgmapviewer/carto-objects'
 import { MultiPolygon, PointGeoJSON } from '@daijimaps/svgmapviewer/geo'
 import { V } from '@daijimaps/svgmapviewer/tuple'
+import internals from './data/internals.json'
 import { conv, trees } from './map-data'
 import './map.css'
 
@@ -21,7 +21,7 @@ export const getMapLayers: () => MapLayer[] = () => [
   {
     type: 'multipolygon',
     name: 'area',
-    data: svgMapViewerConfig.mapData.areas.features.map(
+    data: internals.features.map(
       (f) => f.geometry.coordinates
     ) as unknown as MultiPolygon[],
   },

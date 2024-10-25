@@ -65,6 +65,7 @@ osmLayerNames = [
 # ./map*.osm
 # ./map.qgz
 # ./src/data/areas.geojson
+# ./src/data/internals.geojson
 # ./src/data/origin.geojson
 # ./src/data/measures.geojson
 # ./src/data/map-points.geojson
@@ -83,6 +84,8 @@ class Context:
 
     areasGJ = ''
     areas_extentGJ = ''
+    internalsGJ = ''
+    internals_extentGJ = ''
     originGJ = ''
     measuresGJ = ''
     viewboxGJ = ''
@@ -106,6 +109,8 @@ class Context:
 
         self.areasGJ = '%s/areas.geojson' % srcdir
         self.areas_extentGJ = '%s/areas_extent.geojson' % srcdir
+        self.internalsGJ = '%s/internals.geojson' % srcdir
+        self.internals_extentGJ = '%s/internals_extent.geojson' % srcdir
         self.originGJ = '%s/origin.geojson' % srcdir
         self.measuresGJ = '%s/measures.geojson' % srcdir
         self.viewboxGJ = '%s/viewbox.geojson' % srcdir
@@ -626,7 +631,12 @@ def getRoundedOrigin(extent: QgsVectorLayer) -> QgsPoint:
     return QgsPoint(x, y)
 
 def getViewbox():
-    extent = openVector('%s|geometrytype=Polygon' % ctx.areas_extentGJ, "areas_extent")
+    (gj, name) = (None, None)
+    if os.path.exists(ctx.internals_extentGJ):
+        (gj, name) = (ctx.internals_extentGJ, "internals_extent")
+    else:
+        (gj, name) = (ctx.areas_extentGJ, "areas_extent")
+    extent = openVector('%s|geometrytype=Polygon' % gj, name)
     f = next(extent.getFeatures())
     minx = float(f['MINX'])
     miny = float(f['MINY'])
@@ -826,3 +836,42 @@ def openVector(uri: str, name: str) -> QgsVectorLayer:
 # geometry type: “point”, “linestring”, “polygon”, “multipoint”, ”multilinestring”, ”multipolygon”
 def makeVector(uri: str, name: str) -> QgsVectorLayer:
     return QgsVectorLayer(uri, name, "memory")
+
+####
+
+def makeExtent():
+    areas = openVector(ctx.areasGJ, "areas")
+    extent = getExtent(areas, 'memory:')
+    res = dumpGeoJSON(extent, ctx.areas_extentGJ)
+    print(res)
+
+    if os.path.exists(ctx.internalsGJ):
+        internals = openVector(ctx.internalsGJ, "internals")
+        internals_extent = getExtent(internals, 'memory:')
+        res = dumpGeoJSON(internals_extent, ctx.internals_extentGJ)
+        print(res)
+
+def makeOrigin():
+    areas = openVector(ctx.areasGJ, "areas")
+    extent = openVector(ctx.areas_extentGJ, "areas_extent")
+
+    origin = getRoundedOrigin(extent)
+    res = createPointGeoJSON(ctx.originGJ, origin)
+    print(res)
+
+def makeMeasures():
+    areas = openVector(ctx.areasGJ, "areas")
+    extent = openVector(ctx.areas_extentGJ, "areas_extent")
+    origin = openVector(ctx.originGJ, "origin")
+
+    measures = getMeasures(extent, origin)
+    res = dumpGeoJSON(measures, ctx.measuresGJ)
+    print(res)
+
+def makeViewbox():
+    #extent = openVector(ctx.areas_extentGJ, "areas_extent")
+    #origin = openVector(ctx.originGJ, "origin")
+
+    viewbox = getViewbox()
+    res = dumpGeoJSON(viewbox, ctx.viewboxGJ)
+    print(res)

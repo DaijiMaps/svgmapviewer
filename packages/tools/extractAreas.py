@@ -9,19 +9,12 @@ args.pop(0)
 
 import common
 
-####
-
 common.openPrj()
 
-#srcGJ = common.ctx.map_layerGJs['multipolygons']
-#print('GJ=%s' % srcGJ)
-#s = common.openVector(srcGJ, 'map-multipolygons')
+####
 
 mapLayers = common.readOsmAll()
 s = mapLayers['multipolygons']
-
-print(s)
-print(next(s.getFeatures()))
 
 olayers = []
 while len(args) > 0:
@@ -35,6 +28,8 @@ while len(args) > 0:
 
 l = common.mergeVectorLayers(olayers, 'memory:')
 common.dumpGeoJSON(l, common.ctx.areasGJ)
+
+####
 
 common.exit()
 
