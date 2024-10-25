@@ -27,6 +27,11 @@ export const getMapLayers: () => MapLayer[] = () => [
   },
   {
     type: 'multipolygon',
+    name: 'forest',
+    filter: (f) => !!f.properties.landuse?.match(/forest/),
+  },
+  {
+    type: 'multipolygon',
     name: 'water',
     filter: (f) => !!f.properties.natural?.match(/^water$/),
   },
@@ -34,11 +39,6 @@ export const getMapLayers: () => MapLayer[] = () => [
     type: 'line',
     name: 'stream',
     filter: (f) => !!f.properties.waterway?.match(/^(stream|ditch)$/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'forest',
-    filter: (f) => !!f.properties.landuse?.match(/forest/),
   },
   {
     type: 'multipolygon',

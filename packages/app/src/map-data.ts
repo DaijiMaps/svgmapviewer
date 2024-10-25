@@ -48,7 +48,7 @@ export const { mapCoord, mapViewBox } = calcScale(mapData)
 //// mapNames
 
 export const mapHtmlStyle = `
-poi-names {
+.poi-names {
   font-size: small;
 }
 .poi-names-item {
