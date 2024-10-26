@@ -63,19 +63,39 @@ export const getMapLayers: () => MapLayer[] = () => [
   },
   {
     type: 'line',
+    name: 'footway',
+    filter: (f) =>
+      !!f.properties.highway?.match(/^(footway|path|pedestrian|steps)$/) &&
+      !f.properties.other_tags?.match(/"tunnel"/),
+  },
+  {
+    type: 'line',
+    name: 'cycleway',
+    filter: (f) =>
+      !!f.properties.highway?.match(/^(cycleway)$/) &&
+      !f.properties.other_tags?.match(/"tunnel"/),
+  },
+  {
+    type: 'line',
     name: 'service',
-    filter: (f) => !!f.properties.highway?.match(/^(service)$/),
+    filter: (f) =>
+      !!f.properties.highway?.match(/^(service)$/) &&
+      !f.properties.other_tags?.match(/"tunnel"/),
+  },
+  {
+    type: 'line',
+    name: 'road',
+    filter: (f) =>
+      !!f.properties.highway?.match(/./) &&
+      !f.properties.highway?.match(
+        /^(footway|path|pedestrian|steps|cycleway|service)$/
+      ) &&
+      !f.properties.other_tags?.match(/"tunnel"/),
   },
   {
     type: 'multipolygon',
     name: 'pedestrian-area',
     filter: (f) => !!f.properties.other_tags?.match(/"pedestrian"/),
-  },
-  {
-    type: 'line',
-    name: 'footway',
-    filter: (f) =>
-      !!f.properties.highway?.match(/^(footway|path|pedestrian|steps)$/),
   },
   {
     type: 'line',
