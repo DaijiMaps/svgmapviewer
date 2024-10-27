@@ -79,14 +79,19 @@ type PointOrCentroidFeature =
   | PointFeature<OsmPointProperties>
   | PointFeature<OsmPolygonProperties>
 
-export const mapNames: POI[] = [mapData.points, mapData.centroids].flatMap(
-  (d) =>
-    d.features.flatMap((f: PointOrCentroidFeature) => {
-      const name = filterName(f)
-      const pos = vVec(conv(f.geometry.coordinates as unknown as V))
-      return name === null ? [] : [{ name: splitName(name), pos }]
-    })
-)
+const pointNames: POI[] = mapData.points.features.flatMap((f) => {
+  const name = filterName(f)
+  const pos = vVec(conv(f.geometry.coordinates as unknown as V))
+  return name === null ? [] : [{ name: splitName(name), pos, size: 1 }]
+})
+
+const centroidNames: POI[] = mapData.centroids.features.flatMap((f) => {
+  const name = filterName(f)
+  const pos = vVec(conv(f.geometry.coordinates as unknown as V))
+  return name === null ? [] : [{ name: splitName(name), pos, size: 10 }]
+})
+
+export const mapNames: POI[] = [...pointNames, ...centroidNames]
 
 function filterName(f: PointOrCentroidFeature): null | string {
   const name = f.properties.name

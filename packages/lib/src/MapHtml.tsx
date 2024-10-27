@@ -43,11 +43,12 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlProps>) {
   return (
     <div className="poi-symbols">
       {svgMapViewerConfig.mapSymbols
-        .map(({ name, pos }) => ({
+        .map(({ name, pos, size }) => ({
           name,
           pos: toOuter(fromSvg(pos, layout), layout),
+          size,
         }))
-        .map(({ name, pos: { x, y } }, i) => (
+        .map(({ name, pos: { x, y }, size }, i) => (
           <div
             key={i}
             className={`poi-symbols-item`}
@@ -55,7 +56,7 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlProps>) {
               transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
             }}
           >
-            <RenderSymbol poi={{ name, pos: { x, y } }} />
+            <RenderSymbol poi={{ name, pos: { x, y }, size }} />
           </div>
         ))}
     </div>
@@ -64,15 +65,23 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlProps>) {
 
 function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
   const layout = useSelector(props._pointerRef, selectLayout)
+  const scale = layout.svgScale.s
 
   return (
     <div className="poi-names">
       {svgMapViewerConfig.mapNames
-        .map(({ name, pos }) => ({
-          name,
-          pos: toOuter(fromSvg(pos, layout), layout),
-        }))
-        .map(({ name, pos: { x, y } }, i) => (
+        .flatMap(({ name, pos, size }) =>
+          size / scale < 10 && scale > 0.2
+            ? []
+            : [
+                {
+                  name,
+                  pos: toOuter(fromSvg(pos, layout), layout),
+                  size,
+                },
+              ]
+        )
+        .map(({ name, pos: { x, y }, size }, i) => (
           <div
             key={i}
             className={`poi-names-item`}
@@ -80,7 +89,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
               transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
             }}
           >
-            <RenderName poi={{ name, pos: { x, y } }} />
+            <RenderName poi={{ name, pos: { x, y }, size }} />
           </div>
         ))}
     </div>
@@ -101,7 +110,19 @@ function RenderName(props: Readonly<{ poi: POI }>) {
   return (
     <>
       {props.poi.name.map((n, j) => (
-        <p key={j}>{n}</p>
+        <p
+          key={j}
+          style={{
+            fontSize:
+              props.poi.size === 1
+                ? 'x-small'
+                : props.poi.size < 10
+                  ? 'small'
+                  : 'initial',
+          }}
+        >
+          {n}
+        </p>
       ))}
     </>
   )
