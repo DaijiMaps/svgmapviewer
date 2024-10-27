@@ -8,6 +8,9 @@ import {
   benchPath,
   guidePostPath,
   infoBoardPath,
+  monumentPath,
+  statuePath,
+  toriiPath,
   tree16x16Path,
   tree4x8Path,
 } from '@daijimaps/svgmapviewer/carto-objects'
@@ -142,6 +145,26 @@ export const getMapObjects: () => MapObjects[] = () => [
     data: (trees as PointGeoJSON).features
       .map((f) => f.geometry.coordinates as unknown as V)
       .map(conv),
+  },
+  {
+    name: 'torii',
+    path: toriiPath,
+    width: 0.075,
+    pointsFilter: (f) => !!f.properties.man_made?.match(/^torii$/),
+  },
+  {
+    name: 'monument',
+    path: monumentPath,
+    width: 0.075,
+    pointsFilter: (f) =>
+      !!f.properties.other_tags?.match(/"historic"=>"memorial"/),
+  },
+  {
+    name: 'statue',
+    path: statuePath,
+    width: 0.075,
+    pointsFilter: (f) =>
+      !!f.properties.other_tags?.match(/"artwork_type"=>"statue"/),
   },
 ]
 

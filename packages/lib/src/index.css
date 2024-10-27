@@ -20,6 +20,11 @@
   user-select: none; /* Standard syntax */
 }
 
+html,
+body {
+  overscroll-behavior: contain;
+}
+
 body {
   width: 100vw;
   height: 100vh;

@@ -21,6 +21,13 @@ centroids = common.centroids(mapLayers['multipolygons'], 'memory:')
 gj = '%s/map-centroids.geojson' % common.ctx.srcdir
 common.dumpGeoJSON(centroids, gj)
 
+####
+
+gj = None
+centroids = None
+mapLayers = None
+areas = None
+
 common.exit()
 
 exit()

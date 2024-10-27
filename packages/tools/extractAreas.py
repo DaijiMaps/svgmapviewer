@@ -31,6 +31,11 @@ common.dumpGeoJSON(l, common.ctx.areasGJ)
 
 ####
 
+l = None
+olayers = None
+s = None
+mapLayers = None
+
 common.exit()
 
 exit()
