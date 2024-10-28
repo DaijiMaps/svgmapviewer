@@ -16,8 +16,6 @@
   - type CSSMatrix = Matrix | Matrix[]
   - cssMatrixToString()
   - use `transform: matrix(...) matrix(...) ...' notation in CSS
-- panning mode lock/recenter/unlock
-  - catch scroll event & detect idle (0.5s)
 - refactor style.ts
   - use class (e.g. .container.mode-panning)
   - use CSS var
