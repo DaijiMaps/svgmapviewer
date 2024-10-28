@@ -62,6 +62,11 @@ osmLayerNames = [
     #('other_relations', 'Polygon')
 ]
 
+extraLayerNames = [
+    ('midpoints', 'point'),
+    ('centroids', 'point'),
+]
+
 # ./map*.osm
 # ./map.qgz
 # ./src/data/areas.geojson
@@ -116,6 +121,8 @@ class Context:
         self.viewboxGJ = '%s/viewbox.geojson' % srcdir
 
         for (layername, _) in osmLayerNames:
+            self.map_layerGJs[layername] = '%s/map-%s.geojson' % (srcdir, layername)
+        for (layername, _) in extraLayerNames:
             self.map_layerGJs[layername] = '%s/map-%s.geojson' % (srcdir, layername)
 
     def jsonToGeoJson(self):
@@ -329,6 +336,10 @@ def readOsm(selector: typing.Callable[[QgsVectorLayer], None]) -> dict[str, QgsV
         m.commitChanges()
 
         mapLayers[layername] = m
+
+    mapLayers['midpoints'] = centroids(mapLayers['lines'], 'memory:')
+    mapLayers['centroids'] = centroids(mapLayers['multipolygons'], 'memory:')
+
     return mapLayers
 
 def expandOsm(osm: str, layername: str, name: str, outGeoJSON: str) -> tuple[QgsVectorFileWriter.WriterError, str, str, str]:

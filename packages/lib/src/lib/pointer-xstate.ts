@@ -519,19 +519,6 @@ export const pointerMachine = setup({
                 guard: not('idle'),
                 target: 'Idle',
               },
-              {
-                guard: {
-                  type: 'shouldMove',
-                  params: ({ event }) => ({ ev: event.ev }),
-                },
-                actions: [
-                  {
-                    type: 'moveKey',
-                    params: ({ event }) => ({ ev: event.ev }),
-                  },
-                ],
-                target: 'Moving',
-              },
             ],
             'KEY.UP': [
               {
@@ -566,6 +553,19 @@ export const pointerMachine = setup({
               {
                 guard: not('idle'),
                 target: 'Idle',
+              },
+              {
+                guard: {
+                  type: 'shouldMove',
+                  params: ({ event }) => ({ ev: event.ev }),
+                },
+                actions: [
+                  {
+                    type: 'moveKey',
+                    params: ({ event }) => ({ ev: event.ev }),
+                  },
+                ],
+                target: 'Moving',
               },
               {
                 guard: {
@@ -1317,6 +1317,22 @@ export const pointerMachine = setup({
             },
           },
           on: {
+            'KEY.UP': [
+              {
+                guard: {
+                  type: 'shouldZoom',
+                  params: ({ event }) => ({ ev: event.ev }),
+                },
+                actions: [
+                  {
+                    type: 'zoomKey',
+                    params: ({ event }) => ({ ev: event.ev }),
+                  },
+                  raise({ type: 'PAN.ZOOM' }),
+                ],
+                target: 'Stopping',
+              },
+            ],
             CLICK: {
               guard: not('isPanEntryLocked'),
               target: 'Stopping',

@@ -12,19 +12,18 @@ areas = common.getAreas()
 
 mapLayers = common.readOsmByAreas(areas)
 
-for (layername, _) in common.osmLayerNames:
+layernames = [
+    x[0] for names in [common.osmLayerNames, common.extraLayerNames]
+        for x in names
+]
+
+for layername in layernames:
     l = mapLayers[layername]
     gj = common.ctx.map_layerGJs[layername]
     common.dumpGeoJSON(l, gj)
 
-centroids = common.centroids(mapLayers['multipolygons'], 'memory:')
-gj = '%s/map-centroids.geojson' % common.ctx.srcdir
-common.dumpGeoJSON(centroids, gj)
-
 ####
 
-gj = None
-centroids = None
 mapLayers = None
 areas = None
 
