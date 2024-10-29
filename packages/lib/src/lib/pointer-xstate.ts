@@ -45,6 +45,9 @@ import { VecVec as Vec, vecMul, vecSub, vecVec } from './vec/prefixed'
 // XXX
 const DIST_LIMIT = 10
 
+const EXPAND_DEFAULT = 3
+const EXPAND_PANNING = 9
+
 export type PointerInput = {
   initialLayout: Layout
   containerRef: RefObject<HTMLDivElement>
@@ -910,7 +913,7 @@ export const pointerMachine = setup({
               actions: {
                 type: 'expand',
                 params: ({ context: { expand }, event: { n } }) => ({
-                  n: n !== undefined ? n : expand === 1 ? 3 : 1,
+                  n: n !== undefined ? n : expand === 1 ? EXPAND_DEFAULT : 1,
                 }),
               },
               target: 'Expanding',
@@ -1287,7 +1290,7 @@ export const pointerMachine = setup({
           on: {
             PAN: {
               // XXX expand to fit the whole map
-              actions: raise({ type: 'EXPAND', n: 9 }),
+              actions: raise({ type: 'EXPAND', n: EXPAND_PANNING }),
               target: 'Expanding',
             },
             'PAN.ZOOM.ZOOM': {
