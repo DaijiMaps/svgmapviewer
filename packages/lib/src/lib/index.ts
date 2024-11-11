@@ -1,5 +1,3 @@
-import type { AddressEntries, SearchAddressRes, SearchContext } from './address'
-import { initAddresses, searchAddress } from './address'
 import { svgMapViewerConfig } from './config'
 import { Layout } from './layout'
 import { svgmapviewer } from './svgmapviewer'
@@ -26,12 +24,6 @@ export { svgmapviewer }
 export type { SvgMapViewerConfig, SvgMapViewerConfigUser }
 
 export { svgMapViewerConfig }
-
-// address
-
-export type { AddressEntries, SearchAddressRes, SearchContext }
-
-export { initAddresses, searchAddress }
 
 // layout
 

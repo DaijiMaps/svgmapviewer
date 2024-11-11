@@ -18,6 +18,7 @@
     "./carto-symbols": "./dist/carto-symbols.js",
     "./geo": "./dist/geo.js",
     "./matrix": "./dist/matrix.js",
+    "./search": "./dist/search.js",
     "./tuple": "./dist/tuple.js",
     "./vec": "./dist/vec.js"
   },
