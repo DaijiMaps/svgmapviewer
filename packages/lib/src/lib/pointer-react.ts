@@ -264,12 +264,12 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
     const layout = pointerRef.on('LAYOUT', ({ layout }) =>
       svgMapViewerConfig.zoomEndCbs.forEach((cb) => cb(layout, 1))
     )
-    const zoomStart = pointerRef.on('ZOOM.START', ({ layout, zoom, z }) => {
+    const zoomStart = pointerRef.on('ZOOM.START', ({ layout, zoom, z }) =>
       svgMapViewerConfig.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
-    })
-    const zoomEnd = pointerRef.on('ZOOM.END', ({ layout, zoom }) => {
+    )
+    const zoomEnd = pointerRef.on('ZOOM.END', ({ layout, zoom }) =>
       svgMapViewerConfig.zoomEndCbs.forEach((cb) => cb(layout, zoom))
-    })
+    )
     return () => {
       search.unsubscribe()
       lock.unsubscribe()
