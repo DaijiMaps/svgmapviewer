@@ -10,6 +10,7 @@
   top: 0;
   padding: 1em;
   overflow: scroll;
+  pointer-events: initial;
 }
 
 .detail > h3 {
