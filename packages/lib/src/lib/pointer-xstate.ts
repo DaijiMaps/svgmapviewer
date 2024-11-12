@@ -21,6 +21,7 @@ import { BoxBox, boxCenter } from './box/prefixed'
 import { Drag, dragMove, dragStart } from './drag'
 import { keyToDir, keyToZoom } from './key'
 import {
+  emptyLayout,
   expandLayoutCenter,
   Layout,
   makeLayout,
@@ -49,7 +50,7 @@ const EXPAND_DEFAULT = 3
 const EXPAND_PANNING = 9
 
 export type PointerInput = {
-  initialLayout: Layout
+  layout: Layout
   containerRef: RefObject<HTMLDivElement>
 }
 
@@ -465,10 +466,10 @@ export const pointerMachine = setup({
 }).createMachine({
   type: 'parallel',
   id: 'pointer',
-  context: ({ input: { initialLayout, containerRef } }) => ({
+  context: ({ input: { layout, containerRef } }) => ({
     containerRef,
-    layout: initialLayout,
-    cursor: boxCenter(initialLayout.container),
+    layout,
+    cursor: boxCenter(emptyLayout.container),
     expand: 1,
     m: null,
     z: null,
@@ -496,6 +497,11 @@ export const pointerMachine = setup({
       states: {
         Idle: {
           on: {
+            LAYOUT: {
+              actions: assign({
+                layout: ({ event }) => event.layout,
+              }),
+            },
             'LAYOUT.RESET': {
               guard: 'idle',
               actions: 'zoomHome',
@@ -1320,6 +1326,12 @@ export const pointerMachine = setup({
             },
           },
           on: {
+            LAYOUT: {
+              actions: assign({
+                layout: ({ event }) => event.layout,
+              }),
+              target: 'Stopping',
+            },
             'KEY.UP': [
               {
                 guard: {

@@ -19,7 +19,6 @@ import {
   toMatrixSvg,
 } from './coord'
 import { fit } from './fit'
-import { getBodySize } from './resize-react'
 import { Move, Scale, transformPoint } from './transform'
 import { VecVec as Vec, vecScale, vecSub } from './vec/prefixed'
 
@@ -61,9 +60,8 @@ export const emptyLayout: Layout = {
 export function configLayout(
   fontSize: number,
   svg: Box,
-  origBody?: Box
+  container: Box
 ): LayoutConfig {
-  const container: Box = origBody !== undefined ? origBody : getBodySize()
   const [[x, y], s] = fit(container, svg)
 
   return {

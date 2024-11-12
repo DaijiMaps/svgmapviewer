@@ -1,13 +1,13 @@
 import { useMachine, useSelector } from '@xstate/react'
 import { RefObject, useCallback, useEffect } from 'react'
 import { svgMapViewerConfig } from './config'
+import { useLayout } from './layout-react'
 import {
   pointerMachine,
   PointerRef,
   PointerSend,
   PointerState,
   ReactPointerEvent,
-  selectLayout,
   selectMode,
 } from './pointer-xstate'
 import { Vec } from './vec'
@@ -202,8 +202,10 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   pointerSend: PointerSend
   pointerRef: PointerRef
 } {
+  const layout = useLayout(svgMapViewerConfig.origViewBox)
+
   const [pointer, pointerSend, pointerRef] = useMachine(pointerMachine, {
-    input: { initialLayout: svgMapViewerConfig.layout, containerRef },
+    input: { layout, containerRef },
   })
 
   ////
@@ -214,7 +216,6 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
 
   usePointerEvent(containerRef, pointerSend)
 
-  const layout = useSelector(pointerRef, selectLayout)
   const mode = useSelector(pointerRef, selectMode)
 
   useEffect(() => {
@@ -292,6 +293,11 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
       pointerSend({ type: 'RENDERED' })
     }
   }, [pointer, pointerSend])
+
+  useEffect(
+    () => pointerSend({ type: 'LAYOUT', layout }),
+    [layout, pointerSend]
+  )
 
   return {
     pointer,
