@@ -8,6 +8,7 @@ import {
   PointerSend,
   PointerState,
   ReactPointerEvent,
+  selectLayout,
   selectMode,
 } from './pointer-xstate'
 import { Vec } from './vec'
@@ -202,10 +203,10 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   pointerSend: PointerSend
   pointerRef: PointerRef
 } {
-  const layout = useLayout(svgMapViewerConfig.origViewBox)
+  const origLayout = useLayout(svgMapViewerConfig.origViewBox)
 
   const [pointer, pointerSend, pointerRef] = useMachine(pointerMachine, {
-    input: { layout, containerRef },
+    input: { layout: origLayout, containerRef },
   })
 
   ////
@@ -216,6 +217,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
 
   usePointerEvent(containerRef, pointerSend)
 
+  const layout = useSelector(pointerRef, selectLayout)
   const mode = useSelector(pointerRef, selectMode)
 
   useEffect(() => {
@@ -295,8 +297,8 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   }, [pointer, pointerSend])
 
   useEffect(
-    () => pointerSend({ type: 'LAYOUT', layout }),
-    [layout, pointerSend]
+    () => pointerSend({ type: 'LAYOUT', layout: origLayout }),
+    [origLayout, pointerSend]
   )
 
   return {

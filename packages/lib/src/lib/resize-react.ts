@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { BoxBox as Box } from './box/prefixed'
+import { BoxBox as Box, boxEq } from './box/prefixed'
 
 export function getBodySize(): Box {
   return {
@@ -14,8 +14,11 @@ export function useWindowResize(): Box {
   const [size, setSize] = useState(getBodySize())
 
   const handler = useCallback(() => {
-    setSize(getBodySize())
-  }, [])
+    const tmp = getBodySize()
+    if (!boxEq(tmp, size)) {
+      setSize(tmp)
+    }
+  }, [size])
 
   useEffect(() => {
     window.addEventListener('resize', handler)

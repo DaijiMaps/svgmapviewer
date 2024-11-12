@@ -97,43 +97,43 @@ export interface MultiPolygonFeature<P = object> {
 
 export interface PointGeoJSON<P = object> {
   type: string
-  name: string
-  crs: CRS
+  name?: string
+  crs?: CRS
   features: PointFeature<P>[]
 }
 
 export interface LineGeoJSON<P = object> {
   type: string
-  name: string
-  crs: CRS
+  name?: string
+  crs?: CRS
   features: LineFeature<P>[]
 }
 
 export interface PolygonGeoJSON<P = object> {
   type: string
-  name: string
-  crs: CRS
+  name?: string
+  crs?: CRS
   features: PolygonFeature<P>[]
 }
 
 export interface MultiPointGeoJSON<P = object> {
   type: string
-  name: string
-  crs: CRS
+  name?: string
+  crs?: CRS
   features: MultiPointFeature<P>[]
 }
 
 export interface MultiLineGeoJSON<P = object> {
   type: string
-  name: string
-  crs: CRS
+  name?: string
+  crs?: CRS
   features: MultiLineFeature<P>[]
 }
 
 export interface MultiPolygonGeoJSON<P = object> {
   type: string
-  name: string
-  crs: CRS
+  name?: string
+  crs?: CRS
   features: MultiPolygonFeature<P>[]
 }
 

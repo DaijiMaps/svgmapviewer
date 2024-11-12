@@ -21,6 +21,12 @@ export const box = (
 
 export const unit: Box = { x: 0, y: 0, width: 1, height: 1 }
 
+export function eq(a: Box, b: Box): boolean {
+  return (
+    a.x === b.x && a.y === b.y && a.width === b.width && a.height === b.height
+  )
+}
+
 export function copy(a: Box): Box {
   return { x: a.x, y: a.y, width: a.width, height: a.height }
 }
