@@ -258,33 +258,25 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   }, [pointerSearchLock, pointerSearchUnlock])
 
   useEffect(() => {
-    const search = pointerRef.on('SEARCH', ({ p, psvg }) =>
-      svgMapViewerConfig.searchStartCbs.forEach((cb) => cb(p, psvg))
-    )
-    const lock = pointerRef.on('LOCK', ({ ok }) =>
-      svgMapViewerConfig.uiOpenDoneCbs.forEach((cb) => cb(ok))
-    )
-    const layout = pointerRef.on('LAYOUT', ({ layout }) =>
-      svgMapViewerConfig.zoomEndCbs.forEach((cb) => cb(layout, 1))
-    )
-    const zoomStart = pointerRef.on('ZOOM.START', ({ layout, zoom, z }) =>
-      svgMapViewerConfig.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
-    )
-    const zoomEnd = pointerRef.on('ZOOM.END', ({ layout, zoom }) =>
-      svgMapViewerConfig.zoomEndCbs.forEach((cb) => cb(layout, zoom))
-    )
-    return () => {
-      search.unsubscribe()
-      lock.unsubscribe()
-      layout.unsubscribe()
-      zoomStart.unsubscribe()
-      zoomEnd.unsubscribe()
-    }
+    const subs = [
+      pointerRef.on('SEARCH', ({ p, psvg }) =>
+        svgMapViewerConfig.searchStartCbs.forEach((cb) => cb(p, psvg))
+      ),
+      pointerRef.on('LOCK', ({ ok }) =>
+        svgMapViewerConfig.uiOpenDoneCbs.forEach((cb) => cb(ok))
+      ),
+      pointerRef.on('LAYOUT', ({ layout }) =>
+        svgMapViewerConfig.zoomEndCbs.forEach((cb) => cb(layout, 1))
+      ),
+      pointerRef.on('ZOOM.START', ({ layout, zoom, z }) =>
+        svgMapViewerConfig.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
+      ),
+      pointerRef.on('ZOOM.END', ({ layout, zoom }) =>
+        svgMapViewerConfig.zoomEndCbs.forEach((cb) => cb(layout, zoom))
+      ),
+    ]
+    return () => subs.forEach((sub) => sub.unsubscribe())
   }, [pointerRef])
-
-  useEffect(() => {
-    svgMapViewerConfig.layout = layout
-  }, [layout])
 
   ////
   //// actions
@@ -300,6 +292,10 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
     () => pointerSend({ type: 'LAYOUT', layout: origLayout }),
     [origLayout, pointerSend]
   )
+
+  useEffect(() => {
+    svgMapViewerConfig.layout = layout
+  }, [layout])
 
   return {
     pointer,
