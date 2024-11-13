@@ -1,4 +1,4 @@
-import { svgMapViewerConfig } from '../config'
+import { svgMapViewerConfig as cfg } from '../config'
 import { CentroidsFilter, Point, PointsFilter } from '../geo'
 import { V, vUnvec, vVec } from '../tuple'
 import { RenderMapProps } from '../types'
@@ -48,21 +48,21 @@ export function entryToVs({
 }
 
 function getPoints(filter: PointsFilter): Point[] {
-  return svgMapViewerConfig.mapData.points.features
+  return cfg.mapData.points.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)
     .map(conv)
 }
 
 function getCentroids(filter: CentroidsFilter) {
-  return svgMapViewerConfig.mapData.centroids.features
+  return cfg.mapData.centroids.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)
     .map(conv)
 }
 
 function conv(p: V): V {
-  return vUnvec(svgMapViewerConfig.mapCoord.fromGeo(vVec(p)))
+  return vUnvec(cfg.mapCoord.fromGeo(vVec(p)))
 }
 
 export function RenderUses(

@@ -1,6 +1,6 @@
 import { useMachine, useSelector } from '@xstate/react'
 import { RefObject, useCallback, useEffect } from 'react'
-import { svgMapViewerConfig } from './config'
+import { svgMapViewerConfig as cfg } from './config'
 import { useLayout } from './layout-react'
 import {
   pointerMachine,
@@ -151,7 +151,7 @@ function usePointerEvent(
           send({ type: 'SCROLL', ev })
         }
         scrollIdleTimer = null
-      }, svgMapViewerConfig.scrollIdleTimeout)
+      }, cfg.scrollIdleTimeout)
     },
     [send]
   )
@@ -203,7 +203,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   pointerSend: PointerSend
   pointerRef: PointerRef
 } {
-  const origLayout = useLayout(svgMapViewerConfig.origViewBox)
+  const origLayout = useLayout(cfg.origViewBox)
 
   const [pointer, pointerSend, pointerRef] = useMachine(pointerMachine, {
     input: { layout: origLayout, containerRef },
@@ -249,30 +249,30 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   )
 
   useEffect(() => {
-    svgMapViewerConfig.uiOpenCbs.add(pointerSearchLock)
-    svgMapViewerConfig.uiCloseDoneCbs.add(pointerSearchUnlock)
+    cfg.uiOpenCbs.add(pointerSearchLock)
+    cfg.uiCloseDoneCbs.add(pointerSearchUnlock)
     return () => {
-      svgMapViewerConfig.uiOpenCbs.delete(pointerSearchLock)
-      svgMapViewerConfig.uiCloseDoneCbs.delete(pointerSearchUnlock)
+      cfg.uiOpenCbs.delete(pointerSearchLock)
+      cfg.uiCloseDoneCbs.delete(pointerSearchUnlock)
     }
   }, [pointerSearchLock, pointerSearchUnlock])
 
   useEffect(() => {
     const subs = [
       pointerRef.on('SEARCH', ({ p, psvg }) =>
-        svgMapViewerConfig.searchStartCbs.forEach((cb) => cb(p, psvg))
+        cfg.searchStartCbs.forEach((cb) => cb(p, psvg))
       ),
       pointerRef.on('LOCK', ({ ok }) =>
-        svgMapViewerConfig.uiOpenDoneCbs.forEach((cb) => cb(ok))
+        cfg.uiOpenDoneCbs.forEach((cb) => cb(ok))
       ),
       pointerRef.on('LAYOUT', ({ layout }) =>
-        svgMapViewerConfig.zoomEndCbs.forEach((cb) => cb(layout, 1))
+        cfg.zoomEndCbs.forEach((cb) => cb(layout, 1))
       ),
       pointerRef.on('ZOOM.START', ({ layout, zoom, z }) =>
-        svgMapViewerConfig.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
+        cfg.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
       ),
       pointerRef.on('ZOOM.END', ({ layout, zoom }) =>
-        svgMapViewerConfig.zoomEndCbs.forEach((cb) => cb(layout, zoom))
+        cfg.zoomEndCbs.forEach((cb) => cb(layout, zoom))
       ),
     ]
     return () => subs.forEach((sub) => sub.unsubscribe())
@@ -294,7 +294,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   )
 
   useEffect(() => {
-    svgMapViewerConfig.layout = layout
+    cfg.layout = layout
   }, [layout])
 
   return {

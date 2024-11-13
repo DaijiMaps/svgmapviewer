@@ -2,7 +2,7 @@ import { useSelector } from '@xstate/react'
 import { ReactNode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createActor, emit, setup } from 'xstate'
-import { svgMapViewerConfig } from './lib/config'
+import { svgMapViewerConfig as cfg } from './lib/config'
 import { POI } from './lib/geo'
 import { fromSvg, toOuter } from './lib/layout'
 import { PointerRef, selectLayout } from './lib/pointer-xstate'
@@ -32,7 +32,7 @@ function MapHtmlContentRoot(props: Readonly<{ ref: PointerRef }>): ReactNode {
     <>
       <MapHtmlContentSymbols _pointerRef={ref} />
       <MapHtmlContentNames _pointerRef={ref} />
-      <style>{svgMapViewerConfig.mapHtmlStyle}</style>
+      <style>{cfg.mapHtmlStyle}</style>
     </>
   )
 }
@@ -42,7 +42,7 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlProps>) {
 
   return (
     <div className="poi-symbols">
-      {svgMapViewerConfig.mapSymbols
+      {cfg.mapSymbols
         .map(({ name, pos, size }) => ({
           name,
           pos: toOuter(fromSvg(pos, layout), layout),
@@ -69,7 +69,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
 
   return (
     <div className="poi-names">
-      {svgMapViewerConfig.mapNames
+      {cfg.mapNames
         .flatMap(({ name, pos, size }) =>
           size / scale < 10 && scale > 0.2
             ? []

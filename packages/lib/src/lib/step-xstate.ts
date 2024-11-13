@@ -1,7 +1,7 @@
 import { ActorRefFrom, AnyActorRef, assign, sendTo, setup } from 'xstate'
 import { animationFrameLogic } from './animationframe-xstate'
 import { BoxBox as Box } from './box/prefixed'
-import { svgMapViewerConfig } from './config'
+import { svgMapViewerConfig as cfg } from './config'
 import { isDefined, isNotNull } from './utils'
 import { vecInterpolate } from './vec/prefixed'
 
@@ -108,11 +108,9 @@ export const stepMachine = setup({
   context: ({ input: { parent, cb, alpha, limit, maxCount } }) => ({
     parent,
     cb,
-    alpha: isDefined(alpha) ? alpha : svgMapViewerConfig.dragStepAlpha,
-    limit: isDefined(limit) ? limit : svgMapViewerConfig.dragStepStepLimit,
-    maxCount: isDefined(maxCount)
-      ? maxCount
-      : svgMapViewerConfig.dragStepMaxCount,
+    alpha: isDefined(alpha) ? alpha : cfg.dragStepAlpha,
+    limit: isDefined(limit) ? limit : cfg.dragStepStepLimit,
+    maxCount: isDefined(maxCount) ? maxCount : cfg.dragStepMaxCount,
     P: null,
     Q: null,
     count: 0,

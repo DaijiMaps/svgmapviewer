@@ -1,4 +1,4 @@
-import { svgMapViewerConfig } from '../config'
+import { svgMapViewerConfig as cfg } from '../config'
 import {
   Line,
   LinesFilter,
@@ -76,13 +76,13 @@ function multiPolygonLayerToPath(
 }
 
 function getLines(filter: LinesFilter): Line[] {
-  return svgMapViewerConfig.mapData.lines.features
+  return cfg.mapData.lines.features
     .filter(filter)
     .map((f) => f.geometry.coordinates) as unknown as Line[]
 }
 
 function getMultiPolygons(filter: MultiPolygonsFilter): MultiPolygon[] {
-  return svgMapViewerConfig.mapData.multipolygons.features
+  return cfg.mapData.multipolygons.features
     .filter(filter)
     .map((f) => f.geometry.coordinates) as unknown as MultiPolygon[]
 }

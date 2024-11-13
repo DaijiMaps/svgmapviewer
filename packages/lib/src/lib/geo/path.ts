@@ -1,4 +1,4 @@
-import { svgMapViewerConfig } from '../config'
+import { svgMapViewerConfig as cfg } from '../config'
 import { V, vUnvec, vVec } from '../tuple'
 
 export type Point = V
@@ -34,8 +34,7 @@ export function multiPolygonToPath(vsss: Readonly<MultiPolygon>): string {
   )
 }
 
-const vFromGeo = (p: V): V =>
-  vUnvec(svgMapViewerConfig.mapCoord.fromGeo(vVec(p)))
+const vFromGeo = (p: V): V => vUnvec(cfg.mapCoord.fromGeo(vVec(p)))
 
 function a(vs: Readonly<V[]>): string {
   return `M${s(vs[0])}` + vs.slice(1, -1).map((a: V) => `L${s(a)}`) + 'Z'

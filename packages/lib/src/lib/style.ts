@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { svgMapViewerConfig } from './config'
+import { svgMapViewerConfig as cfg } from './config'
 import { Matrix } from './matrix'
 import { matrixEmpty, matrixToString } from './matrix/prefixed'
 import { PointerRef, PointerState } from './pointer-xstate'
@@ -86,7 +86,7 @@ export const css = (q: Matrix) => {
   return `
 .content {
   will-change: transform;
-  animation: xxx ${svgMapViewerConfig.animationDuration}ms ease;
+  animation: xxx ${cfg.animationDuration}ms ease;
 }
 .content > .poi {
 /*

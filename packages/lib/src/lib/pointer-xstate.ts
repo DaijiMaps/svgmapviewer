@@ -500,6 +500,7 @@ export const pointerMachine = setup({
             LAYOUT: {
               actions: assign({
                 layout: ({ event }) => event.layout,
+                cursor: ({ event }) => boxCenter(event.layout.container),
               }),
             },
             'LAYOUT.RESET': {
@@ -1329,6 +1330,7 @@ export const pointerMachine = setup({
             LAYOUT: {
               actions: assign({
                 layout: ({ event }) => event.layout,
+                cursor: ({ event }) => boxCenter(event.layout.container),
               }),
               target: 'Stopping',
             },

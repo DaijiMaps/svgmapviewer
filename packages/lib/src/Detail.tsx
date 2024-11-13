@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { Balloon, BalloonStyle } from './Balloon'
 import './Detail.css'
-import { svgMapViewerConfig } from './lib/config'
+import { svgMapViewerConfig as cfg } from './lib/config'
 import { PointerRef } from './lib/pointer-xstate'
 import { UiRef, selectDetail } from './lib/ui-xstate'
 
@@ -24,10 +24,10 @@ export function Detail(props: Readonly<DetailProps>) {
           props._uiRef.send({ type: 'DETAIL.ANIMATION.END' })
         }
       >
-        {svgMapViewerConfig.renderInfo &&
+        {cfg.renderInfo &&
           detail &&
           detail.info &&
-          svgMapViewerConfig.renderInfo({ info: detail.info })}
+          cfg.renderInfo({ info: detail.info })}
       </div>
     </div>
   )

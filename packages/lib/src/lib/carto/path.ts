@@ -1,4 +1,4 @@
-import { svgMapViewerConfig } from '../config'
+import { svgMapViewerConfig as cfg } from '../config'
 import {
   Line,
   LineFeature,
@@ -11,7 +11,7 @@ import {
 } from '../geo'
 
 export function renderAreasPath(): string {
-  const xs: MultiPolygon[] = svgMapViewerConfig.mapData.areas.features.map(
+  const xs: MultiPolygon[] = cfg.mapData.areas.features.map(
     (f) => f.geometry.coordinates
   ) as unknown as MultiPolygon[]
 
@@ -21,7 +21,7 @@ export function renderAreasPath(): string {
 export function renderLinePath(
   filter: (f: Readonly<LineFeature<OsmLineProperties>>) => boolean
 ): string {
-  const xs: Line[] = svgMapViewerConfig.mapData.lines.features
+  const xs: Line[] = cfg.mapData.lines.features
     .filter(filter)
     .map((f) => f.geometry.coordinates) as unknown as Line[]
 
@@ -31,7 +31,7 @@ export function renderLinePath(
 export function renderMultipolygonPath(
   filter: (f: Readonly<MultiPolygonFeature<OsmPolygonProperties>>) => boolean
 ): string {
-  const xs: MultiPolygon[] = svgMapViewerConfig.mapData.multipolygons.features
+  const xs: MultiPolygon[] = cfg.mapData.multipolygons.features
     .filter(filter)
     .map((f) => f.geometry.coordinates) as unknown as MultiPolygon[]
 

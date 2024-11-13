@@ -8,7 +8,7 @@ import {
   boxScaleAt,
   boxUnit,
 } from './box/prefixed'
-import { svgMapViewerConfig } from './config'
+import { svgMapViewerConfig as cfg } from './config'
 import {
   LayoutCoord,
   fromMatrixOuter,
@@ -164,10 +164,10 @@ export const scrollLayout = (layout: Layout, scroll: Box): Layout => {
 //// fromOuter
 
 export const toSvg = (p: Vec, layout?: Layout): Vec =>
-  transformPoint(toMatrixSvg(layout ?? svgMapViewerConfig.layout), p)
+  transformPoint(toMatrixSvg(layout ?? cfg.layout), p)
 export const fromSvg = (p: Vec, layout?: Layout): Vec =>
-  transformPoint(fromMatrixSvg(layout ?? svgMapViewerConfig.layout), p)
+  transformPoint(fromMatrixSvg(layout ?? cfg.layout), p)
 export const toOuter = (p: Vec, layout?: Layout): Vec =>
-  transformPoint(toMatrixOuter(layout ?? svgMapViewerConfig.layout), p)
+  transformPoint(toMatrixOuter(layout ?? cfg.layout), p)
 export const fromOuter = (p: Vec, layout?: Layout): Vec =>
-  transformPoint(fromMatrixOuter(layout ?? svgMapViewerConfig.layout), p)
+  transformPoint(fromMatrixOuter(layout ?? cfg.layout), p)

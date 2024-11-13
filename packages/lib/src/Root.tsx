@@ -27,7 +27,6 @@ export function root(config: Readonly<SvgMapViewerConfig>) {
     const c = e.children[0] // XXX must be .container
 
     if (c !== null && c.clientWidth === c.scrollWidth) {
-      console.log('xxx wheel xxx')
       ev.preventDefault()
     }
   }

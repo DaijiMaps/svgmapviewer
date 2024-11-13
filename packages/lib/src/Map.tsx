@@ -5,7 +5,7 @@ import { useCallback, useEffect } from 'react'
 import { assign, setup } from 'xstate'
 import './index.css'
 import { SvgMapViewerConfig } from './lib'
-import { svgMapViewerConfig } from './lib/config'
+import { svgMapViewerConfig as cfg } from './lib/config'
 import { Layout } from './lib/layout'
 
 export function RenderMap(props: Readonly<{ config: SvgMapViewerConfig }>) {
@@ -17,7 +17,7 @@ export function RenderMap(props: Readonly<{ config: SvgMapViewerConfig }>) {
 function useRenderMap() {
   const [state, send] = useMachine(renderMapMachine, {
     input: {
-      layout: svgMapViewerConfig.layout,
+      layout: cfg.layout,
     },
   })
 
@@ -34,11 +34,11 @@ function useRenderMap() {
   )
 
   useEffect(() => {
-    svgMapViewerConfig.zoomStartCbs.add(zoomStart)
-    svgMapViewerConfig.zoomEndCbs.add(zoomEnd)
+    cfg.zoomStartCbs.add(zoomStart)
+    cfg.zoomEndCbs.add(zoomEnd)
     return () => {
-      svgMapViewerConfig.zoomStartCbs.delete(zoomStart)
-      svgMapViewerConfig.zoomEndCbs.delete(zoomEnd)
+      cfg.zoomStartCbs.delete(zoomStart)
+      cfg.zoomEndCbs.delete(zoomEnd)
     }
   }, [zoomEnd, zoomStart])
 
