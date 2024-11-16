@@ -173,6 +173,7 @@ export const uiMachine = setup({
               entry: [
                 { type: 'close', params: { part: 'header' } },
                 { type: 'close', params: { part: 'footer' } },
+                { type: 'close', params: { part: 'right' } },
                 { type: 'open', params: { part: 'shadow' } },
                 { type: 'open', params: { part: 'balloon' } },
                 { type: 'open', params: { part: 'detail' } },
@@ -181,6 +182,7 @@ export const uiMachine = setup({
                 DONE: [
                   { guard: 'isHeaderVisible' },
                   { guard: 'isFooterVisible' },
+                  { guard: 'isRightVisible' },
                   { guard: not('isShadowVisible') },
                   { guard: not('isBalloonVisible') },
                   { guard: not('isDetailVisible') },
@@ -200,6 +202,7 @@ export const uiMachine = setup({
                 'startCancel',
                 { type: 'open', params: { part: 'header' } },
                 { type: 'open', params: { part: 'footer' } },
+                { type: 'open', params: { part: 'right' } },
                 { type: 'close', params: { part: 'shadow' } },
                 { type: 'close', params: { part: 'balloon' } },
                 { type: 'close', params: { part: 'detail' } },
@@ -209,6 +212,7 @@ export const uiMachine = setup({
                 DONE: [
                   { guard: not('isHeaderVisible') },
                   { guard: not('isFooterVisible') },
+                  { guard: not('isRightVisible') },
                   { guard: 'isShadowVisible' },
                   { guard: 'isBalloonVisible' },
                   { guard: 'isDetailVisible' },
