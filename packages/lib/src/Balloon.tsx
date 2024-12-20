@@ -139,7 +139,7 @@ export function BalloonStyle(
     !openCloseIsVisible(detail) ||
     content === null
   ) {
-    return <></>
+    return <style>{`.detail { display: none; }`}</style>
   } else {
     return <style>{balloonStyle(balloon, content.p, content.dir)}</style>
   }
