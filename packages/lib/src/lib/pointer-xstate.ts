@@ -224,21 +224,21 @@ export const pointerMachine = setup({
       stateIn({ Panner: 'Idle' }),
     ]),
     dragging: and([
-      stateIn({ Pointer: 'Dragging' }),
+      stateIn({ Pointer: 'Touching.Dragging' }),
       stateIn({ Dragger: 'Sliding' }),
       stateIn({ Slider: { PointerHandler: 'Inactive' } }),
       stateIn({ Animator: 'Idle' }),
       stateIn({ Panner: 'Idle' }),
     ]),
     sliding: and([
-      stateIn({ Pointer: 'Dragging' }),
+      stateIn({ Pointer: 'Touching.Dragging' }),
       stateIn({ Dragger: 'Sliding' }),
       stateIn({ Slider: { PointerHandler: 'Active' } }),
       stateIn({ Animator: 'Idle' }),
       stateIn({ Panner: 'Idle' }),
     ]),
     slidingDragBusy: and([
-      stateIn({ Pointer: 'Dragging' }),
+      stateIn({ Pointer: 'Touching.Dragging' }),
       stateIn({ Dragger: 'Sliding' }),
       stateIn({ Slider: { PointerHandler: 'Active' } }),
       stateIn({ Slider: { ScrollHandler: 'Busy' } }),
@@ -630,7 +630,7 @@ export const pointerMachine = setup({
             },
             DRAG: {
               guard: 'idle',
-              target: 'Dragging',
+              target: 'Touching.Dragging',
             },
             TOUCH: [
               {
@@ -686,30 +686,30 @@ export const pointerMachine = setup({
             },
           },
         },
-        Dragging: {
-          on: {
-            TOUCH: { target: 'Touching' },
-            'DRAG.DONE': { target: 'ExitingDragging' },
-          },
-        },
-        ExitingDragging: {
-          on: {
-            CLICK: { target: 'Idle' },
-            'TOUCH.END': { target: 'Idle' },
-          },
-        },
         Touching: {
-          initial: 'WaitForDragDone',
+          initial: 'WaitingForDragDone',
           onDone: 'Idle',
           states: {
-            WaitForDragDone: {
+            Dragging: {
+              on: {
+                TOUCH: { target: 'WaitingForDragDone' },
+                'DRAG.DONE': { target: 'ExitingDragging' },
+              },
+            },
+            ExitingDragging: {
+              on: {
+                CLICK: { target: 'Done' },
+                'TOUCH.END': { target: 'Done' },
+              },
+            },
+            WaitingForDragDone: {
               on: {
                 'DRAG.DONE': {
-                  target: 'WaitForUnexpandDone',
+                  target: 'WaitingForUnexpandDone',
                 },
               },
             },
-            WaitForUnexpandDone: {
+            WaitingForUnexpandDone: {
               on: {
                 'UNEXPAND.DONE': [
                   {
