@@ -228,7 +228,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
     pointereventmask = mode !== 'pointing'
     toucheventmask = mode !== 'pointing'
     // - xstate-pointer receives 'click' to cancel 'panning'
-    // - xstate-pointer ignores 'click' to pass throughh (emulated)
+    // - xstate-pointer ignores 'click' to pass through (emulated)
     //  'click' to shadow; shadow receives 'click' to cancel 'locked'
     clickeventmask = mode === 'locked'
     wheeleventmask = mode !== 'pointing'
