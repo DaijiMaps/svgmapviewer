@@ -67,7 +67,7 @@ export type PointerContext = {
   animation: null | Animation
   debug: boolean
   mode: PointerMode
-  panEntryLock: boolean
+  clickLock: boolean
 }
 
 type PointerExternalEvent =
@@ -215,7 +215,7 @@ export const pointerMachine = setup({
       animation !== null && animation.zoom !== null,
     isZoomingIn: ({ context: { z } }) => z !== null && z > 0,
     isAnimating: ({ context: { animation } }) => animation !== null,
-    isPanEntryLocked: ({ context: { panEntryLock } }) => panEntryLock,
+    isClickLocked: ({ context: { clickLock } }) => clickLock,
     idle: and([
       stateIn({ Pointer: 'Idle' }),
       stateIn({ Dragger: 'Inactive' }),
@@ -457,8 +457,8 @@ export const pointerMachine = setup({
       cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
     }),
     setModeToLocked: assign({ mode: 'locked' }),
-    lockPanEntry: assign({ panEntryLock: true }),
-    unlockPanEntry: assign({ panEntryLock: false }),
+    lockClick: assign({ clickLock: true }),
+    unlockClick: assign({ clickLock: false }),
   },
   actors: {
     scroll: scrollMachine,
@@ -479,7 +479,7 @@ export const pointerMachine = setup({
     animation: null,
     debug: false,
     mode: 'pointing',
-    panEntryLock: false,
+    clickLock: false,
   }),
   invoke: [
     {
@@ -592,7 +592,7 @@ export const pointerMachine = setup({
               },
             ],
             CLICK: {
-              guard: not('isPanEntryLocked'),
+              guard: not('isClickLocked'),
               actions: [
                 'resetTouches',
                 {
@@ -608,7 +608,7 @@ export const pointerMachine = setup({
               target: 'Idle',
             },
             CONTEXTMENU: {
-              guard: not('isPanEntryLocked'),
+              guard: not('isClickLocked'),
               target: 'Touching.Panning',
             },
             WHEEL: {
@@ -1291,7 +1291,7 @@ export const pointerMachine = setup({
           after: {
             250: {
               // XXX cancel this when updating/zooming?
-              actions: 'unlockPanEntry',
+              actions: 'unlockClick',
             },
           },
           on: {
@@ -1320,10 +1320,10 @@ export const pointerMachine = setup({
         // work-around - ignore click right after touchend
         // otherwise PAN mode is exited immediately
         Panning: {
-          entry: 'lockPanEntry',
+          entry: 'lockClick',
           after: {
             250: {
-              actions: 'unlockPanEntry',
+              actions: 'unlockClick',
             },
           },
           on: {
@@ -1351,19 +1351,19 @@ export const pointerMachine = setup({
               },
             ],
             CLICK: {
-              guard: not('isPanEntryLocked'),
+              guard: not('isClickLocked'),
               target: 'Stopping',
             },
             CONTEXTMENU: {
-              guard: not('isPanEntryLocked'),
+              guard: not('isClickLocked'),
               target: 'Stopping',
             },
             MODE: {
-              guard: not('isPanEntryLocked'),
+              guard: not('isClickLocked'),
               target: 'Stopping',
             },
             SCROLL: {
-              guard: not('isPanEntryLocked'),
+              guard: not('isClickLocked'),
               target: 'Updating',
             },
             'ZOOM.ZOOM': {
@@ -1383,7 +1383,7 @@ export const pointerMachine = setup({
           always: 'Stopping',
         },
         Stopping: {
-          entry: ['lockPanEntry', 'resetMode', 'getScroll'],
+          entry: ['lockClick', 'resetMode', 'getScroll'],
           on: {
             'SCROLL.GET.DONE': {
               actions: [
