@@ -689,7 +689,13 @@ export const pointerMachine = setup({
         Dragging: {
           on: {
             TOUCH: { target: 'Touching' },
-            'DRAG.DONE': { target: 'Idle' },
+            'DRAG.DONE': { target: 'ExitingDragging' },
+          },
+        },
+        ExitingDragging: {
+          on: {
+            CLICK: { target: 'Idle' },
+            'TOUCH.END': { target: 'Idle' },
           },
         },
         Touching: {
