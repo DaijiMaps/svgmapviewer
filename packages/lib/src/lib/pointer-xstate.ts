@@ -735,10 +735,10 @@ export const pointerMachine = setup({
         },
         Panning: {
           id: 'pointer-panning',
-          initial: 'Panning',
+          initial: 'Active',
           onDone: 'Idle',
           states: {
-            Panning: {
+            Active: {
               entry: raise({ type: 'PAN' }),
               on: {
                 'PAN.UPDATE': {
@@ -755,7 +755,7 @@ export const pointerMachine = setup({
             Updating: {
               on: {
                 'PAN.DONE': {
-                  target: 'Panning',
+                  target: 'Active',
                 },
               },
             },
@@ -763,7 +763,7 @@ export const pointerMachine = setup({
               entry: raise({ type: 'PAN.ZOOM.ZOOM' }, { delay: 1 }),
               on: {
                 'PAN.ZOOM.ZOOM.DONE': {
-                  target: 'Panning',
+                  target: 'Active',
                 },
               },
             },
