@@ -510,7 +510,7 @@ export const pointerMachine = setup({
             },
             MODE: [
               {
-                target: 'Dragging.Panning',
+                target: 'Panning',
               },
             ],
             'ZOOM.ZOOM': {
@@ -558,7 +558,7 @@ export const pointerMachine = setup({
                   type: 'shouldPan',
                   params: ({ event }) => ({ ev: event.ev }),
                 },
-                target: 'Dragging.Panning',
+                target: 'Panning',
               },
               {
                 guard: not('idle'),
@@ -609,7 +609,7 @@ export const pointerMachine = setup({
             },
             CONTEXTMENU: {
               guard: not('isClickLocked'),
-              target: 'Dragging.Panning',
+              target: 'Panning',
             },
             WHEEL: {
               guard: 'idle',
@@ -638,10 +638,10 @@ export const pointerMachine = setup({
               },
               {
                 guard: 'isTouchHorizontal',
-                target: 'Dragging.Panning',
+                target: 'Panning',
               },
               {
-                target: 'Dragging.Touching',
+                target: 'Touching',
               },
             ],
             'SEARCH.LOCK': [
@@ -714,54 +714,56 @@ export const pointerMachine = setup({
                 'UNEXPAND.DONE': [
                   {
                     guard: 'isTouchHorizontal',
-                    target: 'Panning',
+                    target: '#pointer-panning',
                   },
                   {
-                    target: 'Touching',
+                    target: '#pointer-touching',
                   },
                 ],
               },
             },
-            Touching: {
+            Done: {
+              type: 'final',
+            },
+          },
+        },
+        Touching: {
+          id: 'pointer-touching',
+          on: {
+            'TOUCH.DONE': { target: 'Idle' },
+          },
+        },
+        Panning: {
+          id: 'pointer-panning',
+          initial: 'Panning',
+          onDone: 'Idle',
+          states: {
+            Panning: {
+              entry: raise({ type: 'PAN' }),
               on: {
-                'TOUCH.DONE': { target: 'Done' },
+                'PAN.UPDATE': {
+                  target: 'Updating',
+                },
+                'PAN.ZOOM': {
+                  target: 'Zooming',
+                },
+                'PAN.DONE': {
+                  target: 'Done',
+                },
               },
             },
-            Panning: {
-              initial: 'Panning',
-              onDone: 'Done',
-              states: {
-                Panning: {
-                  entry: raise({ type: 'PAN' }),
-                  on: {
-                    'PAN.UPDATE': {
-                      target: 'Updating',
-                    },
-                    'PAN.ZOOM': {
-                      target: 'Zooming',
-                    },
-                    'PAN.DONE': {
-                      target: 'Done',
-                    },
-                  },
+            Updating: {
+              on: {
+                'PAN.DONE': {
+                  target: 'Panning',
                 },
-                Updating: {
-                  on: {
-                    'PAN.DONE': {
-                      target: 'Panning',
-                    },
-                  },
-                },
-                Zooming: {
-                  entry: raise({ type: 'PAN.ZOOM.ZOOM' }, { delay: 1 }),
-                  on: {
-                    'PAN.ZOOM.ZOOM.DONE': {
-                      target: 'Panning',
-                    },
-                  },
-                },
-                Done: {
-                  type: 'final',
+              },
+            },
+            Zooming: {
+              entry: raise({ type: 'PAN.ZOOM.ZOOM' }, { delay: 1 }),
+              on: {
+                'PAN.ZOOM.ZOOM.DONE': {
+                  target: 'Panning',
                 },
               },
             },
