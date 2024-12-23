@@ -224,21 +224,21 @@ export const pointerMachine = setup({
       stateIn({ Panner: 'Idle' }),
     ]),
     dragging: and([
-      stateIn({ Pointer: 'Dragging.Dragging' }),
+      stateIn({ Pointer: 'Dragging.Active' }),
       stateIn({ Dragger: 'Sliding' }),
       stateIn({ Slider: { PointerHandler: 'Inactive' } }),
       stateIn({ Animator: 'Idle' }),
       stateIn({ Panner: 'Idle' }),
     ]),
     sliding: and([
-      stateIn({ Pointer: 'Dragging.Dragging' }),
+      stateIn({ Pointer: 'Dragging.Active' }),
       stateIn({ Dragger: 'Sliding' }),
       stateIn({ Slider: { PointerHandler: 'Active' } }),
       stateIn({ Animator: 'Idle' }),
       stateIn({ Panner: 'Idle' }),
     ]),
     slidingDragBusy: and([
-      stateIn({ Pointer: 'Dragging.Dragging' }),
+      stateIn({ Pointer: 'Dragging.Active' }),
       stateIn({ Dragger: 'Sliding' }),
       stateIn({ Slider: { PointerHandler: 'Active' } }),
       stateIn({ Slider: { ScrollHandler: 'Busy' } }),
@@ -630,7 +630,7 @@ export const pointerMachine = setup({
             },
             DRAG: {
               guard: 'idle',
-              target: 'Dragging.Dragging',
+              target: 'Dragging.Active',
             },
             TOUCH: [
               {
@@ -687,16 +687,16 @@ export const pointerMachine = setup({
           },
         },
         Dragging: {
-          initial: 'Dragging',
+          initial: 'Active',
           onDone: 'Idle',
           states: {
-            Dragging: {
+            Active: {
               on: {
                 TOUCH: { target: 'WaitingForDragDone' },
-                'DRAG.DONE': { target: 'ExitingDragging' },
+                'DRAG.DONE': { target: 'Exiting' },
               },
             },
-            ExitingDragging: {
+            Exiting: {
               on: {
                 CLICK: { target: 'Done' },
                 'TOUCH.END': { target: 'Done' },

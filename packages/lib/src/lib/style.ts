@@ -32,7 +32,7 @@ export function modeStyle(pointer: Readonly<PointerState>) {
 }
 
 export function dragStyle(pointer: Readonly<PointerState>) {
-  if (!pointer.matches({ Pointer: { Dragging: 'Dragging' } })) {
+  if (!pointer.matches({ Pointer: { Dragging: 'Active' } })) {
     return ''
   }
 
