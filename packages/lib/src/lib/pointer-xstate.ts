@@ -245,14 +245,14 @@ export const pointerMachine = setup({
       stateIn({ Panner: 'Idle' }),
     ]),
     touching: and([
-      stateIn({ Pointer: { Dragging: 'Touching' } }),
+      stateIn({ Pointer: 'Touching' }),
       stateIn({ Dragger: 'Inactive' }),
       stateIn({ Slider: { PointerHandler: 'Inactive' } }),
       stateIn({ Animator: 'Idle' }),
       stateIn({ Panner: 'Idle' }),
     ]),
     panning: and([
-      stateIn({ Pointer: { Dragging: 'Panning' } }),
+      stateIn({ Pointer: 'Panning' }),
       stateIn({ Dragger: 'Inactive' }),
       stateIn({ Slider: { PointerHandler: 'Inactive' } }),
       stateIn({ Animator: 'Idle' }),
@@ -682,48 +682,48 @@ export const pointerMachine = setup({
                 ],
               },
             },
-            Touching: {
-              id: 'pointer-touching',
+            Done: {
+              type: 'final',
+            },
+          },
+        },
+        Touching: {
+          id: 'pointer-touching',
+          on: {
+            'TOUCH.DONE': { target: 'Idle' },
+          },
+        },
+        Panning: {
+          id: 'pointer-panning',
+          initial: 'Active',
+          onDone: 'Idle',
+          states: {
+            Active: {
+              entry: raise({ type: 'PAN' }),
               on: {
-                'TOUCH.DONE': { target: 'Done' },
+                'PAN.UPDATE': {
+                  target: 'Updating',
+                },
+                'PAN.ZOOM': {
+                  target: 'Zooming',
+                },
+                'PAN.DONE': {
+                  target: 'Done',
+                },
               },
             },
-            Panning: {
-              id: 'pointer-panning',
-              initial: 'Active',
-              onDone: 'Done',
-              states: {
-                Active: {
-                  entry: raise({ type: 'PAN' }),
-                  on: {
-                    'PAN.UPDATE': {
-                      target: 'Updating',
-                    },
-                    'PAN.ZOOM': {
-                      target: 'Zooming',
-                    },
-                    'PAN.DONE': {
-                      target: 'Done',
-                    },
-                  },
+            Updating: {
+              on: {
+                'PAN.DONE': {
+                  target: 'Active',
                 },
-                Updating: {
-                  on: {
-                    'PAN.DONE': {
-                      target: 'Active',
-                    },
-                  },
-                },
-                Zooming: {
-                  entry: raise({ type: 'PAN.ZOOM.ZOOM' }, { delay: 1 }),
-                  on: {
-                    'PAN.ZOOM.ZOOM.DONE': {
-                      target: 'Active',
-                    },
-                  },
-                },
-                Done: {
-                  type: 'final',
+              },
+            },
+            Zooming: {
+              entry: raise({ type: 'PAN.ZOOM.ZOOM' }, { delay: 1 }),
+              on: {
+                'PAN.ZOOM.ZOOM.DONE': {
+                  target: 'Active',
                 },
               },
             },
