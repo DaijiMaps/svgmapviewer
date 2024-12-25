@@ -509,7 +509,7 @@ export const pointerMachine = setup({
             },
             MODE: [
               {
-                target: 'Dragging.Panning',
+                target: '#pointer-panning',
               },
             ],
             'ZOOM.ZOOM': {
@@ -550,7 +550,7 @@ export const pointerMachine = setup({
                   type: 'shouldPan',
                   params: ({ event }) => ({ ev: event.ev }),
                 },
-                target: 'Dragging.Panning',
+                target: '#pointer-panning',
               },
               {
                 guard: not('idle'),
@@ -601,7 +601,7 @@ export const pointerMachine = setup({
             },
             CONTEXTMENU: {
               guard: not('isClickLocked'),
-              target: 'Dragging.Panning',
+              target: '#pointer-panning',
             },
             WHEEL: {
               guard: 'idle',
@@ -630,10 +630,10 @@ export const pointerMachine = setup({
               },
               {
                 guard: 'isTouchHorizontal',
-                target: 'Dragging.Panning',
+                target: '#pointer-panning',
               },
               {
-                target: 'Dragging.Touching',
+                target: '#pointer-touching',
               },
             ],
             'SEARCH.LOCK': [
@@ -674,20 +674,22 @@ export const pointerMachine = setup({
                 'UNEXPAND.DONE': [
                   {
                     guard: 'isTouchHorizontal',
-                    target: 'Panning',
+                    target: '#pointer-panning',
                   },
                   {
-                    target: 'Touching',
+                    target: '#pointer-touching',
                   },
                 ],
               },
             },
             Touching: {
+              id: 'pointer-touching',
               on: {
                 'TOUCH.DONE': { target: 'Done' },
               },
             },
             Panning: {
+              id: 'pointer-panning',
               initial: 'Active',
               onDone: 'Done',
               states: {
