@@ -199,7 +199,6 @@ export const pointerMachine = setup({
     shouldDebug: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'd',
     shouldReset: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'r',
     shouldZoom: (_, { ev }: { ev: KeyboardEvent }) => keyToZoom(ev.key) !== 0,
-    shouldExpand: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'e',
     shouldMove: (_, { ev }: { ev: KeyboardEvent }) =>
       'hjkl'.indexOf(ev.key) >= 0,
     shouldPan: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'm',
@@ -548,13 +547,6 @@ export const pointerMachine = setup({
               },
               {
                 guard: {
-                  type: 'shouldExpand',
-                  params: ({ event }) => ({ ev: event.ev }),
-                },
-                target: 'Expanding',
-              },
-              {
-                guard: {
                   type: 'shouldPan',
                   params: ({ event }) => ({ ev: event.ev }),
                 },
@@ -652,38 +644,6 @@ export const pointerMachine = setup({
                 target: 'Locked',
               },
             ],
-          },
-        },
-        Expanding: {
-          initial: 'Checking',
-          onDone: 'Idle',
-          states: {
-            Checking: {
-              always: [
-                {
-                  guard: not('isExpanded'),
-                  actions: raise({ type: 'EXPAND' }),
-                  target: 'Expanding',
-                },
-                {
-                  actions: raise({ type: 'UNEXPAND' }),
-                  target: 'Expanding',
-                },
-              ],
-            },
-            Expanding: {
-              on: {
-                'EXPAND.DONE': {
-                  target: 'Done',
-                },
-                'UNEXPAND.DONE': {
-                  target: 'Done',
-                },
-              },
-            },
-            Done: {
-              type: 'final',
-            },
           },
         },
         Dragging: {
