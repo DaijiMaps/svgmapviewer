@@ -73,7 +73,9 @@ export function RenderMarkers(
       strokeWidth={r / 20}
       d={props.vs
         .map(
-          ([x, y]) => `M ${x},${y} l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 z`
+          ([x, y]) =>
+            `M ${x},${y}`.replaceAll(/([.]\d\d)\d*/g, '$1') +
+            `l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 z`
         )
         .join('')}
     />

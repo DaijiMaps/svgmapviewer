@@ -73,7 +73,12 @@ export function RenderObjects(
       fill="none"
       stroke="black"
       strokeWidth={props.width}
-      d={props.vs.map(([x, y]) => `M ${x},${y}` + props.path).join('')}
+      d={props.vs
+        .map(
+          ([x, y]) =>
+            `M ${x},${y}`.replaceAll(/([.]\d\d)\d*/g, '$1') + props.path
+        )
+        .join('')}
     />
   )
 }
