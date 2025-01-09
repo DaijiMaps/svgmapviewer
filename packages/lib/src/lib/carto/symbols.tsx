@@ -75,7 +75,10 @@ export function RenderUses(
           key={j}
           className={props.name}
           href={props.href}
-          transform={`translate(${x}, ${y}) scale(${props.sz / 72})`}
+          transform={`translate(${x}, ${y}) scale(${props.sz / 72})`.replaceAll(
+            /([.]\d\d)\d*/g,
+            '$1'
+          )}
         />
       ))}
     </>
