@@ -74,10 +74,10 @@ export function RenderMarkers(
       d={props.vs
         .map(
           ([x, y]) =>
-            `M ${x},${y}`.replaceAll(/([.]\d\d)\d*/g, '$1') +
-            `l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 z`
+            `M ${x},${y}` + `l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 z`
         )
-        .join('')}
+        .join('')
+        .replaceAll(/([.]\d\d)\d*/g, '$1')}
     />
   )
 }
