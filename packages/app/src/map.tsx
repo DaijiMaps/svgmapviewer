@@ -18,7 +18,7 @@ import { MultiPolygon, PointGeoJSON } from '@daijimaps/svgmapviewer/geo'
 import { V } from '@daijimaps/svgmapviewer/tuple'
 import internals from './data/internals.json'
 import { conv, trees } from './map-data'
-import './map.css'
+import './Map.css'
 
 export const getMapLayers: () => MapLayer[] = () => [
   {
