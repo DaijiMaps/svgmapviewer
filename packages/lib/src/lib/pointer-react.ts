@@ -7,7 +7,7 @@ import {
   PointerRef,
   PointerSend,
   PointerState,
-  ReactPointerEvent,
+  ReactUIEvent,
   selectLayout,
   selectMode,
 } from './pointer-xstate'
@@ -49,7 +49,7 @@ function usePointerEvent(
 ) {
   const send = useCallback(
     (
-      event: ReactPointerEvent,
+      event: ReactUIEvent,
       options?: {
         preventDefault?: boolean
         stopPropagation?: boolean

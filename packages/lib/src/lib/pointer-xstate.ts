@@ -140,39 +140,39 @@ export type PointerDOMEvent =
   | TouchEvent
   | KeyboardEvent
 
-type PointerEventClick = { type: 'CLICK'; ev: MouseEvent }
-type PointerEventContextMenu = { type: 'CONTEXTMENU'; ev: MouseEvent }
-type PointerEventWheel = { type: 'WHEEL'; ev: WheelEvent }
-type PointerEventKeyDown = { type: 'KEY.DOWN'; ev: KeyboardEvent }
-type PointerEventKeyUp = { type: 'KEY.UP'; ev: KeyboardEvent }
-type PointerEventPointerDown = { type: 'POINTER.DOWN'; ev: PointerEvent }
-type PointerEventPointerMove = { type: 'POINTER.MOVE'; ev: PointerEvent }
-type PointerEventPointerUp = { type: 'POINTER.UP'; ev: PointerEvent }
-type PointerEventPointerCancel = { type: 'POINTER.CANCEL'; ev: PointerEvent }
-type PointerEventTouchStart = { type: 'TOUCH.START'; ev: TouchEvent }
-type PointerEventTouchMove = { type: 'TOUCH.MOVE'; ev: TouchEvent }
-type PointerEventTouchEnd = { type: 'TOUCH.END'; ev: TouchEvent }
-type PointerEventTouchCancel = { type: 'TOUCH.CANCEL'; ev: TouchEvent }
-type PointerEventScroll = { type: 'SCROLL'; ev: Event }
+type UIEventClick = { type: 'CLICK'; ev: MouseEvent }
+type UIEventContextMenu = { type: 'CONTEXTMENU'; ev: MouseEvent }
+type UIEventWheel = { type: 'WHEEL'; ev: WheelEvent }
+type UIEventKeyDown = { type: 'KEY.DOWN'; ev: KeyboardEvent }
+type UIEventKeyUp = { type: 'KEY.UP'; ev: KeyboardEvent }
+type UIEventPointerDown = { type: 'POINTER.DOWN'; ev: PointerEvent }
+type UIEventPointerMove = { type: 'POINTER.MOVE'; ev: PointerEvent }
+type UIEventPointerUp = { type: 'POINTER.UP'; ev: PointerEvent }
+type UIEventPointerCancel = { type: 'POINTER.CANCEL'; ev: PointerEvent }
+type UIEventTouchStart = { type: 'TOUCH.START'; ev: TouchEvent }
+type UIEventTouchMove = { type: 'TOUCH.MOVE'; ev: TouchEvent }
+type UIEventTouchEnd = { type: 'TOUCH.END'; ev: TouchEvent }
+type UIEventTouchCancel = { type: 'TOUCH.CANCEL'; ev: TouchEvent }
+type UIEventScroll = { type: 'SCROLL'; ev: Event }
 
-export type ReactPointerEvent =
-  | PointerEventClick
-  | PointerEventContextMenu
-  | PointerEventWheel
-  | PointerEventPointerDown
-  | PointerEventPointerMove
-  | PointerEventPointerUp
-  | PointerEventPointerCancel
-  | PointerEventTouchStart
-  | PointerEventTouchMove
-  | PointerEventTouchEnd
-  | PointerEventTouchCancel
-  | PointerEventScroll
+export type ReactUIEvent =
+  | UIEventClick
+  | UIEventContextMenu
+  | UIEventWheel
+  | UIEventPointerDown
+  | UIEventPointerMove
+  | UIEventPointerUp
+  | UIEventPointerCancel
+  | UIEventTouchStart
+  | UIEventTouchMove
+  | UIEventTouchEnd
+  | UIEventTouchCancel
+  | UIEventScroll
 
 export type PointerPointerEvent =
-  | ReactPointerEvent
-  | PointerEventKeyDown
-  | PointerEventKeyUp
+  | ReactUIEvent
+  | UIEventKeyDown
+  | UIEventKeyUp
 
 export type _PointerEvent =
   | PointerExternalEvent
