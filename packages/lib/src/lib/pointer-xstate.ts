@@ -133,51 +133,41 @@ type PointerInternalEvent =
   | PointerEventSearch
   | PointerEventLock
 
-export type PointerDOMEvent =
-  | MouseEvent
-  | WheelEvent
-  | PointerEvent
-  | TouchEvent
-  | KeyboardEvent
-
 type UIEventClick = { type: 'CLICK'; ev: MouseEvent }
 type UIEventContextMenu = { type: 'CONTEXTMENU'; ev: MouseEvent }
-type UIEventWheel = { type: 'WHEEL'; ev: WheelEvent }
 type UIEventKeyDown = { type: 'KEY.DOWN'; ev: KeyboardEvent }
 type UIEventKeyUp = { type: 'KEY.UP'; ev: KeyboardEvent }
+type UIEventPointerCancel = { type: 'POINTER.CANCEL'; ev: PointerEvent }
 type UIEventPointerDown = { type: 'POINTER.DOWN'; ev: PointerEvent }
 type UIEventPointerMove = { type: 'POINTER.MOVE'; ev: PointerEvent }
 type UIEventPointerUp = { type: 'POINTER.UP'; ev: PointerEvent }
-type UIEventPointerCancel = { type: 'POINTER.CANCEL'; ev: PointerEvent }
-type UIEventTouchStart = { type: 'TOUCH.START'; ev: TouchEvent }
-type UIEventTouchMove = { type: 'TOUCH.MOVE'; ev: TouchEvent }
-type UIEventTouchEnd = { type: 'TOUCH.END'; ev: TouchEvent }
-type UIEventTouchCancel = { type: 'TOUCH.CANCEL'; ev: TouchEvent }
 type UIEventScroll = { type: 'SCROLL'; ev: Event }
+type UIEventTouchCancel = { type: 'TOUCH.CANCEL'; ev: TouchEvent }
+type UIEventTouchEnd = { type: 'TOUCH.END'; ev: TouchEvent }
+type UIEventTouchMove = { type: 'TOUCH.MOVE'; ev: TouchEvent }
+type UIEventTouchStart = { type: 'TOUCH.START'; ev: TouchEvent }
+type UIEventWheel = { type: 'WHEEL'; ev: WheelEvent }
 
 export type ReactUIEvent =
   | UIEventClick
   | UIEventContextMenu
-  | UIEventWheel
+  | UIEventPointerCancel
   | UIEventPointerDown
   | UIEventPointerMove
   | UIEventPointerUp
-  | UIEventPointerCancel
-  | UIEventTouchStart
-  | UIEventTouchMove
-  | UIEventTouchEnd
-  | UIEventTouchCancel
   | UIEventScroll
+  | UIEventTouchCancel
+  | UIEventTouchEnd
+  | UIEventTouchMove
+  | UIEventTouchStart
+  | UIEventWheel
 
-export type PointerPointerEvent =
-  | ReactUIEvent
-  | UIEventKeyDown
-  | UIEventKeyUp
+export type UIEvent = ReactUIEvent | UIEventKeyDown | UIEventKeyUp
 
 export type _PointerEvent =
   | PointerExternalEvent
   | PointerInternalEvent
-  | PointerPointerEvent
+  | UIEvent
 
 export type PointerEmitted =
   | { type: 'SEARCH'; p: Vec; psvg: Vec }

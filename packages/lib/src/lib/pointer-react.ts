@@ -49,6 +49,7 @@ function usePointerEvent(
 ) {
   const send = useCallback(
     (
+      // excluding key down/up events
       event: ReactUIEvent,
       options?: {
         preventDefault?: boolean
