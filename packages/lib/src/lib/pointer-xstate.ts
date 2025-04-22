@@ -71,12 +71,12 @@ export type PointerContext = {
 }
 
 type PointerExternalEvent =
+  | { type: 'ANIMATION.END' }
+  | { type: 'DEBUG' }
   | { type: 'LAYOUT'; layout: Layout }
   | { type: 'LAYOUT.RESET' }
-  | { type: 'DEBUG' }
   | { type: 'MODE'; mode: PointerMode }
   | { type: 'RENDERED' }
-  | { type: 'ANIMATION.END' }
   | { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
   | { type: 'SCROLL.SLIDE.DONE' }
   | { type: 'ZOOM.ZOOM'; z: -1 | 1 }
@@ -214,21 +214,21 @@ export const pointerMachine = setup({
       stateIn({ Animator: 'Idle' }),
       stateIn({ Panner: 'Idle' }),
     ]),
-    dragging: and([
+    isDragging: and([
       stateIn({ Pointer: 'Dragging.Active' }),
       stateIn({ Dragger: 'Sliding' }),
       stateIn({ Slider: { PointerHandler: 'Inactive' } }),
       stateIn({ Animator: 'Idle' }),
       stateIn({ Panner: 'Idle' }),
     ]),
-    sliding: and([
+    isSliding: and([
       stateIn({ Pointer: 'Dragging.Active' }),
       stateIn({ Dragger: 'Sliding' }),
       stateIn({ Slider: { PointerHandler: 'Active' } }),
       stateIn({ Animator: 'Idle' }),
       stateIn({ Panner: 'Idle' }),
     ]),
-    slidingDragBusy: and([
+    isSlidingDragBusy: and([
       stateIn({ Pointer: 'Dragging.Active' }),
       stateIn({ Dragger: 'Sliding' }),
       stateIn({ Slider: { PointerHandler: 'Active' } }),
@@ -236,19 +236,12 @@ export const pointerMachine = setup({
       stateIn({ Animator: 'Idle' }),
       stateIn({ Panner: 'Idle' }),
     ]),
-    touching: and([
+    isTouching: and([
       stateIn({ Pointer: 'Touching' }),
       stateIn({ Dragger: 'Inactive' }),
       stateIn({ Slider: { PointerHandler: 'Inactive' } }),
       stateIn({ Animator: 'Idle' }),
       stateIn({ Panner: 'Idle' }),
-    ]),
-    panning: and([
-      stateIn({ Pointer: 'Panning' }),
-      stateIn({ Dragger: 'Inactive' }),
-      stateIn({ Slider: { PointerHandler: 'Inactive' } }),
-      stateIn({ Animator: 'Idle' }),
-      stateIn({ Panner: 'Panning' }),
     ]),
   },
   actions: {
@@ -767,7 +760,7 @@ export const pointerMachine = setup({
               entry: raise({ type: 'SLIDE.DONE' }),
               on: {
                 SLIDE: {
-                  guard: 'dragging',
+                  guard: 'isDragging',
                   target: 'Active',
                 },
               },
@@ -780,7 +773,7 @@ export const pointerMachine = setup({
                   // XXX (checking context.touches directly/synchronously)
                   // XXX in-state guard is too slow to block moves
                   {
-                    guard: and(['isMultiTouch', 'slidingDragBusy']),
+                    guard: and(['isMultiTouch', 'isSlidingDragBusy']),
                     target: 'Sliding',
                   },
                   {
@@ -788,7 +781,7 @@ export const pointerMachine = setup({
                     target: 'Done',
                   },
                   {
-                    guard: 'sliding',
+                    guard: 'isSliding',
                     actions: [
                       {
                         type: 'cursor',
@@ -804,13 +797,13 @@ export const pointerMachine = setup({
                   },
                 ],
                 'SLIDE.DRAG.DONE': {
-                  guard: not('slidingDragBusy'),
+                  guard: not('isSlidingDragBusy'),
                   actions: 'endMove',
                   target: 'Active',
                 },
                 'POINTER.UP': [
                   {
-                    guard: 'slidingDragBusy',
+                    guard: 'isSlidingDragBusy',
                     target: 'Sliding',
                   },
                   {
@@ -819,7 +812,7 @@ export const pointerMachine = setup({
                 ],
                 'DRAG.CANCEL': [
                   {
-                    guard: 'slidingDragBusy',
+                    guard: 'isSlidingDragBusy',
                     target: 'Sliding',
                   },
                   {
@@ -831,7 +824,7 @@ export const pointerMachine = setup({
             Sliding: {
               on: {
                 'SLIDE.DRAG.DONE': {
-                  guard: not('slidingDragBusy'),
+                  guard: not('isSlidingDragBusy'),
                   target: 'Done',
                 },
               },
@@ -1078,7 +1071,7 @@ export const pointerMachine = setup({
           on: {
             'TOUCH.MOVE.DONE': [
               {
-                guard: and(['touching', 'isTouchZooming']),
+                guard: and(['isTouching', 'isTouchZooming']),
                 actions: 'zoomTouches',
                 target: 'Zooming',
               },
