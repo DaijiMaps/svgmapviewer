@@ -162,7 +162,9 @@ export type ReactUIEvent =
   | UIEventTouchStart
   | UIEventWheel
 
-export type UIEvent = ReactUIEvent | UIEventKeyDown | UIEventKeyUp
+export type RawUIEvent = UIEventKeyDown | UIEventKeyUp
+
+export type UIEvent = RawUIEvent | ReactUIEvent
 
 export type _PointerEvent =
   | PointerExternalEvent
