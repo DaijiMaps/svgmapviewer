@@ -188,25 +188,37 @@ export const pointerMachine = setup({
     emitted: PointerEmitted
   },
   guards: {
+    // key
     shouldDebug: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'd',
     shouldReset: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'r',
     shouldZoom: (_, { ev }: { ev: KeyboardEvent }) => keyToZoom(ev.key) !== 0,
     shouldMove: (_, { ev }: { ev: KeyboardEvent }) =>
       'hjkl'.indexOf(ev.key) >= 0,
     shouldPan: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'm',
+
+    // touch
     isMultiTouch: ({ context: { touches } }) => isMultiTouch(touches),
     isMultiTouchEnding: ({ context: { touches } }) =>
       isMultiTouchEnding(touches),
-    isExpanded: ({ context }) => context.expand !== 1,
     isTouchZooming: ({ context }) => context.touches.z !== null,
     isTouchHorizontal: ({ context }) => context.touches.horizontal === true,
+
+    // expand
+    isExpanded: ({ context }) => context.expand !== 1,
+
+    // animation + zoom
+    isAnimating: ({ context: { animation } }) => animation !== null,
     isMoving: ({ context: { animation } }) =>
       animation !== null && animation.move !== null,
     isZooming: ({ context: { animation } }) =>
       animation !== null && animation.zoom !== null,
     isZoomingIn: ({ context: { z } }) => z !== null && z > 0,
-    isAnimating: ({ context: { animation } }) => animation !== null,
+    isZoomingOut: ({ context: { z } }) => z !== null && z < 0,
+
+    // click lock
     isClickLocked: ({ context: { clickLock } }) => clickLock,
+
+    // states
     isIdle: and([
       stateIn({ Pointer: 'Idle' }),
       stateIn({ Dragger: 'Inactive' }),
@@ -440,6 +452,8 @@ export const pointerMachine = setup({
       // XXX resetCursor
       cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
     }),
+
+    // click lock
     lockClick: assign({ clickLock: true }),
     unlockClick: assign({ clickLock: false }),
   },
@@ -1158,7 +1172,7 @@ export const pointerMachine = setup({
           on: {
             ZOOM: [
               {
-                guard: not('isZoomingIn'),
+                guard: 'isZoomingOut',
                 // XXX consider zoom factor
                 actions: raise({ type: 'EXPAND', n: 3 }),
                 target: 'Expanding',
