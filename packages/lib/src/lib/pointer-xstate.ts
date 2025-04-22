@@ -207,7 +207,7 @@ export const pointerMachine = setup({
     isZoomingIn: ({ context: { z } }) => z !== null && z > 0,
     isAnimating: ({ context: { animation } }) => animation !== null,
     isClickLocked: ({ context: { clickLock } }) => clickLock,
-    idle: and([
+    isIdle: and([
       stateIn({ Pointer: 'Idle' }),
       stateIn({ Dragger: 'Inactive' }),
       stateIn({ Slider: { PointerHandler: 'Inactive' } }),
@@ -488,7 +488,7 @@ export const pointerMachine = setup({
               }),
             },
             'LAYOUT.RESET': {
-              guard: 'idle',
+              guard: 'isIdle',
               actions: 'zoomHome',
               target: 'Homing',
             },
@@ -498,7 +498,7 @@ export const pointerMachine = setup({
               },
             ],
             'ZOOM.ZOOM': {
-              guard: 'idle',
+              guard: 'isIdle',
               actions: {
                 type: 'zoomEvent',
                 params: ({ event: { z } }) => ({ z }),
@@ -510,7 +510,7 @@ export const pointerMachine = setup({
             },
             'KEY.DOWN': [
               {
-                guard: not('idle'),
+                guard: not('isIdle'),
                 target: 'Idle',
               },
             ],
@@ -538,7 +538,7 @@ export const pointerMachine = setup({
                 target: '#pointer-panning',
               },
               {
-                guard: not('idle'),
+                guard: not('isIdle'),
                 target: 'Idle',
               },
               {
@@ -589,7 +589,7 @@ export const pointerMachine = setup({
               target: '#pointer-panning',
             },
             WHEEL: {
-              guard: 'idle',
+              guard: 'isIdle',
               actions: [
                 { type: 'cursor', params: ({ event }) => ({ ev: event.ev }) },
                 {
@@ -600,12 +600,12 @@ export const pointerMachine = setup({
               target: 'Zooming',
             },
             DRAG: {
-              guard: 'idle',
+              guard: 'isIdle',
               target: 'Dragging.Active',
             },
             TOUCH: [
               {
-                guard: not('idle'),
+                guard: not('isIdle'),
               },
               {
                 guard: 'isTouchHorizontal',
@@ -617,7 +617,7 @@ export const pointerMachine = setup({
             ],
             'SEARCH.LOCK': [
               {
-                guard: not('idle'),
+                guard: not('isIdle'),
               },
               {
                 target: 'Locked',
@@ -957,7 +957,7 @@ export const pointerMachine = setup({
         Inactive: {
           on: {
             'POINTER.DOWN': {
-              guard: 'idle',
+              guard: 'isIdle',
               actions: {
                 type: 'cursor',
                 params: ({ event }) => ({ ev: event.ev }),
@@ -1208,7 +1208,7 @@ export const pointerMachine = setup({
         Inactive: {
           on: {
             DRAG: {
-              guard: 'idle',
+              guard: 'isIdle',
               actions: raise({ type: 'EXPAND', n: 3 }),
               target: 'Expanding',
             },
@@ -1363,7 +1363,7 @@ export const pointerMachine = setup({
       on: {
         'SEARCH.LOCK': [
           {
-            guard: 'idle',
+            guard: 'isIdle',
             actions: [
               emit({ type: 'LOCK', ok: true }),
               assign({
