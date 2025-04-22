@@ -213,7 +213,6 @@ export const pointerMachine = setup({
     isZooming: ({ context: { animation } }) =>
       animation !== null && animation.zoom !== null,
     isZoomingIn: ({ context: { z } }) => z !== null && z > 0,
-    isZoomingOut: ({ context: { z } }) => z !== null && z < 0,
 
     // click lock
     isClickLocked: ({ context: { clickLock } }) => clickLock,
@@ -1172,7 +1171,7 @@ export const pointerMachine = setup({
           on: {
             ZOOM: [
               {
-                guard: 'isZoomingOut',
+                guard: not('isZoomingIn'),
                 // XXX consider zoom factor
                 actions: raise({ type: 'EXPAND', n: 3 }),
                 target: 'Expanding',
@@ -1407,7 +1406,7 @@ export type PointerSend = (events: _PointerEvent) => void
 
 export type PointerRef = ActorRefFrom<typeof pointerMachine>
 
-export type PointerMode = 'pointing' | 'panning'
+export type PointerMode = 'pointing' | 'panning' | 'locked'
 
 export const selectMode = (pointer: PointerState) => pointer.context.mode
 export const selectLayout = (pointer: PointerState) => pointer.context.layout
