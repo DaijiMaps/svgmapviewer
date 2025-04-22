@@ -606,12 +606,6 @@ export const pointerMachine = setup({
               ],
               target: 'Zooming',
             },
-            'POINTER.DOWN': {
-              actions: {
-                type: 'cursor',
-                params: ({ event }) => ({ ev: event.ev }),
-              },
-            },
             DRAG: {
               guard: 'idle',
               target: 'Dragging.Active',
@@ -971,6 +965,10 @@ export const pointerMachine = setup({
           on: {
             'POINTER.DOWN': {
               guard: 'idle',
+              actions: {
+                type: 'cursor',
+                params: ({ event }) => ({ ev: event.ev }),
+              },
               target: 'Active',
             },
           },
