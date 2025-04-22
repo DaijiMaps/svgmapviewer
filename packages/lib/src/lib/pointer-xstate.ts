@@ -440,7 +440,6 @@ export const pointerMachine = setup({
       // XXX resetCursor
       cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
     }),
-    setModeToLocked: assign({ mode: 'locked' }),
     lockClick: assign({ clickLock: true }),
     unlockClick: assign({ clickLock: false }),
   },
@@ -1394,7 +1393,7 @@ export type PointerSend = (events: _PointerEvent) => void
 
 export type PointerRef = ActorRefFrom<typeof pointerMachine>
 
-export type PointerMode = 'pointing' | 'panning' | 'locked'
+export type PointerMode = 'pointing' | 'panning'
 
 export const selectMode = (pointer: PointerState) => pointer.context.mode
 export const selectLayout = (pointer: PointerState) => pointer.context.layout
