@@ -100,12 +100,8 @@ type PointerEventSlide =
 type PointerEventExpand =
   | { type: 'EXPAND'; n?: number }
   | { type: 'EXPAND.DONE' }
-  | { type: 'EXPAND.EXPANDED' }
-  | { type: 'EXPAND.RENDERED' }
   | { type: 'UNEXPAND' }
   | { type: 'UNEXPAND.DONE' }
-  | { type: 'UNEXPAND.UNEXPANDED' }
-  | { type: 'UNEXPAND.RENDERED' }
 type PointerEventMoveZoomPan =
   | { type: 'MOVE' }
   | { type: 'MOVE.DONE' }
