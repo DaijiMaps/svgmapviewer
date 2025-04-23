@@ -8,7 +8,7 @@ export function RenderMapObjects(
   }>
 ) {
   return (
-    <g>
+    <g className="map-objects">
       {props.mapObjects.map((entry, i) => (
         <g key={i}>
           <RenderObjects

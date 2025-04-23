@@ -12,7 +12,7 @@ export function RenderMapMarkers(props: Readonly<RenderMapMarkersProps>) {
   const sz = svgScale.s * config.fontSize * 0.9
 
   return (
-    <g>
+    <g className="map-markers">
       {props.mapMarkers.map((entry, i) => (
         <g key={i}>
           <RenderMarkers sz={sz} name={entry.name} vs={entryToVs(entry)} />
@@ -65,19 +65,21 @@ export function RenderMarkers(
   const h = (props.sz * 1.5) / 2
   const r = Math.sqrt(2) * h
   return (
-    <path
-      className={props.name}
-      fill="white"
-      fillOpacity="1"
-      stroke="gray"
-      strokeWidth={r / 20}
-      d={props.vs
-        .map(
-          ([x, y]) =>
-            `M ${x},${y}` + `l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 z`
-        )
-        .join('')
-        .replaceAll(/([.]\d\d)\d*/g, '$1')}
-    />
+    <>
+      {props.vs.map(([x, y], idx) => (
+        <path
+          key={idx}
+          className={props.name}
+          fill="white"
+          fillOpacity="1"
+          stroke="gray"
+          strokeWidth={r / 20}
+          d={`M ${x},${y} l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 z`.replaceAll(
+            /([.]\d\d)\d*/g,
+            '$1'
+          )}
+        />
+      ))}
+    </>
   )
 }

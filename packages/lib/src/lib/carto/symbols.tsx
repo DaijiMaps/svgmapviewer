@@ -12,7 +12,7 @@ export function RenderMapSymbols(props: Readonly<RenderMapSymbolsProps>) {
   const sz = config.fontSize * svgScale.s * 1.5
 
   return (
-    <g>
+    <g className="map-symbols">
       {props.mapSymbols.map((entry, i) => (
         <g key={i}>
           <RenderUses

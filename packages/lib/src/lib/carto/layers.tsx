@@ -10,7 +10,7 @@ import {
 
 export function RenderMapLayers(props: Readonly<{ mapLayers: MapLayer[] }>) {
   return (
-    <g>
+    <g className="map-layers">
       {props.mapLayers.map((layer, i) => (
         <g key={i}>
           <path
