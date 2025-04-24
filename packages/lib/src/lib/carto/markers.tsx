@@ -22,18 +22,24 @@ export function RenderMapMarkers(props: Readonly<RenderMapMarkersProps>) {
   )
 }
 
+export interface MapMarker {
+  name: string
+  href: string
+  data?: Point
+}
+
 export interface MapMarkers {
   name: string
   pointsFilter?: PointsFilter
   centroidsFilter?: CentroidsFilter
-  data?: Point[]
+  data?: MapMarker[]
 }
 
 export function entryToVs({
   pointsFilter,
   centroidsFilter,
   data,
-}: Readonly<MapMarkers>): Point[] {
+}: Readonly<MapMarkers>): MapMarker[] {
   return [
     ...(pointsFilter !== undefined ? getPoints(pointsFilter) : []),
     ...(centroidsFilter !== undefined ? getCentroids(centroidsFilter) : []),
@@ -41,18 +47,20 @@ export function entryToVs({
   ]
 }
 
-function getPoints(filter: PointsFilter): Point[] {
+function getPoints(filter: PointsFilter): MapMarker[] {
   return cfg.mapData.points.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)
     .map(conv)
+    .map((v) => ({ name: '', href: '', data: v }))
 }
 
-function getCentroids(filter: CentroidsFilter) {
+function getCentroids(filter: CentroidsFilter): MapMarker[] {
   return cfg.mapData.centroids.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)
     .map(conv)
+    .map((v) => ({ name: '', href: '', data: v }))
 }
 
 function conv(p: V): V {
@@ -60,26 +68,32 @@ function conv(p: V): V {
 }
 
 export function RenderMarkers(
-  props: Readonly<{ sz: number; name: string; vs: V[] }>
+  props: Readonly<{ sz: number; name: string; vs: MapMarker[] }>
 ) {
   const h = (props.sz * 1.5) / 2
   const r = Math.sqrt(2) * h
   return (
     <>
-      {props.vs.map(([x, y], idx) => (
-        <path
-          key={idx}
-          className={props.name}
-          fill="white"
-          fillOpacity="1"
-          stroke="gray"
-          strokeWidth={r / 20}
-          d={`M ${x},${y} l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 z`.replaceAll(
-            /([.]\d\d)\d*/g,
-            '$1'
-          )}
-        />
-      ))}
+      {props.vs
+        .flatMap((m) =>
+          m.data === undefined
+            ? []
+            : [{ name: m.name, href: m.href, x: m.data[0], y: m.data[1] }]
+        )
+        .map(({ name, x, y }, idx) => (
+          <path
+            key={idx}
+            className={name}
+            fill="white"
+            fillOpacity="1"
+            stroke="gray"
+            strokeWidth={r / 20}
+            d={`M ${x},${y} l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 z`.replaceAll(
+              /([.]\d\d)\d*/g,
+              '$1'
+            )}
+          />
+        ))}
     </>
   )
 }
