@@ -1,4 +1,5 @@
 import { benchPath } from './bench'
+import { entrancePath } from './entrance'
 import { guidePostPath } from './guide-post'
 import { infoBoardPath } from './info-board'
 import { monumentPath } from './monument'
@@ -11,9 +12,12 @@ import {
   tree8x16Path,
   tree8x8Path,
 } from './tree'
+import { vendingMachinePath } from './vendingMachine'
+import { wasteBasketPath } from './wasteBasket'
 
 export {
   benchPath,
+  entrancePath,
   guidePostPath,
   infoBoardPath,
   monumentPath,
@@ -24,4 +28,6 @@ export {
   tree4x8Path,
   tree8x16Path,
   tree8x8Path,
+  vendingMachinePath,
+  wasteBasketPath,
 }
