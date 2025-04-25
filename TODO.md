@@ -1,3 +1,9 @@
+# FUNCTIONALITY
+
+- Current location (GPS)
+- Like
+- Mini-map
+
 # UI
 
 - auto pilot
@@ -23,3 +29,4 @@
 - xstate: use only actor-ref (useActorRef)
   - use ref.subscribe()
   - don't use state (ref.getSnapshot())
+
