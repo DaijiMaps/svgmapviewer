@@ -26,8 +26,7 @@
     "./dist"
   ],
   "scripts": {
-    "dev": "vite",
-    "dev:host": "vite --host 0.0.0.0",
+    "dev": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build",
     "build:watch": "vite build --watch --mode development --sourcemap true",
     "lint": "eslint .",
