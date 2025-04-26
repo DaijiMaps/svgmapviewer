@@ -1,5 +1,5 @@
 import { svgMapViewerConfig as cfg } from '../config'
-import { CentroidsFilter, Point, PointsFilter } from '../geo'
+import { CentroidsFilter, MidpointsFilter, Point, PointsFilter } from '../geo'
 import { V, vUnvec, vVec } from '../tuple'
 import { RenderMapProps } from '../types'
 
@@ -32,17 +32,20 @@ export interface MapMarkers {
   name: string
   pointsFilter?: PointsFilter
   centroidsFilter?: CentroidsFilter
+  midpointsFilter?: MidpointsFilter
   data?: MapMarker[]
 }
 
 export function entryToVs({
   pointsFilter,
   centroidsFilter,
+  midpointsFilter,
   data,
 }: Readonly<MapMarkers>): MapMarker[] {
   return [
     ...(pointsFilter !== undefined ? getPoints(pointsFilter) : []),
     ...(centroidsFilter !== undefined ? getCentroids(centroidsFilter) : []),
+    ...(midpointsFilter !== undefined ? getMidpoints(midpointsFilter) : []),
     ...(data !== undefined ? data : []),
   ]
 }
@@ -57,6 +60,14 @@ function getPoints(filter: PointsFilter): MapMarker[] {
 
 function getCentroids(filter: CentroidsFilter): MapMarker[] {
   return cfg.mapData.centroids.features
+    .filter(filter)
+    .map((f) => f.geometry.coordinates as unknown as V)
+    .map(conv)
+    .map((v) => ({ name: '', href: '', data: v }))
+}
+
+function getMidpoints(filter: MidpointsFilter): MapMarker[] {
+  return cfg.mapData.midpoints.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)
     .map(conv)

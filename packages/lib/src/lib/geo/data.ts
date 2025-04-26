@@ -7,6 +7,7 @@ import {
 import {
   OsmCentroidGeoJSON,
   OsmLineGeoJSON,
+  OsmMidpointGeoJSON,
   OsmMultilinestringGeoJSON,
   OsmMultipolygonGeoJSON,
   OsmPointGeoJSON,
@@ -27,6 +28,7 @@ export type MapData = {
   multilinestrings: OsmMultilinestringGeoJSON
   multipolygons: OsmMultipolygonGeoJSON
   centroids: OsmCentroidGeoJSON
+  midpoints: OsmMidpointGeoJSON
 }
 
 export const emptyMapData: MapData = {
@@ -40,4 +42,5 @@ export const emptyMapData: MapData = {
   multilinestrings: emptyGeoJSON,
   multipolygons: emptyGeoJSON,
   centroids: emptyGeoJSON,
+  midpoints: emptyGeoJSON,
 }

@@ -80,3 +80,4 @@ export type OsmMultilinestringGeoJSON =
   MultiLineGeoJSON<OsmLineStringProperties>
 export type OsmMultipolygonGeoJSON = MultiPolygonGeoJSON<OsmPolygonProperties>
 export type OsmCentroidGeoJSON = PointGeoJSON<OsmPolygonProperties>
+export type OsmMidpointGeoJSON = PointGeoJSON<OsmPolygonProperties>
