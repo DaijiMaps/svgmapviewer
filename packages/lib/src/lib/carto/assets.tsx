@@ -3,6 +3,7 @@ import {
   DrinkingFountain,
   Elevator,
   Escalator,
+  Information,
   Parking,
   Toilets,
 } from './symbols/index'
@@ -22,6 +23,7 @@ export function Symbols() {
       <DrinkingFountain />
       <Elevator />
       <Escalator />
+      <Information />
       <Parking />
       <Toilets />
     </g>

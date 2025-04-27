@@ -1,6 +1,6 @@
 export function Information() {
   return (
-    <g id="XInformation" transform="matrix(0.1 0 0 0.1 -3.6 -3.6)">
+    <g id="XInformation" transform="translate(-36, -36)">
       <rect x="0.5" y="0.5" width="71" height="71" ry="6" stroke="white" />
       <circle
         cx="36"
