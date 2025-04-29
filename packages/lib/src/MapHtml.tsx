@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { ReactNode, useEffect } from 'react'
+import { ReactNode, useEffect, useMemo } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createActor, emit, setup } from 'xstate'
 import { svgMapViewerConfig as cfg } from './lib/config'
@@ -65,21 +65,52 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlProps>) {
 
 function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
   const layout = useSelector(props._pointerRef, selectLayout)
-  const scale = layout.svgScale.s
+
+  const normal = useMemo(
+    () => 160 * 160 * layout.svgScale.s * layout.svgScale.s,
+    [layout.svgScale.s]
+  )
+  const small = useMemo(
+    () => 120 * 120 * layout.svgScale.s * layout.svgScale.s,
+    [layout.svgScale.s]
+  )
+  const xsmall = useMemo(
+    () => 80 * 80 * layout.svgScale.s * layout.svgScale.s,
+    [layout.svgScale.s]
+  )
+  const xxsmall = useMemo(
+    () => 40 * 40 * layout.svgScale.s * layout.svgScale.s,
+    [layout.svgScale.s]
+  )
 
   return (
     <div className="poi-names">
       {cfg.mapNames
-        .flatMap(({ name, pos, size }) =>
-          size / scale < 10 && scale > 0.2
-            ? []
-            : [
+        .flatMap(({ name, pos, area }) =>
+          area === undefined
+            ? [
                 {
                   name,
                   pos: toOuter(fromSvg(pos, layout), layout),
-                  size,
+                  size: 4,
                 },
               ]
+            : area < xxsmall
+              ? []
+              : [
+                  {
+                    name,
+                    pos: toOuter(fromSvg(pos, layout), layout),
+                    size:
+                      area < xsmall
+                        ? 4
+                        : area < small
+                          ? 3
+                          : area < normal
+                            ? 2
+                            : 1,
+                  },
+                ]
         )
         .map(({ name, pos: { x, y }, size }, i) => (
           <div
@@ -114,11 +145,13 @@ function RenderName(props: Readonly<{ poi: POI }>) {
           key={j}
           style={{
             fontSize:
-              props.poi.size === 1
-                ? 'x-small'
-                : props.poi.size < 10
-                  ? 'small'
-                  : 'initial',
+              props.poi.size === 4
+                ? 'xx-small'
+                : props.poi.size === 3
+                  ? 'x-small'
+                  : props.poi.size === 2
+                    ? 'small'
+                    : 'initial',
           }}
         >
           {n}
