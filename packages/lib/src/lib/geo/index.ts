@@ -35,6 +35,7 @@ import type {
 import type { Line, MultiLineString, MultiPolygon, Point } from './path'
 import { lineToPath, multiLineStringToPath, multiPolygonToPath } from './path'
 import { POI } from './poi'
+import { findProperties } from './search'
 
 export type {
   Line,
@@ -101,3 +102,5 @@ export interface AllFilters {
   centroids?: CentroidsFilter
   midpoints?: MidpointsFilter
 }
+
+export { findProperties }
