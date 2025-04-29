@@ -5,6 +5,7 @@ import {
   Escalator,
   Information,
   Parking,
+  Stairs,
   Toilets,
 } from './symbols/index'
 
@@ -25,6 +26,7 @@ export function Symbols() {
       <Escalator />
       <Information />
       <Parking />
+      <Stairs />
       <Toilets />
     </g>
   )

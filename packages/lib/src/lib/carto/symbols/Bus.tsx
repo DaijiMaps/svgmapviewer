@@ -10,9 +10,9 @@ export function Bus() {
       />
       <path
         d="m 27,16.5 18,0"
-	fill="none"
-	strokeWidth="3"
-	strokeLinecap="round"
+        fill="none"
+        strokeWidth="3"
+        strokeLinecap="round"
       />
       <circle cx="21" cy="48" r="3" stroke="none" />
       <circle cx="51" cy="48" r="3" stroke="none" />
