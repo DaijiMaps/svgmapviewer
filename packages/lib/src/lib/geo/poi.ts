@@ -4,4 +4,5 @@ export interface POI {
   name: string[]
   pos: VecVec
   size: number
+  area?: number
 }

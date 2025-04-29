@@ -60,6 +60,7 @@ export type OsmPolygonPropertiesKey =
   | 'sport'
   | 'tourism'
   | 'other_tags'
+  | 'area'
 
 export type OsmPointProperties = Record<OsmPointPropertiesKey, null | string>
 export type OsmLineProperties = Record<OsmLinePropertiesKey, null | string> & {
