@@ -79,7 +79,15 @@ function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
     [layout.svgScale.s]
   )
   const xxsmall = useMemo(
-    () => 40 * 40 * layout.svgScale.s * layout.svgScale.s,
+    () => 50 * 50 * layout.svgScale.s * layout.svgScale.s,
+    [layout.svgScale.s]
+  )
+  const xxxsmall = useMemo(
+    () => 30 * 30 * layout.svgScale.s * layout.svgScale.s,
+    [layout.svgScale.s]
+  )
+  const point = useMemo(
+    () => 10 * 10 * layout.svgScale.s * layout.svgScale.s,
     [layout.svgScale.s]
   )
 
@@ -95,20 +103,24 @@ function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
                   size: 4,
                 },
               ]
-            : area < xxsmall
+            : area < point
               ? []
               : [
                   {
                     name,
                     pos: toOuter(fromSvg(pos, layout), layout),
                     size:
-                      area < xsmall
-                        ? 4
-                        : area < small
-                          ? 3
-                          : area < normal
-                            ? 2
-                            : 1,
+                      area < xxxsmall
+                        ? 6
+                        : area < xxsmall
+                          ? 5
+                          : area < xsmall
+                            ? 4
+                            : area < small
+                              ? 3
+                              : area < normal
+                                ? 2
+                                : 1,
                   },
                 ]
         )
@@ -120,7 +132,9 @@ function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
               transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
             }}
           >
-            <RenderName poi={{ name, pos: { x, y }, size }} />
+            <RenderName
+              poi={{ name: size === 6 ? [''] : name, pos: { x, y }, size }}
+            />
           </div>
         ))}
     </div>
@@ -145,13 +159,15 @@ function RenderName(props: Readonly<{ poi: POI }>) {
           key={j}
           style={{
             fontSize:
-              props.poi.size === 4
-                ? 'xx-small'
-                : props.poi.size === 3
-                  ? 'x-small'
-                  : props.poi.size === 2
-                    ? 'small'
-                    : 'initial',
+              props.poi.size === 5
+                ? '45%'
+                : props.poi.size === 4
+                  ? 'xx-small'
+                  : props.poi.size === 3
+                    ? 'x-small'
+                    : props.poi.size === 2
+                      ? 'small'
+                      : 'initial',
           }}
         >
           {n}
