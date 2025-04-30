@@ -66,6 +66,10 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlProps>) {
 function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
   const layout = useSelector(props._pointerRef, selectLayout)
 
+  const huge = useMemo(
+    () => 1000 * 1000 * layout.svgScale.s * layout.svgScale.s,
+    [layout.svgScale.s]
+  )
   const normal = useMemo(
     () => 160 * 160 * layout.svgScale.s * layout.svgScale.s,
     [layout.svgScale.s]
@@ -103,7 +107,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
                   size: 4,
                 },
               ]
-            : area < point
+            : area < point || area > huge
               ? []
               : [
                   {
