@@ -27,8 +27,8 @@ export type OsmLinePropertiesKey =
   | 'man_made'
   //| 'z_order'
   | 'other_tags'
-  //| 'centroid_x' // XXX local extension
-  //| 'centroid_y' // XXX local extension
+//| 'centroid_x' // XXX local extension
+//| 'centroid_y' // XXX local extension
 
 export type OsmLineStringPropertiesKey =
   | 'osm_id'

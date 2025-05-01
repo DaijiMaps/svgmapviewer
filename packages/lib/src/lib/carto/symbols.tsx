@@ -17,6 +17,7 @@ export function RenderMapSymbols(props: Readonly<RenderMapSymbolsProps>) {
           <RenderUses
             sz={
               config.fontSize *
+              // display symbol slightly larger as zoom goes higher
               (0.8 + 0.2 * Math.log2(Math.max(1, props.zoom))) *
               svgScale.s
             }
@@ -90,6 +91,7 @@ export function RenderUses(
           href={props.href}
           transform={
             `translate(${x}, ${y})`.replaceAll(/([.]\d\d)\d*/g, '$1') +
+            ' ' +
             `scale(${props.sz / 72})`
           }
         />
