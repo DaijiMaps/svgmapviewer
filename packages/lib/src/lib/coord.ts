@@ -80,6 +80,18 @@ export const fromMatrixSvg = ({
   ].reduce(matrixMultiply)
 }
 
+export const fromSvgToOuter = ({
+  svgOffset,
+  svgScale,
+  svg,
+}: Readonly<Pick<LayoutCoord, 'svg' | 'svgOffset' | 'svgScale'>>): Matrix => {
+  return [
+    fromTransform(invMove(svgOffset)),
+    fromTransform(invScale(svgScale)),
+    fromTransform(invMove(svg)),
+  ].reduce(matrixMultiply)
+}
+
 // inverse x/y
 export const fromScroll = (s: Box): Box => vecScale(s, -1)
 export const toScroll = (s: Box): Box => vecScale(s, -1)
