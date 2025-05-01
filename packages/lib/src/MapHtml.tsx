@@ -5,10 +5,8 @@ import { createActor, emit, setup } from 'xstate'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { fromSvgToOuter } from './lib/coord'
 import { POI } from './lib/geo'
-import { fromSvg, toOuter } from './lib/layout'
 import {
   PointerRef,
-  selectLayout,
   selectLayoutSvg,
   selectLayoutSvgOffset,
   selectLayoutSvgScale,
@@ -46,14 +44,20 @@ function MapHtmlContentRoot(props: Readonly<{ ref: PointerRef }>): ReactNode {
 }
 
 function MapHtmlContentSymbols(props: Readonly<MapHtmlProps>) {
-  const layout = useSelector(props._pointerRef, selectLayout)
+  const svgOffset = useSelector(props._pointerRef, selectLayoutSvgOffset)
+  const svgScale = useSelector(props._pointerRef, selectLayoutSvgScale)
+  const svg = useSelector(props._pointerRef, selectLayoutSvg)
+  const x = useMemo(
+    () => fromSvgToOuter({ svg, svgOffset, svgScale }),
+    [svg, svgOffset, svgScale]
+  )
 
   return (
     <div className="poi-symbols">
       {cfg.mapSymbols
         .map(({ name, pos, size }) => ({
           name,
-          pos: toOuter(fromSvg(pos, layout), layout),
+          pos: transformPoint(x, pos),
           size,
         }))
         .map(({ name, pos: { x, y }, size }, i) => (
