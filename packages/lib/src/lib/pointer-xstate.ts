@@ -341,7 +341,7 @@ export const pointerMachine = setup({
           ? animationHome(layout, makeLayout(layout.config))
           : animationZoom(layout, z, cursor),
     }),
-    endAnimation: assign({
+    endZoom: assign({
       layout: ({ context: { layout, animation } }): Layout =>
         animation === null ? layout : animationEndLayout(layout, animation),
       animation: () => null,
@@ -947,7 +947,7 @@ export const pointerMachine = setup({
           on: {
             'ANIMATION.END': {
               actions: [
-                'endAnimation',
+                'endZoom',
                 emit(({ context: { layout, zoom } }) => ({
                   type: 'ZOOM.END',
                   layout,
