@@ -316,6 +316,7 @@ export const pointerMachine = setup({
     }),
     zoomHome: assign({
       z: (): null | number => null,
+      zoom: () => 1,
     }),
     zoomEvent: assign({
       z: (_, { z }: { z: -1 | 1 }): number => z,
