@@ -1415,5 +1415,11 @@ export type PointerMode = 'pointing' | 'panning' | 'locked'
 
 export const selectMode = (pointer: PointerState) => pointer.context.mode
 export const selectLayout = (pointer: PointerState) => pointer.context.layout
+export const selectLayoutSvg = (pointer: PointerState) =>
+  pointer.context.layout.svg
+export const selectLayoutSvgScale = (pointer: PointerState) =>
+  pointer.context.layout.svgScale
+export const selectLayoutSvgOffset = (pointer: PointerState) =>
+  pointer.context.layout.svgOffset
 export const selectCursor = (pointer: PointerState) => pointer.context.cursor
 export const selectTouches = (pointer: PointerState) => pointer.context.touches

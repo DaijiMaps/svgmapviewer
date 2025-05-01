@@ -3,9 +3,17 @@ import { ReactNode, useEffect, useMemo } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createActor, emit, setup } from 'xstate'
 import { svgMapViewerConfig as cfg } from './lib/config'
+import { fromSvgToOuter } from './lib/coord'
 import { POI } from './lib/geo'
 import { fromSvg, toOuter } from './lib/layout'
-import { PointerRef, selectLayout } from './lib/pointer-xstate'
+import {
+  PointerRef,
+  selectLayout,
+  selectLayoutSvg,
+  selectLayoutSvgOffset,
+  selectLayoutSvgScale,
+} from './lib/pointer-xstate'
+import { transformPoint } from './lib/transform'
 
 export interface MapHtmlProps {
   _pointerRef: PointerRef
@@ -64,35 +72,29 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlProps>) {
 }
 
 function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
-  const layout = useSelector(props._pointerRef, selectLayout)
+  const svgOffset = useSelector(props._pointerRef, selectLayoutSvgOffset)
+  const svgScale = useSelector(props._pointerRef, selectLayoutSvgScale)
+  const svg = useSelector(props._pointerRef, selectLayoutSvg)
 
   const huge = useMemo(
-    () => 1000 * 1000 * layout.svgScale.s * layout.svgScale.s,
-    [layout.svgScale.s]
+    () => 1000 * 1000 * svgScale.s * svgScale.s,
+    [svgScale.s]
   )
   const normal = useMemo(
-    () => 160 * 160 * layout.svgScale.s * layout.svgScale.s,
-    [layout.svgScale.s]
+    () => 160 * 160 * svgScale.s * svgScale.s,
+    [svgScale.s]
   )
-  const small = useMemo(
-    () => 120 * 120 * layout.svgScale.s * layout.svgScale.s,
-    [layout.svgScale.s]
-  )
-  const xsmall = useMemo(
-    () => 80 * 80 * layout.svgScale.s * layout.svgScale.s,
-    [layout.svgScale.s]
-  )
-  const xxsmall = useMemo(
-    () => 50 * 50 * layout.svgScale.s * layout.svgScale.s,
-    [layout.svgScale.s]
-  )
+  const small = useMemo(() => 120 * 120 * svgScale.s * svgScale.s, [svgScale.s])
+  const xsmall = useMemo(() => 80 * 80 * svgScale.s * svgScale.s, [svgScale.s])
+  const xxsmall = useMemo(() => 50 * 50 * svgScale.s * svgScale.s, [svgScale.s])
   const xxxsmall = useMemo(
-    () => 30 * 30 * layout.svgScale.s * layout.svgScale.s,
-    [layout.svgScale.s]
+    () => 30 * 30 * svgScale.s * svgScale.s,
+    [svgScale.s]
   )
-  const point = useMemo(
-    () => 10 * 10 * layout.svgScale.s * layout.svgScale.s,
-    [layout.svgScale.s]
+  const point = useMemo(() => 10 * 10 * svgScale.s * svgScale.s, [svgScale.s])
+  const x = useMemo(
+    () => fromSvgToOuter({ svg, svgOffset, svgScale }),
+    [svg, svgOffset, svgScale]
   )
 
   return (
@@ -103,7 +105,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
             ? [
                 {
                   name,
-                  pos: toOuter(fromSvg(pos, layout), layout),
+                  pos: transformPoint(x, pos),
                   size: 4,
                 },
               ]
@@ -112,7 +114,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
               : [
                   {
                     name,
-                    pos: toOuter(fromSvg(pos, layout), layout),
+                    pos: transformPoint(x, pos),
                     size:
                       area < xxxsmall
                         ? 6
