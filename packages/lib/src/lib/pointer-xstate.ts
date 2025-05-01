@@ -57,6 +57,7 @@ export type PointerInput = {
 export type PointerContext = {
   containerRef: RefObject<HTMLDivElement>
   layout: Layout
+  nextLayout: null | Layout
   cursor: Vec
   expand: number
   m: null | Vec
@@ -341,9 +342,14 @@ export const pointerMachine = setup({
           ? animationHome(layout, makeLayout(layout.config))
           : animationZoom(layout, z, cursor),
     }),
+    updateZoom: assign({
+      nextLayout: ({ context: { layout, animation } }): null | Layout =>
+        animation === null ? null : animationEndLayout(layout, animation),
+    }),
     endZoom: assign({
-      layout: ({ context: { layout, animation } }): Layout =>
-        animation === null ? layout : animationEndLayout(layout, animation),
+      layout: ({ context: { layout, nextLayout } }): Layout =>
+        nextLayout === null ? layout : nextLayout,
+      nextLayout: () => null,
       animation: () => null,
       z: () => null,
       zoom: ({ context: { z, zoom } }) =>
@@ -462,6 +468,7 @@ export const pointerMachine = setup({
   context: ({ input: { layout, containerRef } }) => ({
     containerRef,
     layout,
+    nextLayout: null,
     cursor: boxCenter(emptyLayout.container),
     expand: 1,
     m: null,
@@ -1186,6 +1193,7 @@ export const pointerMachine = setup({
             'EXPAND.DONE': {
               actions: [
                 'startZoom',
+                'updateZoom',
                 emit(({ context: { layout, zoom, z } }) => ({
                   type: 'ZOOM.START',
                   layout,
