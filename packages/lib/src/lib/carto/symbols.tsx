@@ -17,8 +17,8 @@ export function RenderMapSymbols(props: Readonly<RenderMapSymbolsProps>) {
           <RenderUses
             sz={
               config.fontSize *
-              svgScale.s *
-              (1 + 0.2 * Math.log2(Math.max(1, props.zoom)))
+              (0.8 + 0.2 * Math.log2(Math.max(1, props.zoom))) *
+              svgScale.s
             }
             name={entry.name}
             href={entry.href}
