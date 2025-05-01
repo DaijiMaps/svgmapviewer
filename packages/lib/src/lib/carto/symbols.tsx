@@ -9,14 +9,17 @@ export interface RenderMapSymbolsProps extends RenderMapProps {
 
 export function RenderMapSymbols(props: Readonly<RenderMapSymbolsProps>) {
   const { config, svgScale } = props.layout
-  const sz = config.fontSize * svgScale.s * 1.5
 
   return (
     <g className="map-symbols">
       {props.mapSymbols.map((entry, i) => (
         <g key={i}>
           <RenderUses
-            sz={sz}
+            sz={
+              config.fontSize *
+              svgScale.s *
+              (1 + 0.2 * Math.log2(Math.max(1, props.zoom)))
+            }
             name={entry.name}
             href={entry.href}
             vs={entryToVs(entry)}
@@ -85,10 +88,10 @@ export function RenderUses(
           key={j}
           className={props.name}
           href={props.href}
-          transform={`translate(${x}, ${y}) scale(${props.sz / 72})`.replaceAll(
-            /([.]\d\d)\d*/g,
-            '$1'
-          )}
+          transform={
+            `translate(${x}, ${y})`.replaceAll(/([.]\d\d)\d*/g, '$1') +
+            `scale(${props.sz / 72})`
+          }
         />
       ))}
     </>
