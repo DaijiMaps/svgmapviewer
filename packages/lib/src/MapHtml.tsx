@@ -4,15 +4,11 @@ import { createRoot } from 'react-dom/client'
 import { createActor, emit, setup } from 'xstate'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { POI } from './lib/geo'
-import { fromSvg, Layout, toOuter } from './lib/layout'
+import { fromSvg, toOuter } from './lib/layout'
 import { PointerRef, selectLayout } from './lib/pointer-xstate'
 
 export interface MapHtmlProps {
   _pointerRef: PointerRef
-}
-
-export interface MapHtmlContentProps {
-  _layout: Layout
 }
 
 export function MapHtml(props: Readonly<MapHtmlProps>) {
@@ -31,19 +27,18 @@ export function MapHtml(props: Readonly<MapHtmlProps>) {
 
 function MapHtmlContentRoot(props: Readonly<{ ref: PointerRef }>): ReactNode {
   const { ref } = props
-  const layout = useSelector(ref, selectLayout)
 
   return (
     <>
-      <MapHtmlContentSymbols _layout={layout} />
-      <MapHtmlContentNames _layout={layout} />
+      <MapHtmlContentSymbols _pointerRef={ref} />
+      <MapHtmlContentNames _pointerRef={ref} />
       <style>{cfg.mapHtmlStyle}</style>
     </>
   )
 }
 
-function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
-  const { _layout: layout } = props
+function MapHtmlContentSymbols(props: Readonly<MapHtmlProps>) {
+  const layout = useSelector(props._pointerRef, selectLayout)
 
   return (
     <div className="poi-symbols">
@@ -68,8 +63,8 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
   )
 }
 
-function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
-  const { _layout: layout } = props
+function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
+  const layout = useSelector(props._pointerRef, selectLayout)
 
   const huge = useMemo(
     () => 1000 * 1000 * layout.svgScale.s * layout.svgScale.s,
