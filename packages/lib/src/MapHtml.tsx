@@ -1,5 +1,4 @@
 import { useSelector } from '@xstate/react'
-import clsx from 'clsx'
 import { ReactNode, useEffect, useMemo } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createActor, emit, setup } from 'xstate'
@@ -11,9 +10,6 @@ import {
   selectLayoutSvg,
   selectLayoutSvgOffset,
   selectLayoutSvgScale,
-  selectNextLayoutSvgScale,
-  selectNextZoom,
-  selectZoom,
 } from './lib/pointer-xstate'
 import { Scale, transformPoint } from './lib/transform'
 import { M } from './lib/tuple'
@@ -25,8 +21,6 @@ export interface MapHtmlProps {
 export interface MapHtmlContentProps {
   _svgScale: Scale
   _m: M
-  _z: number
-  _change: number // -1 -> disappearing | 0 -> none | 1 -> appearing
 }
 
 export function MapHtml(props: Readonly<MapHtmlProps>) {
@@ -64,40 +58,20 @@ function MapHtmlContent(props: Readonly<MapHtmlProps>) {
     () => fromSvgToOuter({ svg, svgOffset, svgScale }),
     [svg, svgOffset, svgScale]
   )
-  const nextSvgScale = useSelector(ref, selectNextLayoutSvgScale)
-  const zoom = useSelector(ref, selectZoom)
-  const nextZoom = useSelector(ref, selectNextZoom)
 
-  // XXX loop with zoom as key
   return (
     <>
-      {(zoom === nextZoom
-        ? [{ s: svgScale, z: zoom, x, c: 0 }]
-        : [
-            { s: svgScale, z: zoom, x, c: -1 },
-            { s: nextSvgScale, z: nextZoom, x: x, c: 1 },
-          ]
-      ).map(({ s, z, x, c }) => (
-        <div key={z}>
-          <MapHtmlContentSymbols _svgScale={s} _m={x} _z={z} _change={c} />
-          <MapHtmlContentNames _svgScale={s} _m={x} _z={z} _change={c} />
-        </div>
-      ))}
+      <MapHtmlContentSymbols _svgScale={svgScale} _m={x} />
+      <MapHtmlContentNames _svgScale={svgScale} _m={x} />
     </>
   )
 }
 
 function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
-  const { _m: x, _change: c } = props
+  const { _m: x } = props
 
   return (
-    <div
-      className={clsx(
-        'poi-symbols',
-        c === 1 && 'appearing',
-        c === -1 && 'disappearing'
-      )}
-    >
+    <div className="poi-symbols">
       {cfg.mapSymbols
         .map(({ name, pos, size }) => ({
           name,
@@ -120,7 +94,7 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
 }
 
 function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
-  const { _svgScale: svgScale, _m: x, _change: c } = props
+  const { _svgScale: svgScale, _m: x } = props
 
   // XXX make these configurable
   const huge = useMemo(
@@ -141,13 +115,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
   const point = useMemo(() => 10 * 10 * svgScale.s * svgScale.s, [svgScale.s])
 
   return (
-    <div
-      className={clsx(
-        'poi-names',
-        c === 1 && 'appearing',
-        c === -1 && 'disappearing'
-      )}
-    >
+    <div className="poi-names">
       {cfg.mapNames
         .flatMap(({ name, pos, area }) =>
           area === undefined
