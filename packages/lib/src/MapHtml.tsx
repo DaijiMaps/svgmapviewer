@@ -80,6 +80,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
   const svgScale = useSelector(props._pointerRef, selectLayoutSvgScale)
   const svg = useSelector(props._pointerRef, selectLayoutSvg)
 
+  // XXX make these configurable
   const huge = useMemo(
     () => 1000 * 1000 * svgScale.s * svgScale.s,
     [svgScale.s]
