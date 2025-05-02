@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useMemo } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createActor, emit, setup } from 'xstate'
 import { svgMapViewerConfig as cfg } from './lib/config'
-import { fromSvgToOuter, SvgLayoutCoord } from './lib/coord'
+import { fromSvgToOuter } from './lib/coord'
 import { POI } from './lib/geo'
 import {
   PointerRef,
@@ -11,7 +11,7 @@ import {
   selectLayoutSvgOffset,
   selectLayoutSvgScale,
 } from './lib/pointer-xstate'
-import { transformPoint } from './lib/transform'
+import { Scale, transformPoint } from './lib/transform'
 import { M } from './lib/tuple'
 
 export interface MapHtmlProps {
@@ -19,7 +19,7 @@ export interface MapHtmlProps {
 }
 
 export interface MapHtmlContentProps {
-  _svgLayout: SvgLayoutCoord
+  _svgScale: Scale
   _m: M
 }
 
@@ -42,21 +42,33 @@ function MapHtmlContentRoot(props: Readonly<{ ref: PointerRef }>): ReactNode {
 
   return (
     <>
-      <MapHtmlContentSymbols _pointerRef={ref} />
-      <MapHtmlContentNames _pointerRef={ref} />
+      <MapHtmlContent _pointerRef={ref} />
       <style>{cfg.mapHtmlStyle}</style>
     </>
   )
 }
 
-function MapHtmlContentSymbols(props: Readonly<MapHtmlProps>) {
-  const svgOffset = useSelector(props._pointerRef, selectLayoutSvgOffset)
-  const svgScale = useSelector(props._pointerRef, selectLayoutSvgScale)
-  const svg = useSelector(props._pointerRef, selectLayoutSvg)
+function MapHtmlContent(props: Readonly<MapHtmlProps>) {
+  const { _pointerRef: ref } = props
+
+  const svgOffset = useSelector(ref, selectLayoutSvgOffset)
+  const svgScale = useSelector(ref, selectLayoutSvgScale)
+  const svg = useSelector(ref, selectLayoutSvg)
   const x = useMemo(
     () => fromSvgToOuter({ svg, svgOffset, svgScale }),
     [svg, svgOffset, svgScale]
   )
+
+  return (
+    <>
+      <MapHtmlContentSymbols _svgScale={svgScale} _m={x} />
+      <MapHtmlContentNames _svgScale={svgScale} _m={x} />
+    </>
+  )
+}
+
+function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
+  const { _m: x } = props
 
   return (
     <div className="poi-symbols">
@@ -81,14 +93,8 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlProps>) {
   )
 }
 
-function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
-  const svgOffset = useSelector(props._pointerRef, selectLayoutSvgOffset)
-  const svgScale = useSelector(props._pointerRef, selectLayoutSvgScale)
-  const svg = useSelector(props._pointerRef, selectLayoutSvg)
-  const x = useMemo(
-    () => fromSvgToOuter({ svg, svgOffset, svgScale }),
-    [svg, svgOffset, svgScale]
-  )
+function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
+  const { _svgScale: svgScale, _m: x } = props
 
   // XXX make these configurable
   const huge = useMemo(
