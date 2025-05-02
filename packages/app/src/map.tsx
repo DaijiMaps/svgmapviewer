@@ -140,6 +140,7 @@ export const getMapObjects: () => MapObjects[] = () => [
     width: 0.3,
     pointsFilter: (f) => !!f.properties.other_tags?.match(/"tree"/),
   },
+  /*
   {
     name: 'trees2',
     path: tree4x8Path,
@@ -148,6 +149,7 @@ export const getMapObjects: () => MapObjects[] = () => [
       .map((f) => f.geometry.coordinates as unknown as V)
       .map(conv),
   },
+  */
   {
     name: 'torii',
     path: toriiPath,
