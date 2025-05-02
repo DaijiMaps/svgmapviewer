@@ -24,3 +24,12 @@ export function findProperties(
   }
   return null
 }
+
+export function getPropertyValue(
+  properties: Readonly<OsmPointProperties | OsmPolygonProperties>,
+  key: string
+): null | string {
+  const re = new RegExp(`\\"${key}\\"=>\\"([^"][^"]*)\\"`)
+  const res = re.exec(properties.other_tags ?? '')
+  return res === null ? null : res[1]
+}
