@@ -11,6 +11,7 @@ import {
   dragStyle,
   modeStyle,
   scrollStyle,
+  useAppearenceStyle,
   useMoveStyle,
   useZoomStyle,
 } from './lib/style'
@@ -29,6 +30,7 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
 
   const moveStyle = useMoveStyle(pointerRef)
   const zoomStyle = useZoomStyle(pointerRef)
+  const appearenceStyle = useAppearenceStyle(pointerRef)
 
   return (
     <>
@@ -58,6 +60,7 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
         {dragStyle(pointer)}
         {moveStyle}
         {zoomStyle}
+        {appearenceStyle}
       </style>
     </>
   )

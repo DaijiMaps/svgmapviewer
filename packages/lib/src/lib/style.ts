@@ -105,3 +105,45 @@ export const css = (q: Matrix) => {
 }
 `
 }
+
+export function useAppearenceStyle(pointerRef: Readonly<PointerRef>) {
+  const context = useSelector(pointerRef, (s) => s.context)
+  const { animation } = context
+
+  const pointer = pointerRef.getSnapshot()
+
+  if (!pointer.matches({ Animator: 'Busy' })) {
+    return ''
+  }
+
+  if (animation === null || animation.zoom === null) {
+    return ''
+  }
+
+  return `
+.appearing {
+  will-change: opacity;
+  animation: xxx-appearing ${cfg.animationDuration}ms ease;
+}
+.disappearing {
+  will-change: opacity;
+  animation: xxx-disappearing ${cfg.animationDuration}ms ease;
+}
+@keyframes xxx-appearing {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes xxx-disappearing {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+`
+}

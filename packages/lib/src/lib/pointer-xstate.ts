@@ -63,6 +63,7 @@ export type PointerContext = {
   m: null | Vec
   z: null | number
   zoom: number
+  nextZoom: null | number
   touches: Touches
   drag: null | Drag
   animation: null | Animation
@@ -345,6 +346,8 @@ export const pointerMachine = setup({
     updateZoom: assign({
       nextLayout: ({ context: { layout, animation } }): null | Layout =>
         animation === null ? null : animationEndLayout(layout, animation),
+      nextZoom: ({ context: { z, zoom } }) =>
+        z === null ? zoom : zoom * Math.pow(2, z),
     }),
     endZoom: assign({
       layout: ({ context: { layout, nextLayout } }): Layout =>
@@ -352,8 +355,9 @@ export const pointerMachine = setup({
       nextLayout: () => null,
       animation: () => null,
       z: () => null,
-      zoom: ({ context: { z, zoom } }) =>
-        z === null ? zoom : zoom * Math.pow(2, z),
+      zoom: ({ context: { zoom, nextZoom } }) =>
+        nextZoom === null ? zoom : nextZoom,
+      nextZoom: () => null,
     }),
 
     //
@@ -474,6 +478,7 @@ export const pointerMachine = setup({
     m: null,
     z: null,
     zoom: 1,
+    nextZoom: null,
     touches: resetTouches(),
     drag: null,
     animation: null,
@@ -1421,5 +1426,14 @@ export const selectLayoutSvgScale = (pointer: PointerState) =>
   pointer.context.layout.svgScale
 export const selectLayoutSvgOffset = (pointer: PointerState) =>
   pointer.context.layout.svgOffset
+export const selectNextLayoutSvgScale = (pointer: PointerState) =>
+  pointer.context.nextLayout === null
+    ? pointer.context.layout.svgScale
+    : pointer.context.nextLayout.svgScale
+export const selectZoom = (pointer: PointerState) => pointer.context.zoom
+export const selectNextZoom = (pointer: PointerState) =>
+  pointer.context.nextZoom === null
+    ? pointer.context.zoom
+    : pointer.context.nextZoom
 export const selectCursor = (pointer: PointerState) => pointer.context.cursor
 export const selectTouches = (pointer: PointerState) => pointer.context.touches
