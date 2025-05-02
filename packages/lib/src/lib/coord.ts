@@ -4,21 +4,18 @@ import { MatrixMatrix as Matrix, matrixMultiply } from './matrix/prefixed'
 import { Move, Scale, fromTransform, invMove, invScale } from './transform'
 import { vecScale } from './vec/prefixed'
 
-//// LayoutCoord
-//// makeCoord
-//// toMatrixOuter
-//// toMatrixSvg
+// C: client coord
+// S: svg coord
 
-export interface LayoutCoord {
-  // C: client coord
-  // S: svg coord
-
+export interface HtmlLayoutCoord {
   // container (C) size
   container: Box
 
   // scroll (C) -> svg (C)
   scroll: Box
+}
 
+export interface SvgLayoutCoord {
   // svg (C) -> svg viewbox (C)
   svgOffset: Move
 
@@ -28,6 +25,13 @@ export interface LayoutCoord {
   // svg viewbox (S) -> svg origin (S)
   svg: Box
 }
+
+//// LayoutCoord
+//// makeCoord
+//// toMatrixOuter
+//// toMatrixSvg
+
+export type LayoutCoord = HtmlLayoutCoord & SvgLayoutCoord
 
 export const makeCoord = ({
   container,
@@ -84,7 +88,7 @@ export const fromSvgToOuter = ({
   svgOffset,
   svgScale,
   svg,
-}: Readonly<Pick<LayoutCoord, 'svg' | 'svgOffset' | 'svgScale'>>): Matrix => {
+}: Readonly<SvgLayoutCoord>): Matrix => {
   return [
     fromTransform(invMove(svgOffset)),
     fromTransform(invScale(svgScale)),

@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useMemo } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createActor, emit, setup } from 'xstate'
 import { svgMapViewerConfig as cfg } from './lib/config'
-import { fromSvgToOuter } from './lib/coord'
+import { fromSvgToOuter, SvgLayoutCoord } from './lib/coord'
 import { POI } from './lib/geo'
 import {
   PointerRef,
@@ -12,9 +12,15 @@ import {
   selectLayoutSvgScale,
 } from './lib/pointer-xstate'
 import { transformPoint } from './lib/transform'
+import { M } from './lib/tuple'
 
 export interface MapHtmlProps {
   _pointerRef: PointerRef
+}
+
+export interface MapHtmlContentProps {
+  _svgLayout: SvgLayoutCoord
+  _m: M
 }
 
 export function MapHtml(props: Readonly<MapHtmlProps>) {
@@ -79,6 +85,10 @@ function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
   const svgOffset = useSelector(props._pointerRef, selectLayoutSvgOffset)
   const svgScale = useSelector(props._pointerRef, selectLayoutSvgScale)
   const svg = useSelector(props._pointerRef, selectLayoutSvg)
+  const x = useMemo(
+    () => fromSvgToOuter({ svg, svgOffset, svgScale }),
+    [svg, svgOffset, svgScale]
+  )
 
   // XXX make these configurable
   const huge = useMemo(
@@ -97,10 +107,6 @@ function MapHtmlContentNames(props: Readonly<MapHtmlProps>) {
     [svgScale.s]
   )
   const point = useMemo(() => 10 * 10 * svgScale.s * svgScale.s, [svgScale.s])
-  const x = useMemo(
-    () => fromSvgToOuter({ svg, svgOffset, svgScale }),
-    [svg, svgOffset, svgScale]
-  )
 
   return (
     <div className="poi-names">
