@@ -1,0 +1,9 @@
+.liked {
+  color: yellow;
+  font-size: larger;
+}
+
+.not-liked {
+  color: black;
+  font-size: larger;
+}

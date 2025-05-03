@@ -1,3 +1,4 @@
+import { Like } from '../Like'
 import { svgMapViewerConfig } from './config'
 import { Layout } from './layout'
 import { svgmapviewer } from './svgmapviewer'
@@ -28,3 +29,7 @@ export { svgMapViewerConfig }
 // layout
 
 export type { Layout }
+
+// like
+
+export { Like }
