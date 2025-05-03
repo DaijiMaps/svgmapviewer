@@ -27,7 +27,7 @@ export const useLikes = create<Likes>()(
       },
     }),
     {
-      name: 'likes',
+      name: 'svgmapviewer:likes',
       storage: {
         getItem: (name) => {
           const str = localStorage.getItem(name)
