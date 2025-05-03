@@ -2,8 +2,11 @@ import { svgMapViewerConfig as cfg } from '../config'
 import { OsmPointProperties, OsmPolygonProperties } from './osm-types'
 
 export function findProperties(
-  id: string
+  id: undefined | string
 ): null | OsmPointProperties | OsmPolygonProperties {
+  if (id === undefined) {
+    return null
+  }
   const fs1 = cfg.mapData.points.features.filter(
     (f) => f.properties.osm_id === id
   )

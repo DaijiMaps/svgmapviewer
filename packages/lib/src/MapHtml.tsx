@@ -5,6 +5,7 @@ import { createActor, emit, setup } from 'xstate'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { fromSvgToOuter } from './lib/coord'
 import { POI } from './lib/geo'
+import { useLikes } from './lib/like'
 import {
   PointerRef,
   selectLayoutSvg,
@@ -62,6 +63,7 @@ function MapHtmlContent(props: Readonly<MapHtmlProps>) {
   return (
     <>
       <MapHtmlContentSymbols _svgScale={svgScale} _m={x} />
+      <MapHtmlContentStars _svgScale={svgScale} _m={x} />
       <MapHtmlContentNames _svgScale={svgScale} _m={x} />
     </>
   )
@@ -73,12 +75,13 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
   return (
     <div className="poi-symbols">
       {cfg.mapSymbols
-        .map(({ name, pos, size }) => ({
+        .map(({ id, name, pos, size }) => ({
+          id,
           name,
           pos: transformPoint(x, pos),
           size,
         }))
-        .map(({ name, pos: { x, y }, size }, i) => (
+        .map(({ id, name, pos: { x, y }, size }, i) => (
           <div
             key={i}
             className={`poi-symbols-item`}
@@ -86,7 +89,40 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
               transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
             }}
           >
-            <RenderSymbol poi={{ name, pos: { x, y }, size }} />
+            <RenderSymbol poi={{ id, name, pos: { x, y }, size }} />
+          </div>
+        ))}
+    </div>
+  )
+}
+
+function MapHtmlContentStars(props: Readonly<MapHtmlContentProps>) {
+  const { _m: x } = props
+  const likes = useLikes()
+
+  return (
+    <div className="poi-stars">
+      {cfg.mapNames
+        .filter(({ id }) => id !== null && id !== 0 && likes.isLiked(id))
+        .map(({ id, name, pos, area }) => ({
+          id,
+          name,
+          pos: transformPoint(x, pos),
+          area,
+        }))
+        .map(({ id, pos: { x, y } }, i) => (
+          <div
+            key={i}
+            className={`poi-stars-item`}
+            style={{
+              transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
+            }}
+          >
+            {id !== null && likes.isLiked(id) && (
+              <div>
+                <RenderStar />
+              </div>
+            )}
           </div>
         ))}
     </div>
@@ -117,10 +153,11 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
   return (
     <div className="poi-names">
       {cfg.mapNames
-        .flatMap(({ name, pos, area }) =>
+        .flatMap(({ id, name, pos, area }) =>
           area === undefined
             ? [
                 {
+                  id,
                   name,
                   pos: transformPoint(x, pos),
                   size: 4,
@@ -130,6 +167,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
               ? []
               : [
                   {
+                    id,
                     name,
                     pos: transformPoint(x, pos),
                     size:
@@ -147,7 +185,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
                   },
                 ]
         )
-        .map(({ name, pos: { x, y }, size }, i) => (
+        .map(({ id, name, pos: { x, y }, size }, i) => (
           <div
             key={i}
             className={`poi-names-item`}
@@ -156,7 +194,12 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
             }}
           >
             <RenderName
-              poi={{ name: size === 6 ? [''] : name, pos: { x, y }, size }}
+              poi={{
+                id,
+                name: size === 6 ? [''] : name,
+                pos: { x, y },
+                size,
+              }}
             />
           </div>
         ))}
@@ -170,6 +213,19 @@ function RenderSymbol(props: Readonly<{ poi: POI }>) {
       {props.poi.name.map((n, j) => (
         <span key={j} className={n} />
       ))}
+    </p>
+  )
+}
+
+function RenderStar() {
+  return (
+    <p
+      style={{
+        color: 'orange',
+        fontSize: 'larger',
+      }}
+    >
+      ★
     </p>
   )
 }
