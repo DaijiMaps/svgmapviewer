@@ -133,15 +133,28 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
   const { _svgScale: svgScale, _m: x } = props
 
   // XXX make these configurable
-  const huge = useMemo(
-    () => 1000 * 1000 * svgScale.s * svgScale.s,
+  //  const huge = useMemo(
+  //    () => 1000 * 1000 * svgScale.s * svgScale.s,
+  //    [svgScale.s]
+  //  )
+  const xxxlarge = useMemo(
+    () => 800 * 800 * svgScale.s * svgScale.s,
     [svgScale.s]
   )
+  const xxlarge = useMemo(
+    () => 600 * 600 * svgScale.s * svgScale.s,
+    [svgScale.s]
+  )
+  const xlarge = useMemo(
+    () => 450 * 450 * svgScale.s * svgScale.s,
+    [svgScale.s]
+  )
+  const large = useMemo(() => 320 * 320 * svgScale.s * svgScale.s, [svgScale.s])
   const normal = useMemo(
-    () => 160 * 160 * svgScale.s * svgScale.s,
+    () => 200 * 200 * svgScale.s * svgScale.s,
     [svgScale.s]
   )
-  const small = useMemo(() => 120 * 120 * svgScale.s * svgScale.s, [svgScale.s])
+  const small = useMemo(() => 130 * 130 * svgScale.s * svgScale.s, [svgScale.s])
   const xsmall = useMemo(() => 80 * 80 * svgScale.s * svgScale.s, [svgScale.s])
   const xxsmall = useMemo(() => 50 * 50 * svgScale.s * svgScale.s, [svgScale.s])
   const xxxsmall = useMemo(
@@ -163,7 +176,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
                   size: 4,
                 },
               ]
-            : area < point || area > huge
+            : area < point || area > xxlarge // huge
               ? []
               : [
                   {
@@ -172,16 +185,24 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
                     pos: transformPoint(x, pos),
                     size:
                       area < xxxsmall
-                        ? 6
+                        ? -5
                         : area < xxsmall
-                          ? 5
+                          ? -4
                           : area < xsmall
-                            ? 4
+                            ? -3
                             : area < small
-                              ? 3
+                              ? -2
                               : area < normal
-                                ? 2
-                                : 1,
+                                ? -1
+                                : area < large
+                                  ? 0
+                                  : area < xlarge
+                                    ? 1
+                                    : area < xxlarge
+                                      ? 2
+                                      : area < xxxlarge
+                                        ? 3
+                                        : 4,
                   },
                 ]
         )
@@ -196,7 +217,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
             <RenderName
               poi={{
                 id,
-                name: size === 6 ? [''] : name,
+                name: size === -5 ? [''] : name,
                 pos: { x, y },
                 size,
               }}
@@ -238,15 +259,25 @@ function RenderName(props: Readonly<{ poi: POI }>) {
           key={j}
           style={{
             fontSize:
-              props.poi.size === 5
+              props.poi.size === -4
                 ? '45%'
-                : props.poi.size === 4
+                : props.poi.size === -3
                   ? 'xx-small'
-                  : props.poi.size === 3
+                  : props.poi.size === -2
                     ? 'x-small'
-                    : props.poi.size === 2
+                    : props.poi.size === -1
                       ? 'small'
-                      : 'initial',
+                      : props.poi.size === 0
+                        ? 'initial'
+                        : props.poi.size === 1
+                          ? 'large'
+                          : props.poi.size === 2
+                            ? 'x-large'
+                            : props.poi.size === 3
+                              ? 'xx-large'
+                              : props.poi.size === 4
+                                ? 'xxx-large'
+                                : 'initial',
           }}
         >
           {n}
