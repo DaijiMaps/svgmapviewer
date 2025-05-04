@@ -154,11 +154,14 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
     () => 200 * 200 * svgScale.s * svgScale.s,
     [svgScale.s]
   )
-  const small = useMemo(() => 130 * 130 * svgScale.s * svgScale.s, [svgScale.s])
-  const xsmall = useMemo(() => 80 * 80 * svgScale.s * svgScale.s, [svgScale.s])
-  const xxsmall = useMemo(() => 50 * 50 * svgScale.s * svgScale.s, [svgScale.s])
+  const small = useMemo(() => 140 * 140 * svgScale.s * svgScale.s, [svgScale.s])
+  const xsmall = useMemo(
+    () => 100 * 100 * svgScale.s * svgScale.s,
+    [svgScale.s]
+  )
+  const xxsmall = useMemo(() => 70 * 70 * svgScale.s * svgScale.s, [svgScale.s])
   const xxxsmall = useMemo(
-    () => 30 * 30 * svgScale.s * svgScale.s,
+    () => 50 * 50 * svgScale.s * svgScale.s,
     [svgScale.s]
   )
   const point = useMemo(() => 10 * 10 * svgScale.s * svgScale.s, [svgScale.s])
