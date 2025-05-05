@@ -3,6 +3,7 @@ import { createStore } from '@xstate/store'
 export const layers = createStore({
   context: {
     showLabels: true,
+    showStars: true,
     showSymbols: true,
     showMarkers: true,
   },
@@ -10,6 +11,10 @@ export const layers = createStore({
     toggleLabels: (context) => ({
       ...context,
       showLabels: !context.showLabels,
+    }),
+    toggleStars: (context) => ({
+      ...context,
+      showStars: !context.showStars,
     }),
     toggleSymbols: (context) => ({
       ...context,
