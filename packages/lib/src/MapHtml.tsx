@@ -2,6 +2,7 @@ import { useSelector } from '@xstate/react'
 import { ReactNode, useEffect, useMemo } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createActor, emit, setup } from 'xstate'
+import { LayersStyle } from './Layers'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { fromSvgToOuter } from './lib/coord'
 import { POI } from './lib/geo'
@@ -65,6 +66,7 @@ function MapHtmlContent(props: Readonly<MapHtmlProps>) {
       <MapHtmlContentSymbols _svgScale={svgScale} _m={x} />
       <MapHtmlContentStars _svgScale={svgScale} _m={x} />
       <MapHtmlContentNames _svgScale={svgScale} _m={x} />
+      <LayersStyle />
     </>
   )
 }
