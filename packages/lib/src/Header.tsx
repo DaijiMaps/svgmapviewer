@@ -1,6 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { useContext } from 'react'
 import './Header.css'
+import { LayersButtons } from './Layers'
 import { PointerRef } from './lib/pointer-xstate'
 import { selectOpenCloseHeader, UiRef } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
@@ -18,12 +19,16 @@ export const Header = (props: Readonly<HeaderProps>) => {
     <div
       className="header"
       // eslint-disable-next-line functional/no-return-void
-      onClick={() => pointerRef.send({ type: 'LAYOUT.RESET' })}
-      // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiRef.send({ type: 'HEADER.ANIMATION.END' })}
     >
       <h2>{config.subtitle}</h2>
-      <h1>{config.title}</h1>
+      <h1
+        // eslint-disable-next-line functional/no-return-void
+        onClick={() => pointerRef.send({ type: 'LAYOUT.RESET' })}
+      >
+        {config.title}
+      </h1>
+      <LayersButtons />
     </div>
   )
 }

@@ -248,7 +248,6 @@ function RenderStar() {
     <p
       style={{
         color: 'orange',
-        fontSize: 'larger',
       }}
     >
       ★

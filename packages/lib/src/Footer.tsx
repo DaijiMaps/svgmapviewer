@@ -2,7 +2,6 @@ import { useSelector } from '@xstate/react'
 import clsx from 'clsx'
 import { useCallback, useContext } from 'react'
 import './Footer.css'
-import { LayersButtons } from './Layers'
 import { PointerRef, selectMode } from './lib/pointer-xstate'
 import { selectOpenCloseFooter, UiRef } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
@@ -34,7 +33,6 @@ export const Footer = (props: Readonly<FooterProps>) => {
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiRef.send({ type: 'FOOTER.ANIMATION.END' })}
     >
-      <LayersButtons />
       <div className="mode">
         <div
           className={clsx(
