@@ -21,8 +21,9 @@ export const Header = (props: Readonly<HeaderProps>) => {
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiRef.send({ type: 'HEADER.ANIMATION.END' })}
     >
-      <h2>{config.subtitle}</h2>
+      <h2 className="subtitle">{config.subtitle}</h2>
       <h1
+        className="title"
         // eslint-disable-next-line functional/no-return-void
         onClick={() => pointerRef.send({ type: 'LAYOUT.RESET' })}
       >

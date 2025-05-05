@@ -1,6 +1,5 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-/* eslint-disable functional/no-mixed-types */
 import { createStore, StoreSnapshot } from '@xstate/store'
 import { useSelector } from '@xstate/store/react'
 
@@ -68,7 +67,6 @@ likesStore.subscribe(saveSnapshot)
 export function useLikes() {
   const context = useSelector(likesStore, (state) => state.context)
   return {
-    context,
     like: (id: number) => likesStore.trigger.like({ id }),
     unlike: (id: number) => likesStore.trigger.unlike({ id }),
     isLiked: (id: number): boolean => context.ids.has(id),

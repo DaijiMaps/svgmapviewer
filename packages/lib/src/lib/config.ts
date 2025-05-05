@@ -31,7 +31,8 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   origViewBox: { x: 0, y: 0, width: 0, height: 0 },
   layout: emptyLayout,
   title: 'svgmapviewer',
-  subtitle: 'An (opinionated) interactive offline SVG map viewer',
+  subtitle:
+    'svgmapviewer - An (opinionated) interactive offline SVG map viewer',
   copyright: '@ Daiji Maps',
   zoomFactor: 2,
   animationDuration: 625,
