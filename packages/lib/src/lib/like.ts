@@ -1,62 +1,76 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-mixed-types */
-import { create } from 'zustand'
-import { persist, StorageValue } from 'zustand/middleware'
+import { createStore, StoreSnapshot } from '@xstate/store'
+import { useSelector } from '@xstate/store/react'
 
-interface Likes {
+interface LikeSContext {
   ids: Set<number>
-  like: (id: number) => void
-  unlike: (id: number) => void
-  isLiked: (id: number) => boolean
 }
 
-export const useLikes = create<Likes>()(
-  persist(
-    (set, get) => ({
-      ids: new Set<number>(),
-      like: (id) => set({ ids: get().ids.add(id) }),
-      unlike: (id) =>
-        set(() => {
-          const s = get()
-          s.ids.delete(id) // returns boolean
-          return { ids: s.ids }
-        }),
-      isLiked: (id) => {
-        return get().ids.has(id)
-      },
+const emptySnapshot = {
+  context: {
+    ids: new Set<number>(),
+  },
+}
+
+// XXX JSON schema
+function parseSnapshot(str: null | string) {
+  if (!str) {
+    return undefined
+  }
+  const val = JSON.parse(str)
+  if (!('context' in val) || !('ids' in val.context)) {
+    return undefined
+  }
+  return {
+    ...val,
+    context: { ...val.context, ids: new Set(val.context.ids) },
+  }
+}
+
+function stringifySnapshot(val: Readonly<StoreSnapshot<LikeSContext>>) {
+  return JSON.stringify({
+    ...val,
+    context: {
+      ...val.context,
+      ids: Array.from(val.context.ids.keys()),
+    },
+  })
+}
+
+function loadSnapshot() {
+  const str = localStorage.getItem('svgmapviewer:likes')
+  const val = parseSnapshot(str)
+  return val === undefined ? emptySnapshot : val
+}
+
+function saveSnapshot(val: Readonly<StoreSnapshot<LikeSContext>>) {
+  localStorage.setItem('svgmapviewer:likes', stringifySnapshot(val))
+}
+
+export const likesStore = createStore({
+  context: loadSnapshot().context,
+  on: {
+    like: (context, event: Readonly<{ id: number }>) => ({
+      ...context,
+      ids: context.ids.add(event.id),
     }),
-    {
-      name: 'svgmapviewer:likes',
-      storage: {
-        getItem: (name) => {
-          const str = localStorage.getItem(name)
-          if (!str) {
-            return null
-          }
-          const val = JSON.parse(str)
-          return {
-            ...val,
-            state: {
-              ...val.state,
-              ids: new Set(val.state.ids),
-            },
-          }
-        },
-        setItem: (name, newVal: Readonly<StorageValue<Likes>>) => {
-          const str = JSON.stringify({
-            ...newVal,
-            state: {
-              ...newVal.state,
-              ids: Array.from(newVal.state.ids.keys()),
-            },
-          })
-          localStorage.setItem(name, str)
-        },
-        removeItem: (name) => {
-          localStorage.removeItem(name)
-        },
-      },
-    }
-  )
-)
+    unlike: (context, event: Readonly<{ id: number }>) => {
+      context.ids.delete(event.id) // returns boolean
+      return { ...context, ids: context.ids }
+    },
+  },
+})
+
+likesStore.subscribe(saveSnapshot)
+
+export function useLikes() {
+  const context = useSelector(likesStore, (state) => state.context)
+  return {
+    context,
+    like: (id: number) => likesStore.trigger.like({ id }),
+    unlike: (id: number) => likesStore.trigger.unlike({ id }),
+    isLiked: (id: number): boolean => context.ids.has(id),
+  }
+}
