@@ -1177,7 +1177,7 @@ export const pointerMachine = setup({
               {
                 guard: not('isZoomingIn'),
                 // XXX consider zoom factor
-		// XXX XXX 3->1 for performance/smoothness on Chrome
+                // XXX XXX 3->1 for performance/smoothness on Chrome
                 actions: raise({ type: 'EXPAND', n: 1 }),
                 target: 'Expanding',
               },
