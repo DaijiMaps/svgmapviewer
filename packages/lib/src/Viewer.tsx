@@ -3,7 +3,6 @@ import { Container } from './Container'
 import { Debug } from './Debug'
 import { Detail } from './Detail'
 import { Footer, FooterStyle } from './Footer'
-import { Guides } from './Guides'
 import { Header, HeaderStyle } from './Header'
 import { usePointer } from './lib/pointer-react'
 import { searchRef } from './lib/search'
@@ -39,7 +38,6 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
         <ShadowStyle _uiRef={uiRef} />
         <Detail _pointerRef={pointerRef} _uiRef={uiRef} />
       </Container>
-      <Guides _pointerRef={pointerRef} />
       <Header _uiRef={uiRef} _pointerRef={pointerRef} />
       <HeaderStyle _uiRef={uiRef} _pointerRef={pointerRef} />
       <Footer _uiRef={uiRef} _pointerRef={pointerRef} />
