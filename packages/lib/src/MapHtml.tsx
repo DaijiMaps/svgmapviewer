@@ -158,15 +158,15 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
   )
   const small = useMemo(() => 140 * 140 * svgScale.s * svgScale.s, [svgScale.s])
   const xsmall = useMemo(
-    () => 100 * 100 * svgScale.s * svgScale.s,
+    () => 110 * 110 * svgScale.s * svgScale.s,
     [svgScale.s]
   )
-  const xxsmall = useMemo(() => 70 * 70 * svgScale.s * svgScale.s, [svgScale.s])
+  const xxsmall = useMemo(() => 90 * 90 * svgScale.s * svgScale.s, [svgScale.s])
   const xxxsmall = useMemo(
-    () => 50 * 50 * svgScale.s * svgScale.s,
+    () => 70 * 70 * svgScale.s * svgScale.s,
     [svgScale.s]
   )
-  const tiny = useMemo(() => 30 * 30 * svgScale.s * svgScale.s, [svgScale.s])
+  const tiny = useMemo(() => 50 * 50 * svgScale.s * svgScale.s, [svgScale.s])
   const point = useMemo(() => 10 * 10 * svgScale.s * svgScale.s, [svgScale.s])
 
   return (
@@ -179,7 +179,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
                   id,
                   name,
                   pos: transformPoint(x, pos),
-                  size: 4,
+                  size: -5,
                 },
               ]
             : area < point || area > xxlarge // huge
