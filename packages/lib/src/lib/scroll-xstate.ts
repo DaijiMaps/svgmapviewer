@@ -27,10 +27,6 @@ type ScrollEventCancel = {
   type: 'CANCEL'
   pos: Box
 }
-type ScrollEventStepTick = {
-  type: 'STEP.TICK'
-  pos: null | Box
-}
 type ScrollEventStepDone = {
   type: 'STEP.DONE'
   count: number
@@ -40,7 +36,6 @@ export type ScrollEvent =
   | ScrollEventSync
   | ScrollEventSlide
   | ScrollEventCancel
-  | ScrollEventStepTick
   | ScrollEventStepDone
 
 export const scrollMachine = setup({
@@ -50,8 +45,10 @@ export const scrollMachine = setup({
     events: ScrollEvent
   },
   actions: {
-    syncScroll: ({ context }, { pos }: { pos: null | Box }): boolean =>
-      syncScroll(context.ref.current, pos),
+    syncScroll: (
+      _,
+      { e, pos }: { e: null | HTMLDivElement; pos: Box }
+    ): boolean => syncScroll(e, pos),
     startStep: sendTo(
       ({ system }) => system.get('step1'),
       (_, { P, Q }: { P: Box; Q: Box }) => ({ type: 'STEP.START', P, Q })
@@ -99,7 +96,8 @@ export const scrollMachine = setup({
           actions: [
             {
               type: 'syncScroll',
-              params: ({ event }) => ({
+              params: ({ context, event }) => ({
+                e: context.ref.current,
                 pos: event.pos,
               }),
             },
@@ -129,12 +127,6 @@ export const scrollMachine = setup({
             params: ({ event: { P, Q } }) => ({ P, Q }),
           },
         },
-        'STEP.TICK': {
-          actions: {
-            type: 'syncScroll',
-            params: ({ event }) => ({ pos: event.pos }),
-          },
-        },
         'STEP.DONE': {
           actions: 'notifySlideDone',
           target: 'Idle',
@@ -143,7 +135,8 @@ export const scrollMachine = setup({
           actions: [
             {
               type: 'syncScroll',
-              params: ({ event }) => ({
+              params: ({ context, event }) => ({
+                e: context.ref.current,
                 pos: event.pos,
               }),
             },
