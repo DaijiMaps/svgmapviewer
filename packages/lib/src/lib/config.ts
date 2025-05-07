@@ -36,7 +36,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   copyright: '@ Daiji Maps',
   zoomFactor: 2,
   animationDuration: 625,
-  dragStepAlpha: 0.2,
+  dragStepAlpha: 0.5,
   dragStepStepLimit: 10,
   dragStepMaxCount: 100,
   scrollIdleTimeout: 200,
