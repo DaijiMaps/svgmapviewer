@@ -69,6 +69,8 @@ export type PointerContext = {
   debug: boolean
   mode: PointerMode
   clickLock: boolean
+
+  dragging: boolean // XXX for CSS
 }
 
 type PointerExternalEvent =
@@ -480,6 +482,7 @@ export const pointerMachine = setup({
     debug: false,
     mode: 'pointing',
     clickLock: false,
+    dragging: false,
   }),
   invoke: [
     {
@@ -646,25 +649,35 @@ export const pointerMachine = setup({
           onDone: 'Idle',
           states: {
             Active: {
+              entry: assign({ dragging: () => true }),
               on: {
-                TOUCH: { target: 'WaitingForDragDone' },
-                'DRAG.DONE': { target: 'Exiting' },
+                TOUCH: { target: 'TouchWaitingForDragDone' },
+                'DRAG.DONE': { target: 'DragWaitingForClick' },
+                'TOUCH.END': { target: 'DragWaitingForDragDone' },
+                CLICK: { target: 'DragWaitingForDragDone' },
               },
             },
-            Exiting: {
+            DragWaitingForClick: {
               on: {
                 CLICK: { target: 'Done' },
                 'TOUCH.END': { target: 'Done' },
               },
             },
-            WaitingForDragDone: {
+            DragWaitingForDragDone: {
               on: {
                 'DRAG.DONE': {
-                  target: 'WaitingForUnexpandDone',
+                  target: 'Done',
                 },
               },
             },
-            WaitingForUnexpandDone: {
+            TouchWaitingForDragDone: {
+              on: {
+                'DRAG.DONE': {
+                  target: 'TouchWaitingForUnexpandDone',
+                },
+              },
+            },
+            TouchWaitingForUnexpandDone: {
               on: {
                 'UNEXPAND.DONE': [
                   {
@@ -678,6 +691,7 @@ export const pointerMachine = setup({
               },
             },
             Done: {
+              entry: assign({ dragging: () => false }),
               type: 'final',
             },
           },
@@ -846,7 +860,7 @@ export const pointerMachine = setup({
               },
             },
             Done: {
-              entry: 'endMove',
+              exit: 'endMove',
               always: 'Inactive',
             },
           },
@@ -1006,19 +1020,35 @@ export const pointerMachine = setup({
         },
         Dragging: {
           entry: raise({ type: 'DRAG' }),
-          exit: raise({ type: 'DRAG.DONE' }),
           on: {
-            'POINTER.UP': {
-              target: 'Inactive',
-            },
+            'POINTER.UP': [
+              {
+                guard: 'isSlidingDragBusy',
+                target: 'Exiting',
+              },
+              {
+                target: 'Done',
+              },
+            ],
             'DRAG.CANCEL': {
-              target: 'Inactive',
+              target: 'Done',
             },
             'TOUCH.MOVE.DONE': {
               guard: 'isMultiTouch',
-              target: 'Inactive',
+              target: 'Done',
             },
           },
+        },
+        Exiting: {
+          on: {
+            'SLIDE.DRAG.DONE': {
+              target: 'Done',
+            },
+          },
+        },
+        Done: {
+          exit: raise({ type: 'DRAG.DONE' }),
+          always: 'Inactive',
         },
       },
     },
@@ -1422,5 +1452,9 @@ export const selectLayoutSvgScale = (pointer: PointerState) =>
   pointer.context.layout.svgScale
 export const selectLayoutSvgOffset = (pointer: PointerState) =>
   pointer.context.layout.svgOffset
+export const selectLayoutScroll = (pointer: PointerState) =>
+  pointer.context.layout.scroll
 export const selectCursor = (pointer: PointerState) => pointer.context.cursor
 export const selectTouches = (pointer: PointerState) => pointer.context.touches
+export const selectDragging = (pointer: PointerState) =>
+  pointer.context.dragging

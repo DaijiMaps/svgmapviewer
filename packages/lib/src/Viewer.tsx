@@ -7,10 +7,10 @@ import { Header, HeaderStyle } from './Header'
 import { usePointer } from './lib/pointer-react'
 import { searchRef } from './lib/search'
 import {
-  dragStyle,
-  modeStyle,
-  scrollStyle,
+  useDragStyle,
+  useModeStyle,
   useMoveStyle,
+  useScrollStyle,
   useZoomStyle,
 } from './lib/style'
 import { useUi } from './lib/ui-react'
@@ -22,12 +22,15 @@ import { Shadow, ShadowStyle } from './Shadow'
 export const Viewer = (props: Readonly<PropsWithChildren>) => {
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const { pointer, pointerRef } = usePointer(containerRef)
+  const { pointerRef } = usePointer(containerRef)
 
   const { uiRef } = useUi(pointerRef)
 
   const moveStyle = useMoveStyle(pointerRef)
   const zoomStyle = useZoomStyle(pointerRef)
+  const scrollStyle = useScrollStyle(pointerRef)
+  const modeStyle = useModeStyle(pointerRef)
+  const dragStyle = useDragStyle(pointerRef)
 
   return (
     <>
@@ -51,9 +54,9 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
         _searchRef={searchRef}
       />
       <style>
-        {scrollStyle(pointer)}
-        {modeStyle(pointer)}
-        {dragStyle(pointer)}
+        {scrollStyle}
+        {modeStyle}
+        {dragStyle}
         {moveStyle}
         {zoomStyle}
       </style>

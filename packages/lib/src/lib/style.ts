@@ -2,21 +2,28 @@ import { useSelector } from '@xstate/react'
 import { svgMapViewerConfig as cfg } from './config'
 import { Matrix } from './matrix'
 import { matrixEmpty, matrixToString } from './matrix/prefixed'
-import { PointerRef, PointerState } from './pointer-xstate'
+import {
+  PointerRef,
+  selectDragging,
+  selectLayoutScroll,
+  selectMode,
+} from './pointer-xstate'
 
-export function scrollStyle(pointer: Readonly<PointerState>) {
-  const layout = pointer.context.layout
+export function useScrollStyle(pointerRef: Readonly<PointerRef>) {
+  const scroll = useSelector(pointerRef, selectLayoutScroll)
 
   return `
 .content {
-  width: ${layout.scroll.width}px;
-  height: ${layout.scroll.height}px;
+  width: ${scroll.width}px;
+  height: ${scroll.height}px;
 }
 `
 }
 
-export function modeStyle(pointer: Readonly<PointerState>) {
-  return pointer.context.mode === 'pointing'
+export function useModeStyle(pointerRef: Readonly<PointerRef>) {
+  const mode = useSelector(pointerRef, selectMode)
+
+  return mode === 'pointing'
     ? `
 .container {
 }
@@ -31,12 +38,12 @@ export function modeStyle(pointer: Readonly<PointerState>) {
 `
 }
 
-export function dragStyle(pointer: Readonly<PointerState>) {
-  if (!pointer.matches({ Pointer: { Dragging: 'Active' } })) {
-    return ''
-  }
+export function useDragStyle(pointerRef: Readonly<PointerRef>) {
+  const dragging = useSelector(pointerRef, selectDragging)
 
-  return `
+  return !dragging
+    ? ``
+    : `
 .container {
   cursor: grabbing;
   overflow: scroll;
