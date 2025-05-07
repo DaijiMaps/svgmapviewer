@@ -1,12 +1,11 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
-import svgr from 'vite-plugin-svgr'
 import path from 'node:path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '',
-  plugins: [react(), svgr()],
+  plugins: [react()],
   resolve: {
     alias: {
       "@daijimaps/svgmapviewer/box": path.resolve(__dirname, '../lib/src/lib/box/prefixed/index.ts'),
