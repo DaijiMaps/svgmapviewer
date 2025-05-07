@@ -73,6 +73,7 @@ export const stepMachine = setup({
       P: () => null,
       Q: () => null,
     }),
+    /*
     callCbP: ({ context: { P, cb } }): void => {
       if (isNotNull(P) && isNotNull(cb)) {
         cb(P)
@@ -83,6 +84,21 @@ export const stepMachine = setup({
         cb(Q)
       }
     },
+    */
+    sendStepTickP: sendTo(
+      ({ context }) => context.parent,
+      (_, { event }: { event: { P: null | Box } }) => ({
+        type: 'STEP.TICK',
+        pos: event.P,
+      })
+    ),
+    sendStepTickQ: sendTo(
+      ({ context }) => context.parent,
+      (_, { event }: { event: { Q: null | Box } }) => ({
+        type: 'STEP.TICK',
+        pos: event.Q,
+      })
+    ),
     sendStepDone: sendTo(
       ({ context }) => context.parent,
       ({ context }) => ({
@@ -147,16 +163,28 @@ export const stepMachine = setup({
         TICK: [
           {
             guard: 'isOutcounted',
-            actions: 'callCbQ',
+            actions: {
+              type: 'sendStepTickP',
+              params: ({ context }) => ({ event: { P: context.P } }),
+            },
             target: 'OutCounted',
           },
           {
             guard: 'isClose',
-            actions: 'callCbQ',
+            actions: {
+              type: 'sendStepTickQ',
+              params: ({ context }) => ({ event: { Q: context.Q } }),
+            },
             target: 'Arrived',
           },
           {
-            actions: ['nextStep', 'callCbP'],
+            actions: [
+              'nextStep',
+              {
+                type: 'sendStepTickP',
+                params: ({ context }) => ({ event: { P: context.P } }),
+              },
+            ],
           },
         ],
         'STEP.STOP': {

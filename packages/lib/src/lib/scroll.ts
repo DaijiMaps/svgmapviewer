@@ -4,7 +4,7 @@
 /* eslint-disable functional/no-conditional-statements */
 import { BoxBox as Box, boxBox, BoxBox } from './box/prefixed'
 
-export const syncScroll = (e: null | HTMLElement, b: Box): boolean => {
+export const syncScroll = (e: null | HTMLElement, b: null | Box): boolean => {
   // assume valid if scrollLeft exists
   if (e === null || e.scrollLeft === null || b === null) {
     return false
