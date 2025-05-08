@@ -1,4 +1,4 @@
-import { useMachine, useSelector } from '@xstate/react'
+import { useActorRef, useSelector } from '@xstate/react'
 import { RefObject, useCallback, useEffect } from 'react'
 import { svgMapViewerConfig as cfg } from './config'
 import { useLayout } from './layout-react'
@@ -203,7 +203,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
 } {
   const origLayout = useLayout(cfg.origViewBox)
 
-  const [, , pointerRef] = useMachine(pointerMachine, {
+  const pointerRef = useActorRef(pointerMachine, {
     input: { layout: origLayout, containerRef },
   })
 
