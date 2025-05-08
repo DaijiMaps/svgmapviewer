@@ -5,7 +5,6 @@ import { useLayout } from './layout-react'
 import {
   pointerMachine,
   PointerRef,
-  PointerSend,
   ReactUIEvent,
   selectExpanding,
   selectLayout,
@@ -24,11 +23,11 @@ let scrollIdleTimer: null | number = null
 function usePointerKey(pointerRef: PointerRef) {
   const keyDown = useCallback(
     (ev: KeyboardEvent) => pointerRef.send({ type: 'KEY.DOWN', ev }),
-    [pointerRef.send]
+    [pointerRef]
   )
   const keyUp = useCallback(
     (ev: KeyboardEvent) => pointerRef.send({ type: 'KEY.UP', ev }),
-    [pointerRef.send]
+    [pointerRef]
   )
 
   useEffect(() => {
@@ -68,7 +67,7 @@ function usePointerEvent(
       }
       pointerRef.send(event)
     },
-    [pointerRef.send]
+    [pointerRef]
   )
 
   const sendPointerDown = useCallback(
@@ -240,11 +239,11 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
 
   const pointerSearchLock = useCallback(
     (p: Vec, psvg: Vec) => pointerRef.send({ type: 'SEARCH.LOCK', p, psvg }),
-    [pointerRef.send]
+    [pointerRef]
   )
   const pointerSearchUnlock = useCallback(
     () => pointerRef.send({ type: 'SEARCH.UNLOCK' }),
-    [pointerRef.send]
+    [pointerRef]
   )
 
   useEffect(() => {
@@ -285,7 +284,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
 
   useEffect(
     () => pointerRef.send({ type: 'LAYOUT', layout: origLayout }),
-    [origLayout, pointerRef.send]
+    [origLayout, pointerRef]
   )
 
   useEffect(() => {
