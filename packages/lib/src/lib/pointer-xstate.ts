@@ -695,14 +695,7 @@ export const pointerMachine = setup({
             },
             TouchWaitingForDragDone: {
               on: {
-                'DRAG.DONE': {
-                  target: 'TouchWaitingForUnexpandDone',
-                },
-              },
-            },
-            TouchWaitingForUnexpandDone: {
-              on: {
-                'UNEXPAND.DONE': [
+                'DRAG.DONE': [
                   {
                     guard: 'isTouchHorizontal',
                     target: '#pointer-panning',
