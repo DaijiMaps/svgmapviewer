@@ -287,6 +287,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
       pointerRef.send({ type: 'RENDERED' })
     }
   }, [expanding, pointerRef])
+
   useEffect(
     () => pointerRef.send({ type: 'LAYOUT', layout: origLayout }),
     [origLayout, pointerRef]
