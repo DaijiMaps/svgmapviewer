@@ -25,10 +25,11 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
         <MapSvg _pointerRef={pointerRef}>{props.children}</MapSvg>
         <MapHtml _pointerRef={pointerRef} />
         <Shadow _uiRef={uiRef} />
-        <ShadowStyle _uiRef={uiRef} />
-        <Detail _pointerRef={pointerRef} _uiRef={uiRef} />
       </Container>
       <ContainerStyle _pointerRef={pointerRef} />
+
+      <ShadowStyle _uiRef={uiRef} />
+      <Detail _pointerRef={pointerRef} _uiRef={uiRef} />
 
       <Header _uiRef={uiRef} _pointerRef={pointerRef} />
       <HeaderStyle _uiRef={uiRef} _pointerRef={pointerRef} />
