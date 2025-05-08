@@ -1,3 +1,4 @@
+import { RefObject } from 'react'
 import './Debug.css'
 import { fromMatrixSvg, toMatrixSvg } from './lib/coord'
 import { PointerRef } from './lib/pointer-xstate'
@@ -7,7 +8,7 @@ import { transformPoint } from './lib/transform'
 import { UiRef } from './lib/ui-xstate'
 
 interface DebugProps {
-  _container: null | HTMLDivElement
+  _containerRef: RefObject<HTMLDivElement>
   _uiRef: UiRef
   _pointerRef: PointerRef
   _searchRef: SearchRef
@@ -15,7 +16,7 @@ interface DebugProps {
 
 export const Debug = (props: Readonly<DebugProps>) => {
   const {
-    _container: container,
+    _containerRef: containerRef,
     _uiRef: uiRef,
     _pointerRef: pointerRef,
     _searchRef: searchRef,
@@ -65,12 +66,7 @@ export const Debug = (props: Readonly<DebugProps>) => {
         <li>cursorSvg: {showPoint(cursorSvg)}</li>
         <li>cursor2: {showPoint(cursor2)}</li>
         <li>expand: {showNumber(pointer.context.expand)}</li>
-        {container !== null && (
-          <>
-            <li>container.scrollLeft: {showNumber(container.scrollLeft)}</li>
-            <li>container.scrollTop: {showNumber(container.scrollTop)}</li>
-          </>
-        )}
+        <DebugScroll _containerRef={containerRef} />
         <li>layout.scroll: {showBox(layout.scroll)}</li>
         <li>layout.svgOffset: {showPoint(layout.svgOffset)}</li>
         <li>layout.svgScale: {showNumber(layout.svgScale.s)}</li>
@@ -87,4 +83,21 @@ export const Debug = (props: Readonly<DebugProps>) => {
       </ul>
     </div>
   )
+}
+
+function DebugScroll(
+  props: Readonly<{ _containerRef: RefObject<HTMLDivElement> }>
+) {
+  {
+    const e = props._containerRef.current
+
+    return (
+      e !== null && (
+        <>
+          <li>container.scrollLeft: {showNumber(e.scrollLeft)}</li>
+          <li>container.scrollTop: {showNumber(e.scrollTop)}</li>
+        </>
+      )
+    )
+  }
 }

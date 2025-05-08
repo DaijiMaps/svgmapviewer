@@ -40,7 +40,7 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
       <RightStyle _uiRef={uiRef} _pointerRef={pointerRef} />
 
       <Debug
-        _container={containerRef.current}
+        _containerRef={containerRef}
         _uiRef={uiRef}
         _pointerRef={pointerRef}
         _searchRef={searchRef}
