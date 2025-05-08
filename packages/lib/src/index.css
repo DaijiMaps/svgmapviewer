@@ -13,6 +13,9 @@
   text-rendering: optimizeSpeed;
   shape-rendering: optimizeSpeed;
   */
+
+  /* XXX */
+  touch-action: none;
 }
 
 /* XXX */
