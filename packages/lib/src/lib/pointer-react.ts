@@ -280,8 +280,13 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   //// actions
   ////
 
-  useExpander(pointerRef)
+  const expanding = useSelector(pointerRef, selectExpanding)
 
+  useEffect(() => {
+    if (expanding > 0) {
+      pointerRef.send({ type: 'RENDERED' })
+    }
+  }, [expanding, pointerRef])
   useEffect(
     () => pointerRef.send({ type: 'LAYOUT', layout: origLayout }),
     [origLayout, pointerRef]
@@ -294,14 +299,4 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   return {
     pointerRef,
   }
-}
-
-function useExpander(pointerRef: PointerRef) {
-  const expanding = useSelector(pointerRef, selectExpanding)
-
-  useEffect(() => {
-    if (expanding > 0) {
-      pointerRef.send({ type: 'RENDERED' })
-    }
-  }, [expanding, pointerRef])
 }
