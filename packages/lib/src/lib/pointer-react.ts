@@ -21,14 +21,14 @@ let scrolleventmask: boolean = false
 
 let scrollIdleTimer: null | number = null
 
-function usePointerKey(send: PointerSend) {
+function usePointerKey(pointerRef: PointerRef) {
   const keyDown = useCallback(
-    (ev: KeyboardEvent) => send({ type: 'KEY.DOWN', ev }),
-    [send]
+    (ev: KeyboardEvent) => pointerRef.send({ type: 'KEY.DOWN', ev }),
+    [pointerRef.send]
   )
   const keyUp = useCallback(
-    (ev: KeyboardEvent) => send({ type: 'KEY.UP', ev }),
-    [send]
+    (ev: KeyboardEvent) => pointerRef.send({ type: 'KEY.UP', ev }),
+    [pointerRef.send]
   )
 
   useEffect(() => {
@@ -40,12 +40,12 @@ function usePointerKey(send: PointerSend) {
       remove('keydown', keyDown)
       remove('keyup', keyUp)
     }
-  }, [keyDown, keyUp, send])
+  }, [keyDown, keyUp])
 }
 
 function usePointerEvent(
   containerRef: RefObject<HTMLDivElement>,
-  pointerSend: PointerSend
+  pointerRef: PointerRef
 ) {
   const send = useCallback(
     (
@@ -66,9 +66,9 @@ function usePointerEvent(
       } else {
         event.ev.stopPropagation()
       }
-      pointerSend(event)
+      pointerRef.send(event)
     },
-    [pointerSend]
+    [pointerRef.send]
   )
 
   const sendPointerDown = useCallback(
@@ -200,12 +200,11 @@ function usePointerEvent(
 }
 
 export function usePointer(containerRef: RefObject<HTMLDivElement>): {
-  pointerSend: PointerSend
   pointerRef: PointerRef
 } {
   const origLayout = useLayout(cfg.origViewBox)
 
-  const [, pointerSend, pointerRef] = useMachine(pointerMachine, {
+  const [, , pointerRef] = useMachine(pointerMachine, {
     input: { layout: origLayout, containerRef },
   })
 
@@ -213,9 +212,9 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   //// event handlers
   ////
 
-  usePointerKey(pointerSend)
+  usePointerKey(pointerRef)
 
-  usePointerEvent(containerRef, pointerSend)
+  usePointerEvent(containerRef, pointerRef)
 
   const layout = useSelector(pointerRef, selectLayout)
   const mode = useSelector(pointerRef, selectMode)
@@ -240,12 +239,12 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   ////
 
   const pointerSearchLock = useCallback(
-    (p: Vec, psvg: Vec) => pointerSend({ type: 'SEARCH.LOCK', p, psvg }),
-    [pointerSend]
+    (p: Vec, psvg: Vec) => pointerRef.send({ type: 'SEARCH.LOCK', p, psvg }),
+    [pointerRef.send]
   )
   const pointerSearchUnlock = useCallback(
-    () => pointerSend({ type: 'SEARCH.UNLOCK' }),
-    [pointerSend]
+    () => pointerRef.send({ type: 'SEARCH.UNLOCK' }),
+    [pointerRef.send]
   )
 
   useEffect(() => {
@@ -285,8 +284,8 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   useExpander(pointerRef)
 
   useEffect(
-    () => pointerSend({ type: 'LAYOUT', layout: origLayout }),
-    [origLayout, pointerSend]
+    () => pointerRef.send({ type: 'LAYOUT', layout: origLayout }),
+    [origLayout, pointerRef.send]
   )
 
   useEffect(() => {
@@ -294,7 +293,6 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   }, [layout])
 
   return {
-    pointerSend,
     pointerRef,
   }
 }
