@@ -1466,3 +1466,4 @@ export const selectDragging = (pointer: PointerState) =>
   pointer.context.dragging
 export const selectExpanding = (pointer: PointerState) =>
   pointer.context.expanding
+export const selectDebug = (pointer: PointerState) => pointer.context.debug
