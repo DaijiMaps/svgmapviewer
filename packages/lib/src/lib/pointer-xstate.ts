@@ -512,6 +512,7 @@ export const pointerMachine = setup({
                 layout: ({ event }) => event.layout,
                 cursor: ({ event }) => boxCenter(event.layout.container),
               }),
+              target: 'Layouting',
             },
             'LAYOUT.RESET': {
               guard: 'isIdle',
@@ -649,6 +650,21 @@ export const pointerMachine = setup({
                 target: 'Locked',
               },
             ],
+          },
+        },
+        Layouting: {
+          initial: 'Assigned',
+          onDone: 'Idle',
+          states: {
+            Assigned: {
+              entry: raise({ type: 'EXPAND', n: 3 }),
+              on: {
+                'EXPAND.DONE': { target: 'Done' },
+              },
+            },
+            Done: {
+              type: 'final',
+            },
           },
         },
         Dragging: {
@@ -1268,11 +1284,12 @@ export const pointerMachine = setup({
           on: {
             DRAG: {
               guard: 'isIdle',
-              actions: raise({ type: 'EXPAND', n: 3 }),
-              target: 'Expanding',
+              //actions: raise({ type: 'EXPAND', n: 3 }),
+              target: 'Sliding',
             },
           },
         },
+        /*
         Expanding: {
           on: {
             'EXPAND.DONE': {
@@ -1283,12 +1300,13 @@ export const pointerMachine = setup({
             },
           },
         },
+	*/
         Sliding: {
           entry: raise({ type: 'SLIDE' }),
           on: {
             'SLIDE.DONE': {
-              actions: raise({ type: 'UNEXPAND' }),
-              target: 'Expanding',
+              //actions: raise({ type: 'UNEXPAND' }),
+              target: 'Inactive',
             },
           },
         },
