@@ -6,7 +6,6 @@ import {
   pointerMachine,
   PointerRef,
   PointerSend,
-  PointerState,
   ReactUIEvent,
   selectLayout,
   selectMode,
@@ -200,7 +199,6 @@ function usePointerEvent(
 }
 
 export function usePointer(containerRef: RefObject<HTMLDivElement>): {
-  pointer: PointerState
   pointerSend: PointerSend
   pointerRef: PointerRef
 } {
@@ -299,7 +297,6 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   }, [layout])
 
   return {
-    pointer,
     pointerSend,
     pointerRef,
   }
