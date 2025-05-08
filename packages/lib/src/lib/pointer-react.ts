@@ -7,6 +7,7 @@ import {
   PointerRef,
   PointerSend,
   ReactUIEvent,
+  selectExpanding,
   selectLayout,
   selectMode,
 } from './pointer-xstate'
@@ -204,7 +205,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
 } {
   const origLayout = useLayout(cfg.origViewBox)
 
-  const [pointer, pointerSend, pointerRef] = useMachine(pointerMachine, {
+  const [, pointerSend, pointerRef] = useMachine(pointerMachine, {
     input: { layout: origLayout, containerRef },
   })
 
@@ -281,11 +282,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   //// actions
   ////
 
-  useEffect(() => {
-    if (pointer.hasTag('rendering')) {
-      pointerSend({ type: 'RENDERED' })
-    }
-  }, [pointer, pointerSend])
+  useExpander(pointerRef)
 
   useEffect(
     () => pointerSend({ type: 'LAYOUT', layout: origLayout }),
@@ -300,4 +297,14 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
     pointerSend,
     pointerRef,
   }
+}
+
+function useExpander(pointerRef: PointerRef) {
+  const expanding = useSelector(pointerRef, selectExpanding)
+
+  useEffect(() => {
+    if (expanding > 0) {
+      pointerRef.send({ type: 'RENDERED' })
+    }
+  }, [expanding, pointerRef])
 }

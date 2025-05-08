@@ -71,6 +71,7 @@ export type PointerContext = {
   clickLock: boolean
 
   dragging: boolean // XXX for CSS
+  expanding: number // XXX
 }
 
 type PointerExternalEvent =
@@ -460,6 +461,11 @@ export const pointerMachine = setup({
     // click lock
     lockClick: assign({ clickLock: true }),
     unlockClick: assign({ clickLock: false }),
+
+    updateExpanding: assign({
+      expanding: ({ context }): number => context.expanding + 1,
+    }),
+    clearExpanding: assign({ expanding: () => 0 }),
   },
   actors: {
     scroll: scrollMachine,
@@ -483,6 +489,7 @@ export const pointerMachine = setup({
     mode: 'pointing',
     clickLock: false,
     dragging: false,
+    expanding: 0,
   }),
   invoke: [
     {
@@ -894,29 +901,31 @@ export const pointerMachine = setup({
           entry: raise({ type: 'UNEXPAND.DONE' }),
           on: {
             EXPAND: {
-              actions: {
-                type: 'expand',
-                params: ({ context: { expand }, event: { n } }) => ({
-                  n: n !== undefined ? n : expand === 1 ? EXPAND_DEFAULT : 1,
-                }),
-              },
+              actions: [
+                {
+                  type: 'expand',
+                  params: ({ context: { expand }, event: { n } }) => ({
+                    n: n !== undefined ? n : expand === 1 ? EXPAND_DEFAULT : 1,
+                  }),
+                },
+                'updateExpanding',
+              ],
               target: 'Expanding',
             },
           },
         },
         Expanding: {
-          tags: ['rendering'],
           on: {
             RENDERED: {
+              actions: 'updateExpanding',
               target: 'ExpandRendering',
             },
           },
         },
         ExpandRendering: {
-          tags: ['rendering'],
           on: {
             RENDERED: {
-              actions: 'syncScroll',
+              actions: ['syncScroll', 'clearExpanding'],
               target: 'Expanded',
             },
           },
@@ -925,6 +934,7 @@ export const pointerMachine = setup({
           entry: raise({ type: 'EXPAND.DONE' }),
           on: {
             UNEXPAND: {
+              actions: 'updateExpanding',
               target: 'Unexpanding',
             },
           },
@@ -938,15 +948,16 @@ export const pointerMachine = setup({
                 'resetScroll',
                 'endDrag',
                 { type: 'expand', params: { n: 1 } },
+                'updateExpanding',
               ],
               target: 'UnexpandRendering',
             },
           },
         },
         UnexpandRendering: {
-          tags: ['rendering'],
           on: {
             RENDERED: {
+              actions: 'clearExpanding',
               target: 'Unexpanded',
             },
           },
@@ -1458,3 +1469,5 @@ export const selectCursor = (pointer: PointerState) => pointer.context.cursor
 export const selectTouches = (pointer: PointerState) => pointer.context.touches
 export const selectDragging = (pointer: PointerState) =>
   pointer.context.dragging
+export const selectExpanding = (pointer: PointerState) =>
+  pointer.context.expanding
