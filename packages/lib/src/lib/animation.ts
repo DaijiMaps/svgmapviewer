@@ -59,9 +59,9 @@ export const animationZoom = (
   cursor: Vec
 ): Animation => {
   const osvg = transformPoint(toMatrixSvg(layout), cursor)
-  const o = transformPoint(toMatrixOuter(layout), cursor)
+  //const o = transformPoint(toMatrixOuter(layout), cursor)
   const s = 1 / zoomToScale(z)
-  const q = matrixScaleAt([1 / s, 1 / s], [o.x, o.y])
+  const q = matrixScaleAt([1 / s, 1 / s], [cursor.x, cursor.y])
 
   return {
     move: null,

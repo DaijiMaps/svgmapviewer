@@ -91,7 +91,7 @@ export const css = (q: Matrix) => {
   const p = matrixEmpty
 
   return `
-.content {
+.container {
   will-change: transform;
   animation: xxx ${cfg.animationDuration}ms ease;
 }

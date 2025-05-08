@@ -9,15 +9,23 @@ import {
   useZoomStyle,
 } from './lib/style'
 
-export const Container = forwardRef<HTMLDivElement, PropsWithChildren>(
-  (props, ref) => {
-    return (
-      <div ref={ref} className="container">
-        {props.children}
-      </div>
-    )
-  }
-)
+export const Container = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<{
+    _pointerRef: PointerRef
+  }>
+>((props, ref) => {
+  return (
+    <div
+      ref={ref}
+      className="container"
+      // eslint-disable-next-line functional/no-return-void
+      onAnimationEnd={() => props._pointerRef.send({ type: 'ANIMATION.END' })}
+    >
+      {props.children}
+    </div>
+  )
+})
 
 export function ContainerStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
   const { _pointerRef: pointerRef } = props

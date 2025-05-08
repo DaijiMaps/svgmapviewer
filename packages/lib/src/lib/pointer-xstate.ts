@@ -1232,46 +1232,35 @@ export const pointerMachine = setup({
           on: {
             ZOOM: [
               {
-                guard: not('isZoomingIn'),
-                // XXX consider zoom factor
-                // XXX XXX 3->1 for performance/smoothness on Chrome
-                actions: raise({ type: 'EXPAND', n: 1 }),
-                target: 'Expanding',
-              },
-              {
-                guard: 'isZoomingIn',
-                actions: raise({ type: 'EXPAND', n: 1 }),
-                target: 'Expanding',
+                actions: [
+                  'startZoom',
+                  'updateZoom',
+                  emit(({ context: { layout, zoom, z } }) => ({
+                    type: 'ZOOM.START',
+                    layout,
+                    zoom,
+                    z: z === null ? 0 : z,
+                  })),
+                ],
+                target: 'Animating',
               },
             ],
-          },
-        },
-        Expanding: {
-          on: {
-            'EXPAND.DONE': {
-              actions: [
-                'startZoom',
-                'updateZoom',
-                emit(({ context: { layout, zoom, z } }) => ({
-                  type: 'ZOOM.START',
-                  layout,
-                  zoom,
-                  z: z === null ? 0 : z,
-                })),
-              ],
-              target: 'Animating',
-            },
-            'UNEXPAND.DONE': {
-              target: 'Idle',
-            },
           },
         },
         Animating: {
           entry: raise({ type: 'ANIMATION' }),
           on: {
             'ANIMATION.DONE': {
-              actions: raise({ type: 'UNEXPAND' }),
-              target: 'Expanding',
+              actions: ['recenterLayout', 'resetScroll', 'updateExpanding'],
+              target: 'Layouting',
+            },
+          },
+        },
+        Layouting: {
+          on: {
+            RENDERED: {
+              actions: 'clearExpanding',
+              target: 'Idle',
             },
           },
         },
@@ -1284,28 +1273,23 @@ export const pointerMachine = setup({
           on: {
             DRAG: {
               guard: 'isIdle',
-              //actions: raise({ type: 'EXPAND', n: 3 }),
               target: 'Sliding',
             },
           },
         },
-        /*
-        Expanding: {
-          on: {
-            'EXPAND.DONE': {
-              target: 'Sliding',
-            },
-            'UNEXPAND.DONE': {
-              target: 'Inactive',
-            },
-          },
-        },
-	*/
         Sliding: {
           entry: raise({ type: 'SLIDE' }),
           on: {
             'SLIDE.DONE': {
-              //actions: raise({ type: 'UNEXPAND' }),
+              actions: ['recenterLayout', 'resetScroll', 'updateExpanding'],
+              target: 'Layouting',
+            },
+          },
+        },
+        Layouting: {
+          on: {
+            RENDERED: {
+              actions: 'clearExpanding',
               target: 'Inactive',
             },
           },

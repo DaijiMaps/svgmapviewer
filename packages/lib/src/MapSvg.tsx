@@ -16,11 +16,7 @@ export const MapSvg = (props: Readonly<PropsWithChildren<MapSvgProps>>) => {
   // XXX truncate viewBox (1234.5678901234567890 to 1234.56)
   // XXX (too much precision degrades SVG rendering performance)
   return (
-    <div
-      className="content svg"
-      // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => pointerRef.send({ type: 'ANIMATION.END' })}
-    >
+    <div className="content svg">
       <svg
         viewBox={boxToViewBox(layout.svg).replaceAll(/([.]\d\d)\d*/g, '$1')}
         width="100%"
