@@ -970,7 +970,15 @@ export const pointerMachine = setup({
         UnexpandRendering: {
           on: {
             RENDERED: {
-              target: 'Unexpand',
+              actions: 'clearExpanding',
+              target: 'UnexpandRendering2',
+            },
+          },
+        },
+        UnexpandRendering2: {
+          on: {
+            RENDERED: {
+              target: 'Unexpanded',
             },
           },
         },
@@ -1255,6 +1263,14 @@ export const pointerMachine = setup({
         Rendering: {
           on: {
             RENDERED: {
+              actions: 'clearExpanding',
+              target: 'Rendering2',
+            },
+          },
+        },
+        Rendering2: {
+          on: {
+            RENDERED: {
               target: 'Idle',
             },
           },
@@ -1282,6 +1298,14 @@ export const pointerMachine = setup({
           },
         },
         Rendering: {
+          on: {
+            RENDERED: {
+              actions: 'clearExpanding',
+              target: 'Rendering2',
+            },
+          },
+        },
+        Rendering2: {
           on: {
             RENDERED: {
               target: 'Inactive',
