@@ -739,11 +739,7 @@ export const pointerMachine = setup({
                   target: 'Zooming',
                 },
                 'PAN.DONE': {
-                  actions: [
-                    'recenterLayout',
-                    'resetScroll',
-                    raise({ type: 'UNEXPAND' }),
-                  ],
+                  actions: 'resetScroll',
                   target: 'Unexpanding',
                 },
               },
@@ -764,6 +760,7 @@ export const pointerMachine = setup({
               },
             },
             Unexpanding: {
+              entry: raise({ type: 'UNEXPAND' }),
               on: {
                 'UNEXPAND.DONE': {
                   // XXX expand to fit the whole map
@@ -1290,7 +1287,7 @@ export const pointerMachine = setup({
           entry: raise({ type: 'ANIMATION' }),
           on: {
             'ANIMATION.DONE': {
-              actions: ['recenterLayout', 'resetScroll'],
+              actions: ['resetScroll'],
               target: 'Rendering',
             },
           },
@@ -1467,7 +1464,6 @@ export const pointerMachine = setup({
                   type: 'scrollLayout',
                   params: ({ event: { scroll } }) => ({ scroll }),
                 },
-                'recenterLayout',
                 'resetScroll',
               ],
               target: 'Rendering',
