@@ -937,6 +937,13 @@ export const pointerMachine = setup({
           on: {
             RENDERED: {
               actions: ['syncScroll', 'clearExpanding'],
+              target: 'ExpandRendering2',
+            },
+          },
+        },
+        ExpandRendering2: {
+          on: {
+            RENDERED: {
               target: 'Expanded',
             },
           },
@@ -973,6 +980,13 @@ export const pointerMachine = setup({
           on: {
             RENDERED: {
               actions: 'clearExpanding',
+              target: 'UnexpandRendering2',
+            },
+          },
+        },
+        UnexpandRendering2: {
+          on: {
+            RENDERED: {
               target: 'Unexpanded',
             },
           },
@@ -1296,6 +1310,13 @@ export const pointerMachine = setup({
           on: {
             RENDERED: {
               actions: 'clearExpanding',
+              target: 'Rendering2',
+            },
+          },
+        },
+        Rendering2: {
+          on: {
+            RENDERED: {
               target: 'Inactive',
             },
           },
