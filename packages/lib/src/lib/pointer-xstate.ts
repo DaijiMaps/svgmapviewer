@@ -989,7 +989,6 @@ export const pointerMachine = setup({
           },
         },
         Unexpanding: {
-          tags: ['rendering'],
           on: {
             RENDERED: {
               actions: [
