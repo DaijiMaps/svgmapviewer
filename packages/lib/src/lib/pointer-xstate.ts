@@ -104,7 +104,6 @@ type PointerEventSlide =
 type PointerEventExpand =
   | { type: 'EXPAND'; n?: number }
   | { type: 'EXPAND.DONE' }
-  | { type: 'EXPAND.CANCEL' }
   | { type: 'UNEXPAND' }
   | { type: 'UNEXPAND.DONE' }
 type PointerEventMoveZoomPan =
@@ -975,10 +974,6 @@ export const pointerMachine = setup({
           entry: raise({ type: 'EXPAND.DONE' }),
           on: {
             'LAYOUT.RESET': {
-              actions: assign({ expand: () => 1 }),
-              target: 'Unexpanded',
-            },
-            'EXPAND.CANCEL': {
               actions: assign({ expand: () => 1 }),
               target: 'Unexpanded',
             },
