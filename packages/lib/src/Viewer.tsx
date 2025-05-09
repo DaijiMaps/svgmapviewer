@@ -26,7 +26,7 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
         <MapHtml _pointerRef={pointerRef} />
         <Shadow _uiRef={uiRef} />
       </Container>
-      <ContainerStyle _pointerRef={pointerRef} />
+      <ContainerStyle _pointerRef={pointerRef} _uiRef={uiRef} />
 
       <ShadowStyle _uiRef={uiRef} />
       <Detail _pointerRef={pointerRef} _uiRef={uiRef} />

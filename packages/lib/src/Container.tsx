@@ -8,6 +8,7 @@ import {
   useScrollStyle,
   useZoomStyle,
 } from './lib/style'
+import { UiRef } from './lib/ui-xstate'
 
 export const Container = forwardRef<
   HTMLDivElement,
@@ -27,13 +28,15 @@ export const Container = forwardRef<
   )
 })
 
-export function ContainerStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
-  const { _pointerRef: pointerRef } = props
+export function ContainerStyle(
+  props: Readonly<{ _pointerRef: PointerRef; _uiRef: UiRef }>
+) {
+  const { _pointerRef: pointerRef, _uiRef: uiRef } = props
 
   const moveStyle = useMoveStyle(pointerRef)
   const zoomStyle = useZoomStyle(pointerRef)
   const scrollStyle = useScrollStyle(pointerRef)
-  const modeStyle = useModeStyle(pointerRef)
+  const modeStyle = useModeStyle(pointerRef, uiRef)
   const dragStyle = useDragStyle(pointerRef)
 
   return (

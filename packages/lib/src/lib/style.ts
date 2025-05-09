@@ -2,12 +2,14 @@ import { useSelector } from '@xstate/react'
 import { svgMapViewerConfig as cfg } from './config'
 import { Matrix } from './matrix'
 import { matrixEmpty, matrixToString } from './matrix/prefixed'
+import { openCloseIsVisible } from './openclose'
 import {
   PointerRef,
   selectDragging,
   selectLayoutScroll,
   selectMode,
 } from './pointer-xstate'
+import { selectOpenCloseDetail, UiRef } from './ui-xstate'
 
 export function useScrollStyle(pointerRef: Readonly<PointerRef>) {
   const scroll = useSelector(pointerRef, selectLayoutScroll)
@@ -20,10 +22,14 @@ export function useScrollStyle(pointerRef: Readonly<PointerRef>) {
 `
 }
 
-export function useModeStyle(pointerRef: Readonly<PointerRef>) {
+export function useModeStyle(
+  pointerRef: Readonly<PointerRef>,
+  uiRef: Readonly<UiRef>
+) {
   const mode = useSelector(pointerRef, selectMode)
+  const detail = useSelector(uiRef, selectOpenCloseDetail)
 
-  return mode === 'pointing'
+  return mode === 'pointing' || openCloseIsVisible(detail)
     ? `
 .container {
 }
