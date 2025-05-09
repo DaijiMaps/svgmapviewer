@@ -658,7 +658,7 @@ export const pointerMachine = setup({
           onDone: 'Idle',
           states: {
             Assigned: {
-              entry: raise({ type: 'EXPAND', n: 3 }),
+              entry: raise({ type: 'EXPAND', n: EXPAND_DEFAULT }),
               on: {
                 'EXPAND.DONE': {
                   target: 'Done',
@@ -773,7 +773,7 @@ export const pointerMachine = setup({
               },
             },
             Expanding: {
-              entry: raise({ type: 'EXPAND', n: 3 }),
+              entry: raise({ type: 'EXPAND', n: EXPAND_DEFAULT }),
               on: {
                 'EXPAND.DONE': {
                   target: 'Done',
@@ -1231,7 +1231,7 @@ export const pointerMachine = setup({
           entry: raise({ type: 'MOVE.DONE' }),
           on: {
             MOVE: {
-              actions: raise({ type: 'EXPAND', n: 3 }),
+              actions: raise({ type: 'EXPAND', n: EXPAND_DEFAULT }),
               target: 'Expanding',
             },
           },
