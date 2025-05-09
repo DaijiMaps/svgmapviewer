@@ -465,9 +465,6 @@ export const pointerMachine = setup({
     updateExpanding: assign({
       expanding: ({ context }): number => Number(!context.expanding),
     }),
-    clearExpanding: assign({
-      expanding: ({ context }) => Number(!context.expanding),
-    }),
   },
   actors: {
     scroll: scrollMachine,
@@ -930,20 +927,12 @@ export const pointerMachine = setup({
         Expanding: {
           on: {
             RENDERED: {
-              actions: 'updateExpanding',
+              actions: ['syncScroll', 'updateExpanding'],
               target: 'ExpandRendering',
             },
           },
         },
         ExpandRendering: {
-          on: {
-            RENDERED: {
-              actions: ['syncScroll', 'clearExpanding'],
-              target: 'ExpandRendering2',
-            },
-          },
-        },
-        ExpandRendering2: {
           on: {
             RENDERED: {
               target: 'Expanded',
