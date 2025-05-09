@@ -941,29 +941,30 @@ export const pointerMachine = setup({
                     n: n !== undefined ? n : expand === 1 ? EXPAND_DEFAULT : 1,
                   }),
                 },
-                'updateExpanding',
               ],
               target: 'Expanding',
             },
           },
         },
         Expanding: {
+          entry: 'updateExpanding',
           on: {
             RENDERED: {
-              actions: 'updateExpanding',
               target: 'ExpandRendering',
             },
           },
         },
         ExpandRendering: {
+          entry: 'updateExpanding',
           on: {
             RENDERED: {
-              actions: ['syncScroll', 'clearExpanding'],
+              actions: 'syncScroll',
               target: 'ExpandRendering2',
             },
           },
         },
         ExpandRendering2: {
+          entry: 'clearExpanding',
           on: {
             RENDERED: {
               target: 'Expanded',
@@ -996,21 +997,21 @@ export const pointerMachine = setup({
                 'resetScroll',
                 'endDrag',
                 { type: 'expand', params: { n: 1 } },
-                'updateExpanding',
               ],
               target: 'UnexpandRendering',
             },
           },
         },
         UnexpandRendering: {
+          entry: 'updateExpanding',
           on: {
             RENDERED: {
-              actions: 'clearExpanding',
               target: 'UnexpandRendering2',
             },
           },
         },
         UnexpandRendering2: {
+          entry: 'clearExpanding',
           on: {
             RENDERED: {
               target: 'Unexpanded',
@@ -1309,7 +1310,7 @@ export const pointerMachine = setup({
           },
         },
         Rendering2: {
-          entry: ['clearExpanding'],
+          entry: 'clearExpanding',
           on: {
             RENDERED: {
               actions: [raise({ type: 'ZOOM.DONE' })],
@@ -1334,20 +1335,21 @@ export const pointerMachine = setup({
           entry: raise({ type: 'SLIDE' }),
           on: {
             'SLIDE.DONE': {
-              actions: ['recenterLayout', 'resetScroll', 'updateExpanding'],
+              actions: ['recenterLayout', 'resetScroll'],
               target: 'Rendering',
             },
           },
         },
         Rendering: {
+          entry: 'updateExpanding',
           on: {
             RENDERED: {
-              actions: 'clearExpanding',
               target: 'Rendering2',
             },
           },
         },
         Rendering2: {
+          entry: 'clearExpanding',
           on: {
             RENDERED: {
               target: 'Inactive',
@@ -1473,21 +1475,21 @@ export const pointerMachine = setup({
                 },
                 'recenterLayout',
                 'resetScroll',
-                'updateExpanding',
               ],
               target: 'Rendering',
             },
           },
         },
         Rendering: {
+          entry: 'updateExpanding',
           on: {
             RENDERED: {
-              actions: 'clearExpanding',
               target: 'Rendering2',
             },
           },
         },
         Rendering2: {
+          entry: 'clearExpanding',
           on: {
             RENDERED: {
               actions: raise({ type: 'PAN.DONE' }),
