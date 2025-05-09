@@ -71,7 +71,7 @@ export type PointerContext = {
   clickLock: boolean
 
   dragging: boolean // XXX for CSS
-  expanding: number // XXX
+  expanding: number // XXX used to update layout & scroll; RENDERED is sent
 }
 
 type PointerExternalEvent =
@@ -953,7 +953,6 @@ export const pointerMachine = setup({
           },
         },
         Unexpanding: {
-          tags: ['rendering'],
           on: {
             RENDERED: {
               actions: [
