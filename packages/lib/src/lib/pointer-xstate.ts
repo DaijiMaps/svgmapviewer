@@ -104,6 +104,7 @@ type PointerEventSlide =
 type PointerEventExpand =
   | { type: 'EXPAND'; n?: number }
   | { type: 'EXPAND.DONE' }
+  | { type: 'EXPAND.CANCEL' }
   | { type: 'UNEXPAND' }
   | { type: 'UNEXPAND.DONE' }
 type PointerEventMoveZoomPan =
@@ -726,9 +727,17 @@ export const pointerMachine = setup({
         },
         Panning: {
           id: 'pointer-panning',
-          initial: 'Active',
+          initial: 'Unexpanding',
           onDone: 'Idle',
           states: {
+            Unexpanding: {
+              entry: raise({ type: 'EXPAND.CANCEL' }),
+              on: {
+                'UNEXPAND.DONE': {
+                  target: 'Active',
+                },
+              },
+	    },
             Active: {
               entry: raise({ type: 'PAN' }),
               on: {
@@ -739,7 +748,7 @@ export const pointerMachine = setup({
                   target: 'Zooming',
                 },
                 'PAN.DONE': {
-                  target: 'Done',
+                  target: 'Expanding',
                 },
               },
             },
@@ -755,6 +764,14 @@ export const pointerMachine = setup({
               on: {
                 'PAN.ZOOM.ZOOM.DONE': {
                   target: 'Active',
+                },
+              },
+            },
+            Expanding: {
+              entry: raise({ type: 'EXPAND', n: 3 }),
+              on: {
+                'EXPAND.DONE': {
+                  target: 'Done',
                 },
               },
             },
@@ -952,6 +969,10 @@ export const pointerMachine = setup({
           entry: raise({ type: 'EXPAND.DONE' }),
           on: {
             'LAYOUT.RESET': {
+              actions: assign({ expand: () => 1 }),
+              target: 'Unexpanded',
+            },
+            'EXPAND.CANCEL': {
               actions: assign({ expand: () => 1 }),
               target: 'Unexpanded',
             },
