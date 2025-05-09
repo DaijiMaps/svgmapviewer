@@ -80,16 +80,13 @@ export const animationHome = (
   const o = pipe(
     osvg,
     (p) => transformPoint(fromMatrixSvg(layout), p),
-    (p) => transformPoint(toMatrixOuter(layout), p)
   )
   const m1 = fromTransform(invMove(o))
 
   const s = nextLayout.svgScale.s / layout.svgScale.s
   const m2 = fromTransform(invScale({ s }))
 
-  const c = pipe(boxCenter(layout.container), (p) =>
-    transformPoint(toMatrixOuter(layout), p)
-  )
+  const c = boxCenter(layout.container)
   const m3 = fromTransform(c)
 
   const q = [m3, m2, m1].reduce(matrixMultiply)
