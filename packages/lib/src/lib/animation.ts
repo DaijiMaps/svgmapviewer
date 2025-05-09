@@ -2,7 +2,7 @@ import { pipe } from 'fp-ts/lib/function'
 import { ReadonlyDeep } from 'type-fest'
 import { Box } from './box'
 import { boxCenter, boxMove, boxScaleAt } from './box/prefixed'
-import { fromMatrixSvg, toMatrixOuter, toMatrixSvg } from './coord'
+import { fromMatrixSvg, toMatrixSvg } from './coord'
 import { Drag } from './drag'
 import { Layout, relocLayout, zoomLayout } from './layout'
 import {
@@ -77,10 +77,7 @@ export const animationHome = (
   nextLayout: Layout
 ): Animation => {
   const osvg = boxCenter(nextLayout.config.svg)
-  const o = pipe(
-    osvg,
-    (p) => transformPoint(fromMatrixSvg(layout), p),
-  )
+  const o = pipe(osvg, (p) => transformPoint(fromMatrixSvg(layout), p))
   const m1 = fromTransform(invMove(o))
 
   const s = nextLayout.svgScale.s / layout.svgScale.s
