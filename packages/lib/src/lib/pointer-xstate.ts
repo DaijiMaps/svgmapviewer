@@ -727,17 +727,9 @@ export const pointerMachine = setup({
         },
         Panning: {
           id: 'pointer-panning',
-          initial: 'Unexpanding',
+          initial: 'Active',
           onDone: 'Idle',
           states: {
-            Unexpanding: {
-              entry: raise({ type: 'EXPAND.CANCEL' }),
-              on: {
-                'UNEXPAND.DONE': {
-                  target: 'Active',
-                },
-              },
-	    },
             Active: {
               entry: raise({ type: 'PAN' }),
               on: {
@@ -748,7 +740,12 @@ export const pointerMachine = setup({
                   target: 'Zooming',
                 },
                 'PAN.DONE': {
-                  target: 'Expanding',
+                  actions: [
+                    'recenterLayout',
+                    'resetScroll',
+                    raise({ type: 'UNEXPAND' }),
+                  ],
+                  target: 'Unexpanding',
                 },
               },
             },
@@ -760,10 +757,18 @@ export const pointerMachine = setup({
               },
             },
             Zooming: {
-              entry: raise({ type: 'PAN.ZOOM.ZOOM' }, { delay: 1 }),
+              entry: [raise({ type: 'PAN.ZOOM.ZOOM' }, { delay: 1 })],
               on: {
                 'PAN.ZOOM.ZOOM.DONE': {
                   target: 'Active',
+                },
+              },
+            },
+            Unexpanding: {
+              on: {
+                'UNEXPAND.DONE': {
+                  // XXX expand to fit the whole map
+                  target: 'Expanding',
                 },
               },
             },
@@ -789,7 +794,7 @@ export const pointerMachine = setup({
           },
         },
         Zooming: {
-          entry: raise({ type: 'ZOOM' }),
+          entry: [raise({ type: 'ZOOM' })],
           on: {
             'ZOOM.DONE': {
               target: 'Idle',
@@ -1262,7 +1267,12 @@ export const pointerMachine = setup({
       initial: 'Idle',
       states: {
         Idle: {
-          entry: raise({ type: 'ZOOM.DONE' }),
+          /*
+          entry: [
+            raise({ type: 'ZOOM.DONE' }, { delay: 1 }),
+            () => console.log('Zoomer.Idle', 'ZOOM.DONE'),
+          ],
+          */
           on: {
             ZOOM: [
               {
@@ -1285,22 +1295,24 @@ export const pointerMachine = setup({
           entry: raise({ type: 'ANIMATION' }),
           on: {
             'ANIMATION.DONE': {
-              actions: ['recenterLayout', 'resetScroll', 'updateExpanding'],
+              actions: ['recenterLayout', 'resetScroll'],
               target: 'Rendering',
             },
           },
         },
         Rendering: {
+          entry: 'updateExpanding',
           on: {
             RENDERED: {
-              actions: 'clearExpanding',
               target: 'Rendering2',
             },
           },
         },
         Rendering2: {
+          entry: ['clearExpanding'],
           on: {
             RENDERED: {
+              actions: [raise({ type: 'ZOOM.DONE' })],
               target: 'Idle',
             },
           },
@@ -1356,12 +1368,20 @@ export const pointerMachine = setup({
           },
           on: {
             PAN: {
-              // XXX expand to fit the whole map
-              actions: raise({ type: 'EXPAND', n: EXPAND_PANNING }),
-              target: 'Expanding',
+              target: 'Unexpanding',
             },
             'PAN.ZOOM.ZOOM': {
               target: 'Zooming',
+            },
+          },
+        },
+        Unexpanding: {
+          entry: raise({ type: 'UNEXPAND' }),
+          on: {
+            'UNEXPAND.DONE': {
+              // XXX expand to fit the whole map
+              actions: raise({ type: 'EXPAND', n: EXPAND_PANNING }),
+              target: 'Expanding',
             },
           },
         },
@@ -1451,9 +1471,27 @@ export const pointerMachine = setup({
                   type: 'scrollLayout',
                   params: ({ event: { scroll } }) => ({ scroll }),
                 },
-                raise({ type: 'UNEXPAND' }),
+                'recenterLayout',
+                'resetScroll',
+                'updateExpanding',
               ],
-              target: 'Expanding',
+              target: 'Rendering',
+            },
+          },
+        },
+        Rendering: {
+          on: {
+            RENDERED: {
+              actions: 'clearExpanding',
+              target: 'Rendering2',
+            },
+          },
+        },
+        Rendering2: {
+          on: {
+            RENDERED: {
+              actions: raise({ type: 'PAN.DONE' }),
+              target: 'Idle', // XXX Idle will receive PAN.ZOOM.ZOOM
             },
           },
         },
