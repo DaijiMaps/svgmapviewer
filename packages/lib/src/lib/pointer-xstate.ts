@@ -463,9 +463,11 @@ export const pointerMachine = setup({
     unlockClick: assign({ clickLock: false }),
 
     updateExpanding: assign({
-      expanding: ({ context }): number => context.expanding + 1,
+      expanding: ({ context }): number => Number(!context.expanding),
     }),
-    clearExpanding: assign({ expanding: () => 0 }),
+    clearExpanding: assign({
+      expanding: ({ context }) => Number(!context.expanding),
+    }),
   },
   actors: {
     scroll: scrollMachine,
