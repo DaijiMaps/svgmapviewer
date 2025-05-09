@@ -187,7 +187,7 @@ function balloonStyle(
   transition: transform 300ms;
 }
 
-.detail{
+.detail {
   transform-origin: ${d.x}vmin ${d.y}vmin;
   animation: xxx-detail 300ms ease;
   will-change: opacity transform;
