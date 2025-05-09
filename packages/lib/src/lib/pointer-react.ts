@@ -283,9 +283,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   const expanding = useSelector(pointerRef, selectExpanding)
 
   useEffect(() => {
-    if (expanding > 0) {
-      pointerRef.send({ type: 'RENDERED' })
-    }
+    pointerRef.send({ type: 'RENDERED' })
   }, [expanding, pointerRef])
 
   useEffect(

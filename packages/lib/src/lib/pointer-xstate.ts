@@ -659,7 +659,13 @@ export const pointerMachine = setup({
             Assigned: {
               entry: raise({ type: 'EXPAND', n: 3 }),
               on: {
-                'EXPAND.DONE': { target: 'Done' },
+                'EXPAND.DONE': {
+                  target: 'Done',
+                  actions: emit(({ context: { layout } }) => ({
+                    type: 'LAYOUT',
+                    layout,
+                  })),
+                },
               },
             },
             Done: {
@@ -775,14 +781,10 @@ export const pointerMachine = setup({
         },
         Homing: {
           entry: raise({ type: 'ZOOM' }),
-          exit: [
-            'resetLayout',
-            'resetCursor',
-            emit(({ context: { layout } }) => ({ type: 'LAYOUT', layout })),
-          ],
           on: {
             'ZOOM.DONE': {
-              target: 'Idle',
+              actions: ['resetLayout', 'resetCursor'],
+              target: 'Layouting',
             },
           },
         },
@@ -942,6 +944,10 @@ export const pointerMachine = setup({
         Expanded: {
           entry: raise({ type: 'EXPAND.DONE' }),
           on: {
+            'LAYOUT.RESET': {
+              actions: assign({ expand: () => 1 }),
+              target: 'Unexpanded',
+            },
             UNEXPAND: {
               actions: 'updateExpanding',
               target: 'Unexpanding',
@@ -1245,14 +1251,21 @@ export const pointerMachine = setup({
           on: {
             'ANIMATION.DONE': {
               actions: ['recenterLayout', 'resetScroll', 'updateExpanding'],
-              target: 'Layouting',
+              target: 'Rendering',
             },
           },
         },
-        Layouting: {
+        Rendering: {
           on: {
             RENDERED: {
               actions: 'clearExpanding',
+              target: 'Rendering2',
+            },
+          },
+        },
+        Rendering2: {
+          on: {
+            RENDERED: {
               target: 'Idle',
             },
           },
@@ -1275,11 +1288,11 @@ export const pointerMachine = setup({
           on: {
             'SLIDE.DONE': {
               actions: ['recenterLayout', 'resetScroll', 'updateExpanding'],
-              target: 'Layouting',
+              target: 'Rendering',
             },
           },
         },
-        Layouting: {
+        Rendering: {
           on: {
             RENDERED: {
               actions: 'clearExpanding',
