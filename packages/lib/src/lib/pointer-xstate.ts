@@ -201,7 +201,6 @@ export const pointerMachine = setup({
     isMultiTouchEnding: ({ context: { touches } }) =>
       isMultiTouchEnding(touches),
     isTouchZooming: ({ context }) => context.touches.z !== null,
-    isTouchHorizontal: ({ context }) => context.touches.horizontal === true,
 
     // expand
     isExpanded: ({ context }) => context.expand !== 1,
@@ -635,10 +634,6 @@ export const pointerMachine = setup({
                 guard: not('isIdle'),
               },
               {
-                guard: 'isTouchHorizontal',
-                target: '#pointer-panning',
-              },
-              {
                 target: '#pointer-touching',
               },
             ],
@@ -702,10 +697,6 @@ export const pointerMachine = setup({
             TouchWaitingForDragDone: {
               on: {
                 'DRAG.DONE': [
-                  {
-                    guard: 'isTouchHorizontal',
-                    target: '#pointer-panning',
-                  },
                   {
                     target: '#pointer-touching',
                   },
@@ -1068,10 +1059,6 @@ export const pointerMachine = setup({
             // XXX otherwise PointerMonitor is in Dragging during PAN
             // XXX and still there after exiting PAN
             CONTEXTMENU: {
-              target: 'Inactive',
-            },
-            'TOUCH.START.DONE': {
-              guard: 'isTouchHorizontal',
               target: 'Inactive',
             },
           },
