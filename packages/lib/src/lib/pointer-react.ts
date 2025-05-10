@@ -1,6 +1,7 @@
 import { useActorRef, useSelector } from '@xstate/react'
 import { RefObject, useCallback, useEffect } from 'react'
 import { svgMapViewerConfig as cfg } from './config'
+import { Layout } from './layout'
 import { useLayout } from './layout-react'
 import {
   pointerMachine,
@@ -201,8 +202,6 @@ function usePointerEvent(
 export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   pointerRef: PointerRef
 } {
-  const origLayout = useLayout(cfg.origViewBox)
-
   const pointerRef = useActorRef(pointerMachine, {
     input: { containerRef },
   })
@@ -286,10 +285,9 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
     pointerRef.send({ type: 'RENDERED' })
   }, [expanding, pointerRef])
 
-  useEffect(
-    () => pointerRef.send({ type: 'LAYOUT', layout: origLayout }),
-    [origLayout, pointerRef]
-  )
+  useLayout((layout: Readonly<Layout>) => {
+    pointerRef.send({ type: 'LAYOUT', layout })
+  }, cfg.origViewBox)
 
   useEffect(() => {
     cfg.layout = layout
