@@ -8,7 +8,6 @@ import {
   PointerRef,
   ReactUIEvent,
   selectExpanding,
-  selectLayout,
   selectMode,
 } from './pointer-xstate'
 import { Vec } from './vec'
@@ -214,7 +213,6 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
 
   usePointerEvent(containerRef, pointerRef)
 
-  const layout = useSelector(pointerRef, selectLayout)
   const mode = useSelector(pointerRef, selectMode)
 
   useEffect(() => {
@@ -286,13 +284,9 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   }, [expanding, pointerRef])
 
   useLayout((layout: Readonly<Layout>) => {
-    console.log('LAYOUT', layout)
     pointerRef.send({ type: 'LAYOUT', layout })
-  }, cfg.origViewBox)
-
-  useEffect(() => {
     cfg.layout = layout
-  }, [layout])
+  }, cfg.origViewBox)
 
   return {
     pointerRef,
