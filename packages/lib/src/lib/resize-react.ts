@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { BoxBox as Box, boxEq, boxUnit } from './box/prefixed'
 
 export function getBodySize(): Box {
@@ -11,25 +11,26 @@ export function getBodySize(): Box {
 }
 
 export function useWindowResize(cb: (size: Readonly<Box>) => void): Box {
-  const [size, setSize] = useState(boxUnit)
+  const sizeRef = useRef(boxUnit)
+  const [size, setSize] = useState<Box>(boxUnit)
+  const [resized, setResized] = useState<boolean>(false)
 
   useEffect(() => {
+    /* always */
+    if (!(resized || !resized)) {
+      return
+    }
     const tmp = getBodySize()
-    if (!boxEq(tmp, size)) {
-      console.log('first time!', tmp, size)
+    if (!(boxEq(tmp, sizeRef.current) || boxEq(tmp, size))) {
+      sizeRef.current = tmp
       setSize(tmp)
       cb(tmp)
     }
-  }, [cb, size])
+  }, [cb, resized, size])
 
   const handler = useCallback(() => {
-    console.log('resize!')
-    const tmp = getBodySize()
-    if (!boxEq(tmp, size)) {
-      setSize(tmp)
-      cb(tmp)
-    }
-  }, [cb, size])
+    setResized(!resized)
+  }, [resized, setResized])
 
   useEffect(() => {
     window.addEventListener('resize', handler)
