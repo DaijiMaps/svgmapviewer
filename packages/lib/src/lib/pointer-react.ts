@@ -283,8 +283,8 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
     pointerRef.send({ type: 'RENDERED' })
   }, [expanding, pointerRef])
 
-  useLayout((layout: Readonly<Layout>) => {
-    pointerRef.send({ type: 'LAYOUT', layout })
+  useLayout((layout: Readonly<Layout>, force: boolean) => {
+    pointerRef.send({ type: 'LAYOUT', layout, force })
     cfg.layout = layout
   }, cfg.origViewBox)
 

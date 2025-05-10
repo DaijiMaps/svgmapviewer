@@ -71,12 +71,13 @@ export type PointerContext = {
 
   dragging: boolean // XXX for CSS
   expanding: number // XXX
+  rendered: boolean
 }
 
 type PointerExternalEvent =
   | { type: 'ANIMATION.END' }
   | { type: 'DEBUG' }
-  | { type: 'LAYOUT'; layout: Layout }
+  | { type: 'LAYOUT'; layout: Layout; force: boolean }
   | { type: 'LAYOUT.RESET' }
   | { type: 'MODE'; mode: PointerMode }
   | { type: 'RENDERED' }
@@ -102,6 +103,7 @@ type PointerEventSlide =
   | { type: 'SLIDE.DRAG.SLIDE' }
 type PointerEventExpand =
   | { type: 'EXPAND'; n?: number }
+  | { type: 'EXPAND.CANCEL' }
   | { type: 'EXPAND.DONE' }
   | { type: 'UNEXPAND' }
   | { type: 'UNEXPAND.DONE' }
@@ -488,6 +490,7 @@ export const pointerMachine = setup({
     clickLock: false,
     dragging: false,
     expanding: 0,
+    rendered: false,
   }),
   invoke: [
     {
@@ -505,13 +508,24 @@ export const pointerMachine = setup({
       states: {
         Idle: {
           on: {
-            LAYOUT: {
-              actions: assign({
-                layout: ({ event }) => event.layout,
-                cursor: ({ event }) => boxCenter(event.layout.container),
-              }),
-              target: 'Layouting',
-            },
+            LAYOUT: [
+              /* XXX force layout (resize) */
+              {
+                guard: ({ event }) => event.force,
+                actions: assign({
+                  layout: ({ event }) => event.layout,
+                  cursor: ({ event }) => boxCenter(event.layout.container),
+                }),
+                target: 'Resizing',
+              },
+              {
+                actions: assign({
+                  layout: ({ event }) => event.layout,
+                  cursor: ({ event }) => boxCenter(event.layout.container),
+                }),
+                target: 'Layouting',
+              },
+            ],
             'LAYOUT.RESET': {
               guard: 'isIdle',
               actions: 'zoomHome',
@@ -646,6 +660,42 @@ export const pointerMachine = setup({
             ],
           },
         },
+        Resizing: {
+          initial: 'Canceling',
+          onDone: 'Layouting',
+          states: {
+            Canceling: {
+              entry: raise({ type: 'EXPAND.CANCEL' }),
+              on: {
+                'UNEXPAND.DONE': {
+                  actions: [
+                    assign({ rendered: () => false }),
+                    'updateExpanding',
+                  ],
+                  target: 'Rendering',
+                },
+              },
+            },
+            Rendering: {
+              on: {
+                RENDERED: {
+                  actions: 'clearExpanding',
+                  target: 'Rendering2',
+                },
+              },
+            },
+            Rendering2: {
+              on: {
+                RENDERED: {
+                  target: 'Done',
+                },
+              },
+            },
+            Done: {
+              type: 'final',
+            },
+          },
+        },
         Layouting: {
           initial: 'Assigned',
           onDone: 'Idle',
@@ -655,10 +705,13 @@ export const pointerMachine = setup({
               on: {
                 'EXPAND.DONE': {
                   target: 'Done',
-                  actions: emit(({ context: { layout } }) => ({
-                    type: 'LAYOUT',
-                    layout,
-                  })),
+                  actions: [
+                    emit(({ context: { layout } }) => ({
+                      type: 'LAYOUT',
+                      layout,
+                    })),
+                    assign({ rendered: () => true }),
+                  ],
                 },
               },
             },
@@ -960,6 +1013,10 @@ export const pointerMachine = setup({
         Expanded: {
           entry: raise({ type: 'EXPAND.DONE' }),
           on: {
+            'EXPAND.CANCEL': {
+              actions: assign({ expand: () => 1 }),
+              target: 'Unexpanded',
+            },
             'LAYOUT.RESET': {
               actions: assign({ expand: () => 1 }),
               target: 'Unexpanded',
@@ -1534,3 +1591,5 @@ export const selectDragging = (pointer: PointerState) =>
 export const selectExpanding = (pointer: PointerState) =>
   pointer.context.expanding
 export const selectDebug = (pointer: PointerState) => pointer.context.debug
+export const selectRendered = (pointer: PointerState) =>
+  pointer.context.rendered

@@ -6,16 +6,16 @@ import { openCloseIsVisible } from './openclose'
 import {
   PointerRef,
   selectDragging,
-  selectLayoutContainer,
   selectLayoutScroll,
   selectMode,
+  selectRendered,
 } from './pointer-xstate'
 import { selectOpenCloseDetail, UiRef } from './ui-xstate'
 
 export function useInitStyle(pointerRef: Readonly<PointerRef>) {
-  const { width, height } = useSelector(pointerRef, selectLayoutContainer)
+  const rendered = useSelector(pointerRef, selectRendered)
 
-  return width === 1 && height === 1
+  return !rendered
     ? `
 .container {
   opacity: 0;

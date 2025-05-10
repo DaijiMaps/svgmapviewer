@@ -5,15 +5,18 @@ export function getBodySize(): Box {
   return {
     x: 0,
     y: 0,
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: document.body.clientWidth,
+    height: document.body.clientHeight,
   }
 }
 
-export function useWindowResize(cb: (size: Readonly<Box>) => void): Box {
+export function useWindowResize(
+  cb: (size: Readonly<Box>, force: boolean) => void
+): void {
   const sizeRef = useRef(boxUnit)
   const [size, setSize] = useState<Box>(boxUnit)
   const [resized, setResized] = useState<boolean>(false)
+  const resizingRef = useRef(false)
 
   useEffect(() => {
     /* always */
@@ -21,15 +24,25 @@ export function useWindowResize(cb: (size: Readonly<Box>) => void): Box {
       return
     }
     const tmp = getBodySize()
-    if (!(boxEq(tmp, sizeRef.current) || boxEq(tmp, size))) {
+    if (!boxEq(tmp, sizeRef.current)) {
       sizeRef.current = tmp
       setSize(tmp)
-      cb(tmp)
+      cb(tmp, resizingRef.current)
+      resizingRef.current = false
     }
   }, [cb, resized, size])
 
   const handler = useCallback(() => {
-    setResized(!resized)
+    // XXX
+    // XXX
+    // XXX
+    requestAnimationFrame(() => {
+      setResized(!resized)
+      resizingRef.current = true
+    })
+    // XXX
+    // XXX
+    // XXX
   }, [resized, setResized])
 
   useEffect(() => {
@@ -38,6 +51,4 @@ export function useWindowResize(cb: (size: Readonly<Box>) => void): Box {
       window.removeEventListener('resize', handler)
     }
   }, [handler])
-
-  return size
 }
