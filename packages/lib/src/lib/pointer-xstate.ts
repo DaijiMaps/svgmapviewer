@@ -1259,12 +1259,6 @@ export const pointerMachine = setup({
       initial: 'Idle',
       states: {
         Idle: {
-          /*
-          entry: [
-            raise({ type: 'ZOOM.DONE' }, { delay: 1 }),
-            () => console.log('Zoomer.Idle', 'ZOOM.DONE'),
-          ],
-          */
           on: {
             ZOOM: [
               {
@@ -1287,7 +1281,7 @@ export const pointerMachine = setup({
           entry: raise({ type: 'ANIMATION' }),
           on: {
             'ANIMATION.DONE': {
-              actions: ['resetScroll'],
+              actions: 'resetScroll',
               target: 'Rendering',
             },
           },
@@ -1304,7 +1298,7 @@ export const pointerMachine = setup({
           entry: 'clearExpanding',
           on: {
             RENDERED: {
-              actions: [raise({ type: 'ZOOM.DONE' })],
+              actions: raise({ type: 'ZOOM.DONE' }),
               target: 'Idle',
             },
           },
