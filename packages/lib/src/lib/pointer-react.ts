@@ -204,7 +204,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   const origLayout = useLayout(cfg.origViewBox)
 
   const pointerRef = useActorRef(pointerMachine, {
-    input: { layout: origLayout, containerRef },
+    input: { containerRef },
   })
 
   ////

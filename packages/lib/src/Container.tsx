@@ -3,6 +3,7 @@ import './Container.css'
 import { PointerRef } from './lib/pointer-xstate'
 import {
   useDragStyle,
+  useInitStyle,
   useModeStyle,
   useMoveStyle,
   useScrollStyle,
@@ -33,14 +34,16 @@ export function ContainerStyle(
 ) {
   const { _pointerRef: pointerRef, _uiRef: uiRef } = props
 
-  const moveStyle = useMoveStyle(pointerRef)
-  const zoomStyle = useZoomStyle(pointerRef)
+  const initStyle = useInitStyle(pointerRef)
   const scrollStyle = useScrollStyle(pointerRef)
   const modeStyle = useModeStyle(pointerRef, uiRef)
   const dragStyle = useDragStyle(pointerRef)
+  const moveStyle = useMoveStyle(pointerRef)
+  const zoomStyle = useZoomStyle(pointerRef)
 
   return (
     <style>
+      {initStyle}
       {scrollStyle}
       {modeStyle}
       {dragStyle}

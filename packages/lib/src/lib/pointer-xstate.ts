@@ -50,7 +50,6 @@ const EXPAND_DEFAULT = 3
 const EXPAND_PANNING = 9
 
 export type PointerInput = {
-  layout: Layout
   containerRef: RefObject<HTMLDivElement>
 }
 
@@ -472,9 +471,9 @@ export const pointerMachine = setup({
 }).createMachine({
   type: 'parallel',
   id: 'pointer',
-  context: ({ input: { layout, containerRef } }) => ({
+  context: ({ input: { containerRef } }) => ({
     containerRef,
-    layout,
+    layout: emptyLayout,
     nextLayout: null,
     cursor: boxCenter(emptyLayout.container),
     expand: 1,
@@ -1518,6 +1517,8 @@ export type PointerMode = 'pointing' | 'panning' | 'locked'
 
 export const selectMode = (pointer: PointerState) => pointer.context.mode
 export const selectLayout = (pointer: PointerState) => pointer.context.layout
+export const selectLayoutContainer = (pointer: PointerState) =>
+  pointer.context.layout.container
 export const selectLayoutSvg = (pointer: PointerState) =>
   pointer.context.layout.svg
 export const selectLayoutSvgScale = (pointer: PointerState) =>

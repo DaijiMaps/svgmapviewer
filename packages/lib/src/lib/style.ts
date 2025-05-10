@@ -6,10 +6,27 @@ import { openCloseIsVisible } from './openclose'
 import {
   PointerRef,
   selectDragging,
+  selectLayoutContainer,
   selectLayoutScroll,
   selectMode,
 } from './pointer-xstate'
 import { selectOpenCloseDetail, UiRef } from './ui-xstate'
+
+export function useInitStyle(pointerRef: Readonly<PointerRef>) {
+  const { width, height } = useSelector(pointerRef, selectLayoutContainer)
+
+  return width === 1 && height === 1
+    ? `
+.container {
+  opacity: 0;
+}`
+    : `
+.container {
+  transition: opacity 1s;
+  opacity: 1;
+}
+`
+}
 
 export function useScrollStyle(pointerRef: Readonly<PointerRef>) {
   const scroll = useSelector(pointerRef, selectLayoutScroll)
