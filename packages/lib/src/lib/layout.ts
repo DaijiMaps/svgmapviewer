@@ -8,7 +8,6 @@ import {
   boxScaleAt,
   boxUnit,
 } from './box/prefixed'
-import { svgMapViewerConfig as cfg } from './config'
 import {
   LayoutCoord,
   fromMatrixOuter,
@@ -167,7 +166,7 @@ export const toSvg = (p: Vec, layout: Layout): Vec =>
   transformPoint(toMatrixSvg(layout), p)
 export const fromSvg = (p: Vec, layout: Layout): Vec =>
   transformPoint(fromMatrixSvg(layout), p)
-export const toOuter = (p: Vec, layout?: Layout): Vec =>
-  transformPoint(toMatrixOuter(layout ?? cfg.layout), p)
-export const fromOuter = (p: Vec, layout?: Layout): Vec =>
-  transformPoint(fromMatrixOuter(layout ?? cfg.layout), p)
+export const toOuter = (p: Vec, layout: Layout): Vec =>
+  transformPoint(toMatrixOuter(layout), p)
+export const fromOuter = (p: Vec, layout: Layout): Vec =>
+  transformPoint(fromMatrixOuter(layout), p)
