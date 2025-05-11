@@ -24,7 +24,6 @@ export interface SearchReq {
 }
 
 export interface SearchRes {
-  p: Vec
   psvg: Vec
   info: Readonly<Info>
 }

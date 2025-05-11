@@ -15,7 +15,7 @@ searchRef.on('SEARCH', ({ psvg }) => {
 
 searchRef.on('SEARCH.DONE', ({ /*p,*/ psvg, info }) => {
   const p = fromSvg(psvg)
-  cfg.searchEndCbs.forEach((cb) => cb({ p, psvg, info }))
+  cfg.searchEndCbs.forEach((cb) => cb({ psvg, info }))
   cfg.uiOpenCbs.forEach((cb) => cb(p, psvg, info))
 })
 

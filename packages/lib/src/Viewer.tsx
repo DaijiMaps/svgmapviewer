@@ -17,7 +17,7 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
 
   const { pointerRef } = usePointer(containerRef)
 
-  const { uiRef } = useUi(pointerRef)
+  const { uiRef } = useUi()
 
   return (
     <>

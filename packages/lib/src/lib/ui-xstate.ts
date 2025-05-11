@@ -17,7 +17,7 @@ import {
   openCloseOpened,
   openCloseReset,
 } from './openclose'
-import { Dir, SearchRes } from './types'
+import { SearchRes } from './types'
 
 export type UiPart =
   | 'header'
@@ -29,7 +29,7 @@ export type UiPart =
 
 type OpenCloseMap = Record<UiPart, OpenClose>
 
-export type UiDetailContent = SearchRes & { dir: Dir }
+export type UiDetailContent = SearchRes
 
 export interface UiContext {
   canceling: boolean
@@ -139,11 +139,9 @@ export const uiMachine = setup({
             },
             DETAIL: {
               actions: assign({
-                detail: ({ event: { p, psvg, info, dir } }) => ({
-                  p,
+                detail: ({ event: { psvg, info } }) => ({
                   psvg,
                   info,
-                  dir,
                 }),
               }),
               target: 'Detail',

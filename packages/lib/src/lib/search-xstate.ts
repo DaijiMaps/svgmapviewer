@@ -4,12 +4,12 @@ import { Vec } from './vec'
 
 export type SearchEvent =
   | { type: 'SEARCH'; psvg: Vec }
-  | { type: 'SEARCH.DONE'; p: Vec; psvg: Vec; info: Info }
+  | { type: 'SEARCH.DONE'; psvg: Vec; info: Info }
   | { type: 'SEARCH.CANCEL' }
 
 export type SearchEmitted =
   | { type: 'SEARCH'; psvg: Vec }
-  | { type: 'SEARCH.DONE'; p: Vec; psvg: Vec; info: Info }
+  | { type: 'SEARCH.DONE'; psvg: Vec; info: Info }
 
 export const searchMachine = setup({
   types: {} as {

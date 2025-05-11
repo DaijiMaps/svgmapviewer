@@ -1,45 +1,49 @@
-import { useMachine, useSelector } from '@xstate/react'
+import { useMachine } from '@xstate/react'
 import { useCallback, useEffect } from 'react'
 import { svgMapViewerConfig as cfg } from './config'
-import { diag } from './diag'
-import { PointerRef, selectLayout } from './pointer-xstate'
 import { SearchRes } from './types'
 import { uiMachine, UiRef, UiSend, UiState } from './ui-xstate'
 
-export function useUi(pointerRef: PointerRef): {
+export function useUi(): {
   ui: UiState
   uiSend: UiSend
   uiRef: UiRef
 } {
   const [ui, uiSend, uiRef] = useMachine(uiMachine)
 
-  const layout = useSelector(pointerRef, selectLayout)
-
   const uiDetail = useCallback(
     (res: Readonly<null | SearchRes>) => {
       if (res !== null) {
-        const dir = diag(layout.container, res.p)
-        uiSend({ type: 'DETAIL', ...res, dir })
+        uiSend({ type: 'DETAIL', ...res })
       }
     },
-    [layout.container, uiSend]
+    [uiSend]
   )
+  useEffect(() => {
+    cfg.searchEndCbs.add(uiDetail)
+    return () => {
+      cfg.searchEndCbs.delete(uiDetail)
+    }
+  }, [uiDetail])
+
   const uiOpen = useCallback(
     (ok: boolean) => uiSend({ type: ok ? 'OPEN' : 'CANCEL' }),
     [uiSend]
   )
-  const uiCancel = useCallback(() => uiSend({ type: 'CANCEL' }), [uiSend])
-
   useEffect(() => {
-    cfg.searchEndCbs.add(uiDetail)
     cfg.uiOpenDoneCbs.add(uiOpen)
+    return () => {
+      cfg.uiOpenDoneCbs.delete(uiOpen)
+    }
+  }, [uiOpen])
+
+  const uiCancel = useCallback(() => uiSend({ type: 'CANCEL' }), [uiSend])
+  useEffect(() => {
     cfg.uiCloseCbs.add(uiCancel)
     return () => {
-      cfg.searchEndCbs.delete(uiDetail)
-      cfg.uiOpenDoneCbs.delete(uiOpen)
       cfg.uiCloseCbs.delete(uiCancel)
     }
-  }, [uiCancel, uiDetail, uiOpen])
+  }, [uiCancel])
 
   useEffect(() => {
     const closeDone = uiRef.on('CLOSE.DONE', () =>

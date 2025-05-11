@@ -1,9 +1,11 @@
 import { useSelector } from '@xstate/react'
 import { ReactNode } from 'react'
 import './Balloon.css'
+import { diag } from './lib/diag'
+import { fromSvg } from './lib/layout'
 import { OpenClose, openCloseIsVisible } from './lib/openclose'
 import { PointerRef, selectLayout } from './lib/pointer-xstate'
-import { Dir } from './lib/types'
+import { Dir, SearchRes } from './lib/types'
 import {
   UiRef,
   selectDetail,
@@ -11,7 +13,7 @@ import {
   selectOpenCloseDetail,
 } from './lib/ui-xstate'
 import { Vec } from './lib/vec'
-import { vecVec } from './lib/vec/prefixed'
+import { VecVec, vecVec } from './lib/vec/prefixed'
 
 export interface BalloonPathProps {
   fg: boolean
@@ -83,17 +85,18 @@ z
 export interface BalloonProps {
   _uiRef: UiRef
   _pointerRef: PointerRef
+  _detail: SearchRes
+  _p: VecVec
+  _dir: Dir
 }
 
 export function Balloon(props: Readonly<BalloonProps>): ReactNode {
   const { _uiRef: uiRef } = props
 
   const balloon = useSelector(uiRef, selectOpenCloseBalloon)
-  const detail = useSelector(uiRef, selectDetail)
-
-  const layout = useSelector(props._pointerRef, selectLayout)
 
   // XXX
+  const layout = useSelector(props._pointerRef, selectLayout)
   const vmin = Math.min(layout.container.width, layout.container.height) * 0.01
 
   const bw = vmin * 40
@@ -113,26 +116,27 @@ export function Balloon(props: Readonly<BalloonProps>): ReactNode {
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiRef.send({ type: 'BALLOON.ANIMATION.END' })}
     >
-      {detail === null ? (
-        <></>
-      ) : (
-        <>
-          <BalloonPath fg={false} d={d} dir={detail.dir} {...p} />
-          <BalloonPath fg={true} d={0} dir={detail.dir} {...p} />
-        </>
-      )}
+      <BalloonPath fg={false} d={d} dir={props._dir} {...p} />
+      <BalloonPath fg={true} d={0} dir={props._dir} {...p} />
     </svg>
   )
 }
 
-export function BalloonStyle(
-  props: Readonly<Pick<BalloonProps, '_uiRef'>>
-): ReactNode {
-  const { _uiRef: uiRef } = props
+export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
+  const { _pointerRef: pointerRef, _uiRef: uiRef } = props
 
   const content = useSelector(uiRef, selectDetail)
   const balloon = useSelector(uiRef, selectOpenCloseBalloon)
   const detail = useSelector(uiRef, selectOpenCloseDetail)
+
+  const layout = useSelector(pointerRef, selectLayout)
+
+  if (content === null) {
+    return <></>
+  }
+
+  const p = fromSvg(content.psvg, layout)
+  const dir = diag(layout.container, p)
 
   if (
     !openCloseIsVisible(balloon) ||
@@ -141,7 +145,7 @@ export function BalloonStyle(
   ) {
     return <style>{`.detail { display: none; }`}</style>
   } else {
-    return <style>{balloonStyle(balloon, content.p, content.dir)}</style>
+    return <style>{balloonStyle(balloon, p, dir)}</style>
   }
 }
 
