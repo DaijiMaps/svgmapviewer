@@ -72,7 +72,7 @@ function MapHtmlContent(props: Readonly<MapHtmlProps>) {
 }
 
 function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
-  const { _m: x } = props
+  const { _m: m } = props
 
   return (
     <div className="poi-symbols">
@@ -80,7 +80,7 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
         .map(({ id, name, pos, size }) => ({
           id,
           name,
-          pos: transformPoint(x, pos),
+          pos: transformPoint(m, pos),
           size,
         }))
         .map(({ id, name, pos: { x, y }, size }, i) => (
@@ -99,7 +99,7 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
 }
 
 function MapHtmlContentStars(props: Readonly<MapHtmlContentProps>) {
-  const { _m: x } = props
+  const { _m: m } = props
   const likes = useLikes()
 
   return (
@@ -109,7 +109,7 @@ function MapHtmlContentStars(props: Readonly<MapHtmlContentProps>) {
         .map(({ id, name, pos, area }) => ({
           id,
           name,
-          pos: transformPoint(x, pos),
+          pos: transformPoint(m, pos),
           area,
         }))
         .map(({ id, pos: { x, y } }, i) => (
@@ -132,7 +132,7 @@ function MapHtmlContentStars(props: Readonly<MapHtmlContentProps>) {
 }
 
 function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
-  const { _svgScale: svgScale, _m: x } = props
+  const { _svgScale: svgScale, _m: m } = props
 
   // XXX make these configurable
   //  const huge = useMemo(
@@ -178,7 +178,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
                 {
                   id,
                   name,
-                  pos: transformPoint(x, pos),
+                  pos: transformPoint(m, pos),
                   size: -5,
                 },
               ]
@@ -188,7 +188,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
                   {
                     id,
                     name,
-                    pos: transformPoint(x, pos),
+                    pos: transformPoint(m, pos),
                     size:
                       area < tiny
                         ? -6
