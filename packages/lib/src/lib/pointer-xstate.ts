@@ -119,7 +119,7 @@ type PointerEventMoveZoomPan =
   | { type: 'PAN.ZOOM.ZOOM' }
   | { type: 'PAN.ZOOM.ZOOM.DONE' }
 type PointerEventSearch =
-  | { type: 'SEARCH'; p: Vec; psvg: Vec }
+  | { type: 'SEARCH'; psvg: Vec }
   | { type: 'SEARCH.LOCK'; p: Vec; psvg: Vec }
   | { type: 'SEARCH.UNLOCK' }
 type PointerEventLock = { type: 'LOCK'; ok: boolean } | { type: 'UNLOCK' }
@@ -173,7 +173,7 @@ export type _PointerEvent =
   | UIEvent
 
 export type PointerEmitted =
-  | { type: 'SEARCH'; p: Vec; psvg: Vec }
+  | { type: 'SEARCH'; psvg: Vec }
   | { type: 'LOCK'; ok: boolean }
   | { type: 'LAYOUT'; layout: Layout }
   | { type: 'ZOOM.START'; layout: Layout; zoom: number; z: number }
@@ -617,7 +617,6 @@ export const pointerMachine = setup({
                 },
                 emit(({ context: { layout, cursor } }) => ({
                   type: 'SEARCH',
-                  p: cursor,
                   psvg: toSvg(cursor, layout),
                 })),
               ],

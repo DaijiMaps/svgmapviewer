@@ -255,8 +255,8 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
 
   useEffect(() => {
     const subs = [
-      pointerRef.on('SEARCH', ({ p, psvg }) =>
-        cfg.searchStartCbs.forEach((cb) => cb(p, psvg))
+      pointerRef.on('SEARCH', ({ psvg }) =>
+        cfg.searchStartCbs.forEach((cb) => cb(psvg))
       ),
       pointerRef.on('LOCK', ({ ok }) =>
         cfg.uiOpenDoneCbs.forEach((cb) => cb(ok))

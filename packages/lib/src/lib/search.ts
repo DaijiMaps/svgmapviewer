@@ -9,8 +9,8 @@ import { Vec } from './vec'
 
 export const searchRef = createActor(searchMachine)
 
-searchRef.on('SEARCH', ({ p, psvg }) => {
-  cfg.searchCbs.forEach((cb) => cb(p, psvg))
+searchRef.on('SEARCH', ({ psvg }) => {
+  cfg.searchCbs.forEach((cb) => cb(psvg))
 })
 
 searchRef.on('SEARCH.DONE', ({ /*p,*/ psvg, info }) => {
@@ -19,8 +19,8 @@ searchRef.on('SEARCH.DONE', ({ /*p,*/ psvg, info }) => {
   cfg.uiOpenCbs.forEach((cb) => cb(p, psvg, info))
 })
 
-export function searchSearchStart(p: Vec, psvg: Vec) {
-  searchRef.send({ type: 'SEARCH', p, psvg })
+export function searchSearchStart(psvg: Vec) {
+  searchRef.send({ type: 'SEARCH', psvg })
 }
 
 export function searchSearchDone(res: Readonly<null | SearchRes>) {
