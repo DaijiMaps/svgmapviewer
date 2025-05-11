@@ -35,7 +35,7 @@ export type SearchCb = (psvg: Vec) => void
 
 export type SearchDoneCb = (res: Readonly<null | SearchRes>) => void
 
-export type UiOpenCb = (p: Vec, psvg: Vec, info: Readonly<Info>) => void
+export type UiOpenCb = (psvg: Vec, info: Readonly<Info>) => void
 
 export type UiOpenDoneCb = (ok: boolean) => void
 

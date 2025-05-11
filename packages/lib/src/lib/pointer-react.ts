@@ -236,7 +236,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   ////
 
   const pointerSearchLock = useCallback(
-    (p: Vec, psvg: Vec) => pointerRef.send({ type: 'SEARCH.LOCK', p, psvg }),
+    (psvg: Vec) => pointerRef.send({ type: 'SEARCH.LOCK', psvg }),
     [pointerRef]
   )
   const pointerSearchUnlock = useCallback(

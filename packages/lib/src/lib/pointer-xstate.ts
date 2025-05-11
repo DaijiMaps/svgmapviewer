@@ -120,7 +120,7 @@ type PointerEventMoveZoomPan =
   | { type: 'PAN.ZOOM.ZOOM.DONE' }
 type PointerEventSearch =
   | { type: 'SEARCH'; psvg: Vec }
-  | { type: 'SEARCH.LOCK'; p: Vec; psvg: Vec }
+  | { type: 'SEARCH.LOCK'; psvg: Vec }
   | { type: 'SEARCH.UNLOCK' }
 type PointerEventLock = { type: 'LOCK'; ok: boolean } | { type: 'UNLOCK' }
 
