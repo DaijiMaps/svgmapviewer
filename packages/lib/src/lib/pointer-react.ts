@@ -287,7 +287,6 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   // resize handling
   useLayout((origLayout: Readonly<Layout>, force: boolean) => {
     pointerRef.send({ type: 'LAYOUT', layout: origLayout, force })
-    cfg.layout = layout
   }, cfg.origViewBox)
 
   // reflect layout updated by pointer

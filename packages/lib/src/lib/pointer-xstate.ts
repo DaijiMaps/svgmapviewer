@@ -1013,10 +1013,16 @@ export const pointerMachine = setup({
         Expanded: {
           entry: raise({ type: 'EXPAND.DONE' }),
           on: {
+            // XXX
+            // XXX
+            // XXX
             'EXPAND.CANCEL': {
               actions: assign({ expand: () => 1 }),
               target: 'Unexpanded',
             },
+            // XXX
+            // XXX
+            // XXX
             'LAYOUT.RESET': {
               actions: assign({ expand: () => 1 }),
               target: 'Unexpanded',
