@@ -214,7 +214,6 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
 
   usePointerEvent(containerRef, pointerRef)
 
-  const layout = useSelector(pointerRef, selectLayout)
   const mode = useSelector(pointerRef, selectMode)
 
   useEffect(() => {
@@ -279,16 +278,19 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   //// actions
   ////
 
+  // re-render handling
   const expanding = useSelector(pointerRef, selectExpanding)
-
   useEffect(() => {
     pointerRef.send({ type: 'RENDERED' })
   }, [expanding, pointerRef])
 
-  useLayout((layout: Readonly<Layout>) => {
-    pointerRef.send({ type: 'LAYOUT', layout })
+  // resize handling
+  useLayout((origLayout: Readonly<Layout>) => {
+    pointerRef.send({ type: 'LAYOUT', layout: origLayout })
   }, cfg.origViewBox)
 
+  // reflect layout updated by pointer
+  const layout = useSelector(pointerRef, selectLayout)
   useEffect(() => {
     cfg.layout = layout
   }, [layout])
