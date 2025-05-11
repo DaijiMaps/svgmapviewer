@@ -19,7 +19,6 @@ export interface Info {
 }
 
 export interface SearchReq {
-  p: Vec
   psvg: Vec
 }
 
