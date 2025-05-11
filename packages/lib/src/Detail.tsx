@@ -24,9 +24,7 @@ export function Detail(props: Readonly<DetailProps>) {
   const p = fromSvg(detail.psvg, layout)
   const dir = diag(layout.container, p)
 
-  return detail === null ? (
-    <></>
-  ) : (
+  return (
     <div className="content">
       <Balloon
         _uiRef={props._uiRef}

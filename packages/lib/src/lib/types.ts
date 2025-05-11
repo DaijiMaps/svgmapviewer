@@ -40,8 +40,6 @@ export type UiOpenDoneCb = (ok: boolean) => void
 
 export type UiCloseCb = () => void
 
-export type Conv = (p: Vec) => Vec
-
 export interface RenderMapProps {
   layout: Layout
   zoom: number
