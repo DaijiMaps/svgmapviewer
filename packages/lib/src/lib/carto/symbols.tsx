@@ -18,7 +18,7 @@ export function RenderMapSymbols(props: Readonly<RenderMapSymbolsProps>) {
             sz={
               config.fontSize *
               // display symbol slightly larger as zoom goes higher
-              (0.8 + 0.2 * Math.log2(Math.max(1, props.zoom))) *
+              (0.5 + 0.5 * Math.log2(Math.max(1, props.zoom))) *
               svgScale.s
             }
             name={entry.name}
