@@ -165,8 +165,8 @@ export const scrollLayout = (layout: Layout, scroll: Box): Layout => {
 
 export const toSvg = (p: Vec, layout?: Layout): Vec =>
   transformPoint(toMatrixSvg(layout ?? cfg.layout), p)
-export const fromSvg = (p: Vec, layout?: Layout): Vec =>
-  transformPoint(fromMatrixSvg(layout ?? cfg.layout), p)
+export const fromSvg = (p: Vec, layout: Layout): Vec =>
+  transformPoint(fromMatrixSvg(layout), p)
 export const toOuter = (p: Vec, layout?: Layout): Vec =>
   transformPoint(toMatrixOuter(layout ?? cfg.layout), p)
 export const fromOuter = (p: Vec, layout?: Layout): Vec =>
