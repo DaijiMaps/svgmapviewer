@@ -6,7 +6,7 @@ import { assign, setup } from 'xstate'
 import './index.css'
 import { SvgMapViewerConfig } from './lib'
 import { svgMapViewerConfig as cfg } from './lib/config'
-import { Layout } from './lib/layout'
+import { emptyLayout, Layout } from './lib/layout'
 
 export function RenderMap(props: Readonly<{ config: SvgMapViewerConfig }>) {
   const { state } = useRenderMap()
@@ -17,7 +17,7 @@ export function RenderMap(props: Readonly<{ config: SvgMapViewerConfig }>) {
 function useRenderMap() {
   const [state, send] = useMachine(renderMapMachine, {
     input: {
-      layout: cfg.layout,
+      layout: emptyLayout,
     },
   })
 

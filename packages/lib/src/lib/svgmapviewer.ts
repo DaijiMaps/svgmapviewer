@@ -3,8 +3,6 @@
 import { root } from '../Root'
 import { Box } from './box/main'
 import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
-import { configLayout, Layout, makeLayout } from './layout'
-import { getBodySize } from './resize-react'
 import { searchSearchDone, searchSearchStart } from './search'
 import { SvgMapViewerConfig, SvgMapViewerConfigUser } from './types'
 
@@ -16,30 +14,18 @@ export function svgmapviewer(configUser: Readonly<SvgMapViewerConfigUser>) {
     height: typeof configUser.height === 'number' ? configUser.height : 0,
   }
 
-  const initialStyle = getComputedStyle(document.body)
-
   updateSvgMapViewerConfig({
     origViewBox,
     ...configUser,
   })
 
-  const initialLayout: Layout = makeLayout(
-    configLayout(
-      parseFloat(initialStyle.fontSize),
-      svgMapViewerConfig.origViewBox,
-      getBodySize()
-    )
-  )
-
   updateSvgMapViewerConfig({
     ...svgMapViewerConfig,
-    layout: initialLayout,
   })
 
   const config: SvgMapViewerConfig = {
     ...svgMapViewerConfig,
     origViewBox,
-    layout: initialLayout,
     ...configUser,
   }
 

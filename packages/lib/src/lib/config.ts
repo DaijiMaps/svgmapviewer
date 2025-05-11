@@ -5,7 +5,6 @@ import { createElement } from 'react'
 import { RenderMapCommon } from './carto'
 import { RenderMapAssetsDefault } from './carto/assets'
 import { emptyMapData } from './geo/data'
-import { emptyLayout } from './layout'
 import type {
   Info,
   RenderInfo,
@@ -29,7 +28,6 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   height: 0,
   fontSize: 16,
   origViewBox: { x: 0, y: 0, width: 0, height: 0 },
-  layout: emptyLayout,
   title: 'svgmapviewer',
   subtitle:
     'svgmapviewer - An (opinionated) interactive offline SVG map viewer',

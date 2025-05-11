@@ -63,7 +63,6 @@ export interface SvgMapViewerConfig {
   height: number
   fontSize: number
   origViewBox: BoxBox
-  layout: Layout
   title: string
   subtitle: string
   copyright: string
