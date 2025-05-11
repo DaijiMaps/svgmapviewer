@@ -1,14 +1,10 @@
 import { useSelector } from '@xstate/react'
 import { ReactNode } from 'react'
 import './Balloon.css'
-import { diag } from './lib/diag'
-import { fromSvg } from './lib/layout'
 import { OpenClose, openCloseIsVisible } from './lib/openclose'
-import { PointerRef, selectLayout } from './lib/pointer-xstate'
 import { Dir, SearchRes } from './lib/types'
 import {
   UiRef,
-  selectDetail,
   selectOpenCloseBalloon,
   selectOpenCloseDetail,
 } from './lib/ui-xstate'
@@ -84,10 +80,11 @@ z
 
 export interface BalloonProps {
   _uiRef: UiRef
-  _pointerRef: PointerRef
   _detail: SearchRes
   _p: VecVec
   _dir: Dir
+  _W: number
+  _H: number
 }
 
 export function Balloon(props: Readonly<BalloonProps>): ReactNode {
@@ -96,8 +93,7 @@ export function Balloon(props: Readonly<BalloonProps>): ReactNode {
   const balloon = useSelector(uiRef, selectOpenCloseBalloon)
 
   // XXX
-  const layout = useSelector(props._pointerRef, selectLayout)
-  const vmin = Math.min(layout.container.width, layout.container.height) * 0.01
+  const vmin = Math.min(props._W, props._H) * 0.01
 
   const bw = vmin * 40
   const bh = vmin * 40
@@ -123,20 +119,10 @@ export function Balloon(props: Readonly<BalloonProps>): ReactNode {
 }
 
 export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
-  const { _pointerRef: pointerRef, _uiRef: uiRef } = props
+  const { _uiRef: uiRef, _detail: content, _p: p, _dir: dir } = props
 
-  const content = useSelector(uiRef, selectDetail)
   const balloon = useSelector(uiRef, selectOpenCloseBalloon)
   const detail = useSelector(uiRef, selectOpenCloseDetail)
-
-  const layout = useSelector(pointerRef, selectLayout)
-
-  if (content === null) {
-    return <></>
-  }
-
-  const p = fromSvg(content.psvg, layout)
-  const dir = diag(layout.container, p)
 
   if (
     !openCloseIsVisible(balloon) ||

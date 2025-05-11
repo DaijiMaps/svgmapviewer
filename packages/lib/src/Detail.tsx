@@ -23,22 +23,26 @@ export function Detail(props: Readonly<DetailProps>) {
 
   const p = fromSvg(detail.psvg, layout)
   const dir = diag(layout.container, p)
+  const W = layout.container.width
+  const H = layout.container.height
 
   return (
     <div className="content">
       <Balloon
         _uiRef={props._uiRef}
-        _pointerRef={props._pointerRef}
         _detail={detail}
         _p={p}
         _dir={dir}
+        _W={W}
+        _H={H}
       />
       <BalloonStyle
         _uiRef={props._uiRef}
-        _pointerRef={props._pointerRef}
         _detail={detail}
         _p={p}
         _dir={dir}
+        _W={W}
+        _H={H}
       />
       <div
         className="detail"
