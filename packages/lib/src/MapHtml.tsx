@@ -5,6 +5,7 @@ import { createActor, emit, setup } from 'xstate'
 import { LayersStyle } from './Layers'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { fromSvgToOuter } from './lib/coord'
+import { cssMatrixToString } from './lib/css'
 import { POI } from './lib/geo'
 import { useLikes } from './lib/like'
 import {
@@ -178,7 +179,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
                 {
                   id,
                   name,
-                  pos: transformPoint(m, pos),
+                  pos,
                   size: -5,
                 },
               ]
@@ -188,7 +189,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
                   {
                     id,
                     name,
-                    pos: transformPoint(m, pos),
+                    pos,
                     size:
                       area < tiny
                         ? -6
@@ -219,7 +220,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
             key={i}
             className={`poi-names-item`}
             style={{
-              transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
+              transform: `${cssMatrixToString(m)} translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
             }}
           >
             <RenderName
