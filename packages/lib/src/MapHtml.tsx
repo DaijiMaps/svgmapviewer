@@ -3,7 +3,6 @@ import { ReactNode, useMemo } from 'react'
 import { LayersStyle } from './Layers'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { fromSvgToOuter } from './lib/coord'
-import { cssMatrixToString } from './lib/css'
 import { POI } from './lib/geo'
 import { useLikes } from './lib/like'
 import {
@@ -63,7 +62,7 @@ function MapHtmlContent(props: Readonly<MapHtmlProps>) {
 }
 
 function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
-  const { _svgScale: svgScale, _m: m } = props
+  const { _svgScale: svgScale } = props
 
   return (
     <div className="poi-symbols">
@@ -79,7 +78,7 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
             key={i}
             className={`poi-symbols-item`}
             style={{
-              transform: `${cssMatrixToString(m)} translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
+              transform: `translate(var(--svg-offset-x), var(--svg-offset-y)) scale(var(--svg-scale-x), var(--svg-scale-y)) translate(var(--svg-x), var(--svg-y)) translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
             }}
           >
             <RenderSymbol poi={{ id, name, pos: { x, y }, size }} />
@@ -90,7 +89,7 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
 }
 
 function MapHtmlContentStars(props: Readonly<MapHtmlContentProps>) {
-  const { _svgScale: svgScale, _m: m } = props
+  const { _svgScale: svgScale } = props
   const likes = useLikes()
 
   return (
@@ -108,7 +107,7 @@ function MapHtmlContentStars(props: Readonly<MapHtmlContentProps>) {
             key={i}
             className={`poi-stars-item`}
             style={{
-              transform: `${cssMatrixToString(m)} translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
+              transform: `translate(var(--svg-offset-x), var(--svg-offset-y)) scale(var(--svg-scale-x), var(--svg-scale-y)) translate(var(--svg-x), var(--svg-y)) translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
             }}
           >
             {id !== null && likes.isLiked(id) && (
@@ -123,7 +122,7 @@ function MapHtmlContentStars(props: Readonly<MapHtmlContentProps>) {
 }
 
 function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
-  const { _svgScale: svgScale, _m: m } = props
+  const { _svgScale: svgScale } = props
 
   // XXX make these configurable
   //  const huge = useMemo(
@@ -210,7 +209,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
             key={i}
             className={`poi-names-item`}
             style={{
-              transform: `${cssMatrixToString(m)} translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
+              transform: `translate(var(--svg-offset-x), var(--svg-offset-y)) scale(var(--svg-scale-x), var(--svg-scale-y)) translate(var(--svg-x), var(--svg-y)) translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
             }}
           >
             <RenderName

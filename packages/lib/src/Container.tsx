@@ -43,6 +43,7 @@ export function ContainerStyle(
       <DragStyle _pointerRef={pointerRef} />
       <MoveStyle _pointerRef={pointerRef} />
       <ZoomStyle _pointerRef={pointerRef} />
+      <MapHtmlStyle _pointerRef={pointerRef} />
     </>
   )
 }

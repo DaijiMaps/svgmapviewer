@@ -33,7 +33,15 @@ export function useMapHtmlStyle(pointerRef: Readonly<PointerRef>) {
   const m = useMapHtmlMatrix(pointerRef)
   return `
 .content.html {
+  --svg-offset-x: ${m[0][2][0]}px;
+  --svg-offset-y: ${m[0][2][1]}px;
+  --svg-scale-x: ${m[1][0][0]};
+  --svg-scale-y: ${m[1][1][1]};
+  --svg-x: ${m[2][2][0]}px;
+  --svg-y: ${m[2][2][1]}px;
+  /*
   transform: ${cssMatrixToString(m)};
+  */
 }
 `
 }
