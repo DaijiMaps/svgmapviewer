@@ -5,6 +5,7 @@ import { svgMapViewerConfig as cfg } from './lib/config'
 import { POI } from './lib/geo'
 import { useLikes } from './lib/like'
 import { PointerRef, selectLayoutSvgScale } from './lib/pointer-xstate'
+import { cssMapHtmlTransform } from './lib/style'
 import { Scale } from './lib/transform'
 
 export interface MapHtmlProps {
@@ -64,7 +65,7 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
             key={i}
             className={`poi-symbols-item`}
             style={{
-              transform: `translate(var(--svg-offset-x), var(--svg-offset-y)) scale(var(--svg-scale-x), var(--svg-scale-y)) translate(var(--svg-x), var(--svg-y)) translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
+              transform: `${cssMapHtmlTransform()} translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
             }}
           >
             <RenderSymbol poi={{ id, name, pos: { x, y }, size }} />
@@ -93,7 +94,7 @@ function MapHtmlContentStars(props: Readonly<MapHtmlContentProps>) {
             key={i}
             className={`poi-stars-item`}
             style={{
-              transform: `translate(var(--svg-offset-x), var(--svg-offset-y)) scale(var(--svg-scale-x), var(--svg-scale-y)) translate(var(--svg-x), var(--svg-y)) translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
+              transform: `${cssMapHtmlTransform()} translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
             }}
           >
             {id !== null && likes.isLiked(id) && (
@@ -195,7 +196,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
             key={i}
             className={`poi-names-item`}
             style={{
-              transform: `translate(var(--svg-offset-x), var(--svg-offset-y)) scale(var(--svg-scale-x), var(--svg-scale-y)) translate(var(--svg-x), var(--svg-y)) translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
+              transform: `${cssMapHtmlTransform()} translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
             }}
           >
             <RenderName

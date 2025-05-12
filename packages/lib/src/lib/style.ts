@@ -2,7 +2,6 @@ import { useSelector } from '@xstate/react'
 import { useMemo } from 'react'
 import { svgMapViewerConfig as cfg } from './config'
 import { fromSvgToOuter } from './coord'
-import { cssMatrixToString } from './css'
 import { Matrix } from './matrix'
 import { matrixEmpty, matrixToString } from './matrix/prefixed'
 import { openCloseIsVisible } from './openclose'
@@ -30,19 +29,24 @@ export function useMapHtmlMatrix(pointerRef: Readonly<PointerRef>) {
 }
 
 export function useMapHtmlStyle(pointerRef: Readonly<PointerRef>) {
-  const m = useMapHtmlMatrix(pointerRef)
+  const [svgOffset, svgScale, svg] = useMapHtmlMatrix(pointerRef)
   return `
 .content.html {
-  --svg-offset-x: ${m[0][2][0]}px;
-  --svg-offset-y: ${m[0][2][1]}px;
-  --svg-scale-x: ${m[1][0][0]};
-  --svg-scale-y: ${m[1][1][1]};
-  --svg-x: ${m[2][2][0]}px;
-  --svg-y: ${m[2][2][1]}px;
-  /*
-  transform: ${cssMatrixToString(m)};
-  */
+  --svg-offset-x: ${svgOffset[2][0]}px;
+  --svg-offset-y: ${svgOffset[2][1]}px;
+  --svg-scale-x: ${svgScale[0][0]};
+  --svg-scale-y: ${svgScale[1][1]};
+  --svg-x: ${svg[2][0]}px;
+  --svg-y: ${svg[2][1]}px;
 }
+`
+}
+
+export function cssMapHtmlTransform() {
+  return `
+translate(var(--svg-offset-x), var(--svg-offset-y))
+scale(var(--svg-scale-x), var(--svg-scale-y))
+translate(var(--svg-x), var(--svg-y))
 `
 }
 
