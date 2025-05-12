@@ -1,5 +1,7 @@
 import { useSelector } from '@xstate/react'
+import { useMemo } from 'react'
 import { svgMapViewerConfig as cfg } from './config'
+import { fromSvgToOuter } from './coord'
 import { Matrix } from './matrix'
 import { matrixEmpty, matrixToString } from './matrix/prefixed'
 import { openCloseIsVisible } from './openclose'
@@ -7,10 +9,24 @@ import {
   PointerRef,
   selectDragging,
   selectLayoutScroll,
+  selectLayoutSvg,
+  selectLayoutSvgOffset,
+  selectLayoutSvgScale,
   selectMode,
   selectRendered,
 } from './pointer-xstate'
 import { selectOpenCloseDetail, UiRef } from './ui-xstate'
+
+export function useMapHtmlMatrix(pointerRef: Readonly<PointerRef>) {
+  const svgOffset = useSelector(pointerRef, selectLayoutSvgOffset)
+  const svgScale = useSelector(pointerRef, selectLayoutSvgScale)
+  const svg = useSelector(pointerRef, selectLayoutSvg)
+  const m = useMemo(
+    () => fromSvgToOuter({ svg, svgOffset, svgScale }),
+    [svg, svgOffset, svgScale]
+  )
+  return m
+}
 
 export function useInitStyle(pointerRef: Readonly<PointerRef>) {
   const rendered = useSelector(pointerRef, selectRendered)
