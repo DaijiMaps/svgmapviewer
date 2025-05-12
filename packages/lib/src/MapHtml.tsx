@@ -14,7 +14,7 @@ import {
   selectLayoutSvgOffset,
   selectLayoutSvgScale,
 } from './lib/pointer-xstate'
-import { Scale, transformPoint } from './lib/transform'
+import { Scale } from './lib/transform'
 import { M } from './lib/tuple'
 
 export interface MapHtmlProps {
@@ -73,7 +73,7 @@ function MapHtmlContent(props: Readonly<MapHtmlProps>) {
 }
 
 function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
-  const { _m: m } = props
+  const { _svgScale: svgScale, _m: m } = props
 
   return (
     <div className="poi-symbols">
@@ -81,7 +81,7 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
         .map(({ id, name, pos, size }) => ({
           id,
           name,
-          pos: transformPoint(m, pos),
+          pos,
           size,
         }))
         .map(({ id, name, pos: { x, y }, size }, i) => (
@@ -89,7 +89,7 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
             key={i}
             className={`poi-symbols-item`}
             style={{
-              transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
+              transform: `${cssMatrixToString(m)} translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
             }}
           >
             <RenderSymbol poi={{ id, name, pos: { x, y }, size }} />
@@ -100,7 +100,7 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
 }
 
 function MapHtmlContentStars(props: Readonly<MapHtmlContentProps>) {
-  const { _m: m } = props
+  const { _svgScale: svgScale, _m: m } = props
   const likes = useLikes()
 
   return (
@@ -110,7 +110,7 @@ function MapHtmlContentStars(props: Readonly<MapHtmlContentProps>) {
         .map(({ id, name, pos, area }) => ({
           id,
           name,
-          pos: transformPoint(m, pos),
+          pos,
           area,
         }))
         .map(({ id, pos: { x, y } }, i) => (
@@ -118,7 +118,7 @@ function MapHtmlContentStars(props: Readonly<MapHtmlContentProps>) {
             key={i}
             className={`poi-stars-item`}
             style={{
-              transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
+              transform: `${cssMatrixToString(m)} translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
             }}
           >
             {id !== null && likes.isLiked(id) && (
