@@ -42,6 +42,28 @@ function usePointerKey(pointerRef: PointerRef) {
   }, [keyDown, keyUp])
 }
 
+function usePointerEventMask(
+  containerRef: RefObject<HTMLDivElement>,
+  pointerRef: PointerRef
+) {
+  const mode = useSelector(pointerRef, selectMode)
+
+  useEffect(() => {
+    const e = containerRef.current
+    if (e === null) {
+      return
+    }
+    pointereventmask = mode !== 'pointing'
+    toucheventmask = mode !== 'pointing'
+    // - xstate-pointer receives 'click' to cancel 'panning'
+    // - xstate-pointer ignores 'click' to pass through (emulated)
+    //  'click' to shadow; shadow receives 'click' to cancel 'locked'
+    clickeventmask = mode === 'locked'
+    wheeleventmask = mode !== 'pointing'
+    scrolleventmask = mode !== 'panning'
+  }, [containerRef, mode])
+}
+
 function usePointerEvent(
   containerRef: RefObject<HTMLDivElement>,
   pointerRef: PointerRef
@@ -198,42 +220,7 @@ function usePointerEvent(
   ])
 }
 
-export function usePointer(containerRef: RefObject<HTMLDivElement>): {
-  pointerRef: PointerRef
-} {
-  const pointerRef = useActorRef(pointerMachine, {
-    input: { containerRef },
-  })
-
-  ////
-  //// event handlers
-  ////
-
-  usePointerKey(pointerRef)
-
-  usePointerEvent(containerRef, pointerRef)
-
-  const mode = useSelector(pointerRef, selectMode)
-
-  useEffect(() => {
-    const e = containerRef.current
-    if (e === null) {
-      return
-    }
-    pointereventmask = mode !== 'pointing'
-    toucheventmask = mode !== 'pointing'
-    // - xstate-pointer receives 'click' to cancel 'panning'
-    // - xstate-pointer ignores 'click' to pass through (emulated)
-    //  'click' to shadow; shadow receives 'click' to cancel 'locked'
-    clickeventmask = mode === 'locked'
-    wheeleventmask = mode !== 'pointing'
-    scrolleventmask = mode !== 'panning'
-  }, [containerRef, mode])
-
-  ////
-  //// ui callbacks
-  ////
-
+function useSearch(pointerRef: PointerRef) {
   const pointerSearchLock = useCallback(
     (psvg: Vec) => pointerRef.send({ type: 'SEARCH.LOCK', psvg }),
     [pointerRef]
@@ -272,21 +259,53 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
     ]
     return () => subs.forEach((sub) => sub.unsubscribe())
   }, [pointerRef])
+}
 
-  ////
-  //// actions
-  ////
-
+function useExpanding(pointerRef: PointerRef) {
   // re-render handling
   const expanding = useSelector(pointerRef, selectExpanding)
   useEffect(() => {
     pointerRef.send({ type: 'RENDERED' })
   }, [expanding, pointerRef])
+}
 
+function useResizing(pointerRef: PointerRef) {
   // resize handling
   useLayout((origLayout: Readonly<Layout>, force: boolean) => {
     pointerRef.send({ type: 'LAYOUT', layout: origLayout, force })
   }, cfg.origViewBox)
+}
+
+export function usePointer(containerRef: RefObject<HTMLDivElement>): {
+  pointerRef: PointerRef
+} {
+  const pointerRef = useActorRef(pointerMachine, {
+    input: { containerRef },
+  })
+
+  ////
+  //// event handlers
+  ////
+
+  usePointerKey(pointerRef)
+
+  usePointerEventMask(containerRef, pointerRef)
+
+  usePointerEvent(containerRef, pointerRef)
+
+  ////
+  //// ui callbacks
+  ////
+
+  useSearch(pointerRef)
+
+  ////
+  //// actions
+  ////
+
+  useExpanding(pointerRef)
+
+  useResizing(pointerRef)
 
   return {
     pointerRef,
