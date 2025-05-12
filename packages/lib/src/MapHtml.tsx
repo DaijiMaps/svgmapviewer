@@ -1,7 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { ReactNode, useEffect, useMemo } from 'react'
-import { createRoot } from 'react-dom/client'
-import { createActor, emit, setup } from 'xstate'
+import { ReactNode, useMemo } from 'react'
 import { LayersStyle } from './Layers'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { fromSvgToOuter } from './lib/coord'
@@ -27,25 +25,17 @@ export interface MapHtmlContentProps {
 }
 
 export function MapHtml(props: Readonly<MapHtmlProps>) {
-  // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
-  useEffect(() => {
-    // eslint-disable-next-line functional/no-expression-statements
-    mountMapHtmlContentRoot(props._pointerRef)
-  })
-
   return (
     <div className="content">
-      <div id="map-html-content-root" />
+      <MapHtmlContentRoot {...props} />
     </div>
   )
 }
 
-function MapHtmlContentRoot(props: Readonly<{ ref: PointerRef }>): ReactNode {
-  const { ref } = props
-
+function MapHtmlContentRoot(props: Readonly<MapHtmlProps>): ReactNode {
   return (
     <>
-      <MapHtmlContent _pointerRef={ref} />
+      <MapHtmlContent {...props} />
       <style>{cfg.mapHtmlStyle}</style>
     </>
   )
@@ -295,61 +285,4 @@ function RenderName(props: Readonly<{ poi: POI }>) {
       ))}
     </>
   )
-}
-
-//// shadow DOM actor
-
-type RootEvent = {
-  type: 'MAP.HTML'
-  ref: PointerRef
-}
-
-const rootLogic = setup({
-  types: {
-    events: {} as RootEvent,
-    emitted: {} as RootEvent,
-  },
-}).createMachine({
-  on: {
-    'MAP.HTML': { actions: emit(({ event }) => event) },
-  },
-})
-
-const rootActor = createActor(rootLogic)
-
-// eslint-disable-next-line functional/no-expression-statements
-rootActor.on('MAP.HTML', ({ ref }) =>
-  renderShadowRoot('map-html-content-root', MapHtmlContentRoot({ ref }))
-)
-
-// eslint-disable-next-line functional/no-expression-statements
-rootActor.start()
-
-// eslint-disable-next-line functional/no-return-void
-function mountMapHtmlContentRoot(ref: Readonly<PointerRef>) {
-  const root = document.querySelector(`#map-html-content-root`)
-  if (root === null) {
-    return
-  }
-  if (root.shadowRoot !== null) {
-    return
-  }
-  // eslint-disable-next-line functional/no-expression-statements
-  rootActor.send({ type: 'MAP.HTML', ref })
-}
-
-//// shadow DOM render
-
-function renderShadowRoot(id: string, children: Readonly<ReactNode>): boolean {
-  const root = document.querySelector(`#${id}`)
-  if (root === null) {
-    return false
-  }
-  if (root.shadowRoot !== null) {
-    return true
-  }
-  const shadowRoot = root.attachShadow({ mode: 'open' })
-  // eslint-disable-next-line functional/no-expression-statements
-  createRoot(shadowRoot).render(children)
-  return true
 }
