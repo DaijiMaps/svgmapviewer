@@ -43,7 +43,6 @@ export function ContainerStyle(
       <DragStyle _pointerRef={pointerRef} />
       <MoveStyle _pointerRef={pointerRef} />
       <ZoomStyle _pointerRef={pointerRef} />
-      <MapHtmlStyle _pointerRef={pointerRef} />
     </>
   )
 }
@@ -86,7 +85,7 @@ function ZoomStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
   return <style>{style}</style>
 }
 
-function MapHtmlStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
+export function MapHtmlStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
   const { _pointerRef: pointerRef } = props
   const style = useMapHtmlStyle(pointerRef)
   return <style>{style}</style>
