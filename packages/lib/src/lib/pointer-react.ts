@@ -42,17 +42,10 @@ function usePointerKey(pointerRef: PointerRef) {
   }, [keyDown, keyUp])
 }
 
-function usePointerEventMask(
-  containerRef: RefObject<HTMLDivElement>,
-  pointerRef: PointerRef
-) {
+function usePointerEventMask(pointerRef: PointerRef) {
   const mode = useSelector(pointerRef, selectMode)
 
   useEffect(() => {
-    const e = containerRef.current
-    if (e === null) {
-      return
-    }
     pointereventmask = mode !== 'pointing'
     toucheventmask = mode !== 'pointing'
     // - xstate-pointer receives 'click' to cancel 'panning'
@@ -61,7 +54,7 @@ function usePointerEventMask(
     clickeventmask = mode === 'locked'
     wheeleventmask = mode !== 'pointing'
     scrolleventmask = mode !== 'panning'
-  }, [containerRef, mode])
+  }, [mode])
 }
 
 function usePointerEvent(
@@ -289,7 +282,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
 
   usePointerKey(pointerRef)
 
-  usePointerEventMask(containerRef, pointerRef)
+  usePointerEventMask(pointerRef)
 
   usePointerEvent(containerRef, pointerRef)
 
