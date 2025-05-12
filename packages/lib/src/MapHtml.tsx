@@ -40,17 +40,15 @@ function MapHtmlContent(props: Readonly<MapHtmlProps>) {
 
   return (
     <>
-      <MapHtmlContentSymbols _svgScale={svgScale} />
-      <MapHtmlContentStars _svgScale={svgScale} />
+      <MapHtmlContentSymbols />
+      <MapHtmlContentStars />
       <MapHtmlContentNames _svgScale={svgScale} />
       <LayersStyle />
     </>
   )
 }
 
-function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
-  const { _svgScale: svgScale } = props
-
+function MapHtmlContentSymbols() {
   return (
     <div className="poi-symbols">
       {cfg.mapSymbols
@@ -65,7 +63,7 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
             key={i}
             className={`poi-symbols-item`}
             style={{
-              transform: `${cssMapHtmlTransform()} translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
+              transform: `${cssMapHtmlTransform()} translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`,
             }}
           >
             <RenderSymbol poi={{ id, name, pos: { x, y }, size }} />
@@ -75,8 +73,7 @@ function MapHtmlContentSymbols(props: Readonly<MapHtmlContentProps>) {
   )
 }
 
-function MapHtmlContentStars(props: Readonly<MapHtmlContentProps>) {
-  const { _svgScale: svgScale } = props
+function MapHtmlContentStars() {
   const likes = useLikes()
 
   return (
@@ -94,7 +91,7 @@ function MapHtmlContentStars(props: Readonly<MapHtmlContentProps>) {
             key={i}
             className={`poi-stars-item`}
             style={{
-              transform: `${cssMapHtmlTransform()} translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
+              transform: `${cssMapHtmlTransform()} translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`,
             }}
           >
             {id !== null && likes.isLiked(id) && (
@@ -196,7 +193,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
             key={i}
             className={`poi-names-item`}
             style={{
-              transform: `${cssMapHtmlTransform()} translate(${x}px, ${y}px) scale(${svgScale.s}) translate(-50%, -50%)`,
+              transform: `${cssMapHtmlTransform()} translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`,
             }}
           >
             <RenderName

@@ -26,14 +26,15 @@ export function useMapHtmlMatrix(pointerRef: Readonly<PointerRef>) {
     () => fromSvgToOuter({ svg, svgOffset, svgScale }),
     [svg, svgOffset, svgScale]
   )
-  return m
+  return { m, svgScale }
 }
 
 export function useMapHtmlStyle(pointerRef: Readonly<PointerRef>) {
-  const m = useMapHtmlMatrix(pointerRef)
+  const { m, svgScale } = useMapHtmlMatrix(pointerRef)
   return `
 .content.html {
-  --svg-matrix: ${cssMatrixToString(m)}
+  --svg-matrix: ${cssMatrixToString(m)};
+  --svg-scale: ${svgScale.s};
 }
 `
 }
