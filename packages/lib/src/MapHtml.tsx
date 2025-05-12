@@ -21,7 +21,7 @@ export interface MapHtmlProps {
 
 export interface MapHtmlContentProps {
   _svgScale: Scale
-  _m: M
+  _m: M | M[]
 }
 
 export function MapHtml(props: Readonly<MapHtmlProps>) {
@@ -47,16 +47,16 @@ function MapHtmlContent(props: Readonly<MapHtmlProps>) {
   const svgOffset = useSelector(ref, selectLayoutSvgOffset)
   const svgScale = useSelector(ref, selectLayoutSvgScale)
   const svg = useSelector(ref, selectLayoutSvg)
-  const x = useMemo(
+  const m = useMemo(
     () => fromSvgToOuter({ svg, svgOffset, svgScale }),
     [svg, svgOffset, svgScale]
   )
 
   return (
     <>
-      <MapHtmlContentSymbols _svgScale={svgScale} _m={x} />
-      <MapHtmlContentStars _svgScale={svgScale} _m={x} />
-      <MapHtmlContentNames _svgScale={svgScale} _m={x} />
+      <MapHtmlContentSymbols _svgScale={svgScale} _m={m} />
+      <MapHtmlContentStars _svgScale={svgScale} _m={m} />
+      <MapHtmlContentNames _svgScale={svgScale} _m={m} />
       <LayersStyle />
     </>
   )
