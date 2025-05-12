@@ -58,9 +58,9 @@ function MapHtmlContentSymbols() {
           pos,
           size,
         }))
-        .map(({ id, name, pos: { x, y }, size }, i) => (
+        .map(({ id, name, pos: { x, y }, size }) => (
           <div
-            key={i}
+            key={id}
             className={`poi-symbols-item`}
             style={{
               transform: `${cssMapHtmlTransform()} translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`,
@@ -86,9 +86,9 @@ function MapHtmlContentStars() {
           pos,
           area,
         }))
-        .map(({ id, pos: { x, y } }, i) => (
+        .map(({ id, pos: { x, y } }) => (
           <div
-            key={i}
+            key={id}
             className={`poi-stars-item`}
             style={{
               transform: `${cssMapHtmlTransform()} translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`,
@@ -188,9 +188,9 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
                   },
                 ]
         )
-        .map(({ id, name, pos: { x, y }, size }, i) => (
+        .map(({ id, name, pos: { x, y }, size }) => (
           <div
-            key={i}
+            key={id}
             className={`poi-names-item`}
             style={{
               transform: `${cssMapHtmlTransform()} translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`,
