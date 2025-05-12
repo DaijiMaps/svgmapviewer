@@ -2,17 +2,10 @@ import { useSelector } from '@xstate/react'
 import { ReactNode, useMemo } from 'react'
 import { LayersStyle } from './Layers'
 import { svgMapViewerConfig as cfg } from './lib/config'
-import { fromSvgToOuter } from './lib/coord'
 import { POI } from './lib/geo'
 import { useLikes } from './lib/like'
-import {
-  PointerRef,
-  selectLayoutSvg,
-  selectLayoutSvgOffset,
-  selectLayoutSvgScale,
-} from './lib/pointer-xstate'
+import { PointerRef, selectLayoutSvgScale } from './lib/pointer-xstate'
 import { Scale } from './lib/transform'
-import { M } from './lib/tuple'
 
 export interface MapHtmlProps {
   _pointerRef: PointerRef
@@ -20,7 +13,6 @@ export interface MapHtmlProps {
 
 export interface MapHtmlContentProps {
   _svgScale: Scale
-  _m: M | M[]
 }
 
 export function MapHtml(props: Readonly<MapHtmlProps>) {
@@ -43,19 +35,13 @@ function MapHtmlContentRoot(props: Readonly<MapHtmlProps>): ReactNode {
 function MapHtmlContent(props: Readonly<MapHtmlProps>) {
   const { _pointerRef: ref } = props
 
-  const svgOffset = useSelector(ref, selectLayoutSvgOffset)
   const svgScale = useSelector(ref, selectLayoutSvgScale)
-  const svg = useSelector(ref, selectLayoutSvg)
-  const m = useMemo(
-    () => fromSvgToOuter({ svg, svgOffset, svgScale }),
-    [svg, svgOffset, svgScale]
-  )
 
   return (
     <>
-      <MapHtmlContentSymbols _svgScale={svgScale} _m={m} />
-      <MapHtmlContentStars _svgScale={svgScale} _m={m} />
-      <MapHtmlContentNames _svgScale={svgScale} _m={m} />
+      <MapHtmlContentSymbols _svgScale={svgScale} />
+      <MapHtmlContentStars _svgScale={svgScale} />
+      <MapHtmlContentNames _svgScale={svgScale} />
       <LayersStyle />
     </>
   )
