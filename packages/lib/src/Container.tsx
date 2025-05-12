@@ -4,6 +4,7 @@ import { PointerRef } from './lib/pointer-xstate'
 import {
   useDragStyle,
   useInitStyle,
+  useMapHtmlStyle,
   useModeStyle,
   useMoveStyle,
   useScrollStyle,
@@ -34,21 +35,59 @@ export function ContainerStyle(
 ) {
   const { _pointerRef: pointerRef, _uiRef: uiRef } = props
 
-  const initStyle = useInitStyle(pointerRef)
-  const scrollStyle = useScrollStyle(pointerRef)
-  const modeStyle = useModeStyle(pointerRef, uiRef)
-  const dragStyle = useDragStyle(pointerRef)
-  const moveStyle = useMoveStyle(pointerRef)
-  const zoomStyle = useZoomStyle(pointerRef)
-
   return (
-    <style>
-      {initStyle}
-      {scrollStyle}
-      {modeStyle}
-      {dragStyle}
-      {moveStyle}
-      {zoomStyle}
-    </style>
+    <>
+      <InitStyle _pointerRef={pointerRef} />
+      <ScrollStyle _pointerRef={pointerRef} />
+      <ModeStyle _pointerRef={pointerRef} _uiRef={uiRef} />
+      <DragStyle _pointerRef={pointerRef} />
+      <MoveStyle _pointerRef={pointerRef} />
+      <ZoomStyle _pointerRef={pointerRef} />
+      <MapHtmlStyle _pointerRef={pointerRef} />
+    </>
   )
+}
+
+function InitStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
+  const { _pointerRef: pointerRef } = props
+  const style = useInitStyle(pointerRef)
+  return <style>{style}</style>
+}
+
+function ScrollStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
+  const { _pointerRef: pointerRef } = props
+  const style = useScrollStyle(pointerRef)
+  return <style>{style}</style>
+}
+
+function ModeStyle(
+  props: Readonly<{ _pointerRef: PointerRef; _uiRef: UiRef }>
+) {
+  const { _pointerRef: pointerRef, _uiRef: uiRef } = props
+  const style = useModeStyle(pointerRef, uiRef)
+  return <style>{style}</style>
+}
+
+function DragStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
+  const { _pointerRef: pointerRef } = props
+  const style = useDragStyle(pointerRef)
+  return <style>{style}</style>
+}
+
+function MoveStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
+  const { _pointerRef: pointerRef } = props
+  const style = useMoveStyle(pointerRef)
+  return <style>{style}</style>
+}
+
+function ZoomStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
+  const { _pointerRef: pointerRef } = props
+  const style = useZoomStyle(pointerRef)
+  return <style>{style}</style>
+}
+
+function MapHtmlStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
+  const { _pointerRef: pointerRef } = props
+  const style = useMapHtmlStyle(pointerRef)
+  return <style>{style}</style>
 }
