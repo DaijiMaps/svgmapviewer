@@ -26,7 +26,7 @@ export interface MapHtmlContentProps {
 
 export function MapHtml(props: Readonly<MapHtmlProps>) {
   return (
-    <div className="content">
+    <div className="content html">
       <MapHtmlContentRoot {...props} />
     </div>
   )
