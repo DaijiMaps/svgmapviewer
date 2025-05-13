@@ -4,7 +4,7 @@ import { Debug } from './Debug'
 import { Detail } from './Detail'
 import { Footer, FooterStyle } from './Footer'
 import { Header, HeaderStyle } from './Header'
-import { usePointer } from './lib/pointer-react'
+import { usePointer, usePointerConfig } from './lib/pointer-react'
 import { searchRef } from './lib/search'
 import { useUi } from './lib/ui-react'
 import { MapHtml } from './MapHtml'
@@ -16,6 +16,9 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
   const containerRef = useRef<HTMLDivElement>(null)
 
   const { pointerRef } = usePointer(containerRef)
+
+  // eslint-disable-next-line functional/no-expression-statements
+  usePointerConfig(containerRef, pointerRef)
 
   const { uiRef } = useUi()
 

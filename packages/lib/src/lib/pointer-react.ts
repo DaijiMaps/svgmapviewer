@@ -276,6 +276,15 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
     input: { containerRef },
   })
 
+  return {
+    pointerRef,
+  }
+}
+
+export function usePointerConfig(
+  containerRef: RefObject<HTMLDivElement>,
+  pointerRef: PointerRef
+) {
   ////
   //// event handlers
   ////
@@ -299,8 +308,4 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   useExpanding(pointerRef)
 
   useResizing(pointerRef)
-
-  return {
-    pointerRef,
-  }
 }
