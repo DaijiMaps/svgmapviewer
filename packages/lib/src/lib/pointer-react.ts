@@ -1,6 +1,7 @@
 import { useActorRef, useSelector } from '@xstate/react'
 import { RefObject, useCallback, useEffect } from 'react'
 import { svgMapViewerConfig as cfg } from './config'
+import { useEventRateLimit } from './event'
 import { Layout } from './layout'
 import { useLayout } from './layout-react'
 import {
@@ -155,20 +156,29 @@ function usePointerEvent(
   )
   const sendScroll = useCallback(
     (ev: Event) => {
-      if (scrollIdleTimer !== null) {
-        window.clearTimeout(scrollIdleTimer)
-      }
       if (scrolleventmask) {
         return
+      }
+      if (scrollIdleTimer !== null) {
+        window.clearTimeout(scrollIdleTimer)
+        scrollIdleTimer = null
       }
       scrollIdleTimer = window.setTimeout(() => {
         if (!scrolleventmask) {
           send({ type: 'SCROLL', ev })
         }
-        scrollIdleTimer = null
+        if (scrollIdleTimer !== null) {
+          window.clearTimeout(scrollIdleTimer)
+          scrollIdleTimer = null
+        }
       }, cfg.scrollIdleTimeout)
     },
     [send]
+  )
+  const sendScrollRateLimited = useEventRateLimit(
+    sendScroll,
+    5,
+    cfg.scrollIdleTimeout / 10
   )
 
   useEffect(() => {
@@ -185,7 +195,7 @@ function usePointerEvent(
     e.addEventListener('click', sendClick)
     e.addEventListener('contextmenu', sendContextMenuu)
     e.addEventListener('wheel', sendWheel)
-    e.addEventListener('scroll', sendScroll)
+    e.addEventListener('scroll', sendScrollRateLimited)
     return () => {
       e.removeEventListener('pointerdown', sendPointerDown)
       e.removeEventListener('pointermove', sendPointerMove)
@@ -196,7 +206,7 @@ function usePointerEvent(
       e.removeEventListener('click', sendClick)
       e.removeEventListener('contextmenu', sendContextMenuu)
       e.removeEventListener('wheel', sendWheel)
-      e.removeEventListener('scroll', sendScroll)
+      e.removeEventListener('scroll', sendScrollRateLimited)
     }
   }, [
     containerRef,
@@ -205,7 +215,7 @@ function usePointerEvent(
     sendPointerDown,
     sendPointerMove,
     sendPointerUp,
-    sendScroll,
+    sendScrollRateLimited,
     sendTouchEnd,
     sendTouchMove,
     sendTouchStart,
