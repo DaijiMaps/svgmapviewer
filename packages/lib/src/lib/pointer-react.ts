@@ -1,7 +1,7 @@
 import { useActorRef, useSelector } from '@xstate/react'
 import { RefObject, useCallback, useEffect } from 'react'
 import { svgMapViewerConfig as cfg } from './config'
-import { useEventRateLimit } from './event'
+import { useEventRateLimit, useEventTimeout } from './event'
 import { Layout } from './layout'
 import { useLayout } from './layout-react'
 import {
@@ -18,8 +18,6 @@ let toucheventmask: boolean = false
 let clickeventmask: boolean = false
 let wheeleventmask: boolean = false
 let scrolleventmask: boolean = false
-
-let scrollIdleTimer: null | number = null
 
 function usePointerKey(pointerRef: PointerRef) {
   const keyDown = useCallback(
@@ -154,26 +152,14 @@ function usePointerEvent(
     },
     [send]
   )
-  const sendScroll = useCallback(
-    (ev: Event) => {
-      if (scrolleventmask) {
-        return
+  const sendScroll = useEventTimeout(
+    (ev) => {
+      if (!scrolleventmask) {
+        send({ type: 'SCROLL', ev })
       }
-      if (scrollIdleTimer !== null) {
-        window.clearTimeout(scrollIdleTimer)
-        scrollIdleTimer = null
-      }
-      scrollIdleTimer = window.setTimeout(() => {
-        if (!scrolleventmask) {
-          send({ type: 'SCROLL', ev })
-        }
-        if (scrollIdleTimer !== null) {
-          window.clearTimeout(scrollIdleTimer)
-          scrollIdleTimer = null
-        }
-      }, cfg.scrollIdleTimeout)
     },
-    [send]
+    cfg.scrollIdleTimeout,
+    () => scrolleventmask
   )
   const sendScrollRateLimited = useEventRateLimit(
     sendScroll,
