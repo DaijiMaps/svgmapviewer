@@ -33,6 +33,9 @@ export function getPropertyValue(
   key: string
 ): null | string {
   const re = new RegExp(`\\"${key}\\"=>\\"([^"][^"]*)\\"`)
-  const res = re.exec(properties.other_tags ?? '')
+  if (properties.other_tags === null) {
+    return null
+  }
+  const res = re.exec(String(properties.other_tags))
   return res === null ? null : res[1]
 }

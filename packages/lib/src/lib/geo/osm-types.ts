@@ -25,10 +25,7 @@ export type OsmLinePropertiesKey =
   | 'aerialway'
   | 'barrier'
   | 'man_made'
-  //| 'z_order'
   | 'other_tags'
-//| 'centroid_x' // XXX local extension
-//| 'centroid_y' // XXX local extension
 
 export type OsmLineStringPropertiesKey =
   | 'osm_id'
@@ -62,11 +59,14 @@ export type OsmPolygonPropertiesKey =
   | 'sport'
   | 'tourism'
   | 'other_tags'
-  | 'area' // XXX local extension
-  | 'centroid_x' // XXX local extension
-  | 'centroid_y' // XXX local extension
 
-export type OsmPointProperties = Record<OsmPointPropertiesKey, null | string>
+export type OsmPointProperties = Record<
+  OsmPointPropertiesKey,
+  null | string
+> & {
+  centroid_x: null | number
+  centroid_y: null | number
+}
 export type OsmLineProperties = Record<OsmLinePropertiesKey, null | string> & {
   z_order: number
 }
@@ -77,7 +77,11 @@ export type OsmLineStringProperties = Record<
 export type OsmPolygonProperties = Record<
   OsmPolygonPropertiesKey,
   null | string
->
+> & {
+  area: null | number
+  centroid_x: null | number
+  centroid_y: null | number
+}
 
 export type OsmPointGeoJSON = PointGeoJSON<OsmPointProperties>
 export type OsmLineGeoJSON = LineGeoJSON<OsmLineProperties>
