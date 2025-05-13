@@ -92,7 +92,7 @@ export type CentroidsFilter = (
   f: Readonly<PointFeature<OsmPolygonProperties>>
 ) => boolean
 export type MidpointsFilter = (
-  f: Readonly<PointFeature<OsmPolygonProperties>>
+  f: Readonly<PointFeature<OsmLineProperties>>
 ) => boolean
 
 export interface AllFilters {
