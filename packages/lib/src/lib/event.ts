@@ -9,19 +9,20 @@ import { useCallback, useRef } from 'react'
 
 type WithTimeStamp = { timeStamp: number }
 
-type EventHandler<T> = (ev: Readonly<T>) => void
+type Handler<T> = (ev: Readonly<T>) => void
 
-export function useEventRateLimit<T extends WithTimeStamp>(
+export function useRateLimit<T extends WithTimeStamp>(
   cb: (ev: Readonly<T>) => void,
-  n: number,
-  dur: number
-): EventHandler<T> {
+  dur: number,
+  n: number
+): Handler<T> {
   const timeStamp = useRef(0)
   const count = useRef(0)
 
   const f = useCallback(
     (ev: Readonly<T>) => {
       if (ev.timeStamp - timeStamp.current < dur) {
+        timeStamp.current = ev.timeStamp
         count.current = 0
         return
       }
@@ -29,9 +30,9 @@ export function useEventRateLimit<T extends WithTimeStamp>(
       if (count.current < n) {
         return
       }
+      cb(ev)
       timeStamp.current = ev.timeStamp
       count.current = 0
-      cb(ev)
     },
     [cb, dur, n]
   )
@@ -39,11 +40,11 @@ export function useEventRateLimit<T extends WithTimeStamp>(
   return f
 }
 
-export function useEventTimeout<T>(
+export function useTimeout<T>(
   cb: (ev: Readonly<T>) => void,
   timo: number,
   entry?: () => boolean
-): EventHandler<T> {
+): Handler<T> {
   const timer = useRef<null | number>(null)
   const f = useCallback(
     (ev: Readonly<T>) => {

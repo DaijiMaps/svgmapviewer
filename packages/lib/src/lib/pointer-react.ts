@@ -1,7 +1,7 @@
 import { useActorRef, useSelector } from '@xstate/react'
 import { RefObject, useCallback, useEffect } from 'react'
 import { svgMapViewerConfig as cfg } from './config'
-import { useEventRateLimit, useEventTimeout } from './event'
+import { useRateLimit, useTimeout } from './event'
 import { Layout } from './layout'
 import { useLayout } from './layout-react'
 import {
@@ -152,7 +152,7 @@ function usePointerEvent(
     },
     [send]
   )
-  const sendScrollTimeout = useEventTimeout<Event>(
+  const sendScrollTimeout = useTimeout<Event>(
     (ev) => {
       if (!scrolleventmask) {
         send({ type: 'SCROLL', ev })
@@ -161,10 +161,10 @@ function usePointerEvent(
     cfg.scrollIdleTimeout,
     () => scrolleventmask
   )
-  const sendScroll = useEventRateLimit<Event>(
+  const sendScroll = useRateLimit<Event>(
     sendScrollTimeout,
-    5,
-    cfg.scrollIdleTimeout / 10
+    cfg.scrollIdleTimeout / 10,
+    5
   )
 
   useEffect(() => {
