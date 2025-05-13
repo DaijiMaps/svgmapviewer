@@ -39,12 +39,6 @@ export function useMapHtmlStyle(pointerRef: Readonly<PointerRef>) {
 `
 }
 
-export function cssMapHtmlTransform() {
-  return `
-var(--svg-matrix)
-`
-}
-
 export function useInitStyle(pointerRef: Readonly<PointerRef>) {
   const rendered = useSelector(pointerRef, selectRendered)
 

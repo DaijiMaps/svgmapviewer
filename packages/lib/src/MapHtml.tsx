@@ -5,7 +5,6 @@ import { svgMapViewerConfig as cfg } from './lib/config'
 import { POI } from './lib/geo'
 import { useLikes } from './lib/like'
 import { PointerRef, selectLayoutSvgScale } from './lib/pointer-xstate'
-import { cssMapHtmlTransform } from './lib/style'
 import { Scale } from './lib/transform'
 
 export interface MapHtmlProps {
@@ -63,7 +62,7 @@ function MapHtmlContentSymbols() {
             key={id}
             className={`poi-symbols-item`}
             style={{
-              transform: `${cssMapHtmlTransform()} translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`,
+              transform: `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`,
             }}
           >
             <RenderSymbol poi={{ id, name, pos: { x, y }, size }} />
@@ -91,7 +90,7 @@ function MapHtmlContentStars() {
             key={id}
             className={`poi-stars-item`}
             style={{
-              transform: `${cssMapHtmlTransform()} translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`,
+              transform: `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`,
             }}
           >
             {id !== null && likes.isLiked(id) && (
@@ -193,7 +192,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
             key={id}
             className={`poi-names-item`}
             style={{
-              transform: `${cssMapHtmlTransform()} translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`,
+              transform: `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`,
             }}
           >
             <RenderName
