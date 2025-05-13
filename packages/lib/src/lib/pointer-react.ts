@@ -152,7 +152,7 @@ function usePointerEvent(
     },
     [send]
   )
-  const sendScroll = useEventTimeout(
+  const sendScrollTimeout = useEventTimeout(
     (ev) => {
       if (!scrolleventmask) {
         send({ type: 'SCROLL', ev })
@@ -161,8 +161,8 @@ function usePointerEvent(
     cfg.scrollIdleTimeout,
     () => scrolleventmask
   )
-  const sendScrollRateLimited = useEventRateLimit(
-    sendScroll,
+  const sendScroll = useEventRateLimit(
+    sendScrollTimeout,
     5,
     cfg.scrollIdleTimeout / 10
   )
@@ -181,7 +181,7 @@ function usePointerEvent(
     e.addEventListener('click', sendClick)
     e.addEventListener('contextmenu', sendContextMenuu)
     e.addEventListener('wheel', sendWheel)
-    e.addEventListener('scroll', sendScrollRateLimited)
+    e.addEventListener('scroll', sendScroll)
     return () => {
       e.removeEventListener('pointerdown', sendPointerDown)
       e.removeEventListener('pointermove', sendPointerMove)
@@ -192,7 +192,7 @@ function usePointerEvent(
       e.removeEventListener('click', sendClick)
       e.removeEventListener('contextmenu', sendContextMenuu)
       e.removeEventListener('wheel', sendWheel)
-      e.removeEventListener('scroll', sendScrollRateLimited)
+      e.removeEventListener('scroll', sendScroll)
     }
   }, [
     containerRef,
@@ -201,7 +201,7 @@ function usePointerEvent(
     sendPointerDown,
     sendPointerMove,
     sendPointerUp,
-    sendScrollRateLimited,
+    sendScroll,
     sendTouchEnd,
     sendTouchMove,
     sendTouchStart,
