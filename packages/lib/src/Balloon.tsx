@@ -106,15 +106,19 @@ export function Balloon(props: Readonly<BalloonProps>): ReactNode {
   return !openCloseIsVisible(balloon) ? (
     <></>
   ) : (
-    <svg
-      className="balloon"
-      viewBox={`${-ll} ${-ll} ${bw + ll * 2 + d} ${bh + ll * 2 + d}`}
+    <div
+      className="balloon-container"
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiRef.send({ type: 'BALLOON.ANIMATION.END' })}
     >
-      <BalloonPath fg={false} d={d} dir={props._dir} {...p} />
-      <BalloonPath fg={true} d={0} dir={props._dir} {...p} />
-    </svg>
+      <svg
+        className="balloon"
+        viewBox={`${-ll} ${-ll} ${bw + ll * 2 + d} ${bh + ll * 2 + d}`}
+      >
+        <BalloonPath fg={false} d={d} dir={props._dir} {...p} />
+        <BalloonPath fg={true} d={0} dir={props._dir} {...p} />
+      </svg>
+    </div>
   )
 }
 
@@ -160,7 +164,7 @@ function balloonStyle(
   transform: translate(${o.x}px, ${o.y}px) translate(${-d.x}vmin, ${-d.y}vmin) scale(1);
 }
 
-.balloon {
+.balloon-container {
   transform-origin: ${d.x + 10}vmin ${d.y + 10}vmin;
   transform: translate(${o.x}px, ${o.y}px) translate(${-d.x - 10}vmin, ${-d.y - 10}vmin) scale(1);
 }
@@ -173,7 +177,7 @@ function balloonStyle(
 
     return `
 .detail,
-.balloon {
+.balloon-container {
   transition: transform 300ms;
 }
 
@@ -183,7 +187,7 @@ function balloonStyle(
   will-change: opacity transform;
 }
 
-.balloon {
+.balloon-container {
   transform-origin: ${d.x + 10}vmin ${d.y + 10}vmin;
   animation: xxx-balloon 300ms ease;
   will-change: opacity transform;
