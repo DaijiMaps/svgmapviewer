@@ -18,7 +18,7 @@ let clickeventmask: boolean = false
 let wheeleventmask: boolean = false
 let scrolleventmask: boolean = false
 
-let scrollIdleTimer: null | number = null
+//let scrollIdleTimer: null | number = null
 
 function usePointerKey(pointerRef: PointerRef) {
   const keyDown = useCallback(
@@ -155,6 +155,7 @@ function usePointerEvent(
   )
   const sendScroll = useCallback(
     (ev: Event) => {
+      /*
       if (scrollIdleTimer !== null) {
         window.clearTimeout(scrollIdleTimer)
       }
@@ -167,6 +168,10 @@ function usePointerEvent(
         }
         scrollIdleTimer = null
       }, cfg.scrollIdleTimeout)
+      */
+      if (!scrolleventmask) {
+        send({ type: 'SCROLL', ev })
+      }
     },
     [send]
   )
