@@ -1,23 +1,21 @@
-import { useMachine } from '@xstate/react'
+import { useActorRef } from '@xstate/react'
 import { useCallback, useEffect } from 'react'
 import { svgMapViewerConfig as cfg } from './config'
 import { SearchRes } from './types'
-import { uiMachine, UiRef, UiSend, UiState } from './ui-xstate'
+import { uiMachine, UiRef } from './ui-xstate'
 
 export function useUi(): {
-  ui: UiState
-  uiSend: UiSend
   uiRef: UiRef
 } {
-  const [ui, uiSend, uiRef] = useMachine(uiMachine)
+  const uiRef = useActorRef(uiMachine)
 
   const uiDetail = useCallback(
     (res: Readonly<null | SearchRes>) => {
       if (res !== null) {
-        uiSend({ type: 'DETAIL', ...res })
+        uiRef.send({ type: 'DETAIL', ...res })
       }
     },
-    [uiSend]
+    [uiRef]
   )
   useEffect(() => {
     cfg.searchEndCbs.add(uiDetail)
@@ -27,8 +25,8 @@ export function useUi(): {
   }, [uiDetail])
 
   const uiOpen = useCallback(
-    (ok: boolean) => uiSend({ type: ok ? 'OPEN' : 'CANCEL' }),
-    [uiSend]
+    (ok: boolean) => uiRef.send({ type: ok ? 'OPEN' : 'CANCEL' }),
+    [uiRef]
   )
   useEffect(() => {
     cfg.uiOpenDoneCbs.add(uiOpen)
@@ -37,7 +35,7 @@ export function useUi(): {
     }
   }, [uiOpen])
 
-  const uiCancel = useCallback(() => uiSend({ type: 'CANCEL' }), [uiSend])
+  const uiCancel = useCallback(() => uiRef.send({ type: 'CANCEL' }), [uiRef])
   useEffect(() => {
     cfg.uiCloseCbs.add(uiCancel)
     return () => {
@@ -54,5 +52,5 @@ export function useUi(): {
     }
   }, [uiRef])
 
-  return { ui, uiSend, uiRef }
+  return { uiRef }
 }
