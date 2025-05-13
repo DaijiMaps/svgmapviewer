@@ -152,7 +152,7 @@ function usePointerEvent(
     },
     [send]
   )
-  const sendScrollTimeout = useEventTimeout(
+  const sendScrollTimeout = useEventTimeout<Event>(
     (ev) => {
       if (!scrolleventmask) {
         send({ type: 'SCROLL', ev })
@@ -161,7 +161,7 @@ function usePointerEvent(
     cfg.scrollIdleTimeout,
     () => scrolleventmask
   )
-  const sendScroll = useEventRateLimit(
+  const sendScroll = useEventRateLimit<Event>(
     sendScrollTimeout,
     5,
     cfg.scrollIdleTimeout / 10
