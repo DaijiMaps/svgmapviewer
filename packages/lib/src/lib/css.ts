@@ -21,3 +21,16 @@ export function cssMatrixToString(m: CSSMatrix): string {
     ? matrixToString(m)
     : (m as Matrix[]).map(matrixToString).join(' ')
 }
+
+export function fixupCssString(s: string): string {
+  // XXX transform
+  return s
+    .replaceAll(
+      /translate\(([-]?[1-9][0-9]*\.[0-9][0-9])[0-9]*px,[ ]*([-]?[1-9][0-9]*\.[0-9][0-9])[0-9]*px\)/g,
+      'translate($1px, $2px)'
+    )
+    .replaceAll(
+      /matrix\(([^,][^,]*),([^,][^,]*),([^,][^,]*),([^,][^,]*),([1-9][0-9]*\.[0-9][0-9])[0-9]*,([1-9][0-9]*\.[0-9][0-9])[0-9]*\)/g,
+      'matrix($1,$2,$3,$4,$5,$6)'
+    )
+}

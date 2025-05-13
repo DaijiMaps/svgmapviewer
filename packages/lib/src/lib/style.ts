@@ -2,7 +2,7 @@ import { useSelector } from '@xstate/react'
 import { useMemo } from 'react'
 import { svgMapViewerConfig as cfg } from './config'
 import { fromSvgToOuter } from './coord'
-import { cssMatrixToString } from './css'
+import { cssMatrixToString, fixupCssString } from './css'
 import { Matrix } from './matrix'
 import { matrixEmpty, matrixToString } from './matrix/prefixed'
 import { openCloseIsVisible } from './openclose'
@@ -33,7 +33,7 @@ export function useMapHtmlStyle(pointerRef: Readonly<PointerRef>) {
   const { m, svgScale } = useMapHtmlMatrix(pointerRef)
   return `
 .content.html {
-  --svg-matrix: ${cssMatrixToString(m)};
+  --svg-matrix: ${fixupCssString(cssMatrixToString(m))};
   --svg-scale: ${svgScale.s};
 }
 `
