@@ -150,6 +150,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
   return (
     <div className="poi-names">
       {cfg.mapNames
+        .filter(({ id }) => id !== undefined)
         .flatMap(({ id, name, pos, area }) =>
           area === undefined
             ? [
