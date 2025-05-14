@@ -1,3 +1,4 @@
+import { PointFeature } from './geojson-types'
 import {
   OsmCentroidGeoJSON,
   OsmLineProperties,
@@ -11,6 +12,34 @@ interface MapData {
   points: OsmPointGeoJSON
   centroids: OsmCentroidGeoJSON
   midpoints: OsmMidpointGeoJSON
+}
+
+export function findFeature(
+  id: undefined | string,
+  mapData: Readonly<MapData>
+): null | PointFeature<
+  OsmPointProperties | OsmLineProperties | OsmPolygonProperties
+> {
+  if (id === undefined) {
+    return null
+  }
+  const ps = mapData.points.features.filter((f) => f.properties.osm_id === id)
+  if (ps.length === 1) {
+    return ps[0]
+  }
+  const cs = mapData.centroids.features.filter(
+    (f) => f.properties.osm_id === id || f.properties.osm_way_id === id
+  )
+  if (cs.length === 1) {
+    return cs[0]
+  }
+  const ms = mapData.midpoints.features.filter(
+    (f) => f.properties.osm_id === id
+  )
+  if (ms.length === 1) {
+    return ms[0]
+  }
+  return null
 }
 
 export function findProperties(
