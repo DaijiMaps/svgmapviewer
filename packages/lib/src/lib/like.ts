@@ -3,8 +3,12 @@
 import { createStore, StoreSnapshot } from '@xstate/store'
 import { useSelector } from '@xstate/store/react'
 
-interface LikeSContext {
+interface LikesContext {
   ids: Set<number>
+}
+
+interface LikesExternalContext {
+  ids: number[]
 }
 
 const emptySnapshot = {
@@ -14,7 +18,9 @@ const emptySnapshot = {
 }
 
 // XXX JSON schema
-function parseSnapshot(str: null | string) {
+function parseSnapshot(
+  str: null | string
+): undefined | StoreSnapshot<LikesContext> {
   if (!str) {
     return undefined
   }
@@ -28,14 +34,20 @@ function parseSnapshot(str: null | string) {
   }
 }
 
-function stringifySnapshot(val: Readonly<StoreSnapshot<LikeSContext>>) {
-  return JSON.stringify({
+function externalizeSnapshot(
+  val: Readonly<StoreSnapshot<LikesContext>>
+): StoreSnapshot<LikesExternalContext> {
+  return {
     ...val,
     context: {
       ...val.context,
       ids: Array.from(val.context.ids.keys()),
     },
-  })
+  }
+}
+
+function stringifySnapshot(val: Readonly<StoreSnapshot<LikesContext>>) {
+  return JSON.stringify(externalizeSnapshot(val))
 }
 
 function loadSnapshot() {
@@ -44,7 +56,7 @@ function loadSnapshot() {
   return val === undefined ? emptySnapshot : val
 }
 
-function saveSnapshot(val: Readonly<StoreSnapshot<LikeSContext>>) {
+function saveSnapshot(val: Readonly<StoreSnapshot<LikesContext>>): void {
   localStorage.setItem('svgmapviewer:likes', stringifySnapshot(val))
 }
 
