@@ -27,7 +27,7 @@ export function Detail(props: Readonly<DetailProps>) {
   const H = layout.container.height
 
   return (
-    <div className="content">
+    <div>
       <Balloon
         _uiRef={props._uiRef}
         _detail={detail}
