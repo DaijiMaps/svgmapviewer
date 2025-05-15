@@ -1,4 +1,8 @@
-import type { MapData } from './data'
+import type {
+  MapData,
+  OsmPointLikeGeoJSON,
+  OsmPointLikeProperties,
+} from './data'
 import { calcScale } from './geojson'
 import type {
   LineCoordinate,
@@ -60,6 +64,8 @@ export type {
   MultiPolygonGeometry,
   OsmLineProperties,
   OsmLineStringProperties,
+  OsmPointLikeGeoJSON /* for POI */,
+  OsmPointLikeProperties /* for POI */,
   OsmPointProperties,
   OsmPolygonProperties,
   Point,

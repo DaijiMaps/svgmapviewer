@@ -7,10 +7,13 @@ import {
 import {
   OsmCentroidGeoJSON,
   OsmLineGeoJSON,
+  OsmLineProperties,
   OsmMidpointGeoJSON,
   OsmMultilinestringGeoJSON,
   OsmMultipolygonGeoJSON,
   OsmPointGeoJSON,
+  OsmPointProperties,
+  OsmPolygonProperties,
 } from './osm-types'
 
 export type MapData = {
@@ -43,4 +46,15 @@ export const emptyMapData: MapData = {
   multipolygons: emptyGeoJSON,
   centroids: emptyGeoJSON,
   midpoints: emptyGeoJSON,
+}
+
+export type OsmPointLikeProperties =
+  | OsmPointProperties
+  | OsmLineProperties /* midpoints */
+  | OsmPolygonProperties /* centroids */
+
+export interface OsmPointLikeGeoJSON {
+  points: OsmPointGeoJSON
+  midpoints: OsmMidpointGeoJSON
+  centroids: OsmCentroidGeoJSON
 }
