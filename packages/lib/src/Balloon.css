@@ -13,6 +13,5 @@
 
 .balloon > path.fg {
   fill: white;
-  stroke: grey;
-  stroke-width: 0.1px;
+  stroke: none;
 }
