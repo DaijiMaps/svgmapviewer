@@ -8,7 +8,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: {
-        app: 'src/lib/app/index.ts',
+        //app: 'src/lib/app/index.ts',
         box: 'src/lib/box/prefixed/index.ts',
         carto: 'src/lib/carto/index.ts',
         'carto-objects': 'src/lib/carto/objects/index.ts',
