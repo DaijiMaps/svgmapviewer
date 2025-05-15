@@ -4,7 +4,7 @@
 /* eslint-disable functional/no-return-void*/
 
 import { useCallback, useRef } from 'react'
-import { ActorRefFrom, emit, setup } from 'xstate'
+import { ActorRefFrom, assign, emit, setup } from 'xstate'
 
 // XXX Event -> T extends <{ timeStamp: number}>
 
@@ -110,6 +110,9 @@ export const timeoutMachine = setup({
     Inactive: {
       on: {
         TICK: {
+          actions: assign({
+            ev: ({ event }) => event.ev,
+          }),
           target: 'Active',
         },
         STOP: {
@@ -118,15 +121,15 @@ export const timeoutMachine = setup({
       },
     },
     Active: {
+      id: 'timeout-active',
       after: {
-        4000: {
+        2000: {
           guard: ({ context }) => context.ev != null,
           actions: emit(({ context }) => ({ type: 'EXPIRED', ev: context.ev })),
           target: 'Inactive',
         },
       },
       initial: 'Busy',
-      onDone: 'Inactive',
       states: {
         Busy: {
           after: {
@@ -145,7 +148,7 @@ export const timeoutMachine = setup({
           on: {
             TICK: {
               // update - re-entry
-              target: 'Active',
+              target: '#timeout-active',
               reenter: true,
             },
             STOP: {
