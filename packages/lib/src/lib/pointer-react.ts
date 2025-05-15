@@ -1,7 +1,7 @@
 import { useActorRef, useSelector } from '@xstate/react'
 import { RefObject, useCallback, useEffect } from 'react'
 import { svgMapViewerConfig as cfg } from './config'
-import { timeoutMachine, TimeoutRef } from './event'
+import { timeoutMachine, TimeoutRef } from './event-xstate'
 import { Layout } from './layout'
 import { useLayout } from './layout-react'
 import {
