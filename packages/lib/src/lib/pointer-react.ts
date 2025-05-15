@@ -1,7 +1,7 @@
 import { useActorRef, useSelector } from '@xstate/react'
 import { RefObject, useCallback, useEffect } from 'react'
 import { svgMapViewerConfig as cfg } from './config'
-import { useRateLimit, useTimeout } from './event'
+import { timeoutMachine, TimeoutRef } from './event'
 import { Layout } from './layout'
 import { useLayout } from './layout-react'
 import {
@@ -41,7 +41,10 @@ function usePointerKey(pointerRef: PointerRef) {
   }, [keyDown, keyUp])
 }
 
-function usePointerEventMask(pointerRef: PointerRef) {
+function usePointerEventMask(
+  pointerRef: PointerRef,
+  scrollTimeoutRef: TimeoutRef
+) {
   const mode = useSelector(pointerRef, selectMode)
 
   useEffect(() => {
@@ -53,12 +56,18 @@ function usePointerEventMask(pointerRef: PointerRef) {
     clickeventmask = mode === 'locked'
     wheeleventmask = mode !== 'pointing'
     scrolleventmask = mode !== 'panning'
-  }, [mode])
+    if (mode === 'panning') {
+      scrollTimeoutRef.send({ type: 'START' })
+    } else {
+      scrollTimeoutRef.send({ type: 'STOP' })
+    }
+  }, [mode, scrollTimeoutRef])
 }
 
 function usePointerEvent(
   containerRef: RefObject<HTMLDivElement>,
-  pointerRef: PointerRef
+  pointerRef: PointerRef,
+  scrollTimeoutRef: TimeoutRef
 ) {
   const send = useCallback(
     (
@@ -139,7 +148,7 @@ function usePointerEvent(
     },
     [send]
   )
-  const sendContextMenuu = useCallback(
+  const sendContextMenu = useCallback(
     (ev: MouseEvent) => send({ type: 'CONTEXTMENU', ev }),
     [send]
   )
@@ -152,20 +161,30 @@ function usePointerEvent(
     },
     [send]
   )
-  const sendScrollTimeout = useTimeout<Event>(
-    (ev) => {
+
+  // XXX
+  // XXX
+  // XXX
+  useEffect(() => {
+    const sub = scrollTimeoutRef.on('EXPIRED', ({ ev }) => {
       if (!scrolleventmask) {
         send({ type: 'SCROLL', ev })
       }
-    },
-    cfg.scrollIdleTimeout,
-    () => scrolleventmask
+    })
+    return () => sub.unsubscribe()
+  }, [scrollTimeoutRef, send])
+
+  const sendScroll = useCallback(
+    (ev: Event) =>
+      scrollTimeoutRef.send({
+        type: 'TICK',
+        ev,
+      }),
+    [scrollTimeoutRef]
   )
-  const sendScroll = useRateLimit<Event>(
-    sendScrollTimeout,
-    cfg.scrollIdleTimeout / 10,
-    5
-  )
+  // XXX
+  // XXX
+  // XXX
 
   useEffect(() => {
     const e = containerRef.current
@@ -179,7 +198,7 @@ function usePointerEvent(
     e.addEventListener('touchmove', sendTouchMove)
     e.addEventListener('touchend', sendTouchEnd)
     e.addEventListener('click', sendClick)
-    e.addEventListener('contextmenu', sendContextMenuu)
+    e.addEventListener('contextmenu', sendContextMenu)
     e.addEventListener('wheel', sendWheel)
     e.addEventListener('scroll', sendScroll)
     return () => {
@@ -190,14 +209,14 @@ function usePointerEvent(
       e.removeEventListener('touchmove', sendTouchMove)
       e.removeEventListener('touchend', sendTouchEnd)
       e.removeEventListener('click', sendClick)
-      e.removeEventListener('contextmenu', sendContextMenuu)
+      e.removeEventListener('contextmenu', sendContextMenu)
       e.removeEventListener('wheel', sendWheel)
       e.removeEventListener('scroll', sendScroll)
     }
   }, [
     containerRef,
     sendClick,
-    sendContextMenuu,
+    sendContextMenu,
     sendPointerDown,
     sendPointerMove,
     sendPointerUp,
@@ -267,19 +286,23 @@ function useResizing(pointerRef: PointerRef) {
 
 export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   pointerRef: PointerRef
+  scrollTimeoutRef: TimeoutRef
 } {
   const pointerRef = useActorRef(pointerMachine, {
     input: { containerRef },
   })
+  const scrollTimeoutRef = useActorRef(timeoutMachine)
 
   return {
     pointerRef,
+    scrollTimeoutRef,
   }
 }
 
 export function usePointerConfig(
   containerRef: RefObject<HTMLDivElement>,
-  pointerRef: PointerRef
+  pointerRef: PointerRef,
+  scrollTimeoutRef: TimeoutRef
 ) {
   ////
   //// event handlers
@@ -287,9 +310,9 @@ export function usePointerConfig(
 
   usePointerKey(pointerRef)
 
-  usePointerEventMask(pointerRef)
+  usePointerEventMask(pointerRef, scrollTimeoutRef)
 
-  usePointerEvent(containerRef, pointerRef)
+  usePointerEvent(containerRef, pointerRef, scrollTimeoutRef)
 
   ////
   //// ui callbacks

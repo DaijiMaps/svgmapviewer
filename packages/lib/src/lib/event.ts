@@ -4,6 +4,7 @@
 /* eslint-disable functional/no-return-void*/
 
 import { useCallback, useRef } from 'react'
+import { ActorRefFrom, emit, setup } from 'xstate'
 
 // XXX Event -> T extends <{ timeStamp: number}>
 
@@ -67,3 +68,94 @@ export function useTimeout<T>(
   )
   return f
 }
+
+type TimeoutContext = {
+  ev: null | Event
+}
+type TimeoutEvent =
+  | {
+      type: 'TICK'
+      ev: Event
+    }
+  | {
+      type: 'START'
+    }
+  | {
+      type: 'STOP'
+    }
+type TimeoutEmit = {
+  type: 'EXPIRED'
+  ev: Event
+}
+
+export const timeoutMachine = setup({
+  types: {
+    context: {} as TimeoutContext,
+    events: {} as TimeoutEvent,
+    emitted: {} as TimeoutEmit,
+  },
+}).createMachine({
+  id: 'timeout1',
+  initial: 'Stopped',
+  context: { ev: null },
+  states: {
+    Stopped: {
+      id: 'timeout-stopped',
+      on: {
+        START: {
+          target: 'Inactive',
+        },
+      },
+    },
+    Inactive: {
+      on: {
+        TICK: {
+          target: 'Active',
+        },
+        STOP: {
+          target: 'Stopped',
+        },
+      },
+    },
+    Active: {
+      after: {
+        4000: {
+          guard: ({ context }) => context.ev != null,
+          actions: emit(({ context }) => ({ type: 'EXPIRED', ev: context.ev })),
+          target: 'Inactive',
+        },
+      },
+      initial: 'Busy',
+      onDone: 'Inactive',
+      states: {
+        Busy: {
+          after: {
+            200: {
+              target: 'Idle',
+            },
+          },
+          on: {
+            // TICK is ignored!
+            STOP: {
+              target: '#timeout-stopped',
+            },
+          },
+        },
+        Idle: {
+          on: {
+            TICK: {
+              // update - re-entry
+              target: 'Active',
+              reenter: true,
+            },
+            STOP: {
+              target: '#timeout-stopped',
+            },
+          },
+        },
+      },
+    },
+  },
+})
+
+export type TimeoutRef = ActorRefFrom<typeof timeoutMachine>
