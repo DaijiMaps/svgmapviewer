@@ -3,8 +3,6 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 60vmin;
-  height: 60vmin;
   pointer-events: none;
 }
 

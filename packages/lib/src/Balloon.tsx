@@ -9,15 +9,18 @@ import {
   selectOpenCloseDetail,
 } from './lib/ui-xstate'
 import { Vec } from './lib/vec'
-import { VecVec, vecVec } from './lib/vec/prefixed'
+import { VecVec } from './lib/vec/prefixed'
 
 export interface BalloonPathProps {
-  fg: boolean
-  d: number
   dir: Dir
-  ll: number
+  vmin: number
   bw: number
   bh: number
+  ll: number
+  d: number
+  ww: number
+  hh: number
+  fg: boolean
 }
 
 function BalloonPath(props: Readonly<BalloonPathProps>) {
@@ -29,51 +32,43 @@ function BalloonPath(props: Readonly<BalloonPathProps>) {
   const lw = bw / 20
   const hlw = lw / 2
 
-  // XXX refactor
-  const path =
+  const body = `
+m${-hbw},${-hbh}
+h${bw}
+v${bh}
+h${-bw}
+z
+`
+  const leg =
     dir === 0
       ? `
-M${hbw + d},${-ll + d}
+m${-hlw},${-hbh}
+l${hlw},${-ll}
 l${hlw},${ll}
-l${hbw - hlw},0
-l0,${bh}
-l${-bw},0
-l0,${-bh}
-l${hbw - hlw},0
 z
 `
       : dir === 1
         ? `
-M${bw + ll + d},${hbh + d}
+m${hbw},${-hlw}
+l${ll},${hlw}
 l${-ll},${hlw}
-l0,${hbh - hlw}
-l${-bw},0
-l0,${-bh}
-l${bw},0
-l0,${hbh - hlw}
 z
 `
         : dir === 2
           ? `
-M${hbw + d},${bh + ll + d}
-l${-hlw},${-ll}
-l${-(hbw - hlw)},0
-l0,${-bh}
-l${bw},0
-l0,${bh}
-l${-(hbw - hlw)},0
+m${-hlw},${hbh}
+l${hlw},${ll}
+l${hlw},${-ll}
 z
 `
           : `
-M${-ll + d},${hbh + d}
-l${ll},${-hlw}
-l0,${-(hbh - hlw)}
-l${bw},0
-l0,${bh}
-l${-bw},0
-l0,${-(hbh - hlw)}
-z
+m${-hbw},${-hlw}
+l${-ll},${hlw}
+l${ll},${hlw}
 `
+
+  const dd = fg ? 0 : d
+  const path = `M0,0 m${dd},${dd} ${body} M0,0 m${dd},${dd} ${leg}`
 
   return <path className={fg ? 'fg' : 'bg'} d={path} />
 }
@@ -87,6 +82,10 @@ export interface BalloonProps {
   _H: number
 }
 
+const BW = 50
+const BH = 50
+const BL = 10
+
 export function Balloon(props: Readonly<BalloonProps>): ReactNode {
   const { _uiRef: uiRef } = props
 
@@ -95,13 +94,16 @@ export function Balloon(props: Readonly<BalloonProps>): ReactNode {
   // XXX
   const vmin = Math.min(props._W, props._H) * 0.01
 
-  const bw = vmin * 40
-  const bh = vmin * 40
-  const ll = vmin * 10
+  const bw = vmin * BW
+  const bh = vmin * BH
+  const ll = vmin * BL
 
   const d = bw / 100
 
-  const p = { ll, bw, bh }
+  const ww = bw + 2 * ll + 2 * d
+  const hh = bh + 2 * ll + 2 * d
+
+  const p = { vmin, bw, bh, ll, d, ww, hh }
 
   return !openCloseIsVisible(balloon) ? (
     <></>
@@ -113,20 +115,36 @@ export function Balloon(props: Readonly<BalloonProps>): ReactNode {
     >
       <svg
         className="balloon"
-        viewBox={`${-ll} ${-ll} ${bw + ll * 2 + d} ${bh + ll * 2 + d}`}
+        viewBox={`${-ww / 2} ${-ww / 2} ${ww} ${hh}`}
+        width={ww}
+        height={hh}
       >
-        <BalloonPath fg={false} d={d} dir={props._dir} {...p} />
-        <BalloonPath fg={true} d={0} dir={props._dir} {...p} />
+        <BalloonPath dir={props._dir} {...p} fg={false} />
+        <BalloonPath dir={props._dir} {...p} fg={true} />
       </svg>
     </div>
   )
 }
 
 export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
-  const { _uiRef: uiRef, _detail: content, _p: p, _dir: dir } = props
+  const { _uiRef: uiRef, _detail: content, _p: o, _dir: dir } = props
 
   const balloon = useSelector(uiRef, selectOpenCloseBalloon)
   const detail = useSelector(uiRef, selectOpenCloseDetail)
+
+  // XXX
+  const vmin = Math.min(props._W, props._H) * 0.01
+
+  const bw = vmin * BW
+  const bh = vmin * BH
+  const ll = vmin * BL
+
+  const d = bw / 100
+
+  const ww = bw + 2 * ll + 2 * d
+  const hh = bh + 2 * ll + 2 * d
+
+  const p = { dir, vmin, bw, bh, ll, d, ww, hh, fg: true }
 
   if (
     !openCloseIsVisible(balloon) ||
@@ -135,46 +153,40 @@ export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
   ) {
     return <style>{`.detail { display: none; }`}</style>
   } else {
-    return <style>{balloonStyle(balloon, p, dir)}</style>
+    return <style>{balloonStyle(balloon, o, dir, p)}</style>
   }
 }
 
-const ds: Vec[] = [
-  vecVec(20, 0 - 10), // 0 - top
-  vecVec(40 + 10, 20), // 1 - right
-  vecVec(20, 40 + 10), // 2 - bottom
-  vecVec(0 - 10, 20), // 3 - left
-]
-
 function balloonStyle(
   { open, animating }: OpenClose,
-  o: null | Vec,
-  dir: null | Dir
+  Q: null | Vec,
+  dir: null | Dir,
+  p: Readonly<BalloonPathProps>
 ) {
-  if (o === null || dir === null) {
+  if (Q === null || dir === null) {
     return ``
   }
-
-  const d = ds[dir]
+  const dPs = [
+    { x: 0, y: p.hh / 2 },
+    { x: -p.ww / 2, y: 0 },
+    { x: 0, y: -p.hh / 2 },
+    { x: p.ww / 2, y: 0 },
+  ]
+  const dP = dPs[dir]
 
   if (!animating) {
     return `
 .detail {
-  transform-origin: ${d.x}vmin ${d.y}vmin;
-  transform: translate(${o.x}px, ${o.y}px) translate(${-d.x}vmin, ${-d.y}vmin) scale(1);
+  transform-origin: 0 0;
+  transform: translate(${Q.x + dP.x}px, ${Q.y + dP.y}px) scale(1) translate(-50%, -50%);
 }
 
 .balloon-container {
-  transform-origin: ${d.x + 10}vmin ${d.y + 10}vmin;
-  transform: translate(${o.x}px, ${o.y}px) translate(${-d.x - 10}vmin, ${-d.y - 10}vmin) scale(1);
+  transform-origin: 0 0;
+  transform: translate(${Q.x + dP.x}px, ${Q.y + dP.y}px) scale(1) translate(${-p.ww / 2}px, ${-p.hh / 2}px);
 }
 `
   } else {
-    const opacityA = open ? 0 : 1
-    const opacityB = open ? 1 : 0
-    const scaleA = open ? 0 : 1
-    const scaleB = open ? 1 : 0
-
     return `
 .detail,
 .balloon-container {
@@ -182,36 +194,36 @@ function balloonStyle(
 }
 
 .detail {
-  transform-origin: ${d.x}vmin ${d.y}vmin;
-  animation: xxx-detail 300ms ease;
+  transform-origin: 0 0;
+  animation: xxx-detail 300ms ease ${open ? `normal` : `reverse`};
   will-change: opacity transform;
 }
 
 .balloon-container {
-  transform-origin: ${d.x + 10}vmin ${d.y + 10}vmin;
-  animation: xxx-balloon 300ms ease;
+  transform-origin: 0 0;
+  animation: xxx-balloon 300ms ease ${open ? `normal` : `reverse`};
   will-change: opacity transform;
 }
 
 @keyframes xxx-detail {
   from {
-    opacity: ${opacityA};
-    transform: translate(${o.x}px, ${o.y}px) translate(${-d.x}vmin, ${-d.y}vmin) scale(${scaleA});
+    opacity: 0;
+    transform: translate(${Q.x}px, ${Q.y}px) scale(0) translate(-50%, -50%);
   }
   to {
-    opacity: ${opacityB};
-    transform: translate(${o.x}px, ${o.y}px) translate(${-d.x}vmin, ${-d.y}vmin) scale(${scaleB});
+    opacity: 1;
+    transform: translate(${Q.x + dP.x}px, ${Q.y + dP.y}px) scale(1) translate(-50%, -50%);
   }
 }
 
 @keyframes xxx-balloon {
   from {
-    opacity: ${opacityA};
-    transform: translate(${o.x}px, ${o.y}px) translate(${-d.x - 10}vmin, ${-d.y - 10}vmin) scale(${scaleA});
+    opacity: 0;
+    transform: translate(${Q.x}px, ${Q.y}px) scale(0) translate(${-p.ww / 2}px, ${-p.hh / 2}px);
   }
   to {
-    opacity: ${opacityB};
-    transform: translate(${o.x}px, ${o.y}px) translate(${-d.x - 10}vmin, ${-d.y - 10}vmin) scale(${scaleB});
+    opacity: 1;
+    transform: translate(${Q.x + dP.x}px, ${Q.y + dP.y}px) scale(1) translate(${-p.ww / 2}px, ${-p.hh / 2}px);
   }
 }
 `
