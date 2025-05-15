@@ -6,11 +6,14 @@ import {
 } from './geojson-types'
 import {
   OsmCentroidGeoJSON,
+  OsmLineFeature,
   OsmLineGeoJSON,
   OsmLineProperties,
   OsmMidpointGeoJSON,
   OsmMultilinestringGeoJSON,
+  OsmMultipolygonFeature,
   OsmMultipolygonGeoJSON,
+  OsmPointFeature,
   OsmPointGeoJSON,
   OsmPointProperties,
   OsmPolygonProperties,
@@ -52,6 +55,11 @@ export type OsmPointLikeProperties =
   | OsmPointProperties
   | OsmLineProperties /* midpoints */
   | OsmPolygonProperties /* centroids */
+
+export type OsmPointLikeFeature =
+  | OsmPointFeature
+  | OsmLineFeature
+  | OsmMultipolygonFeature
 
 export interface OsmPointLikeGeoJSON {
   points: OsmPointGeoJSON

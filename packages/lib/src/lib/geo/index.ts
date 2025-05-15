@@ -1,5 +1,6 @@
 import type {
   MapData,
+  OsmPointLikeFeature,
   OsmPointLikeGeoJSON,
   OsmPointLikeProperties,
 } from './data'
@@ -64,6 +65,7 @@ export type {
   MultiPolygonGeometry,
   OsmLineProperties,
   OsmLineStringProperties,
+  OsmPointLikeFeature /* for POI */,
   OsmPointLikeGeoJSON /* for POI */,
   OsmPointLikeProperties /* for POI */,
   OsmPointProperties,
