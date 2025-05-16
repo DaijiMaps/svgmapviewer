@@ -23,7 +23,7 @@ export function RenderMapSymbols(props: Readonly<RenderMapSymbolsProps>) {
   return (
     <g className="map-symbols">
       {props.mapSymbols.map((entry, i) => (
-        <g key={i}>
+        <g key={i} className={entry.name}>
           <RenderUses
             sz={
               config.fontSize *
@@ -94,17 +94,17 @@ export function RenderUses(
 ) {
   return (
     <>
+      {props.vs.map((_, j) => (
+        <use key={j} className={`${props.name}-${j}`} href={props.href} />
+      ))}
       {props.vs.map(([x, y], j) => (
-        <use
-          key={j}
-          className={props.name}
-          href={props.href}
-          transform={
-            `translate(${x}, ${y})`.replaceAll(/([.]\d\d)\d*/g, '$1') +
-            ' ' +
-            `scale(${props.sz / 72})`
-          }
-        />
+        <style key={j}>
+          {`
+.${props.name} > .${props.name}-${j} {
+transform: ${`translate(${x}px, ${y}px)`.replaceAll(/([.]\d\d)\d*/g, '$1')} scale(${props.sz / 72});
+}
+`}
+        </style>
       ))}
     </>
   )
