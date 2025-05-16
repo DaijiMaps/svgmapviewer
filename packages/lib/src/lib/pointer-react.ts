@@ -279,9 +279,13 @@ function useExpanding(pointerRef: PointerRef) {
 
 function useResizing(pointerRef: PointerRef) {
   // resize handling
-  useLayout((origLayout: Readonly<Layout>, force: boolean) => {
-    pointerRef.send({ type: 'LAYOUT', layout: origLayout, force })
-  }, cfg.origViewBox)
+  const layoutCb = useCallback(
+    (origLayout: Readonly<Layout>, force: boolean) => {
+      pointerRef.send({ type: 'LAYOUT', layout: origLayout, force })
+    },
+    [pointerRef]
+  )
+  useLayout(layoutCb, cfg.origViewBox)
 }
 
 export function usePointer(containerRef: RefObject<HTMLDivElement>): {
