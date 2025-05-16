@@ -1,4 +1,5 @@
 import { useSelector } from '@xstate/react'
+import { Fragment } from 'react/jsx-runtime'
 import {
   selectLayoutConfig,
   selectLayoutSvgScaleS,
@@ -22,21 +23,31 @@ export function RenderMapSymbols(props: Readonly<RenderMapSymbolsProps>) {
 
   return (
     <g className="map-symbols">
-      {props.mapSymbols.map((entry, i) => (
-        <g key={i} className={entry.name}>
-          <RenderUses
-            sz={
-              config.fontSize *
-              // display symbol slightly larger as zoom goes higher
-              (0.5 + 0.5 * Math.log2(Math.max(1, zoom))) *
-              s
-            }
-            name={entry.name}
-            href={entry.href}
-            vs={entryToVs(entry)}
-          />
-        </g>
-      ))}
+      {props.mapSymbols.map((entry, i) => {
+        const sz =
+          config.fontSize *
+          // display symbol slightly larger as zoom goes higher
+          (0.5 + 0.5 * Math.log2(Math.max(1, zoom))) *
+          s
+        return (
+          <Fragment key={i}>
+            <g className={entry.name}>
+              <RenderUses
+                sz={sz}
+                name={entry.name}
+                href={entry.href}
+                vs={entryToVs(entry)}
+              />
+            </g>
+            <RenderUseStyles
+              sz={sz}
+              name={entry.name}
+              href={entry.href}
+              vs={entryToVs(entry)}
+            />
+          </Fragment>
+        )
+      })}
     </g>
   )
 }
@@ -97,15 +108,23 @@ export function RenderUses(
       {props.vs.map((_, j) => (
         <use key={j} className={`${props.name}-${j}`} href={props.href} />
       ))}
-      {props.vs.map(([x, y], j) => (
-        <style key={j}>
-          {`
+    </>
+  )
+}
+
+export function RenderUseStyles(
+  props: Readonly<{ name: string; href: string; vs: V[]; sz: number }>
+) {
+  return (
+    <style>
+      {props.vs.map(
+        ([x, y], j) =>
+          `
 .${props.name} > .${props.name}-${j} {
 transform: ${`translate(${x}px, ${y}px)`.replaceAll(/([.]\d\d)\d*/g, '$1')} scale(${props.sz / 72});
 }
-`}
-        </style>
-      ))}
-    </>
+`
+      )}
+    </style>
   )
 }
