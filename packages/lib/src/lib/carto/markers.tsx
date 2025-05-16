@@ -1,3 +1,5 @@
+import { useSelector } from '@xstate/react'
+import { selectLayoutConfig, selectLayoutSvgScaleS } from '../../Map'
 import { svgMapViewerConfig as cfg } from '../config'
 import { CentroidsFilter, MidpointsFilter, Point, PointsFilter } from '../geo'
 import { V, vUnvec, vVec } from '../tuple'
@@ -8,8 +10,12 @@ export interface RenderMapMarkersProps extends RenderMapProps {
 }
 
 export function RenderMapMarkers(props: Readonly<RenderMapMarkersProps>) {
-  const { config, svgScale } = props.layout
-  const sz = svgScale.s * config.fontSize * 0.9
+  const { renderMapRef } = props
+
+  const config = useSelector(renderMapRef, selectLayoutConfig)
+  const s = useSelector(renderMapRef, selectLayoutSvgScaleS)
+
+  const sz = s * config.fontSize * 0.9
 
   return (
     <g className="map-markers">

@@ -1,3 +1,9 @@
+import { useSelector } from '@xstate/react'
+import {
+  selectLayoutConfig,
+  selectLayoutSvgScaleS,
+  selectZoom,
+} from '../../Map'
 import { svgMapViewerConfig as cfg } from '../config'
 import { CentroidsFilter, MidpointsFilter, Point, PointsFilter } from '../geo'
 import { V, vUnvec, vVec } from '../tuple'
@@ -8,7 +14,11 @@ export interface RenderMapSymbolsProps extends RenderMapProps {
 }
 
 export function RenderMapSymbols(props: Readonly<RenderMapSymbolsProps>) {
-  const { config, svgScale } = props.layout
+  const { renderMapRef } = props
+
+  const config = useSelector(renderMapRef, selectLayoutConfig)
+  const s = useSelector(renderMapRef, selectLayoutSvgScaleS)
+  const zoom = useSelector(renderMapRef, selectZoom)
 
   return (
     <g className="map-symbols">
@@ -18,8 +28,8 @@ export function RenderMapSymbols(props: Readonly<RenderMapSymbolsProps>) {
             sz={
               config.fontSize *
               // display symbol slightly larger as zoom goes higher
-              (0.5 + 0.5 * Math.log2(Math.max(1, props.zoom))) *
-              svgScale.s
+              (0.5 + 0.5 * Math.log2(Math.max(1, zoom))) *
+              s
             }
             name={entry.name}
             href={entry.href}

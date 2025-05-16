@@ -1,21 +1,21 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import { useMachine } from '@xstate/react'
+import { useActorRef } from '@xstate/react'
 import { useCallback, useEffect } from 'react'
-import { assign, setup } from 'xstate'
+import { ActorRefFrom, assign, setup, StateFrom } from 'xstate'
 import './index.css'
 import { SvgMapViewerConfig } from './lib'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { emptyLayout, Layout } from './lib/layout'
 
 export function RenderMap(props: Readonly<{ config: SvgMapViewerConfig }>) {
-  const { state } = useRenderMap()
+  const { renderMapRef } = useRenderMap()
 
-  return props.config.renderMap(state.context)
+  return props.config.renderMap({ renderMapRef })
 }
 
-function useRenderMap() {
-  const [state, send] = useMachine(renderMapMachine, {
+function useRenderMap(): { renderMapRef: RenderMapRef } {
+  const renderMapRef = useActorRef(renderMapMachine, {
     input: {
       layout: emptyLayout,
     },
@@ -23,14 +23,14 @@ function useRenderMap() {
 
   const zoomStart = useCallback(
     (layout: Layout, zoom: number, z: number) =>
-      send({ type: 'ZOOM', layout, zoom, z }),
-    [send]
+      renderMapRef.send({ type: 'ZOOM', layout, zoom, z }),
+    [renderMapRef]
   )
 
   const zoomEnd = useCallback(
     (layout: Layout, zoom: number) =>
-      send({ type: 'ZOOM', layout, zoom, z: null }),
-    [send]
+      renderMapRef.send({ type: 'ZOOM', layout, zoom, z: null }),
+    [renderMapRef]
   )
 
   useEffect(() => {
@@ -42,7 +42,7 @@ function useRenderMap() {
     }
   }, [zoomEnd, zoomStart])
 
-  return { state }
+  return { renderMapRef }
 }
 
 type RenderMapContext = { layout: Layout; zoom: number; z: null | number }
@@ -73,3 +73,13 @@ const renderMapMachine = setup({
     },
   },
 })
+
+export type RenderMapRef = ActorRefFrom<typeof renderMapMachine>
+export type RenderMapState = StateFrom<typeof renderMapMachine>
+
+export const selectLayoutConfig = (state: Readonly<RenderMapState>) =>
+  state.context.layout.config
+export const selectLayoutSvgScaleS = (state: Readonly<RenderMapState>) =>
+  state.context.layout.svgScale.s
+export const selectZoom = (state: Readonly<RenderMapState>) =>
+  state.context.zoom

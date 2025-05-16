@@ -1,5 +1,6 @@
 /* eslint-disable functional/no-mixed-types */
 /* eslint-disable functional/no-return-void */
+import { RenderMapRef } from '../Map'
 import { BoxBox } from './box/prefixed'
 import { MapLayer, MapMarkers, MapObjects, MapSymbols } from './carto'
 import { MapData, POI } from './geo'
@@ -41,14 +42,19 @@ export type UiOpenDoneCb = (ok: boolean) => void
 export type UiCloseCb = () => void
 
 export interface RenderMapProps {
+  /*
   layout: Layout
   zoom: number
   z: null | number
+  */
+  renderMapRef: RenderMapRef
 }
 
 export type RenderAssets = () => JSX.Element
 
-export type RenderMap = (props: Readonly<RenderMapProps>) => JSX.Element
+export type RenderMap = (
+  props: Readonly<{ renderMapRef: Readonly<RenderMapRef> }>
+) => JSX.Element
 
 export type RenderInfo = (props: Readonly<{ info: Info }>) => JSX.Element
 
