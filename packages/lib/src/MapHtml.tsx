@@ -171,7 +171,7 @@ ${sizes
   .join('')}
 }`}
       </style>
-      {names.map(({ id, name, pos: { x, y }, area, size }) => (
+      {names.map(({ id, name, pos: { x, y }, size }) => (
         <div
           key={id}
           className={`poi-names-item`}
@@ -182,10 +182,14 @@ ${sizes
             fontSize: `var(--font-size-${size})`,
           }}
         >
-          <style>{`
---area: ${area};
---size: ${size};
+          {/*
+            <style>{`
+.poi-names-item {
+--area-${id}: ${area};
+--size-${id}: ${size};
+}
 `}</style>
+          */}
           <RenderName
             poi={{
               id,
