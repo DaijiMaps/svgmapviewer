@@ -15,6 +15,26 @@ export interface RenderMapSymbolsProps extends RenderMapProps {
 }
 
 export function RenderMapSymbols(props: Readonly<RenderMapSymbolsProps>) {
+  return (
+    <g className="map-symbols">
+      {props.mapSymbols.map((entry, i) => {
+        return (
+          <Fragment key={i}>
+            <g className={entry.name}>
+              <RenderUses
+                name={entry.name}
+                href={entry.href}
+                vs={entryToVs(entry)}
+              />
+            </g>
+          </Fragment>
+        )
+      })}
+    </g>
+  )
+}
+
+export function RenderMapSymbolStyles(props: Readonly<RenderMapSymbolsProps>) {
   const { renderMapRef } = props
 
   const config = useSelector(renderMapRef, selectLayoutConfig)
@@ -31,14 +51,6 @@ export function RenderMapSymbols(props: Readonly<RenderMapSymbolsProps>) {
           s
         return (
           <Fragment key={i}>
-            <g className={entry.name}>
-              <RenderUses
-                sz={sz}
-                name={entry.name}
-                href={entry.href}
-                vs={entryToVs(entry)}
-              />
-            </g>
             <RenderUseStyles
               sz={sz}
               name={entry.name}
@@ -101,7 +113,7 @@ function conv(p: V): V {
 }
 
 export function RenderUses(
-  props: Readonly<{ name: string; href: string; vs: V[]; sz: number }>
+  props: Readonly<{ name: string; href: string; vs: V[] }>
 ) {
   return (
     <>
