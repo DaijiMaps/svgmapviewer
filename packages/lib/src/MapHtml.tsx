@@ -5,8 +5,7 @@ import { svgMapViewerConfig as cfg } from './lib/config'
 import { fixupCssString } from './lib/css'
 import { POI } from './lib/geo'
 import { useLikes } from './lib/like'
-import { PointerRef, selectLayoutSvgScale } from './lib/pointer-xstate'
-import { Scale } from './lib/transform'
+import { PointerRef, selectLayoutSvgScaleS } from './lib/pointer-xstate'
 import './MapHtml.css'
 
 export interface MapHtmlProps {
@@ -14,7 +13,7 @@ export interface MapHtmlProps {
 }
 
 export interface MapHtmlContentProps {
-  _svgScale: Scale
+  _svgScaleS: number
 }
 
 export function MapHtml(props: Readonly<MapHtmlProps>) {
@@ -36,13 +35,13 @@ function MapHtmlContentRoot(props: Readonly<MapHtmlProps>): ReactNode {
 function MapHtmlContent(props: Readonly<MapHtmlProps>) {
   const { _pointerRef: ref } = props
 
-  const svgScale = useSelector(ref, selectLayoutSvgScale)
+  const svgScaleS = useSelector(ref, selectLayoutSvgScaleS)
 
   return (
     <>
       <MapHtmlContentSymbols />
       <MapHtmlContentStars />
-      <MapHtmlContentNames _svgScale={svgScale} />
+      <MapHtmlContentNames _svgScaleS={svgScaleS} />
       <LayersStyle />
     </>
   )
@@ -110,46 +109,28 @@ function MapHtmlContentStars() {
 }
 
 function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
-  const { _svgScale: svgScale } = props
+  const { _svgScaleS: s } = props
 
   // XXX make these configurable
   //  const huge = useMemo(
-  //    () => 1000 * 1000 * svgScale.s * svgScale.s,
-  //    [svgScale.s]
+  //    () => 1000 * 1000 * s * s,
+  //    [s]
   //  )
-  const xxxlarge = useMemo(
-    () => 800 * 800 * svgScale.s * svgScale.s,
-    [svgScale.s]
-  )
-  const xxlarge = useMemo(
-    () => 600 * 600 * svgScale.s * svgScale.s,
-    [svgScale.s]
-  )
-  const xlarge = useMemo(
-    () => 450 * 450 * svgScale.s * svgScale.s,
-    [svgScale.s]
-  )
-  const large = useMemo(() => 320 * 320 * svgScale.s * svgScale.s, [svgScale.s])
-  const normal = useMemo(
-    () => 200 * 200 * svgScale.s * svgScale.s,
-    [svgScale.s]
-  )
-  const small = useMemo(() => 140 * 140 * svgScale.s * svgScale.s, [svgScale.s])
-  const xsmall = useMemo(
-    () => 110 * 110 * svgScale.s * svgScale.s,
-    [svgScale.s]
-  )
-  const xxsmall = useMemo(() => 90 * 90 * svgScale.s * svgScale.s, [svgScale.s])
-  const xxxsmall = useMemo(
-    () => 70 * 70 * svgScale.s * svgScale.s,
-    [svgScale.s]
-  )
-  const tiny = useMemo(() => 50 * 50 * svgScale.s * svgScale.s, [svgScale.s])
-  const point = useMemo(() => 10 * 10 * svgScale.s * svgScale.s, [svgScale.s])
+  const xxxlarge = useMemo(() => 800 * 800 * s * s, [s])
+  const xxlarge = useMemo(() => 600 * 600 * s * s, [s])
+  const xlarge = useMemo(() => 450 * 450 * s * s, [s])
+  const large = useMemo(() => 320 * 320 * s * s, [s])
+  const normal = useMemo(() => 200 * 200 * s * s, [s])
+  const small = useMemo(() => 140 * 140 * s * s, [s])
+  const xsmall = useMemo(() => 110 * 110 * s * s, [s])
+  const xxsmall = useMemo(() => 90 * 90 * s * s, [s])
+  const xxxsmall = useMemo(() => 70 * 70 * s * s, [s])
+  const tiny = useMemo(() => 50 * 50 * s * s, [s])
+  const point = useMemo(() => 10 * 10 * s * s, [s])
 
-  return (
-    <div className="poi-names">
-      {cfg.mapNames
+  const names = useMemo(
+    () =>
+      cfg.mapNames
         .filter(({ id }) => id !== undefined)
         .flatMap(({ id, name, pos, area }) =>
           area === undefined
@@ -192,27 +173,44 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
                                           : 4,
                   },
                 ]
-        )
-        .map(({ id, name, pos: { x, y }, size }) => (
-          <div
-            key={id}
-            className={`poi-names-item`}
-            style={{
-              transform: fixupCssString(
-                `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`
-              ),
+        ),
+    [
+      large,
+      normal,
+      point,
+      small,
+      tiny,
+      xlarge,
+      xsmall,
+      xxlarge,
+      xxsmall,
+      xxxlarge,
+      xxxsmall,
+    ]
+  )
+
+  return (
+    <div className="poi-names">
+      {names.map(({ id, name, pos: { x, y }, size }) => (
+        <div
+          key={id}
+          className={`poi-names-item`}
+          style={{
+            transform: fixupCssString(
+              `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`
+            ),
+          }}
+        >
+          <RenderName
+            poi={{
+              id,
+              name: size === -6 ? [''] : name,
+              pos: { x, y },
+              size,
             }}
-          >
-            <RenderName
-              poi={{
-                id,
-                name: size === -6 ? [''] : name,
-                pos: { x, y },
-                size,
-              }}
-            />
-          </div>
-        ))}
+          />
+        </div>
+      ))}
     </div>
   )
 }

@@ -12,7 +12,7 @@ import {
   selectLayoutScroll,
   selectLayoutSvg,
   selectLayoutSvgOffset,
-  selectLayoutSvgScale,
+  selectLayoutSvgScaleS,
   selectMode,
   selectRendered,
 } from './pointer-xstate'
@@ -20,21 +20,21 @@ import { selectOpenCloseDetail, UiRef } from './ui-xstate'
 
 export function useMapHtmlMatrix(pointerRef: Readonly<PointerRef>) {
   const svgOffset = useSelector(pointerRef, selectLayoutSvgOffset)
-  const svgScale = useSelector(pointerRef, selectLayoutSvgScale)
+  const svgScaleS = useSelector(pointerRef, selectLayoutSvgScaleS)
   const svg = useSelector(pointerRef, selectLayoutSvg)
   const m = useMemo(
-    () => fromSvgToOuter({ svg, svgOffset, svgScale }),
-    [svg, svgOffset, svgScale]
+    () => fromSvgToOuter({ svg, svgOffset, svgScale: { s: svgScaleS } }),
+    [svg, svgOffset, svgScaleS]
   )
-  return { m, svgScale }
+  return { m, svgScaleS }
 }
 
 export function useMapHtmlStyle(pointerRef: Readonly<PointerRef>) {
-  const { m, svgScale } = useMapHtmlMatrix(pointerRef)
+  const { m, svgScaleS } = useMapHtmlMatrix(pointerRef)
   return `
 .content.html {
   --svg-matrix: ${fixupCssString(cssMatrixToString(m))};
-  --svg-scale: ${svgScale.s};
+  --svg-scale: ${svgScaleS};
 }
 `
 }

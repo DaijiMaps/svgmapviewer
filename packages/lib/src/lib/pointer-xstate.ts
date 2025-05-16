@@ -1582,8 +1582,8 @@ export const selectLayoutContainer = (pointer: PointerState) =>
   pointer.context.layout.container
 export const selectLayoutSvg = (pointer: PointerState) =>
   pointer.context.layout.svg
-export const selectLayoutSvgScale = (pointer: PointerState) =>
-  pointer.context.layout.svgScale
+export const selectLayoutSvgScaleS = (pointer: PointerState) =>
+  pointer.context.layout.svgScale.s
 export const selectLayoutSvgOffset = (pointer: PointerState) =>
   pointer.context.layout.svgOffset
 export const selectLayoutScroll = (pointer: PointerState) =>
