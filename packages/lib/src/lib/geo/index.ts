@@ -40,7 +40,12 @@ import type {
 import type { Line, MultiLineString, MultiPolygon, Point } from './path'
 import { lineToPath, multiLineStringToPath, multiPolygonToPath } from './path'
 import { POI } from './poi'
-import { findFeature, findProperties, getPropertyValue } from './search'
+import {
+  findFeature,
+  findProperties,
+  getOsmId,
+  getPropertyValue,
+} from './search'
 
 export type {
   Line,
@@ -111,4 +116,4 @@ export interface AllFilters {
   midpoints?: MidpointsFilter
 }
 
-export { findFeature, findProperties, getPropertyValue }
+export { findFeature, findProperties, getOsmId, getPropertyValue }

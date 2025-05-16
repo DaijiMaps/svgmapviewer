@@ -1,11 +1,9 @@
+import { OsmPointLikeProperties } from './data'
 import { PointFeature } from './geojson-types'
 import {
   OsmCentroidGeoJSON,
-  OsmLineProperties,
   OsmMidpointGeoJSON,
   OsmPointGeoJSON,
-  OsmPointProperties,
-  OsmPolygonProperties,
 } from './osm-types'
 
 interface MapData {
@@ -17,9 +15,7 @@ interface MapData {
 export function findFeature(
   id: undefined | string,
   mapData: Readonly<MapData>
-): null | PointFeature<
-  OsmPointProperties | OsmLineProperties | OsmPolygonProperties
-> {
+): null | PointFeature<OsmPointLikeProperties> {
   if (id === undefined) {
     return null
   }
@@ -45,7 +41,7 @@ export function findFeature(
 export function findProperties(
   id: undefined | string,
   mapData: Readonly<MapData>
-): null | OsmPointProperties | OsmLineProperties | OsmPolygonProperties {
+): null | OsmPointLikeProperties {
   if (id === undefined) {
     return null
   }
@@ -68,10 +64,23 @@ export function findProperties(
   return null
 }
 
+export function getOsmId(
+  properties: Readonly<OsmPointLikeProperties>
+): null | string {
+  if ('osm_id' in properties && typeof properties['osm_id'] === 'string') {
+    return properties['osm_id']
+  }
+  if (
+    'osm_way_id' in properties &&
+    typeof properties['osm_way_id'] === 'string'
+  ) {
+    return properties['osm_way_id']
+  }
+  return null
+}
+
 export function getPropertyValue(
-  properties: Readonly<
-    OsmPointProperties | OsmLineProperties | OsmPolygonProperties
-  >,
+  properties: Readonly<OsmPointLikeProperties>,
   key: string
 ): null | string {
   const re = new RegExp(`\\"${key}\\"=>\\"([^"][^"]*)\\"`)
