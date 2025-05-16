@@ -105,12 +105,40 @@ export function RenderMarkers(
             fillOpacity="1"
             stroke="gray"
             strokeWidth={r / 20}
-            d={`M ${x},${y} l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 z`.replaceAll(
+            d={`M 0,0 l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 z`.replaceAll(
               /([.]\d\d)\d*/g,
               '$1'
             )}
+            style={{
+              transform: `translate(${x}px, ${y}px)`.replaceAll(
+                /([.]\d\d)\d*/g,
+                '$1'
+              ),
+            }}
           />
         ))}
     </>
+  )
+}
+
+export function RenderMarker(
+  props: Readonly<{ sz: number; name: string; m: MapMarker; o: V }>
+) {
+  const { name } = props.m
+  const [x, y] = props.o
+  const h = 1
+  const r = Math.sqrt(2) * h
+  return (
+    <path
+      className={name}
+      fill="white"
+      fillOpacity="1"
+      stroke="gray"
+      strokeWidth={r / 20}
+      d={`M ${x},${y} l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 z`.replaceAll(
+        /([.]\d\d)\d*/g,
+        '$1'
+      )}
+    />
   )
 }
