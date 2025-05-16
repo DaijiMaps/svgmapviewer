@@ -110,17 +110,20 @@ function MapHtmlContentStars() {
 
 // XXX make these configurable
 const sizeParams = [
-  { fontSize: '0', length: 20 },
-  { fontSize: '45%', length: 50 },
-  { fontSize: '55%', length: 100 },
-  { fontSize: '65%', length: 130 },
-  { fontSize: '80%', length: 170 },
-  { fontSize: '100%', length: 200 },
-  { fontSize: '140%', length: 250 },
-  { fontSize: '190%', length: 300 },
-  { fontSize: '260%', length: 450 },
-  { fontSize: '350%', length: 600 },
-  { fontSize: '500%', length: 800 },
+  { fontSize: '70%', length: 10 },
+  { fontSize: '45%', length: 40 },
+  { fontSize: '55%', length: 70 },
+  { fontSize: '65%', length: 90 },
+  { fontSize: '75%', length: 120 },
+  { fontSize: '85%', length: 160 },
+  { fontSize: '100%', length: 230 },
+  { fontSize: '120%', length: 300 },
+  { fontSize: '140%', length: 450 },
+  { fontSize: '160%', length: 600 },
+  { fontSize: '180%', length: 800 },
+  { fontSize: '210%', length: 1200 },
+  { fontSize: '240%', length: 1600 },
+  { fontSize: '300%', length: 2000 }, // XXX max - not actually used
 ]
 
 function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
@@ -130,39 +133,24 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
     () =>
       sizeParams.map(({ fontSize, length }) => ({
         fontSize,
-        area: length * length * s * s,
+        area: length * length * (s * s * Math.sqrt(s)),
       })),
     [s]
   )
 
   const names = useMemo(() => {
-    const minArea = sizes[0].area
-    const maxArea = sizes[sizes.length - 1].area
     return cfg.mapNames
       .filter(({ id }) => id !== undefined)
-      .flatMap(({ id, name, pos, area }) =>
-        area === undefined
-          ? [
-              {
-                id,
-                name,
-                pos,
-                area: 0,
-                size: 1,
-              },
-            ]
-          : area < minArea || area > maxArea // huge
-            ? []
-            : [
-                {
-                  id,
-                  name,
-                  pos,
-                  area,
-                  size: matchSize(area, sizes),
-                },
-              ]
-      )
+      .flatMap(({ id, name, pos, area }) => {
+        if (area === undefined) {
+          return [{ id, name, pos, area: 0, size: 1 }]
+        }
+        const size = matchSize(area, sizes)
+        if (size < 0) {
+          return []
+        }
+        return [{ id, name, pos, area, size }]
+      })
   }, [sizes])
 
   return (
@@ -175,7 +163,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
             transform: fixupCssString(
               `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`
             ),
-            fontSize: sizes[size].fontSize,
+            fontSize: sizeParams[size].fontSize,
           }}
         >
           <RenderName
@@ -197,13 +185,16 @@ function matchSize(
   area: number,
   sizes: Readonly<{ fontSize: string; area: number }[]>
 ): number {
+  if (area < sizes[0].area) {
+    return -1
+  }
   // eslint-disable-next-line functional/no-loop-statements
-  for (let i = 0; i < sizes.length; i = i + 1) {
-    if (area < sizes[i].area) {
+  for (let i = 0; i < sizes.length - 1; i = i + 1) {
+    if (area > sizes[i].area && area < sizes[i + 1].area) {
       return i
     }
   }
-  return 0
+  return -1
 }
 
 function RenderSymbol(props: Readonly<{ poi: POI }>) {
