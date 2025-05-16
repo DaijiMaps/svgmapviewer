@@ -110,9 +110,9 @@ function MapHtmlContentStars() {
 
 // XXX make these configurable
 const sizeParams = [
-  { fontSize: '70%', length: 10 },
-  { fontSize: '45%', length: 40 },
-  { fontSize: '55%', length: 70 },
+  { fontSize: '70%', length: 5 },
+  { fontSize: '45%', length: 30 },
+  { fontSize: '55%', length: 60 },
   { fontSize: '65%', length: 90 },
   { fontSize: '75%', length: 120 },
   { fontSize: '85%', length: 160 },
@@ -133,7 +133,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
     () =>
       sizeParams.map(({ fontSize, length }) => ({
         fontSize,
-        area: length * length * (s * s * Math.sqrt(s)),
+        area: length * length * (s * s),
       })),
     [s]
   )
@@ -155,6 +155,22 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
 
   return (
     <div className="poi-names">
+      <style>
+        {`
+.poi-names-item {
+--s: ${s};
+${sizes
+  .map(
+    ({ fontSize, area }, i) =>
+      `
+--font-size-${i}: ${fontSize};
+--length-${i}: ${sizeParams[i].length};
+--area-${i}: ${area};
+`
+  )
+  .join('')}
+}`}
+      </style>
       {names.map(({ id, name, pos: { x, y }, area, size }) => (
         <div
           key={id}
@@ -163,9 +179,13 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
             transform: fixupCssString(
               `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`
             ),
-            fontSize: sizeParams[size].fontSize,
+            fontSize: `var(--font-size-${size})`,
           }}
         >
+          <style>{`
+--area: ${area};
+--size: ${size};
+`}</style>
           <RenderName
             poi={{
               id,
@@ -173,7 +193,6 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
               pos: { x, y },
               size,
             }}
-            area={area}
           />
         </div>
       ))}
@@ -219,7 +238,7 @@ function RenderStar() {
   )
 }
 
-function RenderName(props: Readonly<{ poi: POI; area: number }>) {
+function RenderName(props: Readonly<{ poi: POI }>) {
   return (
     <>
       {props.poi.name.map((n, j) => (
