@@ -36,7 +36,6 @@ export const timeoutMachine = setup({
   context: { ev: null },
   states: {
     Stopped: {
-      id: 'timeout-stopped',
       on: {
         START: {
           target: 'Inactive',
