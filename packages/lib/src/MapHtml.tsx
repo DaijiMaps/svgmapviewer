@@ -7,6 +7,7 @@ import { POI } from './lib/geo'
 import { useLikes } from './lib/like'
 import { PointerRef, selectLayoutSvgScale } from './lib/pointer-xstate'
 import { Scale } from './lib/transform'
+import './MapHtml.css'
 
 export interface MapHtmlProps {
   _pointerRef: PointerRef
@@ -28,7 +29,6 @@ function MapHtmlContentRoot(props: Readonly<MapHtmlProps>): ReactNode {
   return (
     <>
       <MapHtmlContent {...props} />
-      <style>{cfg.mapHtmlStyle}</style>
     </>
   )
 }
