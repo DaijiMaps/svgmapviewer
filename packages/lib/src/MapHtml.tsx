@@ -108,90 +108,66 @@ function MapHtmlContentStars() {
   )
 }
 
+// XXX make these configurable
+const sizeParams = [
+  { fontSize: '0', length: 20 },
+  { fontSize: '45%', length: 50 },
+  { fontSize: '55%', length: 100 },
+  { fontSize: '65%', length: 130 },
+  { fontSize: '80%', length: 170 },
+  { fontSize: '100%', length: 200 },
+  { fontSize: '140%', length: 250 },
+  { fontSize: '190%', length: 300 },
+  { fontSize: '260%', length: 450 },
+  { fontSize: '350%', length: 600 },
+  { fontSize: '500%', length: 800 },
+]
+
 function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
   const { _svgScaleS: s } = props
 
-  // XXX make these configurable
-  //  const huge = useMemo(
-  //    () => 1000 * 1000 * s * s,
-  //    [s]
-  //  )
-  const xxxlarge = useMemo(() => 800 * 800 * s * s, [s])
-  const xxlarge = useMemo(() => 600 * 600 * s * s, [s])
-  const xlarge = useMemo(() => 450 * 450 * s * s, [s])
-  const large = useMemo(() => 320 * 320 * s * s, [s])
-  const normal = useMemo(() => 200 * 200 * s * s, [s])
-  const small = useMemo(() => 140 * 140 * s * s, [s])
-  const xsmall = useMemo(() => 110 * 110 * s * s, [s])
-  const xxsmall = useMemo(() => 90 * 90 * s * s, [s])
-  const xxxsmall = useMemo(() => 70 * 70 * s * s, [s])
-  const tiny = useMemo(() => 50 * 50 * s * s, [s])
-  const point = useMemo(() => 10 * 10 * s * s, [s])
-
-  const names = useMemo(
+  const sizes = useMemo(
     () =>
-      cfg.mapNames
-        .filter(({ id }) => id !== undefined)
-        .flatMap(({ id, name, pos, area }) =>
-          area === undefined
-            ? [
+      sizeParams.map(({ fontSize, length }) => ({
+        fontSize,
+        area: length * length * s * s,
+      })),
+    [s]
+  )
+
+  const names = useMemo(() => {
+    const minArea = sizes[0].area
+    const maxArea = sizes[sizes.length - 1].area
+    return cfg.mapNames
+      .filter(({ id }) => id !== undefined)
+      .flatMap(({ id, name, pos, area }) =>
+        area === undefined
+          ? [
+              {
+                id,
+                name,
+                pos,
+                area: 0,
+                size: 1,
+              },
+            ]
+          : area < minArea || area > maxArea // huge
+            ? []
+            : [
                 {
                   id,
                   name,
                   pos,
-                  size: -5,
+                  area,
+                  size: matchSize(area, sizes),
                 },
               ]
-            : area < point || area > xxlarge // huge
-              ? []
-              : [
-                  {
-                    id,
-                    name,
-                    pos,
-                    size:
-                      area < tiny
-                        ? -6
-                        : area < xxxsmall
-                          ? -5
-                          : area < xxsmall
-                            ? -4
-                            : area < xsmall
-                              ? -3
-                              : area < small
-                                ? -2
-                                : area < normal
-                                  ? -1
-                                  : area < large
-                                    ? 0
-                                    : area < xlarge
-                                      ? 1
-                                      : area < xxlarge
-                                        ? 2
-                                        : area < xxxlarge
-                                          ? 3
-                                          : 4,
-                  },
-                ]
-        ),
-    [
-      large,
-      normal,
-      point,
-      small,
-      tiny,
-      xlarge,
-      xsmall,
-      xxlarge,
-      xxsmall,
-      xxxlarge,
-      xxxsmall,
-    ]
-  )
+      )
+  }, [sizes])
 
   return (
     <div className="poi-names">
-      {names.map(({ id, name, pos: { x, y }, size }) => (
+      {names.map(({ id, name, pos: { x, y }, area, size }) => (
         <div
           key={id}
           className={`poi-names-item`}
@@ -199,20 +175,35 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
             transform: fixupCssString(
               `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`
             ),
+            fontSize: sizes[size].fontSize,
           }}
         >
           <RenderName
             poi={{
               id,
-              name: size === -6 ? [''] : name,
+              name: size === 0 ? [''] : name,
               pos: { x, y },
               size,
             }}
+            area={area}
           />
         </div>
       ))}
     </div>
   )
+}
+
+function matchSize(
+  area: number,
+  sizes: Readonly<{ fontSize: string; area: number }[]>
+): number {
+  // eslint-disable-next-line functional/no-loop-statements
+  for (let i = 0; i < sizes.length; i = i + 1) {
+    if (area < sizes[i].area) {
+      return i
+    }
+  }
+  return 0
 }
 
 function RenderSymbol(props: Readonly<{ poi: POI }>) {
@@ -237,39 +228,11 @@ function RenderStar() {
   )
 }
 
-function RenderName(props: Readonly<{ poi: POI }>) {
+function RenderName(props: Readonly<{ poi: POI; area: number }>) {
   return (
     <>
       {props.poi.name.map((n, j) => (
-        <p
-          key={j}
-          style={{
-            fontSize:
-              props.poi.size === -5
-                ? '35%'
-                : props.poi.size === -4
-                  ? '45%'
-                  : props.poi.size === -3
-                    ? 'xx-small'
-                    : props.poi.size === -2
-                      ? 'x-small'
-                      : props.poi.size === -1
-                        ? 'small'
-                        : props.poi.size === 0
-                          ? 'initial'
-                          : props.poi.size === 1
-                            ? 'large'
-                            : props.poi.size === 2
-                              ? 'x-large'
-                              : props.poi.size === 3
-                                ? 'xx-large'
-                                : props.poi.size === 4
-                                  ? 'xxx-large'
-                                  : 'initial',
-          }}
-        >
-          {n}
-        </p>
+        <p key={j}>{n}</p>
       ))}
     </>
   )
