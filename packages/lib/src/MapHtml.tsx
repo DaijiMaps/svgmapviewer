@@ -146,9 +146,6 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
           return [{ id, name, pos, area: 0, size: 1 }]
         }
         const size = matchSize(area, sizes)
-        if (size < 0) {
-          return []
-        }
         return [{ id, name, pos, area, size }]
       })
   }, [sizes])
@@ -159,6 +156,7 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
         {`
 .poi-names-item {
 --s: ${s};
+--nnames: ${names.length};
 ${sizes
   .map(
     ({ fontSize, area }, i) =>
@@ -169,27 +167,24 @@ ${sizes
 `
   )
   .join('')}
-}`}
+}
+${names
+  .map(({ id, pos: { x, y }, size }) =>
+    size === -1
+      ? `
+.poi-names-item.osm-id-${id} {
+display: none;
+}`
+      : `
+.poi-names-item.osm-id-${id} {
+transform: ${fixupCssString(`var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`)};
+font-size: var(--font-size-${size});
+}`
+  )
+  .join('')}}`}
       </style>
       {names.map(({ id, name, pos: { x, y }, size }) => (
-        <div
-          key={id}
-          className={`poi-names-item`}
-          style={{
-            transform: fixupCssString(
-              `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`
-            ),
-            fontSize: `var(--font-size-${size})`,
-          }}
-        >
-          {/*
-            <style>{`
-.poi-names-item {
---area-${id}: ${area};
---size-${id}: ${size};
-}
-`}</style>
-          */}
+        <div key={id} className={`poi-names-item osm-id-${id}`}>
           <RenderName
             poi={{
               id,
