@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { PropsWithChildren } from 'react'
 import { boxToViewBox } from './lib/box/prefixed'
-import { PointerRef, selectLayout } from './lib/pointer-xstate'
+import { PointerRef, selectLayoutSvg } from './lib/pointer-xstate'
 import './MapSvg.css'
 
 interface MapSvgProps {
@@ -11,14 +11,14 @@ interface MapSvgProps {
 export const MapSvg = (props: Readonly<PropsWithChildren<MapSvgProps>>) => {
   const { _pointerRef: pointerRef } = props
 
-  const layout = useSelector(pointerRef, selectLayout)
+  const layoutSvg = useSelector(pointerRef, selectLayoutSvg)
 
   // XXX truncate viewBox (1234.5678901234567890 to 1234.56)
   // XXX (too much precision degrades SVG rendering performance)
   return (
     <div className="content svg">
       <svg
-        viewBox={boxToViewBox(layout.svg).replaceAll(/([.]\d\d)\d*/g, '$1')}
+        viewBox={boxToViewBox(layoutSvg).replaceAll(/([.]\d\d)\d*/g, '$1')}
         width="100%"
         height="100%"
       >
