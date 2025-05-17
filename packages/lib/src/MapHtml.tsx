@@ -61,6 +61,7 @@ function MapHtmlContent(props: Readonly<MapHtmlProps>) {
       <MapHtmlContentSymbols />
       <MapHtmlContentStars />
       <MapHtmlContentNames _svgScaleS={svgScaleS} _names={names} />
+      <MapHtmlContentNamesStyle _svgScaleS={svgScaleS} _names={names} />
       <LayersStyle />
     </>
   )
@@ -134,26 +135,6 @@ function MapHtmlContentNames(
 
   return (
     <div className="poi-names">
-      <style>
-        {`
-.poi-names-item {
---s: ${s};
---nnames: ${names.length};
-}
-${names
-  .map(({ id, pos: { x, y }, size }) => {
-    const ss = size / s
-    const MAX = 500
-    const MIN = 100
-    const opacity = ss > MAX ? 0 : ss < MIN ? 1 : (MAX - ss) / (MAX - MIN)
-    return `
-.poi-names-item.osm-id-${id} {
-transform: ${fixupCssString(`var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(${size} / 100 / var(--svg-scale)))`)};
-opacity: ${opacity};
-}`
-  })
-  .join('')}`}
-      </style>
       {names.map(({ id, name, pos: { x, y }, size }) => (
         <div key={id} className={`poi-names-item osm-id-${id}`}>
           <RenderName
@@ -174,27 +155,6 @@ function MapHtmlContentNamesStyle(
   props: Readonly<MapHtmlContentProps & { _names: (POI & { size: number })[] }>
 ) {
   const { _svgScaleS: s, _names: names } = props
-
-  /*
-  const names = useMemo(() => {
-    return cfg.mapNames
-      .filter(({ id }) => id !== undefined)
-      .flatMap(({ id, name, pos, area }) => {
-        if (area === undefined) {
-          return [{ id, name, pos, area: 1, size: 1 }]
-        }
-        return [
-          {
-            id,
-            name,
-            pos,
-            area,
-            size: Math.sqrt(area),
-          },
-        ]
-      })
-  }, [])
-  */
 
   return (
     <div className="poi-names">
