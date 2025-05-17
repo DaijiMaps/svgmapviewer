@@ -42,7 +42,7 @@ export function RenderMapSymbolStyles(props: Readonly<RenderMapSymbolsProps>) {
   const zoom = useSelector(renderMapRef, selectZoom)
 
   return (
-    <g className="map-symbols">
+    <style>
       {props.mapSymbols.map((entry, i) => {
         const sz =
           config.fontSize *
@@ -60,7 +60,7 @@ export function RenderMapSymbolStyles(props: Readonly<RenderMapSymbolsProps>) {
           </Fragment>
         )
       })}
-    </g>
+    </style>
   )
 }
 
@@ -128,7 +128,7 @@ export function RenderUseStyles(
   props: Readonly<{ name: string; href: string; vs: V[]; sz: number }>
 ) {
   return (
-    <style>
+    <>
       {props.vs.map(
         ([x, y], j) =>
           `
@@ -137,6 +137,6 @@ transform: ${`translate(${x}px, ${y}px)`.replaceAll(/([.]\d\d)\d*/g, '$1')} scal
 }
 `
       )}
-    </style>
+    </>
   )
 }
