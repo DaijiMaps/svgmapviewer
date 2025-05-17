@@ -165,7 +165,15 @@ function MapHtmlContentNames(props: Readonly<{ _names: POI[] }>) {
   return (
     <div className="poi-names">
       {names.map(({ id, name, pos: { x, y }, size }) => (
-        <div key={id} className={`poi-names-item osm-id-${id}`}>
+        <div
+          key={id}
+          className={`poi-names-item osm-id-${id}`}
+          style={{
+            transform: fixupCssString(
+              `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(${size} / 100 / var(--svg-scale)))`
+            ),
+          }}
+        >
           <RenderName
             poi={{
               id,
@@ -197,7 +205,7 @@ function MapHtmlContentNamesStyle(
 --nnames: ${names.length};
 }
 ${names
-  .map(({ id, pos: { x, y }, size }) => {
+  .map(({ id, size }) => {
     const ss = size / s
     const MAX = 500
     const MIN = 0
@@ -207,10 +215,6 @@ ${names
     )
     return `
 .poi-names-item.osm-id-${id} {
---x: ${x};
---y: ${y};
---size: ${size};
-transform: ${fixupCssString(`var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(${size} / 100 / var(--svg-scale)))`)};
 opacity: ${opacity};
 }`
   })
