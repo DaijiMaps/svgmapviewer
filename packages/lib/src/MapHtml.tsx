@@ -17,19 +17,22 @@ export interface MapHtmlContentProps {
   _names: (POI & { size: number })[]
 }
 
-export function MapHtml(props: Readonly<MapHtmlProps>) {
+export function MapHtml() {
   return (
     <div className="content html">
-      <MapHtmlContentRoot {...props} />
+      <MapHtmlContentRoot />
     </div>
   )
 }
 
-function MapHtmlContentRoot(props: Readonly<MapHtmlProps>): ReactNode {
+export function MapHtmlStyle(props: Readonly<MapHtmlProps>) {
+  return <MapHtmlContentStyle {...props} />
+}
+
+function MapHtmlContentRoot(): ReactNode {
   return (
     <>
       <MapHtmlContent />
-      <MapHtmlContentStyle {...props} />
     </>
   )
 }

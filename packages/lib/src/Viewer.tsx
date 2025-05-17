@@ -7,7 +7,7 @@ import { Header, HeaderStyle } from './Header'
 import { usePointer, usePointerConfig } from './lib/pointer-react'
 import { searchRef } from './lib/search'
 import { useUi } from './lib/ui-react'
-import { MapHtml } from './MapHtml'
+import { MapHtml, MapHtmlStyle } from './MapHtml'
 import { MapSvg } from './MapSvg'
 import { Right, RightStyle } from './Right'
 import { Shadow, ShadowStyle } from './Shadow'
@@ -26,7 +26,8 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
     <>
       <Container ref={containerRef} _pointerRef={pointerRef}>
         <MapSvg _pointerRef={pointerRef}>{props.children}</MapSvg>
-        <MapHtml _pointerRef={pointerRef} />
+        <MapHtml />
+        <MapHtmlStyle _pointerRef={pointerRef} />
         <Shadow _uiRef={uiRef} />
       </Container>
       <ContainerStyle _pointerRef={pointerRef} _uiRef={uiRef} />

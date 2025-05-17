@@ -86,7 +86,7 @@ function ZoomStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
   return <style>{style}</style>
 }
 
-export function MapHtmlStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
+function MapHtmlStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
   const { _pointerRef: pointerRef } = props
   const style = useMapHtmlStyle(pointerRef)
   return <style>{style}</style>
