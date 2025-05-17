@@ -1,6 +1,6 @@
-import { configContext, selectMapNames } from '@daijimaps/svgmapviewer'
+import { svgMapViewerConfig } from '@daijimaps/svgmapviewer'
 import { useSelector } from '@xstate/react'
-import { ReactNode, useContext, useEffect, useMemo } from 'react'
+import { ReactNode, useEffect, useMemo } from 'react'
 import { createRoot } from 'react-dom/client'
 import { assign, createActor, emit, setup } from 'xstate'
 import { LayersStyle } from './Layers'
@@ -40,8 +40,7 @@ function MapHtmlContentRoot(): ReactNode {
 }
 
 function useNames() {
-  const configRef = useContext(configContext)
-  const mapNames = useSelector(configRef, selectMapNames)
+  const mapNames = svgMapViewerConfig.mapNames
 
   const names = useMemo(() => {
     return mapNames
