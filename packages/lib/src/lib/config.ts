@@ -1,9 +1,11 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/no-return-void */
-import { createElement } from 'react'
+import { createContext, createElement } from 'react'
+import { assign, createActor, setup, StateFrom } from 'xstate'
 import { RenderMapCommon } from './carto'
 import { RenderMapAssetsDefault } from './carto/assets'
+import { POI } from './geo'
 import { emptyMapData } from './geo/data'
 import type {
   Info,
@@ -73,3 +75,45 @@ export function updateSvgMapViewerConfig(
     ...(configUser as SvgMapViewerConfig),
   }
 }
+
+//// XXX xstate
+
+interface ConfigContext {
+  mapNames: POI[]
+}
+type ConfigEvent = { type: 'SET.MAPNAMES'; mapNames: POI[] }
+
+const configMachine = setup({
+  types: {
+    context: {} as ConfigContext,
+    events: {} as ConfigEvent,
+  },
+}).createMachine({
+  id: 'config1',
+  initial: 'Idle',
+  context: {
+    mapNames: [],
+  },
+  states: {
+    Idle: {
+      on: {
+        'SET.MAPNAMES': {
+          actions: assign({
+            mapNames: ({ event }) => event.mapNames,
+          }),
+        },
+      },
+    },
+  },
+})
+
+export const configActor = createActor(configMachine)
+configActor.start()
+
+export const configContext = createContext(configActor.ref)
+
+export type ConfigMachine = typeof configMachine
+export type ConfigState = StateFrom<ConfigMachine>
+
+export const selectMapNames = (state: Readonly<ConfigState>) =>
+  state.context.mapNames

@@ -1,5 +1,6 @@
+import { configContext, selectMapNames } from '@daijimaps/svgmapviewer'
 import { useSelector } from '@xstate/react'
-import { ReactNode, useMemo } from 'react'
+import { ReactNode, useContext, useMemo } from 'react'
 import { LayersStyle } from './Layers'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { fixupCssString } from './lib/css'
@@ -27,16 +28,18 @@ export function MapHtml(props: Readonly<MapHtmlProps>) {
 function MapHtmlContentRoot(props: Readonly<MapHtmlProps>): ReactNode {
   return (
     <>
-      <MapHtmlContent {...props} />
+      <MapHtmlContent />
+      <MapHtmlContentStyle {...props} />
     </>
   )
 }
 
-function MapHtmlContent(props: Readonly<MapHtmlProps>) {
-  const { _pointerRef: pointerRef } = props
+function useNames() {
+  const configRef = useContext(configContext)
+  const mapNames = useSelector(configRef, selectMapNames)
 
   const names = useMemo(() => {
-    return cfg.mapNames
+    return mapNames
       .filter(({ id }) => id !== undefined)
       .flatMap(({ id, name, pos, area }) => {
         if (area === undefined) {
@@ -52,15 +55,26 @@ function MapHtmlContent(props: Readonly<MapHtmlProps>) {
           },
         ]
       })
-  }, [])
+  }, [mapNames])
 
+  return names
+}
+
+function MapHtmlContent() {
   return (
     <>
       <MapHtmlContentSymbols />
       <MapHtmlContentStars />
-      <MapHtmlContentNames _names={names} />
-      <MapHtmlContentNamesStyle _names={names} _pointerRef={pointerRef} />
+      <MapHtmlContentNames />
       <LayersStyle />
+    </>
+  )
+}
+
+function MapHtmlContentStyle(props: Readonly<MapHtmlProps>) {
+  return (
+    <>
+      <MapHtmlContentNamesStyle {...props} />
     </>
   )
 }
@@ -126,10 +140,8 @@ function MapHtmlContentStars() {
   )
 }
 
-function MapHtmlContentNames(
-  props: Readonly<MapHtmlContentProps & { _names: (POI & { size: number })[] }>
-) {
-  const { _names: names } = props
+function MapHtmlContentNames() {
+  const names = useNames()
 
   return (
     <div className="poi-names">
@@ -150,9 +162,10 @@ function MapHtmlContentNames(
 }
 
 function MapHtmlContentNamesStyle(
-  props: Readonly<MapHtmlContentProps & { _pointerRef: PointerRef }>
+  props: Readonly<{ _pointerRef: PointerRef }>
 ) {
-  const { _names: names, _pointerRef: pointerRef } = props
+  const { _pointerRef: pointerRef } = props
+  const names = useNames()
 
   const s = useSelector(pointerRef, selectLayoutSvgScaleS)
 

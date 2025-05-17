@@ -1,5 +1,11 @@
 import { Like } from '../Like'
-import { svgMapViewerConfig } from './config'
+import type { ConfigMachine, ConfigState } from './config'
+import {
+  configActor,
+  configContext,
+  selectMapNames,
+  svgMapViewerConfig,
+} from './config'
 import { Layout } from './layout'
 import { svgmapviewer } from './svgmapviewer'
 import type {
@@ -18,13 +24,15 @@ export type { Info, RenderMap, RenderMapProps, SearchReq, SearchRes }
 
 // svgmapviewer
 
-export { svgmapviewer }
+export type { ConfigMachine, ConfigState }
 
-// config
+export { configActor, configContext, selectMapNames, svgMapViewerConfig }
+
+// svgmapviewer
 
 export type { SvgMapViewerConfig, SvgMapViewerConfigUser }
 
-export { svgMapViewerConfig }
+export { svgmapviewer }
 
 // layout
 
