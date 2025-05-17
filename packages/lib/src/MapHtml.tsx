@@ -202,7 +202,10 @@ ${names
     const ss = size / s
     const MAX = 500
     const MIN = 0
-    const opacity = ss > MAX ? 0 : ss < MIN ? 1 : (MAX - ss) / (MAX - MIN)
+    const opacity = Math.pow(
+      ss > MAX ? 0 : ss < MIN ? 1 : (MAX - ss) / (MAX - MIN),
+      2
+    )
     return `
 .poi-names-item.osm-id-${id} {
 --x: ${x};
