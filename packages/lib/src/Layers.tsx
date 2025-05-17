@@ -1,6 +1,8 @@
-import { useSelector } from '@xstate/store/react'
+import { useSelector } from '@xstate/react'
 import clsx from 'clsx'
+import { RenderMapProps } from './lib'
 import { layers } from './lib/layers'
+import { selectLayoutConfig, selectLayoutSvgScaleS, selectZoom } from './Map'
 
 export function useLayers() {
   const context = useSelector(layers, (state) => state.context)
@@ -35,17 +37,29 @@ export function LayersStyle() {
   )
 }
 
-export function LayersSvgStyle() {
+export function LayersSvgStyle(props: Readonly<RenderMapProps>) {
+  const { renderMapRef } = props
+
   const layers = useLayers()
 
   const showSymbols = layers.context.showSymbols
   const showMarkers = layers.context.showMarkers
+
+  const config = useSelector(renderMapRef, selectLayoutConfig)
+  const s = useSelector(renderMapRef, selectLayoutSvgScaleS)
+  const zoom = useSelector(renderMapRef, selectZoom)
+  const sz =
+    config.fontSize *
+    // display symbol slightly larger as zoom goes higher
+    (0.5 + 0.5 * Math.log2(Math.max(1, zoom))) *
+    s
 
   return (
     <style>
       {`
 .map-symbols {
   display: ${showSymbols ? 'initial' : 'none'};
+--map-symbol-size: ${sz / 72};
 }
 .map-markers {
   display: ${showMarkers ? 'initial' : 'none'};

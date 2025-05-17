@@ -1,16 +1,9 @@
-import { useSelector } from '@xstate/react'
 import { Fragment } from 'react/jsx-runtime'
-import {
-  selectLayoutConfig,
-  selectLayoutSvgScaleS,
-  selectZoom,
-} from '../../Map'
 import { svgMapViewerConfig as cfg } from '../config'
 import { CentroidsFilter, MidpointsFilter, Point, PointsFilter } from '../geo'
 import { V, vUnvec, vVec } from '../tuple'
-import { RenderMapProps } from '../types'
 
-export interface RenderMapSymbolsProps extends RenderMapProps {
+export interface RenderMapSymbolsProps {
   mapSymbols: MapSymbols[]
 }
 
@@ -35,24 +28,8 @@ export function RenderMapSymbols(props: Readonly<RenderMapSymbolsProps>) {
 }
 
 export function RenderMapSymbolStyles(props: Readonly<RenderMapSymbolsProps>) {
-  const { renderMapRef } = props
-
-  const config = useSelector(renderMapRef, selectLayoutConfig)
-  const s = useSelector(renderMapRef, selectLayoutSvgScaleS)
-  const zoom = useSelector(renderMapRef, selectZoom)
-  const sz =
-    config.fontSize *
-    // display symbol slightly larger as zoom goes higher
-    (0.5 + 0.5 * Math.log2(Math.max(1, zoom))) *
-    s
-
   return (
     <style>
-      {`
-.map-symbols {
---map-symbol-size: ${sz / 72};
-}
-`}
       {props.mapSymbols.map((entry, i) => {
         return (
           <Fragment key={i}>
