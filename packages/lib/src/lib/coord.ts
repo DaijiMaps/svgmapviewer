@@ -88,12 +88,12 @@ export const fromSvgToOuter = ({
   svgOffset,
   svgScale,
   svg,
-}: Readonly<SvgLayoutCoord>): Matrix => {
+}: Readonly<SvgLayoutCoord>): Matrix[] => {
   return [
     fromTransform(invMove(svgOffset)),
     fromTransform(invScale(svgScale)),
     fromTransform(invMove(svg)),
-  ].reduce(matrixMultiply)
+  ]
 }
 
 // inverse x/y

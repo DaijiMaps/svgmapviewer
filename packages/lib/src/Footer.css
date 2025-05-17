@@ -11,6 +11,9 @@
   font-size: xx-small;
   pointer-events: none;
 }
+.footer > p {
+  margin: 0.25em;
+}
 
 .footer > * {
   pointer-events: initial;

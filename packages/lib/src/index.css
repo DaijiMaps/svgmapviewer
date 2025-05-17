@@ -13,6 +13,23 @@
 
 html,
 body {
+  margin: 0;
+  padding: 0;
+
+  /* XXX */
+  touch-action: none;
+  /* XXX */
+  user-select: none; /* Standard syntax */
+}
+
+.detail,
+.balloon,
+.balloon-container,
+.container {
+  /* XXX */
+  touch-action: none;
+  /* XXX */
+  user-select: none; /* Standard syntax */
 }
 
 body {
@@ -36,4 +53,13 @@ svg {
 
 ul {
   list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: sans-serif;
+  font-weight: lighter;
 }

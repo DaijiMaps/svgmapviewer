@@ -219,11 +219,10 @@ ${names
       2
     )
     return `
-/*
 .poi-names-item.osm-id-${id} {
 opacity: ${opacity};
 }
-*/`
+`
   })
   .join('')}`}
       </style>
