@@ -13,7 +13,7 @@ export interface MapHtmlProps {
 }
 
 export interface MapHtmlContentProps {
-  _svgScaleS: number
+  _names: (POI & { size: number })[]
 }
 
 export function MapHtml(props: Readonly<MapHtmlProps>) {
@@ -33,9 +33,7 @@ function MapHtmlContentRoot(props: Readonly<MapHtmlProps>): ReactNode {
 }
 
 function MapHtmlContent(props: Readonly<MapHtmlProps>) {
-  const { _pointerRef: ref } = props
-
-  const svgScaleS = useSelector(ref, selectLayoutSvgScaleS)
+  const { _pointerRef: pointerRef } = props
 
   const names = useMemo(() => {
     return cfg.mapNames
@@ -60,8 +58,8 @@ function MapHtmlContent(props: Readonly<MapHtmlProps>) {
     <>
       <MapHtmlContentSymbols />
       <MapHtmlContentStars />
-      <MapHtmlContentNames _svgScaleS={svgScaleS} _names={names} />
-      <MapHtmlContentNamesStyle _svgScaleS={svgScaleS} _names={names} />
+      <MapHtmlContentNames _names={names} />
+      <MapHtmlContentNamesStyle _names={names} _pointerRef={pointerRef} />
       <LayersStyle />
     </>
   )
@@ -131,7 +129,7 @@ function MapHtmlContentStars() {
 function MapHtmlContentNames(
   props: Readonly<MapHtmlContentProps & { _names: (POI & { size: number })[] }>
 ) {
-  const { _svgScaleS: s, _names: names } = props
+  const { _names: names } = props
 
   return (
     <div className="poi-names">
@@ -152,9 +150,11 @@ function MapHtmlContentNames(
 }
 
 function MapHtmlContentNamesStyle(
-  props: Readonly<MapHtmlContentProps & { _names: (POI & { size: number })[] }>
+  props: Readonly<MapHtmlContentProps & { _pointerRef: PointerRef }>
 ) {
-  const { _svgScaleS: s, _names: names } = props
+  const { _names: names, _pointerRef: pointerRef } = props
+
+  const s = useSelector(pointerRef, selectLayoutSvgScaleS)
 
   return (
     <div className="poi-names">
