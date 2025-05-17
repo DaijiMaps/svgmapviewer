@@ -59,7 +59,7 @@ export function LayersSvgStyle(props: Readonly<RenderMapProps>) {
       {`
 .map-symbols {
   display: ${showSymbols ? 'initial' : 'none'};
---map-symbol-size: ${sz / 72};
+  --map-symbol-size: ${sz / 72};
 }
 .map-markers {
   display: ${showMarkers ? 'initial' : 'none'};
