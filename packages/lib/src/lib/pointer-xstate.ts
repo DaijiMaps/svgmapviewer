@@ -495,8 +495,7 @@ export const pointerMachine = setup({
     {
       src: 'scroll',
       systemId: 'scroll1',
-      input: ({ context, self }) => ({
-        parent: self,
+      input: ({ context }) => ({
         ref: context.containerRef,
       }),
     },

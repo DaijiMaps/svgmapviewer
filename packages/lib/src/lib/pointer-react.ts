@@ -293,6 +293,7 @@ export function usePointer(containerRef: RefObject<HTMLDivElement>): {
   scrollTimeoutRef: TimeoutRef
 } {
   const pointerRef = useActorRef(pointerMachine, {
+    systemId: 'system-pointer1',
     input: { containerRef },
   })
   const scrollTimeoutRef = useActorRef(timeoutMachine)

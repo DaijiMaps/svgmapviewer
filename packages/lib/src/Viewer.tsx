@@ -15,6 +15,11 @@ import { Shadow, ShadowStyle } from './Shadow'
 export const Viewer = (props: Readonly<PropsWithChildren>) => {
   const containerRef = useRef<HTMLDivElement>(null)
 
+  //const { scrollRef } = useActorRef(scrollMachine, {
+  //systemId: 'system-scroll1',
+  //input: { ref: containerRef },
+  //})
+
   const { pointerRef, scrollTimeoutRef } = usePointer(containerRef)
 
   // eslint-disable-next-line functional/no-expression-statements

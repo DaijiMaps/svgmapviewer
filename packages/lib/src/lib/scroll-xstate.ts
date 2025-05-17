@@ -1,16 +1,14 @@
 import { RefObject } from 'react'
-import { ActorRefFrom, AnyActorRef, sendTo, setup } from 'xstate'
+import { ActorRefFrom, sendTo, setup } from 'xstate'
 import { BoxBox as Box } from './box/prefixed'
 import { getScroll, syncScroll } from './scroll'
 import { stepMachine } from './step-xstate'
 
 export type ScrollInput = {
-  parent: AnyActorRef
   ref: RefObject<HTMLDivElement>
 }
 
 export type ScrollContext = {
-  parent: AnyActorRef
   ref: RefObject<HTMLDivElement>
 }
 
@@ -54,15 +52,15 @@ export const scrollMachine = setup({
       (_, { P, Q }: { P: Box; Q: Box }) => ({ type: 'STEP.START', P, Q })
     ),
     stopStep: sendTo(
-      ({ system }) => system.get('step'),
+      ({ system }) => system.get('step1'),
       () => ({ type: 'STEP.STOP' })
     ),
     notifySlideDone: sendTo(
-      ({ context }) => context.parent,
+      ({ system }) => system.get('system-pointer1'),
       () => ({ type: 'SCROLL.SLIDE.DONE' })
     ),
     notifyGetDone: sendTo(
-      ({ context }) => context.parent,
+      ({ system }) => system.get('system-pointer1'),
       ({ context }) => ({
         type: 'SCROLL.GET.DONE',
         scroll: getScroll(context.ref.current),
@@ -75,8 +73,7 @@ export const scrollMachine = setup({
 }).createMachine({
   id: 'scroll',
   initial: 'Idle',
-  context: ({ input: { parent, ref } }) => ({
-    parent,
+  context: ({ input: { ref } }) => ({
     ref,
   }),
   invoke: [
