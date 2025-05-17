@@ -96,11 +96,7 @@ function MapHtmlContentStyle(props: Readonly<MapHtmlProps>) {
     rootActor.send({ type: 'NAMES', names })
   }, [names])
 
-  return (
-    <>
-      <MapHtmlContentNamesStyle {...props} />
-    </>
-  )
+  return <></>
 }
 
 function MapHtmlContentSymbols() {
@@ -209,6 +205,9 @@ ${names
     const opacity = ss > MAX ? 0 : ss < MIN ? 1 : (MAX - ss) / (MAX - MIN)
     return `
 .poi-names-item.osm-id-${id} {
+--x: ${x};
+--y: ${y};
+--size: ${size};
 transform: ${fixupCssString(`var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(${size} / 100 / var(--svg-scale)))`)};
 opacity: ${opacity};
 }`
@@ -345,7 +344,7 @@ rootActor.on('RENDER', ({ ref, names }) => {
 `}
       </style>
       <MapHtmlContentNames _names={names} />
-      <MapHtmlContentStyle _pointerRef={ref} />
+      <MapHtmlContentNamesStyle _pointerRef={ref} />
     </>
   )
 })
