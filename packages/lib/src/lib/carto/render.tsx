@@ -4,7 +4,7 @@ import { RenderMapProps } from '../types'
 import { RenderMapLayers } from './layers'
 //import { RenderMapMarkers } from './markers'
 import { RenderMapObjects } from './objects'
-import { RenderMapSymbols, RenderMapSymbolStyles } from './symbols'
+import { RenderMapSymbols } from './symbols'
 
 export function RenderMapCommon(props: Readonly<RenderMapProps>) {
   return (
@@ -14,7 +14,6 @@ export function RenderMapCommon(props: Readonly<RenderMapProps>) {
         <RenderMapLayers mapLayers={cfg.getMapLayers()} />
         <RenderMapObjects mapObjects={cfg.getMapObjects()} />
         <RenderMapSymbols mapSymbols={cfg.getMapSymbols()} />
-        <RenderMapSymbolStyles mapSymbols={cfg.getMapSymbols()} />
         {/*
         <RenderMapMarkers {...props} mapMarkers={cfg.getMapMarkers()} />
         */}

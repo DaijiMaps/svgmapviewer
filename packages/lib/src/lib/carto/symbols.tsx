@@ -27,24 +27,6 @@ export function RenderMapSymbols(props: Readonly<RenderMapSymbolsProps>) {
   )
 }
 
-export function RenderMapSymbolStyles(props: Readonly<RenderMapSymbolsProps>) {
-  return (
-    <style>
-      {props.mapSymbols.map((entry, i) => {
-        return (
-          <Fragment key={i}>
-            <RenderUseStyles
-              name={entry.name}
-              href={entry.href}
-              vs={entryToVs(entry)}
-            />
-          </Fragment>
-        )
-      })}
-    </style>
-  )
-}
-
 export interface MapSymbols {
   name: string
   href: string
@@ -98,26 +80,18 @@ export function RenderUses(
 ) {
   return (
     <>
-      {props.vs.map((_, j) => (
-        <use key={j} className={`${props.name}-${j}`} href={props.href} />
+      {props.vs.map(([x, y], j) => (
+        <use
+          key={j}
+          className={`${props.name}-${j}`}
+          href={props.href}
+          style={{
+            transform:
+              `translate(${x}px, ${y}px)`.replaceAll(/([.]\d\d)\d*/g, '$1') +
+              `scale(var(--map-symbol-size))`,
+          }}
+        />
       ))}
-    </>
-  )
-}
-
-export function RenderUseStyles(
-  props: Readonly<{ name: string; href: string; vs: V[] }>
-) {
-  return (
-    <>
-      {props.vs.map(
-        ([x, y], j) =>
-          `
-.${props.name} > .${props.name}-${j} {
-transform: ${`translate(${x}px, ${y}px)`.replaceAll(/([.]\d\d)\d*/g, '$1')} scale(var(--map-symbol-size));
-}
-`
-      )}
     </>
   )
 }
