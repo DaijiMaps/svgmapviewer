@@ -40,19 +40,23 @@ export function RenderMapSymbolStyles(props: Readonly<RenderMapSymbolsProps>) {
   const config = useSelector(renderMapRef, selectLayoutConfig)
   const s = useSelector(renderMapRef, selectLayoutSvgScaleS)
   const zoom = useSelector(renderMapRef, selectZoom)
+  const sz =
+    config.fontSize *
+    // display symbol slightly larger as zoom goes higher
+    (0.5 + 0.5 * Math.log2(Math.max(1, zoom))) *
+    s
 
   return (
     <style>
+      {`
+.map-symbols {
+--map-symbol-size: ${sz / 72};
+}
+`}
       {props.mapSymbols.map((entry, i) => {
-        const sz =
-          config.fontSize *
-          // display symbol slightly larger as zoom goes higher
-          (0.5 + 0.5 * Math.log2(Math.max(1, zoom))) *
-          s
         return (
           <Fragment key={i}>
             <RenderUseStyles
-              sz={sz}
               name={entry.name}
               href={entry.href}
               vs={entryToVs(entry)}
@@ -125,7 +129,7 @@ export function RenderUses(
 }
 
 export function RenderUseStyles(
-  props: Readonly<{ name: string; href: string; vs: V[]; sz: number }>
+  props: Readonly<{ name: string; href: string; vs: V[] }>
 ) {
   return (
     <>
@@ -133,7 +137,7 @@ export function RenderUseStyles(
         ([x, y], j) =>
           `
 .${props.name} > .${props.name}-${j} {
-transform: ${`translate(${x}px, ${y}px)`.replaceAll(/([.]\d\d)\d*/g, '$1')} scale(${props.sz / 72});
+transform: ${`translate(${x}px, ${y}px)`.replaceAll(/([.]\d\d)\d*/g, '$1')} scale(var(--map-symbol-size));
 }
 `
       )}
