@@ -71,6 +71,7 @@ export type PointerContext = {
 
   dragging: boolean // XXX for CSS
   expanding: number // XXX
+  animating: boolean // XXX
   rendered: boolean
 }
 
@@ -489,6 +490,7 @@ export const pointerMachine = setup({
     clickLock: false,
     dragging: false,
     expanding: 0,
+    animating: false,
     rendered: false,
   }),
   invoke: [
@@ -1068,6 +1070,7 @@ export const pointerMachine = setup({
           entry: raise({ type: 'ANIMATION.DONE' }),
           on: {
             ANIMATION: {
+              actions: assign({ animating: () => true }),
               target: 'Busy',
             },
           },
@@ -1082,6 +1085,7 @@ export const pointerMachine = setup({
                   layout,
                   zoom,
                 })),
+                assign({ animating: () => false }),
               ],
               target: 'Idle',
             },
@@ -1593,6 +1597,10 @@ export const selectDragging = (pointer: PointerState) =>
   pointer.context.dragging
 export const selectExpanding = (pointer: PointerState) =>
   pointer.context.expanding
+export const selectAnimation = (pointer: PointerState) =>
+  pointer.context.animation
+export const selectAnimating = (pointer: PointerState) =>
+  pointer.context.animating
 export const selectDebug = (pointer: PointerState) => pointer.context.debug
 export const selectRendered = (pointer: PointerState) =>
   pointer.context.rendered

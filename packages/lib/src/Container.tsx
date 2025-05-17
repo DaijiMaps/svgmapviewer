@@ -51,13 +51,13 @@ export function ContainerStyle(
 function InitStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
   const { _pointerRef: pointerRef } = props
   const style = useInitStyle(pointerRef)
-  return <style>{style}</style>
+  return <style id="init-style">{style}</style>
 }
 
 function ScrollStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
   const { _pointerRef: pointerRef } = props
   const style = useScrollStyle(pointerRef)
-  return <style>{style}</style>
+  return <style id="scroll-style">{style}</style>
 }
 
 function ModeStyle(
@@ -65,29 +65,29 @@ function ModeStyle(
 ) {
   const { _pointerRef: pointerRef, _uiRef: uiRef } = props
   const style = useModeStyle(pointerRef, uiRef)
-  return <style>{style}</style>
+  return <style id="mode-style">{style}</style>
 }
 
 function DragStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
   const { _pointerRef: pointerRef } = props
   const style = useDragStyle(pointerRef)
-  return <style>{style}</style>
+  return <style id="drag-style">{style}</style>
 }
 
 function MoveStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
   const { _pointerRef: pointerRef } = props
   const style = useMoveStyle(pointerRef)
-  return <style>{style}</style>
+  return <style id="move-style">{style}</style>
 }
 
 function ZoomStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
   const { _pointerRef: pointerRef } = props
   const style = useZoomStyle(pointerRef)
-  return <style>{style}</style>
+  return <style id="zoom-style">{style}</style>
 }
 
 function MapHtmlStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
   const { _pointerRef: pointerRef } = props
   const style = useMapHtmlStyle(pointerRef)
-  return <style>{style}</style>
+  return <style id="map-html-style">{style}</style>
 }

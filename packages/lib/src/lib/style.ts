@@ -8,6 +8,8 @@ import { matrixEmpty, matrixToString } from './matrix/prefixed'
 import { openCloseIsVisible } from './openclose'
 import {
   PointerRef,
+  selectAnimating,
+  selectAnimation,
   selectDragging,
   selectLayoutScroll,
   selectLayoutSvg,
@@ -31,39 +33,52 @@ export function useMapHtmlMatrix(pointerRef: Readonly<PointerRef>) {
 
 export function useMapHtmlStyle(pointerRef: Readonly<PointerRef>) {
   const { m, svgScaleS } = useMapHtmlMatrix(pointerRef)
-  return `
+  const style = useMemo(
+    () => `
 .content.html {
   --svg-matrix: ${fixupCssString(cssMatrixToString(m))};
   --svg-scale: ${svgScaleS};
 }
-`
+`,
+    [m, svgScaleS]
+  )
+  return style
 }
 
 export function useInitStyle(pointerRef: Readonly<PointerRef>) {
   const rendered = useSelector(pointerRef, selectRendered)
-
-  return !rendered
-    ? `
+  const style = useMemo(
+    () =>
+      !rendered
+        ? `
 .container {
   opacity: 0;
 }`
-    : `
+        : `
 .container {
   transition: opacity 1s;
   opacity: 1;
 }
-`
+`,
+    [rendered]
+  )
+
+  return style
 }
 
 export function useScrollStyle(pointerRef: Readonly<PointerRef>) {
   const scroll = useSelector(pointerRef, selectLayoutScroll)
 
-  return `
+  const style = useMemo(
+    () => `
 .content {
   width: ${scroll.width}px;
   height: ${scroll.height}px;
 }
-`
+`,
+    [scroll]
+  )
+  return style
 }
 
 export function useModeStyle(
@@ -72,69 +87,70 @@ export function useModeStyle(
 ) {
   const mode = useSelector(pointerRef, selectMode)
   const detail = useSelector(uiRef, selectOpenCloseDetail)
-
-  return mode === 'pointing' || openCloseIsVisible(detail)
-    ? `
+  const style = useMemo(
+    () =>
+      mode === 'pointing' || openCloseIsVisible(detail)
+        ? `
 .container {
 }
 `
-    : `
+        : `
 .container {
   cursor: move;
   overflow: scroll;
   will-change: scroll-position;
   touch-action: pan-x pan-y;
 }
-`
+`,
+    [mode, detail]
+  )
+  return style
 }
 
 export function useDragStyle(pointerRef: Readonly<PointerRef>) {
   const dragging = useSelector(pointerRef, selectDragging)
 
-  return !dragging
-    ? ``
-    : `
+  const style = useMemo(
+    () =>
+      !dragging
+        ? ``
+        : `
 .container {
   cursor: grabbing;
   overflow: scroll;
 }
-`
+`,
+    [dragging]
+  )
+  return style
 }
 
 export function useMoveStyle(pointerRef: Readonly<PointerRef>) {
-  const context = useSelector(pointerRef, (s) => s.context)
-  const { animation } = context
+  const animation = useSelector(pointerRef, selectAnimation)
+  const animating = useSelector(pointerRef, selectAnimating)
 
-  const pointer = pointerRef.getSnapshot()
-
-  if (!pointer.matches({ Animator: 'Busy' })) {
-    return ''
-  }
-
-  if (animation === null || animation.move === null) {
-    return ''
-  }
-
-  // XXX
-  return css(animation.move.q as Matrix)
+  const style = useMemo(
+    () =>
+      animation === null || animation.move === null || !animating
+        ? ''
+        : css(animation.move.q as Matrix),
+    [animation, animating]
+  )
+  return style
 }
 
 export function useZoomStyle(pointerRef: Readonly<PointerRef>) {
-  const context = useSelector(pointerRef, (s) => s.context)
-  const { animation } = context
+  const animation = useSelector(pointerRef, selectAnimation)
+  const animating = useSelector(pointerRef, selectAnimating)
 
-  const pointer = pointerRef.getSnapshot()
-
-  if (!pointer.matches({ Animator: 'Busy' })) {
-    return ''
-  }
-
-  if (animation === null || animation.zoom === null) {
-    return ''
-  }
-
-  // XXX
-  return css(animation.zoom.q as Matrix)
+  const style = useMemo(
+    () =>
+      animation === null || animation.zoom === null || !animating
+        ? ''
+        : css(animation.zoom.q as Matrix),
+    [animation, animating]
+  )
+  return style
 }
 
 export const css = (q: Matrix) => {
