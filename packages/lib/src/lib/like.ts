@@ -2,6 +2,7 @@
 /* eslint-disable functional/no-return-void */
 import { createStore, StoreSnapshot } from '@xstate/store'
 import { useSelector } from '@xstate/store/react'
+import { useCallback } from 'react'
 
 interface LikesContext {
   ids: Set<number>
@@ -78,9 +79,18 @@ likesStore.subscribe(saveSnapshot)
 
 export function useLikes() {
   const context = useSelector(likesStore, (state) => state.context)
+  const like = useCallback((id: number) => likesStore.trigger.like({ id }), [])
+  const unlike = useCallback(
+    (id: number) => likesStore.trigger.unlike({ id }),
+    []
+  )
+  const isLiked = useCallback(
+    (id: number): boolean => context.ids.has(id),
+    [context]
+  )
   return {
-    like: (id: number) => likesStore.trigger.like({ id }),
-    unlike: (id: number) => likesStore.trigger.unlike({ id }),
-    isLiked: (id: number): boolean => context.ids.has(id),
+    like,
+    unlike,
+    isLiked,
   }
 }

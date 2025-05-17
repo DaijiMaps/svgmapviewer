@@ -4,7 +4,6 @@ import { ReactNode, useEffect, useMemo } from 'react'
 import { createRoot } from 'react-dom/client'
 import { assign, createActor, emit, setup } from 'xstate'
 import { LayersStyle } from './Layers'
-import { svgMapViewerConfig as cfg } from './lib/config'
 import { fixupCssString } from './lib/css'
 import { POI } from './lib/geo'
 import { useLikes } from './lib/like'
@@ -69,7 +68,9 @@ function MapHtmlContent() {
 
   return (
     <>
+      {/*
       <MapHtmlContentSymbols />
+      */}
       <MapHtmlContentStars />
       {/*
       <MapHtmlContentNames _names={names} />
@@ -98,6 +99,7 @@ function MapHtmlContentStyle(props: Readonly<MapHtmlProps>) {
   return <></>
 }
 
+/*
 function MapHtmlContentSymbols() {
   return (
     <div className="poi-symbols">
@@ -124,37 +126,44 @@ function MapHtmlContentSymbols() {
     </div>
   )
 }
+*/
 
 function MapHtmlContentStars() {
-  const likes = useLikes()
+  const names = useNames()
+  const { isLiked } = useLikes()
 
-  return (
-    <div className="poi-stars">
-      {cfg.mapNames
-        .filter(({ id }) => id !== null && id !== 0 && likes.isLiked(id))
+  const likedNames = useMemo(
+    () =>
+      names
+        .filter(({ id }) => id !== null && id !== 0 && isLiked(id))
         .map(({ id, name, pos, area }) => ({
           id,
           name,
           pos,
           area,
-        }))
-        .map(({ id, pos: { x, y } }) => (
-          <div
-            key={id}
-            className={`poi-stars-item`}
-            style={{
-              transform: fixupCssString(
-                `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`
-              ),
-            }}
-          >
-            {id !== null && likes.isLiked(id) && (
-              <div>
-                <RenderStar />
-              </div>
-            )}
-          </div>
-        ))}
+        })),
+    [isLiked, names]
+  )
+
+  return (
+    <div className="poi-stars">
+      {likedNames.map(({ id, pos: { x, y } }) => (
+        <div
+          key={id}
+          className={`poi-stars-item`}
+          style={{
+            transform: fixupCssString(
+              `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`
+            ),
+          }}
+        >
+          {id !== null && isLiked(id) && (
+            <div>
+              <RenderStar />
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   )
 }
@@ -200,10 +209,6 @@ function MapHtmlContentNamesStyle(
     <div className="poi-names">
       <style>
         {`
-.poi-names-item {
---s: ${s};
---nnames: ${names.length};
-}
 ${names
   .map(({ id, size }) => {
     const ss = size / s
@@ -214,9 +219,11 @@ ${names
       2
     )
     return `
+/*
 .poi-names-item.osm-id-${id} {
 opacity: ${opacity};
-}`
+}
+*/`
   })
   .join('')}`}
       </style>
@@ -224,6 +231,7 @@ opacity: ${opacity};
   )
 }
 
+/*
 function RenderSymbol(props: Readonly<{ poi: POI }>) {
   return (
     <p>
@@ -233,6 +241,7 @@ function RenderSymbol(props: Readonly<{ poi: POI }>) {
     </p>
   )
 }
+*/
 
 function RenderStar() {
   return (
