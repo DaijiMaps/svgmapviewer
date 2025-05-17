@@ -108,47 +108,27 @@ function MapHtmlContentStars() {
   )
 }
 
-// XXX make these configurable
-const sizeParams = [
-  { fontSize: '70%', length: 5 },
-  { fontSize: '45%', length: 30 },
-  { fontSize: '55%', length: 60 },
-  { fontSize: '65%', length: 90 },
-  { fontSize: '75%', length: 120 },
-  { fontSize: '85%', length: 160 },
-  { fontSize: '100%', length: 230 },
-  { fontSize: '120%', length: 300 },
-  { fontSize: '140%', length: 450 },
-  { fontSize: '160%', length: 600 },
-  { fontSize: '180%', length: 800 },
-  { fontSize: '210%', length: 1200 },
-  { fontSize: '240%', length: 1600 },
-  { fontSize: '300%', length: 2000 }, // XXX max - not actually used
-]
-
 function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
   const { _svgScaleS: s } = props
-
-  const sizes = useMemo(
-    () =>
-      sizeParams.map(({ fontSize, length }) => ({
-        fontSize,
-        area: length * length * (s * s),
-      })),
-    [s]
-  )
 
   const names = useMemo(() => {
     return cfg.mapNames
       .filter(({ id }) => id !== undefined)
       .flatMap(({ id, name, pos, area }) => {
         if (area === undefined) {
-          return [{ id, name, pos, area: 0, size: 1 }]
+          return [{ id, name, pos, area: 1, size: 1 }]
         }
-        const size = matchSize(area, sizes)
-        return [{ id, name, pos, area, size }]
+        return [
+          {
+            id,
+            name,
+            pos,
+            area,
+            size: Math.sqrt(area),
+          },
+        ]
       })
-  }, [sizes])
+  }, [])
 
   return (
     <div className="poi-names">
@@ -157,31 +137,20 @@ function MapHtmlContentNames(props: Readonly<MapHtmlContentProps>) {
 .poi-names-item {
 --s: ${s};
 --nnames: ${names.length};
-${sizes
-  .map(
-    ({ fontSize, area }, i) =>
-      `
---font-size-${i}: ${fontSize};
---length-${i}: ${sizeParams[i].length};
---area-${i}: ${area};
-`
-  )
-  .join('')}
 }
 ${names
-  .map(({ id, pos: { x, y }, size }) =>
-    size === -1
-      ? `
+  .map(({ id, pos: { x, y }, size }) => {
+    const ss = size / s
+    const MAX = 500
+    const MIN = 100
+    const opacity = ss > MAX ? 0 : ss < MIN ? 1 : (MAX - ss) / (MAX - MIN)
+    return `
 .poi-names-item.osm-id-${id} {
-display: none;
+transform: ${fixupCssString(`var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(${size} / 100 / var(--svg-scale)))`)};
+opacity: ${opacity};
 }`
-      : `
-.poi-names-item.osm-id-${id} {
-transform: ${fixupCssString(`var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`)};
-font-size: var(--font-size-${size});
-}`
-  )
-  .join('')}}`}
+  })
+  .join('')}`}
       </style>
       {names.map(({ id, name, pos: { x, y }, size }) => (
         <div key={id} className={`poi-names-item osm-id-${id}`}>
@@ -197,22 +166,6 @@ font-size: var(--font-size-${size});
       ))}
     </div>
   )
-}
-
-function matchSize(
-  area: number,
-  sizes: Readonly<{ fontSize: string; area: number }[]>
-): number {
-  if (area < sizes[0].area) {
-    return -1
-  }
-  // eslint-disable-next-line functional/no-loop-statements
-  for (let i = 0; i < sizes.length - 1; i = i + 1) {
-    if (area > sizes[i].area && area < sizes[i + 1].area) {
-      return i
-    }
-  }
-  return -1
 }
 
 function RenderSymbol(props: Readonly<{ poi: POI }>) {
