@@ -93,7 +93,7 @@ function MapHtmlContentStyle(props: Readonly<MapHtmlProps>) {
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
   useEffect(() => {
     // eslint-disable-next-line functional/no-expression-statements
-    rootActor.send({ type: 'NAMES', names })
+    rootActor.send({ type: 'UPDATE', names })
   }, [names])
 
   return <></>
@@ -274,11 +274,8 @@ type RootEvent =
       ref: PointerRef
     }
   | {
-      type: 'NAMES'
+      type: 'UPDATE'
       names: POI[]
-    }
-  | {
-      type: 'RENDER'
     }
 type RootEmit = {
   type: 'RENDER'
@@ -305,7 +302,7 @@ const rootLogic = setup({
         ref: ({ event }) => event.ref,
       }),
     },
-    NAMES: [
+    UPDATE: [
       {
         guard: ({ context }) => context.ref === null,
       },
@@ -323,13 +320,6 @@ const rootLogic = setup({
         ],
       },
     ],
-    RENDER: {
-      actions: emit(({ context }) => ({
-        type: 'RENDER',
-        ref: context.ref,
-        names: context.names,
-      })),
-    },
   },
 })
 
