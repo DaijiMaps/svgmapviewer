@@ -19,8 +19,6 @@ import {
   animationZoom,
 } from './animation'
 import { BoxBox, boxCenter } from './box/prefixed'
-import { fromSvgToOuter } from './coord'
-import { cssMatrixToString, fixupCssString } from './css'
 import { Drag, dragMove, dragStart } from './drag'
 import { keyToDir, keyToZoom } from './key'
 import {
@@ -386,10 +384,7 @@ export const pointerMachine = setup({
       syncViewBox('.container > .content.svg > svg', layout.svg)
     },
     syncMatrix: ({ context: { layout } }) => {
-      const { svg, svgOffset, svgScale } = layout
-      const m = fromSvgToOuter({ svg, svgOffset, svgScale })
-      const matrix = fixupCssString(cssMatrixToString(m))
-      styleActor.send({ type: 'STYLE.MATRIX', matrix })
+      styleActor.send({ type: 'STYLE.LAYOUT', layout })
     },
 
     //

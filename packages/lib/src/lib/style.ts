@@ -10,30 +10,10 @@ import {
   selectAnimation,
   selectDragging,
   selectLayoutScroll,
-  selectLayoutSvgScaleS,
   selectMode,
   selectRendered,
 } from './pointer-xstate'
 import { selectOpenCloseDetail, UiRef } from './ui-xstate'
-
-export function useMapHtmlMatrix(pointerRef: Readonly<PointerRef>) {
-  const svgScaleS = useSelector(pointerRef, selectLayoutSvgScaleS)
-
-  return { svgScaleS }
-}
-
-export function useMapHtmlStyle(pointerRef: Readonly<PointerRef>) {
-  const { svgScaleS } = useMapHtmlMatrix(pointerRef)
-  const style = useMemo(
-    () => `
-.content.html {
-  --svg-scale: ${svgScaleS};
-}
-`,
-    [svgScaleS]
-  )
-  return style
-}
 
 export function useInitStyle(pointerRef: Readonly<PointerRef>) {
   const rendered = useSelector(pointerRef, selectRendered)

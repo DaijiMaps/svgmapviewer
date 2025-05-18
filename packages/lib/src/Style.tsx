@@ -6,6 +6,10 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { assign, createActor, setup, StateFrom } from 'xstate'
 import './index.css'
+import { Layout } from './lib'
+import { fromSvgToOuter } from './lib/coord'
+import { cssMatrixToString, fixupCssString } from './lib/css'
+import { emptyLayout } from './lib/layout'
 
 export function styleRoot() {
   const e = document.getElementById('style-root')
@@ -22,16 +26,20 @@ export function styleRoot() {
 }
 
 function Style() {
-  const matrix = useSelector(
+  const layout = useSelector(
     styleActor,
-    (state: Readonly<StyleState>) => state.context.matrix
+    (state: Readonly<StyleState>) => state.context.layout
   )
+  const { svg, svgOffset, svgScale } = layout
+  const m = fromSvgToOuter({ svg, svgOffset, svgScale })
+  const matrix = fixupCssString(cssMatrixToString(m))
 
   return (
     <>
       <style id="style-matrix">{`
 .container > .content.html {
-  --svg-matrix: ${matrix}
+  --svg-matrix: ${matrix};
+  --svg-scale: ${svgScale.s};
 }
 `}</style>
     </>
@@ -40,10 +48,10 @@ function Style() {
 
 ////
 
-export type StyleEvent = { type: 'STYLE.MATRIX'; matrix: string }
+export type StyleEvent = { type: 'STYLE.LAYOUT'; layout: Layout }
 
 interface StyleContext {
-  matrix: string
+  layout: Layout
 }
 
 const styleMachine = setup({
@@ -54,15 +62,15 @@ const styleMachine = setup({
 }).createMachine({
   id: 'style1',
   context: {
-    matrix: 'scale(1)',
+    layout: emptyLayout,
   },
   initial: 'Idle',
   states: {
     Idle: {
       on: {
-        'STYLE.MATRIX': {
+        'STYLE.LAYOUT': {
           actions: assign({
-            matrix: ({ event }) => event.matrix,
+            layout: ({ event }) => event.layout,
           }),
         },
       },
@@ -72,7 +80,6 @@ const styleMachine = setup({
 
 export const styleActor = createActor(styleMachine, {
   systemId: 'system-pointer1',
-  inspect: (iev) => console.log(iev),
 })
 styleActor.start()
 

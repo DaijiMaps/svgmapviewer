@@ -4,7 +4,6 @@ import { PointerRef } from './lib/pointer-xstate'
 import {
   useDragStyle,
   useInitStyle,
-  useMapHtmlStyle,
   useModeStyle,
   useMoveStyle,
   useScrollStyle,
@@ -43,7 +42,6 @@ export function ContainerStyle(
       <DragStyle _pointerRef={pointerRef} />
       <MoveStyle _pointerRef={pointerRef} />
       <ZoomStyle _pointerRef={pointerRef} />
-      <MapHtmlStyle _pointerRef={pointerRef} />
     </>
   )
 }
@@ -86,8 +84,10 @@ function ZoomStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
   return <style id="zoom-style">{style}</style>
 }
 
+/*
 function MapHtmlStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
   const { _pointerRef: pointerRef } = props
   const style = useMapHtmlStyle(pointerRef)
   return <style id="map-html-style">{style}</style>
 }
+*/
