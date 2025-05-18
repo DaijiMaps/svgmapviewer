@@ -36,7 +36,7 @@ function Style() {
 
   return (
     <>
-      <style id="style-matrix">{`
+      <style>{`
 .container > .content.html {
   --svg-matrix: ${matrix};
   --svg-scale: ${svgScale.s};

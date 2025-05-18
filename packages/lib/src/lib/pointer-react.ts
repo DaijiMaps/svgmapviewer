@@ -7,6 +7,7 @@ import { Layout } from './layout'
 import { useLayout } from './layout-react'
 import {
   pointerMachine,
+  PointerMode,
   ReactUIEvent,
   selectExpanding,
   selectMode,
@@ -36,20 +37,24 @@ function usePointerEventMask() {
   const mode = useSelector(pointerActor, selectMode)
 
   useEffect(() => {
-    pointereventmask = mode !== 'pointing'
-    toucheventmask = mode !== 'pointing'
-    // - xstate-pointer receives 'click' to cancel 'panning'
-    // - xstate-pointer ignores 'click' to pass through (emulated)
-    //  'click' to shadow; shadow receives 'click' to cancel 'locked'
-    clickeventmask = mode === 'locked'
-    wheeleventmask = mode !== 'pointing'
-    scrolleventmask = mode !== 'panning'
-    if (mode === 'panning') {
-      scrollTimeoutActor.send({ type: 'START' })
-    } else {
-      scrollTimeoutActor.send({ type: 'STOP' })
-    }
+    reflectMode(mode)
   }, [mode])
+}
+
+function reflectMode(mode: PointerMode): void {
+  pointereventmask = mode !== 'pointing'
+  toucheventmask = mode !== 'pointing'
+  // - xstate-pointer receives 'click' to cancel 'panning'
+  // - xstate-pointer ignores 'click' to pass through (emulated)
+  //  'click' to shadow; shadow receives 'click' to cancel 'locked'
+  clickeventmask = mode === 'locked'
+  wheeleventmask = mode !== 'pointing'
+  scrolleventmask = mode !== 'panning'
+  if (mode === 'panning') {
+    scrollTimeoutActor.send({ type: 'START' })
+  } else {
+    scrollTimeoutActor.send({ type: 'STOP' })
+  }
 }
 
 function usePointerEvent(containerRef: RefObject<HTMLDivElement>) {
@@ -83,17 +88,6 @@ function usePointerEvent(containerRef: RefObject<HTMLDivElement>) {
   }, [containerRef])
 }
 
-function useSearch() {
-  useEffect(() => {
-    cfg.uiOpenCbs.add(pointerSearchLock)
-    cfg.uiCloseDoneCbs.add(pointerSearchUnlock)
-    return () => {
-      cfg.uiOpenCbs.delete(pointerSearchLock)
-      cfg.uiCloseDoneCbs.delete(pointerSearchUnlock)
-    }
-  }, [])
-}
-
 function useExpanding() {
   // re-render handling
   const expanding = useSelector(pointerActor, selectExpanding)
@@ -108,28 +102,13 @@ function useResizing() {
 }
 
 export function usePointer(containerRef: RefObject<HTMLDivElement>): void {
-  ////
   //// event handlers
-  ////
-
   usePointerKey()
-
   usePointerEventMask()
-
   usePointerEvent(containerRef)
 
-  ////
-  //// ui callbacks
-  ////
-
-  useSearch()
-
-  ////
   //// actions
-  ////
-
   useExpanding()
-
   useResizing()
 }
 
@@ -233,6 +212,9 @@ const layoutCb = (origLayout: Readonly<Layout>, force: boolean) => {
 const keyDown = (ev: KeyboardEvent) =>
   pointerActor.send({ type: 'KEY.DOWN', ev })
 const keyUp = (ev: KeyboardEvent) => pointerActor.send({ type: 'KEY.UP', ev })
+
+cfg.uiOpenCbs.add(pointerSearchLock)
+cfg.uiCloseDoneCbs.add(pointerSearchUnlock)
 
 ////
 
