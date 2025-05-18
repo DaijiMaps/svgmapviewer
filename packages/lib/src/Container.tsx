@@ -3,7 +3,6 @@ import './Container.css'
 import { pointerActor } from './lib/pointer-react'
 import {
   useInitStyle,
-  useModeStyle,
   useMoveStyle,
   useScrollStyle,
   useZoomStyle,
@@ -29,7 +28,6 @@ export function ContainerStyle() {
     <>
       <InitStyle />
       <ScrollStyle />
-      <ModeStyle />
       <MoveStyle />
       <ZoomStyle />
     </>
@@ -44,11 +42,6 @@ function InitStyle() {
 function ScrollStyle() {
   const style = useScrollStyle()
   return <style id="scroll-style">{style}</style>
-}
-
-function ModeStyle() {
-  const style = useModeStyle()
-  return <style id="mode-style">{style}</style>
 }
 
 function MoveStyle() {

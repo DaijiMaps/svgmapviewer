@@ -30,6 +30,7 @@ function Style() {
     <>
       <LayoutStyle />
       <DraggingStyle />
+      <ModeStyle />
     </>
   )
 }
@@ -72,15 +73,41 @@ function DraggingStyle() {
   )
 }
 
+function ModeStyle() {
+  const mode = useSelector(
+    styleActor,
+    (state: Readonly<StyleState>) => state.context.mode
+  )
+  return (
+    <style>
+      {mode === 'pointing' || mode === 'locked'
+        ? `
+.container {
+}
+`
+        : `
+.container {
+  cursor: move;
+  overflow: scroll;
+  will-change: scroll-position;
+  touch-action: pan-x pan-y;
+}
+`}
+    </style>
+  )
+}
+
 ////
 
 export type StyleEvent =
   | { type: 'STYLE.LAYOUT'; layout: Layout }
   | { type: 'STYLE.DRAGGING'; dragging: boolean }
+  | { type: 'STYLE.MODE'; mode: string }
 
 interface StyleContext {
   layout: Layout
   dragging: boolean
+  mode: string
 }
 
 const styleMachine = setup({
@@ -93,6 +120,7 @@ const styleMachine = setup({
   context: {
     layout: emptyLayout,
     dragging: false,
+    mode: 'pointing',
   },
   initial: 'Idle',
   states: {
@@ -106,6 +134,11 @@ const styleMachine = setup({
         'STYLE.DRAGGING': {
           actions: assign({
             dragging: ({ event }) => event.dragging,
+          }),
+        },
+        'STYLE.MODE': {
+          actions: assign({
+            mode: ({ event }) => event.mode,
           }),
         },
       },

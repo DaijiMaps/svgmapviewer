@@ -466,6 +466,9 @@ export const pointerMachine = setup({
     setModeToLocked: assign({
       mode: ({ context: { mode } }) => (mode === 'pointing' ? 'locked' : mode),
     }),
+    syncMode: ({ context: { mode } }) => {
+      styleActor.send({ type: 'STYLE.MODE', mode })
+    },
 
     // click lock
     lockClick: assign({ clickLock: true }),
@@ -862,6 +865,7 @@ export const pointerMachine = setup({
               actions: [
                 'resetMode',
                 emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+                'syncMode',
               ],
               target: 'Idle',
             },
@@ -1432,6 +1436,7 @@ export const pointerMachine = setup({
               actions: [
                 'setModeToPanning',
                 emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+                'syncMode',
               ],
               target: 'Panning',
             },
@@ -1511,6 +1516,7 @@ export const pointerMachine = setup({
             'lockClick',
             'resetMode',
             emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+            'syncMode',
             'getScroll',
           ],
           on: {
@@ -1565,6 +1571,7 @@ export const pointerMachine = setup({
               emit({ type: 'LOCK', ok: true }),
               'setModeToLocked',
               emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+              'syncMode',
             ],
           },
           {

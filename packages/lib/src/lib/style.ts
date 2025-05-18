@@ -8,7 +8,6 @@ import {
   selectAnimating,
   selectAnimation,
   selectLayoutScroll,
-  selectMode,
   selectRendered,
 } from './pointer-xstate'
 
@@ -44,28 +43,6 @@ export function useScrollStyle() {
 }
 `,
     [scroll]
-  )
-  return style
-}
-
-export function useModeStyle() {
-  const mode = useSelector(pointerActor, selectMode)
-  const style = useMemo(
-    () =>
-      mode === 'pointing' || mode === 'locked'
-        ? `
-.container {
-}
-`
-        : `
-.container {
-  cursor: move;
-  overflow: scroll;
-  will-change: scroll-position;
-  touch-action: pan-x pan-y;
-}
-`,
-    [mode]
   )
   return style
 }
