@@ -363,10 +363,10 @@ rootActor.on('RENDER', ({ pointNames, areaNames }) => {
   text-align: center;
 }
 .point > .poi-names-item {
-  padding: 1em;
+  padding: 0.75em;
 }
 .area > .poi-names-item {
-  border-radius: 10em;
+  border-radius: 3em;
 }
 .poi-names-item > p {
   margin: 0;
