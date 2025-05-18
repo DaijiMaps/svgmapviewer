@@ -420,6 +420,9 @@ export const pointerMachine = setup({
     endDrag: assign({
       drag: () => null,
     }),
+    syncDragging: ({ context: { dragging } }) => {
+      styleActor.send({ type: 'STYLE.DRAGGING', dragging })
+    },
 
     //
     // touch
@@ -729,7 +732,7 @@ export const pointerMachine = setup({
           onDone: 'Idle',
           states: {
             Active: {
-              entry: assign({ dragging: () => true }),
+              entry: [assign({ dragging: () => true }), 'syncDragging'],
               on: {
                 TOUCH: { target: 'TouchWaitingForDragDone' },
                 'DRAG.DONE': { target: 'DragWaitingForClick' },
@@ -760,7 +763,7 @@ export const pointerMachine = setup({
               },
             },
             Done: {
-              entry: assign({ dragging: () => false }),
+              entry: [assign({ dragging: () => false }), 'syncDragging'],
               type: 'final',
             },
           },

@@ -2,7 +2,6 @@ import { forwardRef, PropsWithChildren } from 'react'
 import './Container.css'
 import { pointerActor } from './lib/pointer-react'
 import {
-  useDragStyle,
   useInitStyle,
   useModeStyle,
   useMoveStyle,
@@ -31,7 +30,6 @@ export function ContainerStyle() {
       <InitStyle />
       <ScrollStyle />
       <ModeStyle />
-      <DragStyle />
       <MoveStyle />
       <ZoomStyle />
     </>
@@ -51,11 +49,6 @@ function ScrollStyle() {
 function ModeStyle() {
   const style = useModeStyle()
   return <style id="mode-style">{style}</style>
-}
-
-function DragStyle() {
-  const style = useDragStyle()
-  return <style id="drag-style">{style}</style>
 }
 
 function MoveStyle() {

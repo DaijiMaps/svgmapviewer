@@ -7,7 +7,6 @@ import { pointerActor } from './pointer-react'
 import {
   selectAnimating,
   selectAnimation,
-  selectDragging,
   selectLayoutScroll,
   selectMode,
   selectRendered,
@@ -67,24 +66,6 @@ export function useModeStyle() {
 }
 `,
     [mode]
-  )
-  return style
-}
-
-export function useDragStyle() {
-  const dragging = useSelector(pointerActor, selectDragging)
-
-  const style = useMemo(
-    () =>
-      !dragging
-        ? ``
-        : `
-.container {
-  cursor: grabbing;
-  overflow: scroll;
-}
-`,
-    [dragging]
   )
   return style
 }

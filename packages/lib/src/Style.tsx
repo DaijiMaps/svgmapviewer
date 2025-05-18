@@ -26,6 +26,15 @@ export function styleRoot() {
 }
 
 function Style() {
+  return (
+    <>
+      <LayoutStyle />
+      <DraggingStyle />
+    </>
+  )
+}
+
+function LayoutStyle() {
   const layout = useSelector(
     styleActor,
     (state: Readonly<StyleState>) => state.context.layout
@@ -35,23 +44,43 @@ function Style() {
   const matrix = fixupCssString(cssMatrixToString(m))
 
   return (
-    <>
-      <style>{`
+    <style>{`
 .container > .content.html {
   --svg-matrix: ${matrix};
   --svg-scale: ${svgScale.s};
 }
 `}</style>
-    </>
+  )
+}
+
+function DraggingStyle() {
+  const dragging = useSelector(
+    styleActor,
+    (state: Readonly<StyleState>) => state.context.dragging
+  )
+  return (
+    <style>
+      {!dragging
+        ? ``
+        : `
+.container {
+  cursor: grabbing;
+  overflow: scroll;
+}
+`}
+    </style>
   )
 }
 
 ////
 
-export type StyleEvent = { type: 'STYLE.LAYOUT'; layout: Layout }
+export type StyleEvent =
+  | { type: 'STYLE.LAYOUT'; layout: Layout }
+  | { type: 'STYLE.DRAGGING'; dragging: boolean }
 
 interface StyleContext {
   layout: Layout
+  dragging: boolean
 }
 
 const styleMachine = setup({
@@ -63,6 +92,7 @@ const styleMachine = setup({
   id: 'style1',
   context: {
     layout: emptyLayout,
+    dragging: false,
   },
   initial: 'Idle',
   states: {
@@ -71,6 +101,11 @@ const styleMachine = setup({
         'STYLE.LAYOUT': {
           actions: assign({
             layout: ({ event }) => event.layout,
+          }),
+        },
+        'STYLE.DRAGGING': {
+          actions: assign({
+            dragging: ({ event }) => event.dragging,
           }),
         },
       },
