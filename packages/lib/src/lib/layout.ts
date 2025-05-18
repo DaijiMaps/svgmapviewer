@@ -5,6 +5,7 @@ import {
   boxCenter,
   boxCopy,
   boxMove,
+  boxMoveTo,
   boxScaleAt,
   boxUnit,
 } from './box/prefixed'
@@ -111,10 +112,10 @@ export const expandLayout = (
 //// recenterLayout
 //// scrollLayout
 
-export const relocLayout = (layout: Layout, dest: Box): Layout => {
+export const relocLayout = (layout: Layout, dest: Vec): Layout => {
   return {
     ...layout,
-    scroll: boxCopy(dest),
+    scroll: boxMoveTo(layout.scroll, dest),
   }
 }
 
@@ -137,13 +138,13 @@ export const zoomLayout = (
   }
 }
 
-export const recenterLayout = (layout: Layout, start: Box): Layout => {
+export const recenterLayout = (layout: Layout, start: Vec): Layout => {
   const d = vecSub(layout.scroll, start)
   const dsvg = vecScale(d, -layout.svgScale.s)
 
   return {
     ...layout,
-    scroll: boxCopy(start),
+    scroll: boxMoveTo(layout.scroll, start),
     svg: boxMove(layout.svg, dsvg),
   }
 }

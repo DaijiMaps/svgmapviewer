@@ -39,6 +39,10 @@ export function move(o: Box, v: Vec): Box {
   return { ...o, x: o.x + v.x, y: o.y + v.y }
 }
 
+export function moveTo(o: Box, v: Vec): Box {
+  return { ...o, x: v.x, y: v.y }
+}
+
 export function toViewBox({ x, y, width, height }: Box): string {
   return `${x} ${y} ${width} ${height}`
 }

@@ -1,5 +1,15 @@
 import { expandAt, expandAtCenter, expandAtOff, expandAtRatio } from '../expand'
-import { box, Box, center, copy, eq, move, toViewBox, unit } from '../main'
+import {
+  box,
+  Box,
+  center,
+  copy,
+  eq,
+  move,
+  moveTo,
+  toViewBox,
+  unit,
+} from '../main'
 import {
   scale,
   scaleAt,
@@ -23,6 +33,7 @@ export {
   expandAtRatio as boxExpandAtRatio,
   fromTlBr as boxFromTlBr,
   move as boxMove,
+  moveTo as boxMoveTo,
   scale as boxScale,
   scaleAt as boxScaleAt,
   scaleAtCenter as boxScaleAtCenter,
