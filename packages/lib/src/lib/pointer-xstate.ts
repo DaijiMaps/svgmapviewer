@@ -31,6 +31,7 @@ import {
   toSvg,
 } from './layout'
 import { scrollMachine } from './scroll-xstate'
+import { syncViewBox } from './svg'
 import {
   discardTouches,
   handleTouchEnd,
@@ -55,6 +56,7 @@ export type PointerInput = {
 
 export type PointerContext = {
   containerRef: RefObject<HTMLDivElement>
+  origLayout: Layout
   layout: Layout
   nextLayout: null | Layout
   cursor: Vec
@@ -377,6 +379,9 @@ export const pointerMachine = setup({
     resetLayout: assign({
       layout: ({ context: { layout } }): Layout => makeLayout(layout.config),
     }),
+    syncViewBox: ({ context: { layout } }) => {
+      syncViewBox('.container > .content.svg > svg', layout.svg)
+    },
 
     //
     // expand
@@ -475,6 +480,7 @@ export const pointerMachine = setup({
   id: 'pointer',
   context: ({ input: { containerRef } }) => ({
     containerRef,
+    origLayout: emptyLayout,
     layout: emptyLayout,
     nextLayout: null,
     cursor: boxCenter(emptyLayout.container),
@@ -513,6 +519,7 @@ export const pointerMachine = setup({
               {
                 guard: ({ event }) => event.force,
                 actions: assign({
+                  origLayout: ({ event }) => event.layout,
                   layout: ({ event }) => event.layout,
                   cursor: ({ event }) => boxCenter(event.layout.container),
                 }),
@@ -520,6 +527,7 @@ export const pointerMachine = setup({
               },
               {
                 actions: assign({
+                  origLayout: ({ event }) => event.layout,
                   layout: ({ event }) => event.layout,
                   cursor: ({ event }) => boxCenter(event.layout.container),
                 }),
@@ -996,7 +1004,7 @@ export const pointerMachine = setup({
           entry: 'updateExpanding',
           on: {
             RENDERED: {
-              actions: 'syncScroll',
+              actions: ['syncScroll', 'syncViewBox'],
               target: 'ExpandRendering2',
             },
           },
@@ -1040,6 +1048,7 @@ export const pointerMachine = setup({
                 'resetScroll',
                 'endDrag',
                 { type: 'expand', params: { n: 1 } },
+                'syncViewBox',
               ],
               target: 'UnexpandRendering',
             },
@@ -1297,6 +1306,7 @@ export const pointerMachine = setup({
                 'recenterLayout',
                 'resetScroll',
                 'endDrag',
+                'syncViewBox',
                 raise({ type: 'UNEXPAND' }),
               ],
               target: 'Expanding',
@@ -1331,7 +1341,7 @@ export const pointerMachine = setup({
           entry: raise({ type: 'ANIMATION' }),
           on: {
             'ANIMATION.DONE': {
-              actions: 'resetScroll',
+              actions: ['resetScroll', 'syncViewBox'],
               target: 'Rendering',
             },
           },
@@ -1370,7 +1380,7 @@ export const pointerMachine = setup({
           entry: raise({ type: 'SLIDE' }),
           on: {
             'SLIDE.DONE': {
-              actions: ['recenterLayout', 'resetScroll'],
+              actions: ['recenterLayout', 'resetScroll', 'syncViewBox'],
               target: 'Rendering',
             },
           },
@@ -1509,6 +1519,7 @@ export const pointerMachine = setup({
                   params: ({ event: { scroll } }) => ({ scroll }),
                 },
                 'resetScroll',
+                'syncViewBox',
               ],
               target: 'Rendering',
             },
@@ -1593,6 +1604,8 @@ export const selectLayoutSvgOffset = (pointer: PointerState) =>
   pointer.context.layout.svgOffset
 export const selectLayoutScroll = (pointer: PointerState) =>
   pointer.context.layout.scroll
+export const selectOrigLayoutSvg = (pointer: PointerState) =>
+  pointer.context.origLayout.svg
 export const selectCursor = (pointer: PointerState) => pointer.context.cursor
 export const selectTouches = (pointer: PointerState) => pointer.context.touches
 export const selectDragging = (pointer: PointerState) =>
