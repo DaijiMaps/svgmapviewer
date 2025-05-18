@@ -33,7 +33,7 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
         <MapHtmlStyle />
         <Shadow _uiRef={uiRef} />
       </Container>
-      <ContainerStyle _uiRef={uiRef} />
+      <ContainerStyle />
 
       <ShadowStyle _uiRef={uiRef} />
       <Detail _uiRef={uiRef} />

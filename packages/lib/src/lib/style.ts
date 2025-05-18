@@ -3,7 +3,6 @@ import { useMemo } from 'react'
 import { svgMapViewerConfig as cfg } from './config'
 import { Matrix } from './matrix'
 import { matrixEmpty, matrixToString } from './matrix/prefixed'
-import { openCloseIsVisible } from './openclose'
 import { pointerActor } from './pointer-react'
 import {
   selectAnimating,
@@ -13,7 +12,6 @@ import {
   selectMode,
   selectRendered,
 } from './pointer-xstate'
-import { selectOpenCloseDetail, UiRef } from './ui-xstate'
 
 export function useInitStyle() {
   const rendered = useSelector(pointerActor, selectRendered)
@@ -51,12 +49,11 @@ export function useScrollStyle() {
   return style
 }
 
-export function useModeStyle(uiRef: Readonly<UiRef>) {
+export function useModeStyle() {
   const mode = useSelector(pointerActor, selectMode)
-  const detail = useSelector(uiRef, selectOpenCloseDetail)
   const style = useMemo(
     () =>
-      mode === 'pointing' || openCloseIsVisible(detail)
+      mode === 'pointing' || mode === 'locked'
         ? `
 .container {
 }
@@ -69,7 +66,7 @@ export function useModeStyle(uiRef: Readonly<UiRef>) {
   touch-action: pan-x pan-y;
 }
 `,
-    [mode, detail]
+    [mode]
   )
   return style
 }

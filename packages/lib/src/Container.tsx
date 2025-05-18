@@ -9,7 +9,6 @@ import {
   useScrollStyle,
   useZoomStyle,
 } from './lib/style'
-import { UiRef } from './lib/ui-xstate'
 
 export const Container = forwardRef<HTMLDivElement, PropsWithChildren>(
   (props, ref) => {
@@ -26,14 +25,12 @@ export const Container = forwardRef<HTMLDivElement, PropsWithChildren>(
   }
 )
 
-export function ContainerStyle(props: Readonly<{ _uiRef: UiRef }>) {
-  const { _uiRef: uiRef } = props
-
+export function ContainerStyle() {
   return (
     <>
       <InitStyle />
       <ScrollStyle />
-      <ModeStyle _uiRef={uiRef} />
+      <ModeStyle />
       <DragStyle />
       <MoveStyle />
       <ZoomStyle />
@@ -51,9 +48,8 @@ function ScrollStyle() {
   return <style id="scroll-style">{style}</style>
 }
 
-function ModeStyle(props: Readonly<{ _uiRef: UiRef }>) {
-  const { _uiRef: uiRef } = props
-  const style = useModeStyle(uiRef)
+function ModeStyle() {
+  const style = useModeStyle()
   return <style id="mode-style">{style}</style>
 }
 
