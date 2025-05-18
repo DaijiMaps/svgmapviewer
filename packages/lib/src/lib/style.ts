@@ -71,7 +71,7 @@ export function useScrollStyle(pointerRef: Readonly<PointerRef>) {
 
   const style = useMemo(
     () => `
-.content {
+.container > .content {
   width: ${scroll.width}px;
   height: ${scroll.height}px;
 }
