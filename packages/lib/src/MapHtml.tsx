@@ -175,7 +175,7 @@ function MapHtmlContentNamesPoint(props: Readonly<{ _pointNames: POI[] }>) {
           className={`poi-names-item osm-id-${id}`}
           style={{
             transform: fixupCssString(
-              `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(0.1 / max(0.1, var(--svg-scale))))`
+              `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(0.1 / min(0.75, max(0.1, var(--svg-scale)))))`
             ),
           }}
         >
@@ -211,7 +211,7 @@ function MapHtmlContentNamesArea(props: Readonly<{ _areaNames: POI[] }>) {
           <RenderName
             poi={{
               id,
-              name: size === 0 ? [''] : name,
+              name,
               pos: { x, y },
               size,
             }}
@@ -237,7 +237,7 @@ function MapHtmlContentNamesStyle(
 ${names.areaNames
   .map(({ id, size }) => {
     const ss = size / s
-    const MAX = 500
+    const MAX = 1000
     const MIN = 0
     const opacity = Math.pow(
       ss > MAX ? 0 : ss < MIN ? 1 : (MAX - ss) / (MAX - MIN),
