@@ -1,16 +1,7 @@
-import { RefObject } from 'react'
 import { ActorRefFrom, sendTo, setup } from 'xstate'
 import { BoxBox as Box } from './box/prefixed'
 import { getScroll, syncScroll } from './scroll'
 import { stepMachine } from './step-xstate'
-
-export type ScrollInput = {
-  ref: RefObject<HTMLDivElement>
-}
-
-export type ScrollContext = {
-  ref: RefObject<HTMLDivElement>
-}
 
 type ScrollEventSync = {
   type: 'SYNC'
@@ -38,15 +29,10 @@ export type ScrollEvent =
 
 export const scrollMachine = setup({
   types: {} as {
-    input: ScrollInput
-    context: ScrollContext
     events: ScrollEvent
   },
   actions: {
-    syncScroll: (
-      _,
-      { e, pos }: { e: null | HTMLDivElement; pos: Box }
-    ): boolean => syncScroll(e, pos),
+    syncScroll: (_, { pos }: { pos: Box }): boolean => syncScroll(pos),
     startStep: sendTo(
       ({ system }) => system.get('step1'),
       (_, { P, Q }: { P: Box; Q: Box }) => ({ type: 'STEP.START', P, Q })
@@ -61,9 +47,9 @@ export const scrollMachine = setup({
     ),
     notifyGetDone: sendTo(
       ({ system }) => system.get('system-pointer1'),
-      ({ context }) => ({
+      () => ({
         type: 'SCROLL.GET.DONE',
-        scroll: getScroll(context.ref.current),
+        scroll: getScroll(),
       })
     ),
   },
@@ -73,16 +59,13 @@ export const scrollMachine = setup({
 }).createMachine({
   id: 'scroll',
   initial: 'Idle',
-  context: ({ input: { ref } }) => ({
-    ref,
-  }),
   invoke: [
     {
       src: 'step',
       systemId: 'step1',
-      input: ({ context, self }) => ({
+      input: ({ self }) => ({
         parent: self,
-        cb: (b: Box) => syncScroll(context.ref.current, b),
+        cb: (b: Box) => syncScroll(b),
       }),
     },
   ],
@@ -93,8 +76,7 @@ export const scrollMachine = setup({
           actions: [
             {
               type: 'syncScroll',
-              params: ({ context, event }) => ({
-                e: context.ref.current,
+              params: ({ event }) => ({
                 pos: event.pos,
               }),
             },
@@ -132,8 +114,7 @@ export const scrollMachine = setup({
           actions: [
             {
               type: 'syncScroll',
-              params: ({ context, event }) => ({
-                e: context.ref.current,
+              params: ({ event }) => ({
                 pos: event.pos,
               }),
             },

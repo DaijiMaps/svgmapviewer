@@ -1,10 +1,11 @@
-/* eslint-disable functional/prefer-immutable-types */
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-conditional-statements */
 import { BoxBox as Box, boxBox, BoxBox } from './box/prefixed'
 
-export const syncScroll = (e: null | HTMLElement, b: Box): boolean => {
+export const syncScroll = (b: Box): boolean => {
+  const e = document.querySelector('.container')
+
   // assume valid if scrollLeft exists
   if (e === null || e.scrollLeft === null || b === null) {
     return false
@@ -31,7 +32,9 @@ export const syncScroll = (e: null | HTMLElement, b: Box): boolean => {
   return true
 }
 
-export function getScroll(e: null | Readonly<HTMLElement>): null | BoxBox {
+export function getScroll(): null | BoxBox {
+  const e = document.querySelector('.container')
+
   if (e !== null) {
     // forcibly stop scroll
     e.scroll(e.scrollLeft, e.scrollTop)

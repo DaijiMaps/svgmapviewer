@@ -1,4 +1,3 @@
-import { RefObject } from 'react'
 import {
   ActorRefFrom,
   and,
@@ -51,12 +50,7 @@ const DIST_LIMIT = 10
 const EXPAND_DEFAULT = 3
 const EXPAND_PANNING = 9
 
-export type PointerInput = {
-  containerRef: RefObject<HTMLDivElement>
-}
-
 export type PointerContext = {
-  containerRef: RefObject<HTMLDivElement>
   origLayout: Layout
   layout: Layout
   nextLayout: null | Layout
@@ -186,7 +180,6 @@ export type PointerEmitted =
 
 export const pointerMachine = setup({
   types: {} as {
-    input: PointerInput
     context: PointerContext
     events: _PointerEvent
     emitted: PointerEmitted
@@ -482,8 +475,7 @@ export const pointerMachine = setup({
 }).createMachine({
   type: 'parallel',
   id: 'pointer',
-  context: ({ input: { containerRef } }) => ({
-    containerRef,
+  context: {
     origLayout: emptyLayout,
     layout: emptyLayout,
     nextLayout: null,
@@ -502,14 +494,11 @@ export const pointerMachine = setup({
     expanding: 0,
     animating: false,
     rendered: false,
-  }),
+  },
   invoke: [
     {
       src: 'scroll',
       systemId: 'scroll1',
-      input: ({ context }) => ({
-        ref: context.containerRef,
-      }),
     },
   ],
   states: {
