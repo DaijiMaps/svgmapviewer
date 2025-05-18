@@ -1581,6 +1581,8 @@ export type PointerMode = 'pointing' | 'panning' | 'locked'
 
 export const selectMode = (pointer: PointerState) => pointer.context.mode
 export const selectLayout = (pointer: PointerState) => pointer.context.layout
+export const selectLayoutConfig = (pointer: PointerState) =>
+  pointer.context.layout.config
 export const selectLayoutContainer = (pointer: PointerState) =>
   pointer.context.layout.container
 export const selectLayoutSvg = (pointer: PointerState) =>

@@ -1,9 +1,14 @@
 import { useSelector } from '@xstate/react'
+import { useMemo } from 'react'
 import { Cursor } from './Cursor'
 import './Guides.css'
 import { boxCenter } from './lib/box/prefixed'
-import { Layout } from './lib/layout'
-import { PointerRef, selectLayout, selectMode } from './lib/pointer-xstate'
+import { LayoutConfig } from './lib/layout'
+import {
+  PointerRef,
+  selectLayoutConfig,
+  selectMode,
+} from './lib/pointer-xstate'
 import { Vec } from './lib/vec'
 
 export interface GuideParams {
@@ -12,11 +17,11 @@ export interface GuideParams {
   w: number
 }
 
-function guideParams(layout: Layout): GuideParams {
+function guideParams(config: LayoutConfig): GuideParams {
   return {
-    c: boxCenter(layout.container),
-    r: layout.config.fontSize / 2,
-    w: (layout.config.fontSize * 0.05) / 2,
+    c: boxCenter(config.container),
+    r: config.fontSize / 2,
+    w: (config.fontSize * 0.05) / 2,
   }
 }
 
@@ -45,8 +50,8 @@ export interface GuidesProps {
 export function Guides(props: Readonly<GuidesProps>) {
   const { _pointerRef: pointerRef } = props
   const mode = useSelector(pointerRef, selectMode)
-  const layout = useSelector(pointerRef, selectLayout)
-  const p = guideParams(layout)
+  const config = useSelector(pointerRef, selectLayoutConfig)
+  const p = useMemo(() => guideParams(config), [config])
 
   return (
     <svg className="guides">
