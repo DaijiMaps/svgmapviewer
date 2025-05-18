@@ -4,8 +4,8 @@ import { svgMapViewerConfig as cfg } from './config'
 import { Matrix } from './matrix'
 import { matrixEmpty, matrixToString } from './matrix/prefixed'
 import { openCloseIsVisible } from './openclose'
+import { pointerActor } from './pointer-react'
 import {
-  PointerRef,
   selectAnimating,
   selectAnimation,
   selectDragging,
@@ -15,8 +15,8 @@ import {
 } from './pointer-xstate'
 import { selectOpenCloseDetail, UiRef } from './ui-xstate'
 
-export function useInitStyle(pointerRef: Readonly<PointerRef>) {
-  const rendered = useSelector(pointerRef, selectRendered)
+export function useInitStyle() {
+  const rendered = useSelector(pointerActor, selectRendered)
   const style = useMemo(
     () =>
       !rendered
@@ -36,8 +36,8 @@ export function useInitStyle(pointerRef: Readonly<PointerRef>) {
   return style
 }
 
-export function useScrollStyle(pointerRef: Readonly<PointerRef>) {
-  const scroll = useSelector(pointerRef, selectLayoutScroll)
+export function useScrollStyle() {
+  const scroll = useSelector(pointerActor, selectLayoutScroll)
 
   const style = useMemo(
     () => `
@@ -51,11 +51,8 @@ export function useScrollStyle(pointerRef: Readonly<PointerRef>) {
   return style
 }
 
-export function useModeStyle(
-  pointerRef: Readonly<PointerRef>,
-  uiRef: Readonly<UiRef>
-) {
-  const mode = useSelector(pointerRef, selectMode)
+export function useModeStyle(uiRef: Readonly<UiRef>) {
+  const mode = useSelector(pointerActor, selectMode)
   const detail = useSelector(uiRef, selectOpenCloseDetail)
   const style = useMemo(
     () =>
@@ -77,8 +74,8 @@ export function useModeStyle(
   return style
 }
 
-export function useDragStyle(pointerRef: Readonly<PointerRef>) {
-  const dragging = useSelector(pointerRef, selectDragging)
+export function useDragStyle() {
+  const dragging = useSelector(pointerActor, selectDragging)
 
   const style = useMemo(
     () =>
@@ -95,9 +92,9 @@ export function useDragStyle(pointerRef: Readonly<PointerRef>) {
   return style
 }
 
-export function useMoveStyle(pointerRef: Readonly<PointerRef>) {
-  const animation = useSelector(pointerRef, selectAnimation)
-  const animating = useSelector(pointerRef, selectAnimating)
+export function useMoveStyle() {
+  const animation = useSelector(pointerActor, selectAnimation)
+  const animating = useSelector(pointerActor, selectAnimating)
 
   const style = useMemo(
     () =>
@@ -109,9 +106,9 @@ export function useMoveStyle(pointerRef: Readonly<PointerRef>) {
   return style
 }
 
-export function useZoomStyle(pointerRef: Readonly<PointerRef>) {
-  const animation = useSelector(pointerRef, selectAnimation)
-  const animating = useSelector(pointerRef, selectAnimating)
+export function useZoomStyle() {
+  const animation = useSelector(pointerActor, selectAnimation)
+  const animating = useSelector(pointerActor, selectAnimating)
 
   const style = useMemo(
     () =>

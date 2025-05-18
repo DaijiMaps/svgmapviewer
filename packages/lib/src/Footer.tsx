@@ -1,31 +1,20 @@
 import { useSelector } from '@xstate/react'
 import clsx from 'clsx'
-import { useCallback, useContext } from 'react'
+import { useContext } from 'react'
 import './Footer.css'
-import { PointerRef, selectMode } from './lib/pointer-xstate'
+import { pointerActor } from './lib/pointer-react'
+import { selectMode } from './lib/pointer-xstate'
 import { selectOpenCloseFooter, UiRef } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 
 interface FooterProps {
   _uiRef: UiRef
-  _pointerRef: PointerRef
 }
 
 export const Footer = (props: Readonly<FooterProps>) => {
-  const { _uiRef: uiRef, _pointerRef: pointerRef } = props
+  const { _uiRef: uiRef } = props
   const config = useContext(SvgMapViewerConfigContext)
-  const mode = useSelector(pointerRef, selectMode)
-
-  const sendModePointing = useCallback(
-    // eslint-disable-next-line functional/no-return-void
-    () => pointerRef.send({ type: 'MODE', mode: 'pointing' }),
-    [pointerRef]
-  )
-  const sendModePanning = useCallback(
-    // eslint-disable-next-line functional/no-return-void
-    () => pointerRef.send({ type: 'MODE', mode: 'panning' }),
-    [pointerRef]
-  )
+  const mode = useSelector(pointerActor, selectMode)
 
   return (
     <div
@@ -63,13 +52,20 @@ export const Footer = (props: Readonly<FooterProps>) => {
       </div>
       <p
         // eslint-disable-next-line functional/no-return-void
-        onClick={() => pointerRef.send({ type: 'DEBUG' })}
+        onClick={() => pointerActor.send({ type: 'DEBUG' })}
       >
         {config.copyright}
       </p>
     </div>
   )
 }
+
+const sendModePointing =
+  // eslint-disable-next-line functional/no-return-void
+  () => pointerActor.send({ type: 'MODE', mode: 'pointing' })
+const sendModePanning =
+  // eslint-disable-next-line functional/no-return-void
+  () => pointerActor.send({ type: 'MODE', mode: 'panning' })
 
 export function FooterStyle(props: Readonly<FooterProps>) {
   const { _uiRef: uiRef } = props

@@ -1,6 +1,6 @@
 import { forwardRef, PropsWithChildren } from 'react'
 import './Container.css'
-import { PointerRef } from './lib/pointer-xstate'
+import { pointerActor } from './lib/pointer-react'
 import {
   useDragStyle,
   useInitStyle,
@@ -11,76 +11,64 @@ import {
 } from './lib/style'
 import { UiRef } from './lib/ui-xstate'
 
-export const Container = forwardRef<
-  HTMLDivElement,
-  PropsWithChildren<{
-    _pointerRef: PointerRef
-  }>
->((props, ref) => {
-  return (
-    <div
-      ref={ref}
-      className="container"
-      // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => props._pointerRef.send({ type: 'ANIMATION.END' })}
-    >
-      {props.children}
-    </div>
-  )
-})
+export const Container = forwardRef<HTMLDivElement, PropsWithChildren>(
+  (props, ref) => {
+    return (
+      <div
+        ref={ref}
+        className="container"
+        // eslint-disable-next-line functional/no-return-void
+        onAnimationEnd={() => pointerActor.send({ type: 'ANIMATION.END' })}
+      >
+        {props.children}
+      </div>
+    )
+  }
+)
 
-export function ContainerStyle(
-  props: Readonly<{ _pointerRef: PointerRef; _uiRef: UiRef }>
-) {
-  const { _pointerRef: pointerRef, _uiRef: uiRef } = props
+export function ContainerStyle(props: Readonly<{ _uiRef: UiRef }>) {
+  const { _uiRef: uiRef } = props
 
   return (
     <>
-      <InitStyle _pointerRef={pointerRef} />
-      <ScrollStyle _pointerRef={pointerRef} />
-      <ModeStyle _pointerRef={pointerRef} _uiRef={uiRef} />
-      <DragStyle _pointerRef={pointerRef} />
-      <MoveStyle _pointerRef={pointerRef} />
-      <ZoomStyle _pointerRef={pointerRef} />
+      <InitStyle />
+      <ScrollStyle />
+      <ModeStyle _uiRef={uiRef} />
+      <DragStyle />
+      <MoveStyle />
+      <ZoomStyle />
     </>
   )
 }
 
-function InitStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
-  const { _pointerRef: pointerRef } = props
-  const style = useInitStyle(pointerRef)
+function InitStyle() {
+  const style = useInitStyle()
   return <style id="init-style">{style}</style>
 }
 
-function ScrollStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
-  const { _pointerRef: pointerRef } = props
-  const style = useScrollStyle(pointerRef)
+function ScrollStyle() {
+  const style = useScrollStyle()
   return <style id="scroll-style">{style}</style>
 }
 
-function ModeStyle(
-  props: Readonly<{ _pointerRef: PointerRef; _uiRef: UiRef }>
-) {
-  const { _pointerRef: pointerRef, _uiRef: uiRef } = props
-  const style = useModeStyle(pointerRef, uiRef)
+function ModeStyle(props: Readonly<{ _uiRef: UiRef }>) {
+  const { _uiRef: uiRef } = props
+  const style = useModeStyle(uiRef)
   return <style id="mode-style">{style}</style>
 }
 
-function DragStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
-  const { _pointerRef: pointerRef } = props
-  const style = useDragStyle(pointerRef)
+function DragStyle() {
+  const style = useDragStyle()
   return <style id="drag-style">{style}</style>
 }
 
-function MoveStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
-  const { _pointerRef: pointerRef } = props
-  const style = useMoveStyle(pointerRef)
+function MoveStyle() {
+  const style = useMoveStyle()
   return <style id="move-style">{style}</style>
 }
 
-function ZoomStyle(props: Readonly<{ _pointerRef: PointerRef }>) {
-  const { _pointerRef: pointerRef } = props
-  const style = useZoomStyle(pointerRef)
+function ZoomStyle() {
+  const style = useZoomStyle()
   return <style id="zoom-style">{style}</style>
 }
 

@@ -1,28 +1,15 @@
 import { useSelector } from '@xstate/react'
 import clsx from 'clsx'
-import { useCallback } from 'react'
 import './Right.css'
-import { PointerRef } from './lib/pointer-xstate'
+import { pointerActor } from './lib/pointer-react'
 import { selectOpenCloseRight, UiRef } from './lib/ui-xstate'
 
 interface RightProps {
   _uiRef: UiRef
-  _pointerRef: PointerRef
 }
 
 export const Right = (props: Readonly<RightProps>) => {
-  const { _uiRef: uiRef, _pointerRef: pointerRef } = props
-
-  const sendZoomOut = useCallback(
-    // eslint-disable-next-line functional/no-return-void
-    () => pointerRef.send({ type: 'ZOOM.ZOOM', z: -1 }),
-    [pointerRef]
-  )
-  const sendZoomIn = useCallback(
-    // eslint-disable-next-line functional/no-return-void
-    () => pointerRef.send({ type: 'ZOOM.ZOOM', z: 1 }),
-    [pointerRef]
-  )
+  const { _uiRef: uiRef } = props
 
   return (
     <div
@@ -53,6 +40,13 @@ export const Right = (props: Readonly<RightProps>) => {
     </div>
   )
 }
+
+const sendZoomOut =
+  // eslint-disable-next-line functional/no-return-void
+  () => pointerActor.send({ type: 'ZOOM.ZOOM', z: -1 })
+const sendZoomIn =
+  // eslint-disable-next-line functional/no-return-void
+  () => pointerActor.send({ type: 'ZOOM.ZOOM', z: 1 })
 
 export function RightStyle(props: Readonly<RightProps>) {
   const { _uiRef: uiRef } = props

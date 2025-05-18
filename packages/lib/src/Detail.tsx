@@ -5,19 +5,19 @@ import './Detail.css'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { diag } from './lib/diag'
 import { fromSvg } from './lib/layout'
-import { PointerRef, selectLayout } from './lib/pointer-xstate'
+import { pointerActor } from './lib/pointer-react'
+import { selectLayout } from './lib/pointer-xstate'
 import { UiRef, selectDetail } from './lib/ui-xstate'
 
 export interface DetailProps {
   _uiRef: UiRef
-  _pointerRef: PointerRef
 }
 
 export function Detail(props: Readonly<DetailProps>) {
   const detail = useSelector(props._uiRef, selectDetail)
 
   // XXX
-  const layout = useSelector(props._pointerRef, selectLayout)
+  const layout = useSelector(pointerActor, selectLayout)
 
   const p = useMemo(
     () => (detail === null ? null : fromSvg(detail.psvg, layout)),

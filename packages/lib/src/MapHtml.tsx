@@ -6,12 +6,9 @@ import { configActor, selectMapNames } from './lib'
 import { fixupCssString } from './lib/css'
 import { POI } from './lib/geo'
 import { useLikes } from './lib/like'
-import { PointerRef, selectLayoutSvgScaleS } from './lib/pointer-xstate'
+import { pointerActor } from './lib/pointer-react'
+import { selectLayoutSvgScaleS } from './lib/pointer-xstate'
 import './MapHtml.css'
-
-export interface MapHtmlProps {
-  _pointerRef: PointerRef
-}
 
 export interface MapHtmlContentProps {
   _names: (POI & { size: number })[]
@@ -25,8 +22,8 @@ export function MapHtml() {
   )
 }
 
-export function MapHtmlStyle(props: Readonly<MapHtmlProps>) {
-  return <MapHtmlContentStyle {...props} />
+export function MapHtmlStyle() {
+  return <MapHtmlContentStyle />
 }
 
 function MapHtmlContentRoot(): ReactNode {
@@ -75,13 +72,13 @@ function MapHtmlContent() {
   )
 }
 
-function MapHtmlContentStyle(props: Readonly<MapHtmlProps>) {
+function MapHtmlContentStyle() {
   const names = useNames()
 
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
   useEffect(() => {
     // eslint-disable-next-line functional/no-expression-statements
-    mountMapHtmlContentRoot(ROOT_ID, props._pointerRef)
+    mountMapHtmlContentRoot(ROOT_ID)
   })
 
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
@@ -222,13 +219,10 @@ function MapHtmlContentNamesArea(props: Readonly<{ _areaNames: POI[] }>) {
   )
 }
 
-function MapHtmlContentNamesStyle(
-  props: Readonly<{ _pointerRef: PointerRef }>
-) {
-  const { _pointerRef: pointerRef } = props
+function MapHtmlContentNamesStyle() {
   const names = useNames()
 
-  const s = useSelector(pointerRef, selectLayoutSvgScaleS)
+  const s = useSelector(pointerActor, selectLayoutSvgScaleS)
 
   return (
     <div className="poi-names">
@@ -296,7 +290,6 @@ const ROOT_ID = 'map-html-content-root'
 type RootEvent =
   | {
       type: 'MOUNT'
-      ref: PointerRef
     }
   | {
       type: 'UPDATE'
@@ -305,12 +298,10 @@ type RootEvent =
     }
 type RootEmit = {
   type: 'RENDER'
-  ref: null | PointerRef
   pointNames: POI[]
   areaNames: POI[]
 }
 interface RootContext {
-  ref: null | PointerRef
   pointNames: POI[]
   areaNames: POI[]
 }
@@ -323,27 +314,18 @@ const rootLogic = setup({
   },
 }).createMachine({
   id: 'map-html-names-root',
-  context: { ref: null, pointNames: [], areaNames: [] },
+  context: { pointNames: [], areaNames: [] },
   on: {
-    MOUNT: {
-      actions: assign({
-        ref: ({ event }) => event.ref,
-      }),
-    },
+    MOUNT: {},
     UPDATE: [
       {
-        guard: ({ context }) => context.ref === null,
-      },
-      {
-        guard: ({ context }) => context.ref !== null,
         actions: [
           assign({
             pointNames: ({ event }) => event.pointNames,
             areaNames: ({ event }) => event.areaNames,
           }),
-          emit(({ context, event }) => ({
+          emit(({ event }) => ({
             type: 'RENDER',
-            ref: context.ref,
             pointNames: event.pointNames,
             areaNames: event.areaNames,
           })),
@@ -356,10 +338,7 @@ const rootLogic = setup({
 const rootActor = createActor(rootLogic)
 
 // eslint-disable-next-line functional/no-expression-statements
-rootActor.on('RENDER', ({ ref, pointNames, areaNames }) => {
-  if (ref === null) {
-    return
-  }
+rootActor.on('RENDER', ({ pointNames, areaNames }) => {
   return renderShadowRoot(
     ROOT_ID,
     <>
@@ -397,7 +376,7 @@ rootActor.on('RENDER', ({ ref, pointNames, areaNames }) => {
       <MapHtmlContentStars _pointNames={pointNames} _areaNames={areaNames} />
       <MapHtmlContentNamesPoint _pointNames={pointNames} />
       <MapHtmlContentNamesArea _areaNames={areaNames} />
-      <MapHtmlContentNamesStyle _pointerRef={ref} />
+      <MapHtmlContentNamesStyle />
     </>
   )
 })
@@ -406,7 +385,7 @@ rootActor.on('RENDER', ({ ref, pointNames, areaNames }) => {
 rootActor.start()
 
 // eslint-disable-next-line functional/no-return-void
-export function mountMapHtmlContentRoot(id: string, ref: Readonly<PointerRef>) {
+export function mountMapHtmlContentRoot(id: string) {
   const root = document.querySelector(`#${id}`)
   if (root === null || root.shadowRoot !== null) {
     return
@@ -414,7 +393,7 @@ export function mountMapHtmlContentRoot(id: string, ref: Readonly<PointerRef>) {
   // shadowRoot is present
 
   // eslint-disable-next-line functional/no-expression-statements
-  rootActor.send({ type: 'MOUNT', ref })
+  rootActor.send({ type: 'MOUNT' })
 }
 
 //// shadow DOM render

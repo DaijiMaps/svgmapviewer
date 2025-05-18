@@ -1,12 +1,12 @@
 import { useActorRef, useSelector } from '@xstate/react'
 import { RefObject, useCallback, useEffect } from 'react'
+import { createActor } from 'xstate'
 import { svgMapViewerConfig as cfg } from './config'
 import { timeoutMachine, TimeoutRef } from './event-xstate'
 import { Layout } from './layout'
 import { useLayout } from './layout-react'
 import {
   pointerMachine,
-  PointerRef,
   ReactUIEvent,
   selectExpanding,
   selectMode,
@@ -19,16 +19,7 @@ let clickeventmask: boolean = false
 let wheeleventmask: boolean = false
 let scrolleventmask: boolean = false
 
-function usePointerKey(pointerRef: PointerRef) {
-  const keyDown = useCallback(
-    (ev: KeyboardEvent) => pointerRef.send({ type: 'KEY.DOWN', ev }),
-    [pointerRef]
-  )
-  const keyUp = useCallback(
-    (ev: KeyboardEvent) => pointerRef.send({ type: 'KEY.UP', ev }),
-    [pointerRef]
-  )
-
+function usePointerKey() {
   useEffect(() => {
     const add = document.body.addEventListener
     const remove = document.body.removeEventListener
@@ -38,14 +29,11 @@ function usePointerKey(pointerRef: PointerRef) {
       remove('keydown', keyDown)
       remove('keyup', keyUp)
     }
-  }, [keyDown, keyUp])
+  }, [])
 }
 
-function usePointerEventMask(
-  pointerRef: PointerRef,
-  scrollTimeoutRef: TimeoutRef
-) {
-  const mode = useSelector(pointerRef, selectMode)
+function usePointerEventMask(scrollTimeoutRef: TimeoutRef) {
+  const mode = useSelector(pointerActor, selectMode)
 
   useEffect(() => {
     pointereventmask = mode !== 'pointing'
@@ -66,113 +54,19 @@ function usePointerEventMask(
 
 function usePointerEvent(
   containerRef: RefObject<HTMLDivElement>,
-  pointerRef: PointerRef,
   scrollTimeoutRef: TimeoutRef
 ) {
-  const send = useCallback(
-    (
-      // excluding key down/up events
-      event: ReactUIEvent,
-      options?: {
-        preventDefault?: boolean
-        stopPropagation?: boolean
-      }
-    ) => {
-      if (options?.preventDefault === false) {
-        // skip
-      } else {
-        event.ev.preventDefault()
-      }
-      if (options?.stopPropagation === false) {
-        // skip
-      } else {
-        event.ev.stopPropagation()
-      }
-      pointerRef.send(event)
-    },
-    [pointerRef]
-  )
-
-  const sendPointerDown = useCallback(
-    (ev: PointerEvent) => send({ type: 'POINTER.DOWN', ev }),
-    [send]
-  )
-  const sendPointerMove = useCallback(
-    (ev: PointerEvent) => send({ type: 'POINTER.MOVE', ev }),
-    [send]
-  )
-  const sendPointerUp = useCallback(
-    (ev: PointerEvent) => {
-      if (pointereventmask) {
-        return
-      }
-      send({ type: 'POINTER.UP', ev })
-    },
-    [send]
-  )
-  const sendTouchStart = useCallback(
-    (ev: TouchEvent) => {
-      if (toucheventmask) {
-        return
-      }
-      // skip preventDefault to enable emulated "click"
-      send({ type: 'TOUCH.START', ev }, { preventDefault: false })
-    },
-    [send]
-  )
-  const sendTouchMove = useCallback(
-    (ev: TouchEvent) => {
-      if (toucheventmask) {
-        return
-      }
-      send({ type: 'TOUCH.MOVE', ev })
-    },
-    [send]
-  )
-  const sendTouchEnd = useCallback(
-    (ev: TouchEvent) => {
-      if (toucheventmask) {
-        return
-      }
-      // skip preventDefault to enable emulated "click"
-      send({ type: 'TOUCH.END', ev }, { preventDefault: false })
-    },
-    [send]
-  )
-  const sendClick = useCallback(
-    (ev: MouseEvent) => {
-      if (clickeventmask) {
-        return
-      }
-      send({ type: 'CLICK', ev })
-    },
-    [send]
-  )
-  const sendContextMenu = useCallback(
-    (ev: MouseEvent) => send({ type: 'CONTEXTMENU', ev }),
-    [send]
-  )
-  const sendWheel = useCallback(
-    (ev: WheelEvent) => {
-      if (wheeleventmask) {
-        return
-      }
-      send({ type: 'WHEEL', ev })
-    },
-    [send]
-  )
-
   // XXX
   // XXX
   // XXX
   useEffect(() => {
     const sub = scrollTimeoutRef.on('EXPIRED', ({ ev }) => {
       if (!scrolleventmask) {
-        send({ type: 'SCROLL', ev })
+        pointerSend({ type: 'SCROLL', ev })
       }
     })
     return () => sub.unsubscribe()
-  }, [scrollTimeoutRef, send])
+  }, [scrollTimeoutRef])
 
   const sendScroll = useCallback(
     (ev: Event) =>
@@ -213,31 +107,10 @@ function usePointerEvent(
       e.removeEventListener('wheel', sendWheel)
       e.removeEventListener('scroll', sendScroll)
     }
-  }, [
-    containerRef,
-    sendClick,
-    sendContextMenu,
-    sendPointerDown,
-    sendPointerMove,
-    sendPointerUp,
-    sendScroll,
-    sendTouchEnd,
-    sendTouchMove,
-    sendTouchStart,
-    sendWheel,
-  ])
+  }, [containerRef, sendScroll])
 }
 
-function useSearch(pointerRef: PointerRef) {
-  const pointerSearchLock = useCallback(
-    (psvg: Vec) => pointerRef.send({ type: 'SEARCH.LOCK', psvg }),
-    [pointerRef]
-  )
-  const pointerSearchUnlock = useCallback(
-    () => pointerRef.send({ type: 'SEARCH.UNLOCK' }),
-    [pointerRef]
-  )
-
+function useSearch() {
   useEffect(() => {
     cfg.uiOpenCbs.add(pointerSearchLock)
     cfg.uiCloseDoneCbs.add(pointerSearchUnlock)
@@ -245,93 +118,157 @@ function useSearch(pointerRef: PointerRef) {
       cfg.uiOpenCbs.delete(pointerSearchLock)
       cfg.uiCloseDoneCbs.delete(pointerSearchUnlock)
     }
-  }, [pointerSearchLock, pointerSearchUnlock])
+  }, [])
 
   useEffect(() => {
     const subs = [
-      pointerRef.on('SEARCH', ({ psvg }) =>
+      pointerActor.on('SEARCH', ({ psvg }) =>
         cfg.searchStartCbs.forEach((cb) => cb(psvg))
       ),
-      pointerRef.on('LOCK', ({ ok }) =>
+      pointerActor.on('LOCK', ({ ok }) =>
         cfg.uiOpenDoneCbs.forEach((cb) => cb(ok))
       ),
-      pointerRef.on('LAYOUT', ({ layout }) =>
+      pointerActor.on('LAYOUT', ({ layout }) =>
         cfg.zoomEndCbs.forEach((cb) => cb(layout, 1))
       ),
-      pointerRef.on('ZOOM.START', ({ layout, zoom, z }) =>
+      pointerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
         cfg.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
       ),
-      pointerRef.on('ZOOM.END', ({ layout, zoom }) =>
+      pointerActor.on('ZOOM.END', ({ layout, zoom }) =>
         cfg.zoomEndCbs.forEach((cb) => cb(layout, zoom))
       ),
     ]
     return () => subs.forEach((sub) => sub.unsubscribe())
-  }, [pointerRef])
+  }, [])
 }
 
-function useExpanding(pointerRef: PointerRef) {
+function useExpanding() {
   // re-render handling
-  const expanding = useSelector(pointerRef, selectExpanding)
+  const expanding = useSelector(pointerActor, selectExpanding)
   useEffect(() => {
-    pointerRef.send({ type: 'RENDERED' })
-  }, [expanding, pointerRef])
+    pointerActor.send({ type: 'RENDERED' })
+  }, [expanding])
 }
 
-function useResizing(pointerRef: PointerRef) {
+function useResizing() {
   // resize handling
-  const layoutCb = useCallback(
-    (origLayout: Readonly<Layout>, force: boolean) => {
-      pointerRef.send({ type: 'LAYOUT', layout: origLayout, force })
-    },
-    [pointerRef]
-  )
   useLayout(layoutCb, cfg.origViewBox)
 }
 
-export function usePointer(containerRef: RefObject<HTMLDivElement>): {
-  pointerRef: PointerRef
-  scrollTimeoutRef: TimeoutRef
-} {
-  const pointerRef = useActorRef(pointerMachine, {
-    systemId: 'system-pointer1',
-    input: { containerRef },
-  })
+export function usePointer(containerRef: RefObject<HTMLDivElement>): void {
   const scrollTimeoutRef = useActorRef(timeoutMachine)
 
-  usePointerConfig(containerRef, pointerRef, scrollTimeoutRef)
-
-  return {
-    pointerRef,
-    scrollTimeoutRef,
-  }
+  usePointerConfig(containerRef, scrollTimeoutRef)
 }
 
 export function usePointerConfig(
   containerRef: RefObject<HTMLDivElement>,
-  pointerRef: PointerRef,
   scrollTimeoutRef: TimeoutRef
 ) {
   ////
   //// event handlers
   ////
 
-  usePointerKey(pointerRef)
+  usePointerKey()
 
-  usePointerEventMask(pointerRef, scrollTimeoutRef)
+  usePointerEventMask(scrollTimeoutRef)
 
-  usePointerEvent(containerRef, pointerRef, scrollTimeoutRef)
+  usePointerEvent(containerRef, scrollTimeoutRef)
 
   ////
   //// ui callbacks
   ////
 
-  useSearch(pointerRef)
+  useSearch()
 
   ////
   //// actions
   ////
 
-  useExpanding(pointerRef)
+  useExpanding()
 
-  useResizing(pointerRef)
+  useResizing()
 }
+
+export const pointerActor = createActor(pointerMachine, {
+  systemId: 'system-pointer1',
+})
+pointerActor.start()
+
+const pointerSend = (
+  // excluding key down/up events
+  event: ReactUIEvent,
+  options?: {
+    preventDefault?: boolean
+    stopPropagation?: boolean
+  }
+) => {
+  if (options?.preventDefault === false) {
+    // skip
+  } else {
+    event.ev.preventDefault()
+  }
+  if (options?.stopPropagation === false) {
+    // skip
+  } else {
+    event.ev.stopPropagation()
+  }
+  pointerActor.send(event)
+}
+
+const sendPointerDown = (ev: PointerEvent) =>
+  pointerSend({ type: 'POINTER.DOWN', ev })
+const sendPointerMove = (ev: PointerEvent) =>
+  pointerSend({ type: 'POINTER.MOVE', ev })
+const sendPointerUp = (ev: PointerEvent) => {
+  if (pointereventmask) {
+    return
+  }
+  pointerSend({ type: 'POINTER.UP', ev })
+}
+const sendTouchStart = (ev: TouchEvent) => {
+  if (toucheventmask) {
+    return
+  }
+  // skip preventDefault to enable emulated "click"
+  pointerSend({ type: 'TOUCH.START', ev }, { preventDefault: false })
+}
+const sendTouchMove = (ev: TouchEvent) => {
+  if (toucheventmask) {
+    return
+  }
+  pointerSend({ type: 'TOUCH.MOVE', ev })
+}
+const sendTouchEnd = (ev: TouchEvent) => {
+  if (toucheventmask) {
+    return
+  }
+  // skip preventDefault to enable emulated "click"
+  pointerSend({ type: 'TOUCH.END', ev }, { preventDefault: false })
+}
+const sendClick = (ev: MouseEvent) => {
+  if (clickeventmask) {
+    return
+  }
+  pointerSend({ type: 'CLICK', ev })
+}
+const sendContextMenu = (ev: MouseEvent) =>
+  pointerSend({ type: 'CONTEXTMENU', ev })
+const sendWheel = (ev: WheelEvent) => {
+  if (wheeleventmask) {
+    return
+  }
+  pointerSend({ type: 'WHEEL', ev })
+}
+
+const pointerSearchLock = (psvg: Vec) =>
+  pointerActor.send({ type: 'SEARCH.LOCK', psvg })
+const pointerSearchUnlock = () => pointerActor.send({ type: 'SEARCH.UNLOCK' })
+
+const layoutCb = (origLayout: Readonly<Layout>, force: boolean) => {
+  pointerActor.send({ type: 'LAYOUT', layout: origLayout, force })
+}
+
+const keyDown = (ev: KeyboardEvent) =>
+  pointerActor.send({ type: 'KEY.DOWN', ev })
+const keyUp = (ev: KeyboardEvent) => pointerActor.send({ type: 'KEY.UP', ev })

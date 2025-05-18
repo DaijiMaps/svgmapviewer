@@ -1,17 +1,16 @@
 import { useSelector } from '@xstate/react'
 import { useContext } from 'react'
 import './Header.css'
-import { PointerRef } from './lib/pointer-xstate'
+import { pointerActor } from './lib/pointer-react'
 import { selectOpenCloseHeader, UiRef } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 
 interface HeaderProps {
   _uiRef: UiRef
-  _pointerRef: PointerRef
 }
 
 export const Header = (props: Readonly<HeaderProps>) => {
-  const { _uiRef: uiRef, _pointerRef: pointerRef } = props
+  const { _uiRef: uiRef } = props
   const config = useContext(SvgMapViewerConfigContext)
 
   return (
@@ -24,7 +23,7 @@ export const Header = (props: Readonly<HeaderProps>) => {
       <h1
         className="title"
         // eslint-disable-next-line functional/no-return-void
-        onClick={() => pointerRef.send({ type: 'LAYOUT.RESET' })}
+        onClick={() => pointerActor.send({ type: 'LAYOUT.RESET' })}
       >
         {config.title}
       </h1>

@@ -1,18 +1,13 @@
 import { useSelector } from '@xstate/react'
 import { PropsWithChildren } from 'react'
 import { boxToViewBox } from './lib/box/prefixed'
-import { PointerRef, selectOrigLayoutSvg } from './lib/pointer-xstate'
+import { pointerActor } from './lib/pointer-react'
+import { selectOrigLayoutSvg } from './lib/pointer-xstate'
 import './MapSvg.css'
 
-interface MapSvgProps {
-  _pointerRef: PointerRef
-}
-
-export const MapSvg = (props: Readonly<PropsWithChildren<MapSvgProps>>) => {
-  const { _pointerRef: pointerRef } = props
-
+export const MapSvg = (props: Readonly<PropsWithChildren>) => {
   // XXX only when resized
-  const origLayoutSvg = useSelector(pointerRef, selectOrigLayoutSvg)
+  const origLayoutSvg = useSelector(pointerActor, selectOrigLayoutSvg)
 
   // XXX truncate viewBox (1234.5678901234567890 to 1234.56)
   // XXX (too much precision degrades SVG rendering performance)

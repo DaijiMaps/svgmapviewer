@@ -1,7 +1,8 @@
 import { useSelector } from '@xstate/react'
 import './Debug.css'
 import { fromMatrixSvg, toMatrixSvg } from './lib/coord'
-import { PointerRef, selectDebug } from './lib/pointer-xstate'
+import { pointerActor } from './lib/pointer-react'
+import { selectDebug } from './lib/pointer-xstate'
 import { SearchRef } from './lib/search-xstate'
 import { showBox, showNumber, showPoint } from './lib/show'
 import { transformPoint } from './lib/transform'
@@ -9,25 +10,20 @@ import { UiRef } from './lib/ui-xstate'
 
 interface DebugProps {
   _uiRef: UiRef
-  _pointerRef: PointerRef
   _searchRef: SearchRef
 }
 
 export const Debug = (props: Readonly<DebugProps>) => {
-  const {
-    _uiRef: uiRef,
-    _pointerRef: pointerRef,
-    _searchRef: searchRef,
-  } = props
+  const { _uiRef: uiRef, _searchRef: searchRef } = props
   const ui = uiRef.getSnapshot()
-  const pointer = pointerRef.getSnapshot()
+  const pointer = pointerActor.getSnapshot()
   const search = searchRef.getSnapshot()
   const {
     context: { layout },
   } = pointer
   const touches = pointer.context.touches
 
-  const debug = useSelector(props._pointerRef, selectDebug)
+  const debug = useSelector(pointerActor, selectDebug)
 
   if (!debug) {
     return <></>

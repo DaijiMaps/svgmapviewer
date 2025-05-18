@@ -20,33 +20,34 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
   //input: { ref: containerRef },
   //})
 
-  const { pointerRef } = usePointer(containerRef)
+  // eslint-disable-next-line functional/no-expression-statements
+  usePointer(containerRef)
 
   const { uiRef } = useUi()
 
   return (
     <>
-      <Container ref={containerRef} _pointerRef={pointerRef}>
-        <MapSvg _pointerRef={pointerRef}>{props.children}</MapSvg>
+      <Container ref={containerRef}>
+        <MapSvg>{props.children}</MapSvg>
         <MapHtml />
-        <MapHtmlStyle _pointerRef={pointerRef} />
+        <MapHtmlStyle />
         <Shadow _uiRef={uiRef} />
       </Container>
-      <ContainerStyle _pointerRef={pointerRef} _uiRef={uiRef} />
+      <ContainerStyle _uiRef={uiRef} />
 
       <ShadowStyle _uiRef={uiRef} />
-      <Detail _pointerRef={pointerRef} _uiRef={uiRef} />
+      <Detail _uiRef={uiRef} />
 
-      <Header _uiRef={uiRef} _pointerRef={pointerRef} />
-      <HeaderStyle _uiRef={uiRef} _pointerRef={pointerRef} />
+      <Header _uiRef={uiRef} />
+      <HeaderStyle _uiRef={uiRef} />
 
-      <Footer _uiRef={uiRef} _pointerRef={pointerRef} />
-      <FooterStyle _uiRef={uiRef} _pointerRef={pointerRef} />
+      <Footer _uiRef={uiRef} />
+      <FooterStyle _uiRef={uiRef} />
 
-      <Right _uiRef={uiRef} _pointerRef={pointerRef} />
-      <RightStyle _uiRef={uiRef} _pointerRef={pointerRef} />
+      <Right _uiRef={uiRef} />
+      <RightStyle _uiRef={uiRef} />
 
-      <Debug _uiRef={uiRef} _pointerRef={pointerRef} _searchRef={searchRef} />
+      <Debug _uiRef={uiRef} _searchRef={searchRef} />
     </>
   )
 }
