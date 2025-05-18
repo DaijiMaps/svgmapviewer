@@ -10,6 +10,11 @@ export function getBodySize(): Box {
   }
 }
 
+// XXX
+// XXX
+// XXX use xstate
+// XXX
+// XXX
 export function useWindowResize(
   cb: (size: Readonly<Box>, force: boolean) => void
 ): void {
