@@ -4,7 +4,7 @@ import { Debug } from './Debug'
 import { Detail } from './Detail'
 import { Footer, FooterStyle } from './Footer'
 import { Header, HeaderStyle } from './Header'
-import { usePointer, usePointerConfig } from './lib/pointer-react'
+import { usePointer } from './lib/pointer-react'
 import { searchRef } from './lib/search'
 import { useUi } from './lib/ui-react'
 import { MapHtml, MapHtmlStyle } from './MapHtml'
@@ -20,10 +20,7 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
   //input: { ref: containerRef },
   //})
 
-  const { pointerRef, scrollTimeoutRef } = usePointer(containerRef)
-
-  // eslint-disable-next-line functional/no-expression-statements
-  usePointerConfig(containerRef, pointerRef, scrollTimeoutRef)
+  const { pointerRef } = usePointer(containerRef)
 
   const { uiRef } = useUi()
 
@@ -49,12 +46,7 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
       <Right _uiRef={uiRef} _pointerRef={pointerRef} />
       <RightStyle _uiRef={uiRef} _pointerRef={pointerRef} />
 
-      <Debug
-        _containerRef={containerRef}
-        _uiRef={uiRef}
-        _pointerRef={pointerRef}
-        _searchRef={searchRef}
-      />
+      <Debug _uiRef={uiRef} _pointerRef={pointerRef} _searchRef={searchRef} />
     </>
   )
 }
