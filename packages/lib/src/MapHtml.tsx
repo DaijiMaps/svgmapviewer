@@ -40,26 +40,29 @@ function MapHtmlContentRoot(): ReactNode {
 function useNames() {
   const mapNames = svgMapViewerConfig.mapNames
 
-  const names = useMemo(() => {
-    return mapNames
-      .filter(({ id }) => id !== undefined)
-      .flatMap(({ id, name, pos, area }) => {
-        if (area === undefined) {
-          return [{ id, name, pos, area: 1, size: 1 }]
-        }
-        return [
-          {
-            id,
-            name,
-            pos,
-            area,
-            size: Math.sqrt(area),
-          },
-        ]
-      })
+  const pointNames = useMemo(() => {
+    return mapNames.filter(
+      ({ id, area }) => id !== undefined && area === undefined
+    )
   }, [mapNames])
 
-  return names
+  const areaNames = useMemo(() => {
+    return mapNames.flatMap(({ id, name, pos, area }) => {
+      return id === undefined || area === undefined
+        ? []
+        : [
+            {
+              id,
+              name,
+              pos,
+              area,
+              size: Math.sqrt(area),
+            },
+          ]
+    })
+  }, [mapNames])
+
+  return { pointNames, areaNames }
 }
 
 function MapHtmlContent() {
@@ -84,7 +87,7 @@ function MapHtmlContentStyle(props: Readonly<MapHtmlProps>) {
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
   useEffect(() => {
     // eslint-disable-next-line functional/no-expression-statements
-    rootActor.send({ type: 'UPDATE', names })
+    rootActor.send({ type: 'UPDATE', names: names.areaNames })
   }, [names])
 
   return <></>
@@ -200,7 +203,7 @@ function MapHtmlContentNamesStyle(
     <div className="poi-names">
       <style>
         {`
-${names
+${names.areaNames
   .map(({ id, size }) => {
     const ss = size / s
     const MAX = 500
