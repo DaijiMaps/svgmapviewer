@@ -3,7 +3,6 @@ import { useSelector } from '@xstate/react'
 import { ReactNode, useEffect, useMemo } from 'react'
 import { createRoot } from 'react-dom/client'
 import { assign, createActor, emit, setup } from 'xstate'
-import { LayersStyle } from './Layers'
 import { fixupCssString } from './lib/css'
 import { POI } from './lib/geo'
 import { useLikes } from './lib/like'
@@ -68,15 +67,7 @@ function MapHtmlContent() {
 
   return (
     <>
-      {/*
-      <MapHtmlContentSymbols />
-      */}
-      <MapHtmlContentStars />
-      {/*
-      <MapHtmlContentNames _names={names} />
-      */}
-      <div className="poi-names" id={ROOT_ID} />
-      <LayersStyle />
+      <div id={ROOT_ID} />
     </>
   )
 }
@@ -128,8 +119,8 @@ function MapHtmlContentSymbols() {
 }
 */
 
-function MapHtmlContentStars() {
-  const names = useNames()
+function MapHtmlContentStars(props: Readonly<{ _names: POI[] }>) {
+  const { _names: names } = props
   const { isLiked } = useLikes()
 
   const likedNames = useMemo(
@@ -335,8 +326,20 @@ rootActor.on('RENDER', ({ ref, names }) => {
     <>
       <style>
         {`
+.poi-stars,
+.poi-stars-item,
+.poi-names,
 .poi-names-item {
   position: absolute;
+  left: 0;
+  top: 0;
+}
+.poi-stars,
+.poi-names {
+  width: 100%;
+  height: 100%;
+}
+.poi-names-item {
   padding: 0.5em;
   background-color: rgba(255, 255, 255, 0.375);
   text-align: center;
@@ -347,6 +350,7 @@ rootActor.on('RENDER', ({ ref, names }) => {
 }
 `}
       </style>
+      <MapHtmlContentStars _names={names} />
       <MapHtmlContentNames _names={names} />
       <MapHtmlContentNamesStyle _pointerRef={ref} />
     </>

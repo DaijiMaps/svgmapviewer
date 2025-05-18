@@ -1,7 +1,6 @@
 import { useSelector } from '@xstate/react'
 import { useContext } from 'react'
 import './Header.css'
-import { LayersButtons } from './Layers'
 import { PointerRef } from './lib/pointer-xstate'
 import { selectOpenCloseHeader, UiRef } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
@@ -29,7 +28,6 @@ export const Header = (props: Readonly<HeaderProps>) => {
       >
         {config.title}
       </h1>
-      <LayersButtons />
     </div>
   )
 }
