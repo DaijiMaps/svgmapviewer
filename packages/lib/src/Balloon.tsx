@@ -176,18 +176,34 @@ function balloonStyle(
 
   if (!animating) {
     return `
+.detail,
+.balloon-container {
+  --q-x: ${Q.x}px;
+  --q-y: ${Q.y}px;
+  --dp-x: ${dP.x}px;
+  --dp-y: ${dP.y}px;
+}
+
 .detail {
   transform-origin: 0 0;
-  transform: translate(${Q.x + dP.x}px, ${Q.y + dP.y}px) scale(1) translate(-50%, -50%);
+  transform: translate(calc(var(--q-x) + var(--dp-x)), calc(var(--q-y) + var(--dp-y))) scale(1) translate(-50%, -50%);
 }
 
 .balloon-container {
   transform-origin: 0 0;
-  transform: translate(${Q.x + dP.x}px, ${Q.y + dP.y}px) scale(1) translate(${-p.ww / 2}px, ${-p.hh / 2}px);
+  transform: translate(calc(var(--q-x) + var(--dp-x)), calc(var(--q-y) + var(--dp-y))) scale(1) translate(${-p.ww / 2}px, ${-p.hh / 2}px);
 }
 `
   } else {
     return `
+.detail,
+.balloon-container {
+  --q-x: ${Q.x}px;
+  --q-y: ${Q.y}px;
+  --dp-x: ${dP.x}px;
+  --dp-y: ${dP.y}px;
+}
+
 .detail,
 .balloon-container {
   transition: transform 300ms;
@@ -208,22 +224,22 @@ function balloonStyle(
 @keyframes xxx-detail {
   from {
     opacity: 0;
-    transform: translate(${Q.x}px, ${Q.y}px) scale(0) translate(-50%, -50%);
+    transform: translate(var(--q-x), var(--q-y)) scale(0) translate(-50%, -50%);
   }
   to {
     opacity: 1;
-    transform: translate(${Q.x + dP.x}px, ${Q.y + dP.y}px) scale(1) translate(-50%, -50%);
+    transform: translate(calc(var(--q-x) + var(--dp-x)), calc(var(--q-y) + var(--dp-y))) scale(1) translate(-50%, -50%);
   }
 }
 
 @keyframes xxx-balloon {
   from {
     opacity: 0;
-    transform: translate(${Q.x}px, ${Q.y}px) scale(0) translate(${-p.ww / 2}px, ${-p.hh / 2}px);
+    transform: translate(var(--q-x), var(--q-y)) scale(0) translate(${-p.ww / 2}px, ${-p.hh / 2}px);
   }
   to {
     opacity: 1;
-    transform: translate(${Q.x + dP.x}px, ${Q.y + dP.y}px) scale(1) translate(${-p.ww / 2}px, ${-p.hh / 2}px);
+    transform: translate(calc(var(--q-x) + var(--dp-x)), calc(var(--q-y) + var(--dp-y))) scale(1) translate(${-p.ww / 2}px, ${-p.hh / 2}px);
   }
 }
 `
