@@ -359,7 +359,7 @@ rootActor.start()
 // eslint-disable-next-line functional/no-return-void
 export function mountMapHtmlContentRoot(id: string, ref: Readonly<PointerRef>) {
   const root = document.querySelector(`#${id}`)
-  if (root === null || root.shadowRoot === null) {
+  if (root === null || root.shadowRoot !== null) {
     return
   }
   // shadowRoot is present
