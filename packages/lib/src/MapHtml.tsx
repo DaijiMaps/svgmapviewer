@@ -175,7 +175,7 @@ function MapHtmlContentNamesPoint(props: Readonly<{ _pointNames: POI[] }>) {
           className={`poi-names-item osm-id-${id}`}
           style={{
             transform: fixupCssString(
-              `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(0.1 / min(0.75, max(0.1, var(--svg-scale)))))`
+              `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(0.1 / max(0.1, var(--svg-scale))))`
             ),
           }}
         >
@@ -382,7 +382,12 @@ rootActor.on('RENDER', ({ ref, pointNames, areaNames }) => {
   padding: 0.5em;
   background-color: rgba(255, 255, 255, 0.375);
   text-align: center;
-  border-radius: 5em;
+}
+.point > .poi-names-item {
+  padding: 1em;
+}
+.area > .poi-names-item {
+  border-radius: 10em;
 }
 .poi-names-item > p {
   margin: 0;
