@@ -168,21 +168,21 @@ function MapHtmlContentNamesPoint(props: Readonly<{ _pointNames: POI[] }>) {
   const { _pointNames: pointNames } = props
 
   return (
-    <div className="poi-names area">
+    <div className="poi-names point">
       {pointNames.map(({ id, name, pos: { x, y }, size }) => (
         <div
           key={id}
           className={`poi-names-item osm-id-${id}`}
           style={{
             transform: fixupCssString(
-              `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(${size} / 100 / var(--svg-scale)))`
+              `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(0.1 / max(0.1, var(--svg-scale))))`
             ),
           }}
         >
           <RenderName
             poi={{
               id,
-              name: size === 0 ? [''] : name,
+              name,
               pos: { x, y },
               size,
             }}
@@ -204,7 +204,7 @@ function MapHtmlContentNamesArea(props: Readonly<{ _areaNames: POI[] }>) {
           className={`poi-names-item osm-id-${id}`}
           style={{
             transform: fixupCssString(
-              `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(${size} / 100 / var(--svg-scale)))`
+              `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(${size} / 200 / var(--svg-scale)))`
             ),
           }}
         >
