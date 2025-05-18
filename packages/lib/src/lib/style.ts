@@ -1,8 +1,6 @@
 import { useSelector } from '@xstate/react'
 import { useMemo } from 'react'
 import { svgMapViewerConfig as cfg } from './config'
-import { fromSvgToOuter } from './coord'
-import { cssMatrixToString, fixupCssString } from './css'
 import { Matrix } from './matrix'
 import { matrixEmpty, matrixToString } from './matrix/prefixed'
 import { openCloseIsVisible } from './openclose'
@@ -12,8 +10,6 @@ import {
   selectAnimation,
   selectDragging,
   selectLayoutScroll,
-  selectLayoutSvg,
-  selectLayoutSvgOffset,
   selectLayoutSvgScaleS,
   selectMode,
   selectRendered,
@@ -21,26 +17,20 @@ import {
 import { selectOpenCloseDetail, UiRef } from './ui-xstate'
 
 export function useMapHtmlMatrix(pointerRef: Readonly<PointerRef>) {
-  const svgOffset = useSelector(pointerRef, selectLayoutSvgOffset)
   const svgScaleS = useSelector(pointerRef, selectLayoutSvgScaleS)
-  const svg = useSelector(pointerRef, selectLayoutSvg)
-  const m = useMemo(
-    () => fromSvgToOuter({ svg, svgOffset, svgScale: { s: svgScaleS } }),
-    [svg, svgOffset, svgScaleS]
-  )
-  return { m, svgScaleS }
+
+  return { svgScaleS }
 }
 
 export function useMapHtmlStyle(pointerRef: Readonly<PointerRef>) {
-  const { m, svgScaleS } = useMapHtmlMatrix(pointerRef)
+  const { svgScaleS } = useMapHtmlMatrix(pointerRef)
   const style = useMemo(
     () => `
 .content.html {
-  --svg-matrix: ${fixupCssString(cssMatrixToString(m))};
   --svg-scale: ${svgScaleS};
 }
 `,
-    [m, svgScaleS]
+    [svgScaleS]
   )
   return style
 }

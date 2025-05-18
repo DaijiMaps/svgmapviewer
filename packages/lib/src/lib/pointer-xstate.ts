@@ -10,6 +10,7 @@ import {
   StateFrom,
   stateIn,
 } from 'xstate'
+import { styleActor } from '../Style'
 import {
   Animation,
   animationEndLayout,
@@ -18,6 +19,8 @@ import {
   animationZoom,
 } from './animation'
 import { BoxBox, boxCenter } from './box/prefixed'
+import { fromSvgToOuter } from './coord'
+import { cssMatrixToString, fixupCssString } from './css'
 import { Drag, dragMove, dragStart } from './drag'
 import { keyToDir, keyToZoom } from './key'
 import {
@@ -381,6 +384,12 @@ export const pointerMachine = setup({
     }),
     syncViewBox: ({ context: { layout } }) => {
       syncViewBox('.container > .content.svg > svg', layout.svg)
+    },
+    syncMatrix: ({ context: { layout } }) => {
+      const { svg, svgOffset, svgScale } = layout
+      const m = fromSvgToOuter({ svg, svgOffset, svgScale })
+      const matrix = fixupCssString(cssMatrixToString(m))
+      styleActor.send({ type: 'STYLE.MATRIX', matrix })
     },
 
     //
@@ -1004,7 +1013,7 @@ export const pointerMachine = setup({
           entry: 'updateExpanding',
           on: {
             RENDERED: {
-              actions: ['syncScroll', 'syncViewBox'],
+              actions: ['syncScroll', 'syncViewBox', 'syncMatrix'],
               target: 'ExpandRendering2',
             },
           },
@@ -1049,6 +1058,7 @@ export const pointerMachine = setup({
                 'endDrag',
                 { type: 'expand', params: { n: 1 } },
                 'syncViewBox',
+                'syncMatrix',
               ],
               target: 'UnexpandRendering',
             },
@@ -1307,6 +1317,7 @@ export const pointerMachine = setup({
                 'resetScroll',
                 'endDrag',
                 'syncViewBox',
+                'syncMatrix',
                 raise({ type: 'UNEXPAND' }),
               ],
               target: 'Expanding',
@@ -1341,7 +1352,7 @@ export const pointerMachine = setup({
           entry: raise({ type: 'ANIMATION' }),
           on: {
             'ANIMATION.DONE': {
-              actions: ['resetScroll', 'syncViewBox'],
+              actions: ['resetScroll', 'syncViewBox', 'syncMatrix'],
               target: 'Rendering',
             },
           },
@@ -1380,7 +1391,12 @@ export const pointerMachine = setup({
           entry: raise({ type: 'SLIDE' }),
           on: {
             'SLIDE.DONE': {
-              actions: ['recenterLayout', 'resetScroll', 'syncViewBox'],
+              actions: [
+                'recenterLayout',
+                'resetScroll',
+                'syncViewBox',
+                'syncMatrix',
+              ],
               target: 'Rendering',
             },
           },
@@ -1520,6 +1536,7 @@ export const pointerMachine = setup({
                 },
                 'resetScroll',
                 'syncViewBox',
+                'syncMatrix',
               ],
               target: 'Rendering',
             },

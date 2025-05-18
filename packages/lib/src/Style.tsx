@@ -1,10 +1,10 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-throw-statements */
-import { useActor } from '@xstate/react'
+import { useSelector } from '@xstate/react'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { assign, setup, StateFrom } from 'xstate'
+import { assign, createActor, setup, StateFrom } from 'xstate'
 import './index.css'
 
 export function styleRoot() {
@@ -22,24 +22,28 @@ export function styleRoot() {
 }
 
 function Style() {
-  const [state] = useActor(styleMachine, {
-    systemId: 'system-style1',
-  })
-  const { scroll } = state.context
+  const matrix = useSelector(
+    styleActor,
+    (state: Readonly<StyleState>) => state.context.matrix
+  )
 
   return (
     <>
-      <style id="style-scroll">{scroll}</style>
+      <style id="style-matrix">{`
+.container > .content.html {
+  --svg-matrix: ${matrix}
+}
+`}</style>
     </>
   )
 }
 
 ////
 
-export type StyleEvent = { type: 'STYLE.SCROLL'; scroll: string }
+export type StyleEvent = { type: 'STYLE.MATRIX'; matrix: string }
 
 interface StyleContext {
-  scroll: string
+  matrix: string
 }
 
 const styleMachine = setup({
@@ -50,21 +54,27 @@ const styleMachine = setup({
 }).createMachine({
   id: 'style1',
   context: {
-    scroll: '',
+    matrix: 'scale(1)',
   },
   initial: 'Idle',
   states: {
     Idle: {
       on: {
-        'STYLE.SCROLL': {
+        'STYLE.MATRIX': {
           actions: assign({
-            scroll: ({ event }) => event.scroll,
+            matrix: ({ event }) => event.matrix,
           }),
         },
       },
     },
   },
 })
+
+export const styleActor = createActor(styleMachine, {
+  systemId: 'system-pointer1',
+  inspect: (iev) => console.log(iev),
+})
+styleActor.start()
 
 export type StyleMachine = typeof styleMachine
 export type StyleState = StateFrom<StyleMachine>

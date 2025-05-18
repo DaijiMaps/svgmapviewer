@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { root } from '../Root'
+import { styleRoot } from '../Style'
 import { Box } from './box/main'
 import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
 import { searchSearchDone, searchSearchStart } from './search'
@@ -33,4 +34,5 @@ export function svgmapviewer(configUser: Readonly<SvgMapViewerConfigUser>) {
   svgMapViewerConfig.searchDoneCbs.add(searchSearchDone)
 
   root(config)
+  styleRoot()
 }
