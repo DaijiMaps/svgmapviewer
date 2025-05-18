@@ -1381,22 +1381,6 @@ export const pointerMachine = setup({
                 'syncViewBox',
                 'syncMatrix',
               ],
-              target: 'Rendering',
-            },
-          },
-        },
-        Rendering: {
-          entry: 'updateExpanding',
-          on: {
-            RENDERED: {
-              target: 'Rendering2',
-            },
-          },
-        },
-        Rendering2: {
-          entry: 'clearExpanding',
-          on: {
-            RENDERED: {
               target: 'Inactive',
             },
           },
