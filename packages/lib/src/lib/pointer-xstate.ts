@@ -460,6 +460,9 @@ export const pointerMachine = setup({
       // XXX resetCursor
       cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
     }),
+    setModeToLocked: assign({
+      mode: ({ context: { mode } }) => (mode === 'pointing' ? 'locked' : mode),
+    }),
 
     // click lock
     lockClick: assign({ clickLock: true }),
@@ -1557,10 +1560,8 @@ export const pointerMachine = setup({
             guard: 'isIdle',
             actions: [
               emit({ type: 'LOCK', ok: true }),
-              assign({
-                mode: ({ context: { mode } }) =>
-                  mode === 'pointing' ? 'locked' : mode,
-              }),
+              'setModeToLocked',
+              emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
             ],
           },
           {
