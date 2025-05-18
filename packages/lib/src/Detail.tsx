@@ -1,4 +1,5 @@
 import { useSelector } from '@xstate/react'
+import { useMemo } from 'react'
 import { Balloon, BalloonStyle } from './Balloon'
 import './Detail.css'
 import { svgMapViewerConfig as cfg } from './lib/config'
@@ -15,16 +16,23 @@ export interface DetailProps {
 export function Detail(props: Readonly<DetailProps>) {
   const detail = useSelector(props._uiRef, selectDetail)
 
+  // XXX
   const layout = useSelector(props._pointerRef, selectLayout)
 
-  if (detail === null) {
+  const p = useMemo(
+    () => (detail === null ? null : fromSvg(detail.psvg, layout)),
+    [detail, layout]
+  )
+  const dir = useMemo(
+    () => (p === null ? null : diag(layout.container, p)),
+    [layout, p]
+  )
+  const W = useMemo(() => layout.container.width, [layout])
+  const H = useMemo(() => layout.container.height, [layout])
+
+  if (detail === null || p === null || dir === null) {
     return <></>
   }
-
-  const p = fromSvg(detail.psvg, layout)
-  const dir = diag(layout.container, p)
-  const W = layout.container.width
-  const H = layout.container.height
 
   return (
     <div>
