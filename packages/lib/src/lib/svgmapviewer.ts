@@ -3,7 +3,11 @@
 import { root } from '../Root'
 import { styleRoot } from '../Style'
 import { Box } from './box/main'
-import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
+import {
+  configActor,
+  svgMapViewerConfig,
+  updateSvgMapViewerConfig,
+} from './config'
 import { searchSearchDone, searchSearchStart } from './search'
 import { SvgMapViewerConfig, SvgMapViewerConfigUser } from './types'
 
@@ -32,6 +36,11 @@ export function svgmapviewer(configUser: Readonly<SvgMapViewerConfigUser>) {
 
   svgMapViewerConfig.searchStartCbs.add(searchSearchStart)
   svgMapViewerConfig.searchDoneCbs.add(searchSearchDone)
+
+  // eslint-disable-next-line functional/no-conditional-statements
+  if (configUser.mapNames) {
+    configActor.send({ type: 'SET.MAPNAMES', mapNames: configUser.mapNames })
+  }
 
   root(config)
   styleRoot()

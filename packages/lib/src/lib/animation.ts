@@ -1,7 +1,7 @@
 import { pipe } from 'fp-ts/lib/function'
 import { ReadonlyDeep } from 'type-fest'
 import { Box } from './box'
-import { boxCenter, boxMove, boxScaleAt } from './box/prefixed'
+import { boxCenter, boxScaleAt } from './box/prefixed'
 import { fromMatrixSvg, toMatrixSvg } from './coord'
 import { Drag } from './drag'
 import { Layout, relocLayout, zoomLayout } from './layout'
@@ -19,10 +19,10 @@ import {
   transformScale,
 } from './transform'
 import { ifNullOr, zoomToScale } from './utils'
-import { VecVec as Vec, vecSub } from './vec/prefixed'
+import { VecVec as Vec, vecAdd, vecSub } from './vec/prefixed'
 
 export type AnimationMove = Readonly<{
-  move: Box
+  move: Vec
   q: Matrix
 }>
 
@@ -42,7 +42,7 @@ export const animationMove = (
   drag: Drag,
   d: Vec
 ): Animation => {
-  const move = boxMove(drag.start, d)
+  const move = vecAdd(drag.start, d)
 
   const v = vecSub(ifNullOr(move, layout.scroll), layout.scroll)
   const q = fromTransform(v)

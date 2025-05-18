@@ -1,8 +1,8 @@
-import { svgMapViewerConfig } from '@daijimaps/svgmapviewer'
 import { useSelector } from '@xstate/react'
 import { ReactNode, useEffect, useMemo } from 'react'
 import { createRoot } from 'react-dom/client'
 import { assign, createActor, emit, setup } from 'xstate'
+import { configActor, selectMapNames } from './lib'
 import { fixupCssString } from './lib/css'
 import { POI } from './lib/geo'
 import { useLikes } from './lib/like'
@@ -38,7 +38,7 @@ function MapHtmlContentRoot(): ReactNode {
 }
 
 function useNames() {
-  const mapNames = svgMapViewerConfig.mapNames
+  const mapNames = useSelector(configActor, selectMapNames)
 
   const pointNames = useMemo(() => {
     return mapNames.filter(
