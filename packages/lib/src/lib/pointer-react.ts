@@ -1,8 +1,8 @@
-import { useActorRef, useSelector } from '@xstate/react'
-import { RefObject, useCallback, useEffect } from 'react'
+import { useSelector } from '@xstate/react'
+import { RefObject, useEffect } from 'react'
 import { createActor } from 'xstate'
 import { svgMapViewerConfig as cfg } from './config'
-import { timeoutMachine, TimeoutRef } from './event-xstate'
+import { timeoutMachine } from './event-xstate'
 import { Layout } from './layout'
 import { useLayout } from './layout-react'
 import {
@@ -32,7 +32,7 @@ function usePointerKey() {
   }, [])
 }
 
-function usePointerEventMask(scrollTimeoutRef: TimeoutRef) {
+function usePointerEventMask() {
   const mode = useSelector(pointerActor, selectMode)
 
   useEffect(() => {
@@ -45,41 +45,14 @@ function usePointerEventMask(scrollTimeoutRef: TimeoutRef) {
     wheeleventmask = mode !== 'pointing'
     scrolleventmask = mode !== 'panning'
     if (mode === 'panning') {
-      scrollTimeoutRef.send({ type: 'START' })
+      scrollTimeoutActor.send({ type: 'START' })
     } else {
-      scrollTimeoutRef.send({ type: 'STOP' })
+      scrollTimeoutActor.send({ type: 'STOP' })
     }
-  }, [mode, scrollTimeoutRef])
+  }, [mode])
 }
 
-function usePointerEvent(
-  containerRef: RefObject<HTMLDivElement>,
-  scrollTimeoutRef: TimeoutRef
-) {
-  // XXX
-  // XXX
-  // XXX
-  useEffect(() => {
-    const sub = scrollTimeoutRef.on('EXPIRED', ({ ev }) => {
-      if (!scrolleventmask) {
-        pointerSend({ type: 'SCROLL', ev })
-      }
-    })
-    return () => sub.unsubscribe()
-  }, [scrollTimeoutRef])
-
-  const sendScroll = useCallback(
-    (ev: Event) =>
-      scrollTimeoutRef.send({
-        type: 'TICK',
-        ev,
-      }),
-    [scrollTimeoutRef]
-  )
-  // XXX
-  // XXX
-  // XXX
-
+function usePointerEvent(containerRef: RefObject<HTMLDivElement>) {
   useEffect(() => {
     const e = containerRef.current
     if (e === null) {
@@ -107,7 +80,7 @@ function usePointerEvent(
       e.removeEventListener('wheel', sendWheel)
       e.removeEventListener('scroll', sendScroll)
     }
-  }, [containerRef, sendScroll])
+  }, [containerRef])
 }
 
 function useSearch() {
@@ -118,27 +91,6 @@ function useSearch() {
       cfg.uiOpenCbs.delete(pointerSearchLock)
       cfg.uiCloseDoneCbs.delete(pointerSearchUnlock)
     }
-  }, [])
-
-  useEffect(() => {
-    const subs = [
-      pointerActor.on('SEARCH', ({ psvg }) =>
-        cfg.searchStartCbs.forEach((cb) => cb(psvg))
-      ),
-      pointerActor.on('LOCK', ({ ok }) =>
-        cfg.uiOpenDoneCbs.forEach((cb) => cb(ok))
-      ),
-      pointerActor.on('LAYOUT', ({ layout }) =>
-        cfg.zoomEndCbs.forEach((cb) => cb(layout, 1))
-      ),
-      pointerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
-        cfg.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
-      ),
-      pointerActor.on('ZOOM.END', ({ layout, zoom }) =>
-        cfg.zoomEndCbs.forEach((cb) => cb(layout, zoom))
-      ),
-    ]
-    return () => subs.forEach((sub) => sub.unsubscribe())
   }, [])
 }
 
@@ -156,24 +108,15 @@ function useResizing() {
 }
 
 export function usePointer(containerRef: RefObject<HTMLDivElement>): void {
-  const scrollTimeoutRef = useActorRef(timeoutMachine)
-
-  usePointerConfig(containerRef, scrollTimeoutRef)
-}
-
-export function usePointerConfig(
-  containerRef: RefObject<HTMLDivElement>,
-  scrollTimeoutRef: TimeoutRef
-) {
   ////
   //// event handlers
   ////
 
   usePointerKey()
 
-  usePointerEventMask(scrollTimeoutRef)
+  usePointerEventMask()
 
-  usePointerEvent(containerRef, scrollTimeoutRef)
+  usePointerEvent(containerRef)
 
   ////
   //// ui callbacks
@@ -193,6 +136,19 @@ export function usePointerConfig(
 export const pointerActor = createActor(pointerMachine, {
   systemId: 'system-pointer1',
 })
+pointerActor.on('SEARCH', ({ psvg }) =>
+  cfg.searchStartCbs.forEach((cb) => cb(psvg))
+)
+pointerActor.on('LOCK', ({ ok }) => cfg.uiOpenDoneCbs.forEach((cb) => cb(ok)))
+pointerActor.on('LAYOUT', ({ layout }) =>
+  cfg.zoomEndCbs.forEach((cb) => cb(layout, 1))
+)
+pointerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
+  cfg.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
+)
+pointerActor.on('ZOOM.END', ({ layout, zoom }) =>
+  cfg.zoomEndCbs.forEach((cb) => cb(layout, zoom))
+)
 pointerActor.start()
 
 const pointerSend = (
@@ -260,6 +216,11 @@ const sendWheel = (ev: WheelEvent) => {
   }
   pointerSend({ type: 'WHEEL', ev })
 }
+const sendScroll = (ev: Event) =>
+  scrollTimeoutActor.send({
+    type: 'TICK',
+    ev,
+  })
 
 const pointerSearchLock = (psvg: Vec) =>
   pointerActor.send({ type: 'SEARCH.LOCK', psvg })
@@ -272,3 +233,14 @@ const layoutCb = (origLayout: Readonly<Layout>, force: boolean) => {
 const keyDown = (ev: KeyboardEvent) =>
   pointerActor.send({ type: 'KEY.DOWN', ev })
 const keyUp = (ev: KeyboardEvent) => pointerActor.send({ type: 'KEY.UP', ev })
+
+////
+
+const scrollTimeoutActor = createActor(timeoutMachine)
+
+scrollTimeoutActor.on('EXPIRED', ({ ev }) => {
+  if (!scrolleventmask) {
+    pointerSend({ type: 'SCROLL', ev })
+  }
+})
+scrollTimeoutActor.start()
