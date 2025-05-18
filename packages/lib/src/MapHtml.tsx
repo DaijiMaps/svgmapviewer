@@ -87,7 +87,7 @@ function MapHtmlContentStyle(props: Readonly<MapHtmlProps>) {
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
   useEffect(() => {
     // eslint-disable-next-line functional/no-expression-statements
-    mountMapHtmlContentRoot(props._pointerRef)
+    mountMapHtmlContentRoot(ROOT_ID, props._pointerRef)
   })
 
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
@@ -357,14 +357,13 @@ rootActor.on('RENDER', ({ ref, names }) => {
 rootActor.start()
 
 // eslint-disable-next-line functional/no-return-void
-export function mountMapHtmlContentRoot(ref: Readonly<PointerRef>) {
-  const root = document.querySelector(`#${ROOT_ID}`)
-  if (root === null) {
+export function mountMapHtmlContentRoot(id: string, ref: Readonly<PointerRef>) {
+  const root = document.querySelector(`#${id}`)
+  if (root === null || root.shadowRoot === null) {
     return
   }
-  if (root.shadowRoot !== null) {
-    return
-  }
+  // shadowRoot is present
+
   // eslint-disable-next-line functional/no-expression-statements
   rootActor.send({ type: 'MOUNT', ref })
 }
@@ -377,6 +376,7 @@ function renderShadowRoot(id: string, children: Readonly<ReactNode>): boolean {
     return false
   }
   if (root.shadowRoot !== null) {
+    // shadowRoot is present
     return true
   }
   const shadowRoot = root.attachShadow({ mode: 'open' })
