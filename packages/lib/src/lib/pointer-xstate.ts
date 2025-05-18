@@ -175,6 +175,7 @@ export type PointerEmitted =
   | { type: 'LAYOUT'; layout: Layout }
   | { type: 'ZOOM.START'; layout: Layout; zoom: number; z: number }
   | { type: 'ZOOM.END'; layout: Layout; zoom: number }
+  | { type: 'MODE'; mode: PointerMode }
 
 //// pointerMachine
 
@@ -852,7 +853,10 @@ export const pointerMachine = setup({
         Locked: {
           on: {
             'SEARCH.UNLOCK': {
-              actions: 'resetMode',
+              actions: [
+                'resetMode',
+                emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+              ],
               target: 'Idle',
             },
           },
@@ -1419,7 +1423,10 @@ export const pointerMachine = setup({
         Expanding: {
           on: {
             'EXPAND.DONE': {
-              actions: 'setModeToPanning',
+              actions: [
+                'setModeToPanning',
+                emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+              ],
               target: 'Panning',
             },
             'UNEXPAND.DONE': {
@@ -1494,7 +1501,12 @@ export const pointerMachine = setup({
           always: 'Stopping',
         },
         Stopping: {
-          entry: ['lockClick', 'resetMode', 'getScroll'],
+          entry: [
+            'lockClick',
+            'resetMode',
+            emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+            'getScroll',
+          ],
           on: {
             'SCROLL.GET.DONE': {
               actions: [

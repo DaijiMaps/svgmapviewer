@@ -10,7 +10,6 @@ import {
   PointerMode,
   ReactUIEvent,
   selectExpanding,
-  selectMode,
 } from './pointer-xstate'
 import { Vec } from './vec'
 
@@ -19,27 +18,6 @@ let toucheventmask: boolean = false
 let clickeventmask: boolean = false
 let wheeleventmask: boolean = false
 let scrolleventmask: boolean = false
-
-function usePointerKey() {
-  useEffect(() => {
-    const add = document.body.addEventListener
-    const remove = document.body.removeEventListener
-    add('keydown', keyDown)
-    add('keyup', keyUp)
-    return () => {
-      remove('keydown', keyDown)
-      remove('keyup', keyUp)
-    }
-  }, [])
-}
-
-function usePointerEventMask() {
-  const mode = useSelector(pointerActor, selectMode)
-
-  useEffect(() => {
-    reflectMode(mode)
-  }, [mode])
-}
 
 function reflectMode(mode: PointerMode): void {
   pointereventmask = mode !== 'pointing'
@@ -55,6 +33,19 @@ function reflectMode(mode: PointerMode): void {
   } else {
     scrollTimeoutActor.send({ type: 'STOP' })
   }
+}
+
+function usePointerKey() {
+  useEffect(() => {
+    const add = document.body.addEventListener
+    const remove = document.body.removeEventListener
+    add('keydown', keyDown)
+    add('keyup', keyUp)
+    return () => {
+      remove('keydown', keyDown)
+      remove('keyup', keyUp)
+    }
+  }, [])
 }
 
 function usePointerEvent(containerRef: RefObject<HTMLDivElement>) {
@@ -88,6 +79,9 @@ function usePointerEvent(containerRef: RefObject<HTMLDivElement>) {
   }, [containerRef])
 }
 
+// XXX
+// XXX
+// XXX
 function useExpanding() {
   // re-render handling
   const expanding = useSelector(pointerActor, selectExpanding)
@@ -95,6 +89,9 @@ function useExpanding() {
     pointerActor.send({ type: 'RENDERED' })
   }, [expanding])
 }
+// XXX
+// XXX
+// XXX
 
 function useResizing() {
   // resize handling
@@ -104,7 +101,6 @@ function useResizing() {
 export function usePointer(containerRef: RefObject<HTMLDivElement>): void {
   //// event handlers
   usePointerKey()
-  usePointerEventMask()
   usePointerEvent(containerRef)
 
   //// actions
@@ -128,6 +124,7 @@ pointerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
 pointerActor.on('ZOOM.END', ({ layout, zoom }) =>
   cfg.zoomEndCbs.forEach((cb) => cb(layout, zoom))
 )
+pointerActor.on('MODE', ({ mode }) => reflectMode(mode))
 pointerActor.start()
 
 const pointerSend = (
