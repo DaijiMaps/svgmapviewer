@@ -87,7 +87,7 @@ function MapHtmlContentStyle(props: Readonly<MapHtmlProps>) {
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
   useEffect(() => {
     // eslint-disable-next-line functional/no-expression-statements
-    rootActor.send({ type: 'UPDATE', names: names.areaNames })
+    rootActor.send({ type: 'UPDATE', ...names })
   }, [names])
 
   return <></>
@@ -122,13 +122,15 @@ function MapHtmlContentSymbols() {
 }
 */
 
-function MapHtmlContentStars(props: Readonly<{ _names: POI[] }>) {
-  const { _names: names } = props
+function MapHtmlContentStars(
+  props: Readonly<{ _pointNames: POI[]; _areaNames: POI[] }>
+) {
+  const { _pointNames: pointNames, _areaNames: areaNames } = props
   const { isLiked } = useLikes()
 
   const likedNames = useMemo(
     () =>
-      names
+      [...pointNames, ...areaNames]
         .filter(({ id }) => id !== null && id !== 0 && isLiked(id))
         .map(({ id, name, pos, area }) => ({
           id,
@@ -136,7 +138,7 @@ function MapHtmlContentStars(props: Readonly<{ _names: POI[] }>) {
           pos,
           area,
         })),
-    [isLiked, names]
+    [areaNames, isLiked, pointNames]
   )
 
   return (
@@ -162,12 +164,41 @@ function MapHtmlContentStars(props: Readonly<{ _names: POI[] }>) {
   )
 }
 
-function MapHtmlContentNames(props: Readonly<{ _names: POI[] }>) {
-  const { _names: names } = props
+function MapHtmlContentNamesPoint(props: Readonly<{ _pointNames: POI[] }>) {
+  const { _pointNames: pointNames } = props
 
   return (
-    <div className="poi-names">
-      {names.map(({ id, name, pos: { x, y }, size }) => (
+    <div className="poi-names area">
+      {pointNames.map(({ id, name, pos: { x, y }, size }) => (
+        <div
+          key={id}
+          className={`poi-names-item osm-id-${id}`}
+          style={{
+            transform: fixupCssString(
+              `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(${size} / 100 / var(--svg-scale)))`
+            ),
+          }}
+        >
+          <RenderName
+            poi={{
+              id,
+              name: size === 0 ? [''] : name,
+              pos: { x, y },
+              size,
+            }}
+          />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function MapHtmlContentNamesArea(props: Readonly<{ _areaNames: POI[] }>) {
+  const { _areaNames: areaNames } = props
+
+  return (
+    <div className="poi-names area">
+      {areaNames.map(({ id, name, pos: { x, y }, size }) => (
         <div
           key={id}
           className={`poi-names-item osm-id-${id}`}
@@ -269,16 +300,19 @@ type RootEvent =
     }
   | {
       type: 'UPDATE'
-      names: POI[]
+      pointNames: POI[]
+      areaNames: POI[]
     }
 type RootEmit = {
   type: 'RENDER'
   ref: null | PointerRef
-  names: POI[]
+  pointNames: POI[]
+  areaNames: POI[]
 }
 interface RootContext {
   ref: null | PointerRef
-  names: POI[]
+  pointNames: POI[]
+  areaNames: POI[]
 }
 
 const rootLogic = setup({
@@ -289,7 +323,7 @@ const rootLogic = setup({
   },
 }).createMachine({
   id: 'map-html-names-root',
-  context: { ref: null, names: [] },
+  context: { ref: null, pointNames: [], areaNames: [] },
   on: {
     MOUNT: {
       actions: assign({
@@ -304,12 +338,14 @@ const rootLogic = setup({
         guard: ({ context }) => context.ref !== null,
         actions: [
           assign({
-            names: ({ event }) => event.names,
+            pointNames: ({ event }) => event.pointNames,
+            areaNames: ({ event }) => event.areaNames,
           }),
           emit(({ context, event }) => ({
             type: 'RENDER',
             ref: context.ref,
-            names: event.names,
+            pointNames: event.pointNames,
+            areaNames: event.areaNames,
           })),
         ],
       },
@@ -320,7 +356,7 @@ const rootLogic = setup({
 const rootActor = createActor(rootLogic)
 
 // eslint-disable-next-line functional/no-expression-statements
-rootActor.on('RENDER', ({ ref, names }) => {
+rootActor.on('RENDER', ({ ref, pointNames, areaNames }) => {
   if (ref === null) {
     return
   }
@@ -353,8 +389,9 @@ rootActor.on('RENDER', ({ ref, names }) => {
 }
 `}
       </style>
-      <MapHtmlContentStars _names={names} />
-      <MapHtmlContentNames _names={names} />
+      <MapHtmlContentStars _pointNames={pointNames} _areaNames={areaNames} />
+      <MapHtmlContentNamesPoint _pointNames={pointNames} />
+      <MapHtmlContentNamesArea _areaNames={areaNames} />
       <MapHtmlContentNamesStyle _pointerRef={ref} />
     </>
   )
