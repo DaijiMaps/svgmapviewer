@@ -9,6 +9,7 @@ import App from './App'
 import './index.css'
 import { SvgMapViewerConfig } from './lib'
 import { svgMapViewerConfig } from './lib/config'
+import { keyDown, keyUp } from './lib/pointer-react'
 import { RenderMap } from './Map'
 
 export const SvgMapViewerConfigContext = createContext(svgMapViewerConfig)
@@ -30,6 +31,9 @@ export function root(config: Readonly<SvgMapViewerConfig>) {
       ev.preventDefault()
     }
   }
+
+  document.body.onkeydown = keyDown
+  document.body.onkeyup = keyUp
 
   createRoot(e).render(
     <StrictMode>

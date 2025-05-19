@@ -47,6 +47,11 @@ export function Container(props: Readonly<PropsWithChildren>) {
   )
 }
 
+// XXX
+// XXX
+// XXX
+// XXX
+// XXX
 export function ContainerStyle() {
   return (
     <>
@@ -56,6 +61,11 @@ export function ContainerStyle() {
     </>
   )
 }
+// XXX
+// XXX
+// XXX
+// XXX
+// XXX
 
 function InitStyle() {
   const style = useInitStyle()

@@ -35,19 +35,6 @@ function reflectMode(mode: PointerMode): void {
   }
 }
 
-function usePointerKey() {
-  useEffect(() => {
-    const add = document.body.addEventListener
-    const remove = document.body.removeEventListener
-    add('keydown', keyDown)
-    add('keyup', keyUp)
-    return () => {
-      remove('keydown', keyDown)
-      remove('keyup', keyUp)
-    }
-  }, [])
-}
-
 // XXX
 // XXX
 // XXX
@@ -68,9 +55,6 @@ function useResizing() {
 }
 
 export function usePointer(): void {
-  //// event handlers
-  usePointerKey()
-
   //// actions
   useExpanding()
   useResizing()
@@ -97,6 +81,8 @@ pointerActor.on('ZOOM.END', ({ layout, zoom }) =>
 pointerActor.on('MODE', ({ mode }) => reflectMode(mode))
 pointerActor.start()
 
+////
+
 const pointerSend = (
   // excluding key down/up events
   event: ReactUIEvent,
@@ -117,6 +103,8 @@ const pointerSend = (
   }
   pointerActor.send(event)
 }
+
+////
 
 export const sendPointerDown = (ev: PointerEvent | React.PointerEvent) =>
   pointerSend({ type: 'POINTER.DOWN', ev })
@@ -176,9 +164,10 @@ const layoutCb = (origLayout: Readonly<Layout>, force: boolean) => {
   pointerActor.send({ type: 'LAYOUT', layout: origLayout, force })
 }
 
-const keyDown = (ev: KeyboardEvent) =>
+export const keyDown = (ev: KeyboardEvent) =>
   pointerActor.send({ type: 'KEY.DOWN', ev })
-const keyUp = (ev: KeyboardEvent) => pointerActor.send({ type: 'KEY.UP', ev })
+export const keyUp = (ev: KeyboardEvent) =>
+  pointerActor.send({ type: 'KEY.UP', ev })
 
 cfg.uiOpenCbs.add(pointerSearchLock)
 cfg.uiCloseDoneCbs.add(pointerSearchUnlock)
