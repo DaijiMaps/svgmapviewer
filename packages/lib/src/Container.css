@@ -11,4 +11,8 @@
   will-change: scroll-position;
   contain: paint;
   background-color: white;
+
+  /* XXX will be update by Style.tsx */
+  opacity: 0;
+  transition: opacity 1s;
 }

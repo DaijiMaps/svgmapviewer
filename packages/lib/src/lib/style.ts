@@ -4,32 +4,7 @@ import { svgMapViewerConfig as cfg } from './config'
 import { Matrix } from './matrix'
 import { matrixEmpty, matrixToString } from './matrix/prefixed'
 import { pointerActor } from './pointer-react'
-import {
-  selectAnimating,
-  selectAnimation,
-  selectRendered,
-} from './pointer-xstate'
-
-export function useInitStyle() {
-  const rendered = useSelector(pointerActor, selectRendered)
-  const style = useMemo(
-    () =>
-      !rendered
-        ? `
-.container {
-  opacity: 0;
-}`
-        : `
-.container {
-  transition: opacity 1s;
-  opacity: 1;
-}
-`,
-    [rendered]
-  )
-
-  return style
-}
+import { selectAnimating, selectAnimation } from './pointer-xstate'
 
 export function useMoveStyle() {
   const animation = useSelector(pointerActor, selectAnimation)

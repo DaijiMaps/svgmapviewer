@@ -36,6 +36,10 @@ function Style() {
 }
 
 function LayoutStyle() {
+  const inited = useSelector(
+    styleActor,
+    (state: Readonly<StyleState>) => state.context.inited
+  )
   const layout = useSelector(
     styleActor,
     (state: Readonly<StyleState>) => state.context.layout
@@ -46,6 +50,10 @@ function LayoutStyle() {
 
   return (
     <style>{`
+.container {
+  opacity: ${!inited ? 0 : 1};
+  transition: opacity 1s;
+}
 .container > .content {
   width: ${scroll.width}px;
   height: ${scroll.height}px;
@@ -109,6 +117,7 @@ export type StyleEvent =
   | { type: 'STYLE.MODE'; mode: string }
 
 interface StyleContext {
+  inited: boolean
   layout: Layout
   dragging: boolean
   mode: string
@@ -122,6 +131,7 @@ const styleMachine = setup({
 }).createMachine({
   id: 'style1',
   context: {
+    inited: false,
     layout: emptyLayout,
     dragging: false,
     mode: 'pointing',
@@ -132,6 +142,7 @@ const styleMachine = setup({
       on: {
         'STYLE.LAYOUT': {
           actions: assign({
+            inited: true,
             layout: ({ event }) => event.layout,
           }),
         },
