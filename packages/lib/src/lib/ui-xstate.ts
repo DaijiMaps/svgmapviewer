@@ -290,6 +290,7 @@ export const selectOpenCloseDetail = (ui: UiState) => ui.context.m['detail']
 
 ////
 export const uiActor = createActor(uiMachine)
+configActor.start()
 configActor.send({
   type: 'ADD.CB',
   searchEndCb: uiDetail,
@@ -314,5 +315,5 @@ function uiCancel() {
   uiActor.send({ type: 'CANCEL' })
 }
 function closeDone() {
-  cfg.uiCloseDoneCbs.forEach((cb) => cb())
+  configActor.getSnapshot().context.uiCloseDoneCbs.forEach((cb) => cb())
 }

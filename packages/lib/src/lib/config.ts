@@ -279,7 +279,9 @@ const configMachine = setup({
   },
 })
 
-export const configActor = createActor(configMachine)
+export const configActor = createActor(configMachine, {
+  inspect: (iev) => console.log(iev),
+})
 configActor.start()
 
 export const configContext = createContext(configActor.ref)

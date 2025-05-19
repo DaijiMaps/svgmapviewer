@@ -34,6 +34,7 @@ function useRenderMap(): { renderMapRef: RenderMapRef } {
   )
 
   useEffect(() => {
+    configActor.start()
     configActor.send({
       type: 'ADD.CB',
       zoomStartCb: zoomStart,

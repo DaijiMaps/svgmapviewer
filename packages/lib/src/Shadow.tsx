@@ -1,17 +1,17 @@
 import { useSelector } from '@xstate/react'
-import { useContext } from 'react'
+import { configActor } from './lib'
 import { selectOpenCloseShadow, uiActor } from './lib/ui-xstate'
-import { SvgMapViewerConfigContext } from './Root'
 import './Shadow.css'
 
 export function Shadow() {
-  const config = useContext(SvgMapViewerConfigContext)
-
   return (
     <div
       className="shadow"
       // eslint-disable-next-line functional/no-return-void
-      onClick={() => config.uiCloseCbs.forEach((cb) => cb())}
+      onClick={() =>
+        // eslint-disable-next-line functional/no-return-void
+        configActor.getSnapshot().context.uiCloseCbs.forEach((cb) => cb())
+      }
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiActor.send({ type: 'SHADOW.ANIMATION.END' })}
     >

@@ -66,17 +66,21 @@ export const pointerActor = createActor(pointerMachine, {
   systemId: 'system-pointer1',
 })
 pointerActor.on('SEARCH', ({ psvg }) =>
-  cfg.searchStartCbs.forEach((cb) => cb(psvg))
+  configActor.getSnapshot().context.searchStartCbs.forEach((cb) => cb(psvg))
 )
-pointerActor.on('LOCK', ({ ok }) => cfg.uiOpenDoneCbs.forEach((cb) => cb(ok)))
+pointerActor.on('LOCK', ({ ok }) =>
+  configActor.getSnapshot().context.uiOpenDoneCbs.forEach((cb) => cb(ok))
+)
 pointerActor.on('LAYOUT', ({ layout }) =>
-  cfg.zoomEndCbs.forEach((cb) => cb(layout, 1))
+  configActor.getSnapshot().context.zoomEndCbs.forEach((cb) => cb(layout, 1))
 )
 pointerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
-  cfg.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
+  configActor
+    .getSnapshot()
+    .context.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
 )
 pointerActor.on('ZOOM.END', ({ layout, zoom }) =>
-  cfg.zoomEndCbs.forEach((cb) => cb(layout, zoom))
+  configActor.getSnapshot().context.zoomEndCbs.forEach((cb) => cb(layout, zoom))
 )
 pointerActor.on('MODE', ({ mode }) => reflectMode(mode))
 pointerActor.start()
@@ -174,6 +178,7 @@ export const keyDown = (ev: KeyboardEvent) =>
 export const keyUp = (ev: KeyboardEvent) =>
   pointerActor.send({ type: 'KEY.UP', ev })
 
+configActor.start()
 configActor.send({
   type: 'ADD.CB',
   uiOpenCb: pointerSearchLock,

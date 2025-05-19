@@ -34,6 +34,7 @@ export function svgmapviewer(configUser: Readonly<SvgMapViewerConfigUser>) {
     ...configUser,
   }
 
+  configActor.start()
   configActor.send({
     type: 'ADD.CB',
     searchStartCb: searchSearchStart,
@@ -44,6 +45,7 @@ export function svgmapviewer(configUser: Readonly<SvgMapViewerConfigUser>) {
 
   // eslint-disable-next-line functional/no-conditional-statements
   if (configUser.mapNames) {
+    configActor.start()
     configActor.send({ type: 'SET.MAPNAMES', mapNames: configUser.mapNames })
   }
 

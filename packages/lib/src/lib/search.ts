@@ -1,7 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { createActor } from 'xstate'
-import { svgMapViewerConfig as cfg } from './config'
+import { configActor } from './config'
 import { searchMachine } from './search-xstate'
 import { SearchRes } from './types'
 import { Vec } from './vec'
@@ -9,12 +9,14 @@ import { Vec } from './vec'
 export const searchRef = createActor(searchMachine)
 
 searchRef.on('SEARCH', ({ psvg }) => {
-  cfg.searchCbs.forEach((cb) => cb(psvg))
+  configActor.getSnapshot().context.searchCbs.forEach((cb) => cb(psvg))
 })
 
 searchRef.on('SEARCH.DONE', ({ /*p,*/ psvg, info }) => {
-  cfg.searchEndCbs.forEach((cb) => cb({ psvg, info }))
-  cfg.uiOpenCbs.forEach((cb) => cb(psvg, info))
+  configActor
+    .getSnapshot()
+    .context.searchEndCbs.forEach((cb) => cb({ psvg, info }))
+  configActor.getSnapshot().context.uiOpenCbs.forEach((cb) => cb(psvg, info))
 })
 
 export function searchSearchStart(psvg: Vec) {
