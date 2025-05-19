@@ -46,6 +46,20 @@ import {
 import { VecVec as Vec, vecMul, vecSub, vecVec } from './vec/prefixed'
 
 // XXX
+// XXX
+// XXX
+// XXX - refactor touch handler into a separate state machine
+// XXX   - make it track touch state independently & unconditionally
+// XXX
+// XXX - review expand behavior & make it efficient
+// XXX   - only one re-rendering (RENDERED)
+// XXX   - syncScroll after RENDERED
+// XXX   - style via styleActor
+// XXX
+// XXX
+// XXX
+
+// XXX
 const DIST_LIMIT = 10
 
 const EXPAND_DEFAULT = 3
