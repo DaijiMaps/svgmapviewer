@@ -15,6 +15,8 @@ import {
   sendTouchStart,
   sendWheel,
 } from './lib/pointer-react'
+import { MapHtml, MapHtmlStyle } from './MapHtml'
+import { MapSvg } from './MapSvg'
 
 export function Container(props: Readonly<PropsWithChildren>) {
   const ref = useRef<HTMLDivElement>(null)
@@ -52,7 +54,9 @@ export function Container(props: Readonly<PropsWithChildren>) {
 
   return (
     <div ref={ref} className="container">
-      {props.children}
+      <MapSvg>{props.children}</MapSvg>
+      <MapHtml />
+      <MapHtmlStyle />
     </div>
   )
 }
