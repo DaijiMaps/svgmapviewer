@@ -42,7 +42,7 @@ export function root(config: Readonly<SvgMapViewerConfig>) {
       </SvgMapViewerConfigContext.Provider>
       <svg>
         <defs>
-          <RenderMap config={config} />
+          <RenderMap />
         </defs>
       </svg>
       <style>

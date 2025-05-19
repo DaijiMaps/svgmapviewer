@@ -1,8 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { createStore, StoreSnapshot } from '@xstate/store'
-import { useSelector } from '@xstate/store/react'
-import { useCallback } from 'react'
 
 interface LikesContext {
   ids: Set<number>
@@ -66,31 +64,19 @@ export const likesStore = createStore({
   on: {
     like: (context, event: Readonly<{ id: number }>) => ({
       ...context,
-      ids: context.ids.add(event.id),
+      ids: new Set(Array.from(context.ids.add(event.id))),
     }),
     unlike: (context, event: Readonly<{ id: number }>) => {
       context.ids.delete(event.id) // returns boolean
-      return { ...context, ids: context.ids }
+      return { ...context, ids: new Set(Array.from(context.ids)) }
     },
   },
 })
 
 likesStore.subscribe(saveSnapshot)
 
-export function useLikes() {
-  const context = useSelector(likesStore, (state) => state.context)
-  const like = useCallback((id: number) => likesStore.trigger.like({ id }), [])
-  const unlike = useCallback(
-    (id: number) => likesStore.trigger.unlike({ id }),
-    []
-  )
-  const isLiked = useCallback(
-    (id: number): boolean => context.ids.has(id),
-    [context]
-  )
-  return {
-    like,
-    unlike,
-    isLiked,
-  }
+export const like = (id: number) => likesStore.trigger.like({ id })
+export const unlike = (id: number) => likesStore.trigger.unlike({ id })
+export const isLiked = (id: number): boolean => {
+  return likesStore.getSnapshot().context.ids.has(id)
 }
