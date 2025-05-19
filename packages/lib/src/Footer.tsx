@@ -56,6 +56,7 @@ export const Footer = (props: Readonly<FooterProps>) => {
       >
         {config.copyright}
       </p>
+      <FooterStyle _uiRef={uiRef} />
     </div>
   )
 }

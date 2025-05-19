@@ -31,7 +31,7 @@ export function Detail(props: Readonly<DetailProps>) {
   const H = useMemo(() => layout.container.height, [layout])
 
   return (
-    <div>
+    <div className="detail-balloon">
       <Balloon
         _uiRef={props._uiRef}
         _detail={detail}

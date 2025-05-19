@@ -27,6 +27,7 @@ export const Header = (props: Readonly<HeaderProps>) => {
       >
         {config.title}
       </h1>
+      <HeaderStyle _uiRef={uiRef} />
     </div>
   )
 }

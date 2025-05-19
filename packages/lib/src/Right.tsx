@@ -37,6 +37,7 @@ export const Right = (props: Readonly<RightProps>) => {
           </svg>
         </div>
       </div>
+      <RightStyle _uiRef={uiRef} />
     </div>
   )
 }

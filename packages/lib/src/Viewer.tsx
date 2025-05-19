@@ -2,14 +2,14 @@ import { PropsWithChildren } from 'react'
 import { Container, ContainerStyle } from './Container'
 import { Debug } from './Debug'
 import { Detail } from './Detail'
-import { Footer, FooterStyle } from './Footer'
-import { Header, HeaderStyle } from './Header'
+import { Footer } from './Footer'
+import { Header } from './Header'
 import { usePointer } from './lib/pointer-react'
 import { searchRef } from './lib/search'
 import { useUi } from './lib/ui-react'
 import { MapHtml, MapHtmlStyle } from './MapHtml'
 import { MapSvg } from './MapSvg'
-import { Right, RightStyle } from './Right'
+import { Right } from './Right'
 import { Shadow } from './Shadow'
 
 export const Viewer = (props: Readonly<PropsWithChildren>) => {
@@ -24,22 +24,13 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
         <MapSvg>{props.children}</MapSvg>
         <MapHtml />
         <MapHtmlStyle />
+        <ContainerStyle />
       </Container>
-      <ContainerStyle />
-
       <Shadow _uiRef={uiRef} />
-
       <Detail _uiRef={uiRef} />
-
       <Header _uiRef={uiRef} />
-      <HeaderStyle _uiRef={uiRef} />
-
       <Footer _uiRef={uiRef} />
-      <FooterStyle _uiRef={uiRef} />
-
       <Right _uiRef={uiRef} />
-      <RightStyle _uiRef={uiRef} />
-
       <Debug _uiRef={uiRef} _searchRef={searchRef} />
     </>
   )
