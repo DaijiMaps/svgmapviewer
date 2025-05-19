@@ -8,13 +8,13 @@ import { Shadow } from './Shadow'
 
 export function Ui() {
   return (
-    <>
+    <div className="ui">
       <Shadow />
       <Detail />
       <Header />
       <Footer />
       <Right />
       <Debug _searchRef={searchRef} />
-    </>
+    </div>
   )
 }
