@@ -7,9 +7,15 @@ import { createRoot } from 'react-dom/client'
 import { assign, createActor, setup, StateFrom } from 'xstate'
 import './index.css'
 import { Layout } from './lib'
+import { Animation } from './lib/animation'
 import { fromSvgToOuter } from './lib/coord'
 import { cssMatrixToString, fixupCssString } from './lib/css'
 import { emptyLayout } from './lib/layout'
+import {
+  MatrixMatrix as Matrix,
+  matrixEmpty,
+  matrixToString,
+} from './lib/matrix/prefixed'
 
 export function styleRoot() {
   const e = document.getElementById('style-root')
@@ -31,6 +37,7 @@ function Style() {
       <LayoutStyle />
       <DraggingStyle />
       <ModeStyle />
+      <AnimationStyle />
     </>
   )
 }
@@ -109,18 +116,55 @@ function ModeStyle() {
   )
 }
 
+function AnimationStyle() {
+  const animation = useSelector(
+    styleActor,
+    (state: Readonly<StyleState>) => state.context.animation
+  )
+  const style =
+    animation === null
+      ? ''
+      : animation.move !== null
+        ? css(animation.move.q)
+        : animation.zoom !== null
+          ? css(animation.zoom.q)
+          : ''
+  return <style>{style}</style>
+}
+
+function css(q: Matrix) {
+  return `
+.container {
+  will-change: transform;
+  animation: container-zoom ${500}ms ease;
+}
+@keyframes container-zoom {
+  from {
+    transform-origin: left top;
+    transform: ${matrixToString(matrixEmpty)};
+  }
+  to {
+    transform-origin: left top;
+    transform: ${matrixToString(q)};
+  }
+}
+`
+}
+
 ////
 
 export type StyleEvent =
   | { type: 'STYLE.LAYOUT'; layout: Layout }
   | { type: 'STYLE.DRAGGING'; dragging: boolean }
   | { type: 'STYLE.MODE'; mode: string }
+  | { type: 'STYLE.ANIMATION'; animation: null | Animation } // null to stop animation
 
 interface StyleContext {
   inited: boolean
   layout: Layout
   dragging: boolean
   mode: string
+  animation: null | Animation
 }
 
 const styleMachine = setup({
@@ -135,6 +179,7 @@ const styleMachine = setup({
     layout: emptyLayout,
     dragging: false,
     mode: 'pointing',
+    animation: null,
   },
   initial: 'Idle',
   states: {
@@ -154,6 +199,11 @@ const styleMachine = setup({
         'STYLE.MODE': {
           actions: assign({
             mode: ({ event }) => event.mode,
+          }),
+        },
+        'STYLE.ANIMATION': {
+          actions: assign({
+            animation: ({ event }) => event.animation,
           }),
         },
       },

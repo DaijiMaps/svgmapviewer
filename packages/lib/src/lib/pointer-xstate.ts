@@ -392,6 +392,9 @@ export const pointerMachine = setup({
       zoom: ({ context: { z, zoom } }) =>
         z === null ? zoom : zoom * Math.pow(2, z),
     }),
+    syncAnimation: ({ context: { animation } }) => {
+      styleActor.send({ type: 'STYLE.ANIMATION', animation })
+    },
 
     //
     // layout
@@ -1153,7 +1156,7 @@ export const pointerMachine = setup({
           entry: raise({ type: 'ANIMATION.DONE' }),
           on: {
             ANIMATION: {
-              actions: assign({ animating: () => true }),
+              actions: [assign({ animating: () => true }), 'syncAnimation'],
               target: 'Busy',
             },
           },
@@ -1171,6 +1174,7 @@ export const pointerMachine = setup({
                   zoom,
                 })),
                 assign({ animating: () => false }),
+                'syncAnimation',
               ],
               target: 'Idle',
             },

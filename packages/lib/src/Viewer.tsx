@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { Container, ContainerStyle } from './Container'
+import { Container } from './Container'
 import { Debug } from './Debug'
 import { Detail } from './Detail'
 import { Footer } from './Footer'
@@ -24,7 +24,6 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
         <MapSvg>{props.children}</MapSvg>
         <MapHtml />
         <MapHtmlStyle />
-        <ContainerStyle />
       </Container>
       <Shadow _uiRef={uiRef} />
       <Detail _uiRef={uiRef} />
