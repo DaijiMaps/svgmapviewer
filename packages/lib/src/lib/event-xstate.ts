@@ -1,12 +1,13 @@
+import React from 'react'
 import { ActorRefFrom, assign, emit, setup } from 'xstate'
 
 type TimeoutContext = {
-  ev: null | Event
+  ev: null | Event | React.UIEvent
 }
 type TimeoutEvent =
   | {
       type: 'TICK'
-      ev: Event
+      ev: Event | React.UIEvent
     }
   | {
       type: 'START'

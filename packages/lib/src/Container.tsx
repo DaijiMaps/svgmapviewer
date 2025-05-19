@@ -3,12 +3,15 @@ import './Container.css'
 import {
   pointerActor,
   sendClick,
+  sendContextMenu,
   sendPointerDown,
   sendPointerMove,
   sendPointerUp,
+  sendScroll,
   sendTouchEnd,
   sendTouchMove,
   sendTouchStart,
+  sendWheel,
 } from './lib/pointer-react'
 import { useInitStyle, useMoveStyle, useZoomStyle } from './lib/style'
 
@@ -32,6 +35,12 @@ export const Container = forwardRef<HTMLDivElement, PropsWithChildren>(
         onTouchEnd={(ev) => sendTouchEnd(ev)}
         // eslint-disable-next-line functional/no-return-void
         onClick={(ev) => sendClick(ev)}
+        // eslint-disable-next-line functional/no-return-void
+        onContextMenu={(ev) => sendContextMenu(ev)}
+        // eslint-disable-next-line functional/no-return-void
+        onWheel={(ev) => sendWheel(ev)}
+        // eslint-disable-next-line functional/no-return-void
+        onScroll={(ev) => sendScroll(ev)}
         // eslint-disable-next-line functional/no-return-void
         onAnimationEnd={() => pointerActor.send({ type: 'ANIMATION.END' })}
       >

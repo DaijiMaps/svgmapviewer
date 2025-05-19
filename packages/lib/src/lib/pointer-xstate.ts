@@ -133,10 +133,16 @@ type PointerInternalEvent =
   | PointerEventLock
 
 type UIEventClick = { type: 'CLICK'; ev: MouseEvent | React.MouseEvent }
-type UIEventContextMenu = { type: 'CONTEXTMENU'; ev: MouseEvent }
+type UIEventContextMenu = {
+  type: 'CONTEXTMENU'
+  ev: MouseEvent | React.MouseEvent
+}
 type UIEventKeyDown = { type: 'KEY.DOWN'; ev: KeyboardEvent }
 type UIEventKeyUp = { type: 'KEY.UP'; ev: KeyboardEvent }
-type UIEventPointerCancel = { type: 'POINTER.CANCEL'; ev: PointerEvent }
+type UIEventPointerCancel = {
+  type: 'POINTER.CANCEL'
+  ev: PointerEvent | React.PointerEvent
+}
 type UIEventPointerDown = {
   type: 'POINTER.DOWN'
   ev: PointerEvent | React.PointerEvent
@@ -149,7 +155,6 @@ type UIEventPointerUp = {
   type: 'POINTER.UP'
   ev: PointerEvent | React.PointerEvent
 }
-type UIEventScroll = { type: 'SCROLL'; ev: Event }
 type UIEventTouchCancel = {
   type: 'TOUCH.CANCEL'
   ev: TouchEvent | React.TouchEvent
@@ -163,7 +168,8 @@ type UIEventTouchStart = {
   type: 'TOUCH.START'
   ev: TouchEvent | React.TouchEvent
 }
-type UIEventWheel = { type: 'WHEEL'; ev: WheelEvent }
+type UIEventWheel = { type: 'WHEEL'; ev: WheelEvent | React.WheelEvent }
+type UIEventScroll = { type: 'SCROLL'; ev: Event | React.UIEvent }
 
 export type ReactUIEvent =
   | UIEventClick
@@ -332,7 +338,8 @@ export const pointerMachine = setup({
       z: (_, { ev }: { ev: KeyboardEvent }): number => keyToZoom(ev.key),
     }),
     zoomWheel: assign({
-      z: (_, { ev }: { ev: WheelEvent }): number => (ev.deltaY < 0 ? 1 : -1),
+      z: (_, { ev }: { ev: WheelEvent | React.WheelEvent }): number =>
+        ev.deltaY < 0 ? 1 : -1,
     }),
     zoomTouches: assign({
       z: ({ context: { touches, z } }): null | number =>

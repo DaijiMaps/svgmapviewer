@@ -61,9 +61,9 @@ function usePointerEvent(containerRef: RefObject<HTMLDivElement>) {
     //e.addEventListener('touchmove', sendTouchMove)
     //e.addEventListener('touchend', sendTouchEnd)
     //e.addEventListener('click', sendClick)
-    e.addEventListener('contextmenu', sendContextMenu)
-    e.addEventListener('wheel', sendWheel)
-    e.addEventListener('scroll', sendScroll)
+    //e.addEventListener('contextmenu', sendContextMenu)
+    //e.addEventListener('wheel', sendWheel)
+    //e.addEventListener('scroll', sendScroll)
     return () => {
       //e.removeEventListener('pointerdown', sendPointerDown)
       //e.removeEventListener('pointermove', sendPointerMove)
@@ -72,9 +72,9 @@ function usePointerEvent(containerRef: RefObject<HTMLDivElement>) {
       //e.removeEventListener('touchmove', sendTouchMove)
       //e.removeEventListener('touchend', sendTouchEnd)
       //e.removeEventListener('click', sendClick)
-      e.removeEventListener('contextmenu', sendContextMenu)
-      e.removeEventListener('wheel', sendWheel)
-      e.removeEventListener('scroll', sendScroll)
+      //e.removeEventListener('contextmenu', sendContextMenu)
+      //e.removeEventListener('wheel', sendWheel)
+      //e.removeEventListener('scroll', sendScroll)
     }
   }, [containerRef])
 }
@@ -186,15 +186,15 @@ export const sendClick = (ev: MouseEvent | React.MouseEvent) => {
   }
   pointerSend({ type: 'CLICK', ev })
 }
-export const sendContextMenu = (ev: MouseEvent) =>
+export const sendContextMenu = (ev: MouseEvent | React.MouseEvent) =>
   pointerSend({ type: 'CONTEXTMENU', ev })
-export const sendWheel = (ev: WheelEvent) => {
+export const sendWheel = (ev: WheelEvent | React.WheelEvent) => {
   if (wheeleventmask) {
     return
   }
   pointerSend({ type: 'WHEEL', ev })
 }
-export const sendScroll = (ev: Event) =>
+export const sendScroll = (ev: Event | React.UIEvent) =>
   scrollTimeoutActor.send({
     type: 'TICK',
     ev,
