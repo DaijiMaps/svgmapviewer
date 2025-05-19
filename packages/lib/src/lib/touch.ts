@@ -70,7 +70,9 @@ function pointsToCursor(points: Readonly<Vec[]>): null | Vec {
   return points.length < 2 ? null : vecMidpoint(points)
 }
 
-function changesToEntries(ev: ReadonlyDeep<TouchEvent>): VecsEntries {
+function changesToEntries(
+  ev: ReadonlyDeep<TouchEvent | React.TouchEvent>
+): VecsEntries {
   return pipe(
     ev.changedTouches,
     Array.from,
@@ -81,13 +83,13 @@ function changesToEntries(ev: ReadonlyDeep<TouchEvent>): VecsEntries {
   )
 }
 
-function changesToVecs(ev: ReadonlyDeep<TouchEvent>): Vecs {
+function changesToVecs(ev: ReadonlyDeep<TouchEvent | React.TouchEvent>): Vecs {
   return new Map(changesToEntries(ev))
 }
 
 export function handleTouchStart(
   touches: Touches,
-  ev: Readonly<TouchEvent>
+  ev: Readonly<TouchEvent | React.TouchEvent>
 ): Touches {
   const vecs: Vecs = vecsMonoid.concat(touches.vecs, changesToVecs(ev))
   const points = vecsToPoints(vecs)
@@ -101,7 +103,7 @@ export function handleTouchStart(
 
 export function handleTouchMove(
   touches: Touches,
-  ev: Readonly<TouchEvent>,
+  ev: Readonly<TouchEvent | React.TouchEvent>,
   limit: number
 ): Touches {
   const changes = changesToVecs(ev)
@@ -132,7 +134,7 @@ export function handleTouchMove(
 
 export function handleTouchEnd(
   touches: Touches,
-  ev: Readonly<TouchEvent>
+  ev: Readonly<TouchEvent | React.TouchEvent>
 ): Touches {
   const changes = changesToVecs(ev)
   const vecs: Vecs = vecsFilterableWithIndex.filterMapWithIndex(

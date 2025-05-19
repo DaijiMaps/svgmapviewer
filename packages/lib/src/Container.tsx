@@ -5,6 +5,9 @@ import {
   sendPointerDown,
   sendPointerMove,
   sendPointerUp,
+  sendTouchEnd,
+  sendTouchMove,
+  sendTouchStart,
 } from './lib/pointer-react'
 import { useInitStyle, useMoveStyle, useZoomStyle } from './lib/style'
 
@@ -20,6 +23,12 @@ export const Container = forwardRef<HTMLDivElement, PropsWithChildren>(
         onPointerMove={(ev) => sendPointerMove(ev)}
         // eslint-disable-next-line functional/no-return-void
         onPointerUp={(ev) => sendPointerUp(ev)}
+        // eslint-disable-next-line functional/no-return-void
+        onTouchStart={(ev) => sendTouchStart(ev)}
+        // eslint-disable-next-line functional/no-return-void
+        onTouchMove={(ev) => sendTouchMove(ev)}
+        // eslint-disable-next-line functional/no-return-void
+        onTouchEnd={(ev) => sendTouchEnd(ev)}
         // eslint-disable-next-line functional/no-return-void
         onAnimationEnd={() => pointerActor.send({ type: 'ANIMATION.END' })}
       >

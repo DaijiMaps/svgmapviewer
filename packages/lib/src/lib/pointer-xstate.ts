@@ -150,10 +150,19 @@ type UIEventPointerUp = {
   ev: PointerEvent | React.PointerEvent
 }
 type UIEventScroll = { type: 'SCROLL'; ev: Event }
-type UIEventTouchCancel = { type: 'TOUCH.CANCEL'; ev: TouchEvent }
-type UIEventTouchEnd = { type: 'TOUCH.END'; ev: TouchEvent }
-type UIEventTouchMove = { type: 'TOUCH.MOVE'; ev: TouchEvent }
-type UIEventTouchStart = { type: 'TOUCH.START'; ev: TouchEvent }
+type UIEventTouchCancel = {
+  type: 'TOUCH.CANCEL'
+  ev: TouchEvent | React.TouchEvent
+}
+type UIEventTouchEnd = { type: 'TOUCH.END'; ev: TouchEvent | React.TouchEvent }
+type UIEventTouchMove = {
+  type: 'TOUCH.MOVE'
+  ev: TouchEvent | React.TouchEvent
+}
+type UIEventTouchStart = {
+  type: 'TOUCH.START'
+  ev: TouchEvent | React.TouchEvent
+}
 type UIEventWheel = { type: 'WHEEL'; ev: WheelEvent }
 
 export type ReactUIEvent =
@@ -444,16 +453,22 @@ export const pointerMachine = setup({
     // touch
     //
     startTouches: assign({
-      touches: ({ context: { touches } }, { ev }: { ev: TouchEvent }) =>
-        handleTouchStart(touches, ev),
+      touches: (
+        { context: { touches } },
+        { ev }: { ev: TouchEvent | React.TouchEvent }
+      ) => handleTouchStart(touches, ev),
     }),
     moveTouches: assign({
-      touches: ({ context: { touches } }, { ev }: { ev: TouchEvent }) =>
-        handleTouchMove(touches, ev, DIST_LIMIT),
+      touches: (
+        { context: { touches } },
+        { ev }: { ev: TouchEvent | React.TouchEvent }
+      ) => handleTouchMove(touches, ev, DIST_LIMIT),
     }),
     endTouches: assign({
-      touches: ({ context: { touches } }, { ev }: { ev: TouchEvent }) =>
-        handleTouchEnd(touches, ev),
+      touches: (
+        { context: { touches } },
+        { ev }: { ev: TouchEvent | React.TouchEvent }
+      ) => handleTouchEnd(touches, ev),
     }),
     cursorTouches: assign({
       cursor: ({ context: { touches, cursor } }) =>

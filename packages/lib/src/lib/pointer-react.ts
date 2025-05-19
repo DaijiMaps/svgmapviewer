@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { RefObject, useEffect } from 'react'
+import React, { RefObject, useEffect } from 'react'
 import { createActor } from 'xstate'
 import { svgMapViewerConfig as cfg } from './config'
 import { timeoutMachine } from './event-xstate'
@@ -57,9 +57,9 @@ function usePointerEvent(containerRef: RefObject<HTMLDivElement>) {
     //e.addEventListener('pointerdown', sendPointerDown)
     //e.addEventListener('pointermove', sendPointerMove)
     //e.addEventListener('pointerup', sendPointerUp)
-    e.addEventListener('touchstart', sendTouchStart)
-    e.addEventListener('touchmove', sendTouchMove)
-    e.addEventListener('touchend', sendTouchEnd)
+    //e.addEventListener('touchstart', sendTouchStart)
+    //e.addEventListener('touchmove', sendTouchMove)
+    //e.addEventListener('touchend', sendTouchEnd)
     e.addEventListener('click', sendClick)
     e.addEventListener('contextmenu', sendContextMenu)
     e.addEventListener('wheel', sendWheel)
@@ -68,9 +68,9 @@ function usePointerEvent(containerRef: RefObject<HTMLDivElement>) {
       //e.removeEventListener('pointerdown', sendPointerDown)
       //e.removeEventListener('pointermove', sendPointerMove)
       //e.removeEventListener('pointerup', sendPointerUp)
-      e.removeEventListener('touchstart', sendTouchStart)
-      e.removeEventListener('touchmove', sendTouchMove)
-      e.removeEventListener('touchend', sendTouchEnd)
+      //e.removeEventListener('touchstart', sendTouchStart)
+      //e.removeEventListener('touchmove', sendTouchMove)
+      //e.removeEventListener('touchend', sendTouchEnd)
       e.removeEventListener('click', sendClick)
       e.removeEventListener('contextmenu', sendContextMenu)
       e.removeEventListener('wheel', sendWheel)
@@ -160,20 +160,20 @@ export const sendPointerUp = (ev: PointerEvent | React.PointerEvent) => {
   }
   pointerSend({ type: 'POINTER.UP', ev })
 }
-export const sendTouchStart = (ev: TouchEvent) => {
+export const sendTouchStart = (ev: TouchEvent | React.TouchEvent) => {
   if (toucheventmask) {
     return
   }
   // skip preventDefault to enable emulated "click"
   pointerSend({ type: 'TOUCH.START', ev }, { preventDefault: false })
 }
-export const sendTouchMove = (ev: TouchEvent) => {
+export const sendTouchMove = (ev: TouchEvent | React.TouchEvent) => {
   if (toucheventmask) {
     return
   }
   pointerSend({ type: 'TOUCH.MOVE', ev })
 }
-export const sendTouchEnd = (ev: TouchEvent) => {
+export const sendTouchEnd = (ev: TouchEvent | React.TouchEvent) => {
   if (toucheventmask) {
     return
   }
