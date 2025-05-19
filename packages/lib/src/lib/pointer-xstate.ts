@@ -260,12 +260,18 @@ export const pointerMachine = setup({
     //
     // scroll
     //
-    syncScroll: ({ context: { layout }, system }): void => {
+    syncScroll: ({ context: { layout }, system }) =>
       system.get('scroll1').send({
         type: 'SYNC',
         pos: layout.scroll,
-      })
-    },
+      }),
+    renderAndSyncScroll: ({ context: { layout }, system }) =>
+      requestAnimationFrame(() => {
+        system.get('scroll1').send({
+          type: 'SYNC',
+          pos: layout.scroll,
+        })
+      }),
     slideScroll: ({ context: { layout, drag }, system }): void => {
       if (drag !== null) {
         system.get('scroll1').send({
@@ -528,7 +534,7 @@ export const pointerMachine = setup({
                     cursor: ({ event }) => boxCenter(event.layout.container),
                   }),
                   'syncLayout',
-                  'syncScroll',
+                  'renderAndSyncScroll',
                 ],
                 target: 'Resizing',
               },
@@ -540,7 +546,7 @@ export const pointerMachine = setup({
                     cursor: ({ event }) => boxCenter(event.layout.container),
                   }),
                   'syncLayout',
-                  'syncScroll',
+                  'renderAndSyncScroll',
                 ],
                 target: 'Layouting',
               },
@@ -929,7 +935,7 @@ export const pointerMachine = setup({
                 ],
                 'SLIDE.DRAG.DONE': {
                   guard: not('isSlidingDragBusy'),
-                  actions: ['endMove', 'syncLayout', 'syncScroll'],
+                  actions: ['endMove', 'syncLayout'],
                   target: 'Active',
                 },
                 'POINTER.UP': [
@@ -961,7 +967,7 @@ export const pointerMachine = setup({
               },
             },
             Done: {
-              exit: ['endMove', 'syncLayout', 'syncScroll'],
+              exit: ['endMove', 'syncLayout'],
               always: 'Inactive',
             },
           },
@@ -1003,7 +1009,7 @@ export const pointerMachine = setup({
                   }),
                 },
                 'syncLayout',
-                'syncScroll',
+                'renderAndSyncScroll',
               ],
               target: 'Expanding',
             },
@@ -1021,7 +1027,7 @@ export const pointerMachine = setup({
           entry: 'updateExpanding',
           on: {
             RENDERED: {
-              actions: ['syncScroll', 'syncViewBox', 'syncLayout'],
+              actions: ['renderAndSyncScroll', 'syncViewBox', 'syncLayout'],
               target: 'ExpandRendering2',
             },
           },
@@ -1044,7 +1050,7 @@ export const pointerMachine = setup({
               actions: [
                 assign({ expand: () => 1 }),
                 'syncLayout',
-                'syncScroll',
+                'renderAndSyncScroll',
               ],
               target: 'Unexpanded',
             },
@@ -1055,7 +1061,7 @@ export const pointerMachine = setup({
               actions: [
                 assign({ expand: () => 1 }),
                 'syncLayout',
-                'syncScroll',
+                'renderAndSyncScroll',
               ],
               target: 'Unexpanded',
             },
@@ -1075,7 +1081,7 @@ export const pointerMachine = setup({
                 { type: 'expand', params: { n: 1 } },
                 'syncViewBox',
                 'syncLayout',
-                'syncScroll',
+                'renderAndSyncScroll',
               ],
               target: 'UnexpandRendering',
             },
@@ -1117,7 +1123,7 @@ export const pointerMachine = setup({
               actions: [
                 'endZoom',
                 'syncLayout',
-                'syncScroll',
+                'renderAndSyncScroll',
                 emit(({ context: { layout, zoom } }) => ({
                   type: 'ZOOM.END',
                   layout,
@@ -1337,7 +1343,7 @@ export const pointerMachine = setup({
                 'endDrag',
                 'syncViewBox',
                 'syncLayout',
-                'syncScroll',
+                'renderAndSyncScroll',
                 raise({ type: 'UNEXPAND' }),
               ],
               target: 'Expanding',
@@ -1376,7 +1382,7 @@ export const pointerMachine = setup({
                 'resetScroll',
                 'syncViewBox',
                 'syncLayout',
-                'syncScroll',
+                'renderAndSyncScroll',
               ],
               target: 'Rendering',
             },
@@ -1421,7 +1427,7 @@ export const pointerMachine = setup({
                 'resetScroll',
                 'syncViewBox',
                 'syncLayout',
-                'syncScroll',
+                //'syncScroll',
               ],
               target: 'Inactive',
             },
@@ -1491,7 +1497,7 @@ export const pointerMachine = setup({
                   cursor: ({ event }) => boxCenter(event.layout.container),
                 }),
                 'syncLayout',
-                'syncScroll',
+                'renderAndSyncScroll',
               ],
               target: 'Stopping',
             },
@@ -1561,7 +1567,7 @@ export const pointerMachine = setup({
                 'resetScroll',
                 'syncViewBox',
                 'syncLayout',
-                'syncScroll',
+                'renderAndSyncScroll',
               ],
               target: 'Rendering',
             },
