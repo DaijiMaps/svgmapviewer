@@ -3,8 +3,6 @@
 /* eslint-disable functional/no-return-void */
 import { createContext, createElement } from 'react'
 import { assign, createActor, setup, StateFrom } from 'xstate'
-import { RenderMapCommon } from './carto'
-import { RenderMapAssetsDefault } from './carto/assets'
 import { POI } from './geo'
 import { emptyMapData } from './geo/data'
 import type {
@@ -59,12 +57,10 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   uiCloseCbs: new Set(),
   uiCloseDoneCbs: new Set(),
   */
-  renderAssets: RenderMapAssetsDefault,
   getMapLayers: () => [],
   getMapObjects: () => [],
   getMapSymbols: () => [],
   getMapMarkers: () => [],
-  renderMap: RenderMapCommon,
   renderInfo: renderInfoDefault,
   mapData: emptyMapData,
   mapCoord: {

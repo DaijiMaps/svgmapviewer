@@ -1,6 +1,5 @@
 /* eslint-disable functional/no-mixed-types */
 /* eslint-disable functional/no-return-void */
-import { RenderMapRef } from '../Map'
 import { BoxBox } from './box/prefixed'
 import { MapLayer, MapMarkers, MapObjects, MapSymbols } from './carto'
 import { MapData, POI } from './geo'
@@ -53,20 +52,9 @@ export interface ConfigCbs {
 
 ////
 
-export interface RenderMapProps {
-  /*
-  layout: Layout
-  zoom: number
-  z: null | number
-  */
-  renderMapRef: RenderMapRef
-}
-
 export type RenderAssets = () => JSX.Element
 
-export type RenderMap = (
-  props: Readonly<{ renderMapRef: Readonly<RenderMapRef> }>
-) => JSX.Element
+export type RenderMap = () => JSX.Element
 
 export type RenderInfo = (props: Readonly<{ info: Info }>) => JSX.Element
 
@@ -89,12 +77,12 @@ export interface SvgMapViewerConfig {
   dragStepStepLimit: number
   dragStepMaxCount: number
   scrollIdleTimeout: number
-  renderAssets: RenderAssets
+  //renderAssets: RenderAssets
   getMapLayers: () => MapLayer[]
   getMapObjects: () => MapObjects[]
   getMapSymbols: () => MapSymbols[]
   getMapMarkers: () => MapMarkers[]
-  renderMap: RenderMap
+  //renderMap: RenderMap
   renderInfo: RenderInfo
   mapData: MapData
   mapCoord: {

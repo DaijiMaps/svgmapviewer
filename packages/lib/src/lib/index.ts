@@ -11,7 +11,6 @@ import { svgmapviewer } from './svgmapviewer'
 import type {
   Info,
   RenderMap,
-  RenderMapProps,
   SearchReq,
   SearchRes,
   SvgMapViewerConfig,
@@ -20,7 +19,7 @@ import type {
 
 // types
 
-export type { Info, RenderMap, RenderMapProps, SearchReq, SearchRes }
+export type { Info, RenderMap, SearchReq, SearchRes }
 
 // svgmapviewer
 

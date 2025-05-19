@@ -1,15 +1,15 @@
 import { LayersSvgStyle } from '../../Layers'
 import { svgMapViewerConfig as cfg } from '../config'
-import { RenderMapProps } from '../types'
+import { RenderMapAssetsDefault } from './assets'
 import { RenderMapLayers } from './layers'
 //import { RenderMapMarkers } from './markers'
 import { RenderMapObjects } from './objects'
 import { RenderMapSymbols } from './symbols'
 
-export function RenderMapCommon(props: Readonly<RenderMapProps>) {
+export function RenderMapCommon() {
   return (
     <>
-      <cfg.renderAssets />
+      <RenderMapAssetsDefault />
       <g id={cfg.map} className="map">
         <RenderMapLayers mapLayers={cfg.getMapLayers()} />
         <RenderMapObjects mapObjects={cfg.getMapObjects()} />
@@ -17,7 +17,7 @@ export function RenderMapCommon(props: Readonly<RenderMapProps>) {
         {/*
         <RenderMapMarkers {...props} mapMarkers={cfg.getMapMarkers()} />
         */}
-        <LayersSvgStyle {...props} />
+        <LayersSvgStyle />
       </g>
     </>
   )
