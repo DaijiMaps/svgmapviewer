@@ -30,10 +30,6 @@ export function Detail(props: Readonly<DetailProps>) {
   const W = useMemo(() => layout.container.width, [layout])
   const H = useMemo(() => layout.container.height, [layout])
 
-  if (detail === null || p === null || dir === null) {
-    return <></>
-  }
-
   return (
     <div>
       <Balloon
@@ -59,7 +55,10 @@ export function Detail(props: Readonly<DetailProps>) {
           props._uiRef.send({ type: 'DETAIL.ANIMATION.END' })
         }
       >
-        {cfg.renderInfo && detail.info && cfg.renderInfo({ info: detail.info })}
+        {cfg.renderInfo &&
+          detail &&
+          detail.info &&
+          cfg.renderInfo({ info: detail.info })}
       </div>
     </div>
   )

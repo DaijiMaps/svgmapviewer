@@ -23,7 +23,7 @@ export interface BalloonPathProps {
   fg: boolean
 }
 
-function BalloonPath(props: Readonly<BalloonPathProps>) {
+function balloonPath(props: Readonly<BalloonPathProps>): string {
   const { fg, d, dir, ll, bw, bh } = props
 
   const hbw = bw / 2
@@ -70,14 +70,14 @@ l${ll},${hlw}
   const dd = fg ? 0 : d
   const path = `M0,0 m${dd},${dd} ${body} M0,0 m${dd},${dd} ${leg}`
 
-  return <path className={fg ? 'fg' : 'bg'} d={path} />
+  return path
 }
 
 export interface BalloonProps {
   _uiRef: UiRef
-  _detail: SearchRes
-  _p: VecVec
-  _dir: Dir
+  _detail: null | SearchRes
+  _p: null | VecVec
+  _dir: null | Dir
   _W: number
   _H: number
 }
@@ -88,8 +88,6 @@ const BL = 10
 
 export function Balloon(props: Readonly<BalloonProps>): ReactNode {
   const { _uiRef: uiRef } = props
-
-  const balloon = useSelector(uiRef, selectOpenCloseBalloon)
 
   // XXX
   const vmin = Math.min(props._W, props._H) * 0.01
@@ -105,9 +103,12 @@ export function Balloon(props: Readonly<BalloonProps>): ReactNode {
 
   const p = { vmin, bw, bh, ll, d, ww, hh }
 
-  return !openCloseIsVisible(balloon) ? (
-    <></>
-  ) : (
+  const bgPath =
+    props._dir === null ? '' : balloonPath({ dir: props._dir, ...p, fg: false })
+  const fgPath =
+    props._dir === null ? '' : balloonPath({ dir: props._dir, ...p, fg: true })
+
+  return (
     <div
       className="balloon-container"
       // eslint-disable-next-line functional/no-return-void
@@ -119,8 +120,8 @@ export function Balloon(props: Readonly<BalloonProps>): ReactNode {
         width={ww}
         height={hh}
       >
-        <BalloonPath dir={props._dir} {...p} fg={false} />
-        <BalloonPath dir={props._dir} {...p} fg={true} />
+        <path className="bg" d={bgPath} />
+        <path className="fg" d={fgPath} />
       </svg>
     </div>
   )
@@ -144,15 +145,16 @@ export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
   const ww = bw + 2 * ll + 2 * d
   const hh = bh + 2 * ll + 2 * d
 
-  const p = { dir, vmin, bw, bh, ll, d, ww, hh, fg: true }
-
   if (
+    content === null ||
+    o === null ||
+    dir === null ||
     !openCloseIsVisible(balloon) ||
-    !openCloseIsVisible(detail) ||
-    content === null
+    !openCloseIsVisible(detail)
   ) {
-    return <style>{`.detail { display: none; }`}</style>
+    return <style>{`.balloon-container, .detail { display: none; }`}</style>
   } else {
+    const p = { dir, vmin, bw, bh, ll, d, ww, hh, fg: true }
     return <style>{balloonStyle(balloon, o, dir, p)}</style>
   }
 }
