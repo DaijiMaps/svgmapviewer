@@ -170,8 +170,13 @@ type UIEventTouchStart = {
 }
 type UIEventWheel = { type: 'WHEEL'; ev: WheelEvent | React.WheelEvent }
 type UIEventScroll = { type: 'SCROLL'; ev: Event | React.UIEvent }
+type UIEventAnimationEnd = {
+  type: 'ANIMATION.END'
+  ev: AnimationEvent | React.AnimationEvent
+}
 
 export type ReactUIEvent =
+  | UIEventAnimationEnd
   | UIEventClick
   | UIEventContextMenu
   | UIEventPointerCancel

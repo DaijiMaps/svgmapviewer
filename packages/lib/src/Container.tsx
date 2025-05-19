@@ -1,7 +1,9 @@
-import { PropsWithChildren } from 'react'
+/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/no-expression-statements */
+import { PropsWithChildren, useEffect, useRef } from 'react'
 import './Container.css'
 import {
-  pointerActor,
+  sendAnimationEnd,
   sendClick,
   sendContextMenu,
   sendPointerDown,
@@ -16,32 +18,41 @@ import {
 import { useInitStyle, useMoveStyle, useZoomStyle } from './lib/style'
 
 export function Container(props: Readonly<PropsWithChildren>) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const e = ref.current
+    if (e === null) {
+      return
+    }
+    e.addEventListener('pointerdown', sendPointerDown)
+    e.addEventListener('pointermove', sendPointerMove)
+    e.addEventListener('pointerup', sendPointerUp)
+    e.addEventListener('touchstart', sendTouchStart)
+    e.addEventListener('touchmove', sendTouchMove)
+    e.addEventListener('touchend', sendTouchEnd)
+    e.addEventListener('click', sendClick)
+    e.addEventListener('contextmenu', sendContextMenu)
+    e.addEventListener('wheel', sendWheel)
+    e.addEventListener('scroll', sendScroll)
+    e.addEventListener('animationend', sendAnimationEnd)
+    return () => {
+      e.removeEventListener('pointerdown', sendPointerDown)
+      e.removeEventListener('pointermove', sendPointerMove)
+      e.removeEventListener('pointerup', sendPointerUp)
+      e.removeEventListener('touchstart', sendTouchStart)
+      e.removeEventListener('touchmove', sendTouchMove)
+      e.removeEventListener('touchend', sendTouchEnd)
+      e.removeEventListener('click', sendClick)
+      e.removeEventListener('contextmenu', sendContextMenu)
+      e.removeEventListener('wheel', sendWheel)
+      e.removeEventListener('scroll', sendScroll)
+      e.removeEventListener('animationend', sendAnimationEnd)
+    }
+  }, [])
+
   return (
-    <div
-      className="container"
-      // eslint-disable-next-line functional/no-return-void
-      onPointerDown={(ev) => sendPointerDown(ev)}
-      // eslint-disable-next-line functional/no-return-void
-      onPointerMove={(ev) => sendPointerMove(ev)}
-      // eslint-disable-next-line functional/no-return-void
-      onPointerUp={(ev) => sendPointerUp(ev)}
-      // eslint-disable-next-line functional/no-return-void
-      onTouchStart={(ev) => sendTouchStart(ev)}
-      // eslint-disable-next-line functional/no-return-void
-      onTouchMove={(ev) => sendTouchMove(ev)}
-      // eslint-disable-next-line functional/no-return-void
-      onTouchEnd={(ev) => sendTouchEnd(ev)}
-      // eslint-disable-next-line functional/no-return-void
-      onClick={(ev) => sendClick(ev)}
-      // eslint-disable-next-line functional/no-return-void
-      onContextMenu={(ev) => sendContextMenu(ev)}
-      // eslint-disable-next-line functional/no-return-void
-      onWheel={(ev) => sendWheel(ev)}
-      // eslint-disable-next-line functional/no-return-void
-      onScroll={(ev) => sendScroll(ev)}
-      // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => pointerActor.send({ type: 'ANIMATION.END' })}
-    >
+    <div ref={ref} className="container">
       {props.children}
     </div>
   )

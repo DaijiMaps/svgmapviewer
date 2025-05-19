@@ -94,7 +94,7 @@ const pointerSend = (
   if (options?.preventDefault === false) {
     // skip
   } else {
-    //event.ev.preventDefault()
+    event.ev.preventDefault()
   }
   if (options?.stopPropagation === false) {
     // skip
@@ -153,6 +153,11 @@ export const sendWheel = (ev: WheelEvent | React.WheelEvent) => {
 export const sendScroll = (ev: Event | React.UIEvent) =>
   scrollTimeoutActor.send({
     type: 'TICK',
+    ev,
+  })
+export const sendAnimationEnd = (ev: AnimationEvent | React.AnimationEvent) =>
+  pointerSend({
+    type: 'ANIMATION.END',
     ev,
   })
 
