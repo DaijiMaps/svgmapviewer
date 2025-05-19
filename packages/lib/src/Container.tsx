@@ -15,7 +15,6 @@ import {
   sendTouchStart,
   sendWheel,
 } from './lib/pointer-react'
-import { useMoveStyle, useZoomStyle } from './lib/style'
 
 export function Container(props: Readonly<PropsWithChildren>) {
   const ref = useRef<HTMLDivElement>(null)
@@ -56,33 +55,4 @@ export function Container(props: Readonly<PropsWithChildren>) {
       {props.children}
     </div>
   )
-}
-
-// XXX
-// XXX
-// XXX
-// XXX
-// XXX
-export function ContainerStyle() {
-  return (
-    <>
-      <MoveStyle />
-      <ZoomStyle />
-    </>
-  )
-}
-// XXX
-// XXX
-// XXX
-// XXX
-// XXX
-
-function MoveStyle() {
-  const style = useMoveStyle()
-  return <style id="move-style">{style}</style>
-}
-
-function ZoomStyle() {
-  const style = useZoomStyle()
-  return <style id="zoom-style">{style}</style>
 }
