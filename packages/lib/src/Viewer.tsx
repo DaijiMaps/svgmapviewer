@@ -10,7 +10,7 @@ import { useUi } from './lib/ui-react'
 import { MapHtml, MapHtmlStyle } from './MapHtml'
 import { MapSvg } from './MapSvg'
 import { Right, RightStyle } from './Right'
-import { Shadow, ShadowStyle } from './Shadow'
+import { Shadow } from './Shadow'
 
 export const Viewer = (props: Readonly<PropsWithChildren>) => {
   // eslint-disable-next-line functional/no-expression-statements
@@ -24,11 +24,11 @@ export const Viewer = (props: Readonly<PropsWithChildren>) => {
         <MapSvg>{props.children}</MapSvg>
         <MapHtml />
         <MapHtmlStyle />
-        <Shadow _uiRef={uiRef} />
       </Container>
       <ContainerStyle />
 
-      <ShadowStyle _uiRef={uiRef} />
+      <Shadow _uiRef={uiRef} />
+
       <Detail _uiRef={uiRef} />
 
       <Header _uiRef={uiRef} />

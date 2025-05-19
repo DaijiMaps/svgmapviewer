@@ -1,6 +1,5 @@
 import { useSelector } from '@xstate/react'
 import { useContext } from 'react'
-import { openCloseIsVisible } from './lib/openclose'
 import { selectOpenCloseShadow, UiRef } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 import './Shadow.css'
@@ -14,54 +13,47 @@ export function Shadow(props: Readonly<ShadowProps>) {
 
   const { _uiRef: uiRef } = props
 
-  const shadow = useSelector(uiRef, selectOpenCloseShadow)
-
-  return !openCloseIsVisible(shadow) ? (
-    <></>
-  ) : (
+  return (
     <div
-      className="content shadow"
+      className="shadow"
       // eslint-disable-next-line functional/no-return-void
       onClick={() => config.uiCloseCbs.forEach((cb) => cb())}
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiRef.send({ type: 'SHADOW.ANIMATION.END' })}
-    ></div>
+    >
+      <ShadowStyle {...props} />
+    </div>
   )
 }
 
-export function ShadowStyle(props: Readonly<ShadowProps>) {
+function ShadowStyle(props: Readonly<ShadowProps>) {
   const { _uiRef: uiRef } = props
 
   const shadow = useSelector(uiRef, selectOpenCloseShadow)
 
   if (!shadow.animating) {
-    return (
-      <style>
-        {`
-.shadow {
-  opacity: 0.3;
-}
-`}
-      </style>
+    return !shadow.open ? (
+      <style>{`.shadow { display: none; }`}</style>
+    ) : (
+      <style>{`.shadow { opacity: 0.3; } `}</style>
     )
   } else {
-    const a = shadow.open ? 0 : 0.3
-    const b = shadow.open ? 0.3 : 0
+    const dir = shadow.open ? '' : 'reverse'
 
     return (
       <style>
         {`
 .shadow {
   will-change: opacity;
-  animation: xxx-shadow 300ms ease;
+  animation: xxx-shadow ${dir} 300ms ease;
 }
 
 @keyframes xxx-shadow {
   from {
-    opacity: ${a};
+    opacity: 0;
   }
   to {
-    opacity: ${b};
+    opacity: 0.3;
   }
 }
 `}
