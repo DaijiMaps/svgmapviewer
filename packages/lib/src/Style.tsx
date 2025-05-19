@@ -43,9 +43,9 @@ function Style() {
 }
 
 function LayoutStyle() {
-  const inited = useSelector(
+  const animating = useSelector(
     styleActor,
-    (state: Readonly<StyleState>) => state.context.inited
+    (state: Readonly<StyleState>) => state.context.animating
   )
   const layout = useSelector(
     styleActor,
@@ -57,10 +57,7 @@ function LayoutStyle() {
 
   return (
     <style>{`
-.container {
-  opacity: ${!inited ? 0 : 1};
-  transition: opacity 1s;
-}
+${!animating ? '' : appearing}
 .container > .content {
   width: ${scroll.width}px;
   height: ${scroll.height}px;
@@ -72,6 +69,21 @@ function LayoutStyle() {
 `}</style>
   )
 }
+
+const appearing = `
+.container {
+  will-change: opacity;
+  animation: container-appearing ${1000}ms ease forwards;
+}
+@keyframes container-appearing {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+`
 
 function DraggingStyle() {
   const dragging = useSelector(
@@ -154,13 +166,14 @@ function css(q: Matrix) {
 ////
 
 export type StyleEvent =
-  | { type: 'STYLE.LAYOUT'; layout: Layout }
+  | { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
   | { type: 'STYLE.DRAGGING'; dragging: boolean }
   | { type: 'STYLE.MODE'; mode: string }
   | { type: 'STYLE.ANIMATION'; animation: null | Animation } // null to stop animation
 
 interface StyleContext {
-  inited: boolean
+  rendered: boolean
+  animating: boolean
   layout: Layout
   dragging: boolean
   mode: string
@@ -175,7 +188,8 @@ const styleMachine = setup({
 }).createMachine({
   id: 'style1',
   context: {
-    inited: false,
+    rendered: true,
+    animating: false,
     layout: emptyLayout,
     dragging: false,
     mode: 'pointing',
@@ -187,7 +201,9 @@ const styleMachine = setup({
       on: {
         'STYLE.LAYOUT': {
           actions: assign({
-            inited: true,
+            rendered: ({ event }) => event.rendered,
+            animating: ({ context, event }) =>
+              context.rendered && event.rendered,
             layout: ({ event }) => event.layout,
           }),
         },

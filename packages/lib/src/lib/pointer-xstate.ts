@@ -431,8 +431,8 @@ export const pointerMachine = setup({
     syncViewBox: ({ context: { layout } }) => {
       syncViewBox('.container > .content.svg > svg', layout.svg)
     },
-    syncLayout: ({ context: { layout } }) => {
-      styleActor.send({ type: 'STYLE.LAYOUT', layout })
+    syncLayout: ({ context: { layout, rendered } }) => {
+      styleActor.send({ type: 'STYLE.LAYOUT', layout, rendered })
     },
 
     //
@@ -586,6 +586,7 @@ export const pointerMachine = setup({
               {
                 guard: ({ event }) => event.force,
                 actions: [
+                  assign({ rendered: () => false }),
                   assign({
                     origLayout: ({ event }) => event.layout,
                     layout: ({ event }) => event.layout,
@@ -597,6 +598,7 @@ export const pointerMachine = setup({
               },
               {
                 actions: [
+                  assign({ rendered: () => false }),
                   assign({
                     origLayout: ({ event }) => event.layout,
                     layout: ({ event }) => event.layout,
@@ -797,11 +799,13 @@ export const pointerMachine = setup({
                       layout,
                     })),
                     assign({ rendered: () => true }),
+                    'syncLayout',
                   ],
                 },
               },
             },
             Done: {
+              entry: 'syncLayout',
               type: 'final',
             },
           },
