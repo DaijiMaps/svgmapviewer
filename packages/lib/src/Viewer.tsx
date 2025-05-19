@@ -1,4 +1,4 @@
-import { PropsWithChildren, useRef } from 'react'
+import { PropsWithChildren } from 'react'
 import { Container, ContainerStyle } from './Container'
 import { Debug } from './Debug'
 import { Detail } from './Detail'
@@ -13,16 +13,14 @@ import { Right, RightStyle } from './Right'
 import { Shadow, ShadowStyle } from './Shadow'
 
 export const Viewer = (props: Readonly<PropsWithChildren>) => {
-  const containerRef = useRef<HTMLDivElement>(null)
-
   // eslint-disable-next-line functional/no-expression-statements
-  usePointer(containerRef)
+  usePointer()
 
   const { uiRef } = useUi()
 
   return (
     <>
-      <Container ref={containerRef}>
+      <Container>
         <MapSvg>{props.children}</MapSvg>
         <MapHtml />
         <MapHtmlStyle />
