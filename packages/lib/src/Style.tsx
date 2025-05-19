@@ -40,12 +40,16 @@ function LayoutStyle() {
     styleActor,
     (state: Readonly<StyleState>) => state.context.layout
   )
-  const { svg, svgOffset, svgScale } = layout
+  const { svg, svgOffset, svgScale, scroll } = layout
   const m = fromSvgToOuter({ svg, svgOffset, svgScale })
   const matrix = fixupCssString(cssMatrixToString(m))
 
   return (
     <style>{`
+.container > .content {
+  width: ${scroll.width}px;
+  height: ${scroll.height}px;
+}
 .container > .content.html {
   --svg-matrix: ${matrix};
   --svg-scale: ${svgScale.s};

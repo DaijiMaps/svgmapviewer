@@ -7,7 +7,6 @@ import { pointerActor } from './pointer-react'
 import {
   selectAnimating,
   selectAnimation,
-  selectLayoutScroll,
   selectRendered,
 } from './pointer-xstate'
 
@@ -29,21 +28,6 @@ export function useInitStyle() {
     [rendered]
   )
 
-  return style
-}
-
-export function useScrollStyle() {
-  const scroll = useSelector(pointerActor, selectLayoutScroll)
-
-  const style = useMemo(
-    () => `
-.container > .content {
-  width: ${scroll.width}px;
-  height: ${scroll.height}px;
-}
-`,
-    [scroll]
-  )
   return style
 }
 

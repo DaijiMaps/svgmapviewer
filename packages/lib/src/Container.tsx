@@ -1,12 +1,7 @@
 import { forwardRef, PropsWithChildren } from 'react'
 import './Container.css'
 import { pointerActor } from './lib/pointer-react'
-import {
-  useInitStyle,
-  useMoveStyle,
-  useScrollStyle,
-  useZoomStyle,
-} from './lib/style'
+import { useInitStyle, useMoveStyle, useZoomStyle } from './lib/style'
 
 export const Container = forwardRef<HTMLDivElement, PropsWithChildren>(
   (props, ref) => {
@@ -27,7 +22,6 @@ export function ContainerStyle() {
   return (
     <>
       <InitStyle />
-      <ScrollStyle />
       <MoveStyle />
       <ZoomStyle />
     </>
@@ -37,11 +31,6 @@ export function ContainerStyle() {
 function InitStyle() {
   const style = useInitStyle()
   return <style id="init-style">{style}</style>
-}
-
-function ScrollStyle() {
-  const style = useScrollStyle()
-  return <style id="scroll-style">{style}</style>
 }
 
 function MoveStyle() {

@@ -32,7 +32,9 @@ export const scrollMachine = setup({
     events: ScrollEvent
   },
   actions: {
-    syncScroll: (_, { pos }: { pos: Box }): boolean => syncScroll(pos),
+    syncScroll: (_, { pos }: { pos: Box }) =>
+      // wait for target element to be rendered
+      requestAnimationFrame(() => syncScroll(pos)),
     startStep: sendTo(
       ({ system }) => system.get('step1'),
       (_, { P, Q }: { P: Box; Q: Box }) => ({ type: 'STEP.START', P, Q })
