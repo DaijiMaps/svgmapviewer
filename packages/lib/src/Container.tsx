@@ -14,12 +14,15 @@ import {
   sendTouchMove,
   sendTouchStart,
   sendWheel,
+  usePointer,
 } from './lib/pointer-react'
 import { MapHtml, MapHtmlStyle } from './MapHtml'
 import { MapSvg } from './MapSvg'
 
 export function Container(props: Readonly<PropsWithChildren>) {
   const ref = useRef<HTMLDivElement>(null)
+
+  usePointer()
 
   useEffect(() => {
     const e = ref.current
