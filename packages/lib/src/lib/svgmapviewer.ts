@@ -34,6 +34,11 @@ export function svgmapviewer(configUser: Readonly<SvgMapViewerConfigUser>) {
     ...configUser,
   }
 
+  configActor.send({
+    type: 'ADD.CB',
+    searchStartCb: searchSearchStart,
+    searchDoneCb: searchSearchDone,
+  })
   svgMapViewerConfig.searchStartCbs.add(searchSearchStart)
   svgMapViewerConfig.searchDoneCbs.add(searchSearchDone)
 

@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react'
 import React, { useEffect } from 'react'
 import { createActor } from 'xstate'
-import { svgMapViewerConfig as cfg } from './config'
+import { svgMapViewerConfig as cfg, configActor } from './config'
 import { timeoutMachine } from './event-xstate'
 import { Layout } from './layout'
 import { useLayout } from './layout-react'
@@ -174,6 +174,11 @@ export const keyDown = (ev: KeyboardEvent) =>
 export const keyUp = (ev: KeyboardEvent) =>
   pointerActor.send({ type: 'KEY.UP', ev })
 
+configActor.send({
+  type: 'ADD.CB',
+  uiOpenCb: pointerSearchLock,
+  uiCloseDoneCb: pointerSearchUnlock,
+})
 cfg.uiOpenCbs.add(pointerSearchLock)
 cfg.uiCloseDoneCbs.add(pointerSearchUnlock)
 

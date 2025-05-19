@@ -101,7 +101,20 @@ interface ConfigContext {
 type ConfigEvent =
   | { type: 'SET.MAPNAMES'; mapNames: POI[] }
   | {
-      type: 'SET.CB'
+      type: 'ADD.CB'
+      zoomStartCb?: ZoomStartCb
+      zoomEndCb?: ZoomEndCb
+      searchStartCb?: SearchCb
+      searchCb?: SearchCb
+      searchDoneCb?: SearchDoneCb
+      searchEndCb?: SearchDoneCb
+      uiOpenCb?: UiOpenCb
+      uiOpenDoneCb?: UiOpenDoneCb
+      uiCloseCb?: UiCloseCb
+      uiCloseDoneCb?: UiCloseCb
+    }
+  | {
+      type: 'DELETE.CB'
       zoomStartCb?: ZoomStartCb
       zoomEndCb?: ZoomEndCb
       searchStartCb?: SearchCb
@@ -138,7 +151,7 @@ const configMachine = setup({
   states: {
     Idle: {
       on: {
-        'SET.CB': {
+        'ADD.CB': {
           actions: assign({
             zoomStartCbs: ({ context, event }) =>
               event.zoomStartCb === undefined
@@ -180,6 +193,80 @@ const configMachine = setup({
               event.uiCloseDoneCb === undefined
                 ? context.uiCloseDoneCbs
                 : context.uiCloseDoneCbs.add(event.uiCloseDoneCb),
+          }),
+        },
+        'DELETE.CB': {
+          actions: assign({
+            zoomStartCbs: ({ context, event }) => {
+              // eslint-disable-next-line functional/no-conditional-statements
+              if (event.zoomStartCb !== undefined) {
+                context.zoomStartCbs.delete(event.zoomStartCb)
+              }
+              return context.zoomStartCbs
+            },
+            zoomEndCbs: ({ context, event }) => {
+              // eslint-disable-next-line functional/no-conditional-statements
+              if (event.zoomEndCb !== undefined) {
+                context.zoomEndCbs.delete(event.zoomEndCb)
+              }
+              return context.zoomEndCbs
+            },
+            searchStartCbs: ({ context, event }) => {
+              // eslint-disable-next-line functional/no-conditional-statements
+              if (event.searchStartCb !== undefined) {
+                context.searchStartCbs.delete(event.searchStartCb)
+              }
+              return context.searchStartCbs
+            },
+            searchCbs: ({ context, event }) => {
+              // eslint-disable-next-line functional/no-conditional-statements
+              if (event.searchCb !== undefined) {
+                context.searchCbs.delete(event.searchCb)
+              }
+              return context.searchCbs
+            },
+            searchDoneCbs: ({ context, event }) => {
+              // eslint-disable-next-line functional/no-conditional-statements
+              if (event.searchDoneCb !== undefined) {
+                context.searchDoneCbs.delete(event.searchDoneCb)
+              }
+              return context.searchDoneCbs
+            },
+            searchEndCbs: ({ context, event }) => {
+              // eslint-disable-next-line functional/no-conditional-statements
+              if (event.searchEndCb !== undefined) {
+                context.searchEndCbs.delete(event.searchEndCb)
+              }
+              return context.searchEndCbs
+            },
+            uiOpenCbs: ({ context, event }) => {
+              // eslint-disable-next-line functional/no-conditional-statements
+              if (event.uiOpenCb !== undefined) {
+                context.uiOpenCbs.delete(event.uiOpenCb)
+              }
+              return context.uiOpenCbs
+            },
+            uiOpenDoneCbs: ({ context, event }) => {
+              // eslint-disable-next-line functional/no-conditional-statements
+              if (event.uiOpenDoneCb !== undefined) {
+                context.uiOpenDoneCbs.delete(event.uiOpenDoneCb)
+              }
+              return context.uiOpenDoneCbs
+            },
+            uiCloseCbs: ({ context, event }) => {
+              // eslint-disable-next-line functional/no-conditional-statements
+              if (event.uiCloseCb !== undefined) {
+                context.uiCloseCbs.delete(event.uiCloseCb)
+              }
+              return context.uiCloseCbs
+            },
+            uiCloseDoneCbs: ({ context, event }) => {
+              // eslint-disable-next-line functional/no-conditional-statements
+              if (event.uiCloseDoneCb !== undefined) {
+                context.uiCloseDoneCbs.delete(event.uiCloseDoneCb)
+              }
+              return context.uiCloseDoneCbs
+            },
           }),
         },
         'SET.MAPNAMES': {

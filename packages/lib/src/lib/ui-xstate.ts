@@ -8,7 +8,7 @@ import {
   setup,
   StateFrom,
 } from 'xstate'
-import { svgMapViewerConfig as cfg } from './config'
+import { svgMapViewerConfig as cfg, configActor } from './config'
 import {
   OpenClose,
   openCloseClose,
@@ -290,6 +290,12 @@ export const selectOpenCloseDetail = (ui: UiState) => ui.context.m['detail']
 
 ////
 export const uiActor = createActor(uiMachine)
+configActor.send({
+  type: 'ADD.CB',
+  searchEndCb: uiDetail,
+  uiOpenDoneCb: uiOpen,
+  uiCloseCb: uiCancel,
+})
 cfg.searchEndCbs.add(uiDetail)
 cfg.uiOpenDoneCbs.add(uiOpen)
 cfg.uiCloseCbs.add(uiCancel)

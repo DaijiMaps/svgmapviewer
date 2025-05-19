@@ -4,7 +4,7 @@ import { useActorRef } from '@xstate/react'
 import { useCallback, useEffect } from 'react'
 import { ActorRefFrom, assign, setup, StateFrom } from 'xstate'
 import './index.css'
-import { SvgMapViewerConfig } from './lib'
+import { configActor, SvgMapViewerConfig } from './lib'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { emptyLayout, Layout } from './lib/layout'
 
@@ -34,9 +34,19 @@ function useRenderMap(): { renderMapRef: RenderMapRef } {
   )
 
   useEffect(() => {
+    configActor.send({
+      type: 'ADD.CB',
+      zoomStartCb: zoomStart,
+      zoomEndCb: zoomEnd,
+    })
     cfg.zoomStartCbs.add(zoomStart)
     cfg.zoomEndCbs.add(zoomEnd)
     return () => {
+      configActor.send({
+        type: 'DELETE.CB',
+        zoomStartCb: zoomStart,
+        zoomEndCb: zoomEnd,
+      })
       cfg.zoomStartCbs.delete(zoomStart)
       cfg.zoomEndCbs.delete(zoomEnd)
     }
