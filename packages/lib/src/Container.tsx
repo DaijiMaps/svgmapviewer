@@ -18,6 +18,7 @@ import {
 } from './lib/pointer-react'
 import { MapHtml } from './MapHtml'
 import { MapSvg } from './MapSvg'
+import { styleAnimationEnd } from './Style'
 
 export function Container(props: Readonly<PropsWithChildren>) {
   const ref = useRef<HTMLDivElement>(null)
@@ -40,6 +41,7 @@ export function Container(props: Readonly<PropsWithChildren>) {
     e.addEventListener('wheel', sendWheel)
     e.addEventListener('scroll', sendScroll)
     e.addEventListener('animationend', sendAnimationEnd)
+    e.addEventListener('animationend', styleAnimationEnd)
     return () => {
       e.removeEventListener('pointerdown', sendPointerDown)
       e.removeEventListener('pointermove', sendPointerMove)
@@ -52,6 +54,7 @@ export function Container(props: Readonly<PropsWithChildren>) {
       e.removeEventListener('wheel', sendWheel)
       e.removeEventListener('scroll', sendScroll)
       e.removeEventListener('animationend', sendAnimationEnd)
+      e.removeEventListener('animationend', styleAnimationEnd)
     }
   }, [])
 

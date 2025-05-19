@@ -43,6 +43,10 @@ function Style() {
 }
 
 function LayoutStyle() {
+  const rendered = useSelector(
+    styleActor,
+    (state: Readonly<StyleState>) => state.context.rendered
+  )
   const animating = useSelector(
     styleActor,
     (state: Readonly<StyleState>) => state.context.animating
@@ -57,7 +61,8 @@ function LayoutStyle() {
 
   return (
     <style>{`
-${!animating ? '' : appearing}
+.container { display: ${!rendered ? `none` : `initial`}; }
+${!animating ? appearing_none : appearing}
 .container > .content {
   width: ${scroll.width}px;
   height: ${scroll.height}px;
@@ -70,10 +75,17 @@ ${!animating ? '' : appearing}
   )
 }
 
+const appearing_none = `
+.container {
+  animation: none;
+}
+@keyframes container-appearing {
+}
+`
 const appearing = `
 .container {
   will-change: opacity;
-  animation: container-appearing ${1000}ms ease forwards;
+  animation: container-appearing ${1000}ms ease;
 }
 @keyframes container-appearing {
   from {
@@ -170,6 +182,7 @@ export type StyleEvent =
   | { type: 'STYLE.DRAGGING'; dragging: boolean }
   | { type: 'STYLE.MODE'; mode: string }
   | { type: 'STYLE.ANIMATION'; animation: null | Animation } // null to stop animation
+  | { type: 'ANIMATION.END' } // null to stop animation
 
 interface StyleContext {
   rendered: boolean
@@ -203,7 +216,10 @@ const styleMachine = setup({
           actions: assign({
             rendered: ({ event }) => event.rendered,
             animating: ({ context, event }) =>
-              context.rendered && event.rendered,
+              // if animating, don't change (animating is cleared only by 'ANIMATION.END')
+              context.animating ||
+              // if not animating, transition from !rendered to rendered triggers opacity animation
+              (!context.rendered && event.rendered && !context.animating),
             layout: ({ event }) => event.layout,
           }),
         },
@@ -222,6 +238,11 @@ const styleMachine = setup({
             animation: ({ event }) => event.animation,
           }),
         },
+        'ANIMATION.END': {
+          actions: assign({
+            animating: () => false,
+          }),
+        },
       },
     },
   },
@@ -234,3 +255,7 @@ styleActor.start()
 
 export type StyleMachine = typeof styleMachine
 export type StyleState = StateFrom<StyleMachine>
+
+export function styleAnimationEnd() {
+  styleActor.send({ type: 'ANIMATION.END' })
+}
