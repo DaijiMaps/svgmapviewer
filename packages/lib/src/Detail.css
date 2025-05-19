@@ -17,6 +17,7 @@
 .detail > h3,
 .detail p {
   user-select: none;
+  -webkit-user-select: none;
 }
 
 .detail > h3 {

@@ -21,6 +21,7 @@
 
 .footer p {
   user-select: none;
+  -webkit-user-select: none;
 }
 
 .mode {

@@ -19,6 +19,7 @@
 .header h1,
 .header h2,
 .header p {
+  -webkit-user-select: none;
   user-select: none;
 }
 
