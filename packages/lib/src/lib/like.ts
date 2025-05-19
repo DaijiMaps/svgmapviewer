@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { createStore, StoreSnapshot } from '@xstate/store'
+import { useSelector } from '@xstate/store/react'
 
 interface LikesContext {
   ids: Set<number>
@@ -79,4 +80,8 @@ export const like = (id: number) => likesStore.trigger.like({ id })
 export const unlike = (id: number) => likesStore.trigger.unlike({ id })
 export const isLiked = (id: number): boolean => {
   return likesStore.getSnapshot().context.ids.has(id)
+}
+
+export function useLikes() {
+  return useSelector(likesStore, (s) => s.context.ids)
 }

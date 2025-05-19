@@ -1,6 +1,5 @@
 /* eslint-disable functional/no-return-void */
-import { useSelector } from '@xstate/store/react'
-import { like, likesStore, unlike } from './lib/like'
+import { like, unlike, useLikes } from './lib/like'
 import './Like.css'
 
 export interface LikeProps {
@@ -9,7 +8,7 @@ export interface LikeProps {
 
 export function Like(props: Readonly<LikeProps>) {
   const { _id: id } = props
-  const ids = useSelector(likesStore, (s) => s.context.ids)
+  const ids = useLikes()
 
   return ids.has(id) ? (
     <span className="liked" onClick={() => unlike(id)}>
