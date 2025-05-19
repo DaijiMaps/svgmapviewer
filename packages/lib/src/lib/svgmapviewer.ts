@@ -40,8 +40,6 @@ export function svgmapviewer(configUser: Readonly<SvgMapViewerConfigUser>) {
     searchStartCb: searchSearchStart,
     searchDoneCb: searchSearchDone,
   })
-  svgMapViewerConfig.searchStartCbs.add(searchSearchStart)
-  svgMapViewerConfig.searchDoneCbs.add(searchSearchDone)
 
   // eslint-disable-next-line functional/no-conditional-statements
   if (configUser.mapNames) {

@@ -5,7 +5,6 @@ import { useCallback, useEffect } from 'react'
 import { ActorRefFrom, assign, setup, StateFrom } from 'xstate'
 import './index.css'
 import { configActor, SvgMapViewerConfig } from './lib'
-import { svgMapViewerConfig as cfg } from './lib/config'
 import { emptyLayout, Layout } from './lib/layout'
 
 export function RenderMap(props: Readonly<{ config: SvgMapViewerConfig }>) {
@@ -40,16 +39,12 @@ function useRenderMap(): { renderMapRef: RenderMapRef } {
       zoomStartCb: zoomStart,
       zoomEndCb: zoomEnd,
     })
-    cfg.zoomStartCbs.add(zoomStart)
-    cfg.zoomEndCbs.add(zoomEnd)
     return () => {
       configActor.send({
         type: 'DELETE.CB',
         zoomStartCb: zoomStart,
         zoomEndCb: zoomEnd,
       })
-      cfg.zoomStartCbs.delete(zoomStart)
-      cfg.zoomEndCbs.delete(zoomEnd)
     }
   }, [zoomEnd, zoomStart])
 

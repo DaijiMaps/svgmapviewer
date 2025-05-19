@@ -184,8 +184,6 @@ configActor.send({
   uiOpenCb: pointerSearchLock,
   uiCloseDoneCb: pointerSearchUnlock,
 })
-cfg.uiOpenCbs.add(pointerSearchLock)
-cfg.uiCloseDoneCbs.add(pointerSearchUnlock)
 
 ////
 

@@ -47,6 +47,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   dragStepStepLimit: 10,
   dragStepMaxCount: 100,
   scrollIdleTimeout: 1000,
+  /*
   zoomStartCbs: new Set(),
   zoomEndCbs: new Set(),
   searchStartCbs: new Set(),
@@ -57,6 +58,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   uiOpenDoneCbs: new Set(),
   uiCloseCbs: new Set(),
   uiCloseDoneCbs: new Set(),
+  */
   renderAssets: RenderMapAssetsDefault,
   getMapLayers: () => [],
   getMapObjects: () => [],
@@ -279,9 +281,7 @@ const configMachine = setup({
   },
 })
 
-export const configActor = createActor(configMachine, {
-  inspect: (iev) => console.log(iev),
-})
+export const configActor = createActor(configMachine)
 configActor.start()
 
 export const configContext = createContext(configActor.ref)

@@ -28,18 +28,30 @@ export interface SearchRes {
   info: Readonly<Info>
 }
 
+////
+
 export type ZoomStartCb = (layout: Layout, zoom: number, z: number) => void
 export type ZoomEndCb = (layout: Layout, zoom: number) => void
-
 export type SearchCb = (psvg: Vec) => void
-
 export type SearchDoneCb = (res: Readonly<null | SearchRes>) => void
-
 export type UiOpenCb = (psvg: Vec, info: Readonly<Info>) => void
-
 export type UiOpenDoneCb = (ok: boolean) => void
-
 export type UiCloseCb = () => void
+
+export interface ConfigCbs {
+  zoomStartCbs: Set<ZoomStartCb>
+  zoomEndCbs: Set<ZoomEndCb>
+  searchStartCbs: Set<SearchCb>
+  searchCbs: Set<SearchCb>
+  searchDoneCbs: Set<SearchDoneCb>
+  searchEndCbs: Set<SearchDoneCb>
+  uiOpenCbs: Set<UiOpenCb>
+  uiOpenDoneCbs: Set<UiOpenDoneCb>
+  uiCloseCbs: Set<UiCloseCb>
+  uiCloseDoneCbs: Set<UiCloseCb>
+}
+
+////
 
 export interface RenderMapProps {
   /*
@@ -58,6 +70,8 @@ export type RenderMap = (
 
 export type RenderInfo = (props: Readonly<{ info: Info }>) => JSX.Element
 
+////
+
 export interface SvgMapViewerConfig {
   root: string
   map: string
@@ -75,16 +89,6 @@ export interface SvgMapViewerConfig {
   dragStepStepLimit: number
   dragStepMaxCount: number
   scrollIdleTimeout: number
-  zoomStartCbs: Set<ZoomStartCb>
-  zoomEndCbs: Set<ZoomEndCb>
-  searchStartCbs: Set<SearchCb>
-  searchCbs: Set<SearchCb>
-  searchDoneCbs: Set<SearchDoneCb>
-  searchEndCbs: Set<SearchDoneCb>
-  uiOpenCbs: Set<UiOpenCb>
-  uiOpenDoneCbs: Set<UiOpenDoneCb>
-  uiCloseCbs: Set<UiCloseCb>
-  uiCloseDoneCbs: Set<UiCloseCb>
   renderAssets: RenderAssets
   getMapLayers: () => MapLayer[]
   getMapObjects: () => MapObjects[]

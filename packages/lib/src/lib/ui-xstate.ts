@@ -8,7 +8,7 @@ import {
   setup,
   StateFrom,
 } from 'xstate'
-import { svgMapViewerConfig as cfg, configActor } from './config'
+import { configActor } from './config'
 import {
   OpenClose,
   openCloseClose,
@@ -297,9 +297,6 @@ configActor.send({
   uiOpenDoneCb: uiOpen,
   uiCloseCb: uiCancel,
 })
-cfg.searchEndCbs.add(uiDetail)
-cfg.uiOpenDoneCbs.add(uiOpen)
-cfg.uiCloseCbs.add(uiCancel)
 uiActor.on('CLOSE.DONE', closeDone)
 uiActor.start()
 
