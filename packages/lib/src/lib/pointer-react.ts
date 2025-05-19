@@ -54,9 +54,9 @@ function usePointerEvent(containerRef: RefObject<HTMLDivElement>) {
     if (e === null) {
       return
     }
-    e.addEventListener('pointerdown', sendPointerDown)
-    e.addEventListener('pointermove', sendPointerMove)
-    e.addEventListener('pointerup', sendPointerUp)
+    //e.addEventListener('pointerdown', sendPointerDown)
+    //e.addEventListener('pointermove', sendPointerMove)
+    //e.addEventListener('pointerup', sendPointerUp)
     e.addEventListener('touchstart', sendTouchStart)
     e.addEventListener('touchmove', sendTouchMove)
     e.addEventListener('touchend', sendTouchEnd)
@@ -65,9 +65,9 @@ function usePointerEvent(containerRef: RefObject<HTMLDivElement>) {
     e.addEventListener('wheel', sendWheel)
     e.addEventListener('scroll', sendScroll)
     return () => {
-      e.removeEventListener('pointerdown', sendPointerDown)
-      e.removeEventListener('pointermove', sendPointerMove)
-      e.removeEventListener('pointerup', sendPointerUp)
+      //e.removeEventListener('pointerdown', sendPointerDown)
+      //e.removeEventListener('pointermove', sendPointerMove)
+      //e.removeEventListener('pointerup', sendPointerUp)
       e.removeEventListener('touchstart', sendTouchStart)
       e.removeEventListener('touchmove', sendTouchMove)
       e.removeEventListener('touchend', sendTouchEnd)
@@ -150,51 +150,51 @@ const pointerSend = (
   pointerActor.send(event)
 }
 
-const sendPointerDown = (ev: PointerEvent) =>
+export const sendPointerDown = (ev: PointerEvent | React.PointerEvent) =>
   pointerSend({ type: 'POINTER.DOWN', ev })
-const sendPointerMove = (ev: PointerEvent) =>
+export const sendPointerMove = (ev: PointerEvent | React.PointerEvent) =>
   pointerSend({ type: 'POINTER.MOVE', ev })
-const sendPointerUp = (ev: PointerEvent) => {
+export const sendPointerUp = (ev: PointerEvent | React.PointerEvent) => {
   if (pointereventmask) {
     return
   }
   pointerSend({ type: 'POINTER.UP', ev })
 }
-const sendTouchStart = (ev: TouchEvent) => {
+export const sendTouchStart = (ev: TouchEvent) => {
   if (toucheventmask) {
     return
   }
   // skip preventDefault to enable emulated "click"
   pointerSend({ type: 'TOUCH.START', ev }, { preventDefault: false })
 }
-const sendTouchMove = (ev: TouchEvent) => {
+export const sendTouchMove = (ev: TouchEvent) => {
   if (toucheventmask) {
     return
   }
   pointerSend({ type: 'TOUCH.MOVE', ev })
 }
-const sendTouchEnd = (ev: TouchEvent) => {
+export const sendTouchEnd = (ev: TouchEvent) => {
   if (toucheventmask) {
     return
   }
   // skip preventDefault to enable emulated "click"
   pointerSend({ type: 'TOUCH.END', ev }, { preventDefault: false })
 }
-const sendClick = (ev: MouseEvent) => {
+export const sendClick = (ev: MouseEvent) => {
   if (clickeventmask) {
     return
   }
   pointerSend({ type: 'CLICK', ev })
 }
-const sendContextMenu = (ev: MouseEvent) =>
+export const sendContextMenu = (ev: MouseEvent) =>
   pointerSend({ type: 'CONTEXTMENU', ev })
-const sendWheel = (ev: WheelEvent) => {
+export const sendWheel = (ev: WheelEvent) => {
   if (wheeleventmask) {
     return
   }
   pointerSend({ type: 'WHEEL', ev })
 }
-const sendScroll = (ev: Event) =>
+export const sendScroll = (ev: Event) =>
   scrollTimeoutActor.send({
     type: 'TICK',
     ev,

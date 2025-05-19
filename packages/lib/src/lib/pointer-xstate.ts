@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   ActorRefFrom,
   and,
@@ -136,9 +137,18 @@ type UIEventContextMenu = { type: 'CONTEXTMENU'; ev: MouseEvent }
 type UIEventKeyDown = { type: 'KEY.DOWN'; ev: KeyboardEvent }
 type UIEventKeyUp = { type: 'KEY.UP'; ev: KeyboardEvent }
 type UIEventPointerCancel = { type: 'POINTER.CANCEL'; ev: PointerEvent }
-type UIEventPointerDown = { type: 'POINTER.DOWN'; ev: PointerEvent }
-type UIEventPointerMove = { type: 'POINTER.MOVE'; ev: PointerEvent }
-type UIEventPointerUp = { type: 'POINTER.UP'; ev: PointerEvent }
+type UIEventPointerDown = {
+  type: 'POINTER.DOWN'
+  ev: PointerEvent | React.PointerEvent
+}
+type UIEventPointerMove = {
+  type: 'POINTER.MOVE'
+  ev: PointerEvent | React.PointerEvent
+}
+type UIEventPointerUp = {
+  type: 'POINTER.UP'
+  ev: PointerEvent | React.PointerEvent
+}
 type UIEventScroll = { type: 'SCROLL'; ev: Event }
 type UIEventTouchCancel = { type: 'TOUCH.CANCEL'; ev: TouchEvent }
 type UIEventTouchEnd = { type: 'TOUCH.END'; ev: TouchEvent }
@@ -405,7 +415,7 @@ export const pointerMachine = setup({
     cursor: assign({
       cursor: (
         { context: { mode, cursor } },
-        { ev }: { ev: MouseEvent | PointerEvent }
+        { ev }: { ev: MouseEvent | PointerEvent | React.PointerEvent }
       ): Vec => (mode !== 'pointing' ? cursor : vecVec(ev.pageX, ev.pageY)),
     }),
 
@@ -419,7 +429,7 @@ export const pointerMachine = setup({
     moveDrag: assign({
       drag: (
         { context: { drag } },
-        { ev }: { ev: PointerEvent }
+        { ev }: { ev: PointerEvent | React.PointerEvent }
       ): null | Drag =>
         drag === null ? null : dragMove(drag, vecVec(ev.pageX, ev.pageY)),
     }),

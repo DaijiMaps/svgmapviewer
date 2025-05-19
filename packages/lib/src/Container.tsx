@@ -1,6 +1,11 @@
 import { forwardRef, PropsWithChildren } from 'react'
 import './Container.css'
-import { pointerActor } from './lib/pointer-react'
+import {
+  pointerActor,
+  sendPointerDown,
+  sendPointerMove,
+  sendPointerUp,
+} from './lib/pointer-react'
 import { useInitStyle, useMoveStyle, useZoomStyle } from './lib/style'
 
 export const Container = forwardRef<HTMLDivElement, PropsWithChildren>(
@@ -9,6 +14,12 @@ export const Container = forwardRef<HTMLDivElement, PropsWithChildren>(
       <div
         ref={ref}
         className="container"
+        // eslint-disable-next-line functional/no-return-void
+        onPointerDown={(ev) => sendPointerDown(ev)}
+        // eslint-disable-next-line functional/no-return-void
+        onPointerMove={(ev) => sendPointerMove(ev)}
+        // eslint-disable-next-line functional/no-return-void
+        onPointerUp={(ev) => sendPointerUp(ev)}
         // eslint-disable-next-line functional/no-return-void
         onAnimationEnd={() => pointerActor.send({ type: 'ANIMATION.END' })}
       >
