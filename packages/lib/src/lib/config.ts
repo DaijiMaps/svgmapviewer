@@ -10,8 +10,15 @@ import { emptyMapData } from './geo/data'
 import type {
   Info,
   RenderInfo,
+  SearchCb,
+  SearchDoneCb,
   SvgMapViewerConfig,
   SvgMapViewerConfigUser,
+  UiCloseCb,
+  UiOpenCb,
+  UiOpenDoneCb,
+  ZoomEndCb,
+  ZoomStartCb,
 } from './types'
 import { VecVec } from './vec/prefixed'
 
@@ -79,9 +86,33 @@ export function updateSvgMapViewerConfig(
 //// XXX xstate
 
 interface ConfigContext {
+  zoomStartCbs: Set<ZoomStartCb>
+  zoomEndCbs: Set<ZoomEndCb>
+  searchStartCbs: Set<SearchCb>
+  searchCbs: Set<SearchCb>
+  searchDoneCbs: Set<SearchDoneCb>
+  searchEndCbs: Set<SearchDoneCb>
+  uiOpenCbs: Set<UiOpenCb>
+  uiOpenDoneCbs: Set<UiOpenDoneCb>
+  uiCloseCbs: Set<UiCloseCb>
+  uiCloseDoneCbs: Set<UiCloseCb>
   mapNames: POI[]
 }
-type ConfigEvent = { type: 'SET.MAPNAMES'; mapNames: POI[] }
+type ConfigEvent =
+  | { type: 'SET.MAPNAMES'; mapNames: POI[] }
+  | {
+      type: 'SET.CB'
+      zoomStartCb?: ZoomStartCb
+      zoomEndCb?: ZoomEndCb
+      searchStartCb?: SearchCb
+      searchCb?: SearchCb
+      searchDoneCb?: SearchDoneCb
+      searchEndCb?: SearchDoneCb
+      uiOpenCb?: UiOpenCb
+      uiOpenDoneCb?: UiOpenDoneCb
+      uiCloseCb?: UiCloseCb
+      uiCloseDoneCb?: UiCloseCb
+    }
 
 const configMachine = setup({
   types: {
@@ -92,11 +123,65 @@ const configMachine = setup({
   id: 'config1',
   initial: 'Idle',
   context: {
+    zoomStartCbs: new Set(),
+    zoomEndCbs: new Set(),
+    searchStartCbs: new Set(),
+    searchCbs: new Set(),
+    searchDoneCbs: new Set(),
+    searchEndCbs: new Set(),
+    uiOpenCbs: new Set(),
+    uiOpenDoneCbs: new Set(),
+    uiCloseCbs: new Set(),
+    uiCloseDoneCbs: new Set(),
     mapNames: [],
   },
   states: {
     Idle: {
       on: {
+        'SET.CB': {
+          actions: assign({
+            zoomStartCbs: ({ context, event }) =>
+              event.zoomStartCb === undefined
+                ? context.zoomStartCbs
+                : context.zoomStartCbs.add(event.zoomStartCb),
+            zoomEndCbs: ({ context, event }) =>
+              event.zoomEndCb === undefined
+                ? context.zoomEndCbs
+                : context.zoomEndCbs.add(event.zoomEndCb),
+            searchStartCbs: ({ context, event }) =>
+              event.searchStartCb === undefined
+                ? context.searchStartCbs
+                : context.searchStartCbs.add(event.searchStartCb),
+            searchCbs: ({ context, event }) =>
+              event.searchCb === undefined
+                ? context.searchCbs
+                : context.searchCbs.add(event.searchCb),
+            searchDoneCbs: ({ context, event }) =>
+              event.searchDoneCb === undefined
+                ? context.searchDoneCbs
+                : context.searchDoneCbs.add(event.searchDoneCb),
+            searchEndCbs: ({ context, event }) =>
+              event.searchEndCb === undefined
+                ? context.searchEndCbs
+                : context.searchEndCbs.add(event.searchEndCb),
+            uiOpenCbs: ({ context, event }) =>
+              event.uiOpenCb === undefined
+                ? context.uiOpenCbs
+                : context.uiOpenCbs.add(event.uiOpenCb),
+            uiOpenDoneCbs: ({ context, event }) =>
+              event.uiOpenDoneCb === undefined
+                ? context.uiOpenDoneCbs
+                : context.uiOpenDoneCbs.add(event.uiOpenDoneCb),
+            uiCloseCbs: ({ context, event }) =>
+              event.uiCloseCb === undefined
+                ? context.uiCloseCbs
+                : context.uiCloseCbs.add(event.uiCloseCb),
+            uiCloseDoneCbs: ({ context, event }) =>
+              event.uiCloseDoneCb === undefined
+                ? context.uiCloseDoneCbs
+                : context.uiCloseDoneCbs.add(event.uiCloseDoneCb),
+          }),
+        },
         'SET.MAPNAMES': {
           actions: assign({
             mapNames: ({ event }) => event.mapNames,
