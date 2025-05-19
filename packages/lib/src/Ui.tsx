@@ -6,6 +6,9 @@ import { searchRef } from './lib/search'
 import { Right } from './Right'
 import { Shadow } from './Shadow'
 
+// XXX group UI part animations into one
+// XXX receive animationend here (.ui)
+
 export function Ui() {
   return (
     <div className="ui">
