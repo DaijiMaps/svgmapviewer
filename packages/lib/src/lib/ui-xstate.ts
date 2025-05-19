@@ -222,7 +222,6 @@ export const uiMachine = setup({
             },
             Closed: {
               entry: emit({ type: 'CLOSE.DONE' }),
-              exit: assign({ detail: () => null }),
               type: 'final',
             },
           },
