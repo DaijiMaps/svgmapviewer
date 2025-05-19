@@ -18,11 +18,13 @@ export const syncScroll = (b: Box): boolean => {
     Math.abs(e.scrollWidth - b.width) > 1 ||
     Math.abs(e.scrollHeight - b.height) > 1
   ) {
+    console.log(`scroll: target smaller than expected: [${e.scrollWidth}, ${e.scrollHeight}] vs. [${b.width}, ${b.height}]`)
     return false
   }
   const left = Math.round(-b.x)
   const top = Math.round(-b.y)
   if (left < 0 || top < 0) {
+    console.log(`scroll: out-of-bound request: [${b.x}], [${b.y}]`)
     return false
   }
   if (e.scrollLeft !== left) {
