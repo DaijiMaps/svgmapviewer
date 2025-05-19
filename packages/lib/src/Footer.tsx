@@ -4,8 +4,7 @@ import { useContext } from 'react'
 import './Footer.css'
 import { pointerActor } from './lib/pointer-react'
 import { selectMode } from './lib/pointer-xstate'
-import { uiActor } from './lib/ui-react'
-import { selectOpenCloseFooter } from './lib/ui-xstate'
+import { selectOpenCloseFooter, uiActor } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 
 export const Footer = () => {

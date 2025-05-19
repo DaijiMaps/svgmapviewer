@@ -1,7 +1,6 @@
 import { useSelector } from '@xstate/react'
 import { useContext } from 'react'
-import { uiActor } from './lib/ui-react'
-import { selectOpenCloseShadow } from './lib/ui-xstate'
+import { selectOpenCloseShadow, uiActor } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 import './Shadow.css'
 

@@ -6,7 +6,7 @@ import { selectDebug } from './lib/pointer-xstate'
 import { SearchRef } from './lib/search-xstate'
 import { showBox, showNumber, showPoint } from './lib/show'
 import { transformPoint } from './lib/transform'
-import { uiActor } from './lib/ui-react'
+import { uiActor } from './lib/ui-xstate'
 
 interface DebugProps {
   _searchRef: SearchRef

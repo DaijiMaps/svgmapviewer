@@ -2,8 +2,7 @@ import { useSelector } from '@xstate/react'
 import clsx from 'clsx'
 import './Right.css'
 import { pointerActor } from './lib/pointer-react'
-import { uiActor } from './lib/ui-react'
-import { selectOpenCloseRight } from './lib/ui-xstate'
+import { selectOpenCloseRight, uiActor } from './lib/ui-xstate'
 
 export const Right = () => {
   return (

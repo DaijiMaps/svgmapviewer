@@ -7,8 +7,7 @@ import { diag } from './lib/diag'
 import { fromSvg } from './lib/layout'
 import { pointerActor } from './lib/pointer-react'
 import { selectLayout } from './lib/pointer-xstate'
-import { uiActor } from './lib/ui-react'
-import { selectDetail } from './lib/ui-xstate'
+import { selectDetail, uiActor } from './lib/ui-xstate'
 
 export function Detail() {
   const detail = useSelector(uiActor, selectDetail)

@@ -1,12 +1,14 @@
 import {
   ActorRefFrom,
   assign,
+  createActor,
   emit,
   not,
   raise,
   setup,
   StateFrom,
 } from 'xstate'
+import { svgMapViewerConfig as cfg } from './config'
 import {
   OpenClose,
   openCloseClose,
@@ -286,3 +288,26 @@ export const selectOpenCloseRight = (ui: UiState) => ui.context.m['right']
 export const selectOpenCloseShadow = (ui: UiState) => ui.context.m['shadow']
 export const selectOpenCloseBalloon = (ui: UiState) => ui.context.m['balloon']
 export const selectOpenCloseDetail = (ui: UiState) => ui.context.m['detail']
+
+////
+export const uiActor = createActor(uiMachine)
+cfg.searchEndCbs.add(uiDetail)
+cfg.uiOpenDoneCbs.add(uiOpen)
+cfg.uiCloseCbs.add(uiCancel)
+uiActor.on('CLOSE.DONE', closeDone)
+uiActor.start()
+
+function uiDetail(res: Readonly<null | SearchRes>) {
+  if (res !== null) {
+    uiActor.send({ type: 'DETAIL', ...res })
+  }
+}
+function uiOpen(ok: boolean) {
+  uiActor.send({ type: ok ? 'OPEN' : 'CANCEL' })
+}
+function uiCancel() {
+  uiActor.send({ type: 'CANCEL' })
+}
+function closeDone() {
+  cfg.uiCloseDoneCbs.forEach((cb) => cb())
+}

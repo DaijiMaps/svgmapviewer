@@ -3,8 +3,11 @@ import { ReactNode } from 'react'
 import './Balloon.css'
 import { OpenClose, openCloseIsVisible } from './lib/openclose'
 import { Dir, SearchRes } from './lib/types'
-import { uiActor } from './lib/ui-react'
-import { selectOpenCloseBalloon, selectOpenCloseDetail } from './lib/ui-xstate'
+import {
+  selectOpenCloseBalloon,
+  selectOpenCloseDetail,
+  uiActor,
+} from './lib/ui-xstate'
 import { Vec } from './lib/vec'
 import { VecVec } from './lib/vec/prefixed'
 

@@ -2,8 +2,7 @@ import { useSelector } from '@xstate/react'
 import { useContext } from 'react'
 import './Header.css'
 import { pointerActor } from './lib/pointer-react'
-import { uiActor } from './lib/ui-react'
-import { selectOpenCloseHeader } from './lib/ui-xstate'
+import { selectOpenCloseHeader, uiActor } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 
 export const Header = () => {
