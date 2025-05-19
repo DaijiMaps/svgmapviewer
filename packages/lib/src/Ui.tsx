@@ -8,7 +8,7 @@ import { Right } from './Right'
 import { Shadow } from './Shadow'
 
 export function Ui() {
-  const { uiRef } = useUi()
+  const uiRef = useUi()
 
   return (
     <>

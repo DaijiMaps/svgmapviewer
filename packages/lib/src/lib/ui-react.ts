@@ -4,9 +4,7 @@ import { svgMapViewerConfig as cfg } from './config'
 import { SearchRes } from './types'
 import { uiMachine, UiRef } from './ui-xstate'
 
-export function useUi(): {
-  uiRef: UiRef
-} {
+export function useUi(): UiRef {
   const uiRef = useActorRef(uiMachine)
 
   const uiDetail = useCallback(
@@ -52,5 +50,5 @@ export function useUi(): {
     }
   }, [uiRef])
 
-  return { uiRef }
+  return uiRef
 }
