@@ -2,20 +2,15 @@ import { useSelector } from '@xstate/react'
 import clsx from 'clsx'
 import './Right.css'
 import { pointerActor } from './lib/pointer-react'
-import { selectOpenCloseRight, UiRef } from './lib/ui-xstate'
+import { uiActor } from './lib/ui-react'
+import { selectOpenCloseRight } from './lib/ui-xstate'
 
-interface RightProps {
-  _uiRef: UiRef
-}
-
-export const Right = (props: Readonly<RightProps>) => {
-  const { _uiRef: uiRef } = props
-
+export const Right = () => {
   return (
     <div
       className="right"
       // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => uiRef.send({ type: 'RIGHT.ANIMATION.END' })}
+      onAnimationEnd={() => uiActor.send({ type: 'RIGHT.ANIMATION.END' })}
     >
       <div className="zoom">
         <div
@@ -37,7 +32,7 @@ export const Right = (props: Readonly<RightProps>) => {
           </svg>
         </div>
       </div>
-      <RightStyle _uiRef={uiRef} />
+      <RightStyle />
     </div>
   )
 }
@@ -49,10 +44,8 @@ const sendZoomIn =
   // eslint-disable-next-line functional/no-return-void
   () => pointerActor.send({ type: 'ZOOM.ZOOM', z: 1 })
 
-export function RightStyle(props: Readonly<RightProps>) {
-  const { _uiRef: uiRef } = props
-
-  const { open, animating } = useSelector(uiRef, selectOpenCloseRight)
+export function RightStyle() {
+  const { open, animating } = useSelector(uiActor, selectOpenCloseRight)
 
   if (!animating) {
     const b = !open ? 0 : 1

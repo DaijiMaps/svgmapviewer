@@ -6,16 +6,15 @@ import { selectDebug } from './lib/pointer-xstate'
 import { SearchRef } from './lib/search-xstate'
 import { showBox, showNumber, showPoint } from './lib/show'
 import { transformPoint } from './lib/transform'
-import { UiRef } from './lib/ui-xstate'
+import { uiActor } from './lib/ui-react'
 
 interface DebugProps {
-  _uiRef: UiRef
   _searchRef: SearchRef
 }
 
 export const Debug = (props: Readonly<DebugProps>) => {
-  const { _uiRef: uiRef, _searchRef: searchRef } = props
-  const ui = uiRef.getSnapshot()
+  const { _searchRef: searchRef } = props
+  const ui = uiActor.getSnapshot()
   const pointer = pointerActor.getSnapshot()
   const search = searchRef.getSnapshot()
   const {

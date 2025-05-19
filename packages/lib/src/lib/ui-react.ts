@@ -1,54 +1,26 @@
-import { useActorRef } from '@xstate/react'
-import { useCallback, useEffect } from 'react'
+import { createActor } from 'xstate'
 import { svgMapViewerConfig as cfg } from './config'
 import { SearchRes } from './types'
-import { uiMachine, UiRef } from './ui-xstate'
+import { uiMachine } from './ui-xstate'
 
-export function useUi(): UiRef {
-  const uiRef = useActorRef(uiMachine)
+export const uiActor = createActor(uiMachine)
+cfg.searchEndCbs.add(uiDetail)
+cfg.uiOpenDoneCbs.add(uiOpen)
+cfg.uiCloseCbs.add(uiCancel)
+uiActor.on('CLOSE.DONE', closeDone)
+uiActor.start()
 
-  const uiDetail = useCallback(
-    (res: Readonly<null | SearchRes>) => {
-      if (res !== null) {
-        uiRef.send({ type: 'DETAIL', ...res })
-      }
-    },
-    [uiRef]
-  )
-  useEffect(() => {
-    cfg.searchEndCbs.add(uiDetail)
-    return () => {
-      cfg.searchEndCbs.delete(uiDetail)
-    }
-  }, [uiDetail])
-
-  const uiOpen = useCallback(
-    (ok: boolean) => uiRef.send({ type: ok ? 'OPEN' : 'CANCEL' }),
-    [uiRef]
-  )
-  useEffect(() => {
-    cfg.uiOpenDoneCbs.add(uiOpen)
-    return () => {
-      cfg.uiOpenDoneCbs.delete(uiOpen)
-    }
-  }, [uiOpen])
-
-  const uiCancel = useCallback(() => uiRef.send({ type: 'CANCEL' }), [uiRef])
-  useEffect(() => {
-    cfg.uiCloseCbs.add(uiCancel)
-    return () => {
-      cfg.uiCloseCbs.delete(uiCancel)
-    }
-  }, [uiCancel])
-
-  useEffect(() => {
-    const closeDone = uiRef.on('CLOSE.DONE', () =>
-      cfg.uiCloseDoneCbs.forEach((cb) => cb())
-    )
-    return () => {
-      closeDone.unsubscribe()
-    }
-  }, [uiRef])
-
-  return uiRef
+function uiDetail(res: Readonly<null | SearchRes>) {
+  if (res !== null) {
+    uiActor.send({ type: 'DETAIL', ...res })
+  }
+}
+function uiOpen(ok: boolean) {
+  uiActor.send({ type: ok ? 'OPEN' : 'CANCEL' })
+}
+function uiCancel() {
+  uiActor.send({ type: 'CANCEL' })
+}
+function closeDone() {
+  cfg.uiCloseDoneCbs.forEach((cb) => cb())
 }

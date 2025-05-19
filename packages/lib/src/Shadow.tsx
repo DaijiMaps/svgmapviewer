@@ -1,17 +1,12 @@
 import { useSelector } from '@xstate/react'
 import { useContext } from 'react'
-import { selectOpenCloseShadow, UiRef } from './lib/ui-xstate'
+import { uiActor } from './lib/ui-react'
+import { selectOpenCloseShadow } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 import './Shadow.css'
 
-export interface ShadowProps {
-  _uiRef: UiRef
-}
-
-export function Shadow(props: Readonly<ShadowProps>) {
+export function Shadow() {
   const config = useContext(SvgMapViewerConfigContext)
-
-  const { _uiRef: uiRef } = props
 
   return (
     <div
@@ -19,17 +14,15 @@ export function Shadow(props: Readonly<ShadowProps>) {
       // eslint-disable-next-line functional/no-return-void
       onClick={() => config.uiCloseCbs.forEach((cb) => cb())}
       // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => uiRef.send({ type: 'SHADOW.ANIMATION.END' })}
+      onAnimationEnd={() => uiActor.send({ type: 'SHADOW.ANIMATION.END' })}
     >
-      <ShadowStyle {...props} />
+      <ShadowStyle />
     </div>
   )
 }
 
-function ShadowStyle(props: Readonly<ShadowProps>) {
-  const { _uiRef: uiRef } = props
-
-  const shadow = useSelector(uiRef, selectOpenCloseShadow)
+function ShadowStyle() {
+  const shadow = useSelector(uiActor, selectOpenCloseShadow)
 
   if (!shadow.animating) {
     return !shadow.open ? (

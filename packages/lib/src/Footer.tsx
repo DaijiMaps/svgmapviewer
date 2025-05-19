@@ -4,15 +4,11 @@ import { useContext } from 'react'
 import './Footer.css'
 import { pointerActor } from './lib/pointer-react'
 import { selectMode } from './lib/pointer-xstate'
-import { selectOpenCloseFooter, UiRef } from './lib/ui-xstate'
+import { uiActor } from './lib/ui-react'
+import { selectOpenCloseFooter } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 
-interface FooterProps {
-  _uiRef: UiRef
-}
-
-export const Footer = (props: Readonly<FooterProps>) => {
-  const { _uiRef: uiRef } = props
+export const Footer = () => {
   const config = useContext(SvgMapViewerConfigContext)
   const mode = useSelector(pointerActor, selectMode)
 
@@ -20,7 +16,7 @@ export const Footer = (props: Readonly<FooterProps>) => {
     <div
       className="footer"
       // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => uiRef.send({ type: 'FOOTER.ANIMATION.END' })}
+      onAnimationEnd={() => uiActor.send({ type: 'FOOTER.ANIMATION.END' })}
     >
       <div className="mode">
         <div
@@ -56,7 +52,7 @@ export const Footer = (props: Readonly<FooterProps>) => {
       >
         {config.copyright}
       </p>
-      <FooterStyle _uiRef={uiRef} />
+      <FooterStyle />
     </div>
   )
 }
@@ -68,10 +64,8 @@ const sendModePanning =
   // eslint-disable-next-line functional/no-return-void
   () => pointerActor.send({ type: 'MODE', mode: 'panning' })
 
-export function FooterStyle(props: Readonly<FooterProps>) {
-  const { _uiRef: uiRef } = props
-
-  const { open, animating } = useSelector(uiRef, selectOpenCloseFooter)
+export function FooterStyle() {
+  const { open, animating } = useSelector(uiActor, selectOpenCloseFooter)
 
   if (!animating) {
     const b = !open ? 0 : 1

@@ -2,22 +2,18 @@ import { useSelector } from '@xstate/react'
 import { useContext } from 'react'
 import './Header.css'
 import { pointerActor } from './lib/pointer-react'
-import { selectOpenCloseHeader, UiRef } from './lib/ui-xstate'
+import { uiActor } from './lib/ui-react'
+import { selectOpenCloseHeader } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 
-interface HeaderProps {
-  _uiRef: UiRef
-}
-
-export const Header = (props: Readonly<HeaderProps>) => {
-  const { _uiRef: uiRef } = props
+export const Header = () => {
   const config = useContext(SvgMapViewerConfigContext)
 
   return (
     <div
       className="header"
       // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => uiRef.send({ type: 'HEADER.ANIMATION.END' })}
+      onAnimationEnd={() => uiActor.send({ type: 'HEADER.ANIMATION.END' })}
     >
       <h2 className="subtitle">{config.subtitle}</h2>
       <h1
@@ -27,15 +23,13 @@ export const Header = (props: Readonly<HeaderProps>) => {
       >
         {config.title}
       </h1>
-      <HeaderStyle _uiRef={uiRef} />
+      <HeaderStyle />
     </div>
   )
 }
 
-export function HeaderStyle(props: Readonly<HeaderProps>) {
-  const { _uiRef: uiRef } = props
-
-  const { open, animating } = useSelector(uiRef, selectOpenCloseHeader)
+export function HeaderStyle() {
+  const { open, animating } = useSelector(uiActor, selectOpenCloseHeader)
 
   if (!animating) {
     const b = !open ? 0 : 1

@@ -3,11 +3,8 @@ import { ReactNode } from 'react'
 import './Balloon.css'
 import { OpenClose, openCloseIsVisible } from './lib/openclose'
 import { Dir, SearchRes } from './lib/types'
-import {
-  UiRef,
-  selectOpenCloseBalloon,
-  selectOpenCloseDetail,
-} from './lib/ui-xstate'
+import { uiActor } from './lib/ui-react'
+import { selectOpenCloseBalloon, selectOpenCloseDetail } from './lib/ui-xstate'
 import { Vec } from './lib/vec'
 import { VecVec } from './lib/vec/prefixed'
 
@@ -74,7 +71,6 @@ l${ll},${hlw}
 }
 
 export interface BalloonProps {
-  _uiRef: UiRef
   _detail: null | SearchRes
   _p: null | VecVec
   _dir: null | Dir
@@ -87,8 +83,6 @@ const BH = 50
 const BL = 10
 
 export function Balloon(props: Readonly<BalloonProps>): ReactNode {
-  const { _uiRef: uiRef } = props
-
   // XXX
   const vmin = Math.min(props._W, props._H) * 0.01
 
@@ -112,7 +106,7 @@ export function Balloon(props: Readonly<BalloonProps>): ReactNode {
     <div
       className="balloon-container"
       // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => uiRef.send({ type: 'BALLOON.ANIMATION.END' })}
+      onAnimationEnd={() => uiActor.send({ type: 'BALLOON.ANIMATION.END' })}
     >
       <svg
         className="balloon"
@@ -128,10 +122,10 @@ export function Balloon(props: Readonly<BalloonProps>): ReactNode {
 }
 
 export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
-  const { _uiRef: uiRef, _detail: content, _p: o, _dir: dir } = props
+  const { _detail: content, _p: o, _dir: dir } = props
 
-  const balloon = useSelector(uiRef, selectOpenCloseBalloon)
-  const detail = useSelector(uiRef, selectOpenCloseDetail)
+  const balloon = useSelector(uiActor, selectOpenCloseBalloon)
+  const detail = useSelector(uiActor, selectOpenCloseDetail)
 
   // XXX
   const vmin = Math.min(props._W, props._H) * 0.01

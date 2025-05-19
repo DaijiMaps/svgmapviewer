@@ -7,14 +7,11 @@ import { diag } from './lib/diag'
 import { fromSvg } from './lib/layout'
 import { pointerActor } from './lib/pointer-react'
 import { selectLayout } from './lib/pointer-xstate'
-import { UiRef, selectDetail } from './lib/ui-xstate'
+import { uiActor } from './lib/ui-react'
+import { selectDetail } from './lib/ui-xstate'
 
-export interface DetailProps {
-  _uiRef: UiRef
-}
-
-export function Detail(props: Readonly<DetailProps>) {
-  const detail = useSelector(props._uiRef, selectDetail)
+export function Detail() {
+  const detail = useSelector(uiActor, selectDetail)
 
   // XXX
   const layout = useSelector(pointerActor, selectLayout)
@@ -32,28 +29,12 @@ export function Detail(props: Readonly<DetailProps>) {
 
   return (
     <div className="detail-balloon">
-      <Balloon
-        _uiRef={props._uiRef}
-        _detail={detail}
-        _p={p}
-        _dir={dir}
-        _W={W}
-        _H={H}
-      />
-      <BalloonStyle
-        _uiRef={props._uiRef}
-        _detail={detail}
-        _p={p}
-        _dir={dir}
-        _W={W}
-        _H={H}
-      />
+      <Balloon _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
+      <BalloonStyle _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
       <div
         className="detail"
         // eslint-disable-next-line functional/no-return-void
-        onAnimationEnd={() =>
-          props._uiRef.send({ type: 'DETAIL.ANIMATION.END' })
-        }
+        onAnimationEnd={() => uiActor.send({ type: 'DETAIL.ANIMATION.END' })}
       >
         {cfg.renderInfo &&
           detail &&
