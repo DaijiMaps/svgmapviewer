@@ -3,6 +3,9 @@
 /* eslint-disable functional/no-conditional-statements */
 import { BoxBox as Box, boxBox, BoxBox } from './box/prefixed'
 
+// XXX make this async
+// XXX call this from scroll-xstate as invoke (Promise)
+// XXX return status
 export const syncScroll = (b: Box): boolean => {
   const e = document.querySelector('.container')
 
