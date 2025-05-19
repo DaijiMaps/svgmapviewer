@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { ReactNode } from 'react'
+import { PropsWithChildren, ReactNode } from 'react'
 import './Balloon.css'
 import { OpenClose, openCloseIsVisible } from './lib/openclose'
 import { Dir, SearchRes } from './lib/types'
@@ -85,7 +85,9 @@ const BW = 50
 const BH = 50
 const BL = 10
 
-export function Balloon(props: Readonly<BalloonProps>): ReactNode {
+export function Balloon(
+  props: Readonly<PropsWithChildren<BalloonProps>>
+): ReactNode {
   // XXX
   const vmin = Math.min(props._W, props._H) * 0.01
 
@@ -120,6 +122,7 @@ export function Balloon(props: Readonly<BalloonProps>): ReactNode {
         <path className="bg" d={bgPath} />
         <path className="fg" d={fgPath} />
       </svg>
+      {props.children}
     </div>
   )
 }

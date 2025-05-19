@@ -28,8 +28,9 @@ export function Detail() {
 
   return (
     <div className="detail-balloon">
-      <Balloon _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
-      <BalloonStyle _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
+      <Balloon _detail={detail} _p={p} _dir={dir} _W={W} _H={H}>
+        <BalloonStyle _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
+      </Balloon>
       <div
         className="detail"
         // eslint-disable-next-line functional/no-return-void
