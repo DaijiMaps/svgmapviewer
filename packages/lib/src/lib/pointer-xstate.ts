@@ -592,7 +592,6 @@ export const pointerMachine = setup({
                     cursor: ({ event }) => boxCenter(event.layout.container),
                   }),
                   'syncLayout',
-                  'renderAndSyncScroll',
                 ],
                 target: 'Resizing',
               },
@@ -779,6 +778,11 @@ export const pointerMachine = setup({
           },
         },
         Layouting: {
+          // XXX waiting for DOM to be stable (reflow)
+          // XXX especially right after resize
+          after: { 500: { target: 'Layouting2' } },
+        },
+        Layouting2: {
           initial: 'Assigned',
           onDone: 'Idle',
           states: {
