@@ -10,27 +10,14 @@ import { pointerActor } from './lib/pointer-react'
 import { selectLayoutSvgScaleS } from './lib/pointer-xstate'
 import './MapHtml.css'
 
-export interface MapHtmlContentProps {
-  _names: (POI & { size: number })[]
-}
-
 export function MapHtml() {
+  // eslint-disable-next-line functional/no-expression-statements
+  useMapHtmlContentRoot()
+
   return (
     <div className="content html">
-      <MapHtmlContentRoot />
+      <div id={ROOT_ID} />
     </div>
-  )
-}
-
-export function MapHtmlStyle() {
-  return <MapHtmlContentStyle />
-}
-
-function MapHtmlContentRoot(): ReactNode {
-  return (
-    <>
-      <MapHtmlContent />
-    </>
   )
 }
 
@@ -60,34 +47,6 @@ function useNames() {
   }, [mapNames])
 
   return { pointNames, areaNames }
-}
-
-function MapHtmlContent() {
-  //const names = useNames()
-
-  return (
-    <>
-      <div id={ROOT_ID} />
-    </>
-  )
-}
-
-function MapHtmlContentStyle() {
-  const names = useNames()
-
-  // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
-  useEffect(() => {
-    // eslint-disable-next-line functional/no-expression-statements
-    mountMapHtmlContentRoot(ROOT_ID)
-  })
-
-  // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
-  useEffect(() => {
-    // eslint-disable-next-line functional/no-expression-statements
-    rootActor.send({ type: 'UPDATE', ...names })
-  }, [names])
-
-  return <></>
 }
 
 /*
@@ -385,7 +344,24 @@ rootActor.on('RENDER', ({ pointNames, areaNames }) => {
 rootActor.start()
 
 // eslint-disable-next-line functional/no-return-void
-export function mountMapHtmlContentRoot(id: string) {
+function useMapHtmlContentRoot() {
+  const names = useNames()
+
+  // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
+  useEffect(() => {
+    // eslint-disable-next-line functional/no-expression-statements
+    mountMapHtmlContentRoot(ROOT_ID)
+  })
+
+  // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
+  useEffect(() => {
+    // eslint-disable-next-line functional/no-expression-statements
+    rootActor.send({ type: 'UPDATE', ...names })
+  }, [names])
+}
+
+// eslint-disable-next-line functional/no-return-void
+function mountMapHtmlContentRoot(id: string) {
   const root = document.querySelector(`#${id}`)
   if (root === null || root.shadowRoot !== null) {
     return

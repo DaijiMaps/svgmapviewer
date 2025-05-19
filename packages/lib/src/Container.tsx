@@ -16,7 +16,7 @@ import {
   sendWheel,
   usePointer,
 } from './lib/pointer-react'
-import { MapHtml, MapHtmlStyle } from './MapHtml'
+import { MapHtml } from './MapHtml'
 import { MapSvg } from './MapSvg'
 
 export function Container(props: Readonly<PropsWithChildren>) {
@@ -56,10 +56,9 @@ export function Container(props: Readonly<PropsWithChildren>) {
   }, [])
 
   return (
-    <div ref={ref} className="container">
+    <div ref={ref} id="viewer" className="container">
       <MapSvg>{props.children}</MapSvg>
       <MapHtml />
-      <MapHtmlStyle />
     </div>
   )
 }

@@ -11,7 +11,7 @@ import { Shadow } from './Shadow'
 
 export function Ui() {
   return (
-    <div className="ui">
+    <div id="ui">
       <Shadow />
       <Detail />
       <Header />
