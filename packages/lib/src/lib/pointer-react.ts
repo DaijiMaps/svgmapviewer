@@ -94,7 +94,7 @@ const pointerSend = (
   if (options?.preventDefault === false) {
     // skip
   } else {
-    event.ev.preventDefault()
+    //event.ev.preventDefault()
   }
   if (options?.stopPropagation === false) {
     // skip
