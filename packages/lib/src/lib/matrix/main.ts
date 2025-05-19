@@ -1,5 +1,4 @@
 import { H, M, V } from '../tuple'
-import { multiply } from './multiply'
 
 type Matrix = M
 
@@ -52,4 +51,4 @@ export const prod = ([p, q, r]: H, [s, t]: V, n: number): number =>
 
 export type { Matrix }
 
-export { copy, empty, matrix, multiply }
+export { copy, empty, matrix }

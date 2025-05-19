@@ -1,5 +1,5 @@
 import { M, V } from '../tuple'
-import { multiply } from './main'
+import { multiply } from './multiply'
 import { translate } from './translate'
 
 export function scale([sx, sy]: V): M {
