@@ -2,6 +2,7 @@ import { forwardRef, PropsWithChildren } from 'react'
 import './Container.css'
 import {
   pointerActor,
+  sendClick,
   sendPointerDown,
   sendPointerMove,
   sendPointerUp,
@@ -29,6 +30,8 @@ export const Container = forwardRef<HTMLDivElement, PropsWithChildren>(
         onTouchMove={(ev) => sendTouchMove(ev)}
         // eslint-disable-next-line functional/no-return-void
         onTouchEnd={(ev) => sendTouchEnd(ev)}
+        // eslint-disable-next-line functional/no-return-void
+        onClick={(ev) => sendClick(ev)}
         // eslint-disable-next-line functional/no-return-void
         onAnimationEnd={() => pointerActor.send({ type: 'ANIMATION.END' })}
       >

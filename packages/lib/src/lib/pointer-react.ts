@@ -60,7 +60,7 @@ function usePointerEvent(containerRef: RefObject<HTMLDivElement>) {
     //e.addEventListener('touchstart', sendTouchStart)
     //e.addEventListener('touchmove', sendTouchMove)
     //e.addEventListener('touchend', sendTouchEnd)
-    e.addEventListener('click', sendClick)
+    //e.addEventListener('click', sendClick)
     e.addEventListener('contextmenu', sendContextMenu)
     e.addEventListener('wheel', sendWheel)
     e.addEventListener('scroll', sendScroll)
@@ -71,7 +71,7 @@ function usePointerEvent(containerRef: RefObject<HTMLDivElement>) {
       //e.removeEventListener('touchstart', sendTouchStart)
       //e.removeEventListener('touchmove', sendTouchMove)
       //e.removeEventListener('touchend', sendTouchEnd)
-      e.removeEventListener('click', sendClick)
+      //e.removeEventListener('click', sendClick)
       e.removeEventListener('contextmenu', sendContextMenu)
       e.removeEventListener('wheel', sendWheel)
       e.removeEventListener('scroll', sendScroll)
@@ -180,7 +180,7 @@ export const sendTouchEnd = (ev: TouchEvent | React.TouchEvent) => {
   // skip preventDefault to enable emulated "click"
   pointerSend({ type: 'TOUCH.END', ev }, { preventDefault: false })
 }
-export const sendClick = (ev: MouseEvent) => {
+export const sendClick = (ev: MouseEvent | React.MouseEvent) => {
   if (clickeventmask) {
     return
   }

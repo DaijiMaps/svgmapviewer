@@ -132,7 +132,7 @@ type PointerInternalEvent =
   | PointerEventSearch
   | PointerEventLock
 
-type UIEventClick = { type: 'CLICK'; ev: MouseEvent }
+type UIEventClick = { type: 'CLICK'; ev: MouseEvent | React.MouseEvent }
 type UIEventContextMenu = { type: 'CONTEXTMENU'; ev: MouseEvent }
 type UIEventKeyDown = { type: 'KEY.DOWN'; ev: KeyboardEvent }
 type UIEventKeyUp = { type: 'KEY.UP'; ev: KeyboardEvent }
@@ -424,7 +424,11 @@ export const pointerMachine = setup({
     cursor: assign({
       cursor: (
         { context: { mode, cursor } },
-        { ev }: { ev: MouseEvent | PointerEvent | React.PointerEvent }
+        {
+          ev,
+        }: {
+          ev: MouseEvent | React.MouseEvent | PointerEvent | React.PointerEvent
+        }
       ): Vec => (mode !== 'pointing' ? cursor : vecVec(ev.pageX, ev.pageY)),
     }),
 
