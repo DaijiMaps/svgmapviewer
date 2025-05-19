@@ -16,6 +16,12 @@
   pointer-events: initial;
 }
 
+.header h1,
+.header h2,
+.header p {
+  user-select: none;
+}
+
 .header > h1,
 .header > h2 {
   margin: 0.25em;

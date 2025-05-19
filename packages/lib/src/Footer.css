@@ -19,6 +19,10 @@
   pointer-events: initial;
 }
 
+.footer p {
+  user-select: none;
+}
+
 .mode {
   font-size: large;
   margin: 0.4em;
