@@ -7,10 +7,14 @@ import { BoxBox as Box, boxBox, BoxBox } from './box/prefixed'
 // XXX call this from scroll-xstate as invoke (Promise)
 // XXX return status
 export const syncScroll = (b: Box): boolean => {
+  if (b === null) {
+    return true
+  }
+
   const e = document.querySelector('.container')
 
   // assume valid if scrollLeft exists
-  if (e === null || e.scrollLeft === null || b === null) {
+  if (e === null || e.scrollLeft === null) {
     return false
   }
   // box pointing to the identical element?
@@ -18,7 +22,9 @@ export const syncScroll = (b: Box): boolean => {
     Math.abs(e.scrollWidth - b.width) > 1 ||
     Math.abs(e.scrollHeight - b.height) > 1
   ) {
-    console.log(`scroll: target smaller than expected: [${e.scrollWidth}, ${e.scrollHeight}] vs. [${b.width}, ${b.height}]`)
+    console.error(
+      `scroll: target smaller than expected: [${e.scrollWidth}, ${e.scrollHeight}] vs. [${b.width}, ${b.height}]`
+    )
     return false
   }
   const left = Math.round(-b.x)
@@ -32,6 +38,12 @@ export const syncScroll = (b: Box): boolean => {
   }
   if (e.scrollTop !== top) {
     e.scrollTop = top
+  }
+  if (e.scrollLeft !== left) {
+    return false
+  }
+  if (e.scrollTop !== top) {
+    return false
   }
 
   return true

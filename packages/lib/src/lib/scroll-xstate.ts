@@ -1,7 +1,15 @@
-import { ActorRefFrom, sendTo, setup } from 'xstate'
+import { ActorRefFrom, assign, fromPromise, sendTo, setup } from 'xstate'
 import { BoxBox as Box } from './box/prefixed'
 import { getScroll, syncScroll } from './scroll'
 import { stepMachine } from './step-xstate'
+
+const syncScrollLogic = fromPromise<boolean, Box>(async ({ input }) => {
+  const ok = syncScroll(input)
+  if (!ok) {
+    throw new Error('syncScroll failed')
+  }
+  return true
+})
 
 type ScrollEventSync = {
   type: 'SYNC'
@@ -20,16 +28,26 @@ type ScrollEventStepDone = {
   type: 'STEP.DONE'
   count: number
 }
+type ScrollEventSyncSync = {
+  type: 'SYNCSYNC'
+  pos: Box
+}
 
 export type ScrollEvent =
   | ScrollEventSync
   | ScrollEventSlide
   | ScrollEventCancel
   | ScrollEventStepDone
+  | ScrollEventSyncSync
+
+export interface ScrollContext {
+  dest: null | Box
+}
 
 export const scrollMachine = setup({
   types: {} as {
     events: ScrollEvent
+    context: ScrollContext
   },
   actions: {
     syncScroll: (_, { pos }: { pos: Box }) => syncScroll(pos),
@@ -52,6 +70,13 @@ export const scrollMachine = setup({
         scroll: getScroll(),
       })
     ),
+    notifySyncSyncDone: sendTo(
+      ({ system }) => system.get('system-pointer1'),
+      () => ({
+        type: 'SCROLL.SYNCSYNC.DONE',
+        scroll: getScroll(),
+      })
+    ),
   },
   actors: {
     step: stepMachine,
@@ -59,6 +84,7 @@ export const scrollMachine = setup({
 }).createMachine({
   id: 'scroll',
   initial: 'Idle',
+  context: { dest: null },
   invoke: [
     {
       src: 'step',
@@ -96,6 +122,12 @@ export const scrollMachine = setup({
             type: 'notifyGetDone',
           },
         },
+        SYNCSYNC: {
+          actions: assign({
+            dest: ({ event }) => event.pos,
+          }),
+          target: 'Syncing',
+        },
       },
     },
     Busy: {
@@ -121,6 +153,35 @@ export const scrollMachine = setup({
             'stopStep',
           ],
           target: 'Idle',
+        },
+      },
+    },
+    Syncing: {
+      invoke: [
+        {
+          src: syncScrollLogic,
+          systemId: 'syncscroll1',
+          input: ({ context }) => context.dest,
+          onDone: {
+            actions: [
+              'notifySyncSyncDone',
+              assign({
+                dest: null,
+              }),
+            ],
+            target: 'Idle',
+          },
+          onError: {
+            target: 'Retrying',
+          },
+        },
+      ],
+    },
+    Retrying: {
+      after: {
+        100: {
+          // re-enter to re-invoke
+          target: 'Syncing',
         },
       },
     },

@@ -96,6 +96,7 @@ type PointerExternalEvent =
   | { type: 'RENDERED' }
   | { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
   | { type: 'SCROLL.SLIDE.DONE' }
+  | { type: 'SCROLL.SYNCSYNC.DONE'; scroll: BoxBox }
   | { type: 'ZOOM.ZOOM'; z: -1 | 1 }
 
 type PointerEventAnimation = { type: 'ANIMATION' } | { type: 'ANIMATION.DONE' }
@@ -307,6 +308,11 @@ export const pointerMachine = setup({
     syncScroll: ({ context: { layout }, system }) =>
       system.get('scroll1').send({
         type: 'SYNC',
+        pos: layout.scroll,
+      }),
+    syncScrollSync: ({ context: { layout }, system }) =>
+      system.get('scroll1').send({
+        type: 'SYNCSYNC',
         pos: layout.scroll,
       }),
     renderAndSyncScroll: ({ context: { layout }, system }) =>
