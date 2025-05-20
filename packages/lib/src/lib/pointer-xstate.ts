@@ -24,7 +24,6 @@ import { keyToDir, keyToZoom } from './key'
 import {
   emptyLayout,
   expandLayoutCenter,
-  fromSvg,
   Layout,
   makeLayout,
   recenterLayout,
@@ -222,7 +221,6 @@ export type PointerEmitted =
   | {
       type: 'SEARCH.END.DONE'
       psvg: Vec
-      p: Vec
       info: Info
       layout: Layout
     }
@@ -749,30 +747,16 @@ export const pointerMachine = setup({
                 target: '#pointer-touching',
               },
             ],
-            // XXX
-            // XXX
-            // XXX
-            // XXX - psvg => p
-            // XXX - publish p via Style
             'SEARCH.END': [
               {
                 guard: not('isIdle'),
               },
               {
                 actions: [
-                  ({ context, event }) => {
-                    const p = fromSvg(event.res.psvg, context.layout)
-                    console.log(p)
-                    // XXX
-                    //styleActor.send()
-                  },
                   emit(({ context, event }) => {
-                    const p = fromSvg(event.res.psvg, context.layout)
-
                     return {
                       type: 'SEARCH.END.DONE',
                       psvg: event.res.psvg,
-                      p,
                       info: event.res.info,
                       layout: context.layout,
                     }
@@ -780,9 +764,6 @@ export const pointerMachine = setup({
                 ],
               },
             ],
-            // XXX
-            // XXX
-            // XXX
             'SEARCH.LOCK': [
               {
                 guard: not('isIdle'),

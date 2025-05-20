@@ -9,7 +9,7 @@ import {
   StateFrom,
 } from 'xstate'
 import { configActor } from './config'
-import { Layout } from './layout'
+import { fromSvg, Layout } from './layout'
 import {
   OpenClose,
   openCloseClose,
@@ -35,7 +35,7 @@ type OpenCloseMap = Record<UiPart, OpenClose>
 
 export type UiDetailContent = SearchRes & {
   p: VecVec
-  layout: Readonly<Layout>
+  layout: Layout
 }
 
 export interface UiContext {
@@ -49,7 +49,7 @@ export type UiModeEvent =
   | { type: 'CANCEL' }
   | { type: 'FLOOR' }
   | { type: 'MENU' }
-  | ({ type: 'DETAIL' } & UiDetailContent)
+  | ({ type: 'DETAIL' } & Pick<UiDetailContent, 'psvg' | 'info' | 'layout'>)
   | { type: 'HELP' }
 
 export type UiPartEvent =
@@ -146,9 +146,9 @@ export const uiMachine = setup({
             },
             DETAIL: {
               actions: assign({
-                detail: ({ event: { psvg, p, info, layout } }) => ({
+                detail: ({ event: { psvg, info, layout } }) => ({
                   psvg,
-                  p,
+                  p: fromSvg(psvg, layout),
                   info,
                   layout,
                 }),
@@ -312,8 +312,8 @@ uiActor.start()
 //function uiDetail(res: Readonly<SearchRes>) {
 //  uiActor.send({ type: 'DETAIL', ...res })
 //}
-function uiDetail2(psvg: VecVec, p: VecVec, info: Info, layout: Layout) {
-  uiActor.send({ type: 'DETAIL', psvg, p, info, layout })
+function uiDetail2(psvg: VecVec, info: Info, layout: Layout) {
+  uiActor.send({ type: 'DETAIL', psvg, info, layout })
 }
 function uiOpen(ok: boolean) {
   uiActor.send({ type: ok ? 'OPEN' : 'CANCEL' })

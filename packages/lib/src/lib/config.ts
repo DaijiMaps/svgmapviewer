@@ -6,21 +6,12 @@ import { assign, createActor, setup, StateFrom } from 'xstate'
 import { POI } from './geo'
 import { emptyMapData } from './geo/data'
 import type {
+  ConfigCb,
   ConfigCbs,
   Info,
-  LayoutCb,
   RenderInfo,
-  SearchCb,
-  SearchDoneCb,
-  SearchEndCb,
-  SearchEndDoneCb,
   SvgMapViewerConfig,
   SvgMapViewerConfigUser,
-  UiCloseCb,
-  UiOpenCb,
-  UiOpenDoneCb,
-  ZoomEndCb,
-  ZoomStartCb,
 } from './types'
 import { VecVec } from './vec/prefixed'
 
@@ -80,36 +71,8 @@ interface ConfigContext extends ConfigCbs {
 }
 type ConfigEvent =
   | { type: 'SET.MAPNAMES'; mapNames: POI[] }
-  | {
-      type: 'ADD.CB'
-      zoomStartCb?: ZoomStartCb
-      zoomEndCb?: ZoomEndCb
-      searchStartCb?: SearchCb
-      searchCb?: SearchCb
-      searchDoneCb?: SearchDoneCb
-      searchEndCb?: SearchEndCb
-      searchEndDoneCb?: SearchEndDoneCb
-      uiOpenCb?: UiOpenCb
-      uiOpenDoneCb?: UiOpenDoneCb
-      uiCloseCb?: UiCloseCb
-      uiCloseDoneCb?: UiCloseCb
-      layoutCb?: LayoutCb
-    }
-  | {
-      type: 'DELETE.CB'
-      zoomStartCb?: ZoomStartCb
-      zoomEndCb?: ZoomEndCb
-      searchStartCb?: SearchCb
-      searchCb?: SearchCb
-      searchDoneCb?: SearchDoneCb
-      searchEndCb?: SearchEndCb
-      searchEndDoneCb?: SearchEndDoneCb
-      uiOpenCb?: UiOpenCb
-      uiOpenDoneCb?: UiOpenDoneCb
-      uiCloseCb?: UiCloseCb
-      uiCloseDoneCb?: UiCloseCb
-      layoutCb?: LayoutCb
-    }
+  | ({ type: 'ADD.CB' } & Partial<ConfigCb>)
+  | ({ type: 'DELETE.CB' } & Partial<ConfigCb>)
 
 const configMachine = setup({
   types: {

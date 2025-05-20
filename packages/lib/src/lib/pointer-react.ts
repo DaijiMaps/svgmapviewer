@@ -65,13 +65,13 @@ export const pointerActor = createActor(pointerMachine, {
 pointerActor.on('SEARCH', ({ psvg }) =>
   configActor.getSnapshot().context.searchStartCbs.forEach((cb) => cb(psvg))
 )
-pointerActor.on('SEARCH.END.DONE', ({ psvg, p, info, layout }) => {
+pointerActor.on('SEARCH.END.DONE', ({ psvg, info, layout }) => {
   configActor
     .getSnapshot()
-    .context.searchEndDoneCbs.forEach((cb) => cb(psvg, p, info, layout))
+    .context.searchEndDoneCbs.forEach((cb) => cb(psvg, info, layout))
   configActor
     .getSnapshot()
-    .context.uiOpenCbs.forEach((cb) => cb(psvg, p, info, layout))
+    .context.uiOpenCbs.forEach((cb) => cb(psvg, info, layout))
 })
 pointerActor.on('LOCK', ({ ok }) =>
   configActor.getSnapshot().context.uiOpenDoneCbs.forEach((cb) => cb(ok))
