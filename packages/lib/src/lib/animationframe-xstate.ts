@@ -10,17 +10,17 @@ export const animationFrameLogic = fromCallback(({ sendBack, receive }) => {
     active: false,
     id: null,
   }
-  const tick = () => {
+  function tick() {
     if (x.active) {
       sendBack({ type: 'TICK' })
       x.id = requestAnimationFrame(tick)
     }
   }
-  const start = () => {
+  function start() {
     x.active = true
     x.id = requestAnimationFrame(tick)
   }
-  const stop = () => {
+  function stop() {
     x.active = false
     if (x.id !== null) {
       cancelAnimationFrame(x.id)
