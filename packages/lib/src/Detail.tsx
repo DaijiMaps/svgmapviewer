@@ -1,5 +1,4 @@
 import { useSelector } from '@xstate/react'
-import { useMemo } from 'react'
 import { Balloon, BalloonStyle } from './Balloon'
 import './Detail.css'
 import { svgMapViewerConfig as cfg } from './lib/config'
@@ -12,15 +11,13 @@ export function Detail() {
   const p = detail?.p ?? null
   const layout = detail?.layout ?? null
 
-  const dir = useMemo(
-    () =>
-      p === null || detail === null || detail.layout === null
-        ? null
-        : diag(detail.layout.container, p),
-    [detail, p]
-  )
-  const W = useMemo(() => layout?.container.width ?? null, [layout])
-  const H = useMemo(() => layout?.container.height ?? null, [layout])
+  const dir =
+    p === null || detail === null || detail.layout === null
+      ? null
+      : diag(detail.layout.container, p)
+
+  const W = layout?.container.width ?? null
+  const H = layout?.container.height ?? null
 
   return (
     <div className="detail-balloon">
