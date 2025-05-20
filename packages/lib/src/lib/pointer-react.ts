@@ -40,6 +40,8 @@ function reflectMode(mode: PointerMode): void {
 // XXX
 function useExpanding() {
   // re-render handling
+  // XXX - used only for syncing scroll (scrollLeft/scrollTop)
+  // XXX   after scroll size change
   const expanding = useSelector(pointerActor, selectExpanding)
   useEffect(() => {
     pointerActor.send({ type: 'RENDERED' })

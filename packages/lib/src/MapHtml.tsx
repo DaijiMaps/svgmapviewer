@@ -243,6 +243,10 @@ function RenderName(props: Readonly<{ poi: POI }>) {
 
 //// shadow DOM actor
 
+// XXX - don't have to keep copy of names here
+// XXX - store names in configActor
+// XXX - listen on names change & re-render
+
 const ROOT_ID = 'map-html-content-root'
 
 type RootEvent =
