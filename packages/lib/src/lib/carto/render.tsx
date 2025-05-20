@@ -1,4 +1,3 @@
-import { LayersSvgStyle } from '../../Layers'
 import { svgMapViewerConfig as cfg } from '../config'
 import { RenderMapAssetsDefault } from './assets'
 import { RenderMapLayers } from './layers'
@@ -16,8 +15,8 @@ export function RenderMapCommon() {
         <RenderMapSymbols mapSymbols={cfg.getMapSymbols()} />
         {/*
         <RenderMapMarkers {...props} mapMarkers={cfg.getMapMarkers()} />
-        */}
         <LayersSvgStyle />
+        */}
       </g>
     </>
   )

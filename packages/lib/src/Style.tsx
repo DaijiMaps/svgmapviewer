@@ -12,6 +12,12 @@ import { fromSvgToOuter } from './lib/coord'
 import { cssMatrixToString, fixupCssString } from './lib/css'
 import { emptyLayout } from './lib/layout'
 import {
+  renderMapActor,
+  selectLayoutConfig,
+  selectLayoutSvgScaleS,
+  selectZoom,
+} from './lib/map-xstate'
+import {
   MatrixMatrix as Matrix,
   matrixEmpty,
   matrixToString,
@@ -38,6 +44,7 @@ function Style() {
       <DraggingStyle />
       <ModeStyle />
       <AnimationStyle />
+      <SvgSymbolStyle />
     </>
   )
 }
@@ -173,6 +180,29 @@ function css(q: Matrix) {
   }
 }
 `
+}
+
+function SvgSymbolStyle() {
+  const config = useSelector(renderMapActor, selectLayoutConfig)
+  const s = useSelector(renderMapActor, selectLayoutSvgScaleS)
+  const zoom = useSelector(renderMapActor, selectZoom)
+  const sz =
+    config.fontSize *
+    // display symbol slightly larger as zoom goes higher
+    (0.5 + 0.5 * Math.log2(Math.max(1, zoom))) *
+    s
+
+  return (
+    <style>
+      {`
+.map-symbols {
+  --map-symbol-size: ${sz / 72};
+}
+.map-markers {
+}
+`}
+    </style>
+  )
 }
 
 ////
