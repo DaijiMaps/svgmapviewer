@@ -179,7 +179,7 @@ function MapHtmlContentNamesArea(props: Readonly<{ _areaNames: POI[] }>) {
 }
 
 function MapHtmlContentNamesStyle() {
-  const names = useNames()
+  const { areaNames } = useNames()
 
   const s = useSelector(pointerActor, selectLayoutSvgScaleS)
 
@@ -187,7 +187,7 @@ function MapHtmlContentNamesStyle() {
     <div className="poi-names">
       <style>
         {`
-${names.areaNames
+${areaNames
   .map(({ id, size }) => {
     const ss = size / s
     const MAX = 1000
@@ -349,7 +349,7 @@ rootActor.start()
 
 // eslint-disable-next-line functional/no-return-void
 function useMapHtmlContentRoot() {
-  const names = useNames()
+  const { pointNames, areaNames } = useNames()
 
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
   useEffect(() => {
@@ -360,8 +360,8 @@ function useMapHtmlContentRoot() {
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
   useEffect(() => {
     // eslint-disable-next-line functional/no-expression-statements
-    rootActor.send({ type: 'UPDATE', ...names })
-  }, [names])
+    rootActor.send({ type: 'UPDATE', pointNames, areaNames })
+  }, [pointNames, areaNames])
 }
 
 // eslint-disable-next-line functional/no-return-void
