@@ -36,6 +36,7 @@ export type SearchDoneCb = (res: Readonly<null | SearchRes>) => void
 export type UiOpenCb = (psvg: Vec, info: Readonly<Info>) => void
 export type UiOpenDoneCb = (ok: boolean) => void
 export type UiCloseCb = () => void
+export type LayoutCb = (layout: Layout, first: boolean) => void
 
 export interface ConfigCbs {
   zoomStartCbs: Set<ZoomStartCb>
@@ -48,6 +49,7 @@ export interface ConfigCbs {
   uiOpenDoneCbs: Set<UiOpenDoneCb>
   uiCloseCbs: Set<UiCloseCb>
   uiCloseDoneCbs: Set<UiCloseCb>
+  layoutCbs: Set<LayoutCb>
 }
 
 ////

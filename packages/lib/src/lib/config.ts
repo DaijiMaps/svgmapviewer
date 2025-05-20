@@ -7,6 +7,7 @@ import { POI } from './geo'
 import { emptyMapData } from './geo/data'
 import type {
   Info,
+  LayoutCb,
   RenderInfo,
   SearchCb,
   SearchDoneCb,
@@ -56,6 +57,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   uiOpenDoneCbs: new Set(),
   uiCloseCbs: new Set(),
   uiCloseDoneCbs: new Set(),
+  layoutCb: new Set(),
   */
   getMapLayers: () => [],
   getMapObjects: () => [],
@@ -94,6 +96,7 @@ interface ConfigContext {
   uiOpenDoneCbs: Set<UiOpenDoneCb>
   uiCloseCbs: Set<UiCloseCb>
   uiCloseDoneCbs: Set<UiCloseCb>
+  layoutCbs: Set<LayoutCb>
   mapNames: POI[]
 }
 type ConfigEvent =
@@ -110,6 +113,7 @@ type ConfigEvent =
       uiOpenDoneCb?: UiOpenDoneCb
       uiCloseCb?: UiCloseCb
       uiCloseDoneCb?: UiCloseCb
+      layoutCb?: LayoutCb
     }
   | {
       type: 'DELETE.CB'
@@ -123,6 +127,7 @@ type ConfigEvent =
       uiOpenDoneCb?: UiOpenDoneCb
       uiCloseCb?: UiCloseCb
       uiCloseDoneCb?: UiCloseCb
+      layoutCb?: LayoutCb
     }
 
 const configMachine = setup({
@@ -144,6 +149,7 @@ const configMachine = setup({
     uiOpenDoneCbs: new Set(),
     uiCloseCbs: new Set(),
     uiCloseDoneCbs: new Set(),
+    layoutCbs: new Set(),
     mapNames: [],
   },
   states: {
@@ -191,6 +197,10 @@ const configMachine = setup({
               event.uiCloseDoneCb === undefined
                 ? context.uiCloseDoneCbs
                 : context.uiCloseDoneCbs.add(event.uiCloseDoneCb),
+            layoutCbs: ({ context, event }) =>
+              event.layoutCb === undefined
+                ? context.layoutCbs
+                : context.layoutCbs.add(event.layoutCb),
           }),
         },
         'DELETE.CB': {
@@ -262,6 +272,13 @@ const configMachine = setup({
               // eslint-disable-next-line functional/no-conditional-statements
               if (event.uiCloseDoneCb !== undefined) {
                 context.uiCloseDoneCbs.delete(event.uiCloseDoneCb)
+              }
+              return context.uiCloseDoneCbs
+            },
+            layoutCbs: ({ context, event }) => {
+              // eslint-disable-next-line functional/no-conditional-statements
+              if (event.layoutCb !== undefined) {
+                context.layoutCbs.delete(event.layoutCb)
               }
               return context.uiCloseDoneCbs
             },

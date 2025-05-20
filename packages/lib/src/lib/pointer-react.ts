@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { createActor } from 'xstate'
 import { svgMapViewerConfig as cfg, configActor } from './config'
 import { timeoutMachine } from './event-xstate'
-import { configLayout, Layout, makeLayout } from './layout'
+import { Layout } from './layout'
 import { useLayout } from './layout-react'
 import {
   pointerMachine,
@@ -11,7 +11,6 @@ import {
   ReactUIEvent,
   selectExpanding,
 } from './pointer-xstate'
-import { resizeActor } from './resize-react'
 import { Vec } from './vec'
 
 let pointereventmask: boolean = false
@@ -55,6 +54,7 @@ export function useResizing() {
   useLayout(layoutCb, cfg.origViewBox)
 }
 
+/*
 resizeActor.on('RESIZE', (ev) => {
   const { fontSize } = getComputedStyle(document.body)
   const layout = makeLayout(
@@ -62,6 +62,7 @@ resizeActor.on('RESIZE', (ev) => {
   )
   layoutCb(layout, !ev.first)
 })
+*/
 
 export function usePointer(): void {
   //// actions
@@ -195,6 +196,7 @@ configActor.send({
   type: 'ADD.CB',
   uiOpenCb: pointerSearchLock,
   uiCloseDoneCb: pointerSearchUnlock,
+  layoutCb: layoutCb,
 })
 
 ////

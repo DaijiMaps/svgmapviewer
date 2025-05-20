@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { assign, createActor, emit, raise, setup } from 'xstate'
 import { BoxBox as Box, boxEq, boxUnit } from './box/prefixed'
+import { configActor, svgMapViewerConfig } from './config'
+import { configLayout, makeLayout } from './layout'
 
 export function getBodySize(): Box {
   return {
@@ -164,6 +166,19 @@ const resizeMachine = setup({
 
 export const resizeActor = createActor(resizeMachine, {
   //inspect: (iev) => console.log(iev),
+})
+resizeActor.on('RESIZE', (ev) => {
+  configActor.getSnapshot().context.layoutCbs.forEach((cb) => {
+    const { fontSize } = getComputedStyle(document.body)
+    const layout = makeLayout(
+      configLayout(
+        parseFloat(fontSize),
+        svgMapViewerConfig.origViewBox,
+        ev.size
+      )
+    )
+    cb(layout, !ev.first)
+  })
 })
 resizeActor.start()
 window.addEventListener('resize', () => {

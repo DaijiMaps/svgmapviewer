@@ -10,7 +10,9 @@ export function RenderMap(props: Readonly<{ config: SvgMapViewerConfig }>) {
 */
 
 type RenderMapContext = { layout: Layout; zoom: number; z: null | number }
-type RenderMapEvent = { type: 'ZOOM' } & RenderMapContext
+type RenderMapEvent =
+  | ({ type: 'ZOOM' } & RenderMapContext)
+  | { type: 'LAYOUT'; layout: Layout }
 
 const renderMapMachine = setup({
   types: {
@@ -32,6 +34,13 @@ const renderMapMachine = setup({
           layout: ({ event: { layout } }) => layout,
           zoom: ({ event: { zoom } }) => zoom,
           z: ({ event: { z } }) => z,
+        }),
+      ],
+    },
+    LAYOUT: {
+      actions: [
+        assign({
+          layout: ({ event: { layout } }) => layout,
         }),
       ],
     },
@@ -61,10 +70,13 @@ export const renderMapZoomStart = (layout: Layout, zoom: number, z: number) =>
   renderMapActor.send({ type: 'ZOOM', layout, zoom, z })
 export const renderMapZoomEnd = (layout: Layout, zoom: number) =>
   renderMapActor.send({ type: 'ZOOM', layout, zoom, z: null })
+export const renderMapLayout = (layout: Layout) =>
+  renderMapActor.send({ type: 'LAYOUT', layout })
 
 configActor.start()
 configActor.send({
   type: 'ADD.CB',
   zoomStartCb: renderMapZoomStart,
   zoomEndCb: renderMapZoomEnd,
+  layoutCb: renderMapLayout,
 })
