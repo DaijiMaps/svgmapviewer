@@ -11,6 +11,7 @@ import {
   selectExpanding,
 } from './pointer-xstate'
 import { resizeActor } from './resize-react'
+import { SearchRes } from './types'
 import { Vec } from './vec'
 
 let pointereventmask: boolean = false
@@ -163,6 +164,8 @@ export const sendAnimationEnd = (ev: AnimationEvent | React.AnimationEvent) =>
     ev,
   })
 
+export const pointerSearchEnd = (res: Readonly<null | SearchRes>) =>
+  pointerActor.send({ type: 'SEARCH.END', res })
 const pointerSearchLock = (psvg: Vec) =>
   pointerActor.send({ type: 'SEARCH.LOCK', psvg })
 const pointerSearchUnlock = () => pointerActor.send({ type: 'SEARCH.UNLOCK' })
@@ -183,6 +186,7 @@ configActor.start()
 configActor.send({
   type: 'ADD.CB',
   // XXX searchEndCb
+  searchEndCb: pointerSearchEnd,
   // XXX searchEndDone
   uiOpenCb: pointerSearchLock,
   uiCloseDoneCb: pointerSearchUnlock,

@@ -43,6 +43,7 @@ import {
   resetTouches,
   Touches,
 } from './touch'
+import { SearchRes } from './types'
 import { VecVec as Vec, vecMul, vecSub, vecVec } from './vec/prefixed'
 
 // XXX
@@ -133,6 +134,7 @@ type PointerEventMoveZoomPan =
   | { type: 'PAN.ZOOM.ZOOM' }
   | { type: 'PAN.ZOOM.ZOOM.DONE' }
 type PointerEventSearch =
+  | { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
   | { type: 'SEARCH.LOCK'; psvg: Vec }
   | { type: 'SEARCH.UNLOCK' }
 type PointerEventLock = { type: 'LOCK'; ok: boolean } | { type: 'UNLOCK' }
@@ -739,6 +741,22 @@ export const pointerMachine = setup({
                 target: '#pointer-touching',
               },
             ],
+            // XXX
+            // XXX
+            // XXX
+            // XXX - psvg => p
+            // XXX - publish p via Style
+            'SEARCH.END': [
+              {
+                guard: not('isIdle'),
+              },
+              {
+                target: 'Locked',
+              },
+            ],
+            // XXX
+            // XXX
+            // XXX
             'SEARCH.LOCK': [
               {
                 guard: not('isIdle'),

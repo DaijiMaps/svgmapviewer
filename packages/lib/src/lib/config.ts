@@ -12,6 +12,7 @@ import type {
   RenderInfo,
   SearchCb,
   SearchDoneCb,
+  SearchEndDoneCb,
   SvgMapViewerConfig,
   SvgMapViewerConfigUser,
   UiCloseCb,

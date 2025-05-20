@@ -27,12 +27,20 @@ export interface SearchRes {
   info: Readonly<Info>
 }
 
+export interface SearchResP {
+  psvg: Vec
+  info: Readonly<Info>
+  p: Vec // cclient
+}
+
 ////
 
 export type ZoomStartCb = (layout: Layout, zoom: number, z: number) => void
 export type ZoomEndCb = (layout: Layout, zoom: number) => void
 export type SearchCb = (psvg: Vec) => void
 export type SearchDoneCb = (res: Readonly<null | SearchRes>) => void
+export type SearchEndCb = (res: Readonly<SearchRes>) => void
+export type SearchEndDoneCb = (psvg: Vec, p: Vec) => void
 export type UiOpenCb = (psvg: Vec, info: Readonly<Info>) => void
 export type UiOpenDoneCb = (ok: boolean) => void
 export type UiCloseCb = () => void
@@ -45,7 +53,7 @@ export interface ConfigCbs {
   searchCbs: Set<SearchCb>
   searchDoneCbs: Set<SearchDoneCb>
   searchEndCbs: Set<SearchDoneCb>
-  searchEndDoneCbs: Set<SearchDoneCb>
+  searchEndDoneCbs: Set<SearchEndDoneCb>
   uiOpenCbs: Set<UiOpenCb>
   uiOpenDoneCbs: Set<UiOpenDoneCb>
   uiCloseCbs: Set<UiCloseCb>
