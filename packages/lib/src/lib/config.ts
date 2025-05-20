@@ -86,6 +86,7 @@ type ConfigEvent =
       searchCb?: SearchCb
       searchDoneCb?: SearchDoneCb
       searchEndCb?: SearchDoneCb
+      searchEndDoneCb?: SearchEndDoneCb
       uiOpenCb?: UiOpenCb
       uiOpenDoneCb?: UiOpenDoneCb
       uiCloseCb?: UiCloseCb
@@ -100,6 +101,7 @@ type ConfigEvent =
       searchCb?: SearchCb
       searchDoneCb?: SearchDoneCb
       searchEndCb?: SearchDoneCb
+      searchEndDoneCb?: SearchEndDoneCb
       uiOpenCb?: UiOpenCb
       uiOpenDoneCb?: UiOpenDoneCb
       uiCloseCb?: UiCloseCb
@@ -122,6 +124,7 @@ const configMachine = setup({
     searchCbs: new Set(),
     searchDoneCbs: new Set(),
     searchEndCbs: new Set(),
+    searchEndDoneCbs: new Set(),
     uiOpenCbs: new Set(),
     uiOpenDoneCbs: new Set(),
     uiCloseCbs: new Set(),
@@ -159,6 +162,10 @@ const configMachine = setup({
               event.searchEndCb === undefined
                 ? context.searchEndCbs
                 : context.searchEndCbs.add(event.searchEndCb),
+            searchEndDoneCbs: ({ context, event }) =>
+              event.searchEndDoneCb === undefined
+                ? context.searchEndDoneCbs
+                : context.searchEndDoneCbs.add(event.searchEndDoneCb),
             uiOpenCbs: ({ context, event }) =>
               event.uiOpenCb === undefined
                 ? context.uiOpenCbs
@@ -225,6 +232,13 @@ const configMachine = setup({
                 context.searchEndCbs.delete(event.searchEndCb)
               }
               return context.searchEndCbs
+            },
+            searchEndDoneCbs: ({ context, event }) => {
+              // eslint-disable-next-line functional/no-conditional-statements
+              if (event.searchEndDoneCb !== undefined) {
+                context.searchEndDoneCbs.delete(event.searchEndDoneCb)
+              }
+              return context.searchEndDoneCbs
             },
             uiOpenCbs: ({ context, event }) => {
               // eslint-disable-next-line functional/no-conditional-statements

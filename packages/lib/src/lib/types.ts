@@ -45,6 +45,7 @@ export interface ConfigCbs {
   searchCbs: Set<SearchCb>
   searchDoneCbs: Set<SearchDoneCb>
   searchEndCbs: Set<SearchDoneCb>
+  searchEndDoneCbs: Set<SearchDoneCb>
   uiOpenCbs: Set<UiOpenCb>
   uiOpenDoneCbs: Set<UiOpenDoneCb>
   uiCloseCbs: Set<UiCloseCb>
