@@ -13,36 +13,47 @@ export const syncScroll = (b: Box): boolean => {
 
   const e = document.querySelector('.container')
 
+  if (e === null) {
+    return false
+  }
+  const l = e.scrollLeft
+  const t = e.scrollTop
+  const w = e.scrollWidth
+  const h = e.scrollHeight
+
   // assume valid if scrollLeft exists
-  if (e === null || e.scrollLeft === null) {
+  if (l === null) {
     return false
   }
   // box pointing to the identical element?
-  if (
-    Math.abs(e.scrollWidth - b.width) > 1 ||
-    Math.abs(e.scrollHeight - b.height) > 1
-  ) {
-    console.error(
-      `scroll: target smaller than expected: [${e.scrollWidth}, ${e.scrollHeight}] vs. [${b.width}, ${b.height}]`
+  if (Math.abs(w - b.width) > 1 || Math.abs(h - b.height) > 1) {
+    // not really an error; the element may be still unstable (reflow)
+    console.log(
+      `scroll: target smaller than expected: target=[${w}, ${h}] vs. request=[${b.width}, ${b.height}]`
     )
     return false
   }
   const left = Math.round(-b.x)
   const top = Math.round(-b.y)
   if (left < 0 || top < 0) {
-    console.log(`scroll: out-of-bound request: [${b.x}], [${b.y}]`)
+    console.error(`scroll: out-of-bound request: [${b.x}], [${b.y}]`)
     return false
   }
-  if (e.scrollLeft !== left) {
+
+  // commit the change
+  if (l !== left) {
     e.scrollLeft = left
   }
-  if (e.scrollTop !== top) {
+  if (t !== top) {
     e.scrollTop = top
   }
-  if (e.scrollLeft !== left) {
+
+  const l2 = e.scrollLeft
+  const t2 = e.scrollTop
+  if (l2 !== left) {
     return false
   }
-  if (e.scrollTop !== top) {
+  if (t2 !== top) {
     return false
   }
 

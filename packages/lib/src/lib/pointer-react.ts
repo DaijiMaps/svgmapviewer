@@ -182,6 +182,8 @@ export const keyUp = (ev: KeyboardEvent) =>
 configActor.start()
 configActor.send({
   type: 'ADD.CB',
+  // XXX searchEndCb
+  // XXX searchEndDone
   uiOpenCb: pointerSearchLock,
   uiCloseDoneCb: pointerSearchUnlock,
   layoutCb: layoutCb,
