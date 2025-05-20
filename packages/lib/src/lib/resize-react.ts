@@ -115,9 +115,7 @@ const resizeMachine = setup({
   },
 })
 
-export const resizeActor = createActor(resizeMachine, {
-  //inspect: (iev) => console.log(iev),
-})
+export const resizeActor = createActor(resizeMachine)
 resizeActor.on('RESIZE', (ev) => {
   configActor.getSnapshot().context.layoutCbs.forEach((cb) => {
     const { fontSize } = getComputedStyle(document.body)

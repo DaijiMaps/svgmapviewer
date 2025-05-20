@@ -289,6 +289,7 @@ export const selectOpenCloseBalloon = (ui: UiState) => ui.context.m['balloon']
 export const selectOpenCloseDetail = (ui: UiState) => ui.context.m['detail']
 
 ////
+
 export const uiActor = createActor(uiMachine)
 configActor.start()
 configActor.send({

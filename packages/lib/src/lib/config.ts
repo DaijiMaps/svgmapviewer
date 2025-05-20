@@ -6,6 +6,7 @@ import { assign, createActor, setup, StateFrom } from 'xstate'
 import { POI } from './geo'
 import { emptyMapData } from './geo/data'
 import type {
+  ConfigCbs,
   Info,
   LayoutCb,
   RenderInfo,
@@ -46,19 +47,6 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   dragStepStepLimit: 10,
   dragStepMaxCount: 100,
   scrollIdleTimeout: 1000,
-  /*
-  zoomStartCbs: new Set(),
-  zoomEndCbs: new Set(),
-  searchStartCbs: new Set(),
-  searchCbs: new Set(),
-  searchDoneCbs: new Set(),
-  searchEndCbs: new Set(),
-  uiOpenCbs: new Set(),
-  uiOpenDoneCbs: new Set(),
-  uiCloseCbs: new Set(),
-  uiCloseDoneCbs: new Set(),
-  layoutCb: new Set(),
-  */
   getMapLayers: () => [],
   getMapObjects: () => [],
   getMapSymbols: () => [],
@@ -85,18 +73,7 @@ export function updateSvgMapViewerConfig(
 
 //// XXX xstate
 
-interface ConfigContext {
-  zoomStartCbs: Set<ZoomStartCb>
-  zoomEndCbs: Set<ZoomEndCb>
-  searchStartCbs: Set<SearchCb>
-  searchCbs: Set<SearchCb>
-  searchDoneCbs: Set<SearchDoneCb>
-  searchEndCbs: Set<SearchDoneCb>
-  uiOpenCbs: Set<UiOpenCb>
-  uiOpenDoneCbs: Set<UiOpenDoneCb>
-  uiCloseCbs: Set<UiCloseCb>
-  uiCloseDoneCbs: Set<UiCloseCb>
-  layoutCbs: Set<LayoutCb>
+interface ConfigContext extends ConfigCbs {
   mapNames: POI[]
 }
 type ConfigEvent =
@@ -155,6 +132,7 @@ const configMachine = setup({
   states: {
     Idle: {
       on: {
+        // XXX refactor
         'ADD.CB': {
           actions: assign({
             zoomStartCbs: ({ context, event }) =>
@@ -203,6 +181,7 @@ const configMachine = setup({
                 : context.layoutCbs.add(event.layoutCb),
           }),
         },
+        // XXX refactor
         'DELETE.CB': {
           actions: assign({
             zoomStartCbs: ({ context, event }) => {

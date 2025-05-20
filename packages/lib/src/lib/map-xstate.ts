@@ -3,12 +3,6 @@ import '../index.css'
 import { emptyLayout, Layout } from '../lib/layout'
 import { configActor } from './config'
 
-/*
-export function RenderMap(props: Readonly<{ config: SvgMapViewerConfig }>) {
-  return props.config.renderMap()
-}
-*/
-
 type RenderMapContext = { layout: Layout; zoom: number; z: null | number }
 type RenderMapEvent =
   | ({ type: 'ZOOM' } & RenderMapContext)
