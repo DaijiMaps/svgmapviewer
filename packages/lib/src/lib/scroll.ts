@@ -26,10 +26,12 @@ export const syncScroll = (b: Box): boolean => {
     return false
   }
   // box pointing to the identical element?
-  if (Math.abs(w - b.width) > 1 || Math.abs(h - b.height) > 1) {
+  const dw = w - b.width
+  const dh = h - b.height
+  if (Math.abs(dw) > 1 || Math.abs(dh) > 1) {
     // not really an error; the element may be still unstable (reflow)
     console.log(
-      `scroll: target smaller than expected: target=[${w}, ${h}] vs. request=[${b.width}, ${b.height}]`
+      `scroll: target ${dw > 0 ? 'larger' : 'smaller'} than expected: target=[${w}, ${h}] vs. request=[${b.width}, ${b.height}]`
     )
     return false
   }
@@ -40,7 +42,7 @@ export const syncScroll = (b: Box): boolean => {
     return false
   }
 
-  // commit the change
+  // commit the change!
   if (l !== left) {
     e.scrollLeft = left
   }
@@ -49,11 +51,19 @@ export const syncScroll = (b: Box): boolean => {
   }
 
   const l2 = e.scrollLeft
-  const t2 = e.scrollTop
-  if (l2 !== left) {
+  const dl = l2 - left
+  if (Math.abs(dl) > 1) {
+    console.log(
+      `scroll: scrollLeft not reflected: expected=${l} vs. real=${l2}`
+    )
     return false
   }
-  if (t2 !== top) {
+  const t2 = e.scrollTop
+  const dt = t2 - top
+  if (Math.abs(dt) > 1) {
+    console.log(
+      `scroll: scrollHeight not reflected: expected=${t} vs. real=${t2}`
+    )
     return false
   }
 
