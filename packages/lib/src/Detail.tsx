@@ -13,8 +13,13 @@ export function Detail() {
   const detail = useSelector(uiActor, selectDetail)
 
   // XXX
+  // XXX
+  // XXX
   const layout = useSelector(pointerActor, selectLayout)
 
+  // XXX
+  // XXX
+  // XXX
   const p = useMemo(
     () => (detail === null ? null : fromSvg(detail.psvg, layout)),
     [detail, layout]
