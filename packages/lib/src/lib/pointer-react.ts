@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { createActor } from 'xstate'
 import { svgMapViewerConfig as cfg, configActor } from './config'
 import { timeoutMachine } from './event-xstate'
-import { Layout } from './layout'
+import { configLayout, Layout, makeLayout } from './layout'
 import { useLayout } from './layout-react'
 import {
   pointerMachine,
@@ -11,6 +11,7 @@ import {
   ReactUIEvent,
   selectExpanding,
 } from './pointer-xstate'
+import { resizeActor } from './resize-react'
 import { Vec } from './vec'
 
 let pointereventmask: boolean = false
@@ -49,15 +50,23 @@ function useExpanding() {
 // XXX
 // XXX
 
-function useResizing() {
+export function useResizing() {
   // resize handling
   useLayout(layoutCb, cfg.origViewBox)
 }
 
+resizeActor.on('RESIZE', (ev) => {
+  const { fontSize } = getComputedStyle(document.body)
+  const layout = makeLayout(
+    configLayout(parseFloat(fontSize), cfg.origViewBox, ev.size)
+  )
+  layoutCb(layout, !ev.first)
+})
+
 export function usePointer(): void {
   //// actions
   useExpanding()
-  useResizing()
+  //useResizing()
 }
 
 ////
@@ -171,6 +180,9 @@ const pointerSearchUnlock = () => pointerActor.send({ type: 'SEARCH.UNLOCK' })
 
 const layoutCb = (origLayout: Readonly<Layout>, force: boolean) => {
   pointerActor.send({ type: 'LAYOUT', layout: origLayout, force })
+}
+export const layoutCb2 = (origLayout: Readonly<Layout>) => {
+  pointerActor.send({ type: 'LAYOUT', layout: origLayout, force: true })
 }
 
 export const keyDown = (ev: KeyboardEvent) =>
