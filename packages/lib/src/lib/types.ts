@@ -40,8 +40,18 @@ export type ZoomEndCb = (layout: Layout, zoom: number) => void
 export type SearchCb = (psvg: Vec) => void
 export type SearchDoneCb = (res: Readonly<null | SearchRes>) => void
 export type SearchEndCb = (res: Readonly<SearchRes>) => void
-export type SearchEndDoneCb = (psvg: Vec, p: Vec) => void
-export type UiOpenCb = (psvg: Vec, info: Readonly<Info>) => void
+export type SearchEndDoneCb = (
+  psvg: Vec,
+  p: Vec,
+  info: Readonly<Info>,
+  layout: Readonly<Layout>
+) => void
+export type UiOpenCb = (
+  psvg: Vec,
+  p: Vec,
+  info: Readonly<Info>,
+  layout: Readonly<Layout>
+) => void
 export type UiOpenDoneCb = (ok: boolean) => void
 export type UiCloseCb = () => void
 export type LayoutCb = (layout: Layout, first: boolean) => void
@@ -52,7 +62,7 @@ export interface ConfigCbs {
   searchStartCbs: Set<SearchCb>
   searchCbs: Set<SearchCb>
   searchDoneCbs: Set<SearchDoneCb>
-  searchEndCbs: Set<SearchDoneCb>
+  searchEndCbs: Set<SearchEndCb>
   searchEndDoneCbs: Set<SearchEndDoneCb>
   uiOpenCbs: Set<UiOpenCb>
   uiOpenDoneCbs: Set<UiOpenDoneCb>

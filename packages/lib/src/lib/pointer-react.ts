@@ -65,6 +65,14 @@ export const pointerActor = createActor(pointerMachine, {
 pointerActor.on('SEARCH', ({ psvg }) =>
   configActor.getSnapshot().context.searchStartCbs.forEach((cb) => cb(psvg))
 )
+pointerActor.on('SEARCH.END.DONE', ({ psvg, p, info, layout }) => {
+  configActor
+    .getSnapshot()
+    .context.searchEndDoneCbs.forEach((cb) => cb(psvg, p, info, layout))
+  configActor
+    .getSnapshot()
+    .context.uiOpenCbs.forEach((cb) => cb(psvg, p, info, layout))
+})
 pointerActor.on('LOCK', ({ ok }) =>
   configActor.getSnapshot().context.uiOpenDoneCbs.forEach((cb) => cb(ok))
 )
@@ -164,7 +172,7 @@ export const sendAnimationEnd = (ev: AnimationEvent | React.AnimationEvent) =>
     ev,
   })
 
-export const pointerSearchEnd = (res: Readonly<null | SearchRes>) =>
+export const pointerSearchEnd = (res: Readonly<SearchRes>) =>
   pointerActor.send({ type: 'SEARCH.END', res })
 const pointerSearchLock = (psvg: Vec) =>
   pointerActor.send({ type: 'SEARCH.LOCK', psvg })

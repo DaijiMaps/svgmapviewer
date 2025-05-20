@@ -24,6 +24,7 @@ import { keyToDir, keyToZoom } from './key'
 import {
   emptyLayout,
   expandLayoutCenter,
+  fromSvg,
   Layout,
   makeLayout,
   recenterLayout,
@@ -43,7 +44,7 @@ import {
   resetTouches,
   Touches,
 } from './touch'
-import { SearchRes } from './types'
+import { Info, SearchRes } from './types'
 import { VecVec as Vec, vecMul, vecSub, vecVec } from './vec/prefixed'
 
 // XXX
@@ -134,7 +135,7 @@ type PointerEventMoveZoomPan =
   | { type: 'PAN.ZOOM.ZOOM' }
   | { type: 'PAN.ZOOM.ZOOM.DONE' }
 type PointerEventSearch =
-  | { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
+  | { type: 'SEARCH.END'; res: Readonly<SearchRes> }
   | { type: 'SEARCH.LOCK'; psvg: Vec }
   | { type: 'SEARCH.UNLOCK' }
 type PointerEventLock = { type: 'LOCK'; ok: boolean } | { type: 'UNLOCK' }
@@ -218,6 +219,13 @@ export type _PointerEvent =
 
 export type PointerEmitted =
   | { type: 'SEARCH'; psvg: Vec }
+  | {
+      type: 'SEARCH.END.DONE'
+      psvg: Vec
+      p: Vec
+      info: Info
+      layout: Layout
+    }
   | { type: 'LOCK'; ok: boolean }
   | { type: 'LAYOUT'; layout: Layout }
   | { type: 'ZOOM.START'; layout: Layout; zoom: number; z: number }
@@ -751,7 +759,25 @@ export const pointerMachine = setup({
                 guard: not('isIdle'),
               },
               {
-                target: 'Locked',
+                actions: [
+                  ({ context, event }) => {
+                    const p = fromSvg(event.res.psvg, context.layout)
+                    console.log(p)
+                    // XXX
+                    //styleActor.send()
+                  },
+                  emit(({ context, event }) => {
+                    const p = fromSvg(event.res.psvg, context.layout)
+
+                    return {
+                      type: 'SEARCH.END.DONE',
+                      psvg: event.res.psvg,
+                      p,
+                      info: event.res.info,
+                      layout: context.layout,
+                    }
+                  }),
+                ],
               },
             ],
             // XXX

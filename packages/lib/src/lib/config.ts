@@ -12,6 +12,7 @@ import type {
   RenderInfo,
   SearchCb,
   SearchDoneCb,
+  SearchEndCb,
   SearchEndDoneCb,
   SvgMapViewerConfig,
   SvgMapViewerConfigUser,
@@ -86,7 +87,7 @@ type ConfigEvent =
       searchStartCb?: SearchCb
       searchCb?: SearchCb
       searchDoneCb?: SearchDoneCb
-      searchEndCb?: SearchDoneCb
+      searchEndCb?: SearchEndCb
       searchEndDoneCb?: SearchEndDoneCb
       uiOpenCb?: UiOpenCb
       uiOpenDoneCb?: UiOpenDoneCb
@@ -101,7 +102,7 @@ type ConfigEvent =
       searchStartCb?: SearchCb
       searchCb?: SearchCb
       searchDoneCb?: SearchDoneCb
-      searchEndCb?: SearchDoneCb
+      searchEndCb?: SearchEndCb
       searchEndDoneCb?: SearchEndDoneCb
       uiOpenCb?: UiOpenCb
       uiOpenDoneCb?: UiOpenDoneCb

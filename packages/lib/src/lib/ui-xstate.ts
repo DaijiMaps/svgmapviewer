@@ -9,6 +9,7 @@ import {
   StateFrom,
 } from 'xstate'
 import { configActor } from './config'
+import { Layout } from './layout'
 import {
   OpenClose,
   openCloseClose,
@@ -19,7 +20,8 @@ import {
   openCloseOpened,
   openCloseReset,
 } from './openclose'
-import { SearchRes } from './types'
+import { Info, SearchRes } from './types'
+import { VecVec } from './vec/prefixed'
 
 export type UiPart =
   | 'header'
@@ -31,7 +33,10 @@ export type UiPart =
 
 type OpenCloseMap = Record<UiPart, OpenClose>
 
-export type UiDetailContent = SearchRes
+export type UiDetailContent = SearchRes & {
+  p: VecVec
+  layout: Readonly<Layout>
+}
 
 export interface UiContext {
   canceling: boolean
@@ -141,9 +146,11 @@ export const uiMachine = setup({
             },
             DETAIL: {
               actions: assign({
-                detail: ({ event: { psvg, info } }) => ({
+                detail: ({ event: { psvg, p, info, layout } }) => ({
                   psvg,
+                  p,
                   info,
+                  layout,
                 }),
               }),
               target: 'Detail',
@@ -301,17 +308,19 @@ export const uiActor = createActor(uiMachine)
 configActor.start()
 configActor.send({
   type: 'ADD.CB',
-  searchEndCb: uiDetail,
+  //searchEndCb: uiDetail,
+  searchEndDoneCb: uiDetail2,
   uiOpenDoneCb: uiOpen,
   uiCloseCb: uiCancel,
 })
 uiActor.on('CLOSE.DONE', closeDone)
 uiActor.start()
 
-function uiDetail(res: Readonly<null | SearchRes>) {
-  if (res !== null) {
-    uiActor.send({ type: 'DETAIL', ...res })
-  }
+//function uiDetail(res: Readonly<SearchRes>) {
+//  uiActor.send({ type: 'DETAIL', ...res })
+//}
+function uiDetail2(psvg: VecVec, p: VecVec, info: Info, layout: Layout) {
+  uiActor.send({ type: 'DETAIL', psvg, p, info, layout })
 }
 function uiOpen(ok: boolean) {
   uiActor.send({ type: ok ? 'OPEN' : 'CANCEL' })

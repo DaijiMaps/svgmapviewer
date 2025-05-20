@@ -13,10 +13,11 @@ searchRef.on('SEARCH', ({ psvg }) => {
 })
 
 searchRef.on('SEARCH.DONE', ({ /*p,*/ psvg, info }) => {
+  // XXX send searchEndCbs to pointer
+  // XXX pointer calcs p (client coord) from psvg
   configActor
     .getSnapshot()
     .context.searchEndCbs.forEach((cb) => cb({ psvg, info }))
-  configActor.getSnapshot().context.uiOpenCbs.forEach((cb) => cb(psvg, info))
 })
 
 export function searchSearchStart(psvg: Vec) {
