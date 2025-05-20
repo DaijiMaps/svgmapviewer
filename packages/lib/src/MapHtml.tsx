@@ -5,7 +5,7 @@ import { assign, createActor, emit, setup } from 'xstate'
 import { configActor, selectMapNames } from './lib'
 import { fixupCssString } from './lib/css'
 import { POI } from './lib/geo'
-import { isLiked } from './lib/like'
+import { isLiked, useLikes } from './lib/like'
 import { pointerActor } from './lib/pointer-react'
 import { selectLayoutSvgScaleS } from './lib/pointer-xstate'
 import './MapHtml.css'
@@ -82,18 +82,19 @@ function MapHtmlContentStars(
   props: Readonly<{ _pointNames: POI[]; _areaNames: POI[] }>
 ) {
   const { _pointNames: pointNames, _areaNames: areaNames } = props
+  const likes = useLikes()
 
   const likedNames = useMemo(
     () =>
       [...pointNames, ...areaNames]
-        .filter(({ id }) => id !== null && id !== 0 && isLiked(id))
+        .filter(({ id }) => id !== null && id !== 0 && likes.has(id))
         .map(({ id, name, pos, area }) => ({
           id,
           name,
           pos,
           area,
         })),
-    [areaNames, pointNames]
+    [areaNames, likes, pointNames]
   )
 
   return (
