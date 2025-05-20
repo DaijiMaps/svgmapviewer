@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
-import { PropsWithChildren, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import './Container.css'
 import {
   sendAnimationEnd,
@@ -20,7 +20,7 @@ import { MapHtml } from './MapHtml'
 import { MapSvg } from './MapSvg'
 import { styleAnimationEnd } from './Style'
 
-export function Container(props: Readonly<PropsWithChildren>) {
+export function Container() {
   const ref = useRef<HTMLDivElement>(null)
 
   usePointer()
@@ -60,7 +60,7 @@ export function Container(props: Readonly<PropsWithChildren>) {
 
   return (
     <div ref={ref} id="viewer" className="container">
-      <MapSvg>{props.children}</MapSvg>
+      <MapSvg />
       <MapHtml />
     </div>
   )
