@@ -1,8 +1,7 @@
-import { raise, sendTo, setup } from 'xstate'
+import { fromCallback } from 'xstate'
 
 // - receives START/STOP
 // - sends TICK
-/*
 export const animationFrameLogic = fromCallback(({ sendBack, receive }) => {
   const x: {
     active: boolean
@@ -19,9 +18,6 @@ export const animationFrameLogic = fromCallback(({ sendBack, receive }) => {
   }
   const start = () => {
     x.active = true
-    if (x.id !== null) {
-      cancelAnimationFrame(x.id)
-    }
     x.id = requestAnimationFrame(tick)
   }
   const stop = () => {
@@ -43,10 +39,10 @@ export const animationFrameLogic = fromCallback(({ sendBack, receive }) => {
   })
   return () => stop()
 })
-*/
 
 ////
 
+/*
 type AnimationFrameEvent =
   | { type: 'START' }
   | { type: 'STOP' }
@@ -78,7 +74,7 @@ export const animationFrameMachine = setup({
     },
     Busy: {
       after: {
-        20: {
+        15: {
           actions: raise({ type: 'TICK' }),
         },
       },
@@ -101,3 +97,4 @@ export const animationFrameMachine = setup({
     },
   },
 })
+*/
