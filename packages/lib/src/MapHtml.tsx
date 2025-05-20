@@ -355,7 +355,7 @@ function useMapHtmlContentRoot() {
   useEffect(() => {
     // eslint-disable-next-line functional/no-expression-statements
     mountMapHtmlContentRoot(ROOT_ID)
-  })
+  }, [])
 
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
   useEffect(() => {
