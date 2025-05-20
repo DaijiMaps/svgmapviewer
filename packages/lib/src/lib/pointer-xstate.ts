@@ -1081,7 +1081,7 @@ export const pointerMachine = setup({
                   }),
                 },
                 'syncLayout',
-                'renderAndSyncScroll',
+                //'renderAndSyncScroll',
               ],
               target: 'Expanding',
             },
@@ -1153,7 +1153,7 @@ export const pointerMachine = setup({
                 { type: 'expand', params: { n: 1 } },
                 'syncViewBox',
                 'syncLayout',
-                'renderAndSyncScroll',
+                //'renderAndSyncScroll',
               ],
               target: 'UnexpandRendering',
             },
@@ -1195,7 +1195,7 @@ export const pointerMachine = setup({
               actions: [
                 'endZoom',
                 'syncLayout',
-                'renderAndSyncScroll',
+                //'renderAndSyncScroll',
                 emit(({ context: { layout, zoom } }) => ({
                   type: 'ZOOM.END',
                   layout,
