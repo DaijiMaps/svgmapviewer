@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
 import { assign, createActor, emit, raise, setup } from 'xstate'
 import { BoxBox as Box, boxEq, boxUnit } from './box/prefixed'
 import { configActor, svgMapViewerConfig } from './config'
@@ -11,54 +10,6 @@ export function getBodySize(): Box {
     width: document.body.clientWidth,
     height: document.body.clientHeight,
   }
-}
-
-// XXX
-// XXX
-// XXX use xstate
-// XXX
-// XXX
-export function useWindowResize(
-  cb: (size: Readonly<Box>, force: boolean) => void
-): void {
-  const sizeRef = useRef(boxUnit)
-  const [size, setSize] = useState<Box>(boxUnit)
-  const [resized, setResized] = useState<boolean>(false)
-  const resizingRef = useRef(false)
-
-  useEffect(() => {
-    /* always */
-    if (!(resized || !resized)) {
-      return
-    }
-    const tmp = getBodySize()
-    if (!boxEq(tmp, sizeRef.current)) {
-      sizeRef.current = tmp
-      setSize(tmp)
-      cb(tmp, resizingRef.current)
-      resizingRef.current = false
-    }
-  }, [cb, resized, size])
-
-  const handler = useCallback(() => {
-    // XXX
-    // XXX
-    // XXX
-    requestAnimationFrame(() => {
-      setResized(!resized)
-      resizingRef.current = true
-    })
-    // XXX
-    // XXX
-    // XXX
-  }, [resized, setResized])
-
-  useEffect(() => {
-    window.addEventListener('resize', handler)
-    return () => {
-      window.removeEventListener('resize', handler)
-    }
-  }, [handler])
 }
 
 ////

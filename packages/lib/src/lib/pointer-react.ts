@@ -1,16 +1,16 @@
 import { useSelector } from '@xstate/react'
 import React, { useEffect } from 'react'
 import { createActor } from 'xstate'
-import { svgMapViewerConfig as cfg, configActor } from './config'
+import { configActor } from './config'
 import { timeoutMachine } from './event-xstate'
 import { Layout } from './layout'
-import { useLayout } from './layout-react'
 import {
   pointerMachine,
   PointerMode,
   ReactUIEvent,
   selectExpanding,
 } from './pointer-xstate'
+import { resizeActor } from './resize-react'
 import { Vec } from './vec'
 
 let pointereventmask: boolean = false
@@ -49,25 +49,9 @@ function useExpanding() {
 // XXX
 // XXX
 
-export function useResizing() {
-  // resize handling
-  useLayout(layoutCb, cfg.origViewBox)
-}
-
-/*
-resizeActor.on('RESIZE', (ev) => {
-  const { fontSize } = getComputedStyle(document.body)
-  const layout = makeLayout(
-    configLayout(parseFloat(fontSize), cfg.origViewBox, ev.size)
-  )
-  layoutCb(layout, !ev.first)
-})
-*/
-
 export function usePointer(): void {
   //// actions
   useExpanding()
-  //useResizing()
 }
 
 ////
@@ -93,6 +77,8 @@ pointerActor.on('ZOOM.END', ({ layout, zoom }) =>
   configActor.getSnapshot().context.zoomEndCbs.forEach((cb) => cb(layout, zoom))
 )
 pointerActor.on('MODE', ({ mode }) => reflectMode(mode))
+
+resizeActor.start() // XXX reference
 pointerActor.start()
 
 ////
