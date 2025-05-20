@@ -1,5 +1,8 @@
 import { ActorRefFrom, AnyActorRef, assign, sendTo, setup } from 'xstate'
-import { animationFrameLogic } from './animationframe-xstate'
+import {
+  animationFrameLogic,
+  animationFrameMachine,
+} from './animationframe-xstate'
 import { BoxBox as Box } from './box/prefixed'
 import { svgMapViewerConfig as cfg } from './config'
 import { isDefined, isNotNull } from './utils'
@@ -90,6 +93,7 @@ export const stepMachine = setup({
         count: context.count,
       })
     ),
+    /*
     startTick: sendTo(
       ({ system }) => system.get('tick1'),
       () => ({ type: 'START' })
@@ -98,9 +102,20 @@ export const stepMachine = setup({
       ({ system }) => system.get('tick1'),
       () => ({ type: 'STOP' })
     ),
+    */
+
+    startTick2: sendTo(
+      ({ system }) => system.get('tick2'),
+      () => ({ type: 'START' })
+    ),
+    stopTick2: sendTo(
+      ({ system }) => system.get('tick2'),
+      () => ({ type: 'STOP' })
+    ),
   },
   actors: {
     tick: animationFrameLogic,
+    tick2: animationFrameMachine,
   },
 }).createMachine({
   id: 'step',
@@ -120,6 +135,10 @@ export const stepMachine = setup({
       src: 'tick',
       systemId: 'tick1',
     },
+    {
+      src: 'tick2',
+      systemId: 'tick2',
+    },
   ],
   states: {
     Idle: {
@@ -130,7 +149,7 @@ export const stepMachine = setup({
               type: 'startStep',
               params: ({ event: { P, Q } }) => ({ P, Q }),
             },
-            'startTick',
+            'startTick2',
           ],
           target: 'Arriving',
         },
@@ -174,10 +193,12 @@ export const stepMachine = setup({
       always: 'Done',
     },
     Done: {
-      entry: ['stopTick', 'sendStepDone', 'resetStep'],
+      entry: ['stopTick2', 'sendStepDone', 'resetStep'],
       always: 'Idle',
     },
   },
 })
 
 export type StepActorRef = ActorRefFrom<typeof stepMachine>
+
+//animationFrameActor.on('TICK', ()=>step)
