@@ -15,7 +15,6 @@ export function RenderMapCommon() {
         <RenderMapSymbols mapSymbols={cfg.getMapSymbols()} />
         {/*
         <RenderMapMarkers {...props} mapMarkers={cfg.getMapMarkers()} />
-        <LayersSvgStyle />
         */}
       </g>
     </>
