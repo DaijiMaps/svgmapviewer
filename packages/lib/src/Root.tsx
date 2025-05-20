@@ -45,16 +45,6 @@ export function root(config: Readonly<SvgMapViewerConfig>) {
           <RenderMap />
         </defs>
       </svg>
-      <style>
-        {`
-#${config.root} {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  height: 100svh;
-}
-`}
-      </style>
     </StrictMode>
   )
 }
