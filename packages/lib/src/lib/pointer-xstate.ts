@@ -1007,7 +1007,7 @@ export const pointerMachine = setup({
                 ],
                 'SLIDE.DRAG.DONE': {
                   guard: not('isSlidingDragBusy'),
-                  actions: ['endMove', 'syncLayout'],
+                  actions: ['endMove'],
                   target: 'Active',
                 },
                 'POINTER.UP': [
