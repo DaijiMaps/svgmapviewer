@@ -3,10 +3,12 @@ import { Balloon, BalloonStyle } from './Balloon'
 import './Detail.css'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { diag } from './lib/diag'
-import { selectDetail, uiActor } from './lib/ui-xstate'
+import { openCloseIsVisible } from './lib/openclose'
+import { selectDetail, selectOpenCloseDetail, uiActor } from './lib/ui-xstate'
 
 export function Detail() {
   const detail = useSelector(uiActor, selectDetail)
+  const oc = useSelector(uiActor, selectOpenCloseDetail)
 
   const p = detail?.p ?? null
   const layout = detail?.layout ?? null
@@ -20,7 +22,13 @@ export function Detail() {
   const H = layout?.container.height ?? null
 
   return (
-    <div className="detail-balloon">
+    <div
+      className="detail-balloon"
+      style={{
+        // XXX overidden when detail/balloon is open
+        display: detail !== null && openCloseIsVisible(oc) ? 'initial' : 'none',
+      }}
+    >
       {p !== null && W !== null && H !== null && (
         <Balloon _detail={detail} _p={p} _dir={dir} _W={W} _H={H}>
           <BalloonStyle _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
