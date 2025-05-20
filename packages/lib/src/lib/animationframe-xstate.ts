@@ -1,7 +1,8 @@
-import { fromCallback, raise, sendTo, setup } from 'xstate'
+import { raise, sendTo, setup } from 'xstate'
 
 // - receives START/STOP
 // - sends TICK
+/*
 export const animationFrameLogic = fromCallback(({ sendBack, receive }) => {
   const x: {
     active: boolean
@@ -42,6 +43,7 @@ export const animationFrameLogic = fromCallback(({ sendBack, receive }) => {
   })
   return () => stop()
 })
+*/
 
 ////
 
@@ -70,16 +72,6 @@ export const animationFrameMachine = setup({
     Idle: {
       on: {
         START: {
-          /*
-          actions: enqueueActions(({ enqueue }) => {
-            const id = requestAnimationFrame(() =>
-              enqueue(raise({ type: 'TICK' }))
-            )
-            enqueue.assign({
-              id: id,
-            })
-          }),
-          */
           target: 'Busy',
         },
       },
@@ -92,17 +84,6 @@ export const animationFrameMachine = setup({
       },
       on: {
         TICK: {
-          /*
-          actions: enqueueActions(({ enqueue }) => {
-            enqueue.emit({ type: 'TICK' })
-            const id = requestAnimationFrame(() =>
-              enqueue(raise({ type: 'TICK' }))
-            )
-            enqueue.assign({
-              id: id,
-            })
-          }),
-          */
           actions: sendTo(
             ({ system }) => system.get('step1'),
             () => ({ type: 'TICK' })
@@ -110,16 +91,6 @@ export const animationFrameMachine = setup({
           target: 'Ticked',
         },
         STOP: {
-          /*
-          actions: enqueueActions(({ context, enqueue }) => {
-            const id = context.id
-            if (id !== null) {
-              enqueue(() => cancelAnimationFrame(id))
-            }
-            enqueue.assign({ id: null })
-          }),
-          target: 'Idle',
-          */
           target: 'Idle',
         },
       },
@@ -130,11 +101,3 @@ export const animationFrameMachine = setup({
     },
   },
 })
-
-/*
-export const animationFrameActor = createActor(animationFrameMachine, {
-  systemId: 'system-animationframe2',
-  inspect: (iev) => console.log(iev),
-})
-animationFrameActor.start()
-*/

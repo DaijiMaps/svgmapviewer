@@ -1,8 +1,5 @@
 import { ActorRefFrom, AnyActorRef, assign, sendTo, setup } from 'xstate'
-import {
-  animationFrameLogic,
-  animationFrameMachine,
-} from './animationframe-xstate'
+import { animationFrameMachine } from './animationframe-xstate'
 import { BoxBox as Box } from './box/prefixed'
 import { svgMapViewerConfig as cfg } from './config'
 import { isDefined, isNotNull } from './utils'
@@ -114,7 +111,7 @@ export const stepMachine = setup({
     ),
   },
   actors: {
-    tick: animationFrameLogic,
+    //tick: animationFrameLogic,
     tick2: animationFrameMachine,
   },
 }).createMachine({
@@ -131,10 +128,12 @@ export const stepMachine = setup({
     count: 0,
   }),
   invoke: [
+    /*
     {
       src: 'tick',
       systemId: 'tick1',
     },
+    */
     {
       src: 'tick2',
       systemId: 'tick2',
@@ -200,5 +199,3 @@ export const stepMachine = setup({
 })
 
 export type StepActorRef = ActorRefFrom<typeof stepMachine>
-
-//animationFrameActor.on('TICK', ()=>step)
