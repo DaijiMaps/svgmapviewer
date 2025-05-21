@@ -4,7 +4,12 @@ import './Detail.css'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { diag } from './lib/diag'
 import { openCloseIsVisible } from './lib/openclose'
-import { selectDetail, selectOpenCloseDetail, uiActor } from './lib/ui-xstate'
+import {
+  isDetailEmpty,
+  selectDetail,
+  selectOpenCloseDetail,
+  uiActor,
+} from './lib/ui-xstate'
 
 export function Detail() {
   const detail = useSelector(uiActor, selectDetail)
@@ -35,7 +40,7 @@ export function Detail() {
         onAnimationEnd={() => uiActor.send({ type: 'DETAIL.ANIMATION.END' })}
       >
         {cfg.renderInfo &&
-          detail.info.title !== '' &&
+          !isDetailEmpty(detail) &&
           cfg.renderInfo({ info: detail.info })}
       </div>
     </div>

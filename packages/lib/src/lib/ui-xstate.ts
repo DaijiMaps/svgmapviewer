@@ -322,3 +322,10 @@ function uiOpen(ok: boolean) {
 function uiCancel() {
   uiActor.send({ type: 'CANCEL' })
 }
+
+export function isDetailEmpty(detail: UiDetailContent): boolean {
+  const values = Object.values(detail.info)
+  return (
+    values.length === 1 && typeof values[0] === 'string' && values[0] === ''
+  )
+}
