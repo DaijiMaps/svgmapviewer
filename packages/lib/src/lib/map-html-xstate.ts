@@ -12,14 +12,8 @@ import { POI } from './geo'
 const ROOT_ID = 'map-html-content-root'
 
 type RootEvent =
-  | {
-      type: 'MOUNT'
-    }
-  | {
-      type: 'UPDATE'
-      pointNames: POI[]
-      areaNames: POI[]
-    }
+  | { type: 'MOUNT' }
+  | { type: 'UPDATE'; pointNames: POI[]; areaNames: POI[] }
 type RootEmit = {
   type: 'RENDER'
   pointNames: POI[]
