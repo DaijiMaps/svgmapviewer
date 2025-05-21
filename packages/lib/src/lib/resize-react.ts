@@ -21,7 +21,7 @@ type ResizeContext = {
   waited: number
   first: boolean
 }
-type ResizeEmitted = { type: 'RESIZE'; layout: Layout; force: boolean }
+type ResizeEmitted = { type: 'LAYOUT'; layout: Layout; force: boolean }
 
 const resizeMachine = setup({
   types: {
@@ -79,7 +79,7 @@ const resizeMachine = setup({
                 waited: 0,
               }),
               emit(({ context }) => ({
-                type: 'RESIZE',
+                type: 'LAYOUT',
                 layout: resizeLayout(context.next),
                 force: !context.first,
               })),
@@ -117,14 +117,14 @@ const resizeMachine = setup({
 
 ////
 
-const notifyResize = (ev: ResizeEmitted) => {
+const notifyLayout = (ev: ResizeEmitted) => {
   configActor
     .getSnapshot()
     .context.layoutCbs.forEach((cb) => cb(ev.layout, ev.force))
 }
 
 export const resizeActor = createActor(resizeMachine)
-resizeActor.on('RESIZE', notifyResize)
+resizeActor.on('LAYOUT', notifyLayout)
 resizeActor.start()
 
 window.addEventListener('resize', () => {
