@@ -16,9 +16,9 @@ import {
   sendWheel,
   usePointer,
 } from './lib/pointer-react'
+import { styleAnimationEnd } from './lib/style-xstate'
 import { MapHtml } from './MapHtml'
 import { MapSvg } from './MapSvg'
-import { styleAnimationEnd } from './Style'
 
 export function Container() {
   const ref = useRef<HTMLDivElement>(null)

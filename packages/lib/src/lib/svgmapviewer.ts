@@ -1,18 +1,19 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import { rootActor } from '../MapHtml'
 import { root } from '../Root'
-import { styleActor, styleRoot } from '../Style'
+import { styleRoot } from '../Style'
 import { Box } from './box/main'
 import {
   configActor,
   svgMapViewerConfig,
   updateSvgMapViewerConfig,
 } from './config'
+import { rootActor } from './map-html-xstate'
 import { renderMapActor } from './map-xstate'
 import { pointerActor, scrollTimeoutActor } from './pointer-react'
 import { resizeActor } from './resize-react'
 import { searchSearchDone, searchSearchStart } from './search'
+import { styleActor } from './style-xstate'
 import { SvgMapViewerConfig, SvgMapViewerConfigUser } from './types'
 import { uiActor } from './ui-xstate'
 

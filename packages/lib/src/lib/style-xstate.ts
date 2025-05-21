@@ -1,6 +1,5 @@
 import { assign, createActor, setup, StateFrom } from 'xstate'
 import { Animation } from './animation'
-import './index.css'
 import { emptyLayout, Layout } from './layout'
 
 export type StyleEvent =

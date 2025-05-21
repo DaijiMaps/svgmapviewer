@@ -10,7 +10,6 @@ import {
   StateFrom,
   stateIn,
 } from 'xstate'
-import { styleActor } from '../Style'
 import {
   Animation,
   animationEndLayout,
@@ -32,6 +31,7 @@ import {
   toSvg,
 } from './layout'
 import { scrollMachine } from './scroll-xstate'
+import { styleActor } from './style-xstate'
 import { syncViewBox } from './svg'
 import {
   discardTouches,
