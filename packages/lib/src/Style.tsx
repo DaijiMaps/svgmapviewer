@@ -55,11 +55,10 @@ function LayoutStyle() {
     styleActor,
     (state: Readonly<StyleState>) => state.context.animating
   )
-  const layout = useSelector(
+  const { svg, svgOffset, svgScale, scroll } = useSelector(
     styleActor,
     (state: Readonly<StyleState>) => state.context.layout
   )
-  const { svg, svgOffset, svgScale, scroll } = layout
   const m = fromSvgToOuter({ svg, svgOffset, svgScale })
   const matrix = fixupCssString(cssMatrixToString(m))
 
