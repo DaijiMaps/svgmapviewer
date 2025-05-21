@@ -91,56 +91,56 @@ const pointerSend = (
 
 ////
 
-export const sendPointerDown = (ev: PointerEvent | React.PointerEvent) =>
+export const sendPointerDown = (ev: React.PointerEvent) =>
   pointerSend({ type: 'POINTER.DOWN', ev })
-export const sendPointerMove = (ev: PointerEvent | React.PointerEvent) =>
+export const sendPointerMove = (ev: React.PointerEvent) =>
   pointerSend({ type: 'POINTER.MOVE', ev })
-export const sendPointerUp = (ev: PointerEvent | React.PointerEvent) => {
+export const sendPointerUp = (ev: React.PointerEvent) => {
   if (pointereventmask) {
     return
   }
   pointerSend({ type: 'POINTER.UP', ev })
 }
-export const sendTouchStart = (ev: TouchEvent | React.TouchEvent) => {
+export const sendTouchStart = (ev: React.TouchEvent) => {
   if (toucheventmask) {
     return
   }
   // skip preventDefault to enable emulated "click"
   pointerSend({ type: 'TOUCH.START', ev }, { preventDefault: false })
 }
-export const sendTouchMove = (ev: TouchEvent | React.TouchEvent) => {
+export const sendTouchMove = (ev: React.TouchEvent) => {
   if (toucheventmask) {
     return
   }
   pointerSend({ type: 'TOUCH.MOVE', ev })
 }
-export const sendTouchEnd = (ev: TouchEvent | React.TouchEvent) => {
+export const sendTouchEnd = (ev: React.TouchEvent) => {
   if (toucheventmask) {
     return
   }
   // skip preventDefault to enable emulated "click"
   pointerSend({ type: 'TOUCH.END', ev }, { preventDefault: false })
 }
-export const sendClick = (ev: MouseEvent | React.MouseEvent) => {
+export const sendClick = (ev: React.MouseEvent) => {
   if (clickeventmask) {
     return
   }
   pointerSend({ type: 'CLICK', ev })
 }
-export const sendContextMenu = (ev: MouseEvent | React.MouseEvent) =>
+export const sendContextMenu = (ev: React.MouseEvent) =>
   pointerSend({ type: 'CONTEXTMENU', ev })
-export const sendWheel = (ev: WheelEvent | React.WheelEvent) => {
+export const sendWheel = (ev: React.WheelEvent) => {
   if (wheeleventmask) {
     return
   }
   pointerSend({ type: 'WHEEL', ev })
 }
-export const sendScroll = (ev: Event | React.UIEvent) =>
+export const sendScroll = (ev: React.UIEvent) =>
   scrollTimeoutActor.send({
     type: 'TICK',
     ev,
   })
-export const sendAnimationEnd = (ev: AnimationEvent | React.AnimationEvent) =>
+export const sendAnimationEnd = (ev: React.AnimationEvent) =>
   pointerSend({
     type: 'ANIMATION.END',
     ev,

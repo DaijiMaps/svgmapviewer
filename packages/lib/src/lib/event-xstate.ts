@@ -2,12 +2,12 @@ import React from 'react'
 import { ActorRefFrom, assign, emit, setup } from 'xstate'
 
 type TimeoutContext = {
-  ev: null | Event | React.UIEvent
+  ev: null | React.UIEvent
 }
 type TimeoutEvent =
   | {
       type: 'TICK'
-      ev: Event | React.UIEvent
+      ev: React.UIEvent
     }
   | {
       type: 'START'
@@ -17,7 +17,7 @@ type TimeoutEvent =
     }
 type TimeoutEmit = {
   type: 'EXPIRED'
-  ev: Event
+  ev: React.UIEvent
 }
 
 const EXPIRATION = 2000
