@@ -24,6 +24,22 @@ import {
 import { Info, SearchRes } from './types'
 import { VecVec, vecZero } from './vec/prefixed'
 
+const emptyDetail: UiDetailContent = {
+  p: vecZero,
+  psvg: vecZero,
+  layout: emptyLayoutCoord,
+  info: { title: '' },
+}
+
+export function isDetailEmpty(detail: UiDetailContent): boolean {
+  const values = Object.values(detail.info)
+  return (
+    values.length === 1 && typeof values[0] === 'string' && values[0] === ''
+  )
+}
+
+////
+
 export type UiPart =
   | 'header'
   | 'footer'
@@ -316,20 +332,4 @@ function uiOpen(ok: boolean) {
 }
 function uiCancel() {
   uiActor.send({ type: 'CANCEL' })
-}
-
-////
-
-const emptyDetail: UiDetailContent = {
-  p: vecZero,
-  psvg: vecZero,
-  layout: emptyLayoutCoord,
-  info: { title: '' },
-}
-
-export function isDetailEmpty(detail: UiDetailContent): boolean {
-  const values = Object.values(detail.info)
-  return (
-    values.length === 1 && typeof values[0] === 'string' && values[0] === ''
-  )
 }
