@@ -86,7 +86,15 @@ export function makeLayout(config: LayoutConfig): Layout {
 }
 
 export function resizeLayout(size: Box) {
-  const { fontSize } = getComputedStyle(document.body)
+  // XXX
+  // XXX
+  // XXX
+  // XXX config.fontSize (coming from getComputedStyle()) is unstable???
+  // XXX
+  // XXX
+  // XXX
+  //const { fontSize } = getComputedStyle(document.body)
+  const fontSize = '16px'
   const origViewBox = svgMapViewerConfig.origViewBox
   const layout = makeLayout(
     configLayout(parseFloat(fontSize), origViewBox, size)
