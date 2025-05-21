@@ -123,12 +123,7 @@ export const uiMachine = setup({
   context: ({ input }) => ({
     ...input,
     canceling: false,
-    detail: {
-      p: vecZero,
-      psvg: vecZero,
-      layout: emptyLayoutCoord,
-      info: { title: '' },
-    },
+    detail: emptyDetail,
     m: {
       header: openCloseReset(true),
       footer: openCloseReset(true),
@@ -321,6 +316,15 @@ function uiOpen(ok: boolean) {
 }
 function uiCancel() {
   uiActor.send({ type: 'CANCEL' })
+}
+
+////
+
+const emptyDetail: UiDetailContent = {
+  p: vecZero,
+  psvg: vecZero,
+  layout: emptyLayoutCoord,
+  info: { title: '' },
 }
 
 export function isDetailEmpty(detail: UiDetailContent): boolean {
