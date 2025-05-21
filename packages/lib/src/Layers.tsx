@@ -1,12 +1,6 @@
 import { useSelector } from '@xstate/react'
 import clsx from 'clsx'
 import { layers } from './lib/layers'
-import {
-  renderMapActor,
-  selectLayoutConfig,
-  selectLayoutSvgScaleS,
-  selectZoom,
-} from './lib/map-xstate'
 
 export function useLayers() {
   const context = useSelector(layers, (state) => state.context)
@@ -35,36 +29,6 @@ export function LayersStyle() {
 }
 .poi-stars {
   display: ${showStars ? 'initial' : 'none'};
-}
-      `}
-    </style>
-  )
-}
-
-export function LayersSvgStyle() {
-  const layers = useLayers()
-
-  const showSymbols = layers.context.showSymbols
-  const showMarkers = layers.context.showMarkers
-
-  const config = useSelector(renderMapActor, selectLayoutConfig)
-  const s = useSelector(renderMapActor, selectLayoutSvgScaleS)
-  const zoom = useSelector(renderMapActor, selectZoom)
-  const sz =
-    config.fontSize *
-    // display symbol slightly larger as zoom goes higher
-    (0.5 + 0.5 * Math.log2(Math.max(1, zoom))) *
-    s
-
-  return (
-    <style>
-      {`
-.map-symbols {
-  display: ${showSymbols ? 'initial' : 'none'};
-  --map-symbol-size: ${sz / 72};
-}
-.map-markers {
-  display: ${showMarkers ? 'initial' : 'none'};
 }
       `}
     </style>
