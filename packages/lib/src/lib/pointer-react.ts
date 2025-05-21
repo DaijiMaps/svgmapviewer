@@ -10,7 +10,6 @@ import {
   ReactUIEvent,
   selectExpanding,
 } from './pointer-xstate'
-import { resizeActor } from './resize-react'
 import { SearchRes } from './types'
 import { Vec } from './vec'
 
@@ -88,8 +87,6 @@ pointerActor.on('ZOOM.END', ({ layout, zoom }) =>
   configActor.getSnapshot().context.zoomEndCbs.forEach((cb) => cb(layout, zoom))
 )
 pointerActor.on('MODE', ({ mode }) => reflectMode(mode))
-
-resizeActor.start() // XXX reference
 pointerActor.start()
 
 ////
@@ -181,9 +178,6 @@ const pointerSearchUnlock = () => pointerActor.send({ type: 'SEARCH.UNLOCK' })
 const layoutCb = (origLayout: Readonly<Layout>, force: boolean) => {
   pointerActor.send({ type: 'LAYOUT', layout: origLayout, force })
 }
-export const layoutCb2 = (origLayout: Readonly<Layout>) => {
-  pointerActor.send({ type: 'LAYOUT', layout: origLayout, force: true })
-}
 
 export const keyDown = (ev: KeyboardEvent) =>
   pointerActor.send({ type: 'KEY.DOWN', ev })
@@ -193,9 +187,7 @@ export const keyUp = (ev: KeyboardEvent) =>
 configActor.start()
 configActor.send({
   type: 'ADD.CB',
-  // XXX searchEndCb
   searchEndCb: pointerSearchEnd,
-  // XXX searchEndDone
   uiOpenCb: pointerSearchLock,
   uiCloseDoneCb: pointerSearchUnlock,
   layoutCb: layoutCb,
@@ -203,7 +195,7 @@ configActor.send({
 
 ////
 
-const scrollTimeoutActor = createActor(timeoutMachine)
+export const scrollTimeoutActor = createActor(timeoutMachine)
 
 scrollTimeoutActor.on('EXPIRED', ({ ev }) => {
   if (!scrolleventmask) {

@@ -1,15 +1,29 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
+import { rootActor } from '../MapHtml'
 import { root } from '../Root'
-import { styleRoot } from '../Style'
+import { styleActor, styleRoot } from '../Style'
 import { Box } from './box/main'
 import {
   configActor,
   svgMapViewerConfig,
   updateSvgMapViewerConfig,
 } from './config'
+import { renderMapActor } from './map-xstate'
+import { pointerActor, scrollTimeoutActor } from './pointer-react'
+import { resizeActor } from './resize-react'
 import { searchSearchDone, searchSearchStart } from './search'
 import { SvgMapViewerConfig, SvgMapViewerConfigUser } from './types'
+import { uiActor } from './ui-xstate'
+
+// XXX
+// XXX
+// XXX
+// XXX - actual app's entry
+// XXX - only imported by src/lib/index.ts
+// XXX
+// XXX
+// XXX
 
 export function svgmapviewer(configUser: Readonly<SvgMapViewerConfigUser>) {
   const origViewBox: Box = {
@@ -34,7 +48,10 @@ export function svgmapviewer(configUser: Readonly<SvgMapViewerConfigUser>) {
     ...configUser,
   }
 
-  configActor.start()
+  ////
+
+  startAllActors()
+
   configActor.send({
     type: 'ADD.CB',
     searchStartCb: searchSearchStart,
@@ -49,4 +66,18 @@ export function svgmapviewer(configUser: Readonly<SvgMapViewerConfigUser>) {
 
   root(config)
   styleRoot()
+}
+
+function startAllActors() {
+  // reference & ensure all actors are started
+  // for module dependency
+  // (order doesn't matter)
+  configActor.start()
+  pointerActor.start()
+  renderMapActor.start()
+  resizeActor.start()
+  rootActor.start()
+  scrollTimeoutActor.start()
+  styleActor.start()
+  uiActor.start()
 }

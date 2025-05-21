@@ -298,7 +298,7 @@ const rootLogic = setup({
   },
 })
 
-const rootActor = createActor(rootLogic)
+export const rootActor = createActor(rootLogic)
 
 // eslint-disable-next-line functional/no-expression-statements
 rootActor.on('RENDER', ({ pointNames, areaNames }) => {
