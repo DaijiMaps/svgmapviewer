@@ -3,7 +3,6 @@ import { useMemo } from 'react'
 import { fixupCssString } from './lib/css'
 import { POI } from './lib/geo'
 import { isLiked, useLikes } from './lib/like'
-import { useNames } from './lib/names'
 import { pointerActor } from './lib/pointer-react'
 import { selectLayoutSvgScaleS } from './lib/pointer-xstate'
 
@@ -47,7 +46,7 @@ export function MapHtmlRoot(
       <MapHtmlContentStars _pointNames={pointNames} _areaNames={areaNames} />
       <MapHtmlContentNamesPoint _pointNames={pointNames} />
       <MapHtmlContentNamesArea _areaNames={areaNames} />
-      <MapHtmlContentNamesStyle />
+      <MapHtmlContentNamesStyle _areaNames={areaNames} />
     </>
   )
 }
@@ -156,8 +155,10 @@ function MapHtmlContentNamesArea(
   )
 }
 
-function MapHtmlContentNamesStyle() {
-  const { areaNames } = useNames()
+function MapHtmlContentNamesStyle(
+  props: Readonly<{ _areaNames: Readonly<POI[]> }>
+) {
+  const { _areaNames: areaNames } = props
 
   const s = useSelector(pointerActor, selectLayoutSvgScaleS)
 
