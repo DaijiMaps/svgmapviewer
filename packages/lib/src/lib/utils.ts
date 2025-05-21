@@ -1,5 +1,6 @@
 //// zoomToScale
 
+import { BoxBox } from './box/prefixed'
 import { svgMapViewerConfig as cfg } from './config'
 
 export const zoomToScale = (z: number) => Math.pow(cfg.zoomFactor, z)
@@ -42,4 +43,15 @@ export const ifUndefinedOrNullOr = <A>(a: U | N | A, b: A): A =>
 
 export type ImmutableShallow<T extends object> = {
   readonly [P in keyof T & {}]: T[P]
+}
+
+////
+
+export function getBodySize(): BoxBox {
+  return {
+    x: 0,
+    y: 0,
+    width: document.body.clientWidth,
+    height: document.body.clientHeight,
+  }
 }
