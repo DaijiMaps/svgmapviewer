@@ -1,11 +1,7 @@
 import { Like } from '../Like'
-import type { ConfigMachine, ConfigState } from './config'
-import {
-  configActor,
-  configContext,
-  selectMapNames,
-  svgMapViewerConfig,
-} from './config'
+import { svgMapViewerConfig } from './config'
+import type { ConfigMachine, ConfigState } from './config-xstate'
+import { configActor, configContext, selectMapNames } from './config-xstate'
 import { Layout } from './layout'
 import { svgmapviewer } from './svgmapviewer'
 import type {

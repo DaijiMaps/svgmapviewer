@@ -2,13 +2,13 @@ import { useSelector } from '@xstate/react'
 import React, { useEffect } from 'react'
 import { createActor } from 'xstate'
 import {
-  configActor,
   notifySearchEndDone,
   notifySearchStart,
   notifyUiOpen,
   notifyUiOpenDone,
   notifyZoomEnd,
   notifyZoomStart,
+  registerCbs,
 } from './config'
 import { timeoutMachine } from './event-xstate'
 import { Layout } from './layout'
@@ -187,8 +187,7 @@ const layoutCb = (origLayout: Readonly<Layout>, force: boolean) => {
   pointerActor.send({ type: 'LAYOUT', layout: origLayout, force })
 }
 
-configActor.send({
-  type: 'ADD.CB',
+registerCbs({
   searchEndCb: pointerSearchEnd,
   uiOpenCb: pointerSearchLock,
   uiCloseDoneCb: pointerSearchUnlock,

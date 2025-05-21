@@ -8,7 +8,7 @@ import {
   setup,
   StateFrom,
 } from 'xstate'
-import { configActor, notifyCloseDone } from './config'
+import { notifyCloseDone, registerCbs } from './config'
 import { LayoutCoord } from './coord'
 import { fromSvg } from './layout'
 import {
@@ -302,8 +302,7 @@ export const uiActor = createActor(uiMachine)
 uiActor.on('CLOSE.DONE', notifyCloseDone)
 uiActor.start()
 
-configActor.send({
-  type: 'ADD.CB',
+registerCbs({
   searchEndDoneCb: uiDetail,
   uiOpenDoneCb: uiOpen,
   uiCloseCb: uiCancel,

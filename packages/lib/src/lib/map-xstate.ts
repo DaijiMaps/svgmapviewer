@@ -1,7 +1,7 @@
 import { ActorRefFrom, assign, createActor, setup, StateFrom } from 'xstate'
 import '../index.css'
 import { emptyLayout, Layout } from '../lib/layout'
-import { configActor } from './config'
+import { registerCbs } from './config'
 
 type RenderMapContext = {
   layout: Readonly<Layout>
@@ -74,8 +74,7 @@ export const renderMapZoomEnd = (layout: Readonly<Layout>, zoom: number) =>
 export const renderMapLayout = (layout: Layout) =>
   renderMapActor.send({ type: 'LAYOUT', layout })
 
-configActor.send({
-  type: 'ADD.CB',
+registerCbs({
   zoomStartCb: renderMapZoomStart,
   zoomEndCb: renderMapZoomEnd,
   layoutCb: renderMapLayout,

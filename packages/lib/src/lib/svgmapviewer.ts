@@ -4,10 +4,11 @@ import { root } from '../Root'
 import { styleRoot } from '../Style'
 import { Box } from './box/main'
 import {
-  configActor,
+  registerCbs,
   svgMapViewerConfig,
   updateSvgMapViewerConfig,
 } from './config'
+import { configActor } from './config-xstate'
 import { rootActor } from './map-html-xstate'
 import { renderMapActor } from './map-xstate'
 import { pointerActor, scrollTimeoutActor } from './pointer-react'
@@ -53,8 +54,7 @@ export function svgmapviewer(configUser: Readonly<SvgMapViewerConfigUser>) {
 
   startAllActors()
 
-  configActor.send({
-    type: 'ADD.CB',
+  registerCbs({
     searchStartCb: searchSearchStart,
     searchDoneCb: searchSearchDone,
   })
