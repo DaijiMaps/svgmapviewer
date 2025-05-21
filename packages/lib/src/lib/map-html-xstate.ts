@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { assign, createActor, emit, setup } from 'xstate'
-import { MapHtmlRoot } from '../MapHtmlRoot'
+import { MapHtml } from '../MapHtml'
 import { POI } from './geo'
 
 //// shadow DOM actor
@@ -8,8 +8,6 @@ import { POI } from './geo'
 // XXX - don't have to keep copy of names here
 // XXX - store names in configActor
 // XXX - listen on names change & re-render
-
-const ROOT_ID = 'map-html-content-root'
 
 type RootEvent =
   | { type: 'MOUNT' }
@@ -55,14 +53,14 @@ const rootLogic = setup({
 
 ////
 
-export type RenderCb = (id: string, children: ReactNode) => void
+export type RenderCb = (children: ReactNode) => void
 
 export const renderCbs = new Set<RenderCb>()
 
 export const rootActor = createActor(rootLogic)
 
 rootActor.on('RENDER', ({ pointNames, areaNames }) =>
-  renderCbs.forEach((cb) => cb(ROOT_ID, MapHtmlRoot(pointNames, areaNames)))
+  renderCbs.forEach((cb) => cb(MapHtml(pointNames, areaNames)))
 )
 
 rootActor.start()

@@ -11,10 +11,10 @@ import { useNames } from './names'
 
 export const ROOT_ID = 'map-html-content-root'
 
-export function useMapHtmlContentRoot() {
+export function useMapHtmlRoot() {
   const { pointNames, areaNames } = useNames()
 
-  useEffect(() => mountMapHtmlContentRoot(ROOT_ID), [])
+  useEffect(() => mountMapHtmlRoot(ROOT_ID), [])
 
   useEffect(
     () => rootActor.send({ type: 'UPDATE', pointNames, areaNames }),
@@ -22,7 +22,7 @@ export function useMapHtmlContentRoot() {
   )
 }
 
-function mountMapHtmlContentRoot(id: string) {
+function mountMapHtmlRoot(id: string) {
   const root = document.querySelector(`#${id}`)
   if (root === null || root.shadowRoot !== null) {
     return
@@ -34,8 +34,8 @@ function mountMapHtmlContentRoot(id: string) {
 
 //// shadow DOM render
 
-function renderShadowRoot(id: string, children: Readonly<ReactNode>) {
-  const root = document.querySelector(`#${id}`)
+function renderMapHtmlRoot(children: Readonly<ReactNode>) {
+  const root = document.querySelector(`#${ROOT_ID}`)
   if (root === null) {
     return
   }
@@ -47,4 +47,4 @@ function renderShadowRoot(id: string, children: Readonly<ReactNode>) {
   createRoot(shadowRoot).render(children)
 }
 
-renderCbs.add(renderShadowRoot)
+renderCbs.add(renderMapHtmlRoot)

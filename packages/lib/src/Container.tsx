@@ -17,7 +17,7 @@ import {
   usePointer,
 } from './lib/pointer-react'
 import { styleAnimationEnd } from './lib/style-xstate'
-import { MapHtml } from './MapHtml'
+import { MapHtmlRoot } from './MapHtmlRoot'
 import { MapSvg } from './MapSvg'
 
 export function Container() {
@@ -61,7 +61,7 @@ export function Container() {
   return (
     <div ref={ref} id="viewer" className="container">
       <MapSvg />
-      <MapHtml />
+      <MapHtmlRoot />
     </div>
   )
 }
