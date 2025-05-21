@@ -1,4 +1,3 @@
-import 'virtual:uno.css'
 import { Like } from '../Like'
 import { svgMapViewerConfig } from './config'
 import type { ConfigMachine, ConfigState } from './config-xstate'
