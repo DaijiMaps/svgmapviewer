@@ -24,6 +24,9 @@ function mapCoordDefault(p: VecVec): VecVec {
   return p
 }
 
+// XXX
+// XXX migrate to configActor
+// XXX
 export let svgMapViewerConfig: SvgMapViewerConfig = {
   root: 'root',
   map: 'map',
@@ -69,9 +72,12 @@ export function updateSvgMapViewerConfig(
 //// XXX xstate
 
 interface ConfigContext extends ConfigCbs {
+  // XXX SvgMapViewerConfig
   mapNames: POI[]
 }
+
 type ConfigEvent =
+  | ({ type: 'SET' } & Partial<SvgMapViewerConfig>)
   | { type: 'SET.MAPNAMES'; mapNames: POI[] }
   | ({ type: 'ADD.CB' } & Partial<ConfigCb>)
   | ({ type: 'DELETE.CB' } & Partial<ConfigCb>)
@@ -80,6 +86,10 @@ const configMachine = setup({
   types: {
     context: {} as ConfigContext,
     events: {} as ConfigEvent,
+  },
+  actions: {
+    addCallbacks: () => {},
+    deleteCallbacks: () => {},
   },
 }).createMachine({
   id: 'config1',
@@ -243,6 +253,15 @@ const configMachine = setup({
               return context.uiCloseDoneCbs
             },
           }),
+        },
+        SET: {
+          // XXX
+          // XXX
+          // XXX
+          // XXX not yet
+          // XXX
+          // XXX
+          // XXX
         },
         'SET.MAPNAMES': {
           actions: assign({
