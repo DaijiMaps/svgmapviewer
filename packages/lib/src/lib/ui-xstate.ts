@@ -9,7 +9,8 @@ import {
   StateFrom,
 } from 'xstate'
 import { configActor, notifyCloseDone } from './config'
-import { fromSvg, Layout } from './layout'
+import { LayoutCoord } from './coord'
+import { fromSvg } from './layout'
 import {
   OpenClose,
   openCloseClose,
@@ -35,7 +36,7 @@ type OpenCloseMap = Record<UiPart, OpenClose>
 
 export type UiDetailContent = SearchRes & {
   p: VecVec
-  layout: Layout
+  layout: LayoutCoord
 }
 
 export interface UiContext {
@@ -308,7 +309,7 @@ configActor.send({
   uiCloseCb: uiCancel,
 })
 
-function uiDetail(psvg: VecVec, info: Info, layout: Layout) {
+function uiDetail(psvg: VecVec, info: Info, layout: LayoutCoord) {
   uiActor.send({ type: 'DETAIL', psvg, info, layout })
 }
 function uiOpen(ok: boolean) {

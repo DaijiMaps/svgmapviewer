@@ -3,7 +3,11 @@ import '../index.css'
 import { emptyLayout, Layout } from '../lib/layout'
 import { configActor } from './config'
 
-type RenderMapContext = { layout: Layout; zoom: number; z: null | number }
+type RenderMapContext = {
+  layout: Readonly<Layout>
+  zoom: number
+  z: null | number
+}
 type RenderMapEvent =
   | ({ type: 'ZOOM' } & RenderMapContext)
   | { type: 'LAYOUT'; layout: Layout }
@@ -60,9 +64,12 @@ export const renderMapActor = createActor(renderMapMachine, {
 })
 renderMapActor.start()
 
-export const renderMapZoomStart = (layout: Layout, zoom: number, z: number) =>
-  renderMapActor.send({ type: 'ZOOM', layout, zoom, z })
-export const renderMapZoomEnd = (layout: Layout, zoom: number) =>
+export const renderMapZoomStart = (
+  layout: Readonly<Layout>,
+  zoom: number,
+  z: number
+) => renderMapActor.send({ type: 'ZOOM', layout, zoom, z })
+export const renderMapZoomEnd = (layout: Readonly<Layout>, zoom: number) =>
   renderMapActor.send({ type: 'ZOOM', layout, zoom, z: null })
 export const renderMapLayout = (layout: Layout) =>
   renderMapActor.send({ type: 'LAYOUT', layout })

@@ -2,6 +2,7 @@
 /* eslint-disable functional/no-return-void */
 import { BoxBox } from './box/prefixed'
 import { MapLayer, MapMarkers, MapObjects, MapSymbols } from './carto'
+import { LayoutCoord } from './coord'
 import { MapData, POI } from './geo'
 import { Layout } from './layout'
 import { Vec } from './vec'
@@ -35,20 +36,24 @@ export interface SearchResP {
 
 ////
 
-export type ZoomStartCb = (layout: Layout, zoom: number, z: number) => void
-export type ZoomEndCb = (layout: Layout, zoom: number) => void
+export type ZoomStartCb = (
+  layout: Readonly<Layout>,
+  zoom: number,
+  z: number
+) => void
+export type ZoomEndCb = (layout: Readonly<Layout>, zoom: number) => void
 export type SearchCb = (psvg: Vec) => void
 export type SearchDoneCb = (res: Readonly<null | SearchRes>) => void
 export type SearchEndCb = (res: Readonly<SearchRes>) => void
 export type SearchEndDoneCb = (
   psvg: Vec,
   info: Readonly<Info>,
-  layout: Readonly<Layout>
+  layout: Readonly<LayoutCoord>
 ) => void
 export type UiOpenCb = (
   psvg: Vec,
   info: Readonly<Info>,
-  layout: Readonly<Layout>
+  layout: Readonly<LayoutCoord>
 ) => void
 export type UiOpenDoneCb = (ok: boolean) => void
 export type UiCloseCb = () => void
