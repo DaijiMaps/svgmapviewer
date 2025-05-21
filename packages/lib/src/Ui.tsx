@@ -11,13 +11,15 @@ import { Shadow } from './Shadow'
 
 export function Ui() {
   return (
-    <div id="ui">
-      <Shadow />
-      <Detail />
-      <Header />
-      <Footer />
-      <Right />
-      <Debug _searchRef={searchRef} />
+    <div id="ui-root">
+      <div id="ui">
+        <Shadow />
+        <Detail />
+        <Header />
+        <Footer />
+        <Right />
+        <Debug _searchRef={searchRef} />
+      </div>
     </div>
   )
 }

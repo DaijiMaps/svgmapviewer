@@ -16,6 +16,7 @@ import { resizeActor } from './resize-xstate'
 import { searchSearchDone, searchSearchStart } from './search'
 import { styleActor } from './style-xstate'
 import { SvgMapViewerConfig, SvgMapViewerConfigUser } from './types'
+import { uiRootActor } from './ui-root-xstate'
 import { uiActor } from './ui-xstate'
 
 // XXX
@@ -80,4 +81,5 @@ function startAllActors() {
   scrollTimeoutActor.start()
   styleActor.start()
   uiActor.start()
+  uiRootActor.start()
 }
