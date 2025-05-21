@@ -13,6 +13,14 @@ import {
 import { SearchRes } from './types'
 import { Vec } from './vec'
 
+/// actor
+
+export const pointerActor = createActor(pointerMachine, {
+  systemId: 'system-pointer1',
+})
+
+//// handler masks
+
 let pointereventmask: boolean = false
 let toucheventmask: boolean = false
 let clickeventmask: boolean = false
@@ -35,6 +43,8 @@ function reflectMode(mode: PointerMode): void {
   }
 }
 
+////
+
 // XXX
 // XXX
 // XXX
@@ -56,40 +66,7 @@ export function usePointer(): void {
   useExpanding()
 }
 
-////
-
-export const pointerActor = createActor(pointerMachine, {
-  systemId: 'system-pointer1',
-})
-pointerActor.on('SEARCH', ({ psvg }) =>
-  configActor.getSnapshot().context.searchStartCbs.forEach((cb) => cb(psvg))
-)
-pointerActor.on('SEARCH.END.DONE', ({ psvg, info, layout }) => {
-  configActor
-    .getSnapshot()
-    .context.searchEndDoneCbs.forEach((cb) => cb(psvg, info, layout))
-  configActor
-    .getSnapshot()
-    .context.uiOpenCbs.forEach((cb) => cb(psvg, info, layout))
-})
-pointerActor.on('LOCK', ({ ok }) =>
-  configActor.getSnapshot().context.uiOpenDoneCbs.forEach((cb) => cb(ok))
-)
-pointerActor.on('LAYOUT', ({ layout }) =>
-  configActor.getSnapshot().context.zoomEndCbs.forEach((cb) => cb(layout, 1))
-)
-pointerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
-  configActor
-    .getSnapshot()
-    .context.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
-)
-pointerActor.on('ZOOM.END', ({ layout, zoom }) =>
-  configActor.getSnapshot().context.zoomEndCbs.forEach((cb) => cb(layout, zoom))
-)
-pointerActor.on('MODE', ({ mode }) => reflectMode(mode))
-pointerActor.start()
-
-////
+//// handlers
 
 const pointerSend = (
   // excluding key down/up events
@@ -169,6 +146,43 @@ export const sendAnimationEnd = (ev: AnimationEvent | React.AnimationEvent) =>
     ev,
   })
 
+export const keyDown = (ev: KeyboardEvent) =>
+  pointerActor.send({ type: 'KEY.DOWN', ev })
+export const keyUp = (ev: KeyboardEvent) =>
+  pointerActor.send({ type: 'KEY.UP', ev })
+
+//// actor
+
+pointerActor.on('SEARCH', ({ psvg }) =>
+  configActor.getSnapshot().context.searchStartCbs.forEach((cb) => cb(psvg))
+)
+pointerActor.on('SEARCH.END.DONE', ({ psvg, info, layout }) => {
+  configActor
+    .getSnapshot()
+    .context.searchEndDoneCbs.forEach((cb) => cb(psvg, info, layout))
+  configActor
+    .getSnapshot()
+    .context.uiOpenCbs.forEach((cb) => cb(psvg, info, layout))
+})
+pointerActor.on('LOCK', ({ ok }) =>
+  configActor.getSnapshot().context.uiOpenDoneCbs.forEach((cb) => cb(ok))
+)
+pointerActor.on('LAYOUT', ({ layout }) =>
+  configActor.getSnapshot().context.zoomEndCbs.forEach((cb) => cb(layout, 1))
+)
+pointerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
+  configActor
+    .getSnapshot()
+    .context.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
+)
+pointerActor.on('ZOOM.END', ({ layout, zoom }) =>
+  configActor.getSnapshot().context.zoomEndCbs.forEach((cb) => cb(layout, zoom))
+)
+pointerActor.on('MODE', ({ mode }) => reflectMode(mode))
+pointerActor.start()
+
+//// config global callbacks
+
 export const pointerSearchEnd = (res: Readonly<SearchRes>) =>
   pointerActor.send({ type: 'SEARCH.END', res })
 const pointerSearchLock = (psvg: Vec) =>
@@ -178,11 +192,6 @@ const pointerSearchUnlock = () => pointerActor.send({ type: 'SEARCH.UNLOCK' })
 const layoutCb = (origLayout: Readonly<Layout>, force: boolean) => {
   pointerActor.send({ type: 'LAYOUT', layout: origLayout, force })
 }
-
-export const keyDown = (ev: KeyboardEvent) =>
-  pointerActor.send({ type: 'KEY.DOWN', ev })
-export const keyUp = (ev: KeyboardEvent) =>
-  pointerActor.send({ type: 'KEY.UP', ev })
 
 configActor.start()
 configActor.send({
