@@ -1,7 +1,15 @@
 import { useSelector } from '@xstate/react'
 import React, { useEffect } from 'react'
 import { createActor } from 'xstate'
-import { configActor } from './config'
+import {
+  configActor,
+  notifySearchEndDone,
+  notifySearchStart,
+  notifyUiOpen,
+  notifyUiOpenDone,
+  notifyZoomEnd,
+  notifyZoomStart,
+} from './config'
 import { timeoutMachine } from './event-xstate'
 import { Layout } from './layout'
 import {
@@ -153,31 +161,17 @@ export const keyUp = (ev: KeyboardEvent) =>
 
 //// actor
 
-pointerActor.on('SEARCH', ({ psvg }) =>
-  configActor.getSnapshot().context.searchStartCbs.forEach((cb) => cb(psvg))
-)
+pointerActor.on('SEARCH', ({ psvg }) => notifySearchStart(psvg))
 pointerActor.on('SEARCH.END.DONE', ({ psvg, info, layout }) => {
-  configActor
-    .getSnapshot()
-    .context.searchEndDoneCbs.forEach((cb) => cb(psvg, info, layout))
-  configActor
-    .getSnapshot()
-    .context.uiOpenCbs.forEach((cb) => cb(psvg, info, layout))
+  notifySearchEndDone(psvg, info, layout)
+  notifyUiOpen(psvg, info, layout)
 })
-pointerActor.on('LOCK', ({ ok }) =>
-  configActor.getSnapshot().context.uiOpenDoneCbs.forEach((cb) => cb(ok))
-)
-pointerActor.on('LAYOUT', ({ layout }) =>
-  configActor.getSnapshot().context.zoomEndCbs.forEach((cb) => cb(layout, 1))
-)
+pointerActor.on('LOCK', ({ ok }) => notifyUiOpenDone(ok))
 pointerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
-  configActor
-    .getSnapshot()
-    .context.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
+  notifyZoomStart(layout, zoom, z)
 )
-pointerActor.on('ZOOM.END', ({ layout, zoom }) =>
-  configActor.getSnapshot().context.zoomEndCbs.forEach((cb) => cb(layout, zoom))
-)
+pointerActor.on('ZOOM.END', ({ layout, zoom }) => notifyZoomEnd(layout, zoom))
+pointerActor.on('LAYOUT', ({ layout }) => notifyZoomEnd(layout, 1))
 pointerActor.on('MODE', ({ mode }) => reflectMode(mode))
 pointerActor.start()
 

@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { configActor } from './lib'
+import { notifyUiClose } from './lib/config'
 import { selectOpenCloseShadow, uiActor } from './lib/ui-xstate'
 import './Shadow.css'
 
@@ -8,10 +8,7 @@ export function Shadow() {
     <div
       className="shadow"
       // eslint-disable-next-line functional/no-return-void
-      onClick={() =>
-        // eslint-disable-next-line functional/no-return-void
-        configActor.getSnapshot().context.uiCloseCbs.forEach((cb) => cb())
-      }
+      onClick={() => notifyUiClose()}
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiActor.send({ type: 'SHADOW.ANIMATION.END' })}
     >

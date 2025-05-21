@@ -8,7 +8,7 @@ import {
   setup,
   StateFrom,
 } from 'xstate'
-import { configActor } from './config'
+import { configActor, notifyCloseDone } from './config'
 import { fromSvg, Layout } from './layout'
 import {
   OpenClose,
@@ -298,21 +298,17 @@ export const selectOpenCloseDetail = (ui: UiState) => ui.context.m['detail']
 ////
 
 export const uiActor = createActor(uiMachine)
-uiActor.on('CLOSE.DONE', closeDone)
+uiActor.on('CLOSE.DONE', notifyCloseDone)
 uiActor.start()
 
 configActor.send({
   type: 'ADD.CB',
-  //searchEndCb: uiDetail,
-  searchEndDoneCb: uiDetail2,
+  searchEndDoneCb: uiDetail,
   uiOpenDoneCb: uiOpen,
   uiCloseCb: uiCancel,
 })
 
-//function uiDetail(res: Readonly<SearchRes>) {
-//  uiActor.send({ type: 'DETAIL', ...res })
-//}
-function uiDetail2(psvg: VecVec, info: Info, layout: Layout) {
+function uiDetail(psvg: VecVec, info: Info, layout: Layout) {
   uiActor.send({ type: 'DETAIL', psvg, info, layout })
 }
 function uiOpen(ok: boolean) {
@@ -320,7 +316,4 @@ function uiOpen(ok: boolean) {
 }
 function uiCancel() {
   uiActor.send({ type: 'CANCEL' })
-}
-function closeDone() {
-  configActor.getSnapshot().context.uiCloseDoneCbs.forEach((cb) => cb())
 }

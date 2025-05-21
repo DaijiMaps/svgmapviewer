@@ -5,6 +5,7 @@ import { createContext, createElement } from 'react'
 import { assign, createActor, setup, StateFrom } from 'xstate'
 import { POI } from './geo'
 import { emptyMapData } from './geo/data'
+import { Layout } from './layout'
 import type {
   ConfigCb,
   ConfigCbs,
@@ -15,8 +16,9 @@ import type {
 } from './types'
 import { VecVec } from './vec/prefixed'
 
-const renderInfoDefault: RenderInfo = (props: Readonly<{ info: Info }>) =>
-  createElement('p', {}, props.info.title)
+const renderInfoDefault: RenderInfo = (
+  props: Readonly<{ info: Readonly<Info> }>
+) => createElement('p', {}, props.info.title)
 
 function mapCoordDefault(p: VecVec): VecVec {
   return p
@@ -262,3 +264,59 @@ export type ConfigState = StateFrom<ConfigMachine>
 
 export const selectMapNames = (state: Readonly<ConfigState>) =>
   state.context.mapNames
+
+////
+
+export function notifySearchStart(psvg: VecVec) {
+  configActor.getSnapshot().context.searchStartCbs.forEach((cb) => cb(psvg))
+}
+export function notifySearch(psvg: VecVec) {
+  configActor.getSnapshot().context.searchCbs.forEach((cb) => cb(psvg))
+}
+export function notifySearchEnd(psvg: VecVec, info: Readonly<Info>) {
+  configActor
+    .getSnapshot()
+    .context.searchEndCbs.forEach((cb) => cb({ psvg, info }))
+}
+export function notifySearchEndDone(
+  psvg: VecVec,
+  info: Readonly<Info>,
+  layout: Readonly<Layout>
+) {
+  configActor
+    .getSnapshot()
+    .context.searchEndDoneCbs.forEach((cb) => cb(psvg, info, layout))
+}
+export function notifyUiOpen(
+  psvg: VecVec,
+  info: Readonly<Info>,
+  layout: Readonly<Layout>
+) {
+  configActor
+    .getSnapshot()
+    .context.uiOpenCbs.forEach((cb) => cb(psvg, info, layout))
+}
+export function notifyUiOpenDone(ok: boolean) {
+  configActor.getSnapshot().context.uiOpenDoneCbs.forEach((cb) => cb(ok))
+}
+export function notifyUiClose() {
+  configActor.getSnapshot().context.uiCloseCbs.forEach((cb) => cb())
+}
+export function notifyCloseDone() {
+  configActor.getSnapshot().context.uiCloseDoneCbs.forEach((cb) => cb())
+}
+export function notifyZoomStart(
+  layout: Readonly<Layout>,
+  zoom: number,
+  z: number
+) {
+  configActor
+    .getSnapshot()
+    .context.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
+}
+export function notifyZoomEnd(layout: Readonly<Layout>, zoom: number) {
+  configActor.getSnapshot().context.zoomEndCbs.forEach((cb) => cb(layout, zoom))
+}
+export function notifyLayout(layout: Readonly<Layout>, force: boolean) {
+  configActor.getSnapshot().context.layoutCbs.forEach((cb) => cb(layout, force))
+}

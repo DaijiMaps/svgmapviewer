@@ -1,6 +1,6 @@
 import { assign, createActor, emit, raise, setup } from 'xstate'
 import { BoxBox as Box, boxEq, boxUnit } from './box/prefixed'
-import { configActor } from './config'
+import { notifyLayout } from './config'
 import { Layout, resizeLayout } from './layout'
 
 export function getBodySize(): Box {
@@ -117,14 +117,8 @@ const resizeMachine = setup({
 
 ////
 
-const notifyLayout = (ev: ResizeEmitted) => {
-  configActor
-    .getSnapshot()
-    .context.layoutCbs.forEach((cb) => cb(ev.layout, ev.force))
-}
-
 export const resizeActor = createActor(resizeMachine)
-resizeActor.on('LAYOUT', notifyLayout)
+resizeActor.on('LAYOUT', ({ layout, force }) => notifyLayout(layout, force))
 resizeActor.start()
 
 window.addEventListener('resize', () => {
