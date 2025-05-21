@@ -5,7 +5,6 @@ import { useSelector } from '@xstate/react'
 import { useMemo } from 'react'
 import { configActor, selectMapNames } from './config-xstate'
 
-// XXX
 export function useNames() {
   const mapNames = useSelector(configActor, selectMapNames)
 

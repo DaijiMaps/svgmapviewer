@@ -9,7 +9,7 @@ import { useNames } from './names'
 // XXX - store names in configActor
 // XXX - listen on names change & re-render
 
-const ROOT_ID = 'map-html-content-root'
+export const ROOT_ID = 'map-html-content-root'
 
 export function useMapHtmlContentRoot() {
   const { pointNames, areaNames } = useNames()
