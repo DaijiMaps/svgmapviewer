@@ -149,22 +149,48 @@ type PointerInternalEvent =
   | PointerEventSearch
   | PointerEventLock
 
-type UIEventClick = { type: 'CLICK'; ev: React.MouseEvent }
-type UIEventContextMenu = { type: 'CONTEXTMENU'; ev: React.MouseEvent }
-type UIEventPointerCancel = { type: 'POINTER.CANCEL'; ev: React.PointerEvent }
-type UIEventPointerDown = { type: 'POINTER.DOWN'; ev: React.PointerEvent }
-type UIEventPointerMove = { type: 'POINTER.MOVE'; ev: React.PointerEvent }
-type UIEventPointerUp = { type: 'POINTER.UP'; ev: React.PointerEvent }
-type UIEventTouchCancel = { type: 'TOUCH.CANCEL'; ev: React.TouchEvent }
-type UIEventTouchEnd = { type: 'TOUCH.END'; ev: React.TouchEvent }
-type UIEventTouchMove = { type: 'TOUCH.MOVE'; ev: React.TouchEvent }
-type UIEventTouchStart = { type: 'TOUCH.START'; ev: React.TouchEvent }
-type UIEventWheel = { type: 'WHEEL'; ev: React.WheelEvent }
-type UIEventScroll = { type: 'SCROLL'; ev: React.UIEvent }
-type UIEventAnimationEnd = { type: 'ANIMATION.END'; ev: React.AnimationEvent }
-
-type UIEventKeyDown = { type: 'KEY.DOWN'; ev: KeyboardEvent } // not react
-type UIEventKeyUp = { type: 'KEY.UP'; ev: KeyboardEvent } // not react
+type UIEventClick = { type: 'CLICK'; ev: MouseEvent | React.MouseEvent }
+type UIEventContextMenu = {
+  type: 'CONTEXTMENU'
+  ev: MouseEvent | React.MouseEvent
+}
+type UIEventKeyDown = { type: 'KEY.DOWN'; ev: KeyboardEvent }
+type UIEventKeyUp = { type: 'KEY.UP'; ev: KeyboardEvent }
+type UIEventPointerCancel = {
+  type: 'POINTER.CANCEL'
+  ev: PointerEvent | React.PointerEvent
+}
+type UIEventPointerDown = {
+  type: 'POINTER.DOWN'
+  ev: PointerEvent | React.PointerEvent
+}
+type UIEventPointerMove = {
+  type: 'POINTER.MOVE'
+  ev: PointerEvent | React.PointerEvent
+}
+type UIEventPointerUp = {
+  type: 'POINTER.UP'
+  ev: PointerEvent | React.PointerEvent
+}
+type UIEventTouchCancel = {
+  type: 'TOUCH.CANCEL'
+  ev: TouchEvent | React.TouchEvent
+}
+type UIEventTouchEnd = { type: 'TOUCH.END'; ev: TouchEvent | React.TouchEvent }
+type UIEventTouchMove = {
+  type: 'TOUCH.MOVE'
+  ev: TouchEvent | React.TouchEvent
+}
+type UIEventTouchStart = {
+  type: 'TOUCH.START'
+  ev: TouchEvent | React.TouchEvent
+}
+type UIEventWheel = { type: 'WHEEL'; ev: WheelEvent | React.WheelEvent }
+type UIEventScroll = { type: 'SCROLL'; ev: Event | React.UIEvent }
+type UIEventAnimationEnd = {
+  type: 'ANIMATION.END'
+  ev: AnimationEvent | React.AnimationEvent
+}
 
 export type ReactUIEvent =
   | UIEventAnimationEnd
