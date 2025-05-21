@@ -169,11 +169,11 @@ function css(q: Matrix) {
 @keyframes container-zoom {
   from {
     transform-origin: left top;
-    transform: ${matrixToString(matrixEmpty)};
+    transform: ${matrixToString(matrixEmpty)} translate3d(0px, 0px, 0px);
   }
   to {
     transform-origin: left top;
-    transform: ${matrixToString(q)};
+    transform: ${matrixToString(q)} translate3d(0px, 0px, 0px);
   }
 }
 `
