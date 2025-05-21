@@ -1,7 +1,7 @@
 import { assign, createActor, emit, raise, setup } from 'xstate'
 import { BoxBox as Box, boxEq, boxUnit } from './box/prefixed'
 import { configActor, svgMapViewerConfig } from './config'
-import { configLayout, makeLayout } from './layout'
+import { configLayout, Layout, makeLayout } from './layout'
 
 export function getBodySize(): Box {
   return {
@@ -21,7 +21,7 @@ type ResizeContext = {
   waited: number
   first: boolean
 }
-type ResizeEmitted = { type: 'RESIZE'; size: Box; first: boolean }
+type ResizeEmitted = { type: 'RESIZE'; layout: Layout; force: boolean }
 
 const resizeMachine = setup({
   types: {
@@ -78,11 +78,19 @@ const resizeMachine = setup({
                 prev: ({ context }) => context.prev,
                 waited: 0,
               }),
-              emit(({ context }) => ({
-                type: 'RESIZE',
-                size: context.next,
-                first: context.first,
-              })),
+              emit(({ context }) => {
+                const { fontSize } = getComputedStyle(document.body)
+                const origViewBox = svgMapViewerConfig.origViewBox
+                const size = context.next
+                const layout = makeLayout(
+                  configLayout(parseFloat(fontSize), origViewBox, size)
+                )
+                return {
+                  type: 'RESIZE',
+                  layout,
+                  force: !context.first,
+                }
+              }),
               assign({
                 first: false,
               }),
@@ -115,21 +123,18 @@ const resizeMachine = setup({
   },
 })
 
+////
+
+const notifyResize = (ev: ResizeEmitted) => {
+  configActor
+    .getSnapshot()
+    .context.layoutCbs.forEach((cb) => cb(ev.layout, ev.force))
+}
+
 export const resizeActor = createActor(resizeMachine)
-resizeActor.on('RESIZE', (ev) => {
-  configActor.getSnapshot().context.layoutCbs.forEach((cb) => {
-    const { fontSize } = getComputedStyle(document.body)
-    const layout = makeLayout(
-      configLayout(
-        parseFloat(fontSize),
-        svgMapViewerConfig.origViewBox,
-        ev.size
-      )
-    )
-    cb(layout, !ev.first)
-  })
-})
+resizeActor.on('RESIZE', notifyResize)
 resizeActor.start()
+
 window.addEventListener('resize', () => {
   resizeActor.send({ type: 'RESIZE' })
 })

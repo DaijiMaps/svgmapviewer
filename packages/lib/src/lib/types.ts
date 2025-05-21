@@ -52,7 +52,7 @@ export type UiOpenCb = (
 ) => void
 export type UiOpenDoneCb = (ok: boolean) => void
 export type UiCloseCb = () => void
-export type LayoutCb = (layout: Layout, first: boolean) => void
+export type LayoutCb = (layout: Layout, force: boolean) => void
 
 export interface ConfigCb {
   zoomStartCb: ZoomStartCb

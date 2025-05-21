@@ -298,7 +298,9 @@ export const selectOpenCloseDetail = (ui: UiState) => ui.context.m['detail']
 ////
 
 export const uiActor = createActor(uiMachine)
-configActor.start()
+uiActor.on('CLOSE.DONE', closeDone)
+uiActor.start()
+
 configActor.send({
   type: 'ADD.CB',
   //searchEndCb: uiDetail,
@@ -306,8 +308,6 @@ configActor.send({
   uiOpenDoneCb: uiOpen,
   uiCloseCb: uiCancel,
 })
-uiActor.on('CLOSE.DONE', closeDone)
-uiActor.start()
 
 //function uiDetail(res: Readonly<SearchRes>) {
 //  uiActor.send({ type: 'DETAIL', ...res })

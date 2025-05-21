@@ -67,7 +67,6 @@ export const renderMapZoomEnd = (layout: Layout, zoom: number) =>
 export const renderMapLayout = (layout: Layout) =>
   renderMapActor.send({ type: 'LAYOUT', layout })
 
-configActor.start()
 configActor.send({
   type: 'ADD.CB',
   zoomStartCb: renderMapZoomStart,

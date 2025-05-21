@@ -193,7 +193,6 @@ const layoutCb = (origLayout: Readonly<Layout>, force: boolean) => {
   pointerActor.send({ type: 'LAYOUT', layout: origLayout, force })
 }
 
-configActor.start()
 configActor.send({
   type: 'ADD.CB',
   searchEndCb: pointerSearchEnd,
