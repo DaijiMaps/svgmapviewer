@@ -1,5 +1,6 @@
 /* eslint-disable functional/no-mixed-types */
 /* eslint-disable functional/no-return-void */
+import { ReactNode } from 'react'
 import { BoxBox } from './box/prefixed'
 import { MapLayer, MapMarkers, MapObjects, MapSymbols } from './carto'
 import { LayoutCoord } from './coord'
@@ -91,11 +92,11 @@ export interface ConfigCbs {
 
 ////
 
-export type RenderAssets = () => JSX.Element
+export type RenderAssets = () => ReactNode
 
-export type RenderMap = () => JSX.Element
+export type RenderMap = () => ReactNode
 
-export type RenderInfo = (props: Readonly<{ info: Info }>) => JSX.Element
+export type RenderInfo = (props: Readonly<{ info: Info }>) => ReactNode
 
 ////
 
