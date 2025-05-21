@@ -21,6 +21,9 @@ export function MapHtml() {
   )
 }
 
+// XXX
+// XXX elsewhere
+// XXX
 function useNames() {
   const mapNames = useSelector(configActor, selectMapNames)
 
@@ -48,35 +51,6 @@ function useNames() {
 
   return { pointNames, areaNames }
 }
-
-/*
-function MapHtmlContentSymbols() {
-  return (
-    <div className="poi-symbols">
-      {cfg.mapSymbols
-        .map(({ id, name, pos, size }) => ({
-          id,
-          name,
-          pos,
-          size,
-        }))
-        .map(({ id, name, pos: { x, y }, size }) => (
-          <div
-            key={id}
-            className={`poi-symbols-item`}
-            style={{
-              transform: fixupCssString(
-                `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%)`
-              ),
-            }}
-          >
-            <RenderSymbol poi={{ id, name, pos: { x, y }, size }} />
-          </div>
-        ))}
-    </div>
-  )
-}
-*/
 
 function MapHtmlContentStars(
   props: Readonly<{ _pointNames: POI[]; _areaNames: POI[] }>
@@ -207,18 +181,6 @@ opacity: ${opacity};
     </div>
   )
 }
-
-/*
-function RenderSymbol(props: Readonly<{ poi: POI }>) {
-  return (
-    <p>
-      {props.poi.name.map((n, j) => (
-        <span key={j} className={n} />
-      ))}
-    </p>
-  )
-}
-*/
 
 function RenderStar() {
   return (
