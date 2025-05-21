@@ -1,28 +1,30 @@
-import { ActorRefFrom, assign, setup } from 'xstate'
+import { ActorRefFrom, assign, emit, setup } from 'xstate'
 
 import {
   handleTouchEnd,
   handleTouchMove,
   handleTouchStart,
+  isMultiTouch,
+  isMultiTouchEnding,
   Touches,
 } from './touch'
 
 // XXX TouchEvent is DOM
 type TouchEvent_ =
   | {
-      type: 'TICK.TOUCH.START'
+      type: 'TOUCH.START'
       ev: TouchEvent
     }
   | {
-      type: 'TICK.TOUCH.MOVE'
+      type: 'TOUCH.MOVE'
       ev: TouchEvent
     }
   | {
-      type: 'TICK.TOUCH.END'
+      type: 'TOUCH.END'
       ev: TouchEvent
     }
   | {
-      type: 'TICK.TOUCH.CANCEL'
+      type: 'TOUCH.CANCEL'
       ev: TouchEvent
     }
   | {
@@ -31,10 +33,14 @@ type TouchEvent_ =
   | {
       type: 'STOP'
     }
-type TouchEmit_ = {
-  type: 'EXPIRED'
-  ev: TouchEvent
-}
+type TouchEmit_ =
+  | {
+      type: 'EXPIRED'
+      ev: TouchEvent
+    }
+  | { type: 'MULTI.START' }
+  | { type: 'MULTI.END' }
+  | { type: 'ZOOM' }
 type TouchContext_ = {
   touches: Touches
 }
@@ -44,6 +50,11 @@ export const touchMachine = setup({
     context: {} as TouchContext_,
     events: {} as TouchEvent_,
     emitted: {} as TouchEmit_,
+  },
+  guards: {
+    isMultiTouch: ({ context: { touches } }) => isMultiTouch(touches),
+    isMultiTouchEnding: ({ context: { touches } }) =>
+      isMultiTouchEnding(touches),
   },
   actions: {},
 }).createMachine({
@@ -59,63 +70,101 @@ export const touchMachine = setup({
       horizontal: null,
     },
   },
+  type: 'parallel',
   states: {
-    Idle: {
+    Handler: {
       on: {
-        'TICK.TOUCH.START': {
-          actions: assign({
-            touches: ({ context, event }) =>
-              handleTouchStart(context.touches, event.ev),
-          }),
-          target: 'SingleTouching',
+        'TOUCH.START': {
+          actions: [
+            assign({
+              touches: ({ context, event }) =>
+                handleTouchStart(context.touches, event.ev),
+            }),
+            // XXX
+          ],
         },
-        'TICK.TOUCH.MOVE': {},
-        'TICK.TOUCH.END': {},
-        'TICK.TOUCH.CANCEL': {},
+        'TOUCH.MOVE': {
+          actions: [
+            assign({
+              touches: ({ context, event }) =>
+                handleTouchMove(context.touches, event.ev, 0),
+            }),
+            // XXX
+          ],
+        },
+        'TOUCH.END': {
+          actions: [
+            assign({
+              touches: ({ context, event }) =>
+                handleTouchEnd(context.touches, event.ev),
+            }),
+            // XXX
+          ],
+        },
       },
     },
-    SingleTouching: {
-      on: {
-        'TICK.TOUCH.START': {
-          actions: assign({
-            touches: ({ context, event }) =>
-              handleTouchStart(context.touches, event.ev),
-          }),
-          target: 'DoubleTouching',
+    Monitor: {
+      states: {
+        Idle: {
+          on: {
+            'TOUCH.START': {
+              actions: assign({
+                touches: ({ context, event }) =>
+                  handleTouchStart(context.touches, event.ev),
+              }),
+              target: 'SingleTouching',
+            },
+            'TOUCH.MOVE': {},
+            'TOUCH.END': {},
+            'TOUCH.CANCEL': {},
+          },
         },
-        'TICK.TOUCH.MOVE': {
-          actions: assign({
-            touches: ({ context, event }) =>
-              handleTouchMove(context.touches, event.ev, 0),
-          }),
+        SingleTouching: {
+          on: {
+            'TOUCH.START': {
+              actions: assign({
+                touches: ({ context, event }) =>
+                  handleTouchStart(context.touches, event.ev),
+              }),
+              target: 'DoubleTouching',
+            },
+            'TOUCH.MOVE': {
+              actions: assign({
+                touches: ({ context, event }) =>
+                  handleTouchMove(context.touches, event.ev, 0),
+              }),
+            },
+            'TOUCH.END': {
+              actions: assign({
+                touches: ({ context, event }) =>
+                  handleTouchEnd(context.touches, event.ev),
+              }),
+              target: 'Idle',
+            },
+            'TOUCH.CANCEL': {},
+          },
         },
-        'TICK.TOUCH.END': {
-          actions: assign({
-            touches: ({ context, event }) =>
-              handleTouchEnd(context.touches, event.ev),
-          }),
-          target: 'Idle',
+        DoubleTouching: {
+          entry: emit({ type: 'MULTI.START' }),
+          exit: emit({ type: 'MULTI.END' }),
+          on: {
+            'TOUCH.START': {},
+            'TOUCH.MOVE': {
+              actions: assign({
+                touches: ({ context, event }) =>
+                  handleTouchMove(context.touches, event.ev, 0),
+              }),
+            },
+            'TOUCH.END': {
+              actions: assign({
+                touches: ({ context, event }) =>
+                  handleTouchEnd(context.touches, event.ev),
+              }),
+              target: 'SingleTouching',
+            },
+            'TOUCH.CANCEL': {},
+          },
         },
-        'TICK.TOUCH.CANCEL': {},
-      },
-    },
-    DoubleTouching: {
-      on: {
-        'TICK.TOUCH.START': {},
-        'TICK.TOUCH.MOVE': {
-          actions: assign({
-            touches: ({ context, event }) =>
-              handleTouchMove(context.touches, event.ev, 0),
-          }),
-        },
-        'TICK.TOUCH.END': {
-          actions: assign({
-            touches: ({ context, event }) =>
-              handleTouchEnd(context.touches, event.ev),
-          }),
-          target: 'SingleTouching',
-        },
-        'TICK.TOUCH.CANCEL': {},
       },
     },
   },
