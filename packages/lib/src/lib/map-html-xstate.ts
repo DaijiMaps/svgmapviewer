@@ -1,9 +1,7 @@
-import { ReactNode, useEffect } from 'react'
-import { createRoot } from 'react-dom/client'
+import { ReactNode } from 'react'
 import { assign, createActor, emit, setup } from 'xstate'
 import { MapHtmlRoot } from '../MapHtmlRoot'
 import { POI } from './geo'
-import { useNames } from './names'
 
 //// shadow DOM actor
 
@@ -61,51 +59,16 @@ const rootLogic = setup({
   },
 })
 
+////
+
+export type RenderCb = (id: string, children: ReactNode) => void
+
+export const renderCbs = new Set<RenderCb>()
+
 export const rootActor = createActor(rootLogic)
 
-rootActor.on('RENDER', ({ pointNames, areaNames }) => {
-  return renderShadowRoot(ROOT_ID, MapHtmlRoot(pointNames, areaNames))
-})
+rootActor.on('RENDER', ({ pointNames, areaNames }) =>
+  renderCbs.forEach((cb) => cb(ROOT_ID, MapHtmlRoot(pointNames, areaNames)))
+)
 
 rootActor.start()
-
-export function useMapHtmlContentRoot() {
-  const { pointNames, areaNames } = useNames()
-
-  useEffect(() => {
-    mountMapHtmlContentRoot(ROOT_ID)
-  }, [])
-
-  useEffect(() => {
-    rootActor.send({ type: 'UPDATE', pointNames, areaNames })
-  }, [pointNames, areaNames])
-}
-
-function mountMapHtmlContentRoot(id: string) {
-  const root = document.querySelector(`#${id}`)
-  if (root === null || root.shadowRoot !== null) {
-    return
-  }
-  // shadowRoot is present
-
-  rootActor.send({ type: 'MOUNT' })
-}
-
-//// shadow DOM render
-
-export function renderShadowRoot(
-  id: string,
-  children: Readonly<ReactNode>
-): boolean {
-  const root = document.querySelector(`#${id}`)
-  if (root === null) {
-    return false
-  }
-  if (root.shadowRoot !== null) {
-    // shadowRoot is present
-    return true
-  }
-  const shadowRoot = root.attachShadow({ mode: 'open' })
-  createRoot(shadowRoot).render(children)
-  return true
-}
