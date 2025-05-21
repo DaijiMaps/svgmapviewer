@@ -16,6 +16,15 @@ export const syncScroll = (b: Box): boolean => {
   if (e === null) {
     return false
   }
+
+  // XXX
+  // XXX
+  // XXX
+  // XXX if content is not rendered yet, this triggers Forced Reflow
+  // XXX see: https://web.dev/articles/avoid-large-complex-layouts-and-layout-thrashing?utm_source=devtools&utm_campaign=stable#identify_forced_synchronous_layouts_and_thrashing
+  // XXX
+  // XXX
+  // XXX
   const l = e.scrollLeft
   const t = e.scrollTop
   const w = e.scrollWidth
