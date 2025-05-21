@@ -9,7 +9,7 @@ import {
   StateFrom,
 } from 'xstate'
 import { notifyCloseDone, registerCbs } from './config'
-import { LayoutCoord } from './coord'
+import { emptyLayoutCoord, LayoutCoord } from './coord'
 import { fromSvg } from './layout'
 import {
   OpenClose,
@@ -22,7 +22,7 @@ import {
   openCloseReset,
 } from './openclose'
 import { Info, SearchRes } from './types'
-import { VecVec } from './vec/prefixed'
+import { VecVec, vecZero } from './vec/prefixed'
 
 export type UiPart =
   | 'header'
@@ -41,7 +41,7 @@ export type UiDetailContent = SearchRes & {
 
 export interface UiContext {
   canceling: boolean
-  detail: null | UiDetailContent
+  detail: UiDetailContent
   m: OpenCloseMap
 }
 
@@ -123,7 +123,12 @@ export const uiMachine = setup({
   context: ({ input }) => ({
     ...input,
     canceling: false,
-    detail: null,
+    detail: {
+      p: vecZero,
+      psvg: vecZero,
+      layout: emptyLayoutCoord,
+      info: { title: '' },
+    },
     m: {
       header: openCloseReset(true),
       footer: openCloseReset(true),

@@ -10,16 +10,13 @@ export function Detail() {
   const detail = useSelector(uiActor, selectDetail)
   const oc = useSelector(uiActor, selectOpenCloseDetail)
 
-  const p = detail?.p ?? null
-  const layout = detail?.layout ?? null
+  const p = detail.p
+  const layout = detail.layout
 
-  const dir =
-    p === null || detail === null || detail.layout === null
-      ? null
-      : diag(detail.layout.container, p)
+  const dir = diag(detail.layout.container, p)
 
-  const W = layout?.container.width ?? null
-  const H = layout?.container.height ?? null
+  const W = layout.container.width
+  const H = layout.container.height
 
   return (
     <div
@@ -29,19 +26,16 @@ export function Detail() {
         display: detail !== null && openCloseIsVisible(oc) ? 'initial' : 'none',
       }}
     >
-      {p !== null && W !== null && H !== null && (
-        <Balloon _detail={detail} _p={p} _dir={dir} _W={W} _H={H}>
-          <BalloonStyle _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
-        </Balloon>
-      )}
+      <Balloon _detail={detail} _p={p} _dir={dir} _W={W} _H={H}>
+        <BalloonStyle _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
+      </Balloon>
       <div
         className="detail"
         // eslint-disable-next-line functional/no-return-void
         onAnimationEnd={() => uiActor.send({ type: 'DETAIL.ANIMATION.END' })}
       >
         {cfg.renderInfo &&
-          detail &&
-          detail.info &&
+          detail.info.title !== '' &&
           cfg.renderInfo({ info: detail.info })}
       </div>
     </div>

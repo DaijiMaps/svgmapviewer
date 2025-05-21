@@ -1,4 +1,4 @@
-import { BoxBox as Box, boxCopy } from './box/prefixed'
+import { BoxBox as Box, boxCopy, boxUnit } from './box/prefixed'
 import { LayoutConfig } from './layout'
 import { MatrixMatrix as Matrix, matrixMultiply } from './matrix/prefixed'
 import { Move, Scale, fromTransform, invMove, invScale } from './transform'
@@ -32,6 +32,14 @@ export interface SvgLayoutCoord {
 //// toMatrixSvg
 
 export type LayoutCoord = HtmlLayoutCoord & SvgLayoutCoord
+
+export const emptyLayoutCoord = {
+  container: boxUnit,
+  scroll: boxUnit,
+  svg: boxUnit,
+  svgOffset: { x: 0, y: 0 },
+  svgScale: { s: 1 },
+}
 
 export const makeCoord = ({
   container,

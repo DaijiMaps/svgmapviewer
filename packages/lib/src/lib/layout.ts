@@ -12,6 +12,7 @@ import {
 import { svgMapViewerConfig } from './config'
 import {
   LayoutCoord,
+  emptyLayoutCoord,
   fromMatrixOuter,
   fromMatrixSvg,
   fromScroll,
@@ -34,6 +35,14 @@ export type LayoutConfig = ReadonlyDeep<{
   readonly svgScale: Scale
 }>
 
+export const emptyLayoutConfig = {
+  fontSize: 16,
+  container: boxUnit,
+  svg: boxUnit,
+  svgOffset: { x: 0, y: 0 },
+  svgScale: { s: 1 },
+}
+
 export type Layout = ReadonlyDeep<
   LayoutCoord & {
     config: LayoutConfig
@@ -41,18 +50,8 @@ export type Layout = ReadonlyDeep<
 >
 
 export const emptyLayout: Layout = {
-  config: {
-    fontSize: 16,
-    container: boxUnit,
-    svg: boxUnit,
-    svgOffset: { x: 0, y: 0 },
-    svgScale: { s: 1 },
-  },
-  container: boxUnit,
-  scroll: boxUnit,
-  svg: boxUnit,
-  svgOffset: { x: 0, y: 0 },
-  svgScale: { s: 1 },
+  config: emptyLayoutConfig,
+  ...emptyLayoutCoord,
 }
 
 //// configLayout
