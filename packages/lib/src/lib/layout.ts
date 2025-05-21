@@ -9,6 +9,7 @@ import {
   boxScaleAt,
   boxUnit,
 } from './box/prefixed'
+import { svgMapViewerConfig } from './config'
 import {
   LayoutCoord,
   fromMatrixOuter,
@@ -81,6 +82,15 @@ export function makeLayout(config: LayoutConfig): Layout {
     ...coord,
   }
 
+  return layout
+}
+
+export function resizeLayout(size: Box) {
+  const { fontSize } = getComputedStyle(document.body)
+  const origViewBox = svgMapViewerConfig.origViewBox
+  const layout = makeLayout(
+    configLayout(parseFloat(fontSize), origViewBox, size)
+  )
   return layout
 }
 

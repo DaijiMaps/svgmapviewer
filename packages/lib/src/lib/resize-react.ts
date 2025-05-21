@@ -1,7 +1,7 @@
 import { assign, createActor, emit, raise, setup } from 'xstate'
 import { BoxBox as Box, boxEq, boxUnit } from './box/prefixed'
-import { configActor, svgMapViewerConfig } from './config'
-import { configLayout, Layout, makeLayout } from './layout'
+import { configActor } from './config'
+import { Layout, resizeLayout } from './layout'
 
 export function getBodySize(): Box {
   return {
@@ -78,19 +78,11 @@ const resizeMachine = setup({
                 prev: ({ context }) => context.prev,
                 waited: 0,
               }),
-              emit(({ context }) => {
-                const { fontSize } = getComputedStyle(document.body)
-                const origViewBox = svgMapViewerConfig.origViewBox
-                const size = context.next
-                const layout = makeLayout(
-                  configLayout(parseFloat(fontSize), origViewBox, size)
-                )
-                return {
-                  type: 'RESIZE',
-                  layout,
-                  force: !context.first,
-                }
-              }),
+              emit(({ context }) => ({
+                type: 'RESIZE',
+                layout: resizeLayout(context.next),
+                force: !context.first,
+              })),
               assign({
                 first: false,
               }),
