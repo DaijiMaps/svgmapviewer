@@ -181,11 +181,11 @@ export const scrollLayout = (layout: Layout, scroll: Box): Layout => {
 //// toOuter
 //// fromOuter
 
-export const toSvg = (p: Vec, layout: Layout): Vec =>
+export const toSvg = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
   transformPoint(toMatrixSvg(layout), p)
-export const fromSvg = (p: Vec, layout: Layout): Vec =>
+export const fromSvg = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
   transformPoint(fromMatrixSvg(layout), p)
-export const toOuter = (p: Vec, layout: Layout): Vec =>
+export const toOuter = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
   transformPoint(toMatrixOuter(layout), p)
-export const fromOuter = (p: Vec, layout: Layout): Vec =>
+export const fromOuter = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
   transformPoint(fromMatrixOuter(layout), p)
