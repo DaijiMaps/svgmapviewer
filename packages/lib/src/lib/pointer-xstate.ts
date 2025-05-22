@@ -1,3 +1,4 @@
+import { pipe } from 'fp-ts/lib/function'
 import React from 'react'
 import {
   ActorRefFrom,
@@ -1648,12 +1649,11 @@ export const pointerMachine = setup({
               guard: not('isClickLocked'),
               target: 'Stopping',
             },
-            /*
             SCROLL: {
               guard: not('isClickLocked'),
-              target: 'Updating2',
+              //target: 'Updating2',
+              target: 'Recentering',
             },
-            */
             'ZOOM.ZOOM': {
               actions: [
                 {
@@ -1742,30 +1742,35 @@ export const pointerMachine = setup({
             },
           },
         },
-        // faster 'recenter'
+        // fast 'recenter'
         // - no need to involve expand
-        // - because no scroll size change
+        // - because no scroll size change (== no forced reflow)
+        // - getScroll()/syncScroll() must finish quickly
+        // - reflect prev scroll -> current scroll diff to svg
         Recentering: {
-          entry: ['getScroll'],
-          on: {
-            'SCROLL.GET.DONE': {
-              actions: [
-                // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
-                {
-                  type: 'scrollLayout',
-                  params: ({ event: { scroll } }) => ({ scroll }),
+          always: {
+            actions: [
+              assign({
+                layout: ({ context }) => {
+                  const prevScroll = context.layout.scroll
+                  const scroll = getScroll()
+                  return scroll === null
+                    ? context.layout
+                    : pipe(
+                        context.layout,
+                        // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
+                        (l) => scrollLayout(l, scroll),
+                        // re-center scroll & reflect the change to svg coords
+                        (l) => recenterLayout(l, prevScroll)
+                      )
                 },
-                //'recenterLayout',
-                //'resetScroll',
-                //'endDrag',
-                'syncViewBox',
-                'syncLayout',
-                //'syncScroll',
-                raise({ type: 'PAN.DONE' }),
-                // XXX resetScroll is done at Pointer.Panning.Active: 'PAN.DONE'
-              ],
-              target: 'Idle',
-            },
+              }),
+              'syncViewBox',
+              'syncLayout',
+              'syncScroll',
+            ],
+            // keep panning
+            target: 'Panning',
           },
         },
         Rendering: {
