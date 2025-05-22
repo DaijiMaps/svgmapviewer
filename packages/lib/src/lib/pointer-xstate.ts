@@ -30,6 +30,7 @@ import {
   scrollLayout,
   toSvg,
 } from './layout'
+import { getScroll } from './scroll'
 import { scrollMachine } from './scroll-xstate'
 import { styleActor } from './style-xstate'
 import { syncViewBox } from './svg'
@@ -480,10 +481,12 @@ export const pointerMachine = setup({
     //
     // drag
     //
+    // XXX startScroll
     startDrag: assign({
       drag: ({ context: { layout, cursor } }): Drag =>
         dragStart(layout.scroll, cursor),
     }),
+    // XXX moveScroll
     moveDrag: assign({
       drag: (
         { context: { drag } },
@@ -491,6 +494,7 @@ export const pointerMachine = setup({
       ): null | Drag =>
         drag === null ? null : dragMove(drag, vecVec(ev.pageX, ev.pageY)),
     }),
+    // XXX endScroll
     endDrag: assign({
       drag: () => null,
     }),
@@ -905,7 +909,11 @@ export const pointerMachine = setup({
                   target: 'Zooming',
                 },
                 'PAN.DONE': {
-                  actions: 'resetScroll',
+                  actions: [
+                    //'recenterLayout',
+                    'resetScroll',
+                    'endDrag',
+                  ],
                   target: 'Unexpanding',
                 },
               },
@@ -1441,6 +1449,7 @@ export const pointerMachine = setup({
                 'recenterLayout',
                 'resetScroll',
                 'endDrag',
+
                 'syncViewBox',
                 'syncLayout',
                 'renderAndSyncScroll',
@@ -1479,7 +1488,9 @@ export const pointerMachine = setup({
           on: {
             'ANIMATION.DONE': {
               actions: [
+                //'recenterLayout',
                 'resetScroll',
+                'endDrag',
                 'syncViewBox',
                 'syncLayout',
                 'renderAndSyncScroll',
@@ -1525,6 +1536,7 @@ export const pointerMachine = setup({
               actions: [
                 'recenterLayout',
                 'resetScroll',
+                'endDrag',
                 'syncViewBox',
                 'syncLayout',
                 //'syncScroll',
@@ -1633,29 +1645,88 @@ export const pointerMachine = setup({
                 },
                 'getScroll',
               ],
+              target: 'Searching',
             },
-            'SCROLL.GET.DONE': {
+            CONTEXTMENU: {
+              guard: not('isClickLocked'),
+              target: 'Stopping',
+            },
+            MODE: {
+              guard: not('isClickLocked'),
+              target: 'Stopping',
+            },
+            /*
+            SCROLL: {
+              guard: not('isClickLocked'),
+              target: 'Updating2',
+            },
+            */
+            'ZOOM.ZOOM': {
               actions: [
                 {
-                  type: 'scrollLayout',
-                  params: ({ event: { scroll } }) => ({ scroll }),
+                  type: 'zoomEvent',
+                  params: ({ event: { z } }) => ({ z }),
                 },
-                emit(({ context: { layout, cursor } }) => ({
-                  type: 'SEARCH',
-                  psvg: toSvg(cursor, layout),
-                })),
+                raise({ type: 'PAN.ZOOM' }),
               ],
+              target: 'Stopping',
             },
+          },
+        },
+        Searching: {
+          on: {
+            'SCROLL.GET.DONE': {
+              actions: [
+                ({ context, event }) =>
+                  console.log(context.layout.scroll, '->', event.scroll),
+                emit(({ context: { layout, cursor }, event: { scroll } }) => {
+                  // layout.scroll -> scroll
+                  // XXX layout.scroll's value is reverse
+                  const l = scrollLayout(layout, scroll)
+                  const psvg = toSvg(cursor, l)
+                  console.log('l', l, 'psvg', psvg)
+                  return {
+                    type: 'SEARCH',
+                    psvg: psvg,
+                  }
+                }),
+              ],
+              target: 'Searching3',
+              //target: 'Idle',
+            },
+          },
+        },
+        Searching2: {
+          on: {
+            RENDERED: {
+              /*
+              actions: emit(({ context: { layout, cursor } }) => ({
+                type: 'SEARCH',
+                psvg: toSvg(cursor, layout),
+              })),
+              target: 'Searching3',
+              */
+              target: 'Panning',
+            },
+          },
+        },
+        Searching3: {
+          on: {
             'SEARCH.END': [
               {
                 actions: [
-                  () => console.log('SEARCH.END'),
                   emit(({ context, event }) => {
+                    const b = getScroll()
+                    const l =
+                      b === null
+                        ? context.layout
+                        : scrollLayout(context.layout, b)
+                    console.log('SEARCH.END', context.layout.scroll, l)
                     return {
                       type: 'SEARCH.END.DONE',
                       psvg: event.res.psvg,
                       info: event.res.info,
-                      layout: context.layout,
+                      layout: l,
                     }
                   }),
                 ],
@@ -1667,28 +1738,6 @@ export const pointerMachine = setup({
                 target: 'Locked',
               },
             ],
-            CONTEXTMENU: {
-              guard: not('isClickLocked'),
-              target: 'Stopping',
-            },
-            MODE: {
-              guard: not('isClickLocked'),
-              target: 'Stopping',
-            },
-            SCROLL: {
-              guard: not('isClickLocked'),
-              target: 'Updating2',
-            },
-            'ZOOM.ZOOM': {
-              actions: [
-                {
-                  type: 'zoomEvent',
-                  params: ({ event: { z } }) => ({ z }),
-                },
-                raise({ type: 'PAN.ZOOM' }),
-              ],
-              target: 'Stopping',
-            },
           },
         },
         Updating: {
@@ -1714,7 +1763,9 @@ export const pointerMachine = setup({
                   type: 'scrollLayout',
                   params: ({ event: { scroll } }) => ({ scroll }),
                 },
+                //'recenterLayout',
                 'resetScroll',
+                'endDrag',
                 'syncViewBox',
                 'syncLayout',
                 'renderAndSyncScroll',
@@ -1731,11 +1782,14 @@ export const pointerMachine = setup({
           on: {
             'SCROLL.GET.DONE': {
               actions: [
+                // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
                 {
                   type: 'scrollLayout',
                   params: ({ event: { scroll } }) => ({ scroll }),
                 },
+                //'recenterLayout',
                 //'resetScroll',
+                //'endDrag',
                 'syncViewBox',
                 'syncLayout',
                 //'syncScroll',

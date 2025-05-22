@@ -84,8 +84,13 @@ export function getScroll(): null | BoxBox {
 
   if (e !== null) {
     // forcibly stop scroll
-    e.scroll(e.scrollLeft, e.scrollTop)
-    return boxBox(e.scrollLeft, e.scrollTop, e.scrollWidth, e.scrollHeight)
+    const l = e.scrollLeft
+    const t = e.scrollTop
+    const w = e.scrollWidth
+    const h = e.scrollHeight
+    e.scroll(l, t)
+    console.log('getScroll', l, t, w, h)
+    return boxBox(l, t, w, h)
   }
   return null
 }
