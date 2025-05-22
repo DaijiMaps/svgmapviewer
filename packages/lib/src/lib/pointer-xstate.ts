@@ -1807,7 +1807,7 @@ export const pointerMachine = setup({
                 emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
                 'syncMode',
               ],
-              target: 'Panning',
+              target: 'Recentering',
             },
           },
         },
