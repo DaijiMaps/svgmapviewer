@@ -201,7 +201,9 @@ registerCbs({
 
 ////
 
-export const scrollTimeoutActor = createActor(timeoutMachine)
+export const scrollTimeoutActor = createActor(timeoutMachine, {
+  input: { expiration: 2000 },
+})
 
 scrollTimeoutActor.on('EXPIRED', ({ ev }) => {
   if (!scrolleventmask) {

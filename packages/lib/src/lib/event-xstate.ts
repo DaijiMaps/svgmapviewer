@@ -1,8 +1,12 @@
 import React from 'react'
 import { ActorRefFrom, assign, emit, setup } from 'xstate'
 
+type TimeoutInput = {
+  expiration?: number
+}
 type TimeoutContext = {
   ev: null | Event | React.UIEvent
+  expiration: number
 }
 type TimeoutEvent =
   | {
@@ -20,21 +24,25 @@ type TimeoutEmit = {
   ev: Event
 }
 
-const EXPIRATION = 2000
+const DEFAULT_EXPIRATION = 3000
 
 export const timeoutMachine = setup({
   types: {
+    input: {} as TimeoutInput,
     context: {} as TimeoutContext,
     events: {} as TimeoutEvent,
     emitted: {} as TimeoutEmit,
   },
   delays: {
-    EXPIRATION,
+    EXPIRATION: ({ context }) => context.expiration,
   },
 }).createMachine({
   id: 'timeout1',
   initial: 'Stopped',
-  context: { ev: null },
+  context: ({ input }) => ({
+    ev: null,
+    expiration: input.expiration ?? DEFAULT_EXPIRATION,
+  }),
   states: {
     Stopped: {
       on: {
@@ -71,7 +79,8 @@ export const timeoutMachine = setup({
               context.ev === null ||
               // too frequent -> ignore
               // (hopefully save some CPU time by avoiding timer stop/start too often)
-              event.ev.timeStamp - context.ev.timeStamp < EXPIRATION / 10,
+              event.ev.timeStamp - context.ev.timeStamp <
+                context.expiration / 10,
           },
           {
             // update - re-entry
