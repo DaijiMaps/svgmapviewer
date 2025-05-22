@@ -466,13 +466,15 @@ export const pointerMachine = setup({
     }),
     cursor: assign({
       cursor: (
-        { context: { mode, cursor } },
+        //{ context: { mode, cursor } },
+        _,
         {
           ev,
         }: {
           ev: MouseEvent | React.MouseEvent | PointerEvent | React.PointerEvent
         }
-      ): Vec => (mode !== 'pointing' ? cursor : vecVec(ev.pageX, ev.pageY)),
+        //): Vec => (mode !== 'pointing' ? cursor : vecVec(ev.pageX, ev.pageY)),
+      ): Vec => vecVec(ev.pageX, ev.pageY),
     }),
 
     //
@@ -817,7 +819,7 @@ export const pointerMachine = setup({
         },
         Layouting2: {
           initial: 'Assigned',
-          onDone: 'Idle',
+          onDone: 'Panning',
           states: {
             Assigned: {
               entry: raise({ type: 'EXPAND', n: EXPAND_DEFAULT }),
@@ -1615,10 +1617,56 @@ export const pointerMachine = setup({
                 target: 'Stopping',
               },
             ],
+            /*
             CLICK: {
               guard: not('isClickLocked'),
               target: 'Stopping',
             },
+            */
+            CLICK: {
+              guard: not('isClickLocked'),
+              actions: [
+                'resetTouches',
+                {
+                  type: 'cursor',
+                  params: ({ event }) => ({ ev: event.ev }),
+                },
+                'getScroll',
+              ],
+            },
+            'SCROLL.GET.DONE': {
+              actions: [
+                {
+                  type: 'scrollLayout',
+                  params: ({ event: { scroll } }) => ({ scroll }),
+                },
+                emit(({ context: { layout, cursor } }) => ({
+                  type: 'SEARCH',
+                  psvg: toSvg(cursor, layout),
+                })),
+              ],
+            },
+            'SEARCH.END': [
+              {
+                actions: [
+                  () => console.log('SEARCH.END'),
+                  emit(({ context, event }) => {
+                    return {
+                      type: 'SEARCH.END.DONE',
+                      psvg: event.res.psvg,
+                      info: event.res.info,
+                      layout: context.layout,
+                    }
+                  }),
+                ],
+              },
+            ],
+            'SEARCH.LOCK': [
+              {
+                actions: () => console.log('SEARCH.LOCK'),
+                target: 'Locked',
+              },
+            ],
             CONTEXTMENU: {
               guard: not('isClickLocked'),
               target: 'Stopping',
@@ -1629,7 +1677,7 @@ export const pointerMachine = setup({
             },
             SCROLL: {
               guard: not('isClickLocked'),
-              target: 'Updating',
+              target: 'Updating2',
             },
             'ZOOM.ZOOM': {
               actions: [
@@ -1646,6 +1694,10 @@ export const pointerMachine = setup({
         Updating: {
           exit: raise({ type: 'PAN.UPDATE' }),
           always: 'Stopping',
+        },
+        Updating2: {
+          exit: raise({ type: 'PAN.UPDATE' }),
+          always: 'Recentering',
         },
         Stopping: {
           entry: [
@@ -1674,7 +1726,7 @@ export const pointerMachine = setup({
         // faster 'recenter'
         // - no need to involve expand
         // - because no scroll size change
-        Stopping2: {
+        Recentering: {
           entry: ['getScroll'],
           on: {
             'SCROLL.GET.DONE': {
@@ -1720,13 +1772,25 @@ export const pointerMachine = setup({
             },
           },
         },
+        Locked: {
+          on: {
+            'SEARCH.UNLOCK': {
+              actions: [
+                //'resetMode',
+                emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+                'syncMode',
+              ],
+              target: 'Panning',
+            },
+          },
+        },
       },
     },
     Locker: {
       on: {
         'SEARCH.LOCK': [
           {
-            guard: 'isIdle',
+            //guard: 'isIdle',
             actions: [
               emit({ type: 'LOCK', ok: true }),
               'setModeToLocked',

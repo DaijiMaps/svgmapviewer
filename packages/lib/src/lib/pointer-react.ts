@@ -25,6 +25,11 @@ import { Vec } from './vec'
 
 export const pointerActor = createActor(pointerMachine, {
   systemId: 'system-pointer1',
+  inspect: (iev) => {
+    if (iev?.actorRef?._systemId === 'system-pointer1') {
+      console.log(iev)
+    }
+  },
 })
 
 //// handler masks
