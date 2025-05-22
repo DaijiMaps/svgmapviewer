@@ -89,7 +89,6 @@ export function getScroll(): null | BoxBox {
     const w = e.scrollWidth
     const h = e.scrollHeight
     e.scroll(l, t)
-    console.log('getScroll', l, t, w, h)
     return boxBox(l, t, w, h)
   }
   return null
