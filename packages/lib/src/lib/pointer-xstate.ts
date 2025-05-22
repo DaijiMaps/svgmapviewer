@@ -1671,6 +1671,29 @@ export const pointerMachine = setup({
             },
           },
         },
+        // faster 'recenter'
+        // - no need to involve expand
+        // - because no scroll size change
+        Stopping2: {
+          entry: ['getScroll'],
+          on: {
+            'SCROLL.GET.DONE': {
+              actions: [
+                {
+                  type: 'scrollLayout',
+                  params: ({ event: { scroll } }) => ({ scroll }),
+                },
+                //'resetScroll',
+                'syncViewBox',
+                'syncLayout',
+                //'syncScroll',
+                raise({ type: 'PAN.DONE' }),
+                // XXX resetScroll is done at Pointer.Panning.Active: 'PAN.DONE'
+              ],
+              target: 'Idle',
+            },
+          },
+        },
         Rendering: {
           entry: 'updateExpanding',
           on: {
