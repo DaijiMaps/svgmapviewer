@@ -1629,12 +1629,6 @@ export const pointerMachine = setup({
                 target: 'Stopping',
               },
             ],
-            /*
-            CLICK: {
-              guard: not('isClickLocked'),
-              target: 'Stopping',
-            },
-            */
             CLICK: {
               guard: not('isClickLocked'),
               actions: [
@@ -1643,7 +1637,6 @@ export const pointerMachine = setup({
                   type: 'cursor',
                   params: ({ event }) => ({ ev: event.ev }),
                 },
-                'getScroll',
               ],
               target: 'Searching',
             },
@@ -1674,70 +1667,45 @@ export const pointerMachine = setup({
           },
         },
         Searching: {
-          on: {
-            'SCROLL.GET.DONE': {
-              actions: [
-                ({ context, event }) =>
-                  console.log(context.layout.scroll, '->', event.scroll),
-                emit(({ context: { layout, cursor }, event: { scroll } }) => {
-                  // layout.scroll -> scroll
-                  // XXX layout.scroll's value is reverse
-                  const l = scrollLayout(layout, scroll)
-                  const psvg = toSvg(cursor, l)
-                  console.log('l', l, 'psvg', psvg)
-                  return {
-                    type: 'SEARCH',
-                    psvg: psvg,
-                  }
-                }),
-              ],
-              target: 'Searching3',
-              //target: 'Idle',
-            },
+          always: {
+            actions: [
+              emit(({ context }) => {
+                const scroll = getScroll()
+                const l =
+                  scroll === null
+                    ? context.layout
+                    : scrollLayout(context.layout, scroll)
+                return {
+                  type: 'SEARCH',
+                  psvg: toSvg(context.cursor, l),
+                }
+              }),
+            ],
+            target: 'Searching2',
           },
         },
         Searching2: {
           on: {
-            RENDERED: {
-              /*
-              actions: emit(({ context: { layout, cursor } }) => ({
-                type: 'SEARCH',
-                psvg: toSvg(cursor, layout),
-              })),
-              target: 'Searching3',
-              */
-              target: 'Panning',
+            'SEARCH.END': {
+              actions: [
+                emit(({ context, event }) => {
+                  const scroll = getScroll()
+                  const l =
+                    scroll === null
+                      ? context.layout
+                      : scrollLayout(context.layout, scroll)
+                  return {
+                    type: 'SEARCH.END.DONE',
+                    psvg: event.res.psvg,
+                    info: event.res.info,
+                    layout: l,
+                  }
+                }),
+              ],
             },
-          },
-        },
-        Searching3: {
-          on: {
-            'SEARCH.END': [
-              {
-                actions: [
-                  emit(({ context, event }) => {
-                    const b = getScroll()
-                    const l =
-                      b === null
-                        ? context.layout
-                        : scrollLayout(context.layout, b)
-                    console.log('SEARCH.END', context.layout.scroll, l)
-                    return {
-                      type: 'SEARCH.END.DONE',
-                      psvg: event.res.psvg,
-                      info: event.res.info,
-                      layout: l,
-                    }
-                  }),
-                ],
-              },
-            ],
-            'SEARCH.LOCK': [
-              {
-                actions: () => console.log('SEARCH.LOCK'),
-                target: 'Locked',
-              },
-            ],
+            'SEARCH.LOCK': {
+              target: 'Locked',
+            },
           },
         },
         Updating: {
