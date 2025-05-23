@@ -549,7 +549,7 @@ export const pointerMachine = setup({
       cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
     }),
     setModeToLocked: assign({
-      mode: ({ context: { mode } }) => (mode === 'pointing' ? 'locked' : mode),
+      mode: ({ context: { mode } }) => 'locked', // (mode === 'pointing' ? 'locked' : mode),
     }),
     syncMode: ({ context: { mode } }) => {
       styleActor.send({ type: 'STYLE.MODE', mode })
@@ -1803,7 +1803,7 @@ export const pointerMachine = setup({
           on: {
             'SEARCH.UNLOCK': {
               actions: [
-                //'resetMode',
+                'setModeToPanning', // XXX resetMode
                 emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
                 'syncMode',
               ],
