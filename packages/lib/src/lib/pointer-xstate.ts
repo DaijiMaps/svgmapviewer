@@ -1642,9 +1642,8 @@ export const pointerMachine = setup({
                     type: 'zoomKey',
                     params: ({ event }) => ({ ev: event.ev }),
                   },
-                  raise({ type: 'PAN.ZOOM' }),
                 ],
-                target: 'Stopping',
+                target: 'Zooming',
               },
             ],
             CLICK: {
@@ -1677,9 +1676,8 @@ export const pointerMachine = setup({
                   type: 'zoomEvent',
                   params: ({ event: { z } }) => ({ z }),
                 },
-                raise({ type: 'PAN.ZOOM' }),
               ],
-              target: 'Stopping',
+              target: 'Zooming',
             },
           },
         },
@@ -1808,11 +1806,64 @@ export const pointerMachine = setup({
           },
         },
         Zooming: {
-          entry: raise({ type: 'ZOOM' }),
+          always: {
+            actions: [
+              () => console.log('Zooming'),
+              assign({
+                layout: ({ context }) => {
+                  const prevScroll = context.layout.scroll
+                  const scroll = getCurrentScroll()
+                  return scroll === null
+                    ? context.layout
+                    : pipe(
+                        context.layout,
+                        // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
+                        (l) => scrollLayout(l, scroll),
+                        // re-center scroll & reflect the change to svg coords
+                        (l) => recenterLayout(l, prevScroll)
+                      )
+                },
+              }),
+              'startZoom',
+              'updateZoom',
+              emit(({ context: { layout, zoom, z } }) => ({
+                type: 'ZOOM.START',
+                layout,
+                zoom,
+                z: z === null ? 0 : z,
+              })),
+            ],
+            target: 'ZoomingAnimating',
+          },
+        },
+        ZoomingAnimating: {
+          entry: raise({ type: 'ANIMATION' }),
           on: {
-            'ZOOM.DONE': {
-              actions: raise({ type: 'PAN.ZOOM.ZOOM.DONE' }),
-              target: 'Idle',
+            'ANIMATION.DONE': {
+              actions: [
+                //'resetScroll',
+                //'endDrag',
+                'syncViewBox',
+                'syncLayout',
+                'syncScroll',
+              ],
+              target: 'ZoomingRendering',
+            },
+          },
+        },
+        ZoomingRendering: {
+          entry: 'updateExpanding',
+          on: {
+            RENDERED: {
+              target: 'ZoomingRendering2',
+            },
+          },
+        },
+        ZoomingRendering2: {
+          entry: 'clearExpanding',
+          on: {
+            RENDERED: {
+              target: 'Panning',
             },
           },
         },
