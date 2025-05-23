@@ -165,6 +165,7 @@ function css(q: Matrix) {
   return `
 .container {
   will-change: transform;
+  overflow: hidden;
   animation: container-zoom ${500}ms ease;
 }
 @keyframes container-zoom {
