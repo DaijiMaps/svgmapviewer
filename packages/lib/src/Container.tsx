@@ -30,9 +30,9 @@ export function Container() {
     if (e === null) {
       return
     }
-    e.addEventListener('pointerdown', sendPointerDown)
-    e.addEventListener('pointermove', sendPointerMove)
-    e.addEventListener('pointerup', sendPointerUp)
+    //e.addEventListener('pointerdown', sendPointerDown)
+    //e.addEventListener('pointermove', sendPointerMove)
+    //e.addEventListener('pointerup', sendPointerUp)
     //e.addEventListener('touchstart', sendTouchStart)
     //e.addEventListener('touchmove', sendTouchMove)
     //e.addEventListener('touchend', sendTouchEnd)
@@ -43,9 +43,9 @@ export function Container() {
     e.addEventListener('animationend', sendAnimationEnd)
     e.addEventListener('animationend', styleAnimationEnd)
     return () => {
-      e.removeEventListener('pointerdown', sendPointerDown)
-      e.removeEventListener('pointermove', sendPointerMove)
-      e.removeEventListener('pointerup', sendPointerUp)
+      //e.removeEventListener('pointerdown', sendPointerDown)
+      //e.removeEventListener('pointermove', sendPointerMove)
+      //e.removeEventListener('pointerup', sendPointerUp)
       //e.removeEventListener('touchstart', sendTouchStart)
       //e.removeEventListener('touchmove', sendTouchMove)
       //e.removeEventListener('touchend', sendTouchEnd)
@@ -63,6 +63,9 @@ export function Container() {
       ref={ref}
       id="viewer"
       className="container"
+      onPointerDown={sendPointerDown}
+      onPointerMove={sendPointerMove}
+      onPointerUp={sendPointerUp}
       onTouchStart={sendTouchStart}
       onTouchMove={sendTouchMove}
       onTouchEnd={sendTouchEnd}

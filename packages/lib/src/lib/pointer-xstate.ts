@@ -171,19 +171,19 @@ type UIEventKeyDown = { type: 'KEY.DOWN'; ev: KeyboardEvent }
 type UIEventKeyUp = { type: 'KEY.UP'; ev: KeyboardEvent }
 type UIEventPointerCancel = {
   type: 'POINTER.CANCEL'
-  ev: PointerEvent | React.PointerEvent
+  ev: React.PointerEvent<HTMLDivElement>
 }
 type UIEventPointerDown = {
   type: 'POINTER.DOWN'
-  ev: PointerEvent | React.PointerEvent
+  ev: React.PointerEvent<HTMLDivElement>
 }
 type UIEventPointerMove = {
   type: 'POINTER.MOVE'
-  ev: PointerEvent | React.PointerEvent
+  ev: React.PointerEvent<HTMLDivElement>
 }
 type UIEventPointerUp = {
   type: 'POINTER.UP'
-  ev: PointerEvent | React.PointerEvent
+  ev: React.PointerEvent<HTMLDivElement>
 }
 type UIEventTouchCancel = {
   type: 'TOUCH.CANCEL'

@@ -100,11 +100,11 @@ const pointerSend = (
 
 ////
 
-export const sendPointerDown = (ev: PointerEvent | React.PointerEvent) =>
+export const sendPointerDown = (ev: React.PointerEvent<HTMLDivElement>) =>
   pointerSend({ type: 'POINTER.DOWN', ev })
-export const sendPointerMove = (ev: PointerEvent | React.PointerEvent) =>
+export const sendPointerMove = (ev: React.PointerEvent<HTMLDivElement>) =>
   pointerSend({ type: 'POINTER.MOVE', ev })
-export const sendPointerUp = (ev: PointerEvent | React.PointerEvent) => {
+export const sendPointerUp = (ev: React.PointerEvent<HTMLDivElement>) => {
   if (pointereventmask) {
     return
   }
