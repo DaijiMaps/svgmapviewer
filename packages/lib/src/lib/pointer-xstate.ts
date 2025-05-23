@@ -187,16 +187,19 @@ type UIEventPointerUp = {
 }
 type UIEventTouchCancel = {
   type: 'TOUCH.CANCEL'
-  ev: TouchEvent | React.TouchEvent
+  ev: React.TouchEvent<HTMLDivElement>
 }
-type UIEventTouchEnd = { type: 'TOUCH.END'; ev: TouchEvent | React.TouchEvent }
+type UIEventTouchEnd = {
+  type: 'TOUCH.END'
+  ev: React.TouchEvent<HTMLDivElement>
+}
 type UIEventTouchMove = {
   type: 'TOUCH.MOVE'
-  ev: TouchEvent | React.TouchEvent
+  ev: React.TouchEvent<HTMLDivElement>
 }
 type UIEventTouchStart = {
   type: 'TOUCH.START'
-  ev: TouchEvent | React.TouchEvent
+  ev: React.TouchEvent<HTMLDivElement>
 }
 type UIEventWheel = {
   type: 'WHEEL'

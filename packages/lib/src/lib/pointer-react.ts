@@ -110,20 +110,20 @@ export const sendPointerUp = (ev: PointerEvent | React.PointerEvent) => {
   }
   pointerSend({ type: 'POINTER.UP', ev })
 }
-export const sendTouchStart = (ev: TouchEvent | React.TouchEvent) => {
+export const sendTouchStart = (ev: React.TouchEvent<HTMLDivElement>) => {
   if (toucheventmask) {
     return
   }
   // skip preventDefault to enable emulated "click"
   pointerSend({ type: 'TOUCH.START', ev }, { preventDefault: false })
 }
-export const sendTouchMove = (ev: TouchEvent | React.TouchEvent) => {
+export const sendTouchMove = (ev: React.TouchEvent<HTMLDivElement>) => {
   if (toucheventmask) {
     return
   }
   pointerSend({ type: 'TOUCH.MOVE', ev })
 }
-export const sendTouchEnd = (ev: TouchEvent | React.TouchEvent) => {
+export const sendTouchEnd = (ev: React.TouchEvent<HTMLDivElement>) => {
   if (toucheventmask) {
     return
   }
