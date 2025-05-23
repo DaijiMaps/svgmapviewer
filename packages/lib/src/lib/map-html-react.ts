@@ -16,10 +16,16 @@ export function useMapHtmlRoot() {
 
   useEffect(() => mountMapHtmlRoot(ROOT_ID), [])
 
+  // XXX
+  // XXX
+  // XXX
   useEffect(
     () => rootActor.send({ type: 'UPDATE', pointNames, areaNames }),
     [pointNames, areaNames]
   )
+  // XXX
+  // XXX
+  // XXX
 }
 
 function mountMapHtmlRoot(id: string) {
