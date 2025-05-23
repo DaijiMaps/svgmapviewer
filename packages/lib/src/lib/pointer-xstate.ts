@@ -1818,6 +1818,7 @@ export const pointerMachine = setup({
                 emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
                 'syncMode',
               ],
+              // XXX make this conditional to scroll distance
               target: 'Recentering',
             },
           },

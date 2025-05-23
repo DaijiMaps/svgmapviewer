@@ -11,3 +11,14 @@
 - optimize PAN
   - recenter does not need unexpand/expand
 
+- extend size adjustment
+  - extend wider on mobile
+
+- change Footer to not use `mode'
+  - don't re-render; style-only
+  - kill all clsx() uses
+
+- touch context menu
+  - horizontal?
+
+- mini map viewer
