@@ -1839,13 +1839,7 @@ export const pointerMachine = setup({
           entry: raise({ type: 'ANIMATION' }),
           on: {
             'ANIMATION.DONE': {
-              actions: [
-                //'resetScroll',
-                //'endDrag',
-                'syncViewBox',
-                'syncLayout',
-                'syncScroll',
-              ],
+              actions: ['syncViewBox', 'syncLayout', 'syncScroll'],
               target: 'Panning',
             },
           },
@@ -1854,7 +1848,7 @@ export const pointerMachine = setup({
           on: {
             'SEARCH.UNLOCK': {
               actions: [
-                'setModeToPanning', // XXX resetMode
+                'setModeToPanning',
                 emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
                 'syncMode',
               ],
