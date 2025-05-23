@@ -1,10 +1,10 @@
-// XXX
-// XXX elsewhere
-
 import { useSelector } from '@xstate/react'
 import { useMemo } from 'react'
 import { configActor, selectMapNames } from './config-xstate'
 
+// XXX
+// XXX
+// XXX
 export function useNames() {
   const mapNames = useSelector(configActor, selectMapNames)
 
@@ -32,3 +32,6 @@ export function useNames() {
 
   return { pointNames, areaNames }
 }
+// XXX
+// XXX
+// XXX
