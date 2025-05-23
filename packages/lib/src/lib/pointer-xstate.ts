@@ -68,6 +68,17 @@ const DIST_LIMIT = 10
 const EXPAND_DEFAULT = 3
 const EXPAND_PANNING = 9
 
+type PointerModePointing = 'pointing'
+type PointerModePanning = 'panning'
+type PointerModeLocked = 'locked'
+export type PointerMode =
+  | PointerModePointing
+  | PointerModePanning
+  | PointerModeLocked
+const pointerModePointing: PointerModePointing = 'pointing'
+const pointerModePanning: PointerModePanning = 'panning'
+const pointerModeLocked: PointerModeLocked = 'locked'
+
 export type PointerContext = {
   origLayout: Layout
   layout: Layout
@@ -542,14 +553,14 @@ export const pointerMachine = setup({
     //
     // mode
     //
-    resetMode: assign({ mode: 'pointing' }),
+    resetMode: assign({ mode: pointerModePointing }),
     setModeToPanning: assign({
-      mode: 'panning',
+      mode: pointerModePanning,
       // XXX resetCursor
       cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
     }),
     setModeToLocked: assign({
-      mode: ({ context: { mode } }) => 'locked', // (mode === 'pointing' ? 'locked' : mode),
+      mode: () => pointerModeLocked,
     }),
     syncMode: ({ context: { mode } }) => {
       styleActor.send({ type: 'STYLE.MODE', mode })
@@ -583,7 +594,7 @@ export const pointerMachine = setup({
     drag: null,
     animation: null,
     debug: false,
-    mode: 'pointing',
+    mode: pointerModePointing,
     clickLock: false,
     dragging: false,
     expanding: 0,
@@ -1846,8 +1857,6 @@ export type PointerState = StateFrom<typeof pointerMachine>
 export type PointerSend = (events: _PointerEvent) => void
 
 export type PointerRef = ActorRefFrom<typeof pointerMachine>
-
-export type PointerMode = 'pointing' | 'panning' | 'locked'
 
 export const selectMode = (pointer: PointerState) => pointer.context.mode
 export const selectLayout = (pointer: PointerState) => pointer.context.layout
