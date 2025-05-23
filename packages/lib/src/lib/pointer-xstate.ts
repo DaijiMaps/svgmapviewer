@@ -198,7 +198,10 @@ type UIEventTouchStart = {
   type: 'TOUCH.START'
   ev: TouchEvent | React.TouchEvent
 }
-type UIEventWheel = { type: 'WHEEL'; ev: WheelEvent | React.WheelEvent }
+type UIEventWheel = {
+  type: 'WHEEL'
+  ev: React.WheelEvent<HTMLDivElement>
+}
 type UIEventScroll = { type: 'SCROLL'; ev: Event | React.UIEvent }
 type UIEventAnimationEnd = {
   type: 'ANIMATION.END'
@@ -384,7 +387,7 @@ export const pointerMachine = setup({
       z: (_, { ev }: { ev: KeyboardEvent }): number => keyToZoom(ev.key),
     }),
     zoomWheel: assign({
-      z: (_, { ev }: { ev: WheelEvent | React.WheelEvent }): number =>
+      z: (_, { ev }: { ev: React.WheelEvent<HTMLDivElement> }): number =>
         ev.deltaY < 0 ? 1 : -1,
     }),
     zoomTouches: assign({

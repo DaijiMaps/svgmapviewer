@@ -143,7 +143,7 @@ export const sendClick = (ev: MouseEvent | React.MouseEvent) => {
 }
 export const sendContextMenu = (ev: MouseEvent | React.MouseEvent) =>
   pointerSend({ type: 'CONTEXTMENU', ev })
-export const sendWheel = (ev: WheelEvent | React.WheelEvent) => {
+export const sendWheel = (ev: React.WheelEvent<HTMLDivElement>) => {
   if (wheeleventmask) {
     return
   }

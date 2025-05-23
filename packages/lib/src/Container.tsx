@@ -38,7 +38,7 @@ export function Container() {
     e.addEventListener('touchend', sendTouchEnd)
     e.addEventListener('click', sendClick)
     e.addEventListener('contextmenu', sendContextMenu)
-    e.addEventListener('wheel', sendWheel)
+    //e.addEventListener('wheel', sendWheel)
     //e.addEventListener('scroll', sendScroll)
     e.addEventListener('animationend', sendAnimationEnd)
     e.addEventListener('animationend', styleAnimationEnd)
@@ -51,7 +51,7 @@ export function Container() {
       e.removeEventListener('touchend', sendTouchEnd)
       e.removeEventListener('click', sendClick)
       e.removeEventListener('contextmenu', sendContextMenu)
-      e.removeEventListener('wheel', sendWheel)
+      //e.removeEventListener('wheel', sendWheel)
       //e.removeEventListener('scroll', sendScroll)
       e.removeEventListener('animationend', sendAnimationEnd)
       e.removeEventListener('animationend', styleAnimationEnd)
@@ -59,7 +59,13 @@ export function Container() {
   }, [])
 
   return (
-    <div ref={ref} id="viewer" className="container" onScroll={sendScroll}>
+    <div
+      ref={ref}
+      id="viewer"
+      className="container"
+      onScroll={sendScroll}
+      onWheel={sendWheel}
+    >
       <MapSvg />
       <MapHtmlRoot />
     </div>
