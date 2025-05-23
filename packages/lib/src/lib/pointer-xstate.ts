@@ -1808,7 +1808,6 @@ export const pointerMachine = setup({
         Zooming: {
           always: {
             actions: [
-              () => console.log('Zooming'),
               assign({
                 layout: ({ context }) => {
                   const prevScroll = context.layout.scroll
@@ -1833,10 +1832,10 @@ export const pointerMachine = setup({
                 z: z === null ? 0 : z,
               })),
             ],
-            target: 'ZoomingAnimating',
+            target: 'Animating',
           },
         },
-        ZoomingAnimating: {
+        Animating: {
           entry: raise({ type: 'ANIMATION' }),
           on: {
             'ANIMATION.DONE': {
@@ -1847,22 +1846,6 @@ export const pointerMachine = setup({
                 'syncLayout',
                 'syncScroll',
               ],
-              target: 'ZoomingRendering',
-            },
-          },
-        },
-        ZoomingRendering: {
-          entry: 'updateExpanding',
-          on: {
-            RENDERED: {
-              target: 'ZoomingRendering2',
-            },
-          },
-        },
-        ZoomingRendering2: {
-          entry: 'clearExpanding',
-          on: {
-            RENDERED: {
               target: 'Panning',
             },
           },
