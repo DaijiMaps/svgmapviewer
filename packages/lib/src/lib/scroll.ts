@@ -79,22 +79,6 @@ export const syncScroll = (b: Box): boolean => {
   return true
 }
 
-// eslint-disable-next-line functional/no-let
-export let currentScroll: Box = boxUnit
-
-// eslint-disable-next-line functional/no-return-void
-export function setCurrentScroll(e: Readonly<HTMLDivElement>): void {
-  currentScroll = {
-    x: e.scrollLeft,
-    y: e.scrollTop,
-    width: e.scrollWidth,
-    height: e.scrollHeight,
-  }
-}
-export function getCurrentScroll(): Box {
-  return currentScroll
-}
-
 export function getScroll(): null | BoxBox {
   const e = document.querySelector('.container')
 
@@ -108,4 +92,23 @@ export function getScroll(): null | BoxBox {
     return boxBox(l, t, w, h)
   }
   return null
+}
+
+////
+
+// eslint-disable-next-line functional/no-let
+export let currentScroll: Box = boxUnit
+
+// eslint-disable-next-line functional/no-return-void
+export function setCurrentScroll(e: Readonly<HTMLDivElement>): void {
+  currentScroll = {
+    x: e.scrollLeft,
+    y: e.scrollTop,
+    width: e.scrollWidth,
+    height: e.scrollHeight,
+  }
+}
+
+export function getCurrentScroll(): Box {
+  return currentScroll
 }
