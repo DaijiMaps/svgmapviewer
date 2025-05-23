@@ -1579,9 +1579,6 @@ export const pointerMachine = setup({
             PAN: {
               target: 'Unexpanding',
             },
-            'PAN.ZOOM.ZOOM': {
-              target: 'Zooming',
-            },
           },
         },
         Unexpanding: {
@@ -1667,7 +1664,6 @@ export const pointerMachine = setup({
             },
             SCROLL: {
               guard: not('isClickLocked'),
-              //target: 'Updating2',
               target: 'Recentering',
             },
             'ZOOM.ZOOM': {
@@ -1696,10 +1692,10 @@ export const pointerMachine = setup({
                 }
               }),
             ],
-            target: 'Searching2',
+            target: 'SearchingWaiting',
           },
         },
-        Searching2: {
+        SearchingWaiting: {
           on: {
             'SEARCH.END': {
               actions: [
@@ -1722,14 +1718,6 @@ export const pointerMachine = setup({
               target: 'Locked',
             },
           },
-        },
-        Updating: {
-          exit: raise({ type: 'PAN.UPDATE' }),
-          always: 'Stopping',
-        },
-        Updating2: {
-          exit: raise({ type: 'PAN.UPDATE' }),
-          always: 'Recentering',
         },
         Stopping: {
           entry: [
@@ -1754,6 +1742,23 @@ export const pointerMachine = setup({
                 'renderAndSyncScroll',
               ],
               target: 'Rendering',
+            },
+          },
+        },
+        Rendering: {
+          entry: 'updateExpanding',
+          on: {
+            RENDERED: {
+              target: 'Rendering2',
+            },
+          },
+        },
+        Rendering2: {
+          entry: 'clearExpanding',
+          on: {
+            RENDERED: {
+              actions: raise({ type: 'PAN.DONE' }),
+              target: 'Idle', // XXX Idle will receive PAN.ZOOM.ZOOM
             },
           },
         },
@@ -1788,23 +1793,7 @@ export const pointerMachine = setup({
             target: 'Panning',
           },
         },
-        Rendering: {
-          entry: 'updateExpanding',
-          on: {
-            RENDERED: {
-              target: 'Rendering2',
-            },
-          },
-        },
-        Rendering2: {
-          entry: 'clearExpanding',
-          on: {
-            RENDERED: {
-              actions: raise({ type: 'PAN.DONE' }),
-              target: 'Idle', // XXX Idle will receive PAN.ZOOM.ZOOM
-            },
-          },
-        },
+        // fast zooming - no expand/unexpand + no RENDRED hack
         Zooming: {
           always: {
             actions: [
