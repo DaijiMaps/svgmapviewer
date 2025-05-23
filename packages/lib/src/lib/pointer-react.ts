@@ -153,7 +153,7 @@ export const sendScroll = (ev: React.UIEvent<HTMLDivElement, Event>) => {
     ev,
   })
 }
-export const sendAnimationEnd = (ev: AnimationEvent | React.AnimationEvent) =>
+export const sendAnimationEnd = (ev: React.AnimationEvent<HTMLDivElement>) =>
   pointerSend({
     type: 'ANIMATION.END',
     ev,

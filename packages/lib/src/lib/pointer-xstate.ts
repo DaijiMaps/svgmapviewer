@@ -208,7 +208,7 @@ type UIEventWheel = {
 type UIEventScroll = { type: 'SCROLL'; ev: Event | React.UIEvent }
 type UIEventAnimationEnd = {
   type: 'ANIMATION.END'
-  ev: AnimationEvent | React.AnimationEvent
+  ev: React.AnimationEvent<HTMLDivElement>
 }
 
 export type ReactUIEvent =
