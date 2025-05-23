@@ -57,6 +57,11 @@ function MapHtmlContentStars(
   const { _pointNames: pointNames, _areaNames: areaNames } = props
   const likes = useLikes()
 
+  // XXX
+  // XXX
+  // XXX
+  // XXX use Map
+  // XXX save (id -> POI) when like'ed/unlike'ed
   const likedNames = useMemo(
     () =>
       [...pointNames, ...areaNames]
@@ -69,6 +74,9 @@ function MapHtmlContentStars(
         })),
     [areaNames, likes, pointNames]
   )
+  // XXX
+  // XXX
+  // XXX
 
   return (
     <div className="poi-stars">
