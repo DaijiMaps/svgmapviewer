@@ -1,7 +1,7 @@
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-conditional-statements */
-import { BoxBox as Box, boxBox, BoxBox } from './box/prefixed'
+import { BoxBox as Box, boxBox, BoxBox, boxUnit } from './box/prefixed'
 
 // XXX make this async
 // XXX call this from scroll-xstate as invoke (Promise)
@@ -77,6 +77,22 @@ export const syncScroll = (b: Box): boolean => {
   }
 
   return true
+}
+
+// eslint-disable-next-line functional/no-let
+export let currentScroll: Box = boxUnit
+
+// eslint-disable-next-line functional/no-return-void
+export function setCurrentScroll(e: Readonly<HTMLDivElement>): void {
+  currentScroll = {
+    x: e.scrollLeft,
+    y: e.scrollTop,
+    width: e.scrollWidth,
+    height: e.scrollHeight,
+  }
+}
+export function getCurrentScroll(): Box {
+  return currentScroll
 }
 
 export function getScroll(): null | BoxBox {

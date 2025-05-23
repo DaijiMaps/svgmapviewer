@@ -39,7 +39,7 @@ export function Container() {
     e.addEventListener('click', sendClick)
     e.addEventListener('contextmenu', sendContextMenu)
     e.addEventListener('wheel', sendWheel)
-    e.addEventListener('scroll', sendScroll)
+    //e.addEventListener('scroll', sendScroll)
     e.addEventListener('animationend', sendAnimationEnd)
     e.addEventListener('animationend', styleAnimationEnd)
     return () => {
@@ -52,14 +52,14 @@ export function Container() {
       e.removeEventListener('click', sendClick)
       e.removeEventListener('contextmenu', sendContextMenu)
       e.removeEventListener('wheel', sendWheel)
-      e.removeEventListener('scroll', sendScroll)
+      //e.removeEventListener('scroll', sendScroll)
       e.removeEventListener('animationend', sendAnimationEnd)
       e.removeEventListener('animationend', styleAnimationEnd)
     }
   }, [])
 
   return (
-    <div ref={ref} id="viewer" className="container">
+    <div ref={ref} id="viewer" className="container" onScroll={sendScroll}>
       <MapSvg />
       <MapHtmlRoot />
     </div>

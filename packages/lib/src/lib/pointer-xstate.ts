@@ -31,7 +31,7 @@ import {
   scrollLayout,
   toSvg,
 } from './layout'
-import { getScroll } from './scroll'
+import { getCurrentScroll } from './scroll'
 import { scrollMachine } from './scroll-xstate'
 import { styleActor } from './style-xstate'
 import { syncViewBox } from './svg'
@@ -1681,7 +1681,7 @@ export const pointerMachine = setup({
           always: {
             actions: [
               emit(({ context }) => {
-                const scroll = getScroll()
+                const scroll = getCurrentScroll()
                 const l =
                   scroll === null
                     ? context.layout
@@ -1700,7 +1700,7 @@ export const pointerMachine = setup({
             'SEARCH.END': {
               actions: [
                 emit(({ context, event }) => {
-                  const scroll = getScroll()
+                  const scroll = getCurrentScroll()
                   const l =
                     scroll === null
                       ? context.layout
@@ -1764,7 +1764,7 @@ export const pointerMachine = setup({
               assign({
                 layout: ({ context }) => {
                   const prevScroll = context.layout.scroll
-                  const scroll = getScroll()
+                  const scroll = getCurrentScroll()
                   return scroll === null
                     ? context.layout
                     : pipe(

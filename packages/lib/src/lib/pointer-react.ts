@@ -18,6 +18,7 @@ import {
   ReactUIEvent,
   selectExpanding,
 } from './pointer-xstate'
+import { setCurrentScroll } from './scroll'
 import { SearchRes } from './types'
 import { Vec } from './vec'
 
@@ -148,11 +149,15 @@ export const sendWheel = (ev: WheelEvent | React.WheelEvent) => {
   }
   pointerSend({ type: 'WHEEL', ev })
 }
-export const sendScroll = (ev: Event | React.UIEvent) =>
+export const sendScroll = (ev: React.UIEvent<HTMLDivElement, Event>) => {
+  if (ev !== null) {
+    setCurrentScroll(ev.currentTarget)
+  }
   scrollTimeoutActor.send({
     type: 'TICK',
     ev,
   })
+}
 export const sendAnimationEnd = (ev: AnimationEvent | React.AnimationEvent) =>
   pointerSend({
     type: 'ANIMATION.END',

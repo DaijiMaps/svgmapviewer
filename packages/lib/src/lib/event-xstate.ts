@@ -5,13 +5,13 @@ type TimeoutInput = {
   expiration?: number
 }
 type TimeoutContext = {
-  ev: null | Event | React.UIEvent
+  ev: null | React.UIEvent<HTMLDivElement, Event>
   expiration: number
 }
 type TimeoutEvent =
   | {
       type: 'TICK'
-      ev: Event | React.UIEvent
+      ev: React.UIEvent<HTMLDivElement, Event>
     }
   | {
       type: 'START'
