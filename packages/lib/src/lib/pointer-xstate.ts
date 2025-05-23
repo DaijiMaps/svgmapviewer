@@ -162,10 +162,10 @@ type PointerInternalEvent =
   | PointerEventSearch
   | PointerEventLock
 
-type UIEventClick = { type: 'CLICK'; ev: MouseEvent | React.MouseEvent }
+type UIEventClick = { type: 'CLICK'; ev: React.MouseEvent<HTMLDivElement> }
 type UIEventContextMenu = {
   type: 'CONTEXTMENU'
-  ev: MouseEvent | React.MouseEvent
+  ev: React.MouseEvent<HTMLDivElement>
 }
 type UIEventKeyDown = { type: 'KEY.DOWN'; ev: KeyboardEvent }
 type UIEventKeyUp = { type: 'KEY.UP'; ev: KeyboardEvent }

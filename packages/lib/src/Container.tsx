@@ -36,8 +36,8 @@ export function Container() {
     e.addEventListener('touchstart', sendTouchStart)
     e.addEventListener('touchmove', sendTouchMove)
     e.addEventListener('touchend', sendTouchEnd)
-    e.addEventListener('click', sendClick)
-    e.addEventListener('contextmenu', sendContextMenu)
+    //e.addEventListener('click', sendClick)
+    //e.addEventListener('contextmenu', sendContextMenu)
     //e.addEventListener('wheel', sendWheel)
     //e.addEventListener('scroll', sendScroll)
     e.addEventListener('animationend', sendAnimationEnd)
@@ -49,8 +49,8 @@ export function Container() {
       e.removeEventListener('touchstart', sendTouchStart)
       e.removeEventListener('touchmove', sendTouchMove)
       e.removeEventListener('touchend', sendTouchEnd)
-      e.removeEventListener('click', sendClick)
-      e.removeEventListener('contextmenu', sendContextMenu)
+      //e.removeEventListener('click', sendClick)
+      //e.removeEventListener('contextmenu', sendContextMenu)
       //e.removeEventListener('wheel', sendWheel)
       //e.removeEventListener('scroll', sendScroll)
       e.removeEventListener('animationend', sendAnimationEnd)
@@ -63,6 +63,8 @@ export function Container() {
       ref={ref}
       id="viewer"
       className="container"
+      onClick={sendClick}
+      onContextMenu={sendContextMenu}
       onScroll={sendScroll}
       onWheel={sendWheel}
     >

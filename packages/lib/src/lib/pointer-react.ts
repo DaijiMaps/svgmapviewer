@@ -130,13 +130,13 @@ export const sendTouchEnd = (ev: TouchEvent | React.TouchEvent) => {
   // skip preventDefault to enable emulated "click"
   pointerSend({ type: 'TOUCH.END', ev }, { preventDefault: false })
 }
-export const sendClick = (ev: MouseEvent | React.MouseEvent) => {
+export const sendClick = (ev: React.MouseEvent<HTMLDivElement>) => {
   if (clickeventmask) {
     return
   }
   pointerSend({ type: 'CLICK', ev })
 }
-export const sendContextMenu = (ev: MouseEvent | React.MouseEvent) =>
+export const sendContextMenu = (ev: React.MouseEvent<HTMLDivElement>) =>
   pointerSend({ type: 'CONTEXTMENU', ev })
 export const sendWheel = (ev: React.WheelEvent<HTMLDivElement>) => {
   if (wheeleventmask) {
