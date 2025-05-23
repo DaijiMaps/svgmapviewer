@@ -129,10 +129,12 @@ function ModeStyle() {
       {mode === 'pointing' || mode === 'locked'
         ? `
 .container {
+  --mode: ${mode};
 }
 `
         : `
 .container {
+  --mode: ${mode};
   cursor: move;
   overflow: scroll;
   will-change: scroll-position;
