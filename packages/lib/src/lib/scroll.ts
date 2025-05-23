@@ -88,7 +88,14 @@ export function getScroll(): null | BoxBox {
     const t = e.scrollTop
     const w = e.scrollWidth
     const h = e.scrollHeight
-    e.scroll(l, t)
+    // XXX
+    // XXX
+    // XXX
+    e.scrollLeft = `${Number(l) + 1}`
+    e.scrollLeft = `${Number(l)}`
+    // XXX
+    // XXX
+    // XXX
     return boxBox(l, t, w, h)
   }
   return null
