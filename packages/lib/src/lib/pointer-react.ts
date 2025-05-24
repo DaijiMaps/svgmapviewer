@@ -1,5 +1,4 @@
-import { useSelector } from '@xstate/react'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { createActor } from 'xstate'
 import {
   notifySearchEndDone,
@@ -12,12 +11,7 @@ import {
 } from './config'
 import { timeoutMachine } from './event-xstate'
 import { Layout } from './layout'
-import {
-  pointerMachine,
-  PointerMode,
-  ReactUIEvent,
-  selectExpanding,
-} from './pointer-xstate'
+import { pointerMachine, PointerMode, ReactUIEvent } from './pointer-xstate'
 import { setCurrentScroll } from './scroll'
 import { SearchRes } from './types'
 import { Vec } from './vec'
@@ -64,29 +58,6 @@ function reflectMode(mode: PointerMode): void {
   } else {
     scrollTimeoutActor.send({ type: 'STOP' })
   }
-}
-
-////
-
-// XXX
-// XXX
-// XXX
-export function useExpanding() {
-  // re-render handling
-  // XXX - used only for syncing scroll (scrollLeft/scrollTop)
-  // XXX   after scroll size change
-  const expanding = useSelector(pointerActor, selectExpanding)
-  useEffect(() => {
-    pointerActor.send({ type: 'RENDERED' })
-  }, [expanding])
-}
-// XXX
-// XXX
-// XXX
-
-export function usePointer(): void {
-  //// actions
-  //useExpanding()
 }
 
 //// handlers
