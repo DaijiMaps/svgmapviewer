@@ -147,6 +147,7 @@ function ModeStyle() {
   overflow: scroll;
   will-change: scroll-position;
   touch-action: pan-x pan-y;
+  transform: translate3d(0px, 0px, 0px);
 }
 `}
     </style>
