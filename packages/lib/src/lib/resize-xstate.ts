@@ -112,3 +112,7 @@ resizeActor.on('LAYOUT', ({ layout, force }) =>
   configActor.send({ type: 'CONFIG.RESIZE', layout, force })
 )
 resizeActor.start()
+
+window.addEventListener('resize', () => {
+  resizeActor.send({ type: 'RESIZE' })
+})

@@ -1615,57 +1615,55 @@ export const pointerMachine = setup({
       states: {
         None: {
           on: {
-            RESIZE: [
-              // XXX force layout (resize)
-              {
-                guard: ({ event }) => event.force,
-                actions: [
-                  assign({
-                    rendered: () => false,
-                    origLayout: ({ event }) => event.layout,
-                    layout: ({ event }) => expandLayoutCenter(event.layout, 9),
-                  }),
-                ],
-                target: 'Resizing',
-              },
-              {
-                actions: [
-                  assign({
-                    rendered: () => false,
-                    origLayout: ({ event }) => event.layout,
-                    layout: ({ event }) => expandLayoutCenter(event.layout, 9),
-                  }),
-                ],
-                target: 'WindowResizing',
-              },
-            ],
-          },
-        },
-        WindowResizing: {
-          after: {
-            1000: {
-              target: 'Resizing',
+            RESIZE: {
+              actions: [
+                assign({
+                  rendered: () => false,
+                  origLayout: ({ event }) => event.layout,
+                  layout: ({ event }) => expandLayoutCenter(event.layout, 9),
+                }),
+              ],
+              target: '#Resizing-WaitingForMapHtmlRendered',
             },
           },
         },
         Resizing: {
-          always: {
-            guard: ({ context }) => context.mapHtmlRendered,
-            target: 'Resizing2',
-          },
-        },
-        Resizing2: {
-          entry: 'syncLayout',
-          on: {
-            RENDERED: {
-              actions: [
-                assign({ rendered: () => true }),
-                'syncViewBox',
-                'syncLayout',
-                'syncScrollSync',
-              ],
-              target: 'Panning',
+          initial: 'WaitingForWindowStabilized',
+          onDone: 'Panning',
+          states: {
+            WaitingForWindowStabilized: {
+              id: 'Resizing-WaitingForWindowStabilized',
+              after: {
+                1000: {
+                  // XXX forced resize means that app is already running
+                  // XXX which means MapHtml is already rendered
+                  // XXX but for safety
+                  target: 'WaitingForMapHtmlRendered',
+                },
+              },
             },
+            WaitingForMapHtmlRendered: {
+              id: 'Resizing-WaitingForMapHtmlRendered',
+              always: {
+                guard: ({ context }) => context.mapHtmlRendered,
+                target: 'Layouting',
+              },
+            },
+            Layouting: {
+              entry: 'syncLayout',
+              on: {
+                RENDERED: {
+                  actions: [
+                    assign({ rendered: () => true }),
+                    'syncViewBox',
+                    'syncLayout',
+                    'syncScrollSync',
+                  ],
+                  target: 'Done',
+                },
+              },
+            },
+            Done: { type: 'final' },
           },
         },
         /*
@@ -1730,10 +1728,10 @@ export const pointerMachine = setup({
                   layout: ({ event }) => expandLayoutCenter(event.layout, 9),
                 }),
               ],
-              target: 'WindowResizing',
+              target: '#Resizing-WaitingForWindowStabilized',
             },
             'LAYOUT.RESET': {
-              actions: [() => console.log('Homing'), 'zoomHome'],
+              actions: 'zoomHome',
               target: 'Zooming',
             },
             'KEY.UP': [
