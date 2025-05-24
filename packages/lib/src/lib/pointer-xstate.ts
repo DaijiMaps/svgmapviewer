@@ -1639,6 +1639,7 @@ export const pointerMachine = setup({
             },
           },
         },
+        /*
         Idle: {
           after: {
             250: {
@@ -1678,6 +1679,7 @@ export const pointerMachine = setup({
             },
           },
         },
+        */
         // work-around - ignore click right after touchend
         // otherwise PAN mode is exited immediately
         Panning: {
