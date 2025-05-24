@@ -626,6 +626,20 @@ export const pointerMachine = setup({
         mapHtmlRendered: () => true,
       }),
     },
+    'SEARCH.LOCK': [
+      {
+        //guard: 'isIdle',
+        actions: [
+          emit({ type: 'LOCK', ok: true }),
+          'setModeToLocked',
+          emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+          'syncMode',
+        ],
+      },
+      {
+        actions: emit({ type: 'LOCK', ok: false }),
+      },
+    ],
   },
   states: {
     /*
@@ -1940,26 +1954,6 @@ export const pointerMachine = setup({
         },
       },
     },
-    /*
-    Locker: {
-      on: {
-        'SEARCH.LOCK': [
-          {
-            //guard: 'isIdle',
-            actions: [
-              emit({ type: 'LOCK', ok: true }),
-              'setModeToLocked',
-              emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
-              'syncMode',
-            ],
-          },
-          {
-            actions: emit({ type: 'LOCK', ok: false }),
-          },
-        ],
-      },
-    },
-    */
   },
 })
 
