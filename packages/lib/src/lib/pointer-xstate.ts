@@ -1940,6 +1940,7 @@ export const pointerMachine = setup({
         },
       },
     },
+    /*
     Locker: {
       on: {
         'SEARCH.LOCK': [
@@ -1958,6 +1959,7 @@ export const pointerMachine = setup({
         ],
       },
     },
+    */
   },
 })
 
