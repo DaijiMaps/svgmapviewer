@@ -1690,6 +1690,7 @@ export const pointerMachine = setup({
           },
           */
           on: {
+            /*
             RESIZE: {
               actions: [
                 assign({
@@ -1701,6 +1702,7 @@ export const pointerMachine = setup({
               ],
               target: 'Stopping',
             },
+            */
             'KEY.UP': [
               {
                 guard: {
@@ -1727,6 +1729,7 @@ export const pointerMachine = setup({
               ],
               target: 'Searching',
             },
+            /*
             CONTEXTMENU: {
               guard: not('isClickLocked'),
               target: 'Stopping',
@@ -1735,6 +1738,7 @@ export const pointerMachine = setup({
               guard: not('isClickLocked'),
               target: 'Stopping',
             },
+            */
             SCROLL: {
               guard: not('isClickLocked'),
               target: 'Recentering',
@@ -1792,6 +1796,7 @@ export const pointerMachine = setup({
             },
           },
         },
+        /*
         Stopping: {
           entry: [
             'lockClick',
@@ -1835,6 +1840,7 @@ export const pointerMachine = setup({
             },
           },
         },
+        */
         // fast 'recenter'
         // - no need to involve expand
         // - because no scroll size change (== no forced reflow)
