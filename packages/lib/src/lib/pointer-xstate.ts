@@ -100,6 +100,8 @@ export type PointerContext = {
   expanding: number // XXX
   animating: boolean // XXX
   rendered: boolean
+
+  mapHtmlRendered: boolean
 }
 
 type PointerExternalEvent =
@@ -609,6 +611,7 @@ export const pointerMachine = setup({
     expanding: 0,
     animating: false,
     rendered: false,
+    mapHtmlRendered: false,
   },
   invoke: [
     {
@@ -618,6 +621,11 @@ export const pointerMachine = setup({
   ],
   on: {
     RENDERED: {},
+    'RENDERED.MAP-HTML': {
+      actions: assign({
+        mapHtmlRendered: () => true,
+      }),
+    },
   },
   states: {
     Pointer: {
@@ -1611,10 +1619,9 @@ export const pointerMachine = setup({
           },
         },
         Resizing: {
-          on: {
-            'RENDERED.MAP-HTML': {
-              target: 'Resizing2',
-            },
+          always: {
+            guard: ({ context }) => context.mapHtmlRendered,
+            target: 'Resizing2',
           },
         },
         Resizing2: {
