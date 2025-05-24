@@ -91,8 +91,8 @@ export function getScroll(): null | BoxBox {
     // XXX
     // XXX
     // XXX
-    e.scrollLeft = `${Number(l) + 1}`
-    e.scrollLeft = `${Number(l)}`
+    e.scrollLeft = Number(l) + 1
+    e.scrollLeft = Number(l)
     // XXX
     // XXX
     // XXX

@@ -1,6 +1,4 @@
-import { ReactNode } from 'react'
-import { assign, createActor, emit, setup } from 'xstate'
-import { MapHtml } from '../MapHtml'
+import { createActor, emit, setup } from 'xstate'
 import { POI } from './geo'
 
 //// shadow DOM actor
@@ -9,15 +7,12 @@ import { POI } from './geo'
 // XXX - store names in configActor
 // XXX - listen on names change & re-render
 
-type RootEvent =
-  | { type: 'MOUNT' }
-  | { type: 'UPDATE'; pointNames: POI[]; areaNames: POI[] }
+type RootEvent = { type: 'MOUNT' }
 type RootEmit = {
   type: 'RENDER'
-  pointNames: POI[]
-  areaNames: POI[]
 }
 interface RootContext {
+  rendered: boolean
   pointNames: POI[]
   areaNames: POI[]
 }
@@ -30,37 +25,55 @@ const rootLogic = setup({
   },
 }).createMachine({
   id: 'map-html-names-root',
-  context: { pointNames: [], areaNames: [] },
-  on: {
-    MOUNT: {},
-    UPDATE: [
-      {
-        actions: [
-          assign({
-            pointNames: ({ event }) => event.pointNames,
-            areaNames: ({ event }) => event.areaNames,
-          }),
-          emit(({ event }) => ({
+  context: { rendered: false, pointNames: [], areaNames: [] },
+  initial: 'Unmounted',
+  states: {
+    Unmounted: {
+      on: {
+        MOUNT: {
+          actions: emit(() => ({
             type: 'RENDER',
-            pointNames: event.pointNames,
-            areaNames: event.areaNames,
           })),
-        ],
+          target: 'Mounted',
+        },
       },
-    ],
+    },
+    Mounted: {
+      on: {
+        MOUNT: {},
+        /*
+        UPDATE: [
+          {
+            actions: [
+              assign({
+                pointNames: ({ event }) => event.pointNames,
+                areaNames: ({ event }) => event.areaNames,
+              }),
+            ],
+          },
+        ],
+        */
+      },
+    },
   },
 })
 
 ////
 
-export type RenderCb = (children: ReactNode) => void
+export type RenderCb = () => void
 
 export const renderCbs = new Set<RenderCb>()
 
-export const rootActor = createActor(rootLogic)
+////
 
-rootActor.on('RENDER', ({ pointNames, areaNames }) =>
-  renderCbs.forEach((cb) => cb(MapHtml(pointNames, areaNames)))
+export const rootActor = createActor(rootLogic, {
+  systemId: 'system-root1',
+})
+
+rootActor.on('RENDER', () =>
+  renderCbs.forEach((cb) => {
+    cb()
+  })
 )
 
 rootActor.start()

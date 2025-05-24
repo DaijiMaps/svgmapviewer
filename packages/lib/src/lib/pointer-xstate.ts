@@ -109,6 +109,7 @@ type PointerExternalEvent =
   | { type: 'LAYOUT.RESET' }
   | { type: 'MODE'; mode: PointerMode }
   | { type: 'RENDERED' }
+  | { type: 'RENDERED.MAP-HTML' }
   | { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
   | { type: 'SCROLL.SLIDE.DONE' }
   | { type: 'SCROLL.SYNCSYNC.DONE'; scroll: BoxBox }
@@ -1610,6 +1611,13 @@ export const pointerMachine = setup({
           },
         },
         Resizing: {
+          on: {
+            'RENDERED.MAP-HTML': {
+              target: 'Resizing2',
+            },
+          },
+        },
+        Resizing2: {
           entry: 'syncLayout',
           on: {
             RENDERED: {

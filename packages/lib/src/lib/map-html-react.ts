@@ -1,7 +1,8 @@
 import { ReactNode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import { renderCbs, rootActor } from './map-html-xstate'
-import { useNames } from './names'
+import { MapHtml } from '../MapHtml'
+import { renderCbs } from './map-html-xstate'
+import { pointerActor } from './pointer-react'
 
 //// shadow DOM actor
 
@@ -10,33 +11,6 @@ import { useNames } from './names'
 // XXX - listen on names change & re-render
 
 export const ROOT_ID = 'map-html-content-root'
-
-export function useMapHtmlRoot() {
-  const { pointNames, areaNames } = useNames()
-
-  useEffect(() => mountMapHtmlRoot(ROOT_ID), [])
-
-  // XXX
-  // XXX
-  // XXX
-  useEffect(
-    () => rootActor.send({ type: 'UPDATE', pointNames, areaNames }),
-    [pointNames, areaNames]
-  )
-  // XXX
-  // XXX
-  // XXX
-}
-
-function mountMapHtmlRoot(id: string) {
-  const root = document.querySelector(`#${id}`)
-  if (root === null || root.shadowRoot !== null) {
-    return
-  }
-  // shadowRoot is present
-
-  rootActor.send({ type: 'MOUNT' })
-}
 
 //// shadow DOM render
 
@@ -53,4 +27,10 @@ function renderMapHtmlRoot(children: Readonly<ReactNode>) {
   createRoot(shadowRoot).render(children)
 }
 
-renderCbs.add(renderMapHtmlRoot)
+renderCbs.add(() => renderMapHtmlRoot(MapHtml()))
+
+export function useMapHtmlRendered() {
+  useEffect(() => {
+    pointerActor.send({ type: 'RENDERED.MAP-HTML' })
+  }, [])
+}
