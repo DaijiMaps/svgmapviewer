@@ -1731,6 +1731,10 @@ export const pointerMachine = setup({
               target: 'Stopping',
             },
             */
+            'LAYOUT.RESET': {
+              actions: [() => console.log('Homing'), 'zoomHome'],
+              target: 'Homing',
+            },
             'KEY.UP': [
               {
                 guard: {
@@ -1937,6 +1941,62 @@ export const pointerMachine = setup({
             'ANIMATION.DONE': {
               target: 'Panning',
             },
+          },
+        },
+        Homing: {
+          initial: 'Zooming',
+          onDone: 'Panning',
+          states: {
+            Zooming: {
+              always: {
+                actions: [
+                  assign({
+                    layout: ({ context }) => {
+                      const prevScroll = context.layout.scroll
+                      const scroll = getScroll()
+                      return scroll === null
+                        ? context.layout
+                        : pipe(
+                            context.layout,
+                            // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
+                            (l) => scrollLayout(l, scroll),
+                            // re-center scroll & reflect the change to svg coords
+                            (l) => recenterLayout(l, prevScroll)
+                          )
+                    },
+                  }),
+                  'startZoom',
+                  'updateZoom',
+                  emit(({ context: { layout, zoom, z } }) => ({
+                    type: 'ZOOM.START',
+                    layout,
+                    zoom,
+                    z: z === null ? 0 : z,
+                  })),
+                ],
+                target: 'Animating',
+              },
+            },
+            Animating: {
+              entry: raise({ type: 'ANIMATION' }),
+              on: {
+                'ANIMATION.DONE': {
+                  actions: [
+                    assign({
+                      cursor: ({ context }) =>
+                        boxCenter(context.origLayout.container),
+                      layout: ({ context }) =>
+                        expandLayoutCenter(context.origLayout, 9),
+                    }),
+                    'syncLayout',
+                    'syncViewBox',
+                    'syncScroll',
+                  ],
+                  target: 'Done',
+                },
+              },
+            },
+            Done: { type: 'final' },
           },
         },
         Locked: {
