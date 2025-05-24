@@ -628,6 +628,7 @@ export const pointerMachine = setup({
     },
   },
   states: {
+    /*
     Pointer: {
       initial: 'None',
       states: {
@@ -635,7 +636,7 @@ export const pointerMachine = setup({
         Idle: {
           on: {
             RESIZE: [
-              /* XXX force layout (resize) */
+              // XXX force layout (resize)
               {
                 guard: ({ event }) => event.force,
                 actions: [
@@ -1027,6 +1028,8 @@ export const pointerMachine = setup({
         },
       },
     },
+    */
+    /*
     Slider: {
       type: 'parallel',
       states: {
@@ -1134,6 +1137,8 @@ export const pointerMachine = setup({
         },
       },
     },
+    */
+    /*
     Expander: {
       initial: 'Unexpanded',
       states: {
@@ -1245,6 +1250,7 @@ export const pointerMachine = setup({
         },
       },
     },
+    */
     Animator: {
       initial: 'Idle',
       states: {
@@ -1279,6 +1285,7 @@ export const pointerMachine = setup({
         },
       },
     },
+    /*
     PointerMonitor: {
       initial: 'Inactive',
       states: {
@@ -1346,6 +1353,7 @@ export const pointerMachine = setup({
         },
       },
     },
+    */
     TouchHandler: {
       on: {
         'TOUCH.START': [
@@ -1452,6 +1460,7 @@ export const pointerMachine = setup({
         },
       },
     },
+    /*
     Mover: {
       initial: 'Idle',
       states: {
@@ -1495,6 +1504,8 @@ export const pointerMachine = setup({
         },
       },
     },
+    */
+    /*
     Zoomer: {
       initial: 'Idle',
       states: {
@@ -1581,13 +1592,14 @@ export const pointerMachine = setup({
         },
       },
     },
+    */
     Panner: {
       initial: 'None',
       states: {
         None: {
           on: {
             RESIZE: [
-              /* XXX force layout (resize) */
+              // XXX force layout (resize)
               {
                 //guard: ({ event }) => event.force,
                 actions: [
