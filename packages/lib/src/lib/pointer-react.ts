@@ -1,5 +1,5 @@
 import React from 'react'
-import { createActor, InspectionEvent } from 'xstate'
+import { createActor } from 'xstate'
 import {
   notifySearchEndDone,
   notifySearchStart,
@@ -20,9 +20,10 @@ import { Vec } from './vec'
 
 export const pointerActor = createActor(pointerMachine, {
   systemId: 'system-pointer1',
-  inspect,
+  //inspect,
 })
 
+/*
 export type PointerInspect = typeof pointerActor.options.inspect
 export function inspect(iev: InspectionEvent) {
   if (iev && iev?.actorRef?.options?.systemId === 'system-pointer1') {
@@ -33,6 +34,7 @@ export function inspect(iev: InspectionEvent) {
     }
   }
 }
+*/
 
 //// handler masks
 
