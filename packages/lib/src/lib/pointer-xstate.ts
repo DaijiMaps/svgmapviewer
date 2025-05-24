@@ -67,7 +67,7 @@ import { VecVec as Vec, vecMul, vecSub, vecVec } from './vec/prefixed'
 const DIST_LIMIT = 10
 
 const EXPAND_DEFAULT = 3
-const EXPAND_PANNING = 9
+//const EXPAND_PANNING = 9
 
 type PointerModePointing = 'pointing'
 type PointerModePanning = 'panning'
