@@ -11,9 +11,10 @@
 - extend size adjustment
   - extend wider on mobile
 
-- change Footer to not use `mode'
+- change Ui to not use `mode'
   - don't re-render; style-only
   - kill all clsx() uses
+  - mode change (esp. closing detail/balloon) should not change DOM!
 
 - touch context menu
   - horizontal?
