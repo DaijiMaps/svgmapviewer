@@ -1927,59 +1927,68 @@ export const pointerMachine = setup({
         },
         // fast zooming - no expand/unexpand + no RENDRED hack
         Zooming: {
-          always: {
-            actions: [
-              assign({
-                layout: ({ context }) => {
-                  const prevScroll = context.layout.scroll
-                  const scroll = getScroll()
-                  return scroll === null
-                    ? context.layout
-                    : pipe(
-                        context.layout,
-                        // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
-                        (l) => scrollLayout(l, scroll),
-                        // re-center scroll & reflect the change to svg coords
-                        (l) => recenterLayout(l, prevScroll)
-                      )
-                },
-              }),
-              'startZoom',
-              'updateZoom',
-              emit(({ context: { layout, zoom, z } }) => ({
-                type: 'ZOOM.START',
-                layout,
-                zoom,
-                z: z === null ? 0 : z,
-              })),
-            ],
-            target: 'Animating',
-          },
-        },
-        Animating: {
-          entry: raise({ type: 'ANIMATION' }),
-          on: {
-            'ANIMATION.DONE': [
-              {
-                guard: ({ context }) => context.homing,
+          initial: 'Starting',
+          onDone: 'Panning',
+          states: {
+            Starting: {
+              always: {
                 actions: [
                   assign({
-                    cursor: ({ context }) =>
-                      boxCenter(context.origLayout.container),
-                    layout: ({ context }) =>
-                      expandLayoutCenter(context.origLayout, 9),
-                    homing: () => false,
+                    layout: ({ context }) => {
+                      const prevScroll = context.layout.scroll
+                      const scroll = getScroll()
+                      return scroll === null
+                        ? context.layout
+                        : pipe(
+                            context.layout,
+                            // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
+                            (l) => scrollLayout(l, scroll),
+                            // re-center scroll & reflect the change to svg coords
+                            (l) => recenterLayout(l, prevScroll)
+                          )
+                    },
                   }),
-                  'syncLayout',
-                  'syncViewBox',
-                  'syncScroll',
+                  'startZoom',
+                  'updateZoom',
+                  emit(({ context: { layout, zoom, z } }) => ({
+                    type: 'ZOOM.START',
+                    layout,
+                    zoom,
+                    z: z === null ? 0 : z,
+                  })),
                 ],
-                target: 'Panning',
+                target: 'Animating',
               },
-              {
-                target: 'Panning',
+            },
+            Animating: {
+              entry: raise({ type: 'ANIMATION' }),
+              on: {
+                'ANIMATION.DONE': [
+                  {
+                    guard: ({ context }) => context.homing,
+                    actions: [
+                      assign({
+                        cursor: ({ context }) =>
+                          boxCenter(context.origLayout.container),
+                        layout: ({ context }) =>
+                          expandLayoutCenter(context.origLayout, 9),
+                        homing: () => false,
+                      }),
+                      'syncLayout',
+                      'syncViewBox',
+                      'syncScroll',
+                    ],
+                    target: 'Done',
+                  },
+                  {
+                    target: 'Done',
+                  },
+                ],
               },
-            ],
+            },
+            Done: {
+              type: 'final',
+            },
           },
         },
       },
