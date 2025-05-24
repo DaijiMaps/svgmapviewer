@@ -1,7 +1,4 @@
-import { ReactNode, useEffect } from 'react'
-import { createRoot } from 'react-dom/client'
-import { MapHtml } from '../MapHtml'
-import { renderCbs } from './map-html-xstate'
+import { useEffect } from 'react'
 import { pointerActor } from './pointer-react'
 
 //// shadow DOM actor
@@ -13,21 +10,6 @@ import { pointerActor } from './pointer-react'
 export const ROOT_ID = 'map-html-content-root'
 
 //// shadow DOM render
-
-function renderMapHtmlRoot(children: Readonly<ReactNode>) {
-  const root = document.querySelector(`#${ROOT_ID}`)
-  if (root === null) {
-    return
-  }
-  if (root.shadowRoot !== null) {
-    // shadowRoot is present
-    return
-  }
-  const shadowRoot = root.attachShadow({ mode: 'open' })
-  createRoot(shadowRoot).render(children)
-}
-
-renderCbs.add(() => renderMapHtmlRoot(MapHtml()))
 
 export function useMapHtmlRendered() {
   useEffect(() => {

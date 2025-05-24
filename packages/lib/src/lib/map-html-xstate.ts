@@ -41,39 +41,13 @@ const rootLogic = setup({
     Mounted: {
       on: {
         MOUNT: {},
-        /*
-        UPDATE: [
-          {
-            actions: [
-              assign({
-                pointNames: ({ event }) => event.pointNames,
-                areaNames: ({ event }) => event.areaNames,
-              }),
-            ],
-          },
-        ],
-        */
       },
     },
   },
 })
 
-////
-
-export type RenderCb = () => void
-
-export const renderCbs = new Set<RenderCb>()
-
-////
-
 export const rootActor = createActor(rootLogic, {
   systemId: 'system-root1',
 })
-
-rootActor.on('RENDER', () =>
-  renderCbs.forEach((cb) => {
-    cb()
-  })
-)
 
 rootActor.start()
