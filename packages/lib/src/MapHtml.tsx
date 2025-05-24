@@ -11,13 +11,24 @@ import { selectLayoutSvgScaleS } from './lib/pointer-xstate'
 export function MapHtml() {
   const { pointNames, areaNames } = useNames()
 
-  // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
+  // eslint-disable-next-line functional/no-expression-statements
   useMapHtmlRendered()
 
   return (
     <>
-      <style>
-        {`
+      <MapHtmlContentStyle />
+      <MapHtmlContentStars _pointNames={pointNames} _areaNames={areaNames} />
+      <MapHtmlContentNamesPoint _pointNames={pointNames} />
+      <MapHtmlContentNamesArea _areaNames={areaNames} />
+      <MapHtmlContentNamesStyle _areaNames={areaNames} />
+    </>
+  )
+}
+
+function MapHtmlContentStyle() {
+  return (
+    <style>
+      {`
 .poi-stars,
 .poi-stars-item,
 .poi-names,
@@ -46,12 +57,7 @@ export function MapHtml() {
   margin: 0;
 }
 `}
-      </style>
-      <MapHtmlContentStars _pointNames={pointNames} _areaNames={areaNames} />
-      <MapHtmlContentNamesPoint _pointNames={pointNames} />
-      <MapHtmlContentNamesArea _areaNames={areaNames} />
-      <MapHtmlContentNamesStyle _areaNames={areaNames} />
-    </>
+    </style>
   )
 }
 
