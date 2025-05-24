@@ -1849,51 +1849,6 @@ export const pointerMachine = setup({
             Done: { type: 'final' },
           },
         },
-        /*
-        Stopping: {
-          entry: [
-            'lockClick',
-            'resetMode',
-            emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
-            'syncMode',
-            'getScroll',
-          ],
-          on: {
-            'SCROLL.GET.DONE': {
-              actions: [
-                {
-                  type: 'scrollLayout',
-                  params: ({ event: { scroll } }) => ({ scroll }),
-                },
-                //'recenterLayout',
-                'resetScroll',
-                'endDrag',
-                'syncViewBox',
-                'syncLayout',
-                'renderAndSyncScroll',
-              ],
-              target: 'Rendering',
-            },
-          },
-        },
-        Rendering: {
-          entry: 'updateExpanding',
-          on: {
-            RENDERED: {
-              target: 'Rendering2',
-            },
-          },
-        },
-        Rendering2: {
-          entry: 'clearExpanding',
-          on: {
-            RENDERED: {
-              actions: raise({ type: 'PAN.DONE' }),
-              target: 'Idle', // XXX Idle will receive PAN.ZOOM.ZOOM
-            },
-          },
-        },
-        */
         // fast 'recenter'
         // - no need to involve expand
         // - because no scroll size change (== no forced reflow)
