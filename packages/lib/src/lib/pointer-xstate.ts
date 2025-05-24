@@ -1638,7 +1638,7 @@ export const pointerMachine = setup({
             WaitingForWindowStabilized: {
               id: 'Resizing-WaitingForWindowStabilized',
               after: {
-                1000: {
+                500: {
                   // XXX forced resize means that app is already running
                   // XXX which means MapHtml is already rendered
                   // XXX but for safety
