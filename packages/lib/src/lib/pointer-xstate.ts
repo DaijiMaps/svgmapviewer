@@ -32,7 +32,7 @@ import {
   scrollLayout,
   toSvg,
 } from './layout'
-import { getCurrentScroll } from './scroll'
+import { getCurrentScroll, getScroll } from './scroll'
 import { scrollMachine } from './scroll-xstate'
 import { styleActor } from './style-xstate'
 import { syncViewBox } from './svg'
@@ -1263,7 +1263,8 @@ export const pointerMachine = setup({
               actions: [
                 'endZoom',
                 'syncLayout',
-                //'renderAndSyncScroll',
+                'syncViewBox',
+                'syncScrollSync',
                 emit(({ context: { layout, zoom } }) => ({
                   type: 'ZOOM.END',
                   layout,
@@ -1271,6 +1272,7 @@ export const pointerMachine = setup({
                 })),
                 assign({ animating: () => false }),
                 'syncAnimation',
+                raise({ type: 'ANIMATION.DONE' }),
               ],
               target: 'Idle',
             },
@@ -1632,8 +1634,9 @@ export const pointerMachine = setup({
                 assign({ rendered: () => true }),
                 'syncViewBox',
                 'syncLayout',
-                'syncScroll',
+                'syncScrollSync',
               ],
+              target: 'Panning',
             },
           },
         },
@@ -1679,12 +1682,14 @@ export const pointerMachine = setup({
         // work-around - ignore click right after touchend
         // otherwise PAN mode is exited immediately
         Panning: {
+          /*
           entry: 'lockClick',
           after: {
             250: {
               actions: 'unlockClick',
             },
           },
+          */
           on: {
             RESIZE: {
               actions: [
@@ -1869,7 +1874,7 @@ export const pointerMachine = setup({
               assign({
                 layout: ({ context }) => {
                   const prevScroll = context.layout.scroll
-                  const scroll = getCurrentScroll()
+                  const scroll = getScroll()
                   return scroll === null
                     ? context.layout
                     : pipe(
@@ -1897,7 +1902,6 @@ export const pointerMachine = setup({
           entry: raise({ type: 'ANIMATION' }),
           on: {
             'ANIMATION.DONE': {
-              actions: ['syncViewBox', 'syncLayout', 'syncScroll'],
               target: 'Panning',
             },
           },
