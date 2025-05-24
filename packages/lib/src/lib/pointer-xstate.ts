@@ -1249,7 +1249,6 @@ export const pointerMachine = setup({
       initial: 'Idle',
       states: {
         Idle: {
-          // XXX XXX XXX entry: raise({ type: 'ANIMATION.DONE' }),
           on: {
             ANIMATION: {
               actions: [assign({ animating: () => true }), 'syncAnimation'],
