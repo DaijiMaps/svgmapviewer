@@ -1,12 +1,9 @@
 - reorg zoom (no expand)
   - don't unexpand/expand
-  - just set: container { overflow: hidden; } 
-  - then do animation
-  - and re-position
+  - kill Pointer state
 
 - kill expand/unexpand
-  - everything is expanded now
-  - just switching: expand=3 and expand=9
+  - expand right after resize
 
 - optimize PAN
   - recenter does not need unexpand/expand
@@ -22,3 +19,11 @@
   - horizontal?
 
 - mini map viewer
+
+- fix gap by button-zoom during swipe
+
+- fix homing
+  - fix resize
+
+- fix resize (== reset)
+  - expandLayout from start
