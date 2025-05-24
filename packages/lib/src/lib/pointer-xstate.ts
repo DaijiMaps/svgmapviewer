@@ -1658,6 +1658,7 @@ export const pointerMachine = setup({
                     'syncViewBox',
                     'syncLayout',
                     'syncScrollSync',
+                    'resetCursor',
                   ],
                   target: 'Done',
                 },
