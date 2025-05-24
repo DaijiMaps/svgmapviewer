@@ -1787,45 +1787,63 @@ export const pointerMachine = setup({
           },
         },
         Searching: {
-          always: {
-            actions: [
-              emit(({ context }) => {
-                const scroll = getCurrentScroll()
-                const l =
-                  scroll === null
-                    ? context.layout
-                    : scrollLayout(context.layout, scroll)
-                return {
-                  type: 'SEARCH',
-                  psvg: toSvg(context.cursor, l),
-                }
-              }),
-            ],
-            target: 'SearchingWaiting',
-          },
-        },
-        SearchingWaiting: {
-          on: {
-            'SEARCH.END': {
-              actions: [
-                emit(({ context, event }) => {
-                  const scroll = getCurrentScroll()
-                  const l =
-                    scroll === null
-                      ? context.layout
-                      : scrollLayout(context.layout, scroll)
-                  return {
-                    type: 'SEARCH.END.DONE',
-                    psvg: event.res.psvg,
-                    info: event.res.info,
-                    layout: l,
-                  }
-                }),
-              ],
+          initial: 'Starting',
+          // XXX make this conditional to scroll distance
+          onDone: 'Recentering',
+          states: {
+            Starting: {
+              always: {
+                actions: [
+                  emit(({ context }) => {
+                    const scroll = getCurrentScroll()
+                    const l =
+                      scroll === null
+                        ? context.layout
+                        : scrollLayout(context.layout, scroll)
+                    return {
+                      type: 'SEARCH',
+                      psvg: toSvg(context.cursor, l),
+                    }
+                  }),
+                ],
+                target: 'WaitingForSearchEnd',
+              },
             },
-            'SEARCH.LOCK': {
-              target: 'Locked',
+            WaitingForSearchEnd: {
+              on: {
+                'SEARCH.END': {
+                  actions: [
+                    emit(({ context, event }) => {
+                      const scroll = getCurrentScroll()
+                      const l =
+                        scroll === null
+                          ? context.layout
+                          : scrollLayout(context.layout, scroll)
+                      return {
+                        type: 'SEARCH.END.DONE',
+                        psvg: event.res.psvg,
+                        info: event.res.info,
+                        layout: l,
+                      }
+                    }),
+                  ],
+                  target: 'WaitingForSearchUnlock',
+                },
+              },
             },
+            WaitingForSearchUnlock: {
+              on: {
+                'SEARCH.UNLOCK': {
+                  actions: [
+                    'setModeToPanning',
+                    emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+                    'syncMode',
+                  ],
+                  target: 'Done',
+                },
+              },
+            },
+            Done: { type: 'final' },
           },
         },
         /*
@@ -1999,19 +2017,7 @@ export const pointerMachine = setup({
             Done: { type: 'final' },
           },
         },
-        Locked: {
-          on: {
-            'SEARCH.UNLOCK': {
-              actions: [
-                'setModeToPanning',
-                emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
-                'syncMode',
-              ],
-              // XXX make this conditional to scroll distance
-              target: 'Recentering',
-            },
-          },
-        },
+        Locked: {},
       },
     },
   },
