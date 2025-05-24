@@ -10,9 +10,6 @@ import {
   sendPointerMove,
   sendPointerUp,
   sendScroll,
-  sendTouchEnd,
-  sendTouchMove,
-  sendTouchStart,
   sendWheel,
 } from './lib/pointer-react'
 import { styleAnimationEnd } from './lib/style-xstate'
@@ -30,9 +27,9 @@ export function Container() {
       onPointerDown={sendPointerDown}
       onPointerMove={sendPointerMove}
       onPointerUp={sendPointerUp}
-      onTouchStart={sendTouchStart}
-      onTouchMove={sendTouchMove}
-      onTouchEnd={sendTouchEnd}
+      //onTouchStart={sendTouchStart}
+      //onTouchMove={sendTouchMove}
+      //onTouchEnd={sendTouchEnd}
       onClick={sendClick}
       onContextMenu={sendContextMenu}
       onScroll={sendScroll}
