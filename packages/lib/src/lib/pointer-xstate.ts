@@ -89,6 +89,7 @@ export type PointerContext = {
   m: null | Vec
   z: null | number
   zoom: number
+  homing: boolean
   touches: Touches
   drag: null | Drag
   animation: null | Animation
@@ -406,6 +407,7 @@ export const pointerMachine = setup({
     zoomHome: assign({
       z: (): null | number => null,
       zoom: () => 1,
+      homing: () => true,
     }),
     zoomEvent: assign({
       z: (_, { z }: { z: -1 | 1 }): number => z,
@@ -601,6 +603,7 @@ export const pointerMachine = setup({
     m: null,
     z: null,
     zoom: 1,
+    homing: false,
     touches: resetTouches(),
     drag: null,
     animation: null,
@@ -1733,7 +1736,7 @@ export const pointerMachine = setup({
             */
             'LAYOUT.RESET': {
               actions: [() => console.log('Homing'), 'zoomHome'],
-              target: 'Homing',
+              target: 'Zooming',
             },
             'KEY.UP': [
               {
@@ -1956,68 +1959,29 @@ export const pointerMachine = setup({
         Animating: {
           entry: raise({ type: 'ANIMATION' }),
           on: {
-            'ANIMATION.DONE': {
-              target: 'Panning',
-            },
-          },
-        },
-        Homing: {
-          initial: 'Zooming',
-          onDone: 'Panning',
-          states: {
-            Zooming: {
-              always: {
+            'ANIMATION.DONE': [
+              {
+                guard: ({ context }) => context.homing,
                 actions: [
                   assign({
-                    layout: ({ context }) => {
-                      const prevScroll = context.layout.scroll
-                      const scroll = getScroll()
-                      return scroll === null
-                        ? context.layout
-                        : pipe(
-                            context.layout,
-                            // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
-                            (l) => scrollLayout(l, scroll),
-                            // re-center scroll & reflect the change to svg coords
-                            (l) => recenterLayout(l, prevScroll)
-                          )
-                    },
+                    cursor: ({ context }) =>
+                      boxCenter(context.origLayout.container),
+                    layout: ({ context }) =>
+                      expandLayoutCenter(context.origLayout, 9),
+                    homing: () => false,
                   }),
-                  'startZoom',
-                  'updateZoom',
-                  emit(({ context: { layout, zoom, z } }) => ({
-                    type: 'ZOOM.START',
-                    layout,
-                    zoom,
-                    z: z === null ? 0 : z,
-                  })),
+                  'syncLayout',
+                  'syncViewBox',
+                  'syncScroll',
                 ],
-                target: 'Animating',
+                target: 'Panning',
               },
-            },
-            Animating: {
-              entry: raise({ type: 'ANIMATION' }),
-              on: {
-                'ANIMATION.DONE': {
-                  actions: [
-                    assign({
-                      cursor: ({ context }) =>
-                        boxCenter(context.origLayout.container),
-                      layout: ({ context }) =>
-                        expandLayoutCenter(context.origLayout, 9),
-                    }),
-                    'syncLayout',
-                    'syncViewBox',
-                    'syncScroll',
-                  ],
-                  target: 'Done',
-                },
+              {
+                target: 'Panning',
               },
-            },
-            Done: { type: 'final' },
+            ],
           },
         },
-        Locked: {},
       },
     },
   },
