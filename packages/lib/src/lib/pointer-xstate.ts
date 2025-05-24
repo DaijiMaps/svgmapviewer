@@ -1618,34 +1618,34 @@ export const pointerMachine = setup({
             RESIZE: [
               // XXX force layout (resize)
               {
-                //guard: ({ event }) => event.force,
+                guard: ({ event }) => event.force,
                 actions: [
-                  () => console.log('initial RESIZE!!!'),
-                  assign({ rendered: () => false }),
                   assign({
+                    rendered: () => false,
                     origLayout: ({ event }) => event.layout,
-                    cursor: ({ event }) => boxCenter(event.layout.container),
                     layout: ({ event }) => expandLayoutCenter(event.layout, 9),
                   }),
                 ],
                 target: 'Resizing',
               },
-              /*
               {
                 actions: [
-                  assign({ rendered: () => false }),
                   assign({
+                    rendered: () => false,
                     origLayout: ({ event }) => event.layout,
-                    layout: ({ event }) => event.layout,
-                    cursor: ({ event }) => boxCenter(event.layout.container),
+                    layout: ({ event }) => expandLayoutCenter(event.layout, 9),
                   }),
-                  'syncLayout',
-                  'renderAndSyncScroll',
                 ],
-                //target: 'Layouting',
+                target: 'WindowResizing',
               },
-              */
             ],
+          },
+        },
+        WindowResizing: {
+          after: {
+            1000: {
+              target: 'Resizing',
+            },
           },
         },
         Resizing: {
@@ -1721,19 +1721,17 @@ export const pointerMachine = setup({
           },
           */
           on: {
-            /*
+            // XXX force layout (resize)
             RESIZE: {
               actions: [
                 assign({
-                  layout: ({ event }) => event.layout,
-                  cursor: ({ event }) => boxCenter(event.layout.container),
+                  rendered: () => false,
+                  origLayout: ({ event }) => event.layout,
+                  layout: ({ event }) => expandLayoutCenter(event.layout, 9),
                 }),
-                'syncLayout',
-                'renderAndSyncScroll',
               ],
-              target: 'Stopping',
+              target: 'WindowResizing',
             },
-            */
             'LAYOUT.RESET': {
               actions: [() => console.log('Homing'), 'zoomHome'],
               target: 'Zooming',
