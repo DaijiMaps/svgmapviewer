@@ -1268,6 +1268,7 @@ export const pointerMachine = setup({
       },
     },
     */
+    /*
     Animator: {
       initial: 'Idle',
       states: {
@@ -1302,6 +1303,7 @@ export const pointerMachine = setup({
         },
       },
     },
+    */
     /*
     PointerMonitor: {
       initial: 'Inactive',
@@ -1371,6 +1373,7 @@ export const pointerMachine = setup({
       },
     },
     */
+    /*
     TouchHandler: {
       on: {
         'TOUCH.START': [
@@ -1477,6 +1480,7 @@ export const pointerMachine = setup({
         },
       },
     },
+    */
     /*
     Mover: {
       initial: 'Idle',
@@ -1913,29 +1917,65 @@ export const pointerMachine = setup({
               },
             },
             Animating: {
-              entry: raise({ type: 'ANIMATION' }),
-              on: {
-                'ANIMATION.DONE': [
-                  {
-                    guard: ({ context }) => context.homing,
+              initial: 'Starting',
+              onDone: 'Done',
+              states: {
+                Starting: {
+                  always: {
                     actions: [
-                      assign({
-                        cursor: ({ context }) =>
-                          boxCenter(context.origLayout.container),
-                        layout: ({ context }) =>
-                          expandLayoutCenter(context.origLayout, 9),
-                        homing: () => false,
-                      }),
-                      'syncLayout',
-                      'syncViewBox',
-                      'syncScroll',
+                      assign({ animating: () => true }),
+                      'syncAnimation',
                     ],
-                    target: 'Done',
+                    target: 'Ending',
                   },
-                  {
-                    target: 'Done',
+                },
+                Ending: {
+                  on: {
+                    'ANIMATION.END': {
+                      actions: [
+                        'endZoom',
+                        'syncLayout',
+                        'syncViewBox',
+                        'syncScrollSync',
+                        emit(({ context: { layout, zoom } }) => ({
+                          type: 'ZOOM.END',
+                          layout,
+                          zoom,
+                        })),
+                        assign({ animating: () => false }),
+                        'syncAnimation',
+                        raise({ type: 'ANIMATION.DONE' }),
+                      ],
+                      target: 'Homing',
+                    },
                   },
-                ],
+                },
+                Homing: {
+                  always: [
+                    {
+                      guard: ({ context }) => context.homing,
+                      actions: [
+                        assign({
+                          cursor: ({ context }) =>
+                            boxCenter(context.origLayout.container),
+                          layout: ({ context }) =>
+                            expandLayoutCenter(context.origLayout, 9),
+                          homing: () => false,
+                        }),
+                        'syncLayout',
+                        'syncViewBox',
+                        'syncScroll',
+                      ],
+                      target: 'Done',
+                    },
+                    {
+                      target: 'Done',
+                    },
+                  ],
+                },
+                Done: {
+                  type: 'final',
+                },
               },
             },
             Done: {
