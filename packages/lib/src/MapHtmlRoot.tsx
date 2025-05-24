@@ -5,6 +5,18 @@ import { MapHtml } from './MapHtml'
 import './MapHtml.css'
 
 export function MapHtmlRoot() {
+  // eslint-disable-next-line functional/no-expression-statements
+  useMapHtmlRoot()
+
+  return (
+    <div className="content html">
+      <div id={ROOT_ID} />
+    </div>
+  )
+}
+
+// eslint-disable-next-line functional/no-return-void
+function useMapHtmlRoot() {
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
   useEffect(() => {
     const root = document.querySelector(`#${ROOT_ID}`)
@@ -18,10 +30,4 @@ export function MapHtmlRoot() {
     // eslint-disable-next-line functional/no-expression-statements
     createRoot(shadowRoot).render(<MapHtml />)
   }, [])
-
-  return (
-    <div className="content html">
-      <div id={ROOT_ID} />
-    </div>
-  )
 }

@@ -9,7 +9,6 @@ import {
   updateSvgMapViewerConfig,
 } from './config'
 import { configActor } from './config-xstate'
-import { rootActor } from './map-html-xstate'
 import { renderMapActor } from './map-xstate'
 import { pointerActor, scrollTimeoutActor } from './pointer-react'
 import { resizeActor } from './resize-xstate'
@@ -77,7 +76,6 @@ function startAllActors() {
   pointerActor.start()
   renderMapActor.start()
   resizeActor.start()
-  rootActor.start()
   scrollTimeoutActor.start()
   styleActor.start()
   uiActor.start()

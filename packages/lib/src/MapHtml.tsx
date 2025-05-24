@@ -1,8 +1,9 @@
 import { useSelector } from '@xstate/react'
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { fixupCssString } from './lib/css'
 import { POI } from './lib/geo'
 import { isLiked, useLikes } from './lib/like'
+import { useMapHtmlRendered } from './lib/map-html-react'
 import { useNames } from './lib/names'
 import { pointerActor } from './lib/pointer-react'
 import { selectLayoutSvgScaleS } from './lib/pointer-xstate'
@@ -11,10 +12,7 @@ export function MapHtml() {
   const { pointNames, areaNames } = useNames()
 
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
-  useEffect(() => {
-    // eslint-disable-next-line functional/no-expression-statements
-    pointerActor.send({ type: 'RENDERED.MAP-HTML' })
-  }, [])
+  useMapHtmlRendered()
 
   return (
     <>
