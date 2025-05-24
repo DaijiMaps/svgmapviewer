@@ -37,6 +37,23 @@ export interface SearchResP {
 
 ////
 
+export interface ConfigZoomStart {
+  type: 'CONFIG.ZOOM.START'
+  layout: Readonly<Layout>
+  zoom: number
+  z: number
+}
+export interface ConfigResize {
+  type: 'CONFIG.RESIZE'
+  layout: Readonly<Layout>
+  force: boolean
+}
+export interface ConfigLayout {
+  type: 'CONFIG.LAYOUT'
+  layout: Readonly<Layout>
+  force: boolean
+}
+
 export type ZoomStartCb = (
   layout: Readonly<Layout>,
   zoom: number,
@@ -58,6 +75,7 @@ export type UiOpenCb = (
 ) => void
 export type UiOpenDoneCb = (ok: boolean) => void
 export type UiCloseCb = () => void
+export type ResizeCb = (layout: Layout, force: boolean) => void
 export type LayoutCb = (layout: Layout, force: boolean) => void
 
 export interface ConfigCb {
@@ -72,6 +90,7 @@ export interface ConfigCb {
   uiOpenDoneCb: UiOpenDoneCb
   uiCloseCb: UiCloseCb
   uiCloseDoneCb: UiCloseCb
+  resizeCb: ResizeCb
   layoutCb: LayoutCb
 }
 
@@ -87,6 +106,7 @@ export interface ConfigCbs {
   uiOpenDoneCbs: Set<UiOpenDoneCb>
   uiCloseCbs: Set<UiCloseCb>
   uiCloseDoneCbs: Set<UiCloseCb>
+  resizeCbs: Set<ResizeCb>
   layoutCbs: Set<LayoutCb>
 }
 

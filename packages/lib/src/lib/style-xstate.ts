@@ -30,7 +30,7 @@ const styleMachine = setup({
     animating: false,
     layout: emptyLayout,
     dragging: false,
-    mode: 'pointing',
+    mode: 'panning',
     animation: null,
   },
   initial: 'Idle',

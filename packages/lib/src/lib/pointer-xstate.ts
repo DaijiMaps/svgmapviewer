@@ -19,6 +19,7 @@ import {
   animationZoom,
 } from './animation'
 import { BoxBox, boxCenter } from './box/prefixed'
+import { configActor } from './config-xstate'
 import { Drag, dragMove, dragStart } from './drag'
 import { keyToDir, keyToZoom } from './key'
 import {
@@ -104,7 +105,7 @@ export type PointerContext = {
 type PointerExternalEvent =
   | { type: 'ANIMATION.END' }
   | { type: 'DEBUG' }
-  | { type: 'LAYOUT'; layout: Layout; force: boolean }
+  | { type: 'RESIZE'; layout: Layout; force: boolean }
   | { type: 'LAYOUT.RESET' }
   | { type: 'MODE'; mode: PointerMode }
   | { type: 'RENDERED' }
@@ -466,6 +467,7 @@ export const pointerMachine = setup({
     },
     syncLayout: ({ context: { layout, rendered } }) => {
       styleActor.send({ type: 'STYLE.LAYOUT', layout, rendered })
+      configActor.send({ type: 'CONFIG.LAYOUT', layout, force: false })
     },
 
     //
@@ -600,7 +602,7 @@ export const pointerMachine = setup({
     drag: null,
     animation: null,
     debug: false,
-    mode: pointerModePointing,
+    mode: pointerModePanning,
     clickLock: false,
     dragging: false,
     expanding: 0,
@@ -613,13 +615,17 @@ export const pointerMachine = setup({
       systemId: 'scroll1',
     },
   ],
+  on: {
+    RENDERED: {},
+  },
   states: {
     Pointer: {
-      initial: 'Idle',
+      initial: 'None',
       states: {
+        None: {},
         Idle: {
           on: {
-            LAYOUT: [
+            RESIZE: [
               /* XXX force layout (resize) */
               {
                 guard: ({ event }) => event.force,
@@ -1019,7 +1025,7 @@ export const pointerMachine = setup({
           initial: 'Inactive',
           states: {
             Inactive: {
-              entry: raise({ type: 'SLIDE.DONE' }),
+              // XXX XXX XXX entry: raise({ type: 'SLIDE.DONE' }),
               on: {
                 SLIDE: {
                   guard: 'isDragging',
@@ -1123,7 +1129,7 @@ export const pointerMachine = setup({
       initial: 'Unexpanded',
       states: {
         Unexpanded: {
-          entry: raise({ type: 'UNEXPAND.DONE' }),
+          // XXX XXX XXX entry: raise({ type: 'UNEXPAND.DONE' }),
           on: {
             EXPAND: {
               actions: [
@@ -1234,7 +1240,7 @@ export const pointerMachine = setup({
       initial: 'Idle',
       states: {
         Idle: {
-          entry: raise({ type: 'ANIMATION.DONE' }),
+          // XXX XXX XXX entry: raise({ type: 'ANIMATION.DONE' }),
           on: {
             ANIMATION: {
               actions: [assign({ animating: () => true }), 'syncAnimation'],
@@ -1374,7 +1380,7 @@ export const pointerMachine = setup({
       initial: 'Inactive',
       states: {
         Inactive: {
-          entry: raise({ type: 'TOUCH.DONE' }),
+          // XXX XXX XXX entry: raise({ type: 'TOUCH.DONE' }),
           on: {
             'TOUCH.START.DONE': [
               {
@@ -1440,7 +1446,7 @@ export const pointerMachine = setup({
       initial: 'Idle',
       states: {
         Idle: {
-          entry: raise({ type: 'MOVE.DONE' }),
+          // XXX XXX XXX entry: raise({ type: 'MOVE.DONE' }),
           on: {
             MOVE: {
               actions: raise({ type: 'EXPAND', n: EXPAND_DEFAULT }),
@@ -1566,8 +1572,56 @@ export const pointerMachine = setup({
       },
     },
     Panner: {
-      initial: 'Idle',
+      initial: 'None',
       states: {
+        None: {
+          on: {
+            RESIZE: [
+              /* XXX force layout (resize) */
+              {
+                //guard: ({ event }) => event.force,
+                actions: [
+                  () => console.log('initial RESIZE!!!'),
+                  assign({ rendered: () => false }),
+                  assign({
+                    origLayout: ({ event }) => event.layout,
+                    cursor: ({ event }) => boxCenter(event.layout.container),
+                    layout: ({ event }) => expandLayoutCenter(event.layout, 9),
+                  }),
+                ],
+                target: 'Resizing',
+              },
+              /*
+              {
+                actions: [
+                  assign({ rendered: () => false }),
+                  assign({
+                    origLayout: ({ event }) => event.layout,
+                    layout: ({ event }) => event.layout,
+                    cursor: ({ event }) => boxCenter(event.layout.container),
+                  }),
+                  'syncLayout',
+                  'renderAndSyncScroll',
+                ],
+                //target: 'Layouting',
+              },
+              */
+            ],
+          },
+        },
+        Resizing: {
+          entry: 'syncLayout',
+          on: {
+            RENDERED: {
+              actions: [
+                assign({ rendered: () => true }),
+                'syncViewBox',
+                'syncLayout',
+                'syncScroll',
+              ],
+            },
+          },
+        },
         Idle: {
           after: {
             250: {
@@ -1617,7 +1671,7 @@ export const pointerMachine = setup({
             },
           },
           on: {
-            LAYOUT: {
+            RESIZE: {
               actions: [
                 assign({
                   layout: ({ event }) => event.layout,

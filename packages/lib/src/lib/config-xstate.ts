@@ -1,7 +1,14 @@
 import { createContext } from 'react'
 import { assign, createActor, setup, StateFrom } from 'xstate'
 import { POI } from './geo'
-import type { ConfigCb, ConfigCbs, SvgMapViewerConfig } from './types'
+import type {
+  ConfigCb,
+  ConfigCbs,
+  ConfigLayout,
+  ConfigResize,
+  ConfigZoomStart,
+  SvgMapViewerConfig,
+} from './types'
 
 interface ConfigContext extends ConfigCbs {
   // XXX SvgMapViewerConfig
@@ -13,6 +20,9 @@ type ConfigEvent =
   | { type: 'SET.MAPNAMES'; mapNames: POI[] }
   | ({ type: 'ADD.CB' } & Partial<ConfigCb>)
   | ({ type: 'DELETE.CB' } & Partial<ConfigCb>)
+  | ConfigZoomStart
+  | ConfigResize
+  | ConfigLayout
 
 const configMachine = setup({
   types: {
@@ -38,6 +48,7 @@ const configMachine = setup({
     uiOpenDoneCbs: new Set(),
     uiCloseCbs: new Set(),
     uiCloseDoneCbs: new Set(),
+    resizeCbs: new Set(),
     layoutCbs: new Set(),
     mapNames: [],
   },
@@ -91,6 +102,10 @@ const configMachine = setup({
               event.uiCloseDoneCb === undefined
                 ? context.uiCloseDoneCbs
                 : context.uiCloseDoneCbs.add(event.uiCloseDoneCb),
+            resizeCbs: ({ context, event }) =>
+              event.resizeCb === undefined
+                ? context.resizeCbs
+                : context.resizeCbs.add(event.resizeCb),
             layoutCbs: ({ context, event }) =>
               event.layoutCb === undefined
                 ? context.layoutCbs
@@ -166,11 +181,17 @@ const configMachine = setup({
               }
               return context.uiCloseDoneCbs
             },
+            resizeCbs: ({ context, event }) => {
+              if (event.resizeCb !== undefined) {
+                context.resizeCbs.delete(event.resizeCb)
+              }
+              return context.resizeCbs
+            },
             layoutCbs: ({ context, event }) => {
               if (event.layoutCb !== undefined) {
                 context.layoutCbs.delete(event.layoutCb)
               }
-              return context.uiCloseDoneCbs
+              return context.layoutCbs
             },
           }),
         },
@@ -187,6 +208,18 @@ const configMachine = setup({
           actions: assign({
             mapNames: ({ event }) => event.mapNames,
           }),
+        },
+        'CONFIG.ZOOM.START': {
+          actions: ({ context, event: { layout, zoom, z } }) =>
+            context.zoomStartCbs.forEach((cb) => cb(layout, zoom, z)),
+        },
+        'CONFIG.RESIZE': {
+          actions: ({ context, event: { layout, force } }) =>
+            context.resizeCbs.forEach((cb) => cb(layout, force)),
+        },
+        'CONFIG.LAYOUT': {
+          actions: ({ context, event: { layout, force } }) =>
+            context.layoutCbs.forEach((cb) => cb(layout, force)),
         },
       },
     },

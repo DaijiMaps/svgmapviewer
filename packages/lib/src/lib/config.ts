@@ -73,6 +73,8 @@ export function registerCbs(cbs: Readonly<Partial<ConfigCb>>) {
   configActor.send({ type: 'ADD.CB', ...cbs })
 }
 
+////
+
 export function notifySearchStart(psvg: VecVec) {
   configActor.getSnapshot().context.searchStartCbs.forEach((cb) => cb(psvg))
 }
@@ -123,6 +125,9 @@ export function notifyZoomStart(
 export function notifyZoomEnd(layout: Readonly<Layout>, zoom: number) {
   configActor.getSnapshot().context.zoomEndCbs.forEach((cb) => cb(layout, zoom))
 }
+export function notifyResize(layout: Readonly<Layout>, force: boolean) {
+  configActor.send({ type: 'CONFIG.RESIZE', layout, force })
+}
 export function notifyLayout(layout: Readonly<Layout>, force: boolean) {
-  configActor.getSnapshot().context.layoutCbs.forEach((cb) => cb(layout, force))
+  configActor.send({ type: 'CONFIG.LAYOUT', layout, force })
 }

@@ -1,6 +1,6 @@
 import { useSelector } from '@xstate/react'
 import React, { useEffect } from 'react'
-import { createActor } from 'xstate'
+import { createActor, InspectionEvent } from 'xstate'
 import {
   notifySearchEndDone,
   notifySearchStart,
@@ -26,8 +26,19 @@ import { Vec } from './vec'
 
 export const pointerActor = createActor(pointerMachine, {
   systemId: 'system-pointer1',
-  //inspect: (iev) => { if (iev) { console.log(iev); } },
+  inspect,
 })
+
+export type PointerInspect = typeof pointerActor.options.inspect
+export function inspect(iev: InspectionEvent) {
+  if (iev && iev?.actorRef?.options?.systemId === 'system-pointer1') {
+    const type =
+      iev?.event?.type || iev?.action?.type || iev?.action?.params?.event?.type
+    if (type && !type.match(/MOVE/)) {
+      console.log(type, iev)
+    }
+  }
+}
 
 //// handler masks
 
@@ -58,7 +69,7 @@ function reflectMode(mode: PointerMode): void {
 // XXX
 // XXX
 // XXX
-function useExpanding() {
+export function useExpanding() {
   // re-render handling
   // XXX - used only for syncing scroll (scrollLeft/scrollTop)
   // XXX   after scroll size change
@@ -73,7 +84,7 @@ function useExpanding() {
 
 export function usePointer(): void {
   //// actions
-  useExpanding()
+  //useExpanding()
 }
 
 //// handlers
@@ -189,15 +200,15 @@ const pointerSearchLock = (psvg: Vec) =>
   pointerActor.send({ type: 'SEARCH.LOCK', psvg })
 const pointerSearchUnlock = () => pointerActor.send({ type: 'SEARCH.UNLOCK' })
 
-const layoutCb = (origLayout: Readonly<Layout>, force: boolean) => {
-  pointerActor.send({ type: 'LAYOUT', layout: origLayout, force })
+const resizeCb = (origLayout: Readonly<Layout>, force: boolean) => {
+  pointerActor.send({ type: 'RESIZE', layout: origLayout, force })
 }
 
 registerCbs({
   searchEndCb: pointerSearchEnd,
   uiOpenCb: pointerSearchLock,
   uiCloseDoneCb: pointerSearchUnlock,
-  layoutCb: layoutCb,
+  resizeCb: resizeCb,
 })
 
 ////

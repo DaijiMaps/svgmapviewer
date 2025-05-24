@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-throw-statements */
 import { useSelector } from '@xstate/react'
-import { StrictMode } from 'react'
+import { StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { fromSvgToOuter } from './lib/coord'
@@ -18,6 +18,7 @@ import {
   matrixEmpty,
   matrixToString,
 } from './lib/matrix/prefixed'
+import { pointerActor } from './lib/pointer-react'
 import { styleActor, StyleState } from './lib/style-xstate'
 
 export function styleRoot() {
@@ -61,6 +62,10 @@ function LayoutStyle() {
   )
   const m = fromSvgToOuter({ svg, svgOffset, svgScale })
   const matrix = fixupCssString(cssMatrixToString(m))
+
+  useEffect(() => {
+    requestAnimationFrame(() => pointerActor.send({ type: 'RENDERED' }))
+  }, [rendered])
 
   return (
     <style>{`
