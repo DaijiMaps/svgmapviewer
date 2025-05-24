@@ -75,6 +75,9 @@ ${!animating ? appearing_none : appearing}
   width: ${scroll.width}px;
   height: ${scroll.height}px;
 }
+.container > .content.svg {
+  --svg-viewbox: ${svg.x} ${svg.y} ${svg.width} ${svg.height};
+}
 .container > .content.html {
   --svg-matrix: ${matrix};
   --svg-scale: ${svgScale.s};
