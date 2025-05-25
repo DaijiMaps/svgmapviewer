@@ -1766,6 +1766,16 @@ export const pointerMachine = setup({
               ],
               target: 'Panning',
             },
+            'ZOOM.ZOOM': {
+              actions: [
+                'setModeToPanning',
+                {
+                  type: 'zoomEvent',
+                  params: ({ event: { z } }) => ({ z }),
+                },
+              ],
+              target: 'Zooming',
+            },
           },
         },
         Searching: {

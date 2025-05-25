@@ -15,13 +15,13 @@ type TouchEventMove = { type: 'TOUCH.MOVE'; ev: React.TouchEvent }
 type TouchEventEnd = { type: 'TOUCH.END'; ev: React.TouchEvent }
 
 type TouchEvent_ =
+  | { type: 'CANCEL' }
   | TouchEventStart
   | TouchEventMove
   | TouchEventEnd
-  | { type: 'STARTED' }
-  | { type: 'MOVED' }
-  | { type: 'ENDED' }
-  | { type: 'CANCEL' }
+  | { type: 'STARTED' } // internal
+  | { type: 'MOVED' } // internal
+  | { type: 'ENDED' } // internal
 type TouchEmit_ =
   | {
       type: 'EXPIRED'
@@ -78,6 +78,13 @@ export const touchMachine = setup({
     resetTouches: assign({
       touches: () => resetTouches(),
     }),
+    notifyTouching: enqueueActions(({ enqueue, context }) =>
+      enqueue.emit(
+        context.touches.vecs.size === 2
+          ? { type: 'MULTI.START' }
+          : { type: 'MULTI.END' }
+      )
+    ),
     notifyZoom: enqueueActions(({ context, enqueue }) => {
       const p = context.touches.cursor
       const z = context.touches.z
@@ -160,6 +167,8 @@ export const touchMachine = setup({
       },
     },
     DoubleTouching: {
+      entry: 'notifyTouching',
+      exit: 'notifyTouching',
       on: {
         STARTED: [
           {
@@ -211,6 +220,8 @@ export const touchMachine = setup({
     },
     Canceling: {
       on: {
+        //STARTED: [],
+        //MOVED: {},
         ENDED: [
           {
             guard: 'isAllEnding',

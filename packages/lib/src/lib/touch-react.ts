@@ -2,15 +2,28 @@ import { createActor } from 'xstate'
 import { pointerActor } from './pointer-react'
 import { touchMachine } from './touch-xstate'
 
+export let touching = false
+
+////
+
 export const touchActor = createActor(touchMachine)
 
-touchActor.on('MULTI.START', () => pointerActor.send({ type: 'TOUCH.LOCK' }))
-touchActor.on('MULTI.END', () => pointerActor.send({ type: 'TOUCH.UNLOCK' }))
+touchActor.on('MULTI.START', () => {
+  touching = true
+  pointerActor.send({ type: 'TOUCH.LOCK' })
+})
+
+touchActor.on('MULTI.END', () => {
+  pointerActor.send({ type: 'TOUCH.UNLOCK' })
+  touching = false
+})
 touchActor.on('ZOOM', ({ z }) => {
   pointerActor.send({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1 })
 })
 
 touchActor.start()
+
+////
 
 export function touchSendTouchStart(ev: React.TouchEvent) {
   touchActor.send({ type: 'TOUCH.START', ev })
@@ -20,4 +33,7 @@ export function touchSendTouchMove(ev: React.TouchEvent) {
 }
 export function touchSendTouchEnd(ev: React.TouchEvent) {
   touchActor.send({ type: 'TOUCH.END', ev })
+}
+export function touchSendCancel() {
+  touchActor.send({ type: 'CANCEL' })
 }

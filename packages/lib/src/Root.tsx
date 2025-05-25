@@ -36,6 +36,19 @@ export function root(config: Readonly<SvgMapViewerConfig>) {
     ev.preventDefault()
   }
   /*
+  XXX this masking attempt (don't move during touch) is not working
+  e.onpointermove = function (ev) {
+    if (touching) {
+      ev.preventDefault()
+    }
+  }
+  e.ontouchmove = function (ev) {
+    if (touching) {
+      ev.preventDefault()
+    }
+  }
+  */
+  /*
   e.onmousedown = function (ev) {
     console.log('mousedown!', ev)
   }

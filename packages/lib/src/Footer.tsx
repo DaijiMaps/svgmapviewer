@@ -2,7 +2,7 @@ import { useSelector } from '@xstate/react'
 import { useContext } from 'react'
 import './Footer.css'
 import { pointerActor } from './lib/pointer-react'
-import { touchActor } from './lib/touch-react'
+import { touchActor, touching } from './lib/touch-react'
 import { selectOpenCloseFooter, uiActor } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 
@@ -49,7 +49,7 @@ export const Footer = () => {
         </div>
       </div>
       */}
-      <p>{`v=${vecs.size};z=${z}`}</p>
+      <p>{`v=${vecs.size};z=${z};touching=${touching}`}</p>
       <p
         // eslint-disable-next-line functional/no-return-void
         onClick={() => pointerActor.send({ type: 'DEBUG' })}
