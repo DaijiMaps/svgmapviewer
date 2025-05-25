@@ -1615,26 +1615,27 @@ export const pointerMachine = setup({
     },
     */
     Panner: {
-      initial: 'None',
+      initial: 'Resizing',
       states: {
-        None: {
-          on: {
-            RESIZE: {
-              actions: [
-                assign({
-                  rendered: () => false,
-                  origLayout: ({ event }) => event.layout,
-                  layout: ({ event }) => expandLayoutCenter(event.layout, 9),
-                }),
-              ],
-              target: '#Resizing-WaitingForMapHtmlRendered',
-            },
-          },
-        },
         Resizing: {
-          initial: 'WaitingForWindowStabilized',
+          initial: 'WaitingForResizeEvent',
           onDone: 'Panning',
           states: {
+            WaitingForResizeEvent: {
+              on: {
+                RESIZE: {
+                  actions: [
+                    assign({
+                      rendered: () => false,
+                      origLayout: ({ event }) => event.layout,
+                      layout: ({ event }) =>
+                        expandLayoutCenter(event.layout, 9),
+                    }),
+                  ],
+                  target: 'WaitingForMapHtmlRendered',
+                },
+              },
+            },
             WaitingForWindowStabilized: {
               id: 'Resizing-WaitingForWindowStabilized',
               after: {
@@ -1647,7 +1648,6 @@ export const pointerMachine = setup({
               },
             },
             WaitingForMapHtmlRendered: {
-              id: 'Resizing-WaitingForMapHtmlRendered',
               always: {
                 guard: ({ context }) => context.mapHtmlRendered,
                 target: 'Layouting',
