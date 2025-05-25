@@ -47,7 +47,7 @@ import {
   Touches,
 } from './touch'
 import { Info, SearchRes } from './types'
-import { VecVec as Vec, vecMul, vecSub, vecVec } from './vec/prefixed'
+import { VecVec as Vec, vecMul, vecSub, VecVec, vecVec } from './vec/prefixed'
 
 // XXX
 // XXX
@@ -121,7 +121,7 @@ type PointerExternalEvent =
   | { type: 'SCROLL.SYNCSYNC.DONE'; scroll: BoxBox }
   | { type: 'TOUCH.LOCK' }
   | { type: 'TOUCH.UNLOCK' }
-  | { type: 'ZOOM.ZOOM'; z: -1 | 1 }
+  | { type: 'ZOOM.ZOOM'; z: -1 | 1; p: null | VecVec }
 
 type PointerEventAnimation = { type: 'ANIMATION' } | { type: 'ANIMATION.DONE' }
 type PointerEventDrag =
@@ -415,7 +415,11 @@ export const pointerMachine = setup({
       homing: () => true,
     }),
     zoomEvent: assign({
-      z: (_, { z }: { z: -1 | 1 }): number => z,
+      z: (_, { z }: { z: -1 | 1; p: null | Vec }): number => z,
+      cursor: (
+        { context: { cursor } },
+        { p }: { z: -1 | 1; p: null | Vec }
+      ): Vec => (p === null ? cursor : p),
     }),
     startMove: assign({
       animation: ({
@@ -1743,7 +1747,7 @@ export const pointerMachine = setup({
               actions: [
                 {
                   type: 'zoomEvent',
-                  params: ({ event: { z } }) => ({ z }),
+                  params: ({ event: { z, p } }) => ({ z, p }),
                 },
               ],
               target: 'Zooming',
@@ -1771,7 +1775,7 @@ export const pointerMachine = setup({
                 'setModeToPanning',
                 {
                   type: 'zoomEvent',
-                  params: ({ event: { z } }) => ({ z }),
+                  params: ({ event: { z, p } }) => ({ z, p }),
                 },
               ],
               target: 'Zooming',

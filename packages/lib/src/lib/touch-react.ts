@@ -17,8 +17,8 @@ touchActor.on('MULTI.END', () => {
   pointerActor.send({ type: 'TOUCH.UNLOCK' })
   touching = false
 })
-touchActor.on('ZOOM', ({ z }) => {
-  pointerActor.send({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1 })
+touchActor.on('ZOOM', ({ z, p }) => {
+  pointerActor.send({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })
 })
 
 touchActor.start()

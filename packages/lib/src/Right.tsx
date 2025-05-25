@@ -38,10 +38,10 @@ export const Right = () => {
 
 const sendZoomOut =
   // eslint-disable-next-line functional/no-return-void
-  () => pointerActor.send({ type: 'ZOOM.ZOOM', z: -1 })
+  () => pointerActor.send({ type: 'ZOOM.ZOOM', z: -1, p: null })
 const sendZoomIn =
   // eslint-disable-next-line functional/no-return-void
-  () => pointerActor.send({ type: 'ZOOM.ZOOM', z: 1 })
+  () => pointerActor.send({ type: 'ZOOM.ZOOM', z: 1, p: null })
 
 export function RightStyle() {
   const { open, animating } = useSelector(uiActor, selectOpenCloseRight)
