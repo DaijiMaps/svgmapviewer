@@ -1,46 +1,34 @@
-import { ActorRefFrom, assign, emit, setup } from 'xstate'
+import { ActorRefFrom, assign, enqueueActions, raise, setup } from 'xstate'
 
 import {
   handleTouchEnd,
   handleTouchMove,
   handleTouchStart,
-  isMultiTouch,
-  isMultiTouchEnding,
+  resetTouches,
   Touches,
 } from './touch'
+import { VecVec } from './vec/prefixed'
 
 // XXX TouchEvent is DOM
+type TouchEventStart = { type: 'TOUCH.START'; ev: React.TouchEvent }
+type TouchEventMove = { type: 'TOUCH.MOVE'; ev: React.TouchEvent }
+type TouchEventEnd = { type: 'TOUCH.END'; ev: React.TouchEvent }
+
 type TouchEvent_ =
-  | {
-      type: 'TOUCH.START'
-      ev: TouchEvent
-    }
-  | {
-      type: 'TOUCH.MOVE'
-      ev: TouchEvent
-    }
-  | {
-      type: 'TOUCH.END'
-      ev: TouchEvent
-    }
-  | {
-      type: 'TOUCH.CANCEL'
-      ev: TouchEvent
-    }
-  | {
-      type: 'START'
-    }
-  | {
-      type: 'STOP'
-    }
+  | TouchEventStart
+  | TouchEventMove
+  | TouchEventEnd
+  | { type: 'STARTED' }
+  | { type: 'MOVED' }
+  | { type: 'ENDED' }
 type TouchEmit_ =
   | {
       type: 'EXPIRED'
-      ev: TouchEvent
+      ev: React.TouchEvent
     }
   | { type: 'MULTI.START' }
   | { type: 'MULTI.END' }
-  | { type: 'ZOOM' }
+  | { type: 'ZOOM'; p: VecVec; z: number }
 type TouchContext_ = {
   touches: Touches
 }
@@ -52,11 +40,34 @@ export const touchMachine = setup({
     emitted: {} as TouchEmit_,
   },
   guards: {
-    isMultiTouch: ({ context: { touches } }) => isMultiTouch(touches),
-    isMultiTouchEnding: ({ context: { touches } }) =>
-      isMultiTouchEnding(touches),
+    isAllEnding: ({ context: { touches } }) => touches.vecs.size === 0,
+    isSingleTouching: ({ context: { touches } }) => touches.vecs.size === 1,
+    isDoubleTouching: ({ context: { touches } }) => touches.vecs.size === 2,
+    isManyTouching: ({ context: { touches } }) => touches.vecs.size > 2,
   },
-  actions: {},
+  actions: {
+    handleTouchStart: assign({
+      touches: ({ context: { touches }, event }) =>
+        event.type !== 'TOUCH.START'
+          ? touches
+          : handleTouchStart(touches, event.ev),
+    }),
+    handleTouchMove: assign({
+      touches: ({ context: { touches }, event }) =>
+        event.type !== 'TOUCH.MOVE'
+          ? touches
+          : handleTouchMove(touches, event.ev, 0),
+    }),
+    handleTouchEnd: assign({
+      touches: ({ context: { touches }, event }) =>
+        event.type !== 'TOUCH.END'
+          ? touches
+          : handleTouchEnd(touches, event.ev),
+    }),
+    resetTouches: assign({
+      touches: () => resetTouches(),
+    }),
+  },
 }).createMachine({
   id: 'touch1',
   initial: 'Idle',
@@ -71,100 +82,89 @@ export const touchMachine = setup({
     },
   },
   type: 'parallel',
+  on: {
+    'TOUCH.START': {
+      actions: ['handleTouchStart', raise({ type: 'STARTED' })],
+    },
+    'TOUCH.MOVE': {
+      actions: ['handleTouchMove', raise({ type: 'MOVED' })],
+    },
+    'TOUCH.END': {
+      actions: ['handleTouchEnd', raise({ type: 'ENDED' })],
+    },
+  },
   states: {
-    Handler: {
+    Idle: {
       on: {
-        'TOUCH.START': {
-          actions: [
-            assign({
-              touches: ({ context, event }) =>
-                handleTouchStart(context.touches, event.ev),
-            }),
-            // XXX
-          ],
-        },
-        'TOUCH.MOVE': {
-          actions: [
-            assign({
-              touches: ({ context, event }) =>
-                handleTouchMove(context.touches, event.ev, 0),
-            }),
-            // XXX
-          ],
-        },
-        'TOUCH.END': {
-          actions: [
-            assign({
-              touches: ({ context, event }) =>
-                handleTouchEnd(context.touches, event.ev),
-            }),
-            // XXX
-          ],
-        },
+        STARTED: [
+          {
+            guard: 'isDoubleTouching',
+            target: 'DoubleTouching',
+          },
+          {
+            guard: 'isManyTouching',
+            target: 'ManyTouching',
+          },
+        ],
+        MOVED: {},
+        ENDED: [
+          {
+            guard: 'isAllEnding',
+            actions: 'resetTouches',
+          },
+        ],
       },
     },
-    Monitor: {
-      states: {
-        Idle: {
-          on: {
-            'TOUCH.START': {
-              actions: assign({
-                touches: ({ context, event }) =>
-                  handleTouchStart(context.touches, event.ev),
-              }),
-              target: 'SingleTouching',
-            },
-            'TOUCH.MOVE': {},
-            'TOUCH.END': {},
-            'TOUCH.CANCEL': {},
+    DoubleTouching: {
+      on: {
+        STARTED: [
+          {
+            guard: 'isManyTouching',
+            target: 'ManyTouching',
           },
+        ],
+        MOVED: {
+          guard: ({ context: { touches } }) => touches.z !== null,
+          actions: enqueueActions(({ context, enqueue }) => {
+            const p = context.touches.cursor
+            const z = context.touches.z
+            if (p !== null && z !== null) {
+              enqueue.emit({ type: 'ZOOM', p, z })
+            }
+          }),
         },
-        SingleTouching: {
-          on: {
-            'TOUCH.START': {
-              actions: assign({
-                touches: ({ context, event }) =>
-                  handleTouchStart(context.touches, event.ev),
-              }),
-              target: 'DoubleTouching',
-            },
-            'TOUCH.MOVE': {
-              actions: assign({
-                touches: ({ context, event }) =>
-                  handleTouchMove(context.touches, event.ev, 0),
-              }),
-            },
-            'TOUCH.END': {
-              actions: assign({
-                touches: ({ context, event }) =>
-                  handleTouchEnd(context.touches, event.ev),
-              }),
-              target: 'Idle',
-            },
-            'TOUCH.CANCEL': {},
+        ENDED: [
+          {
+            guard: 'isSingleTouching',
+            target: 'Idle',
           },
-        },
-        DoubleTouching: {
-          entry: emit({ type: 'MULTI.START' }),
-          exit: emit({ type: 'MULTI.END' }),
-          on: {
-            'TOUCH.START': {},
-            'TOUCH.MOVE': {
-              actions: assign({
-                touches: ({ context, event }) =>
-                  handleTouchMove(context.touches, event.ev, 0),
-              }),
-            },
-            'TOUCH.END': {
-              actions: assign({
-                touches: ({ context, event }) =>
-                  handleTouchEnd(context.touches, event.ev),
-              }),
-              target: 'SingleTouching',
-            },
-            'TOUCH.CANCEL': {},
+          {
+            guard: 'isAllEnding',
+            actions: 'resetTouches',
+            target: 'Idle',
           },
-        },
+        ],
+      },
+    },
+    ManyTouching: {
+      on: {
+        STARTED: [],
+        MOVED: [],
+        ENDED: [
+          {
+            guard: 'isDoubleTouching',
+            target: 'DoubleTouching',
+          },
+          {
+            guard: 'isSingleTouching',
+            target: 'Idle',
+          },
+          {
+            guard: 'isAllEnding',
+            actions: 'resetTouches',
+            target: 'Idle',
+          },
+        ],
       },
     },
   },

@@ -14,6 +14,7 @@ import { pointerActor, scrollTimeoutActor } from './pointer-react'
 import { resizeActor } from './resize-xstate'
 import { searchSearchDone, searchSearchStart } from './search'
 import { styleActor } from './style-xstate'
+import { touchActor } from './touch-react'
 import { SvgMapViewerConfig, SvgMapViewerConfigUser } from './types'
 import { uiRootActor } from './ui-root-xstate'
 import { uiActor } from './ui-xstate'
@@ -78,6 +79,7 @@ function startAllActors() {
   resizeActor.start()
   scrollTimeoutActor.start()
   styleActor.start()
+  touchActor.start()
   uiActor.start()
   uiRootActor.start()
 }
