@@ -83,39 +83,6 @@ const pointerSend = (
 
 ////
 
-/*
-export const sendPointerDown = (ev: React.PointerEvent<HTMLDivElement>) =>
-  pointereventmask ? undefined : pointerSend({ type: 'POINTER.DOWN', ev })
-
-export const sendPointerMove = (ev: React.PointerEvent<HTMLDivElement>) =>
-  pointereventmask ? undefined : pointerSend({ type: 'POINTER.MOVE', ev })
-
-export const sendPointerUp = (ev: React.PointerEvent<HTMLDivElement>) =>
-  pointereventmask ? undefined : pointerSend({ type: 'POINTER.UP', ev })
-*/
-
-/*
-export const sendTouchStart = (ev: React.TouchEvent<HTMLDivElement>) => {
-  if (toucheventmask) {
-    return
-  }
-  // skip preventDefault to enable emulated "click"
-  pointerSend({ type: 'TOUCH.START', ev }, { preventDefault: false })
-}
-export const sendTouchMove = (ev: React.TouchEvent<HTMLDivElement>) => {
-  if (toucheventmask) {
-    return
-  }
-  pointerSend({ type: 'TOUCH.MOVE', ev })
-}
-export const sendTouchEnd = (ev: React.TouchEvent<HTMLDivElement>) => {
-  if (toucheventmask) {
-    return
-  }
-  // skip preventDefault to enable emulated "click"
-  pointerSend({ type: 'TOUCH.END', ev }, { preventDefault: false })
-}
-*/
 export const sendClick = (ev: React.MouseEvent<HTMLDivElement>) => {
   if (clickeventmask) {
     return

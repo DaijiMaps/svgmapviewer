@@ -1,6 +1,6 @@
 import { pipe } from 'fp-ts/lib/function'
 import React from 'react'
-import { ActorRefFrom, assign, emit, raise, setup, StateFrom } from 'xstate'
+import { ActorRefFrom, assign, emit, setup, StateFrom } from 'xstate'
 import {
   Animation,
   animationEndLayout,
@@ -43,18 +43,15 @@ export type PointerContext = {
   layout: Layout
   nextLayout: null | Layout
   cursor: Vec
-  expand: number
-  m: null | Vec
   z: null | number
   zoom: number
-  homing: boolean
   animation: null | Animation
+
   mode: PointerMode
 
-  expanding: number // XXX
+  homing: boolean
   animating: boolean // XXX
   rendered: boolean
-
   mapHtmlRendered: boolean
 }
 
@@ -71,7 +68,6 @@ type PointerExternalEvent =
   | { type: 'TOUCH.UNLOCK' }
   | { type: 'ZOOM.ZOOM'; z: -1 | 1; p: null | VecVec }
 
-type PointerEventAnimation = { type: 'ANIMATION' } | { type: 'ANIMATION.DONE' }
 type PointerEventMoveZoomPan = { type: 'ZOOM' } | { type: 'ZOOM.DONE' }
 type PointerEventSearch =
   | { type: 'SEARCH.END'; res: Readonly<SearchRes> }
@@ -80,7 +76,6 @@ type PointerEventSearch =
 type PointerEventLock = { type: 'LOCK'; ok: boolean } | { type: 'UNLOCK' }
 
 type PointerInternalEvent =
-  | PointerEventAnimation
   | PointerEventMoveZoomPan
   | PointerEventSearch
   | PointerEventLock
@@ -271,19 +266,17 @@ export const pointerMachine = setup({
   },
 }).createMachine({
   id: 'pointer',
+  initial: 'Resizing',
   context: {
     origLayout: emptyLayout,
     layout: emptyLayout,
     nextLayout: null,
     cursor: boxCenter(emptyLayout.container),
-    expand: 1,
-    m: null,
     z: null,
     zoom: 1,
     homing: false,
     animation: null,
     mode: pointerModePanning,
-    expanding: 0,
     animating: false,
     rendered: false,
     mapHtmlRendered: false,
@@ -637,7 +630,6 @@ export const pointerMachine = setup({
                     })),
                     assign({ animating: () => false }),
                     'syncAnimation',
-                    raise({ type: 'ANIMATION.DONE' }),
                   ],
                   target: 'Homing',
                 },
