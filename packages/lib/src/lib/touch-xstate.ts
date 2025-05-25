@@ -21,6 +21,7 @@ type TouchEvent_ =
   | { type: 'STARTED' }
   | { type: 'MOVED' }
   | { type: 'ENDED' }
+  | { type: 'CANCEL' }
 type TouchEmit_ =
   | {
       type: 'EXPIRED'
@@ -129,6 +130,9 @@ export const touchMachine = setup({
         ],
         //MOVED: {},
         //ENDED: [],
+        CANCEL: {
+          target: 'Canceling',
+        },
       },
     },
     SingleTouching: {
@@ -150,6 +154,9 @@ export const touchMachine = setup({
             target: 'Idle',
           },
         ],
+        CANCEL: {
+          target: 'Canceling',
+        },
       },
     },
     DoubleTouching: {
@@ -174,6 +181,9 @@ export const touchMachine = setup({
             target: 'SingleTouching',
           },
         ],
+        CANCEL: {
+          target: 'Canceling',
+        },
       },
     },
     ManyTouching: {
@@ -192,6 +202,19 @@ export const touchMachine = setup({
           {
             guard: 'isDoubleTouching',
             target: 'DoubleTouching',
+          },
+        ],
+        CANCEL: {
+          target: 'Canceling',
+        },
+      },
+    },
+    Canceling: {
+      on: {
+        ENDED: [
+          {
+            guard: 'isAllEnding',
+            target: 'Idle',
           },
         ],
       },
