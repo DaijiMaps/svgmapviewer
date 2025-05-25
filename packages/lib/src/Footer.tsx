@@ -1,15 +1,13 @@
 import { useSelector } from '@xstate/react'
-import clsx from 'clsx'
 import { useContext } from 'react'
 import './Footer.css'
 import { pointerActor } from './lib/pointer-react'
-import { selectMode } from './lib/pointer-xstate'
 import { selectOpenCloseFooter, uiActor } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 
 export const Footer = () => {
   const config = useContext(SvgMapViewerConfigContext)
-  const mode = useSelector(pointerActor, selectMode)
+  //const mode = useSelector(pointerActor, selectMode)
 
   return (
     <div
@@ -17,6 +15,7 @@ export const Footer = () => {
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiActor.send({ type: 'FOOTER.ANIMATION.END' })}
     >
+      {/*
       <div className="mode">
         <div
           className={clsx(
@@ -45,6 +44,7 @@ export const Footer = () => {
           </svg>
         </div>
       </div>
+      */}
       <p
         // eslint-disable-next-line functional/no-return-void
         onClick={() => pointerActor.send({ type: 'DEBUG' })}
@@ -56,12 +56,14 @@ export const Footer = () => {
   )
 }
 
+/*
 const sendModePointing =
   // eslint-disable-next-line functional/no-return-void
   () => pointerActor.send({ type: 'MODE', mode: 'pointing' })
 const sendModePanning =
   // eslint-disable-next-line functional/no-return-void
   () => pointerActor.send({ type: 'MODE', mode: 'panning' })
+*/
 
 export function FooterStyle() {
   const { open, animating } = useSelector(uiActor, selectOpenCloseFooter)
@@ -105,6 +107,7 @@ export function FooterStyle() {
   }
 }
 
+/*
 const pointingPath = `
 M0,0
 L-1,3
@@ -137,3 +140,4 @@ m-1,2
 l1,-2
 l1,2
 `
+*/
