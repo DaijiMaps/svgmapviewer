@@ -270,7 +270,6 @@ export const pointerMachine = setup({
     scroll: scrollMachine,
   },
 }).createMachine({
-  type: 'parallel',
   id: 'pointer',
   context: {
     origLayout: emptyLayout,
@@ -317,69 +316,12 @@ export const pointerMachine = setup({
     ],
   },
   states: {
-    Panner: {
-      initial: 'Resizing',
+    Resizing: {
+      initial: 'WaitingForResizeEvent',
+      onDone: 'Panning',
       states: {
-        Resizing: {
-          initial: 'WaitingForResizeEvent',
-          onDone: 'Panning',
-          states: {
-            WaitingForResizeEvent: {
-              on: {
-                RESIZE: {
-                  actions: [
-                    assign({
-                      rendered: () => false,
-                      origLayout: ({ event }) => event.layout,
-                      layout: ({ event }) =>
-                        expandLayoutCenter(event.layout, EXPAND_PANNING),
-                    }),
-                  ],
-                  target: 'WaitingForMapHtmlRendered',
-                },
-              },
-            },
-            WaitingForWindowStabilized: {
-              id: 'Resizing-WaitingForWindowStabilized',
-              after: {
-                500: {
-                  // XXX forced resize means that app is already running
-                  // XXX which means MapHtml is already rendered
-                  // XXX but for safety
-                  target: 'WaitingForMapHtmlRendered',
-                },
-              },
-            },
-            WaitingForMapHtmlRendered: {
-              always: {
-                guard: ({ context }) => context.mapHtmlRendered,
-                target: 'Layouting',
-              },
-            },
-            Layouting: {
-              entry: 'syncLayout',
-              on: {
-                RENDERED: {
-                  actions: [
-                    assign({ rendered: () => true }),
-                    'syncViewBox',
-                    'syncLayout',
-                    // slow sync - sync scroll after resize
-                    'syncScrollSync',
-                    'resetCursor',
-                  ],
-                  target: 'Done',
-                },
-              },
-            },
-            Done: { type: 'final' },
-          },
-        },
-        // work-around - ignore click right after touchend
-        // otherwise PAN mode is exited immediately
-        Panning: {
+        WaitingForResizeEvent: {
           on: {
-            // XXX force layout (resize)
             RESIZE: {
               actions: [
                 assign({
@@ -389,157 +331,265 @@ export const pointerMachine = setup({
                     expandLayoutCenter(event.layout, EXPAND_PANNING),
                 }),
               ],
-              target: '#Resizing-WaitingForWindowStabilized',
+              target: 'WaitingForMapHtmlRendered',
             },
-            'LAYOUT.RESET': {
-              actions: 'zoomHome',
-              target: 'Zooming',
+          },
+        },
+        WaitingForWindowStabilized: {
+          id: 'Resizing-WaitingForWindowStabilized',
+          after: {
+            500: {
+              // XXX forced resize means that app is already running
+              // XXX which means MapHtml is already rendered
+              // XXX but for safety
+              target: 'WaitingForMapHtmlRendered',
             },
-            'KEY.UP': [
+          },
+        },
+        WaitingForMapHtmlRendered: {
+          always: {
+            guard: ({ context }) => context.mapHtmlRendered,
+            target: 'Layouting',
+          },
+        },
+        Layouting: {
+          entry: 'syncLayout',
+          on: {
+            RENDERED: {
+              actions: [
+                assign({ rendered: () => true }),
+                'syncViewBox',
+                'syncLayout',
+                // slow sync - sync scroll after resize
+                'syncScrollSync',
+                'resetCursor',
+              ],
+              target: 'Done',
+            },
+          },
+        },
+        Done: { type: 'final' },
+      },
+    },
+    // work-around - ignore click right after touchend
+    // otherwise PAN mode is exited immediately
+    Panning: {
+      on: {
+        // XXX force layout (resize)
+        RESIZE: {
+          actions: [
+            assign({
+              rendered: () => false,
+              origLayout: ({ event }) => event.layout,
+              layout: ({ event }) =>
+                expandLayoutCenter(event.layout, EXPAND_PANNING),
+            }),
+          ],
+          target: '#Resizing-WaitingForWindowStabilized',
+        },
+        'LAYOUT.RESET': {
+          actions: 'zoomHome',
+          target: 'Zooming',
+        },
+        'KEY.UP': [
+          {
+            guard: {
+              type: 'shouldZoom',
+              params: ({ event }) => ({ ev: event.ev }),
+            },
+            actions: [
               {
-                guard: {
-                  type: 'shouldZoom',
-                  params: ({ event }) => ({ ev: event.ev }),
-                },
-                actions: [
-                  {
-                    type: 'zoomKey',
-                    params: ({ event }) => ({ ev: event.ev }),
-                  },
-                ],
-                target: 'Zooming',
+                type: 'zoomKey',
+                params: ({ event }) => ({ ev: event.ev }),
               },
             ],
-            CLICK: {
-              actions: [
-                {
-                  type: 'cursor',
-                  params: ({ event }) => ({ ev: event.ev }),
-                },
-              ],
-              target: 'Searching',
+            target: 'Zooming',
+          },
+        ],
+        CLICK: {
+          actions: [
+            {
+              type: 'cursor',
+              params: ({ event }) => ({ ev: event.ev }),
             },
-            CONTEXTMENU: {
-              target: 'Recentering',
-            },
-            /*
+          ],
+          target: 'Searching',
+        },
+        CONTEXTMENU: {
+          target: 'Recentering',
+        },
+        /*
             MODE: {
               target: 'Stopping',
             },
             */
-            SCROLL: {
-              target: 'Recentering',
+        SCROLL: {
+          target: 'Recentering',
+        },
+        'ZOOM.ZOOM': {
+          actions: [
+            {
+              type: 'zoomEvent',
+              params: ({ event: { z, p } }) => ({ z, p }),
             },
-            'ZOOM.ZOOM': {
-              actions: [
-                {
-                  type: 'zoomEvent',
-                  params: ({ event: { z, p } }) => ({ z, p }),
-                },
-              ],
-              target: 'Zooming',
+          ],
+          target: 'Zooming',
+        },
+        'TOUCH.LOCK': {
+          actions: [
+            'setModeToTouching',
+            emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+          ],
+          target: 'Touching',
+        },
+      },
+    },
+    Touching: {
+      on: {
+        'TOUCH.UNLOCK': {
+          actions: [
+            'setModeToPanning',
+            emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+          ],
+          target: 'Panning',
+        },
+        'ZOOM.ZOOM': {
+          actions: [
+            'setModeToPanning',
+            {
+              type: 'zoomEvent',
+              params: ({ event: { z, p } }) => ({ z, p }),
             },
-            'TOUCH.LOCK': {
-              actions: [
-                'setModeToTouching',
-                emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
-              ],
-              target: 'Touching',
-            },
+          ],
+          target: 'Zooming',
+        },
+      },
+    },
+    Searching: {
+      initial: 'Starting',
+      // XXX make this conditional to scroll distance
+      onDone: 'Recentering',
+      states: {
+        Starting: {
+          always: {
+            actions: [
+              emit(({ context }) => {
+                const scroll = getCurrentScroll()
+                const l =
+                  scroll === null
+                    ? context.layout
+                    : scrollLayout(context.layout, scroll)
+                return {
+                  type: 'SEARCH',
+                  psvg: toSvg(context.cursor, l),
+                }
+              }),
+            ],
+            target: 'WaitingForSearchEnd',
           },
         },
-        Touching: {
+        WaitingForSearchEnd: {
           on: {
-            'TOUCH.UNLOCK': {
+            'SEARCH.END': {
+              actions: [
+                emit(({ context, event }) => {
+                  const scroll = getCurrentScroll()
+                  const l =
+                    scroll === null
+                      ? context.layout
+                      : scrollLayout(context.layout, scroll)
+                  return {
+                    type: 'SEARCH.END.DONE',
+                    psvg: event.res.psvg,
+                    info: event.res.info,
+                    layout: l,
+                  }
+                }),
+              ],
+              target: 'WaitingForSearchUnlock',
+            },
+          },
+        },
+        WaitingForSearchUnlock: {
+          on: {
+            'SEARCH.UNLOCK': {
               actions: [
                 'setModeToPanning',
                 emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+                'syncMode',
               ],
-              target: 'Panning',
-            },
-            'ZOOM.ZOOM': {
-              actions: [
-                'setModeToPanning',
-                {
-                  type: 'zoomEvent',
-                  params: ({ event: { z, p } }) => ({ z, p }),
-                },
-              ],
-              target: 'Zooming',
+              target: 'Done',
             },
           },
         },
-        Searching: {
-          initial: 'Starting',
-          // XXX make this conditional to scroll distance
-          onDone: 'Recentering',
-          states: {
-            Starting: {
-              always: {
-                actions: [
-                  emit(({ context }) => {
-                    const scroll = getCurrentScroll()
-                    const l =
-                      scroll === null
-                        ? context.layout
-                        : scrollLayout(context.layout, scroll)
-                    return {
-                      type: 'SEARCH',
-                      psvg: toSvg(context.cursor, l),
-                    }
-                  }),
-                ],
-                target: 'WaitingForSearchEnd',
-              },
+        Done: { type: 'final' },
+      },
+    },
+    // fast 'recenter'
+    // - no need to involve expand
+    // - because no scroll size change (== no forced reflow)
+    // - getScroll()/syncScroll() must finish quickly
+    // - reflect prev scroll -> current scroll diff to svg
+    Recentering: {
+      always: {
+        actions: [
+          assign({
+            layout: ({ context }) => {
+              const scroll = getCurrentScroll()
+              return scroll === null
+                ? context.layout
+                : pipe(
+                    context.layout,
+                    // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
+                    (l) => scrollLayout(l, scroll)
+                  )
             },
-            WaitingForSearchEnd: {
-              on: {
-                'SEARCH.END': {
-                  actions: [
-                    emit(({ context, event }) => {
-                      const scroll = getCurrentScroll()
-                      const l =
-                        scroll === null
-                          ? context.layout
-                          : scrollLayout(context.layout, scroll)
-                      return {
-                        type: 'SEARCH.END.DONE',
-                        psvg: event.res.psvg,
-                        info: event.res.info,
-                        layout: l,
-                      }
-                    }),
-                  ],
-                  target: 'WaitingForSearchUnlock',
-                },
-              },
+          }),
+          'syncViewBox',
+          'syncLayout',
+          // fast sync - sync scroll NOT after resize
+          'syncScroll',
+        ],
+        // keep panning
+        target: 'Panning',
+      },
+    },
+    // fast zooming - no expand/unexpand + no RENDRED hack
+    Zooming: {
+      initial: 'Stopping',
+      onDone: 'Panning',
+      states: {
+        // XXX
+        // XXX stop scroll before really start zooming
+        // XXX otherwise a gap occurs between zoom & layout result
+        // XXX
+        Stopping: {
+          entry: 'getScroll',
+          on: {
+            'SCROLL.GET.DONE': {
+              target: 'Rendering',
             },
-            WaitingForSearchUnlock: {
-              on: {
-                'SEARCH.UNLOCK': {
-                  actions: [
-                    'setModeToPanning',
-                    emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
-                    'syncMode',
-                  ],
-                  target: 'Done',
-                },
-              },
-            },
-            Done: { type: 'final' },
           },
         },
-        // fast 'recenter'
-        // - no need to involve expand
-        // - because no scroll size change (== no forced reflow)
-        // - getScroll()/syncScroll() must finish quickly
-        // - reflect prev scroll -> current scroll diff to svg
-        Recentering: {
+        Rendering: {
+          after: {
+            // XXX
+            // XXX
+            // XXX
+            20: {
+              target: 'Starting',
+            },
+            // XXX
+            // XXX
+            // XXX
+          },
+        },
+        Starting: {
           always: {
             actions: [
               assign({
                 layout: ({ context }) => {
-                  const scroll = getCurrentScroll()
+                  const scroll = getScroll()
                   return scroll === null
                     ? context.layout
                     : pipe(
@@ -549,143 +599,81 @@ export const pointerMachine = setup({
                       )
                 },
               }),
-              'syncViewBox',
-              'syncLayout',
-              // fast sync - sync scroll NOT after resize
-              'syncScroll',
+              'startZoom',
+              'updateZoom',
+              emit(({ context: { layout, zoom, z } }) => ({
+                type: 'ZOOM.START',
+                layout,
+                zoom,
+                z: z === null ? 0 : z,
+              })),
             ],
-            // keep panning
-            target: 'Panning',
+            target: 'Animating',
           },
         },
-        // fast zooming - no expand/unexpand + no RENDRED hack
-        Zooming: {
-          initial: 'Stopping',
-          onDone: 'Panning',
+        Animating: {
+          initial: 'Starting',
+          onDone: 'Done',
           states: {
-            // XXX
-            // XXX stop scroll before really start zooming
-            // XXX otherwise a gap occurs between zoom & layout result
-            // XXX
-            Stopping: {
-              entry: 'getScroll',
-              on: {
-                'SCROLL.GET.DONE': {
-                  target: 'Rendering',
-                },
-              },
-            },
-            Rendering: {
-              after: {
-                // XXX
-                // XXX
-                // XXX
-                20: {
-                  target: 'Starting',
-                },
-                // XXX
-                // XXX
-                // XXX
-              },
-            },
             Starting: {
               always: {
-                actions: [
-                  assign({
-                    layout: ({ context }) => {
-                      const scroll = getScroll()
-                      return scroll === null
-                        ? context.layout
-                        : pipe(
-                            context.layout,
-                            // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
-                            (l) => scrollLayout(l, scroll)
-                          )
-                    },
-                  }),
-                  'startZoom',
-                  'updateZoom',
-                  emit(({ context: { layout, zoom, z } }) => ({
-                    type: 'ZOOM.START',
-                    layout,
-                    zoom,
-                    z: z === null ? 0 : z,
-                  })),
-                ],
-                target: 'Animating',
+                actions: [assign({ animating: () => true }), 'syncAnimation'],
+                target: 'Ending',
               },
             },
-            Animating: {
-              initial: 'Starting',
-              onDone: 'Done',
-              states: {
-                Starting: {
-                  always: {
-                    actions: [
-                      assign({ animating: () => true }),
-                      'syncAnimation',
-                    ],
-                    target: 'Ending',
-                  },
-                },
-                Ending: {
-                  on: {
-                    'ANIMATION.END': {
-                      actions: [
-                        'endZoom',
-                        'syncLayout',
-                        'syncViewBox',
-                        // fast sync - sync scroll NOT after resize
-                        'syncScroll',
-                        emit(({ context: { layout, zoom } }) => ({
-                          type: 'ZOOM.END',
-                          layout,
-                          zoom,
-                        })),
-                        assign({ animating: () => false }),
-                        'syncAnimation',
-                        raise({ type: 'ANIMATION.DONE' }),
-                      ],
-                      target: 'Homing',
-                    },
-                  },
-                },
-                Homing: {
-                  always: [
-                    {
-                      guard: ({ context }) => context.homing,
-                      actions: [
-                        assign({
-                          cursor: ({ context }) =>
-                            boxCenter(context.origLayout.container),
-                          layout: ({ context }) =>
-                            expandLayoutCenter(
-                              context.origLayout,
-                              EXPAND_PANNING
-                            ),
-                          homing: () => false,
-                        }),
-                        'syncLayout',
-                        'syncViewBox',
-                        // fast sync - sync scroll NOT after resize
-                        'syncScroll',
-                      ],
-                      target: 'Done',
-                    },
-                    {
-                      target: 'Done',
-                    },
+            Ending: {
+              on: {
+                'ANIMATION.END': {
+                  actions: [
+                    'endZoom',
+                    'syncLayout',
+                    'syncViewBox',
+                    // fast sync - sync scroll NOT after resize
+                    'syncScroll',
+                    emit(({ context: { layout, zoom } }) => ({
+                      type: 'ZOOM.END',
+                      layout,
+                      zoom,
+                    })),
+                    assign({ animating: () => false }),
+                    'syncAnimation',
+                    raise({ type: 'ANIMATION.DONE' }),
                   ],
-                },
-                Done: {
-                  type: 'final',
+                  target: 'Homing',
                 },
               },
+            },
+            Homing: {
+              always: [
+                {
+                  guard: ({ context }) => context.homing,
+                  actions: [
+                    assign({
+                      cursor: ({ context }) =>
+                        boxCenter(context.origLayout.container),
+                      layout: ({ context }) =>
+                        expandLayoutCenter(context.origLayout, EXPAND_PANNING),
+                      homing: () => false,
+                    }),
+                    'syncLayout',
+                    'syncViewBox',
+                    // fast sync - sync scroll NOT after resize
+                    'syncScroll',
+                  ],
+                  target: 'Done',
+                },
+                {
+                  target: 'Done',
+                },
+              ],
             },
             Done: {
               type: 'final',
             },
           },
+        },
+        Done: {
+          type: 'final',
         },
       },
     },
