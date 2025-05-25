@@ -35,6 +35,17 @@ export function root(config: Readonly<SvgMapViewerConfig>) {
   e.oncontextmenu = function (ev) {
     ev.preventDefault()
   }
+  /*
+  e.onmousedown = function (ev) {
+    console.log('mousedown!', ev)
+  }
+  e.onmousemove = function (ev) {
+    console.log('mousemove!', ev)
+  }
+  e.onmouseup = function (ev) {
+    console.log('mouseup!', ev)
+  }
+  */
 
   document.body.onkeydown = keyDown
   document.body.onkeyup = keyUp
