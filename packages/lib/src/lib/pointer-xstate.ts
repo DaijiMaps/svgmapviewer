@@ -1765,11 +1765,11 @@ export const pointerMachine = setup({
               ],
               target: 'Searching',
             },
-            /*
             CONTEXTMENU: {
               guard: not('isClickLocked'),
-              target: 'Stopping',
+              target: 'Recentering',
             },
+            /*
             MODE: {
               guard: not('isClickLocked'),
               target: 'Stopping',
