@@ -190,10 +190,8 @@ export const pointerMachine = setup({
       zoom: ({ context: { z, zoom } }) =>
         z === null ? zoom : zoom * Math.pow(2, z),
     }),
-    syncAnimation: ({ context: { animation } }) => {
-      styleActor.send({ type: 'STYLE.ANIMATION', animation })
-    },
-
+    syncAnimation: ({ context: { animation } }) =>
+      styleActor.send({ type: 'STYLE.ANIMATION', animation }),
     //
     // layout
     //
@@ -201,13 +199,16 @@ export const pointerMachine = setup({
       layout: (
         { context: { layout } },
         { scroll }: { scroll: BoxBox }
-      ): Layout => {
-        return scrollLayout(layout, scroll)
-      },
+      ): Layout => scrollLayout(layout, scroll),
     }),
-    syncViewBox: ({ context: { layout } }) => {
-      syncViewBox('.container > .content.svg > svg', layout.svg)
-    },
+    syncViewBox: ({ context: { layout } }) =>
+      // XXX
+      // XXX
+      // XXX
+      syncViewBox('.container > .content.svg > svg', layout.svg),
+    // XXX
+    // XXX
+    // XXX
     syncLayout: ({ context: { layout, rendered } }) => {
       styleActor.send({ type: 'STYLE.LAYOUT', layout, rendered })
       configActor.send({ type: 'CONFIG.LAYOUT', layout, force: false })
@@ -244,11 +245,10 @@ export const pointerMachine = setup({
       mode: pointerModeTouching,
     }),
     setModeToLocked: assign({
-      mode: () => pointerModeLocked,
+      mode: pointerModeLocked,
     }),
-    syncMode: ({ context: { mode } }) => {
-      styleActor.send({ type: 'STYLE.MODE', mode })
-    },
+    syncMode: ({ context: { mode } }) =>
+      styleActor.send({ type: 'STYLE.MODE', mode }),
   },
   actors: {
     scroll: scrollMachine,
@@ -280,7 +280,7 @@ export const pointerMachine = setup({
     RENDERED: {},
     'RENDERED.MAP-HTML': {
       actions: assign({
-        mapHtmlRendered: () => true,
+        mapHtmlRendered: true,
       }),
     },
     'SEARCH.LOCK': [
@@ -307,7 +307,7 @@ export const pointerMachine = setup({
             RESIZE: {
               actions: [
                 assign({
-                  rendered: () => false,
+                  rendered: false,
                   origLayout: ({ event }) => event.layout,
                   layout: ({ event }) =>
                     expandLayoutCenter(event.layout, EXPAND_PANNING),
@@ -339,7 +339,7 @@ export const pointerMachine = setup({
           on: {
             RENDERED: {
               actions: [
-                assign({ rendered: () => true }),
+                assign({ rendered: true }),
                 'syncViewBox',
                 'syncLayout',
                 'resetCursor',
@@ -368,7 +368,7 @@ export const pointerMachine = setup({
         RESIZE: {
           actions: [
             assign({
-              rendered: () => false,
+              rendered: false,
               origLayout: ({ event }) => event.layout,
               layout: ({ event }) =>
                 expandLayoutCenter(event.layout, EXPAND_PANNING),
