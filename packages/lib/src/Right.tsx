@@ -7,7 +7,7 @@ import { selectOpenCloseRight, uiActor } from './lib/ui-xstate'
 export const Right = () => {
   return (
     <div
-      className="right"
+      className="right bottom"
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiActor.send({ type: 'RIGHT.ANIMATION.END' })}
     >
@@ -56,6 +56,9 @@ export function RightStyle() {
   opacity: ${b};
   transform: scale(${b});
 }
+.bottom {
+  transform-origin: 100% 100%;
+}
 `}</style>
     )
   } else {
@@ -67,6 +70,9 @@ export function RightStyle() {
   transform-origin: 100% 50%;
   animation: xxx-right 300ms ease ${dir};
   will-change: opacity transform;
+}
+.bottom {
+  transform-origin: 100% 100%;
 }
 
 @keyframes xxx-right {
