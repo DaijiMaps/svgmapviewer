@@ -98,7 +98,6 @@ export const touchMachine = setup({
       horizontal: null,
     },
   },
-  type: 'parallel',
   on: {
     'TOUCH.START': {
       actions: 'handleTouchStart',
@@ -167,12 +166,12 @@ export const touchMachine = setup({
         },
         ENDED: [
           {
-            guard: 'isSingleTouching',
-            target: 'SingleTouching',
-          },
-          {
             guard: 'isAllEnding',
             target: 'Idle',
+          },
+          {
+            guard: 'isSingleTouching',
+            target: 'SingleTouching',
           },
         ],
       },
@@ -183,16 +182,16 @@ export const touchMachine = setup({
         MOVED: {},
         ENDED: [
           {
-            guard: 'isDoubleTouching',
-            target: 'DoubleTouching',
+            guard: 'isAllEnding',
+            target: 'Idle',
           },
           {
             guard: 'isSingleTouching',
             target: 'SingleTouching',
           },
           {
-            guard: 'isAllEnding',
-            target: 'Idle',
+            guard: 'isDoubleTouching',
+            target: 'DoubleTouching',
           },
         ],
       },
