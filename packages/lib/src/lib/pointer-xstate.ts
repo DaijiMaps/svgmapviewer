@@ -20,14 +20,12 @@ import {
 } from './animation'
 import { BoxBox, boxCenter } from './box/prefixed'
 import { configActor } from './config-xstate'
-import { Drag, dragMove, dragStart } from './drag'
 import { keyToDir, keyToZoom } from './key'
 import {
   emptyLayout,
   expandLayoutCenter,
   Layout,
   makeLayout,
-  recenterLayout,
   relocLayout,
   scrollLayout,
   toSvg,
@@ -93,7 +91,6 @@ export type PointerContext = {
   z: null | number
   zoom: number
   homing: boolean
-  drag: null | Drag
   animation: null | Animation
   debug: boolean
   mode: PointerMode
@@ -352,23 +349,6 @@ export const pointerMachine = setup({
           pos: layout.scroll,
         })
       }),
-    slideScroll: ({ context: { layout, drag }, system }): void => {
-      if (drag !== null) {
-        system.get('scroll1').send({
-          type: 'SLIDE',
-          P: layout.scroll,
-          Q: drag.move,
-        })
-      }
-    },
-    resetScroll: ({ context: { drag }, system }): void => {
-      if (drag !== null) {
-        system.get('scroll1').send({
-          type: 'SYNC',
-          pos: drag.start,
-        })
-      }
-    },
     getScroll: ({ system }): void => {
       system.get('scroll1').send({
         type: 'GET',
@@ -408,20 +388,6 @@ export const pointerMachine = setup({
         { p }: { z: -1 | 1; p: null | Vec }
       ): Vec => (p === null ? cursor : p),
     }),
-    startMove: assign({
-      animation: ({
-        context: { layout, drag, animation, m },
-      }): null | Animation =>
-        drag === null || m === null
-          ? animation
-          : animationMove(layout, drag, m),
-      z: () => null,
-    }),
-    endMove: assign({
-      layout: ({ context: { layout, drag } }): Layout =>
-        drag === null ? layout : relocLayout(layout, drag.move),
-      animation: () => null,
-    }),
     startZoom: assign({
       animation: ({ context: { layout, cursor, z } }): null | Animation =>
         z === null
@@ -448,10 +414,6 @@ export const pointerMachine = setup({
     //
     // layout
     //
-    recenterLayout: assign({
-      layout: ({ context: { layout, drag } }): Layout =>
-        drag === null ? layout : recenterLayout(layout, drag.start),
-    }),
     scrollLayout: assign({
       layout: (
         { context: { layout } },
@@ -841,8 +803,6 @@ export const pointerMachine = setup({
                         context.layout,
                         // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
                         (l) => scrollLayout(l, scroll),
-                        // re-center scroll & reflect the change to svg coords
-                        (l) => recenterLayout(l, prevScroll)
                       )
                 },
               }),
@@ -898,8 +858,6 @@ export const pointerMachine = setup({
                             context.layout,
                             // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
                             (l) => scrollLayout(l, scroll),
-                            // re-center scroll & reflect the change to svg coords
-                            (l) => recenterLayout(l, prevScroll)
                           )
                     },
                   }),
