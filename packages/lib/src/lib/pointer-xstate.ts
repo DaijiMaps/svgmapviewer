@@ -116,6 +116,8 @@ type PointerExternalEvent =
   | { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
   | { type: 'SCROLL.SLIDE.DONE' }
   | { type: 'SCROLL.SYNCSYNC.DONE'; scroll: BoxBox }
+  | { type: 'TOUCH.LOCK' }
+  | { type: 'TOUCH.UNLOCK' }
   | { type: 'ZOOM.ZOOM'; z: -1 | 1 }
 
 type PointerEventAnimation = { type: 'ANIMATION' } | { type: 'ANIMATION.DONE' }
@@ -1739,6 +1741,16 @@ export const pointerMachine = setup({
                 },
               ],
               target: 'Zooming',
+            },
+            'TOUCH.LOCK': {
+              target: 'Touching',
+            },
+          },
+        },
+        Touching: {
+          on: {
+            'TOUCH.UNLOCK': {
+              target: 'Panning',
             },
           },
         },
