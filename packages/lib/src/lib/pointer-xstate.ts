@@ -93,7 +93,6 @@ export type PointerContext = {
   z: null | number
   zoom: number
   homing: boolean
-  touches: Touches
   drag: null | Drag
   animation: null | Animation
   debug: boolean
@@ -276,12 +275,6 @@ export const pointerMachine = setup({
       'hjkl'.indexOf(ev.key) >= 0,
     shouldPan: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'm',
 
-    // touch
-    isMultiTouch: ({ context: { touches } }) => isMultiTouch(touches),
-    isMultiTouchEnding: ({ context: { touches } }) =>
-      isMultiTouchEnding(touches),
-    isTouchZooming: ({ context }) => context.touches.z !== null,
-
     // expand
     isExpanded: ({ context }) => context.expand !== 1,
 
@@ -402,12 +395,6 @@ export const pointerMachine = setup({
     zoomWheel: assign({
       z: (_, { ev }: { ev: React.WheelEvent<HTMLDivElement> }): number =>
         ev.deltaY < 0 ? 1 : -1,
-    }),
-    zoomTouches: assign({
-      z: ({ context: { touches, z } }): null | number =>
-        touches.z !== null ? touches.z : z,
-      cursor: ({ context: { cursor, touches } }) =>
-        touches.z !== null && touches.cursor !== null ? touches.cursor : cursor,
     }),
     zoomHome: assign({
       z: (): null | number => null,
@@ -537,42 +524,6 @@ export const pointerMachine = setup({
     },
 
     //
-    // touch
-    //
-    startTouches: assign({
-      touches: (
-        { context: { touches } },
-        { ev }: { ev: TouchEvent | React.TouchEvent }
-      ) => handleTouchStart(touches, ev),
-    }),
-    moveTouches: assign({
-      touches: (
-        { context: { touches } },
-        { ev }: { ev: TouchEvent | React.TouchEvent }
-      ) => handleTouchMove(touches, ev, DIST_LIMIT),
-    }),
-    endTouches: assign({
-      touches: (
-        { context: { touches } },
-        { ev }: { ev: TouchEvent | React.TouchEvent }
-      ) => handleTouchEnd(touches, ev),
-    }),
-    cursorTouches: assign({
-      cursor: ({ context: { touches, cursor } }) =>
-        touches.cursor !== null ? touches.cursor : cursor,
-    }),
-    resetTouches: assign({
-      touches: () => resetTouches(),
-      cursor: ({ context: { touches, cursor } }) =>
-        touches.cursor !== null ? touches.cursor : cursor,
-    }),
-    discardTouches: assign({
-      touches: ({ context: { touches } }) => discardTouches(touches),
-      cursor: ({ context: { touches, cursor } }) =>
-        touches.cursor !== null ? touches.cursor : cursor,
-    }),
-
-    //
     // mode
     //
     resetMode: assign({ mode: pointerModePointing }),
@@ -616,7 +567,6 @@ export const pointerMachine = setup({
     z: null,
     zoom: 1,
     homing: false,
-    touches: resetTouches(),
     drag: null,
     animation: null,
     debug: false,
@@ -1069,7 +1019,6 @@ export const selectLayoutScroll = (pointer: PointerState) =>
 export const selectOrigLayoutSvg = (pointer: PointerState) =>
   pointer.context.origLayout.svg
 export const selectCursor = (pointer: PointerState) => pointer.context.cursor
-export const selectTouches = (pointer: PointerState) => pointer.context.touches
 export const selectDragging = (pointer: PointerState) =>
   pointer.context.dragging
 export const selectExpanding = (pointer: PointerState) =>
