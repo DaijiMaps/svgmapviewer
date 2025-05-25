@@ -59,25 +59,24 @@ export function RightStyle() {
 `}</style>
     )
   } else {
-    const a = !open ? 1 : 0
-    const b = !open ? 0 : 1
+    const dir = !open ? '' : ' reverse '
 
     return (
       <style>{`
 .right {
   transform-origin: 100% 50%;
-  animation: xxx-right 300ms ease;
+  animation: xxx-right 300ms ease ${dir};
   will-change: opacity transform;
 }
 
 @keyframes xxx-right {
   from {
-    opacity: ${a};
-    transform: scale(${a});
+    opacity: 1;
+    transform: scale(1);
   }
   to {
-    opacity: ${b};
-    transform: scale(${b});
+    opacity: 0;
+    transform: scale(0);
   }
 }
 `}</style>

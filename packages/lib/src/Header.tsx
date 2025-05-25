@@ -43,25 +43,24 @@ export function HeaderStyle() {
 `}</style>
     )
   } else {
-    const a = !open ? 1 : 0
-    const b = !open ? 0 : 1
+    const dir = !open ? '' : ' reverse '
 
     return (
       <style>{`
 .header {
   transform-origin: 50% 0%;
-  animation: xxx-header 300ms ease;
+  animation: xxx-header 300ms ease ${dir};
   will-change: opacity transform;
 }
 
 @keyframes xxx-header {
   from {
-    opacity: ${a};
-    transform: scale(${a});
+    opacity: 1;
+    transform: scale(1);
   }
   to {
-    opacity: ${b};
-    transform: scale(${b});
+    opacity: 0;
+    transform: scale(0);
   }
 }
 `}</style>

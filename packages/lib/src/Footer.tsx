@@ -81,25 +81,24 @@ export function FooterStyle() {
 `}</style>
     )
   } else {
-    const a = !open ? 1 : 0
-    const b = !open ? 0 : 1
+    const dir = !open ? '' : ' reverse '
 
     return (
       <style>{`
 .footer {
   transform-origin: 50% 100%;
-  animation: xxx-footer 300ms ease;
+  animation: xxx-footer 300ms ease ${dir};
   will-change: opacity transform;
 }
 
 @keyframes xxx-footer {
   from {
-    opacity: ${a};
-    transform: scale(${a});
+    opacity: 1;
+    transform: scale(1);
   }
   to {
-    opacity: ${b};
-    transform: scale(${b});
+    opacity: 0;
+    transform: scale(0);
   }
 }
 `}</style>
