@@ -23,13 +23,17 @@ export function root(config: Readonly<SvgMapViewerConfig>) {
 
   // XXX consume all wheel events
   // XXX to prevent Safari's horizontal scroll "history navigation"
-  e.onwheel = (ev) => {
+  e.onwheel = function (ev) {
     //const c = document.querySelector('.container')
     const c = e.children[0] // XXX must be .container
 
     if (c !== null && c.clientWidth === c.scrollWidth) {
       ev.preventDefault()
     }
+  }
+  // XXX consume all contextmenu events
+  e.oncontextmenu = function (ev) {
+    ev.preventDefault()
   }
 
   document.body.onkeydown = keyDown
