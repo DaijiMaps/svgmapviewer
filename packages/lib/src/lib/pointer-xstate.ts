@@ -93,7 +93,6 @@ export type PointerContext = {
   animation: null | Animation
   debug: boolean
   mode: PointerMode
-  clickLock: boolean
 
   dragging: boolean // XXX for CSS
   expanding: number // XXX
@@ -252,9 +251,6 @@ export const pointerMachine = setup({
     isZooming: ({ context: { animation } }) =>
       animation !== null && animation.zoom !== null,
     isZoomingIn: ({ context: { z } }) => z !== null && z > 0,
-
-    // click lock
-    isClickLocked: ({ context: { clickLock } }) => clickLock,
 
     // states
     isIdle: and([
@@ -473,10 +469,6 @@ export const pointerMachine = setup({
     syncMode: ({ context: { mode } }) => {
       styleActor.send({ type: 'STYLE.MODE', mode })
     },
-
-    // click lock
-    lockClick: assign({ clickLock: true }),
-    unlockClick: assign({ clickLock: false }),
   },
   actors: {
     scroll: scrollMachine,
@@ -498,7 +490,6 @@ export const pointerMachine = setup({
     animation: null,
     debug: false,
     mode: pointerModePanning,
-    clickLock: false,
     dragging: false,
     expanding: 0,
     animating: false,
