@@ -71,14 +71,17 @@ const DIST_LIMIT = 10
 
 type PointerModePointing = 'pointing'
 type PointerModePanning = 'panning'
+type PointerModeTouching = 'touching'
 type PointerModeLocked = 'locked'
 export type PointerMode =
   | PointerModePointing
   | PointerModePanning
+  | PointerModeTouching
   | PointerModeLocked
-const pointerModePointing: PointerModePointing = 'pointing'
-const pointerModePanning: PointerModePanning = 'panning'
-const pointerModeLocked: PointerModeLocked = 'locked'
+export const pointerModePointing: PointerModePointing = 'pointing'
+export const pointerModePanning: PointerModePanning = 'panning'
+export const pointerModeTouching: PointerModeTouching = 'touching'
+export const pointerModeLocked: PointerModeLocked = 'locked'
 
 export type PointerContext = {
   origLayout: Layout
@@ -573,6 +576,9 @@ export const pointerMachine = setup({
       mode: pointerModePanning,
       // XXX resetCursor
       cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
+    }),
+    setModeToTouching: assign({
+      mode: pointerModeTouching,
     }),
     setModeToLocked: assign({
       mode: () => pointerModeLocked,
@@ -1743,6 +1749,10 @@ export const pointerMachine = setup({
               target: 'Zooming',
             },
             'TOUCH.LOCK': {
+              actions: [
+                'setModeToTouching',
+                emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+              ],
               target: 'Touching',
             },
           },
@@ -1750,6 +1760,10 @@ export const pointerMachine = setup({
         Touching: {
           on: {
             'TOUCH.UNLOCK': {
+              actions: [
+                'setModeToPanning',
+                emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+              ],
               target: 'Panning',
             },
           },

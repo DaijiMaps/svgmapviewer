@@ -38,15 +38,15 @@ export function inspect(iev: InspectionEvent) {
 
 //// handler masks
 
-let pointereventmask: boolean = false
-let toucheventmask: boolean = false
+//let pointereventmask: boolean = false
+//let toucheventmask: boolean = false
 let clickeventmask: boolean = false
 let wheeleventmask: boolean = false
 let scrolleventmask: boolean = false
 
 function reflectMode(mode: PointerMode): void {
-  pointereventmask = mode !== 'pointing'
-  toucheventmask = mode !== 'pointing'
+  //pointereventmask = mode !== 'pointing'
+  //toucheventmask = mode !== 'pointing'
   // - xstate-pointer receives 'click' to cancel 'panning'
   // - xstate-pointer ignores 'click' to pass through (emulated)
   //  'click' to shadow; shadow receives 'click' to cancel 'locked'
@@ -85,16 +85,18 @@ const pointerSend = (
 
 ////
 
+/*
 export const sendPointerDown = (ev: React.PointerEvent<HTMLDivElement>) =>
-  pointerSend({ type: 'POINTER.DOWN', ev })
+  pointereventmask ? undefined : pointerSend({ type: 'POINTER.DOWN', ev })
+
 export const sendPointerMove = (ev: React.PointerEvent<HTMLDivElement>) =>
-  pointerSend({ type: 'POINTER.MOVE', ev })
-export const sendPointerUp = (ev: React.PointerEvent<HTMLDivElement>) => {
-  if (pointereventmask) {
-    return
-  }
-  pointerSend({ type: 'POINTER.UP', ev })
-}
+  pointereventmask ? undefined : pointerSend({ type: 'POINTER.MOVE', ev })
+
+export const sendPointerUp = (ev: React.PointerEvent<HTMLDivElement>) =>
+  pointereventmask ? undefined : pointerSend({ type: 'POINTER.UP', ev })
+*/
+
+/*
 export const sendTouchStart = (ev: React.TouchEvent<HTMLDivElement>) => {
   if (toucheventmask) {
     return
@@ -115,6 +117,7 @@ export const sendTouchEnd = (ev: React.TouchEvent<HTMLDivElement>) => {
   // skip preventDefault to enable emulated "click"
   pointerSend({ type: 'TOUCH.END', ev }, { preventDefault: false })
 }
+*/
 export const sendClick = (ev: React.MouseEvent<HTMLDivElement>) => {
   if (clickeventmask) {
     return

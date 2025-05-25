@@ -6,9 +6,6 @@ import {
   sendAnimationEnd,
   sendClick,
   sendContextMenu,
-  sendPointerDown,
-  sendPointerMove,
-  sendPointerUp,
   sendScroll,
   sendWheel,
 } from './lib/pointer-react'
@@ -29,9 +26,9 @@ export function Container() {
       ref={ref}
       id="viewer"
       className="container"
-      onPointerDown={sendPointerDown}
-      onPointerMove={sendPointerMove}
-      onPointerUp={sendPointerUp}
+      //onPointerDown={sendPointerDown}
+      //onPointerMove={sendPointerMove}
+      //onPointerUp={sendPointerUp}
       onTouchStart={touchSendTouchStart}
       onTouchMove={touchSendTouchMove}
       onTouchEnd={touchSendTouchEnd}
