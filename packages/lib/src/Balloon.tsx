@@ -67,10 +67,12 @@ l${-ll},${hlw}
 l${ll},${hlw}
 `
 
-  const dd = fg ? 0 : d
-  const path = `M0,0 m${dd},${dd} ${body} M0,0 m${dd},${dd} ${leg}`
+  const rel = `m${fg ? 0 : d},${fg ? 0 : d}`
 
-  return path
+  const bodyPath = `M0,0 ${rel} ${body}`
+  const legPath = `M0,0 ${rel} ${leg}`
+
+  return bodyPath + legPath
 }
 
 export interface BalloonProps {
