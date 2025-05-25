@@ -251,44 +251,6 @@ export const pointerMachine = setup({
     isZooming: ({ context: { animation } }) =>
       animation !== null && animation.zoom !== null,
     isZoomingIn: ({ context: { z } }) => z !== null && z > 0,
-
-    // states
-    isIdle: and([
-      stateIn({ Pointer: 'Idle' }),
-      stateIn({ Dragger: 'Inactive' }),
-      stateIn({ Slider: { PointerHandler: 'Inactive' } }),
-      stateIn({ Animator: 'Idle' }),
-      stateIn({ Panner: 'Idle' }),
-    ]),
-    isDragging: and([
-      stateIn({ Pointer: 'Dragging.Active' }),
-      stateIn({ Dragger: 'Sliding' }),
-      stateIn({ Slider: { PointerHandler: 'Inactive' } }),
-      stateIn({ Animator: 'Idle' }),
-      stateIn({ Panner: 'Idle' }),
-    ]),
-    isSliding: and([
-      stateIn({ Pointer: 'Dragging.Active' }),
-      stateIn({ Dragger: 'Sliding' }),
-      stateIn({ Slider: { PointerHandler: 'Active' } }),
-      stateIn({ Animator: 'Idle' }),
-      stateIn({ Panner: 'Idle' }),
-    ]),
-    isSlidingDragBusy: and([
-      stateIn({ Pointer: 'Dragging.Active' }),
-      stateIn({ Dragger: 'Sliding' }),
-      stateIn({ Slider: { PointerHandler: 'Active' } }),
-      stateIn({ Slider: { ScrollHandler: 'Busy' } }),
-      stateIn({ Animator: 'Idle' }),
-      stateIn({ Panner: 'Idle' }),
-    ]),
-    isTouching: and([
-      stateIn({ Pointer: 'Touching' }),
-      stateIn({ Dragger: 'Inactive' }),
-      stateIn({ Slider: { PointerHandler: 'Inactive' } }),
-      stateIn({ Animator: 'Idle' }),
-      stateIn({ Panner: 'Idle' }),
-    ]),
   },
   actions: {
     toggleDebug: assign({
@@ -511,7 +473,6 @@ export const pointerMachine = setup({
     },
     'SEARCH.LOCK': [
       {
-        //guard: 'isIdle',
         actions: [
           emit({ type: 'LOCK', ok: true }),
           'setModeToLocked',
