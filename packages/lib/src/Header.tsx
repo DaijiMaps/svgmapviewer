@@ -43,7 +43,7 @@ export function HeaderStyle() {
 `}</style>
     )
   } else {
-    const dir = !open ? '' : ' reverse '
+    const dir = !open ? '' : 'reverse'
 
     return (
       <style>{`

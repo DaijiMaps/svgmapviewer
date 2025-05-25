@@ -59,7 +59,7 @@ export function RightStyle() {
 `}</style>
     )
   } else {
-    const dir = !open ? '' : ' reverse '
+    const dir = !open ? '' : 'reverse'
 
     return (
       <style>{`

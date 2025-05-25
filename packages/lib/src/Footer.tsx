@@ -81,7 +81,7 @@ export function FooterStyle() {
 `}</style>
     )
   } else {
-    const dir = !open ? '' : ' reverse '
+    const dir = !open ? '' : 'reverse'
 
     return (
       <style>{`
