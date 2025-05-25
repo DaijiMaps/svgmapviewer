@@ -1836,9 +1836,34 @@ export const pointerMachine = setup({
         },
         // fast zooming - no expand/unexpand + no RENDRED hack
         Zooming: {
-          initial: 'Starting',
+          initial: 'Stopping',
           onDone: 'Panning',
           states: {
+            // XXX
+            // XXX stop scroll before really start zooming
+            // XXX otherwise a gap occurs between zoom & layout result
+            // XXX
+            Stopping: {
+              entry: 'getScroll',
+              on: {
+                'SCROLL.GET.DONE': {
+                  target: 'Rendering',
+                },
+              },
+            },
+            Rendering: {
+              after: {
+                // XXX
+                // XXX
+                // XXX
+                20: {
+                  target: 'Starting',
+                },
+                // XXX
+                // XXX
+                // XXX
+              },
+            },
             Starting: {
               always: {
                 actions: [
