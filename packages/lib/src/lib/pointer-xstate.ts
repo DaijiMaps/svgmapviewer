@@ -1661,6 +1661,7 @@ export const pointerMachine = setup({
                     assign({ rendered: () => true }),
                     'syncViewBox',
                     'syncLayout',
+                    // slow sync - sync scroll after resize
                     'syncScrollSync',
                     'resetCursor',
                   ],
@@ -1826,6 +1827,7 @@ export const pointerMachine = setup({
               }),
               'syncViewBox',
               'syncLayout',
+              // fast sync - sync scroll NOT after resize
               'syncScroll',
             ],
             // keep panning
@@ -1887,7 +1889,8 @@ export const pointerMachine = setup({
                         'endZoom',
                         'syncLayout',
                         'syncViewBox',
-                        'syncScrollSync',
+                        // fast sync - sync scroll NOT after resize
+                        'syncScroll',
                         emit(({ context: { layout, zoom } }) => ({
                           type: 'ZOOM.END',
                           layout,
@@ -1915,6 +1918,7 @@ export const pointerMachine = setup({
                         }),
                         'syncLayout',
                         'syncViewBox',
+                        // fast sync - sync scroll NOT after resize
                         'syncScroll',
                       ],
                       target: 'Done',
