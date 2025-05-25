@@ -1,21 +1,10 @@
 import { pipe } from 'fp-ts/lib/function'
 import React from 'react'
-import {
-  ActorRefFrom,
-  and,
-  assign,
-  emit,
-  not,
-  raise,
-  setup,
-  StateFrom,
-  stateIn,
-} from 'xstate'
+import { ActorRefFrom, assign, emit, raise, setup, StateFrom } from 'xstate'
 import {
   Animation,
   animationEndLayout,
   animationHome,
-  animationMove,
   animationZoom,
 } from './animation'
 import { BoxBox, boxCenter } from './box/prefixed'
@@ -26,7 +15,6 @@ import {
   expandLayoutCenter,
   Layout,
   makeLayout,
-  relocLayout,
   scrollLayout,
   toSvg,
 } from './layout'
@@ -34,16 +22,6 @@ import { getCurrentScroll, getScroll } from './scroll'
 import { scrollMachine } from './scroll-xstate'
 import { styleActor } from './style-xstate'
 import { syncViewBox } from './svg'
-import {
-  discardTouches,
-  handleTouchEnd,
-  handleTouchMove,
-  handleTouchStart,
-  isMultiTouch,
-  isMultiTouchEnding,
-  resetTouches,
-  Touches,
-} from './touch'
 import { Info, SearchRes } from './types'
 import { VecVec as Vec, vecMul, vecSub, VecVec, vecVec } from './vec/prefixed'
 
@@ -60,9 +38,6 @@ import { VecVec as Vec, vecMul, vecSub, VecVec, vecVec } from './vec/prefixed'
 // XXX
 // XXX
 // XXX
-
-// XXX
-const DIST_LIMIT = 10
 
 //const EXPAND_PANNING = 9
 
@@ -93,7 +68,6 @@ export type PointerContext = {
   animation: null | Animation
   mode: PointerMode
 
-  dragging: boolean // XXX for CSS
   expanding: number // XXX
   animating: boolean // XXX
   rendered: boolean
@@ -139,22 +113,6 @@ type UIEventContextMenu = {
 }
 type UIEventKeyDown = { type: 'KEY.DOWN'; ev: KeyboardEvent }
 type UIEventKeyUp = { type: 'KEY.UP'; ev: KeyboardEvent }
-type UIEventPointerCancel = {
-  type: 'POINTER.CANCEL'
-  ev: React.PointerEvent<HTMLDivElement>
-}
-type UIEventPointerDown = {
-  type: 'POINTER.DOWN'
-  ev: React.PointerEvent<HTMLDivElement>
-}
-type UIEventPointerMove = {
-  type: 'POINTER.MOVE'
-  ev: React.PointerEvent<HTMLDivElement>
-}
-type UIEventPointerUp = {
-  type: 'POINTER.UP'
-  ev: React.PointerEvent<HTMLDivElement>
-}
 type UIEventWheel = {
   type: 'WHEEL'
   ev: React.WheelEvent<HTMLDivElement>
@@ -169,10 +127,6 @@ export type ReactUIEvent =
   | UIEventAnimationEnd
   | UIEventClick
   | UIEventContextMenu
-  | UIEventPointerCancel
-  | UIEventPointerDown
-  | UIEventPointerMove
-  | UIEventPointerUp
   | UIEventScroll
   | UIEventWheel
 
@@ -358,30 +312,6 @@ export const pointerMachine = setup({
     }),
 
     //
-    // drag
-    //
-    // XXX startScroll
-    startDrag: assign({
-      drag: ({ context: { layout, cursor } }): Drag =>
-        dragStart(layout.scroll, cursor),
-    }),
-    // XXX moveScroll
-    moveDrag: assign({
-      drag: (
-        { context: { drag } },
-        { ev }: { ev: PointerEvent | React.PointerEvent }
-      ): null | Drag =>
-        drag === null ? null : dragMove(drag, vecVec(ev.pageX, ev.pageY)),
-    }),
-    // XXX endScroll
-    endDrag: assign({
-      drag: () => null,
-    }),
-    syncDragging: ({ context: { dragging } }) => {
-      styleActor.send({ type: 'STYLE.DRAGGING', dragging })
-    },
-
-    //
     // mode
     //
     resetMode: assign({ mode: pointerModePointing }),
@@ -416,10 +346,8 @@ export const pointerMachine = setup({
     z: null,
     zoom: 1,
     homing: false,
-    drag: null,
     animation: null,
     mode: pointerModePanning,
-    dragging: false,
     expanding: 0,
     animating: false,
     rendered: false,
@@ -546,9 +474,7 @@ export const pointerMachine = setup({
               },
             ],
             CLICK: {
-              guard: not('isClickLocked'),
               actions: [
-                'resetTouches',
                 {
                   type: 'cursor',
                   params: ({ event }) => ({ ev: event.ev }),
@@ -557,17 +483,14 @@ export const pointerMachine = setup({
               target: 'Searching',
             },
             CONTEXTMENU: {
-              guard: not('isClickLocked'),
               target: 'Recentering',
             },
             /*
             MODE: {
-              guard: not('isClickLocked'),
               target: 'Stopping',
             },
             */
             SCROLL: {
-              guard: not('isClickLocked'),
               target: 'Recentering',
             },
             'ZOOM.ZOOM': {
@@ -679,14 +602,13 @@ export const pointerMachine = setup({
             actions: [
               assign({
                 layout: ({ context }) => {
-                  const prevScroll = context.layout.scroll
                   const scroll = getCurrentScroll()
                   return scroll === null
                     ? context.layout
                     : pipe(
                         context.layout,
                         // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
-                        (l) => scrollLayout(l, scroll),
+                        (l) => scrollLayout(l, scroll)
                       )
                 },
               }),
@@ -734,14 +656,13 @@ export const pointerMachine = setup({
                 actions: [
                   assign({
                     layout: ({ context }) => {
-                      const prevScroll = context.layout.scroll
                       const scroll = getScroll()
                       return scroll === null
                         ? context.layout
                         : pipe(
                             context.layout,
                             // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
-                            (l) => scrollLayout(l, scroll),
+                            (l) => scrollLayout(l, scroll)
                           )
                     },
                   }),
@@ -861,8 +782,6 @@ export const selectLayoutScroll = (pointer: PointerState) =>
 export const selectOrigLayoutSvg = (pointer: PointerState) =>
   pointer.context.origLayout.svg
 export const selectCursor = (pointer: PointerState) => pointer.context.cursor
-export const selectDragging = (pointer: PointerState) =>
-  pointer.context.dragging
 export const selectAnimation = (pointer: PointerState) =>
   pointer.context.animation
 export const selectAnimating = (pointer: PointerState) =>
