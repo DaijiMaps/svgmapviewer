@@ -103,7 +103,6 @@ export type PointerContext = {
 
 type PointerExternalEvent =
   | { type: 'ANIMATION.END' }
-  | { type: 'DEBUG' }
   | { type: 'RESIZE'; layout: Layout; force: boolean }
   | { type: 'LAYOUT.RESET' }
   | { type: 'MODE'; mode: PointerMode }
@@ -121,12 +120,6 @@ type PointerEventMoveZoomPan =
   | { type: 'MOVE.DONE' }
   | { type: 'ZOOM' }
   | { type: 'ZOOM.DONE' }
-  | { type: 'PAN' }
-  | { type: 'PAN.DONE' }
-  | { type: 'PAN.UPDATE' }
-  | { type: 'PAN.ZOOM' }
-  | { type: 'PAN.ZOOM.ZOOM' }
-  | { type: 'PAN.ZOOM.ZOOM.DONE' }
 type PointerEventSearch =
   | { type: 'SEARCH.END'; res: Readonly<SearchRes> }
   | { type: 'SEARCH.LOCK'; psvg: Vec }
@@ -162,22 +155,6 @@ type UIEventPointerUp = {
   type: 'POINTER.UP'
   ev: React.PointerEvent<HTMLDivElement>
 }
-type UIEventTouchCancel = {
-  type: 'TOUCH.CANCEL'
-  ev: React.TouchEvent<HTMLDivElement>
-}
-type UIEventTouchEnd = {
-  type: 'TOUCH.END'
-  ev: React.TouchEvent<HTMLDivElement>
-}
-type UIEventTouchMove = {
-  type: 'TOUCH.MOVE'
-  ev: React.TouchEvent<HTMLDivElement>
-}
-type UIEventTouchStart = {
-  type: 'TOUCH.START'
-  ev: React.TouchEvent<HTMLDivElement>
-}
 type UIEventWheel = {
   type: 'WHEEL'
   ev: React.WheelEvent<HTMLDivElement>
@@ -197,10 +174,6 @@ export type ReactUIEvent =
   | UIEventPointerMove
   | UIEventPointerUp
   | UIEventScroll
-  | UIEventTouchCancel
-  | UIEventTouchEnd
-  | UIEventTouchMove
-  | UIEventTouchStart
   | UIEventWheel
 
 export type RawUIEvent = UIEventKeyDown | UIEventKeyUp
