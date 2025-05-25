@@ -722,9 +722,3 @@ export const selectLayoutScroll = (pointer: PointerState) =>
 export const selectOrigLayoutSvg = (pointer: PointerState) =>
   pointer.context.origLayout.svg
 export const selectCursor = (pointer: PointerState) => pointer.context.cursor
-export const selectAnimation = (pointer: PointerState) =>
-  pointer.context.animation
-export const selectAnimating = (pointer: PointerState) =>
-  pointer.context.animating
-export const selectRendered = (pointer: PointerState) =>
-  pointer.context.rendered
