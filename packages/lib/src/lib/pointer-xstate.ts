@@ -64,7 +64,6 @@ import { VecVec as Vec, vecMul, vecSub, VecVec, vecVec } from './vec/prefixed'
 // XXX
 const DIST_LIMIT = 10
 
-//const EXPAND_DEFAULT = 3
 //const EXPAND_PANNING = 9
 
 type PointerModePointing = 'pointing'
@@ -113,34 +112,12 @@ type PointerExternalEvent =
   | { type: 'RENDERED' }
   | { type: 'RENDERED.MAP-HTML' }
   | { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
-  | { type: 'SCROLL.SLIDE.DONE' }
   | { type: 'SCROLL.SYNCSYNC.DONE'; scroll: BoxBox }
   | { type: 'TOUCH.LOCK' }
   | { type: 'TOUCH.UNLOCK' }
   | { type: 'ZOOM.ZOOM'; z: -1 | 1; p: null | VecVec }
 
 type PointerEventAnimation = { type: 'ANIMATION' } | { type: 'ANIMATION.DONE' }
-type PointerEventDrag =
-  | { type: 'DRAG' }
-  | { type: 'DRAG.DONE' }
-  | { type: 'DRAG.CANCEL' }
-type PointerEventTouch =
-  | { type: 'TOUCH' }
-  | { type: 'TOUCH.DONE' }
-  | { type: 'TOUCH.START.DONE' }
-  | { type: 'TOUCH.MOVE.DONE' }
-  | { type: 'TOUCH.END.DONE' }
-type PointerEventSlide =
-  | { type: 'SLIDE' }
-  | { type: 'SLIDE.DONE' }
-  | { type: 'SLIDE.DRAG.DONE' }
-  | { type: 'SLIDE.DRAG.SLIDE' }
-type PointerEventExpand =
-  | { type: 'EXPAND'; n?: number }
-  | { type: 'EXPAND.CANCEL' }
-  | { type: 'EXPAND.DONE' }
-  | { type: 'UNEXPAND' }
-  | { type: 'UNEXPAND.DONE' }
 type PointerEventMoveZoomPan =
   | { type: 'MOVE' }
   | { type: 'MOVE.DONE' }
@@ -160,10 +137,6 @@ type PointerEventLock = { type: 'LOCK'; ok: boolean } | { type: 'UNLOCK' }
 
 type PointerInternalEvent =
   | PointerEventAnimation
-  | PointerEventDrag
-  | PointerEventTouch
-  | PointerEventSlide
-  | PointerEventExpand
   | PointerEventMoveZoomPan
   | PointerEventSearch
   | PointerEventLock
@@ -271,9 +244,6 @@ export const pointerMachine = setup({
     shouldMove: (_, { ev }: { ev: KeyboardEvent }) =>
       'hjkl'.indexOf(ev.key) >= 0,
     shouldPan: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'm',
-
-    // expand
-    isExpanded: ({ context }) => context.expand !== 1,
 
     // animation + zoom
     isAnimating: ({ context: { animation } }) => animation !== null,
@@ -507,11 +477,6 @@ export const pointerMachine = setup({
     // click lock
     lockClick: assign({ clickLock: true }),
     unlockClick: assign({ clickLock: false }),
-
-    updateExpanding: assign({
-      expanding: ({ context }): number => context.expanding + 1,
-    }),
-    clearExpanding: assign({ expanding: () => 0 }),
   },
   actors: {
     scroll: scrollMachine,
@@ -979,8 +944,6 @@ export const selectOrigLayoutSvg = (pointer: PointerState) =>
 export const selectCursor = (pointer: PointerState) => pointer.context.cursor
 export const selectDragging = (pointer: PointerState) =>
   pointer.context.dragging
-export const selectExpanding = (pointer: PointerState) =>
-  pointer.context.expanding
 export const selectAnimation = (pointer: PointerState) =>
   pointer.context.animation
 export const selectAnimating = (pointer: PointerState) =>
