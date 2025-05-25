@@ -112,6 +112,27 @@ export const touchMachine = setup({
   },
   states: {
     Idle: {
+      entry: 'resetTouches',
+      on: {
+        STARTED: [
+          {
+            guard: 'isSingleTouching',
+            target: 'SingleTouching',
+          },
+          {
+            guard: 'isDoubleTouching',
+            target: 'DoubleTouching',
+          },
+          {
+            guard: 'isManyTouching',
+            target: 'ManyTouching',
+          },
+        ],
+        MOVED: {},
+        ENDED: [],
+      },
+    },
+    SingleTouching: {
       on: {
         STARTED: [
           {
@@ -127,7 +148,7 @@ export const touchMachine = setup({
         ENDED: [
           {
             guard: 'isAllEnding',
-            actions: 'resetTouches',
+            target: 'Idle',
           },
         ],
       },
@@ -147,11 +168,10 @@ export const touchMachine = setup({
         ENDED: [
           {
             guard: 'isSingleTouching',
-            target: 'Idle',
+            target: 'SingleTouching',
           },
           {
             guard: 'isAllEnding',
-            actions: 'resetTouches',
             target: 'Idle',
           },
         ],
@@ -160,7 +180,7 @@ export const touchMachine = setup({
     ManyTouching: {
       on: {
         STARTED: [],
-        MOVED: [],
+        MOVED: {},
         ENDED: [
           {
             guard: 'isDoubleTouching',
@@ -168,11 +188,10 @@ export const touchMachine = setup({
           },
           {
             guard: 'isSingleTouching',
-            target: 'Idle',
+            target: 'SingleTouching',
           },
           {
             guard: 'isAllEnding',
-            actions: 'resetTouches',
             target: 'Idle',
           },
         ],
