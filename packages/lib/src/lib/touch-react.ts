@@ -11,3 +11,13 @@ touchActor.on('ZOOM', ({ z }) => {
 })
 
 touchActor.start()
+
+export function touchSendTouchStart(ev: React.TouchEvent) {
+  touchActor.send({ type: 'TOUCH.START', ev })
+}
+export function touchSendTouchMove(ev: React.TouchEvent) {
+  touchActor.send({ type: 'TOUCH.MOVE', ev })
+}
+export function touchSendTouchEnd(ev: React.TouchEvent) {
+  touchActor.send({ type: 'TOUCH.END', ev })
+}

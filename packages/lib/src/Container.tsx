@@ -13,6 +13,11 @@ import {
   sendWheel,
 } from './lib/pointer-react'
 import { styleAnimationEnd } from './lib/style-xstate'
+import {
+  touchSendTouchEnd,
+  touchSendTouchMove,
+  touchSendTouchStart,
+} from './lib/touch-react'
 import { MapHtmlRoot } from './MapHtmlRoot'
 import { MapSvg } from './MapSvg'
 
@@ -27,9 +32,9 @@ export function Container() {
       onPointerDown={sendPointerDown}
       onPointerMove={sendPointerMove}
       onPointerUp={sendPointerUp}
-      //onTouchStart={sendTouchStart}
-      //onTouchMove={sendTouchMove}
-      //onTouchEnd={sendTouchEnd}
+      onTouchStart={touchSendTouchStart}
+      onTouchMove={touchSendTouchMove}
+      onTouchEnd={touchSendTouchEnd}
       onClick={sendClick}
       onContextMenu={sendContextMenu}
       onScroll={sendScroll}
