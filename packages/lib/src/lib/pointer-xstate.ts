@@ -1671,58 +1671,9 @@ export const pointerMachine = setup({
             Done: { type: 'final' },
           },
         },
-        /*
-        Idle: {
-          after: {
-            250: {
-              // XXX cancel this when updating/zooming?
-              actions: 'unlockClick',
-            },
-          },
-          on: {
-            PAN: {
-              target: 'Unexpanding',
-            },
-          },
-        },
-        Unexpanding: {
-          entry: raise({ type: 'UNEXPAND' }),
-          on: {
-            'UNEXPAND.DONE': {
-              // XXX expand to fit the whole map
-              actions: raise({ type: 'EXPAND', n: EXPAND_PANNING }),
-              target: 'Expanding',
-            },
-          },
-        },
-        Expanding: {
-          on: {
-            'EXPAND.DONE': {
-              actions: [
-                'setModeToPanning',
-                emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
-                'syncMode',
-              ],
-              target: 'Panning',
-            },
-            'UNEXPAND.DONE': {
-              actions: raise({ type: 'PAN.DONE' }),
-              target: 'Idle',
-            },
-          },
-        },
-        */
         // work-around - ignore click right after touchend
         // otherwise PAN mode is exited immediately
         Panning: {
-          /*
-          entry: 'lockClick',
-          after: {
-            250: {
-              actions: 'unlockClick',
-            },
-          },
-          */
           on: {
             // XXX force layout (resize)
             RESIZE: {
