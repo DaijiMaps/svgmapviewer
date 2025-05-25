@@ -1,4 +1,3 @@
-import { pipe } from 'fp-ts/lib/function'
 import React from 'react'
 import { ActorRefFrom, assign, emit, setup, StateFrom } from 'xstate'
 import {
@@ -18,7 +17,7 @@ import {
   scrollLayout,
   toSvg,
 } from './layout'
-import { getCurrentScroll, getScroll } from './scroll'
+import { getCurrentScroll } from './scroll'
 import { scrollMachine } from './scroll-xstate'
 import { styleActor } from './style-xstate'
 import { syncViewBox } from './svg'
@@ -165,10 +164,6 @@ export const pointerMachine = setup({
     //
     zoomKey: assign({
       z: (_, { ev }: { ev: KeyboardEvent }): number => keyToZoom(ev.key),
-    }),
-    zoomWheel: assign({
-      z: (_, { ev }: { ev: React.WheelEvent<HTMLDivElement> }): number =>
-        ev.deltaY < 0 ? 1 : -1,
     }),
     zoomHome: assign({
       z: (): null | number => null,
@@ -468,10 +463,7 @@ export const pointerMachine = setup({
             actions: [
               emit(({ context }) => {
                 const scroll = getCurrentScroll()
-                const l =
-                  scroll === null
-                    ? context.layout
-                    : scrollLayout(context.layout, scroll)
+                const l = scrollLayout(context.layout, scroll)
                 return {
                   type: 'SEARCH',
                   psvg: toSvg(context.cursor, l),
@@ -487,10 +479,7 @@ export const pointerMachine = setup({
               actions: [
                 emit(({ context, event }) => {
                   const scroll = getCurrentScroll()
-                  const l =
-                    scroll === null
-                      ? context.layout
-                      : scrollLayout(context.layout, scroll)
+                  const l = scrollLayout(context.layout, scroll)
                   return {
                     type: 'SEARCH.END.DONE',
                     psvg: event.res.psvg,
@@ -529,13 +518,8 @@ export const pointerMachine = setup({
           assign({
             layout: ({ context }) => {
               const scroll = getCurrentScroll()
-              return scroll === null
-                ? context.layout
-                : pipe(
-                    context.layout,
-                    // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
-                    (l) => scrollLayout(l, scroll)
-                  )
+              const l = scrollLayout(context.layout, scroll)
+              return l
             },
           }),
           'syncViewBox',
@@ -582,14 +566,9 @@ export const pointerMachine = setup({
             actions: [
               assign({
                 layout: ({ context }) => {
-                  const scroll = getScroll()
-                  return scroll === null
-                    ? context.layout
-                    : pipe(
-                        context.layout,
-                        // reflect the actuall scroll (scrollLeft/scrollTop) to layout.scroll
-                        (l) => scrollLayout(l, scroll)
-                      )
+                  const scroll = getCurrentScroll()
+                  const l = scrollLayout(context.layout, scroll)
+                  return l
                 },
               }),
               'startZoom',
