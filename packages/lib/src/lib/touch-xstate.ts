@@ -127,8 +127,8 @@ export const touchMachine = setup({
             target: 'ManyTouching',
           },
         ],
-        MOVED: {},
-        ENDED: [],
+        //MOVED: {},
+        //ENDED: [],
       },
     },
     SingleTouching: {
@@ -143,7 +143,7 @@ export const touchMachine = setup({
             target: 'ManyTouching',
           },
         ],
-        MOVED: {},
+        //MOVED: {},
         ENDED: [
           {
             guard: 'isAllEnding',
@@ -178,8 +178,8 @@ export const touchMachine = setup({
     },
     ManyTouching: {
       on: {
-        STARTED: [],
-        MOVED: {},
+        //STARTED: [],
+        //MOVED: {},
         ENDED: [
           {
             guard: 'isAllEnding',
