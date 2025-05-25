@@ -1,4 +1,4 @@
-import { ActorRefFrom, assign, enqueueActions, raise, setup } from 'xstate'
+import { ActorRefFrom, assign, enqueueActions, setup } from 'xstate'
 
 import {
   handleTouchEnd,
@@ -44,28 +44,45 @@ export const touchMachine = setup({
     isSingleTouching: ({ context: { touches } }) => touches.vecs.size === 1,
     isDoubleTouching: ({ context: { touches } }) => touches.vecs.size === 2,
     isManyTouching: ({ context: { touches } }) => touches.vecs.size > 2,
+    isZooming: ({ context: { touches } }) => touches.z !== null,
   },
   actions: {
-    handleTouchStart: assign({
-      touches: ({ context: { touches }, event }) =>
-        event.type !== 'TOUCH.START'
-          ? touches
-          : handleTouchStart(touches, event.ev),
+    handleTouchStart: enqueueActions(({ enqueue }) => {
+      enqueue.assign({
+        touches: ({ context: { touches }, event }) =>
+          event.type !== 'TOUCH.START'
+            ? touches
+            : handleTouchStart(touches, event.ev),
+      })
+      enqueue.raise({ type: 'STARTED' })
     }),
-    handleTouchMove: assign({
-      touches: ({ context: { touches }, event }) =>
-        event.type !== 'TOUCH.MOVE'
-          ? touches
-          : handleTouchMove(touches, event.ev, 0),
+    handleTouchMove: enqueueActions(({ enqueue }) => {
+      enqueue.assign({
+        touches: ({ context: { touches }, event }) =>
+          event.type !== 'TOUCH.MOVE'
+            ? touches
+            : handleTouchMove(touches, event.ev, 0),
+      })
+      enqueue.raise({ type: 'MOVED' })
     }),
-    handleTouchEnd: assign({
-      touches: ({ context: { touches }, event }) =>
-        event.type !== 'TOUCH.END'
-          ? touches
-          : handleTouchEnd(touches, event.ev),
+    handleTouchEnd: enqueueActions(({ enqueue }) => {
+      enqueue.assign({
+        touches: ({ context: { touches }, event }) =>
+          event.type !== 'TOUCH.END'
+            ? touches
+            : handleTouchEnd(touches, event.ev),
+      })
+      enqueue.raise({ type: 'ENDED' })
     }),
     resetTouches: assign({
       touches: () => resetTouches(),
+    }),
+    notifyZoom: enqueueActions(({ context, enqueue }) => {
+      const p = context.touches.cursor
+      const z = context.touches.z
+      if (p !== null && z !== null) {
+        enqueue.emit({ type: 'ZOOM', p, z })
+      }
     }),
   },
 }).createMachine({
@@ -84,13 +101,13 @@ export const touchMachine = setup({
   type: 'parallel',
   on: {
     'TOUCH.START': {
-      actions: ['handleTouchStart', raise({ type: 'STARTED' })],
+      actions: 'handleTouchStart',
     },
     'TOUCH.MOVE': {
-      actions: ['handleTouchMove', raise({ type: 'MOVED' })],
+      actions: 'handleTouchMove',
     },
     'TOUCH.END': {
-      actions: ['handleTouchEnd', raise({ type: 'ENDED' })],
+      actions: 'handleTouchEnd',
     },
   },
   states: {
@@ -124,14 +141,8 @@ export const touchMachine = setup({
           },
         ],
         MOVED: {
-          guard: ({ context: { touches } }) => touches.z !== null,
-          actions: enqueueActions(({ context, enqueue }) => {
-            const p = context.touches.cursor
-            const z = context.touches.z
-            if (p !== null && z !== null) {
-              enqueue.emit({ type: 'ZOOM', p, z })
-            }
-          }),
+          guard: 'isZooming',
+          actions: 'notifyZoom',
         },
         ENDED: [
           {
