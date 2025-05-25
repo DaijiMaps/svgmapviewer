@@ -91,7 +91,6 @@ export type PointerContext = {
   zoom: number
   homing: boolean
   animation: null | Animation
-  debug: boolean
   mode: PointerMode
 
   dragging: boolean // XXX for CSS
@@ -253,10 +252,6 @@ export const pointerMachine = setup({
     isZoomingIn: ({ context: { z } }) => z !== null && z > 0,
   },
   actions: {
-    toggleDebug: assign({
-      debug: ({ context }): boolean => !context.debug,
-    }),
-
     //
     // scroll
     //
@@ -450,7 +445,6 @@ export const pointerMachine = setup({
     homing: false,
     drag: null,
     animation: null,
-    debug: false,
     mode: pointerModePanning,
     dragging: false,
     expanding: 0,
@@ -900,6 +894,5 @@ export const selectAnimation = (pointer: PointerState) =>
   pointer.context.animation
 export const selectAnimating = (pointer: PointerState) =>
   pointer.context.animating
-export const selectDebug = (pointer: PointerState) => pointer.context.debug
 export const selectRendered = (pointer: PointerState) =>
   pointer.context.rendered
