@@ -9,7 +9,7 @@ import {
 } from './animation'
 import { BoxBox, boxCenter } from './box/prefixed'
 import { configActor } from './config-xstate'
-import { keyToDir, keyToZoom } from './key'
+import { keyToZoom } from './key'
 import {
   emptyLayout,
   expandLayoutCenter,
@@ -23,34 +23,17 @@ import { scrollMachine } from './scroll-xstate'
 import { styleActor } from './style-xstate'
 import { syncViewBox } from './svg'
 import { Info, SearchRes } from './types'
-import { VecVec as Vec, vecMul, vecSub, VecVec, vecVec } from './vec/prefixed'
+import { VecVec as Vec, VecVec, vecVec } from './vec/prefixed'
 
-// XXX
-// XXX
-// XXX
-// XXX - refactor touch handler into a separate state machine
-// XXX   - make it track touch state independently & unconditionally
-// XXX
-// XXX - review expand behavior & make it efficient
-// XXX   - only one re-rendering (RENDERED)
-// XXX   - syncScroll after RENDERED
-// XXX   - style via styleActor
-// XXX
-// XXX
-// XXX
+const EXPAND_PANNING = 9
 
-//const EXPAND_PANNING = 9
-
-type PointerModePointing = 'pointing'
 type PointerModePanning = 'panning'
 type PointerModeTouching = 'touching'
 type PointerModeLocked = 'locked'
 export type PointerMode =
-  | PointerModePointing
   | PointerModePanning
   | PointerModeTouching
   | PointerModeLocked
-export const pointerModePointing: PointerModePointing = 'pointing'
 export const pointerModePanning: PointerModePanning = 'panning'
 export const pointerModeTouching: PointerModeTouching = 'touching'
 export const pointerModeLocked: PointerModeLocked = 'locked'
@@ -89,11 +72,7 @@ type PointerExternalEvent =
   | { type: 'ZOOM.ZOOM'; z: -1 | 1; p: null | VecVec }
 
 type PointerEventAnimation = { type: 'ANIMATION' } | { type: 'ANIMATION.DONE' }
-type PointerEventMoveZoomPan =
-  | { type: 'MOVE' }
-  | { type: 'MOVE.DONE' }
-  | { type: 'ZOOM' }
-  | { type: 'ZOOM.DONE' }
+type PointerEventMoveZoomPan = { type: 'ZOOM' } | { type: 'ZOOM.DONE' }
 type PointerEventSearch =
   | { type: 'SEARCH.END'; res: Readonly<SearchRes> }
   | { type: 'SEARCH.LOCK'; psvg: Vec }
@@ -163,20 +142,8 @@ export const pointerMachine = setup({
   },
   guards: {
     // key
-    shouldDebug: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'd',
     shouldReset: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'r',
     shouldZoom: (_, { ev }: { ev: KeyboardEvent }) => keyToZoom(ev.key) !== 0,
-    shouldMove: (_, { ev }: { ev: KeyboardEvent }) =>
-      'hjkl'.indexOf(ev.key) >= 0,
-    shouldPan: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'm',
-
-    // animation + zoom
-    isAnimating: ({ context: { animation } }) => animation !== null,
-    isMoving: ({ context: { animation } }) =>
-      animation !== null && animation.move !== null,
-    isZooming: ({ context: { animation } }) =>
-      animation !== null && animation.zoom !== null,
-    isZoomingIn: ({ context: { z } }) => z !== null && z > 0,
   },
   actions: {
     //
@@ -192,13 +159,6 @@ export const pointerMachine = setup({
         type: 'SYNCSYNC',
         pos: layout.scroll,
       }),
-    renderAndSyncScroll: ({ context: { layout }, system }) =>
-      requestAnimationFrame(() => {
-        system.get('scroll1').send({
-          type: 'SYNC',
-          pos: layout.scroll,
-        })
-      }),
     getScroll: ({ system }): void => {
       system.get('scroll1').send({
         type: 'GET',
@@ -208,17 +168,6 @@ export const pointerMachine = setup({
     //
     // move + zoom
     //
-    moveKey: assign({
-      m: ({ context: { layout } }, { ev }: { ev: KeyboardEvent }): Vec =>
-        vecMul(
-          keyToDir(ev.key),
-          vecVec(layout.container.width * 0.5, layout.container.height * 0.5)
-        ),
-    }),
-    moveCursor: assign({
-      m: ({ context: { layout, cursor } }): Vec =>
-        vecSub(boxCenter(layout.container), cursor),
-    }),
     zoomKey: assign({
       z: (_, { ev }: { ev: KeyboardEvent }): number => keyToZoom(ev.key),
     }),
@@ -272,9 +221,6 @@ export const pointerMachine = setup({
         return scrollLayout(layout, scroll)
       },
     }),
-    resetLayout: assign({
-      layout: ({ context: { layout } }): Layout => makeLayout(layout.config),
-    }),
     syncViewBox: ({ context: { layout } }) => {
       syncViewBox('.container > .content.svg > svg', layout.svg)
     },
@@ -282,15 +228,6 @@ export const pointerMachine = setup({
       styleActor.send({ type: 'STYLE.LAYOUT', layout, rendered })
       configActor.send({ type: 'CONFIG.LAYOUT', layout, force: false })
     },
-
-    //
-    // expand
-    //
-    expand: assign({
-      layout: ({ context: { layout, expand } }, { n }: { n: number }): Layout =>
-        expandLayoutCenter(layout, n / expand),
-      expand: (_, { n }: { n: number }): number => n,
-    }),
 
     //
     // cursor
@@ -314,7 +251,6 @@ export const pointerMachine = setup({
     //
     // mode
     //
-    resetMode: assign({ mode: pointerModePointing }),
     setModeToPanning: assign({
       mode: pointerModePanning,
       // XXX resetCursor
@@ -396,7 +332,7 @@ export const pointerMachine = setup({
                       rendered: () => false,
                       origLayout: ({ event }) => event.layout,
                       layout: ({ event }) =>
-                        expandLayoutCenter(event.layout, 9),
+                        expandLayoutCenter(event.layout, EXPAND_PANNING),
                     }),
                   ],
                   target: 'WaitingForMapHtmlRendered',
@@ -449,7 +385,8 @@ export const pointerMachine = setup({
                 assign({
                   rendered: () => false,
                   origLayout: ({ event }) => event.layout,
-                  layout: ({ event }) => expandLayoutCenter(event.layout, 9),
+                  layout: ({ event }) =>
+                    expandLayoutCenter(event.layout, EXPAND_PANNING),
                 }),
               ],
               target: '#Resizing-WaitingForWindowStabilized',
@@ -722,7 +659,10 @@ export const pointerMachine = setup({
                           cursor: ({ context }) =>
                             boxCenter(context.origLayout.container),
                           layout: ({ context }) =>
-                            expandLayoutCenter(context.origLayout, 9),
+                            expandLayoutCenter(
+                              context.origLayout,
+                              EXPAND_PANNING
+                            ),
                           homing: () => false,
                         }),
                         'syncLayout',

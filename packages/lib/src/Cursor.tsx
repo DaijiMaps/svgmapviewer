@@ -1,10 +1,5 @@
 import { useSelector } from '@xstate/react'
-import {
-  PointerRef,
-  selectCursor,
-  selectMode,
-  selectTouches,
-} from './lib/pointer-xstate'
+import { PointerRef, selectCursor } from './lib/pointer-xstate'
 
 const DefaultCursorPath = (
   props: Readonly<{ x: number; y: number; r: number }>
@@ -48,24 +43,21 @@ function MultiTouchCursor(
     _r: number
   }>
 ) {
-  const { _pointerRef: pointerRef, _r: r } = props
-  const mode = useSelector(pointerRef, selectMode)
-  const touches = useSelector(pointerRef, selectTouches)
+  const { _r: r } = props
 
   return (
     <>
-      {mode === 'pointing' && touches.points.length > 1 && (
-        <path
-          d={
-            touches.points.map(
-              ({ x, y }, i) => (i === 0 ? 'M' : 'L') + `${x},${y}`
-            ) + 'Z'
-          }
-          stroke="black"
-          strokeWidth={r * 0.05}
-          fill="none"
-        />
-      )}
+      <path
+        d={
+          // XXX
+          [{ x: 0, y: 0 }].map(
+            ({ x, y }, i) => (i === 0 ? 'M' : 'L') + `${x},${y}`
+          ) + 'Z'
+        }
+        stroke="black"
+        strokeWidth={r * 0.05}
+        fill="none"
+      />
     </>
   )
 }

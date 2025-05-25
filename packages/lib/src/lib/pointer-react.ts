@@ -41,7 +41,6 @@ export function inspect(iev: InspectionEvent) {
 //let pointereventmask: boolean = false
 //let toucheventmask: boolean = false
 let clickeventmask: boolean = false
-let wheeleventmask: boolean = false
 let scrolleventmask: boolean = false
 
 function reflectMode(mode: PointerMode): void {
@@ -51,7 +50,6 @@ function reflectMode(mode: PointerMode): void {
   // - xstate-pointer ignores 'click' to pass through (emulated)
   //  'click' to shadow; shadow receives 'click' to cancel 'locked'
   clickeventmask = mode === 'locked'
-  wheeleventmask = mode !== 'pointing'
   scrolleventmask = mode !== 'panning'
   if (mode === 'panning') {
     scrollTimeoutActor.send({ type: 'START' })
@@ -127,9 +125,6 @@ export const sendClick = (ev: React.MouseEvent<HTMLDivElement>) => {
 export const sendContextMenu = (ev: React.MouseEvent<HTMLDivElement>) =>
   pointerSend({ type: 'CONTEXTMENU', ev })
 export const sendWheel = (ev: React.WheelEvent<HTMLDivElement>) => {
-  if (wheeleventmask) {
-    return
-  }
   pointerSend({ type: 'WHEEL', ev })
 }
 export const sendScroll = (ev: React.UIEvent<HTMLDivElement, Event>) => {
