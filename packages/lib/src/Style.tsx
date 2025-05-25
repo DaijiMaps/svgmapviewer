@@ -37,13 +37,13 @@ export function styleRoot() {
 
 function Style() {
   return (
-    <>
+    <style>
       <LayoutStyle />
       <DraggingStyle />
       <ModeStyle />
       <AnimationStyle />
       <SvgSymbolStyle />
-    </>
+    </style>
   )
 }
 
@@ -68,7 +68,8 @@ function LayoutStyle() {
   }, [rendered])
 
   return (
-    <style>{`
+    <>{`
+/* layout */
 .container { display: ${!rendered ? `none` : `initial`}; }
 ${!animating ? appearing_none : appearing}
 .container > .content {
@@ -82,7 +83,7 @@ ${!animating ? appearing_none : appearing}
   --svg-matrix: ${matrix};
   --svg-scale: ${svgScale.s};
 }
-`}</style>
+`}</>
   )
 }
 
@@ -114,16 +115,17 @@ function DraggingStyle() {
     (state: Readonly<StyleState>) => state.context.dragging
   )
   return (
-    <style>
+    <>
       {!dragging
         ? ``
         : `
+/* dragging */
 .container {
   cursor: grabbing;
   overflow: scroll;
 }
 `}
-    </style>
+    </>
   )
 }
 
@@ -133,14 +135,16 @@ function ModeStyle() {
     (state: Readonly<StyleState>) => state.context.mode
   )
   return (
-    <style>
+    <>
       {mode === 'pointing' || mode === 'locked'
         ? `
+/* mode */
 .container {
   --mode: ${mode};
 }
 `
         : `
+/* mode */
 .container {
   --mode: ${mode};
   cursor: move;
@@ -150,7 +154,7 @@ function ModeStyle() {
   transform: translate3d(0px, 0px, 0px);
 }
 `}
-    </style>
+    </>
   )
 }
 
@@ -167,7 +171,12 @@ function AnimationStyle() {
         : animation.zoom !== null
           ? css(animation.zoom.q)
           : ''
-  return <style>{style}</style>
+  return (
+    <>
+      {'/* animation */'}
+      {style}
+    </>
+  )
 }
 
 function css(q: Matrix) {
@@ -201,7 +210,7 @@ function SvgSymbolStyle() {
     s
 
   return (
-    <style>
+    <>
       {`
 .map-symbols {
   --map-symbol-size: ${sz / 72};
@@ -209,6 +218,6 @@ function SvgSymbolStyle() {
 .map-markers {
 }
 `}
-    </style>
+    </>
   )
 }
