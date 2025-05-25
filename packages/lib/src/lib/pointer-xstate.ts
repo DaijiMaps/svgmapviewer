@@ -55,29 +55,23 @@ export type PointerContext = {
 }
 
 type PointerExternalEvent =
-  | { type: 'ANIMATION.END' }
   | { type: 'RESIZE'; layout: Layout; force: boolean }
   | { type: 'LAYOUT.RESET' }
-  | { type: 'MODE'; mode: PointerMode }
   | { type: 'RENDERED' }
   | { type: 'RENDERED.MAP-HTML' }
+  | { type: 'ANIMATION.END' }
   | { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
   | { type: 'SCROLL.SYNCSYNC.DONE'; scroll: BoxBox }
   | { type: 'TOUCH.LOCK' }
   | { type: 'TOUCH.UNLOCK' }
   | { type: 'ZOOM.ZOOM'; z: -1 | 1; p: null | VecVec }
 
-type PointerEventMoveZoomPan = { type: 'ZOOM' } | { type: 'ZOOM.DONE' }
 type PointerEventSearch =
   | { type: 'SEARCH.END'; res: Readonly<SearchRes> }
   | { type: 'SEARCH.LOCK'; psvg: Vec }
   | { type: 'SEARCH.UNLOCK' }
-type PointerEventLock = { type: 'LOCK'; ok: boolean } | { type: 'UNLOCK' }
 
-type PointerInternalEvent =
-  | PointerEventMoveZoomPan
-  | PointerEventSearch
-  | PointerEventLock
+type PointerInternalEvent = PointerEventSearch
 
 type UIEventClick = { type: 'CLICK'; ev: React.MouseEvent<HTMLDivElement> }
 type UIEventContextMenu = {
@@ -348,10 +342,17 @@ export const pointerMachine = setup({
                 assign({ rendered: () => true }),
                 'syncViewBox',
                 'syncLayout',
-                // slow sync - sync scroll after resize
-                'syncScrollSync',
                 'resetCursor',
               ],
+              target: 'Syncing',
+            },
+          },
+        },
+        Syncing: {
+          // slow sync - sync scroll after resize
+          entry: 'syncScrollSync',
+          on: {
+            'SCROLL.SYNCSYNC.DONE': {
               target: 'Done',
             },
           },
@@ -406,11 +407,6 @@ export const pointerMachine = setup({
         CONTEXTMENU: {
           target: 'Recentering',
         },
-        /*
-            MODE: {
-              target: 'Stopping',
-            },
-            */
         SCROLL: {
           target: 'Recentering',
         },
