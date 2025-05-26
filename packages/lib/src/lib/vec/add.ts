@@ -1,4 +1,4 @@
-import { Vec } from './index'
+import { type Vec } from './index'
 import { MF2ToMC2 } from './utils'
 
 export function add<T extends Vec>(a: T, b: T): T {

@@ -1,4 +1,4 @@
-import { Vec } from './main'
+import { type Vec } from './main'
 import { scale } from './scale'
 import { sum } from './sum'
 

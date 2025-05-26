@@ -1,4 +1,4 @@
-import { Vec } from './index'
+import { type Vec } from './index'
 import { map2 } from './map'
 
 export function max<T extends Vec>(a: T, b: T): T {

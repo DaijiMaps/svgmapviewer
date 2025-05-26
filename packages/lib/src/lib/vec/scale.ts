@@ -1,4 +1,4 @@
-import { Vec } from './index'
+import { type Vec } from './index'
 
 export function scale<T extends Vec>(a: T, s: number): T {
   const x = a.x * s

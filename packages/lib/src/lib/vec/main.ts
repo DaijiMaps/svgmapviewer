@@ -1,6 +1,6 @@
-import { ReadonlyDeep } from 'type-fest'
-import { V } from '../tuple'
-import { ImmutableShallow } from '../utils'
+import { type ReadonlyDeep } from 'type-fest'
+import { type V } from '../tuple'
+import { type ImmutableShallow } from '../utils'
 
 type Vec = Readonly<
   ImmutableShallow<{

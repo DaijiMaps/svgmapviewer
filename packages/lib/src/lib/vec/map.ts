@@ -1,4 +1,4 @@
-import { Vec } from './index'
+import { type Vec } from './index'
 import { vec } from './main'
 
 export function map<T extends Vec>(v: T, f: (_n: number) => number): T {

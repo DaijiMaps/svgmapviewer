@@ -1,4 +1,4 @@
-import { Vec } from './main'
+import { type Vec } from './main'
 import { sub } from './sub'
 
 export function angle<T extends Vec>(a: T, b: T): number {
