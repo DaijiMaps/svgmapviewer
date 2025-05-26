@@ -1,4 +1,4 @@
-export function Statue() {
+export function Statue(): ReactNode {
   return (
     <path
       id="Xstatue"

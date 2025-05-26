@@ -1,4 +1,4 @@
-export function Parking() {
+export function Parking(): ReactNode {
   return (
     <g id="XParking">
       <rect

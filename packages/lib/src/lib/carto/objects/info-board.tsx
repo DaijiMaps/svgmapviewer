@@ -1,4 +1,4 @@
-export function InfoBoard() {
+export function InfoBoard(): ReactNode {
   return (
     <path
       id="Xinfo-board"

@@ -1,4 +1,4 @@
-export function Torii() {
+export function Torii(): ReactNode {
   return (
     <path
       id="Xtorii"

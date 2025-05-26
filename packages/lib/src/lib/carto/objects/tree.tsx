@@ -1,4 +1,4 @@
-export function Tree2x4() {
+export function Tree2x4(): ReactNode {
   return (
     <path
       id="Xtree-2x4"
@@ -13,7 +13,7 @@ export function Tree2x4() {
 export const tree2x4Path =
   'm 0,0 0,-2 m 0,1 c 1.5,0 1,-3 0,-3 c -1,0 -1.5,3 0,3 z'
 
-export function Tree4x8() {
+export function Tree4x8(): ReactNode {
   return (
     <path
       id="Xtree-4x8"
@@ -27,7 +27,7 @@ export function Tree4x8() {
 
 export const tree4x8Path = 'm 0,0 0,-4 m 0,2 c 3,0 2,-6 0,-6 c -2,0 -3,6 0,6 z'
 
-export function Tree8x8() {
+export function Tree8x8(): ReactNode {
   return (
     <path
       id="Xtree-8x8"
@@ -41,7 +41,7 @@ export function Tree8x8() {
 
 export const tree8x8Path = 'm 0,0 v -4 m 0,2 c 6,0 4,-6 0,-6 -4,0 -6,6 0,6 z'
 
-export function Tree8x16() {
+export function Tree8x16(): ReactNode {
   return (
     <path
       id="Xtree-8x16"
@@ -56,7 +56,7 @@ export function Tree8x16() {
 export const tree8x16Path =
   'm 0,0 v -8 m 0,4 c 6,0 4,-12 0,-12 -4,0 -6,12 0,12 z'
 
-export function Tree16x16() {
+export function Tree16x16(): ReactNode {
   return (
     <path
       id="Xtree-16x16"

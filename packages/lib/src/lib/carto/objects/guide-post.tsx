@@ -1,4 +1,4 @@
-export function GuidePost() {
+export function GuidePost(): ReactNode {
   return (
     <path
       id="Xguide-post"

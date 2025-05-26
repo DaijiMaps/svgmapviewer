@@ -1,4 +1,4 @@
-export function WasteBasket() {
+export function WasteBasket(): ReactNode {
   return (
     <path
       id="XwasteBasket"

@@ -1,4 +1,4 @@
-export function Bench() {
+export function Bench(): ReactNode {
   return (
     <path
       id="Xbench"

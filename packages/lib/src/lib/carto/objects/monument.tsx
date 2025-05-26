@@ -1,4 +1,4 @@
-export function Monument() {
+export function Monument(): ReactNode {
   return (
     <path
       id="Xmonument"

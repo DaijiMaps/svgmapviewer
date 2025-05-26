@@ -1,4 +1,4 @@
-export function Bus() {
+export function Bus(): ReactNode {
   return (
     <g id="XBus" transform="translate(-36, -36)">
       <rect x="0.5" y="0.5" width="71" height="71" ry="6" stroke="white" />

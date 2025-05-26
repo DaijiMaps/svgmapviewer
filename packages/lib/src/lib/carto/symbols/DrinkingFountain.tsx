@@ -1,4 +1,4 @@
-export function DrinkingFountain() {
+export function DrinkingFountain(): ReactNode {
   return (
     <g id="XDrinkingFountain">
       <rect

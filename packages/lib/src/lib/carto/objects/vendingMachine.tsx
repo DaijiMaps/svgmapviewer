@@ -1,4 +1,4 @@
-export function VendingMachine() {
+export function VendingMachine(): ReactNode {
   return (
     <path
       id="XvendingMachine"

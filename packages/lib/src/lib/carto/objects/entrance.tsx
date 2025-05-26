@@ -1,4 +1,4 @@
-export function Entrance() {
+export function Entrance(): ReactNode {
   return (
     <path
       id="Xentrance"

@@ -1,4 +1,4 @@
-export function Toilets() {
+export function Toilets(): ReactNode {
   return (
     <g id="XToilets" transform="translate(-36,-36)">
       <rect x="0.5" y="0.5" width="71" height="71" ry="6" stroke="white" />
