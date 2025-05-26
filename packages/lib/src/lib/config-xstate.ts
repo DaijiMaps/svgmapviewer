@@ -1,5 +1,11 @@
-import { createContext } from 'react'
-import { assign, createActor, setup, type StateFrom } from 'xstate'
+import {
+  Actor,
+  assign,
+  createActor,
+  setup,
+  StateMachine,
+  type StateFrom,
+} from 'xstate'
 import { type POI } from './geo'
 import type {
   ConfigCb,
@@ -24,7 +30,7 @@ type ConfigEvent =
   | ConfigResize
   | ConfigLayout
 
-const configMachine = setup({
+const configMachine: StateMachine<ConfigContext, ConfigEvent> = setup({
   types: {
     context: {} as ConfigContext,
     events: {} as ConfigEvent,
@@ -226,13 +232,13 @@ const configMachine = setup({
   },
 })
 
-export const configActor = createActor(configMachine)
+export const configActor: Actor<typeof configMachine> =
+  createActor(configMachine)
 configActor.start()
-
-export const configContext = createContext(configActor.ref)
 
 export type ConfigMachine = typeof configMachine
 export type ConfigState = StateFrom<ConfigMachine>
+export type ConfigActor = typeof configActor
 
-export const selectMapNames = (state: Readonly<ConfigState>) =>
+export const selectMapNames = (state: Readonly<ConfigState>): POI[] =>
   state.context.mapNames
