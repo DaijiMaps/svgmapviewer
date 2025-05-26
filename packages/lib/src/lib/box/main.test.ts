@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
 import { scaleAt } from '../matrix/scale'
 import {
-  BoxBox as Box,
+  type BoxBox as Box,
   boxScaleAt,
   boxScaleAtCenter,
   boxTransform,

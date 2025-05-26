@@ -1,5 +1,5 @@
 import { scaleAt } from '../matrix'
-import { Box } from './main'
+import { type Box } from './main'
 import { transform } from './transform'
 
 //// expandAt

@@ -1,7 +1,7 @@
 import { matrixScale, matrixScaleAt } from '../matrix/prefixed'
-import { V } from '../tuple'
-import { VecVec } from '../vec/prefixed'
-import { Box } from './main'
+import { type V } from '../tuple'
+import { type VecVec } from '../vec/prefixed'
+import { type Box } from './main'
 import { transform } from './transform'
 
 //// scale
