@@ -1,7 +1,12 @@
 import { Fragment } from 'react/jsx-runtime'
 import { svgMapViewerConfig as cfg } from '../config'
-import { CentroidsFilter, MidpointsFilter, Point, PointsFilter } from '../geo'
-import { V, vUnvec, vVec } from '../tuple'
+import {
+  type CentroidsFilter,
+  type MidpointsFilter,
+  type Point,
+  type PointsFilter,
+} from '../geo'
+import { type V, vUnvec, vVec } from '../tuple'
 
 export interface RenderMapSymbolsProps {
   mapSymbols: MapSymbols[]

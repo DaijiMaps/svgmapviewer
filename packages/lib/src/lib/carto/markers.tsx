@@ -1,12 +1,17 @@
 import { useSelector } from '@xstate/react'
 import { svgMapViewerConfig as cfg } from '../config'
-import { CentroidsFilter, MidpointsFilter, Point, PointsFilter } from '../geo'
+import {
+  type CentroidsFilter,
+  type MidpointsFilter,
+  type Point,
+  type PointsFilter,
+} from '../geo'
 import {
   renderMapActor,
   selectLayoutConfig,
   selectLayoutSvgScaleS,
 } from '../map-xstate'
-import { V, vUnvec, vVec } from '../tuple'
+import { type V, vUnvec, vVec } from '../tuple'
 
 export interface RenderMapMarkersProps {
   mapMarkers: MapMarkers[]

@@ -1,22 +1,22 @@
 import {
-  MapLayer,
-  MapLineLayer,
-  MapMultiPolygonLayer,
+  type MapLayer,
+  type MapLineLayer,
+  type MapMultiPolygonLayer,
   RenderMapLayers,
 } from './layers'
 import {
-  MapMarkers,
+  type MapMarkers,
   RenderMapMarkers,
-  RenderMapMarkersProps,
+  type RenderMapMarkersProps,
   RenderMarkers,
 } from './markers'
-import { MapObjects, RenderMapObjects, RenderObjects } from './objects'
+import { type MapObjects, RenderMapObjects, RenderObjects } from './objects'
 import { renderAreasPath, renderLinePath, renderMultipolygonPath } from './path'
 import { RenderMapCommon } from './render'
 import {
-  MapSymbols,
+  type MapSymbols,
   RenderMapSymbols,
-  RenderMapSymbolsProps,
+  type RenderMapSymbolsProps,
   RenderUses,
 } from './symbols'
 

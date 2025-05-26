@@ -1,10 +1,10 @@
 import { svgMapViewerConfig as cfg } from '../config'
 import {
-  Line,
-  LinesFilter,
+  type Line,
+  type LinesFilter,
   lineToPath,
-  MultiPolygon,
-  MultiPolygonsFilter,
+  type MultiPolygon,
+  type MultiPolygonsFilter,
   multiPolygonToPath,
 } from '../geo'
 

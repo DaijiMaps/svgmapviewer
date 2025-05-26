@@ -1,13 +1,13 @@
 import { svgMapViewerConfig as cfg } from '../config'
 import {
-  Line,
-  LineFeature,
+  type Line,
+  type LineFeature,
   lineToPath,
-  MultiPolygon,
-  MultiPolygonFeature,
+  type MultiPolygon,
+  type MultiPolygonFeature,
   multiPolygonToPath,
-  OsmLineProperties,
-  OsmPolygonProperties,
+  type OsmLineProperties,
+  type OsmPolygonProperties,
 } from '../geo'
 
 export function renderAreasPath(): string {
