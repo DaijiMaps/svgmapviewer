@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import clsx from 'clsx/clsx'
+//import clsx from 'clsx/clsx'
 import './Right.css'
 import { pointerActor } from './lib/pointer-react'
 import { selectOpenCloseRight, uiActor } from './lib/ui-xstate'
@@ -13,7 +13,7 @@ export const Right = () => {
     >
       <div className="zoom">
         <div
-          className={clsx('zoom-item')}
+          className={'zoom-item'}
           // eslint-disable-next-line functional/no-return-void
           onClick={() => sendZoomOut()}
         >
@@ -22,7 +22,7 @@ export const Right = () => {
           </svg>
         </div>
         <div
-          className={clsx('zoom-item')}
+          className={'zoom-item'}
           // eslint-disable-next-line functional/no-return-void
           onClick={() => sendZoomIn()}
         >

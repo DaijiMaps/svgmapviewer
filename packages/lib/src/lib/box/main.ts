@@ -1,6 +1,11 @@
 import { type B, type V } from '../tuple'
-import { type Size } from '../types'
+//import { type Size } from '../types'
 import { type Vec } from '../vec'
+
+export interface Size {
+  width: number
+  height: number
+}
 
 //// Box
 

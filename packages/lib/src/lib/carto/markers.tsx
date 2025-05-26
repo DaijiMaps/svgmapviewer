@@ -1,4 +1,5 @@
 import { useSelector } from '@xstate/react'
+import type { ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import {
   type CentroidsFilter,
@@ -17,7 +18,9 @@ export interface RenderMapMarkersProps {
   mapMarkers: MapMarkers[]
 }
 
-export function RenderMapMarkers(props: Readonly<RenderMapMarkersProps>) {
+export function RenderMapMarkers(
+  props: Readonly<RenderMapMarkersProps>
+): ReactNode {
   const config = useSelector(renderMapActor, selectLayoutConfig)
   const s = useSelector(renderMapActor, selectLayoutSvgScaleS)
 
@@ -92,7 +95,7 @@ function conv(p: V): V {
 
 export function RenderMarkers(
   props: Readonly<{ sz: number; name: string; vs: MapMarker[] }>
-) {
+): ReactNode {
   const h = (props.sz * 1.5) / 2
   const r = Math.sqrt(2) * h
   return (
@@ -129,7 +132,7 @@ export function RenderMarkers(
 
 export function RenderMarker(
   props: Readonly<{ sz: number; name: string; m: MapMarker; o: V }>
-) {
+): ReactNode {
   const { name } = props.m
   const [x, y] = props.o
   const h = 1

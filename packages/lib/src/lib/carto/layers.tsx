@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import {
   type Line,
@@ -8,7 +9,9 @@ import {
   multiPolygonToPath,
 } from '../geo'
 
-export function RenderMapLayers(props: Readonly<{ mapLayers: MapLayer[] }>) {
+export function RenderMapLayers(
+  props: Readonly<{ mapLayers: MapLayer[] }>
+): ReactNode {
   return (
     <g className="map-layers">
       {props.mapLayers.map((layer, i) => (

@@ -6,7 +6,7 @@ import {
 } from 'fp-ts'
 import { pipe } from 'fp-ts/lib/function'
 import { type Touch } from 'react'
-import { type ReadonlyDeep } from 'type-fest'
+//import { type ReadonlyDeep } from 'type-fest'
 import { isUndefined } from './utils'
 import { dist } from './vec/dist'
 import {
@@ -25,11 +25,11 @@ const vecsMonoid = ReadonlyMap.getMonoid(
   ReadonlyArray.getSemigroup<Vec>()
 )
 
-type VecsEntry = ReadonlyDeep<[number, Vec[]]>
-type VecsEntries = ReadonlyDeep<VecsEntry[]>
-type Vecs = ReadonlyDeep<Map<number, Vec[]>>
+type VecsEntry = Readonly<[number, Vec[]]>
+type VecsEntries = Readonly<VecsEntry[]>
+type Vecs = Readonly<Map<number, Vec[]>>
 
-export type Touches = ReadonlyDeep<{
+export type Touches = Readonly<{
   vecs: Vecs
   points: Vec[]
   cursor: null | Vec
@@ -76,7 +76,7 @@ function pointsToCursor(points: Readonly<Vec[]>): null | Vec {
 }
 
 function changesToEntries(
-  ev: ReadonlyDeep<TouchEvent | React.TouchEvent>
+  ev: Readonly<TouchEvent | React.TouchEvent>
 ): VecsEntries {
   return pipe(
     ev.changedTouches,
@@ -88,7 +88,7 @@ function changesToEntries(
   )
 }
 
-function changesToVecs(ev: ReadonlyDeep<TouchEvent | React.TouchEvent>): Vecs {
+function changesToVecs(ev: Readonly<TouchEvent | React.TouchEvent>): Vecs {
   return new Map(changesToEntries(ev))
 }
 
@@ -144,7 +144,7 @@ export function handleTouchEnd(
   const changes = changesToVecs(ev)
   const vecs: Vecs = vecsFilterableWithIndex.filterMapWithIndex(
     touches.vecs,
-    (k: number, v: ReadonlyDeep<Vec[]>) =>
+    (k: number, v: Readonly<Vec[]>) =>
       // IDs in TouchEnd changedTouches => disappearing IDs
       changes.has(k) ? Option.none : Option.some(v)
   )
@@ -172,16 +172,15 @@ export function resetTouches(): Touches {
 }
 
 export function discardTouches(touches: Touches): Touches {
-  const vecs = ReadonlyMap.map<ReadonlyDeep<Vec[]>, ReadonlyDeep<Vec[]>>(
-    (ovs) =>
-      pipe(
-        ovs[0],
-        Option.fromNullable,
-        Option.fold(
-          () => [],
-          (v) => [v]
-        )
+  const vecs = ReadonlyMap.map<Readonly<Vec[]>, Readonly<Vec[]>>((ovs) =>
+    pipe(
+      ovs[0],
+      Option.fromNullable,
+      Option.fold(
+        () => [],
+        (v) => [v]
       )
+    )
   )(touches.vecs)
   return { ...touches, vecs, dists: [], z: null }
 }

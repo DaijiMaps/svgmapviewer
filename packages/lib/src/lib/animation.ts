@@ -1,5 +1,5 @@
 import { pipe } from 'fp-ts/lib/function'
-import { type ReadonlyDeep } from 'type-fest'
+//import { type Readonly } from 'type-fest'
 import { type Box } from './box'
 import { boxCenter, boxScaleAt } from './box/prefixed'
 import { fromMatrixSvg, toMatrixSvg } from './coord'
@@ -26,13 +26,13 @@ export type AnimationMove = Readonly<{
   q: Matrix
 }>
 
-export type AnimationZoom = ReadonlyDeep<{
+export type AnimationZoom = Readonly<{
   svg: Box
   svgScale: Scale
   q: Matrix
 }>
 
-export type Animation = ReadonlyDeep<{
+export type Animation = Readonly<{
   move: null | AnimationMove
   zoom: null | AnimationZoom
 }>

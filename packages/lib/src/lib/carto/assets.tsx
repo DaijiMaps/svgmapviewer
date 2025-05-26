@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import {
   Bus,
   DrinkingFountain,
@@ -17,7 +18,7 @@ export function RenderMapAssetsDefault() {
   )
 }
 
-export function Symbols() {
+export function Symbols(): ReactNode {
   return (
     <g className="symbols">
       <Bus />

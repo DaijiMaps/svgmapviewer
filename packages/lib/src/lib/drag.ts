@@ -1,8 +1,8 @@
-import { type ReadonlyDeep } from 'type-fest'
+//import { type Readonly } from 'type-fest'
 import { type BoxBox as Box, boxCenter } from './box/prefixed'
 import { type VecVec as Vec, vecAdd, vecCopy, vecSub } from './vec/prefixed'
 
-export type Drag = ReadonlyDeep<{
+export type Drag = Readonly<{
   cursor: Vec
   start: Vec
   move: Vec

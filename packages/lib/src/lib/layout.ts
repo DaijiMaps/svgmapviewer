@@ -1,5 +1,5 @@
 import { pipe } from 'fp-ts/lib/function'
-import { type ReadonlyDeep } from 'type-fest'
+//import { type ReadonlyDeep } from 'type-fest'
 import {
   type BoxBox as Box,
   boxCenter,
@@ -27,7 +27,7 @@ import { type VecVec as Vec, vecScale, vecSub } from './vec/prefixed'
 //// LayoutConfig
 //// Layout
 
-export type LayoutConfig = ReadonlyDeep<{
+export type LayoutConfig = Readonly<{
   readonly fontSize: number
   readonly container: Box
   readonly svg: Box
@@ -35,7 +35,7 @@ export type LayoutConfig = ReadonlyDeep<{
   readonly svgScale: Scale
 }>
 
-export const emptyLayoutConfig = {
+export const emptyLayoutConfig: Readonly<LayoutConfig> = {
   fontSize: 16,
   container: boxUnit,
   svg: boxUnit,
@@ -43,7 +43,7 @@ export const emptyLayoutConfig = {
   svgScale: { s: 1 },
 }
 
-export type Layout = ReadonlyDeep<
+export type Layout = Readonly<
   LayoutCoord & {
     config: LayoutConfig
   }
@@ -84,7 +84,7 @@ export function makeLayout(config: LayoutConfig): Layout {
   return layout
 }
 
-export function resizeLayout(size: Box) {
+export function resizeLayout(size: Box): Layout {
   // XXX
   // XXX
   // XXX
@@ -104,15 +104,11 @@ export function resizeLayout(size: Box) {
 //// expandLayoutCenter
 //// expandLayout
 
-export const expandLayoutCenter = (layout: Layout, expand: number): Layout => {
+export function expandLayoutCenter(layout: Layout, expand: number): Layout {
   return expandLayout(layout, expand, boxCenter(layout.scroll))
 }
 
-export const expandLayout = (
-  layout: Layout,
-  s: number,
-  cursor: Vec
-): Layout => {
+export function expandLayout(layout: Layout, s: number, cursor: Vec): Layout {
   const o = toSvg(cursor, layout)
 
   return {
@@ -129,25 +125,21 @@ export const expandLayout = (
 //// recenterLayout
 //// scrollLayout
 
-export const relocLayout = (layout: Layout, dest: Vec): Layout => {
+export function relocLayout(layout: Layout, dest: Vec): Layout {
   return {
     ...layout,
     scroll: boxMoveTo(layout.scroll, dest),
   }
 }
 
-export const moveLayout = (layout: Layout, move: Vec): Layout => {
+export function moveLayout(layout: Layout, move: Vec): Layout {
   return {
     ...layout,
     scroll: boxMove(layout.scroll, move),
   }
 }
 
-export const zoomLayout = (
-  layout: Layout,
-  svg: Box,
-  svgScale: Scale
-): Layout => {
+export function zoomLayout(layout: Layout, svg: Box, svgScale: Scale): Layout {
   return {
     ...layout,
     svg: boxCopy(svg),
@@ -155,7 +147,7 @@ export const zoomLayout = (
   }
 }
 
-export const recenterLayout = (layout: Layout, start: Vec): Layout => {
+export function recenterLayout(layout: Layout, start: Vec): Layout {
   const d = vecSub(layout.scroll, start)
   const dsvg = vecScale(d, -layout.svgScale.s)
 
@@ -166,7 +158,7 @@ export const recenterLayout = (layout: Layout, start: Vec): Layout => {
   }
 }
 
-export const scrollLayout = (layout: Layout, scroll: Box): Layout => {
+export function scrollLayout(layout: Layout, scroll: Box): Layout {
   const move = vecSub(fromScroll(scroll), layout.scroll)
   return pipe(
     layout,

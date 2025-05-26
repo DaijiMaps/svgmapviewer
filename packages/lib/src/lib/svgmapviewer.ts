@@ -28,7 +28,9 @@ import { uiActor } from './ui-xstate'
 // XXX
 // XXX
 
-export function svgmapviewer(configUser: Readonly<SvgMapViewerConfigUser>) {
+export function svgmapviewer(
+  configUser: Readonly<SvgMapViewerConfigUser>
+): void {
   const origViewBox: Box = {
     x: 0,
     y: 0,

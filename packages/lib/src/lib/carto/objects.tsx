@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import {
   type CentroidsFilter,
@@ -11,7 +12,7 @@ export function RenderMapObjects(
   props: Readonly<{
     mapObjects: MapObjects[]
   }>
-) {
+): ReactNode {
   return (
     <g className="map-objects">
       {props.mapObjects.map((entry, i) => (
@@ -81,7 +82,7 @@ function conv(p: V): V {
 
 export function RenderObjects(
   props: Readonly<{ name: string; width: number; path: string; vs: V[] }>
-) {
+): ReactNode {
   return (
     <path
       className={props.name}

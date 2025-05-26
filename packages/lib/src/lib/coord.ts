@@ -39,7 +39,7 @@ export interface SvgLayoutCoord {
 
 export type LayoutCoord = HtmlLayoutCoord & SvgLayoutCoord
 
-export const emptyLayoutCoord = {
+export const emptyLayoutCoord: Readonly<LayoutCoord> = {
   container: boxUnit,
   scroll: boxUnit,
   svg: boxUnit,

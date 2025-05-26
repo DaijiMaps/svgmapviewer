@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { Fragment } from 'react/jsx-runtime'
 import { svgMapViewerConfig as cfg } from '../config'
 import {
@@ -12,7 +13,9 @@ export interface RenderMapSymbolsProps {
   mapSymbols: MapSymbols[]
 }
 
-export function RenderMapSymbols(props: Readonly<RenderMapSymbolsProps>) {
+export function RenderMapSymbols(
+  props: Readonly<RenderMapSymbolsProps>
+): ReactNode {
   return (
     <g className="map-symbols">
       {props.mapSymbols.map((entry, i) => {
@@ -82,7 +85,7 @@ function conv(p: V): V {
 
 export function RenderUses(
   props: Readonly<{ name: string; href: string; vs: V[] }>
-) {
+): ReactNode {
   return (
     <>
       {props.vs.map(([x, y], j) => (

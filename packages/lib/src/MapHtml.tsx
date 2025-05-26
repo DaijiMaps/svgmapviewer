@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { useMemo } from 'react'
 import { fixupCssString } from './lib/css'
-import { POI } from './lib/geo'
+import { type POI } from './lib/geo'
 import { isLiked, useLikes } from './lib/like'
 import { useMapHtmlRendered } from './lib/map-html-react'
 import { useNames } from './lib/names'

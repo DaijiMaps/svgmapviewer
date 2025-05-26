@@ -69,19 +69,19 @@ export function updateSvgMapViewerConfig(
 
 ////
 
-export function registerCbs(cbs: Readonly<Partial<ConfigCb>>) {
+export function registerCbs(cbs: Readonly<Partial<ConfigCb>>): void {
   configActor.send({ type: 'ADD.CB', ...cbs })
 }
 
 ////
 
-export function notifySearchStart(psvg: VecVec) {
+export function notifySearchStart(psvg: VecVec): void {
   configActor.getSnapshot().context.searchStartCbs.forEach((cb) => cb(psvg))
 }
-export function notifySearch(psvg: VecVec) {
+export function notifySearch(psvg: VecVec): void {
   configActor.getSnapshot().context.searchCbs.forEach((cb) => cb(psvg))
 }
-export function notifySearchEnd(psvg: VecVec, info: Readonly<Info>) {
+export function notifySearchEnd(psvg: VecVec, info: Readonly<Info>): void {
   configActor
     .getSnapshot()
     .context.searchEndCbs.forEach((cb) => cb({ psvg, info }))
@@ -90,7 +90,7 @@ export function notifySearchEndDone(
   psvg: VecVec,
   info: Readonly<Info>,
   layout: Readonly<Layout>
-) {
+): void {
   configActor
     .getSnapshot()
     .context.searchEndDoneCbs.forEach((cb) => cb(psvg, info, layout))
@@ -99,35 +99,35 @@ export function notifyUiOpen(
   psvg: VecVec,
   info: Readonly<Info>,
   layout: Readonly<Layout>
-) {
+): void {
   configActor
     .getSnapshot()
     .context.uiOpenCbs.forEach((cb) => cb(psvg, info, layout))
 }
-export function notifyUiOpenDone(ok: boolean) {
+export function notifyUiOpenDone(ok: boolean): void {
   configActor.getSnapshot().context.uiOpenDoneCbs.forEach((cb) => cb(ok))
 }
-export function notifyUiClose() {
+export function notifyUiClose(): void {
   configActor.getSnapshot().context.uiCloseCbs.forEach((cb) => cb())
 }
-export function notifyCloseDone() {
+export function notifyCloseDone(): void {
   configActor.getSnapshot().context.uiCloseDoneCbs.forEach((cb) => cb())
 }
 export function notifyZoomStart(
   layout: Readonly<Layout>,
   zoom: number,
   z: number
-) {
+): void {
   configActor
     .getSnapshot()
     .context.zoomStartCbs.forEach((cb) => cb(layout, zoom, z))
 }
-export function notifyZoomEnd(layout: Readonly<Layout>, zoom: number) {
+export function notifyZoomEnd(layout: Readonly<Layout>, zoom: number): void {
   configActor.getSnapshot().context.zoomEndCbs.forEach((cb) => cb(layout, zoom))
 }
-export function notifyResize(layout: Readonly<Layout>, force: boolean) {
+export function notifyResize(layout: Readonly<Layout>, force: boolean): void {
   configActor.send({ type: 'CONFIG.RESIZE', layout, force })
 }
-export function notifyLayout(layout: Readonly<Layout>, force: boolean) {
+export function notifyLayout(layout: Readonly<Layout>, force: boolean): void {
   configActor.send({ type: 'CONFIG.LAYOUT', layout, force })
 }

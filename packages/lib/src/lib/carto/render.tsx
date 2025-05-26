@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import { RenderMapAssetsDefault } from './assets'
 import { RenderMapLayers } from './layers'
@@ -5,7 +6,7 @@ import { RenderMapLayers } from './layers'
 import { RenderMapObjects } from './objects'
 import { RenderMapSymbols } from './symbols'
 
-export function RenderMapCommon() {
+export function RenderMapCommon(): ReactNode {
   return (
     <>
       <RenderMapAssetsDefault />
