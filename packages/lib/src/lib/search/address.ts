@@ -3,7 +3,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-loop-statements */
 import Flatbush from 'flatbush'
-import { VecVec as Vec } from '../vec/prefixed'
+import { type VecVec as Vec } from '../vec/prefixed'
 
 export type Address = string
 export type Idx = string
