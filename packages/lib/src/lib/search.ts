@@ -11,11 +11,11 @@ export const searchRef = createActor(searchMachine)
 searchRef.on('SEARCH', ({ psvg }) => notifySearch(psvg))
 searchRef.on('SEARCH.DONE', ({ psvg, info }) => notifySearchEnd(psvg, info))
 
-export function searchSearchStart(psvg: Vec) {
+export function searchSearchStart(psvg: Vec): void {
   searchRef.send({ type: 'SEARCH', psvg })
 }
 
-export function searchSearchDone(res: Readonly<null | SearchRes>) {
+export function searchSearchDone(res: Readonly<null | SearchRes>): void {
   searchRef.send(
     res === null ? { type: 'SEARCH.CANCEL' } : { type: 'SEARCH.DONE', ...res }
   )

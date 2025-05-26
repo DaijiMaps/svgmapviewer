@@ -3,7 +3,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-throw-statements */
-import { createContext, StrictMode } from 'react'
+import { createContext, StrictMode, type Context } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
 import './index.css'
@@ -12,7 +12,8 @@ import { svgMapViewerConfig } from './lib/config'
 import { keyDown, keyUp } from './lib/pointer-react'
 import { RenderMap } from './Map'
 
-export const SvgMapViewerConfigContext = createContext(svgMapViewerConfig)
+export const SvgMapViewerConfigContext: Context<SvgMapViewerConfig> =
+  createContext(svgMapViewerConfig)
 
 export function root(config: Readonly<SvgMapViewerConfig>): void {
   const e = document.getElementById(config.root)

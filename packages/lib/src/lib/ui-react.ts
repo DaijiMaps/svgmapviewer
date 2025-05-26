@@ -2,15 +2,15 @@ import { type ReactNode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { uiRootActor, uiRootRenderCbs } from './ui-root-xstate'
 
-export function useUiRoot() {
+export function useUiRoot(): void {
   useEffect(() => mountUiRoot(), [])
 }
 
-function mountUiRoot() {
+function mountUiRoot(): void {
   uiRootActor.send({ type: 'MOUNT' })
 }
 
-function renderUiRoot(children: Readonly<ReactNode>) {
+function renderUiRoot(children: Readonly<ReactNode>): void {
   const root = document.querySelector(`#ui-root`)
   if (root === null) {
     return

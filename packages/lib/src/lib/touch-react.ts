@@ -25,15 +25,15 @@ touchActor.start()
 
 ////
 
-export function touchSendTouchStart(ev: React.TouchEvent) {
+export function touchSendTouchStart(ev: React.TouchEvent): void {
   touchActor.send({ type: 'TOUCH.START', ev })
 }
-export function touchSendTouchMove(ev: React.TouchEvent) {
+export function touchSendTouchMove(ev: React.TouchEvent): void {
   touchActor.send({ type: 'TOUCH.MOVE', ev })
 }
-export function touchSendTouchEnd(ev: React.TouchEvent) {
+export function touchSendTouchEnd(ev: React.TouchEvent): void {
   touchActor.send({ type: 'TOUCH.END', ev })
 }
-export function touchSendCancel() {
+export function touchSendCancel(): void {
   touchActor.send({ type: 'CANCEL' })
 }

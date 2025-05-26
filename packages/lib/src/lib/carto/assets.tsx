@@ -10,7 +10,7 @@ import {
   Toilets,
 } from './symbols/index'
 
-export function RenderMapAssetsDefault() {
+export function RenderMapAssetsDefault(): ReactNode {
   return (
     <g className="assets">
       <Symbols />
