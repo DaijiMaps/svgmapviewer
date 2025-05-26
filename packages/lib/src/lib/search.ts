@@ -3,8 +3,8 @@
 import { createActor } from 'xstate'
 import { notifySearch, notifySearchEnd } from './config'
 import { searchMachine } from './search-xstate'
-import { SearchRes } from './types'
-import { Vec } from './vec'
+import { type SearchRes } from './types'
+import { type Vec } from './vec'
 
 export const searchRef = createActor(searchMachine)
 

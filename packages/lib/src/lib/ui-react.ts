@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from 'react'
+import { type ReactNode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { uiRootActor, uiRootRenderCbs } from './ui-root-xstate'
 

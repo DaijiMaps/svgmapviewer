@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import { createStore, StoreSnapshot } from '@xstate/store'
+import { createStore, type StoreSnapshot } from '@xstate/store'
 import { useSelector } from '@xstate/store/react'
 
 interface LikesContext {

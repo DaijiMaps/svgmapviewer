@@ -1,28 +1,28 @@
 import {
-  ActorRefFrom,
+  type ActorRefFrom,
   assign,
   createActor,
   emit,
   not,
   raise,
   setup,
-  StateFrom,
+  type StateFrom,
 } from 'xstate'
 import { notifyCloseDone, registerCbs } from './config'
-import { emptyLayoutCoord, LayoutCoord } from './coord'
+import { emptyLayoutCoord, type LayoutCoord } from './coord'
 import { fromSvg } from './layout'
 import {
-  OpenClose,
+  type OpenClose,
   openCloseClose,
   openCloseClosed,
   openCloseIsVisible,
-  OpenCloseOp,
+  type OpenCloseOp,
   openCloseOpen,
   openCloseOpened,
   openCloseReset,
 } from './openclose'
-import { Info, SearchRes } from './types'
-import { VecVec, vecZero } from './vec/prefixed'
+import { type Info, type SearchRes } from './types'
+import { type VecVec, vecZero } from './vec/prefixed'
 
 const emptyDetail: UiDetailContent = {
   p: vecZero,

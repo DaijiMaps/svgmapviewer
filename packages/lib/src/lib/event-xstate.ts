@@ -1,5 +1,5 @@
 import React from 'react'
-import { ActorRefFrom, assign, emit, setup } from 'xstate'
+import { type ActorRefFrom, assign, emit, setup } from 'xstate'
 
 type TimeoutInput = {
   expiration?: number

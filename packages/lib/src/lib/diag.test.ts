@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
 import { diag } from './diag'
-import { Size } from './types'
-import { Vec } from './vec'
+import { type Size } from './types'
+import { type Vec } from './vec'
 
 test('diag', () => {
   const s: Size = { width: 4, height: 3 }

@@ -1,6 +1,12 @@
-import { ActorRefFrom, assign, createActor, setup, StateFrom } from 'xstate'
+import {
+  type ActorRefFrom,
+  assign,
+  createActor,
+  setup,
+  type StateFrom,
+} from 'xstate'
 import '../index.css'
-import { emptyLayout, Layout } from '../lib/layout'
+import { emptyLayout, type Layout } from '../lib/layout'
 import { registerCbs } from './config'
 
 type RenderMapContext = {

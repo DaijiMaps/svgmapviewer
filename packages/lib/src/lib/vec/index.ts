@@ -3,7 +3,7 @@ import { angle, angleF } from './angle'
 import { copy } from './copy'
 import { dist, qdist } from './dist'
 import { div, divF } from './div'
-//import { compare, ord } from './fp-ts'
+import { compare, ord } from './fp-ts'
 import { interpolate, interpolateF } from './interpolate'
 import { fromV, one, toV, vec, type Vec, type Vecs, zero } from './main'
 import { midpoint } from './midpoint'
@@ -20,7 +20,7 @@ export {
   addF,
   angle,
   angleF,
-  //compare,
+  compare,
   copy,
   dist,
   div,
@@ -34,7 +34,7 @@ export {
   mul,
   mulF,
   one,
-  //ord,
+  ord,
   qdist,
   scale,
   scaleF,

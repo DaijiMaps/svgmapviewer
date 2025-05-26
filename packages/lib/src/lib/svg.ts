@@ -1,4 +1,4 @@
-import { BoxBox } from './box/prefixed'
+import { type BoxBox } from './box/prefixed'
 
 // eslint-disable-next-line functional/no-return-void
 export function syncViewBox(id: string, viewBox: Readonly<BoxBox>): void {

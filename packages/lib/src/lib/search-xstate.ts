@@ -1,6 +1,6 @@
-import { ActorRefFrom, emit, setup, StateFrom } from 'xstate'
-import { Info } from './types'
-import { Vec } from './vec'
+import { type ActorRefFrom, emit, setup, type StateFrom } from 'xstate'
+import { type Info } from './types'
+import { type Vec } from './vec'
 
 export type SearchEvent =
   | { type: 'SEARCH'; psvg: Vec }

@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-return-void */
 import { root } from '../Root'
 import { styleRoot } from '../Style'
-import { Box } from './box/main'
+import { type Box } from './box/main'
 import {
   registerCbs,
   svgMapViewerConfig,
@@ -15,7 +15,7 @@ import { resizeActor } from './resize-xstate'
 import { searchSearchDone, searchSearchStart } from './search'
 import { styleActor } from './style-xstate'
 import { touchActor } from './touch-react'
-import { SvgMapViewerConfig, SvgMapViewerConfigUser } from './types'
+import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
 import { uiRootActor } from './ui-root-xstate'
 import { uiActor } from './ui-xstate'
 

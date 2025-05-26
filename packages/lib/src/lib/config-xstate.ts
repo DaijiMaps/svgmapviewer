@@ -1,6 +1,6 @@
 import { createContext } from 'react'
-import { assign, createActor, setup, StateFrom } from 'xstate'
-import { POI } from './geo'
+import { assign, createActor, setup, type StateFrom } from 'xstate'
+import { type POI } from './geo'
 import type {
   ConfigCb,
   ConfigCbs,

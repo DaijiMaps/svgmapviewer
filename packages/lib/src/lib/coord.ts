@@ -1,7 +1,13 @@
-import { BoxBox as Box, boxCopy, boxUnit } from './box/prefixed'
-import { LayoutConfig } from './layout'
-import { MatrixMatrix as Matrix, matrixMultiply } from './matrix/prefixed'
-import { Move, Scale, fromTransform, invMove, invScale } from './transform'
+import { type BoxBox as Box, boxCopy, boxUnit } from './box/prefixed'
+import { type LayoutConfig } from './layout'
+import { type MatrixMatrix as Matrix, matrixMultiply } from './matrix/prefixed'
+import {
+  type Move,
+  type Scale,
+  fromTransform,
+  invMove,
+  invScale,
+} from './transform'
 import { vecScale } from './vec/prefixed'
 
 // C: client coord

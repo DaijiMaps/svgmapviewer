@@ -1,25 +1,25 @@
 import React from 'react'
 import {
-  ActorRefFrom,
+  type ActorRefFrom,
   assign,
   emit,
   enqueueActions,
   setup,
-  StateFrom,
+  type StateFrom,
 } from 'xstate'
 import {
-  Animation,
+  type Animation,
   animationEndLayout,
   animationHome,
   animationZoom,
 } from './animation'
-import { BoxBox, boxCenter } from './box/prefixed'
+import { type BoxBox, boxCenter } from './box/prefixed'
 import { configActor } from './config-xstate'
 import { keyToZoom } from './key'
 import {
   emptyLayout,
   expandLayoutCenter,
-  Layout,
+  type Layout,
   makeLayout,
   scrollLayout,
   toSvg,
@@ -28,8 +28,8 @@ import { getCurrentScroll } from './scroll'
 import { scrollMachine } from './scroll-xstate'
 import { styleActor } from './style-xstate'
 import { syncViewBox } from './svg'
-import { Info, SearchRes } from './types'
-import { VecVec as Vec, VecVec, vecVec } from './vec/prefixed'
+import { type Info, type SearchRes } from './types'
+import { type VecVec as Vec, type VecVec, vecVec } from './vec/prefixed'
 
 const EXPAND_PANNING = 9
 

@@ -1,5 +1,5 @@
-import { BoxBox as Box } from './box/prefixed'
-import { VecVec as Vec } from './vec/prefixed'
+import { type BoxBox as Box } from './box/prefixed'
+import { type VecVec as Vec } from './vec/prefixed'
 
 const arrayFromPoint = (p: Vec): number[] => [p.x, p.y]
 const arrayFromBox = (b: Box): number[] => [b.x, b.y, b.width, b.height]

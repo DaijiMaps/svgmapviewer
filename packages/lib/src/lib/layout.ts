@@ -1,7 +1,7 @@
 import { pipe } from 'fp-ts/lib/function'
-import { ReadonlyDeep } from 'type-fest'
+import { type ReadonlyDeep } from 'type-fest'
 import {
-  BoxBox as Box,
+  type BoxBox as Box,
   boxCenter,
   boxCopy,
   boxMove,
@@ -11,7 +11,7 @@ import {
 } from './box/prefixed'
 import { svgMapViewerConfig } from './config'
 import {
-  LayoutCoord,
+  type LayoutCoord,
   emptyLayoutCoord,
   fromMatrixOuter,
   fromMatrixSvg,
@@ -21,8 +21,8 @@ import {
   toMatrixSvg,
 } from './coord'
 import { fit } from './fit'
-import { Move, Scale, transformPoint } from './transform'
-import { VecVec as Vec, vecScale, vecSub } from './vec/prefixed'
+import { type Move, type Scale, transformPoint } from './transform'
+import { type VecVec as Vec, vecScale, vecSub } from './vec/prefixed'
 
 //// LayoutConfig
 //// Layout

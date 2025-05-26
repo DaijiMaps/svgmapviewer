@@ -1,13 +1,13 @@
-import { ActorRefFrom, assign, enqueueActions, setup } from 'xstate'
+import { type ActorRefFrom, assign, enqueueActions, setup } from 'xstate'
 
 import {
   handleTouchEnd,
   handleTouchMove,
   handleTouchStart,
   resetTouches,
-  Touches,
+  type Touches,
 } from './touch'
-import { VecVec } from './vec/prefixed'
+import { type VecVec } from './vec/prefixed'
 
 // XXX TouchEvent is DOM
 type TouchEventStart = { type: 'TOUCH.START'; ev: React.TouchEvent }

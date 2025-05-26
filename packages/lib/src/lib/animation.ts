@@ -1,12 +1,12 @@
 import { pipe } from 'fp-ts/lib/function'
-import { ReadonlyDeep } from 'type-fest'
-import { Box } from './box'
+import { type ReadonlyDeep } from 'type-fest'
+import { type Box } from './box'
 import { boxCenter, boxScaleAt } from './box/prefixed'
 import { fromMatrixSvg, toMatrixSvg } from './coord'
-import { Drag } from './drag'
-import { Layout, relocLayout, zoomLayout } from './layout'
+import { type Drag } from './drag'
+import { type Layout, relocLayout, zoomLayout } from './layout'
 import {
-  MatrixMatrix as Matrix,
+  type MatrixMatrix as Matrix,
   matrixMultiply,
   matrixScaleAt,
 } from './matrix/prefixed'
@@ -14,12 +14,12 @@ import {
   fromTransform,
   invMove,
   invScale,
-  Scale,
+  type Scale,
   transformPoint,
   transformScale,
 } from './transform'
 import { ifNullOr, zoomToScale } from './utils'
-import { VecVec as Vec, vecAdd, vecSub } from './vec/prefixed'
+import { type VecVec as Vec, vecAdd, vecSub } from './vec/prefixed'
 
 export type AnimationMove = Readonly<{
   move: Vec

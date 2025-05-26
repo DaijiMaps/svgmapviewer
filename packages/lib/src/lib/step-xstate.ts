@@ -1,6 +1,12 @@
-import { ActorRefFrom, AnyActorRef, assign, sendTo, setup } from 'xstate'
+import {
+  type ActorRefFrom,
+  type AnyActorRef,
+  assign,
+  sendTo,
+  setup,
+} from 'xstate'
 import { animationFrameLogic } from './animationframe-xstate'
-import { BoxBox as Box } from './box/prefixed'
+import { type BoxBox as Box } from './box/prefixed'
 import { svgMapViewerConfig as cfg } from './config'
 import { isDefined, isNotNull } from './utils'
 import { vecInterpolate } from './vec/prefixed'

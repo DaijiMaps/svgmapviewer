@@ -1,11 +1,11 @@
-import { AnyActorRef, assign, setup } from 'xstate'
-import { Animation, animationEndLayout } from './animation'
-import { BoxBox } from './box/prefixed'
-import { Drag } from './drag'
+import { type AnyActorRef, assign, setup } from 'xstate'
+import { type Animation, animationEndLayout } from './animation'
+import { type BoxBox } from './box/prefixed'
+import { type Drag } from './drag'
 import {
   expandLayoutCenter,
-  Layout,
-  LayoutConfig,
+  type Layout,
+  type LayoutConfig,
   makeLayout,
   recenterLayout,
   relocLayout,

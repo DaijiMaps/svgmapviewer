@@ -5,11 +5,16 @@ import {
   readonlyMap as ReadonlyMap,
 } from 'fp-ts'
 import { pipe } from 'fp-ts/lib/function'
-import { Touch } from 'react'
-import { ReadonlyDeep } from 'type-fest'
+import { type Touch } from 'react'
+import { type ReadonlyDeep } from 'type-fest'
 import { isUndefined } from './utils'
 import { dist } from './vec/dist'
-import { VecVec as Vec, vecAngle, vecMidpoint, vecOrd } from './vec/prefixed'
+import {
+  type VecVec as Vec,
+  vecAngle,
+  vecMidpoint,
+  vecOrd,
+} from './vec/prefixed'
 
 const vecsOrd = ReadonlyArray.getOrd<Vec>(vecOrd)
 

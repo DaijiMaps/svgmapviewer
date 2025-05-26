@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { createActor, emit, setup } from 'xstate'
 import { Ui } from '../Ui'
 

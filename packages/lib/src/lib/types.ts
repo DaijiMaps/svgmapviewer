@@ -1,12 +1,17 @@
 /* eslint-disable functional/no-mixed-types */
 /* eslint-disable functional/no-return-void */
-import { ReactNode } from 'react'
-import { BoxBox } from './box/prefixed'
-import { MapLayer, MapMarkers, MapObjects, MapSymbols } from './carto'
-import { LayoutCoord } from './coord'
-import { MapData, POI } from './geo'
-import { Layout } from './layout'
-import { Vec } from './vec'
+import { type ReactNode } from 'react'
+import { type BoxBox } from './box/prefixed'
+import {
+  type MapLayer,
+  type MapMarkers,
+  type MapObjects,
+  type MapSymbols,
+} from './carto'
+import { type LayoutCoord } from './coord'
+import { type MapData, type POI } from './geo'
+import { type Layout } from './layout'
+import { type Vec } from './vec'
 
 // top, right, bottom, left
 export type Dir = 0 | 1 | 2 | 3

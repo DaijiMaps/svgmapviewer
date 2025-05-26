@@ -4,7 +4,7 @@
 import { createElement } from 'react'
 import { configActor } from './config-xstate'
 import { emptyMapData } from './geo/data'
-import { Layout } from './layout'
+import { type Layout } from './layout'
 import type {
   ConfigCb,
   Info,
@@ -12,7 +12,7 @@ import type {
   SvgMapViewerConfig,
   SvgMapViewerConfigUser,
 } from './types'
-import { VecVec } from './vec/prefixed'
+import { type VecVec } from './vec/prefixed'
 
 const renderInfoDefault: RenderInfo = (
   props: Readonly<{ info: Readonly<Info> }>

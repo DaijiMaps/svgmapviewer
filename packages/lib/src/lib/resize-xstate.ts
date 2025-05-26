@@ -1,7 +1,7 @@
 import { assign, createActor, emit, raise, setup } from 'xstate'
-import { BoxBox as Box, boxEq, boxUnit } from './box/prefixed'
+import { type BoxBox as Box, boxEq, boxUnit } from './box/prefixed'
 import { configActor } from './config-xstate'
-import { Layout, resizeLayout } from './layout'
+import { type Layout, resizeLayout } from './layout'
 import { getBodySize } from './utils'
 
 type ResizeEvent = { type: 'RESIZE' } | { type: 'EXPIRED' }

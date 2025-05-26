@@ -1,6 +1,6 @@
-import { assign, createActor, setup, StateFrom } from 'xstate'
-import { Animation } from './animation'
-import { emptyLayout, Layout } from './layout'
+import { assign, createActor, setup, type StateFrom } from 'xstate'
+import { type Animation } from './animation'
+import { emptyLayout, type Layout } from './layout'
 
 export type StyleEvent =
   | { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }

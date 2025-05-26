@@ -10,11 +10,15 @@ import {
   registerCbs,
 } from './config'
 import { timeoutMachine } from './event-xstate'
-import { Layout } from './layout'
-import { pointerMachine, PointerMode, ReactUIEvent } from './pointer-xstate'
+import { type Layout } from './layout'
+import {
+  pointerMachine,
+  type PointerMode,
+  type ReactUIEvent,
+} from './pointer-xstate'
 import { setCurrentScroll } from './scroll'
-import { SearchRes } from './types'
-import { Vec } from './vec'
+import { type SearchRes } from './types'
+import { type Vec } from './vec'
 
 /// actor
 

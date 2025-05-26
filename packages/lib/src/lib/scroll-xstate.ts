@@ -1,5 +1,5 @@
-import { ActorRefFrom, assign, fromPromise, sendTo, setup } from 'xstate'
-import { BoxBox as Box } from './box/prefixed'
+import { type ActorRefFrom, assign, fromPromise, sendTo, setup } from 'xstate'
+import { type BoxBox as Box } from './box/prefixed'
 import { getScroll, syncScroll } from './scroll'
 import { stepMachine } from './step-xstate'
 
