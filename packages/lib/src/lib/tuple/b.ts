@@ -1,4 +1,4 @@
-import { V } from './v'
+import { type V } from './v'
 
 // B == box: top-left, bottom-right
 

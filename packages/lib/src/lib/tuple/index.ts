@@ -1,9 +1,9 @@
-import { B } from './b'
-import { H } from './h'
-import { L } from './l'
-import { M } from './m'
+import { type B } from './b'
+import { type H } from './h'
+import { type L } from './l'
+import { type M } from './m'
 import {
-  V,
+  type V,
   add as vAdd,
   div as vDiv,
   mul as vMul,
