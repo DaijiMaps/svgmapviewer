@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import clsx from 'clsx'
+import clsx from 'clsx/clsx'
 import { layers } from './lib/layers'
 
 export function useLayers() {

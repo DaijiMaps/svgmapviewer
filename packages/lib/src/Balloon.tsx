@@ -1,15 +1,15 @@
 import { useSelector } from '@xstate/react'
-import { PropsWithChildren, ReactNode } from 'react'
+import { type PropsWithChildren, type ReactNode } from 'react'
 import './Balloon.css'
-import { OpenClose, openCloseIsVisible } from './lib/openclose'
-import { Dir, SearchRes } from './lib/types'
+import { type OpenClose, openCloseIsVisible } from './lib/openclose'
+import { type Dir, type SearchRes } from './lib/types'
 import {
   selectOpenCloseBalloon,
   selectOpenCloseDetail,
   uiActor,
 } from './lib/ui-xstate'
-import { Vec } from './lib/vec'
-import { VecVec } from './lib/vec/prefixed'
+import { type Vec } from './lib/vec'
+import { type VecVec } from './lib/vec/prefixed'
 
 export interface BalloonPathProps {
   dir: Dir

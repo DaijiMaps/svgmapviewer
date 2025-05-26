@@ -3,13 +3,13 @@ import { useMemo } from 'react'
 import { Cursor } from './Cursor'
 import './Guides.css'
 import { boxCenter } from './lib/box/prefixed'
-import { LayoutConfig } from './lib/layout'
+import { type LayoutConfig } from './lib/layout'
 import {
-  PointerRef,
+  type PointerRef,
   selectLayoutConfig,
   selectMode,
 } from './lib/pointer-xstate'
-import { Vec } from './lib/vec'
+import { type Vec } from './lib/vec'
 
 export interface GuideParams {
   c: Vec

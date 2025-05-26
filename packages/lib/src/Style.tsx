@@ -14,12 +14,12 @@ import {
   selectZoom,
 } from './lib/map-xstate'
 import {
-  MatrixMatrix as Matrix,
+  type MatrixMatrix as Matrix,
   matrixEmpty,
   matrixToString,
 } from './lib/matrix/prefixed'
 import { pointerActor } from './lib/pointer-react'
-import { styleActor, StyleState } from './lib/style-xstate'
+import { styleActor, type StyleState } from './lib/style-xstate'
 
 export function styleRoot() {
   const e = document.getElementById('style-root')

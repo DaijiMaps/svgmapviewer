@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import clsx from 'clsx'
+import clsx from 'clsx/clsx'
 import './Right.css'
 import { pointerActor } from './lib/pointer-react'
 import { selectOpenCloseRight, uiActor } from './lib/ui-xstate'
