@@ -1,15 +1,14 @@
-import { type ReadonlyDeep } from 'type-fest'
-import { type V } from '../tuple'
-import { type ImmutableShallow } from '../utils'
+//import { type ReadonlyDeep } from 'type-fest'
+//import { type V } from '../tuple'
 
-type Vec = Readonly<
-  ImmutableShallow<{
-    x: number
-    y: number
-  }>
->
+type V = [number, number]
 
-type Vecs = ReadonlyDeep<Vec[]>
+type Vec = Readonly<{
+  x: number
+  y: number
+}>
+
+type Vecs = Readonly<Vec[]>
 
 function vec(x: number, y: number): Vec {
   return { x, y }
@@ -18,7 +17,7 @@ function vec(x: number, y: number): Vec {
 const zero: Vec = vec(0, 0)
 const one: Vec = vec(1, 1)
 
-function fromV([x, y]: V): Vec {
+function fromV([x, y]: Readonly<V>): Vec {
   return { x, y }
 }
 

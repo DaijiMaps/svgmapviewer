@@ -6,7 +6,7 @@ export function dist<T extends Vec>(a: T, b: T): number {
 
 export const distF =
   <T extends Vec>(b: T) =>
-  (a: T) =>
+  (a: T): number =>
     dist(a, b)
 
 export function qdist<T extends Vec>(a: T, b: T): number {
