@@ -1,3 +1,4 @@
+import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
 import { type Animation } from './animation'
 import { emptyLayout, type Layout } from './layout'
@@ -91,4 +92,23 @@ export function styleSend(ev: StyleEvent): void {
 
 export function styleAnimationEnd(): void {
   styleActor.send({ type: 'ANIMATION.END' })
+}
+
+export function useRendered(): boolean {
+  return useSelector(styleActor, (s) => s.context.rendered)
+}
+export function useAnimating(): boolean {
+  return useSelector(styleActor, (s) => s.context.animating)
+}
+export function useLayout(): Layout {
+  return useSelector(styleActor, (s) => s.context.layout)
+}
+export function useDragging(): boolean {
+  return useSelector(styleActor, (s) => s.context.dragging)
+}
+export function useMode(): string {
+  return useSelector(styleActor, (s) => s.context.mode)
+}
+export function useAnimation(): null | Animation {
+  return useSelector(styleActor, (s) => s.context.animation)
 }

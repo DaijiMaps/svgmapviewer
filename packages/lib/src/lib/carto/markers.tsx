@@ -1,4 +1,3 @@
-import { useSelector } from '@xstate/react'
 import type { ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import {
@@ -7,11 +6,7 @@ import {
   type Point,
   type PointsFilter,
 } from '../geo'
-import {
-  renderMapActor,
-  selectLayoutConfig,
-  selectLayoutSvgScaleS,
-} from '../map-xstate'
+import { useLayoutConfig, useLayoutSvgScaleS } from '../map-xstate'
 import { type V, vUnvec, vVec } from '../tuple'
 
 export interface RenderMapMarkersProps {
@@ -21,8 +16,8 @@ export interface RenderMapMarkersProps {
 export function RenderMapMarkers(
   props: Readonly<RenderMapMarkersProps>
 ): ReactNode {
-  const config = useSelector(renderMapActor, selectLayoutConfig)
-  const s = useSelector(renderMapActor, selectLayoutSvgScaleS)
+  const config = useLayoutConfig()
+  const s = useLayoutSvgScaleS()
 
   const sz = s * config.fontSize * 0.9
 

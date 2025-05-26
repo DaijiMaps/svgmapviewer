@@ -1,14 +1,9 @@
-import { useSelector } from '@xstate/react'
 import { type ReactNode, useMemo } from 'react'
 import { Cursor } from './Cursor'
 import './Guides.css'
 import { boxCenter } from './lib/box/prefixed'
 import { type LayoutConfig } from './lib/layout'
-import {
-  type PointerRef,
-  selectLayoutConfig,
-  selectMode,
-} from './lib/pointer-xstate'
+import { usePointerLayoutConfig, usePointerMode } from './lib/pointer-xstate'
 import { type Vec } from './lib/vec'
 
 export interface GuideParams {
@@ -43,19 +38,16 @@ v${r * 40}
   )
 }
 
-export interface GuidesProps {
-  _pointerRef: PointerRef
-}
+export interface GuidesProps {}
 
-export function Guides(props: Readonly<GuidesProps>): ReactNode {
-  const { _pointerRef: pointerRef } = props
-  const mode = useSelector(pointerRef, selectMode)
-  const config = useSelector(pointerRef, selectLayoutConfig)
+export function Guides(): ReactNode {
+  const mode = usePointerMode()
+  const config = usePointerLayoutConfig()
   const p = useMemo(() => guideParams(config), [config])
 
   return (
     <svg className="guides">
-      <Cursor _pointerRef={props._pointerRef} _r={p.r} />
+      <Cursor _r={p.r} />
       {mode === 'panning' && <PanningGuides _p={p} />}
     </svg>
   )

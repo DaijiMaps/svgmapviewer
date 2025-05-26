@@ -1,8 +1,7 @@
-import { useSelector } from '@xstate/react'
 import { type ReactNode } from 'react'
-import { notifyUiClose } from './lib/config'
-import { selectOpenCloseShadow, uiActor } from './lib/ui-xstate'
 import './Shadow.css'
+import { notifyUiClose } from './lib/config-xstate'
+import { uiSend, useOpenCloseShadow } from './lib/ui-xstate'
 
 export function Shadow(): ReactNode {
   return (
@@ -11,7 +10,7 @@ export function Shadow(): ReactNode {
       // eslint-disable-next-line functional/no-return-void
       onClick={() => notifyUiClose()}
       // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => uiActor.send({ type: 'SHADOW.ANIMATION.END' })}
+      onAnimationEnd={() => uiSend({ type: 'SHADOW.ANIMATION.END' })}
     >
       <ShadowStyle />
     </div>
@@ -19,7 +18,7 @@ export function Shadow(): ReactNode {
 }
 
 function ShadowStyle(): ReactNode {
-  const shadow = useSelector(uiActor, selectOpenCloseShadow)
+  const shadow = useOpenCloseShadow()
 
   if (!shadow.animating) {
     return !shadow.open ? (

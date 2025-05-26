@@ -10,11 +10,12 @@ import {
   sendWheel,
 } from './lib/pointer-react'
 import { styleAnimationEnd } from './lib/style-xstate'
+import {} from './lib/touch-react'
 import {
   touchSendTouchEnd,
   touchSendTouchMove,
   touchSendTouchStart,
-} from './lib/touch-react'
+} from './lib/touch-xstate'
 import { MapHtmlRoot } from './MapHtmlRoot'
 import { MapSvg } from './MapSvg'
 

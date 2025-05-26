@@ -1,9 +1,8 @@
-import { useSelector } from '@xstate/react'
 import { type ReactNode, useContext } from 'react'
 import './Header.css'
-import { pointerActor } from './lib/pointer-react'
-import { selectOpenCloseHeader, uiActor } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
+import { pointerSend } from './lib/pointer-xstate'
+import { uiSend, useOpenCloseHeader } from './lib/ui-xstate'
 
 export function Header(): ReactNode {
   const config = useContext(SvgMapViewerConfigContext)
@@ -12,13 +11,13 @@ export function Header(): ReactNode {
     <div
       className="header"
       // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => uiActor.send({ type: 'HEADER.ANIMATION.END' })}
+      onAnimationEnd={() => uiSend({ type: 'HEADER.ANIMATION.END' })}
     >
       <h2 className="subtitle">{config.subtitle}</h2>
       <h1
         className="title"
         // eslint-disable-next-line functional/no-return-void
-        onClick={() => pointerActor.send({ type: 'LAYOUT.RESET' })}
+        onClick={() => pointerSend({ type: 'LAYOUT.RESET' })}
       >
         {config.title}
       </h1>
@@ -28,7 +27,7 @@ export function Header(): ReactNode {
 }
 
 export function HeaderStyle(): ReactNode {
-  const { open, animating } = useSelector(uiActor, selectOpenCloseHeader)
+  const { open, animating } = useOpenCloseHeader()
 
   if (!animating) {
     const b = !open ? 0 : 1

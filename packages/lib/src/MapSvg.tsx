@@ -1,14 +1,12 @@
-import { useSelector } from '@xstate/react'
 import { type ReactNode, useContext } from 'react'
 import { boxToViewBox } from './lib/box/prefixed'
-import { pointerActor } from './lib/pointer-react'
-import { selectOrigLayoutSvg } from './lib/pointer-xstate'
+import { usePointerOrigLayoutSvg } from './lib/pointer-xstate'
 import './MapSvg.css'
 import { SvgMapViewerConfigContext } from './Root'
 
 export function MapSvg(): ReactNode {
   // XXX only when resized
-  const origLayoutSvg = useSelector(pointerActor, selectOrigLayoutSvg)
+  const origLayoutSvg = usePointerOrigLayoutSvg()
 
   const config = useContext(SvgMapViewerConfigContext)
 

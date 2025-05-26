@@ -1,12 +1,7 @@
-import {
-  type ActorRefFrom,
-  assign,
-  createActor,
-  setup,
-  type StateFrom,
-} from 'xstate'
+import { useSelector } from '@xstate/react'
+import { assign, createActor, setup } from 'xstate'
 import '../index.css'
-import { emptyLayout, type Layout } from '../lib/layout'
+import { emptyLayout, type Layout, type LayoutConfig } from '../lib/layout'
 import { registerCbs } from './config'
 
 type RenderMapContext = {
@@ -51,14 +46,18 @@ const renderMapMachine = setup({
   },
 })
 
-type RenderMapRef = ActorRefFrom<typeof renderMapMachine>
-type RenderMapState = StateFrom<typeof renderMapMachine>
+//type RenderMapRef = ActorRefFrom<typeof renderMapMachine>
+//type RenderMapState = StateFrom<typeof renderMapMachine>
 
-const selectLayoutConfig = (state: Readonly<RenderMapState>) =>
-  state.context.layout.config
-const selectLayoutSvgScaleS = (state: Readonly<RenderMapState>) =>
-  state.context.layout.svgScale.s
-const selectZoom = (state: Readonly<RenderMapState>) => state.context.zoom
+export function useLayoutConfig(): LayoutConfig {
+  return useSelector(renderMapActor, (state) => state.context.layout.config)
+}
+export function useLayoutSvgScaleS(): number {
+  return useSelector(renderMapActor, (state) => state.context.layout.svgScale.s)
+}
+export function useZoom(): number {
+  return useSelector(renderMapActor, (state) => state.context.zoom)
+}
 
 ////
 

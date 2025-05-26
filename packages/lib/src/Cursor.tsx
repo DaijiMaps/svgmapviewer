@@ -1,6 +1,5 @@
-import { useSelector } from '@xstate/react'
 import { type ReactNode } from 'react'
-import { type PointerRef, selectCursor } from './lib/pointer-xstate'
+import { usePointerCursor } from './lib/pointer-xstate'
 
 const DefaultCursorPath = (
   props: Readonly<{ x: number; y: number; r: number }>
@@ -28,19 +27,17 @@ a${r},${r} 0,0,1 0,${-r * 2}
 
 function DefaultCursor(
   props: Readonly<{
-    _pointerRef: PointerRef
     _r: number
   }>
 ): ReactNode {
-  const { _pointerRef: pointerRef, _r: r } = props
-  const cursor = useSelector(pointerRef, selectCursor)
+  const { _r: r } = props
+  const cursor = usePointerCursor()
 
   return <DefaultCursorPath x={cursor.x} y={cursor.y} r={r} />
 }
 
 function MultiTouchCursor(
   props: Readonly<{
-    _pointerRef: PointerRef
     _r: number
   }>
 ): ReactNode {
@@ -65,7 +62,6 @@ function MultiTouchCursor(
 
 export const Cursor = (
   props: Readonly<{
-    _pointerRef: PointerRef
     _r: number
   }>
 ): ReactNode => {

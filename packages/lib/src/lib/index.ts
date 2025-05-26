@@ -1,7 +1,6 @@
 import { Like } from '../Like'
 import { svgMapViewerConfig } from './config'
-import type { ConfigMachine, ConfigState } from './config-xstate'
-import { configSend, selectMapNames } from './config-xstate'
+import { configSend, useConfigMapNames } from './config-xstate'
 import { type Layout } from './layout'
 import { svgmapviewer } from './svgmapviewer'
 import type {
@@ -19,9 +18,7 @@ export type { Info, RenderMap, SearchReq, SearchRes }
 
 // svgmapviewer
 
-export type { ConfigMachine, ConfigState }
-
-export { configSend, selectMapNames, svgMapViewerConfig }
+export { configSend, svgMapViewerConfig, useConfigMapNames }
 
 // svgmapviewer
 

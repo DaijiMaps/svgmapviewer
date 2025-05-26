@@ -1,13 +1,13 @@
 import { type ReactNode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import { uiRootActor, uiRootRenderCbs } from './ui-root-xstate'
+import { uiRootRenderCbs, uiRootSend } from './ui-root-xstate'
 
 export function useUiRoot(): void {
   useEffect(() => mountUiRoot(), [])
 }
 
 function mountUiRoot(): void {
-  uiRootActor.send({ type: 'MOUNT' })
+  uiRootSend({ type: 'MOUNT' })
 }
 
 function renderUiRoot(children: Readonly<ReactNode>): void {

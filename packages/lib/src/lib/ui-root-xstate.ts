@@ -34,3 +34,7 @@ uiRootActor.start()
 export function uiRootActorStart(): void {
   uiRootActor.start()
 }
+
+export function uiRootSend(ev: RootEvent): void {
+  uiRootActor.send(ev)
+}

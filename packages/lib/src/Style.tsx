@@ -1,25 +1,26 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-throw-statements */
-import { useSelector } from '@xstate/react'
 import { type ReactNode, StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { fromSvgToOuter } from './lib/coord'
 import { cssMatrixToString, fixupCssString } from './lib/css'
-import {
-  renderMapActor,
-  selectLayoutConfig,
-  selectLayoutSvgScaleS,
-  selectZoom,
-} from './lib/map-xstate'
+import { useLayoutConfig, useLayoutSvgScaleS, useZoom } from './lib/map-xstate'
 import {
   type MatrixMatrix as Matrix,
   matrixEmpty,
   matrixToString,
 } from './lib/matrix/prefixed'
-import { pointerActor } from './lib/pointer-react'
-import { styleActor, type StyleState } from './lib/style-xstate'
+import { pointerSend } from './lib/pointer-xstate'
+import {
+  useAnimating,
+  useAnimation,
+  useDragging,
+  useLayout,
+  useMode,
+  useRendered,
+} from './lib/style-xstate'
 
 export function styleRoot(): void {
   const e = document.getElementById('style-root')
@@ -48,23 +49,14 @@ function Style(): ReactNode {
 }
 
 function LayoutStyle(): ReactNode {
-  const rendered = useSelector(
-    styleActor,
-    (state: Readonly<StyleState>) => state.context.rendered
-  )
-  const animating = useSelector(
-    styleActor,
-    (state: Readonly<StyleState>) => state.context.animating
-  )
-  const { svg, svgOffset, svgScale, scroll } = useSelector(
-    styleActor,
-    (state: Readonly<StyleState>) => state.context.layout
-  )
+  const rendered = useRendered()
+  const animating = useAnimating()
+  const { svg, svgOffset, svgScale, scroll } = useLayout()
   const m = fromSvgToOuter({ svg, svgOffset, svgScale })
   const matrix = fixupCssString(cssMatrixToString(m))
 
   useEffect(() => {
-    requestAnimationFrame(() => pointerActor.send({ type: 'RENDERED' }))
+    requestAnimationFrame(() => pointerSend({ type: 'RENDERED' }))
   }, [rendered])
 
   return (
@@ -110,10 +102,8 @@ const appearing = `
 `
 
 function DraggingStyle(): ReactNode {
-  const dragging = useSelector(
-    styleActor,
-    (state: Readonly<StyleState>) => state.context.dragging
-  )
+  const dragging = useDragging()
+
   return (
     <>
       {!dragging
@@ -130,10 +120,7 @@ function DraggingStyle(): ReactNode {
 }
 
 function ModeStyle(): ReactNode {
-  const mode = useSelector(
-    styleActor,
-    (state: Readonly<StyleState>) => state.context.mode
-  )
+  const mode = useMode()
   return (
     <>
       {mode === 'pointing' || mode === 'locked'
@@ -159,10 +146,7 @@ function ModeStyle(): ReactNode {
 }
 
 function AnimationStyle(): ReactNode {
-  const animation = useSelector(
-    styleActor,
-    (state: Readonly<StyleState>) => state.context.animation
-  )
+  const animation = useAnimation()
   const style =
     animation === null
       ? ''
@@ -200,9 +184,9 @@ function css(q: Matrix): string {
 }
 
 function SvgSymbolStyle(): ReactNode {
-  const config = useSelector(renderMapActor, selectLayoutConfig)
-  const s = useSelector(renderMapActor, selectLayoutSvgScaleS)
-  const zoom = useSelector(renderMapActor, selectZoom)
+  const config = useLayoutConfig()
+  const s = useLayoutSvgScaleS()
+  const zoom = useZoom()
   const sz =
     config.fontSize *
     // display symbol slightly larger as zoom goes higher

@@ -1,14 +1,6 @@
 import { useSelector } from '@xstate/react'
 import React from 'react'
-import {
-  type ActorRefFrom,
-  assign,
-  createActor,
-  emit,
-  enqueueActions,
-  setup,
-  type StateFrom,
-} from 'xstate'
+import { assign, createActor, emit, enqueueActions, setup } from 'xstate'
 import {
   type Animation,
   animationEndLayout,
@@ -32,6 +24,7 @@ import {
   emptyLayout,
   expandLayoutCenter,
   type Layout,
+  type LayoutConfig,
   makeLayout,
   scrollLayout,
   toSvg,
@@ -706,30 +699,53 @@ const pointerMachine = setup({
 //// PointerState
 //// PointerSend
 
-type PointerMachine = typeof pointerMachine
+//type PointerMachine = typeof pointerMachine
 
-type PointerState = StateFrom<typeof pointerMachine>
+//type PointerState = StateFrom<typeof pointerMachine>
 
 export type PointerSend = (events: _PointerEvent) => void
 
-type PointerRef = ActorRefFrom<typeof pointerMachine>
+//type PointerRef = ActorRefFrom<typeof pointerMachine>
 
-const selectMode = (pointer: PointerState) => pointer.context.mode
-const selectLayout = (pointer: PointerState) => pointer.context.layout
-const selectLayoutConfig = (pointer: PointerState) =>
-  pointer.context.layout.config
-const selectLayoutContainer = (pointer: PointerState) =>
-  pointer.context.layout.container
-const selectLayoutSvg = (pointer: PointerState) => pointer.context.layout.svg
-const selectLayoutSvgScaleS = (pointer: PointerState) =>
-  pointer.context.layout.svgScale.s
-const selectLayoutSvgOffset = (pointer: PointerState) =>
-  pointer.context.layout.svgOffset
-const selectLayoutScroll = (pointer: PointerState) =>
-  pointer.context.layout.scroll
-const selectOrigLayoutSvg = (pointer: PointerState) =>
-  pointer.context.origLayout.svg
-const selectCursor = (pointer: PointerState) => pointer.context.cursor
+export function usePointerMode(): PointerMode {
+  return useSelector(pointerActor, (pointer) => pointer.context.mode)
+}
+export function usePointerLayout(): Layout {
+  return useSelector(pointerActor, (pointer) => pointer.context.layout)
+}
+export function usePointerLayoutConfig(): LayoutConfig {
+  return useSelector(pointerActor, (pointer) => pointer.context.layout.config)
+}
+export function usePointerLayoutContainer(): BoxBox {
+  return useSelector(
+    pointerActor,
+    (pointer) => pointer.context.layout.container
+  )
+}
+export function usePointerLayoutSvg(): BoxBox {
+  return useSelector(pointerActor, (pointer) => pointer.context.layout.svg)
+}
+export function usePointerLayoutSvgScaleS(): number {
+  return useSelector(
+    pointerActor,
+    (pointer) => pointer.context.layout.svgScale.s
+  )
+}
+export function usePointerLayoutSvgOffset(): VecVec {
+  return useSelector(
+    pointerActor,
+    (pointer) => pointer.context.layout.svgOffset
+  )
+}
+export function usePointerLayoutScroll(): BoxBox {
+  return useSelector(pointerActor, (pointer) => pointer.context.layout.scroll)
+}
+export function usePointerOrigLayoutSvg(): BoxBox {
+  return useSelector(pointerActor, (pointer) => pointer.context.origLayout.svg)
+}
+export function usePointerCursor(): VecVec {
+  return useSelector(pointerActor, (pointer) => pointer.context.cursor)
+}
 
 ////
 
@@ -739,13 +755,6 @@ export function pointerStart(): void {
 
 export function pointerSend(ev: _PointerEvent): void {
   pointerActor.send(ev)
-}
-
-export function usePointerMode(): PointerMode {
-  return useSelector(pointerActor, selectMode)
-}
-export function usePointerLayout(): Layout {
-  return useSelector(pointerActor, selectLayout)
 }
 
 const pointerActor = createActor(pointerMachine, {

@@ -1,14 +1,7 @@
-import {
-  type ActorRefFrom,
-  assign,
-  createActor,
-  emit,
-  not,
-  raise,
-  setup,
-  type StateFrom,
-} from 'xstate'
-import { notifyCloseDone, registerCbs } from './config'
+import { useSelector } from '@xstate/react'
+import { assign, createActor, emit, not, raise, setup } from 'xstate'
+import { registerCbs } from './config'
+import { notifyCloseDone } from './config-xstate'
 import { emptyLayoutCoord, type LayoutCoord } from './coord'
 import { fromSvg } from './layout'
 import {
@@ -296,21 +289,35 @@ const uiMachine = setup({
   },
 })
 
-type UiMachine = typeof uiMachine
+//type UiMachine = typeof uiMachine
 
-type UiState = StateFrom<typeof uiMachine>
+//type UiState = StateFrom<typeof uiMachine>
 
-type UiSend = (events: UiEvent) => void
+//type UiSend = (events: UiEvent) => void
 
-type UiRef = ActorRefFrom<typeof uiMachine>
+//type UiRef = ActorRefFrom<typeof uiMachine>
 
-const selectDetail = (ui: UiState) => ui.context.detail
-const selectOpenCloseHeader = (ui: UiState) => ui.context.m['header']
-const selectOpenCloseFooter = (ui: UiState) => ui.context.m['footer']
-const selectOpenCloseRight = (ui: UiState) => ui.context.m['right']
-const selectOpenCloseShadow = (ui: UiState) => ui.context.m['shadow']
-const selectOpenCloseBalloon = (ui: UiState) => ui.context.m['balloon']
-const selectOpenCloseDetail = (ui: UiState) => ui.context.m['detail']
+export function useDetail(): UiDetailContent {
+  return useSelector(uiActor, (ui) => ui.context.detail)
+}
+export function useOpenCloseHeader(): OpenClose {
+  return useSelector(uiActor, (ui) => ui.context.m['header'])
+}
+export function useOpenCloseFooter(): OpenClose {
+  return useSelector(uiActor, (ui) => ui.context.m['footer'])
+}
+export function useOpenCloseRight(): OpenClose {
+  return useSelector(uiActor, (ui) => ui.context.m['right'])
+}
+export function useOpenCloseShadow(): OpenClose {
+  return useSelector(uiActor, (ui) => ui.context.m['shadow'])
+}
+export function useOpenCloseBalloon(): OpenClose {
+  return useSelector(uiActor, (ui) => ui.context.m['balloon'])
+}
+export function useOpenCloseDetail(): OpenClose {
+  return useSelector(uiActor, (ui) => ui.context.m['detail'])
+}
 
 ////
 
@@ -338,4 +345,7 @@ function uiCancel() {
 
 export function uiActorStart(): void {
   uiActor.start()
+}
+export function uiSend(ev: UiEvent): void {
+  uiActor.send(ev)
 }

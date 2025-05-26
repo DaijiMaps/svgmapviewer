@@ -25,9 +25,9 @@ const vecsMonoid = ReadonlyMap.getMonoid(
   ReadonlyArray.getSemigroup<Vec>()
 )
 
-type VecsEntry = Readonly<[number, readonly Vec[]]>
-type VecsEntries = Readonly<readonly VecsEntry[]>
-type Vecs = ReadonlyMap<number, readonly Vec[]>
+export type VecsEntry = Readonly<[number, readonly Vec[]]>
+export type VecsEntries = Readonly<readonly VecsEntry[]>
+export type Vecs = ReadonlyMap<number, readonly Vec[]>
 
 export type Touches = Readonly<{
   vecs: Vecs

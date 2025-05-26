@@ -1,10 +1,4 @@
-import {
-  type ActorRefFrom,
-  createActor,
-  emit,
-  setup,
-  type StateFrom,
-} from 'xstate'
+import { createActor, emit, setup } from 'xstate'
 import { notifySearch, notifySearchEnd } from './config-xstate'
 import { type Info, type SearchRes } from './types'
 import { type Vec } from './vec'
@@ -55,13 +49,13 @@ const searchMachine = setup({
   },
 })
 
-type SearchMachine = typeof searchMachine
+//type SearchMachine = typeof searchMachine
 
-type SearchState = StateFrom<typeof searchMachine>
+//type SearchState = StateFrom<typeof searchMachine>
 
-type SearchSend = (events: SearchEvent) => void
+//type SearchSend = (events: SearchEvent) => void
 
-type SearchRef = ActorRefFrom<typeof searchMachine>
+//type SearchRef = ActorRefFrom<typeof searchMachine>
 
 ////
 

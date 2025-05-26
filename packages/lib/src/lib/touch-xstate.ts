@@ -1,5 +1,6 @@
 import { assign, createActor, enqueueActions, setup } from 'xstate'
 
+import { useSelector } from '@xstate/react'
 import { pointerSend } from './pointer-xstate'
 import {
   handleTouchEnd,
@@ -7,6 +8,7 @@ import {
   handleTouchStart,
   resetTouches,
   type Touches,
+  type Vecs,
 } from './touch'
 import { type VecVec } from './vec/prefixed'
 
@@ -270,4 +272,11 @@ export function touchSendTouchEnd(ev: React.TouchEvent): void {
 }
 export function touchSendCancel(): void {
   touchActor.send({ type: 'CANCEL' })
+}
+
+export function useTouchesVecs(): Vecs {
+  return useSelector(touchActor, (s) => s.context.touches.vecs)
+}
+export function useTouchesZ(): null | number {
+  return useSelector(touchActor, (s) => s.context.touches.z)
 }

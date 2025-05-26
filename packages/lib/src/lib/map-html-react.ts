@@ -1,15 +1,15 @@
 import { useEffect } from 'react'
-import { pointerActor } from './pointer-react'
+import { pointerSend } from './pointer-xstate'
 
 export const ROOT_ID = 'map-html-content-root'
 
 let mapHtmlRendered = false
 
-export function useMapHtmlRendered() {
+export function useMapHtmlRendered(): void {
   useEffect(() => {
     if (!mapHtmlRendered) {
       mapHtmlRendered = true
-      pointerActor.send({ type: 'RENDERED.MAP-HTML' })
+      pointerSend({ type: 'RENDERED.MAP-HTML' })
     }
   }, [])
 }

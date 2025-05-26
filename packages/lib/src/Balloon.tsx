@@ -1,12 +1,11 @@
-import { useSelector } from '@xstate/react'
 import { type PropsWithChildren, type ReactNode } from 'react'
 import './Balloon.css'
 import { type OpenClose, openCloseIsVisible } from './lib/openclose'
 import { type Dir, type SearchRes } from './lib/types'
 import {
-  selectOpenCloseBalloon,
-  selectOpenCloseDetail,
-  uiActor,
+  uiSend,
+  useOpenCloseBalloon,
+  useOpenCloseDetail,
 } from './lib/ui-xstate'
 import { type Vec } from './lib/vec'
 import { type VecVec } from './lib/vec/prefixed'
@@ -113,7 +112,7 @@ export function Balloon(
     <div
       className="balloon-container"
       // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => uiActor.send({ type: 'BALLOON.ANIMATION.END' })}
+      onAnimationEnd={() => uiSend({ type: 'BALLOON.ANIMATION.END' })}
     >
       <svg
         className="balloon"
@@ -132,8 +131,8 @@ export function Balloon(
 export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
   const { _detail: content, _p: o, _dir: dir } = props
 
-  const balloon = useSelector(uiActor, selectOpenCloseBalloon)
-  const detail = useSelector(uiActor, selectOpenCloseDetail)
+  const balloon = useOpenCloseBalloon()
+  const detail = useOpenCloseDetail()
 
   // XXX
   const vmin = Math.min(props._W, props._H) * 0.01

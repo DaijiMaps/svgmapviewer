@@ -1,22 +1,22 @@
-import { useSelector } from '@xstate/react'
 import { type ReactNode, useContext } from 'react'
 import './Footer.css'
-import { touchActor, touching } from './lib/touch-react'
-import { selectOpenCloseFooter, uiActor } from './lib/ui-xstate'
+import { touching } from './lib/touch-react'
+import { useTouchesVecs, useTouchesZ } from './lib/touch-xstate'
+import { uiSend, useOpenCloseFooter } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 
 export function Footer(): ReactNode {
   const config = useContext(SvgMapViewerConfigContext)
   //const mode = useSelector(pointerActor, selectMode)
 
-  const vecs = useSelector(touchActor, (state) => state.context.touches.vecs)
-  const z = useSelector(touchActor, (state) => state.context.touches.z)
+  const vecs = useTouchesVecs()
+  const z = useTouchesZ()
 
   return (
     <div
       className="footer"
       // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => uiActor.send({ type: 'FOOTER.ANIMATION.END' })}
+      onAnimationEnd={() => uiSend({ type: 'FOOTER.ANIMATION.END' })}
     >
       {/*
       <div className="mode">
@@ -65,7 +65,7 @@ const sendModePanning =
 */
 
 export function FooterStyle(): ReactNode {
-  const { open, animating } = useSelector(uiActor, selectOpenCloseFooter)
+  const { open, animating } = useOpenCloseFooter()
 
   if (!animating) {
     const b = !open ? 0 : 1

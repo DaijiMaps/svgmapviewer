@@ -1,12 +1,10 @@
-import { useSelector } from '@xstate/react'
 import { type ReactNode, useMemo } from 'react'
 import { fixupCssString } from './lib/css'
 import { type POI } from './lib/geo'
 import { isLiked, useLikes } from './lib/like'
 import { useMapHtmlRendered } from './lib/map-html-react'
 import { useNames } from './lib/names'
-import { pointerActor } from './lib/pointer-react'
-import { selectLayoutSvgScaleS } from './lib/pointer-xstate'
+import { usePointerLayoutSvgScaleS } from './lib/pointer-xstate'
 
 export function MapHtml(): ReactNode {
   const { pointNames, areaNames } = useNames()
@@ -178,7 +176,7 @@ function MapHtmlContentNamesStyle(
 ): ReactNode {
   const { _areaNames: areaNames } = props
 
-  const s = useSelector(pointerActor, selectLayoutSvgScaleS)
+  const s = usePointerLayoutSvgScaleS()
 
   return (
     <div className="poi-names">
