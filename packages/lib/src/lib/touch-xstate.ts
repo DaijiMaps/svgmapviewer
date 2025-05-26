@@ -1,5 +1,6 @@
-import { type ActorRefFrom, assign, enqueueActions, setup } from 'xstate'
+import { assign, createActor, enqueueActions, setup } from 'xstate'
 
+import { pointerSend } from './pointer-xstate'
 import {
   handleTouchEnd,
   handleTouchMove,
@@ -34,7 +35,7 @@ type TouchContext_ = {
   touches: Touches
 }
 
-export const touchMachine = setup({
+const touchMachine = setup({
   types: {
     context: {} as TouchContext_,
     events: {} as TouchEvent_,
@@ -233,4 +234,40 @@ export const touchMachine = setup({
   },
 })
 
-export type TouchRef = ActorRefFrom<typeof touchMachine>
+////
+
+const touchActor = createActor(touchMachine)
+
+touchActor.on('MULTI.START', () => {
+  //touching = true
+  pointerSend({ type: 'TOUCH.LOCK' })
+})
+
+touchActor.on('MULTI.END', () => {
+  pointerSend({ type: 'TOUCH.UNLOCK' })
+  //touching = false
+})
+touchActor.on('ZOOM', ({ z, p }) => {
+  pointerSend({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })
+})
+
+touchActor.start()
+
+////
+
+export function touchActorStart(): void {
+  touchActor.start()
+}
+
+export function touchSendTouchStart(ev: React.TouchEvent): void {
+  touchActor.send({ type: 'TOUCH.START', ev })
+}
+export function touchSendTouchMove(ev: React.TouchEvent): void {
+  touchActor.send({ type: 'TOUCH.MOVE', ev })
+}
+export function touchSendTouchEnd(ev: React.TouchEvent): void {
+  touchActor.send({ type: 'TOUCH.END', ev })
+}
+export function touchSendCancel(): void {
+  touchActor.send({ type: 'CANCEL' })
+}

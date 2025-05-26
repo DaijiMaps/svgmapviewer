@@ -1,31 +1,9 @@
 import React from 'react'
-import { createActor } from 'xstate'
-import {
-  notifySearchEndDone,
-  notifySearchStart,
-  notifyUiOpen,
-  notifyUiOpenDone,
-  notifyZoomEnd,
-  notifyZoomStart,
-  registerCbs,
-} from './config'
-import { timeoutMachine } from './event-xstate'
-import { type Layout } from './layout'
-import {
-  pointerMachine,
-  type PointerMode,
-  type ReactUIEvent,
-} from './pointer-xstate'
+import { scrollTimeoutActorSend } from './event-xstate'
+import { clickeventmask, pointerSend, pointerSendEvent } from './pointer-xstate'
 import { setCurrentScroll } from './scroll'
-import { type SearchRes } from './types'
-import { type Vec } from './vec'
 
 /// actor
-
-export const pointerActor = createActor(pointerMachine, {
-  systemId: 'system-pointer1',
-  //inspect,
-})
 
 /*
 export type PointerInspect = typeof pointerActor.options.inspect
@@ -42,126 +20,43 @@ export function inspect(iev: InspectionEvent) {
 
 //// handler masks
 
-//let pointereventmask: boolean = false
-//let toucheventmask: boolean = false
-let clickeventmask: boolean = false
-let scrolleventmask: boolean = false
-
-function reflectMode(mode: PointerMode): void {
-  //pointereventmask = mode !== 'pointing'
-  //toucheventmask = mode !== 'pointing'
-  // - xstate-pointer receives 'click' to cancel 'panning'
-  // - xstate-pointer ignores 'click' to pass through (emulated)
-  //  'click' to shadow; shadow receives 'click' to cancel 'locked'
-  clickeventmask = mode === 'locked'
-  scrolleventmask = mode !== 'panning'
-  if (mode === 'panning') {
-    scrollTimeoutActor.send({ type: 'START' })
-  } else {
-    scrollTimeoutActor.send({ type: 'STOP' })
-  }
-}
-
-//// handlers
-
-const pointerSend = (
-  // excluding key down/up events
-  event: ReactUIEvent,
-  options?: {
-    preventDefault?: boolean
-    stopPropagation?: boolean
-  }
-) => {
-  if (options?.preventDefault === false) {
-    // skip
-  } else {
-    //event.ev.preventDefault()
-  }
-  if (options?.stopPropagation === false) {
-    // skip
-  } else {
-    event.ev.stopPropagation()
-  }
-  pointerActor.send(event)
-}
-
 ////
 
-export const sendClick = (ev: React.MouseEvent<HTMLDivElement>) => {
+export const sendClick = (ev: React.MouseEvent<HTMLDivElement>): void => {
   if (clickeventmask) {
     return
   }
-  pointerSend({ type: 'CLICK', ev })
+  pointerSendEvent({ type: 'CLICK', ev })
 }
-export const sendContextMenu = (ev: React.MouseEvent<HTMLDivElement>) =>
-  pointerSend({ type: 'CONTEXTMENU', ev })
-export const sendWheel = (ev: React.WheelEvent<HTMLDivElement>) => {
-  pointerSend({ type: 'WHEEL', ev })
+export const sendContextMenu = (ev: React.MouseEvent<HTMLDivElement>): void =>
+  pointerSendEvent({ type: 'CONTEXTMENU', ev })
+export const sendWheel = (ev: React.WheelEvent<HTMLDivElement>): void => {
+  pointerSendEvent({ type: 'WHEEL', ev })
 }
-export const sendScroll = (ev: React.UIEvent<HTMLDivElement, Event>) => {
+export const sendScroll = (ev: React.UIEvent<HTMLDivElement, Event>): void => {
   if (ev !== null) {
     setCurrentScroll(ev.currentTarget)
   }
-  scrollTimeoutActor.send({
+  scrollTimeoutActorSend({
     type: 'TICK',
     ev,
   })
 }
-export const sendAnimationEnd = (ev: React.AnimationEvent<HTMLDivElement>) =>
-  pointerSend({
+export const sendAnimationEnd = (
+  ev: React.AnimationEvent<HTMLDivElement>
+): void =>
+  pointerSendEvent({
     type: 'ANIMATION.END',
     ev,
   })
 
-export const keyDown = (ev: KeyboardEvent) =>
-  pointerActor.send({ type: 'KEY.DOWN', ev })
-export const keyUp = (ev: KeyboardEvent) =>
-  pointerActor.send({ type: 'KEY.UP', ev })
+export const keyDown = (ev: KeyboardEvent): void =>
+  pointerSend({ type: 'KEY.DOWN', ev })
+export const keyUp = (ev: KeyboardEvent): void =>
+  pointerSend({ type: 'KEY.UP', ev })
 
 //// actor
 
-pointerActor.on('SEARCH', ({ psvg }) => notifySearchStart(psvg))
-pointerActor.on('SEARCH.END.DONE', ({ psvg, info, layout }) => {
-  notifySearchEndDone(psvg, info, layout)
-  notifyUiOpen(psvg, info, layout)
-})
-pointerActor.on('LOCK', ({ ok }) => notifyUiOpenDone(ok))
-pointerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
-  notifyZoomStart(layout, zoom, z)
-)
-pointerActor.on('ZOOM.END', ({ layout, zoom }) => notifyZoomEnd(layout, zoom))
-pointerActor.on('LAYOUT', ({ layout }) => notifyZoomEnd(layout, 1))
-pointerActor.on('MODE', ({ mode }) => reflectMode(mode))
-pointerActor.start()
-
 //// config global callbacks
 
-export const pointerSearchEnd = (res: Readonly<SearchRes>) =>
-  pointerActor.send({ type: 'SEARCH.END', res })
-const pointerSearchLock = (psvg: Vec) =>
-  pointerActor.send({ type: 'SEARCH.LOCK', psvg })
-const pointerSearchUnlock = () => pointerActor.send({ type: 'SEARCH.UNLOCK' })
-
-const resizeCb = (origLayout: Readonly<Layout>, force: boolean) => {
-  pointerActor.send({ type: 'RESIZE', layout: origLayout, force })
-}
-
-registerCbs({
-  searchEndCb: pointerSearchEnd,
-  uiOpenCb: pointerSearchLock,
-  uiCloseDoneCb: pointerSearchUnlock,
-  resizeCb: resizeCb,
-})
-
 ////
-
-export const scrollTimeoutActor = createActor(timeoutMachine, {
-  input: { expiration: 2000 },
-})
-
-scrollTimeoutActor.on('EXPIRED', ({ ev }) => {
-  if (!scrolleventmask) {
-    pointerSend({ type: 'SCROLL', ev })
-  }
-})
-scrollTimeoutActor.start()

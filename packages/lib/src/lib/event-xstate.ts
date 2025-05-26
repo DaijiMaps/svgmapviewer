@@ -1,5 +1,6 @@
 import React from 'react'
-import { type ActorRefFrom, assign, emit, setup } from 'xstate'
+import { assign, createActor, emit, setup } from 'xstate'
+import { pointerSend, scrolleventmask } from './pointer-xstate'
 
 type TimeoutInput = {
   expiration?: number
@@ -26,7 +27,7 @@ type TimeoutEmit = {
 
 const DEFAULT_EXPIRATION = 3000
 
-export const timeoutMachine = setup({
+const timeoutMachine = setup({
   types: {
     input: {} as TimeoutInput,
     context: {} as TimeoutContext,
@@ -101,4 +102,23 @@ export const timeoutMachine = setup({
   },
 })
 
-export type TimeoutRef = ActorRefFrom<typeof timeoutMachine>
+//type TimeoutRef = ActorRefFrom<typeof timeoutMachine>
+
+const scrollTimeoutActor = createActor(timeoutMachine, {
+  input: { expiration: 2000 },
+})
+
+scrollTimeoutActor.on('EXPIRED', ({ ev }) => {
+  if (!scrolleventmask) {
+    pointerSend({ type: 'SCROLL', ev })
+  }
+})
+scrollTimeoutActor.start()
+
+export function scrollTimeoutActorStart(): void {
+  scrollTimeoutActor.start()
+}
+
+export function scrollTimeoutActorSend(ev: TimeoutEvent): void {
+  scrollTimeoutActor.send(ev)
+}

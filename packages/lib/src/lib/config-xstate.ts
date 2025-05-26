@@ -1,16 +1,29 @@
+import { useSelector } from '@xstate/react'
 import { Actor, assign, createActor, setup, type StateFrom } from 'xstate'
 import { type POI } from './geo'
+import type { Layout } from './layout'
 import type {
   ConfigCb,
   ConfigCbs,
   ConfigLayout,
   ConfigResize,
   ConfigZoomStart,
+  Info,
   LayoutCb,
   ResizeCb,
+  SearchCb,
+  SearchEndCb,
+  SearchEndDoneCb,
+  SearchStartCb,
   SvgMapViewerConfig,
+  UiCloseCb,
+  UiCloseDoneCb,
+  UiOpenCb,
+  UiOpenDoneCb,
+  ZoomEndCb,
   ZoomStartCb,
 } from './types'
+import type { VecVec } from './vec/prefixed'
 
 interface ConfigContext extends ConfigCbs {
   // XXX SvgMapViewerConfig
@@ -255,13 +268,91 @@ const configMachine = setup({
 const configActor: Actor<typeof configMachine> = createActor(configMachine)
 configActor.start()
 
-export type ConfigMachine = typeof configMachine
-export type ConfigState = StateFrom<ConfigMachine>
-export type ConfigActor = typeof configActor
+type ConfigMachine = typeof configMachine
+type ConfigState = StateFrom<ConfigMachine>
 
-export const selectMapNames = (state: Readonly<ConfigState>): POI[] =>
+const selectMapNames = (state: Readonly<ConfigState>): POI[] =>
   state.context.mapNames
+
+////
+
+export function useConfigMapNames(): POI[] {
+  return useSelector(configActor, selectMapNames)
+}
+
+export function configStart(): void {
+  configActor.start()
+}
 
 export function configSend(ev: ConfigEvent): void {
   configActor.send(ev)
+}
+
+export function notifySearchStart(psvg: VecVec): void {
+  configActor
+    .getSnapshot()
+    .context.searchStartCbs.forEach((cb: SearchStartCb) => cb(psvg))
+}
+export function notifySearch(psvg: VecVec): void {
+  configActor
+    .getSnapshot()
+    .context.searchCbs.forEach((cb: SearchCb) => cb(psvg))
+}
+export function notifySearchEnd(psvg: VecVec, info: Readonly<Info>): void {
+  configActor
+    .getSnapshot()
+    .context.searchEndCbs.forEach((cb: SearchEndCb) => cb({ psvg, info }))
+}
+export function notifySearchEndDone(
+  psvg: VecVec,
+  info: Readonly<Info>,
+  layout: Readonly<Layout>
+): void {
+  configActor
+    .getSnapshot()
+    .context.searchEndDoneCbs.forEach((cb: SearchEndDoneCb) =>
+      cb(psvg, info, layout)
+    )
+}
+export function notifyUiOpen(
+  psvg: VecVec,
+  info: Readonly<Info>,
+  layout: Readonly<Layout>
+): void {
+  configActor
+    .getSnapshot()
+    .context.uiOpenCbs.forEach((cb: UiOpenCb) => cb(psvg, info, layout))
+}
+export function notifyUiOpenDone(ok: boolean): void {
+  configActor
+    .getSnapshot()
+    .context.uiOpenDoneCbs.forEach((cb: UiOpenDoneCb) => cb(ok))
+}
+export function notifyUiClose(): void {
+  configActor.getSnapshot().context.uiCloseCbs.forEach((cb: UiCloseCb) => cb())
+}
+export function notifyCloseDone(): void {
+  configActor
+    .getSnapshot()
+    .context.uiCloseDoneCbs.forEach((cb: UiCloseDoneCb) => cb())
+}
+export function notifyZoomStart(
+  layout: Readonly<Layout>,
+  zoom: number,
+  z: number
+): void {
+  configActor
+    .getSnapshot()
+    .context.zoomStartCbs.forEach((cb: ZoomStartCb) => cb(layout, zoom, z))
+}
+export function notifyZoomEnd(layout: Readonly<Layout>, zoom: number): void {
+  configActor
+    .getSnapshot()
+    .context.zoomEndCbs.forEach((cb: ZoomEndCb) => cb(layout, zoom))
+}
+export function notifyResize(layout: Readonly<Layout>, force: boolean): void {
+  configActor.send({ type: 'CONFIG.RESIZE', layout, force })
+}
+export function notifyLayout(layout: Readonly<Layout>, force: boolean): void {
+  configActor.send({ type: 'CONFIG.LAYOUT', layout, force })
 }

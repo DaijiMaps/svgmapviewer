@@ -2,25 +2,14 @@
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/no-return-void */
 import { createElement } from 'react'
-import { configActor } from './config-xstate'
+import { configSend } from './config-xstate'
 import { emptyMapData } from './geo/data'
-import { type Layout } from './layout'
 import type {
   ConfigCb,
   Info,
   RenderInfo,
-  SearchCb,
-  SearchEndCb,
-  SearchEndDoneCb,
-  SearchStartCb,
   SvgMapViewerConfig,
   SvgMapViewerConfigUser,
-  UiCloseCb,
-  UiCloseDoneCb,
-  UiOpenCb,
-  UiOpenDoneCb,
-  ZoomEndCb,
-  ZoomStartCb,
 } from './types'
 import { type VecVec } from './vec/prefixed'
 
@@ -80,76 +69,5 @@ export function updateSvgMapViewerConfig(
 ////
 
 export function registerCbs(cbs: Readonly<Partial<ConfigCb>>): void {
-  configActor.send({ type: 'ADD.CB', ...cbs })
-}
-
-////
-
-export function notifySearchStart(psvg: VecVec): void {
-  configActor
-    .getSnapshot()
-    .context.searchStartCbs.forEach((cb: SearchStartCb) => cb(psvg))
-}
-export function notifySearch(psvg: VecVec): void {
-  configActor
-    .getSnapshot()
-    .context.searchCbs.forEach((cb: SearchCb) => cb(psvg))
-}
-export function notifySearchEnd(psvg: VecVec, info: Readonly<Info>): void {
-  configActor
-    .getSnapshot()
-    .context.searchEndCbs.forEach((cb: SearchEndCb) => cb({ psvg, info }))
-}
-export function notifySearchEndDone(
-  psvg: VecVec,
-  info: Readonly<Info>,
-  layout: Readonly<Layout>
-): void {
-  configActor
-    .getSnapshot()
-    .context.searchEndDoneCbs.forEach((cb: SearchEndDoneCb) =>
-      cb(psvg, info, layout)
-    )
-}
-export function notifyUiOpen(
-  psvg: VecVec,
-  info: Readonly<Info>,
-  layout: Readonly<Layout>
-): void {
-  configActor
-    .getSnapshot()
-    .context.uiOpenCbs.forEach((cb: UiOpenCb) => cb(psvg, info, layout))
-}
-export function notifyUiOpenDone(ok: boolean): void {
-  configActor
-    .getSnapshot()
-    .context.uiOpenDoneCbs.forEach((cb: UiOpenDoneCb) => cb(ok))
-}
-export function notifyUiClose(): void {
-  configActor.getSnapshot().context.uiCloseCbs.forEach((cb: UiCloseCb) => cb())
-}
-export function notifyCloseDone(): void {
-  configActor
-    .getSnapshot()
-    .context.uiCloseDoneCbs.forEach((cb: UiCloseDoneCb) => cb())
-}
-export function notifyZoomStart(
-  layout: Readonly<Layout>,
-  zoom: number,
-  z: number
-): void {
-  configActor
-    .getSnapshot()
-    .context.zoomStartCbs.forEach((cb: ZoomStartCb) => cb(layout, zoom, z))
-}
-export function notifyZoomEnd(layout: Readonly<Layout>, zoom: number): void {
-  configActor
-    .getSnapshot()
-    .context.zoomEndCbs.forEach((cb: ZoomEndCb) => cb(layout, zoom))
-}
-export function notifyResize(layout: Readonly<Layout>, force: boolean): void {
-  configActor.send({ type: 'CONFIG.RESIZE', layout, force })
-}
-export function notifyLayout(layout: Readonly<Layout>, force: boolean): void {
-  configActor.send({ type: 'CONFIG.LAYOUT', layout, force })
+  configSend({ type: 'ADD.CB', ...cbs })
 }

@@ -1,5 +1,12 @@
-import { type ActorRefFrom, emit, setup, type StateFrom } from 'xstate'
-import { type Info } from './types'
+import {
+  type ActorRefFrom,
+  createActor,
+  emit,
+  setup,
+  type StateFrom,
+} from 'xstate'
+import { notifySearch, notifySearchEnd } from './config-xstate'
+import { type Info, type SearchRes } from './types'
 import { type Vec } from './vec'
 
 export type SearchEvent =
@@ -11,7 +18,7 @@ export type SearchEmitted =
   | { type: 'SEARCH'; psvg: Vec }
   | { type: 'SEARCH.DONE'; psvg: Vec; info: Info }
 
-export const searchMachine = setup({
+const searchMachine = setup({
   types: {} as {
     context: object
     events: SearchEvent
@@ -48,10 +55,35 @@ export const searchMachine = setup({
   },
 })
 
-export type SearchMachine = typeof searchMachine
+type SearchMachine = typeof searchMachine
 
-export type SearchState = StateFrom<typeof searchMachine>
+type SearchState = StateFrom<typeof searchMachine>
 
-export type SearchSend = (events: SearchEvent) => void
+type SearchSend = (events: SearchEvent) => void
 
-export type SearchRef = ActorRefFrom<typeof searchMachine>
+type SearchRef = ActorRefFrom<typeof searchMachine>
+
+////
+
+const searchRef = createActor(searchMachine)
+
+searchRef.on('SEARCH', ({ psvg }) => notifySearch(psvg))
+searchRef.on('SEARCH.DONE', ({ psvg, info }) => notifySearchEnd(psvg, info))
+
+searchRef.start()
+
+////
+
+export function searchSearchStart(psvg: Vec): void {
+  searchRef.send({ type: 'SEARCH', psvg })
+}
+
+export function searchSearchDone(res: Readonly<null | SearchRes>): void {
+  searchRef.send(
+    res === null ? { type: 'SEARCH.CANCEL' } : { type: 'SEARCH.DONE', ...res }
+  )
+}
+
+export function searchStart(): void {
+  searchRef.start()
+}

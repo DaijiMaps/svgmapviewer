@@ -51,19 +51,18 @@ const renderMapMachine = setup({
   },
 })
 
-export type RenderMapRef = ActorRefFrom<typeof renderMapMachine>
-export type RenderMapState = StateFrom<typeof renderMapMachine>
+type RenderMapRef = ActorRefFrom<typeof renderMapMachine>
+type RenderMapState = StateFrom<typeof renderMapMachine>
 
-export const selectLayoutConfig = (state: Readonly<RenderMapState>) =>
+const selectLayoutConfig = (state: Readonly<RenderMapState>) =>
   state.context.layout.config
-export const selectLayoutSvgScaleS = (state: Readonly<RenderMapState>) =>
+const selectLayoutSvgScaleS = (state: Readonly<RenderMapState>) =>
   state.context.layout.svgScale.s
-export const selectZoom = (state: Readonly<RenderMapState>) =>
-  state.context.zoom
+const selectZoom = (state: Readonly<RenderMapState>) => state.context.zoom
 
 ////
 
-export const renderMapActor = createActor(renderMapMachine, {
+const renderMapActor = createActor(renderMapMachine, {
   input: {
     layout: emptyLayout,
   },
@@ -74,10 +73,12 @@ export const renderMapZoomStart = (
   layout: Readonly<Layout>,
   zoom: number,
   z: number
-) => renderMapActor.send({ type: 'ZOOM', layout, zoom, z })
-export const renderMapZoomEnd = (layout: Readonly<Layout>, zoom: number) =>
-  renderMapActor.send({ type: 'ZOOM', layout, zoom, z: null })
-export const renderMapLayout = (layout: Layout) =>
+): void => renderMapActor.send({ type: 'ZOOM', layout, zoom, z })
+export const renderMapZoomEnd = (
+  layout: Readonly<Layout>,
+  zoom: number
+): void => renderMapActor.send({ type: 'ZOOM', layout, zoom, z: null })
+export const renderMapLayout = (layout: Layout): void =>
   renderMapActor.send({ type: 'LAYOUT', layout })
 
 registerCbs({
@@ -85,3 +86,7 @@ registerCbs({
   zoomEndCb: renderMapZoomEnd,
   layoutCb: renderMapLayout,
 })
+
+export function renderMapActorStart(): void {
+  renderMapActor.start()
+}

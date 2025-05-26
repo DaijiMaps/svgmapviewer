@@ -8,16 +8,21 @@ import {
   svgMapViewerConfig,
   updateSvgMapViewerConfig,
 } from './config'
-import { configActor } from './config-xstate'
-import { renderMapActor } from './map-xstate'
-import { pointerActor, scrollTimeoutActor } from './pointer-react'
-import { resizeActor } from './resize-xstate'
-import { searchSearchDone, searchSearchStart } from './search'
-import { styleActor } from './style-xstate'
-import { touchActor } from './touch-react'
+import { configSend, configStart } from './config-xstate'
+import { scrollTimeoutActorStart } from './event-xstate'
+import { renderMapActorStart } from './map-xstate'
+import { pointerStart } from './pointer-xstate'
+import { resizeStart } from './resize-xstate'
+import {
+  searchSearchDone,
+  searchSearchStart,
+  searchStart,
+} from './search-xstate'
+import { styleStart } from './style-xstate'
+import { touchActorStart } from './touch-xstate'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
-import { uiRootActor } from './ui-root-xstate'
-import { uiActor } from './ui-xstate'
+import { uiRootActorStart } from './ui-root-xstate'
+import { uiActorStart } from './ui-xstate'
 
 // XXX
 // XXX
@@ -64,7 +69,7 @@ export function svgmapviewer(
 
   // eslint-disable-next-line functional/no-conditional-statements
   if (configUser.mapNames) {
-    configActor.send({ type: 'SET.MAPNAMES', mapNames: configUser.mapNames })
+    configSend({ type: 'SET.MAPNAMES', mapNames: configUser.mapNames })
   }
 
   root(config)
@@ -75,13 +80,14 @@ function startAllActors() {
   // reference & ensure all actors are started
   // for module dependency
   // (order doesn't matter)
-  configActor.start()
-  pointerActor.start()
-  renderMapActor.start()
-  resizeActor.start()
-  scrollTimeoutActor.start()
-  styleActor.start()
-  touchActor.start()
-  uiActor.start()
-  uiRootActor.start()
+  configStart()
+  pointerStart()
+  renderMapActorStart()
+  resizeStart()
+  scrollTimeoutActorStart()
+  searchStart()
+  styleStart()
+  touchActorStart()
+  uiActorStart()
+  uiRootActorStart()
 }

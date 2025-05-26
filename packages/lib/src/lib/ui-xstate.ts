@@ -103,7 +103,7 @@ function isVisible(m: OpenCloseMap, part: UiPart): boolean {
   return openCloseIsVisible(oc)
 }
 
-export const uiMachine = setup({
+const uiMachine = setup({
   types: {} as {
     context: UiContext
     events: UiEvent
@@ -296,25 +296,25 @@ export const uiMachine = setup({
   },
 })
 
-export type UiMachine = typeof uiMachine
+type UiMachine = typeof uiMachine
 
-export type UiState = StateFrom<typeof uiMachine>
+type UiState = StateFrom<typeof uiMachine>
 
-export type UiSend = (events: UiEvent) => void
+type UiSend = (events: UiEvent) => void
 
-export type UiRef = ActorRefFrom<typeof uiMachine>
+type UiRef = ActorRefFrom<typeof uiMachine>
 
-export const selectDetail = (ui: UiState) => ui.context.detail
-export const selectOpenCloseHeader = (ui: UiState) => ui.context.m['header']
-export const selectOpenCloseFooter = (ui: UiState) => ui.context.m['footer']
-export const selectOpenCloseRight = (ui: UiState) => ui.context.m['right']
-export const selectOpenCloseShadow = (ui: UiState) => ui.context.m['shadow']
-export const selectOpenCloseBalloon = (ui: UiState) => ui.context.m['balloon']
-export const selectOpenCloseDetail = (ui: UiState) => ui.context.m['detail']
+const selectDetail = (ui: UiState) => ui.context.detail
+const selectOpenCloseHeader = (ui: UiState) => ui.context.m['header']
+const selectOpenCloseFooter = (ui: UiState) => ui.context.m['footer']
+const selectOpenCloseRight = (ui: UiState) => ui.context.m['right']
+const selectOpenCloseShadow = (ui: UiState) => ui.context.m['shadow']
+const selectOpenCloseBalloon = (ui: UiState) => ui.context.m['balloon']
+const selectOpenCloseDetail = (ui: UiState) => ui.context.m['detail']
 
 ////
 
-export const uiActor = createActor(uiMachine)
+const uiActor = createActor(uiMachine)
 uiActor.on('CLOSE.DONE', notifyCloseDone)
 uiActor.start()
 
@@ -332,4 +332,10 @@ function uiOpen(ok: boolean) {
 }
 function uiCancel() {
   uiActor.send({ type: 'CANCEL' })
+}
+
+////
+
+export function uiActorStart(): void {
+  uiActor.start()
 }

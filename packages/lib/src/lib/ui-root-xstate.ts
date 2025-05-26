@@ -23,10 +23,14 @@ const uiRootLogic = setup({
 
 export type RenderCb = (children: ReactNode) => void
 
-export const uiRootRenderCbs = new Set<RenderCb>()
+export const uiRootRenderCbs: Set<RenderCb> = new Set<RenderCb>()
 
-export const uiRootActor = createActor(uiRootLogic)
+const uiRootActor = createActor(uiRootLogic)
 
 uiRootActor.on('RENDER', () => uiRootRenderCbs.forEach((cb) => cb(Ui())))
 
 uiRootActor.start()
+
+export function uiRootActorStart(): void {
+  uiRootActor.start()
+}

@@ -1,4 +1,4 @@
-import { assign, createActor, setup, type StateFrom } from 'xstate'
+import { assign, createActor, setup } from 'xstate'
 import { type Animation } from './animation'
 import { emptyLayout, type Layout } from './layout'
 
@@ -73,14 +73,22 @@ const styleMachine = setup({
   },
 })
 
-export const styleActor = createActor(styleMachine, {
+const styleActor = createActor(styleMachine, {
   systemId: 'system-pointer1',
 })
 styleActor.start()
 
-export type StyleMachine = typeof styleMachine
-export type StyleState = StateFrom<StyleMachine>
+//type StyleMachine = typeof styleMachine
+//type StyleState = StateFrom<StyleMachine>
 
-export function styleAnimationEnd() {
+export function styleStart(): void {
+  styleActor.start()
+}
+
+export function styleSend(ev: StyleEvent): void {
+  styleActor.send(ev)
+}
+
+export function styleAnimationEnd(): void {
   styleActor.send({ type: 'ANIMATION.END' })
 }

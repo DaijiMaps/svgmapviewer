@@ -1,6 +1,5 @@
-import { useSelector } from '@xstate/react'
 import { useMemo } from 'react'
-import { configActor, selectMapNames } from './config-xstate'
+import { useConfigMapNames } from './config-xstate'
 import type { POI } from './geo'
 
 // XXX
@@ -10,7 +9,7 @@ export function useNames(): Readonly<{
   readonly pointNames: readonly POI[]
   readonly areaNames: readonly POI[]
 }> {
-  const mapNames = useSelector(configActor, selectMapNames)
+  const mapNames = useConfigMapNames()
 
   const pointNames = useMemo(() => {
     return mapNames.filter(

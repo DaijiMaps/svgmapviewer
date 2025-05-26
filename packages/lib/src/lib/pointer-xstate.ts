@@ -1,7 +1,9 @@
+import { useSelector } from '@xstate/react'
 import React from 'react'
 import {
   type ActorRefFrom,
   assign,
+  createActor,
   emit,
   enqueueActions,
   setup,
@@ -14,7 +16,17 @@ import {
   animationZoom,
 } from './animation'
 import { type BoxBox, boxCenter } from './box/prefixed'
-import { configActor } from './config-xstate'
+import { registerCbs } from './config'
+import {
+  configSend,
+  notifySearchEndDone,
+  notifySearchStart,
+  notifyUiOpen,
+  notifyUiOpenDone,
+  notifyZoomEnd,
+  notifyZoomStart,
+} from './config-xstate'
+import { scrollTimeoutActorSend } from './event-xstate'
 import { keyToZoom } from './key'
 import {
   emptyLayout,
@@ -25,8 +37,7 @@ import {
   toSvg,
 } from './layout'
 import { getCurrentScroll } from './scroll'
-import { scrollMachine } from './scroll-xstate'
-import { styleActor } from './style-xstate'
+import { styleSend } from './style-xstate'
 import { syncViewBox } from './svg'
 import { type Info, type SearchRes } from './types'
 import { type VecVec as Vec, type VecVec, vecVec } from './vec/prefixed'
@@ -132,7 +143,7 @@ export type PointerEmitted =
 
 //// pointerMachine
 
-export const pointerMachine = setup({
+const pointerMachine = setup({
   types: {} as {
     context: PointerContext
     events: _PointerEvent
@@ -202,7 +213,7 @@ export const pointerMachine = setup({
         z === null ? zoom : zoom * Math.pow(2, z),
     }),
     syncAnimation: ({ context: { animation } }) =>
-      styleActor.send({ type: 'STYLE.ANIMATION', animation }),
+      styleSend({ type: 'STYLE.ANIMATION', animation }),
     //
     // layout
     //
@@ -221,8 +232,8 @@ export const pointerMachine = setup({
     // XXX
     // XXX
     syncLayout: ({ context: { layout, rendered } }) => {
-      styleActor.send({ type: 'STYLE.LAYOUT', layout, rendered })
-      configActor.send({ type: 'CONFIG.LAYOUT', layout, force: false })
+      styleSend({ type: 'STYLE.LAYOUT', layout, rendered })
+      configSend({ type: 'CONFIG.LAYOUT', layout, force: false })
     },
 
     //
@@ -259,7 +270,7 @@ export const pointerMachine = setup({
       mode: pointerModeLocked,
     }),
     syncMode: ({ context: { mode } }) =>
-      styleActor.send({ type: 'STYLE.MODE', mode }),
+      styleSend({ type: 'STYLE.MODE', mode }),
     touchStart: enqueueActions(({ enqueue }) => {
       enqueue.assign({ touching: true })
       enqueue.raise({ type: 'TOUCHING' })
@@ -270,7 +281,7 @@ export const pointerMachine = setup({
     }),
   },
   actors: {
-    scroll: scrollMachine,
+    //scroll: scrollMachine,
   },
 }).createMachine({
   id: 'pointer',
@@ -291,10 +302,12 @@ export const pointerMachine = setup({
     mapHtmlRendered: false,
   },
   invoke: [
+    /*
     {
       src: 'scroll',
       systemId: 'scroll1',
     },
+    */
   ],
   on: {
     RENDERED: {},
@@ -693,28 +706,123 @@ export const pointerMachine = setup({
 //// PointerState
 //// PointerSend
 
-export type PointerMachine = typeof pointerMachine
+type PointerMachine = typeof pointerMachine
 
-export type PointerState = StateFrom<typeof pointerMachine>
+type PointerState = StateFrom<typeof pointerMachine>
 
 export type PointerSend = (events: _PointerEvent) => void
 
-export type PointerRef = ActorRefFrom<typeof pointerMachine>
+type PointerRef = ActorRefFrom<typeof pointerMachine>
 
-export const selectMode = (pointer: PointerState) => pointer.context.mode
-export const selectLayout = (pointer: PointerState) => pointer.context.layout
-export const selectLayoutConfig = (pointer: PointerState) =>
+const selectMode = (pointer: PointerState) => pointer.context.mode
+const selectLayout = (pointer: PointerState) => pointer.context.layout
+const selectLayoutConfig = (pointer: PointerState) =>
   pointer.context.layout.config
-export const selectLayoutContainer = (pointer: PointerState) =>
+const selectLayoutContainer = (pointer: PointerState) =>
   pointer.context.layout.container
-export const selectLayoutSvg = (pointer: PointerState) =>
-  pointer.context.layout.svg
-export const selectLayoutSvgScaleS = (pointer: PointerState) =>
+const selectLayoutSvg = (pointer: PointerState) => pointer.context.layout.svg
+const selectLayoutSvgScaleS = (pointer: PointerState) =>
   pointer.context.layout.svgScale.s
-export const selectLayoutSvgOffset = (pointer: PointerState) =>
+const selectLayoutSvgOffset = (pointer: PointerState) =>
   pointer.context.layout.svgOffset
-export const selectLayoutScroll = (pointer: PointerState) =>
+const selectLayoutScroll = (pointer: PointerState) =>
   pointer.context.layout.scroll
-export const selectOrigLayoutSvg = (pointer: PointerState) =>
+const selectOrigLayoutSvg = (pointer: PointerState) =>
   pointer.context.origLayout.svg
-export const selectCursor = (pointer: PointerState) => pointer.context.cursor
+const selectCursor = (pointer: PointerState) => pointer.context.cursor
+
+////
+
+export function pointerStart(): void {
+  pointerActor.start()
+}
+
+export function pointerSend(ev: _PointerEvent): void {
+  pointerActor.send(ev)
+}
+
+export function usePointerMode(): PointerMode {
+  return useSelector(pointerActor, selectMode)
+}
+export function usePointerLayout(): Layout {
+  return useSelector(pointerActor, selectLayout)
+}
+
+const pointerActor = createActor(pointerMachine, {
+  systemId: 'system-pointer1',
+  //inspect,
+})
+
+pointerActor.on('SEARCH', ({ psvg }) => notifySearchStart(psvg))
+pointerActor.on('SEARCH.END.DONE', ({ psvg, info, layout }) => {
+  notifySearchEndDone(psvg, info, layout)
+  notifyUiOpen(psvg, info, layout)
+})
+pointerActor.on('LOCK', ({ ok }) => notifyUiOpenDone(ok))
+pointerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
+  notifyZoomStart(layout, zoom, z)
+)
+pointerActor.on('ZOOM.END', ({ layout, zoom }) => notifyZoomEnd(layout, zoom))
+pointerActor.on('LAYOUT', ({ layout }) => notifyZoomEnd(layout, 1))
+pointerActor.on('MODE', ({ mode }) => reflectMode(mode))
+pointerActor.start()
+
+const pointerSearchEnd = (res: Readonly<SearchRes>) =>
+  pointerActor.send({ type: 'SEARCH.END', res })
+const pointerSearchLock = (psvg: Vec) =>
+  pointerActor.send({ type: 'SEARCH.LOCK', psvg })
+const pointerSearchUnlock = () => pointerActor.send({ type: 'SEARCH.UNLOCK' })
+
+const resizeCb = (origLayout: Readonly<Layout>, force: boolean) => {
+  pointerSend({ type: 'RESIZE', layout: origLayout, force })
+}
+
+registerCbs({
+  searchEndCb: pointerSearchEnd,
+  uiOpenCb: pointerSearchLock,
+  uiCloseDoneCb: pointerSearchUnlock,
+  resizeCb: resizeCb,
+})
+
+//let pointereventmask: boolean = false
+//let toucheventmask: boolean = false
+export let clickeventmask: boolean = false
+export let scrolleventmask: boolean = false
+
+function reflectMode(mode: PointerMode): void {
+  //pointereventmask = mode !== 'pointing'
+  //toucheventmask = mode !== 'pointing'
+  // - xstate-pointer receives 'click' to cancel 'panning'
+  // - xstate-pointer ignores 'click' to pass through (emulated)
+  //  'click' to shadow; shadow receives 'click' to cancel 'locked'
+  clickeventmask = mode === 'locked'
+  scrolleventmask = mode !== 'panning'
+  if (mode === 'panning') {
+    scrollTimeoutActorSend({ type: 'START' })
+  } else {
+    scrollTimeoutActorSend({ type: 'STOP' })
+  }
+}
+
+//// handlers
+
+export const pointerSendEvent = (
+  // excluding key down/up events
+  event: ReactUIEvent,
+  options?: {
+    preventDefault?: boolean
+    stopPropagation?: boolean
+  }
+): void => {
+  if (options?.preventDefault === false) {
+    // skip
+  } else {
+    //event.ev.preventDefault()
+  }
+  if (options?.stopPropagation === false) {
+    // skip
+  } else {
+    event.ev.stopPropagation()
+  }
+  pointerSend(event)
+}
