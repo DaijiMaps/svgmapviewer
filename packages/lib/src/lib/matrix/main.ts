@@ -1,4 +1,4 @@
-import { H, M, V } from '../tuple'
+import { type H, type M, type V } from '../tuple'
 
 type Matrix = M
 

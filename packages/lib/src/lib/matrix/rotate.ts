@@ -1,4 +1,4 @@
-import { M } from '../tuple'
+import { type M } from '../tuple'
 
 export function rotate(th: number): M {
   return [

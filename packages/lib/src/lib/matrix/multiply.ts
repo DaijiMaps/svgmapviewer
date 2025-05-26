@@ -1,4 +1,4 @@
-import { M } from '../tuple'
+import { type M } from '../tuple'
 import { apply } from './apply'
 import { ab, cd, ef } from './main'
 

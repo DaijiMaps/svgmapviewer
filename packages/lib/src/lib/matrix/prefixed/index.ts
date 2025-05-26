@@ -1,5 +1,5 @@
 import { apply, applyF } from '../apply'
-import { Matrix, copy, empty, matrix, prod } from '../main'
+import { type Matrix, copy, empty, matrix, prod } from '../main'
 import { multiply, multiplyF } from '../multiply'
 import { rotate } from '../rotate'
 import { scale, scaleAt } from '../scale'

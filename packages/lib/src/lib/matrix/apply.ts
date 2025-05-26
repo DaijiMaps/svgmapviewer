@@ -1,4 +1,4 @@
-import { M, V } from '../tuple'
+import { type M, type V } from '../tuple'
 import { ace, bdf, prod } from './main'
 
 export type Apply = (m: M, v: V, n: number) => V
