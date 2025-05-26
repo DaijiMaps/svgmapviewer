@@ -1,7 +1,6 @@
 import react from '@vitejs/plugin-react'
 import UnoCSS from 'unocss/vite'
 import { defineConfig } from 'vite'
-import circleDependency from 'vite-plugin-circular-dependency'
 import dts from 'vite-plugin-dts'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
 
@@ -31,7 +30,6 @@ export default defineConfig({
     },
   },
   plugins: [
-    circleDependency(),
     dts({ rollupTypes: true, tsconfigPath: './tsconfig.app.json' }),
     libInjectCss(),
     react(),
