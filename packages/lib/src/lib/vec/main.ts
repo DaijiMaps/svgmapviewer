@@ -15,8 +15,8 @@ function vec(x: number, y: number): Vec {
   return { x, y }
 }
 
-const zero = vec(0, 0)
-const one = vec(1, 1)
+const zero: Vec = vec(0, 0)
+const one: Vec = vec(1, 1)
 
 function fromV([x, y]: V): Vec {
   return { x, y }

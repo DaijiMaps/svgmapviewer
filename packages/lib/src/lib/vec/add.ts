@@ -9,7 +9,7 @@ export function add<T extends Vec>(a: T, b: T): T {
 
 export const addF =
   <T extends Vec>(b: T) =>
-  (a: T) =>
+  (a: T): Vec =>
     add(a, b)
 
 export function addF_<T extends Vec>(a: T) {
