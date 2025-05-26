@@ -1,7 +1,7 @@
-import { BoxBox, boxScale } from '../box/prefixed'
-import { V, vSub } from '../tuple'
+import { type BoxBox, boxScale } from '../box/prefixed'
+import { type V, vSub } from '../tuple'
 import {
-  VecVec,
+  type VecVec,
   vecAdd,
   vecDiv,
   vecFromV,
@@ -9,8 +9,8 @@ import {
   vecSub,
   vecVec,
 } from '../vec/prefixed'
-import { MapData } from './data'
-import { LineGeoJSON } from './geojson-types'
+import { type MapData } from './data'
+import { type LineGeoJSON } from './geojson-types'
 
 function getViewBox(viewbox: Readonly<LineGeoJSON>): BoxBox {
   const vb0 = viewbox.features[0].geometry.coordinates
@@ -22,7 +22,13 @@ function getViewBox(viewbox: Readonly<LineGeoJSON>): BoxBox {
   return { x, y, width, height }
 }
 
-export function calcScale(mapData: Readonly<MapData>) {
+export function calcScale(mapData: Readonly<MapData>): {
+  mapCoord: {
+    fromGeo: (pgeo: VecVec) => VecVec
+    toGeo: (pgeo: VecVec) => VecVec
+  }
+  mapViewBox: BoxBox
+} {
   const o = vecFromV(
     mapData.origin.features[0].geometry.coordinates as unknown as V
   )
@@ -44,9 +50,9 @@ export function calcScale(mapData: Readonly<MapData>) {
   // XXX svg <-> geo coordinate
   // XXX XXX use matrix
 
-  const fromGeo = (pgeo: VecVec) => vecMul(vecSub(pgeo, o), distScale)
-  const toGeo = (psvg: VecVec) => vecAdd(vecDiv(psvg, distScale), o)
-  const mapViewBox = boxScale(getViewBox(mapData.viewbox), distScale)
+  const fromGeo = (pgeo: VecVec): VecVec => vecMul(vecSub(pgeo, o), distScale)
+  const toGeo = (psvg: VecVec): VecVec => vecAdd(vecDiv(psvg, distScale), o)
+  const mapViewBox: BoxBox = boxScale(getViewBox(mapData.viewbox), distScale)
 
   return {
     mapCoord: {

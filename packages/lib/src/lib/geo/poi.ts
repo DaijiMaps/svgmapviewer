@@ -1,4 +1,4 @@
-import { VecVec } from '../vec/prefixed'
+import { type VecVec } from '../vec/prefixed'
 
 export interface POI {
   id: null | number

@@ -1,9 +1,9 @@
 import {
-  LineGeoJSON,
-  MultiLineGeoJSON,
-  MultiPolygonGeoJSON,
-  PointFeature,
-  PointGeoJSON,
+  type LineGeoJSON,
+  type MultiLineGeoJSON,
+  type MultiPolygonGeoJSON,
+  type PointFeature,
+  type PointGeoJSON,
 } from './geojson-types'
 
 export type OsmPointPropertiesKey =

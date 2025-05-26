@@ -1,5 +1,5 @@
 import { svgMapViewerConfig as cfg } from '../config'
-import { V, vUnvec, vVec } from '../tuple'
+import { type V, vUnvec, vVec } from '../tuple'
 
 export type Point = V
 export type Line = V[]

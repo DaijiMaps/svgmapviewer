@@ -57,6 +57,12 @@ export interface MultiPolygonGeometry {
 
 //// feature
 
+export interface CommonFeature<P = object, G = object> {
+  type: string
+  properties: P
+  geometry: G
+}
+
 export interface PointFeature<P = object> {
   type: string
   properties: P
@@ -95,12 +101,20 @@ export interface MultiPolygonFeature<P = object> {
 
 //// geojson
 
+export interface CommonGeoJSON<P = object, G = object> {
+  type: string
+  name?: string
+  crs?: CRS
+  features: CommonFeature<P, G>[]
+}
+
 export interface PointGeoJSON<P = object> {
   type: string
   name?: string
   crs?: CRS
   features: PointFeature<P>[]
 }
+export type PointGeoJSON2<P = object> = CommonGeoJSON<PointFeature<P>>
 
 export interface LineGeoJSON<P = object> {
   type: string
@@ -137,7 +151,7 @@ export interface MultiPolygonGeoJSON<P = object> {
   features: MultiPolygonFeature<P>[]
 }
 
-export const emptyGeoJSON = {
+export const emptyGeoJSON: CommonGeoJSON = {
   type: '',
   name: '',
   crs: emptyCRS,

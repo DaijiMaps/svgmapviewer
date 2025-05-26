@@ -1,22 +1,22 @@
 import {
   emptyGeoJSON,
-  LineGeoJSON,
-  MultiPolygonGeoJSON,
-  PointGeoJSON,
+  type LineGeoJSON,
+  type MultiPolygonGeoJSON,
+  type PointGeoJSON,
 } from './geojson-types'
 import {
-  OsmCentroidGeoJSON,
-  OsmLineFeature,
-  OsmLineGeoJSON,
-  OsmLineProperties,
-  OsmMidpointGeoJSON,
-  OsmMultilinestringGeoJSON,
-  OsmMultipolygonFeature,
-  OsmMultipolygonGeoJSON,
-  OsmPointFeature,
-  OsmPointGeoJSON,
-  OsmPointProperties,
-  OsmPolygonProperties,
+  type OsmCentroidGeoJSON,
+  type OsmLineFeature,
+  type OsmLineGeoJSON,
+  type OsmLineProperties,
+  type OsmMidpointGeoJSON,
+  type OsmMultilinestringGeoJSON,
+  type OsmMultipolygonFeature,
+  type OsmMultipolygonGeoJSON,
+  type OsmPointFeature,
+  type OsmPointGeoJSON,
+  type OsmPointProperties,
+  type OsmPolygonProperties,
 } from './osm-types'
 
 export type MapData = {
@@ -38,17 +38,21 @@ export type MapData = {
 }
 
 export const emptyMapData: MapData = {
-  areas: emptyGeoJSON,
-  origin: emptyGeoJSON,
-  measures: emptyGeoJSON,
-  viewbox: emptyGeoJSON,
+  areas: emptyGeoJSON as MultiPolygonGeoJSON,
+  origin: emptyGeoJSON as PointGeoJSON,
+  measures: emptyGeoJSON as LineGeoJSON<{
+    direction: string
+    distance: number
+    ellipsoidal_distance: number
+  }>,
+  viewbox: emptyGeoJSON as LineGeoJSON,
 
-  points: emptyGeoJSON,
-  lines: emptyGeoJSON,
-  multilinestrings: emptyGeoJSON,
-  multipolygons: emptyGeoJSON,
-  centroids: emptyGeoJSON,
-  midpoints: emptyGeoJSON,
+  points: emptyGeoJSON as OsmPointGeoJSON,
+  lines: emptyGeoJSON as OsmLineGeoJSON,
+  multilinestrings: emptyGeoJSON as OsmMultilinestringGeoJSON,
+  multipolygons: emptyGeoJSON as OsmMultipolygonGeoJSON,
+  centroids: emptyGeoJSON as OsmCentroidGeoJSON,
+  midpoints: emptyGeoJSON as OsmMidpointGeoJSON,
 }
 
 export type OsmPointLikeProperties =

@@ -1,9 +1,9 @@
-import { OsmPointLikeProperties } from './data'
-import { PointFeature } from './geojson-types'
+import { type OsmPointLikeProperties } from './data'
+import { type PointFeature } from './geojson-types'
 import {
-  OsmCentroidGeoJSON,
-  OsmMidpointGeoJSON,
-  OsmPointGeoJSON,
+  type OsmCentroidGeoJSON,
+  type OsmMidpointGeoJSON,
+  type OsmPointGeoJSON,
 } from './osm-types'
 
 interface MapData {

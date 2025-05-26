@@ -39,7 +39,7 @@ import type {
 } from './osm-types'
 import type { Line, MultiLineString, MultiPolygon, Point } from './path'
 import { lineToPath, multiLineStringToPath, multiPolygonToPath } from './path'
-import { POI } from './poi'
+import { type POI } from './poi'
 import {
   findFeature,
   findProperties,
