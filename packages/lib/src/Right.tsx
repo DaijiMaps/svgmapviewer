@@ -1,10 +1,11 @@
 import { useSelector } from '@xstate/react'
+import { type ReactNode } from 'react'
 //import clsx from 'clsx/clsx'
 import './Right.css'
 import { pointerActor } from './lib/pointer-react'
 import { selectOpenCloseRight, uiActor } from './lib/ui-xstate'
 
-export const Right = () => {
+export function Right(): ReactNode {
   return (
     <div
       className="right bottom"
@@ -43,7 +44,7 @@ const sendZoomIn =
   // eslint-disable-next-line functional/no-return-void
   () => pointerActor.send({ type: 'ZOOM.ZOOM', z: 1, p: null })
 
-export function RightStyle() {
+export function RightStyle(): ReactNode {
   const { open, animating } = useSelector(uiActor, selectOpenCloseRight)
 
   if (!animating) {

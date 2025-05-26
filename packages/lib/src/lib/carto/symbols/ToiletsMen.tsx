@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react'
+
 export function ToiletsMen(): ReactNode {
   return (
     <g id="XToiletsMen" transform="translate(-36, -36)">

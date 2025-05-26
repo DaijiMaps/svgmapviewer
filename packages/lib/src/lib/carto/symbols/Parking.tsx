@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react'
+
 export function Parking(): ReactNode {
   return (
     <g id="XParking">

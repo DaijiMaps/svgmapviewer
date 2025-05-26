@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react'
+
 export function Bus(): ReactNode {
   return (
     <g id="XBus" transform="translate(-36, -36)">

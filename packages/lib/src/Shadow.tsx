@@ -1,9 +1,10 @@
 import { useSelector } from '@xstate/react'
+import { type ReactNode } from 'react'
 import { notifyUiClose } from './lib/config'
 import { selectOpenCloseShadow, uiActor } from './lib/ui-xstate'
 import './Shadow.css'
 
-export function Shadow() {
+export function Shadow(): ReactNode {
   return (
     <div
       className="shadow"
@@ -17,7 +18,7 @@ export function Shadow() {
   )
 }
 
-function ShadowStyle() {
+function ShadowStyle(): ReactNode {
   const shadow = useSelector(uiActor, selectOpenCloseShadow)
 
   if (!shadow.animating) {

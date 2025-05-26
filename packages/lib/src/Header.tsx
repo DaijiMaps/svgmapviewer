@@ -1,11 +1,11 @@
 import { useSelector } from '@xstate/react'
-import { useContext } from 'react'
+import { type ReactNode, useContext } from 'react'
 import './Header.css'
 import { pointerActor } from './lib/pointer-react'
 import { selectOpenCloseHeader, uiActor } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 
-export const Header = () => {
+export function Header(): ReactNode {
   const config = useContext(SvgMapViewerConfigContext)
 
   return (
@@ -27,7 +27,7 @@ export const Header = () => {
   )
 }
 
-export function HeaderStyle() {
+export function HeaderStyle(): ReactNode {
   const { open, animating } = useSelector(uiActor, selectOpenCloseHeader)
 
   if (!animating) {

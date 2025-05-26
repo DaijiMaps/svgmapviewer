@@ -1,3 +1,4 @@
+import { type ReactNode } from 'react'
 import { Detail } from './Detail'
 import { Footer } from './Footer'
 import { Header } from './Header'
@@ -7,7 +8,7 @@ import { Shadow } from './Shadow'
 // XXX group UI part animations into one
 // XXX receive animationend here (.ui)
 
-export function Ui() {
+export function Ui(): ReactNode {
   return (
     <div id="ui-root">
       <div id="ui">

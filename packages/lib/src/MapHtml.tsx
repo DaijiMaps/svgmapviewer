@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { useMemo } from 'react'
+import { type ReactNode, useMemo } from 'react'
 import { fixupCssString } from './lib/css'
 import { type POI } from './lib/geo'
 import { isLiked, useLikes } from './lib/like'
@@ -8,7 +8,7 @@ import { useNames } from './lib/names'
 import { pointerActor } from './lib/pointer-react'
 import { selectLayoutSvgScaleS } from './lib/pointer-xstate'
 
-export function MapHtml() {
+export function MapHtml(): ReactNode {
   const { pointNames, areaNames } = useNames()
 
   // eslint-disable-next-line functional/no-expression-statements
@@ -25,7 +25,7 @@ export function MapHtml() {
   )
 }
 
-function MapHtmlContentStyle() {
+function MapHtmlContentStyle(): ReactNode {
   return (
     <style>
       {`
@@ -63,7 +63,7 @@ function MapHtmlContentStyle() {
 
 function MapHtmlContentStars(
   props: Readonly<{ _pointNames: Readonly<POI[]>; _areaNames: Readonly<POI[]> }>
-) {
+): ReactNode {
   const { _pointNames: pointNames, _areaNames: areaNames } = props
   const likes = useLikes()
 
@@ -113,7 +113,7 @@ function MapHtmlContentStars(
 
 function MapHtmlContentNamesPoint(
   props: Readonly<{ _pointNames: Readonly<POI[]> }>
-) {
+): ReactNode {
   const { _pointNames: pointNames } = props
 
   return (
@@ -144,7 +144,7 @@ function MapHtmlContentNamesPoint(
 
 function MapHtmlContentNamesArea(
   props: Readonly<{ _areaNames: Readonly<POI[]> }>
-) {
+): ReactNode {
   const { _areaNames: areaNames } = props
 
   return (
@@ -175,7 +175,7 @@ function MapHtmlContentNamesArea(
 
 function MapHtmlContentNamesStyle(
   props: Readonly<{ _areaNames: Readonly<POI[]> }>
-) {
+): ReactNode {
   const { _areaNames: areaNames } = props
 
   const s = useSelector(pointerActor, selectLayoutSvgScaleS)

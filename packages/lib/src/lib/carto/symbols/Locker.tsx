@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react'
+
 export function Locker(): ReactNode {
   return (
     <g id="XLocker" transform="translate(-36, -36)">

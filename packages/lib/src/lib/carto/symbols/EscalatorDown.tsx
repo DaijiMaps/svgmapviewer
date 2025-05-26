@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react'
+
 export function EscalatorUp(): ReactNode {
   return (
     <g id="XEscalatorDown" transform="translate(-36, -36)">

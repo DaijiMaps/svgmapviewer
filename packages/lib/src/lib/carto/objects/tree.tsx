@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react'
+
 export function Tree2x4(): ReactNode {
   return (
     <path

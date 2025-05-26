@@ -14,7 +14,7 @@ import { RenderMap } from './Map'
 
 export const SvgMapViewerConfigContext = createContext(svgMapViewerConfig)
 
-export function root(config: Readonly<SvgMapViewerConfig>) {
+export function root(config: Readonly<SvgMapViewerConfig>): void {
   const e = document.getElementById(config.root)
 
   if (e === null) {

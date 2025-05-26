@@ -25,20 +25,22 @@ const vecsMonoid = ReadonlyMap.getMonoid(
   ReadonlyArray.getSemigroup<Vec>()
 )
 
-type VecsEntry = Readonly<[number, Vec[]]>
-type VecsEntries = Readonly<VecsEntry[]>
-type Vecs = Readonly<Map<number, Vec[]>>
+type VecsEntry = Readonly<[number, readonly Vec[]]>
+type VecsEntries = Readonly<readonly VecsEntry[]>
+type Vecs = ReadonlyMap<number, readonly Vec[]>
 
 export type Touches = Readonly<{
   vecs: Vecs
-  points: Vec[]
+  points: readonly Vec[]
   cursor: null | Vec
-  dists: number[]
+  dists: readonly number[]
   z: null | number
   horizontal: null | boolean
 }>
 
-function calcZoom([d0, d1, d2, d3]: Readonly<number[]>): null | number {
+function calcZoom([d0, d1, d2, d3]: Readonly<readonly number[]>):
+  | null
+  | number {
   return isUndefined(d0) ||
     isUndefined(d1) ||
     isUndefined(d2) ||
@@ -52,16 +54,16 @@ function calcZoom([d0, d1, d2, d3]: Readonly<number[]>): null | number {
 }
 
 function updateDists(
-  dists: Readonly<number[]>,
+  dists: Readonly<readonly number[]>,
   d: number,
   limit: number
-): Readonly<number[]> {
+): Readonly<readonly number[]> {
   const prev = dists.length > 0 ? dists[0] : d
   const l = Math.pow(prev - d, 2)
   return dists.length === 0 || l > limit / 10 ? [d, ...dists] : dists
 }
 
-export function vecsToPoints(vecs: Vecs): Readonly<Vec[]> {
+export function vecsToPoints(vecs: Vecs): Readonly<readonly Vec[]> {
   return pipe(
     vecs,
     ReadonlyMap.values(vecsOrd),
@@ -71,7 +73,7 @@ export function vecsToPoints(vecs: Vecs): Readonly<Vec[]> {
   )
 }
 
-function pointsToCursor(points: Readonly<Vec[]>): null | Vec {
+function pointsToCursor(points: Readonly<readonly Vec[]>): null | Vec {
   return points.length < 2 ? null : vecMidpoint(points)
 }
 
@@ -81,7 +83,7 @@ function changesToEntries(
   return pipe(
     ev.changedTouches,
     Array.from,
-    ReadonlyArray.map<Touch, [number, Vec[]]>((t) => [
+    ReadonlyArray.map<Touch, [number, readonly Vec[]]>((t) => [
       t.identifier,
       [{ x: t.clientX, y: t.clientY }],
     ])

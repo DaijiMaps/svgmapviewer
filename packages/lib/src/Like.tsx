@@ -1,5 +1,5 @@
 /* eslint-disable functional/no-return-void */
-import type { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { like, unlike, useLikes } from './lib/like'
 import './Like.css'
 

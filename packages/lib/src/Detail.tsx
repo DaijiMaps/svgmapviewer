@@ -1,11 +1,12 @@
 import { useSelector } from '@xstate/react'
+import { type ReactNode } from 'react'
 import { Balloon, BalloonStyle } from './Balloon'
 import './Detail.css'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { diag } from './lib/diag'
 import { isDetailEmpty, selectDetail, uiActor } from './lib/ui-xstate'
 
-export function Detail() {
+export function Detail(): ReactNode {
   const detail = useSelector(uiActor, selectDetail)
 
   const p = detail.p

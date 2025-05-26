@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
-import { useRef } from 'react'
+import { type ReactNode, useRef } from 'react'
 import './Container.css'
 import {
   sendAnimationEnd,
@@ -18,7 +18,7 @@ import {
 import { MapHtmlRoot } from './MapHtmlRoot'
 import { MapSvg } from './MapSvg'
 
-export function Container() {
+export function Container(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
   return (

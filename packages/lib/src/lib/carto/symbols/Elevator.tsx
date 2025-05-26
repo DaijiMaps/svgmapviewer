@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react'
+
 export function Elevator(): ReactNode {
   return (
     <g id="XElevator" transform="translate(-36, -36)">

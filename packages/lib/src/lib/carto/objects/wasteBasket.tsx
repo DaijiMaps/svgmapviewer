@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react'
+
 export function WasteBasket(): ReactNode {
   return (
     <path

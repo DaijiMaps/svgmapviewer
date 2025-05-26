@@ -1,11 +1,11 @@
 import { useSelector } from '@xstate/react'
-import { useContext } from 'react'
+import { type ReactNode, useContext } from 'react'
 import './Footer.css'
 import { touchActor, touching } from './lib/touch-react'
 import { selectOpenCloseFooter, uiActor } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 
-export const Footer = () => {
+export function Footer(): ReactNode {
   const config = useContext(SvgMapViewerConfigContext)
   //const mode = useSelector(pointerActor, selectMode)
 
@@ -64,7 +64,7 @@ const sendModePanning =
   () => pointerActor.send({ type: 'MODE', mode: 'panning' })
 */
 
-export function FooterStyle() {
+export function FooterStyle(): ReactNode {
   const { open, animating } = useSelector(uiActor, selectOpenCloseFooter)
 
   if (!animating) {

@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react'
+
 export function Monument(): ReactNode {
   return (
     <path

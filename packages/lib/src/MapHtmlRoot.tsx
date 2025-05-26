@@ -1,10 +1,10 @@
-import { useEffect } from 'react'
+import { type ReactNode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ROOT_ID } from './lib/map-html-react'
 import { MapHtml } from './MapHtml'
 import './MapHtml.css'
 
-export function MapHtmlRoot() {
+export function MapHtmlRoot(): ReactNode {
   // eslint-disable-next-line functional/no-expression-statements
   useMapHtmlRoot()
 
@@ -16,7 +16,7 @@ export function MapHtmlRoot() {
 }
 
 // eslint-disable-next-line functional/no-return-void
-function useMapHtmlRoot() {
+function useMapHtmlRoot(): void {
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
   useEffect(() => {
     const root = document.querySelector(`#${ROOT_ID}`)

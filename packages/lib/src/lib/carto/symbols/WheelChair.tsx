@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react'
+
 export function WheelChair(): ReactNode {
   return (
     <g id="XWheelChair" transform="translate(-36, -36)">

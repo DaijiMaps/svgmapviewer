@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { useMemo } from 'react'
+import { type ReactNode, useMemo } from 'react'
 import { Cursor } from './Cursor'
 import './Guides.css'
 import { boxCenter } from './lib/box/prefixed'
@@ -25,7 +25,7 @@ function guideParams(config: LayoutConfig): GuideParams {
   }
 }
 
-function PanningGuides(props: Readonly<{ _p: GuideParams }>) {
+function PanningGuides(props: Readonly<{ _p: GuideParams }>): ReactNode {
   const { c, r, w } = props._p
 
   return (
@@ -47,7 +47,7 @@ export interface GuidesProps {
   _pointerRef: PointerRef
 }
 
-export function Guides(props: Readonly<GuidesProps>) {
+export function Guides(props: Readonly<GuidesProps>): ReactNode {
   const { _pointerRef: pointerRef } = props
   const mode = useSelector(pointerRef, selectMode)
   const config = useSelector(pointerRef, selectLayoutConfig)

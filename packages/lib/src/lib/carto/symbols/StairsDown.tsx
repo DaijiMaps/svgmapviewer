@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react'
+
 export function StairsDown(): ReactNode {
   return (
     <g id="XStairsDown" transform="translate(-36, -36)">

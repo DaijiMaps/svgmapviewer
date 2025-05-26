@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react'
+
 export function Bench(): ReactNode {
   return (
     <path

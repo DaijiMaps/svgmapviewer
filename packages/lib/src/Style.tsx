@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-throw-statements */
 import { useSelector } from '@xstate/react'
-import { StrictMode, useEffect } from 'react'
+import { type ReactNode, StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { fromSvgToOuter } from './lib/coord'
@@ -21,7 +21,7 @@ import {
 import { pointerActor } from './lib/pointer-react'
 import { styleActor, type StyleState } from './lib/style-xstate'
 
-export function styleRoot() {
+export function styleRoot(): void {
   const e = document.getElementById('style-root')
 
   if (e === null) {
@@ -35,7 +35,7 @@ export function styleRoot() {
   )
 }
 
-function Style() {
+function Style(): ReactNode {
   return (
     <style>
       <LayoutStyle />
@@ -47,7 +47,7 @@ function Style() {
   )
 }
 
-function LayoutStyle() {
+function LayoutStyle(): ReactNode {
   const rendered = useSelector(
     styleActor,
     (state: Readonly<StyleState>) => state.context.rendered
@@ -109,7 +109,7 @@ const appearing = `
 }
 `
 
-function DraggingStyle() {
+function DraggingStyle(): ReactNode {
   const dragging = useSelector(
     styleActor,
     (state: Readonly<StyleState>) => state.context.dragging
@@ -129,7 +129,7 @@ function DraggingStyle() {
   )
 }
 
-function ModeStyle() {
+function ModeStyle(): ReactNode {
   const mode = useSelector(
     styleActor,
     (state: Readonly<StyleState>) => state.context.mode
@@ -158,7 +158,7 @@ function ModeStyle() {
   )
 }
 
-function AnimationStyle() {
+function AnimationStyle(): ReactNode {
   const animation = useSelector(
     styleActor,
     (state: Readonly<StyleState>) => state.context.animation
@@ -179,7 +179,7 @@ function AnimationStyle() {
   )
 }
 
-function css(q: Matrix) {
+function css(q: Matrix): string {
   return `
 .container {
   will-change: transform;
@@ -199,7 +199,7 @@ function css(q: Matrix) {
 `
 }
 
-function SvgSymbolStyle() {
+function SvgSymbolStyle(): ReactNode {
   const config = useSelector(renderMapActor, selectLayoutConfig)
   const s = useSelector(renderMapActor, selectLayoutSvgScaleS)
   const zoom = useSelector(renderMapActor, selectZoom)

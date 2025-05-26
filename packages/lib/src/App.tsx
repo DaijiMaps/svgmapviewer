@@ -1,8 +1,9 @@
+import { type ReactNode } from 'react'
 import './App.css'
 import { Container } from './Container'
 import { Ui } from './Ui'
 
-function App() {
+function App(): ReactNode {
   return (
     <>
       <Container />

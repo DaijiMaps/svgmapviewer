@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react'
+
 export function Information(): ReactNode {
   return (
     <g id="XInformation" transform="translate(-36, -36)">

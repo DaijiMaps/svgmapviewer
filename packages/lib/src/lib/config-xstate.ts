@@ -1,11 +1,4 @@
-import {
-  Actor,
-  assign,
-  createActor,
-  setup,
-  StateMachine,
-  type StateFrom,
-} from 'xstate'
+import { Actor, assign, createActor, setup, type StateFrom } from 'xstate'
 import { type POI } from './geo'
 import type {
   ConfigCb,
@@ -30,7 +23,7 @@ type ConfigEvent =
   | ConfigResize
   | ConfigLayout
 
-const configMachine: StateMachine<ConfigContext, ConfigEvent> = setup({
+const configMachine = setup({
   types: {
     context: {} as ConfigContext,
     events: {} as ConfigEvent,
@@ -242,3 +235,7 @@ export type ConfigActor = typeof configActor
 
 export const selectMapNames = (state: Readonly<ConfigState>): POI[] =>
   state.context.mapNames
+
+export function configSend(ev: ConfigEvent): void {
+  configActor.send(ev)
+}
