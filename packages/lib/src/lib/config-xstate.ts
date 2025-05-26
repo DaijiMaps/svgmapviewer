@@ -6,7 +6,10 @@ import type {
   ConfigLayout,
   ConfigResize,
   ConfigZoomStart,
+  LayoutCb,
+  ResizeCb,
   SvgMapViewerConfig,
+  ZoomStartCb,
 } from './types'
 
 interface ConfigContext extends ConfigCbs {
@@ -209,24 +212,47 @@ const configMachine = setup({
           }),
         },
         'CONFIG.ZOOM.START': {
-          actions: ({ context, event: { layout, zoom, z } }) =>
-            context.zoomStartCbs.forEach((cb) => cb(layout, zoom, z)),
+          actions: ({
+            context,
+            event: { layout, zoom, z },
+          }: {
+            context: ConfigContext
+            event: ConfigZoomStart
+          }): void =>
+            context.zoomStartCbs.forEach((cb: ZoomStartCb): void =>
+              cb(layout, zoom, z)
+            ),
         },
         'CONFIG.RESIZE': {
-          actions: ({ context, event: { layout, force } }) =>
-            context.resizeCbs.forEach((cb) => cb(layout, force)),
+          actions: ({
+            context,
+            event: { layout, force },
+          }: {
+            context: ConfigContext
+            event: ConfigResize
+          }): void =>
+            context.resizeCbs.forEach((cb: ResizeCb): void =>
+              cb(layout, force)
+            ),
         },
         'CONFIG.LAYOUT': {
-          actions: ({ context, event: { layout, force } }) =>
-            context.layoutCbs.forEach((cb) => cb(layout, force)),
+          actions: ({
+            context,
+            event: { layout, force },
+          }: {
+            context: ConfigContext
+            event: ConfigLayout
+          }): void =>
+            context.layoutCbs.forEach((cb: LayoutCb): void =>
+              cb(layout, force)
+            ),
         },
       },
     },
   },
 })
 
-export const configActor: Actor<typeof configMachine> =
-  createActor(configMachine)
+const configActor: Actor<typeof configMachine> = createActor(configMachine)
 configActor.start()
 
 export type ConfigMachine = typeof configMachine
