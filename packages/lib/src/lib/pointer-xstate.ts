@@ -1,5 +1,12 @@
 import React from 'react'
-import { ActorRefFrom, assign, emit, setup, StateFrom } from 'xstate'
+import {
+  ActorRefFrom,
+  assign,
+  emit,
+  enqueueActions,
+  setup,
+  StateFrom,
+} from 'xstate'
 import {
   Animation,
   animationEndLayout,
@@ -47,6 +54,7 @@ export type PointerContext = {
   animation: null | Animation
 
   mode: PointerMode
+  touching: boolean
 
   homing: boolean
   animating: boolean // XXX
@@ -71,7 +79,9 @@ type PointerEventSearch =
   | { type: 'SEARCH.LOCK'; psvg: Vec }
   | { type: 'SEARCH.UNLOCK' }
 
-type PointerInternalEvent = PointerEventSearch
+type PointerEventTouching = { type: 'TOUCHING' } | { type: 'TOUCHING.DONE' }
+
+type PointerInternalEvent = PointerEventSearch | PointerEventTouching
 
 type UIEventClick = { type: 'CLICK'; ev: React.MouseEvent<HTMLDivElement> }
 type UIEventContextMenu = {
@@ -132,6 +142,7 @@ export const pointerMachine = setup({
     // key
     shouldReset: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'r',
     shouldZoom: (_, { ev }: { ev: KeyboardEvent }) => keyToZoom(ev.key) !== 0,
+    isTouching: ({ context: { touching } }) => touching,
   },
   actions: {
     //
@@ -249,6 +260,14 @@ export const pointerMachine = setup({
     }),
     syncMode: ({ context: { mode } }) =>
       styleActor.send({ type: 'STYLE.MODE', mode }),
+    touchStart: enqueueActions(({ enqueue }) => {
+      enqueue.assign({ touching: true })
+      enqueue.raise({ type: 'TOUCHING' })
+    }),
+    touchEnd: enqueueActions(({ enqueue }) => {
+      enqueue.assign({ touching: false })
+      enqueue.raise({ type: 'TOUCHING.DONE' })
+    }),
   },
   actors: {
     scroll: scrollMachine,
@@ -266,6 +285,7 @@ export const pointerMachine = setup({
     homing: false,
     animation: null,
     mode: pointerModePanning,
+    touching: false,
     animating: false,
     rendered: false,
     mapHtmlRendered: false,
@@ -283,19 +303,38 @@ export const pointerMachine = setup({
         mapHtmlRendered: true,
       }),
     },
-    'SEARCH.LOCK': [
-      {
-        actions: [
-          emit({ type: 'LOCK', ok: true }),
-          'setModeToLocked',
-          emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
-          'syncMode',
-        ],
-      },
-      {
-        actions: emit({ type: 'LOCK', ok: false }),
-      },
-    ],
+    'TOUCH.LOCK': {
+      actions: [
+        'touchStart',
+        'setModeToTouching',
+        emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+        'syncMode',
+      ],
+    },
+    'TOUCH.UNLOCK': {
+      actions: [
+        'touchEnd',
+        'setModeToPanning',
+        emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+        'syncMode',
+      ],
+    },
+    'SEARCH.LOCK': {
+      // XXX failure?
+      actions: [
+        emit({ type: 'LOCK', ok: true }),
+        'setModeToLocked',
+        emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+        'syncMode',
+      ],
+    },
+    'SEARCH.UNLOCK': {
+      actions: [
+        'setModeToPanning',
+        emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+        'syncMode',
+      ],
+    },
   },
   states: {
     Resizing: {
@@ -419,34 +458,40 @@ export const pointerMachine = setup({
           ],
           target: 'Zooming',
         },
-        'TOUCH.LOCK': {
-          actions: [
-            'setModeToTouching',
-            emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
-          ],
+        TOUCHING: {
           target: 'Touching',
         },
       },
     },
     Touching: {
-      on: {
-        'TOUCH.UNLOCK': {
-          actions: [
-            'setModeToPanning',
-            emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
-          ],
-          target: 'Panning',
-        },
-        'ZOOM.ZOOM': {
-          actions: [
-            'setModeToPanning',
-            {
-              type: 'zoomEvent',
-              params: ({ event: { z, p } }) => ({ z, p }),
+      initial: 'Stopping',
+      onDone: 'Panning',
+      states: {
+        Stopping: {
+          entry: 'getScroll',
+          on: {
+            'SCROLL.GET.DONE': {
+              target: 'Waiting',
             },
-          ],
-          target: 'Zooming',
+          },
         },
+        Waiting: {
+          on: {
+            'TOUCHING.DONE': {
+              target: 'Done',
+            },
+            'ZOOM.ZOOM': {
+              actions: [
+                {
+                  type: 'zoomEvent',
+                  params: ({ event: { z, p } }) => ({ z, p }),
+                },
+              ],
+              target: '#Zooming',
+            },
+          },
+        },
+        Done: { type: 'final' },
       },
     },
     Searching: {
@@ -491,11 +536,6 @@ export const pointerMachine = setup({
         WaitingForSearchUnlock: {
           on: {
             'SEARCH.UNLOCK': {
-              actions: [
-                'setModeToPanning',
-                emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
-                'syncMode',
-              ],
               target: 'Done',
             },
           },
@@ -529,6 +569,7 @@ export const pointerMachine = setup({
     },
     // fast zooming - no expand/unexpand + no RENDRED hack
     Zooming: {
+      id: 'Zooming',
       initial: 'Stopping',
       onDone: 'Panning',
       states: {
