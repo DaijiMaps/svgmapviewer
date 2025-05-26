@@ -1,44 +1,20 @@
 import { assign, createActor, fromPromise, sendTo, setup } from 'xstate'
 import { type BoxBox as Box, type BoxBox } from './box/prefixed'
 import { getScroll, syncScroll } from './scroll'
-import { stepMachine } from './step-xstate'
 
-const syncScrollLogic = fromPromise<boolean, Box>(async ({ input }) => {
-  const ok = syncScroll(input)
-  if (!ok) {
-    throw new Error('syncScroll failed')
-  }
-  return true
-})
-
+type ScrollGet = {
+  type: 'GET'
+}
 type ScrollEventSync = {
   type: 'SYNC'
   pos: Box
-}
-type ScrollEventSlide = {
-  type: 'SLIDE'
-  P: Box
-  Q: Box
-}
-type ScrollEventCancel = {
-  type: 'CANCEL'
-  pos: Box
-}
-type ScrollEventStepDone = {
-  type: 'STEP.DONE'
-  count: number
 }
 type ScrollEventSyncSync = {
   type: 'SYNCSYNC'
   pos: Box
 }
 
-export type ScrollEvent =
-  | ScrollEventSync
-  | ScrollEventSlide
-  | ScrollEventCancel
-  | ScrollEventStepDone
-  | ScrollEventSyncSync
+export type ScrollEvent = ScrollGet | ScrollEventSync | ScrollEventSyncSync
 
 export type SlideDone = { type: 'SCROLL.SLIDE.DONE' }
 export type GetDone = { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
@@ -57,14 +33,6 @@ const scrollMachine = setup({
   },
   actions: {
     syncScroll: (_, { pos }: { pos: Box }) => syncScroll(pos),
-    startStep: sendTo(
-      ({ system }) => system.get('step1'),
-      (_, { P, Q }: { P: Box; Q: Box }) => ({ type: 'STEP.START', P, Q })
-    ),
-    stopStep: sendTo(
-      ({ system }) => system.get('step1'),
-      () => ({ type: 'STEP.STOP' })
-    ),
     // XXX emit
     notifySlideDone: sendTo(
       ({ system }) => system.get('system-pointer1'),
@@ -88,22 +56,21 @@ const scrollMachine = setup({
     ),
   },
   actors: {
-    step: stepMachine,
+    syncScrollLogic: fromPromise<boolean, null | Box>(async ({ input }) => {
+      if (input === null) {
+        throw new Error('input is null')
+      }
+      const ok = syncScroll(input)
+      if (!ok) {
+        throw new Error('syncScroll failed')
+      }
+      return true
+    }),
   },
 }).createMachine({
   id: 'scroll',
   initial: 'Idle',
   context: { dest: null },
-  invoke: [
-    {
-      src: 'step',
-      systemId: 'step1',
-      input: ({ self }) => ({
-        parent: self,
-        cb: (b: Box) => syncScroll(b),
-      }),
-    },
-  ],
   states: {
     Idle: {
       on: {
@@ -116,15 +83,6 @@ const scrollMachine = setup({
               }),
             },
           ],
-        },
-        SLIDE: {
-          actions: [
-            {
-              type: 'startStep',
-              params: ({ event: { P, Q } }) => ({ P, Q }),
-            },
-          ],
-          target: 'Busy',
         },
         GET: {
           actions: {
@@ -139,36 +97,10 @@ const scrollMachine = setup({
         },
       },
     },
-    Busy: {
-      on: {
-        SLIDE: {
-          actions: {
-            type: 'startStep',
-            params: ({ event: { P, Q } }) => ({ P, Q }),
-          },
-        },
-        'STEP.DONE': {
-          actions: 'notifySlideDone',
-          target: 'Idle',
-        },
-        CANCEL: {
-          actions: [
-            {
-              type: 'syncScroll',
-              params: ({ event }) => ({
-                pos: event.pos,
-              }),
-            },
-            'stopStep',
-          ],
-          target: 'Idle',
-        },
-      },
-    },
     Syncing: {
       invoke: [
         {
-          src: syncScrollLogic,
+          src: 'syncScrollLogic',
           systemId: 'syncscroll1',
           input: ({ context }) => context.dest,
           onDone: {

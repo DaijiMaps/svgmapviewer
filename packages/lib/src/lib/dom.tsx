@@ -2,7 +2,7 @@ import { type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 // eslint-disable-next-line functional/no-return-void
-export function mountShadowRoot(id: string) {
+export function mountShadowRoot(id: string): void {
   const root = document.querySelector(`#${id}`)
   if (root === null || root.shadowRoot === null) {
     return

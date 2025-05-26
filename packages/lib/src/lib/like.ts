@@ -60,7 +60,7 @@ function saveSnapshot(val: Readonly<StoreSnapshot<LikesContext>>): void {
   localStorage.setItem('svgmapviewer:likes', stringifySnapshot(val))
 }
 
-export const likesStore = createStore({
+const likesStore = createStore({
   context: loadSnapshot().context,
   on: {
     like: (context, event: Readonly<{ id: number }>) => ({
@@ -82,6 +82,6 @@ export const isLiked = (id: number): boolean => {
   return likesStore.getSnapshot().context.ids.has(id)
 }
 
-export function useLikes() {
+export function useLikes(): Set<number> {
   return useSelector(likesStore, (s) => s.context.ids)
 }
