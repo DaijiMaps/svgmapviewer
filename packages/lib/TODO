@@ -1,15 +1,5 @@
-- reorg zoom (no expand)
-  - don't unexpand/expand
-  - kill Pointer state
-
-- kill expand/unexpand
-  - expand right after resize
-
-- optimize PAN
-  - recenter does not need unexpand/expand
-
-- extend size adjustment
-  - extend wider on mobile
+- expand size adjustment
+  - expand wider on mobile
 
 - change Ui to not use `mode'
   - don't re-render; style-only
@@ -23,14 +13,9 @@
 
 - fix gap by button-zoom during swipe
 
-- fix homing
-  - fix resize
-
-- fix resize (== reset)
-  - expandLayout from start
-
 - make Ui use Style.tsx
   - click -> search -> update DOM (detail content) -> balloon animation
   - close doesn't need to change DOM; make it CSS style only
 
 - handle mobile chrome address bar auto hiding
+  - just accept height-only change
