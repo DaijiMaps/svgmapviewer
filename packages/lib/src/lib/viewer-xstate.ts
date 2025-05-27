@@ -44,6 +44,8 @@ import { type VecVec as Vec, type VecVec, vecVec } from './vec/prefixed'
 import {
   EXPAND_PANNING,
   type ReactUIEvent,
+  type ResizeEvent,
+  type SearchEnd,
   type ViewerContext,
   type ViewerEmitted,
   type ViewerEvent,
@@ -192,6 +194,63 @@ const viewerMachine = setup({
 
     startAnimating: assign({ animating: () => true }),
     stopAnimating: assign({ animating: () => false }),
+
+    resizeLayout: assign({
+      rendered: false,
+      origLayout: (_, { layout }: ResizeEvent) => layout,
+      layout: (_, { layout }: ResizeEvent) =>
+        expandLayoutCenter(layout, EXPAND_PANNING),
+    }),
+    updateLayoutFromScroll: assign({
+      layout: ({ context }) => {
+        const scroll = getCurrentScroll()
+        return scrollLayout(context.layout, scroll)
+      },
+    }),
+    notifyZoomStart: emit(
+      ({ context: { layout, zoom, z } }): ViewerEmitted => ({
+        type: 'ZOOM.START',
+        layout,
+        zoom,
+        z: z === null ? 0 : z,
+      })
+    ),
+    notifyZoomEnd: emit(
+      ({ context: { layout, zoom } }): ViewerEmitted => ({
+        type: 'ZOOM.END',
+        layout,
+        zoom,
+      })
+    ),
+    notifySearch: emit(({ context }): ViewerEmitted => {
+      const scroll = getCurrentScroll()
+      const l = scrollLayout(context.layout, scroll)
+      return {
+        type: 'SEARCH',
+        psvg: toSvg(context.cursor, l),
+      }
+    }),
+    notifySearchEndDone: emit(
+      ({ context }, { res }: SearchEnd): ViewerEmitted => {
+        const scroll = getCurrentScroll()
+        const l = scrollLayout(context.layout, scroll)
+        return {
+          type: 'SEARCH.END.DONE',
+          psvg: res.psvg,
+          info: res.info,
+          layout: l,
+        }
+      }
+    ),
+    endHoming: assign({
+      cursor: ({ context }) => boxCenter(context.origLayout.container),
+      layout: ({ context }) =>
+        expandLayoutCenter(context.origLayout, EXPAND_PANNING),
+      homing: () => false,
+    }),
+    notifyMode: emit(
+      ({ context: { mode } }): ViewerEmitted => ({ type: 'MODE', mode })
+    ),
   },
 }).createMachine({
   id: 'viewer',
@@ -223,7 +282,7 @@ const viewerMachine = setup({
         'startTouching',
         'notifyTouching',
         'setModeToTouching',
-        emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+        'notifyMode',
         'syncMode',
       ],
     },
@@ -232,7 +291,7 @@ const viewerMachine = setup({
         'endTouching',
         'notifyTouchingDone',
         'setModeToPanning',
-        emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+        'notifyMode',
         'syncMode',
       ],
     },
@@ -241,14 +300,14 @@ const viewerMachine = setup({
       actions: [
         emit({ type: 'LOCK', ok: true }),
         'setModeToLocked',
-        emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+        'notifyMode',
         'syncMode',
       ],
     },
     'SEARCH.UNLOCK': {
       actions: [
         'setModeToPanning',
-        emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
+        'notifyMode',
         'syncMode',
         raise({ type: 'SEARCH.DONE' }),
       ],
@@ -262,14 +321,7 @@ const viewerMachine = setup({
         WaitingForResizeEvent: {
           on: {
             RESIZE: {
-              actions: [
-                assign({
-                  rendered: false,
-                  origLayout: ({ event }) => event.layout,
-                  layout: ({ event }) =>
-                    expandLayoutCenter(event.layout, EXPAND_PANNING),
-                }),
-              ],
+              actions: { type: 'resizeLayout', params: ({ event }) => event },
               target: 'WaitingForMapHtmlRendered',
             },
           },
@@ -317,20 +369,11 @@ const viewerMachine = setup({
         Done: { type: 'final' },
       },
     },
-    // work-around - ignore click right after touchend
-    // otherwise PAN mode is exited immediately
     Panning: {
       on: {
         // XXX force layout (resize)
         RESIZE: {
-          actions: [
-            assign({
-              rendered: false,
-              origLayout: ({ event }) => event.layout,
-              layout: ({ event }) =>
-                expandLayoutCenter(event.layout, EXPAND_PANNING),
-            }),
-          ],
+          actions: [{ type: 'resizeLayout', params: ({ event }) => event }],
           target: '#Resizing-WaitingForWindowStabilized',
         },
         'LAYOUT.RESET': {
@@ -419,34 +462,17 @@ const viewerMachine = setup({
       states: {
         Starting: {
           always: {
-            actions: [
-              emit(({ context }) => {
-                const scroll = getCurrentScroll()
-                const l = scrollLayout(context.layout, scroll)
-                return {
-                  type: 'SEARCH',
-                  psvg: toSvg(context.cursor, l),
-                }
-              }),
-            ],
+            actions: 'notifySearch',
             target: 'WaitingForSearchEnd',
           },
         },
         WaitingForSearchEnd: {
           on: {
             'SEARCH.END': {
-              actions: [
-                emit(({ context, event }) => {
-                  const scroll = getCurrentScroll()
-                  const l = scrollLayout(context.layout, scroll)
-                  return {
-                    type: 'SEARCH.END.DONE',
-                    psvg: event.res.psvg,
-                    info: event.res.info,
-                    layout: l,
-                  }
-                }),
-              ],
+              actions: {
+                type: 'notifySearchEndDone',
+                params: ({ event }) => event,
+              },
               target: 'WaitingForSearchUnlock',
             },
           },
@@ -469,13 +495,7 @@ const viewerMachine = setup({
     Recentering: {
       always: {
         actions: [
-          assign({
-            layout: ({ context }) => {
-              const scroll = getCurrentScroll()
-              const l = scrollLayout(context.layout, scroll)
-              return l
-            },
-          }),
+          'updateLayoutFromScroll',
           'syncViewBox',
           'syncLayout',
           // fast sync - sync scroll NOT after resize
@@ -519,21 +539,10 @@ const viewerMachine = setup({
         Starting: {
           always: {
             actions: [
-              assign({
-                layout: ({ context }) => {
-                  const scroll = getCurrentScroll()
-                  const l = scrollLayout(context.layout, scroll)
-                  return l
-                },
-              }),
+              'updateLayoutFromScroll',
               'startZoom',
               'updateZoom',
-              emit(({ context: { layout, zoom, z } }) => ({
-                type: 'ZOOM.START',
-                layout,
-                zoom,
-                z: z === null ? 0 : z,
-              })),
+              'notifyZoomStart',
             ],
             target: 'Animating',
           },
@@ -557,11 +566,7 @@ const viewerMachine = setup({
                     'syncViewBox',
                     // fast sync - sync scroll NOT after resize
                     'syncScroll',
-                    emit(({ context: { layout, zoom } }) => ({
-                      type: 'ZOOM.END',
-                      layout,
-                      zoom,
-                    })),
+                    'notifyZoomEnd',
                     'stopAnimating',
                     'syncAnimation',
                   ],
@@ -574,13 +579,7 @@ const viewerMachine = setup({
                 {
                   guard: ({ context }) => context.homing,
                   actions: [
-                    assign({
-                      cursor: ({ context }) =>
-                        boxCenter(context.origLayout.container),
-                      layout: ({ context }) =>
-                        expandLayoutCenter(context.origLayout, EXPAND_PANNING),
-                      homing: () => false,
-                    }),
+                    'endHoming',
                     'syncLayout',
                     'syncViewBox',
                     // fast sync - sync scroll NOT after resize

@@ -36,6 +36,8 @@ export type ViewerContext = {
   mapHtmlRendered: boolean
 }
 
+export type ResizeEvent = { type: 'RESIZE'; layout: Layout; force: boolean }
+
 export type ViewerExternalEvent =
   | { type: 'RESIZE'; layout: Layout; force: boolean }
   | { type: 'LAYOUT.RESET' }
@@ -48,8 +50,9 @@ export type ViewerExternalEvent =
   | { type: 'TOUCH.UNLOCK' }
   | { type: 'ZOOM.ZOOM'; z: -1 | 1; p: null | VecVec }
 
+export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<SearchRes> }
 export type ViewerEventSearch =
-  | { type: 'SEARCH.END'; res: Readonly<SearchRes> }
+  | SearchEnd
   | { type: 'SEARCH.LOCK'; psvg: Vec }
   | { type: 'SEARCH.UNLOCK' }
 
