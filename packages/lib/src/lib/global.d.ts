@@ -1,4 +1,4 @@
-import type { SvgMapViewerConfigUser } from './types'
+import { type SvgMapViewerConfigUser } from './types'
 
 declare var configUser: SvgMapViewerConfigUser
 

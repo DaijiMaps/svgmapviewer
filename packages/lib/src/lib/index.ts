@@ -20,18 +20,18 @@ import {
 } from './config-xstate'
 import { type Layout } from './layout'
 import { svgmapviewer } from './svgmapviewer'
-import type {
-  Info,
-  RenderMap,
-  SearchReq,
-  SearchRes,
-  SvgMapViewerConfig,
-  SvgMapViewerConfigUser,
+import {
+  type Info,
+  type RenderMap,
+  type SearchReq,
+  type SearchRes,
+  type SvgMapViewerConfig,
+  type SvgMapViewerConfigUser,
 } from './types'
 
 // types
 
-export type { Info, RenderMap, SearchReq, SearchRes }
+export { type Info, type RenderMap, type SearchReq, type SearchRes }
 
 // svgmapviewer
 
@@ -55,13 +55,13 @@ export {
 
 // svgmapviewer
 
-export type { SvgMapViewerConfig, SvgMapViewerConfigUser }
+export { type SvgMapViewerConfig, type SvgMapViewerConfigUser }
 
 export { svgmapviewer }
 
 // layout
 
-export type { Layout }
+export { type Layout }
 
 // like
 

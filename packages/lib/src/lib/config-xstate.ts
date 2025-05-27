@@ -1,30 +1,30 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup, type StateFrom } from 'xstate'
 import { type POI } from './geo'
-import type { Layout } from './layout'
-import type {
-  ConfigCb,
-  ConfigCbs,
-  ConfigLayout,
-  ConfigResize,
-  ConfigZoomStart,
-  Info,
-  LayoutCb,
-  ResizeCb,
-  SearchCb,
-  SearchDoneCb,
-  SearchEndCb,
-  SearchEndDoneCb,
-  SearchStartCb,
-  SvgMapViewerConfig,
-  UiCloseCb,
-  UiCloseDoneCb,
-  UiOpenCb,
-  UiOpenDoneCb,
-  ZoomEndCb,
-  ZoomStartCb,
+import { type Layout } from './layout'
+import {
+  type ConfigCb,
+  type ConfigCbs,
+  type ConfigLayout,
+  type ConfigResize,
+  type ConfigZoomStart,
+  type Info,
+  type LayoutCb,
+  type ResizeCb,
+  type SearchCb,
+  type SearchDoneCb,
+  type SearchEndCb,
+  type SearchEndDoneCb,
+  type SearchStartCb,
+  type SvgMapViewerConfig,
+  type UiCloseCb,
+  type UiCloseDoneCb,
+  type UiOpenCb,
+  type UiOpenDoneCb,
+  type ZoomEndCb,
+  type ZoomStartCb,
 } from './types'
-import type { VecVec } from './vec/prefixed'
+import { type VecVec } from './vec/prefixed'
 
 interface ConfigContext extends ConfigCbs {
   // XXX SvgMapViewerConfig

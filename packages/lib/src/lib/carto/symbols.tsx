@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { Fragment } from 'react/jsx-runtime'
 import { svgMapViewerConfig as cfg } from '../config'
 import {

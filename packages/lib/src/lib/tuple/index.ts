@@ -12,6 +12,6 @@ import {
   vec as vVec,
 } from './v'
 
-export type { B, H, L, M, V }
+export { type B, type H, type L, type M, type V }
 
 export { vAdd, vDiv, vMul, vSub, vUnvec, vVec }

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useConfigMapNames } from './config-xstate'
-import type { POI } from './geo'
+import { type POI } from './geo'
 
 // XXX
 // XXX

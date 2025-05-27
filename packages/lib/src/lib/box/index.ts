@@ -20,7 +20,7 @@ import {
 import { type TlBr, fromTlBr, toTlBr } from './tlbr'
 import { transform } from './transform'
 
-export type { Box, TlBr }
+export { type Box, type TlBr }
 
 export {
   box,

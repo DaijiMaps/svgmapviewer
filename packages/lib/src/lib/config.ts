@@ -4,12 +4,12 @@
 import { createElement } from 'react'
 import { configSend } from './config-xstate'
 import { emptyMapData } from './geo/data'
-import type {
-  ConfigCb,
-  Info,
-  RenderInfo,
-  SvgMapViewerConfig,
-  SvgMapViewerConfigUser,
+import {
+  type ConfigCb,
+  type Info,
+  type RenderInfo,
+  type SvgMapViewerConfig,
+  type SvgMapViewerConfigUser,
 } from './types'
 import { type VecVec } from './vec/prefixed'
 

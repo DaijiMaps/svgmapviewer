@@ -13,7 +13,7 @@ import { scale, scaleF } from './scale'
 import { sub, subF } from './sub'
 import { sum } from './sum'
 
-export type { Vec, Vecs }
+export { type Vec, type Vecs }
 
 export {
   add,

@@ -18,23 +18,23 @@ type MC2<A> = C2<A, A, A> // a => a => a
 type MC3<A, T> = C3<T, A, A, A> // t => a => a => a
 type MC4<A, T1, T2> = C4<T2, T1, A, A, A> // t2 => t1 => a => a => a
 
-export type {
-  C1,
-  C2,
-  C3,
-  C4,
-  F1,
-  F2,
-  F3,
-  F4,
-  MC1,
-  MC2,
-  MC3,
-  MC4,
-  MF1,
-  MF2,
-  MF3,
-  MF4,
+export {
+  type C1,
+  type C2,
+  type C3,
+  type C4,
+  type F1,
+  type F2,
+  type F3,
+  type F4,
+  type MC1,
+  type MC2,
+  type MC3,
+  type MC4,
+  type MF1,
+  type MF2,
+  type MF3,
+  type MF4,
 }
 
 function F1ToC1<A, B>(f: F1<A, B>): C1<A, B> {

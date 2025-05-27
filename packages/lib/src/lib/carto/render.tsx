@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import { RenderMapAssetsDefault } from './assets'
 import { RenderMapLayers } from './layers'

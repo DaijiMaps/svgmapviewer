@@ -24,25 +24,25 @@ export { renderAreasPath, renderLinePath, renderMultipolygonPath }
 
 //// layers
 
-export type { MapLayer, MapLineLayer, MapMultiPolygonLayer }
+export { type MapLayer, type MapLineLayer, type MapMultiPolygonLayer }
 
 export { RenderMapLayers }
 
 //// objects
 
-export type { MapObjects }
+export { type MapObjects }
 
 export { RenderMapObjects, RenderObjects }
 
 //// symbols
 
-export type { MapSymbols, RenderMapSymbolsProps }
+export { type MapSymbols, type RenderMapSymbolsProps }
 
 export { RenderMapSymbols, RenderUses }
 
 //// markers
 
-export type { MapMarkers, RenderMapMarkersProps }
+export { type MapMarkers, type RenderMapMarkersProps }
 
 export { RenderMapMarkers, RenderMarkers }
 

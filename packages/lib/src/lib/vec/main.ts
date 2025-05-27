@@ -25,6 +25,6 @@ function toV({ x, y }: Vec): V {
   return [x, y]
 }
 
-export type { Vec, Vecs }
+export { type Vec, type Vecs }
 
 export { fromV, one, toV, vec, zero }

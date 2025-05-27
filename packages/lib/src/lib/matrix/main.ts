@@ -49,6 +49,6 @@ export const bdf = ([[, b], [, d], [, f]]: M): H => [b, d, f]
 export const prod = ([p, q, r]: H, [s, t]: V, n: number): number =>
   p * s + q * t + r * n
 
-export type { Matrix }
+export { type Matrix }
 
 export { copy, empty, matrix }

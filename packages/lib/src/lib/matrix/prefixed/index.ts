@@ -6,7 +6,7 @@ import { scale, scaleAt } from '../scale'
 import { toString } from '../toString'
 import { translate } from '../translate'
 
-export type { Matrix as MatrixMatrix }
+export { type Matrix as MatrixMatrix }
 
 export {
   apply as matrixApply,
