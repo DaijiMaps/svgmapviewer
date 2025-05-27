@@ -281,7 +281,7 @@ export function useConfigMapNames(): POI[] {
   return useSelector(configActor, selectMapNames)
 }
 
-export function configStart(): void {
+export function configActorStart(): void {
   configActor.start()
 }
 

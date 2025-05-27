@@ -768,7 +768,7 @@ export function usePointerCursor(): VecVec {
 
 ////
 
-export function pointerStart(): void {
+export function pointerActorStart(): void {
   pointerActor.start()
 }
 

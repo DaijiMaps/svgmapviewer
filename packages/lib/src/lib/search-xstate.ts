@@ -78,6 +78,6 @@ export function searchSearchDone(res: Readonly<null | SearchRes>): void {
   )
 }
 
-export function searchStart(): void {
+export function searchActorStart(): void {
   searchRef.start()
 }

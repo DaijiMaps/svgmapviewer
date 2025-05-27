@@ -1,8 +1,8 @@
 import { Like } from '../Like'
 import { svgMapViewerConfig } from './config'
 import {
+  configActorStart,
   configSend,
-  configStart,
   notifyLayout,
   notifyResize,
   notifySearch,
@@ -35,7 +35,7 @@ export type { Info, RenderMap, SearchReq, SearchRes }
 
 // svgmapviewer
 
-export { configSend, configStart, svgMapViewerConfig, useConfigMapNames }
+export { configActorStart, configSend, svgMapViewerConfig, useConfigMapNames }
 
 export {
   notifyLayout,

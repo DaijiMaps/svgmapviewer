@@ -118,6 +118,6 @@ window.addEventListener('resize', () => {
   resizeActor.send({ type: 'RESIZE' })
 })
 
-export function resizeStart(): void {
+export function resizeActorStart(): void {
   resizeActor.start()
 }

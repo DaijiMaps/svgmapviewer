@@ -8,18 +8,18 @@ import {
   svgMapViewerConfig,
   updateSvgMapViewerConfig,
 } from './config'
-import { configSend, configStart } from './config-xstate'
+import { configActorStart, configSend } from './config-xstate'
 import { scrollTimeoutActorStart } from './event-xstate'
 import { renderMapActorStart } from './map-xstate'
-import { pointerStart } from './pointer-xstate'
-import { resizeStart } from './resize-xstate'
-import { scrollStart } from './scroll-xstate'
+import { pointerActorStart } from './pointer-xstate'
+import { resizeActorStart } from './resize-xstate'
+import { scrollActorStart } from './scroll-xstate'
 import {
+  searchActorStart,
   searchSearchDone,
   searchSearchStart,
-  searchStart,
 } from './search-xstate'
-import { styleStart } from './style-xstate'
+import { styleActorStart } from './style-xstate'
 import { touchActorStart } from './touch-xstate'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
 import { uiRootActorStart } from './ui-root-xstate'
@@ -81,14 +81,14 @@ function startAllActors() {
   // reference & ensure all actors are started
   // for module dependency
   // (order doesn't matter)
-  configStart()
-  pointerStart()
+  configActorStart()
+  pointerActorStart()
   renderMapActorStart()
-  resizeStart()
-  scrollStart()
+  resizeActorStart()
+  scrollActorStart()
   scrollTimeoutActorStart()
-  searchStart()
-  styleStart()
+  searchActorStart()
+  styleActorStart()
   touchActorStart()
   uiActorStart()
   uiRootActorStart()

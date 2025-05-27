@@ -141,7 +141,7 @@ scrollActor.on('SCROLL.SYNCSYNC.DONE', (ev) =>
   syncSyncDoneCbs.forEach((cb) => cb(ev))
 )
 
-export function scrollStart(): void {
+export function scrollActorStart(): void {
   scrollActor.start()
 }
 

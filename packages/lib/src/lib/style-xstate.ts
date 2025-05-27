@@ -82,7 +82,7 @@ styleActor.start()
 //type StyleMachine = typeof styleMachine
 //type StyleState = StateFrom<StyleMachine>
 
-export function styleStart(): void {
+export function styleActorStart(): void {
   styleActor.start()
 }
 
