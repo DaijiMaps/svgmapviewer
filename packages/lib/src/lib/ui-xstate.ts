@@ -1,7 +1,6 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, emit, not, raise, setup } from 'xstate'
-import { registerCbs } from './config'
-import { notifyUiCloseDone } from './config-xstate'
+import { notifyUiCloseDone, registerCbs } from './config-xstate'
 import { emptyLayoutCoord, type LayoutCoord } from './coord'
 import { fromSvg } from './layout'
 import {

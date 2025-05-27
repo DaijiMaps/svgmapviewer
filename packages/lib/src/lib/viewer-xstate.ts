@@ -8,7 +8,6 @@ import {
   animationZoom,
 } from './animation'
 import { type BoxBox, boxCenter } from './box/prefixed'
-import { registerCbs } from './config'
 import {
   configSend,
   notifySearchEndDone,
@@ -17,6 +16,7 @@ import {
   notifyUiOpenDone,
   notifyZoomEnd,
   notifyZoomStart,
+  registerCbs,
 } from './config-xstate'
 import { scrollTimeoutActorSend } from './event-xstate'
 import { keyToZoom } from './key'

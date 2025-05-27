@@ -362,3 +362,8 @@ export function notifyResize(layout: Readonly<Layout>, force: boolean): void {
 export function notifyLayout(layout: Readonly<Layout>, force: boolean): void {
   configActor.send({ type: 'CONFIG.LAYOUT', layout, force })
 }
+
+export function registerCbs(cbs: Readonly<Partial<ConfigCb>>): void {
+  configActorStart()
+  configSend({ type: 'ADD.CB', ...cbs })
+}

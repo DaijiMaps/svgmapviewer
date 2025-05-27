@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
 import { emptyLayout, type Layout, type LayoutConfig } from '../lib/layout'
-import { registerCbs } from './config'
+import { registerCbs } from './config-xstate'
 
 type RenderMapContext = {
   layout: Readonly<Layout>

@@ -2,10 +2,8 @@
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/no-return-void */
 import { createElement } from 'react'
-import { configSend } from './config-xstate'
 import { emptyMapData } from './geo/data'
 import {
-  type ConfigCb,
   type Info,
   type RenderInfo,
   type SvgMapViewerConfig,
@@ -67,7 +65,3 @@ export function updateSvgMapViewerConfig(
 }
 
 ////
-
-export function registerCbs(cbs: Readonly<Partial<ConfigCb>>): void {
-  configSend({ type: 'ADD.CB', ...cbs })
-}

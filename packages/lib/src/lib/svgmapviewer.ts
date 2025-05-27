@@ -3,12 +3,8 @@
 import { root } from '../Root'
 import { styleRoot } from '../Style'
 import { type Box } from './box/main'
-import {
-  registerCbs,
-  svgMapViewerConfig,
-  updateSvgMapViewerConfig,
-} from './config'
-import { configActorStart, configSend } from './config-xstate'
+import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
+import { configActorStart, configSend, registerCbs } from './config-xstate'
 import { scrollTimeoutActorStart } from './event-xstate'
 import { renderMapActorStart } from './map-xstate'
 import { resizeActorStart } from './resize-xstate'
