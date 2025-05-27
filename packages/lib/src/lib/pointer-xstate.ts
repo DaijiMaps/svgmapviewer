@@ -1,6 +1,6 @@
 import { useSelector } from '@xstate/react'
 import React from 'react'
-import { assign, createActor, emit, enqueueActions, setup } from 'xstate'
+import { assign, createActor, emit, raise, setup } from 'xstate'
 import {
   type Animation,
   animationEndLayout,
@@ -263,6 +263,7 @@ const pointerMachine = setup({
     }),
     syncMode: ({ context: { mode } }) =>
       styleSend({ type: 'STYLE.MODE', mode }),
+    /*
     touchStart: enqueueActions(({ enqueue }) => {
       enqueue.assign({ touching: true })
       enqueue.raise({ type: 'TOUCHING' })
@@ -271,6 +272,11 @@ const pointerMachine = setup({
       enqueue.assign({ touching: false })
       enqueue.raise({ type: 'TOUCHING.DONE' })
     }),
+    */
+    startTouching: assign({ touching: true }),
+    endTouching: assign({ touching: false }),
+    notifyTouching: raise({ type: 'TOUCHING' }),
+    notifyTouchingDone: raise({ type: 'TOUCHING.DONE' }),
   },
   actors: {
     //scroll: scrollMachine,
@@ -310,7 +316,8 @@ const pointerMachine = setup({
     },
     'TOUCH.LOCK': {
       actions: [
-        'touchStart',
+        'startTouching',
+        'notifyTouching',
         'setModeToTouching',
         emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
         'syncMode',
@@ -318,7 +325,8 @@ const pointerMachine = setup({
     },
     'TOUCH.UNLOCK': {
       actions: [
-        'touchEnd',
+        'endTouching',
+        'notifyTouchingDone',
         'setModeToPanning',
         emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
         'syncMode',
