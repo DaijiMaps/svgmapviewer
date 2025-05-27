@@ -192,6 +192,7 @@ const pointerMachine = setup({
 
     startAnimating: assign({ animating: () => true }),
     stopAnimating: assign({ animating: () => false }),
+  },
 }).createMachine({
   id: 'pointer',
   initial: 'Resizing',
