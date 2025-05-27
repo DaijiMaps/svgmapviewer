@@ -112,7 +112,7 @@ const scrollMachine = setup({
     },
     Retrying: {
       after: {
-        100: {
+        1000: {
           // re-enter to re-invoke
           target: 'Syncing',
         },
