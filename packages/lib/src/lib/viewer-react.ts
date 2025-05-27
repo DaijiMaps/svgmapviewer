@@ -8,7 +8,7 @@ import { clickeventmask, viewerSend, viewerSendEvent } from './viewer-xstate'
 /*
 export type ViewerInspect = typeof viewerActor.options.inspect
 export function inspect(iev: InspectionEvent) {
-  if (iev && iev?.actorRef?.options?.systemId === 'system-pointer1') {
+  if (iev && iev?.actorRef?.options?.systemId === 'system-viewer1') {
     const type =
       iev?.event?.type || iev?.action?.type || iev?.action?.params?.event?.type
     if (type && !type.match(/MOVE/)) {

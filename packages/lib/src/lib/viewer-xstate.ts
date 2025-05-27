@@ -650,7 +650,7 @@ export function viewerSend(ev: ViewerEvent): void {
 }
 
 const viewerActor = createActor(viewerMachine, {
-  systemId: 'system-pointer1',
+  systemId: 'system-viewer1',
 })
 
 viewerActor.on('SEARCH', ({ psvg }) => notifySearchStart(psvg))

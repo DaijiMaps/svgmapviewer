@@ -75,7 +75,7 @@ const styleMachine = setup({
 })
 
 const styleActor = createActor(styleMachine, {
-  systemId: 'system-pointer1',
+  systemId: 'system-viewer1',
 })
 styleActor.start()
 
