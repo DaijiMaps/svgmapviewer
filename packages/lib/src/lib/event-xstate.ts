@@ -1,6 +1,6 @@
 import React from 'react'
 import { assign, createActor, emit, setup } from 'xstate'
-import { pointerSend, scrolleventmask } from './viewer-xstate'
+import { scrolleventmask, viewerSend } from './viewer-xstate'
 
 type TimeoutInput = {
   expiration?: number
@@ -110,7 +110,7 @@ const scrollTimeoutActor = createActor(timeoutMachine, {
 
 scrollTimeoutActor.on('EXPIRED', ({ ev }) => {
   if (!scrolleventmask) {
-    pointerSend({ type: 'SCROLL', ev })
+    viewerSend({ type: 'SCROLL', ev })
   }
 })
 scrollTimeoutActor.start()

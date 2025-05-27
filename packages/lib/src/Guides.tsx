@@ -4,7 +4,7 @@ import './Guides.css'
 import { boxCenter } from './lib/box/prefixed'
 import { type LayoutConfig } from './lib/layout'
 import { type Vec } from './lib/vec'
-import { usePointerLayoutConfig, usePointerMode } from './lib/viewer-xstate'
+import { useViewerLayoutConfig, useViewerMode } from './lib/viewer-xstate'
 
 export interface GuideParams {
   c: Vec
@@ -41,8 +41,8 @@ v${r * 40}
 export interface GuidesProps {}
 
 export function Guides(): ReactNode {
-  const mode = usePointerMode()
-  const config = usePointerLayoutConfig()
+  const mode = useViewerMode()
+  const config = useViewerLayoutConfig()
   const p = useMemo(() => guideParams(config), [config])
 
   return (

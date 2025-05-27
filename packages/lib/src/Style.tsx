@@ -19,7 +19,7 @@ import {
   useMode,
   useRendered,
 } from './lib/style-xstate'
-import { pointerSend } from './lib/viewer-xstate'
+import { viewerSend } from './lib/viewer-xstate'
 
 export function styleRoot(): void {
   const e = document.getElementById('style-root')
@@ -55,7 +55,7 @@ function LayoutStyle(): ReactNode {
   const matrix = fixupCssString(cssMatrixToString(m))
 
   useEffect(() => {
-    requestAnimationFrame(() => pointerSend({ type: 'RENDERED' }))
+    requestAnimationFrame(() => viewerSend({ type: 'RENDERED' }))
   }, [rendered])
 
   return (

@@ -23,7 +23,7 @@ import { touchActorStart } from './touch-xstate'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
 import { uiRootActorStart } from './ui-root-xstate'
 import { uiActorStart } from './ui-xstate'
-import { pointerActorStart } from './viewer-xstate'
+import { viewerActorStart } from './viewer-xstate'
 
 // XXX
 // XXX
@@ -82,7 +82,7 @@ function startAllActors() {
   // for module dependency
   // (order doesn't matter)
   configActorStart()
-  pointerActorStart()
+  viewerActorStart()
   renderMapActorStart()
   resizeActorStart()
   scrollActorStart()

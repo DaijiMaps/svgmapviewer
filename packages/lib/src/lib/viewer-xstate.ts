@@ -608,104 +608,96 @@ const viewerMachine = setup({
 
 ////
 
-export type PointerSend = (events: ViewerEvent) => void
-
-export function usePointerMode(): ViewerMode {
-  return useSelector(pointerActor, (pointer) => pointer.context.mode)
+export function useViewerMode(): ViewerMode {
+  return useSelector(viewerActor, (pointer) => pointer.context.mode)
 }
-export function usePointerLayout(): Layout {
-  return useSelector(pointerActor, (pointer) => pointer.context.layout)
+export function useViewerLayout(): Layout {
+  return useSelector(viewerActor, (pointer) => pointer.context.layout)
 }
-export function usePointerLayoutConfig(): LayoutConfig {
-  return useSelector(pointerActor, (pointer) => pointer.context.layout.config)
+export function useViewerLayoutConfig(): LayoutConfig {
+  return useSelector(viewerActor, (pointer) => pointer.context.layout.config)
 }
-export function usePointerLayoutContainer(): BoxBox {
+export function useViewerLayoutContainer(): BoxBox {
+  return useSelector(viewerActor, (pointer) => pointer.context.layout.container)
+}
+export function useViewerLayoutSvg(): BoxBox {
+  return useSelector(viewerActor, (pointer) => pointer.context.layout.svg)
+}
+export function useViewerLayoutSvgScaleS(): number {
   return useSelector(
-    pointerActor,
-    (pointer) => pointer.context.layout.container
-  )
-}
-export function usePointerLayoutSvg(): BoxBox {
-  return useSelector(pointerActor, (pointer) => pointer.context.layout.svg)
-}
-export function usePointerLayoutSvgScaleS(): number {
-  return useSelector(
-    pointerActor,
+    viewerActor,
     (pointer) => pointer.context.layout.svgScale.s
   )
 }
-export function usePointerLayoutSvgOffset(): VecVec {
-  return useSelector(
-    pointerActor,
-    (pointer) => pointer.context.layout.svgOffset
-  )
+export function useViewerLayoutSvgOffset(): VecVec {
+  return useSelector(viewerActor, (pointer) => pointer.context.layout.svgOffset)
 }
-export function usePointerLayoutScroll(): BoxBox {
-  return useSelector(pointerActor, (pointer) => pointer.context.layout.scroll)
+export function useViewerLayoutScroll(): BoxBox {
+  return useSelector(viewerActor, (pointer) => pointer.context.layout.scroll)
 }
-export function usePointerOrigLayoutSvg(): BoxBox {
-  return useSelector(pointerActor, (pointer) => pointer.context.origLayout.svg)
+export function useViewerOrigLayoutSvg(): BoxBox {
+  return useSelector(viewerActor, (pointer) => pointer.context.origLayout.svg)
 }
-export function usePointerCursor(): VecVec {
-  return useSelector(pointerActor, (pointer) => pointer.context.cursor)
+export function useViewerCursor(): VecVec {
+  return useSelector(viewerActor, (pointer) => pointer.context.cursor)
 }
 
 ////
 
-export function pointerActorStart(): void {
-  pointerActor.start()
+export function viewerActorStart(): void {
+  viewerActor.start()
 }
 
-export function pointerSend(ev: ViewerEvent): void {
-  pointerActor.send(ev)
+export function viewerSend(ev: ViewerEvent): void {
+  viewerActor.send(ev)
 }
 
-const pointerActor = createActor(viewerMachine, {
+const viewerActor = createActor(viewerMachine, {
   systemId: 'system-pointer1',
 })
 
-pointerActor.on('SEARCH', ({ psvg }) => notifySearchStart(psvg))
-pointerActor.on('SEARCH.END.DONE', ({ psvg, info, layout }) => {
+viewerActor.on('SEARCH', ({ psvg }) => notifySearchStart(psvg))
+viewerActor.on('SEARCH.END.DONE', ({ psvg, info, layout }) => {
   notifySearchEndDone(psvg, info, layout)
   notifyUiOpen(psvg, info, layout)
 })
-pointerActor.on('LOCK', ({ ok }) => notifyUiOpenDone(ok))
-pointerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
+viewerActor.on('LOCK', ({ ok }) => notifyUiOpenDone(ok))
+viewerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
   notifyZoomStart(layout, zoom, z)
 )
-pointerActor.on('ZOOM.END', ({ layout, zoom }) => notifyZoomEnd(layout, zoom))
-pointerActor.on('LAYOUT', ({ layout }) => notifyZoomEnd(layout, 1))
-pointerActor.on('MODE', ({ mode }) => reflectMode(mode))
-pointerActor.start()
+viewerActor.on('ZOOM.END', ({ layout, zoom }) => notifyZoomEnd(layout, zoom))
+viewerActor.on('LAYOUT', ({ layout }) => notifyZoomEnd(layout, 1))
+viewerActor.on('MODE', ({ mode }) => reflectMode(mode))
+viewerActor.start()
 
-function pointerSearchEnd(res: Readonly<SearchRes>) {
-  pointerActor.send({ type: 'SEARCH.END', res })
+function viewerSearchEnd(res: Readonly<SearchRes>) {
+  viewerActor.send({ type: 'SEARCH.END', res })
 }
-function pointerSearchLock(psvg: Vec) {
-  pointerActor.send({ type: 'SEARCH.LOCK', psvg })
+function viewerSearchLock(psvg: Vec) {
+  viewerActor.send({ type: 'SEARCH.LOCK', psvg })
 }
-function pointerSearchUnlock() {
-  pointerActor.send({ type: 'SEARCH.UNLOCK' })
+function viewerSearchUnlock() {
+  viewerActor.send({ type: 'SEARCH.UNLOCK' })
 }
 function resizeCb(origLayout: Readonly<Layout>, force: boolean) {
-  pointerSend({ type: 'RESIZE', layout: origLayout, force })
+  viewerSend({ type: 'RESIZE', layout: origLayout, force })
 }
 
 registerCbs({
-  searchEndCb: pointerSearchEnd,
-  uiOpenCb: pointerSearchLock,
-  uiCloseDoneCb: pointerSearchUnlock,
+  searchEndCb: viewerSearchEnd,
+  uiOpenCb: viewerSearchLock,
+  uiCloseDoneCb: viewerSearchUnlock,
   resizeCb: resizeCb,
 })
 
 function getDoneCb(ev: GetDone) {
   if (ev.scroll !== null) {
-    pointerSend({ type: 'SCROLL.GET.DONE', scroll: ev.scroll })
+    viewerSend({ type: 'SCROLL.GET.DONE', scroll: ev.scroll })
   }
 }
 function syncSyncDoneCb(ev: SyncSyncDone) {
   if (ev.scroll !== null) {
-    pointerSend({ type: 'SCROLL.SYNCSYNC.DONE', scroll: ev.scroll })
+    viewerSend({ type: 'SCROLL.SYNCSYNC.DONE', scroll: ev.scroll })
   }
 }
 getDoneCbs.add(getDoneCb)
@@ -733,7 +725,7 @@ function reflectMode(mode: ViewerMode): void {
 
 //// handlers
 
-export function pointerSendEvent(
+export function viewerSendEvent(
   // excluding key down/up events
   event: ReactUIEvent,
   options?: {
@@ -751,5 +743,5 @@ export function pointerSendEvent(
   } else {
     event.ev.stopPropagation()
   }
-  pointerSend(event)
+  viewerSend(event)
 }

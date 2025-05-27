@@ -2,7 +2,7 @@ import { type ReactNode, useContext } from 'react'
 import './Header.css'
 import { SvgMapViewerConfigContext } from './Root'
 import { uiSend, useOpenCloseHeader } from './lib/ui-xstate'
-import { pointerSend } from './lib/viewer-xstate'
+import { viewerSend } from './lib/viewer-xstate'
 
 export function Header(): ReactNode {
   const config = useContext(SvgMapViewerConfigContext)
@@ -17,7 +17,7 @@ export function Header(): ReactNode {
       <h1
         className="title"
         // eslint-disable-next-line functional/no-return-void
-        onClick={() => pointerSend({ type: 'LAYOUT.RESET' })}
+        onClick={() => viewerSend({ type: 'LAYOUT.RESET' })}
       >
         {config.title}
       </h1>

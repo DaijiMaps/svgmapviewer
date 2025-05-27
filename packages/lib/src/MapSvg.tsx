@@ -1,12 +1,12 @@
 import { type ReactNode, useContext } from 'react'
 import { boxToViewBox } from './lib/box/prefixed'
-import { usePointerOrigLayoutSvg } from './lib/viewer-xstate'
+import { useViewerOrigLayoutSvg } from './lib/viewer-xstate'
 import './MapSvg.css'
 import { SvgMapViewerConfigContext } from './Root'
 
 export function MapSvg(): ReactNode {
   // XXX only when resized
-  const origLayoutSvg = usePointerOrigLayoutSvg()
+  const origLayoutSvg = useViewerOrigLayoutSvg()
 
   const config = useContext(SvgMapViewerConfigContext)
 

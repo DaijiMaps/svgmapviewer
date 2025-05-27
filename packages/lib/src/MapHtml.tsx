@@ -4,7 +4,7 @@ import { type POI } from './lib/geo'
 import { isLiked, useLikes } from './lib/like'
 import { useMapHtmlRendered } from './lib/map-html-react'
 import { useNames } from './lib/names'
-import { usePointerLayoutSvgScaleS } from './lib/viewer-xstate'
+import { useViewerLayoutSvgScaleS } from './lib/viewer-xstate'
 
 export function MapHtml(): ReactNode {
   const { pointNames, areaNames } = useNames()
@@ -176,7 +176,7 @@ function MapHtmlContentNamesStyle(
 ): ReactNode {
   const { _areaNames: areaNames } = props
 
-  const s = usePointerLayoutSvgScaleS()
+  const s = useViewerLayoutSvgScaleS()
 
   return (
     <div className="poi-names">

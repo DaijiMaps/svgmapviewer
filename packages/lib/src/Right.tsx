@@ -2,7 +2,7 @@ import { type ReactNode } from 'react'
 //import clsx from 'clsx/clsx'
 import './Right.css'
 import { uiSend, useOpenCloseRight } from './lib/ui-xstate'
-import { pointerSend } from './lib/viewer-xstate'
+import { viewerSend } from './lib/viewer-xstate'
 
 export function Right(): ReactNode {
   return (
@@ -38,10 +38,10 @@ export function Right(): ReactNode {
 
 const sendZoomOut =
   // eslint-disable-next-line functional/no-return-void
-  () => pointerSend({ type: 'ZOOM.ZOOM', z: -1, p: null })
+  () => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null })
 const sendZoomIn =
   // eslint-disable-next-line functional/no-return-void
-  () => pointerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })
+  () => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })
 
 export function RightStyle(): ReactNode {
   const { open, animating } = useOpenCloseRight()

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { pointerSend } from './viewer-xstate'
+import { viewerSend } from './viewer-xstate'
 
 export const ROOT_ID = 'map-html-content-root'
 
@@ -9,7 +9,7 @@ export function useMapHtmlRendered(): void {
   useEffect(() => {
     if (!mapHtmlRendered) {
       mapHtmlRendered = true
-      pointerSend({ type: 'RENDERED.MAP-HTML' })
+      viewerSend({ type: 'RENDERED.MAP-HTML' })
     }
   }, [])
 }

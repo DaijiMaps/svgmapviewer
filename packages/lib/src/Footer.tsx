@@ -7,7 +7,7 @@ import { SvgMapViewerConfigContext } from './Root'
 
 export function Footer(): ReactNode {
   const config = useContext(SvgMapViewerConfigContext)
-  //const mode = useSelector(pointerActor, selectMode)
+  //const mode = useSelector(viewerActor, selectMode)
 
   const vecs = useTouchesVecs()
   const z = useTouchesZ()
@@ -58,10 +58,10 @@ export function Footer(): ReactNode {
 /*
 const sendModePointing =
   // eslint-disable-next-line functional/no-return-void
-  () => pointerActor.send({ type: 'MODE', mode: 'pointing' })
+  () => viewerActor.send({ type: 'MODE', mode: 'pointing' })
 const sendModePanning =
   // eslint-disable-next-line functional/no-return-void
-  () => pointerActor.send({ type: 'MODE', mode: 'panning' })
+  () => viewerActor.send({ type: 'MODE', mode: 'panning' })
 */
 
 export function FooterStyle(): ReactNode {

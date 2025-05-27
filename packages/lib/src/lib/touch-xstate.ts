@@ -10,7 +10,7 @@ import {
   type Vecs,
 } from './touch'
 import { type VecVec } from './vec/prefixed'
-import { pointerSend } from './viewer-xstate'
+import { viewerSend } from './viewer-xstate'
 
 // XXX TouchEvent is DOM
 type TouchEventStart = { type: 'TOUCH.START'; ev: React.TouchEvent }
@@ -242,15 +242,15 @@ const touchActor = createActor(touchMachine)
 
 touchActor.on('MULTI.START', () => {
   //touching = true
-  pointerSend({ type: 'TOUCH.LOCK' })
+  viewerSend({ type: 'TOUCH.LOCK' })
 })
 
 touchActor.on('MULTI.END', () => {
-  pointerSend({ type: 'TOUCH.UNLOCK' })
+  viewerSend({ type: 'TOUCH.UNLOCK' })
   //touching = false
 })
 touchActor.on('ZOOM', ({ z, p }) => {
-  pointerSend({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })
+  viewerSend({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })
 })
 
 touchActor.start()

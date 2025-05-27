@@ -1,12 +1,12 @@
 import React from 'react'
 import { scrollTimeoutActorSend } from './event-xstate'
 import { setCurrentScroll } from './scroll'
-import { clickeventmask, pointerSend, pointerSendEvent } from './viewer-xstate'
+import { clickeventmask, viewerSend, viewerSendEvent } from './viewer-xstate'
 
 /// actor
 
 /*
-export type PointerInspect = typeof pointerActor.options.inspect
+export type PointerInspect = typeof viewerActor.options.inspect
 export function inspect(iev: InspectionEvent) {
   if (iev && iev?.actorRef?.options?.systemId === 'system-pointer1') {
     const type =
@@ -26,12 +26,12 @@ export const sendClick = (ev: React.MouseEvent<HTMLDivElement>): void => {
   if (clickeventmask) {
     return
   }
-  pointerSendEvent({ type: 'CLICK', ev })
+  viewerSendEvent({ type: 'CLICK', ev })
 }
 export const sendContextMenu = (ev: React.MouseEvent<HTMLDivElement>): void =>
-  pointerSendEvent({ type: 'CONTEXTMENU', ev })
+  viewerSendEvent({ type: 'CONTEXTMENU', ev })
 export const sendWheel = (ev: React.WheelEvent<HTMLDivElement>): void => {
-  pointerSendEvent({ type: 'WHEEL', ev })
+  viewerSendEvent({ type: 'WHEEL', ev })
 }
 export const sendScroll = (ev: React.UIEvent<HTMLDivElement, Event>): void => {
   if (ev !== null) {
@@ -45,15 +45,15 @@ export const sendScroll = (ev: React.UIEvent<HTMLDivElement, Event>): void => {
 export const sendAnimationEnd = (
   ev: React.AnimationEvent<HTMLDivElement>
 ): void =>
-  pointerSendEvent({
+  viewerSendEvent({
     type: 'ANIMATION.END',
     ev,
   })
 
 export const keyDown = (ev: KeyboardEvent): void =>
-  pointerSend({ type: 'KEY.DOWN', ev })
+  viewerSend({ type: 'KEY.DOWN', ev })
 export const keyUp = (ev: KeyboardEvent): void =>
-  pointerSend({ type: 'KEY.UP', ev })
+  viewerSend({ type: 'KEY.UP', ev })
 
 //// actor
 
