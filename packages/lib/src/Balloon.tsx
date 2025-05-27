@@ -209,7 +209,6 @@ function balloonStyle(
 
 .detail,
 .balloon-container {
-  transition: transform 300ms;
 }
 
 .detail {
@@ -227,22 +226,22 @@ function balloonStyle(
 @keyframes xxx-detail {
   from {
     opacity: 0;
-    transform: translate(var(--q-x), var(--q-y)) scale(0) translate(-50%, -50%);
+    transform: translate(var(--q-x), var(--q-y)) scale(0) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
   to {
     opacity: 1;
-    transform: translate(calc(var(--q-x) + var(--dp-x)), calc(var(--q-y) + var(--dp-y))) scale(1) translate(-50%, -50%);
+    transform: translate(calc(var(--q-x) + var(--dp-x)), calc(var(--q-y) + var(--dp-y))) scale(1) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
 }
 
 @keyframes xxx-balloon {
   from {
     opacity: 0;
-    transform: translate(var(--q-x), var(--q-y)) scale(0) translate(${-p.ww / 2}px, ${-p.hh / 2}px);
+    transform: translate(var(--q-x), var(--q-y)) scale(0) translate(${-p.ww / 2}px, ${-p.hh / 2}px) translate3d(0px, 0px, 0px);
   }
   to {
     opacity: 1;
-    transform: translate(calc(var(--q-x) + var(--dp-x)), calc(var(--q-y) + var(--dp-y))) scale(1) translate(${-p.ww / 2}px, ${-p.hh / 2}px);
+    transform: translate(calc(var(--q-x) + var(--dp-x)), calc(var(--q-y) + var(--dp-y))) scale(1) translate(${-p.ww / 2}px, ${-p.hh / 2}px) translate3d(0px, 0px, 0px);
   }
 }
 `

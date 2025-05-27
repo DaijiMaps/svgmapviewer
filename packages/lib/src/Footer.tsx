@@ -93,11 +93,11 @@ export function FooterStyle(): ReactNode {
 @keyframes xxx-footer {
   from {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translate3d(0px, 0px, 0px);
   }
   to {
     opacity: 0;
-    transform: scale(0);
+    transform: scale(0) translate3d(0px, 0px, 0px);
   }
 }
 `}</style>

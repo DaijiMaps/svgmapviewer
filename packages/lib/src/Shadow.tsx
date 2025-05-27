@@ -35,6 +35,7 @@ function ShadowStyle(): ReactNode {
 .shadow {
   will-change: opacity;
   animation: xxx-shadow ${dir} 300ms ease;
+  transform: translate3d(0px, 0px, 0px);
 }
 
 @keyframes xxx-shadow {
