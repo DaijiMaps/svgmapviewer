@@ -68,6 +68,7 @@ const viewerMachine = setup({
     shouldReset: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'r',
     shouldZoom: (_, { ev }: { ev: KeyboardEvent }) => keyToZoom(ev.key) !== 0,
     isTouching: ({ context: { touching } }) => touching,
+    isHoming: ({ context: { homing } }) => homing,
     isMapHtmlRendered: ({ context }) => context.mapHtmlRendered,
     isContainerRendered: () => document.querySelector('.container') !== null,
   },
@@ -230,6 +231,7 @@ const viewerMachine = setup({
         psvg: toSvg(context.cursor, l),
       }
     }),
+    notifySearchDone: raise({ type: 'SEARCH.DONE' }),
     notifySearchEndDone: emit(
       ({ context }, { res }: SearchEnd): ViewerEmitted => {
         const scroll = getCurrentScroll()
@@ -576,7 +578,7 @@ const viewerMachine = setup({
             Homing: {
               always: [
                 {
-                  guard: ({ context }) => context.homing,
+                  guard: 'isHoming',
                   actions: [
                     'endHoming',
                     'syncLayout',
