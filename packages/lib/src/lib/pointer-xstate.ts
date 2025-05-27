@@ -801,7 +801,6 @@ function pointerSearchLock(psvg: Vec) {
   pointerActor.send({ type: 'SEARCH.LOCK', psvg })
 }
 function pointerSearchUnlock() {
-  console.log('SEARCH.UNLOCK')
   pointerActor.send({ type: 'SEARCH.UNLOCK' })
 }
 
