@@ -35,6 +35,12 @@ body {
   user-select: none; /* Standard syntax */
 }
 
+.right,
+.header,
+.footer {
+  box-sizing: border-box;
+}
+
 body {
   width: 100vw;
   height: 100vh;
@@ -65,4 +71,8 @@ h4,
 h5 {
   font-family: sans-serif;
   font-weight: lighter;
+}
+
+a:link {
+  text-decoration: none;
 }
