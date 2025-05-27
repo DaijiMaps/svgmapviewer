@@ -554,11 +554,11 @@ const pointerMachine = setup({
                   }
                 }),
               ],
-              target: 'WaitingForSearchDone',
+              target: 'WaitingForSearchUnlock',
             },
           },
         },
-        WaitingForSearchDone: {
+        WaitingForSearchUnlock: {
           on: {
             'SEARCH.DONE': {
               target: 'Done',
