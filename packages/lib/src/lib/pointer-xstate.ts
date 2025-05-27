@@ -74,19 +74,11 @@ const pointerMachine = setup({
     // scroll
     //
     syncScroll: ({ context: { layout } }) =>
-      scrollSend({
-        type: 'SYNC',
-        pos: layout.scroll,
-      }),
+      scrollSend({ type: 'SYNC', pos: layout.scroll }),
     syncScrollSync: ({ context: { layout } }) =>
-      scrollSend({
-        type: 'SYNCSYNC',
-        pos: layout.scroll,
-      }),
-    getScroll: (): void =>
-      scrollSend({
-        type: 'GET',
-      }),
+      scrollSend({ type: 'SYNCSYNC', pos: layout.scroll }),
+    getScroll: (): void => scrollSend({ type: 'GET' }),
+
     //
     // move + zoom
     //
@@ -200,7 +192,6 @@ const pointerMachine = setup({
 
     startAnimating: assign({ animating: () => true }),
     stopAnimating: assign({ animating: () => false }),
-  },
 }).createMachine({
   id: 'pointer',
   initial: 'Resizing',
