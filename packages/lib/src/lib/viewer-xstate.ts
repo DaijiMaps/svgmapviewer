@@ -457,8 +457,7 @@ const viewerMachine = setup({
     },
     Searching: {
       initial: 'Starting',
-      // XXX make this conditional to scroll distance
-      onDone: 'Recentering',
+      onDone: 'Panning', // XXX do `Recentering' conditionally?
       states: {
         Starting: {
           always: {
