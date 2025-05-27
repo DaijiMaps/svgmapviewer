@@ -13,6 +13,7 @@ import { scrollTimeoutActorStart } from './event-xstate'
 import { renderMapActorStart } from './map-xstate'
 import { pointerStart } from './pointer-xstate'
 import { resizeStart } from './resize-xstate'
+import { scrollStart } from './scroll-xstate'
 import {
   searchSearchDone,
   searchSearchStart,
@@ -84,6 +85,7 @@ function startAllActors() {
   pointerStart()
   renderMapActorStart()
   resizeStart()
+  scrollStart()
   scrollTimeoutActorStart()
   searchStart()
   styleStart()
