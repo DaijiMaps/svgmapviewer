@@ -61,11 +61,22 @@ const resizeMachine = setup({
             guard: ({ context }) => context.waited > 10000,
             target: 'Aborting',
           },
+          // ignore height-only resize
+          // (e.g. mobile browser address bar hiding/showing)
+          {
+            guard: ({ context: { prev, next } }) =>
+              // width doesn't change
+              prev.width === next.width &&
+              // height change ratio < 0.2
+              Math.abs(1 - next.height / prev.height) < 0.2,
+            actions: () => console.log('resize: ignoring height-only change'),
+            target: 'Idle',
+          },
           {
             guard: ({ context }) => !boxEq(context.prev, context.next),
             actions: [
               assign({
-                prev: ({ context }) => context.prev,
+                prev: ({ context }) => context.next,
                 waited: 0,
               }),
               emit(({ context }) => ({
