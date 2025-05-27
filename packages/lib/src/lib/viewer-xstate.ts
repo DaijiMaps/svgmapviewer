@@ -53,9 +53,9 @@ import {
   type ReactUIEvent,
 } from './viewer-types'
 
-//// pointerMachine
+//// viewerMachine
 
-const pointerMachine = setup({
+const viewerMachine = setup({
   types: {} as {
     context: PointerContext
     events: _PointerEvent
@@ -660,7 +660,7 @@ export function pointerSend(ev: _PointerEvent): void {
   pointerActor.send(ev)
 }
 
-const pointerActor = createActor(pointerMachine, {
+const pointerActor = createActor(viewerMachine, {
   systemId: 'system-pointer1',
 })
 
