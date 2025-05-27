@@ -1,4 +1,4 @@
-import { assign, createActor, fromPromise, sendTo, setup } from 'xstate'
+import { assign, createActor, emit, fromPromise, setup } from 'xstate'
 import { type BoxBox as Box, type BoxBox } from './box/prefixed'
 import { getScroll, syncScroll } from './scroll'
 
@@ -17,12 +17,16 @@ type ScrollEventSyncSync = {
 export type ScrollEvent = ScrollGet | ScrollEventSync | ScrollEventSyncSync
 
 export type SlideDone = { type: 'SCROLL.SLIDE.DONE' }
-export type GetDone = { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
-export type SyncSyncDone = { type: 'SCROLL.SYNCSYNC.DONE'; scroll: BoxBox }
+export type GetDone = { type: 'SCROLL.GET.DONE'; scroll: null | BoxBox }
+export type SyncSyncDone = {
+  type: 'SCROLL.SYNCSYNC.DONE'
+  scroll: null | BoxBox
+}
 export type ScrollEmitted = SlideDone | GetDone | SyncSyncDone
 
 export interface ScrollContext {
   dest: null | Box
+  scroll: null | Box
 }
 
 const scrollMachine = setup({
@@ -32,28 +36,8 @@ const scrollMachine = setup({
     context: ScrollContext
   },
   actions: {
+    getScroll: assign({ scroll: () => getScroll() }),
     syncScroll: (_, { pos }: { pos: Box }) => syncScroll(pos),
-    // XXX emit
-    notifySlideDone: sendTo(
-      ({ system }) => system.get('system-pointer1'),
-      () => ({ type: 'SCROLL.SLIDE.DONE' })
-    ),
-    // XXX emit
-    notifyGetDone: sendTo(
-      ({ system }) => system.get('system-pointer1'),
-      () => ({
-        type: 'SCROLL.GET.DONE',
-        scroll: getScroll(),
-      })
-    ),
-    // XXX emit
-    notifySyncSyncDone: sendTo(
-      ({ system }) => system.get('system-pointer1'),
-      () => ({
-        type: 'SCROLL.SYNCSYNC.DONE',
-        scroll: getScroll(),
-      })
-    ),
   },
   actors: {
     syncScrollLogic: fromPromise<boolean, null | Box>(async ({ input }) => {
@@ -70,7 +54,7 @@ const scrollMachine = setup({
 }).createMachine({
   id: 'scroll',
   initial: 'Idle',
-  context: { dest: null },
+  context: { dest: null, scroll: null },
   states: {
     Idle: {
       on: {
@@ -85,9 +69,13 @@ const scrollMachine = setup({
           ],
         },
         GET: {
-          actions: {
-            type: 'notifyGetDone',
-          },
+          actions: [
+            'getScroll',
+            emit(({ context: { scroll } }) => ({
+              type: 'SCROLL.GET.DONE',
+              scroll,
+            })),
+          ],
         },
         SYNCSYNC: {
           actions: assign({
@@ -105,7 +93,11 @@ const scrollMachine = setup({
           input: ({ context }) => context.dest,
           onDone: {
             actions: [
-              'notifySyncSyncDone',
+              'getScroll',
+              emit(({ context: { scroll } }) => ({
+                type: 'SCROLL.SYNCSYNC.DONE',
+                scroll,
+              })),
               assign({
                 dest: null,
               }),
@@ -129,8 +121,6 @@ const scrollMachine = setup({
   },
 })
 
-//type ScrollActorRef = ActorRefFrom<typeof scrollMachine>
-
 export type SlideDoneCb = (ev: SlideDone) => void
 export type GetDoneCb = (ev: GetDone) => void
 export type SyncSyncDoneCb = (ev: SyncSyncDone) => void
@@ -139,7 +129,9 @@ export const slideDoneCbs: Set<SlideDoneCb> = new Set<SlideDoneCb>()
 export const getDoneCbs: Set<GetDoneCb> = new Set<GetDoneCb>()
 export const syncSyncDoneCbs: Set<SyncSyncDoneCb> = new Set<SyncSyncDoneCb>()
 
-const scrollActor = createActor(scrollMachine)
+const scrollActor = createActor(scrollMachine, {
+  systemId: 'system-scroll1',
+})
 
 scrollActor.on('SCROLL.SLIDE.DONE', (ev) =>
   slideDoneCbs.forEach((cb) => cb(ev))

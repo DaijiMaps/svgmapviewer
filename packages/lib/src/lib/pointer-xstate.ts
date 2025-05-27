@@ -1,6 +1,6 @@
 import { useSelector } from '@xstate/react'
 import React from 'react'
-import { assign, createActor, emit, raise, setup } from 'xstate'
+import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import {
   type Animation,
   animationEndLayout,
@@ -30,7 +30,13 @@ import {
   toSvg,
 } from './layout'
 import { getCurrentScroll } from './scroll'
-import { scrollSend } from './scroll-xstate'
+import {
+  type GetDone,
+  getDoneCbs,
+  scrollSend,
+  type SyncSyncDone,
+  syncSyncDoneCbs,
+} from './scroll-xstate'
 import { styleSend } from './style-xstate'
 import { syncViewBox } from './svg'
 import { type Info, type SearchRes } from './types'
@@ -148,6 +154,8 @@ const pointerMachine = setup({
     shouldReset: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'r',
     shouldZoom: (_, { ev }: { ev: KeyboardEvent }) => keyToZoom(ev.key) !== 0,
     isTouching: ({ context: { touching } }) => touching,
+    isMapHtmlRendered: ({ context }) => context.mapHtmlRendered,
+    isContainerRendered: () => document.querySelector('.container') !== null,
   },
   actions: {
     //
@@ -382,7 +390,7 @@ const pointerMachine = setup({
         },
         WaitingForMapHtmlRendered: {
           always: {
-            guard: ({ context }) => context.mapHtmlRendered,
+            guard: and(['isContainerRendered', 'isMapHtmlRendered']),
             target: 'Layouting',
           },
         },
@@ -766,7 +774,6 @@ export function pointerSend(ev: _PointerEvent): void {
 
 const pointerActor = createActor(pointerMachine, {
   systemId: 'system-pointer1',
-  //inspect,
 })
 
 pointerActor.on('SEARCH', ({ psvg }) => notifySearchStart(psvg))
@@ -799,6 +806,19 @@ registerCbs({
   uiCloseDoneCb: pointerSearchUnlock,
   resizeCb: resizeCb,
 })
+
+function getDoneCb(ev: GetDone) {
+  if (ev.scroll !== null) {
+    pointerSend({ type: 'SCROLL.GET.DONE', scroll: ev.scroll })
+  }
+}
+function syncSyncDoneCb(ev: SyncSyncDone) {
+  if (ev.scroll !== null) {
+    pointerSend({ type: 'SCROLL.SYNCSYNC.DONE', scroll: ev.scroll })
+  }
+}
+getDoneCbs.add(getDoneCb)
+syncSyncDoneCbs.add(syncSyncDoneCb)
 
 //let pointereventmask: boolean = false
 //let toucheventmask: boolean = false
