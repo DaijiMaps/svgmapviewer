@@ -32,3 +32,5 @@
 - make Ui use Style.tsx
   - click -> search -> update DOM (detail content) -> balloon animation
   - close doesn't need to change DOM; make it CSS style only
+
+- handle mobile chrome address bar auto hiding
