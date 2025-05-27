@@ -9,8 +9,9 @@
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
-    "isolatedDeclarations": true,
-    "verbatimModuleSyntax": true,
+    "declaration": false,
+    "isolatedDeclarations": false,
+    "verbatimModuleSyntax": false,
     "moduleDetection": "force",
     "noEmit": true,
 
