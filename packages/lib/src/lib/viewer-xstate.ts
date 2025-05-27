@@ -44,7 +44,7 @@ import { type VecVec as Vec, type VecVec, vecVec } from './vec/prefixed'
 import {
   EXPAND_PANNING,
   type ReactUIEvent,
-  type ResizeEvent,
+  type ResizeRequest,
   type SearchEnd,
   type ViewerContext,
   type ViewerEmitted,
@@ -197,8 +197,8 @@ const viewerMachine = setup({
 
     resizeLayout: assign({
       rendered: false,
-      origLayout: (_, { layout }: ResizeEvent) => layout,
-      layout: (_, { layout }: ResizeEvent) =>
+      origLayout: (_, { layout }: ResizeRequest) => layout,
+      layout: (_, { layout }: ResizeRequest) =>
         expandLayoutCenter(layout, EXPAND_PANNING),
     }),
     updateLayoutFromScroll: assign({
@@ -315,10 +315,10 @@ const viewerMachine = setup({
   },
   states: {
     Resizing: {
-      initial: 'WaitingForResizeEvent',
+      initial: 'WaitingForResizeRequest',
       onDone: 'Panning',
       states: {
-        WaitingForResizeEvent: {
+        WaitingForResizeRequest: {
           on: {
             RESIZE: {
               actions: { type: 'resizeLayout', params: ({ event }) => event },

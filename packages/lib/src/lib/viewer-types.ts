@@ -7,6 +7,8 @@ import { type VecVec as Vec, type VecVec } from './vec/prefixed'
 
 export const EXPAND_PANNING = 9
 
+//// mode
+
 export type ViewerModePanning = 'panning'
 export type ViewerModeTouching = 'touching'
 export type ViewerModeLocked = 'locked'
@@ -17,6 +19,8 @@ export type ViewerMode =
 export const viewerModePanning: ViewerModePanning = 'panning'
 export const viewerModeTouching: ViewerModeTouching = 'touching'
 export const viewerModeLocked: ViewerModeLocked = 'locked'
+
+//// context
 
 export type ViewerContext = {
   origLayout: Layout
@@ -36,34 +40,46 @@ export type ViewerContext = {
   mapHtmlRendered: boolean
 }
 
-export type ResizeEvent = { type: 'RESIZE'; layout: Layout; force: boolean }
+//// external event (request)
 
-export type ViewerExternalEvent =
-  | { type: 'RESIZE'; layout: Layout; force: boolean }
-  | { type: 'LAYOUT.RESET' }
-  | { type: 'RENDERED' }
-  | { type: 'RENDERED.MAP-HTML' }
-  | { type: 'ANIMATION.END' }
-  | { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
-  | { type: 'SCROLL.SYNCSYNC.DONE'; scroll: BoxBox }
-  | { type: 'TOUCH.LOCK' }
-  | { type: 'TOUCH.UNLOCK' }
-  | { type: 'ZOOM.ZOOM'; z: -1 | 1; p: null | VecVec }
-
+export type ResizeRequest = { type: 'RESIZE'; layout: Layout; force: boolean }
+export type LayoutResetRequest = { type: 'LAYOUT.RESET' }
+export type RenderedRequest = { type: 'RENDERED' }
+export type RenderedMapHtmlRequest = { type: 'RENDERED.MAP-HTML' }
+export type AnimationEndRequest = { type: 'ANIMATION.END' }
+export type ScrollGetDoneRequest = { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
+export type ScrollSyncsyncDoneRequest = {
+  type: 'SCROLL.SYNCSYNC.DONE'
+  scroll: BoxBox
+}
+export type TouchLockRequest = { type: 'TOUCH.LOCK' }
+export type TouchUnlockRequest = { type: 'TOUCH.UNLOCK' }
+export type ZoomRequest = { type: 'ZOOM.ZOOM'; z: -1 | 1; p: null | VecVec }
 export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<SearchRes> }
-export type ViewerEventSearch =
+export type Searchlock = { type: 'SEARCH.LOCK'; psvg: Vec }
+export type SearchUnlock = { type: 'SEARCH.UNLOCK' }
+export type ViewerRequest =
+  | ResizeRequest
+  | LayoutResetRequest
+  | RenderedRequest
+  | RenderedMapHtmlRequest
+  | ScrollGetDoneRequest
+  | ScrollSyncsyncDoneRequest
+  | TouchLockRequest
+  | TouchUnlockRequest
+  | ZoomRequest
   | SearchEnd
-  | { type: 'SEARCH.LOCK'; psvg: Vec }
-  | { type: 'SEARCH.UNLOCK' }
+  | Searchlock
+  | SearchUnlock
 
-export type ViewerEventTouching =
+//// internal message (raise)
+
+export type ViewerMessage =
   | { type: 'TOUCHING' }
   | { type: 'TOUCHING.DONE' }
-
-export type ViewerInternalEvent =
-  | ViewerEventSearch
-  | ViewerEventTouching
   | { type: 'SEARCH.DONE' }
+
+//// UI event
 
 export type UIEventClick = {
   type: 'CLICK'
@@ -96,18 +112,35 @@ export type RawUIEvent = UIEventKeyDown | UIEventKeyUp
 
 export type UIEvent = RawUIEvent | ReactUIEvent
 
-export type ViewerEvent = ViewerExternalEvent | ViewerInternalEvent | UIEvent
+//// all event
+
+export type ViewerEvent = ViewerRequest | ViewerMessage | UIEvent
+
+//// emitted
+
+export type SearchEmitted = { type: 'SEARCH'; psvg: Vec }
+export type SearchEndDoneEmitted = {
+  type: 'SEARCH.END.DONE'
+  psvg: Vec
+  info: Info
+  layout: Layout
+}
+export type LockEmitted = { type: 'LOCK'; ok: boolean }
+export type LayoutEmitted = { type: 'LAYOUT'; layout: Layout }
+export type ZoomStartEmitted = {
+  type: 'ZOOM.START'
+  layout: Layout
+  zoom: number
+  z: number
+}
+export type ZoomEndEmitted = { type: 'ZOOM.END'; layout: Layout; zoom: number }
+export type ModeEmitted = { type: 'MODE'; mode: ViewerMode }
 
 export type ViewerEmitted =
-  | { type: 'SEARCH'; psvg: Vec }
-  | {
-      type: 'SEARCH.END.DONE'
-      psvg: Vec
-      info: Info
-      layout: Layout
-    }
-  | { type: 'LOCK'; ok: boolean }
-  | { type: 'LAYOUT'; layout: Layout }
-  | { type: 'ZOOM.START'; layout: Layout; zoom: number; z: number }
-  | { type: 'ZOOM.END'; layout: Layout; zoom: number }
-  | { type: 'MODE'; mode: ViewerMode }
+  | SearchEmitted
+  | SearchEndDoneEmitted
+  | LockEmitted
+  | LayoutEmitted
+  | ZoomStartEmitted
+  | ZoomEndEmitted
+  | ModeEmitted
