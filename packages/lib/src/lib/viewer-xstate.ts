@@ -194,7 +194,7 @@ const viewerMachine = setup({
     stopAnimating: assign({ animating: () => false }),
   },
 }).createMachine({
-  id: 'pointer',
+  id: 'viewer',
   initial: 'Resizing',
   context: {
     origLayout: emptyLayout,
@@ -609,37 +609,34 @@ const viewerMachine = setup({
 ////
 
 export function useViewerMode(): ViewerMode {
-  return useSelector(viewerActor, (pointer) => pointer.context.mode)
+  return useSelector(viewerActor, (viewer) => viewer.context.mode)
 }
 export function useViewerLayout(): Layout {
-  return useSelector(viewerActor, (pointer) => pointer.context.layout)
+  return useSelector(viewerActor, (viewer) => viewer.context.layout)
 }
 export function useViewerLayoutConfig(): LayoutConfig {
-  return useSelector(viewerActor, (pointer) => pointer.context.layout.config)
+  return useSelector(viewerActor, (viewer) => viewer.context.layout.config)
 }
 export function useViewerLayoutContainer(): BoxBox {
-  return useSelector(viewerActor, (pointer) => pointer.context.layout.container)
+  return useSelector(viewerActor, (viewer) => viewer.context.layout.container)
 }
 export function useViewerLayoutSvg(): BoxBox {
-  return useSelector(viewerActor, (pointer) => pointer.context.layout.svg)
+  return useSelector(viewerActor, (viewer) => viewer.context.layout.svg)
 }
 export function useViewerLayoutSvgScaleS(): number {
-  return useSelector(
-    viewerActor,
-    (pointer) => pointer.context.layout.svgScale.s
-  )
+  return useSelector(viewerActor, (viewer) => viewer.context.layout.svgScale.s)
 }
 export function useViewerLayoutSvgOffset(): VecVec {
-  return useSelector(viewerActor, (pointer) => pointer.context.layout.svgOffset)
+  return useSelector(viewerActor, (viewer) => viewer.context.layout.svgOffset)
 }
 export function useViewerLayoutScroll(): BoxBox {
-  return useSelector(viewerActor, (pointer) => pointer.context.layout.scroll)
+  return useSelector(viewerActor, (viewer) => viewer.context.layout.scroll)
 }
 export function useViewerOrigLayoutSvg(): BoxBox {
-  return useSelector(viewerActor, (pointer) => pointer.context.origLayout.svg)
+  return useSelector(viewerActor, (viewer) => viewer.context.origLayout.svg)
 }
 export function useViewerCursor(): VecVec {
-  return useSelector(viewerActor, (pointer) => pointer.context.cursor)
+  return useSelector(viewerActor, (viewer) => viewer.context.cursor)
 }
 
 ////
@@ -711,8 +708,8 @@ export let scrolleventmask: boolean = false
 function reflectMode(mode: ViewerMode): void {
   //pointereventmask = mode !== 'pointing'
   //toucheventmask = mode !== 'pointing'
-  // - xstate-pointer receives 'click' to cancel 'panning'
-  // - xstate-pointer ignores 'click' to pass through (emulated)
+  // - xstate-viewer receives 'click' to cancel 'panning'
+  // - xstate-viewer ignores 'click' to pass through (emulated)
   //  'click' to shadow; shadow receives 'click' to cancel 'locked'
   clickeventmask = mode === 'locked'
   scrolleventmask = mode !== 'panning'

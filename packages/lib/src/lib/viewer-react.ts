@@ -6,7 +6,7 @@ import { clickeventmask, viewerSend, viewerSendEvent } from './viewer-xstate'
 /// actor
 
 /*
-export type PointerInspect = typeof viewerActor.options.inspect
+export type ViewerInspect = typeof viewerActor.options.inspect
 export function inspect(iev: InspectionEvent) {
   if (iev && iev?.actorRef?.options?.systemId === 'system-pointer1') {
     const type =

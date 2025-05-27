@@ -7,16 +7,16 @@ import { type VecVec as Vec, type VecVec } from './vec/prefixed'
 
 export const EXPAND_PANNING = 9
 
-export type PointerModePanning = 'panning'
-export type PointerModeTouching = 'touching'
-export type PointerModeLocked = 'locked'
+export type ViewerModePanning = 'panning'
+export type ViewerModeTouching = 'touching'
+export type ViewerModeLocked = 'locked'
 export type ViewerMode =
-  | PointerModePanning
-  | PointerModeTouching
-  | PointerModeLocked
-export const viewerModePanning: PointerModePanning = 'panning'
-export const viewerModeTouching: PointerModeTouching = 'touching'
-export const viewerModeLocked: PointerModeLocked = 'locked'
+  | ViewerModePanning
+  | ViewerModeTouching
+  | ViewerModeLocked
+export const viewerModePanning: ViewerModePanning = 'panning'
+export const viewerModeTouching: ViewerModeTouching = 'touching'
+export const viewerModeLocked: ViewerModeLocked = 'locked'
 
 export type ViewerContext = {
   origLayout: Layout
@@ -36,7 +36,7 @@ export type ViewerContext = {
   mapHtmlRendered: boolean
 }
 
-export type PointerExternalEvent =
+export type ViewerExternalEvent =
   | { type: 'RESIZE'; layout: Layout; force: boolean }
   | { type: 'LAYOUT.RESET' }
   | { type: 'RENDERED' }
@@ -48,18 +48,18 @@ export type PointerExternalEvent =
   | { type: 'TOUCH.UNLOCK' }
   | { type: 'ZOOM.ZOOM'; z: -1 | 1; p: null | VecVec }
 
-export type PointerEventSearch =
+export type ViewerEventSearch =
   | { type: 'SEARCH.END'; res: Readonly<SearchRes> }
   | { type: 'SEARCH.LOCK'; psvg: Vec }
   | { type: 'SEARCH.UNLOCK' }
 
-export type PointerEventTouching =
+export type ViewerEventTouching =
   | { type: 'TOUCHING' }
   | { type: 'TOUCHING.DONE' }
 
-export type PointerInternalEvent =
-  | PointerEventSearch
-  | PointerEventTouching
+export type ViewerInternalEvent =
+  | ViewerEventSearch
+  | ViewerEventTouching
   | { type: 'SEARCH.DONE' }
 
 export type UIEventClick = {
@@ -93,7 +93,7 @@ export type RawUIEvent = UIEventKeyDown | UIEventKeyUp
 
 export type UIEvent = RawUIEvent | ReactUIEvent
 
-export type ViewerEvent = PointerExternalEvent | PointerInternalEvent | UIEvent
+export type ViewerEvent = ViewerExternalEvent | ViewerInternalEvent | UIEvent
 
 export type ViewerEmitted =
   | { type: 'SEARCH'; psvg: Vec }
