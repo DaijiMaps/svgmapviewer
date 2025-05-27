@@ -288,9 +288,9 @@ const pointerMachine = setup({
     endTouching: assign({ touching: false }),
     notifyTouching: raise({ type: 'TOUCHING' }),
     notifyTouchingDone: raise({ type: 'TOUCHING.DONE' }),
-  },
-  actors: {
-    //scroll: scrollMachine,
+
+    startAnimating: assign({ animating: () => true }),
+    stopAnimating: assign({ animating: () => false }),
   },
 }).createMachine({
   id: 'pointer',
@@ -310,14 +310,6 @@ const pointerMachine = setup({
     rendered: false,
     mapHtmlRendered: false,
   },
-  invoke: [
-    /*
-    {
-      src: 'scroll',
-      systemId: 'scroll1',
-    },
-    */
-  ],
   on: {
     RENDERED: {},
     'RENDERED.MAP-HTML': {
@@ -651,7 +643,7 @@ const pointerMachine = setup({
           states: {
             Starting: {
               always: {
-                actions: [assign({ animating: () => true }), 'syncAnimation'],
+                actions: ['startAnimating', 'syncAnimation'],
                 target: 'Ending',
               },
             },
@@ -669,7 +661,7 @@ const pointerMachine = setup({
                       layout,
                       zoom,
                     })),
-                    assign({ animating: () => false }),
+                    'stopAnimating',
                     'syncAnimation',
                   ],
                   target: 'Homing',
@@ -713,18 +705,9 @@ const pointerMachine = setup({
   },
 })
 
-//// pointerMachine
-//// PointerMachine
-//// PointerState
-//// PointerSend
-
-//type PointerMachine = typeof pointerMachine
-
-//type PointerState = StateFrom<typeof pointerMachine>
+////
 
 export type PointerSend = (events: _PointerEvent) => void
-
-//type PointerRef = ActorRefFrom<typeof pointerMachine>
 
 export function usePointerMode(): PointerMode {
   return useSelector(pointerActor, (pointer) => pointer.context.mode)
@@ -803,8 +786,7 @@ function pointerSearchLock(psvg: Vec) {
 function pointerSearchUnlock() {
   pointerActor.send({ type: 'SEARCH.UNLOCK' })
 }
-
-const resizeCb = (origLayout: Readonly<Layout>, force: boolean) => {
+function resizeCb(origLayout: Readonly<Layout>, force: boolean) {
   pointerSend({ type: 'RESIZE', layout: origLayout, force })
 }
 
@@ -850,14 +832,14 @@ function reflectMode(mode: PointerMode): void {
 
 //// handlers
 
-export const pointerSendEvent = (
+export function pointerSendEvent(
   // excluding key down/up events
   event: ReactUIEvent,
   options?: {
     preventDefault?: boolean
     stopPropagation?: boolean
   }
-): void => {
+): void {
   if (options?.preventDefault === false) {
     // skip
   } else {
