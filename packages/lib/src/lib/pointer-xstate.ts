@@ -29,6 +29,17 @@ import {
   scrollLayout,
   toSvg,
 } from './layout'
+import {
+  type _PointerEvent,
+  EXPAND_PANNING,
+  type PointerContext,
+  type PointerEmitted,
+  type PointerMode,
+  pointerModeLocked,
+  pointerModePanning,
+  pointerModeTouching,
+  type ReactUIEvent,
+} from './pointer-types'
 import { getCurrentScroll } from './scroll'
 import {
   type GetDone,
@@ -39,110 +50,8 @@ import {
 } from './scroll-xstate'
 import { styleSend } from './style-xstate'
 import { syncViewBox } from './svg'
-import { type Info, type SearchRes } from './types'
+import { type SearchRes } from './types'
 import { type VecVec as Vec, type VecVec, vecVec } from './vec/prefixed'
-
-const EXPAND_PANNING = 9
-
-type PointerModePanning = 'panning'
-type PointerModeTouching = 'touching'
-type PointerModeLocked = 'locked'
-export type PointerMode =
-  | PointerModePanning
-  | PointerModeTouching
-  | PointerModeLocked
-export const pointerModePanning: PointerModePanning = 'panning'
-export const pointerModeTouching: PointerModeTouching = 'touching'
-export const pointerModeLocked: PointerModeLocked = 'locked'
-
-export type PointerContext = {
-  origLayout: Layout
-  layout: Layout
-  nextLayout: null | Layout
-  cursor: Vec
-  z: null | number
-  zoom: number
-  animation: null | Animation
-
-  mode: PointerMode
-  touching: boolean
-
-  homing: boolean
-  animating: boolean // XXX
-  rendered: boolean
-  mapHtmlRendered: boolean
-}
-
-type PointerExternalEvent =
-  | { type: 'RESIZE'; layout: Layout; force: boolean }
-  | { type: 'LAYOUT.RESET' }
-  | { type: 'RENDERED' }
-  | { type: 'RENDERED.MAP-HTML' }
-  | { type: 'ANIMATION.END' }
-  | { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
-  | { type: 'SCROLL.SYNCSYNC.DONE'; scroll: BoxBox }
-  | { type: 'TOUCH.LOCK' }
-  | { type: 'TOUCH.UNLOCK' }
-  | { type: 'ZOOM.ZOOM'; z: -1 | 1; p: null | VecVec }
-
-type PointerEventSearch =
-  | { type: 'SEARCH.END'; res: Readonly<SearchRes> }
-  | { type: 'SEARCH.LOCK'; psvg: Vec }
-  | { type: 'SEARCH.UNLOCK' }
-
-type PointerEventTouching = { type: 'TOUCHING' } | { type: 'TOUCHING.DONE' }
-
-type PointerInternalEvent =
-  | PointerEventSearch
-  | PointerEventTouching
-  | { type: 'SEARCH.DONE' }
-
-type UIEventClick = { type: 'CLICK'; ev: React.MouseEvent<HTMLDivElement> }
-type UIEventContextMenu = {
-  type: 'CONTEXTMENU'
-  ev: React.MouseEvent<HTMLDivElement>
-}
-type UIEventKeyDown = { type: 'KEY.DOWN'; ev: KeyboardEvent }
-type UIEventKeyUp = { type: 'KEY.UP'; ev: KeyboardEvent }
-type UIEventWheel = {
-  type: 'WHEEL'
-  ev: React.WheelEvent<HTMLDivElement>
-}
-type UIEventScroll = { type: 'SCROLL'; ev: Event | React.UIEvent }
-type UIEventAnimationEnd = {
-  type: 'ANIMATION.END'
-  ev: React.AnimationEvent<HTMLDivElement>
-}
-
-export type ReactUIEvent =
-  | UIEventAnimationEnd
-  | UIEventClick
-  | UIEventContextMenu
-  | UIEventScroll
-  | UIEventWheel
-
-export type RawUIEvent = UIEventKeyDown | UIEventKeyUp
-
-export type UIEvent = RawUIEvent | ReactUIEvent
-
-export type _PointerEvent =
-  | PointerExternalEvent
-  | PointerInternalEvent
-  | UIEvent
-
-export type PointerEmitted =
-  | { type: 'SEARCH'; psvg: Vec }
-  | {
-      type: 'SEARCH.END.DONE'
-      psvg: Vec
-      info: Info
-      layout: Layout
-    }
-  | { type: 'LOCK'; ok: boolean }
-  | { type: 'LAYOUT'; layout: Layout }
-  | { type: 'ZOOM.START'; layout: Layout; zoom: number; z: number }
-  | { type: 'ZOOM.END'; layout: Layout; zoom: number }
-  | { type: 'MODE'; mode: PointerMode }
 
 //// pointerMachine
 
