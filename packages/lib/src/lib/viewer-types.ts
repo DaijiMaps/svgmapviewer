@@ -10,15 +10,15 @@ export const EXPAND_PANNING = 9
 export type PointerModePanning = 'panning'
 export type PointerModeTouching = 'touching'
 export type PointerModeLocked = 'locked'
-export type PointerMode =
+export type ViewerMode =
   | PointerModePanning
   | PointerModeTouching
   | PointerModeLocked
-export const pointerModePanning: PointerModePanning = 'panning'
-export const pointerModeTouching: PointerModeTouching = 'touching'
-export const pointerModeLocked: PointerModeLocked = 'locked'
+export const viewerModePanning: PointerModePanning = 'panning'
+export const viewerModeTouching: PointerModeTouching = 'touching'
+export const viewerModeLocked: PointerModeLocked = 'locked'
 
-export type PointerContext = {
+export type ViewerContext = {
   origLayout: Layout
   layout: Layout
   nextLayout: null | Layout
@@ -27,7 +27,7 @@ export type PointerContext = {
   zoom: number
   animation: null | Animation
 
-  mode: PointerMode
+  mode: ViewerMode
   touching: boolean
 
   homing: boolean
@@ -93,12 +93,9 @@ export type RawUIEvent = UIEventKeyDown | UIEventKeyUp
 
 export type UIEvent = RawUIEvent | ReactUIEvent
 
-export type _PointerEvent =
-  | PointerExternalEvent
-  | PointerInternalEvent
-  | UIEvent
+export type ViewerEvent = PointerExternalEvent | PointerInternalEvent | UIEvent
 
-export type PointerEmitted =
+export type ViewerEmitted =
   | { type: 'SEARCH'; psvg: Vec }
   | {
       type: 'SEARCH.END.DONE'
@@ -110,4 +107,4 @@ export type PointerEmitted =
   | { type: 'LAYOUT'; layout: Layout }
   | { type: 'ZOOM.START'; layout: Layout; zoom: number; z: number }
   | { type: 'ZOOM.END'; layout: Layout; zoom: number }
-  | { type: 'MODE'; mode: PointerMode }
+  | { type: 'MODE'; mode: ViewerMode }

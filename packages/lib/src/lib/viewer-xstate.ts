@@ -42,24 +42,24 @@ import { syncViewBox } from './svg'
 import { type SearchRes } from './types'
 import { type VecVec as Vec, type VecVec, vecVec } from './vec/prefixed'
 import {
-  type _PointerEvent,
   EXPAND_PANNING,
-  type PointerContext,
-  type PointerEmitted,
-  type PointerMode,
-  pointerModeLocked,
-  pointerModePanning,
-  pointerModeTouching,
   type ReactUIEvent,
+  type ViewerContext,
+  type ViewerEmitted,
+  type ViewerEvent,
+  type ViewerMode,
+  viewerModeLocked,
+  viewerModePanning,
+  viewerModeTouching,
 } from './viewer-types'
 
 //// viewerMachine
 
 const viewerMachine = setup({
   types: {} as {
-    context: PointerContext
-    events: _PointerEvent
-    emitted: PointerEmitted
+    context: ViewerContext
+    events: ViewerEvent
+    emitted: ViewerEmitted
   },
   guards: {
     // key
@@ -163,15 +163,15 @@ const viewerMachine = setup({
     // mode
     //
     setModeToPanning: assign({
-      mode: pointerModePanning,
+      mode: viewerModePanning,
       // XXX resetCursor
       cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
     }),
     setModeToTouching: assign({
-      mode: pointerModeTouching,
+      mode: viewerModeTouching,
     }),
     setModeToLocked: assign({
-      mode: pointerModeLocked,
+      mode: viewerModeLocked,
     }),
     syncMode: ({ context: { mode } }) =>
       styleSend({ type: 'STYLE.MODE', mode }),
@@ -205,7 +205,7 @@ const viewerMachine = setup({
     zoom: 1,
     homing: false,
     animation: null,
-    mode: pointerModePanning,
+    mode: viewerModePanning,
     touching: false,
     animating: false,
     rendered: false,
@@ -608,9 +608,9 @@ const viewerMachine = setup({
 
 ////
 
-export type PointerSend = (events: _PointerEvent) => void
+export type PointerSend = (events: ViewerEvent) => void
 
-export function usePointerMode(): PointerMode {
+export function usePointerMode(): ViewerMode {
   return useSelector(pointerActor, (pointer) => pointer.context.mode)
 }
 export function usePointerLayout(): Layout {
@@ -656,7 +656,7 @@ export function pointerActorStart(): void {
   pointerActor.start()
 }
 
-export function pointerSend(ev: _PointerEvent): void {
+export function pointerSend(ev: ViewerEvent): void {
   pointerActor.send(ev)
 }
 
@@ -716,7 +716,7 @@ syncSyncDoneCbs.add(syncSyncDoneCb)
 export let clickeventmask: boolean = false
 export let scrolleventmask: boolean = false
 
-function reflectMode(mode: PointerMode): void {
+function reflectMode(mode: ViewerMode): void {
   //pointereventmask = mode !== 'pointing'
   //toucheventmask = mode !== 'pointing'
   // - xstate-pointer receives 'click' to cancel 'panning'
