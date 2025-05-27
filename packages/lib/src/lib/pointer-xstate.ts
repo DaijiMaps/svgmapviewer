@@ -92,7 +92,10 @@ type PointerEventSearch =
 
 type PointerEventTouching = { type: 'TOUCHING' } | { type: 'TOUCHING.DONE' }
 
-type PointerInternalEvent = PointerEventSearch | PointerEventTouching
+type PointerInternalEvent =
+  | PointerEventSearch
+  | PointerEventTouching
+  | { type: 'SEARCH.DONE' }
 
 type UIEventClick = { type: 'CLICK'; ev: React.MouseEvent<HTMLDivElement> }
 type UIEventContextMenu = {
@@ -354,6 +357,7 @@ const pointerMachine = setup({
         'setModeToPanning',
         emit(({ context: { mode } }) => ({ type: 'MODE', mode })),
         'syncMode',
+        raise({ type: 'SEARCH.DONE' }),
       ],
     },
   },
@@ -550,13 +554,13 @@ const pointerMachine = setup({
                   }
                 }),
               ],
-              target: 'WaitingForSearchUnlock',
+              target: 'WaitingForSearchDone',
             },
           },
         },
-        WaitingForSearchUnlock: {
+        WaitingForSearchDone: {
           on: {
-            'SEARCH.UNLOCK': {
+            'SEARCH.DONE': {
               target: 'Done',
             },
           },
@@ -790,11 +794,16 @@ pointerActor.on('LAYOUT', ({ layout }) => notifyZoomEnd(layout, 1))
 pointerActor.on('MODE', ({ mode }) => reflectMode(mode))
 pointerActor.start()
 
-const pointerSearchEnd = (res: Readonly<SearchRes>) =>
+function pointerSearchEnd(res: Readonly<SearchRes>) {
   pointerActor.send({ type: 'SEARCH.END', res })
-const pointerSearchLock = (psvg: Vec) =>
+}
+function pointerSearchLock(psvg: Vec) {
   pointerActor.send({ type: 'SEARCH.LOCK', psvg })
-const pointerSearchUnlock = () => pointerActor.send({ type: 'SEARCH.UNLOCK' })
+}
+function pointerSearchUnlock() {
+  console.log('SEARCH.UNLOCK')
+  pointerActor.send({ type: 'SEARCH.UNLOCK' })
+}
 
 const resizeCb = (origLayout: Readonly<Layout>, force: boolean) => {
   pointerSend({ type: 'RESIZE', layout: origLayout, force })

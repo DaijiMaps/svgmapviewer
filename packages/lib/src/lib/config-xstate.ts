@@ -337,7 +337,7 @@ export function notifyUiOpenDone(ok: boolean): void {
 export function notifyUiClose(): void {
   configActor.getSnapshot().context.uiCloseCbs.forEach((cb: UiCloseCb) => cb())
 }
-export function notifyCloseDone(): void {
+export function notifyUiCloseDone(): void {
   configActor
     .getSnapshot()
     .context.uiCloseDoneCbs.forEach((cb: UiCloseDoneCb) => cb())

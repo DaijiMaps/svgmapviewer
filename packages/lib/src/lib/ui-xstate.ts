@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, emit, not, raise, setup } from 'xstate'
 import { registerCbs } from './config'
-import { notifyCloseDone } from './config-xstate'
+import { notifyUiCloseDone } from './config-xstate'
 import { emptyLayoutCoord, type LayoutCoord } from './coord'
 import { fromSvg } from './layout'
 import {
@@ -322,7 +322,7 @@ export function useOpenCloseDetail(): OpenClose {
 ////
 
 const uiActor = createActor(uiMachine)
-uiActor.on('CLOSE.DONE', notifyCloseDone)
+uiActor.on('CLOSE.DONE', notifyUiCloseDone)
 uiActor.start()
 
 registerCbs({

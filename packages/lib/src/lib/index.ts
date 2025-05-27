@@ -3,7 +3,6 @@ import { svgMapViewerConfig } from './config'
 import {
   configSend,
   configStart,
-  notifyCloseDone,
   notifyLayout,
   notifyResize,
   notifySearch,
@@ -12,6 +11,7 @@ import {
   notifySearchEndDone,
   notifySearchStart,
   notifyUiClose,
+  notifyUiCloseDone,
   notifyUiOpen,
   notifyUiOpenDone,
   notifyZoomEnd,
@@ -38,7 +38,6 @@ export type { Info, RenderMap, SearchReq, SearchRes }
 export { configSend, configStart, svgMapViewerConfig, useConfigMapNames }
 
 export {
-  notifyCloseDone,
   notifyLayout,
   notifyResize,
   notifySearch,
@@ -47,6 +46,7 @@ export {
   notifySearchEndDone,
   notifySearchStart,
   notifyUiClose,
+  notifyUiCloseDone,
   notifyUiOpen,
   notifyUiOpenDone,
   notifyZoomEnd,
