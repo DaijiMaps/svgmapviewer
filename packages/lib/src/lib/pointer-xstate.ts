@@ -30,6 +30,7 @@ import {
   toSvg,
 } from './layout'
 import { getCurrentScroll } from './scroll'
+import { scrollSend } from './scroll-xstate'
 import { styleSend } from './style-xstate'
 import { syncViewBox } from './svg'
 import { type Info, type SearchRes } from './types'
@@ -152,22 +153,20 @@ const pointerMachine = setup({
     //
     // scroll
     //
-    syncScroll: ({ context: { layout }, system }) =>
-      system.get('scroll1').send({
+    syncScroll: ({ context: { layout } }) =>
+      scrollSend({
         type: 'SYNC',
         pos: layout.scroll,
       }),
-    syncScrollSync: ({ context: { layout }, system }) =>
-      system.get('scroll1').send({
+    syncScrollSync: ({ context: { layout } }) =>
+      scrollSend({
         type: 'SYNCSYNC',
         pos: layout.scroll,
       }),
-    getScroll: ({ system }): void => {
-      system.get('scroll1').send({
+    getScroll: (): void =>
+      scrollSend({
         type: 'GET',
-      })
-    },
-
+      }),
     //
     // move + zoom
     //
