@@ -34,7 +34,13 @@ export function multiPolygonToPath(vsss: Readonly<MultiPolygon>): string {
   )
 }
 
+// XXX
+// XXX
+// XXX
 const vFromGeo = (p: V): V => vUnvec(cfg.mapCoord.fromGeo(vVec(p)))
+// XXX
+// XXX
+// XXX
 
 function a(vs: Readonly<V[]>): string {
   return `M${s(vs[0])}` + vs.slice(1, -1).map((a: V) => `L${s(a)}`) + 'Z'
