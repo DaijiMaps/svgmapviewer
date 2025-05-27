@@ -3,8 +3,8 @@ import { Cursor } from './Cursor'
 import './Guides.css'
 import { boxCenter } from './lib/box/prefixed'
 import { type LayoutConfig } from './lib/layout'
-import { usePointerLayoutConfig, usePointerMode } from './lib/pointer-xstate'
 import { type Vec } from './lib/vec'
+import { usePointerLayoutConfig, usePointerMode } from './lib/viewer-xstate'
 
 export interface GuideParams {
   c: Vec

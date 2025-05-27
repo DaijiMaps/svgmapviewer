@@ -11,7 +11,6 @@ import {
   matrixEmpty,
   matrixToString,
 } from './lib/matrix/prefixed'
-import { pointerSend } from './lib/pointer-xstate'
 import {
   useAnimating,
   useAnimation,
@@ -20,6 +19,7 @@ import {
   useMode,
   useRendered,
 } from './lib/style-xstate'
+import { pointerSend } from './lib/viewer-xstate'
 
 export function styleRoot(): void {
   const e = document.getElementById('style-root')

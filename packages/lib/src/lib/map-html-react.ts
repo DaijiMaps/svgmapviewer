@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { pointerSend } from './pointer-xstate'
+import { pointerSend } from './viewer-xstate'
 
 export const ROOT_ID = 'map-html-content-root'
 

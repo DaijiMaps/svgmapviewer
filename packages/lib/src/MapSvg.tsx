@@ -1,6 +1,6 @@
 import { type ReactNode, useContext } from 'react'
 import { boxToViewBox } from './lib/box/prefixed'
-import { usePointerOrigLayoutSvg } from './lib/pointer-xstate'
+import { usePointerOrigLayoutSvg } from './lib/viewer-xstate'
 import './MapSvg.css'
 import { SvgMapViewerConfigContext } from './Root'
 

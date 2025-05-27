@@ -1,7 +1,7 @@
 import React from 'react'
 import { scrollTimeoutActorSend } from './event-xstate'
-import { clickeventmask, pointerSend, pointerSendEvent } from './pointer-xstate'
 import { setCurrentScroll } from './scroll'
+import { clickeventmask, pointerSend, pointerSendEvent } from './viewer-xstate'
 
 /// actor
 

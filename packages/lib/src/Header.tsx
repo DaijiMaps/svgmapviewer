@@ -1,8 +1,8 @@
 import { type ReactNode, useContext } from 'react'
 import './Header.css'
 import { SvgMapViewerConfigContext } from './Root'
-import { pointerSend } from './lib/pointer-xstate'
 import { uiSend, useOpenCloseHeader } from './lib/ui-xstate'
+import { pointerSend } from './lib/viewer-xstate'
 
 export function Header(): ReactNode {
   const config = useContext(SvgMapViewerConfigContext)

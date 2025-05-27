@@ -1,6 +1,6 @@
 import React from 'react'
 import { assign, createActor, emit, setup } from 'xstate'
-import { pointerSend, scrolleventmask } from './pointer-xstate'
+import { pointerSend, scrolleventmask } from './viewer-xstate'
 
 type TimeoutInput = {
   expiration?: number

@@ -11,7 +11,6 @@ import {
 import { configActorStart, configSend } from './config-xstate'
 import { scrollTimeoutActorStart } from './event-xstate'
 import { renderMapActorStart } from './map-xstate'
-import { pointerActorStart } from './pointer-xstate'
 import { resizeActorStart } from './resize-xstate'
 import { scrollActorStart } from './scroll-xstate'
 import {
@@ -24,6 +23,7 @@ import { touchActorStart } from './touch-xstate'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
 import { uiRootActorStart } from './ui-root-xstate'
 import { uiActorStart } from './ui-xstate'
+import { pointerActorStart } from './viewer-xstate'
 
 // XXX
 // XXX

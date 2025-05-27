@@ -1,7 +1,6 @@
 import { assign, createActor, enqueueActions, setup } from 'xstate'
 
 import { useSelector } from '@xstate/react'
-import { pointerSend } from './pointer-xstate'
 import {
   handleTouchEnd,
   handleTouchMove,
@@ -11,6 +10,7 @@ import {
   type Vecs,
 } from './touch'
 import { type VecVec } from './vec/prefixed'
+import { pointerSend } from './viewer-xstate'
 
 // XXX TouchEvent is DOM
 type TouchEventStart = { type: 'TOUCH.START'; ev: React.TouchEvent }

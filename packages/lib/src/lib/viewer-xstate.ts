@@ -29,17 +29,6 @@ import {
   scrollLayout,
   toSvg,
 } from './layout'
-import {
-  type _PointerEvent,
-  EXPAND_PANNING,
-  type PointerContext,
-  type PointerEmitted,
-  type PointerMode,
-  pointerModeLocked,
-  pointerModePanning,
-  pointerModeTouching,
-  type ReactUIEvent,
-} from './pointer-types'
 import { getCurrentScroll } from './scroll'
 import {
   type GetDone,
@@ -52,6 +41,17 @@ import { styleSend } from './style-xstate'
 import { syncViewBox } from './svg'
 import { type SearchRes } from './types'
 import { type VecVec as Vec, type VecVec, vecVec } from './vec/prefixed'
+import {
+  type _PointerEvent,
+  EXPAND_PANNING,
+  type PointerContext,
+  type PointerEmitted,
+  type PointerMode,
+  pointerModeLocked,
+  pointerModePanning,
+  pointerModeTouching,
+  type ReactUIEvent,
+} from './viewer-types'
 
 //// pointerMachine
 

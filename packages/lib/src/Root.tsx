@@ -8,7 +8,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App'
 import { type SvgMapViewerConfig } from './lib'
 import { svgMapViewerConfig } from './lib/config'
-import { keyDown, keyUp } from './lib/pointer-react'
+import { keyDown, keyUp } from './lib/viewer-react'
 import { RenderMap } from './Map'
 
 export const SvgMapViewerConfigContext: Context<SvgMapViewerConfig> =

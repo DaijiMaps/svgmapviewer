@@ -1,8 +1,8 @@
 import { type ReactNode } from 'react'
 //import clsx from 'clsx/clsx'
 import './Right.css'
-import { pointerSend } from './lib/pointer-xstate'
 import { uiSend, useOpenCloseRight } from './lib/ui-xstate'
+import { pointerSend } from './lib/viewer-xstate'
 
 export function Right(): ReactNode {
   return (

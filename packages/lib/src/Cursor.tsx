@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react'
-import { usePointerCursor } from './lib/pointer-xstate'
+import { usePointerCursor } from './lib/viewer-xstate'
 
 const DefaultCursorPath = (
   props: Readonly<{ x: number; y: number; r: number }>
