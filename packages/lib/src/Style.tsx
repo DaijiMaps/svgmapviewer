@@ -3,7 +3,6 @@
 /* eslint-disable functional/no-throw-statements */
 import { type ReactNode, StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
 import { fromSvgToOuter } from './lib/coord'
 import { cssMatrixToString, fixupCssString } from './lib/css'
 import { useLayoutConfig, useLayoutSvgScaleS, useZoom } from './lib/map-xstate'

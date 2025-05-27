@@ -6,7 +6,6 @@
 import { createContext, StrictMode, type Context } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
-import './index.css'
 import { type SvgMapViewerConfig } from './lib'
 import { svgMapViewerConfig } from './lib/config'
 import { keyDown, keyUp } from './lib/pointer-react'

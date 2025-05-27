@@ -1,6 +1,5 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
-import '../index.css'
 import { emptyLayout, type Layout, type LayoutConfig } from '../lib/layout'
 import { registerCbs } from './config'
 
