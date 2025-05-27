@@ -18,7 +18,7 @@ import {
   searchActorStart,
   searchSearchDone,
   searchSearchStart,
-} from './search-xstate'
+} from './search/search-xstate'
 import { styleActorStart } from './style-xstate'
 import { touchActorStart } from './touch-xstate'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'

@@ -1,7 +1,7 @@
 import { createActor, emit, setup } from 'xstate'
-import { notifySearch, notifySearchEnd } from './config-xstate'
-import { type Info, type SearchRes } from './types'
-import { type Vec } from './vec'
+import { notifySearch, notifySearchEnd } from '../config-xstate'
+import { type Info, type SearchRes } from '../types'
+import { type Vec } from '../vec'
 
 export type SearchEvent =
   | { type: 'SEARCH'; psvg: Vec }
