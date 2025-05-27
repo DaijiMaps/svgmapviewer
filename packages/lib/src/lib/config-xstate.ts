@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { Actor, assign, createActor, setup, type StateFrom } from 'xstate'
+import { assign, createActor, setup, type StateFrom } from 'xstate'
 import { type POI } from './geo'
 import type { Layout } from './layout'
 import type {
@@ -12,6 +12,7 @@ import type {
   LayoutCb,
   ResizeCb,
   SearchCb,
+  SearchDoneCb,
   SearchEndCb,
   SearchEndDoneCb,
   SearchStartCb,
@@ -265,7 +266,7 @@ const configMachine = setup({
   },
 })
 
-const configActor: Actor<typeof configMachine> = createActor(configMachine)
+const configActor = createActor(configMachine)
 configActor.start()
 
 type ConfigMachine = typeof configMachine
@@ -297,6 +298,11 @@ export function notifySearch(psvg: VecVec): void {
   configActor
     .getSnapshot()
     .context.searchCbs.forEach((cb: SearchCb) => cb(psvg))
+}
+export function notifySearchDone(psvg: VecVec, info: Readonly<Info>): void {
+  configActor
+    .getSnapshot()
+    .context.searchDoneCbs.forEach((cb: SearchDoneCb) => cb({ psvg, info }))
 }
 export function notifySearchEnd(psvg: VecVec, info: Readonly<Info>): void {
   configActor
