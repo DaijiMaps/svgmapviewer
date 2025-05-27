@@ -240,14 +240,16 @@ const touchMachine = setup({
 
 const touchActor = createActor(touchMachine)
 
+export let touching: boolean = false
+
 touchActor.on('MULTI.START', () => {
-  //touching = true
+  touching = true
   viewerSend({ type: 'TOUCH.LOCK' })
 })
 
 touchActor.on('MULTI.END', () => {
   viewerSend({ type: 'TOUCH.UNLOCK' })
-  //touching = false
+  touching = false
 })
 touchActor.on('ZOOM', ({ z, p }) => {
   viewerSend({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })

@@ -8,6 +8,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App'
 import { type SvgMapViewerConfig } from './lib'
 import { svgMapViewerConfig } from './lib/config'
+import { touching } from './lib/touch-xstate'
 import { keyDown, keyUp } from './lib/viewer-react'
 import { RenderMap } from './Map'
 
@@ -42,12 +43,13 @@ export function root(config: Readonly<SvgMapViewerConfig>): void {
       ev.preventDefault()
     }
   }
+  */
+  // XXX prevent touch move during multi-touch
   e.ontouchmove = function (ev) {
     if (touching) {
       ev.preventDefault()
     }
   }
-  */
   /*
   e.onmousedown = function (ev) {
     console.log('mousedown!', ev)

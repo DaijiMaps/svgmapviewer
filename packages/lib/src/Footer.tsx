@@ -1,7 +1,6 @@
 import { type ReactNode, useContext } from 'react'
 import './Footer.css'
-import { touching } from './lib/touch-react'
-import { useTouchesVecs, useTouchesZ } from './lib/touch-xstate'
+import { touching, useTouchesVecs, useTouchesZ } from './lib/touch-xstate'
 import { uiSend, useOpenCloseFooter } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 
