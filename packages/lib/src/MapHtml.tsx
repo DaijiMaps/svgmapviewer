@@ -182,9 +182,8 @@ function MapHtmlContentNamesStyle(
   const s = useViewerLayoutSvgScaleS()
 
   return (
-    <div className="poi-names">
-      <style>
-        {`
+    <style>
+      {`
 ${areaNames
   .map(({ id, size }) => {
     const ss = size / s
@@ -201,8 +200,7 @@ opacity: ${opacity};
 `
   })
   .join('')}`}
-      </style>
-    </div>
+    </style>
   )
 }
 
