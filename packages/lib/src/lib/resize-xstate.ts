@@ -1,17 +1,9 @@
 import { assign, createActor, emit, raise, setup } from 'xstate'
-import { type BoxBox as Box, boxEq, boxUnit } from './box/prefixed'
+import { boxEq, boxUnit } from './box/prefixed'
 import { notifyResize } from './config-xstate'
-import { type Layout, resizeLayout } from './layout'
+import { resizeLayout } from './layout'
+import type { ResizeContext, ResizeEmitted, ResizeEvent } from './resize-types'
 import { getBodySize } from './utils'
-
-type ResizeEvent = { type: 'RESIZE' } | { type: 'EXPIRED' }
-type ResizeContext = {
-  prev: Box
-  next: Box
-  waited: number
-  first: boolean
-}
-type ResizeEmitted = { type: 'LAYOUT'; layout: Layout; force: boolean }
 
 const resizeMachine = setup({
   types: {
