@@ -120,7 +120,8 @@ function MapHtmlContentNamesPoint(
       {pointNames.map(({ id, name, pos: { x, y }, size }) => (
         <div
           key={id}
-          className={`poi-names-item osm-id-${id}`}
+          id={`osm-id-${id}`}
+          className={`poi-names-item`}
           style={{
             transform: fixupCssString(
               `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(0.1 / max(0.1, var(--svg-scale))))`
@@ -151,7 +152,8 @@ function MapHtmlContentNamesArea(
       {areaNames.map(({ id, name, pos: { x, y }, size }) => (
         <div
           key={id}
-          className={`poi-names-item osm-id-${id}`}
+          id={`osm-id-${id}`}
+          className={`poi-names-item`}
           style={{
             transform: fixupCssString(
               `var(--svg-matrix) translate(${x}px, ${y}px) scale(var(--svg-scale)) translate(-50%, -50%) scale(calc(${size} / 200 / var(--svg-scale)))`
@@ -193,7 +195,7 @@ ${areaNames
       2
     )
     return `
-.poi-names-item.osm-id-${id} {
+.poi-names > #osm-id-${id} {
 opacity: ${opacity};
 }
 `
