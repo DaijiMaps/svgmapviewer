@@ -253,6 +253,9 @@ const viewerMachine = setup({
     notifyMode: emit(
       ({ context: { mode } }): ViewerEmitted => ({ type: 'MODE', mode })
     ),
+    notifyLock: emit({ type: 'LOCK', ok: true }),
+    setRendered: assign({ rendered: true }),
+    setMapHtmlRendered: assign({ mapHtmlRendered: true }),
   },
 }).createMachine({
   id: 'viewer',
@@ -275,9 +278,7 @@ const viewerMachine = setup({
   on: {
     RENDERED: {},
     'RENDERED.MAP-HTML': {
-      actions: assign({
-        mapHtmlRendered: true,
-      }),
+      actions: 'setMapHtmlRendered',
     },
     'TOUCH.LOCK': {
       actions: [
@@ -299,19 +300,14 @@ const viewerMachine = setup({
     },
     'SEARCH.LOCK': {
       // XXX failure?
-      actions: [
-        emit({ type: 'LOCK', ok: true }),
-        'setModeToLocked',
-        'notifyMode',
-        'syncMode',
-      ],
+      actions: ['notifyLock', 'setModeToLocked', 'notifyMode', 'syncMode'],
     },
     'SEARCH.UNLOCK': {
       actions: [
         'setModeToPanning',
         'notifyMode',
         'syncMode',
-        raise({ type: 'SEARCH.DONE' }),
+        'notifySearchDone',
       ],
     },
   },
@@ -350,7 +346,7 @@ const viewerMachine = setup({
           on: {
             RENDERED: {
               actions: [
-                assign({ rendered: true }),
+                'setRendered',
                 'syncViewBox',
                 'syncLayout',
                 'resetCursor',
