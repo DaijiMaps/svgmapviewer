@@ -183,23 +183,22 @@ function MapHtmlContentNamesStyle(
 
   return (
     <style>
-      {`
-${areaNames
-  .map(({ id, size }) => {
-    const ss = size / s
-    const MAX = 1000
-    const MIN = 0
-    const opacity = Math.pow(
-      ss > MAX ? 0 : ss < MIN ? 1 : (MAX - ss) / (MAX - MIN),
-      2
-    )
-    return `
+      {areaNames.map(({ id, size }) => {
+        const ss = size / s
+        const MAX = 1000
+        const MIN = 0
+        const opacity = Math.pow(
+          ss > MAX ? 0 : ss < MIN ? 1 : (MAX - ss) / (MAX - MIN),
+          2
+        )
+        return (
+          <>{`
 .poi-names > #osm-id-${id} {
 opacity: ${opacity};
 }
-`
-  })
-  .join('')}`}
+`}</>
+        )
+      })}
     </style>
   )
 }
