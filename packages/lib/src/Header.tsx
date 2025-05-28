@@ -21,7 +21,6 @@ export function Header(): ReactNode {
       >
         {config.title}
       </h1>
-      <HeaderStyle />
     </div>
   )
 }
@@ -33,19 +32,19 @@ export function HeaderStyle(): ReactNode {
     const b = !open ? 0 : 1
 
     return (
-      <style>{`
+      <>{`
 .header {
   transform-origin: 50% 0%;
   opacity: ${b};
   transform: scale(${b});
 }
-`}</style>
+`}</>
     )
   } else {
     const dir = !open ? '' : 'reverse'
 
     return (
-      <style>{`
+      <>{`
 .header {
   transform-origin: 50% 0%;
   animation: xxx-header 300ms ease ${dir};
@@ -62,7 +61,7 @@ export function HeaderStyle(): ReactNode {
     transform: scale(0) translate3d(0px, 0px, 0px);
   }
 }
-`}</style>
+`}</>
     )
   }
 }
