@@ -20,6 +20,7 @@ import {
   useRendered,
 } from './lib/style-xstate'
 import { viewerSend } from './lib/viewer-xstate'
+import { ShadowStyle } from './Shadow'
 
 export function styleRoot(): void {
   const e = document.getElementById('style-root')
@@ -43,6 +44,7 @@ function Style(): ReactNode {
       <ModeStyle />
       <AnimationStyle />
       <SvgSymbolStyle />
+      <UiStyle />
     </style>
   )
 }
@@ -201,6 +203,14 @@ function SvgSymbolStyle(): ReactNode {
 .map-markers {
 }
 `}
+    </>
+  )
+}
+
+function UiStyle(): ReactNode {
+  return (
+    <>
+      <ShadowStyle />
     </>
   )
 }

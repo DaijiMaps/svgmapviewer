@@ -11,26 +11,24 @@ export function Shadow(): ReactNode {
       onClick={() => notifyUiClose()}
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiSend({ type: 'SHADOW.ANIMATION.END' })}
-    >
-      <ShadowStyle />
-    </div>
+    />
   )
 }
 
-function ShadowStyle(): ReactNode {
+export function ShadowStyle(): ReactNode {
   const shadow = useOpenCloseShadow()
 
   if (!shadow.animating) {
     return !shadow.open ? (
-      <style>{`.shadow { display: none; }`}</style>
+      <>{`.shadow { display: none; }`}</>
     ) : (
-      <style>{`.shadow { opacity: 0.3; } `}</style>
+      <>{`.shadow { opacity: 0.3; } `}</>
     )
   } else {
     const dir = shadow.open ? '' : 'reverse'
 
     return (
-      <style>
+      <>
         {`
 .shadow {
   will-change: opacity;
@@ -47,7 +45,7 @@ function ShadowStyle(): ReactNode {
   }
 }
 `}
-      </style>
+      </>
     )
   }
 }
