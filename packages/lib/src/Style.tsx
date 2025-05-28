@@ -21,6 +21,7 @@ import {
   useRendered,
 } from './lib/style-xstate'
 import { viewerSend } from './lib/viewer-xstate'
+import { RightStyle } from './Right'
 import { ShadowStyle } from './Shadow'
 
 export function styleRoot(): void {
@@ -211,6 +212,7 @@ function SvgSymbolStyle(): ReactNode {
 function UiStyle(): ReactNode {
   return (
     <>
+      <RightStyle />
       <FooterStyle />
       <ShadowStyle />
     </>

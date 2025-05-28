@@ -31,7 +31,6 @@ export function Right(): ReactNode {
           </svg>
         </div>
       </div>
-      <RightStyle />
     </div>
   )
 }
@@ -50,7 +49,7 @@ export function RightStyle(): ReactNode {
     const b = !open ? 0 : 1
 
     return (
-      <style>{`
+      <>{`
 .right {
   transform-origin: 100% 50%;
   opacity: ${b};
@@ -59,13 +58,13 @@ export function RightStyle(): ReactNode {
 .bottom {
   transform-origin: 100% 100%;
 }
-`}</style>
+`}</>
     )
   } else {
     const dir = !open ? '' : 'reverse'
 
     return (
-      <style>{`
+      <>{`
 .right {
   transform-origin: 100% 50%;
   animation: xxx-right 300ms ease ${dir};
@@ -85,7 +84,7 @@ export function RightStyle(): ReactNode {
     transform: scale(0) translate3d(0px, 0px, 0px);
   }
 }
-`}</style>
+`}</>
     )
   }
 }
