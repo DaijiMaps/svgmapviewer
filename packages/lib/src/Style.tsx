@@ -213,7 +213,7 @@ function SvgSymbolStyle(): ReactNode {
   )
 }
 
-function UiStyle(): ReactNode {
+function DetailStyle() {
   const detail = useDetail()
 
   const p = detail.p
@@ -224,9 +224,13 @@ function UiStyle(): ReactNode {
   const W = layout.container.width
   const H = layout.container.height
 
+  return <BalloonStyle _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
+}
+
+function UiStyle(): ReactNode {
   return (
     <>
-      <BalloonStyle _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
+      <DetailStyle />
       <HeaderStyle />
       <RightStyle />
       <FooterStyle />
