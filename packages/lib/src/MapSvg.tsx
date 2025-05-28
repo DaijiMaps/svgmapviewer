@@ -13,7 +13,7 @@ export function MapSvg(): ReactNode {
   // XXX truncate viewBox (1234.5678901234567890 to 1234.56)
   // XXX (too much precision degrades SVG rendering performance)
   return (
-    <div className="content svg">
+    <div id="map-svg" className="content svg">
       <svg
         viewBox={boxToViewBox(origLayoutSvg).replaceAll(/([.]\d\d)\d*/g, '$1')}
         width="100%"

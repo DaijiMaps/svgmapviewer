@@ -44,6 +44,7 @@ function MapHtmlContentStyle(): ReactNode {
   padding: 0.5em;
   background-color: rgba(255, 255, 255, 0.375);
   text-align: center;
+  contain: content;
 }
 .point > .poi-names-item {
   padding: 0.75em;

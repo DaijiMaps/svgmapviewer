@@ -9,7 +9,7 @@ export function MapHtmlRoot(): ReactNode {
   useMapHtmlRoot()
 
   return (
-    <div className="content html">
+    <div id="map-html" className="content html">
       <div id={ROOT_ID} />
     </div>
   )

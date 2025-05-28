@@ -13,6 +13,10 @@
   background-color: white;
 
   scrollbar-width: thin;
+}
 
+#viewer,
+#map-svg,
+#map-html {
   contain: content;
 }
