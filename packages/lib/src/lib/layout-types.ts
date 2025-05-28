@@ -7,23 +7,23 @@ import { type Move, type Scale } from './transform'
 
 export interface ContainerLayoutCoord {
   // container (C) size
-  container: Box
+  readonly container: Box
 }
 
 export interface HtmlLayoutCoord {
   // scroll (C) -> svg (C)
-  scroll: Box
+  readonly scroll: Box
 }
 
 export interface SvgLayoutCoord {
   // svg (C) -> svg viewbox (C)
-  svgOffset: Move
+  readonly svgOffset: Move
 
   // svg viewbox ratio (C -> S)
-  svgScale: Scale
+  readonly svgScale: Scale
 
   // svg viewbox (S) -> svg origin (S)
-  svg: Box
+  readonly svg: Box
 }
 
 export type LayoutCoord = ContainerLayoutCoord &
@@ -40,6 +40,6 @@ export type LayoutConfig = Readonly<{
 
 export type Layout = Readonly<
   LayoutCoord & {
-    config: LayoutConfig
+    readonly config: LayoutConfig
   }
 >
