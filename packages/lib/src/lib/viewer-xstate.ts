@@ -9,7 +9,7 @@ import {
 } from './animation'
 import { type BoxBox, boxCenter } from './box/prefixed'
 import {
-  configSend,
+  notifyLayout,
   notifySearchEndDone,
   notifySearchStart,
   notifyUiOpen,
@@ -140,7 +140,7 @@ const viewerMachine = setup({
     // XXX
     syncLayout: ({ context: { layout, rendered } }) => {
       styleSend({ type: 'STYLE.LAYOUT', layout, rendered })
-      configSend({ type: 'CONFIG.LAYOUT', layout, force: false })
+      notifyLayout(layout, false)
     },
 
     //

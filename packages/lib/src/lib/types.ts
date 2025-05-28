@@ -42,23 +42,6 @@ export interface SearchResP {
 
 ////
 
-export interface ConfigZoomStart {
-  type: 'CONFIG.ZOOM.START'
-  layout: Readonly<Layout>
-  zoom: number
-  z: number
-}
-export interface ConfigResize {
-  type: 'CONFIG.RESIZE'
-  layout: Readonly<Layout>
-  force: boolean
-}
-export interface ConfigLayout {
-  type: 'CONFIG.LAYOUT'
-  layout: Readonly<Layout>
-  force: boolean
-}
-
 export type ZoomStartCb = (
   layout: Readonly<Layout>,
   zoom: number,

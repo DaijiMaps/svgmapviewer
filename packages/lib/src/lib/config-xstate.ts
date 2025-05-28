@@ -1,16 +1,11 @@
 import { useSelector } from '@xstate/react'
-import { assign, createActor, setup, type StateFrom } from 'xstate'
+import { assign, createActor, setup } from 'xstate'
 import { type POI } from './geo'
 import { type Layout } from './layout'
 import {
   type ConfigCb,
   type ConfigCbs,
-  type ConfigLayout,
-  type ConfigResize,
-  type ConfigZoomStart,
   type Info,
-  type LayoutCb,
-  type ResizeCb,
   type SearchCb,
   type SearchDoneCb,
   type SearchEndCb,
@@ -36,9 +31,6 @@ type ConfigEvent =
   | { type: 'SET.MAPNAMES'; mapNames: POI[] }
   | ({ type: 'ADD.CB' } & Partial<ConfigCb>)
   | ({ type: 'DELETE.CB' } & Partial<ConfigCb>)
-  | ConfigZoomStart
-  | ConfigResize
-  | ConfigLayout
 
 const configMachine = setup({
   types: {
@@ -225,61 +217,15 @@ const configMachine = setup({
             mapNames: ({ event }) => event.mapNames,
           }),
         },
-        'CONFIG.ZOOM.START': {
-          actions: ({
-            context,
-            event: { layout, zoom, z },
-          }: {
-            context: ConfigContext
-            event: ConfigZoomStart
-          }): void =>
-            context.zoomStartCbs.forEach((cb: ZoomStartCb): void =>
-              cb(layout, zoom, z)
-            ),
-        },
-        'CONFIG.RESIZE': {
-          actions: ({
-            context,
-            event: { layout, force },
-          }: {
-            context: ConfigContext
-            event: ConfigResize
-          }): void =>
-            context.resizeCbs.forEach((cb: ResizeCb): void =>
-              cb(layout, force)
-            ),
-        },
-        'CONFIG.LAYOUT': {
-          actions: ({
-            context,
-            event: { layout, force },
-          }: {
-            context: ConfigContext
-            event: ConfigLayout
-          }): void =>
-            context.layoutCbs.forEach((cb: LayoutCb): void =>
-              cb(layout, force)
-            ),
-        },
       },
     },
   },
 })
 
-const configActor = createActor(configMachine)
-configActor.start()
-
-type ConfigMachine = typeof configMachine
-type ConfigState = StateFrom<ConfigMachine>
-
-const selectMapNames = (state: Readonly<ConfigState>): POI[] =>
-  state.context.mapNames
-
 ////
 
-export function useConfigMapNames(): POI[] {
-  return useSelector(configActor, selectMapNames)
-}
+const configActor = createActor(configMachine)
+configActor.start()
 
 export function configActorStart(): void {
   configActor.start()
@@ -288,6 +234,14 @@ export function configActorStart(): void {
 export function configSend(ev: ConfigEvent): void {
   configActor.send(ev)
 }
+
+////
+
+export function useConfigMapNames(): POI[] {
+  return useSelector(configActor, (state) => state.context.mapNames)
+}
+
+////
 
 export function notifySearchStart(psvg: VecVec): void {
   configActor
@@ -342,6 +296,7 @@ export function notifyUiCloseDone(): void {
     .getSnapshot()
     .context.uiCloseDoneCbs.forEach((cb: UiCloseDoneCb) => cb())
 }
+
 export function notifyZoomStart(
   layout: Readonly<Layout>,
   zoom: number,
@@ -356,12 +311,15 @@ export function notifyZoomEnd(layout: Readonly<Layout>, zoom: number): void {
     .getSnapshot()
     .context.zoomEndCbs.forEach((cb: ZoomEndCb) => cb(layout, zoom))
 }
+
 export function notifyResize(layout: Readonly<Layout>, force: boolean): void {
-  configActor.send({ type: 'CONFIG.RESIZE', layout, force })
+  configActor.getSnapshot().context.resizeCbs.forEach((cb) => cb(layout, force))
 }
 export function notifyLayout(layout: Readonly<Layout>, force: boolean): void {
-  configActor.send({ type: 'CONFIG.LAYOUT', layout, force })
+  configActor.getSnapshot().context.layoutCbs.forEach((cb) => cb(layout, force))
 }
+
+////
 
 export function registerCbs(cbs: Readonly<Partial<ConfigCb>>): void {
   configActorStart()
