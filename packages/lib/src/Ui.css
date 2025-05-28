@@ -1,0 +1,6 @@
+#ui > * {
+  contain: content;
+}
+#ui > .detail-balloon {
+  contain: initial;
+}

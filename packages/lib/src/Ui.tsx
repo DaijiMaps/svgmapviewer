@@ -4,6 +4,7 @@ import { Footer } from './Footer'
 import { Header } from './Header'
 import { Right } from './Right'
 import { Shadow } from './Shadow'
+import './Ui.css'
 
 // XXX group UI part animations into one
 // XXX receive animationend here (.ui)

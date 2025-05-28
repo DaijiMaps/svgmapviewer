@@ -13,4 +13,6 @@
   background-color: white;
 
   scrollbar-width: thin;
+
+  contain: content;
 }
