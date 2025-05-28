@@ -101,6 +101,8 @@ export function Balloon(
   const ww = bw + 2 * ll + 2 * d
   const hh = bh + 2 * ll + 2 * d
 
+  const viewBox = `${-ww / 2} ${-ww / 2} ${ww} ${hh}`
+
   const p = { vmin, bw, bh, ll, d, ww, hh }
 
   const bgPath =
@@ -114,12 +116,7 @@ export function Balloon(
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiSend({ type: 'BALLOON.ANIMATION.END' })}
     >
-      <svg
-        className="balloon"
-        viewBox={`${-ww / 2} ${-ww / 2} ${ww} ${hh}`}
-        width={ww}
-        height={hh}
-      >
+      <svg className="balloon" viewBox={viewBox} width={ww} height={hh}>
         <path className="bg" d={bgPath} />
         <path className="fg" d={fgPath} />
       </svg>
@@ -153,10 +150,10 @@ export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
     !openCloseIsVisible(balloon) ||
     !openCloseIsVisible(detail)
   ) {
-    return <style>{`.balloon-container, .detail { display: none; }`}</style>
+    return <>{`.balloon-container, .detail { display: none; }`}</>
   } else {
     const p = { dir, vmin, bw, bh, ll, d, ww, hh, fg: true }
-    return <style>{balloonStyle(balloon, o, dir, p)}</style>
+    return <>{balloonStyle(balloon, o, dir, p)}</>
   }
 }
 

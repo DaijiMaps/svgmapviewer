@@ -3,10 +3,12 @@
 /* eslint-disable functional/no-throw-statements */
 import { type ReactNode, StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BalloonStyle } from './Balloon'
 import { FooterStyle } from './Footer'
 import { HeaderStyle } from './Header'
 import { fromSvgToOuter } from './lib/coord'
 import { cssMatrixToString, fixupCssString } from './lib/css'
+import { diag } from './lib/diag'
 import { useLayoutConfig, useLayoutSvgScaleS, useZoom } from './lib/map-xstate'
 import {
   type MatrixMatrix as Matrix,
@@ -21,6 +23,7 @@ import {
   useMode,
   useRendered,
 } from './lib/style-xstate'
+import { useDetail } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
 import { RightStyle } from './Right'
 import { ShadowStyle } from './Shadow'
@@ -211,8 +214,19 @@ function SvgSymbolStyle(): ReactNode {
 }
 
 function UiStyle(): ReactNode {
+  const detail = useDetail()
+
+  const p = detail.p
+  const layout = detail.layout
+
+  const dir = diag(detail.layout.container, p)
+
+  const W = layout.container.width
+  const H = layout.container.height
+
   return (
     <>
+      <BalloonStyle _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
       <HeaderStyle />
       <RightStyle />
       <FooterStyle />

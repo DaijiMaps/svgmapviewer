@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react'
-import { Balloon, BalloonStyle } from './Balloon'
+import { Balloon } from './Balloon'
 import './Detail.css'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { diag } from './lib/diag'
@@ -18,9 +18,7 @@ export function Detail(): ReactNode {
 
   return (
     <div className="detail-balloon">
-      <Balloon _detail={detail} _p={p} _dir={dir} _W={W} _H={H}>
-        <BalloonStyle _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
-      </Balloon>
+      <Balloon _detail={detail} _p={p} _dir={dir} _W={W} _H={H}></Balloon>
       <div
         className="detail"
         // eslint-disable-next-line functional/no-return-void
