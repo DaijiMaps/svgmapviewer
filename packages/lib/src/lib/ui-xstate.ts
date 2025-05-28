@@ -13,7 +13,15 @@ import {
   openCloseOpened,
   openCloseReset,
 } from './openclose'
-import { type Info, type SearchRes } from './types'
+import { type Info } from './types'
+import type {
+  OpenCloseMap,
+  UiContext,
+  UiDetailContent,
+  UiEmitted,
+  UiEvent,
+  UiPart,
+} from './ui-types'
 import { type VecVec, vecZero } from './vec/prefixed'
 
 const emptyDetail: UiDetailContent = {
@@ -31,49 +39,6 @@ export function isDetailEmpty(detail: UiDetailContent): boolean {
 }
 
 ////
-
-export type UiPart =
-  | 'header'
-  | 'footer'
-  | 'right'
-  | 'shadow'
-  | 'balloon'
-  | 'detail'
-
-type OpenCloseMap = Record<UiPart, OpenClose>
-
-export type UiDetailContent = SearchRes & {
-  p: VecVec
-  layout: LayoutCoord
-}
-
-export interface UiContext {
-  canceling: boolean
-  detail: UiDetailContent
-  m: OpenCloseMap
-}
-
-export type UiModeEvent =
-  | { type: 'OPEN' }
-  | { type: 'CANCEL' }
-  | { type: 'FLOOR' }
-  | { type: 'MENU' }
-  | ({ type: 'DETAIL' } & Pick<UiDetailContent, 'psvg' | 'info' | 'layout'>)
-  | { type: 'HELP' }
-
-export type UiPartEvent =
-  | { type: 'HEADER.ANIMATION.END' }
-  | { type: 'FOOTER.ANIMATION.END' }
-  | { type: 'RIGHT.ANIMATION.END' }
-  | { type: 'SHADOW.ANIMATION.END' }
-  | { type: 'BALLOON.ANIMATION.END' }
-  | { type: 'DETAIL.ANIMATION.END' }
-
-export type UiInternalEvent = { type: 'DONE' }
-
-export type UiEvent = UiModeEvent | UiPartEvent | UiInternalEvent
-
-export type UiEmitted = { type: 'CLOSE.DONE' }
 
 function doOpenCloseMap(op: OpenCloseOp) {
   return function (m: OpenCloseMap, part: UiPart) {
