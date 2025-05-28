@@ -5,10 +5,12 @@ import { type Move, type Scale } from './transform'
 // C: client coord
 // S: svg coord
 
-export interface HtmlLayoutCoord {
+export interface ContainerLayoutCoord {
   // container (C) size
   container: Box
+}
 
+export interface HtmlLayoutCoord {
   // scroll (C) -> svg (C)
   scroll: Box
 }
@@ -24,14 +26,16 @@ export interface SvgLayoutCoord {
   svg: Box
 }
 
-export type LayoutCoord = HtmlLayoutCoord & SvgLayoutCoord
+export type LayoutCoord = ContainerLayoutCoord &
+  HtmlLayoutCoord &
+  SvgLayoutCoord
 
 export type LayoutConfig = Readonly<{
   readonly fontSize: number
   readonly container: Box
-  readonly svg: Box
   readonly svgOffset: Move
   readonly svgScale: Scale
+  readonly svg: Box
 }>
 
 export type Layout = Readonly<

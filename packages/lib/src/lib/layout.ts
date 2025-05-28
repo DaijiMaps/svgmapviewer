@@ -49,6 +49,8 @@ export const emptyLayout: Layout = {
 //// configLayout
 //// makeLayout
 
+// `original' layout; fit to container (window)
+// == layout before expanded
 export function configLayout(
   fontSize: number,
   svg: Box,
