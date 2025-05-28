@@ -1,15 +1,15 @@
-export type OpenClose = Readonly<{
+type OpenClose = Readonly<{
   open: boolean
   animating: boolean
 }>
 
-export type OpenCloseOp = typeof openCloseOpen
+type OpenCloseOp = typeof open
 
-export function openCloseReset(open: boolean): OpenClose {
+function reset(open: boolean): OpenClose {
   return { open, animating: false }
 }
 
-export function openCloseOpen(prev: OpenClose): null | OpenClose {
+function open(prev: OpenClose): null | OpenClose {
   return prev.open || prev.animating
     ? null
     : {
@@ -18,7 +18,7 @@ export function openCloseOpen(prev: OpenClose): null | OpenClose {
       }
 }
 
-export function openCloseOpened(prev: OpenClose): null | OpenClose {
+function opened(prev: OpenClose): null | OpenClose {
   return !prev.open || !prev.animating
     ? null
     : {
@@ -27,7 +27,7 @@ export function openCloseOpened(prev: OpenClose): null | OpenClose {
       }
 }
 
-export function openCloseClose(prev: OpenClose): null | OpenClose {
+function close(prev: OpenClose): null | OpenClose {
   return !prev.open || prev.animating
     ? null
     : {
@@ -36,7 +36,7 @@ export function openCloseClose(prev: OpenClose): null | OpenClose {
       }
 }
 
-export function openCloseClosed(prev: OpenClose): null | OpenClose {
+function closed(prev: OpenClose): null | OpenClose {
   return prev.open || !prev.animating
     ? null
     : {
@@ -45,6 +45,17 @@ export function openCloseClosed(prev: OpenClose): null | OpenClose {
       }
 }
 
-export function openCloseIsVisible({ open, animating }: OpenClose): boolean {
+function isVisible({ open, animating }: OpenClose): boolean {
   return open || animating
+}
+
+export {
+  close as openCloseClose,
+  closed as openCloseClosed,
+  isVisible as openCloseIsVisible,
+  open as openCloseOpen,
+  opened as openCloseOpened,
+  reset as openCloseReset,
+  type OpenClose,
+  type OpenCloseOp,
 }
