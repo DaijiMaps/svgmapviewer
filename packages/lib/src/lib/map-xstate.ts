@@ -68,16 +68,14 @@ const renderMapActor = createActor(renderMapMachine, {
 })
 renderMapActor.start()
 
-export const renderMapZoomStart = (
+const renderMapZoomStart = (
   layout: Readonly<Layout>,
   zoom: number,
   z: number
-): void => renderMapActor.send({ type: 'ZOOM', layout, zoom, z })
-export const renderMapZoomEnd = (
-  layout: Readonly<Layout>,
-  zoom: number
-): void => renderMapActor.send({ type: 'ZOOM', layout, zoom, z: null })
-export const renderMapLayout = (layout: Layout): void =>
+) => renderMapActor.send({ type: 'ZOOM', layout, zoom, z })
+const renderMapZoomEnd = (layout: Readonly<Layout>, zoom: number) =>
+  renderMapActor.send({ type: 'ZOOM', layout, zoom, z: null })
+const renderMapLayout = (layout: Layout) =>
   renderMapActor.send({ type: 'LAYOUT', layout })
 
 registerCbs({
