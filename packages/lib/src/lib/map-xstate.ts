@@ -32,6 +32,8 @@ const renderMapMachine = setup({
       actions: [
         assign({
           layout: ({ event: { layout } }) => layout,
+          zoom: 1,
+          z: null,
         }),
       ],
     },
