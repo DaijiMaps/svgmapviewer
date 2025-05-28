@@ -105,11 +105,15 @@ export function expandLayoutCenter(layout: Layout, expand: number): Layout {
 export function expandLayout(layout: Layout, s: number, cursor: Vec): Layout {
   const o = toSvg(cursor, layout)
 
+  const ratio = layout.container.width / layout.container.height
+  const sx = ratio < 1 ? s / ratio : s
+  const sy = ratio < 1 ? s : s * ratio
+
   return {
     ...layout,
-    scroll: boxScaleAt(layout.scroll, s, cursor.x, cursor.y),
-    svgOffset: vecScale(layout.svgOffset, s),
-    svg: boxScaleAt(layout.svg, s, o.x, o.y),
+    scroll: boxScaleAt(layout.scroll, [sx, sy], cursor.x, cursor.y),
+    svgOffset: vecScale(layout.svgOffset, [sx, sy]),
+    svg: boxScaleAt(layout.svg, [sx, sy], o.x, o.y),
   }
 }
 
