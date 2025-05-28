@@ -253,14 +253,6 @@ const uiMachine = setup({
   },
 })
 
-//type UiMachine = typeof uiMachine
-
-//type UiState = StateFrom<typeof uiMachine>
-
-//type UiSend = (events: UiEvent) => void
-
-//type UiRef = ActorRefFrom<typeof uiMachine>
-
 export function useDetail(): UiDetailContent {
   return useSelector(uiActor, (ui) => ui.context.detail)
 }
