@@ -8,10 +8,7 @@ import {
   type PointsFilter,
 } from '../geo'
 import { type V, vUnvec, vVec } from '../tuple'
-
-export interface RenderMapSymbolsProps {
-  mapSymbols: MapSymbols[]
-}
+import type { MapSymbols, RenderMapSymbolsProps } from './types'
 
 export function RenderMapSymbols(
   props: Readonly<RenderMapSymbolsProps>
@@ -33,15 +30,6 @@ export function RenderMapSymbols(
       })}
     </g>
   )
-}
-
-export interface MapSymbols {
-  name: string
-  href: string
-  pointsFilter?: PointsFilter
-  centroidsFilter?: CentroidsFilter
-  midpointsFilter?: MidpointsFilter
-  data?: Point[]
 }
 
 export function entryToVs({

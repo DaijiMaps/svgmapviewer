@@ -8,6 +8,7 @@ import {
   type MultiPolygonsFilter,
   multiPolygonToPath,
 } from '../geo'
+import type { MapLayer, MapLineLayer, MapMultiPolygonLayer } from './types'
 
 export function RenderMapLayers(
   props: Readonly<{ mapLayers: MapLayer[] }>
@@ -25,23 +26,6 @@ export function RenderMapLayers(
       ))}
     </g>
   )
-}
-
-export type MapLayer = MapLineLayer | MapMultiPolygonLayer
-
-export interface MapLineLayer {
-  type: 'line'
-  name: string
-  width?: number
-  filter?: LinesFilter
-  data?: Line[]
-}
-
-export interface MapMultiPolygonLayer {
-  type: 'multipolygon'
-  name: string
-  filter?: MultiPolygonsFilter
-  data?: MultiPolygon[]
 }
 
 function layerToWidth(layer: Readonly<MapLayer>): undefined | number {

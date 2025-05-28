@@ -3,15 +3,11 @@ import { svgMapViewerConfig as cfg } from '../config'
 import {
   type CentroidsFilter,
   type MidpointsFilter,
-  type Point,
   type PointsFilter,
 } from '../geo'
 import { useLayoutConfig, useLayoutSvgScaleS } from '../map-xstate'
 import { type V, vUnvec, vVec } from '../tuple'
-
-export interface RenderMapMarkersProps {
-  mapMarkers: MapMarkers[]
-}
+import type { MapMarker, MapMarkers, RenderMapMarkersProps } from './types'
 
 export function RenderMapMarkers(
   props: Readonly<RenderMapMarkersProps>
@@ -30,20 +26,6 @@ export function RenderMapMarkers(
       ))}
     </g>
   )
-}
-
-export interface MapMarker {
-  name: string
-  href: string
-  data?: Point
-}
-
-export interface MapMarkers {
-  name: string
-  pointsFilter?: PointsFilter
-  centroidsFilter?: CentroidsFilter
-  midpointsFilter?: MidpointsFilter
-  data?: MapMarker[]
 }
 
 export function entryToVs({

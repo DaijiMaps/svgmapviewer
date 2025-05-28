@@ -7,6 +7,7 @@ import {
   type PointsFilter,
 } from '../geo'
 import { type V, vUnvec, vVec } from '../tuple'
+import type { MapObjects } from './types'
 
 export function RenderMapObjects(
   props: Readonly<{
@@ -27,18 +28,6 @@ export function RenderMapObjects(
       ))}
     </g>
   )
-}
-
-// XXX take size (width/height)
-// XXX calc stroke-width (0.05% of width/height)
-export interface MapObjects {
-  name: string
-  path: string
-  width: number
-  pointsFilter?: PointsFilter
-  centroidsFilter?: CentroidsFilter
-  midpointsFilter?: MidpointsFilter
-  data?: Point[]
 }
 
 export function entryToVs({
