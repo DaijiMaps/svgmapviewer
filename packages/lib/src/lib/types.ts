@@ -8,10 +8,12 @@ import {
   type MapObjects,
   type MapSymbols,
 } from './carto'
-import { type LayoutCoord } from './coord'
 import { type MapData, type POI } from './geo'
 import { type Layout } from './layout'
+import { type LayoutCoord } from './layout-types'
 import { type Vec } from './vec'
+
+//// layout
 
 // top, right, bottom, left
 export type Dir = 0 | 1 | 2 | 3

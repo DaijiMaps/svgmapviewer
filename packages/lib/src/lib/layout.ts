@@ -11,7 +11,6 @@ import {
 } from './box/prefixed'
 import { svgMapViewerConfig } from './config'
 import {
-  type LayoutCoord,
   emptyLayoutCoord,
   fromMatrixOuter,
   fromMatrixSvg,
@@ -21,19 +20,18 @@ import {
   toMatrixSvg,
 } from './coord'
 import { fit } from './fit'
-import { type Move, type Scale, transformPoint } from './transform'
+import type {
+  HtmlLayoutCoord,
+  Layout,
+  LayoutConfig,
+  LayoutCoord,
+  SvgLayoutCoord,
+} from './layout-types'
+import { type Scale, transformPoint } from './transform'
 import { type VecVec as Vec, vecScale, vecSub } from './vec/prefixed'
 
 //// LayoutConfig
 //// Layout
-
-export type LayoutConfig = Readonly<{
-  readonly fontSize: number
-  readonly container: Box
-  readonly svg: Box
-  readonly svgOffset: Move
-  readonly svgScale: Scale
-}>
 
 export const emptyLayoutConfig: Readonly<LayoutConfig> = {
   fontSize: 16,
@@ -43,15 +41,9 @@ export const emptyLayoutConfig: Readonly<LayoutConfig> = {
   svgScale: { s: 1 },
 }
 
-export type Layout = Readonly<
-  LayoutCoord & {
-    config: LayoutConfig
-  }
->
-
 export const emptyLayout: Layout = {
-  config: emptyLayoutConfig,
   ...emptyLayoutCoord,
+  config: emptyLayoutConfig,
 }
 
 //// configLayout
@@ -180,3 +172,13 @@ export const toOuter = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
   transformPoint(toMatrixOuter(layout), p)
 export const fromOuter = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
   transformPoint(fromMatrixOuter(layout), p)
+
+////
+
+export {
+  type HtmlLayoutCoord,
+  type Layout,
+  type LayoutConfig,
+  type LayoutCoord,
+  type SvgLayoutCoord,
+}

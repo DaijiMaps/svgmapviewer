@@ -1,6 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
-import { emptyLayout, type Layout, type LayoutConfig } from '../lib/layout'
+import { emptyLayout } from '../lib/layout'
+import { type Layout, type LayoutConfig } from '../lib/layout-types'
 import { registerCbs } from './config-xstate'
 
 type RenderMapContext = {
