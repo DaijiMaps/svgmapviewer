@@ -30,13 +30,8 @@ import {
   toSvg,
 } from './layout'
 import { getCurrentScroll } from './scroll'
-import {
-  type GetDone,
-  getDoneCbs,
-  scrollSend,
-  type SyncSyncDone,
-  syncSyncDoneCbs,
-} from './scroll-xstate'
+import { type GetDone, type SyncSyncDone } from './scroll-types'
+import { getDoneCbs, scrollSend, syncSyncDoneCbs } from './scroll-xstate'
 import { styleSend } from './style-xstate'
 import { syncViewBox } from './svg'
 import { type SearchRes } from './types'

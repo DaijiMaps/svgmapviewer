@@ -3,15 +3,7 @@ import { assign, createActor, setup } from 'xstate'
 import { emptyLayout } from '../lib/layout'
 import { type Layout, type LayoutConfig } from '../lib/layout-types'
 import { registerCbs } from './config-xstate'
-
-type RenderMapContext = {
-  layout: Readonly<Layout>
-  zoom: number
-  z: null | number
-}
-type RenderMapEvent =
-  | ({ type: 'ZOOM' } & RenderMapContext)
-  | { type: 'LAYOUT'; layout: Layout }
+import type { RenderMapContext, RenderMapEvent } from './map-types'
 
 const renderMapMachine = setup({
   types: {
