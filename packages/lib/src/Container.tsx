@@ -3,7 +3,6 @@
 import { type ReactNode, useRef } from 'react'
 import './Container.css'
 import { styleAnimationEnd } from './lib/style-xstate'
-import {} from './lib/touch-react'
 import {
   touchSendTouchEnd,
   touchSendTouchMove,
