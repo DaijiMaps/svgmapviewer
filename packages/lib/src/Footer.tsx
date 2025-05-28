@@ -49,7 +49,6 @@ export function Footer(): ReactNode {
       */}
       <p>{`v=${vecs.size};z=${z};touching=${touching}`}</p>
       <p>{config.copyright}</p>
-      <FooterStyle />
     </div>
   )
 }
@@ -70,19 +69,19 @@ export function FooterStyle(): ReactNode {
     const b = !open ? 0 : 1
 
     return (
-      <style>{`
+      <>{`
 .footer {
   transform-origin: 50% 100%;
   opacity: ${b};
   transform: scale(${b});
 }
-`}</style>
+`}</>
     )
   } else {
     const dir = !open ? '' : 'reverse'
 
     return (
-      <style>{`
+      <>{`
 .footer {
   transform-origin: 50% 100%;
   animation: xxx-footer 300ms ease ${dir};
@@ -99,7 +98,7 @@ export function FooterStyle(): ReactNode {
     transform: scale(0) translate3d(0px, 0px, 0px);
   }
 }
-`}</style>
+`}</>
     )
   }
 }
