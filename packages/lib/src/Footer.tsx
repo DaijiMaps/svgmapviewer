@@ -1,6 +1,5 @@
 import { type ReactNode, useContext } from 'react'
 import './Footer.css'
-import { touching, useTouchesVecs, useTouchesZ } from './lib/touch-xstate'
 import { uiSend, useOpenCloseFooter } from './lib/ui-xstate'
 import { SvgMapViewerConfigContext } from './Root'
 
@@ -8,8 +7,8 @@ export function Footer(): ReactNode {
   const config = useContext(SvgMapViewerConfigContext)
   //const mode = useSelector(viewerActor, selectMode)
 
-  const vecs = useTouchesVecs()
-  const z = useTouchesZ()
+  //const vecs = useTouchesVecs()
+  //const z = useTouchesZ()
 
   return (
     <div
@@ -47,7 +46,9 @@ export function Footer(): ReactNode {
         </div>
       </div>
       */}
+      {/*
       <p>{`v=${vecs.size};z=${z};touching=${touching}`}</p>
+      */}
       <p>{config.copyright}</p>
     </div>
   )
