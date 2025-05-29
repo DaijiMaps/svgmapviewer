@@ -95,6 +95,7 @@ const uiMachine = setup({
   id: 'ui',
   context: ({ input }) => ({
     ...input,
+    all: { open: false, animating: false },
     canceling: false,
     detail: emptyDetail,
     m: {
@@ -143,6 +144,9 @@ const uiMachine = setup({
             Waiting: {
               on: {
                 OPEN: {
+                  actions: assign({
+                    all: { open: true, animating: true },
+                  }),
                   target: 'Opening',
                 },
                 CANCEL: {
@@ -167,13 +171,21 @@ const uiMachine = setup({
                   { guard: not('isShadowVisible') },
                   { guard: not('isBalloonVisible') },
                   { guard: not('isDetailVisible') },
-                  { target: 'Opened' },
+                  {
+                    actions: assign({
+                      all: { open: true, animating: false },
+                    }),
+                    target: 'Opened',
+                  },
                 ],
               },
             },
             Opened: {
               on: {
                 CANCEL: {
+                  actions: assign({
+                    all: { open: false, animating: true },
+                  }),
                   target: 'Closing',
                 },
               },
@@ -197,7 +209,12 @@ const uiMachine = setup({
                   { guard: 'isShadowVisible' },
                   { guard: 'isBalloonVisible' },
                   { guard: 'isDetailVisible' },
-                  { target: 'Closed' },
+                  {
+                    actions: assign({
+                      all: { open: false, animating: false },
+                    }),
+                    target: 'Closed',
+                  },
                 ],
               },
             },
@@ -253,6 +270,9 @@ const uiMachine = setup({
   },
 })
 
+export function useOpenCloseAll(): OpenClose {
+  return useSelector(uiActor, (ui) => ui.context.all)
+}
 export function useDetail(): UiDetailContent {
   return useSelector(uiActor, (ui) => ui.context.detail)
 }

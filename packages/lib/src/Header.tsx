@@ -37,6 +37,7 @@ export function HeaderStyle(): ReactNode {
   transform-origin: 50% 0%;
   opacity: ${b};
   transform: scale(${b});
+  will-change: opacity transform;
 }
 `}</>
     )

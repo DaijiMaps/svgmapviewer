@@ -47,6 +47,7 @@ export function RightStyle(): ReactNode {
   transform-origin: 100% 50%;
   opacity: ${b};
   transform: scale(${b});
+  will-change: opacity transform;
 }
 .bottom {
   transform-origin: 100% 100%;

@@ -36,6 +36,7 @@ export function FooterStyle(): ReactNode {
   transform-origin: 50% 100%;
   opacity: ${b};
   transform: scale(${b});
+  will-change: opacity transform;
 }
 `}</>
     )

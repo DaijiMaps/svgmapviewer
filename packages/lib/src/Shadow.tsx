@@ -22,7 +22,13 @@ export function ShadowStyle(): ReactNode {
     return !open ? (
       <>{`.shadow { display: none; }`}</>
     ) : (
-      <>{`.shadow { opacity: 0.3; } `}</>
+      <>
+        {`
+.shadow {
+  opacity: 0.3;
+  will-change: opacity;
+}`}
+      </>
     )
   } else {
     const [a, b] = !open ? [0.3, 0] : [0, 0.3]

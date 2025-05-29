@@ -19,6 +19,7 @@ export type UiDetailContent = SearchRes & {
 }
 
 export interface UiContext {
+  all: OpenClose
   canceling: boolean
   detail: UiDetailContent
   m: OpenCloseMap
