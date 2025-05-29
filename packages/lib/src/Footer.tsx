@@ -17,51 +17,12 @@ export function Footer(): ReactNode {
       onAnimationEnd={() => uiSend({ type: 'FOOTER.ANIMATION.END' })}
     >
       {/*
-      <div className="mode">
-        <div
-          className={clsx(
-            'mode-item',
-            'pointing',
-            mode === 'pointing' && 'selected'
-          )}
-          // eslint-disable-next-line functional/no-return-void
-          onClick={() => sendModePointing()}
-        >
-          <svg viewBox="-5.25 -5.25 10.5 10.5">
-            <path d={pointingPath} />
-          </svg>
-        </div>
-        <div
-          className={clsx(
-            'mode-item',
-            'panning',
-            mode === 'panning' && 'selected'
-          )}
-          // eslint-disable-next-line functional/no-return-void
-          onClick={() => sendModePanning()}
-        >
-          <svg viewBox="-5.25 -5.25 10.5 10.5">
-            <path d={panningPath} />
-          </svg>
-        </div>
-      </div>
-      */}
-      {/*
       <p>{`v=${vecs.size};z=${z};touching=${touching}`}</p>
       */}
       <p>{config.copyright}</p>
     </div>
   )
 }
-
-/*
-const sendModePointing =
-  // eslint-disable-next-line functional/no-return-void
-  () => viewerActor.send({ type: 'MODE', mode: 'pointing' })
-const sendModePanning =
-  // eslint-disable-next-line functional/no-return-void
-  () => viewerActor.send({ type: 'MODE', mode: 'panning' })
-*/
 
 export function FooterStyle(): ReactNode {
   const { open, animating } = useOpenCloseFooter()
@@ -106,38 +67,3 @@ export function FooterStyle(): ReactNode {
     )
   }
 }
-
-/*
-const pointingPath = `
-M0,0
-L-1,3
-L-5,-5
-L3,-1
-Z
-M-5,-5
-L5,5
-`
-
-const panningPath = `
-M0,5
-V-5
-M5,0
-H-5
-M5,0
-m-2,-1
-l2,1
-l-2,1
-M-5,0
-m2,1
-l-2,-1
-l2,-1
-M0,5
-m1,-2
-l-1,2
-l-1,-2
-M0,-5
-m-1,2
-l1,-2
-l1,2
-`
-*/
