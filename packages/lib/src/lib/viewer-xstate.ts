@@ -400,9 +400,11 @@ const viewerMachine = setup({
         CONTEXTMENU: {
           target: 'Recentering',
         },
+        /*
         SCROLL: {
           target: 'Recentering',
         },
+        */
         RECENTER: {
           target: 'Recentering',
         },

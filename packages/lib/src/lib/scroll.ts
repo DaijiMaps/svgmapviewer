@@ -104,14 +104,21 @@ export function getScroll(): null | BoxBox {
 
 // eslint-disable-next-line functional/no-let
 export let currentScroll: BoxBox = boxUnit
+export let currentTimeStamp: number = 0
 
 // eslint-disable-next-line functional/no-return-void
-export function setCurrentScroll(e: Readonly<HTMLDivElement>): void {
-  currentScroll = {
-    x: e.scrollLeft,
-    y: e.scrollTop,
-    width: e.scrollWidth,
-    height: e.scrollHeight,
+export function setCurrentScroll(
+  ev: React.UIEvent<HTMLDivElement, Event>
+): void {
+  const e: null | HTMLDivElement = ev.currentTarget
+  if (e !== null) {
+    currentScroll = {
+      x: e.scrollLeft,
+      y: e.scrollTop,
+      width: e.scrollWidth,
+      height: e.scrollHeight,
+    }
+    currentTimeStamp = ev.timeStamp
   }
 }
 

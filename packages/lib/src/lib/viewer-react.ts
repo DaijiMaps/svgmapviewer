@@ -1,5 +1,4 @@
 import React from 'react'
-import { scrollTimeoutActorSend } from './event-xstate'
 import { setCurrentScroll } from './scroll'
 import { clickeventmask, viewerSend, viewerSendEvent } from './viewer-xstate'
 
@@ -35,12 +34,14 @@ export const sendWheel = (ev: React.WheelEvent<HTMLDivElement>): void => {
 }
 export const sendScroll = (ev: React.UIEvent<HTMLDivElement, Event>): void => {
   if (ev !== null) {
-    setCurrentScroll(ev.currentTarget)
+    setCurrentScroll(ev)
   }
+  /*
   scrollTimeoutActorSend({
     type: 'TICK',
     ev,
   })
+  */
 }
 export const sendAnimationEnd = (
   ev: React.AnimationEvent<HTMLDivElement>
