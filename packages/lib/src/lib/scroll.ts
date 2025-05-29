@@ -1,17 +1,12 @@
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-conditional-statements */
-import {
-  type BoxBox as Box,
-  boxBox,
-  type BoxBox,
-  boxUnit,
-} from './box/prefixed'
+import { boxBox, type BoxBox, boxUnit } from './box/prefixed'
 
 // XXX make this async
 // XXX call this from scroll-xstate as invoke (Promise)
 // XXX return status
-export const syncScroll = (b: Box): boolean => {
+export const syncScroll = (b: BoxBox): boolean => {
   if (b === null) {
     return true
   }
@@ -30,22 +25,22 @@ export const syncScroll = (b: Box): boolean => {
   // XXX
   // XXX
   // XXX
-  const l = e.scrollLeft
-  const t = e.scrollTop
-  const w = e.scrollWidth
-  const h = e.scrollHeight
+  const x = e.scrollLeft
+  const y = e.scrollTop
+  const width = e.scrollWidth
+  const height = e.scrollHeight
 
   // assume valid if scrollLeft exists
-  if (l === null) {
+  if (x === null) {
     return false
   }
   // box pointing to the identical element?
-  const dw = w - b.width
-  const dh = h - b.height
+  const dw = width - b.width
+  const dh = height - b.height
   if (Math.abs(dw) > 1 || Math.abs(dh) > 1) {
     // not really an error; the element may be still unstable (reflow)
     console.log(
-      `scroll: target ${dw > 0 ? 'larger' : 'smaller'} than expected: target=[${w}, ${h}] vs. request=[${b.width}, ${b.height}]`
+      `scroll: target ${dw > 0 ? 'larger' : 'smaller'} than expected: target=[${width}, ${height}] vs. request=[${b.width}, ${b.height}]`
     )
     return false
   }
@@ -57,26 +52,26 @@ export const syncScroll = (b: Box): boolean => {
   }
 
   // commit the change!
-  if (l !== left) {
+  if (x !== left) {
     e.scrollLeft = left
   }
-  if (t !== top) {
+  if (y !== top) {
     e.scrollTop = top
   }
 
-  const l2 = e.scrollLeft
-  const dl = l2 - left
-  if (Math.abs(dl) > 1) {
+  const x2 = e.scrollLeft
+  const dx = x2 - left
+  if (Math.abs(dx) > 1) {
     console.log(
-      `scroll: scrollLeft not reflected: expected=${l} vs. real=${l2}`
+      `scroll: scrollLeft not reflected: expected=${x} vs. real=${x2}`
     )
     return false
   }
-  const t2 = e.scrollTop
-  const dt = t2 - top
-  if (Math.abs(dt) > 1) {
+  const y2 = e.scrollTop
+  const dy = y2 - top
+  if (Math.abs(dy) > 1) {
     console.log(
-      `scroll: scrollHeight not reflected: expected=${t} vs. real=${t2}`
+      `scroll: scrollHeight not reflected: expected=${y} vs. real=${y2}`
     )
     return false
   }
@@ -88,19 +83,19 @@ export function getScroll(): null | BoxBox {
   const e = document.querySelector('.container')
 
   if (e !== null) {
-    const l = e.scrollLeft
-    const t = e.scrollTop
-    const w = e.scrollWidth
-    const h = e.scrollHeight
+    const x = e.scrollLeft
+    const y = e.scrollTop
+    const width = e.scrollWidth
+    const height = e.scrollHeight
 
     // forcibly stop scroll
     // XXX assigning a different value once
     // XXX because assigning the current value is ignored
     // XXX (does NOT stop scroll)
-    e.scrollLeft = Number(l) + 1
-    e.scrollLeft = Number(l)
+    e.scrollLeft = Number(x) + 1
+    e.scrollLeft = Number(x)
 
-    return boxBox(l, t, w, h)
+    return boxBox(x, y, width, height)
   }
   return null
 }
@@ -108,7 +103,7 @@ export function getScroll(): null | BoxBox {
 ////
 
 // eslint-disable-next-line functional/no-let
-export let currentScroll: Box = boxUnit
+export let currentScroll: BoxBox = boxUnit
 
 // eslint-disable-next-line functional/no-return-void
 export function setCurrentScroll(e: Readonly<HTMLDivElement>): void {
@@ -120,6 +115,6 @@ export function setCurrentScroll(e: Readonly<HTMLDivElement>): void {
   }
 }
 
-export function getCurrentScroll(): Box {
+export function getCurrentScroll(): BoxBox {
   return currentScroll
 }

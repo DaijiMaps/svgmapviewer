@@ -174,7 +174,9 @@ function css(q: Matrix): string {
   return `
 .container {
   will-change: transform;
+  /*
   overflow: hidden;
+  */
   animation: container-zoom ${500}ms ease;
 }
 @keyframes container-zoom {
