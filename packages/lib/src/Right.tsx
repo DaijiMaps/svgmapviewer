@@ -15,6 +15,15 @@ export function Right(): ReactNode {
         <div
           className={'zoom-item'}
           // eslint-disable-next-line functional/no-return-void
+          onClick={() => viewerSend({ type: 'RECENTER' })}
+        >
+          <svg viewBox="-5.25 -5.25 10.5 10.5">
+            <path d={panningPath} />
+          </svg>
+        </div>
+        <div
+          className={'zoom-item'}
+          // eslint-disable-next-line functional/no-return-void
           onClick={() => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null })}
         >
           <svg viewBox="-5.25 -5.25 10.5 10.5">
@@ -114,4 +123,27 @@ a3,3 0,1,1 6,6
 m-3-3
 m-2.5,0
 h5
+`
+
+const panningPath = `
+M0,5
+V-5
+M5,0
+H-5
+M5,0
+m-2,-1
+l2,1
+l-2,1
+M-5,0
+m2,1
+l-2,-1
+l2,-1
+M0,5
+m1,-2
+l-1,2
+l-1,-2
+M0,-5
+m-1,2
+l1,-2
+l1,2
 `

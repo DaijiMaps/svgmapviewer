@@ -44,6 +44,7 @@ export type ViewerContext = {
 
 export type ResizeRequest = { type: 'RESIZE'; layout: Layout; force: boolean }
 export type LayoutResetRequest = { type: 'LAYOUT.RESET' }
+export type RecenterRequest = { type: 'RECENTER' }
 export type RenderedRequest = { type: 'RENDERED' }
 export type RenderedMapHtmlRequest = { type: 'RENDERED.MAP-HTML' }
 export type AnimationEndRequest = { type: 'ANIMATION.END' }
@@ -61,6 +62,7 @@ export type SearchUnlock = { type: 'SEARCH.UNLOCK' }
 export type ViewerRequest =
   | ResizeRequest
   | LayoutResetRequest
+  | RecenterRequest
   | RenderedRequest
   | RenderedMapHtmlRequest
   | ScrollGetDoneRequest

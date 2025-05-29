@@ -403,6 +403,9 @@ const viewerMachine = setup({
         SCROLL: {
           target: 'Recentering',
         },
+        RECENTER: {
+          target: 'Recentering',
+        },
         'ZOOM.ZOOM': {
           actions: [
             {
@@ -485,16 +488,46 @@ const viewerMachine = setup({
     // - getScroll()/syncScroll() must finish quickly
     // - reflect prev scroll -> current scroll diff to svg
     Recentering: {
-      always: {
-        actions: [
-          'updateLayoutFromScroll',
-          'syncViewBox',
-          'syncLayout',
-          // fast sync - sync scroll NOT after resize
-          'syncScroll',
-        ],
-        // keep panning
-        target: 'Panning',
+      initial: 'Stopping',
+      onDone: 'Panning',
+      states: {
+        Stopping: {
+          entry: 'getScroll',
+          on: {
+            'SCROLL.GET.DONE': {
+              target: 'Rendering',
+            },
+          },
+        },
+        Rendering: {
+          after: {
+            // XXX
+            // XXX
+            // XXX
+            50: {
+              target: 'Layouting',
+            },
+            // XXX
+            // XXX
+            // XXX
+          },
+        },
+        Layouting: {
+          always: {
+            actions: [
+              'updateLayoutFromScroll',
+              'syncViewBox',
+              'syncLayout',
+              // fast sync - sync scroll NOT after resize
+              'syncScroll',
+            ],
+            // keep panning
+            target: 'Done',
+          },
+        },
+        Done: {
+          type: 'final',
+        },
       },
     },
     // fast zooming - no expand/unexpand + no RENDRED hack
