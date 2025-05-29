@@ -15,7 +15,7 @@ export function Right(): ReactNode {
         <div
           className={'zoom-item'}
           // eslint-disable-next-line functional/no-return-void
-          onClick={() => sendZoomOut()}
+          onClick={() => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null })}
         >
           <svg viewBox="-5.25 -5.25 10.5 10.5">
             <path d={zoomOutPath} />
@@ -24,7 +24,7 @@ export function Right(): ReactNode {
         <div
           className={'zoom-item'}
           // eslint-disable-next-line functional/no-return-void
-          onClick={() => sendZoomIn()}
+          onClick={() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })}
         >
           <svg viewBox="-5.25 -5.25 10.5 10.5">
             <path d={zoomInPath} />
@@ -34,13 +34,6 @@ export function Right(): ReactNode {
     </div>
   )
 }
-
-const sendZoomOut =
-  // eslint-disable-next-line functional/no-return-void
-  () => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null })
-const sendZoomIn =
-  // eslint-disable-next-line functional/no-return-void
-  () => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })
 
 export function RightStyle(): ReactNode {
   const { open, animating } = useOpenCloseRight()
@@ -61,13 +54,16 @@ export function RightStyle(): ReactNode {
 `}</>
     )
   } else {
-    const dir = !open ? '' : 'reverse'
+    const [a, b] = !open ? [1, 0] : [0, 1]
+    const t = !open
+      ? 'cubic-bezier(0.25, 0.25, 0.25, 1)'
+      : 'cubic-bezier(0.75, 0, 0.75, 0.75)'
 
     return (
       <>{`
 .right {
   transform-origin: 100% 50%;
-  animation: xxx-right 300ms ease ${dir};
+  animation: xxx-right 300ms ${t};
   will-change: opacity transform;
 }
 .bottom {
@@ -76,12 +72,12 @@ export function RightStyle(): ReactNode {
 
 @keyframes xxx-right {
   from {
-    opacity: 1;
-    transform: scale(1) translate3d(0px, 0px, 0px);
+    opacity: ${a};
+    transform: scale(${a}) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: 0;
-    transform: scale(0) translate3d(0px, 0px, 0px);
+    opacity: ${b};
+    transform: scale(${b}) translate3d(0px, 0px, 0px);
   }
 }
 `}</>

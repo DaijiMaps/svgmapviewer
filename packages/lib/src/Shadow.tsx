@@ -16,32 +16,34 @@ export function Shadow(): ReactNode {
 }
 
 export function ShadowStyle(): ReactNode {
-  const shadow = useOpenCloseShadow()
+  const { open, animating } = useOpenCloseShadow()
 
-  if (!shadow.animating) {
-    return !shadow.open ? (
+  if (!animating) {
+    return !open ? (
       <>{`.shadow { display: none; }`}</>
     ) : (
       <>{`.shadow { opacity: 0.3; } `}</>
     )
   } else {
-    const dir = shadow.open ? '' : 'reverse'
+    const [a, b] = !open ? [0.3, 0] : [0, 0.3]
+    const t = open
+      ? 'cubic-bezier(0.25, 0.25, 0.25, 1)'
+      : 'cubic-bezier(0.75, 0, 0.75, 0.75)'
 
     return (
       <>
         {`
 .shadow {
   will-change: opacity;
-  animation: xxx-shadow ${dir} 300ms ease;
-  transform: translate3d(0px, 0px, 0px);
+  animation: xxx-shadow 300ms ${t};
 }
 
 @keyframes xxx-shadow {
   from {
-    opacity: 0;
+    opacity: ${a};
   }
   to {
-    opacity: 0.3;
+    opacity: ${b};
   }
 }
 `}

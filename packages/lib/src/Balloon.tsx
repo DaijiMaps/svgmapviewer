@@ -175,6 +175,10 @@ function balloonStyle(
   const dP = dPs[dir]
 
   if (!animating) {
+    const sb = 1
+    const dxb = 'var(--dp-x)'
+    const dyb = 'var(--dp-y)'
+
     return `
 .detail,
 .balloon-container {
@@ -186,15 +190,22 @@ function balloonStyle(
 
 .detail {
   transform-origin: 0 0;
-  transform: translate(calc(var(--q-x) + var(--dp-x)), calc(var(--q-y) + var(--dp-y))) scale(1) translate(-50%, -50%);
+  transform: translate(calc(var(--q-x) + ${dxb}), calc(var(--q-y) + ${dyb})) scale(${sb}) translate(-50%, -50%);
 }
 
 .balloon-container {
   transform-origin: 0 0;
-  transform: translate(calc(var(--q-x) + var(--dp-x)), calc(var(--q-y) + var(--dp-y))) scale(1) translate(${-p.ww / 2}px, ${-p.hh / 2}px);
+  transform: translate(calc(var(--q-x) + ${dxb}), calc(var(--q-y) + ${dyb})) scale(${sb}) translate(${-p.ww / 2}px, ${-p.hh / 2}px);
 }
 `
   } else {
+    const [sa, sb] = open ? [0, 1] : [1, 0]
+    const [dxa, dxb] = open ? ['0px', 'var(--dp-x)'] : ['var(--dp-x)', '0px']
+    const [dya, dyb] = open ? ['0px', 'var(--dp-y)'] : ['var(--dp-y)', '0px']
+    const t = open
+      ? 'cubic-bezier(0.25, 0.25, 0.25, 1)'
+      : 'cubic-bezier(0.75, 0, 0.75, 0.75)'
+
     return `
 .detail,
 .balloon-container {
@@ -210,35 +221,35 @@ function balloonStyle(
 
 .detail {
   transform-origin: 0 0;
-  animation: xxx-detail 300ms ease ${open ? `normal` : `reverse`};
+  animation: xxx-detail 300ms ${t};
   will-change: opacity transform;
 }
 
 .balloon-container {
   transform-origin: 0 0;
-  animation: xxx-balloon 300ms ease ${open ? `normal` : `reverse`};
+  animation: xxx-balloon 300ms ${t};
   will-change: opacity transform;
 }
 
 @keyframes xxx-detail {
   from {
-    opacity: 0;
-    transform: translate(var(--q-x), var(--q-y)) scale(0) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+    opacity: ${sa};
+    transform: translate(calc(var(--q-x) + ${dxa}), calc(var(--q-y) + ${dya})) scale(${sa}) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: 1;
-    transform: translate(calc(var(--q-x) + var(--dp-x)), calc(var(--q-y) + var(--dp-y))) scale(1) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+    opacity: ${sb};
+    transform: translate(calc(var(--q-x) + ${dxb}), calc(var(--q-y) + ${dyb})) scale(${sb}) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
 }
 
 @keyframes xxx-balloon {
   from {
-    opacity: 0;
-    transform: translate(var(--q-x), var(--q-y)) scale(0) translate(${-p.ww / 2}px, ${-p.hh / 2}px) translate3d(0px, 0px, 0px);
+    opacity: ${sa};
+    transform: translate(calc(var(--q-x) + ${dxa}), calc(var(--q-y) + ${dya})) scale(${sa}) translate(${-p.ww / 2}px, ${-p.hh / 2}px) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: 1;
-    transform: translate(calc(var(--q-x) + var(--dp-x)), calc(var(--q-y) + var(--dp-y))) scale(1) translate(${-p.ww / 2}px, ${-p.hh / 2}px) translate3d(0px, 0px, 0px);
+    opacity: ${sb};
+    transform: translate(calc(var(--q-x) + ${dxb}), calc(var(--q-y) + ${dyb})) scale(${sb}) translate(${-p.ww / 2}px, ${-p.hh / 2}px) translate3d(0px, 0px, 0px);
   }
 }
 `
