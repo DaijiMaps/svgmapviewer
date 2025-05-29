@@ -1,4 +1,4 @@
-import { type ReactNode, useMemo } from 'react'
+import { Fragment, type ReactNode, useMemo } from 'react'
 import { fixupCssString } from './lib/css'
 import { type POI } from './lib/geo'
 import { isLiked, useLikes } from './lib/like'
@@ -14,18 +14,20 @@ export function MapHtml(): ReactNode {
 
   return (
     <>
-      <MapHtmlContentStyle />
+      <style>
+        <MapHtmlContentStyle />
+        <MapHtmlContentNamesStyle _areaNames={areaNames} />
+      </style>
       <MapHtmlContentStars _pointNames={pointNames} _areaNames={areaNames} />
       <MapHtmlContentNamesPoint _pointNames={pointNames} />
       <MapHtmlContentNamesArea _areaNames={areaNames} />
-      <MapHtmlContentNamesStyle _areaNames={areaNames} />
     </>
   )
 }
 
 function MapHtmlContentStyle(): ReactNode {
   return (
-    <style>
+    <>
       {`
 .poi-stars,
 .poi-stars-item,
@@ -56,7 +58,7 @@ function MapHtmlContentStyle(): ReactNode {
   margin: 0;
 }
 `}
-    </style>
+    </>
   )
 }
 
@@ -182,7 +184,7 @@ function MapHtmlContentNamesStyle(
   const s = useViewerLayoutSvgScaleS()
 
   return (
-    <style>
+    <>
       {areaNames.map(({ id, size }) => {
         const ss = size / s
         const MAX = 1000
@@ -192,14 +194,14 @@ function MapHtmlContentNamesStyle(
           2
         )
         return (
-          <>{`
+          <Fragment key={id}>{`
 .poi-names > #osm-id-${id} {
 opacity: ${opacity};
 }
-`}</>
+`}</Fragment>
         )
       })}
-    </style>
+    </>
   )
 }
 
