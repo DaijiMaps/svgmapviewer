@@ -93,7 +93,11 @@ export function getScroll(): null | BoxBox {
     const w = e.scrollWidth
     const h = e.scrollHeight
 
-    // XXX forcibly stop scroll
+    // forcibly stop scroll
+    // XXX assigning a different value once
+    // XXX because assigning the current value is ignored
+    // XXX (does NOT stop scroll)
+    e.scrollLeft = Number(l) + 1
     e.scrollLeft = Number(l)
 
     return boxBox(l, t, w, h)

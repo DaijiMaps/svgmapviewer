@@ -520,7 +520,7 @@ const viewerMachine = setup({
             // XXX
             // XXX
             // XXX
-            20: {
+            50: {
               target: 'Starting',
             },
             // XXX
