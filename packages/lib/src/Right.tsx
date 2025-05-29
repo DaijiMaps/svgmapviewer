@@ -46,7 +46,9 @@ export function RightStyle(): ReactNode {
 .right {
   transform-origin: 100% 50%;
   opacity: ${b};
+  /*
   transform: scale(${b});
+  */
   will-change: opacity transform;
 }
 .bottom {
@@ -74,11 +76,15 @@ export function RightStyle(): ReactNode {
 @keyframes xxx-right {
   from {
     opacity: ${a};
+    /*
     transform: scale(${a}) translate3d(0px, 0px, 0px);
+    */
   }
   to {
     opacity: ${b};
+    /*
     transform: scale(${b}) translate3d(0px, 0px, 0px);
+    */
   }
 }
 `}</>

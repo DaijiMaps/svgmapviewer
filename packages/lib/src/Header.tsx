@@ -58,11 +58,15 @@ export function HeaderStyle(): ReactNode {
 @keyframes xxx-header {
   from {
     opacity: ${a};
+    /*
     transform: scale(${a}) translate3d(0px, 0px, 0px);
+    */
   }
   to {
     opacity: ${b};
+    /*
     transform: scale(${b}) translate3d(0px, 0px, 0px);
+    */
   }
 }
 `}</>
