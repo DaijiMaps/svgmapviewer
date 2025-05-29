@@ -6,6 +6,7 @@ import { type Box } from './box/main'
 import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
 import { configActorStart, configSend, registerCbs } from './config-xstate'
 import { scrollTimeoutActorStart } from './event-xstate'
+import { geolocActorStart } from './geo'
 import { renderMapActorStart } from './map-xstate'
 import { resizeActorStart } from './resize-xstate'
 import { scrollActorStart } from './scroll-xstate'
@@ -78,7 +79,7 @@ function startAllActors() {
   // for module dependency
   // (order doesn't matter)
   configActorStart()
-  viewerActorStart()
+  geolocActorStart()
   renderMapActorStart()
   resizeActorStart()
   scrollActorStart()
@@ -88,4 +89,5 @@ function startAllActors() {
   touchActorStart()
   uiActorStart()
   uiRootActorStart()
+  viewerActorStart()
 }

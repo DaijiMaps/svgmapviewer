@@ -1,12 +1,13 @@
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import {
+  useGeolocPosition,
   type CentroidsFilter,
   type MidpointsFilter,
   type PointsFilter,
 } from '../geo'
 import { useLayoutConfig, useLayoutSvgScaleS } from '../map-xstate'
-import { type V, vUnvec, vVec } from '../tuple'
+import { vUnvec, vVec, type V } from '../tuple'
 import type { MapMarker, MapMarkers, RenderMapMarkersProps } from './types'
 
 export function RenderMapMarkers(
@@ -122,6 +123,36 @@ export function RenderMarker(
       stroke="gray"
       strokeWidth={r / 20}
       d={`M ${x},${y} l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 z`.replaceAll(
+        /([.]\d\d)\d*/g,
+        '$1'
+      )}
+    />
+  )
+}
+
+export function RenderPosition(): ReactNode {
+  const position = useGeolocPosition()
+
+  if (position === null) {
+    return <></>
+  }
+
+  const { x, y } = cfg.mapCoord.fromGeo({
+    x: position.coords.longitude,
+    y: position.coords.latitude,
+  })
+  const h = 1
+  const r = Math.sqrt(2) * h * 2
+
+  return position === null ? (
+    <></>
+  ) : (
+    <path
+      className="position"
+      fill="red"
+      fillOpacity="1"
+      stroke="none"
+      d={`M ${x},${y} l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 zm 0,${-h - r / 2} a${r / 2},${r / 2} 0,1,0 0,${-r} a${r / 2},${r / 2} 0,1,0 0,${r}`.replaceAll(
         /([.]\d\d)\d*/g,
         '$1'
       )}

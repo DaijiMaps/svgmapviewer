@@ -70,6 +70,9 @@ export type UiCloseDoneCb = () => void
 export type ResizeCb = (layout: Layout, force: boolean) => void
 export type LayoutCb = (layout: Layout, force: boolean) => void
 
+export type GeoLocCb = () => void
+export type GeoLocDoneCb = (position: GeolocationPosition) => void
+
 export interface ConfigCb {
   zoomStartCb: ZoomStartCb
   zoomEndCb: ZoomEndCb
@@ -84,6 +87,8 @@ export interface ConfigCb {
   uiCloseDoneCb: UiCloseDoneCb
   resizeCb: ResizeCb
   layoutCb: LayoutCb
+  geolocCb: GeoLocCb
+  geolocDoneCb: GeoLocDoneCb
 }
 
 export interface ConfigCbs {
@@ -100,6 +105,8 @@ export interface ConfigCbs {
   uiCloseDoneCbs: Set<UiCloseDoneCb>
   resizeCbs: Set<ResizeCb>
   layoutCbs: Set<LayoutCb>
+  geolocCbs: Set<GeoLocCb>
+  geolocDoneCbs: Set<GeoLocDoneCb>
 }
 
 ////

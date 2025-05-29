@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react'
 //import clsx from 'clsx/clsx'
 import './Right.css'
+import { geolocRequest } from './lib/geo'
 import { uiSend, useOpenCloseRight } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
 
@@ -12,6 +13,15 @@ export function Right(): ReactNode {
       onAnimationEnd={() => uiSend({ type: 'RIGHT.ANIMATION.END' })}
     >
       <div className="zoom">
+        <div
+          className={'zoom-item'}
+          // eslint-disable-next-line functional/no-return-void
+          onClick={() => geolocRequest()}
+        >
+          <svg viewBox="-5.25 -5.25 10.5 10.5">
+            <path d={panningPath} />
+          </svg>
+        </div>
         <div
           className={'zoom-item'}
           // eslint-disable-next-line functional/no-return-void

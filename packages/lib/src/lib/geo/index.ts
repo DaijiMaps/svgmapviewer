@@ -37,9 +37,21 @@ import {
   type OsmPointProperties,
   type OsmPolygonProperties,
 } from './osm-types'
-import { type Line, type MultiLineString, type MultiPolygon, type Point } from './path'
-import { lineToPath, multiLineStringToPath, multiPolygonToPath } from './path'
+import {
+  lineToPath,
+  multiLineStringToPath,
+  multiPolygonToPath,
+  type Line,
+  type MultiLineString,
+  type MultiPolygon,
+  type Point,
+} from './path'
 import { type POI } from './poi'
+import {
+  geolocActorStart,
+  geolocRequest,
+  useGeolocPosition,
+} from './position-xstate'
 import {
   findFeature,
   findProperties,
@@ -117,3 +129,5 @@ export interface AllFilters {
 }
 
 export { findFeature, findProperties, getOsmId, getPropertyValue }
+
+export { geolocActorStart, geolocRequest, useGeolocPosition }
