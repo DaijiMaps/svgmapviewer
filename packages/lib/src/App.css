@@ -76,3 +76,13 @@ h5 {
 a:link {
   text-decoration: none;
 }
+
+#viewer,
+#map-svg,
+#map-html {
+  contain: content;
+}
+.map,
+.map > * {
+  contain: content;
+}

@@ -199,6 +199,7 @@ function balloonStyle(
 }
 `
   } else {
+    const [oa, ob] = open ? [0, 1] : [1, 0]
     const [sa, sb] = open ? [0, 1] : [1, 0]
     const [dxa, dxb] = open ? ['0px', 'var(--dp-x)'] : ['var(--dp-x)', '0px']
     const [dya, dyb] = open ? ['0px', 'var(--dp-y)'] : ['var(--dp-y)', '0px']
@@ -233,22 +234,22 @@ function balloonStyle(
 
 @keyframes xxx-detail {
   from {
-    opacity: ${sa};
+    opacity: ${oa};
     transform: translate(calc(var(--q-x) + ${dxa}), calc(var(--q-y) + ${dya})) scale(${sa}) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: ${sb};
+    opacity: ${ob};
     transform: translate(calc(var(--q-x) + ${dxb}), calc(var(--q-y) + ${dyb})) scale(${sb}) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
 }
 
 @keyframes xxx-balloon {
   from {
-    opacity: ${sa};
+    opacity: ${oa};
     transform: translate(calc(var(--q-x) + ${dxa}), calc(var(--q-y) + ${dya})) scale(${sa}) translate(${-p.ww / 2}px, ${-p.hh / 2}px) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: ${sb};
+    opacity: ${ob};
     transform: translate(calc(var(--q-x) + ${dxb}), calc(var(--q-y) + ${dyb})) scale(${sb}) translate(${-p.ww / 2}px, ${-p.hh / 2}px) translate3d(0px, 0px, 0px);
   }
 }

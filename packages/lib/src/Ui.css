@@ -4,3 +4,7 @@
 #ui > .detail-balloon {
   contain: initial;
 }
+.balloon,
+.detail {
+  contain: content;
+}
