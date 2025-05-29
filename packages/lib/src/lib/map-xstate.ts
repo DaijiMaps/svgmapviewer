@@ -38,9 +38,6 @@ const renderMapMachine = setup({
   },
 })
 
-//type RenderMapRef = ActorRefFrom<typeof renderMapMachine>
-//type RenderMapState = StateFrom<typeof renderMapMachine>
-
 export function useLayoutConfig(): LayoutConfig {
   return useSelector(renderMapActor, (state) => state.context.layout.config)
 }
@@ -58,24 +55,26 @@ const renderMapActor = createActor(renderMapMachine, {
     layout: emptyLayout,
   },
 })
+export function renderMapActorStart(): void {
+  renderMapActor.start()
+}
+export function renderMapActorSend(ev: RenderMapEvent): void {
+  renderMapActor.send(ev)
+}
 renderMapActor.start()
 
-const renderMapZoomStart = (
-  layout: Readonly<Layout>,
-  zoom: number,
-  z: number
-) => renderMapActor.send({ type: 'ZOOM', layout, zoom, z })
-const renderMapZoomEnd = (layout: Readonly<Layout>, zoom: number) =>
-  renderMapActor.send({ type: 'ZOOM', layout, zoom, z: null })
-const renderMapLayout = (layout: Layout) =>
-  renderMapActor.send({ type: 'LAYOUT', layout })
+function renderMapZoomStart(layout: Readonly<Layout>, zoom: number, z: number) {
+  renderMapActorSend({ type: 'ZOOM', layout, zoom, z })
+}
+function renderMapZoomEnd(layout: Readonly<Layout>, zoom: number) {
+  renderMapActorSend({ type: 'ZOOM', layout, zoom, z: null })
+}
+function renderMapLayout(layout: Layout) {
+  renderMapActorSend({ type: 'LAYOUT', layout })
+}
 
 registerCbs({
   zoomStartCb: renderMapZoomStart,
   zoomEndCb: renderMapZoomEnd,
   layoutCb: renderMapLayout,
 })
-
-export function renderMapActorStart(): void {
-  renderMapActor.start()
-}
