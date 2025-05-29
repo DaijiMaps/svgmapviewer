@@ -204,10 +204,6 @@ function SvgSymbolStyle(): ReactNode {
     <>
       {`
 .map-symbols {
-  /*
-  --zoom: ${zoom};
-  --s: ${s};
-  */
   --map-symbol-size: ${sz / 72};
 }
 .map-markers {
