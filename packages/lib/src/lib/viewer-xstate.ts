@@ -671,6 +671,19 @@ export function viewerActorStart(): void {
   viewerActor.start()
 }
 
+/*
+export type ViewerInspect = typeof viewerActor.options.inspect
+export function inspect(iev: InspectionEvent) {
+  if (iev && iev?.actorRef?.options?.systemId === 'system-viewer1') {
+    const type =
+      iev?.event?.type || iev?.action?.type || iev?.action?.params?.event?.type
+    if (type && !type.match(/MOVE/)) {
+      console.log(type, iev)
+    }
+  }
+}
+*/
+
 export function viewerSend(ev: ViewerEvent): void {
   viewerActor.send(ev)
 }
