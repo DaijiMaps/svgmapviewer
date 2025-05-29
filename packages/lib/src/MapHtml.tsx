@@ -195,7 +195,7 @@ function MapHtmlContentNamesStyle(
         )
         return (
           <Fragment key={id}>{`
-.poi-names > #osm-id-${id} {
+#osm-id-${id} {
 opacity: ${opacity};
 }
 `}</Fragment>
