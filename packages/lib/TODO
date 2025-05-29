@@ -19,3 +19,8 @@
 
 - handle mobile chrome address bar auto hiding
   - just accept height-only change
+
+- optimize animation / rendering performance
+  - visilibity?
+
+- optimize CSS styling performance
