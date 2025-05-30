@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react'
+import { Fragment, type ReactNode } from 'react'
 import './Guides.css'
 import { useLayout } from './lib/style-xstate'
 import { useOpenCloseBalloon } from './lib/ui-xstate'
@@ -18,15 +18,11 @@ function Measure(): ReactNode {
       <text id="latitude">N 35.123456</text>
       <g className="distance">
         <text id={`distance-origin`}>0m</text>
-        {INDEXES.map((i, idx) => (
-          <>
-            <text key={idx} id={`distance-x-${i}`}>
-              {(i + 1) * 10 + `m`}
-            </text>
-            <text key={idx} id={`distance-y-${i}`}>
-              {(i + 1) * 10 + `m`}
-            </text>
-          </>
+        {INDEXES.map((i) => (
+          <Fragment key={i}>
+            <text id={`distance-x-${i}`}>{(i + 1) * 10 + `m`}</text>
+            <text id={`distance-y-${i}`}>{(i + 1) * 10 + `m`}</text>
+          </Fragment>
         ))}
       </g>
       <path id="measure" stroke="black" strokeWidth="0.15px" fill="none" d="" />
