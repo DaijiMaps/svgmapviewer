@@ -27,16 +27,15 @@ function Measure(): ReactNode {
           </Fragment>
         ))}
       </g>
-      <path id="measure" stroke="black" strokeWidth="0.15px" fill="none" d="" />
+      <MeasurePath />
     </g>
   )
 }
 
-export function MeasureStyle(): ReactNode {
+function MeasurePath() {
   const {
     container: { width, height },
   } = useLayout()
-  const { open, animating } = useOpenCloseBalloon()
 
   const horizontal = `M0,${height / 2} h${width}`
   const vertical = `M${width / 2},0 v${height}`
@@ -46,10 +45,19 @@ export function MeasureStyle(): ReactNode {
   }).join(' ')
   // XXX no newlines allowed
   const d = `${horizontal} ${vertical} ${rings}`
-  const pathStyle = `
-#measure {
-  d: path("${d}");
+
+  return (
+    <path id="measure" stroke="black" strokeWidth="0.15px" fill="none" d={d} />
+  )
 }
+
+export function MeasureStyle(): ReactNode {
+  const {
+    container: { width, height },
+  } = useLayout()
+  const { open, animating } = useOpenCloseBalloon()
+
+  const pathStyle = `
 `
 
   // balloon is not open => guide is shown (== opacity: 1)
