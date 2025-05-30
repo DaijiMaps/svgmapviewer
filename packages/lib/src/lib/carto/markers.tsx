@@ -135,8 +135,14 @@ export function RenderMarker(
 }
 
 export function RenderPosition(props: Readonly<{ sz: number }>): ReactNode {
-  const h = (props.sz * 1.5) / 5
-  const r = Math.sqrt(2) * h
+  // XXX
+  // XXX
+  // XXX
+  const r = props.sz / 2
+  const h = r / Math.sqrt(2)
+  // XXX
+  // XXX
+  // XXX
 
   return (
     <path
@@ -178,7 +184,8 @@ export function RenderPositionStyle(): ReactNode {
   return (
     <>{`
 #position {
-  transform: translate(${x}px, ${y}px);
+  display: initial !important;
+  transform: translate(${x}px, ${y}px) scale(2);
 }
 `}</>
   )

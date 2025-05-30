@@ -19,7 +19,7 @@ export function Right(): ReactNode {
           onClick={() => getPosition()}
         >
           <svg viewBox="-5.25 -5.25 10.5 10.5">
-            <path d={panningPath} />
+            <path d={positionPath} />
           </svg>
         </div>
         <div
@@ -157,3 +157,23 @@ m-1,2
 l1,-2
 l1,2
 `
+
+// XXX
+// XXX
+// XXX
+const r = 4
+const h = r / Math.sqrt(2)
+const y = h + r / 4
+const positionPath = `
+m 0,1
+m 0,${y}
+l ${-h},${-h}
+a ${r},${r} 0,1,1 ${2 * h},0
+z
+m 0,${-y}
+a ${r / 2},${r / 2} 0,1,0 0,${-r}
+a ${r / 2},${r / 2} 0,1,0 0,${r}
+`.replaceAll(/([.]\d\d)\d*/g, '$1')
+// XXX
+// XXX
+// XXX
