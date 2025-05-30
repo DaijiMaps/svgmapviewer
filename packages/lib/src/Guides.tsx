@@ -2,8 +2,9 @@ import { Fragment, type ReactNode } from 'react'
 import { assign, createActor, emit, setup } from 'xstate'
 import './Guides.css'
 import { scrollCbs } from './lib/scroll'
-import { useLayout } from './lib/style-xstate'
+import { styleSend, useLayout } from './lib/style-xstate'
 import { useOpenCloseBalloon } from './lib/ui-xstate'
+import type { VecVec } from './lib/vec/prefixed'
 
 export function Guides(): ReactNode {
   return (
@@ -274,23 +275,18 @@ const throttleActor = createActor(throttleMachine)
 throttleActor.start()
 
 throttleActor.on('CALL', ({ ev }) => {
-  if (ev !== null) {
-    const e: null | HTMLDivElement = document.querySelector('#longitude')
-    if (e === null) {
-      return
-    }
-    e.innerHTML = `E ${ev.timeStamp}`
+  if (ev === null) {
+    return
   }
+  const p: VecVec = {
+    x: ev.currentTarget.scrollLeft + ev.currentTarget.clientWidth / 2,
+    y: ev.currentTarget.scrollTop + ev.currentTarget.clientHeight / 2,
+  }
+  styleSend({ type: 'STYLE.LONLAT', p })
 })
 
-// XXX
-// XXX
-// XXX
 function updateGeo(ev: EV): void {
   throttleActor.send({ type: 'TICK', ev })
 }
-// XXX
-// XXX
-// XXX
 
 scrollCbs.add(updateGeo)

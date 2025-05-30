@@ -1,13 +1,16 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
 import { type Animation } from './animation'
-import { emptyLayout, type Layout } from './layout'
+import { svgMapViewerConfig } from './config'
+import { emptyLayout, toSvg, type Layout } from './layout'
+import type { VecVec } from './vec/prefixed'
 
 export type StyleEvent =
   | { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
   | { type: 'STYLE.DRAGGING'; dragging: boolean }
   | { type: 'STYLE.MODE'; mode: string }
   | { type: 'STYLE.ANIMATION'; animation: null | Animation } // null to stop animation
+  | { type: 'STYLE.LONLAT'; p: VecVec }
   | { type: 'ANIMATION.END' } // null to stop animation
 
 interface StyleContext {
@@ -17,12 +20,28 @@ interface StyleContext {
   dragging: boolean
   mode: string
   animation: null | Animation
+  lonlat: null | VecVec
 }
 
 const styleMachine = setup({
   types: {
     events: {} as StyleEvent,
     context: {} as StyleContext,
+  },
+  actions: {
+    setLonLat: ({ context }) => {
+      if (context.lonlat === null) {
+        return
+      }
+      const psvg = toSvg(context.lonlat, context.layout)
+      const pgeo = svgMapViewerConfig.mapCoord.toGeo(psvg)
+      const lon = document.querySelector('#longitude')
+      const lat = document.querySelector('#latitude')
+      if (lon !== null && lat !== null) {
+        lon.innerHTML = `E ${pgeo.x}`
+        lat.innerHTML = `N ${pgeo.y}`
+      }
+    },
   },
 }).createMachine({
   id: 'style1',
@@ -33,6 +52,7 @@ const styleMachine = setup({
     dragging: false,
     mode: 'panning',
     animation: null,
+    lonlat: null,
   },
   initial: 'Idle',
   states: {
@@ -63,6 +83,14 @@ const styleMachine = setup({
           actions: assign({
             animation: ({ event }) => event.animation,
           }),
+        },
+        'STYLE.LONLAT': {
+          actions: [
+            assign({
+              lonlat: ({ event }) => event.p,
+            }),
+            'setLonLat',
+          ],
         },
         'ANIMATION.END': {
           actions: assign({
