@@ -6,11 +6,12 @@ import {
   fromPromise,
   setup,
   type DoneActorEvent,
+  type ErrorActorEvent,
 } from 'xstate'
 
 export type GeoLocContext = {
   position: null | GeolocationPosition
-  error: null | string
+  error: null | GeolocationPositionError
 }
 
 export type GeoLocEvent = { type: 'GET' }
@@ -22,8 +23,8 @@ const geolocMachine = setup({
     emitted: {} as GeoLocEmitted,
   },
   actors: {
-    api: fromPromise(async function () {
-      return new Promise<GeolocationPosition>((resolve, reject) => {
+    api: fromPromise<GeolocationPosition>(async function () {
+      return new Promise((resolve, reject) => {
         const successCb: PositionCallback = (position: GeolocationPosition) => {
           resolve(position)
         }
@@ -65,7 +66,7 @@ const geolocMachine = setup({
               position: ({
                 event,
               }: {
-                event: DoneActorEvent<GeolocationPosition, string>
+                event: DoneActorEvent<GeolocationPosition>
               }) => event.output,
             }),
             emit(({ event }) => ({
@@ -77,7 +78,14 @@ const geolocMachine = setup({
         },
         onError: {
           actions: assign({
-            error: () => 'XXX',
+            // XXX
+            // XXX
+            // XXX
+            error: ({ event }: { event: ErrorActorEvent }) =>
+              JSON.stringify(event),
+            // XXX
+            // XXX
+            // XXX
           }),
           target: 'Retrying',
         },
@@ -85,7 +93,7 @@ const geolocMachine = setup({
     },
     Retrying: {
       after: {
-        10000: {
+        5000: {
           target: 'Getting',
         },
       },
@@ -108,10 +116,10 @@ export function geolocSend(ev: GeoLocEvent): void {
 
 ////
 
-export function geolocRequest(): void {
+export function getPosition(): void {
   geolocSend({ type: 'GET' })
 }
 
-export function useGeolocPosition(): null | GeolocationPosition {
+export function usePosition(): null | GeolocationPosition {
   return useSelector(geolocActor, (state) => state.context.position)
 }

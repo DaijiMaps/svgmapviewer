@@ -1,18 +1,16 @@
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import {
-  useGeolocPosition,
+  usePosition,
   type CentroidsFilter,
   type MidpointsFilter,
   type PointsFilter,
 } from '../geo'
 import { useLayoutConfig, useLayoutSvgScaleS } from '../map-xstate'
 import { vUnvec, vVec, type V } from '../tuple'
-import type { MapMarker, MapMarkers, RenderMapMarkersProps } from './types'
+import type { MapMarker, MapMarkers } from './types'
 
-export function RenderMapMarkers(
-  props: Readonly<RenderMapMarkersProps>
-): ReactNode {
+export function RenderMapMarkers(): ReactNode {
   const config = useLayoutConfig()
   const s = useLayoutSvgScaleS()
 
@@ -20,11 +18,14 @@ export function RenderMapMarkers(
 
   return (
     <g className="map-markers">
+      {/*
       {props.mapMarkers.map((entry, i) => (
         <g key={i}>
           <RenderMarkers sz={sz} name={entry.name} vs={entryToVs(entry)} />
         </g>
       ))}
+      */}
+      <RenderPosition sz={sz} />
     </g>
   )
 }
@@ -130,8 +131,8 @@ export function RenderMarker(
   )
 }
 
-export function RenderPosition(): ReactNode {
-  const position = useGeolocPosition()
+export function RenderPosition(props: Readonly<{ sz: number }>): ReactNode {
+  const position = usePosition()
 
   if (position === null) {
     return <></>
@@ -141,8 +142,8 @@ export function RenderPosition(): ReactNode {
     x: position.coords.longitude,
     y: position.coords.latitude,
   })
-  const h = 1
-  const r = Math.sqrt(2) * h * 2
+  const h = (props.sz * 1.5) / 5
+  const r = Math.sqrt(2) * h
 
   return position === null ? (
     <></>
@@ -152,10 +153,15 @@ export function RenderPosition(): ReactNode {
       fill="red"
       fillOpacity="1"
       stroke="none"
-      d={`M ${x},${y} l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 zm 0,${-h - r / 2} a${r / 2},${r / 2} 0,1,0 0,${-r} a${r / 2},${r / 2} 0,1,0 0,${r}`.replaceAll(
-        /([.]\d\d)\d*/g,
-        '$1'
-      )}
+      d={`
+M ${x},${y}
+l ${-h},${-h}
+a ${r},${r} 0,1,1 ${2 * h},0
+z
+m 0,${-h - r / 4}
+a ${r / 2},${r / 2} 0,1,0 0,${-r}
+a ${r / 2},${r / 2} 0,1,0 0,${r}
+`.replaceAll(/([.]\d\d)\d*/g, '$1')}
     />
   )
 }

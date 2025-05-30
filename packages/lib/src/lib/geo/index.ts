@@ -47,11 +47,7 @@ import {
   type Point,
 } from './path'
 import { type POI } from './poi'
-import {
-  geolocActorStart,
-  geolocRequest,
-  useGeolocPosition,
-} from './position-xstate'
+import { geolocActorStart, getPosition, usePosition } from './position-xstate'
 import {
   findFeature,
   findProperties,
@@ -130,4 +126,4 @@ export interface AllFilters {
 
 export { findFeature, findProperties, getOsmId, getPropertyValue }
 
-export { geolocActorStart, geolocRequest, useGeolocPosition }
+export { geolocActorStart, getPosition, usePosition }

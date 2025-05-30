@@ -2,8 +2,7 @@ import { type ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import { RenderMapAssetsDefault } from './assets'
 import { RenderMapLayers } from './layers'
-//import { RenderMapMarkers } from './markers'
-import { RenderPosition } from './markers'
+import { RenderMapMarkers } from './markers'
 import { RenderMapObjects } from './objects'
 import { RenderMapSymbols } from './symbols'
 
@@ -15,10 +14,7 @@ export function RenderMapCommon(): ReactNode {
         <RenderMapLayers mapLayers={cfg.getMapLayers()} />
         <RenderMapObjects mapObjects={cfg.getMapObjects()} />
         <RenderMapSymbols mapSymbols={cfg.getMapSymbols()} />
-        {/*
-        <RenderMapMarkers {...props} mapMarkers={cfg.getMapMarkers()} />
-        */}
-        <RenderPosition />
+        <RenderMapMarkers />
       </g>
     </>
   )
