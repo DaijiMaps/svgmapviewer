@@ -19,6 +19,7 @@ export function Footer(): ReactNode {
       {/*
       <p>{`v=${vecs.size};z=${z};touching=${touching}`}</p>
       */}
+      <h2 className="subtitle">{config.subtitle}</h2>
       <p>{config.copyright}</p>
     </div>
   )
@@ -35,7 +36,7 @@ export function FooterStyle(): ReactNode {
 .footer {
   transform-origin: 50% 100%;
   opacity: ${b};
-  transform: scale(${b});
+  transform: translate(calc(50vw - 50%), 0%) scale(${b});
   will-change: opacity transform;
 }
 `}</>
@@ -57,15 +58,11 @@ export function FooterStyle(): ReactNode {
 @keyframes xxx-footer {
   from {
     opacity: ${a};
-    /*
-    transform: scale(${a}) translate3d(0px, 0px, 0px);
-    */
+    transform: translate(calc(50vw - 50%), 0%) scale(${a}) translate3d(0px, 0px, 0px);
   }
   to {
     opacity: ${b};
-    /*
-    transform: scale(${b}) translate3d(0px, 0px, 0px);
-    */
+    transform: translate(calc(50vw - 50%), 0%) scale(${b}) translate3d(0px, 0px, 0px);
   }
 }
 `}</>

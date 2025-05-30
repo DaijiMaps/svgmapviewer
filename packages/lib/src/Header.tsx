@@ -13,7 +13,6 @@ export function Header(): ReactNode {
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiSend({ type: 'HEADER.ANIMATION.END' })}
     >
-      <h2 className="subtitle">{config.subtitle}</h2>
       <h1
         className="title"
         // eslint-disable-next-line functional/no-return-void
@@ -36,7 +35,7 @@ export function HeaderStyle(): ReactNode {
 .header {
   transform-origin: 50% 0%;
   opacity: ${b};
-  transform: scale(${b});
+  transform: translate(calc(50vw - 50%), 0%) scale(${b});
   will-change: opacity transform;
 }
 `}</>
@@ -58,15 +57,11 @@ export function HeaderStyle(): ReactNode {
 @keyframes xxx-header {
   from {
     opacity: ${a};
-    /*
-    transform: scale(${a}) translate3d(0px, 0px, 0px);
-    */
+    transform: translate(calc(50vw - 50%), 0%) scale(${a}) translate3d(0px, 0px, 0px);
   }
   to {
     opacity: ${b};
-    /*
-    transform: scale(${b}) translate3d(0px, 0px, 0px);
-    */
+    transform: translate(calc(50vw - 50%), 0%) scale(${b}) translate3d(0px, 0px, 0px);
   }
 }
 `}</>
