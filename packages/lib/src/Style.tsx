@@ -5,6 +5,7 @@ import { type ReactNode, StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BalloonStyle } from './Balloon'
 import { FooterStyle } from './Footer'
+import { MeasureStyle } from './Guides'
 import { HeaderStyle } from './Header'
 import { fromSvgToOuter } from './lib/coord'
 import { cssMatrixToString, fixupCssString } from './lib/css'
@@ -233,6 +234,7 @@ function UiStyle(): ReactNode {
   return (
     <>
       <DetailStyle />
+      <MeasureStyle />
       <HeaderStyle />
       <RightStyle />
       <FooterStyle />

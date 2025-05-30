@@ -12,6 +12,7 @@
   overflow: scroll;
   pointer-events: initial;
   box-sizing: border-box;
+  z-index: 11;
 }
 
 .detail > h3,

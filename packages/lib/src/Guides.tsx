@@ -1,10 +1,10 @@
-import { type ReactNode, useMemo } from 'react'
-import { Cursor } from './Cursor'
+import { type ReactNode } from 'react'
 import './Guides.css'
 import { boxCenter } from './lib/box/prefixed'
 import { type LayoutConfig } from './lib/layout'
+import { useLayout } from './lib/style-xstate'
+import { useOpenCloseBalloon } from './lib/ui-xstate'
 import { type Vec } from './lib/vec'
-import { useViewerLayoutConfig, useViewerMode } from './lib/viewer-xstate'
 
 export interface GuideParams {
   c: Vec
@@ -41,14 +41,78 @@ v${r * 40}
 export interface GuidesProps {}
 
 export function Guides(): ReactNode {
-  const mode = useViewerMode()
-  const config = useViewerLayoutConfig()
-  const p = useMemo(() => guideParams(config), [config])
-
   return (
     <svg className="guides">
-      <Cursor _r={p.r} />
-      {mode === 'panning' && <PanningGuides _p={p} />}
+      <Measure />
     </svg>
+  )
+}
+
+function Measure(): ReactNode {
+  return (
+    <g>
+      <path id="measure" stroke="black" strokeWidth="0.15px" fill="none" d="" />
+    </g>
+  )
+}
+
+export function MeasureStyle(): ReactNode {
+  const {
+    container: { width, height },
+  } = useLayout()
+  const { open, animating } = useOpenCloseBalloon()
+
+  const horizontal = `M0,${height / 2} h${width}`
+  const vertical = `M${width / 2},0 v${height}`
+  const rings = [
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  ]
+    .map((i) => {
+      const r = 100 * (i + 1)
+      return `M${width / 2},${height / 2} m-${r},0 a${r},${r} 0,1,0 ${r * 2},0 a${r},${r} 0,1,0 -${r * 2},0`
+    })
+    .join(' ')
+  // XXX no newlines allowed
+  const d = `${horizontal} ${vertical} ${rings}`
+  const pathStyle = `
+#measure {
+  d: path("${d}");
+}
+`
+
+  // balloon is not open => guide is shown (== opacity: 1)
+  const [oa, ob] = !open ? [0, 1] : [1, 0]
+  const t = !open
+    ? 'cubic-bezier(0.25, 0.25, 0.25, 1)'
+    : 'cubic-bezier(0.75, 0, 0.75, 0.75)'
+
+  const animationStyle = !animating
+    ? `
+#measure {
+  opacity: ${ob};
+  will-change: opacity;
+}
+`
+    : `
+#measure {
+  animation: xxx-measure 300ms ${t};
+  will-change: opacity;
+}
+
+@keyframes xxx-measure {
+  from {
+    opacity: ${oa};
+  }
+  to {
+    opacity: ${ob};
+  }
+}
+`
+
+  return (
+    <>
+      {pathStyle}
+      {animationStyle}
+    </>
   )
 }

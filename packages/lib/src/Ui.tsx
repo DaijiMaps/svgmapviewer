@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react'
 import { Detail } from './Detail'
 import { Footer } from './Footer'
+import { Guides } from './Guides'
 import { Header } from './Header'
 import { Right } from './Right'
 import { Shadow } from './Shadow'
@@ -14,6 +15,7 @@ export function Ui(): ReactNode {
     <div id="ui-root">
       <div id="ui">
         <Shadow />
+        <Guides />
         <Detail />
         <Header />
         <Footer />
