@@ -16,18 +16,17 @@ function Measure(): ReactNode {
     <g>
       <text id="longitude">E 135.123456</text>
       <text id="latitude">N 35.123456</text>
-      <g className="distance-x">
+      <g className="distance">
+        <text id={`distance-origin`}>0m</text>
         {INDEXES.map((i, idx) => (
-          <text key={idx} id={`distance-x-${i}`}>
-            {(i + 1) * 10 + `m`}
-          </text>
-        ))}
-      </g>
-      <g className="distance-y">
-        {INDEXES.map((i, idx) => (
-          <text key={idx} id={`distance-y-${i}`}>
-            {(i + 1) * 10 + `m`}
-          </text>
+          <>
+            <text key={idx} id={`distance-x-${i}`}>
+              {(i + 1) * 10 + `m`}
+            </text>
+            <text key={idx} id={`distance-y-${i}`}>
+              {(i + 1) * 10 + `m`}
+            </text>
+          </>
         ))}
       </g>
       <path id="measure" stroke="black" strokeWidth="0.15px" fill="none" d="" />
@@ -101,6 +100,14 @@ export function MeasureStyle(): ReactNode {
 }
 `
 
+  const distanceOriginStyle = `
+#distance-origin {
+  transform: translate(${width / 2 + 2}px, ${height / 2 + 8}px) scale(0.5);
+  font-size: medium;
+  font-weight: lighter;
+  text-anchor: start;
+}
+`
   const distanceXStyle = INDEXES.map((i) => {
     const r = 100 * (i + 1)
     return `
@@ -131,6 +138,7 @@ export function MeasureStyle(): ReactNode {
       {animationStyle}
       {longitudeStyle}
       {latitudeStyle}
+      {distanceOriginStyle}
       {distanceXStyle}
       {distanceYStyle}
     </>
