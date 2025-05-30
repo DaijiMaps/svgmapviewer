@@ -51,6 +51,8 @@ export function Guides(): ReactNode {
 function Measure(): ReactNode {
   return (
     <g>
+      <text id="longitude">E 135.123456</text>
+      <text id="latitude">N 35.123456</text>
       <path id="measure" stroke="black" strokeWidth="0.15px" fill="none" d="" />
     </g>
   )
@@ -109,10 +111,27 @@ export function MeasureStyle(): ReactNode {
 }
 `
 
+  const longitudeStyle = `
+#longitude {
+  transform: translate(${width / 2 + 1}px, ${height / 2 + 8}px) scale(0.5);
+  font-size: medium;
+  font-weight: lighter;
+}
+`
+  const latitudeStyle = `
+#latitude {
+  transform: translate(${width / 2 + 1}px, ${height / 2 - 2}px) scale(0.5);
+  font-size: medium;
+  font-weight: lighter;
+}
+`
+
   return (
     <>
       {pathStyle}
       {animationStyle}
+      {longitudeStyle}
+      {latitudeStyle}
     </>
   )
 }
