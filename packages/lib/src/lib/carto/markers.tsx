@@ -26,6 +26,9 @@ export function RenderMapMarkers(): ReactNode {
       ))}
       */}
       <RenderPosition sz={sz} />
+      <style>
+        <RenderPositionStyle />
+      </style>
     </g>
   )
 }
@@ -132,29 +135,18 @@ export function RenderMarker(
 }
 
 export function RenderPosition(props: Readonly<{ sz: number }>): ReactNode {
-  const position = usePosition()
-
-  if (position === null) {
-    return <></>
-  }
-
-  const { x, y } = cfg.mapCoord.fromGeo({
-    x: position.coords.longitude,
-    y: position.coords.latitude,
-  })
   const h = (props.sz * 1.5) / 5
   const r = Math.sqrt(2) * h
 
-  return position === null ? (
-    <></>
-  ) : (
+  return (
     <path
       className="position"
+      id="position"
       fill="red"
       fillOpacity="1"
       stroke="none"
       d={`
-M ${x},${y}
+M 0,0
 l ${-h},${-h}
 a ${r},${r} 0,1,1 ${2 * h},0
 z
@@ -163,5 +155,31 @@ a ${r / 2},${r / 2} 0,1,0 0,${-r}
 a ${r / 2},${r / 2} 0,1,0 0,${r}
 `.replaceAll(/([.]\d\d)\d*/g, '$1')}
     />
+  )
+}
+
+export function RenderPositionStyle(): ReactNode {
+  const position = usePosition()
+
+  if (position === null) {
+    return (
+      <>{`
+#position {
+  display: none;
+}`}</>
+    )
+  }
+
+  const { x, y } = cfg.mapCoord.fromGeo({
+    x: position.coords.longitude,
+    y: position.coords.latitude,
+  })
+
+  return (
+    <>{`
+#position {
+  transform: translate(${x}px, ${y}px);
+}
+`}</>
   )
 }
