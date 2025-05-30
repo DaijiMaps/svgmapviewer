@@ -17,30 +17,37 @@ export type GeoLocContext = {
 export type GeoLocEvent = { type: 'GET' }
 export type GeoLocEmitted = { type: 'POSITION'; position: GeolocationPosition }
 
+const TIMEOUT = 5000
+
+async function getGeolocationPosition(): Promise<GeolocationPosition> {
+  return new Promise((resolve, reject) => {
+    const successCb: PositionCallback = (position: GeolocationPosition) => {
+      resolve(position)
+    }
+    const errorCb: PositionErrorCallback = (
+      error: GeolocationPositionError
+    ) => {
+      reject(error)
+    }
+    const options: PositionOptions = {
+      enableHighAccuracy: true,
+      timeout: TIMEOUT,
+      maximumAge: 0,
+    }
+    navigator.geolocation.getCurrentPosition(successCb, errorCb, options)
+  })
+}
+
 const geolocMachine = setup({
   types: {
     events: {} as GeoLocEvent,
     emitted: {} as GeoLocEmitted,
   },
   actors: {
-    api: fromPromise<GeolocationPosition>(async function () {
-      return new Promise((resolve, reject) => {
-        const successCb: PositionCallback = (position: GeolocationPosition) => {
-          resolve(position)
-        }
-        const errorCb: PositionErrorCallback = (
-          error: GeolocationPositionError
-        ) => {
-          reject(error)
-        }
-        const options: PositionOptions = {
-          enableHighAccuracy: true,
-          timeout: 5000,
-          maximumAge: 0,
-        }
-        navigator.geolocation.getCurrentPosition(successCb, errorCb, options)
-      })
-    }),
+    api: fromPromise(getGeolocationPosition),
+  },
+  delays: {
+    TIMEOUT: TIMEOUT,
   },
 }).createMachine({
   id: 'geoloc',
@@ -93,15 +100,13 @@ const geolocMachine = setup({
     },
     Retrying: {
       after: {
-        5000: {
+        TIMEOUT: {
           target: 'Getting',
         },
       },
     },
   },
 })
-
-////
 
 const geolocActor = createActor(geolocMachine)
 geolocActorStart()
@@ -113,8 +118,6 @@ export function geolocActorStart(): void {
 export function geolocSend(ev: GeoLocEvent): void {
   geolocActor.send(ev)
 }
-
-////
 
 export function getPosition(): void {
   geolocSend({ type: 'GET' })
