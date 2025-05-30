@@ -125,3 +125,15 @@ export function setCurrentScroll(
 export function getCurrentScroll(): BoxBox {
   return currentScroll
 }
+
+////
+
+export type ScrollCb = (ev: React.UIEvent<HTMLDivElement, Event>) => void
+
+export const scrollCbs: Set<ScrollCb> = new Set()
+
+export function notifyScroll(ev: React.UIEvent<HTMLDivElement, Event>): void {
+  scrollCbs.forEach((cb) => cb(ev))
+}
+
+scrollCbs.add(setCurrentScroll)

@@ -1,5 +1,7 @@
 import { Fragment, type ReactNode } from 'react'
+import { assign, createActor, emit, setup } from 'xstate'
 import './Guides.css'
+import { scrollCbs } from './lib/scroll'
 import { useLayout } from './lib/style-xstate'
 import { useOpenCloseBalloon } from './lib/ui-xstate'
 
@@ -150,3 +152,137 @@ const INDEXES = [
 // XXX
 // XXX
 // XXX
+
+type EV = React.UIEvent<HTMLDivElement, Event>
+
+type Events = { type: 'TICK'; ev: EV }
+type Emitted = { type: 'CALL'; ev: null | EV }
+type Context = {
+  lastTicked: null | EV
+  lastCalled: null | EV
+}
+
+const throttleMachine = setup({
+  types: {
+    events: {} as Events,
+    emitted: {} as Emitted,
+    context: {} as Context,
+  },
+  actions: {
+    call: emit(
+      (_, { ev }: { ev: null | EV }): Emitted => ({ type: 'CALL', ev })
+    ),
+  },
+}).createMachine({
+  id: 'throttle1',
+  context: {
+    lastTicked: null,
+    lastCalled: null,
+  },
+  initial: 'Idle',
+  states: {
+    Idle: {
+      on: {
+        TICK: {
+          actions: [
+            { type: 'call', params: ({ event: { ev } }) => ({ ev }) },
+            assign({
+              lastTicked: null,
+              lastCalled: ({ event: { ev } }) => ev,
+            }),
+          ],
+          target: 'Active',
+        },
+      },
+    },
+    Active: {
+      after: {
+        500: {
+          target: 'Expired',
+        },
+      },
+      on: {
+        TICK: [
+          {
+            guard: ({ context }) => context.lastTicked === null,
+            actions: assign({
+              lastTicked: ({ event }) => event.ev,
+            }),
+            target: 'Restarting',
+          },
+          // XXX
+          // XXX emit call at least once in 500ms
+          // XXX
+          {
+            guard: ({ context, event }) =>
+              context.lastCalled !== null &&
+              event.ev.timeStamp - context.lastCalled.timeStamp > 500,
+            actions: [
+              { type: 'call', params: ({ event: { ev } }) => ({ ev }) },
+              assign({
+                lastTicked: null,
+                lastCalled: ({ event: { ev } }) => ev,
+              }),
+            ],
+            target: 'Idle',
+          },
+          {
+            actions: assign({
+              lastTicked: ({ event }) => event.ev,
+            }),
+            target: 'Restarting',
+          },
+        ],
+      },
+    },
+    Restarting: {
+      always: 'Active',
+    },
+    // XXX
+    // XXX expire & emit call when 500ms passes since the last tick
+    // XXX
+    Expired: {
+      always: [
+        {
+          actions: [
+            {
+              type: 'call',
+              params: ({ context }) => ({ ev: context.lastTicked }),
+            },
+            assign({
+              lastTicked: null,
+              lastCalled: ({ context }) => context.lastTicked,
+            }),
+          ],
+          target: 'Idle',
+        },
+      ],
+    },
+  },
+})
+
+const throttleActor = createActor(throttleMachine)
+
+throttleActor.start()
+
+throttleActor.on('CALL', ({ ev }) => {
+  if (ev !== null) {
+    const e: null | HTMLDivElement = document.querySelector('#longitude')
+    if (e === null) {
+      return
+    }
+    e.innerHTML = `E ${ev.timeStamp}`
+  }
+})
+
+// XXX
+// XXX
+// XXX
+function updateGeo(ev: EV): void {
+  throttleActor.send({ type: 'TICK', ev })
+}
+// XXX
+// XXX
+// XXX
+
+scrollCbs.add(updateGeo)
