@@ -1,44 +1,7 @@
 import { type ReactNode } from 'react'
 import './Guides.css'
-import { boxCenter } from './lib/box/prefixed'
-import { type LayoutConfig } from './lib/layout'
 import { useLayout } from './lib/style-xstate'
 import { useOpenCloseBalloon } from './lib/ui-xstate'
-import { type Vec } from './lib/vec'
-
-export interface GuideParams {
-  c: Vec
-  r: number
-  w: number
-}
-
-function guideParams(config: LayoutConfig): GuideParams {
-  return {
-    c: boxCenter(config.container),
-    r: config.fontSize / 2,
-    w: (config.fontSize * 0.05) / 2,
-  }
-}
-
-function PanningGuides(props: Readonly<{ _p: GuideParams }>): ReactNode {
-  const { c, r, w } = props._p
-
-  return (
-    <path
-      d={`
-M${c.x},${c.y}
-m${r * -20},0
-h${r * 40}
-m${r * -20},${r * -20}
-v${r * 40}
-`}
-      stroke="black"
-      strokeWidth={w}
-    />
-  )
-}
-
-export interface GuidesProps {}
 
 export function Guides(): ReactNode {
   return (
