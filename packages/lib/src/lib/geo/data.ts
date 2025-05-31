@@ -22,11 +22,7 @@ import {
 export type MapData = {
   areas: MultiPolygonGeoJSON
   origin: PointGeoJSON
-  measures: LineGeoJSON<{
-    direction: string
-    distance: number
-    ellipsoidal_distance: number
-  }>
+  measures: LineGeoJSON<MeasureProperties>
   viewbox: LineGeoJSON
 
   points: OsmPointGeoJSON
@@ -40,11 +36,7 @@ export type MapData = {
 export const emptyMapData: MapData = {
   areas: emptyGeoJSON as MultiPolygonGeoJSON,
   origin: emptyGeoJSON as PointGeoJSON,
-  measures: emptyGeoJSON as LineGeoJSON<{
-    direction: string
-    distance: number
-    ellipsoidal_distance: number
-  }>,
+  measures: emptyGeoJSON as LineGeoJSON<MeasureProperties>,
   viewbox: emptyGeoJSON as LineGeoJSON,
 
   points: emptyGeoJSON as OsmPointGeoJSON,
@@ -69,4 +61,10 @@ export interface OsmPointLikeGeoJSON {
   points: OsmPointGeoJSON
   midpoints: OsmMidpointGeoJSON
   centroids: OsmCentroidGeoJSON
+}
+
+export type MeasureProperties = {
+  direction: string
+  distance: number
+  ellipsoidal_distance: number
 }
