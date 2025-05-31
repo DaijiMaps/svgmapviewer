@@ -49,6 +49,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   mapCoord: {
     fromGeo: mapCoordDefault,
     toGeo: mapCoordDefault,
+    matrix: new DOMMatrixReadOnly(),
   },
   mapHtmlStyle: '',
   mapSymbols: [],

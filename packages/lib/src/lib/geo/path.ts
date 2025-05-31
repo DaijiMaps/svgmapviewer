@@ -37,7 +37,8 @@ export function multiPolygonToPath(vsss: Readonly<MultiPolygon>): string {
 // XXX
 // XXX
 // XXX
-const vFromGeo = (p: V): V => vUnvec(cfg.mapCoord.fromGeo(vVec(p)))
+const vFromGeo = (p: V): V =>
+  vUnvec(cfg.mapCoord.matrix.transformPoint(vVec(p)))
 // XXX
 // XXX
 // XXX

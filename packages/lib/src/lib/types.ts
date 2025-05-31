@@ -8,7 +8,7 @@ import {
   type MapObjects,
   type MapSymbols,
 } from './carto'
-import { type MapData, type POI } from './geo'
+import { type MapCoord, type MapData, type POI } from './geo'
 import { type Layout } from './layout'
 import { type LayoutCoord } from './layout-types'
 import { type Vec } from './vec'
@@ -144,10 +144,7 @@ export interface SvgMapViewerConfig {
   //renderMap: RenderMap
   renderInfo: RenderInfo
   mapData: MapData
-  mapCoord: {
-    toGeo: (p: Vec) => Vec
-    fromGeo: (p: Vec) => Vec
-  }
+  mapCoord: MapCoord
   mapHtmlStyle: string
   mapSymbols: POI[]
   mapNames: POI[]

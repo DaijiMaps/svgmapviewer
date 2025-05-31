@@ -16,9 +16,10 @@ export function Guides(): ReactNode {
 
 function Measure(): ReactNode {
   return (
-    <g>
-      <text id="longitude">E 135.123456</text>
-      <text id="latitude">N 35.123456</text>
+    <>
+      <g className="measure">
+        <MeasurePath />
+      </g>
       <g className="distance">
         <text id={`distance-origin`}>0m</text>
         {INDEXES.map((i) => (
@@ -28,8 +29,11 @@ function Measure(): ReactNode {
           </Fragment>
         ))}
       </g>
-      <MeasurePath />
-    </g>
+      <g className="coordinate">
+        <text id="longitude">E 135.123456</text>
+        <text id="latitude">N 35.123456</text>
+      </g>
+    </>
   )
 }
 

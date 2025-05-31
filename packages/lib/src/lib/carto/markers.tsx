@@ -72,7 +72,7 @@ function getMidpoints(filter: MidpointsFilter): MapMarker[] {
 }
 
 function conv(p: V): V {
-  return vUnvec(cfg.mapCoord.fromGeo(vVec(p)))
+  return vUnvec(cfg.mapCoord.matrix.transformPoint(vVec(p)))
 }
 
 export function RenderMarkers(
@@ -176,7 +176,7 @@ export function RenderPositionStyle(): ReactNode {
     )
   }
 
-  const { x, y } = cfg.mapCoord.fromGeo({
+  const { x, y } = cfg.mapCoord.matrix.transformPoint({
     x: position.coords.longitude,
     y: position.coords.latitude,
   })

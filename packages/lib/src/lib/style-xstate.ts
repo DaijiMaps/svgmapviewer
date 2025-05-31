@@ -20,6 +20,7 @@ interface StyleContext {
   dragging: boolean
   mode: string
   animation: null | Animation
+  scrollToGeo: null | DOMMatrixReadOnly
   lonlat: null | VecVec
 }
 
@@ -33,8 +34,15 @@ const styleMachine = setup({
       if (context.lonlat === null) {
         return
       }
+      // XXX scroll event + currentTarget
+      // XXX x: scrollLeft + clientWidth / 2
+      // XXX y: scrollTop + clientHeight / 2
+      // XXX scroll -> svg -> geo
+      // XXX DOMMatrix
       const psvg = toSvg(context.lonlat, context.layout)
-      const pgeo = svgMapViewerConfig.mapCoord.toGeo(psvg)
+      const pgeo = svgMapViewerConfig.mapCoord.matrix
+        .inverse()
+        .transformPoint(psvg)
       const lon = document.querySelector('#longitude')
       const lat = document.querySelector('#latitude')
       if (lon !== null && lat !== null) {
@@ -52,6 +60,7 @@ const styleMachine = setup({
     dragging: false,
     mode: 'panning',
     animation: null,
+    scrollToGeo: null,
     lonlat: null,
   },
   initial: 'Idle',
@@ -67,6 +76,13 @@ const styleMachine = setup({
               // if not animating, transition from !rendered to rendered triggers opacity animation
               (!context.rendered && event.rendered && !context.animating),
             layout: ({ event }) => event.layout,
+            // XXX
+            // XXX
+            // XXX
+            scrollToGeo: null,
+            // XXX
+            // XXX
+            // XXX
           }),
         },
         'STYLE.DRAGGING': {

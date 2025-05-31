@@ -9,7 +9,7 @@ import {
   vecSub,
   vecVec,
 } from '../vec/prefixed'
-import { type MapData } from './data'
+import { type MapCoord, type MapData } from './data'
 import { type LineGeoJSON } from './geojson-types'
 
 function getViewBox(viewbox: Readonly<LineGeoJSON>): BoxBox {
@@ -22,42 +22,47 @@ function getViewBox(viewbox: Readonly<LineGeoJSON>): BoxBox {
   return { x, y, width, height }
 }
 
-export function calcScale(mapData: Readonly<MapData>): {
-  mapCoord: {
-    fromGeo: (pgeo: VecVec) => VecVec
-    toGeo: (pgeo: VecVec) => VecVec
-  }
+// XXX
+// XXX DOMMatrixReadonly
+// XXX
+export function calcScale({ origin, measures, viewbox }: Readonly<MapData>): {
+  mapCoord: MapCoord
   mapViewBox: BoxBox
 } {
-  const o = vecFromV(
-    mapData.origin.features[0].geometry.coordinates as unknown as V
+  const o = vecFromV(origin.features[0].geometry.coordinates as unknown as V)
+
+  const fp = measures.features[0]
+  const fq = measures.features[1]
+
+  const p = vecFromV(fp.geometry.coordinates[1] as unknown as V)
+  const q = vecFromV(fq.geometry.coordinates[1] as unknown as V)
+
+  // 1m == svg 1px
+  const distsvg = vecVec(
+    fp.properties.ellipsoidal_distance,
+    fq.properties.ellipsoidal_distance
   )
+  const distgeo = vecVec(p.x - o.x, q.y - o.y)
 
-  const p = mapData.measures.features[0]
-  const q = mapData.measures.features[1]
-
-  const dist = vecVec(
-    p.properties.ellipsoidal_distance,
-    q.properties.ellipsoidal_distance
-  )
-
-  const pq = vecVec(p.geometry.coordinates[1][0], q.geometry.coordinates[1][1])
-
-  const len = vecSub(pq, o)
-
-  const distScale = vecDiv(dist, len)
+  const distScale = vecDiv(distsvg, distgeo)
 
   // XXX svg <-> geo coordinate
   // XXX XXX use matrix
 
   const fromGeo = (pgeo: VecVec): VecVec => vecMul(vecSub(pgeo, o), distScale)
   const toGeo = (psvg: VecVec): VecVec => vecAdd(vecDiv(psvg, distScale), o)
-  const mapViewBox: BoxBox = boxScale(getViewBox(mapData.viewbox), distScale)
+
+  const geoToSvgMatrix = new DOMMatrixReadOnly()
+    .scale(distScale.x, distScale.y)
+    .translate(-o.x, -o.y)
+
+  const mapViewBox: BoxBox = boxScale(getViewBox(viewbox), distScale)
 
   return {
     mapCoord: {
       fromGeo: fromGeo,
       toGeo: toGeo,
+      matrix: geoToSvgMatrix,
     },
     mapViewBox,
   }

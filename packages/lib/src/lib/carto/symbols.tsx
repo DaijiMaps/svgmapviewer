@@ -68,7 +68,7 @@ function getMidpoints(filter: MidpointsFilter) {
 }
 
 function conv(p: V): V {
-  return vUnvec(cfg.mapCoord.fromGeo(vVec(p)))
+  return vUnvec(cfg.mapCoord.matrix.transformPoint(vVec(p)))
 }
 
 export function RenderUses(
