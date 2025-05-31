@@ -18,6 +18,7 @@ import {
   notifyZoomStart,
   registerCbs,
 } from './config-xstate'
+import { fromMatrixSvg } from './coord'
 import { scrollTimeoutActorSend } from './event-xstate'
 import { keyToZoom } from './key'
 import {
@@ -27,7 +28,6 @@ import {
   type LayoutConfig,
   makeLayout,
   scrollLayout,
-  toSvg,
 } from './layout'
 import { getCurrentScroll } from './scroll'
 import { type GetDone, type SyncSyncDone } from './scroll-types'
@@ -221,9 +221,10 @@ const viewerMachine = setup({
     notifySearch: emit(({ context }): ViewerEmitted => {
       const scroll = getCurrentScroll()
       const l = scrollLayout(context.layout, scroll)
+      const m = fromMatrixSvg(l).inverse()
       return {
         type: 'SEARCH',
-        psvg: toSvg(context.cursor, l),
+        psvg: m.transformPoint(context.cursor),
       }
     }),
     notifySearchDone: raise({ type: 'SEARCH.DONE' }),

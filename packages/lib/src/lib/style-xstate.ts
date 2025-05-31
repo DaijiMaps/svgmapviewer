@@ -2,7 +2,8 @@ import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
 import { type Animation } from './animation'
 import { svgMapViewerConfig } from './config'
-import { emptyLayout, toSvg, type Layout } from './layout'
+import { fromMatrixSvg } from './coord'
+import { emptyLayout, type Layout } from './layout'
 import type { VecVec } from './vec/prefixed'
 
 export type StyleEvent =
@@ -39,10 +40,11 @@ const styleMachine = setup({
       // XXX y: scrollTop + clientHeight / 2
       // XXX scroll -> svg -> geo
       // XXX DOMMatrix
-      const psvg = toSvg(context.lonlat, context.layout)
-      const pgeo = svgMapViewerConfig.mapCoord.matrix
-        .inverse()
-        .transformPoint(psvg)
+      const m = fromMatrixSvg(context.layout).inverse()
+      const psvg = m.transformPoint(context.lonlat)
+      const m2 = svgMapViewerConfig.mapCoord.matrix.inverse()
+      const pgeo = m2.transformPoint(psvg)
+
       const lon = document.querySelector('#longitude')
       const lat = document.querySelector('#latitude')
       if (lon !== null && lat !== null) {

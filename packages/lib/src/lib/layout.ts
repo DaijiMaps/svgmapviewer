@@ -101,7 +101,8 @@ export function expandLayoutCenter(layout: Layout, expand: number): Layout {
 }
 
 export function expandLayout(layout: Layout, s: number, cursor: Vec): Layout {
-  const o = toSvg(cursor, layout)
+  const m = fromMatrixSvg(layout).inverse()
+  const o = m.transformPoint(cursor)
 
   const ratio = layout.container.width / layout.container.height
   const sx = ratio < 1 ? s / ratio : s
@@ -168,8 +169,6 @@ export function scrollLayout(layout: Layout, scroll: Box): Layout {
 //// toOuter
 //// fromOuter
 
-export const toSvg = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
-  fromMatrixSvg(layout).inverse().transformPoint(p)
 export const fromSvg = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
   fromMatrixSvg(layout).transformPoint(p)
 export const toOuter = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
