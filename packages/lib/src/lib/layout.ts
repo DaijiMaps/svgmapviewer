@@ -14,7 +14,7 @@ import {
   emptyLayoutCoord,
   fromMatrixSvg,
   fromScroll,
-  fromSvgToOuter,
+  fromSvgToScroll,
   makeCoord,
 } from './coord'
 import { fit } from './fit'
@@ -68,7 +68,7 @@ export function configLayout(
 
 export function makeLayout(config: LayoutConfig): Layout {
   const coord = makeCoord(config)
-  const svgMatrix = fromSvgToOuter(coord)
+  const svgMatrix = fromSvgToScroll(coord)
 
   const layout = {
     config,
@@ -80,10 +80,9 @@ export function makeLayout(config: LayoutConfig): Layout {
 }
 
 function updateSvgMatrix(layout: Readonly<Layout>): Layout {
-  const svgMatrix = fromSvgToOuter(layout)
   return {
     ...layout,
-    svgMatrix,
+    svgMatrix: fromSvgToScroll(layout),
   }
 }
 

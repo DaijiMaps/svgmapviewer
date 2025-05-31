@@ -36,7 +36,7 @@ export const makeCoord = ({
 }
 
 // svg -> scroll (content)
-export const fromSvgToOuter = ({
+export const fromSvgToScroll = ({
   svgOffset,
   svgScale,
   svg,
