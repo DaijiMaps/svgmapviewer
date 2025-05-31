@@ -7,7 +7,6 @@ import { BalloonStyle } from './Balloon'
 import { FooterStyle } from './Footer'
 import { MeasureStyle } from './Guides'
 import { HeaderStyle } from './Header'
-import { fromSvgToOuter } from './lib/coord'
 import { fixupCssString } from './lib/css'
 import { diag } from './lib/diag'
 import { useLayoutConfig, useLayoutSvgScaleS, useZoom } from './lib/map-xstate'
@@ -59,9 +58,8 @@ function Style(): ReactNode {
 function LayoutStyle(): ReactNode {
   const rendered = useRendered()
   const animating = useAnimating()
-  const { svg, svgOffset, svgScale, scroll } = useLayout()
-  const m = fromSvgToOuter({ svg, svgOffset, svgScale })
-  const matrix = fixupCssString(m.toString())
+  const { svg, svgScale, svgMatrix, scroll } = useLayout()
+  const matrix = fixupCssString(svgMatrix.toString())
 
   useEffect(() => {
     requestAnimationFrame(() => viewerSend({ type: 'RENDERED' }))

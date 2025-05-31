@@ -41,5 +41,6 @@ export type LayoutConfig = Readonly<{
 export type Layout = Readonly<
   LayoutCoord & {
     readonly config: LayoutConfig
+    readonly svgMatrix: DOMMatrixReadOnly
   }
 >
