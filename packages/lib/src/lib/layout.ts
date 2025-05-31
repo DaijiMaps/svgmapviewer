@@ -10,13 +10,7 @@ import {
   boxUnit,
 } from './box/prefixed'
 import { svgMapViewerConfig } from './config'
-import {
-  emptyLayoutCoord,
-  fromMatrixOuter,
-  fromMatrixSvg,
-  fromScroll,
-  makeCoord,
-} from './coord'
+import { emptyLayoutCoord, fromMatrixSvg, fromScroll, makeCoord } from './coord'
 import { fit } from './fit'
 import type {
   HtmlLayoutCoord,
@@ -163,18 +157,6 @@ export function scrollLayout(layout: Layout, scroll: Box): Layout {
     (l) => recenterLayout(l, boxCopy(layout.scroll))
   )
 }
-
-//// toSvg
-//// fromSvg
-//// toOuter
-//// fromOuter
-
-export const fromSvg = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
-  fromMatrixSvg(layout).transformPoint(p)
-export const toOuter = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
-  fromMatrixOuter(layout).inverse().transformPoint(p)
-export const fromOuter = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
-  fromMatrixOuter(layout).transformPoint(p)
 
 ////
 

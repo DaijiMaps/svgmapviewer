@@ -1,8 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, emit, not, raise, setup } from 'xstate'
 import { notifyUiCloseDone, registerCbs } from './config-xstate'
-import { emptyLayoutCoord, type LayoutCoord } from './coord'
-import { fromSvg } from './layout'
+import { emptyLayoutCoord, fromMatrixSvg, type LayoutCoord } from './coord'
 import {
   type OpenClose,
   openCloseClose,
@@ -121,12 +120,15 @@ const uiMachine = setup({
             },
             DETAIL: {
               actions: assign({
-                detail: ({ event: { psvg, info, layout } }) => ({
-                  psvg,
-                  p: fromSvg(psvg, layout),
-                  info,
-                  layout,
-                }),
+                detail: ({ event: { psvg, info, layout } }) => {
+                  const m = fromMatrixSvg(layout)
+                  return {
+                    psvg,
+                    p: m.transformPoint(psvg),
+                    info,
+                    layout,
+                  }
+                },
               }),
               target: 'Detail',
             },
