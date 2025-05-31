@@ -281,7 +281,13 @@ const throttleMachine = setup({
       always: [
         {
           actions: [
+            // XXX
+            // XXX
+            // XXX
             // XXX getCurrentScroll
+            // XXX
+            // XXX
+            // XXX
             {
               type: 'call',
               params: ({ context }) => context.lastTicked,
