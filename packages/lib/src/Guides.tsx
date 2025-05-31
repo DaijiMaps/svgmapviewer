@@ -168,11 +168,16 @@ const INDEXES = [
 
 type EV = React.UIEvent<HTMLDivElement, Event>
 
+type Call = {
+  p: VecVec
+  timeStamp: number
+}
+
 type Events = { type: 'TICK'; ev: EV }
-type Emitted = { type: 'CALL'; ev: null | EV }
+type Emitted = { type: 'CALL'; p: null | VecVec }
 type Context = {
-  lastTicked: null | EV
-  lastCalled: null | EV
+  lastTicked: null | Call
+  lastCalled: null | Call
 }
 
 const throttleMachine = setup({
@@ -183,7 +188,10 @@ const throttleMachine = setup({
   },
   actions: {
     call: emit(
-      (_, { ev }: { ev: null | EV }): Emitted => ({ type: 'CALL', ev })
+      (_, args: null | Call): Emitted => ({
+        type: 'CALL',
+        p: args === null ? null : args.p,
+      })
     ),
   },
 }).createMachine({
@@ -198,14 +206,36 @@ const throttleMachine = setup({
       on: {
         TICK: {
           actions: [
-            { type: 'call', params: ({ event: { ev } }) => ({ ev }) },
+            { type: 'call', params: ({ event: { ev } }) => evToCall(ev) },
             assign({
               lastTicked: null,
-              lastCalled: ({ event: { ev } }) => ev,
+              lastCalled: ({ event: { ev } }) => evToCall(ev),
             }),
           ],
-          target: 'Active',
+          target: 'Empty',
         },
+      },
+    },
+    Empty: {
+      after: {
+        500: {
+          actions: assign({
+            lastTicked: null,
+            lastCalled: null,
+          }),
+          target: 'Idle',
+        },
+      },
+      on: {
+        TICK: [
+          {
+            guard: ({ context }) => context.lastTicked === null,
+            actions: assign({
+              lastTicked: ({ event: { ev } }) => evToCall(ev),
+            }),
+            target: 'Active',
+          },
+        ],
       },
     },
     Active: {
@@ -216,13 +246,6 @@ const throttleMachine = setup({
       },
       on: {
         TICK: [
-          {
-            guard: ({ context }) => context.lastTicked === null,
-            actions: assign({
-              lastTicked: ({ event }) => event.ev,
-            }),
-            target: 'Restarting',
-          },
           // XXX
           // XXX emit call at least once in 500ms
           // XXX
@@ -231,17 +254,17 @@ const throttleMachine = setup({
               context.lastCalled !== null &&
               event.ev.timeStamp - context.lastCalled.timeStamp > 500,
             actions: [
-              { type: 'call', params: ({ event: { ev } }) => ({ ev }) },
+              { type: 'call', params: ({ event: { ev } }) => evToCall(ev) },
               assign({
                 lastTicked: null,
-                lastCalled: ({ event: { ev } }) => ev,
+                lastCalled: null,
               }),
             ],
             target: 'Idle',
           },
           {
             actions: assign({
-              lastTicked: ({ event }) => event.ev,
+              lastTicked: ({ event: { ev } }) => evToCall(ev),
             }),
             target: 'Restarting',
           },
@@ -258,13 +281,14 @@ const throttleMachine = setup({
       always: [
         {
           actions: [
+            // XXX getCurrentScroll
             {
               type: 'call',
-              params: ({ context }) => ({ ev: context.lastTicked }),
+              params: ({ context }) => context.lastTicked,
             },
             assign({
               lastTicked: null,
-              lastCalled: ({ context }) => context.lastTicked,
+              lastCalled: null,
             }),
           ],
           target: 'Idle',
@@ -274,17 +298,25 @@ const throttleMachine = setup({
   },
 })
 
-const throttleActor = createActor(throttleMachine)
+function evToCall(ev: EV): { p: VecVec; timeStamp: number } {
+  return {
+    p: {
+      x: ev.currentTarget.scrollLeft + ev.currentTarget.clientWidth / 2,
+      y: ev.currentTarget.scrollTop + ev.currentTarget.clientHeight / 2,
+    },
+    timeStamp: ev.timeStamp,
+  }
+}
+
+const throttleActor = createActor(throttleMachine, {
+  //inspect: (iev) => console.log(iev),
+})
 
 throttleActor.start()
 
-throttleActor.on('CALL', ({ ev }) => {
-  if (ev === null) {
+throttleActor.on('CALL', ({ p }) => {
+  if (p === null) {
     return
-  }
-  const p: VecVec = {
-    x: ev.currentTarget.scrollLeft + ev.currentTarget.clientWidth / 2,
-    y: ev.currentTarget.scrollTop + ev.currentTarget.clientHeight / 2,
   }
   styleSend({ type: 'STYLE.LONLAT', p })
 })

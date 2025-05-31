@@ -59,7 +59,7 @@ function LayoutStyle(): ReactNode {
   const rendered = useRendered()
   const animating = useAnimating()
   const { svg, svgScale, svgMatrix, scroll } = useLayout()
-  const matrix = fixupCssString(svgMatrix.toString())
+  const matrixString = fixupCssString(svgMatrix.toString())
 
   useEffect(() => {
     requestAnimationFrame(() => viewerSend({ type: 'RENDERED' }))
@@ -78,7 +78,7 @@ ${!animating ? appearing_none : appearing}
   --svg-viewbox: ${svg.x} ${svg.y} ${svg.width} ${svg.height};
 }
 .container > .content.html {
-  --svg-matrix: ${matrix};
+  --svg-matrix: ${matrixString};
   --svg-scale: ${svgScale.s};
 }
 `}</>

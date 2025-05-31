@@ -2,7 +2,6 @@ import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
 import { type Animation } from './animation'
 import { svgMapViewerConfig } from './config'
-import { fromMatrixSvg } from './coord'
 import { emptyLayout, type Layout } from './layout'
 import type { VecVec } from './vec/prefixed'
 
@@ -11,7 +10,7 @@ export type StyleEvent =
   | { type: 'STYLE.DRAGGING'; dragging: boolean }
   | { type: 'STYLE.MODE'; mode: string }
   | { type: 'STYLE.ANIMATION'; animation: null | Animation } // null to stop animation
-  | { type: 'STYLE.LONLAT'; p: VecVec }
+  | { type: 'STYLE.LONLAT'; p: VecVec } // p == pscroll
   | { type: 'ANIMATION.END' } // null to stop animation
 
 interface StyleContext {
@@ -21,8 +20,7 @@ interface StyleContext {
   dragging: boolean
   mode: string
   animation: null | Animation
-  scrollToGeo: null | DOMMatrixReadOnly
-  lonlat: null | VecVec
+  geoMatrix: DOMMatrixReadOnly
 }
 
 const styleMachine = setup({
@@ -31,25 +29,15 @@ const styleMachine = setup({
     context: {} as StyleContext,
   },
   actions: {
-    setLonLat: ({ context }) => {
-      if (context.lonlat === null) {
-        return
-      }
-      // XXX scroll event + currentTarget
-      // XXX x: scrollLeft + clientWidth / 2
-      // XXX y: scrollTop + clientHeight / 2
-      // XXX scroll -> svg -> geo
-      // XXX DOMMatrix
-      const m = fromMatrixSvg(context.layout).inverse()
-      const psvg = m.transformPoint(context.lonlat)
-      const m2 = svgMapViewerConfig.mapCoord.matrix.inverse()
-      const pgeo = m2.transformPoint(psvg)
+    setLonLat: ({ context }, { p }: { p: VecVec }) => {
+      // p == pscroll
+      const pgeo = context.geoMatrix.transformPoint(p)
 
       const lon = document.querySelector('#longitude')
       const lat = document.querySelector('#latitude')
       if (lon !== null && lat !== null) {
-        lon.innerHTML = `E ${pgeo.x}`
-        lat.innerHTML = `N ${pgeo.y}`
+        lon.innerHTML = `E ${truncate6(pgeo.x)}`
+        lat.innerHTML = `N ${truncate6(pgeo.y)}`
       }
     },
   },
@@ -62,8 +50,7 @@ const styleMachine = setup({
     dragging: false,
     mode: 'panning',
     animation: null,
-    scrollToGeo: null,
-    lonlat: null,
+    geoMatrix: new DOMMatrixReadOnly(),
   },
   initial: 'Idle',
   states: {
@@ -81,7 +68,10 @@ const styleMachine = setup({
             // XXX
             // XXX
             // XXX
-            scrollToGeo: null,
+            geoMatrix: ({ context }) =>
+              context.layout.svgMatrix
+                .multiply(svgMapViewerConfig.mapCoord.matrix)
+                .inverse(),
             // XXX
             // XXX
             // XXX
@@ -104,10 +94,12 @@ const styleMachine = setup({
         },
         'STYLE.LONLAT': {
           actions: [
+            /*
             assign({
               lonlat: ({ event }) => event.p,
             }),
-            'setLonLat',
+            */
+            { type: 'setLonLat', params: ({ event }) => ({ p: event.p }) },
           ],
         },
         'ANIMATION.END': {
@@ -120,8 +112,13 @@ const styleMachine = setup({
   },
 })
 
+function truncate6(n: number): number {
+  return Math.round(n * 1000000) / 1000000
+}
+
 const styleActor = createActor(styleMachine, {
   systemId: 'system-viewer1',
+  //inspect: (iev) => console.log('style', iev),
 })
 styleActor.start()
 
