@@ -17,7 +17,6 @@ import {
   fromScroll,
   makeCoord,
   toMatrixOuter,
-  toMatrixSvg,
 } from './coord'
 import { fit } from './fit'
 import type {
@@ -171,7 +170,7 @@ export function scrollLayout(layout: Layout, scroll: Box): Layout {
 //// fromOuter
 
 export const toSvg = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
-  toMatrixSvg(layout).transformPoint(p)
+  fromMatrixSvg(layout).inverse().transformPoint(p)
 export const fromSvg = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
   fromMatrixSvg(layout).transformPoint(p)
 export const toOuter = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>

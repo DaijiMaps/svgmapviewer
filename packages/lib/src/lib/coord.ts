@@ -13,7 +13,7 @@ import { vecScale } from './vec/prefixed'
 //// LayoutCoord
 //// makeCoord
 //// toMatrixOuter
-//// toMatrixSvg
+//// fromMatrixSvg
 
 export const emptyLayoutCoord: Readonly<LayoutCoord> = {
   container: boxUnit,
@@ -44,22 +44,6 @@ export const toMatrixOuter = ({ scroll }: Readonly<LayoutCoord>): Matrix => {
 
 export const fromMatrixOuter = ({ scroll }: Readonly<LayoutCoord>): Matrix => {
   return fromTransform(scroll)
-}
-
-// container (window) -> svg
-export const toMatrixSvg = ({
-  scroll,
-  svgOffset,
-  svgScale,
-  svg,
-}: Readonly<LayoutCoord>): DOMMatrixReadOnly => {
-  const m = [
-    fromTransform(svg),
-    fromTransform(svgScale),
-    fromTransform(svgOffset),
-    fromTransform(invMove(scroll)),
-  ].reduce(matrixMultiply)
-  return toDOMMatrix(m)
 }
 
 // svg -> container (window)

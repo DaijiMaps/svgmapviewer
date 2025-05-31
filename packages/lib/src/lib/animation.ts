@@ -2,7 +2,7 @@ import { pipe } from 'fp-ts/lib/function'
 //import { type Readonly } from 'type-fest'
 import { type Box } from './box'
 import { boxCenter, boxScaleAt } from './box/prefixed'
-import { fromMatrixSvg, toMatrixSvg } from './coord'
+import { fromMatrixSvg } from './coord'
 import { type Drag } from './drag'
 import { type Layout, relocLayout, zoomLayout } from './layout'
 import {
@@ -57,7 +57,7 @@ export const animationZoom = (
   z: number,
   cursor: Vec
 ): Animation => {
-  const osvg = toMatrixSvg(layout).transformPoint(cursor)
+  const osvg = fromMatrixSvg(layout).inverse().transformPoint(cursor)
   const s = 1 / zoomToScale(z)
   const q = matrixScaleAt([1 / s, 1 / s], [cursor.x, cursor.y])
 

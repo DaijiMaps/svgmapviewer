@@ -2,7 +2,7 @@ import { pipe } from 'fp-ts/lib/function'
 import { expect, test } from 'vitest'
 import { animationEndLayout, animationMove, animationZoom } from './animation'
 import { type BoxBox as Box, boxCenter, boxScaleAt } from './box/prefixed'
-import { fromMatrixSvg, toMatrixSvg } from './coord'
+import { fromMatrixSvg } from './coord'
 import { dragMove, dragReset, dragStart } from './drag'
 import {
   configLayout,
@@ -183,7 +183,7 @@ test('boxScale', () => {
     layout.config.container.height / 2
   )
 
-  const opsvg = toMatrixSvg(layout).transformPoint(o)
+  const opsvg = fromMatrixSvg(layout).inverse().transformPoint(o)
 
   expect(o.x).toBe(600)
 
@@ -203,7 +203,7 @@ test('boxScale', () => {
     svg,
   }
   //const coordMatrixOuter = toMatrixOuter(coord);
-  const coordMatrixSvg = toMatrixSvg(coord)
+  const coordMatrixSvg = fromMatrixSvg(coord).inverse()
 
   const p = vecVec(600, 500)
   const start = coordMatrixSvg.transformPoint(p)
