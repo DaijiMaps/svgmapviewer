@@ -52,13 +52,14 @@ export const toMatrixSvg = ({
   svgOffset,
   svgScale,
   svg,
-}: Readonly<LayoutCoord>): Matrix => {
-  return [
+}: Readonly<LayoutCoord>): DOMMatrixReadOnly => {
+  const m = [
     fromTransform(svg),
     fromTransform(svgScale),
     fromTransform(svgOffset),
     fromTransform(invMove(scroll)),
   ].reduce(matrixMultiply)
+  return toDOMMatrix(m)
 }
 
 // svg -> container (window)

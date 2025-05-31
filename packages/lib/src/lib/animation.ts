@@ -15,7 +15,6 @@ import {
   invMove,
   invScale,
   type Scale,
-  transformPoint,
   transformScale,
 } from './transform'
 import { ifNullOr, zoomToScale } from './utils'
@@ -58,7 +57,7 @@ export const animationZoom = (
   z: number,
   cursor: Vec
 ): Animation => {
-  const osvg = transformPoint(toMatrixSvg(layout), cursor)
+  const osvg = toMatrixSvg(layout).transformPoint(cursor)
   const s = 1 / zoomToScale(z)
   const q = matrixScaleAt([1 / s, 1 / s], [cursor.x, cursor.y])
 

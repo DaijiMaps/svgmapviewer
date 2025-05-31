@@ -12,7 +12,7 @@ import {
   recenterLayout,
   relocLayout,
 } from './layout'
-import { transformPoint, transformScale } from './transform'
+import { transformScale } from './transform'
 import { vecVec } from './vec/prefixed'
 
 const container: Box = { x: 0, y: 0, width: 1200, height: 1000 }
@@ -183,7 +183,7 @@ test('boxScale', () => {
     layout.config.container.height / 2
   )
 
-  const opsvg = transformPoint(toMatrixSvg(layout), o)
+  const opsvg = toMatrixSvg(layout).transformPoint(o)
 
   expect(o.x).toBe(600)
 
@@ -206,7 +206,7 @@ test('boxScale', () => {
   const coordMatrixSvg = toMatrixSvg(coord)
 
   const p = vecVec(600, 500)
-  const start = transformPoint(coordMatrixSvg, p)
+  const start = coordMatrixSvg.transformPoint(p)
 
   expect(start.x).toBeCloseTo(50)
   expect(start.y).toBeCloseTo(50)

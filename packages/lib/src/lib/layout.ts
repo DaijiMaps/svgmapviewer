@@ -171,7 +171,7 @@ export function scrollLayout(layout: Layout, scroll: Box): Layout {
 //// fromOuter
 
 export const toSvg = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
-  transformPoint(toMatrixSvg(layout), p)
+  toMatrixSvg(layout).transformPoint(p)
 export const fromSvg = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
   fromMatrixSvg(layout).transformPoint(p)
 export const toOuter = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
