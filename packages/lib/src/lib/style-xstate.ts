@@ -93,14 +93,10 @@ const styleMachine = setup({
           }),
         },
         'STYLE.LONLAT': {
-          actions: [
-            /*
-            assign({
-              lonlat: ({ event }) => event.p,
-            }),
-            */
-            { type: 'setLonLat', params: ({ event }) => ({ p: event.p }) },
-          ],
+          actions: {
+            type: 'setLonLat',
+            params: ({ event }) => ({ p: event.p }),
+          },
         },
         'ANIMATION.END': {
           actions: assign({
