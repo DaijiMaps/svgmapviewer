@@ -11,7 +11,7 @@ export const fit = (
 ): readonly [readonly [x: number, y: number], s: number] => {
   const R = o.width / o.height
   const r = i.width / i.height
-  const v = R > r ? fitV(o, r) : fitH(o, r)
+  const [x, y] = R > r ? fitV(o, r) : fitH(o, r)
   const s = R > r ? i.height / o.height : i.width / o.width
-  return [v, s]
+  return [[x, y], s]
 }

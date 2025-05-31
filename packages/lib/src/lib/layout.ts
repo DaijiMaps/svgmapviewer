@@ -16,7 +16,6 @@ import {
   fromMatrixSvg,
   fromScroll,
   makeCoord,
-  toMatrixOuter,
 } from './coord'
 import { fit } from './fit'
 import type {
@@ -26,7 +25,7 @@ import type {
   LayoutCoord,
   SvgLayoutCoord,
 } from './layout-types'
-import { type Scale, transformPoint } from './transform'
+import { type Scale } from './transform'
 import { type VecVec as Vec, vecScale, vecSub } from './vec/prefixed'
 
 //// LayoutConfig
@@ -35,9 +34,9 @@ import { type VecVec as Vec, vecScale, vecSub } from './vec/prefixed'
 export const emptyLayoutConfig: Readonly<LayoutConfig> = {
   fontSize: 16,
   container: boxUnit,
-  svg: boxUnit,
   svgOffset: { x: 0, y: 0 },
   svgScale: { s: 1 },
+  svg: boxUnit,
 }
 
 export const emptyLayout: Layout = {
@@ -60,9 +59,9 @@ export function configLayout(
   return {
     fontSize,
     container,
-    svg,
-    svgOffset: { x, y },
+    svgOffset: { x: -x, y: -y },
     svgScale: { s },
+    svg,
   }
 }
 
@@ -174,9 +173,9 @@ export const toSvg = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
 export const fromSvg = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
   fromMatrixSvg(layout).transformPoint(p)
 export const toOuter = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
-  transformPoint(toMatrixOuter(layout), p)
+  fromMatrixOuter(layout).inverse().transformPoint(p)
 export const fromOuter = (p: Vec, layout: Readonly<LayoutCoord>): Vec =>
-  transformPoint(fromMatrixOuter(layout), p)
+  fromMatrixOuter(layout).transformPoint(p)
 
 ////
 

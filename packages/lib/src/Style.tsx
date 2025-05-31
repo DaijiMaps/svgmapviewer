@@ -80,7 +80,6 @@ ${!animating ? appearing_none : appearing}
   --svg-viewbox: ${svg.x} ${svg.y} ${svg.width} ${svg.height};
 }
 .container > .content.html {
-  /* DOMMatrix */
   --svg-matrix: ${matrix};
   --svg-scale: ${svgScale.s};
 }
