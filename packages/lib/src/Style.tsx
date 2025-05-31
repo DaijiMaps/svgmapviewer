@@ -8,7 +8,7 @@ import { FooterStyle } from './Footer'
 import { MeasureStyle } from './Guides'
 import { HeaderStyle } from './Header'
 import { fromSvgToOuter } from './lib/coord'
-import { cssMatrixToString, fixupCssString } from './lib/css'
+import { fixupCssString } from './lib/css'
 import { diag } from './lib/diag'
 import { useLayoutConfig, useLayoutSvgScaleS, useZoom } from './lib/map-xstate'
 import {
@@ -61,7 +61,7 @@ function LayoutStyle(): ReactNode {
   const animating = useAnimating()
   const { svg, svgOffset, svgScale, scroll } = useLayout()
   const m = fromSvgToOuter({ svg, svgOffset, svgScale })
-  const matrix = fixupCssString(cssMatrixToString(m))
+  const matrix = fixupCssString(m.toString())
 
   useEffect(() => {
     requestAnimationFrame(() => viewerSend({ type: 'RENDERED' }))
@@ -80,6 +80,7 @@ ${!animating ? appearing_none : appearing}
   --svg-viewbox: ${svg.x} ${svg.y} ${svg.width} ${svg.height};
 }
 .container > .content.html {
+  /* DOMMatrix */
   --svg-matrix: ${matrix};
   --svg-scale: ${svgScale.s};
 }

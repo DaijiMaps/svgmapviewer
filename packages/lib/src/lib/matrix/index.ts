@@ -1,5 +1,5 @@
 import { apply, applyF } from './apply'
-import { type Matrix, copy, empty, matrix, prod } from './main'
+import { copy, empty, matrix, prod, toDOMMatrix, type Matrix } from './main'
 import { multiply, multiplyF } from './multiply'
 import { rotate } from './rotate'
 import { scale, scaleAt } from './scale'
@@ -20,6 +20,7 @@ export {
   rotate,
   scale,
   scaleAt,
+  toDOMMatrix,
   toString,
   translate,
 }

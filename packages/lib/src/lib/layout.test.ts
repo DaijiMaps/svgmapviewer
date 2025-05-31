@@ -187,7 +187,7 @@ test('boxScale', () => {
 
   expect(o.x).toBe(600)
 
-  const o2 = transformPoint(fromMatrixSvg(layout), opsvg)
+  const o2 = fromMatrixSvg(layout).transformPoint(opsvg)
   expect(o2.x).toBe(o.x)
 
   const scroll = boxScaleAt(layout.scroll, s, o.x, o.y)

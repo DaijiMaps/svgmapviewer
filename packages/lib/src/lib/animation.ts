@@ -77,7 +77,7 @@ export const animationHome = (
   nextLayout: Layout
 ): Animation => {
   const osvg = boxCenter(nextLayout.config.svg)
-  const o = pipe(osvg, (p) => transformPoint(fromMatrixSvg(layout), p))
+  const o = pipe(osvg, (p) => fromMatrixSvg(layout).transformPoint(p))
   const m1 = fromTransform(invMove(o))
 
   const s = nextLayout.svgScale.s / layout.svgScale.s

@@ -49,6 +49,14 @@ export const bdf = ([[, b], [, d], [, f]]: M): H => [b, d, f]
 export const prod = ([p, q, r]: H, [s, t]: V, n: number): number =>
   p * s + q * t + r * n
 
+export function toDOMMatrix([
+  [a, b],
+  [c, d],
+  [e, f],
+]: Matrix): DOMMatrixReadOnly {
+  return new DOMMatrixReadOnly([a, b, c, d, e, f])
+}
+
 export { type Matrix }
 
 export { copy, empty, matrix }

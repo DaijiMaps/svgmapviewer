@@ -5,6 +5,7 @@ import type {
   LayoutCoord,
   SvgLayoutCoord,
 } from './layout-types'
+import { toDOMMatrix } from './matrix'
 import { type MatrixMatrix as Matrix, matrixMultiply } from './matrix/prefixed'
 import { fromTransform, invMove, invScale } from './transform'
 import { vecScale } from './vec/prefixed'
@@ -45,6 +46,7 @@ export const fromMatrixOuter = ({ scroll }: Readonly<LayoutCoord>): Matrix => {
   return fromTransform(scroll)
 }
 
+// container (window) -> svg
 export const toMatrixSvg = ({
   scroll,
   svgOffset,
@@ -59,30 +61,32 @@ export const toMatrixSvg = ({
   ].reduce(matrixMultiply)
 }
 
+// svg -> container (window)
 export const fromMatrixSvg = ({
   scroll,
   svgOffset,
   svgScale,
   svg,
-}: Readonly<LayoutCoord>): Matrix => {
-  return [
+}: Readonly<LayoutCoord>): DOMMatrixReadOnly => {
+  const m = [
     fromTransform(scroll),
     fromTransform(invMove(svgOffset)),
     fromTransform(invScale(svgScale)),
     fromTransform(invMove(svg)),
   ].reduce(matrixMultiply)
+  return toDOMMatrix(m)
 }
 
+// svg -> scroll (content)
 export const fromSvgToOuter = ({
   svgOffset,
   svgScale,
   svg,
-}: Readonly<SvgLayoutCoord>): Matrix[] => {
-  return [
-    fromTransform(invMove(svgOffset)),
-    fromTransform(invScale(svgScale)),
-    fromTransform(invMove(svg)),
-  ]
+}: Readonly<SvgLayoutCoord>): DOMMatrixReadOnly => {
+  return new DOMMatrixReadOnly()
+    .translate(-svgOffset.x, -svgOffset.y)
+    .scale(1 / svgScale.s, 1 / svgScale.s)
+    .translate(-svg.x, -svg.y)
 }
 
 // inverse x/y
