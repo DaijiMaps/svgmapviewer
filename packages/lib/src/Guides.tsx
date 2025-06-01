@@ -18,7 +18,16 @@ function Measure(): ReactNode {
   return (
     <>
       <g className="measure">
+        {/*
+        XXX
+        XXX
+        XXX
         <MeasurePathUse />
+        XXX
+        XXX
+        XXX
+        */}
+        <MeasurePath />
       </g>
       <g className="distance">
         <text id={`distance-origin`}>0m</text>
@@ -66,21 +75,21 @@ export function MeasurePath(): ReactNode {
       <path
         id="measure-horizontal"
         stroke="black"
-        strokeWidth="0.15px"
+        strokeWidth="0.1px"
         fill="none"
         d={horizontal}
       />
       <path
         id="measure-vertical"
         stroke="black"
-        strokeWidth="0.15px"
+        strokeWidth="0.1px"
         fill="none"
         d={vertical}
       />
       <path
         id="measure-rings"
         stroke="black"
-        strokeWidth="0.15px"
+        strokeWidth="0.1px"
         fill="none"
         d={rings}
       />
