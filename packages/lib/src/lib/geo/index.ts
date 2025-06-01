@@ -46,7 +46,15 @@ import {
   type MultiPolygon,
   type Point,
 } from './path-types'
-import { type POI } from './poi-types'
+import {
+  type AllFilters,
+  type CentroidsFilter,
+  type LinesFilter,
+  type MidpointsFilter,
+  type MultiPolygonsFilter,
+  type POI,
+  type PointsFilter,
+} from './poi-types'
 import { geolocActorStart, getPosition, usePosition } from './position-xstate'
 import {
   findFeature,
@@ -98,7 +106,15 @@ export {
 
 export { calcScale, lineToPath, multiLineStringToPath, multiPolygonToPath }
 
-export { type POI }
+export {
+  type AllFilters,
+  type CentroidsFilter,
+  type LinesFilter,
+  type MidpointsFilter,
+  type MultiPolygonsFilter,
+  type POI,
+  type PointsFilter,
+}
 
 //// filter types
 
