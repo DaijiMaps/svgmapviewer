@@ -637,9 +637,6 @@ const viewerMachine = setup({
 export function useViewerLayoutSvgScaleS(): number {
   return useSelector(viewerActor, (viewer) => viewer.context.layout.svgScale.s)
 }
-export function useViewerOrigLayoutSvg(): BoxBox {
-  return useSelector(viewerActor, (viewer) => viewer.context.origLayout.svg)
-}
 
 ////
 

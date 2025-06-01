@@ -1,24 +1,14 @@
 import { type ReactNode, useContext } from 'react'
-import { boxToViewBox } from './lib/box/prefixed'
-import { useViewerOrigLayoutSvg } from './lib/viewer-xstate'
 import './MapSvg.css'
 import { SvgMapViewerConfigContext } from './Root'
 
 export function MapSvg(): ReactNode {
-  // XXX only when resized
-  const origLayoutSvg = useViewerOrigLayoutSvg()
-
   const config = useContext(SvgMapViewerConfigContext)
 
-  // XXX truncate viewBox (1234.5678901234567890 to 1234.56)
-  // XXX (too much precision degrades SVG rendering performance)
+  // viewBox will be updated by syncViewBox()
   return (
     <div id="map-svg" className="content svg">
-      <svg
-        viewBox={boxToViewBox(origLayoutSvg).replaceAll(/([.]\d\d)\d*/g, '$1')}
-        width="100%"
-        height="100%"
-      >
+      <svg viewBox="0 0 100 100" width="100%" height="100%">
         <use href={`#${config.map}`} />
       </svg>
     </div>

@@ -7,11 +7,15 @@ export function syncViewBox(id: string, viewBox: Readonly<BoxBox>): void {
     return
   }
   // eslint-disable-next-line functional/no-expression-statements, functional/immutable-data
-  svg.viewBox.baseVal.x = viewBox.x
+  svg.viewBox.baseVal.x = truncate(viewBox.x)
   // eslint-disable-next-line functional/no-expression-statements, functional/immutable-data
-  svg.viewBox.baseVal.y = viewBox.y
+  svg.viewBox.baseVal.y = truncate(viewBox.y)
   // eslint-disable-next-line functional/no-expression-statements, functional/immutable-data
-  svg.viewBox.baseVal.width = viewBox.width
+  svg.viewBox.baseVal.width = truncate(viewBox.width)
   // eslint-disable-next-line functional/no-expression-statements, functional/immutable-data
-  svg.viewBox.baseVal.height = viewBox.height
+  svg.viewBox.baseVal.height = truncate(viewBox.height)
+}
+
+function truncate(n: number): number {
+  return Math.round(n * 100) / 100
 }
