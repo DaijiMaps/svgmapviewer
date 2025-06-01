@@ -97,7 +97,10 @@ export function ringPath({
   height: number
   r: number
 }): string {
-  return `M${width / 2},${height / 2} m-${r},0 a${r},${r} 0,1,0 ${r * 2},0 a${r},${r} 0,1,0 -${r * 2},0`
+  return `M${width / 2},${height / 2} m-${r},0 a${r},${r} 0,1,0 ${r * 2},0 a${r},${r} 0,1,0 -${r * 2},0`.replaceAll(
+    /([.]\d)\d*/g,
+    '$1'
+  )
 }
 
 export function MeasureStyle(): ReactNode {
