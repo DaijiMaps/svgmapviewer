@@ -26,3 +26,5 @@ export interface ScrollContext {
   dest: null | Box
   scroll: null | Box
 }
+
+export type ScrollCb = (ev: React.UIEvent<HTMLDivElement, Event>) => void

@@ -2,6 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-conditional-statements */
 import { boxBox, type BoxBox, boxUnit } from './box/prefixed'
+import type { ScrollCb } from './scroll-types'
 
 // XXX make this async
 // XXX call this from scroll-xstate as invoke (Promise)
@@ -127,8 +128,6 @@ export function getCurrentScroll(): BoxBox {
 }
 
 ////
-
-export type ScrollCb = (ev: React.UIEvent<HTMLDivElement, Event>) => void
 
 export const scrollCbs: Set<ScrollCb> = new Set()
 
