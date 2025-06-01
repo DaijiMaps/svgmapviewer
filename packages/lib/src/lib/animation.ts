@@ -2,6 +2,7 @@ import { pipe } from 'fp-ts/lib/function'
 //import { type Readonly } from 'type-fest'
 import { type Box } from './box'
 import { boxCenter, boxScaleAt } from './box/prefixed'
+import { svgMapViewerConfig } from './config'
 import { fromMatrixSvg } from './coord'
 import { type Drag } from './drag'
 import { type Layout, relocLayout, zoomLayout } from './layout'
@@ -17,7 +18,7 @@ import {
   type Scale,
   transformScale,
 } from './transform'
-import { ifNullOr, zoomToScale } from './utils'
+import { ifNullOr } from './utils'
 import { type VecVec as Vec, vecAdd, vecSub } from './vec/prefixed'
 
 export type AnimationMove = Readonly<{
@@ -110,3 +111,6 @@ export const animationEndLayout = (
         : zoomLayout(l, animation.zoom.svg, animation.zoom.svgScale)
   )
 }
+
+const zoomToScale = (z: number): number =>
+  Math.pow(svgMapViewerConfig.zoomFactor, z)

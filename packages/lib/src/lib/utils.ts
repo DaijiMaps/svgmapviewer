@@ -1,9 +1,6 @@
 //// zoomToScale
 
 import { type BoxBox } from './box/prefixed'
-import { svgMapViewerConfig as cfg } from './config'
-
-export const zoomToScale = (z: number): number => Math.pow(cfg.zoomFactor, z)
 
 //// isUndefined
 //// isNotUndefined
