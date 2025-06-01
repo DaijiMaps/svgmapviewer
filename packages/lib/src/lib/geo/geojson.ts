@@ -9,7 +9,7 @@ import {
   vecSub,
   vecVec,
 } from '../vec/prefixed'
-import { type MapCoord, type MapData } from './data'
+import { type MapCoord, type MapData } from './data-types'
 import { type LineGeoJSON } from './geojson-types'
 
 function getViewBox(viewbox: Readonly<LineGeoJSON>): BoxBox {

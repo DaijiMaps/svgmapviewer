@@ -1,4 +1,4 @@
-import { type OsmPointLikeProperties } from './data'
+import { type OsmPointLikeProperties } from './data-types'
 import { type PointFeature } from './geojson-types'
 import {
   type OsmCentroidGeoJSON,

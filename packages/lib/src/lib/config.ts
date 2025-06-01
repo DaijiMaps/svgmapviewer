@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/no-return-void */
 import { createElement } from 'react'
-import { emptyMapData } from './geo/data'
+import { emptyMapData } from './geo/data-types'
 import {
   type Info,
   type RenderInfo,

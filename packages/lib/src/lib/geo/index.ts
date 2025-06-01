@@ -5,7 +5,7 @@ import {
   type OsmPointLikeFeature,
   type OsmPointLikeGeoJSON,
   type OsmPointLikeProperties,
-} from './data'
+} from './data-types'
 import { calcScale } from './geojson'
 import {
   type LineCoordinate,
@@ -48,7 +48,7 @@ import {
   type MultiPolygon,
   type Point,
 } from './path'
-import { type POI } from './poi'
+import { type POI } from './poi-types'
 import { geolocActorStart, getPosition, usePosition } from './position-xstate'
 import {
   findFeature,
