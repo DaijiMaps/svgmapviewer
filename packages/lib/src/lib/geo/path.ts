@@ -1,10 +1,6 @@
 import { svgMapViewerConfig as cfg } from '../config'
 import { type V, vUnvec, vVec } from '../tuple'
-
-export type Point = V
-export type Line = V[]
-export type MultiLineString = V[][]
-export type MultiPolygon = V[][][]
+import type { Line, MultiLineString, MultiPolygon } from './path-types'
 
 export function lineToPath(vs: Readonly<Line>): string {
   return (

@@ -39,15 +39,13 @@ import {
   type OsmPointProperties,
   type OsmPolygonProperties,
 } from './osm-types'
+import { lineToPath, multiLineStringToPath, multiPolygonToPath } from './path'
 import {
-  lineToPath,
-  multiLineStringToPath,
-  multiPolygonToPath,
   type Line,
   type MultiLineString,
   type MultiPolygon,
   type Point,
-} from './path'
+} from './path-types'
 import { type POI } from './poi-types'
 import { geolocActorStart, getPosition, usePosition } from './position-xstate'
 import {
@@ -103,30 +101,6 @@ export { calcScale, lineToPath, multiLineStringToPath, multiPolygonToPath }
 export { type POI }
 
 //// filter types
-
-export type PointsFilter = (
-  f: Readonly<PointFeature<OsmPointProperties>>
-) => boolean
-export type LinesFilter = (
-  f: Readonly<LineFeature<OsmLineProperties>>
-) => boolean
-export type MultiPolygonsFilter = (
-  f: Readonly<MultiPolygonFeature<OsmPolygonProperties>>
-) => boolean
-export type CentroidsFilter = (
-  f: Readonly<PointFeature<OsmPolygonProperties>>
-) => boolean
-export type MidpointsFilter = (
-  f: Readonly<PointFeature<OsmLineProperties>>
-) => boolean
-
-export interface AllFilters {
-  points?: PointsFilter
-  lines?: LinesFilter
-  multipolygons?: MultiPolygonsFilter
-  centroids?: CentroidsFilter
-  midpoints?: MidpointsFilter
-}
 
 export { findFeature, findProperties, getOsmId, getPropertyValue }
 

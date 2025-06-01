@@ -7,10 +7,10 @@ import {
   type MapMarkers,
   type MapObjects,
   type MapSymbols,
-} from './carto'
-import { type MapCoord, type MapData, type POI } from './geo'
-import { type Layout } from './layout'
-import { type LayoutCoord } from './layout-types'
+} from './carto/types'
+import { type MapCoord, type MapData } from './geo/data-types'
+import { type POI } from './geo/poi-types'
+import { type Layout, type LayoutCoord } from './layout-types'
 import { type Vec } from './vec'
 
 //// layout

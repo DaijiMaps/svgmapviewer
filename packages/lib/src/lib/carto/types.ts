@@ -1,13 +1,11 @@
+import { type Line, type MultiPolygon, type Point } from '../geo/path-types'
 import {
   type CentroidsFilter,
-  type Line,
   type LinesFilter,
   type MidpointsFilter,
-  type MultiPolygon,
   type MultiPolygonsFilter,
-  type Point,
   type PointsFilter,
-} from '../geo'
+} from '../geo/poi-types'
 
 //// layers
 
