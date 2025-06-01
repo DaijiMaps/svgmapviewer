@@ -2,7 +2,7 @@ import { Fragment, type ReactNode } from 'react'
 import { assign, createActor, emit, setup } from 'xstate'
 import './Guides.css'
 import { scrollCbs } from './lib/scroll'
-import { styleSend, useLayout } from './lib/style-xstate'
+import { styleSend, useDistanceRadius, useLayout } from './lib/style-xstate'
 import { useOpenCloseBalloon } from './lib/ui-xstate'
 import type { VecVec } from './lib/vec/prefixed'
 
@@ -51,11 +51,12 @@ export function MeasurePath(): ReactNode {
   const {
     container: { width, height },
   } = useLayout()
+  const { client } = useDistanceRadius()
 
   const horizontal = `M0,${height / 2} h${width}`
   const vertical = `M${width / 2},0 v${height}`
   const rings = INDEXES.map((i) => {
-    const r = 100 * (i + 1)
+    const r = client * (i + 1)
     return ringPath({ width, height, r })
   }).join(' ')
 
@@ -103,6 +104,7 @@ export function MeasureStyle(): ReactNode {
   const {
     container: { width, height },
   } = useLayout()
+  const { client } = useDistanceRadius()
   const { open, animating } = useOpenCloseBalloon()
 
   const pathStyle = `
@@ -163,7 +165,7 @@ export function MeasureStyle(): ReactNode {
 }
 `
   const distanceXStyle = INDEXES.map((i) => {
-    const r = 100 * (i + 1)
+    const r = client * (i + 1)
     return `
 #distance-x-${i + 1} {
   transform: translate(${width / 2 + 2 + r}px, ${height / 2 + 8}px) scale(0.5);
@@ -175,7 +177,7 @@ export function MeasureStyle(): ReactNode {
   })
 
   const distanceYStyle = INDEXES.map((i) => {
-    const r = 100 * (i + 1)
+    const r = client * (i + 1)
     return `
 #distance-y-${i + 1} {
   transform: translate(${width / 2 + 2}px, ${height / 2 + 8 + r}px) scale(0.5);
