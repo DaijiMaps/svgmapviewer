@@ -1,5 +1,4 @@
 import { type ReactNode } from 'react'
-import { useViewerCursor } from './lib/viewer-xstate'
 
 const DefaultCursorPath = (
   props: Readonly<{ x: number; y: number; r: number }>
@@ -31,7 +30,8 @@ function DefaultCursor(
   }>
 ): ReactNode {
   const { _r: r } = props
-  const cursor = useViewerCursor()
+  //const cursor = useViewerCursor()
+  const cursor = { x: 0, y: 0 }
 
   return <DefaultCursorPath x={cursor.x} y={cursor.y} r={r} />
 }

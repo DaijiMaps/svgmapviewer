@@ -25,7 +25,6 @@ import {
   emptyLayout,
   expandLayoutCenter,
   type Layout,
-  type LayoutConfig,
   makeLayout,
   scrollLayout,
 } from './layout'
@@ -35,7 +34,7 @@ import { getDoneCbs, scrollSend, syncSyncDoneCbs } from './scroll-xstate'
 import { styleSend } from './style-xstate'
 import { syncViewBox } from './svg'
 import { type SearchRes } from './types'
-import { type VecVec as Vec, type VecVec, vecVec } from './vec/prefixed'
+import { type VecVec as Vec, vecVec } from './vec/prefixed'
 import {
   EXPAND_PANNING,
   type ReactUIEvent,
@@ -635,35 +634,11 @@ const viewerMachine = setup({
 
 ////
 
-export function useViewerMode(): ViewerMode {
-  return useSelector(viewerActor, (viewer) => viewer.context.mode)
-}
-export function useViewerLayout(): Layout {
-  return useSelector(viewerActor, (viewer) => viewer.context.layout)
-}
-export function useViewerLayoutConfig(): LayoutConfig {
-  return useSelector(viewerActor, (viewer) => viewer.context.layout.config)
-}
-export function useViewerLayoutContainer(): BoxBox {
-  return useSelector(viewerActor, (viewer) => viewer.context.layout.container)
-}
-export function useViewerLayoutSvg(): BoxBox {
-  return useSelector(viewerActor, (viewer) => viewer.context.layout.svg)
-}
 export function useViewerLayoutSvgScaleS(): number {
   return useSelector(viewerActor, (viewer) => viewer.context.layout.svgScale.s)
 }
-export function useViewerLayoutSvgOffset(): VecVec {
-  return useSelector(viewerActor, (viewer) => viewer.context.layout.svgOffset)
-}
-export function useViewerLayoutScroll(): BoxBox {
-  return useSelector(viewerActor, (viewer) => viewer.context.layout.scroll)
-}
 export function useViewerOrigLayoutSvg(): BoxBox {
   return useSelector(viewerActor, (viewer) => viewer.context.origLayout.svg)
-}
-export function useViewerCursor(): VecVec {
-  return useSelector(viewerActor, (viewer) => viewer.context.cursor)
 }
 
 ////
