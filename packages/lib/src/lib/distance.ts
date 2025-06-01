@@ -1,5 +1,9 @@
-import { expect, test } from 'vitest'
+import type { DistanceRadius } from './distance-types'
+import type { Layout } from './layout-types'
 
-test('find radius', () => {
-  expect(1).toBe(1)
-})
+export function findRadius(layout: Readonly<Layout>): DistanceRadius {
+  return {
+    svg: 10,
+    client: 10 * layout.svgScale.s,
+  }
+}

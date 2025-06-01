@@ -3,6 +3,8 @@ import { assign, createActor, setup } from 'xstate'
 import { type Animation } from './animation'
 import { svgMapViewerConfig } from './config'
 import { fromSvgToScroll } from './coord'
+import { findRadius } from './distance'
+import type { DistanceRadius } from './distance-types'
 import { emptyLayout, type Layout } from './layout'
 import type { VecVec } from './vec/prefixed'
 
@@ -20,6 +22,7 @@ interface StyleContext {
   layout: Layout
   svgMatrix: DOMMatrixReadOnly
   geoMatrix: DOMMatrixReadOnly
+  distanceRadius: DistanceRadius
   dragging: boolean
   mode: string
   animation: null | Animation
@@ -40,6 +43,9 @@ const styleMachine = setup({
           .multiply(svgMapViewerConfig.mapCoord.matrix)
           .inverse(),
     }),
+    updateDistanceRadius: assign({
+      distanceRadius: ({ context: { layout } }) => findRadius(layout),
+    }),
     setLonLat: ({ context }, { p }: { p: VecVec }) => {
       // p == pscroll
       const pgeo = context.geoMatrix.transformPoint(p)
@@ -52,13 +58,13 @@ const styleMachine = setup({
       }
     },
     setDistance: ({ context }) => {
-      const s = context.layout.svgScale.s
+      const { svg } = context.distanceRadius
       for (let i = 1; i < 20; i++) {
         const dx = document.querySelector(`#distance-x-${i}`)
         const dy = document.querySelector(`#distance-y-${i}`)
         if (dx !== null && dy !== null) {
-          dx.innerHTML = `${100 * s * i}m`
-          dy.innerHTML = `${100 * s * i}m`
+          dx.innerHTML = `${svg * i}m`
+          dy.innerHTML = `${svg * i}m`
         }
       }
     },
@@ -71,6 +77,10 @@ const styleMachine = setup({
     layout: emptyLayout,
     svgMatrix: new DOMMatrixReadOnly(),
     geoMatrix: new DOMMatrixReadOnly(),
+    distanceRadius: {
+      svg: 0,
+      client: 0,
+    },
     dragging: false,
     mode: 'panning',
     animation: null,
@@ -92,6 +102,7 @@ const styleMachine = setup({
             }),
             'updateSvgMatrix',
             'updateGeoMatrix',
+            'updateDistanceRadius',
             'setDistance',
           ],
         },
@@ -171,4 +182,7 @@ export function useMode(): string {
 }
 export function useAnimation(): null | Animation {
   return useSelector(styleActor, (s) => s.context.animation)
+}
+export function useDistanceRadius(): DistanceRadius {
+  return useSelector(styleActor, (s) => s.context.distanceRadius)
 }

@@ -5,7 +5,7 @@ import { type ReactNode, StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BalloonStyle } from './Balloon'
 import { FooterStyle } from './Footer'
-import { MeasureStyle } from './Guides'
+import { MeasurePath, MeasureStyle } from './Guides'
 import { HeaderStyle } from './Header'
 import { fixupCssString } from './lib/css'
 import { diag } from './lib/diag'
@@ -39,6 +39,7 @@ export function styleRoot(): void {
   createRoot(e).render(
     <StrictMode>
       <Style />
+      <Defs />
     </StrictMode>
   )
 }
@@ -53,6 +54,16 @@ function Style(): ReactNode {
       <SvgSymbolStyle />
       <UiStyle />
     </style>
+  )
+}
+
+function Defs(): ReactNode {
+  return (
+    <svg>
+      <defs>
+        <MeasureDefs />
+      </defs>
+    </svg>
   )
 }
 
@@ -241,4 +252,8 @@ function UiStyle(): ReactNode {
       <ShadowStyle />
     </>
   )
+}
+
+function MeasureDefs() {
+  return <MeasurePath />
 }

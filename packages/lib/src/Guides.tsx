@@ -18,7 +18,7 @@ function Measure(): ReactNode {
   return (
     <>
       <g className="measure">
-        <MeasurePath />
+        <MeasurePathUse />
       </g>
       <g className="distance">
         <text id={`distance-origin`}>0m</text>
@@ -37,7 +37,17 @@ function Measure(): ReactNode {
   )
 }
 
-function MeasurePath() {
+function MeasurePathUse() {
+  return (
+    <>
+      <use href="#measure-horizontal" />
+      <use href="#measure-vertical" />
+      <use href="#measure-rings" />
+    </>
+  )
+}
+
+export function MeasurePath(): ReactNode {
   const {
     container: { width, height },
   } = useLayout()
@@ -46,14 +56,47 @@ function MeasurePath() {
   const vertical = `M${width / 2},0 v${height}`
   const rings = INDEXES.map((i) => {
     const r = 100 * (i + 1)
-    return `M${width / 2},${height / 2} m-${r},0 a${r},${r} 0,1,0 ${r * 2},0 a${r},${r} 0,1,0 -${r * 2},0`
+    return ringPath({ width, height, r })
   }).join(' ')
-  // XXX no newlines allowed
-  const d = `${horizontal} ${vertical} ${rings}`
 
+  // XXX use
   return (
-    <path id="measure" stroke="black" strokeWidth="0.15px" fill="none" d={d} />
+    <>
+      <path
+        id="measure-horizontal"
+        stroke="black"
+        strokeWidth="0.15px"
+        fill="none"
+        d={horizontal}
+      />
+      <path
+        id="measure-vertical"
+        stroke="black"
+        strokeWidth="0.15px"
+        fill="none"
+        d={vertical}
+      />
+      <path
+        id="measure-rings"
+        stroke="black"
+        strokeWidth="0.15px"
+        fill="none"
+        d={rings}
+      />
+    </>
   )
+}
+
+export function ringPath({
+  width,
+  height,
+  r,
+}: {
+  width: number
+  height: number
+  r: number
+}): string {
+  return `M${width / 2},${height / 2} m-${r},0 a${r},${r} 0,1,0 ${r * 2},0 a${r},${r} 0,1,0 -${r * 2},0`
 }
 
 export function MeasureStyle(): ReactNode {
