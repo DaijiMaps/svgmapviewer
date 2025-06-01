@@ -46,7 +46,7 @@ function Measure(): ReactNode {
   )
 }
 
-function MeasurePathUse() {
+export function MeasurePathUse(): ReactNode {
   return (
     <>
       <use href="#measure-horizontal" />
