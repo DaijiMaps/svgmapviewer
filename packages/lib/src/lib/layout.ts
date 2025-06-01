@@ -9,7 +9,6 @@ import {
   boxScaleAt,
   boxUnit,
 } from './box/prefixed'
-import { svgMapViewerConfig } from './config'
 import {
   emptyLayoutCoord,
   fromMatrixSvg,
@@ -42,7 +41,6 @@ export const emptyLayoutConfig: Readonly<LayoutConfig> = {
 export const emptyLayout: Layout = {
   ...emptyLayoutCoord,
   config: emptyLayoutConfig,
-  svgMatrix: new DOMMatrixReadOnly(),
 }
 
 //// configLayout
@@ -79,14 +77,11 @@ export function makeLayout(config: LayoutConfig): Layout {
   return layout
 }
 
-function updateSvgMatrix(layout: Readonly<Layout>): Layout {
-  return {
-    ...layout,
-    svgMatrix: fromSvgToScroll(layout),
-  }
-}
-
-export function resizeLayout(size: Box): Layout {
+export function resizeLayout(
+  origViewBox: Box,
+  fontSize: number,
+  size: Box
+): Layout {
   // XXX
   // XXX
   // XXX
@@ -95,11 +90,7 @@ export function resizeLayout(size: Box): Layout {
   // XXX
   // XXX
   //const { fontSize } = getComputedStyle(document.body)
-  const fontSize = '16px'
-  const origViewBox = svgMapViewerConfig.origViewBox
-  const layout = makeLayout(
-    configLayout(parseFloat(fontSize), origViewBox, size)
-  )
+  const layout = makeLayout(configLayout(fontSize, origViewBox, size))
   return layout
 }
 
@@ -118,12 +109,12 @@ export function expandLayout(layout: Layout, s: number, cursor: Vec): Layout {
   const sx = ratio < 1 ? s / ratio : s
   const sy = ratio < 1 ? s : s * ratio
 
-  return updateSvgMatrix({
+  return {
     ...layout,
     scroll: boxScaleAt(layout.scroll, [sx, sy], cursor.x, cursor.y),
     svgOffset: vecScale(layout.svgOffset, [sx, sy]),
     svg: boxScaleAt(layout.svg, [sx, sy], o.x, o.y),
-  })
+  }
 }
 
 //// relocLayout
@@ -147,22 +138,22 @@ export function moveLayout(layout: Layout, move: Vec): Layout {
 }
 
 export function zoomLayout(layout: Layout, svg: Box, svgScale: Scale): Layout {
-  return updateSvgMatrix({
+  return {
     ...layout,
     svg: boxCopy(svg),
     svgScale,
-  })
+  }
 }
 
 export function recenterLayout(layout: Layout, start: Vec): Layout {
   const d = vecSub(layout.scroll, start)
   const dsvg = vecScale(d, -layout.svgScale.s)
 
-  return updateSvgMatrix({
+  return {
     ...layout,
     scroll: boxMoveTo(layout.scroll, start),
     svg: boxMove(layout.svg, dsvg),
-  })
+  }
 }
 
 export function scrollLayout(layout: Layout, scroll: Box): Layout {

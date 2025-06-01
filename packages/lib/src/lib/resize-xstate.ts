@@ -1,5 +1,6 @@
 import { assign, createActor, emit, raise, setup } from 'xstate'
 import { boxEq, boxUnit } from './box/prefixed'
+import { svgMapViewerConfig } from './config'
 import { notifyResize } from './config-xstate'
 import { resizeLayout } from './layout'
 import type { ResizeContext, ResizeEmitted, ResizeEvent } from './resize-types'
@@ -73,7 +74,11 @@ const resizeMachine = setup({
               }),
               emit(({ context }) => ({
                 type: 'LAYOUT',
-                layout: resizeLayout(context.next),
+                layout: resizeLayout(
+                  svgMapViewerConfig.origViewBox,
+                  svgMapViewerConfig.fontSize,
+                  context.next
+                ),
                 force: !context.first,
               })),
               assign({

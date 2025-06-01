@@ -22,6 +22,7 @@ import {
   useLayout,
   useMode,
   useRendered,
+  useSvgMatrix,
 } from './lib/style-xstate'
 import { useDetail } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
@@ -58,7 +59,8 @@ function Style(): ReactNode {
 function LayoutStyle(): ReactNode {
   const rendered = useRendered()
   const animating = useAnimating()
-  const { svg, svgScale, svgMatrix, scroll } = useLayout()
+  const { svg, svgScale, scroll } = useLayout()
+  const svgMatrix = useSvgMatrix()
   const matrixString = fixupCssString(svgMatrix.toString())
 
   useEffect(() => {

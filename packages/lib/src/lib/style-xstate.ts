@@ -2,6 +2,7 @@ import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
 import { type Animation } from './animation'
 import { svgMapViewerConfig } from './config'
+import { fromSvgToScroll } from './coord'
 import { emptyLayout, type Layout } from './layout'
 import type { VecVec } from './vec/prefixed'
 
@@ -17,10 +18,11 @@ interface StyleContext {
   rendered: boolean
   animating: boolean
   layout: Layout
+  svgMatrix: DOMMatrixReadOnly
+  geoMatrix: DOMMatrixReadOnly
   dragging: boolean
   mode: string
   animation: null | Animation
-  geoMatrix: DOMMatrixReadOnly
 }
 
 const styleMachine = setup({
@@ -29,6 +31,15 @@ const styleMachine = setup({
     context: {} as StyleContext,
   },
   actions: {
+    updateSvgMatrix: assign({
+      svgMatrix: ({ context: { layout } }) => fromSvgToScroll(layout),
+    }),
+    updateGeoMatrix: assign({
+      geoMatrix: ({ context }) =>
+        context.svgMatrix
+          .multiply(svgMapViewerConfig.mapCoord.matrix)
+          .inverse(),
+    }),
     setLonLat: ({ context }, { p }: { p: VecVec }) => {
       // p == pscroll
       const pgeo = context.geoMatrix.transformPoint(p)
@@ -40,6 +51,17 @@ const styleMachine = setup({
         lat.innerHTML = `N ${truncate6(pgeo.y)}`
       }
     },
+    setDistance: ({ context }) => {
+      const s = context.layout.svgScale.s
+      for (let i = 1; i < 20; i++) {
+        const dx = document.querySelector(`#distance-x-${i}`)
+        const dy = document.querySelector(`#distance-y-${i}`)
+        if (dx !== null && dy !== null) {
+          dx.innerHTML = `${100 * s * i}m`
+          dy.innerHTML = `${100 * s * i}m`
+        }
+      }
+    },
   },
 }).createMachine({
   id: 'style1',
@@ -47,35 +69,31 @@ const styleMachine = setup({
     rendered: true,
     animating: false,
     layout: emptyLayout,
+    svgMatrix: new DOMMatrixReadOnly(),
+    geoMatrix: new DOMMatrixReadOnly(),
     dragging: false,
     mode: 'panning',
     animation: null,
-    geoMatrix: new DOMMatrixReadOnly(),
   },
   initial: 'Idle',
   states: {
     Idle: {
       on: {
         'STYLE.LAYOUT': {
-          actions: assign({
-            rendered: ({ event }) => event.rendered,
-            animating: ({ context, event }) =>
-              // if animating, don't change (animating is cleared only by 'ANIMATION.END')
-              context.animating ||
-              // if not animating, transition from !rendered to rendered triggers opacity animation
-              (!context.rendered && event.rendered && !context.animating),
-            layout: ({ event }) => event.layout,
-            // XXX
-            // XXX
-            // XXX
-            geoMatrix: ({ context }) =>
-              context.layout.svgMatrix
-                .multiply(svgMapViewerConfig.mapCoord.matrix)
-                .inverse(),
-            // XXX
-            // XXX
-            // XXX
-          }),
+          actions: [
+            assign({
+              rendered: ({ event }) => event.rendered,
+              animating: ({ context, event }) =>
+                // if animating, don't change (animating is cleared only by 'ANIMATION.END')
+                context.animating ||
+                // if not animating, transition from !rendered to rendered triggers opacity animation
+                (!context.rendered && event.rendered && !context.animating),
+              layout: ({ event }) => event.layout,
+            }),
+            'updateSvgMatrix',
+            'updateGeoMatrix',
+            'setDistance',
+          ],
         },
         'STYLE.DRAGGING': {
           actions: assign({
@@ -141,6 +159,9 @@ export function useAnimating(): boolean {
 }
 export function useLayout(): Layout {
   return useSelector(styleActor, (s) => s.context.layout)
+}
+export function useSvgMatrix(): DOMMatrixReadOnly {
+  return useSelector(styleActor, (s) => s.context.svgMatrix)
 }
 export function useDragging(): boolean {
   return useSelector(styleActor, (s) => s.context.dragging)

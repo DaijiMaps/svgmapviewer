@@ -24,8 +24,8 @@ function Measure(): ReactNode {
         <text id={`distance-origin`}>0m</text>
         {INDEXES.map((i) => (
           <Fragment key={i}>
-            <text id={`distance-x-${i}`}>{(i + 1) * 10 + `m`}</text>
-            <text id={`distance-y-${i}`}>{(i + 1) * 10 + `m`}</text>
+            <text id={`distance-x-${i + 1}`}>{(i + 1) * 10 + `m`}</text>
+            <text id={`distance-y-${i + 1}`}>{(i + 1) * 10 + `m`}</text>
           </Fragment>
         ))}
       </g>
@@ -122,7 +122,7 @@ export function MeasureStyle(): ReactNode {
   const distanceXStyle = INDEXES.map((i) => {
     const r = 100 * (i + 1)
     return `
-#distance-x-${i} {
+#distance-x-${i + 1} {
   transform: translate(${width / 2 + 2 + r}px, ${height / 2 + 8}px) scale(0.5);
   font-size: medium;
   font-weight: lighter;
@@ -134,7 +134,7 @@ export function MeasureStyle(): ReactNode {
   const distanceYStyle = INDEXES.map((i) => {
     const r = 100 * (i + 1)
     return `
-#distance-y-${i} {
+#distance-y-${i + 1} {
   transform: translate(${width / 2 + 2}px, ${height / 2 + 8 + r}px) scale(0.5);
   font-size: medium;
   font-weight: lighter;
