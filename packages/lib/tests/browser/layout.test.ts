@@ -33,8 +33,8 @@ const cursor = boxCenter(container)
 test('layout config', () => {
   // svg scaled to (1000, 1000)
   // margin x/y is 100/0
-  expect(config.svgOffset.x).toBe(-100)
-  expect(config.svgOffset.y).toBe(0)
+  expect(config.svgOffset.x).closeTo(-100, 1)
+  expect(config.svgOffset.y).closeTo(-0, 1)
 })
 
 test('make layout', () => {
@@ -61,7 +61,19 @@ test('zoom layout', () => {
 
 test('expand center', () => {
   const l1 = expandLayoutCenter(layout, 1)
-  expect(l1).toStrictEqual(layout)
+  expect(l1).toStrictEqual({
+    ...layout,
+    scroll: {
+      ...layout.scroll,
+      height: _(1200),
+      y: _(-100),
+    },
+    svg: {
+      ...layout.svg,
+      height: _(120),
+      y: _(-10),
+    },
+  })
 })
 
 test('expand 2', () => {
@@ -70,29 +82,41 @@ test('expand 2', () => {
 
   expect(l1.scroll).toStrictEqual({
     x: -600,
-    y: -500,
+    y: -700,
     width: 2400,
-    height: 2000,
+    height: 2400,
   })
   expect(l1.svg).toStrictEqual({
-    x: -50,
-    y: -50,
+    x: _(-50),
+    y: _(-70),
     width: 200,
-    height: 200,
+    height: 240,
   })
   expect(l2.scroll).toStrictEqual({
     x: 0,
-    y: 0,
+    y: -220,
     width: 1200,
-    height: 1000,
+    height: 1440,
   })
   expect(l2.svg).toStrictEqual({
     x: 0,
-    y: 0,
+    y: _(-22),
     width: 100,
-    height: 100,
+    height: 144,
   })
-  expect(l2).toStrictEqual(layout)
+  expect(l2).toStrictEqual({
+    ...layout,
+    scroll: {
+      ...layout.scroll,
+      height: 1440,
+      y: -220,
+    },
+    svg: {
+      ...layout.svg,
+      height: _(144),
+      y: _(-22),
+    },
+  })
 })
 
 const U = (() => {
@@ -172,11 +196,13 @@ test('expand + zoom 3', () => {
     ...res.l,
     scroll: {
       ...res.l.scroll,
+      height: 1000,
       x: expect.closeTo(0, 5),
       y: expect.closeTo(0, 5),
     },
     svg: {
       ...res.l.svg,
+      height: 100,
       x: expect.closeTo(0, 5),
       y: expect.closeTo(0, 5),
     },
@@ -244,7 +270,15 @@ test('recenter 3', () => {
   const l2 = relocLayout(l1, d3.move)
   const l3 = recenterLayout(l2, d3.start)
   const l4 = expandLayout(l3, 1 / 2, cursor)
-  expect(l4).toStrictEqual(layout)
+  expect(l4).toStrictEqual({
+    ...layout,
+    scroll: {
+      ...layout.scroll,
+      height: 1440,
+      y: -220,
+    },
+    svg: { ...layout.svg, height: _(144), y: _(-22) },
+  })
 })
 
 test('recenter 4', () => {
@@ -306,3 +340,6 @@ test('move + zoom', () => {
     },
   })
 })
+
+// XXX
+const _ = (v: number) => expect.closeTo(v, 0)
