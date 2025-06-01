@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
-import { type BoxBox as Box } from './box/prefixed'
-import { fit } from './fit'
+import { type BoxBox as Box } from '../../src/lib/box/prefixed'
+import { fit } from '../../src/lib/fit'
 
 export const bv: Box = { x: 0, y: 0, width: 200, height: 100 }
 export const ov: Box = { x: 0, y: 0, width: 10, height: 40 }

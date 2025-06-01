@@ -1,6 +1,6 @@
 //import { type Readonly } from 'type-fest/source/readonly-deep'
 import { expect, test } from 'vitest'
-import { type ImmutableShallow } from './utils'
+import { type ImmutableShallow } from '../../src/lib/utils'
 
 export type A = Readonly<{ a: { a: { a: number } } }>
 

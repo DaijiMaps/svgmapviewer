@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import { assign, createActor, setup } from 'xstate'
-import { isDefined } from './utils'
+import { isDefined } from '../../src/lib/utils'
 
 const m = setup({
   types: {

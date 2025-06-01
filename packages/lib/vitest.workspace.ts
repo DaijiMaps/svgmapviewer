@@ -5,18 +5,17 @@ export default defineWorkspace([
     test: {
       name: 'unit',
       environment: 'node',
-      include: ['src/lib/**/*.test.ts'],
+      include: ['tests/unit/**/*.{test,spec}.ts'],
     },
   },
   {
     test: {
       name: 'browser',
-      include: ['src/**/*.{test,spec}.ts'],
+      include: ['tests/browser/**/*.{test,spec}.ts'],
       browser: {
-        enabled: true,
-        name: 'chromium',
         provider: 'playwright',
-        providerOptions: {},
+        enabled: true,
+        instances: [{ browser: 'chromium' }],
       },
     },
   },

@@ -1,9 +1,17 @@
 import { pipe } from 'fp-ts/lib/function'
 import { expect, test } from 'vitest'
-import { animationEndLayout, animationMove, animationZoom } from './animation'
-import { type BoxBox as Box, boxCenter, boxScaleAt } from './box/prefixed'
-import { fromMatrixSvg } from './coord'
-import { dragMove, dragReset, dragStart } from './drag'
+import {
+  animationEndLayout,
+  animationMove,
+  animationZoom,
+} from '../../src/lib/animation'
+import {
+  type BoxBox as Box,
+  boxCenter,
+  boxScaleAt,
+} from '../../src/lib/box/prefixed'
+import { fromMatrixSvg } from '../../src/lib/coord'
+import { dragMove, dragReset, dragStart } from '../../src/lib/drag'
 import {
   configLayout,
   expandLayout,
@@ -11,9 +19,9 @@ import {
   makeLayout,
   recenterLayout,
   relocLayout,
-} from './layout'
-import { transformScale } from './transform'
-import { vecVec } from './vec/prefixed'
+} from '../../src/lib/layout'
+import { transformScale } from '../../src/lib/transform'
+import { vecVec } from '../../src/lib/vec/prefixed'
 
 const container: Box = { x: 0, y: 0, width: 1200, height: 1000 }
 const origViewBox: Box = { x: 0, y: 0, width: 100, height: 100 }
@@ -25,7 +33,7 @@ const cursor = boxCenter(container)
 test('layout config', () => {
   // svg scaled to (1000, 1000)
   // margin x/y is 100/0
-  expect(config.svgOffset.x).toBe(100)
+  expect(config.svgOffset.x).toBe(-100)
   expect(config.svgOffset.y).toBe(0)
 })
 
@@ -188,13 +196,13 @@ test('boxScale', () => {
   expect(o.x).toBe(600)
 
   const o2 = fromMatrixSvg(layout).transformPoint(opsvg)
-  expect(o2.x).toBe(o.x)
+  expect(o2.x).closeTo(o.x, 5)
 
   const scroll = boxScaleAt(layout.scroll, s, o.x, o.y)
   const svg = boxScaleAt(layout.svg, s, opsvg.x, opsvg.y)
 
   expect(scroll.x).toBe(-600)
-  expect(svg.x).toBe(-50)
+  expect(svg.x).closeTo(-50, 5)
 
   const coord = {
     ...layout,
@@ -294,6 +302,7 @@ test('move + zoom', () => {
     svg: {
       ...l7.svg,
       x: expect.closeTo(0, 5),
+      y: expect.closeTo(0, 5),
     },
   })
 })

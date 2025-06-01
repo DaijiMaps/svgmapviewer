@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { isNotNull, isNull } from './utils'
+import { isNotNull, isNull } from '../../src/lib/utils'
 
 test('isNull', () => {
   expect(isNull(null)).toBe(true)
