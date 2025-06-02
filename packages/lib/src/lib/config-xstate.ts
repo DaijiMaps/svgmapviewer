@@ -58,8 +58,6 @@ const configMachine = setup({
     uiCloseDoneCbs: new Set(),
     resizeCbs: new Set(),
     layoutCbs: new Set(),
-    geolocCbs: new Set(),
-    geolocDoneCbs: new Set(),
     mapNames: [],
   },
   states: {
@@ -120,14 +118,6 @@ const configMachine = setup({
               event.layoutCb === undefined
                 ? context.layoutCbs
                 : context.layoutCbs.add(event.layoutCb),
-            geolocCbs: ({ context, event }) =>
-              event.geolocCb === undefined
-                ? context.geolocCbs
-                : context.geolocCbs.add(event.geolocCb),
-            geolocDoneCbs: ({ context, event }) =>
-              event.geolocDoneCb === undefined
-                ? context.geolocDoneCbs
-                : context.geolocDoneCbs.add(event.geolocDoneCb),
           }),
         },
         // XXX refactor
@@ -210,18 +200,6 @@ const configMachine = setup({
                 context.layoutCbs.delete(event.layoutCb)
               }
               return context.layoutCbs
-            },
-            geolocCbs: ({ context, event }) => {
-              if (event.geolocCb !== undefined) {
-                context.geolocCbs.delete(event.geolocCb)
-              }
-              return context.geolocCbs
-            },
-            geolocDoneCbs: ({ context, event }) => {
-              if (event.geolocDoneCb !== undefined) {
-                context.geolocDoneCbs.delete(event.geolocDoneCb)
-              }
-              return context.geolocDoneCbs
             },
           }),
         },
@@ -339,12 +317,6 @@ export function notifyResize(layout: Readonly<Layout>, force: boolean): void {
 }
 export function notifyLayout(layout: Readonly<Layout>, force: boolean): void {
   configActor.getSnapshot().context.layoutCbs.forEach((cb) => cb(layout, force))
-}
-export function notifyGeoLoc(): void {
-  configActor.getSnapshot().context.geolocCbs.forEach((cb) => cb())
-}
-export function notifyGeoLocDone(position: GeolocationPosition): void {
-  configActor.getSnapshot().context.geolocDoneCbs.forEach((cb) => cb(position))
 }
 
 ////

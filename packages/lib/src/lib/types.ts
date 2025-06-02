@@ -87,8 +87,6 @@ export interface ConfigCb {
   uiCloseDoneCb: UiCloseDoneCb
   resizeCb: ResizeCb
   layoutCb: LayoutCb
-  geolocCb: GeoLocCb
-  geolocDoneCb: GeoLocDoneCb
 }
 
 export interface ConfigCbs {
@@ -105,8 +103,6 @@ export interface ConfigCbs {
   uiCloseDoneCbs: Set<UiCloseDoneCb>
   resizeCbs: Set<ResizeCb>
   layoutCbs: Set<LayoutCb>
-  geolocCbs: Set<GeoLocCb>
-  geolocDoneCbs: Set<GeoLocDoneCb>
 }
 
 ////
