@@ -1,15 +1,20 @@
 import type { VecVec } from '../vec/prefixed'
 import {
   emptyGeoJSON,
+  type LineFeature,
   type LineGeoJSON,
+  type MultiLineFeature,
   type MultiPolygonGeoJSON,
+  type PointFeature,
   type PointGeoJSON,
+  type PolygonFeature,
 } from './geojson-types'
 import {
   type OsmCentroidGeoJSON,
   type OsmLineFeature,
   type OsmLineGeoJSON,
   type OsmLineProperties,
+  type OsmLineStringProperties,
   type OsmMidpointGeoJSON,
   type OsmMultilinestringGeoJSON,
   type OsmMultipolygonFeature,
@@ -32,6 +37,15 @@ export type MapData = {
   multipolygons: OsmMultipolygonGeoJSON
   centroids: OsmCentroidGeoJSON
   midpoints: OsmMidpointGeoJSON
+}
+
+export type MapMap = {
+  pointMap: Map<number, PointFeature<OsmPointProperties>>
+  lineMap: Map<number, LineFeature<OsmLineProperties>>
+  multilinestringMap: Map<number, MultiLineFeature<OsmLineStringProperties>>
+  multipolygonMap: Map<number, PolygonFeature<OsmPolygonProperties>>
+  centroidMap: Map<number, PointFeature<OsmPolygonProperties>>
+  midpointMap: Map<number, PointFeature<OsmLineProperties>>
 }
 
 export const emptyMapData: MapData = {
