@@ -16,7 +16,7 @@ import { vendingMachinePath } from './vendingMachine'
 import { wasteBasketPath } from './wasteBasket'
 
 // XXX POI kind
-export type Kind =
+type Kind =
   | 'bench'
   | 'entrance'
   | 'guide_post'
@@ -28,7 +28,7 @@ export type Kind =
   | 'vending_machine'
   | 'waste_basket'
 
-export const names: Record<Kind, string> = {
+const names: Record<Kind, string> = {
   bench: benchPath,
   entrance: entrancePath,
   guide_post: guidePostPath,
@@ -41,13 +41,14 @@ export const names: Record<Kind, string> = {
   waste_basket: wasteBasketPath,
 }
 
+const nameMap: Map<string, string> = new Map(Object.entries(names))
+
 export {
   benchPath,
   entrancePath,
   guidePostPath,
   infoBoardPath,
   monumentPath,
-  names as objectNames,
   statuePath,
   toriiPath,
   tree16x16Path,
@@ -57,5 +58,10 @@ export {
   tree8x8Path,
   vendingMachinePath,
   wasteBasketPath,
+}
+
+export {
+  nameMap as objectNameMap,
+  names as objectNames,
   type Kind as ObjectKind,
 }

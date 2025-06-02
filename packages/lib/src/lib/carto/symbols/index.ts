@@ -8,7 +8,7 @@ import { Stairs } from './Stairs'
 import { Toilets } from './Toilets'
 
 // XXX POI kind
-export type Kind =
+type Kind =
   | 'bus'
   | 'elevator'
   | 'escalator'
@@ -18,7 +18,7 @@ export type Kind =
   | 'toilets'
   | 'water'
 
-export const names: Record<Kind, string> = {
+const names: Record<Kind, string> = {
   bus: '#XBus',
   elevator: '#XElevator',
   escalator: '#XEscalator',
@@ -29,6 +29,8 @@ export const names: Record<Kind, string> = {
   water: '#XDrinkingFountain',
 }
 
+const nameMap: Map<string, string> = new Map(Object.entries(names))
+
 export {
   Bus,
   DrinkingFountain,
@@ -37,7 +39,11 @@ export {
   Information,
   Parking,
   Stairs,
-  names as symbolNames,
   Toilets,
+}
+
+export {
+  nameMap as symbolNameMap,
+  names as symbolNames,
   type Kind as SymbolKind,
 }
