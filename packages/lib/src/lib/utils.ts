@@ -44,6 +44,7 @@ export type ImmutableShallow<T extends object> = {
 
 ////
 
+// eslint-disable-next-line functional/functional-parameters
 export function getBodySize(): BoxBox {
   return {
     x: 0,
@@ -51,4 +52,14 @@ export function getBodySize(): BoxBox {
     width: document.body.clientWidth,
     height: document.body.clientHeight,
   }
+}
+
+////
+
+export type DeepReadonly<T> = {
+  readonly [P in keyof T]: T[P] extends (...args: readonly unknown[]) => unknown
+    ? T[P]
+    : T[P] extends object
+      ? DeepReadonly<T[P]>
+      : T[P]
 }

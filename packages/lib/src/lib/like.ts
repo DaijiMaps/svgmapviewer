@@ -50,6 +50,7 @@ function stringifySnapshot(val: Readonly<StoreSnapshot<LikesContext>>) {
   return JSON.stringify(externalizeSnapshot(val))
 }
 
+// eslint-disable-next-line functional/functional-parameters
 function loadSnapshot() {
   const str = localStorage.getItem('svgmapviewer:likes')
   const val = parseSnapshot(str)
@@ -65,9 +66,11 @@ const likesStore = createStore({
   on: {
     like: (context, event: Readonly<{ id: number }>) => ({
       ...context,
+      // eslint-disable-next-line functional/immutable-data
       ids: new Set(Array.from(context.ids.add(event.id))),
     }),
     unlike: (context, event: Readonly<{ id: number }>) => {
+      // eslint-disable-next-line functional/immutable-data
       context.ids.delete(event.id) // returns boolean
       return { ...context, ids: new Set(Array.from(context.ids)) }
     },
@@ -82,6 +85,7 @@ export const isLiked = (id: number): boolean => {
   return likesStore.getSnapshot().context.ids.has(id)
 }
 
+// eslint-disable-next-line functional/functional-parameters
 export function useLikes(): Set<number> {
   return useSelector(likesStore, (s) => s.context.ids)
 }

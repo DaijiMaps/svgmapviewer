@@ -7,7 +7,7 @@ export function mountShadowRoot(id: string): void {
   if (root === null || root.shadowRoot === null) {
     return
   }
-  // eslint-disable-next-line functional/no-expression-statements
+
   //rootActor.send({ type: 'MOUNT', ref })
 }
 

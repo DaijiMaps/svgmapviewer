@@ -1,3 +1,4 @@
+/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-conditional-statements */
@@ -105,11 +106,12 @@ export function getScroll(): null | BoxBox {
 
 // eslint-disable-next-line functional/no-let
 export let currentScroll: BoxBox = boxUnit
+// eslint-disable-next-line functional/no-let
 export let currentTimeStamp: number = 0
 
-// eslint-disable-next-line functional/no-return-void
 export function setCurrentScroll(
-  ev: React.UIEvent<HTMLDivElement, Event>
+  ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
+  // eslint-disable-next-line functional/no-return-void
 ): void {
   const e: null | HTMLDivElement = ev.currentTarget
   if (e !== null) {
@@ -131,7 +133,11 @@ export function getCurrentScroll(): BoxBox {
 
 export const scrollCbs: Set<ScrollCb> = new Set()
 
-export function notifyScroll(ev: React.UIEvent<HTMLDivElement, Event>): void {
+export function notifyScroll(
+  ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
+  // eslint-disable-next-line functional/no-return-void
+): void {
+  // eslint-disable-next-line functional/no-return-void
   scrollCbs.forEach((cb) => cb(ev))
 }
 

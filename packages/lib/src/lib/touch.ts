@@ -162,6 +162,7 @@ export function handleTouchEnd(
   }
 }
 
+// eslint-disable-next-line functional/functional-parameters
 export function resetTouches(): Touches {
   return {
     vecs: new Map(),
