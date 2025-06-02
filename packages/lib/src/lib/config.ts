@@ -10,15 +10,10 @@ import {
   type SvgMapViewerConfig,
   type SvgMapViewerConfigUser,
 } from './types'
-import { type VecVec } from './vec/prefixed'
 
 const renderInfoDefault: RenderInfo = (
   props: Readonly<{ info: Readonly<Info> }>
 ) => createElement('p', {}, props.info.title)
-
-function mapCoordDefault(p: VecVec): VecVec {
-  return p
-}
 
 // XXX
 // XXX migrate to configActor
@@ -48,8 +43,6 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   renderInfo: renderInfoDefault,
   mapData: emptyMapData,
   mapCoord: {
-    fromGeo: mapCoordDefault,
-    toGeo: mapCoordDefault,
     matrix: new DOMMatrixReadOnly(),
   },
   mapHtmlStyle: '',

@@ -1,14 +1,6 @@
 import { type BoxBox, boxScale } from '../box/prefixed'
 import { type V, vSub } from '../tuple'
-import {
-  type VecVec,
-  vecAdd,
-  vecDiv,
-  vecFromV,
-  vecMul,
-  vecSub,
-  vecVec,
-} from '../vec/prefixed'
+import { vecDiv, vecFromV, vecVec } from '../vec/prefixed'
 import { type MapCoord, type MapData } from './data-types'
 import { type LineGeoJSON } from './geojson-types'
 
@@ -49,9 +41,6 @@ export function calcScale({ origin, measures, viewbox }: Readonly<MapData>): {
   // XXX svg <-> geo coordinate
   // XXX XXX use matrix
 
-  const fromGeo = (pgeo: VecVec): VecVec => vecMul(vecSub(pgeo, o), distScale)
-  const toGeo = (psvg: VecVec): VecVec => vecAdd(vecDiv(psvg, distScale), o)
-
   const geoToSvgMatrix = new DOMMatrixReadOnly()
     .scale(distScale.x, distScale.y)
     .translate(-o.x, -o.y)
@@ -60,8 +49,6 @@ export function calcScale({ origin, measures, viewbox }: Readonly<MapData>): {
 
   return {
     mapCoord: {
-      fromGeo: fromGeo,
-      toGeo: toGeo,
       matrix: geoToSvgMatrix,
     },
     mapViewBox,

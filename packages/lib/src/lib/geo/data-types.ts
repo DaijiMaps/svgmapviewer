@@ -1,4 +1,3 @@
-import type { VecVec } from '../vec/prefixed'
 import {
   emptyGeoJSON,
   type LineFeature,
@@ -85,13 +84,5 @@ export type MeasureProperties = {
 }
 
 export type MapCoord = {
-  // XXX
-  // XXX
-  // XXX
-  toGeo: (p: VecVec) => VecVec
-  fromGeo: (p: VecVec) => VecVec
-  // XXX
-  // XXX
-  // XXX
   matrix: DOMMatrixReadOnly
 }
