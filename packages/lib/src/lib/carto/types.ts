@@ -42,7 +42,7 @@ export interface MapMarkers {
   name: string
   pointsFilter?: PointsFilter
   polygonsFilter?: CentroidsFilter
-  midpointsFilter?: MidpointsFilter
+  linesFilter?: MidpointsFilter
   data?: MapMarker[]
 }
 
@@ -56,7 +56,7 @@ export interface MapObjects {
   width: number
   pointsFilter?: PointsFilter
   polygonsFilter?: CentroidsFilter
-  midpointsFilter?: MidpointsFilter
+  linesFilter?: MidpointsFilter
   data?: Point[]
 }
 
@@ -71,6 +71,6 @@ export interface MapSymbols {
   href: string
   pointsFilter?: PointsFilter
   polygonsFilter?: CentroidsFilter
-  midpointsFilter?: MidpointsFilter
+  linesFilter?: MidpointsFilter
   data?: Point[]
 }
