@@ -36,6 +36,8 @@ import {
   type PolygonGeometry,
 } from './geojson-types'
 import {
+  type OsmFeature,
+  type OsmGeoJSON,
   type OsmLineProperties,
   type OsmLineStringProperties,
   type OsmPointProperties,
@@ -107,6 +109,8 @@ export {
 }
 
 export {
+  type OsmFeature,
+  type OsmGeoJSON,
   type OsmLineProperties,
   type OsmLineStringProperties,
   type OsmPointProperties,

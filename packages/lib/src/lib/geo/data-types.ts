@@ -32,8 +32,8 @@ export type MapData = {
   lines: OsmLineGeoJSON
   multilinestrings: OsmMultiLineStringGeoJSON
   multipolygons: OsmMultiPolygonGeoJSON
-  midpoints: OsmMidpointGeoJSON
-  centroids: OsmCentroidGeoJSON
+  midpoints: OsmMidpointGeoJSON // XXX
+  centroids: OsmCentroidGeoJSON // XXX
 }
 
 export const emptyMapData: MapData = {
@@ -46,8 +46,8 @@ export const emptyMapData: MapData = {
   lines: emptyGeoJSON as OsmLineGeoJSON,
   multilinestrings: emptyGeoJSON as OsmMultiLineStringGeoJSON,
   multipolygons: emptyGeoJSON as OsmMultiPolygonGeoJSON,
-  midpoints: emptyGeoJSON as OsmMidpointGeoJSON,
-  centroids: emptyGeoJSON as OsmCentroidGeoJSON,
+  midpoints: emptyGeoJSON as OsmMidpointGeoJSON, // XXX
+  centroids: emptyGeoJSON as OsmCentroidGeoJSON, // XXX
 }
 
 ////
@@ -56,35 +56,40 @@ export type PointMap = Map<number, OsmPointFeature>
 export type LineMap = Map<number, OsmLineFeature>
 export type MultiLineStringMap = Map<number, OsmMultiLineStringFeature>
 export type MultiPolygonMap = Map<number, OsmMultiPolygonFeature>
-export type MidpointMap = Map<number, OsmMidpointFeature>
-export type CentroidMap = Map<number, OsmCentroidFeature>
+export type MidpointMap = Map<number, OsmMidpointFeature> // XXX
+export type CentroidMap = Map<number, OsmCentroidFeature> // XXX
 
 export type MapMap = {
   pointMap: PointMap
   lineMap: LineMap
   multilinestringMap: MultiLineStringMap
   multipolygonMap: MultiPolygonMap
-  midpointMap: MidpointMap
-  centroidMap: CentroidMap
+  midpointMap: MidpointMap // XXX
+  centroidMap: CentroidMap // XXX
 }
 
 ////
 
+// XXX
 export type OsmPointLikeProperties =
   | OsmPointProperties
-  | OsmLineProperties /* midpoints */
-  | OsmPolygonProperties /* centroids */
+  | OsmLineProperties /* midpoints */ // XXX
+  | OsmPolygonProperties /* centroids */ // XXX
 
+// XXX
 export type OsmPointLikeFeature =
   | OsmPointFeature
-  | OsmMidpointFeature
-  | OsmCentroidFeature
+  | OsmMidpointFeature // XXX
+  | OsmCentroidFeature // XXX
 
+// XXX
 export interface OsmPointLikeGeoJSON {
   points: OsmPointGeoJSON
   midpoints: OsmMidpointGeoJSON
   centroids: OsmCentroidGeoJSON
 }
+
+////
 
 export type MeasureProperties = {
   direction: string

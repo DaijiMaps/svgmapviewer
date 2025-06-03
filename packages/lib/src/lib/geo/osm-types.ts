@@ -105,5 +105,21 @@ export type OsmLineGeoJSON = LineGeoJSON<OsmLineProperties>
 export type OsmMultiLineStringGeoJSON =
   MultiLineGeoJSON<OsmLineStringProperties>
 export type OsmMultiPolygonGeoJSON = MultiPolygonGeoJSON<OsmPolygonProperties>
-export type OsmCentroidGeoJSON = PointGeoJSON<OsmPolygonProperties>
-export type OsmMidpointGeoJSON = PointGeoJSON<OsmLineProperties>
+export type OsmCentroidGeoJSON = PointGeoJSON<OsmPolygonProperties> // XXX
+export type OsmMidpointGeoJSON = PointGeoJSON<OsmLineProperties> // XXX
+
+export type OsmFeature =
+  | OsmPointFeature
+  | OsmLineFeature
+  | OsmMultiLineStringFeature
+  | OsmMultiPolygonFeature
+// XXX midpoint
+// XXX centroid
+
+export type OsmGeoJSON =
+  | OsmPointGeoJSON
+  | OsmLineGeoJSON
+  | OsmMultiLineStringGeoJSON
+  | OsmMultiPolygonGeoJSON
+// XXX midpoint
+// XXX centroid
