@@ -65,37 +65,34 @@ import {
 } from './search'
 
 export {
-  type Line,
-  type LineCoordinate,
-  type LineFeature,
-  type LineGeoJSON,
-  type LineGeometry,
   type MapCoord,
   type MapData,
   type MapMap,
   type MeasureProperties,
+  type OsmPointLikeFeature,
+  type OsmPointLikeGeoJSON,
+  type OsmPointLikeProperties,
+}
+
+export { calcScale }
+
+export {
+  type LineCoordinate,
+  type LineFeature,
+  type LineGeoJSON,
+  type LineGeometry,
   type MultiLineCoordinate,
   type MultiLineFeature,
   type MultiLineGeoJSON,
   type MultiLineGeometry,
-  type MultiLineString,
   type MultiPointCoordinate,
   type MultiPointFeature,
   type MultiPointGeoJSON,
   type MultiPointGeometry,
-  type MultiPolygon,
   type MultiPolygonCoordinate,
   type MultiPolygonFeature,
   type MultiPolygonGeoJSON,
   type MultiPolygonGeometry,
-  type OsmLineProperties,
-  type OsmLineStringProperties,
-  type OsmPointLikeFeature /* for POI */,
-  type OsmPointLikeGeoJSON /* for POI */,
-  type OsmPointLikeProperties /* for POI */,
-  type OsmPointProperties,
-  type OsmPolygonProperties,
-  type Point,
   type PointCoordinate,
   type PointFeature,
   type PointGeoJSON,
@@ -106,7 +103,16 @@ export {
   type PolygonGeometry,
 }
 
-export { calcScale, lineToPath, multiLineStringToPath, multiPolygonToPath }
+export {
+  type OsmLineProperties,
+  type OsmLineStringProperties,
+  type OsmPointProperties,
+  type OsmPolygonProperties,
+}
+
+export { lineToPath, multiLineStringToPath, multiPolygonToPath }
+
+export { type Line, type MultiLineString, type MultiPolygon, type Point }
 
 export {
   type AllFilters,
@@ -118,8 +124,7 @@ export {
   type PointsFilter,
 }
 
-//// filter types
-
-export { findFeature, findProperties, getOsmId, getPropertyValue }
 
 export { geolocActorStart, getPosition, usePosition }
+
+export { findFeature, findProperties, getOsmId, getPropertyValue }
