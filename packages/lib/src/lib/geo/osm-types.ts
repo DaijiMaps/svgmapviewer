@@ -1,9 +1,12 @@
 import {
+  type LineFeature,
   type LineGeoJSON,
+  type MultiLineFeature,
   type MultiLineGeoJSON,
   type MultiPolygonGeoJSON,
   type PointFeature,
   type PointGeoJSON,
+  type PolygonFeature,
 } from './geojson-types'
 
 export type OsmPointPropertiesKey =
@@ -85,13 +88,17 @@ export type OsmPolygonProperties = Record<
 }
 
 export type OsmPointFeature = PointFeature<OsmPointProperties>
-export type OsmLineFeature = PointFeature<OsmLineProperties>
-export type OsmMultipolygonFeature = PointFeature<OsmPolygonProperties>
+export type OsmLineFeature = LineFeature<OsmLineProperties>
+export type OsmMultiLineStringFeature =
+  MultiLineFeature<OsmLineStringProperties>
+export type OsmMultiPolygonFeature = PolygonFeature<OsmPolygonProperties>
+export type OsmMidpointFeature = PointFeature<OsmLineProperties> // XXX
+export type OsmCentroidFeature = PointFeature<OsmPolygonProperties> // XXX
 
 export type OsmPointGeoJSON = PointGeoJSON<OsmPointProperties>
 export type OsmLineGeoJSON = LineGeoJSON<OsmLineProperties>
-export type OsmMultilinestringGeoJSON =
+export type OsmMultiLineStringGeoJSON =
   MultiLineGeoJSON<OsmLineStringProperties>
-export type OsmMultipolygonGeoJSON = MultiPolygonGeoJSON<OsmPolygonProperties>
+export type OsmMultiPolygonGeoJSON = MultiPolygonGeoJSON<OsmPolygonProperties>
 export type OsmCentroidGeoJSON = PointGeoJSON<OsmPolygonProperties>
 export type OsmMidpointGeoJSON = PointGeoJSON<OsmLineProperties>

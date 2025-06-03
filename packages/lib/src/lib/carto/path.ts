@@ -28,7 +28,7 @@ export function renderLinePath(
   return xs.map(lineToPath).join('')
 }
 
-export function renderMultipolygonPath(
+export function renderMultiPolygonPath(
   filter: (f: Readonly<MultiPolygonFeature<OsmPolygonProperties>>) => boolean
 ): string {
   const xs: MultiPolygon[] = cfg.mapData.multipolygons.features

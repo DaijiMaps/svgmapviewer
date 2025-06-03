@@ -1,23 +1,21 @@
 import {
   emptyGeoJSON,
-  type LineFeature,
   type LineGeoJSON,
-  type MultiLineFeature,
   type MultiPolygonGeoJSON,
-  type PointFeature,
   type PointGeoJSON,
-  type PolygonFeature,
 } from './geojson-types'
 import {
+  type OsmCentroidFeature,
   type OsmCentroidGeoJSON,
   type OsmLineFeature,
   type OsmLineGeoJSON,
   type OsmLineProperties,
-  type OsmLineStringProperties,
+  type OsmMidpointFeature,
   type OsmMidpointGeoJSON,
-  type OsmMultilinestringGeoJSON,
-  type OsmMultipolygonFeature,
-  type OsmMultipolygonGeoJSON,
+  type OsmMultiLineStringFeature,
+  type OsmMultiLineStringGeoJSON,
+  type OsmMultiPolygonFeature,
+  type OsmMultiPolygonGeoJSON,
   type OsmPointFeature,
   type OsmPointGeoJSON,
   type OsmPointProperties,
@@ -32,19 +30,10 @@ export type MapData = {
 
   points: OsmPointGeoJSON
   lines: OsmLineGeoJSON
-  multilinestrings: OsmMultilinestringGeoJSON
-  multipolygons: OsmMultipolygonGeoJSON
-  centroids: OsmCentroidGeoJSON
+  multilinestrings: OsmMultiLineStringGeoJSON
+  multipolygons: OsmMultiPolygonGeoJSON
   midpoints: OsmMidpointGeoJSON
-}
-
-export type MapMap = {
-  pointMap: Map<number, PointFeature<OsmPointProperties>>
-  lineMap: Map<number, LineFeature<OsmLineProperties>>
-  multilinestringMap: Map<number, MultiLineFeature<OsmLineStringProperties>>
-  multipolygonMap: Map<number, PolygonFeature<OsmPolygonProperties>>
-  centroidMap: Map<number, PointFeature<OsmPolygonProperties>>
-  midpointMap: Map<number, PointFeature<OsmLineProperties>>
+  centroids: OsmCentroidGeoJSON
 }
 
 export const emptyMapData: MapData = {
@@ -55,11 +44,31 @@ export const emptyMapData: MapData = {
 
   points: emptyGeoJSON as OsmPointGeoJSON,
   lines: emptyGeoJSON as OsmLineGeoJSON,
-  multilinestrings: emptyGeoJSON as OsmMultilinestringGeoJSON,
-  multipolygons: emptyGeoJSON as OsmMultipolygonGeoJSON,
-  centroids: emptyGeoJSON as OsmCentroidGeoJSON,
+  multilinestrings: emptyGeoJSON as OsmMultiLineStringGeoJSON,
+  multipolygons: emptyGeoJSON as OsmMultiPolygonGeoJSON,
   midpoints: emptyGeoJSON as OsmMidpointGeoJSON,
+  centroids: emptyGeoJSON as OsmCentroidGeoJSON,
 }
+
+////
+
+export type PointMap = Map<number, OsmPointFeature>
+export type LineMap = Map<number, OsmLineFeature>
+export type MultiLineStringMap = Map<number, OsmMultiLineStringFeature>
+export type MultiPolygonMap = Map<number, OsmMultiPolygonFeature>
+export type MidpointMap = Map<number, OsmMidpointFeature>
+export type CentroidMap = Map<number, OsmCentroidFeature>
+
+export type MapMap = {
+  pointMap: PointMap
+  lineMap: LineMap
+  multilinestringMap: MultiLineStringMap
+  multipolygonMap: MultiPolygonMap
+  midpointMap: MidpointMap
+  centroidMap: CentroidMap
+}
+
+////
 
 export type OsmPointLikeProperties =
   | OsmPointProperties
@@ -69,7 +78,7 @@ export type OsmPointLikeProperties =
 export type OsmPointLikeFeature =
   | OsmPointFeature
   | OsmLineFeature
-  | OsmMultipolygonFeature
+  | OsmMultiPolygonFeature
 
 export interface OsmPointLikeGeoJSON {
   points: OsmPointGeoJSON

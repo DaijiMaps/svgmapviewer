@@ -1,7 +1,7 @@
 import { RenderMapLayers } from './layers'
 import { RenderMapMarkers, RenderMarkers } from './markers'
 import { RenderMapObjects, RenderObjects } from './objects'
-import { renderAreasPath, renderLinePath, renderMultipolygonPath } from './path'
+import { renderAreasPath, renderLinePath, renderMultiPolygonPath } from './path'
 import { RenderMapCommon } from './render'
 import { RenderMapSymbols, RenderUses } from './symbols'
 import {
@@ -17,7 +17,7 @@ import {
 
 // XXX
 
-export { renderAreasPath, renderLinePath, renderMultipolygonPath }
+export { renderAreasPath, renderLinePath, renderMultiPolygonPath }
 
 //// layers
 
