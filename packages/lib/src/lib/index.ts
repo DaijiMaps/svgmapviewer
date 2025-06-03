@@ -16,6 +16,7 @@ import {
   notifyUiOpenDone,
   notifyZoomEnd,
   notifyZoomStart,
+  registerCbs,
   useConfigMapNames,
 } from './config-xstate'
 import { type Layout } from './layout'
@@ -35,7 +36,13 @@ export { type Info, type RenderMap, type SearchReq, type SearchRes }
 
 // svgmapviewer
 
-export { configActorStart, configSend, svgMapViewerConfig, useConfigMapNames }
+export {
+  configActorStart,
+  configSend,
+  registerCbs,
+  svgMapViewerConfig,
+  useConfigMapNames,
+}
 
 export {
   notifyLayout,
