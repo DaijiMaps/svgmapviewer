@@ -4,8 +4,8 @@ import { svgMapViewerConfig as cfg } from '../config'
 import {
   usePosition,
   type LinesFilter,
+  type MultiPolygonsFilter,
   type PointsFilter,
-  type PolygonsFilter,
 } from '../geo'
 import { useLayoutConfig, useLayoutSvgScaleS } from '../map-xstate'
 import { vUnvec, vVec, type V } from '../tuple'
@@ -56,7 +56,7 @@ function getPoints(filter: PointsFilter): MapMarker[] {
     .map((v) => ({ name: '', href: '', data: v }))
 }
 
-function getPolygons(filter: PolygonsFilter): MapMarker[] {
+function getPolygons(filter: MultiPolygonsFilter): MapMarker[] {
   return cfg.mapData.multipolygons.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)

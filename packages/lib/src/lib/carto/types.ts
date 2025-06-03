@@ -3,7 +3,6 @@ import {
   type LinesFilter,
   type MultiPolygonsFilter,
   type PointsFilter,
-  type PolygonsFilter,
 } from '../geo/poi-types'
 
 //// layers
@@ -40,7 +39,7 @@ export interface MapMarker {
 export interface MapMarkers {
   name: string
   pointsFilter?: PointsFilter
-  polygonsFilter?: PolygonsFilter
+  polygonsFilter?: MultiPolygonsFilter
   linesFilter?: LinesFilter
   data?: MapMarker[]
 }
@@ -54,7 +53,7 @@ export interface MapObjects {
   path: string
   width: number
   pointsFilter?: PointsFilter
-  polygonsFilter?: PolygonsFilter
+  polygonsFilter?: MultiPolygonsFilter
   linesFilter?: LinesFilter
   data?: Point[]
 }
@@ -69,7 +68,7 @@ export interface MapSymbols {
   name: string
   href: string
   pointsFilter?: PointsFilter
-  polygonsFilter?: PolygonsFilter
+  polygonsFilter?: MultiPolygonsFilter
   linesFilter?: LinesFilter
   data?: Point[]
 }

@@ -3,9 +3,9 @@ import { Fragment } from 'react/jsx-runtime'
 import { svgMapViewerConfig as cfg } from '../config'
 import {
   type LinesFilter,
+  type MultiPolygonsFilter,
   type Point,
   type PointsFilter,
-  type PolygonsFilter,
 } from '../geo'
 import { type V, vUnvec, vVec } from '../tuple'
 import type { MapSymbols, RenderMapSymbolsProps } from './types'
@@ -53,7 +53,7 @@ function getPoints(filter: PointsFilter): Point[] {
     .map(conv)
 }
 
-function getPolygons(filter: PolygonsFilter) {
+function getPolygons(filter: MultiPolygonsFilter) {
   return cfg.mapData.multipolygons.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)
