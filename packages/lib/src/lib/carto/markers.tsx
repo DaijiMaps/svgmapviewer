@@ -1,15 +1,10 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
-import {
-  usePosition,
-  type LinesFilter,
-  type MultiPolygonsFilter,
-  type PointsFilter,
-} from '../geo'
+import { usePosition } from '../geo'
 import { useLayoutConfig, useLayoutSvgScaleS } from '../map-xstate'
-import { vUnvec, vVec, type V } from '../tuple'
-import type { MapMarker, MapMarkers } from './types'
+import { type V } from '../tuple'
+import type { MapMarker } from './types'
 
 export function RenderMapMarkers(): ReactNode {
   const config = useLayoutConfig()
@@ -32,48 +27,6 @@ export function RenderMapMarkers(): ReactNode {
       </style>
     </g>
   )
-}
-
-export function entryToVs({
-  pointsFilter,
-  polygonsFilter,
-  linesFilter,
-  data,
-}: Readonly<MapMarkers>): MapMarker[] {
-  return [
-    ...(pointsFilter !== undefined ? getPoints(pointsFilter) : []),
-    ...(polygonsFilter !== undefined ? getPolygons(polygonsFilter) : []),
-    ...(linesFilter !== undefined ? getLines(linesFilter) : []),
-    ...(data !== undefined ? data : []),
-  ]
-}
-
-function getPoints(filter: PointsFilter): MapMarker[] {
-  return cfg.mapData.points.features
-    .filter(filter)
-    .map((f) => f.geometry.coordinates as unknown as V)
-    .map(conv)
-    .map((v) => ({ name: '', href: '', data: v }))
-}
-
-function getPolygons(filter: MultiPolygonsFilter): MapMarker[] {
-  return cfg.mapData.multipolygons.features
-    .filter(filter)
-    .map((f) => f.geometry.coordinates as unknown as V)
-    .map(conv)
-    .map((v) => ({ name: '', href: '', data: v }))
-}
-
-function getLines(filter: LinesFilter): MapMarker[] {
-  return cfg.mapData.lines.features
-    .filter(filter)
-    .map((f) => f.geometry.coordinates as unknown as V)
-    .map(conv)
-    .map((v) => ({ name: '', href: '', data: v }))
-}
-
-function conv(p: V): V {
-  return vUnvec(cfg.mapCoord.matrix.transformPoint(vVec(p)))
 }
 
 export function RenderMarkers(

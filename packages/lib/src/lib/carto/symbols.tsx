@@ -1,15 +1,8 @@
 import { type ReactNode } from 'react'
 import { Fragment } from 'react/jsx-runtime'
-import { svgMapViewerConfig as cfg } from '../config'
-import {
-  type LinesFilter,
-  type MultiPolygonsFilter,
-  type OsmFeature,
-  type Point,
-  type PointsFilter,
-} from '../geo'
-import { type V, vUnvec, vV, vVec } from '../tuple'
-import type { MapSymbols, RenderMapSymbolsProps } from './types'
+import { type V } from '../tuple'
+import { entryToVs } from './point'
+import type { RenderMapSymbolsProps } from './types'
 
 export function RenderMapSymbols(
   props: Readonly<RenderMapSymbolsProps>
@@ -31,45 +24,6 @@ export function RenderMapSymbols(
       })}
     </g>
   )
-}
-
-export function entryToVs({
-  pointsFilter,
-  polygonsFilter,
-  linesFilter,
-  data,
-}: Readonly<MapSymbols>): Point[] {
-  return [
-    ...(pointsFilter !== undefined ? getPoints(pointsFilter) : []),
-    ...(polygonsFilter !== undefined ? getPolygons(polygonsFilter) : []),
-    ...(linesFilter !== undefined ? getLines(linesFilter) : []),
-    ...(data !== undefined ? data : []),
-  ]
-}
-
-function getPoints(filter: PointsFilter): Point[] {
-  return cfg.mapData.points.features.filter(filter).flatMap(fToV).map(conv)
-}
-
-function getPolygons(filter: MultiPolygonsFilter) {
-  return cfg.mapData.multipolygons.features
-    .filter(filter)
-    .flatMap(fToV)
-    .map(conv)
-}
-
-function getLines(filter: LinesFilter) {
-  return cfg.mapData.lines.features.filter(filter).flatMap(fToV).map(conv)
-}
-
-function fToV(f: OsmFeature): V[] {
-  const x = f.properties.centroid_x
-  const y = f.properties.centroid_y
-  return x === null || y === null ? [] : [vV(x, y)]
-}
-
-function conv(p: V): V {
-  return vUnvec(cfg.mapCoord.matrix.transformPoint(vVec(p)))
 }
 
 export function RenderUses(

@@ -36,26 +36,18 @@ export interface MapMarker {
   data?: Point
 }
 
-export interface MapMarkers {
+export interface MapMarkers extends WithFilters {
   name: string
-  pointsFilter?: PointsFilter
-  polygonsFilter?: MultiPolygonsFilter
-  linesFilter?: LinesFilter
-  data?: MapMarker[]
 }
 
 //// objects
 
 // XXX take size (width/height)
 // XXX calc stroke-width (0.05% of width/height)
-export interface MapObjects {
+export interface MapObjects extends WithFilters {
   name: string
   path: string
   width: number
-  pointsFilter?: PointsFilter
-  polygonsFilter?: MultiPolygonsFilter
-  linesFilter?: LinesFilter
-  data?: Point[]
 }
 
 //// symbols
@@ -64,9 +56,12 @@ export interface RenderMapSymbolsProps {
   mapSymbols: MapSymbols[]
 }
 
-export interface MapSymbols {
+export interface MapSymbols extends WithFilters {
   name: string
   href: string
+}
+
+export interface WithFilters {
   pointsFilter?: PointsFilter
   polygonsFilter?: MultiPolygonsFilter
   linesFilter?: LinesFilter
