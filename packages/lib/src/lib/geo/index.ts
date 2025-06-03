@@ -52,7 +52,6 @@ import {
   type Point,
 } from './path-types'
 import {
-  type AllFilters,
   type LinesFilter,
   type MultiPolygonsFilter,
   type POI,
@@ -122,7 +121,6 @@ export { lineToPath, multiLineStringToPath, multiPolygonToPath }
 export { type Line, type MultiLineString, type MultiPolygon, type Point }
 
 export {
-  type AllFilters,
   type LinesFilter,
   type MultiPolygonsFilter,
   type POI,
