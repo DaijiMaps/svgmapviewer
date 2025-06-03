@@ -21,18 +21,20 @@ export function entryToVs({
   data,
 }: Readonly<WithFilters>): Point[] {
   const mapData = cfg.mapData
-  return [
-    ...(pointsFilter !== undefined
-      ? getPoints(mapData.points.features, pointsFilter)
-      : []),
-    ...(polygonsFilter !== undefined
-      ? getPolygons(mapData.multipolygons.features, polygonsFilter)
-      : []),
-    ...(linesFilter !== undefined
-      ? getLines(mapData.lines.features, linesFilter)
-      : []),
-    ...(data !== undefined ? data : []),
-  ]
+  const points =
+    pointsFilter === undefined
+      ? []
+      : getPoints(mapData.points.features, pointsFilter)
+  const lines =
+    linesFilter === undefined
+      ? []
+      : getLines(mapData.lines.features, linesFilter)
+  const polygons =
+    polygonsFilter === undefined
+      ? []
+      : getPolygons(mapData.multipolygons.features, polygonsFilter)
+  const others = data === undefined ? [] : data
+  return [...points, ...lines, ...polygons, ...others]
 }
 
 function getPoints(
@@ -42,16 +44,16 @@ function getPoints(
   return features.filter(filter).flatMap(fToV).map(conv)
 }
 
-function getPolygons(
-  features: readonly OsmMultiPolygonFeature[],
-  filter: MultiPolygonsFilter
+function getLines(
+  features: readonly OsmLineFeature[],
+  filter: LinesFilter
 ): Point[] {
   return features.filter(filter).flatMap(fToV).map(conv)
 }
 
-function getLines(
-  features: readonly OsmLineFeature[],
-  filter: LinesFilter
+function getPolygons(
+  features: readonly OsmMultiPolygonFeature[],
+  filter: MultiPolygonsFilter
 ): Point[] {
   return features.filter(filter).flatMap(fToV).map(conv)
 }

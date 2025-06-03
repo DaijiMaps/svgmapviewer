@@ -61,9 +61,11 @@ export interface MapSymbols extends WithFilters {
   href: string
 }
 
+//// common
+
 export interface WithFilters {
   pointsFilter?: PointsFilter
-  polygonsFilter?: MultiPolygonsFilter
   linesFilter?: LinesFilter
+  polygonsFilter?: MultiPolygonsFilter
   data?: Point[]
 }
