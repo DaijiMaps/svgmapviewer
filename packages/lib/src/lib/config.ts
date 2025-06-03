@@ -42,6 +42,14 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   getMapMarkers: () => [],
   renderInfo: renderInfoDefault,
   mapData: emptyMapData,
+  mapMap: {
+    pointMap: new Map(),
+    lineMap: new Map(),
+    multilinestringMap: new Map(),
+    multipolygonMap: new Map(),
+    midpointMap: new Map(),
+    centroidMap: new Map(),
+  },
   mapCoord: {
     matrix: new DOMMatrixReadOnly(),
   },
