@@ -6,7 +6,7 @@ import {
   type SearchAddressRes,
   type SearchContext,
 } from './address'
-import { getAddressEntries } from './address-data'
+import { getAddressEntries, getAddressInfo } from './address-data'
 
 export {
   initAddresses,
@@ -17,4 +17,4 @@ export {
   type SearchContext,
 }
 
-export { getAddressEntries }
+export { getAddressEntries, getAddressInfo }

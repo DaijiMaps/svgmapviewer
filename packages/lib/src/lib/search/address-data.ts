@@ -1,11 +1,13 @@
 /* eslint-disable functional/prefer-immutable-types */
 import {
+  findFeature,
   getOsmId,
   type MapData,
   type OsmFeature,
   type SearchEntry,
 } from '../geo'
-import type { AddressEntries, AddressEntry } from './address'
+import type { Info } from '../types'
+import type { AddressEntries, AddressEntry, SearchAddressRes } from './address'
 
 const pointAddresses = (
   mapData: MapData,
@@ -51,4 +53,20 @@ function filterFeature(
   return matches.length === 0
     ? null
     : { a: id + '', lonlat: { x: centroid_x, y: centroid_y } }
+}
+
+export function getAddressInfo(
+  mapData: MapData,
+  entries: SearchEntry[],
+  res: SearchAddressRes
+): null | Info {
+  const feature = findFeature(res?.address, mapData)
+  if (feature === null) {
+    return null
+  }
+  const properties = feature.properties
+  const matches = entries.flatMap((entry) =>
+    !entry.filter(properties) ? [] : [entry.getInfo(properties, res.address)]
+  )
+  return matches.length === 0 ? null : matches[0]
 }
