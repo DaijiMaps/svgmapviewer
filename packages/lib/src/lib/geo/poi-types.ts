@@ -28,10 +28,10 @@ export type MultiPolygonsFilter = (
   f: Readonly<MultiPolygonFeature<OsmPolygonProperties>>
 ) => boolean
 export type CentroidsFilter = (
-  f: Readonly<PointFeature<OsmPolygonProperties>>
+  f: Readonly<MultiPolygonFeature<OsmPolygonProperties>>
 ) => boolean
 export type MidpointsFilter = (
-  f: Readonly<PointFeature<OsmLineProperties>>
+  f: Readonly<LineFeature<OsmLineProperties>>
 ) => boolean
 
 export interface AllFilters {

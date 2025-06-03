@@ -1,22 +1,10 @@
-import { type OsmPointLikeProperties } from './data-types'
-import { type PointFeature } from './geojson-types'
-import {
-  type OsmCentroidGeoJSON,
-  type OsmMidpointGeoJSON,
-  type OsmPointGeoJSON,
-  type OsmProperties,
-} from './osm-types'
-
-interface MapData {
-  points: OsmPointGeoJSON
-  centroids: OsmCentroidGeoJSON
-  midpoints: OsmMidpointGeoJSON
-}
+import { type MapData, type OsmPointLikeProperties } from './data-types'
+import { type OsmFeature, type OsmProperties } from './osm-types'
 
 export function findFeature(
   id: undefined | string,
   mapData: Readonly<MapData>
-): null | PointFeature<OsmPointLikeProperties> {
+): null | OsmFeature {
   if (id === undefined) {
     return null
   }
@@ -24,15 +12,13 @@ export function findFeature(
   if (ps.length === 1) {
     return ps[0]
   }
-  const cs = mapData.centroids.features.filter(
+  const cs = mapData.multipolygons.features.filter(
     (f) => f.properties.osm_id === id || f.properties.osm_way_id === id
   )
   if (cs.length === 1) {
     return cs[0]
   }
-  const ms = mapData.midpoints.features.filter(
-    (f) => f.properties.osm_id === id
-  )
+  const ms = mapData.lines.features.filter((f) => f.properties.osm_id === id)
   if (ms.length === 1) {
     return ms[0]
   }
@@ -50,15 +36,13 @@ export function findProperties(
   if (fs1.length === 1) {
     return fs1[0].properties
   }
-  const fs2 = mapData.centroids.features.filter(
+  const fs2 = mapData.multipolygons.features.filter(
     (f) => f.properties.osm_id === id || f.properties.osm_way_id === id
   )
   if (fs2.length === 1) {
     return fs2[0].properties
   }
-  const fs3 = mapData.midpoints.features.filter(
-    (f) => f.properties.osm_id === id
-  )
+  const fs3 = mapData.lines.features.filter((f) => f.properties.osm_id === id)
   if (fs3.length === 1) {
     return fs3[0].properties
   }

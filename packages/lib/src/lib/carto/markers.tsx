@@ -1,3 +1,4 @@
+/* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import {
@@ -56,7 +57,7 @@ function getPoints(filter: PointsFilter): MapMarker[] {
 }
 
 function getCentroids(filter: CentroidsFilter): MapMarker[] {
-  return cfg.mapData.centroids.features
+  return cfg.mapData.multipolygons.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)
     .map(conv)
@@ -64,7 +65,7 @@ function getCentroids(filter: CentroidsFilter): MapMarker[] {
 }
 
 function getMidpoints(filter: MidpointsFilter): MapMarker[] {
-  return cfg.mapData.midpoints.features
+  return cfg.mapData.lines.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)
     .map(conv)

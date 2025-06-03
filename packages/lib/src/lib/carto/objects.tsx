@@ -52,14 +52,14 @@ function getPoints(filter: PointsFilter): Point[] {
 }
 
 function getCentroids(filter: CentroidsFilter) {
-  return cfg.mapData.centroids.features
+  return cfg.mapData.multipolygons.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)
     .map(conv)
 }
 
 function getMidpoints(filter: MidpointsFilter) {
-  return cfg.mapData.midpoints.features
+  return cfg.mapData.lines.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)
     .map(conv)
