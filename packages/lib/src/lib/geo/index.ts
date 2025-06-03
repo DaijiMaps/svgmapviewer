@@ -63,6 +63,7 @@ import {
   getOsmId,
   getPropertyValue,
 } from './search'
+import { type SearchEntry } from './search-types'
 
 export { mapMapFromMapData }
 
@@ -128,3 +129,5 @@ export {
   getOsmId,
   getPropertyValue,
 }
+
+export { type SearchEntry }
