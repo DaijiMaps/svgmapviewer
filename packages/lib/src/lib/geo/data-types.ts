@@ -77,8 +77,8 @@ export type OsmPointLikeProperties =
 
 export type OsmPointLikeFeature =
   | OsmPointFeature
-  | OsmLineFeature
-  | OsmMultiPolygonFeature
+  | OsmMidpointFeature
+  | OsmCentroidFeature
 
 export interface OsmPointLikeGeoJSON {
   points: OsmPointGeoJSON
