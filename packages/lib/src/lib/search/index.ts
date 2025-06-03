@@ -6,14 +6,15 @@ import {
   type SearchAddressRes,
   type SearchContext,
 } from './address'
-
-// address
+import { getAddressEntries } from './address-data'
 
 export {
+  initAddresses,
+  searchAddress,
   type AddressEntries,
   type AddressEntry,
   type SearchAddressRes,
   type SearchContext,
 }
 
-export { initAddresses, searchAddress }
+export { getAddressEntries }

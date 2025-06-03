@@ -8,6 +8,7 @@ import {
   type MapObjects,
   type MapSymbols,
 } from './carto/types'
+import type { SearchEntry } from './geo'
 import { type MapCoord, type MapData, type MapMap } from './geo/data-types'
 import { type POI } from './geo/poi-types'
 import { type Layout, type LayoutCoord } from './layout-types'
@@ -137,6 +138,7 @@ export interface SvgMapViewerConfig {
   getMapObjects: () => MapObjects[]
   getMapSymbols: () => MapSymbols[]
   getMapMarkers: () => MapMarkers[]
+  searchEntries: SearchEntry[]
   //renderMap: RenderMap
   renderInfo: RenderInfo
   mapData: MapData

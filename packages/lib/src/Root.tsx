@@ -62,6 +62,7 @@ export function root(config: Readonly<SvgMapViewerConfig>): void {
   }
   */
 
+  document.title = config.title
   document.body.onkeydown = keyDown
   document.body.onkeyup = keyUp
 

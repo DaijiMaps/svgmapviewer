@@ -40,6 +40,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   getMapObjects: () => [],
   getMapSymbols: () => [],
   getMapMarkers: () => [],
+  searchEntries: [],
   renderInfo: renderInfoDefault,
   mapData: emptyMapData,
   mapMap: {

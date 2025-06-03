@@ -1,3 +1,4 @@
+/* eslint-disable functional/prefer-immutable-types */
 import { type MapData, type MapMap } from './data-types'
 import { type OsmFeature, type OsmProperties } from './osm-types'
 
