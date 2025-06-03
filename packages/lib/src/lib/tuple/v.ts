@@ -2,6 +2,10 @@
 
 export type V = readonly [s: number, t: number]
 
+export function v(x: number, y: number): V {
+  return [x, y]
+}
+
 export function add([ax, ay]: V, [bx, by]: V): V {
   return [ax + bx, ay + by]
 }

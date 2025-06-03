@@ -4,10 +4,11 @@ import { svgMapViewerConfig as cfg } from '../config'
 import {
   type LinesFilter,
   type MultiPolygonsFilter,
+  type OsmFeature,
   type Point,
   type PointsFilter,
 } from '../geo'
-import { type V, vUnvec, vVec } from '../tuple'
+import { type V, vUnvec, vV, vVec } from '../tuple'
 import type { MapSymbols, RenderMapSymbolsProps } from './types'
 
 export function RenderMapSymbols(
@@ -47,24 +48,24 @@ export function entryToVs({
 }
 
 function getPoints(filter: PointsFilter): Point[] {
-  return cfg.mapData.points.features
-    .filter(filter)
-    .map((f) => f.geometry.coordinates as unknown as V)
-    .map(conv)
+  return cfg.mapData.points.features.filter(filter).flatMap(fToV).map(conv)
 }
 
 function getPolygons(filter: MultiPolygonsFilter) {
   return cfg.mapData.multipolygons.features
     .filter(filter)
-    .map((f) => f.geometry.coordinates as unknown as V)
+    .flatMap(fToV)
     .map(conv)
 }
 
 function getLines(filter: LinesFilter) {
-  return cfg.mapData.lines.features
-    .filter(filter)
-    .map((f) => f.geometry.coordinates as unknown as V)
-    .map(conv)
+  return cfg.mapData.lines.features.filter(filter).flatMap(fToV).map(conv)
+}
+
+function fToV(f: OsmFeature): V[] {
+  const x = f.properties.centroid_x
+  const y = f.properties.centroid_y
+  return x === null || y === null ? [] : [vV(x, y)]
 }
 
 function conv(p: V): V {

@@ -36,7 +36,7 @@ function pointMapFromGeoJSON(points: Readonly<OsmPointGeoJSON>): PointMap {
       const osm_id = f.properties.osm_id
       return osm_id === null ? option.none : option.some([Number(osm_id), f])
     }),
-    Object.fromEntries
+    (xs) => new Map(xs)
   )
 }
 
@@ -47,7 +47,7 @@ function lineMapFromGeoJSON(lines: Readonly<OsmLineGeoJSON>): LineMap {
       const osm_id = f.properties.osm_id
       return osm_id === null ? option.none : option.some([Number(osm_id), f])
     }),
-    Object.fromEntries
+    (xs) => new Map(xs)
   )
 }
 
@@ -62,7 +62,7 @@ function multiLineStringMapFromGeoJSON(
         return osm_id === null ? option.none : option.some([Number(osm_id), f])
       }
     ),
-    Object.fromEntries
+    (xs) => new Map(xs)
   )
 }
 
@@ -78,6 +78,6 @@ function multiPolygonMapFromGeoJSON(
         osm_id !== null ? osm_id : osm_way_id !== null ? osm_way_id : null
       return id === null ? option.none : option.some([Number(id), f])
     }),
-    Object.fromEntries
+    (xs) => new Map(xs)
   )
 }

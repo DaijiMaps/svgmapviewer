@@ -9,9 +9,10 @@ import {
   mul as vMul,
   sub as vSub,
   unvec as vUnvec,
+  v as vV,
   vec as vVec,
 } from './v'
 
 export { type B, type H, type L, type M, type V }
 
-export { vAdd, vDiv, vMul, vSub, vUnvec, vVec }
+export { vAdd, vDiv, vMul, vSub, vUnvec, vV, vVec }
