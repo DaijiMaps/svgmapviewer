@@ -1,3 +1,4 @@
+import { mapMapFromMapData } from './data'
 import {
   type MapCoord,
   type MapData,
@@ -63,6 +64,8 @@ import {
   getOsmId,
   getPropertyValue,
 } from './search'
+
+export { mapMapFromMapData }
 
 export {
   type MapCoord,
