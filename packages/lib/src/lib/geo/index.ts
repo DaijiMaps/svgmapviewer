@@ -4,9 +4,6 @@ import {
   type MapData,
   type MapMap,
   type MeasureProperties,
-  type OsmPointLikeFeature,
-  type OsmPointLikeGeoJSON,
-  type OsmPointLikeProperties,
 } from './data-types'
 import { calcScale } from './geojson'
 import {
@@ -67,15 +64,7 @@ import {
 
 export { mapMapFromMapData }
 
-export {
-  type MapCoord,
-  type MapData,
-  type MapMap,
-  type MeasureProperties,
-  type OsmPointLikeFeature,
-  type OsmPointLikeGeoJSON,
-  type OsmPointLikeProperties,
-}
+export { type MapCoord, type MapData, type MapMap, type MeasureProperties }
 
 export { calcScale }
 

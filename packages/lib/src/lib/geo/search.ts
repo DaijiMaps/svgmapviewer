@@ -1,4 +1,4 @@
-import { type MapData, type OsmPointLikeProperties } from './data-types'
+import { type MapData } from './data-types'
 import { type OsmFeature, type OsmProperties } from './osm-types'
 
 export function findFeature(
@@ -28,7 +28,7 @@ export function findFeature(
 export function findProperties(
   id: undefined | string,
   mapData: Readonly<MapData>
-): null | OsmPointLikeProperties {
+): null | OsmProperties {
   if (id === undefined) {
     return null
   }
@@ -63,7 +63,7 @@ export function getOsmId(properties: Readonly<OsmProperties>): null | string {
 }
 
 export function getPropertyValue(
-  properties: Readonly<OsmPointLikeProperties>,
+  properties: Readonly<OsmProperties>,
   key: string
 ): null | string {
   const re = new RegExp(`\\"${key}\\"=>\\"([^"][^"]*)\\"`)

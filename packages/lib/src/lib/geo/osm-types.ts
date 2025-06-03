@@ -99,9 +99,6 @@ export type OsmMultiLineStringFeature = Readonly<
 export type OsmMultiPolygonFeature = Readonly<
   MultiPolygonFeature<OsmPolygonProperties>
 >
-export type OsmMidpointFeature = Readonly<PointFeature<OsmLineProperties>> // XXX
-export type OsmCentroidFeature = Readonly<PointFeature<OsmPolygonProperties>> // XXX
-
 export type OsmPointGeoJSON = Readonly<PointGeoJSON<OsmPointProperties>>
 export type OsmLineGeoJSON = Readonly<LineGeoJSON<OsmLineProperties>>
 export type OsmMultiLineStringGeoJSON = Readonly<
@@ -110,29 +107,20 @@ export type OsmMultiLineStringGeoJSON = Readonly<
 export type OsmMultiPolygonGeoJSON = Readonly<
   MultiPolygonGeoJSON<OsmPolygonProperties>
 >
-export type OsmCentroidGeoJSON = Readonly<PointGeoJSON<OsmPolygonProperties>> // XXX
-export type OsmMidpointGeoJSON = Readonly<PointGeoJSON<OsmLineProperties>> // XXX
-
 export type OsmProperties =
   | OsmPointProperties
   | OsmLineProperties
   | OsmLineStringProperties // XXX
   | OsmPolygonProperties
-// XXX midpoint
-// XXX centroid
 
 export type OsmFeature =
   | OsmPointFeature
   | OsmLineFeature
   | OsmMultiLineStringFeature
   | OsmMultiPolygonFeature
-// XXX midpoint
-// XXX centroid
 
 export type OsmGeoJSON =
   | OsmPointGeoJSON
   | OsmLineGeoJSON
   | OsmMultiLineStringGeoJSON
   | OsmMultiPolygonGeoJSON
-// XXX midpoint
-// XXX centroid
