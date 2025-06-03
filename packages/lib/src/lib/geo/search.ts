@@ -2,9 +2,9 @@ import { type OsmPointLikeProperties } from './data-types'
 import { type PointFeature } from './geojson-types'
 import {
   type OsmCentroidGeoJSON,
-  type OsmFeature,
   type OsmMidpointGeoJSON,
   type OsmPointGeoJSON,
+  type OsmProperties,
 } from './osm-types'
 
 interface MapData {
@@ -65,7 +65,7 @@ export function findProperties(
   return null
 }
 
-export function getOsmId(properties: Readonly<OsmFeature>): null | string {
+export function getOsmId(properties: Readonly<OsmProperties>): null | string {
   if ('osm_id' in properties && typeof properties['osm_id'] === 'string') {
     return properties['osm_id']
   }
