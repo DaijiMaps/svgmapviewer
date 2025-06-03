@@ -129,7 +129,6 @@ export {
   type PointsFilter,
 }
 
-
 export { geolocActorStart, getPosition, usePosition }
 
 export { findFeature, findProperties, getOsmId, getPropertyValue }
