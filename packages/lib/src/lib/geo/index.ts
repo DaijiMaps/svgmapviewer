@@ -1,6 +1,7 @@
 import {
   type MapCoord,
   type MapData,
+  type MapMap,
   type MeasureProperties,
   type OsmPointLikeFeature,
   type OsmPointLikeGeoJSON,
@@ -71,6 +72,7 @@ export {
   type LineGeometry,
   type MapCoord,
   type MapData,
+  type MapMap,
   type MeasureProperties,
   type MultiLineCoordinate,
   type MultiLineFeature,
