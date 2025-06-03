@@ -34,13 +34,13 @@ export function RenderMapSymbols(
 
 export function entryToVs({
   pointsFilter,
-  centroidsFilter,
+  polygonsFilter,
   midpointsFilter,
   data,
 }: Readonly<MapSymbols>): Point[] {
   return [
     ...(pointsFilter !== undefined ? getPoints(pointsFilter) : []),
-    ...(centroidsFilter !== undefined ? getCentroids(centroidsFilter) : []),
+    ...(polygonsFilter !== undefined ? getCentroids(polygonsFilter) : []),
     ...(midpointsFilter !== undefined ? getMidpoints(midpointsFilter) : []),
     ...(data !== undefined ? data : []),
   ]

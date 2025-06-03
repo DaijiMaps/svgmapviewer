@@ -35,13 +35,13 @@ export function RenderMapMarkers(): ReactNode {
 
 export function entryToVs({
   pointsFilter,
-  centroidsFilter,
+  polygonsFilter,
   midpointsFilter,
   data,
 }: Readonly<MapMarkers>): MapMarker[] {
   return [
     ...(pointsFilter !== undefined ? getPoints(pointsFilter) : []),
-    ...(centroidsFilter !== undefined ? getCentroids(centroidsFilter) : []),
+    ...(polygonsFilter !== undefined ? getCentroids(polygonsFilter) : []),
     ...(midpointsFilter !== undefined ? getMidpoints(midpointsFilter) : []),
     ...(data !== undefined ? data : []),
   ]
