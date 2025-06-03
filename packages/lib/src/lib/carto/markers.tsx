@@ -3,9 +3,9 @@ import { type ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import {
   usePosition,
-  type CentroidsFilter,
-  type MidpointsFilter,
+  type LinesFilter,
   type PointsFilter,
+  type PolygonsFilter,
 } from '../geo'
 import { useLayoutConfig, useLayoutSvgScaleS } from '../map-xstate'
 import { vUnvec, vVec, type V } from '../tuple'
@@ -42,8 +42,8 @@ export function entryToVs({
 }: Readonly<MapMarkers>): MapMarker[] {
   return [
     ...(pointsFilter !== undefined ? getPoints(pointsFilter) : []),
-    ...(polygonsFilter !== undefined ? getCentroids(polygonsFilter) : []),
-    ...(linesFilter !== undefined ? getMidpoints(linesFilter) : []),
+    ...(polygonsFilter !== undefined ? getPolygons(polygonsFilter) : []),
+    ...(linesFilter !== undefined ? getLines(linesFilter) : []),
     ...(data !== undefined ? data : []),
   ]
 }
@@ -56,7 +56,7 @@ function getPoints(filter: PointsFilter): MapMarker[] {
     .map((v) => ({ name: '', href: '', data: v }))
 }
 
-function getCentroids(filter: CentroidsFilter): MapMarker[] {
+function getPolygons(filter: PolygonsFilter): MapMarker[] {
   return cfg.mapData.multipolygons.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)
@@ -64,7 +64,7 @@ function getCentroids(filter: CentroidsFilter): MapMarker[] {
     .map((v) => ({ name: '', href: '', data: v }))
 }
 
-function getMidpoints(filter: MidpointsFilter): MapMarker[] {
+function getLines(filter: LinesFilter): MapMarker[] {
   return cfg.mapData.lines.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)

@@ -1,10 +1,9 @@
 import { type Line, type MultiPolygon, type Point } from '../geo/path-types'
 import {
-  type CentroidsFilter,
   type LinesFilter,
-  type MidpointsFilter,
   type MultiPolygonsFilter,
   type PointsFilter,
+  type PolygonsFilter,
 } from '../geo/poi-types'
 
 //// layers
@@ -41,8 +40,8 @@ export interface MapMarker {
 export interface MapMarkers {
   name: string
   pointsFilter?: PointsFilter
-  polygonsFilter?: CentroidsFilter
-  linesFilter?: MidpointsFilter
+  polygonsFilter?: PolygonsFilter
+  linesFilter?: LinesFilter
   data?: MapMarker[]
 }
 
@@ -55,8 +54,8 @@ export interface MapObjects {
   path: string
   width: number
   pointsFilter?: PointsFilter
-  polygonsFilter?: CentroidsFilter
-  linesFilter?: MidpointsFilter
+  polygonsFilter?: PolygonsFilter
+  linesFilter?: LinesFilter
   data?: Point[]
 }
 
@@ -70,7 +69,7 @@ export interface MapSymbols {
   name: string
   href: string
   pointsFilter?: PointsFilter
-  polygonsFilter?: CentroidsFilter
-  linesFilter?: MidpointsFilter
+  polygonsFilter?: PolygonsFilter
+  linesFilter?: LinesFilter
   data?: Point[]
 }

@@ -2,10 +2,10 @@ import { type ReactNode } from 'react'
 import { Fragment } from 'react/jsx-runtime'
 import { svgMapViewerConfig as cfg } from '../config'
 import {
-  type CentroidsFilter,
-  type MidpointsFilter,
+  type LinesFilter,
   type Point,
   type PointsFilter,
+  type PolygonsFilter,
 } from '../geo'
 import { type V, vUnvec, vVec } from '../tuple'
 import type { MapSymbols, RenderMapSymbolsProps } from './types'
@@ -40,8 +40,8 @@ export function entryToVs({
 }: Readonly<MapSymbols>): Point[] {
   return [
     ...(pointsFilter !== undefined ? getPoints(pointsFilter) : []),
-    ...(polygonsFilter !== undefined ? getCentroids(polygonsFilter) : []),
-    ...(linesFilter !== undefined ? getMidpoints(linesFilter) : []),
+    ...(polygonsFilter !== undefined ? getPolygons(polygonsFilter) : []),
+    ...(linesFilter !== undefined ? getLines(linesFilter) : []),
     ...(data !== undefined ? data : []),
   ]
 }
@@ -53,14 +53,14 @@ function getPoints(filter: PointsFilter): Point[] {
     .map(conv)
 }
 
-function getCentroids(filter: CentroidsFilter) {
+function getPolygons(filter: PolygonsFilter) {
   return cfg.mapData.multipolygons.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)
     .map(conv)
 }
 
-function getMidpoints(filter: MidpointsFilter) {
+function getLines(filter: LinesFilter) {
   return cfg.mapData.lines.features
     .filter(filter)
     .map((f) => f.geometry.coordinates as unknown as V)

@@ -53,12 +53,11 @@ import {
 } from './path-types'
 import {
   type AllFilters,
-  type CentroidsFilter,
   type LinesFilter,
-  type MidpointsFilter,
   type MultiPolygonsFilter,
   type POI,
   type PointsFilter,
+  type PolygonsFilter,
 } from './poi-types'
 import { geolocActorStart, getPosition, usePosition } from './position-xstate'
 import {
@@ -125,12 +124,12 @@ export { type Line, type MultiLineString, type MultiPolygon, type Point }
 
 export {
   type AllFilters,
-  type CentroidsFilter,
   type LinesFilter,
-  type MidpointsFilter,
+  type LinesFilter,
   type MultiPolygonsFilter,
   type POI,
   type PointsFilter,
+  type PolygonsFilter,
 }
 
 
