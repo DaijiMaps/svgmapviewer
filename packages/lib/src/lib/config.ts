@@ -51,7 +51,6 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   mapCoord: {
     matrix: new DOMMatrixReadOnly(),
   },
-  mapHtmlStyle: '',
   mapSymbols: [],
   mapNames: [],
 }

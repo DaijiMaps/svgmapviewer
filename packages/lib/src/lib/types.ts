@@ -142,7 +142,6 @@ export interface SvgMapViewerConfig {
   mapData: MapData
   mapMap: MapMap
   mapCoord: MapCoord
-  mapHtmlStyle: string
   mapSymbols: POI[]
   mapNames: POI[]
 }
