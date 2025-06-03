@@ -64,49 +64,62 @@ export type OsmPolygonPropertiesKey =
   | 'tourism'
   | 'other_tags'
 
-export type OsmPointProperties = Record<
-  OsmPointPropertiesKey,
-  null | string
-> & {
-  centroid_x: null | number
-  centroid_y: null | number
-}
-export type OsmLineProperties = Record<OsmLinePropertiesKey, null | string> & {
-  centroid_x: null | number
-  centroid_y: null | number
-  z_order: number
-}
-export type OsmLineStringProperties = Record<
-  OsmLineStringPropertiesKey,
-  null | string
-> & {
-  centroid_x: null | number
-  centroid_y: null | number
-}
-export type OsmPolygonProperties = Record<
-  OsmPolygonPropertiesKey,
-  null | string
-> & {
-  centroid_x: null | number
-  centroid_y: null | number
-  area: null | number
-}
+export type OsmPointProperties = Readonly<
+  Record<OsmPointPropertiesKey, null | string> & {
+    centroid_x: null | number
+    centroid_y: null | number
+  }
+>
+export type OsmLineProperties = Readonly<
+  Record<OsmLinePropertiesKey, null | string> & {
+    centroid_x: null | number
+    centroid_y: null | number
+    z_order: number
+  }
+>
+export type OsmLineStringProperties = Readonly<
+  Record<OsmLineStringPropertiesKey, null | string> & {
+    centroid_x: null | number
+    centroid_y: null | number
+  }
+>
+export type OsmPolygonProperties = Readonly<
+  Record<OsmPolygonPropertiesKey, null | string> & {
+    centroid_x: null | number
+    centroid_y: null | number
+    area: null | number
+  }
+>
 
-export type OsmPointFeature = PointFeature<OsmPointProperties>
-export type OsmLineFeature = LineFeature<OsmLineProperties>
-export type OsmMultiLineStringFeature =
+export type OsmPointFeature = Readonly<PointFeature<OsmPointProperties>>
+export type OsmLineFeature = Readonly<LineFeature<OsmLineProperties>>
+export type OsmMultiLineStringFeature = Readonly<
   MultiLineFeature<OsmLineStringProperties>
-export type OsmMultiPolygonFeature = MultiPolygonFeature<OsmPolygonProperties>
-export type OsmMidpointFeature = PointFeature<OsmLineProperties> // XXX
-export type OsmCentroidFeature = PointFeature<OsmPolygonProperties> // XXX
+>
+export type OsmMultiPolygonFeature = Readonly<
+  MultiPolygonFeature<OsmPolygonProperties>
+>
+export type OsmMidpointFeature = Readonly<PointFeature<OsmLineProperties>> // XXX
+export type OsmCentroidFeature = Readonly<PointFeature<OsmPolygonProperties>> // XXX
 
-export type OsmPointGeoJSON = PointGeoJSON<OsmPointProperties>
-export type OsmLineGeoJSON = LineGeoJSON<OsmLineProperties>
-export type OsmMultiLineStringGeoJSON =
+export type OsmPointGeoJSON = Readonly<PointGeoJSON<OsmPointProperties>>
+export type OsmLineGeoJSON = Readonly<LineGeoJSON<OsmLineProperties>>
+export type OsmMultiLineStringGeoJSON = Readonly<
   MultiLineGeoJSON<OsmLineStringProperties>
-export type OsmMultiPolygonGeoJSON = MultiPolygonGeoJSON<OsmPolygonProperties>
-export type OsmCentroidGeoJSON = PointGeoJSON<OsmPolygonProperties> // XXX
-export type OsmMidpointGeoJSON = PointGeoJSON<OsmLineProperties> // XXX
+>
+export type OsmMultiPolygonGeoJSON = Readonly<
+  MultiPolygonGeoJSON<OsmPolygonProperties>
+>
+export type OsmCentroidGeoJSON = Readonly<PointGeoJSON<OsmPolygonProperties>> // XXX
+export type OsmMidpointGeoJSON = Readonly<PointGeoJSON<OsmLineProperties>> // XXX
+
+export type OsmProperties =
+  | OsmPointProperties
+  | OsmLineProperties
+  | OsmLineStringProperties // XXX
+  | OsmPolygonProperties
+// XXX midpoint
+// XXX centroid
 
 export type OsmFeature =
   | OsmPointFeature

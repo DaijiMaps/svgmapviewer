@@ -22,7 +22,7 @@ import {
   type OsmPolygonProperties,
 } from './osm-types'
 
-export type MapData = {
+export interface MapData {
   areas: MultiPolygonGeoJSON
   origin: PointGeoJSON
   measures: LineGeoJSON<MeasureProperties>
@@ -59,7 +59,7 @@ export type MultiPolygonMap = Map<number, OsmMultiPolygonFeature>
 export type MidpointMap = Map<number, OsmMidpointFeature> // XXX
 export type CentroidMap = Map<number, OsmCentroidFeature> // XXX
 
-export type MapMap = {
+export interface MapMap {
   pointMap: PointMap
   lineMap: LineMap
   multilinestringMap: MultiLineStringMap
@@ -91,12 +91,12 @@ export interface OsmPointLikeGeoJSON {
 
 ////
 
-export type MeasureProperties = {
+export interface MeasureProperties {
   direction: string
   distance: number
   ellipsoidal_distance: number
 }
 
-export type MapCoord = {
+export interface MapCoord {
   matrix: DOMMatrixReadOnly
 }
