@@ -1,8 +1,9 @@
 /* eslint-disable functional/prefer-immutable-types */
 import {
-  findFeature,
+  findFeature2,
   getOsmId,
   type MapData,
+  type MapMap,
   type OsmFeature,
   type SearchEntry,
 } from '../geo'
@@ -56,11 +57,12 @@ function filterFeature(
 }
 
 export function getAddressInfo(
-  mapData: MapData,
+  mapMap: MapMap,
   entries: SearchEntry[],
   res: SearchAddressRes
 ): null | Info {
-  const feature = findFeature(res?.address, mapData)
+  const id = Number(res.address)
+  const feature = findFeature2(id, mapMap)
   if (feature === null) {
     return null
   }
