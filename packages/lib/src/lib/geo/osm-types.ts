@@ -72,19 +72,24 @@ export type OsmPointProperties = Record<
   centroid_y: null | number
 }
 export type OsmLineProperties = Record<OsmLinePropertiesKey, null | string> & {
+  centroid_x: null | number
+  centroid_y: null | number
   z_order: number
 }
 export type OsmLineStringProperties = Record<
   OsmLineStringPropertiesKey,
   null | string
->
+> & {
+  centroid_x: null | number
+  centroid_y: null | number
+}
 export type OsmPolygonProperties = Record<
   OsmPolygonPropertiesKey,
   null | string
 > & {
-  area: null | number
   centroid_x: null | number
   centroid_y: null | number
+  area: null | number
 }
 
 export type OsmPointFeature = PointFeature<OsmPointProperties>
