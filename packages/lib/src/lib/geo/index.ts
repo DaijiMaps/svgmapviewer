@@ -57,7 +57,9 @@ import {
 import { geolocActorStart, getPosition, usePosition } from './position-xstate'
 import {
   findFeature,
+  findFeature2,
   findProperties,
+  findProperties2,
   getOsmId,
   getPropertyValue,
 } from './search'
@@ -118,4 +120,11 @@ export {
 
 export { geolocActorStart, getPosition, usePosition }
 
-export { findFeature, findProperties, getOsmId, getPropertyValue }
+export {
+  findFeature,
+  findFeature2,
+  findProperties,
+  findProperties2,
+  getOsmId,
+  getPropertyValue,
+}

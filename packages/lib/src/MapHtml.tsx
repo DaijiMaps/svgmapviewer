@@ -1,3 +1,4 @@
+/* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode, useMemo } from 'react'
 import { fixupCssString } from './lib/css'
 import { type POI } from './lib/geo'

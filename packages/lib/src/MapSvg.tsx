@@ -1,3 +1,4 @@
+/* eslint-disable functional/functional-parameters */
 import { type ReactNode, useContext } from 'react'
 import './MapSvg.css'
 import { SvgMapViewerConfigContext } from './Root'
