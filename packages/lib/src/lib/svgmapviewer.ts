@@ -10,6 +10,8 @@ import { geolocActorStart } from './geo'
 import { renderMapActorStart } from './map-xstate'
 import { resizeActorStart } from './resize-xstate'
 import { scrollActorStart } from './scroll-xstate'
+import { getAddressEntries } from './search'
+import { workerSearchInit } from './search/search-main'
 import {
   searchActorStart,
   searchSearchDone,
@@ -69,6 +71,8 @@ export function svgmapviewer(
   if (configUser.mapNames) {
     configSend({ type: 'SET.MAPNAMES', mapNames: configUser.mapNames })
   }
+
+  workerSearchInit(getAddressEntries(config.mapData, config.searchEntries))
 
   root(config)
   styleRoot()

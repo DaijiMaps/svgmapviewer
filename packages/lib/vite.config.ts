@@ -18,6 +18,7 @@ export default defineConfig({
         index: 'src/lib/index.ts',
         matrix: 'src/lib/matrix/prefixed/index.ts',
         search: 'src/lib/search/index.ts',
+        'search-worker': 'src/lib/search/search-worker.ts',
         tuple: 'src/lib/tuple/index.ts',
         vec: 'src/lib/vec/prefixed/index.ts',
       },

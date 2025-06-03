@@ -7,6 +7,7 @@ import {
   type SearchContext,
 } from './address'
 import { getAddressEntries, getAddressInfo } from './address-data'
+import { workerSearchInit } from './search-main'
 
 export {
   initAddresses,
@@ -18,3 +19,5 @@ export {
 }
 
 export { getAddressEntries, getAddressInfo }
+
+export { workerSearchInit }

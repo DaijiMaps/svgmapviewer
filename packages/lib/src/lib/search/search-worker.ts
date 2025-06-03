@@ -1,8 +1,13 @@
-import { type VecVec as Vec } from '../vec/prefixed'
+/* eslint-disable functional/no-conditional-statements */
+/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/no-expression-statements */
+/* eslint-disable functional/no-let */
+
+import type { Vec } from '../vec'
 import {
-  type AddressEntries,
   initAddresses,
   searchAddress,
+  type AddressEntries,
   type SearchAddressRes,
   type SearchContext,
 } from './address'
