@@ -1,5 +1,5 @@
 {
-  "name": "@daijimaps/svgmapviewer/app",
+  "name": "@daijimaps/svgmapviewer-app",
   "type": "module",
   "private": "false",
   "version": "0.0.0",
@@ -11,7 +11,7 @@
   "author": "Daiji Maps",
   "license": "ISC",
   "exports": {
-    ".": "./dist/app.js"
+    ".": "./dist/index.js"
   },
   "files": [
     "./dist"

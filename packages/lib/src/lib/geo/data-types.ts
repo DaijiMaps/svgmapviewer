@@ -17,6 +17,7 @@ import {
 
 export interface MapData {
   areas: MultiPolygonGeoJSON
+  internals: MultiPolygonGeoJSON
   origin: PointGeoJSON
   measures: LineGeoJSON<MeasureProperties>
   viewbox: LineGeoJSON
@@ -29,6 +30,7 @@ export interface MapData {
 
 export const emptyMapData: MapData = {
   areas: emptyGeoJSON as MultiPolygonGeoJSON,
+  internals: emptyGeoJSON as MultiPolygonGeoJSON,
   origin: emptyGeoJSON as PointGeoJSON,
   measures: emptyGeoJSON as LineGeoJSON<MeasureProperties>,
   viewbox: emptyGeoJSON as LineGeoJSON,

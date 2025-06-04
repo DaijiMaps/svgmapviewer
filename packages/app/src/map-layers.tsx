@@ -1,5 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { MapLayer } from '@daijimaps/svgmapviewer/carto'
+import './map-layers.css'
 
 export const getMapLayers: () => MapLayer[] = () => [
   /*
