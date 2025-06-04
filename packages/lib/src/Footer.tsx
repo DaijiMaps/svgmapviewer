@@ -1,3 +1,4 @@
+/* eslint-disable functional/functional-parameters */
 import { type ReactNode, useContext } from 'react'
 import './Footer.css'
 import { uiSend, useOpenCloseFooter } from './lib/ui-xstate'
@@ -18,8 +19,8 @@ export function Footer(): ReactNode {
     >
       {/*
       <p>{`v=${vecs.size};z=${z};touching=${touching}`}</p>
-      */}
       <h2 className="subtitle">{config.subtitle}</h2>
+      */}
       <p>{config.copyright}</p>
     </div>
   )

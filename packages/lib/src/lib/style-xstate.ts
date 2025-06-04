@@ -52,9 +52,11 @@ const styleMachine = setup({
 
       const lon = document.querySelector('#longitude')
       const lat = document.querySelector('#latitude')
+      const ew = pgeo.x > 0 ? 'E' : 'W'
+      const ns = pgeo.y > 0 ? 'N' : 'S'
       if (lon !== null && lat !== null) {
-        lon.innerHTML = `E ${truncate6(pgeo.x)}`
-        lat.innerHTML = `N ${truncate6(pgeo.y)}`
+        lon.innerHTML = `${ew} ${truncate7(pgeo.x)}`
+        lat.innerHTML = `${ns} ${truncate7(pgeo.y)}`
       }
     },
     setDistance: ({ context }) => {
@@ -137,8 +139,8 @@ const styleMachine = setup({
   },
 })
 
-function truncate6(n: number): number {
-  return Math.round(n * 1000000) / 1000000
+function truncate7(n: number): number {
+  return Math.round(n * 10000000) / 10000000
 }
 
 const styleActor = createActor(styleMachine, {

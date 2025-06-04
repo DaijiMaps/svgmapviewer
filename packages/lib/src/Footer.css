@@ -18,6 +18,7 @@
   pointer-events: initial;
 }
 
+.footer h2,
 .footer p {
   user-select: none;
   -webkit-user-select: none;
