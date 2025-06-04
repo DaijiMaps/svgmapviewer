@@ -1,7 +1,7 @@
 import { type Info } from './info'
 import { getMapLayers } from './map-layers'
 import { getMapMarkers } from './map-markers'
-import { mapNames, mapSymbols } from './map-names'
+import { getMapNames, mapSymbols } from './map-names'
 import { getMapObjects } from './map-objects'
 import { getMapSymbols } from './map-symbols'
 import { RenderInfo } from './render'
@@ -13,7 +13,7 @@ export { getMapLayers }
 
 export { getMapMarkers }
 
-export { mapNames, mapSymbols }
+export { getMapNames, mapSymbols }
 
 export { getMapObjects }
 

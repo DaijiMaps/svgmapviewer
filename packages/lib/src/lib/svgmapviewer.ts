@@ -68,8 +68,8 @@ export function svgmapviewer(
   })
 
   // eslint-disable-next-line functional/no-conditional-statements
-  if (configUser.mapNames) {
-    configSend({ type: 'SET.MAPNAMES', mapNames: configUser.mapNames })
+  if (configUser.getMapNames) {
+    configSend({ type: 'SET.MAPNAMES', mapNames: configUser.getMapNames() })
   }
 
   workerSearchInit(getAddressEntries(config.mapData, config.searchEntries))

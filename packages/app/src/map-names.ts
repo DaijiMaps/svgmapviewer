@@ -49,7 +49,7 @@ const polygonNames = (): POI[] =>
         ]
   })
 
-export const mapNames = (): POI[] => [...pointNames(), ...polygonNames()]
+export const getMapNames = (): POI[] => [...pointNames(), ...polygonNames()]
 
 function filterName(f: DeepReadonly<OsmFeature>): null | string {
   const name = f.properties.name

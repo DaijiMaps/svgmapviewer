@@ -40,6 +40,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   getMapObjects: () => [],
   getMapSymbols: () => [],
   getMapMarkers: () => [],
+  getMapNames: () => [],
   searchEntries: [],
   renderInfo: renderInfoDefault,
   mapData: emptyMapData,
@@ -52,8 +53,6 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   mapCoord: {
     matrix: new DOMMatrixReadOnly(),
   },
-  mapSymbols: [],
-  mapNames: [],
 }
 
 export function updateSvgMapViewerConfig(

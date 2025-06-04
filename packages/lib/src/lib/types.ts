@@ -138,14 +138,13 @@ export interface SvgMapViewerConfig {
   getMapObjects: () => MapObjects[]
   getMapSymbols: () => MapSymbols[]
   getMapMarkers: () => MapMarkers[]
+  getMapNames: () => POI[]
   searchEntries: SearchEntry[]
   //renderMap: RenderMap
   renderInfo: RenderInfo
   mapData: MapData
   mapMap: MapMap
   mapCoord: MapCoord
-  mapSymbols: POI[]
-  mapNames: POI[]
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>
