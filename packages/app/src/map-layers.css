@@ -10,6 +10,16 @@ body,
   fill-opacity: 1;
 }
 
+.grave_yard {
+  fill: black;
+  fill-opacity: 0.1;
+}
+
+.parking {
+  fill: white;
+  fill-opacity: 0.25;
+}
+
 .building {
   fill: lightgray;
 }

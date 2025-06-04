@@ -116,14 +116,13 @@ export type RenderInfo = (props: Readonly<{ info: Info }>) => ReactNode
 
 ////
 
-export interface SvgMapViewerConfig {
+export interface SvgMapViewerConfig extends DataConfig, RenderConfig {
   root: string
   map: string
   href: string
   width: number
   height: number
   fontSize: number
-  origViewBox: BoxBox
   title: string
   subtitle: string
   copyright: string
@@ -133,18 +132,23 @@ export interface SvgMapViewerConfig {
   dragStepStepLimit: number
   dragStepMaxCount: number
   scrollIdleTimeout: number
-  //renderAssets: RenderAssets
+}
+
+export interface DataConfig {
+  mapData: MapData
+  mapMap: MapMap
+  mapCoord: MapCoord
+  origViewBox: BoxBox
+}
+
+export interface RenderConfig {
   getMapLayers: () => MapLayer[]
   getMapObjects: () => MapObjects[]
   getMapSymbols: () => MapSymbols[]
   getMapMarkers: () => MapMarkers[]
   getMapNames: () => POI[]
   searchEntries: SearchEntry[]
-  //renderMap: RenderMap
   renderInfo: RenderInfo
-  mapData: MapData
-  mapMap: MapMap
-  mapCoord: MapCoord
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>

@@ -22,7 +22,9 @@ import {
 import { type Layout } from './layout'
 import { svgmapviewer } from './svgmapviewer'
 import {
+  type DataConfig,
   type Info,
+  type RenderConfig,
   type RenderMap,
   type SearchReq,
   type SearchRes,
@@ -62,7 +64,12 @@ export {
 
 // svgmapviewer
 
-export { type SvgMapViewerConfig, type SvgMapViewerConfigUser }
+export {
+  type DataConfig,
+  type RenderConfig,
+  type SvgMapViewerConfig,
+  type SvgMapViewerConfigUser,
+}
 
 export { svgmapviewer }
 
