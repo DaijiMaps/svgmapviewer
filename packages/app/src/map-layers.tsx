@@ -113,6 +113,24 @@ export const getMapLayers: () => MapLayer[] = () => [
   },
   {
     type: 'line',
+    name: 'steps',
+    filter: (f) =>
+      !f.properties.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
+      !!f.properties.highway?.match(/^(steps)$/) &&
+      !f.properties.other_tags?.match(/"service"=>/) &&
+      !f.properties.other_tags?.match(/"access"=>/),
+  },
+  {
+    type: 'line',
+    name: 'steps access',
+    filter: (f) =>
+      !f.properties.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
+      !!f.properties.highway?.match(/^(steps)$/) &&
+      !f.properties.other_tags?.match(/"service"=>/) &&
+      !!f.properties.other_tags?.match(/"access"=>/),
+  },
+  {
+    type: 'line',
     name: 'cycleway',
     filter: (f) =>
       !f.properties.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
