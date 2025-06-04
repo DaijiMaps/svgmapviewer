@@ -306,18 +306,13 @@ const throttleMachine = setup({
       },
       on: {
         TICK: [
-          // XXX
-          // XXX emit call at least once in 500ms
-          // XXX
+          /*
           {
             guard: ({ context, event }) =>
               context.lastCalled !== null &&
               event.ev.timeStamp - context.lastCalled.timeStamp > 500,
             actions: [
-              // XXX
-              // XXX don't update guide (lon/lat) - bad for smoothness
-              // XXX
-              //{ type: 'call', params: ({ event: { ev } }) => evToCall(ev) },
+              { type: 'call', params: ({ event: { ev } }) => evToCall(ev) },
               assign({
                 lastTicked: null,
                 lastCalled: null,
@@ -325,6 +320,7 @@ const throttleMachine = setup({
             ],
             target: 'Idle',
           },
+          */
           {
             actions: assign({
               lastTicked: ({ event: { ev } }) => evToCall(ev),
