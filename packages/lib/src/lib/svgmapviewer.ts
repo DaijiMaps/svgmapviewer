@@ -24,15 +24,6 @@ import { uiRootActorStart } from './ui-root-xstate'
 import { uiActorStart } from './ui-xstate'
 import { viewerActorStart } from './viewer-xstate'
 
-// XXX
-// XXX
-// XXX
-// XXX - actual app's entry
-// XXX - only imported by src/lib/index.ts
-// XXX
-// XXX
-// XXX
-
 export function svgmapviewer(
   configUser: Readonly<SvgMapViewerConfigUser>
 ): void {
