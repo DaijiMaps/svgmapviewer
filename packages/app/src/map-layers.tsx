@@ -1,17 +1,17 @@
 /* eslint-disable functional/functional-parameters */
+import { svgMapViewerConfig } from '@daijimaps/svgmapviewer'
 import { MapLayer } from '@daijimaps/svgmapviewer/carto'
+import { MultiPolygon } from '@daijimaps/svgmapviewer/geo'
 import './map-layers.css'
 
 export const getMapLayers: () => MapLayer[] = () => [
-  /*
   {
     type: 'multipolygon',
     name: 'area',
-    data: internals.features.map(
+    data: svgMapViewerConfig.mapData.internals.features.map(
       (f) => f.geometry.coordinates
     ) as unknown as MultiPolygon[],
   },
-  */
   {
     type: 'multipolygon',
     name: 'grass',
