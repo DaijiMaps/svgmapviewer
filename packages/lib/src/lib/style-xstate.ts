@@ -55,8 +55,8 @@ const styleMachine = setup({
       const ew = pgeo.x > 0 ? 'E' : 'W'
       const ns = pgeo.y > 0 ? 'N' : 'S'
       if (lon !== null && lat !== null) {
-        lon.innerHTML = `${ew} ${truncate7(pgeo.x)}`
-        lat.innerHTML = `${ns} ${truncate7(pgeo.y)}`
+        lon.innerHTML = `${ew} ${truncate7(Math.abs(pgeo.x))}`
+        lat.innerHTML = `${ns} ${truncate7(Math.abs(pgeo.y))}`
       }
     },
     setDistance: ({ context }) => {
