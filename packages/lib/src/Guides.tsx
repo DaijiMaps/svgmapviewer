@@ -1,3 +1,6 @@
+/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/no-expression-statements */
+/* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode } from 'react'
 import { assign, createActor, emit, setup } from 'xstate'
 import './Guides.css'
@@ -101,11 +104,11 @@ export function ringPath({
   width,
   height,
   r,
-}: {
+}: Readonly<{
   width: number
   height: number
   r: number
-}): string {
+}>): string {
   return `M${width / 2},${height / 2} m-${r},0 a${r},${r} 0,1,0 ${r * 2},0 a${r},${r} 0,1,0 -${r * 2},0`.replaceAll(
     /([.]\d)\d*/g,
     '$1'
@@ -245,7 +248,7 @@ const throttleMachine = setup({
   },
   actions: {
     call: emit(
-      (_, args: null | Call): Emitted => ({
+      (_, args: null | Readonly<Call>): Emitted => ({
         type: 'CALL',
         p: args === null ? null : args.p,
       })
@@ -311,7 +314,10 @@ const throttleMachine = setup({
               context.lastCalled !== null &&
               event.ev.timeStamp - context.lastCalled.timeStamp > 500,
             actions: [
-              { type: 'call', params: ({ event: { ev } }) => evToCall(ev) },
+              // XXX
+              // XXX don't update guide (lon/lat) - bad for smoothness
+              // XXX
+              //{ type: 'call', params: ({ event: { ev } }) => evToCall(ev) },
               assign({
                 lastTicked: null,
                 lastCalled: null,
@@ -361,7 +367,7 @@ const throttleMachine = setup({
   },
 })
 
-function evToCall(ev: EV): { p: VecVec; timeStamp: number } {
+function evToCall(ev: Readonly<EV>): { p: VecVec; timeStamp: number } {
   return {
     p: {
       x: ev.currentTarget.scrollLeft + ev.currentTarget.clientWidth / 2,
@@ -384,8 +390,9 @@ throttleActor.on('CALL', ({ p }) => {
   styleSend({ type: 'STYLE.LONLAT', p })
 })
 
-function updateGeo(ev: EV): void {
+function updateGeo(ev: Readonly<EV>): void {
   throttleActor.send({ type: 'TICK', ev })
 }
 
+// eslint-disable-next-line functional/immutable-data
 scrollCbs.add(updateGeo)
