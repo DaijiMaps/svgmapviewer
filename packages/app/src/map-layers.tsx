@@ -14,6 +14,13 @@ export const getMapLayers: () => MapLayer[] = () => [
   },
   {
     type: 'multipolygon',
+    name: 'playground',
+    filter: (f) =>
+      !!f.properties.leisure?.match(/playground/) ||
+      !!f.properties.landuse?.match(/recreation_ground/),
+  },
+  {
+    type: 'multipolygon',
     name: 'grass',
     filter: (f) => !!f.properties.landuse?.match(/grass/),
   },
@@ -54,6 +61,11 @@ export const getMapLayers: () => MapLayer[] = () => [
     filter: (f) =>
       !!f.properties.waterway?.match(/^(river)$/) &&
       !f.properties.other_tags?.match(/"tunnel"=>"(yes|culvert)"/),
+  },
+  {
+    type: 'multipolygon',
+    name: 'wetland',
+    filter: (f) => !!f.properties.natural?.match(/wetland/),
   },
   {
     type: 'multipolygon',

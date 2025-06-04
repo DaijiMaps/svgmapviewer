@@ -63,6 +63,11 @@ body,
   stroke-linejoin: round;
 }
 
+.wetland {
+  fill: lightblue;
+  fill-opacity: 0.5;
+}
+
 .grass {
   fill: khaki;
   fill-opacity: 0.5;
@@ -72,6 +77,11 @@ body,
 .garden {
   fill: darkgreen;
   fill-opacity: 0.25;
+}
+
+.playground {
+  fill: red;
+  fill-opacity: 0.1;
 }
 
 .road {
