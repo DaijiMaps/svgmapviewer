@@ -1,7 +1,7 @@
 import { type MapMap } from './data-types'
 import { type OsmFeature, type OsmProperties } from './osm-types'
 
-export function findFeature2(
+export function findFeature(
   id: undefined | number,
   mapMap: Readonly<MapMap>
 ): null | OsmFeature {
@@ -23,7 +23,7 @@ export function findFeature2(
   return null
 }
 
-export function findProperties2(
+export function findProperties(
   id: undefined | number,
   mapMap: Readonly<MapMap>
 ): null | OsmProperties {

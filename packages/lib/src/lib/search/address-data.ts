@@ -1,10 +1,10 @@
 /* eslint-disable functional/prefer-immutable-types */
+import type { OsmProperties } from '../../../dist/index-AK8jm35O'
 import {
-  findFeature2,
+  findFeature,
   getOsmId,
   type MapData,
   type MapMap,
-  type OsmFeature,
   type SearchEntry,
 } from '../geo'
 import type { Info } from '../types'
@@ -18,8 +18,8 @@ const pointAddresses = (
   mapData: MapData,
   entries: SearchEntry[]
 ): AddressEntries =>
-  mapData.points.features.flatMap((f) => {
-    const e = filterFeature(entries, f)
+  mapData.points.features.flatMap(({ properties }) => {
+    const e = filterFeature(properties, entries)
     return e === null ? [] : [e]
   })
 
@@ -27,8 +27,8 @@ const lineAddresses = (
   mapData: MapData,
   entries: SearchEntry[]
 ): AddressEntries =>
-  mapData.lines.features.flatMap((f) => {
-    const e = filterFeature(entries, f)
+  mapData.lines.features.flatMap(({ properties }) => {
+    const e = filterFeature(properties, entries)
     return e === null ? [] : [e]
   })
 
@@ -36,8 +36,8 @@ const polygonAddresses = (
   mapData: MapData,
   entries: SearchEntry[]
 ): AddressEntries =>
-  mapData.multipolygons.features.flatMap((f) => {
-    const e = filterFeature(entries, f)
+  mapData.multipolygons.features.flatMap(({ properties }) => {
+    const e = filterFeature(properties, entries)
     return e === null ? [] : [e]
   })
 
@@ -53,8 +53,8 @@ export function getAddressEntries(
 }
 
 function filterFeature(
-  entries: SearchEntry[],
-  { properties }: OsmFeature
+  properties: OsmProperties,
+  entries: SearchEntry[]
 ): null | AddressEntry {
   const id = getOsmId(properties)
   if (id === null) {
@@ -76,7 +76,7 @@ export function getAddressInfo(
   res: SearchAddressRes
 ): null | Info {
   const id = Number(res.address)
-  const feature = findFeature2(id, mapMap)
+  const feature = findFeature(id, mapMap)
   if (feature === null) {
     return null
   }

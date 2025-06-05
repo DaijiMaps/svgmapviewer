@@ -56,8 +56,8 @@ import {
 } from './poi-types'
 import { geolocActorStart, getPosition, usePosition } from './position-xstate'
 import {
-  findFeature2,
-  findProperties2,
+  findFeature,
+  findProperties,
   getOsmId,
   getPropertyValue,
 } from './search'
@@ -119,6 +119,6 @@ export {
 
 export { geolocActorStart, getPosition, usePosition }
 
-export { findFeature2, findProperties2, getOsmId, getPropertyValue }
+export { findFeature, findProperties, getOsmId, getPropertyValue }
 
 export { type SearchEntry }
