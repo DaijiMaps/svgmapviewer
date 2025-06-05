@@ -5,6 +5,7 @@ import { renderAreasPath, renderLinePath, renderMultiPolygonPath } from './path'
 import { RenderMapCommon } from './render'
 import { RenderMapSymbols, RenderUses } from './symbols'
 import {
+  type CartoConfig,
   type MapLayer,
   type MapLineLayer,
   type MapMarkers,
@@ -18,6 +19,8 @@ import {
 // XXX
 
 export { renderAreasPath, renderLinePath, renderMultiPolygonPath }
+
+export { type CartoConfig }
 
 //// layers
 

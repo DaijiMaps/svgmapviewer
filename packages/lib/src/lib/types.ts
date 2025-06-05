@@ -2,6 +2,7 @@
 /* eslint-disable functional/no-return-void */
 import { type ReactNode } from 'react'
 import { type BoxBox } from './box/prefixed'
+import type { CartoConfig } from './carto'
 import {
   type MapLayer,
   type MapMarkers,
@@ -132,6 +133,7 @@ export interface SvgMapViewerConfig extends DataConfig, RenderConfig {
   dragStepStepLimit: number
   dragStepMaxCount: number
   scrollIdleTimeout: number
+  cartoConfig?: CartoConfig
 }
 
 export interface DataConfig {

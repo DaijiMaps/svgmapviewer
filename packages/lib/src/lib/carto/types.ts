@@ -69,3 +69,10 @@ export interface WithFilters {
   polygonsFilter?: MultiPolygonsFilter
   data?: Point[]
 }
+
+////
+
+export interface CartoConfig {
+  skipNamePattern?: RegExp
+  splitNamePattern?: RegExp
+}
