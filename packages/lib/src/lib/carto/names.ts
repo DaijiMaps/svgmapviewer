@@ -1,8 +1,8 @@
 /* eslint-disable functional/functional-parameters */
 
-import { svgMapViewerConfig } from '@daijimaps/svgmapviewer'
-import { getOsmId, OsmProperties, POI } from '@daijimaps/svgmapviewer/geo'
-import { V, vUnvec, vVec } from '@daijimaps/svgmapviewer/tuple'
+import { svgMapViewerConfig } from '../config'
+import { getOsmId, type OsmProperties, type POI } from '../geo'
+import { vUnvec, vVec, type V } from '../tuple'
 
 export const mapSymbols: POI[] = []
 

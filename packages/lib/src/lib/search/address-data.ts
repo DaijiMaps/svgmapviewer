@@ -1,10 +1,10 @@
 /* eslint-disable functional/prefer-immutable-types */
-import type { OsmProperties } from '../../../dist/index-AK8jm35O'
 import {
   findFeature,
   getOsmId,
   type MapData,
   type MapMap,
+  type OsmProperties,
   type SearchEntry,
 } from '../geo'
 import type { Info } from '../types'

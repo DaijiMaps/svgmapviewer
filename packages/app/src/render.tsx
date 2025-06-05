@@ -1,7 +1,7 @@
 import { Like, svgMapViewerConfig } from '@daijimaps/svgmapviewer'
 import { symbolNameMap } from '@daijimaps/svgmapviewer/carto-symbols'
 import {
-  findProperties2,
+  findProperties,
   getPropertyValue,
   type OsmProperties,
 } from '@daijimaps/svgmapviewer/geo'
@@ -16,7 +16,7 @@ export function RenderInfo(props: Readonly<Props>): ReactNode {
   const mapMap = svgMapViewerConfig.mapMap
   const id = Number(props.info.x.address)
   const properties =
-    'address' in props.info.x ? findProperties2(id, mapMap) : null
+    'address' in props.info.x ? findProperties(id, mapMap) : null
   if (properties === null) {
     return <p>XXX info not found (osm_id={props.info.x.address}) XXX</p>
   }
@@ -86,16 +86,14 @@ function RenderFacilityInfo(
           margin: '1em',
         }}
       >
-        {symbol && (
-          <svg
-            style={{ display: 'block' }}
-            viewBox="-36 -36 72 72"
-            width="3em"
-            height="3em"
-          >
-            <use href={symbol} />
-          </svg>
-        )}
+        <svg
+          style={{ display: 'block' }}
+          viewBox="-36 -36 72 72"
+          width="3em"
+          height="3em"
+        >
+          {symbol && <use href={symbol} />}
+        </svg>
       </div>
       <p>{props.x.properties.name}</p>
     </>
