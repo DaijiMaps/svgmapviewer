@@ -16,6 +16,7 @@ export const getMapLayers: () => MapLayer[] = () => [
     type: 'multipolygon',
     name: 'playground',
     filter: (p) =>
+      !!p.tourism?.match(/zoo/) ||
       !!p.leisure?.match(/playground/) ||
       !!p.landuse?.match(/recreation_ground/),
   },
@@ -42,23 +43,17 @@ export const getMapLayers: () => MapLayer[] = () => [
   {
     type: 'line',
     name: 'ditch',
-    filter: (p) =>
-      !!p.waterway?.match(/^(ditch)$/) &&
-      !p.other_tags?.match(/"tunnel"=>"(yes|culvert)"/),
+    filter: (p) => !!p.waterway?.match(/^(ditch)$/),
   },
   {
     type: 'line',
     name: 'stream',
-    filter: (p) =>
-      !!p.waterway?.match(/^(stream)$/) &&
-      !p.other_tags?.match(/"tunnel"=>"(yes|culvert)"/),
+    filter: (p) => !!p.waterway?.match(/^(stream)$/),
   },
   {
     type: 'line',
     name: 'river',
-    filter: (p) =>
-      !!p.waterway?.match(/^(river)$/) &&
-      !p.other_tags?.match(/"tunnel"=>"(yes|culvert)"/),
+    filter: (p) => !!p.waterway?.match(/^(river)$/),
   },
   {
     type: 'multipolygon',
@@ -85,72 +80,35 @@ export const getMapLayers: () => MapLayer[] = () => [
     name: 'path',
     filter: (p) =>
       //!p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!p.highway?.match(/^(path|track)$/) &&
-      !p.other_tags?.match(/"service"=>/) &&
-      !p.other_tags?.match(/"access"=>/),
+      !!p.highway?.match(/^(path|track)$/),
   },
   {
     type: 'line',
     name: 'footway',
     filter: (p) =>
       !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!p.highway?.match(/^(footway|pedestrian|steps)$/) &&
-      !p.other_tags?.match(/"service"=>/) &&
-      !p.other_tags?.match(/"access"=>/),
-  },
-  {
-    type: 'line',
-    name: 'footway access',
-    filter: (p) =>
-      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!p.highway?.match(/^(footway|pedestrian|steps)$/) &&
-      !p.other_tags?.match(/"service"=>/) &&
-      !!p.other_tags?.match(/"access"=>/),
+      !!p.highway?.match(/^(footway|pedestrian|steps)$/),
   },
   {
     type: 'line',
     name: 'steps',
     filter: (p) =>
       !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!p.highway?.match(/^(steps)$/) &&
-      !p.other_tags?.match(/"service"=>/) &&
-      !p.other_tags?.match(/"access"=>/),
-  },
-  {
-    type: 'line',
-    name: 'steps access',
-    filter: (p) =>
-      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!p.highway?.match(/^(steps)$/) &&
-      !p.other_tags?.match(/"service"=>/) &&
-      !!p.other_tags?.match(/"access"=>/),
+      !!p.highway?.match(/^(steps)$/),
   },
   {
     type: 'line',
     name: 'cycleway',
     filter: (p) =>
       !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!p.highway?.match(/^(cycleway)$/) &&
-      !p.other_tags?.match(/"service"=>/) &&
-      !p.other_tags?.match(/"access"=>/),
+      !!p.highway?.match(/^(cycleway)$/),
   },
   {
     type: 'line',
     name: 'service',
     filter: (p) =>
       !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!p.highway?.match(/^(service)$/) &&
-      !p.other_tags?.match(/"service"=>/) &&
-      !p.other_tags?.match(/"access"=>/),
-  },
-  {
-    type: 'line',
-    name: 'service access',
-    filter: (p) =>
-      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!p.highway?.match(/^(service)$/) &&
-      !p.other_tags?.match(/"service"=>/) &&
-      !!p.other_tags?.match(/"access"=>/),
+      !!p.highway?.match(/^(service)$/),
   },
   {
     type: 'line',
@@ -160,30 +118,23 @@ export const getMapLayers: () => MapLayer[] = () => [
       !!p.highway?.match(/./) &&
       !p.highway?.match(
         /^(footway|path|pedestrian|steps|cycleway|track|service)$/
-      ) &&
-      !p.other_tags?.match(/"service"=>/) &&
-      !p.other_tags?.match(/"access"=>/),
+      ),
   },
   {
     type: 'multipolygon',
     name: 'pedestrian-area',
     filter: (p) =>
-      !!p.other_tags?.match(
-        /("highway"=>"service"|"area:highway"=>"service")/
-      ) && !p.other_tags?.match(/"access"=>/),
+      !!p.other_tags?.match(/("highway"=>"service"|"area:highway"=>"service")/),
   },
   {
     type: 'multipolygon',
     name: 'pedestrian-area',
-    filter: (p) =>
-      !!p.man_made?.match(/bridge/) && !p.other_tags?.match(/"access"=>/),
+    filter: (p) => !!p.man_made?.match(/bridge/),
   },
   {
     type: 'multipolygon',
     name: 'pedestrian-area',
-    filter: (p) =>
-      !!p.other_tags?.match(/"pedestrian"/) &&
-      !p.other_tags?.match(/"access"=>/),
+    filter: (p) => !!p.other_tags?.match(/"pedestrian"/),
   },
   {
     type: 'line',
