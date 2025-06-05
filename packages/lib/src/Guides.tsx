@@ -225,7 +225,7 @@ const INDEXES = [
 // XXX
 // XXX
 
-type EV = React.UIEvent<HTMLDivElement, Event>
+type EV = { timeStamp: number }
 
 type Events = { type: 'TICK'; ev: EV }
 type Emitted = { type: 'CALL' }
@@ -233,7 +233,7 @@ type Context = {
   last: number
 }
 
-const throttleMachine = setup({
+const expireMachine = setup({
   types: {
     events: {} as Events,
     emitted: {} as Emitted,
@@ -253,7 +253,7 @@ const throttleMachine = setup({
     ),
   },
 }).createMachine({
-  id: 'throttle1',
+  id: 'expire1',
   context: {
     last: 0,
   },
@@ -315,13 +315,13 @@ const throttleMachine = setup({
   },
 })
 
-const throttleActor = createActor(throttleMachine, {
+const expireActor = createActor(expireMachine, {
   //inspect: (iev) => console.log(iev),
 })
 
-throttleActor.start()
+expireActor.start()
 
-throttleActor.on('CALL', () => {
+expireActor.on('CALL', () => {
   const { scroll, client } = getCurrentScroll()
   const p = {
     x: scroll.x + client.width / 2,
@@ -331,7 +331,7 @@ throttleActor.on('CALL', () => {
 })
 
 function updateGeo(ev: Readonly<EV>): void {
-  throttleActor.send({ type: 'TICK', ev })
+  expireActor.send({ type: 'TICK', ev })
 }
 
 // eslint-disable-next-line functional/immutable-data
