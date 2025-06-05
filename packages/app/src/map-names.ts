@@ -9,8 +9,34 @@ export const mapSymbols: POI[] = []
 function pointNames(skip?: Readonly<RegExp>, split?: Readonly<RegExp>): POI[] {
   return svgMapViewerConfig.mapData.points.features.flatMap((f) => {
     const id = getOsmId(f.properties)
-    const pos = vVec(conv(f.geometry.coordinates as unknown as V))
+    if (f.properties.centroid_x === null || f.properties.centroid_y === null) {
+      return []
+    }
+    const centroid: V = [f.properties.centroid_x, f.properties.centroid_y]
+    const pos = vVec(conv(centroid))
+    const name = filterName(f, skip, split)
+    return name === null
+      ? []
+      : [
+          {
+            id: id === null ? null : id,
+            name: splitName(name),
+            pos,
+            size: 0,
+            area: undefined,
+          },
+        ]
+  })
+}
 
+function lineNames(skip?: Readonly<RegExp>, split?: Readonly<RegExp>): POI[] {
+  return svgMapViewerConfig.mapData.lines.features.flatMap((f) => {
+    const id = getOsmId(f.properties)
+    if (f.properties.centroid_x === null || f.properties.centroid_y === null) {
+      return []
+    }
+    const centroid: V = [f.properties.centroid_x, f.properties.centroid_y]
+    const pos = vVec(conv(centroid))
     const name = filterName(f, skip, split)
     return name === null
       ? []
@@ -37,8 +63,7 @@ function polygonNames(
     }
     const centroid: V = [f.properties.centroid_x, f.properties.centroid_y]
     const pos = vVec(conv(centroid))
-    const area = f.properties.area !== null ? f.properties.area : undefined
-
+    const area = undefinedIfNull(f.properties?.area)
     const name = filterName(f, skip, split)
     return name === null
       ? []
@@ -57,7 +82,11 @@ function polygonNames(
 export function getMapNames(): POI[] {
   const skip = svgMapViewerConfig.cartoConfig?.skipNamePattern
   const split = svgMapViewerConfig.cartoConfig?.splitNamePattern
-  return [...pointNames(skip, split), ...polygonNames(skip, split)]
+  return [
+    ...pointNames(skip, split),
+    ...lineNames(skip, split),
+    ...polygonNames(skip, split),
+  ]
 }
 
 function filterName(
@@ -96,4 +125,8 @@ type DeepReadonly<T> = {
     : T[P] extends object
       ? DeepReadonly<T[P]>
       : T[P]
+}
+
+function undefinedIfNull<T>(a: undefined | null | T): undefined | T {
+  return a === undefinedIfNull || a === null ? undefined : a
 }
