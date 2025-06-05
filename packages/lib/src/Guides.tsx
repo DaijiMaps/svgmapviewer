@@ -7,7 +7,6 @@ import './Guides.css'
 import { getCurrentScroll, scrollCbs } from './lib/scroll'
 import { styleSend, useDistanceRadius, useLayout } from './lib/style-xstate'
 import { useOpenCloseBalloon } from './lib/ui-xstate'
-import type { VecVec } from './lib/vec/prefixed'
 
 export function Guides(): ReactNode {
   return (
@@ -228,16 +227,10 @@ const INDEXES = [
 
 type EV = React.UIEvent<HTMLDivElement, Event>
 
-type Call = {
-  p: VecVec
-  timeStamp: number
-}
-
 type Events = { type: 'TICK'; ev: EV }
-type Emitted = { type: 'CALL'; p: null | VecVec }
+type Emitted = { type: 'CALL' }
 type Context = {
-  lastTicked: null | Call
-  lastCalled: null | Call
+  last: number
 }
 
 const throttleMachine = setup({
@@ -247,31 +240,28 @@ const throttleMachine = setup({
     context: {} as Context,
   },
   actions: {
+    reset: assign({
+      last: 0,
+    }),
+    update: assign({
+      last: (_, { ev }: Readonly<{ ev: EV }>) => ev.timeStamp,
+    }),
     call: emit(
-      (_, args: null | Readonly<Call>): Emitted => ({
+      (): Emitted => ({
         type: 'CALL',
-        p: args === null ? null : args.p,
       })
     ),
   },
 }).createMachine({
   id: 'throttle1',
   context: {
-    lastTicked: null,
-    lastCalled: null,
+    last: 0,
   },
   initial: 'Idle',
   states: {
     Idle: {
       on: {
         TICK: {
-          actions: [
-            { type: 'call', params: ({ event: { ev } }) => evToCall(ev) },
-            assign({
-              lastTicked: null,
-              lastCalled: ({ event: { ev } }) => evToCall(ev),
-            }),
-          ],
           target: 'Empty',
         },
       },
@@ -279,20 +269,15 @@ const throttleMachine = setup({
     Empty: {
       after: {
         500: {
-          actions: assign({
-            lastTicked: null,
-            lastCalled: null,
-          }),
+          actions: ['call', 'reset'],
           target: 'Idle',
         },
       },
       on: {
         TICK: [
           {
-            guard: ({ context }) => context.lastTicked === null,
-            actions: assign({
-              lastTicked: ({ event: { ev } }) => evToCall(ev),
-            }),
+            guard: ({ context }) => context.last === 0,
+            actions: { type: 'update', params: ({ event }) => event },
             target: 'Active',
           },
         ],
@@ -306,25 +291,8 @@ const throttleMachine = setup({
       },
       on: {
         TICK: [
-          /*
           {
-            guard: ({ context, event }) =>
-              context.lastCalled !== null &&
-              event.ev.timeStamp - context.lastCalled.timeStamp > 500,
-            actions: [
-              { type: 'call', params: ({ event: { ev } }) => evToCall(ev) },
-              assign({
-                lastTicked: null,
-                lastCalled: null,
-              }),
-            ],
-            target: 'Idle',
-          },
-          */
-          {
-            actions: assign({
-              lastTicked: ({ event: { ev } }) => evToCall(ev),
-            }),
+            actions: { type: 'update', params: ({ event }) => event },
             target: 'Restarting',
           },
         ],
@@ -339,39 +307,13 @@ const throttleMachine = setup({
     Expired: {
       always: [
         {
-          actions: [
-            // XXX
-            // XXX
-            // XXX
-            // XXX getCurrentScroll
-            // XXX
-            // XXX
-            // XXX
-            {
-              type: 'call',
-              params: ({ context }) => context.lastTicked,
-            },
-            assign({
-              lastTicked: null,
-              lastCalled: null,
-            }),
-          ],
+          actions: ['call', 'reset'],
           target: 'Idle',
         },
       ],
     },
   },
 })
-
-function evToCall(ev: Readonly<EV>): { p: VecVec; timeStamp: number } {
-  return {
-    p: {
-      x: ev.currentTarget.scrollLeft + ev.currentTarget.clientWidth / 2,
-      y: ev.currentTarget.scrollTop + ev.currentTarget.clientHeight / 2,
-    },
-    timeStamp: ev.timeStamp,
-  }
-}
 
 const throttleActor = createActor(throttleMachine, {
   //inspect: (iev) => console.log(iev),
