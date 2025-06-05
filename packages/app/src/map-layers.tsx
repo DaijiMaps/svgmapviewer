@@ -78,6 +78,7 @@ export const getMapLayers: () => MapLayer[] = () => [
   {
     type: 'line',
     name: 'path',
+    width: 1,
     filter: (p) =>
       //!p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
       !!p.highway?.match(/^(path|track)$/),
@@ -85,6 +86,7 @@ export const getMapLayers: () => MapLayer[] = () => [
   {
     type: 'line',
     name: 'footway',
+    width: 1,
     filter: (p) =>
       !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
       !!p.highway?.match(/^(footway|pedestrian|steps)$/),
@@ -92,6 +94,7 @@ export const getMapLayers: () => MapLayer[] = () => [
   {
     type: 'line',
     name: 'steps',
+    width: 1,
     filter: (p) =>
       !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
       !!p.highway?.match(/^(steps)$/),
@@ -99,6 +102,7 @@ export const getMapLayers: () => MapLayer[] = () => [
   {
     type: 'line',
     name: 'cycleway',
+    width: 3,
     filter: (p) =>
       !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
       !!p.highway?.match(/^(cycleway)$/),
@@ -106,6 +110,7 @@ export const getMapLayers: () => MapLayer[] = () => [
   {
     type: 'line',
     name: 'service',
+    width: 4,
     filter: (p) =>
       !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
       !!p.highway?.match(/^(service)$/),
@@ -113,6 +118,7 @@ export const getMapLayers: () => MapLayer[] = () => [
   {
     type: 'line',
     name: 'road',
+    width: 6,
     filter: (p) =>
       !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
       !!p.highway?.match(/./) &&
