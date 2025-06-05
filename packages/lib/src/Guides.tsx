@@ -4,7 +4,7 @@
 import { Fragment, type ReactNode } from 'react'
 import { assign, createActor, emit, setup } from 'xstate'
 import './Guides.css'
-import { scrollCbs } from './lib/scroll'
+import { getCurrentScroll, scrollCbs } from './lib/scroll'
 import { styleSend, useDistanceRadius, useLayout } from './lib/style-xstate'
 import { useOpenCloseBalloon } from './lib/ui-xstate'
 import type { VecVec } from './lib/vec/prefixed'
@@ -379,9 +379,11 @@ const throttleActor = createActor(throttleMachine, {
 
 throttleActor.start()
 
-throttleActor.on('CALL', ({ p }) => {
-  if (p === null) {
-    return
+throttleActor.on('CALL', () => {
+  const { scroll, client } = getCurrentScroll()
+  const p = {
+    x: scroll.x + client.width / 2,
+    y: scroll.y + client.height / 2,
   }
   styleSend({ type: 'STYLE.LONLAT', p })
 })
