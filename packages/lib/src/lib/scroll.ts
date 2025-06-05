@@ -4,6 +4,7 @@
 /* eslint-disable functional/no-conditional-statements */
 import { boxBox, type BoxBox, boxUnit } from './box/prefixed'
 import type { ScrollCb } from './scroll-types'
+import type { Size } from './types'
 
 // XXX make this async
 // XXX call this from scroll-xstate as invoke (Promise)
@@ -104,10 +105,18 @@ export function getScroll(): null | BoxBox {
 
 ////
 
+export interface CurrentScroll {
+  scroll: BoxBox
+  client: Size
+  timeStamp: number
+}
+
 // eslint-disable-next-line functional/no-let
-export let currentScroll: BoxBox = boxUnit
-// eslint-disable-next-line functional/no-let
-export let currentTimeStamp: number = 0
+export let currentScroll: CurrentScroll = {
+  scroll: boxUnit,
+  client: { width: 0, height: 0 },
+  timeStamp: 0,
+}
 
 export function setCurrentScroll(
   ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
@@ -116,16 +125,22 @@ export function setCurrentScroll(
   const e: null | HTMLDivElement = ev.currentTarget
   if (e !== null) {
     currentScroll = {
-      x: e.scrollLeft,
-      y: e.scrollTop,
-      width: e.scrollWidth,
-      height: e.scrollHeight,
+      scroll: {
+        x: e.scrollLeft,
+        y: e.scrollTop,
+        width: e.scrollWidth,
+        height: e.scrollHeight,
+      },
+      client: {
+        width: e.clientWidth,
+        height: e.clientHeight,
+      },
+      timeStamp: ev.timeStamp,
     }
-    currentTimeStamp = ev.timeStamp
   }
 }
 
-export function getCurrentScroll(): BoxBox {
+export function getCurrentScroll(): CurrentScroll {
   return currentScroll
 }
 

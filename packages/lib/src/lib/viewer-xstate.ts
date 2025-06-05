@@ -198,7 +198,7 @@ const viewerMachine = setup({
     }),
     updateLayoutFromScroll: assign({
       layout: ({ context }) => {
-        const scroll = getCurrentScroll()
+        const { scroll } = getCurrentScroll()
         return scrollLayout(context.layout, scroll)
       },
     }),
@@ -218,7 +218,7 @@ const viewerMachine = setup({
       })
     ),
     notifySearch: emit(({ context }): ViewerEmitted => {
-      const scroll = getCurrentScroll()
+      const { scroll } = getCurrentScroll()
       const l = scrollLayout(context.layout, scroll)
       const m = fromMatrixSvg(l).inverse()
       return {
@@ -229,7 +229,7 @@ const viewerMachine = setup({
     notifySearchDone: raise({ type: 'SEARCH.DONE' }),
     notifySearchEndDone: emit(
       ({ context }, { res }: SearchEnd): ViewerEmitted => {
-        const scroll = getCurrentScroll()
+        const { scroll } = getCurrentScroll()
         const l = scrollLayout(context.layout, scroll)
         return {
           type: 'SEARCH.END.DONE',
