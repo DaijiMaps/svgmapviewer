@@ -19,6 +19,15 @@ const pointAddresses = (
     return e === null ? [] : [e]
   })
 
+const lineAddresses = (
+  mapData: MapData,
+  entries: SearchEntry[]
+): AddressEntries =>
+  mapData.lines.features.flatMap((f) => {
+    const e = filterFeature(entries, f)
+    return e === null ? [] : [e]
+  })
+
 const polygonAddresses = (
   mapData: MapData,
   entries: SearchEntry[]
@@ -34,6 +43,7 @@ export function getAddressEntries(
 ): AddressEntries {
   return [
     ...pointAddresses(mapData, entries),
+    ...lineAddresses(mapData, entries),
     ...polygonAddresses(mapData, entries),
   ]
 }
