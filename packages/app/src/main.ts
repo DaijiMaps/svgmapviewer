@@ -12,7 +12,7 @@ export const renderConfig: RenderConfig = {
   getMapObjects,
   getMapSymbols,
   getMapMarkers,
-  getMapNames,
+  getMapNames, // XXX
   searchEntries,
   renderInfo: RenderInfo,
 }

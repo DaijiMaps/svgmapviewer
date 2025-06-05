@@ -148,7 +148,7 @@ export interface RenderConfig {
   getMapObjects: () => MapObjects[]
   getMapSymbols: () => MapSymbols[]
   getMapMarkers: () => MapMarkers[]
-  getMapNames: () => POI[]
+  getMapNames: () => POI[] // XXX
   searchEntries: SearchEntry[]
   renderInfo: RenderInfo
 }
