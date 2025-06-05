@@ -41,8 +41,8 @@ function Measure(): ReactNode {
         ))}
       </g>
       <g className="coordinate">
-        <text id="longitude">E 135.123456</text>
-        <text id="latitude">N 35.123456</text>
+        <text id="longitude"></text>
+        <text id="latitude"></text>
       </g>
     </>
   )
@@ -229,9 +229,7 @@ type EV = { timeStamp: number }
 
 type Events = { type: 'TICK'; ev: EV }
 type Emitted = { type: 'CALL' }
-type Context = {
-  last: number
-}
+type Context = { ticked: boolean }
 
 const expireMachine = setup({
   types: {
@@ -240,23 +238,13 @@ const expireMachine = setup({
     context: {} as Context,
   },
   actions: {
-    reset: assign({
-      last: 0,
-    }),
-    update: assign({
-      last: (_, { ev }: Readonly<{ ev: EV }>) => ev.timeStamp,
-    }),
-    call: emit(
-      (): Emitted => ({
-        type: 'CALL',
-      })
-    ),
+    clear: assign({ ticked: false }),
+    set: assign({ ticked: true }),
+    call: emit({ type: 'CALL' }),
   },
 }).createMachine({
   id: 'expire1',
-  context: {
-    last: 0,
-  },
+  context: { ticked: false },
   initial: 'Idle',
   states: {
     Idle: {
@@ -269,15 +257,15 @@ const expireMachine = setup({
     Empty: {
       after: {
         500: {
-          actions: ['call', 'reset'],
+          actions: ['call', 'clear'],
           target: 'Idle',
         },
       },
       on: {
         TICK: [
           {
-            guard: ({ context }) => context.last === 0,
-            actions: { type: 'update', params: ({ event }) => event },
+            guard: ({ context }) => !context.ticked,
+            actions: { type: 'set', params: ({ event }) => event },
             target: 'Active',
           },
         ],
@@ -292,7 +280,7 @@ const expireMachine = setup({
       on: {
         TICK: [
           {
-            actions: { type: 'update', params: ({ event }) => event },
+            actions: { type: 'set', params: ({ event }) => event },
             target: 'Restarting',
           },
         ],
@@ -307,7 +295,7 @@ const expireMachine = setup({
     Expired: {
       always: [
         {
-          actions: ['call', 'reset'],
+          actions: ['call', 'clear'],
           target: 'Idle',
         },
       ],
