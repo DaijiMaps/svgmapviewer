@@ -4,13 +4,12 @@
 /* eslint-disable functional/no-let */
 
 import type { Vec } from '../vec'
+import { initAddresses, searchAddress } from './address'
 import {
-  initAddresses,
-  searchAddress,
   type AddressEntries,
   type SearchAddressRes,
   type SearchContext,
-} from './address'
+} from './address-types'
 
 let ctx: null | SearchContext = null
 

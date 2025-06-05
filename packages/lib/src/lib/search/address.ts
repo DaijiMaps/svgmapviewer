@@ -4,29 +4,12 @@
 /* eslint-disable functional/no-loop-statements */
 import Flatbush from 'flatbush'
 import { type VecVec as Vec } from '../vec/prefixed'
-
-export type Address = string
-export type Idx = string
-
-type FlatbushIndexes = Record<Idx, Address>
-
-export interface AddressBuf {
-  fb: Flatbush
-  idxs: FlatbushIndexes
-}
-
-export type AddressEntry = { a: Address; lonlat: Vec }
-export type AddressEntries = AddressEntry[]
-
-export interface SearchContext {
-  b: AddressBuf
-  m: Map<Address, Vec>
-}
-
-export interface SearchAddressRes {
-  address: Address
-  lonlat: Vec
-}
+import type {
+  AddressEntries,
+  FlatbushIndexes,
+  SearchAddressRes,
+  SearchContext,
+} from './address-types'
 
 function makeAddressBuf(entries: Readonly<AddressEntries>) {
   const l = entries.length

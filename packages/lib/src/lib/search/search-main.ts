@@ -5,8 +5,8 @@
 import { svgMapViewerConfig } from '../config'
 import { notifySearchDone, registerCbs } from '../config-xstate'
 import type { Vec } from '../vec'
-import type { AddressEntries, SearchAddressRes } from './address'
 import { getAddressInfo } from './address-data'
+import type { AddressEntries, SearchAddressRes } from './address-types'
 import type { SearchWorkerRes } from './search-worker'
 
 const worker = new Worker(new URL('./search-worker.js', import.meta.url), {

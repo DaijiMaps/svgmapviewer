@@ -8,7 +8,11 @@ import {
   type SearchEntry,
 } from '../geo'
 import type { Info } from '../types'
-import type { AddressEntries, AddressEntry, SearchAddressRes } from './address'
+import type {
+  AddressEntries,
+  AddressEntry,
+  SearchAddressRes,
+} from './address-types'
 
 const pointAddresses = (
   mapData: MapData,
