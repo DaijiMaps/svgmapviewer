@@ -1,7 +1,7 @@
 import { RenderConfig } from '@daijimaps/svgmapviewer'
+import { getMapNames } from '@daijimaps/svgmapviewer/carto'
 import { getMapLayers } from './map-layers'
 import { getMapMarkers } from './map-markers'
-import { getMapNames } from './map-names'
 import { getMapObjects } from './map-objects'
 import { getMapSymbols } from './map-symbols'
 import { RenderInfo } from './render'
