@@ -41,7 +41,11 @@ import {
   type OsmPolygonProperties,
   type OsmProperties,
 } from './osm-types'
-import { lineToPath, multiLineStringToPath, multiPolygonToPath } from './path'
+import {
+  lineToPathD,
+  multiLineStringToPathD,
+  multiPolygonToPathD,
+} from './path'
 import {
   type Line,
   type MultiLineString,
@@ -106,7 +110,7 @@ export {
   type OsmProperties,
 }
 
-export { lineToPath, multiLineStringToPath, multiPolygonToPath }
+export { lineToPathD, multiLineStringToPathD, multiPolygonToPathD }
 
 export { type Line, type MultiLineString, type MultiPolygon, type Point }
 

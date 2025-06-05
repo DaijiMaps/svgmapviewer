@@ -2,7 +2,7 @@ import { svgMapViewerConfig as cfg } from '../config'
 import { type V, vUnvec, vVec } from '../tuple'
 import type { Line, MultiLineString, MultiPolygon } from './path-types'
 
-export function lineToPath(vs: Readonly<Line>): string {
+export function lineToPathD(vs: Readonly<Line>): string {
   return (
     l(vs.map(vFromGeo))
       // XXX truncate coord (1234.5678 to 1234.56)
@@ -10,7 +10,7 @@ export function lineToPath(vs: Readonly<Line>): string {
   )
 }
 
-export function multiLineStringToPath(vss: Readonly<MultiLineString>): string {
+export function multiLineStringToPathD(vss: Readonly<MultiLineString>): string {
   return (
     vss
       .map((vs) => l(vs.map(vFromGeo)))
@@ -20,7 +20,7 @@ export function multiLineStringToPath(vss: Readonly<MultiLineString>): string {
   )
 }
 
-export function multiPolygonToPath(vsss: Readonly<MultiPolygon>): string {
+export function multiPolygonToPathD(vsss: Readonly<MultiPolygon>): string {
   return (
     vsss
       .map((vss) => vss.map((vs) => a(vs.map(vFromGeo))).join(''))

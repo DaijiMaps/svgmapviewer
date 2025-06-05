@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/info.ts","./src/main.ts","./src/map-layers.tsx","./src/map-markers.tsx","./src/map-names.ts","./src/map-objects.tsx","./src/map-symbols.tsx","./src/render.tsx","./src/search-data.ts","./src/vite-env.d.ts"],"version":"5.8.3"}
+{"root":["./src/index.ts","./src/info.ts","./src/main.ts","./src/map-layers.tsx","./src/map-markers.tsx","./src/map-objects.tsx","./src/map-symbols.tsx","./src/render.tsx","./src/search-data.ts","./src/vite-env.d.ts"],"version":"5.8.3"}

@@ -3,10 +3,10 @@ import { svgMapViewerConfig as cfg } from '../config'
 import {
   type Line,
   type LinesFilter,
-  lineToPath,
+  lineToPathD,
   type MultiPolygon,
   type MultiPolygonsFilter,
-  multiPolygonToPath,
+  multiPolygonToPathD,
 } from '../geo'
 import type { MapLayer, MapLineLayer, MapMultiPolygonLayer } from './types'
 
@@ -17,14 +17,56 @@ export function RenderMapLayers(
     <g className="map-layers">
       {props.mapLayers.map((layer, i) => (
         <g key={i}>
-          <path
-            className={layer.name}
-            width={layerToWidth(layer)}
-            d={layerToPath(layer)}
-          />
+          {layer.type === 'line'
+            ? lineLayerToPaths(layer)
+            : multiPolygonLayerToPath(layer)}{' '}
         </g>
       ))}
     </g>
+  )
+}
+
+function lineLayerToPaths(layer: Readonly<MapLineLayer>): ReactNode {
+  const xs =
+    layer.filter !== undefined
+      ? getLines(layer.filter)
+      : layer.data !== undefined
+        ? layer.data
+        : []
+  return (
+    <>
+      {xs.map((x, idx) => (
+        <path
+          key={idx}
+          className={layer.name}
+          width={layerToWidth(layer)}
+          d={lineToPathD(x)}
+        />
+      ))}
+    </>
+  )
+}
+
+function multiPolygonLayerToPath(
+  layer: Readonly<MapMultiPolygonLayer>
+): ReactNode {
+  const xs: MultiPolygon[] =
+    layer.filter !== undefined
+      ? getMultiPolygons(layer.filter)
+      : layer.data !== undefined
+        ? layer.data
+        : []
+  return (
+    <>
+      {xs.map((x, idx) => (
+        <path
+          key={idx}
+          className={layer.name}
+          width={layerToWidth(layer)}
+          d={multiPolygonToPathD(x)}
+        />
+      ))}
+    </>
   )
 }
 
@@ -34,23 +76,24 @@ function layerToWidth(layer: Readonly<MapLayer>): undefined | number {
     : undefined
 }
 
-function layerToPath(layer: Readonly<MapLayer>): string {
+/*
+function layerToPathD(layer: Readonly<MapLayer>): string {
   return layer.type === 'line'
-    ? lineLayerToPath(layer)
-    : multiPolygonLayerToPath(layer)
+    ? lineLayerToPathD(layer)
+    : multiPolygonLayerToPathD(layer)
 }
 
-function lineLayerToPath(layer: Readonly<MapLineLayer>): string {
+function lineLayerToPathD(layer: Readonly<MapLineLayer>): string {
   const xs =
     layer.filter !== undefined
       ? getLines(layer.filter)
       : layer.data !== undefined
         ? layer.data
         : []
-  return xs.map(lineToPath).join('')
+  return xs.map(lineToPathD).join('')
 }
 
-function multiPolygonLayerToPath(
+function multiPolygonLayerToPathD(
   layer: Readonly<MapMultiPolygonLayer>
 ): string {
   const xs: MultiPolygon[] =
@@ -59,8 +102,11 @@ function multiPolygonLayerToPath(
       : layer.data !== undefined
         ? layer.data
         : []
-  return xs.map(multiPolygonToPath).join('')
+  return xs.map(multiPolygonToPathD).join('')
 }
+*/
+
+////
 
 function getLines(filter: LinesFilter): Line[] {
   return cfg.mapData.lines.features

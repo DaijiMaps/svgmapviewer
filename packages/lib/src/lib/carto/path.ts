@@ -3,10 +3,10 @@ import { svgMapViewerConfig as cfg } from '../config'
 import {
   type Line,
   type LineFeature,
-  lineToPath,
+  lineToPathD,
   type MultiPolygon,
   type MultiPolygonFeature,
-  multiPolygonToPath,
+  multiPolygonToPathD,
   type OsmLineProperties,
   type OsmPolygonProperties,
 } from '../geo'
@@ -16,7 +16,7 @@ export function renderAreasPath(): string {
     (f) => f.geometry.coordinates
   ) as unknown as MultiPolygon[]
 
-  return xs.map(multiPolygonToPath).join('')
+  return xs.map(multiPolygonToPathD).join('')
 }
 
 export function renderLinePath(
@@ -26,7 +26,7 @@ export function renderLinePath(
     .filter(filter)
     .map((f) => f.geometry.coordinates) as unknown as Line[]
 
-  return xs.map(lineToPath).join('')
+  return xs.map(lineToPathD).join('')
 }
 
 export function renderMultiPolygonPath(
@@ -36,5 +36,5 @@ export function renderMultiPolygonPath(
     .filter(filter)
     .map((f) => f.geometry.coordinates) as unknown as MultiPolygon[]
 
-  return xs.map(multiPolygonToPath).join('')
+  return xs.map(multiPolygonToPathD).join('')
 }
