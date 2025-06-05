@@ -78,7 +78,6 @@ function RenderFacilityInfo(
 
   return (
     <>
-      <p>{props.x.title}</p>
       <div
         style={{
           display: 'flex',
