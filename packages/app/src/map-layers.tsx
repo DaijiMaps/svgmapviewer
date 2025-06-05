@@ -192,7 +192,7 @@ export const getMapLayers: () => MapLayer[] = () => [
   },
   {
     type: 'line',
-    name: 'escalator-background',
+    name: 'escalator background',
     filter: (f) =>
       !!f.properties.highway?.match(/^(steps)$/) &&
       !!f.properties.other_tags?.match(/"conveying"=>"yes"/),

@@ -143,12 +143,12 @@ body,
   stroke-opacity: 0.25;
 }
 
-.escalator-background {
+.escalator.background {
   fill: none;
   stroke: black;
   stroke-width: 1.75px;
 }
-.escalator-foreground {
+.escalator.foreground {
   fill: none;
   stroke: white;
   stroke-width: 1.25px;
