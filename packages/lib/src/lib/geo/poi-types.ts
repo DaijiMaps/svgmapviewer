@@ -1,10 +1,5 @@
 import { type VecVec } from '../vec/prefixed'
 import type {
-  LineFeature,
-  MultiPolygonFeature,
-  PointFeature,
-} from './geojson-types'
-import type {
   OsmLineProperties,
   OsmPointProperties,
   OsmPolygonProperties,
@@ -18,12 +13,6 @@ export interface POI {
   area?: number
 }
 
-export type PointsFilter = (
-  f: Readonly<PointFeature<OsmPointProperties>>
-) => boolean
-export type LinesFilter = (
-  f: Readonly<LineFeature<OsmLineProperties>>
-) => boolean
-export type MultiPolygonsFilter = (
-  f: Readonly<MultiPolygonFeature<OsmPolygonProperties>>
-) => boolean
+export type PointsFilter = (f: Readonly<OsmPointProperties>) => boolean
+export type LinesFilter = (f: Readonly<OsmLineProperties>) => boolean
+export type MultiPolygonsFilter = (f: Readonly<OsmPolygonProperties>) => boolean

@@ -82,12 +82,12 @@ function layerToWidth(layer: Readonly<MapLayer>): undefined | number {
 
 function getLines(filter: LinesFilter): Line[] {
   return cfg.mapData.lines.features
-    .filter(filter)
+    .filter((f) => filter(f.properties))
     .map((f) => f.geometry.coordinates) as unknown as Line[]
 }
 
 function getMultiPolygons(filter: MultiPolygonsFilter): MultiPolygon[] {
   return cfg.mapData.multipolygons.features
-    .filter(filter)
+    .filter((f) => filter(f.properties))
     .map((f) => f.geometry.coordinates) as unknown as MultiPolygon[]
 }

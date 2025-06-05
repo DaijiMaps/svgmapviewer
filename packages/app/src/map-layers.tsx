@@ -15,215 +15,208 @@ export const getMapLayers: () => MapLayer[] = () => [
   {
     type: 'multipolygon',
     name: 'playground',
-    filter: (f) =>
-      !!f.properties.leisure?.match(/playground/) ||
-      !!f.properties.landuse?.match(/recreation_ground/),
+    filter: (p) =>
+      !!p.leisure?.match(/playground/) ||
+      !!p.landuse?.match(/recreation_ground/),
   },
   {
     type: 'multipolygon',
     name: 'grass',
-    filter: (f) => !!f.properties.landuse?.match(/grass/),
+    filter: (p) => !!p.landuse?.match(/grass/),
   },
   {
     type: 'multipolygon',
     name: 'forest',
-    filter: (f) =>
-      !!f.properties.landuse?.match(/forest/) ||
-      !!f.properties.natural?.match(/wood/),
+    filter: (p) => !!p.landuse?.match(/forest/) || !!p.natural?.match(/wood/),
   },
   {
     type: 'multipolygon',
     name: 'garden',
-    filter: (f) => !!f.properties.leisure?.match(/garden/),
+    filter: (p) => !!p.leisure?.match(/garden/),
   },
   {
     type: 'multipolygon',
     name: 'water',
-    filter: (f) => !!f.properties.natural?.match(/^water$/),
+    filter: (p) => !!p.natural?.match(/^water$/),
   },
   {
     type: 'line',
     name: 'ditch',
-    filter: (f) =>
-      !!f.properties.waterway?.match(/^(ditch)$/) &&
-      !f.properties.other_tags?.match(/"tunnel"=>"(yes|culvert)"/),
+    filter: (p) =>
+      !!p.waterway?.match(/^(ditch)$/) &&
+      !p.other_tags?.match(/"tunnel"=>"(yes|culvert)"/),
   },
   {
     type: 'line',
     name: 'stream',
-    filter: (f) =>
-      !!f.properties.waterway?.match(/^(stream)$/) &&
-      !f.properties.other_tags?.match(/"tunnel"=>"(yes|culvert)"/),
+    filter: (p) =>
+      !!p.waterway?.match(/^(stream)$/) &&
+      !p.other_tags?.match(/"tunnel"=>"(yes|culvert)"/),
   },
   {
     type: 'line',
     name: 'river',
-    filter: (f) =>
-      !!f.properties.waterway?.match(/^(river)$/) &&
-      !f.properties.other_tags?.match(/"tunnel"=>"(yes|culvert)"/),
+    filter: (p) =>
+      !!p.waterway?.match(/^(river)$/) &&
+      !p.other_tags?.match(/"tunnel"=>"(yes|culvert)"/),
   },
   {
     type: 'multipolygon',
     name: 'wetland',
-    filter: (f) => !!f.properties.natural?.match(/wetland/),
+    filter: (p) => !!p.natural?.match(/wetland/),
   },
   {
     type: 'multipolygon',
     name: 'grave_yard',
-    filter: (f) => !!f.properties.amenity?.match(/grave_yard/),
+    filter: (p) => !!p.amenity?.match(/grave_yard/),
   },
   {
     type: 'multipolygon',
     name: 'parking',
-    filter: (f) => !!f.properties.amenity?.match(/(parking|bicycle_parking)/),
+    filter: (p) => !!p.amenity?.match(/(parking|bicycle_parking)/),
   },
   {
     type: 'multipolygon',
     name: 'building',
-    filter: (f) =>
-      !!f.properties.building?.match(/./) &&
-      !f.properties.building?.match(/roof/),
+    filter: (p) => !!p.building?.match(/./) && !p.building?.match(/roof/),
   },
   {
     type: 'line',
     name: 'path',
-    filter: (f) =>
-      //!f.properties.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!f.properties.highway?.match(/^(path|track)$/) &&
-      !f.properties.other_tags?.match(/"service"=>/) &&
-      !f.properties.other_tags?.match(/"access"=>/),
+    filter: (p) =>
+      //!p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
+      !!p.highway?.match(/^(path|track)$/) &&
+      !p.other_tags?.match(/"service"=>/) &&
+      !p.other_tags?.match(/"access"=>/),
   },
   {
     type: 'line',
     name: 'footway',
-    filter: (f) =>
-      !f.properties.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!f.properties.highway?.match(/^(footway|pedestrian|steps)$/) &&
-      !f.properties.other_tags?.match(/"service"=>/) &&
-      !f.properties.other_tags?.match(/"access"=>/),
+    filter: (p) =>
+      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
+      !!p.highway?.match(/^(footway|pedestrian|steps)$/) &&
+      !p.other_tags?.match(/"service"=>/) &&
+      !p.other_tags?.match(/"access"=>/),
   },
   {
     type: 'line',
     name: 'footway access',
-    filter: (f) =>
-      !f.properties.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!f.properties.highway?.match(/^(footway|pedestrian|steps)$/) &&
-      !f.properties.other_tags?.match(/"service"=>/) &&
-      !!f.properties.other_tags?.match(/"access"=>/),
+    filter: (p) =>
+      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
+      !!p.highway?.match(/^(footway|pedestrian|steps)$/) &&
+      !p.other_tags?.match(/"service"=>/) &&
+      !!p.other_tags?.match(/"access"=>/),
   },
   {
     type: 'line',
     name: 'steps',
-    filter: (f) =>
-      !f.properties.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!f.properties.highway?.match(/^(steps)$/) &&
-      !f.properties.other_tags?.match(/"service"=>/) &&
-      !f.properties.other_tags?.match(/"access"=>/),
+    filter: (p) =>
+      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
+      !!p.highway?.match(/^(steps)$/) &&
+      !p.other_tags?.match(/"service"=>/) &&
+      !p.other_tags?.match(/"access"=>/),
   },
   {
     type: 'line',
     name: 'steps access',
-    filter: (f) =>
-      !f.properties.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!f.properties.highway?.match(/^(steps)$/) &&
-      !f.properties.other_tags?.match(/"service"=>/) &&
-      !!f.properties.other_tags?.match(/"access"=>/),
+    filter: (p) =>
+      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
+      !!p.highway?.match(/^(steps)$/) &&
+      !p.other_tags?.match(/"service"=>/) &&
+      !!p.other_tags?.match(/"access"=>/),
   },
   {
     type: 'line',
     name: 'cycleway',
-    filter: (f) =>
-      !f.properties.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!f.properties.highway?.match(/^(cycleway)$/) &&
-      !f.properties.other_tags?.match(/"service"=>/) &&
-      !f.properties.other_tags?.match(/"access"=>/),
+    filter: (p) =>
+      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
+      !!p.highway?.match(/^(cycleway)$/) &&
+      !p.other_tags?.match(/"service"=>/) &&
+      !p.other_tags?.match(/"access"=>/),
   },
   {
     type: 'line',
     name: 'service',
-    filter: (f) =>
-      !f.properties.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!f.properties.highway?.match(/^(service)$/) &&
-      !f.properties.other_tags?.match(/"service"=>/) &&
-      !f.properties.other_tags?.match(/"access"=>/),
+    filter: (p) =>
+      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
+      !!p.highway?.match(/^(service)$/) &&
+      !p.other_tags?.match(/"service"=>/) &&
+      !p.other_tags?.match(/"access"=>/),
   },
   {
     type: 'line',
     name: 'service access',
-    filter: (f) =>
-      !f.properties.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!f.properties.highway?.match(/^(service)$/) &&
-      !f.properties.other_tags?.match(/"service"=>/) &&
-      !!f.properties.other_tags?.match(/"access"=>/),
+    filter: (p) =>
+      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
+      !!p.highway?.match(/^(service)$/) &&
+      !p.other_tags?.match(/"service"=>/) &&
+      !!p.other_tags?.match(/"access"=>/),
   },
   {
     type: 'line',
     name: 'road',
-    filter: (f) =>
-      !f.properties.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
-      !!f.properties.highway?.match(/./) &&
-      !f.properties.highway?.match(
+    filter: (p) =>
+      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/) &&
+      !!p.highway?.match(/./) &&
+      !p.highway?.match(
         /^(footway|path|pedestrian|steps|cycleway|track|service)$/
       ) &&
-      !f.properties.other_tags?.match(/"service"=>/) &&
-      !f.properties.other_tags?.match(/"access"=>/),
+      !p.other_tags?.match(/"service"=>/) &&
+      !p.other_tags?.match(/"access"=>/),
   },
   {
     type: 'multipolygon',
     name: 'pedestrian-area',
-    filter: (f) =>
-      !!f.properties.other_tags?.match(
+    filter: (p) =>
+      !!p.other_tags?.match(
         /("highway"=>"service"|"area:highway"=>"service")/
-      ) && !f.properties.other_tags?.match(/"access"=>/),
+      ) && !p.other_tags?.match(/"access"=>/),
   },
   {
     type: 'multipolygon',
     name: 'pedestrian-area',
-    filter: (f) =>
-      !!f.properties.man_made?.match(/bridge/) &&
-      !f.properties.other_tags?.match(/"access"=>/),
+    filter: (p) =>
+      !!p.man_made?.match(/bridge/) && !p.other_tags?.match(/"access"=>/),
   },
   {
     type: 'multipolygon',
     name: 'pedestrian-area',
-    filter: (f) =>
-      !!f.properties.other_tags?.match(/"pedestrian"/) &&
-      !f.properties.other_tags?.match(/"access"=>/),
+    filter: (p) =>
+      !!p.other_tags?.match(/"pedestrian"/) &&
+      !p.other_tags?.match(/"access"=>/),
   },
   {
     type: 'line',
     name: 'escalator background',
-    filter: (f) =>
-      !!f.properties.highway?.match(/^(steps)$/) &&
-      !!f.properties.other_tags?.match(/"conveying"=>"yes"/),
+    filter: (p) =>
+      !!p.highway?.match(/^(steps)$/) &&
+      !!p.other_tags?.match(/"conveying"=>"yes"/),
   },
   {
     type: 'line',
     name: 'escalator foreground',
-    filter: (f) =>
-      !!f.properties.highway?.match(/^(steps)$/) &&
-      !!f.properties.other_tags?.match(/"conveying"=>"yes"/),
+    filter: (p) =>
+      !!p.highway?.match(/^(steps)$/) &&
+      !!p.other_tags?.match(/"conveying"=>"yes"/),
   },
   {
     type: 'line',
     name: 'wall',
-    filter: (f) => !!f.properties.barrier?.match(/^(wall)$/),
+    filter: (p) => !!p.barrier?.match(/^(wall)$/),
   },
   {
     type: 'line',
     name: 'fence',
-    filter: (f) => !!f.properties.barrier?.match(/^(fence)$/),
+    filter: (p) => !!p.barrier?.match(/^(fence)$/),
   },
   {
     type: 'line',
     name: 'retaining-wall',
-    filter: (f) => !!f.properties.barrier?.match(/^(retaining_wall)$/),
+    filter: (p) => !!p.barrier?.match(/^(retaining_wall)$/),
   },
   {
     type: 'multipolygon',
     name: 'roof',
-    filter: (f) =>
-      !!f.properties.building?.match(/./) &&
-      !!f.properties.building?.match(/roof/),
+    filter: (p) => !!p.building?.match(/./) && !!p.building?.match(/roof/),
   },
 ]

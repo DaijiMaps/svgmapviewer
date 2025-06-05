@@ -41,21 +41,30 @@ function getPoints(
   features: readonly OsmPointFeature[],
   filter: PointsFilter
 ): Point[] {
-  return features.filter(filter).flatMap(fToV).map(conv)
+  return features
+    .filter((f) => filter(f.properties))
+    .flatMap(fToV)
+    .map(conv)
 }
 
 function getLines(
   features: readonly OsmLineFeature[],
   filter: LinesFilter
 ): Point[] {
-  return features.filter(filter).flatMap(fToV).map(conv)
+  return features
+    .filter((f) => filter(f.properties))
+    .flatMap(fToV)
+    .map(conv)
 }
 
 function getPolygons(
   features: readonly OsmMultiPolygonFeature[],
   filter: MultiPolygonsFilter
 ): Point[] {
-  return features.filter(filter).flatMap(fToV).map(conv)
+  return features
+    .filter((f) => filter(f.properties))
+    .flatMap(fToV)
+    .map(conv)
 }
 
 function fToV(f: OsmFeature): V[] {
