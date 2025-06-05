@@ -1,4 +1,5 @@
 /* eslint-disable functional/prefer-immutable-types */
+import { svgMapViewerConfig } from '../config'
 import {
   findFeature,
   getOsmId,
@@ -16,28 +17,31 @@ import type {
 
 const pointAddresses = (
   mapData: MapData,
-  entries: SearchEntry[]
+  entries: SearchEntry[],
+  skip?: Readonly<RegExp>
 ): AddressEntries =>
   mapData.points.features.flatMap(({ properties }) => {
-    const e = filterFeature(properties, entries)
+    const e = filterFeature(properties, entries, skip)
     return e === null ? [] : [e]
   })
 
 const lineAddresses = (
   mapData: MapData,
-  entries: SearchEntry[]
+  entries: SearchEntry[],
+  skip?: Readonly<RegExp>
 ): AddressEntries =>
   mapData.lines.features.flatMap(({ properties }) => {
-    const e = filterFeature(properties, entries)
+    const e = filterFeature(properties, entries, skip)
     return e === null ? [] : [e]
   })
 
 const polygonAddresses = (
   mapData: MapData,
-  entries: SearchEntry[]
+  entries: SearchEntry[],
+  skip?: Readonly<RegExp>
 ): AddressEntries =>
   mapData.multipolygons.features.flatMap(({ properties }) => {
-    const e = filterFeature(properties, entries)
+    const e = filterFeature(properties, entries, skip)
     return e === null ? [] : [e]
   })
 
@@ -45,19 +49,25 @@ export function getAddressEntries(
   mapData: MapData,
   entries: SearchEntry[]
 ): AddressEntries {
+  const skip = svgMapViewerConfig.cartoConfig?.skipNamePattern
   return [
-    ...pointAddresses(mapData, entries),
-    ...lineAddresses(mapData, entries),
-    ...polygonAddresses(mapData, entries),
+    ...pointAddresses(mapData, entries, skip),
+    ...lineAddresses(mapData, entries, skip),
+    ...polygonAddresses(mapData, entries, skip),
   ]
 }
 
 function filterFeature(
   properties: OsmProperties,
-  entries: SearchEntry[]
+  entries: SearchEntry[],
+  skip?: Readonly<RegExp>
 ): null | AddressEntry {
   const id = getOsmId(properties)
   if (id === null) {
+    return null
+  }
+  const name = properties.name
+  if (name !== null && skip !== undefined && name.match(skip)) {
     return null
   }
   const { centroid_x, centroid_y } = properties
