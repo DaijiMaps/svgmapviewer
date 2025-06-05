@@ -41,8 +41,9 @@ function Measure(): ReactNode {
         ))}
       </g>
       <g className="coordinate">
-        <text id="longitude"></text>
-        <text id="latitude"></text>
+        {/* placeholder - updated by style lonlat */}
+        <text id="longitude" />
+        <text id="latitude" />
       </g>
     </>
   )
