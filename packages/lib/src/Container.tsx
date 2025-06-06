@@ -17,7 +17,8 @@ import {
   sendWheel,
 } from './lib/viewer-react'
 import { MapHtmlRoot } from './MapHtmlRoot'
-import { MapSvgRoot, MapSvgSymbolsRoot } from './MapSvgRoot'
+import { MapSvgRoot } from './MapSvgRoot'
+import { MapSvgSymbolsRoot } from './MapSvgSymbolsRoot'
 
 export function Container(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
