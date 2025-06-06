@@ -28,7 +28,12 @@ import {
   makeLayout,
   scrollLayout,
 } from './layout'
-import { MAP_SVG_CONTENT_ID, MAP_SVG_ROOT_ID } from './map-svg-react'
+import {
+  MAP_SVG_CONTENT_ID,
+  MAP_SVG_ROOT_ID,
+  MAP_SVG_SYMBOLS_CONTENT_ID,
+  MAP_SVG_SYMBOLS_ROOT_ID,
+} from './map-svg-react'
 import { getCurrentScroll } from './scroll'
 import { type GetDone, type SyncSyncDone } from './scroll-types'
 import { getDoneCbs, scrollSend, syncSyncDoneCbs } from './scroll-xstate'
@@ -128,7 +133,20 @@ const viewerMachine = setup({
       ): Layout => scrollLayout(layout, scroll),
     }),
     syncViewBox: ({ context: { layout } }) =>
-      syncViewBox(`#${MAP_SVG_ROOT_ID}`, `#${MAP_SVG_CONTENT_ID}`, layout.svg),
+      // XXX
+      // XXX
+      // XXX
+      {
+        syncViewBox(`#${MAP_SVG_ROOT_ID}`, `#${MAP_SVG_CONTENT_ID}`, layout.svg)
+        syncViewBox(
+          `#${MAP_SVG_SYMBOLS_ROOT_ID}`,
+          `#${MAP_SVG_SYMBOLS_CONTENT_ID}`,
+          layout.svg
+        )
+      },
+    // XXX
+    // XXX
+    // XXX
     syncLayout: ({ context: { layout, rendered } }) => {
       styleSend({ type: 'STYLE.LAYOUT', layout, rendered })
       notifyLayout(layout, false)
