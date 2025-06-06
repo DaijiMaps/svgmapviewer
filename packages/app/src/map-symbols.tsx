@@ -5,44 +5,35 @@ export const getMapSymbols: () => MapSymbols[] = () => [
   {
     name: 'toilets',
     href: '#XToilets',
-    pointsFilter: (p) =>
-      !!p.other_tags?.match(/"toilets"/) &&
-      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/),
+    pointsFilter: (p) => !!p.other_tags?.match(/"toilets"/),
     polygonsFilter: (p) =>
-      (!!p.other_tags?.match(/"toilets"/) || p.amenity === 'toilets') &&
-      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/),
+      p.building === 'toilets' ||
+      p.amenity === 'toilets' ||
+      !!p.other_tags?.match(/"toilets"/),
   },
   {
     name: 'parkings',
     href: '#XParking',
-    pointsFilter: (p) =>
-      !!p.other_tags?.match(/"parking"/) &&
-      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/),
+    pointsFilter: (p) => !!p.other_tags?.match(/"parking"/),
     polygonsFilter: (p) =>
-      !!p.other_tags?.match(/"parking"/) &&
-      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/),
+      p.amenity === 'parking' || !!p.other_tags?.match(/"parking"/),
   },
   {
     name: 'drinking-fountains',
     href: '#XDrinkingFountain',
-    pointsFilter: (p) =>
-      !!p.other_tags?.match(/"amenity"=>"drinking_water"/) &&
-      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/),
+    pointsFilter: (p) => !!p.other_tags?.match(/"amenity"=>"drinking_water"/),
   },
   {
     name: 'elevators',
     href: '#XElevator',
-    pointsFilter: (p) =>
-      !!p.highway?.match(/elevator/) &&
-      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/),
+    pointsFilter: (p) => !!p.highway?.match(/elevator/),
   },
   {
     name: 'escalators',
     href: '#XEscalator',
     linesFilter: (p) =>
       !!p.highway?.match(/steps/) &&
-      !!p.other_tags?.match(/"conveying"=>"yes"/) &&
-      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/),
+      !!p.other_tags?.match(/"conveying"=>"yes"/),
   },
   /*
   {
@@ -57,20 +48,16 @@ export const getMapSymbols: () => MapSymbols[] = () => [
   {
     name: 'buses',
     href: '#XBus',
-    pointsFilter: (p) =>
-      !!p.other_tags?.match(/"bus"=>"yes"/) &&
-      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/),
+    pointsFilter: (p) => !!p.other_tags?.match(/"bus"=>"yes"/),
   },
   {
     name: 'informations',
     href: '#XInformation',
     pointsFilter: (p) =>
       !!p.other_tags?.match(/"tourism"=>"information"/) &&
-      !!p.other_tags?.match(/"information"=>"office"/) &&
-      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/),
+      !!p.other_tags?.match(/"information"=>"office"/),
     polygonsFilter: (p) =>
       !!p.other_tags?.match(/"tourist"=>"information"/) &&
-      !!p.other_tags?.match(/"information"=>"office"/) &&
-      !p.other_tags?.match(/"level"=>"[1-9][^"]*"/),
+      !!p.other_tags?.match(/"information"=>"office"/),
   },
 ]
