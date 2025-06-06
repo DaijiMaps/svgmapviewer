@@ -1,3 +1,4 @@
+/* eslint-disable functional/functional-parameters */
 import { type PropsWithChildren, type ReactNode } from 'react'
 import './Balloon.css'
 import { type OpenClose, openCloseIsVisible } from './lib/openclose'
@@ -190,12 +191,12 @@ function balloonStyle(
 
 .detail {
   transform-origin: 0 0;
-  transform: translate(calc(var(--q-x) + ${dxb}), calc(var(--q-y) + ${dyb})) scale(${sb}) translate(-50%, -50%);
+  transform: translate(calc(var(--q-x) + ${dxb}), calc(var(--q-y) + ${dyb})) scale(${sb}) translate(-50%, -50%) translate3d(0px, 0px, 0px);
 }
 
 .balloon-container {
   transform-origin: 0 0;
-  transform: translate(calc(var(--q-x) + ${dxb}), calc(var(--q-y) + ${dyb})) scale(${sb}) translate(${-p.ww / 2}px, ${-p.hh / 2}px);
+  transform: translate(calc(var(--q-x) + ${dxb}), calc(var(--q-y) + ${dyb})) scale(${sb}) translate(${-p.ww / 2}px, ${-p.hh / 2}px) translate3d(0px, 0px, 0px);
 }
 `
   } else {

@@ -1,6 +1,7 @@
 import { Fragment, type ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import {
+  getOsmId,
   type Line,
   type LinesFilter,
   lineToPathD,
@@ -32,23 +33,41 @@ function lineLayerToPaths(layer: Readonly<MapLineLayer>): ReactNode {
     layer.filter !== undefined
       ? getLines(layer.filter)
       : layer.data !== undefined
-        ? layer.data.map((vs) => ({ classNames: [], vs }))
+        ? layer.data.map((vs) => ({ tags: [], vs }))
         : []
-  const strokeWidth = layerToWidth(layer)
+  const defaultStrokeWidth = layerToWidth(layer)
   return xs.length === 0 ? (
     <></>
   ) : (
-    <g className={layer.name}>
-      {xs.map(({ classNames, width, vs }, idx) => (
-        <path
-          key={idx}
-          className={[layer.name, ...classNames]
-            .join(' ')
-            .replaceAll(/;/g, '_')} // XXX level=0;1
-          strokeWidth={width == undefined ? strokeWidth : width}
-          d={lineToPathD(vs)}
-        />
-      ))}
+    <g className={layer.name} style={{ contain: 'content' }}>
+      {xs.map(({ name, id, tags, width, vs }, idx) => {
+        const strokeWidth = width == undefined ? defaultStrokeWidth : width
+        return (
+          <Fragment key={idx}>
+            <path
+              id={id === undefined ? undefined : `path${id}`}
+              className={[layer.name, ...tags].join(' ').replaceAll(/;/g, '_')} // XXX level=0;1
+              strokeWidth={strokeWidth}
+              d={lineToPathD(vs)}
+            />
+            {name !== undefined &&
+              id !== undefined &&
+              strokeWidth !== undefined && (
+                <text>
+                  <textPath
+                    href={`#path${id}`}
+                    startOffset="50%"
+                    fontSize={strokeWidth}
+                    fill="green"
+                    stroke="none"
+                  >
+                    {name}
+                  </textPath>
+                </text>
+              )}
+          </Fragment>
+        )
+      })}
     </g>
   )
 }
@@ -60,19 +79,18 @@ function multiPolygonLayerToPath(
     layer.filter !== undefined
       ? getMultiPolygons(layer.filter)
       : layer.data !== undefined
-        ? layer.data.map((vs) => ({ classNames: [], vs }))
+        ? layer.data.map((vs) => ({ tags: [], vs }))
         : []
   const strokeWidth = layerToWidth(layer)
   return xs.length === 0 ? (
     <></>
   ) : (
     <g className={layer.name}>
-      {xs.map(({ classNames, width, vs }, idx) => (
+      {xs.map(({ id, tags, width, vs }, idx) => (
         <path
           key={idx}
-          className={[layer.name, ...classNames]
-            .join(' ')
-            .replaceAll(/;/g, '_')} // XXX level=0;1
+          id={id}
+          className={[layer.name, ...tags].join(' ').replaceAll(/;/g, '_')} // XXX level=0;1
           strokeWidth={width === undefined ? strokeWidth : width}
           d={multiPolygonToPathD(vs)}
         />
@@ -88,12 +106,16 @@ function layerToWidth(layer: Readonly<MapLayer>): undefined | number {
 }
 
 interface LinePath {
-  classNames: string[]
+  name?: string
+  id?: string
+  tags: string[]
   width?: number
   vs: Line
 }
 interface MultiPolygonPath {
-  classNames: string[]
+  name?: string
+  id?: string
+  tags: string[]
   width?: number
   vs: MultiPolygon
 }
@@ -102,7 +124,9 @@ function getLines(filter: LinesFilter): LinePath[] {
   return cfg.mapData.lines.features
     .filter((f) => filter(f.properties))
     .map((f) => ({
-      classNames: propertiesToClassNames(f.properties),
+      name: undefinedIfNull(f.properties.name),
+      id: getOsmId(f.properties) + '',
+      tags: propertiesToTags(f.properties),
       width: propertiesToWidth(f.properties),
       vs: f.geometry.coordinates as unknown as Line,
     }))
@@ -112,7 +136,9 @@ function getMultiPolygons(filter: MultiPolygonsFilter): MultiPolygonPath[] {
   return cfg.mapData.multipolygons.features
     .filter((f) => filter(f.properties))
     .map((f) => ({
-      classNames: propertiesToClassNames(f.properties),
+      name: undefinedIfNull(f.properties.name),
+      id: getOsmId(f.properties) + '',
+      tags: propertiesToTags(f.properties),
       width: propertiesToWidth(f.properties),
       vs: f.geometry.coordinates as unknown as MultiPolygon,
     }))
@@ -130,7 +156,7 @@ function propertiesToWidth(p: OsmProperties): undefined | number {
   // XXX
 }
 
-function propertiesToClassNames(p: OsmProperties): string[] {
+function propertiesToTags(p: OsmProperties): string[] {
   return ops.flatMap((f) => f(p))
 }
 
@@ -184,4 +210,8 @@ function toLevel(p: OsmProperties): string[] {
   const re = /"level"=>"([^"][^"]*)"/
   const m = p?.other_tags?.match(re)
   return !m ? [] : [`level-${m[1]}`]
+}
+
+function undefinedIfNull<T>(a: undefined | null | T): undefined | T {
+  return a === undefinedIfNull || a === null ? undefined : a
 }
