@@ -151,6 +151,7 @@ export interface RenderConfig {
   getMapNames: () => POI[] // XXX
   searchEntries: SearchEntry[]
   renderInfo: RenderInfo
+  mapSvgStyle: string
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>

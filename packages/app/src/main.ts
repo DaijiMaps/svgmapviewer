@@ -1,6 +1,7 @@
 import { RenderConfig } from '@daijimaps/svgmapviewer'
 import { getMapNames } from '@daijimaps/svgmapviewer/carto'
 import { getMapLayers } from './map-layers'
+import { mapSvgStyle } from './map-layers-css'
 import { getMapMarkers } from './map-markers'
 import { getMapObjects } from './map-objects'
 import { getMapSymbols } from './map-symbols'
@@ -15,4 +16,5 @@ export const renderConfig: RenderConfig = {
   getMapNames, // XXX
   searchEntries,
   renderInfo: RenderInfo,
+  mapSvgStyle,
 }

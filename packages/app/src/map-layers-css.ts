@@ -1,3 +1,4 @@
+export const mapSvgStyle = `
 html,
 body,
 :root,
@@ -174,3 +175,4 @@ tspan {
   font-weight: initial;
   text-anchor: middle;
 }
+`

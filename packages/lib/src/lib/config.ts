@@ -36,6 +36,8 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   dragStepStepLimit: 10,
   dragStepMaxCount: 100,
   scrollIdleTimeout: 1000,
+
+  // RenderConfig
   getMapLayers: () => [],
   getMapObjects: () => [],
   getMapSymbols: () => [],
@@ -43,6 +45,9 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   getMapNames: () => [],
   searchEntries: [],
   renderInfo: renderInfoDefault,
+  mapSvgStyle: '',
+
+  // DataConfig
   mapData: emptyMapData,
   mapMap: {
     pointMap: new Map(),

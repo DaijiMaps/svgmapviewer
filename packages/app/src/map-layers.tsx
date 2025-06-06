@@ -2,7 +2,6 @@
 import { svgMapViewerConfig } from '@daijimaps/svgmapviewer'
 import { MapLayer } from '@daijimaps/svgmapviewer/carto'
 import { MultiPolygon } from '@daijimaps/svgmapviewer/geo'
-import './map-layers.css'
 
 export const getMapLayers: () => MapLayer[] = () => [
   {

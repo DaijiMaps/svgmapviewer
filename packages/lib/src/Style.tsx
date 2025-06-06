@@ -1,3 +1,4 @@
+/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-throw-statements */
@@ -51,7 +52,6 @@ function Style(): ReactNode {
       <DraggingStyle />
       <ModeStyle />
       <AnimationStyle />
-      <SvgSymbolStyle />
       <UiStyle />
     </style>
   )
@@ -204,7 +204,7 @@ function css(q: Matrix): string {
 `
 }
 
-function SvgSymbolStyle(): ReactNode {
+export function SvgSymbolStyle(): ReactNode {
   const config = useLayoutConfig()
   const s = useLayoutSvgScaleS()
   const zoom = useZoom()
