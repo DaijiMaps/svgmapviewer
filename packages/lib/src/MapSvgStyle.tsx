@@ -6,10 +6,13 @@ import { svgMapViewerConfig } from './lib'
 export function MapSvgStyle(): ReactNode {
   const style = svgMapViewerConfig.mapSvgStyle
 
+  return <style>{style}</style>
+}
+
+export function MapSvgSymbolsStyle(): ReactNode {
   return (
     <style>
       <SvgSymbolStyle />
-      {style}
     </style>
   )
 }

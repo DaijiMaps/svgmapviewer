@@ -17,7 +17,7 @@ import {
   sendWheel,
 } from './lib/viewer-react'
 import { MapHtmlRoot } from './MapHtmlRoot'
-import { MapSvgRoot } from './MapSvgRoot'
+import { MapSvgRoot, MapSvgSymbolsRoot } from './MapSvgRoot'
 
 export function Container(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
@@ -43,6 +43,7 @@ export function Container(): ReactNode {
       }}
     >
       <MapSvgRoot />
+      <MapSvgSymbolsRoot />
       <MapHtmlRoot />
     </div>
   )

@@ -65,6 +65,7 @@ const viewerMachine = setup({
     isHoming: ({ context: { homing } }) => homing,
     isMapHtmlRendered: ({ context }) => context.mapHtmlRendered,
     isMapSvgRendered: ({ context }) => context.mapSvgRendered,
+    isMapSvgSymbolsRendered: ({ context }) => context.mapSvgSymbolsRendered,
     isContainerRendered: () => document.querySelector('.container') !== null,
   },
   actions: {
@@ -129,7 +130,14 @@ const viewerMachine = setup({
       // XXX
       // XXX
       // XXX
-      syncViewBox('#map-svg-content-root', '#map-svg-svg', layout.svg),
+      {
+        syncViewBox('#map-svg-content-root', '#map-svg-svg', layout.svg)
+        syncViewBox(
+          '#map-svg-content-root-symbols',
+          '#map-svg-svg-symbols',
+          layout.svg
+        )
+      },
     //styleSend({ type: 'STYLE.VIEWBOX', viewBox: layout.svg }),
     // XXX
     // XXX
@@ -254,6 +262,7 @@ const viewerMachine = setup({
     setRendered: assign({ rendered: true }),
     setMapHtmlRendered: assign({ mapHtmlRendered: true }),
     setMapSvgRendered: assign({ mapSvgRendered: true }),
+    setMapSvgSymbolsRendered: assign({ mapSvgSymbolsRendered: true }),
   },
 }).createMachine({
   id: 'viewer',
@@ -273,6 +282,7 @@ const viewerMachine = setup({
     rendered: false,
     mapHtmlRendered: false,
     mapSvgRendered: false,
+    mapSvgSymbolsRendered: false,
   },
   on: {
     RENDERED: {},
@@ -281,6 +291,9 @@ const viewerMachine = setup({
     },
     'RENDERED.MAP-SVG': {
       actions: 'setMapSvgRendered',
+    },
+    'RENDERED.MAP-SVG-SYMBOLS': {
+      actions: 'setMapSvgSymbolsRendered',
     },
     'TOUCH.LOCK': {
       actions: [
@@ -340,6 +353,12 @@ const viewerMachine = setup({
         WaitingForMapSvgRendered: {
           always: {
             guard: and(['isContainerRendered', 'isMapSvgRendered']),
+            target: 'WaitingForMapSvgSymbolsRendered',
+          },
+        },
+        WaitingForMapSvgSymbolsRendered: {
+          always: {
+            guard: and(['isContainerRendered', 'isMapSvgSymbolsRendered']),
             target: 'WaitingForMapHtmlRendered',
           },
         },

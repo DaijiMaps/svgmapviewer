@@ -4,12 +4,22 @@ import { viewerSend } from './viewer-xstate'
 export const ROOT_ID = 'map-svg-content-root'
 
 let mapSvgRendered = false
+let mapSvgSymbolsRendered = false
 
 export function useMapSvgRendered(): void {
   useEffect(() => {
     if (!mapSvgRendered) {
       mapSvgRendered = true
       viewerSend({ type: 'RENDERED.MAP-SVG' })
+    }
+  }, [])
+}
+
+export function useMapSvgSymbolsRendered(): void {
+  useEffect(() => {
+    if (!mapSvgSymbolsRendered) {
+      mapSvgSymbolsRendered = true
+      viewerSend({ type: 'RENDERED.MAP-SVG-SYMBOLS' })
     }
   }, [])
 }
