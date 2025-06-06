@@ -340,7 +340,7 @@ const viewerMachine = setup({
           on: {
             RESIZE: {
               actions: { type: 'resizeLayout', params: ({ event }) => event },
-              target: 'WaitingForMapSvgRendered',
+              target: 'WaitingForMapRendered',
             },
           },
         },
@@ -351,25 +351,18 @@ const viewerMachine = setup({
               // XXX forced resize means that app is already running
               // XXX which means MapHtml is already rendered
               // XXX but for safety
-              target: 'WaitingForMapSvgRendered',
+              target: 'WaitingForMapRendered',
             },
           },
         },
-        WaitingForMapSvgRendered: {
+        WaitingForMapRendered: {
           always: {
-            guard: and(['isContainerRendered', 'isMapSvgRendered']),
-            target: 'WaitingForMapSvgSymbolsRendered',
-          },
-        },
-        WaitingForMapSvgSymbolsRendered: {
-          always: {
-            guard: and(['isContainerRendered', 'isMapSvgSymbolsRendered']),
-            target: 'WaitingForMapHtmlRendered',
-          },
-        },
-        WaitingForMapHtmlRendered: {
-          always: {
-            guard: and(['isContainerRendered', 'isMapHtmlRendered']),
+            guard: and([
+              'isContainerRendered',
+              'isMapSvgRendered',
+              'isMapSvgSymbolsRendered',
+              'isMapHtmlRendered',
+            ]),
             target: 'Layouting',
           },
         },
