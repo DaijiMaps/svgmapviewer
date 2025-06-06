@@ -144,7 +144,6 @@ const viewerMachine = setup({
           layout.svg
         )
       },
-    //styleSend({ type: 'STYLE.VIEWBOX', viewBox: layout.svg }),
     // XXX
     // XXX
     // XXX

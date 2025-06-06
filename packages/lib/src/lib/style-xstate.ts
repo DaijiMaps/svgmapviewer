@@ -1,7 +1,6 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
 import { type Animation } from './animation'
-import { boxUnit, type BoxBox } from './box/prefixed'
 import { svgMapViewerConfig } from './config'
 import { fromSvgToScroll } from './coord'
 import { findRadius } from './distance'
@@ -10,7 +9,6 @@ import { emptyLayout, type Layout } from './layout'
 import type { VecVec } from './vec/prefixed'
 
 export type StyleEvent =
-  | { type: 'STYLE.VIEWBOX'; viewBox: BoxBox }
   | { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
   | { type: 'STYLE.DRAGGING'; dragging: boolean }
   | { type: 'STYLE.MODE'; mode: string }
@@ -21,7 +19,6 @@ export type StyleEvent =
 interface StyleContext {
   rendered: boolean
   animating: boolean
-  viewBox: BoxBox
   layout: Layout
   svgMatrix: DOMMatrixReadOnly
   geoMatrix: DOMMatrixReadOnly
@@ -79,7 +76,6 @@ const styleMachine = setup({
   context: {
     rendered: true,
     animating: false,
-    viewBox: boxUnit,
     layout: emptyLayout,
     svgMatrix: new DOMMatrixReadOnly(),
     geoMatrix: new DOMMatrixReadOnly(),
@@ -95,13 +91,6 @@ const styleMachine = setup({
   states: {
     Idle: {
       on: {
-        'STYLE.VIEWBOX': {
-          actions: [
-            assign({
-              viewBox: ({ event }) => event.viewBox,
-            }),
-          ],
-        },
         'STYLE.LAYOUT': {
           actions: [
             assign({
@@ -183,9 +172,6 @@ export function useAnimating(): boolean {
 }
 export function useLayout(): Layout {
   return useSelector(styleActor, (s) => s.context.layout)
-}
-export function useViewBox(): BoxBox {
-  return useSelector(styleActor, (s) => s.context.viewBox)
 }
 export function useSvgMatrix(): DOMMatrixReadOnly {
   return useSelector(styleActor, (s) => s.context.svgMatrix)
