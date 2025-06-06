@@ -1,8 +1,8 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { RenderMapCommon } from './lib/carto'
 import { MAP_SVG_CONTENT_ID, useMapSvgRendered } from './lib/map-svg-react'
 import { useLayout } from './lib/style-xstate'
+import { RenderMap } from './Map'
 import { MapSvgStyle } from './MapSvgStyle'
 
 export function MapSvg(): ReactNode {
@@ -18,7 +18,7 @@ function MapSvgRender(): ReactNode {
   return (
     <svg viewBox="0 0 1 1" style={{ display: 'none' }}>
       <defs>
-        <RenderMapCommon />
+        <RenderMap />
       </defs>
     </svg>
   )
