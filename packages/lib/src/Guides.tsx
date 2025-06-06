@@ -226,6 +226,8 @@ const INDEXES = [
 // XXX
 // XXX
 
+////
+
 type EV = { timeStamp: number }
 
 type Events = { type: 'TICK'; ev: EV }
@@ -250,56 +252,34 @@ const expireMachine = setup({
   states: {
     Idle: {
       on: {
-        TICK: {
-          target: 'Empty',
-        },
+        TICK: { target: 'Empty' },
       },
     },
     Empty: {
-      after: {
-        500: {
-          actions: ['call', 'clear'],
-          target: 'Idle',
-        },
-      },
+      after: { 500: { actions: ['call', 'clear'], target: 'Idle' } },
       on: {
-        TICK: [
-          {
-            guard: ({ context }) => !context.ticked,
-            actions: { type: 'set', params: ({ event }) => event },
-            target: 'Active',
-          },
-        ],
+        TICK: {
+          guard: ({ context }) => !context.ticked,
+          actions: { type: 'set', params: ({ event }) => event },
+          target: 'Active',
+        },
       },
     },
     Active: {
-      after: {
-        500: {
-          target: 'Expired',
+      after: { 500: { target: 'Expired' } },
+      on: {
+        TICK: {
+          actions: { type: 'set', params: ({ event }) => event },
+          target: 'Restarting',
         },
       },
-      on: {
-        TICK: [
-          {
-            actions: { type: 'set', params: ({ event }) => event },
-            target: 'Restarting',
-          },
-        ],
-      },
     },
-    Restarting: {
-      always: 'Active',
-    },
+    Restarting: { always: 'Active' },
     // XXX
     // XXX expire & emit call when 500ms passes since the last tick
     // XXX
     Expired: {
-      always: [
-        {
-          actions: ['call', 'clear'],
-          target: 'Idle',
-        },
-      ],
+      always: { actions: ['call', 'clear'], target: 'Idle' },
     },
   },
 })
