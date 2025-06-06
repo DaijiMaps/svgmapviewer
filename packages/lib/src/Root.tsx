@@ -7,10 +7,10 @@ import { createContext, StrictMode, type Context } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
 import { type SvgMapViewerConfig } from './lib'
+import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { svgMapViewerConfig } from './lib/config'
 import { touching } from './lib/touch-xstate'
 import { keyDown, keyUp } from './lib/viewer-react'
-import { RenderMap } from './Map'
 
 export const SvgMapViewerConfigContext: Context<SvgMapViewerConfig> =
   createContext(svgMapViewerConfig)
@@ -73,7 +73,7 @@ export function root(config: Readonly<SvgMapViewerConfig>): void {
       </SvgMapViewerConfigContext.Provider>
       <svg>
         <defs>
-          <RenderMap />
+          <RenderMapAssetsDefault />
         </defs>
       </svg>
     </StrictMode>
