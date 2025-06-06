@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ROOT_ID } from './lib/map-svg-react'
+import { MAP_SVG_ROOT_ID, MAP_SVG_SYMBOLS_ROOT_ID } from './lib/map-svg-react'
 import { MapSvg, MapSvgSymbols } from './MapSvg'
 import './MapSvgRoot.css'
 
@@ -11,7 +11,7 @@ export function MapSvgRoot(): ReactNode {
 
   return (
     <div id="map-svg" className="content svg">
-      <div id={ROOT_ID} />
+      <div id={MAP_SVG_ROOT_ID} />
     </div>
   )
 }
@@ -20,7 +20,7 @@ export function MapSvgRoot(): ReactNode {
 function useMapSvgRoot(): void {
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
   useEffect(() => {
-    const root = document.querySelector(`#${ROOT_ID}`)
+    const root = document.querySelector(`#${MAP_SVG_ROOT_ID}`)
     if (root === null || root.shadowRoot !== null) {
       return
     }
@@ -45,7 +45,7 @@ export function MapSvgSymbolsRoot(): ReactNode {
         background: 'none',
       }}
     >
-      <div id={ROOT_ID + '-symbols'} />
+      <div id={MAP_SVG_SYMBOLS_ROOT_ID} />
     </div>
   )
 }
@@ -54,7 +54,7 @@ export function MapSvgSymbolsRoot(): ReactNode {
 function useMapSvgSymbolsRoot(): void {
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
   useEffect(() => {
-    const root = document.querySelector(`#${ROOT_ID + '-symbols'}`)
+    const root = document.querySelector(`#${MAP_SVG_SYMBOLS_ROOT_ID}`)
     if (root === null || root.shadowRoot !== null) {
       return
     }

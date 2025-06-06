@@ -4,6 +4,8 @@ import { svgMapViewerConfig } from './lib'
 import { RenderMapCommon, RenderMapSymbols } from './lib/carto'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
 import {
+  MAP_SVG_CONTENT_ID,
+  MAP_SVG_SYMBOLS_CONTENT_ID,
   useMapSvgRendered,
   useMapSvgSymbolsRendered,
 } from './lib/map-svg-react'
@@ -12,7 +14,7 @@ import { MapSvgStyle, MapSvgSymbolsStyle } from './MapSvgStyle'
 
 function MapSvgRender(): ReactNode {
   return (
-    <svg id="map-svg-svg-map1" viewBox="0 0 1 1" style={{ display: 'none' }}>
+    <svg viewBox="0 0 1 1" style={{ display: 'none' }}>
       <defs>
         <RenderMapCommon />
       </defs>
@@ -30,7 +32,7 @@ function MapSvgSvg(): ReactNode {
   return (
     <>
       <svg
-        id="map-svg-svg"
+        id={MAP_SVG_CONTENT_ID}
         viewBox="0 0 1 1"
         width={scroll.width}
         height={scroll.height}
@@ -61,7 +63,7 @@ export function MapSvgSymbols(): ReactNode {
   return (
     <>
       <svg
-        id="map-svg-svg-symbols"
+        id={MAP_SVG_SYMBOLS_CONTENT_ID}
         viewBox="0 0 1 1"
         width={scroll.width}
         height={scroll.height}

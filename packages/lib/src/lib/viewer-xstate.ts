@@ -28,6 +28,12 @@ import {
   makeLayout,
   scrollLayout,
 } from './layout'
+import {
+  MAP_SVG_CONTENT_ID,
+  MAP_SVG_ROOT_ID,
+  MAP_SVG_SYMBOLS_CONTENT_ID,
+  MAP_SVG_SYMBOLS_ROOT_ID,
+} from './map-svg-react'
 import { getCurrentScroll } from './scroll'
 import { type GetDone, type SyncSyncDone } from './scroll-types'
 import { getDoneCbs, scrollSend, syncSyncDoneCbs } from './scroll-xstate'
@@ -131,10 +137,10 @@ const viewerMachine = setup({
       // XXX
       // XXX
       {
-        syncViewBox('#map-svg-content-root', '#map-svg-svg', layout.svg)
+        syncViewBox(`#${MAP_SVG_ROOT_ID}`, `#${MAP_SVG_CONTENT_ID}`, layout.svg)
         syncViewBox(
-          '#map-svg-content-root-symbols',
-          '#map-svg-svg-symbols',
+          `#${MAP_SVG_SYMBOLS_ROOT_ID}`,
+          `#${MAP_SVG_SYMBOLS_CONTENT_ID}`,
           layout.svg
         )
       },
