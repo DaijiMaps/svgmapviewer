@@ -1,9 +1,15 @@
+/* eslint-disable functional/no-return-void */
 import { type BoxBox } from './box/prefixed'
 
-// eslint-disable-next-line functional/no-return-void
-export function syncViewBox(id: string, viewBox: Readonly<BoxBox>): void {
-  const svg: null | SVGSVGElement = document.querySelector(`${id}`)
-  if (svg === null) {
+export function syncViewBox(
+  id: string,
+  id2: string,
+  viewBox: Readonly<BoxBox>
+): void {
+  const svg: undefined | null | SVGSVGElement = document
+    .querySelector(id)
+    ?.shadowRoot?.querySelector(id2)
+  if (svg === undefined || svg === null) {
     return
   }
   // eslint-disable-next-line functional/no-expression-statements, functional/immutable-data

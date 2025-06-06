@@ -1,17 +1,21 @@
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode, useContext } from 'react'
+import { type ReactNode } from 'react'
+import { RenderMapCommon } from './lib/carto'
+import { useMapSvgRendered } from './lib/map-svg-react'
 import './MapSvg.css'
-import { SvgMapViewerConfigContext } from './Root'
+import { MapSvgStyle } from './MapSvgStyle'
 
 export function MapSvg(): ReactNode {
-  const config = useContext(SvgMapViewerConfigContext)
+  // eslint-disable-next-line functional/no-expression-statements
+  useMapSvgRendered()
 
   // viewBox will be updated by syncViewBox()
   return (
-    <div id="map-svg" className="content svg">
-      <svg viewBox="0 0 100 100" width="100%" height="100%">
-        <use href={`#${config.map}`} />
+    <>
+      <svg id="map-svg-svg" viewBox="0 0 1 1" width="100%" height="100%">
+        <RenderMapCommon />
       </svg>
-    </div>
+      <MapSvgStyle />
+    </>
   )
 }

@@ -38,6 +38,7 @@ export type ViewerContext = {
   animating: boolean // XXX
   rendered: boolean
   mapHtmlRendered: boolean
+  mapSvgRendered: boolean
 }
 
 //// external event (request)
@@ -47,6 +48,7 @@ export type LayoutResetRequest = { type: 'LAYOUT.RESET' }
 export type RecenterRequest = { type: 'RECENTER' }
 export type RenderedRequest = { type: 'RENDERED' }
 export type RenderedMapHtmlRequest = { type: 'RENDERED.MAP-HTML' }
+export type RenderedMapSvgRequest = { type: 'RENDERED.MAP-SVG' }
 export type AnimationEndRequest = { type: 'ANIMATION.END' }
 export type ScrollGetDoneRequest = { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
 export type ScrollSyncsyncDoneRequest = {
@@ -65,6 +67,7 @@ export type ViewerRequest =
   | RecenterRequest
   | RenderedRequest
   | RenderedMapHtmlRequest
+  | RenderedMapSvgRequest
   | ScrollGetDoneRequest
   | ScrollSyncsyncDoneRequest
   | TouchLockRequest

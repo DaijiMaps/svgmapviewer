@@ -1,3 +1,4 @@
+/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 import { type ReactNode, useRef } from 'react'
@@ -16,7 +17,7 @@ import {
   sendWheel,
 } from './lib/viewer-react'
 import { MapHtmlRoot } from './MapHtmlRoot'
-import { MapSvg } from './MapSvg'
+import { MapSvgRoot } from './MapSvgRoot'
 
 export function Container(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
@@ -41,7 +42,7 @@ export function Container(): ReactNode {
         styleAnimationEnd()
       }}
     >
-      <MapSvg />
+      <MapSvgRoot />
       <MapHtmlRoot />
     </div>
   )

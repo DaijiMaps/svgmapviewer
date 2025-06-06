@@ -1,23 +1,23 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ROOT_ID } from './lib/map-html-react'
-import { MapHtml } from './MapHtml'
-import './MapHtml.css'
+import { ROOT_ID } from './lib/map-svg-react'
+import { MapSvg } from './MapSvg'
+import './MapSvg.css'
 
-export function MapHtmlRoot(): ReactNode {
+export function MapSvgRoot(): ReactNode {
   // eslint-disable-next-line functional/no-expression-statements
-  useMapHtmlRoot()
+  useMapSvgRoot()
 
   return (
-    <div id="map-html" className="content html">
+    <div id="map-svg" className="content svg">
       <div id={ROOT_ID} />
     </div>
   )
 }
 
 // eslint-disable-next-line functional/no-return-void
-function useMapHtmlRoot(): void {
+function useMapSvgRoot(): void {
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
   useEffect(() => {
     const root = document.querySelector(`#${ROOT_ID}`)
@@ -29,6 +29,6 @@ function useMapHtmlRoot(): void {
     const shadowRoot = root.attachShadow({ mode: 'open' })
 
     // eslint-disable-next-line functional/no-expression-statements
-    createRoot(shadowRoot).render(<MapHtml />)
+    createRoot(shadowRoot).render(<MapSvg />)
   }, [])
 }

@@ -64,6 +64,7 @@ const viewerMachine = setup({
     isTouching: ({ context: { touching } }) => touching,
     isHoming: ({ context: { homing } }) => homing,
     isMapHtmlRendered: ({ context }) => context.mapHtmlRendered,
+    isMapSvgRendered: ({ context }) => context.mapSvgRendered,
     isContainerRendered: () => document.querySelector('.container') !== null,
   },
   actions: {
@@ -128,7 +129,8 @@ const viewerMachine = setup({
       // XXX
       // XXX
       // XXX
-      syncViewBox('.container > .content.svg > svg', layout.svg),
+      syncViewBox('#map-svg-content-root', '#map-svg-svg', layout.svg),
+    //styleSend({ type: 'STYLE.VIEWBOX', viewBox: layout.svg }),
     // XXX
     // XXX
     // XXX
@@ -251,6 +253,7 @@ const viewerMachine = setup({
     notifyLock: emit({ type: 'LOCK', ok: true }),
     setRendered: assign({ rendered: true }),
     setMapHtmlRendered: assign({ mapHtmlRendered: true }),
+    setMapSvgRendered: assign({ mapSvgRendered: true }),
   },
 }).createMachine({
   id: 'viewer',
@@ -269,11 +272,15 @@ const viewerMachine = setup({
     animating: false,
     rendered: false,
     mapHtmlRendered: false,
+    mapSvgRendered: false,
   },
   on: {
     RENDERED: {},
     'RENDERED.MAP-HTML': {
       actions: 'setMapHtmlRendered',
+    },
+    'RENDERED.MAP-SVG': {
+      actions: 'setMapSvgRendered',
     },
     'TOUCH.LOCK': {
       actions: [
@@ -315,7 +322,7 @@ const viewerMachine = setup({
           on: {
             RESIZE: {
               actions: { type: 'resizeLayout', params: ({ event }) => event },
-              target: 'WaitingForMapHtmlRendered',
+              target: 'WaitingForMapSvgRendered',
             },
           },
         },
@@ -326,8 +333,14 @@ const viewerMachine = setup({
               // XXX forced resize means that app is already running
               // XXX which means MapHtml is already rendered
               // XXX but for safety
-              target: 'WaitingForMapHtmlRendered',
+              target: 'WaitingForMapSvgRendered',
             },
+          },
+        },
+        WaitingForMapSvgRendered: {
+          always: {
+            guard: and(['isContainerRendered', 'isMapSvgRendered']),
+            target: 'WaitingForMapHtmlRendered',
           },
         },
         WaitingForMapHtmlRendered: {
