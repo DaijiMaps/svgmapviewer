@@ -47,7 +47,9 @@ export function MapSvgSymbols(): ReactNode {
         width={scroll.width}
         height={scroll.height}
       >
-        <RenderMapAssetsDefault />
+        <defs>
+          <RenderMapAssetsDefault />
+        </defs>
         <RenderMapSymbols mapSymbols={svgMapViewerConfig.getMapSymbols()} />
       </svg>
       <MapSvgSymbolsStyle />
