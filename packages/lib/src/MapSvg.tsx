@@ -10,7 +10,17 @@ import {
 import { useLayout } from './lib/style-xstate'
 import { MapSvgStyle, MapSvgSymbolsStyle } from './MapSvgStyle'
 
-export function MapSvg(): ReactNode {
+function MapSvgRender(): ReactNode {
+  return (
+    <svg id="map-svg-svg-map1" viewBox="0 0 1 1" style={{ display: 'none' }}>
+      <defs>
+        <RenderMapCommon />
+      </defs>
+    </svg>
+  )
+}
+
+function MapSvgSvg(): ReactNode {
   // eslint-disable-next-line functional/no-expression-statements
   useMapSvgRendered()
 
@@ -25,9 +35,18 @@ export function MapSvg(): ReactNode {
         width={scroll.width}
         height={scroll.height}
       >
-        <RenderMapCommon />
+        <use href="#map1" />
       </svg>
       <MapSvgStyle />
+    </>
+  )
+}
+
+export function MapSvg(): ReactNode {
+  return (
+    <>
+      <MapSvgRender />
+      <MapSvgSvg />
     </>
   )
 }
