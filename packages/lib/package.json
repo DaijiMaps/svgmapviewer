@@ -22,6 +22,18 @@
     "./tuple": "./dist/tuple.js",
     "./vec": "./dist/vec.js"
   },
+  "types": [
+    "./dist/index.d.ts",
+    "./dist/box.d.ts",
+    "./dist/carto.d.ts",
+    "./dist/carto-objects.d.ts",
+    "./dist/carto-symbols.d.ts",
+    "./dist/geo.d.ts",
+    "./dist/matrix.d.ts",
+    "./dist/search.d.ts",
+    "./dist/tuple.d.ts",
+    "./dist/vec.d.ts"
+  ],
   "files": [
     "./dist"
   ],

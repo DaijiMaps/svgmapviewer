@@ -17,6 +17,5 @@ export default [
       vec: 'src/lib/vec/prefixed/index.ts',
     },
     tsconfig: 'tsconfig.app.json',
-    dts: true,
   }),
 ]
