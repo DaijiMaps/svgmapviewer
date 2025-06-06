@@ -6,6 +6,5 @@ export default [
       index: 'src/index.ts',
     },
     tsconfig: 'tsconfig.app.json',
-    dts: true,
   }),
 ]
