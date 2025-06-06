@@ -1,11 +1,4 @@
 export const mapSvgStyle = `
-html,
-body,
-:root,
-.content.svg {
-  background-color: darkgray;
-}
-
 .area {
   fill: #bcd35f;
   fill-opacity: 1;

@@ -3,7 +3,6 @@ import { type ReactNode } from 'react'
 import { RenderMapCommon } from './lib/carto'
 import { useMapSvgRendered } from './lib/map-svg-react'
 import { useLayout } from './lib/style-xstate'
-import './MapSvg.css'
 import { MapSvgStyle } from './MapSvgStyle'
 
 export function MapSvg(): ReactNode {

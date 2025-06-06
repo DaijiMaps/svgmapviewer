@@ -3,7 +3,7 @@ import { type ReactNode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ROOT_ID } from './lib/map-svg-react'
 import { MapSvg } from './MapSvg'
-import './MapSvg.css'
+import './MapSvgRoot.css'
 
 export function MapSvgRoot(): ReactNode {
   // eslint-disable-next-line functional/no-expression-statements
