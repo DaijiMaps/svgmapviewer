@@ -25,6 +25,7 @@ const pointAddresses = (
     return e === null ? [] : [e]
   })
 
+/*
 const lineAddresses = (
   mapData: MapData,
   entries: SearchEntry[],
@@ -34,6 +35,7 @@ const lineAddresses = (
     const e = filterFeature(properties, entries, skip)
     return e === null ? [] : [e]
   })
+*/
 
 const polygonAddresses = (
   mapData: MapData,
@@ -52,7 +54,7 @@ export function getAddressEntries(
   const skip = svgMapViewerConfig.cartoConfig?.skipNamePattern
   return [
     ...pointAddresses(mapData, entries, skip),
-    ...lineAddresses(mapData, entries, skip),
+    //...lineAddresses(mapData, entries, skip),
     ...polygonAddresses(mapData, entries, skip),
   ]
 }

@@ -31,6 +31,7 @@ function pointNames(skip?: Readonly<RegExp>, split?: Readonly<RegExp>): POI[] {
   )
 }
 
+/*
 function lineNames(skip?: Readonly<RegExp>, split?: Readonly<RegExp>): POI[] {
   return svgMapViewerConfig.mapData.lines.features.flatMap(({ properties }) => {
     const id = getOsmId(properties)
@@ -53,6 +54,7 @@ function lineNames(skip?: Readonly<RegExp>, split?: Readonly<RegExp>): POI[] {
         ]
   })
 }
+*/
 
 function polygonNames(
   skip?: Readonly<RegExp>,
@@ -88,7 +90,7 @@ export function getMapNames(): POI[] {
   const split = svgMapViewerConfig.cartoConfig?.splitNamePattern
   return [
     ...pointNames(skip, split),
-    ...lineNames(skip, split),
+    //...lineNames(skip, split),
     ...polygonNames(skip, split),
   ]
 }
