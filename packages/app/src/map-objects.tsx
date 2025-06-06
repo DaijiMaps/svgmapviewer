@@ -48,13 +48,17 @@ export const getMapObjects: () => MapObjects[] = () => [
     name: 'torii',
     path: toriiPath,
     width: 0.05,
-    pointsFilter: (p) => !!p.man_made?.match(/^torii$/),
+    pointsFilter: (p) =>
+      !!p.man_made?.match(/^torii$/) ||
+      (!!p.other_tags?.match(/"amenity"=>"place_of_worship"/) &&
+        !!p.other_tags?.match(/"religion"=>"shinto"/)),
   },
   {
     name: 'monument',
     path: monumentPath,
     width: 0.05,
-    pointsFilter: (p) => !!p.other_tags?.match(/"historic"=>"memorial"/),
+    pointsFilter: (p) =>
+      !!p.other_tags?.match(/"historic"=>"(monument|memorial)"/),
   },
   {
     name: 'statue',
