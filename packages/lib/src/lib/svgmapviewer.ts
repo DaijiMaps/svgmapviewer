@@ -5,7 +5,6 @@ import { styleRoot } from '../Style'
 import { type Box } from './box/main'
 import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
 import { configActorStart, configSend, registerCbs } from './config-xstate'
-import { scrollTimeoutActorStart } from './event-xstate'
 import { geolocActorStart } from './geo'
 import { renderMapActorStart } from './map-xstate'
 import { resizeActorStart } from './resize-xstate'
@@ -79,7 +78,6 @@ function startAllActors() {
   renderMapActorStart()
   resizeActorStart()
   scrollActorStart()
-  scrollTimeoutActorStart()
   searchActorStart()
   styleActorStart()
   touchActorStart()

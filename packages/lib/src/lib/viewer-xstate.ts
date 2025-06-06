@@ -19,7 +19,6 @@ import {
   registerCbs,
 } from './config-xstate'
 import { fromMatrixSvg } from './coord'
-import { scrollTimeoutActorSend } from './event-xstate'
 import { keyToZoom } from './key'
 import {
   emptyLayout,
@@ -430,11 +429,6 @@ const viewerMachine = setup({
         CONTEXTMENU: {
           target: 'Recentering',
         },
-        /*
-        SCROLL: {
-          target: 'Recentering',
-        },
-        */
         RECENTER: {
           target: 'Recentering',
         },
@@ -755,11 +749,6 @@ function reflectMode(mode: ViewerMode): void {
   //  'click' to shadow; shadow receives 'click' to cancel 'locked'
   clickeventmask = mode === 'locked'
   scrolleventmask = mode !== 'panning'
-  if (mode === 'panning') {
-    scrollTimeoutActorSend({ type: 'START' })
-  } else {
-    scrollTimeoutActorSend({ type: 'STOP' })
-  }
 }
 
 //// handlers
