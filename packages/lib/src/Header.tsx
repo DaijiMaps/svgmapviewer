@@ -1,11 +1,11 @@
-import { type ReactNode, useContext } from 'react'
-import './Header.css'
-import { SvgMapViewerConfigContext } from './Root'
+/* eslint-disable functional/functional-parameters */
+import { type ReactNode } from 'react'
+import { svgMapViewerConfig } from './lib'
 import { uiSend, useOpenCloseHeader } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
 
 export function Header(): ReactNode {
-  const config = useContext(SvgMapViewerConfigContext)
+  const config = svgMapViewerConfig
 
   return (
     <div

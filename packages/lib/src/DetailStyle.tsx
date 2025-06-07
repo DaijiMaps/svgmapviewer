@@ -1,3 +1,10 @@
+/* eslint-disable functional/functional-parameters */
+import type { ReactNode } from 'react'
+
+export function DetailCss(): ReactNode {
+  return (
+    <style>
+      {`
 .content {
   overflow: hidden;
 }
@@ -28,4 +35,8 @@
 
 .detail > p {
   margin: 0.5em;
+}
+`}
+    </style>
+  )
 }

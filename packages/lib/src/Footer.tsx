@@ -1,11 +1,10 @@
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode, useContext } from 'react'
-import './Footer.css'
+import { type ReactNode } from 'react'
+import { svgMapViewerConfig } from './lib'
 import { uiSend, useOpenCloseFooter } from './lib/ui-xstate'
-import { SvgMapViewerConfigContext } from './Root'
 
 export function Footer(): ReactNode {
-  const config = useContext(SvgMapViewerConfigContext)
+  const config = svgMapViewerConfig
   //const mode = useSelector(viewerActor, selectMode)
 
   //const vecs = useTouchesVecs()

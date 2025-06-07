@@ -40,6 +40,7 @@ export type ViewerContext = {
   mapHtmlRendered: boolean
   mapSvgRendered: boolean
   mapSvgSymbolsRendered: boolean
+  uiRendered: boolean
 }
 
 //// external event (request)
@@ -51,6 +52,7 @@ export type RenderedRequest = { type: 'RENDERED' }
 export type RenderedMapHtmlRequest = { type: 'RENDERED.MAP-HTML' }
 export type RenderedMapSvgRequest = { type: 'RENDERED.MAP-SVG' }
 export type RenderedMapSvgSymbolsRequest = { type: 'RENDERED.MAP-SVG-SYMBOLS' }
+export type RenderedUiRequest = { type: 'RENDERED.UI' }
 export type AnimationEndRequest = { type: 'ANIMATION.END' }
 export type ScrollGetDoneRequest = { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
 export type ScrollSyncsyncDoneRequest = {
@@ -71,6 +73,7 @@ export type ViewerRequest =
   | RenderedMapHtmlRequest
   | RenderedMapSvgRequest
   | RenderedMapSvgSymbolsRequest
+  | RenderedUiRequest
   | ScrollGetDoneRequest
   | ScrollSyncsyncDoneRequest
   | TouchLockRequest

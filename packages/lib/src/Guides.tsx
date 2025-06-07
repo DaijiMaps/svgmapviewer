@@ -3,7 +3,6 @@
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode } from 'react'
 import { assign, createActor, emit, setup } from 'xstate'
-import './Guides.css'
 import { getCurrentScroll, scrollCbs } from './lib/scroll'
 import { styleSend, useDistanceRadius, useLayout } from './lib/style-xstate'
 import { useOpenCloseBalloon } from './lib/ui-xstate'

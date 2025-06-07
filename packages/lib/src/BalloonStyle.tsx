@@ -1,3 +1,10 @@
+/* eslint-disable functional/functional-parameters */
+import type { ReactNode } from 'react'
+
+export function BalloonCss(): ReactNode {
+  return (
+    <>
+      {`
 .balloon-container,
 .balloon {
   position: absolute;
@@ -16,4 +23,8 @@
   fill: white;
   stroke: white;
   stroke-width: 1px;
+}
+`}
+    </>
+  )
 }

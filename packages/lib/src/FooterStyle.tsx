@@ -1,3 +1,10 @@
+/* eslint-disable functional/functional-parameters */
+import type { ReactNode } from 'react'
+
+export function FooterCss(): ReactNode {
+  return (
+    <style>
+      {`
 .footer {
   padding: 0.4em;
   position: absolute;
@@ -59,4 +66,8 @@
 .footer > h2 {
   font-size: x-small;
   margin: 0;
+}
+`}
+    </style>
+  )
 }

@@ -1,6 +1,6 @@
+/* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { Balloon } from './Balloon'
-import './Detail.css'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { diag } from './lib/diag'
 import { isDetailEmpty, uiSend, useDetail } from './lib/ui-xstate'

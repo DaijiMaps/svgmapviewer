@@ -1,6 +1,5 @@
 /* eslint-disable functional/functional-parameters */
 import { type PropsWithChildren, type ReactNode } from 'react'
-import './Balloon.css'
 import { type OpenClose, openCloseIsVisible } from './lib/openclose'
 import { type Dir, type SearchRes } from './lib/types'
 import {

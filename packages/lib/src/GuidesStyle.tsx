@@ -1,3 +1,10 @@
+/* eslint-disable functional/functional-parameters */
+import type { ReactNode } from 'react'
+
+export function GuidesCss(): ReactNode {
+  return (
+    <>
+      {`
 .guides {
   position: absolute;
   left: 0;
@@ -13,4 +20,8 @@
 .coordinate > text {
   user-select: none;
   -webkit-user-select: none;
+}
+`}
+    </>
+  )
 }

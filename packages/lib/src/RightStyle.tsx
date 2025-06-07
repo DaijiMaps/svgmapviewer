@@ -1,3 +1,10 @@
+/* eslint-disable functional/functional-parameters */
+import type { ReactNode } from 'react'
+
+export function RightCss(): ReactNode {
+  return (
+    <style>
+      {`
 .right {
   padding: 0.4em;
   position: absolute;
@@ -48,4 +55,8 @@
   stroke: black;
   stroke-width: 0.4;
   fill: none;
+}
+`}
+    </style>
+  )
 }

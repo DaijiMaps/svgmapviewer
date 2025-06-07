@@ -52,7 +52,6 @@ function Style(): ReactNode {
       <DraggingStyle />
       <ModeStyle />
       <AnimationStyle />
-      <UiStyle />
     </style>
   )
 }
@@ -241,7 +240,7 @@ function DetailStyle() {
   return <BalloonStyle _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
 }
 
-function UiStyle(): ReactNode {
+export function UiStyle(): ReactNode {
   return (
     <>
       <DetailStyle />

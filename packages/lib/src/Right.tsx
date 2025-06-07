@@ -1,6 +1,6 @@
+/* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 //import clsx from 'clsx/clsx'
-import './Right.css'
 import { getPosition } from './lib/geo'
 import { uiSend, useOpenCloseRight } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'

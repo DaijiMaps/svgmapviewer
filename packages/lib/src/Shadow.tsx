@@ -1,5 +1,5 @@
+/* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import './Shadow.css'
 import { notifyUiClose } from './lib/config-xstate'
 import { uiSend, useOpenCloseShadow } from './lib/ui-xstate'
 

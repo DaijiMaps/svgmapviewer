@@ -1,25 +1,16 @@
-import { type ReactNode, useEffect } from 'react'
-import { createRoot } from 'react-dom/client'
-import { uiRootRenderCbs, uiRootSend } from './ui-root-xstate'
+import { useEffect } from 'react'
+import { viewerSend } from './viewer-xstate'
 
-export function useUiRoot(): void {
-  useEffect(() => mountUiRoot(), [])
+export const UI_ROOT_ID = 'ui-root'
+export const UI_CONTENT_ID = 'ui-content'
+
+let uiRendered = false
+
+export function useUiRendered(): void {
+  useEffect(() => {
+    if (!uiRendered) {
+      uiRendered = true
+      viewerSend({ type: 'RENDERED.UI' })
+    }
+  }, [])
 }
-
-function mountUiRoot(): void {
-  uiRootSend({ type: 'MOUNT' })
-}
-
-function renderUiRoot(children: Readonly<ReactNode>): void {
-  const root = document.querySelector(`#ui-root`)
-  if (root === null) {
-    return
-  }
-  if (root.shadowRoot !== null) {
-    return
-  }
-  const shadowRoot = root.attachShadow({ mode: 'open' })
-  createRoot(shadowRoot).render(children)
-}
-
-uiRootRenderCbs.add(renderUiRoot)

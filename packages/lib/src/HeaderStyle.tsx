@@ -1,3 +1,10 @@
+/* eslint-disable functional/functional-parameters */
+import type { ReactNode } from 'react'
+
+export function HeaderCss(): ReactNode {
+  return (
+    <style>
+      {`
 .header {
   padding: 0.5em;
   position: absolute;
@@ -26,4 +33,8 @@
 .header > h2 {
   margin: 0.25em;
   cursor: default;
+}
+`}
+    </style>
+  )
 }
