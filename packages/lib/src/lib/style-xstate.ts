@@ -48,24 +48,31 @@ const styleMachine = setup({
       distanceRadius: ({ context: { layout } }) => findRadius(layout),
     }),
     setLonLat: ({ context }, { p }: { p: VecVec }) => {
+      const root = document.querySelector('#ui-root')?.shadowRoot
+      if (!root) {
+        return
+      }
       // p == pscroll
       const pgeo = context.geoMatrix.transformPoint(p)
-
-      const lon = document.querySelector('#longitude')
-      const lat = document.querySelector('#latitude')
+      const lon = root.querySelector('#longitude')
+      const lat = root.querySelector('#latitude')
       const ew = pgeo.x > 0 ? 'E' : 'W'
       const ns = pgeo.y > 0 ? 'N' : 'S'
-      if (lon !== null && lat !== null) {
+      if (!!lon && !!lat) {
         lon.innerHTML = `${ew} ${truncate7(Math.abs(pgeo.x))}`
         lat.innerHTML = `${ns} ${truncate7(Math.abs(pgeo.y))}`
       }
     },
     setDistance: ({ context }) => {
+      const root = document.querySelector('#ui-root')?.shadowRoot
+      if (!root) {
+        return
+      }
       const { svg } = context.distanceRadius
       for (let i = 1; i < 20; i++) {
-        const dx = document.querySelector(`#distance-x-${i}`)
-        const dy = document.querySelector(`#distance-y-${i}`)
-        if (dx !== null && dy !== null) {
+        const dx = root.querySelector(`#distance-x-${i}`)
+        const dy = root.querySelector(`#distance-y-${i}`)
+        if (!!dx && !!dy) {
           dx.innerHTML = `${svg * i}m`
           dy.innerHTML = `${svg * i}m`
         }

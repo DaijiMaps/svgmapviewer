@@ -156,8 +156,6 @@ const viewerMachine = setup({
     setModeToLocked: assign({
       mode: viewerModeLocked,
     }),
-    syncMode: ({ context: { mode } }) =>
-      styleSend({ type: 'STYLE.MODE', mode }),
     /*
     touchStart: enqueueActions(({ enqueue }) => {
       enqueue.assign({ touching: true })
@@ -281,7 +279,6 @@ const viewerMachine = setup({
         'notifyTouching',
         'setModeToTouching',
         'notifyMode',
-        'syncMode',
       ],
     },
     'TOUCH.UNLOCK': {
@@ -290,20 +287,14 @@ const viewerMachine = setup({
         'notifyTouchingDone',
         'setModeToPanning',
         'notifyMode',
-        'syncMode',
       ],
     },
     'SEARCH.LOCK': {
       // XXX failure?
-      actions: ['notifyLock', 'setModeToLocked', 'notifyMode', 'syncMode'],
+      actions: ['notifyLock', 'setModeToLocked', 'notifyMode'],
     },
     'SEARCH.UNLOCK': {
-      actions: [
-        'setModeToPanning',
-        'notifyMode',
-        'syncMode',
-        'notifySearchDone',
-      ],
+      actions: ['setModeToPanning', 'notifyMode', 'notifySearchDone'],
     },
   },
   states: {
@@ -669,7 +660,16 @@ viewerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
 )
 viewerActor.on('ZOOM.END', ({ layout, zoom }) => notifyZoomEnd(layout, zoom))
 viewerActor.on('LAYOUT', ({ layout }) => notifyZoomEnd(layout, 1))
-viewerActor.on('MODE', ({ mode }) => reflectMode(mode))
+viewerActor.on('MODE', ({ mode }) => {
+  // XXX
+  // XXX
+  // XXX
+  styleSend({ type: 'STYLE.MODE', mode })
+  reflectMode(mode)
+  // XXX
+  // XXX
+  // XXX
+})
 viewerActor.start()
 
 function viewerSearchEnd(res: Readonly<SearchRes>) {

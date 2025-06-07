@@ -34,8 +34,8 @@ function Measure(): ReactNode {
         <text id={`distance-origin`}>0m</text>
         {INDEXES.map((i) => (
           <Fragment key={i}>
-            <text id={`distance-x-${i + 1}`}>{(i + 1) * 10 + `m`}</text>
-            <text id={`distance-y-${i + 1}`}>{(i + 1) * 10 + `m`}</text>
+            <text id={`distance-x-${i + 1}`} />
+            <text id={`distance-y-${i + 1}`} />
           </Fragment>
         ))}
       </g>
