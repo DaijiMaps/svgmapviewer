@@ -16,6 +16,7 @@ import { Shadow } from './Shadow'
 import { ShadowCss } from './ShadowStyle'
 import { UiStyle as StyleUiStyle } from './Style'
 import { UiCss } from './UiStyle'
+import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { useUiRendered } from './lib/ui-react'
 
 // XXX group UI part animations into one
@@ -29,6 +30,11 @@ export function Ui(): ReactNode {
     <>
       <UiContent />
       <UiStyle />
+      <svg>
+        <defs>
+          <RenderMapAssetsDefault />
+        </defs>
+      </svg>
     </>
   )
 }
