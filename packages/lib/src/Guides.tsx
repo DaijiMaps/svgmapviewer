@@ -1,3 +1,4 @@
+/* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
@@ -88,9 +89,6 @@ expireActor.on('CALL', () => {
   styleSend({ type: 'STYLE.LONLAT', p })
 })
 
-function updateGeo(ev: Readonly<EV>): void {
+scrollCbs.add(function (ev: Readonly<EV>): void {
   expireActor.send({ type: 'TICK', ev })
-}
-
-// eslint-disable-next-line functional/immutable-data
-scrollCbs.add(updateGeo)
+})
