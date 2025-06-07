@@ -63,3 +63,9 @@ export type DeepReadonly<T> = {
       ? DeepReadonly<T[P]>
       : T[P]
 }
+
+////
+
+export function trunc2(n: number): number {
+  return Math.round(n * 100) / 100
+}

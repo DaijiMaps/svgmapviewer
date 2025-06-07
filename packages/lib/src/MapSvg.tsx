@@ -1,9 +1,11 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
+import { svgMapViewerConfig } from './lib'
+import { boxMap, boxToViewBox } from './lib/box/prefixed'
 import { MAP_SVG_CONTENT_ID, useMapSvgRendered } from './lib/map-svg-react'
 import { useLayout } from './lib/style-xstate'
+import { trunc2 } from './lib/utils'
 import { RenderMap } from './Map'
-import { MapSvgStyle } from './MapSvgStyle'
 
 export function MapSvg(): ReactNode {
   return (
@@ -29,19 +31,25 @@ function MapSvgSvg(): ReactNode {
   useMapSvgRendered()
 
   const { scroll } = useLayout()
+  const { x, y, width, height } = boxMap(svgMapViewerConfig.origViewBox, trunc2)
 
   // viewBox will be updated by syncViewBox()
   return (
-    <>
+    <svg
+      id={MAP_SVG_CONTENT_ID}
+      viewBox="0 0 1 1"
+      width={trunc2(scroll.width)}
+      height={trunc2(scroll.height)}
+    >
       <svg
-        id={MAP_SVG_CONTENT_ID}
-        viewBox="0 0 1 1"
-        width={scroll.width}
-        height={scroll.height}
+        viewBox={boxToViewBox({ x, y, width, height })}
+        x={x}
+        y={y}
+        width={width}
+        height={height}
       >
         <use href="#map1" />
       </svg>
-      <MapSvgStyle />
-    </>
+    </svg>
   )
 }

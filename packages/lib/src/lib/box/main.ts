@@ -48,6 +48,18 @@ export function moveTo(o: Box, v: Vec): Box {
   return { ...o, x: v.x, y: v.y }
 }
 
+export function map(
+  { x, y, width, height }: Box,
+  f: (n: number) => number
+): Box {
+  return {
+    x: f(x),
+    y: f(y),
+    width: f(width),
+    height: f(height),
+  }
+}
+
 export function toViewBox({ x, y, width, height }: Box): string {
   return `${x} ${y} ${width} ${height}`
 }

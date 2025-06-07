@@ -5,11 +5,14 @@ import { RenderMapLayers } from './layers'
 import { RenderMapObjects } from './objects'
 
 export function RenderMapCommon(): ReactNode {
+  const style = cfg.mapSvgStyle
+
   return (
     <>
       <g id={cfg.map} className="map">
         <RenderMapLayers mapLayers={cfg.getMapLayers()} />
         <RenderMapObjects mapObjects={cfg.getMapObjects()} />
+        <style>{style}</style>
       </g>
     </>
   )
