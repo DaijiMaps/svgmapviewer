@@ -32,6 +32,9 @@ const expireMachine = setup({
     set: assign({ ticked: true }),
     call: emit({ type: 'CALL' }),
   },
+  delays: {
+    DURATION: 500,
+  },
 }).createMachine({
   id: 'expire1',
   context: { ticked: false },
@@ -43,7 +46,7 @@ const expireMachine = setup({
       },
     },
     Empty: {
-      after: { 500: { actions: ['call', 'clear'], target: 'Idle' } },
+      after: { DURATION: { actions: ['call', 'clear'], target: 'Idle' } },
       on: {
         TICK: {
           guard: ({ context }) => !context.ticked,
@@ -53,7 +56,7 @@ const expireMachine = setup({
       },
     },
     Active: {
-      after: { 500: { target: 'Expired' } },
+      after: { DURATION: { target: 'Expired' } },
       on: {
         TICK: {
           actions: { type: 'set', params: ({ event }) => event },
@@ -62,9 +65,6 @@ const expireMachine = setup({
       },
     },
     Restarting: { always: 'Active' },
-    // XXX
-    // XXX expire & emit call when 500ms passes since the last tick
-    // XXX
     Expired: {
       always: { actions: ['call', 'clear'], target: 'Idle' },
     },
