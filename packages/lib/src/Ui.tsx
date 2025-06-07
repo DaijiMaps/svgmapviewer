@@ -37,7 +37,7 @@ export function Ui(): ReactNode {
 
 function UiContent(): ReactNode {
   return (
-    <div id="ui">
+    <div className="ui">
       <Shadow />
       <Guides />
       <Detail />

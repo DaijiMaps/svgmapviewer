@@ -5,10 +5,10 @@ export function UiCss(): ReactNode {
   return (
     <style>
       {`
-#ui > * {
+.ui > * {
   contain: content;
 }
-#ui > .detail-balloon {
+.ui > .detail-balloon {
   contain: initial;
 }
 .balloon,

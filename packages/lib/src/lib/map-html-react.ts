@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { viewerSend } from './viewer-xstate'
 
-export const ROOT_ID = 'map-html-root'
+export const ROOT_ID = 'map-html'
 
 let mapHtmlRendered = false
 

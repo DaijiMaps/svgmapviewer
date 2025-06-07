@@ -11,14 +11,12 @@ export function MapSvgSymbolsRoot(): ReactNode {
 
   return (
     <div
-      id="map-svg-symbols"
+      id={MAP_SVG_SYMBOLS_ROOT_ID}
       className="content svg"
       style={{
         background: 'none',
       }}
-    >
-      <div id={MAP_SVG_SYMBOLS_ROOT_ID} />
-    </div>
+    />
   )
 }
 
