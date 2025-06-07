@@ -157,9 +157,6 @@ const styleActor = createActor(styleMachine, {
 })
 styleActor.start()
 
-//type StyleMachine = typeof styleMachine
-//type StyleState = StateFrom<StyleMachine>
-
 export function styleActorStart(): void {
   styleActor.start()
 }
