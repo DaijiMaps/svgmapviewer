@@ -50,6 +50,16 @@ function MapSvgDefs(): ReactNode {
       <defs>
         <RenderMap />
       </defs>
+      <style>
+        {`
+.map-layers,
+.map-objects,
+.map-symbols,
+path {
+  contain: content;
+}
+`}
+      </style>
     </svg>
   )
 }
