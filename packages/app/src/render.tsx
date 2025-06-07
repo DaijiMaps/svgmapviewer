@@ -41,8 +41,8 @@ function RenderShopInfo(
   return (
     <>
       <p>
-        {props.properties.name ?? props.x.name}
-        {id !== 0 && <Like _id={id} />}
+        {/* whitespace between name and star! */}
+        {props.properties.name ?? props.x.name} {id !== 0 && <Like _id={id} />}
       </p>
       <p>
         {website !== null && (
