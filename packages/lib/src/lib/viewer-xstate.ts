@@ -132,24 +132,17 @@ const viewerMachine = setup({
         { scroll }: { scroll: BoxBox }
       ): Layout => scrollLayout(layout, scroll),
     }),
-    syncViewBox: ({ context: { layout } }) =>
-      // XXX
-      // XXX
-      // XXX
-      {
-        syncViewBox(`#${MAP_SVG_ROOT_ID}`, `#${MAP_SVG_CONTENT_ID}`, layout.svg)
-        syncViewBox(
-          `#${MAP_SVG_SYMBOLS_ROOT_ID}`,
-          `#${MAP_SVG_SYMBOLS_CONTENT_ID}`,
-          layout.svg
-        )
-      },
-    // XXX
-    // XXX
-    // XXX
+    syncViewBox: ({ context: { layout } }) => {
+      syncViewBox(`#${MAP_SVG_ROOT_ID}`, `#${MAP_SVG_CONTENT_ID}`, layout.svg)
+      syncViewBox(
+        `#${MAP_SVG_SYMBOLS_ROOT_ID}`,
+        `#${MAP_SVG_SYMBOLS_CONTENT_ID}`,
+        layout.svg
+      )
+    },
     syncLayout: ({ context: { layout, rendered } }) => {
-      styleSend({ type: 'STYLE.LAYOUT', layout, rendered })
-      notifyLayout(layout, false)
+      //styleSend({ type: 'STYLE.LAYOUT', layout, rendered })
+      notifyLayout(layout, rendered)
     },
 
     //
@@ -292,7 +285,6 @@ const viewerMachine = setup({
     uiRendered: false,
   },
   on: {
-    RENDERED: {},
     'RENDERED.MAP-HTML': {
       actions: 'setMapHtmlRendered',
     },

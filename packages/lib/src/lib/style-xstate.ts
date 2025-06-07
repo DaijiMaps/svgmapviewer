@@ -2,6 +2,7 @@ import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
 import { type Animation } from './animation'
 import { svgMapViewerConfig } from './config'
+import { registerCbs } from './config-xstate'
 import { fromSvgToScroll } from './coord'
 import { findRadius } from './distance'
 import type { DistanceRadius } from './distance-types'
@@ -188,3 +189,8 @@ export function useAnimation(): null | Animation {
 export function useDistanceRadius(): DistanceRadius {
   return useSelector(styleActor, (s) => s.context.distanceRadius)
 }
+
+registerCbs({
+  layoutCb: (layout, rendered) =>
+    styleSend({ type: 'STYLE.LAYOUT', layout, rendered }),
+})

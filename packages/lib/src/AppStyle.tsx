@@ -1,6 +1,10 @@
 /* eslint-disable functional/functional-parameters */
 import type { ReactNode } from 'react'
 
+// XXX
+// XXX de-duplicate
+// XXX
+
 export function AppCss(): ReactNode {
   return (
     <style>
