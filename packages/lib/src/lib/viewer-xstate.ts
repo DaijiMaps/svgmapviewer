@@ -1,14 +1,11 @@
 import { useSelector } from '@xstate/react'
 import React from 'react'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
-import {
-  type Animation,
-  animationEndLayout,
-  animationHome,
-  animationZoom,
-} from './animation'
+import { animationEndLayout, animationHome, animationZoom } from './animation'
+import { type Animation } from './animation-types'
 import { type BoxBox, boxCenter } from './box/prefixed'
 import {
+  notifyAnimation,
   notifyLayout,
   notifySearchEndDone,
   notifySearchStart,
@@ -114,8 +111,7 @@ const viewerMachine = setup({
       zoom: ({ context: { z, zoom } }) =>
         z === null ? zoom : zoom * Math.pow(2, z),
     }),
-    syncAnimation: ({ context: { animation } }) =>
-      styleSend({ type: 'STYLE.ANIMATION', animation }),
+    syncAnimation: ({ context: { animation } }) => notifyAnimation(animation),
     //
     // layout
     //

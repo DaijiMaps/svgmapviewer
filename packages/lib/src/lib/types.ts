@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-mixed-types */
 /* eslint-disable functional/no-return-void */
 import { type ReactNode } from 'react'
+import type { Animation } from './animation-types'
 import { type BoxBox } from './box/prefixed'
 import type { CartoConfig } from './carto'
 import {
@@ -71,6 +72,7 @@ export type UiCloseCb = () => void
 export type UiCloseDoneCb = () => void
 export type ResizeCb = (layout: Layout, force: boolean) => void
 export type LayoutCb = (layout: Layout, force: boolean) => void
+export type AnimationCb = (animation: null | Animation) => void
 
 export type GeoLocCb = () => void
 export type GeoLocDoneCb = (position: GeolocationPosition) => void
@@ -89,6 +91,7 @@ export interface ConfigCb {
   uiCloseDoneCb: UiCloseDoneCb
   resizeCb: ResizeCb
   layoutCb: LayoutCb
+  animationCb: AnimationCb
 }
 
 export interface ConfigCbs {
@@ -105,6 +108,7 @@ export interface ConfigCbs {
   uiCloseDoneCbs: Set<UiCloseDoneCb>
   resizeCbs: Set<ResizeCb>
   layoutCbs: Set<LayoutCb>
+  animationCbs: Set<AnimationCb>
 }
 
 ////

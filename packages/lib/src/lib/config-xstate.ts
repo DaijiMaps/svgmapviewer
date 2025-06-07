@@ -1,5 +1,6 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
+import type { Animation } from './animation-types'
 import { type POI } from './geo'
 import { type Layout } from './layout'
 import {
@@ -58,6 +59,7 @@ const configMachine = setup({
     uiCloseDoneCbs: new Set(),
     resizeCbs: new Set(),
     layoutCbs: new Set(),
+    animationCbs: new Set(),
     mapNames: [],
   },
   states: {
@@ -118,6 +120,10 @@ const configMachine = setup({
               event.layoutCb === undefined
                 ? context.layoutCbs
                 : context.layoutCbs.add(event.layoutCb),
+            animationCbs: ({ context, event }) =>
+              event.animationCb === undefined
+                ? context.animationCbs
+                : context.animationCbs.add(event.animationCb),
           }),
         },
         // XXX refactor
@@ -200,6 +206,12 @@ const configMachine = setup({
                 context.layoutCbs.delete(event.layoutCb)
               }
               return context.layoutCbs
+            },
+            animationCbs: ({ context, event }) => {
+              if (event.animationCb !== undefined) {
+                context.animationCbs.delete(event.animationCb)
+              }
+              return context.animationCbs
             },
           }),
         },
@@ -317,6 +329,9 @@ export function notifyResize(layout: Readonly<Layout>, force: boolean): void {
 }
 export function notifyLayout(layout: Readonly<Layout>, force: boolean): void {
   configActor.getSnapshot().context.layoutCbs.forEach((cb) => cb(layout, force))
+}
+export function notifyAnimation(animation: null | Readonly<Animation>): void {
+  configActor.getSnapshot().context.animationCbs.forEach((cb) => cb(animation))
 }
 
 ////

@@ -1,5 +1,5 @@
 import React from 'react'
-import { type Animation } from './animation'
+import { type Animation } from './animation-types'
 import { type BoxBox } from './box/prefixed'
 import { type Layout } from './layout'
 import { type Info, type SearchRes } from './types'
