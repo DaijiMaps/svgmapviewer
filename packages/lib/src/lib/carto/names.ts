@@ -115,7 +115,7 @@ function filterName(
 function splitName(s: string): string[] {
   return s
     .trim()
-    .split(/  */)
+    .split(/[ 　][ 　]*/)
     .map((s) => s.trim())
 }
 
