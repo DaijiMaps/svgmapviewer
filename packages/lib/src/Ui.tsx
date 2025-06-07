@@ -1,4 +1,5 @@
 /* eslint-disable functional/functional-parameters */
+/* eslint-disable functional/no-expression-statements */
 import { type ReactNode } from 'react'
 import { AppCss } from './AppStyle'
 import { BalloonCss } from './BalloonStyle'
@@ -23,18 +24,13 @@ import { useUiRendered } from './lib/ui-react'
 // XXX receive animationend here (.ui)
 
 export function Ui(): ReactNode {
-  // eslint-disable-next-line functional/no-expression-statements
   useUiRendered()
 
   return (
     <>
       <UiContent />
       <UiStyle />
-      <svg>
-        <defs>
-          <RenderMapAssetsDefault />
-        </defs>
-      </svg>
+      <Assets />
     </>
   )
 }
@@ -66,5 +62,15 @@ function UiStyle(): ReactNode {
       <UiCss />
       <StyleUiStyle />
     </>
+  )
+}
+
+function Assets(): ReactNode {
+  return (
+    <svg>
+      <defs>
+        <RenderMapAssetsDefault />
+      </defs>
+    </svg>
   )
 }
