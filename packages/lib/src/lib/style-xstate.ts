@@ -1,6 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
 import { type Animation } from './animation-types'
+import type { BoxBox } from './box/prefixed'
 import { svgMapViewerConfig } from './config'
 import { registerCbs } from './config-xstate'
 import { fromSvgToScroll } from './coord'
@@ -177,6 +178,9 @@ export function useAnimating(): boolean {
 }
 export function useLayout(): Layout {
   return useSelector(styleActor, (s) => s.context.layout)
+}
+export function useLayoutContainer(): BoxBox {
+  return useSelector(styleActor, (s) => s.context.layout.container)
 }
 export function useSvgMatrix(): DOMMatrixReadOnly {
   return useSelector(styleActor, (s) => s.context.svgMatrix)

@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode } from 'react'
-import { useDistanceRadius, useLayout } from './lib/style-xstate'
+import { useDistanceRadius, useLayoutContainer } from './lib/style-xstate'
 import { useOpenCloseBalloon } from './lib/ui-xstate'
 
 export function Measure(): ReactNode {
@@ -47,9 +47,7 @@ export function MeasurePathUse(): ReactNode {
 }
 
 export function MeasurePath(): ReactNode {
-  const {
-    container: { width, height },
-  } = useLayout()
+  const { width, height } = useLayoutContainer()
   const { client } = useDistanceRadius()
 
   const horizontal = `M0,${height / 2} h${width}`
@@ -103,9 +101,7 @@ export function ringPath({
 }
 
 export function MeasureStyle(): ReactNode {
-  const {
-    container: { width, height },
-  } = useLayout()
+  const { width, height } = useLayoutContainer()
   const { client } = useDistanceRadius()
   const { open, animating } = useOpenCloseBalloon()
 
