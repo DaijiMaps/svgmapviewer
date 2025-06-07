@@ -8,6 +8,7 @@ import { fromSvgToScroll } from './coord'
 import { findRadius } from './distance'
 import type { DistanceRadius } from './distance-types'
 import { emptyLayout, type Layout } from './layout'
+import { UI_ROOT_ID } from './ui-react'
 import type { VecVec } from './vec/prefixed'
 
 export type StyleEvent =
@@ -49,7 +50,7 @@ const styleMachine = setup({
       distanceRadius: ({ context: { layout } }) => findRadius(layout),
     }),
     setLonLat: ({ context }, { p }: { p: VecVec }) => {
-      const root = document.querySelector('#ui-root')?.shadowRoot
+      const root = document.querySelector(`#${UI_ROOT_ID}`)?.shadowRoot
       if (!root) {
         return
       }
@@ -65,7 +66,7 @@ const styleMachine = setup({
       }
     },
     setDistance: ({ context }) => {
-      const root = document.querySelector('#ui-root')?.shadowRoot
+      const root = document.querySelector(`#${UI_ROOT_ID}`)?.shadowRoot
       if (!root) {
         return
       }
