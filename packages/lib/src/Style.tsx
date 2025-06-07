@@ -242,14 +242,14 @@ function DetailStyle() {
 
 export function UiStyle(): ReactNode {
   return (
-    <>
+    <style>
       <DetailStyle />
       <MeasureStyle />
       <HeaderStyle />
       <RightStyle />
       <FooterStyle />
       <ShadowStyle />
-    </>
+    </style>
   )
 }
 

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 
 export function BalloonCss(): ReactNode {
   return (
-    <>
+    <style>
       {`
 .balloon-container,
 .balloon {
@@ -25,6 +25,6 @@ export function BalloonCss(): ReactNode {
   stroke-width: 1px;
 }
 `}
-    </>
+    </style>
   )
 }

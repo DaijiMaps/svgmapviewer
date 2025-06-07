@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 
 export function GuidesCss(): ReactNode {
   return (
-    <>
+    <style>
       {`
 .guides {
   position: absolute;
@@ -22,6 +22,6 @@ export function GuidesCss(): ReactNode {
   -webkit-user-select: none;
 }
 `}
-    </>
+    </style>
   )
 }

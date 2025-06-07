@@ -1,14 +1,6 @@
 import { useSelector } from '@xstate/react'
 import React from 'react'
-import {
-  and,
-  assign,
-  createActor,
-  emit,
-  type InspectionEvent,
-  raise,
-  setup,
-} from 'xstate'
+import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import {
   type Animation,
   animationEndLayout,
@@ -79,8 +71,8 @@ const viewerMachine = setup({
     isMapHtmlRendered: ({ context }) => context.mapHtmlRendered,
     isMapSvgRendered: ({ context }) => context.mapSvgRendered,
     isMapSvgSymbolsRendered: ({ context }) => context.mapSvgSymbolsRendered,
-    isContainerRendered: () => document.querySelector('.container') !== null,
     isUiRendered: ({ context }) => context.uiRendered,
+    isContainerRendered: () => document.querySelector('.container') !== null,
   },
   actions: {
     //
@@ -683,6 +675,7 @@ export function viewerActorStart(): void {
   viewerActor.start()
 }
 
+/*
 export type ViewerInspect = typeof viewerActor.options.inspect
 export function inspect(iev: InspectionEvent) {
   if (iev && iev?.actorRef?.options?.systemId === 'system-viewer1') {
@@ -693,6 +686,7 @@ export function inspect(iev: InspectionEvent) {
     }
   }
 }
+*/
 
 export function viewerSend(ev: ViewerEvent): void {
   viewerActor.send(ev)
@@ -700,7 +694,6 @@ export function viewerSend(ev: ViewerEvent): void {
 
 const viewerActor = createActor(viewerMachine, {
   systemId: 'system-viewer1',
-  inspect,
 })
 
 viewerActor.on('SEARCH', ({ psvg }) => notifySearchStart(psvg))

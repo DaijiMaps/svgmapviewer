@@ -48,7 +48,7 @@ function UiContent(): ReactNode {
 
 function UiStyle(): ReactNode {
   return (
-    <style>
+    <>
       <AppCss />
       <GuidesCss />
       <BalloonCss />
@@ -59,6 +59,6 @@ function UiStyle(): ReactNode {
       <ShadowCss />
       <UiCss />
       <StyleUiStyle />
-    </style>
+    </>
   )
 }

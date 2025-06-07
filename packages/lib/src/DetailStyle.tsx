@@ -3,8 +3,7 @@ import type { ReactNode } from 'react'
 
 export function DetailCss(): ReactNode {
   return (
-    <style>
-      {`
+    <style>{`
 .content {
   overflow: hidden;
 }
@@ -36,7 +35,6 @@ export function DetailCss(): ReactNode {
 .detail > p {
   margin: 0.5em;
 }
-`}
-    </style>
+`}</style>
   )
 }

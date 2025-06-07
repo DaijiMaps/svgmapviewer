@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 
 export function AppCss(): ReactNode {
   return (
-    <>
+    <style>
       {`
 :root {
   margin: 0;
@@ -94,6 +94,6 @@ a:link {
   contain: content;
 }
 `}
-    </>
+    </style>
   )
 }
