@@ -11,6 +11,15 @@ import { useLayout } from './lib/style-xstate'
 import { MapSvgSymbolsStyle } from './MapSvgStyle'
 
 export function MapSvgSymbols(): ReactNode {
+  return (
+    <>
+      <MapSvgSymbolsSvg />
+      <MapSvgSymbolsDefs />
+    </>
+  )
+}
+
+function MapSvgSymbolsSvg(): ReactNode {
   // eslint-disable-next-line functional/no-expression-statements
   useMapSvgSymbolsRendered()
 
@@ -18,19 +27,27 @@ export function MapSvgSymbols(): ReactNode {
 
   // viewBox will be updated by syncViewBox()
   return (
-    <>
-      <svg
-        id={MAP_SVG_SYMBOLS_CONTENT_ID}
-        viewBox="0 0 1 1"
-        width={scroll.width}
-        height={scroll.height}
-      >
+    <svg
+      id={MAP_SVG_SYMBOLS_CONTENT_ID}
+      viewBox="0 0 1 1"
+      width={scroll.width}
+      height={scroll.height}
+    >
+      <use href="#map-svg-symbols-xxx" />
+    </svg>
+  )
+}
+
+function MapSvgSymbolsDefs(): ReactNode {
+  return (
+    <svg>
+      <g id="map-svg-symbols-xxx">
         <defs>
           <RenderMapAssetsDefault />
         </defs>
         <RenderMapSymbols mapSymbols={svgMapViewerConfig.getMapSymbols()} />
-      </svg>
-      <MapSvgSymbolsStyle />
-    </>
+        <MapSvgSymbolsStyle />
+      </g>
+    </svg>
   )
 }
