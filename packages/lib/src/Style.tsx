@@ -137,6 +137,9 @@ function DraggingStyle(): ReactNode {
   )
 }
 
+// XXX .container should always have `transform: translate3d(0px, 0px, 0px);`
+// XXX define this statically elsewhere
+
 function ModeStyle(): ReactNode {
   const mode = useMode()
   return (
