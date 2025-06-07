@@ -10,19 +10,9 @@ import { RenderMap } from './Map'
 export function MapSvg(): ReactNode {
   return (
     <>
-      <MapSvgRender />
       <MapSvgSvg />
+      <MapSvgDefs />
     </>
-  )
-}
-
-function MapSvgRender(): ReactNode {
-  return (
-    <svg viewBox="0 0 1 1" style={{ display: 'none' }}>
-      <defs>
-        <RenderMap />
-      </defs>
-    </svg>
   )
 }
 
@@ -50,6 +40,16 @@ function MapSvgSvg(): ReactNode {
       >
         <use href="#map1" />
       </svg>
+    </svg>
+  )
+}
+
+function MapSvgDefs(): ReactNode {
+  return (
+    <svg viewBox="0 0 1 1" style={{ display: 'none' }}>
+      <defs>
+        <RenderMap />
+      </defs>
     </svg>
   )
 }

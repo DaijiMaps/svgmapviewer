@@ -8,6 +8,7 @@ import {
   useMapSvgSymbolsRendered,
 } from './lib/map-svg-react'
 import { useLayout } from './lib/style-xstate'
+import { trunc2 } from './lib/utils'
 import { MapSvgSymbolsStyle } from './MapSvgStyle'
 
 export function MapSvgSymbols(): ReactNode {
@@ -30,8 +31,8 @@ function MapSvgSymbolsSvg(): ReactNode {
     <svg
       id={MAP_SVG_SYMBOLS_CONTENT_ID}
       viewBox="0 0 1 1"
-      width={scroll.width}
-      height={scroll.height}
+      width={trunc2(scroll.width)}
+      height={trunc2(scroll.height)}
     >
       <use href="#map-svg-symbols-xxx" />
     </svg>
