@@ -27,17 +27,10 @@ import {
   makeLayout,
   scrollLayout,
 } from './layout'
-import {
-  MAP_SVG_CONTENT_ID,
-  MAP_SVG_ROOT_ID,
-  MAP_SVG_SYMBOLS_CONTENT_ID,
-  MAP_SVG_SYMBOLS_ROOT_ID,
-} from './map-svg-react'
 import { getCurrentScroll } from './scroll'
 import { type GetDone, type SyncSyncDone } from './scroll-types'
 import { getDoneCbs, scrollSend, syncSyncDoneCbs } from './scroll-xstate'
 import { styleSend } from './style-xstate'
-import { syncViewBox } from './svg'
 import { type SearchRes } from './types'
 import { type VecVec as Vec, vecVec } from './vec/prefixed'
 import {
@@ -132,19 +125,8 @@ const viewerMachine = setup({
         { scroll }: { scroll: BoxBox }
       ): Layout => scrollLayout(layout, scroll),
     }),
-    syncViewBox: ({ context: { layout } }) => {
-      syncViewBox(`#${MAP_SVG_ROOT_ID}`, `#${MAP_SVG_CONTENT_ID}`, layout.svg)
-      syncViewBox(
-        `#${MAP_SVG_SYMBOLS_ROOT_ID}`,
-        `#${MAP_SVG_SYMBOLS_CONTENT_ID}`,
-        layout.svg
-      )
-    },
-    syncLayout: ({ context: { layout, rendered } }) => {
-      //styleSend({ type: 'STYLE.LAYOUT', layout, rendered })
-      notifyLayout(layout, rendered)
-    },
-
+    syncLayout: ({ context: { layout, rendered } }) =>
+      notifyLayout(layout, rendered),
     //
     // cursor
     //
@@ -368,12 +350,7 @@ const viewerMachine = setup({
           entry: 'syncLayout',
           on: {
             RENDERED: {
-              actions: [
-                'setRendered',
-                'syncViewBox',
-                'syncLayout',
-                'resetCursor',
-              ],
+              actions: ['setRendered', 'syncLayout', 'resetCursor'],
               target: 'Syncing',
             },
           },
@@ -541,7 +518,6 @@ const viewerMachine = setup({
           always: {
             actions: [
               'updateLayoutFromScroll',
-              'syncViewBox',
               'syncLayout',
               // fast sync - sync scroll NOT after resize
               'syncScroll',
@@ -613,7 +589,6 @@ const viewerMachine = setup({
                   actions: [
                     'endZoom',
                     'syncLayout',
-                    'syncViewBox',
                     // fast sync - sync scroll NOT after resize
                     'syncScroll',
                     'notifyZoomEnd',
@@ -631,7 +606,6 @@ const viewerMachine = setup({
                   actions: [
                     'endHoming',
                     'syncLayout',
-                    'syncViewBox',
                     // fast sync - sync scroll NOT after resize
                     'syncScroll',
                   ],
