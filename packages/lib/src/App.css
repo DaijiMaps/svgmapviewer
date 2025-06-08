@@ -78,9 +78,8 @@ a:link {
 }
 
 #viewer,
-#map-svg,
-#map-svg-symbols,
-#map-html,
+.content.svg,
+.content.html,
 #ui {
   contain: content;
 }

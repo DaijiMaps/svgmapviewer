@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode, useEffect } from 'react'
 import { svgMapViewerConfig } from './lib'
-import { boxMap, boxToViewBox } from './lib/box/prefixed'
+import { boxMap, boxScaleAtCenter, boxToViewBox } from './lib/box/prefixed'
 import { RenderMapSymbols } from './lib/carto'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { renderShadowRoot } from './lib/dom'
@@ -36,7 +36,10 @@ export function MapSvgSymbols(): ReactNode {
 
 function MapSvgSymbolsSvg(): ReactNode {
   const { scroll } = useLayout()
-  const { x, y, width, height } = boxMap(svgMapViewerConfig.origViewBox, trunc2)
+  const { x, y, width, height } = boxMap(
+    boxScaleAtCenter(svgMapViewerConfig.origViewBox, 3),
+    trunc2
+  )
 
   // viewBox will be updated by syncViewBox()
   return (

@@ -16,3 +16,7 @@ export function MapSvgSymbolsStyle(): ReactNode {
     </style>
   )
 }
+
+export function MapSvgLabelsStyle(): ReactNode {
+  return <style></style>
+}

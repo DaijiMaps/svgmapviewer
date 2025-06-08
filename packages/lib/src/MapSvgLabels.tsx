@@ -3,29 +3,36 @@ import { type ReactNode, useEffect } from 'react'
 import { svgMapViewerConfig } from './lib'
 import { boxMap, boxScaleAtCenter, boxToViewBox } from './lib/box/prefixed'
 import { renderShadowRoot } from './lib/dom'
-import { MAP_SVG_CONTENT_ID, MAP_SVG_ROOT_ID } from './lib/map-svg-react'
+import {
+  MAP_SVG_LABELS_CONTENT_ID,
+  MAP_SVG_LABELS_ROOT_ID,
+} from './lib/map-svg-react'
 import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
-import { RenderMap } from './Map'
-import './MapSvg.css'
+import './MapSvgLabels.css'
+import { MapSvgLabelsStyle } from './MapSvgStyle'
 
-export function MapSvgRoot(): ReactNode {
-  // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
-  useEffect(() => renderShadowRoot(MAP_SVG_ROOT_ID, <MapSvg />), [])
+export function MapSvgLabelsRoot(): ReactNode {
+  // eslint-disable-next-line functional/no-expression-statements
+  useEffect(
+    // eslint-disable-next-line functional/no-return-void
+    () => renderShadowRoot(MAP_SVG_LABELS_ROOT_ID, <MapSvgLabels />),
+    []
+  )
 
-  return <div id={MAP_SVG_ROOT_ID} className="content svg" />
+  return <div id={MAP_SVG_LABELS_ROOT_ID} className="content svg" />
 }
 
-export function MapSvg(): ReactNode {
+export function MapSvgLabels(): ReactNode {
   return (
     <>
-      <MapSvgSvg />
-      <MapSvgDefs />
+      <MapSvgLabelsSvg />
+      <MapSvgLabelsDefs />
     </>
   )
 }
 
-function MapSvgSvg(): ReactNode {
+function MapSvgLabelsSvg(): ReactNode {
   const { scroll } = useLayout()
   const { x, y, width, height } = boxMap(
     boxScaleAtCenter(svgMapViewerConfig.origViewBox, 3),
@@ -35,7 +42,7 @@ function MapSvgSvg(): ReactNode {
   // viewBox will be updated by syncViewBox()
   return (
     <svg
-      id={MAP_SVG_CONTENT_ID}
+      id={MAP_SVG_LABELS_CONTENT_ID}
       viewBox="0 0 1 1"
       width={trunc2(scroll.width)}
       height={trunc2(scroll.height)}
@@ -47,28 +54,20 @@ function MapSvgSvg(): ReactNode {
         width={width}
         height={height}
       >
-        <use href="#map1" />
+        <use href="#map-svg-labels1" />
       </svg>
     </svg>
   )
 }
 
-function MapSvgDefs(): ReactNode {
+function MapSvgLabelsDefs(): ReactNode {
   return (
-    <svg viewBox="0 0 1 1" style={{ display: 'none' }}>
-      <defs>
-        <RenderMap />
-      </defs>
-      <style>
-        {`
-.map-layers,
-.map-objects,
-.map-symbols,
-path {
-  contain: content;
-}
-`}
-      </style>
+    <svg>
+      <g id="map-svg-labels1">
+        {/* XXX */}
+        <text />
+        <MapSvgLabelsStyle />
+      </g>
     </svg>
   )
 }
