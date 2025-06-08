@@ -36,7 +36,7 @@ export function MapSvgLabels(): ReactNode {
         {`
 #map-svg-labels-svg,
 #map-svg-labels1 {
-  contain: layout;
+  contain: content;
   text-rendering: optimizespeed;
   shape-rendering: optimizespeed;
 }
@@ -171,9 +171,10 @@ function RenderName(props: Readonly<{ _poi: POI }>): ReactNode {
             y={trunc2(voffset(name.length, j) * 16)}
             fill="none"
             stroke="white"
-            strokeWidth="1"
+            strokeWidth="4"
             strokeLinecap="round"
             strokeLinejoin="round"
+            strokeOpacity={1}
           >
             {n}
           </tspan>
