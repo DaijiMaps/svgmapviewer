@@ -7,11 +7,7 @@ import { renderShadowRoot } from './lib/dom'
 import { UI_ROOT_ID } from './lib/ui-react'
 
 export function UiRoot(): ReactNode {
-  useUiRoot()
+  useEffect(() => renderShadowRoot(UI_ROOT_ID, <Ui />), [])
 
   return <div id={UI_ROOT_ID} />
-}
-
-function useUiRoot(): void {
-  useEffect(() => renderShadowRoot(UI_ROOT_ID, <Ui />), [])
 }

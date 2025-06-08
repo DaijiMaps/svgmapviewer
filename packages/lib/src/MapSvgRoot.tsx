@@ -8,11 +8,7 @@ import { MapSvg } from './MapSvg'
 import './MapSvgRoot.css'
 
 export function MapSvgRoot(): ReactNode {
-  useMapSvgRoot()
+  useEffect(() => renderShadowRoot(MAP_SVG_ROOT_ID, <MapSvg />), [])
 
   return <div id={MAP_SVG_ROOT_ID} className="content svg" />
-}
-
-function useMapSvgRoot(): void {
-  useEffect(() => renderShadowRoot(MAP_SVG_ROOT_ID, <MapSvg />), [])
 }

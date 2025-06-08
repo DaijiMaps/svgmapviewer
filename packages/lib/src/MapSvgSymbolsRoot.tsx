@@ -8,14 +8,10 @@ import { MapSvgSymbols } from './MapSvgSymbols'
 import './MapSvgSymbolsRoot.css'
 
 export function MapSvgSymbolsRoot(): ReactNode {
-  useMapSvgSymbolsRoot()
-
-  return <div id={MAP_SVG_SYMBOLS_ROOT_ID} className="content svg" />
-}
-
-function useMapSvgSymbolsRoot(): void {
   useEffect(
     () => renderShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbols />),
     []
   )
+
+  return <div id={MAP_SVG_SYMBOLS_ROOT_ID} className="content svg" />
 }

@@ -8,11 +8,7 @@ import { MapHtml } from './MapHtml'
 import './MapHtml.css'
 
 export function MapHtmlRoot(): ReactNode {
-  useMapHtmlRoot()
+  useEffect(() => renderShadowRoot(ROOT_ID, <MapHtml />), [])
 
   return <div id={ROOT_ID} className="content html" />
-}
-
-function useMapHtmlRoot(): void {
-  useEffect(() => renderShadowRoot(ROOT_ID, <MapHtml />), [])
 }
