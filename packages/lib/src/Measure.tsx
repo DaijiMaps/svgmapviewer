@@ -85,7 +85,7 @@ export function MeasurePath(): ReactNode {
   )
 }
 
-export function ringPath({
+function ringPath({
   width,
   height,
   r,
