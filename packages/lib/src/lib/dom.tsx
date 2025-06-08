@@ -18,3 +18,13 @@ export function renderShadowRoot(
 export function isShadowRootRendered(id: string): boolean {
   return (document.querySelector(`#${id}`)?.shadowRoot ?? null) !== null
 }
+
+export function queryShadowRoot(
+  rootId: string,
+  id: string
+): null | HTMLElement | SVGElement {
+  return (
+    document.querySelector(`#${rootId}`)?.shadowRoot?.querySelector(`#${id}`) ??
+    null
+  )
+}

@@ -2,6 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { type BoxBox } from './box/prefixed'
+import { queryShadowRoot } from './dom'
 import { trunc2 } from './utils'
 
 export function syncViewBox(
@@ -9,18 +10,11 @@ export function syncViewBox(
   id2: string,
   viewBox: Readonly<BoxBox>
 ): void {
-  // XXX
-  // XXX
-  // XXX
-  const svg: null | SVGSVGElement =
-    document.querySelector(id)?.shadowRoot?.querySelector(id2) ?? null
-  if (svg === null) {
+  const e: null | Element = queryShadowRoot(id, id2)
+  if (e === null || !(e instanceof SVGSVGElement)) {
     return
   }
-  // XXX
-  // XXX
-  // XXX
-
+  const svg: SVGSVGElement = e
   svg.viewBox.baseVal.x = trunc2(viewBox.x)
   svg.viewBox.baseVal.y = trunc2(viewBox.y)
   svg.viewBox.baseVal.width = trunc2(viewBox.width)
