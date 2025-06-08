@@ -45,10 +45,6 @@ export type ResizeRequest = { type: 'RESIZE'; layout: Layout; force: boolean }
 export type LayoutResetRequest = { type: 'LAYOUT.RESET' }
 export type RecenterRequest = { type: 'RECENTER' }
 export type RenderedRequest = { type: 'RENDERED' }
-export type RenderedMapHtmlRequest = { type: 'RENDERED.MAP-HTML' }
-export type RenderedMapSvgRequest = { type: 'RENDERED.MAP-SVG' }
-export type RenderedMapSvgSymbolsRequest = { type: 'RENDERED.MAP-SVG-SYMBOLS' }
-export type RenderedUiRequest = { type: 'RENDERED.UI' }
 export type AnimationEndRequest = { type: 'ANIMATION.END' }
 export type ScrollGetDoneRequest = { type: 'SCROLL.GET.DONE'; scroll: BoxBox }
 export type ScrollSyncsyncDoneRequest = {
@@ -66,10 +62,6 @@ export type ViewerRequest =
   | LayoutResetRequest
   | RecenterRequest
   | RenderedRequest
-  | RenderedMapHtmlRequest
-  | RenderedMapSvgRequest
-  | RenderedMapSvgSymbolsRequest
-  | RenderedUiRequest
   | ScrollGetDoneRequest
   | ScrollSyncsyncDoneRequest
   | TouchLockRequest
