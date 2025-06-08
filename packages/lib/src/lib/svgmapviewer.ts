@@ -20,7 +20,6 @@ import {
 import { styleActorStart } from './style-xstate'
 import { touchActorStart } from './touch-xstate'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
-import { uiRootActorStart } from './ui-root-xstate'
 import { uiActorStart } from './ui-xstate'
 import { viewerActorStart } from './viewer-xstate'
 
@@ -84,6 +83,5 @@ function startAllActors() {
   styleActorStart()
   touchActorStart()
   uiActorStart()
-  uiRootActorStart()
   viewerActorStart()
 }
