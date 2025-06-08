@@ -4,7 +4,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { assign, createActor, emit, setup } from 'xstate'
-import { getCurrentScroll, scrollCbs } from './lib/scroll'
+import { getCurrentScroll, scrollEventCbs } from './lib/scroll'
 import { styleSend } from './lib/style-xstate'
 import { Measure } from './Measure'
 
@@ -89,6 +89,6 @@ expireActor.on('CALL', () => {
   styleSend({ type: 'STYLE.LONLAT', p })
 })
 
-scrollCbs.add(function (ev: Readonly<EV>): void {
+scrollEventCbs.add(function (ev: Readonly<EV>): void {
   expireActor.send({ type: 'TICK', ev })
 })

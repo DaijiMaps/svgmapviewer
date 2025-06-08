@@ -9,11 +9,18 @@ export function syncViewBox(
   id2: string,
   viewBox: Readonly<BoxBox>
 ): void {
+  // XXX
+  // XXX
+  // XXX
   const svg: null | SVGSVGElement =
     document.querySelector(id)?.shadowRoot?.querySelector(id2) ?? null
   if (svg === null) {
     return
   }
+  // XXX
+  // XXX
+  // XXX
+
   svg.viewBox.baseVal.x = trunc2(viewBox.x)
   svg.viewBox.baseVal.y = trunc2(viewBox.y)
   svg.viewBox.baseVal.width = trunc2(viewBox.width)

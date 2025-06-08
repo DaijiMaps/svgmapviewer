@@ -146,14 +146,14 @@ export function getCurrentScroll(): CurrentScroll {
 
 ////
 
-export const scrollCbs: Set<ScrollCb> = new Set()
+export const scrollEventCbs: Set<ScrollCb> = new Set()
 
 export function notifyScroll(
   ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
   // eslint-disable-next-line functional/no-return-void
 ): void {
   // eslint-disable-next-line functional/no-return-void
-  scrollCbs.forEach((cb) => cb(ev))
+  scrollEventCbs.forEach((cb) => cb(ev))
 }
 
-scrollCbs.add(setCurrentScroll)
+scrollEventCbs.add(setCurrentScroll)
