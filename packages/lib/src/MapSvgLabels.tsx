@@ -29,7 +29,7 @@ export function MapSvgLabelsRoot(): ReactNode {
 
 export function MapSvgLabels(): ReactNode {
   return (
-    <>
+    <div>
       <MapSvgLabelsSvg />
       <MapSvgLabelsDefs />
       <style>
@@ -47,7 +47,7 @@ text, tspan {
       </style>
       <MapSvgLabelsStylePos />
       <MapSvgLabelsStyleSizes />
-    </>
+    </div>
   )
 }
 
