@@ -26,6 +26,9 @@ export function MapSvg(): ReactNode {
 #map1 {
   contain: content;
 }
+#map-svg-defs {
+  display: none;
+}
 `}</style>
     </>
   )
@@ -61,7 +64,7 @@ function MapSvgSvg(): ReactNode {
 
 function MapSvgDefs(): ReactNode {
   return (
-    <svg viewBox="0 0 1 1" style={{ display: 'none' }}>
+    <svg id="map-svg-defs" viewBox="0 0 1 1">
       <defs>
         <RenderMap />
       </defs>

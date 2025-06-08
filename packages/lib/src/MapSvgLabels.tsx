@@ -45,8 +45,36 @@ text, tspan {
 }
 `}
       </style>
+      <MapSvgLabelsStylePos />
       <MapSvgLabelsStyleSizes />
     </>
+  )
+}
+
+function MapSvgLabelsStylePos(): ReactNode {
+  const { pointNames, areaNames } = useNames()
+
+  return (
+    <style>{`
+${areaNames
+  .map(
+    ({ id, size, pos: { x, y } }) => `
+#name-${id} {
+  transform: translate(${trunc2(x)}px, ${trunc2(y)}px) scale(${Math.round(size / 10) / 16});
+}
+`
+  )
+  .reduce((a, b) => a + b)}
+${pointNames
+  .map(
+    ({ id, size, pos: { x, y } }) => `
+#name-${id} {
+  transform: translate(${trunc2(x)}px, ${trunc2(y)}px) scale(${Math.round(size / 10) / 16});
+}
+`
+  )
+  .reduce((a, b) => a + b)}
+`}</style>
   )
 }
 
@@ -136,20 +164,10 @@ function MapSvgLabelsDefs(): ReactNode {
 }
 
 function RenderName(props: Readonly<{ _poi: POI }>): ReactNode {
-  const {
-    name,
-    size,
-    pos: { x, y },
-  } = props._poi
+  const { id, name, size } = props._poi
   const sz = Math.round(size / 10)
-  const s = sz / 16
   return (
-    <text
-      className={`size-${sz}`}
-      style={{
-        transform: `translate(${trunc2(x)}px, ${trunc2(y)}px) scale(${s})`,
-      }}
-    >
+    <text id={`name-${id}`} className={`size-${sz}`}>
       {name.map((n, j) => (
         <Fragment key={j}>
           <tspan
