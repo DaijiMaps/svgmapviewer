@@ -1,27 +1,21 @@
+/* eslint-disable functional/immutable-data */
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { type BoxBox } from './box/prefixed'
+import { trunc2 } from './utils'
 
 export function syncViewBox(
   id: string,
   id2: string,
   viewBox: Readonly<BoxBox>
 ): void {
-  const svg: undefined | null | SVGSVGElement = document
-    .querySelector(id)
-    ?.shadowRoot?.querySelector(id2)
-  if (svg === undefined || svg === null) {
+  const svg: null | SVGSVGElement =
+    document.querySelector(id)?.shadowRoot?.querySelector(id2) ?? null
+  if (svg === null) {
     return
   }
-  // eslint-disable-next-line functional/no-expression-statements, functional/immutable-data
-  svg.viewBox.baseVal.x = truncate(viewBox.x)
-  // eslint-disable-next-line functional/no-expression-statements, functional/immutable-data
-  svg.viewBox.baseVal.y = truncate(viewBox.y)
-  // eslint-disable-next-line functional/no-expression-statements, functional/immutable-data
-  svg.viewBox.baseVal.width = truncate(viewBox.width)
-  // eslint-disable-next-line functional/no-expression-statements, functional/immutable-data
-  svg.viewBox.baseVal.height = truncate(viewBox.height)
-}
-
-function truncate(n: number): number {
-  return Math.round(n * 100) / 100
+  svg.viewBox.baseVal.x = trunc2(viewBox.x)
+  svg.viewBox.baseVal.y = trunc2(viewBox.y)
+  svg.viewBox.baseVal.width = trunc2(viewBox.width)
+  svg.viewBox.baseVal.height = trunc2(viewBox.height)
 }

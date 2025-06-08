@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { viewerSend } from './viewer-xstate'
 
 export const UI_ROOT_ID = 'ui'
-export const UI_CONTENT_ID = 'ui-content'
 
 let uiRendered = false
 
