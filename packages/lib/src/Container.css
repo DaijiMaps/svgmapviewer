@@ -17,6 +17,8 @@
 
 #viewer,
 #map-svg,
-#map-html {
+#map-svg-symbols,
+#map-html,
+#ui {
   contain: content;
 }

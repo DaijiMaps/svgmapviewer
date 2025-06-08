@@ -93,6 +93,7 @@ a:link {
 #map-html {
   contain: content;
 }
+
 .map,
 .map > * {
   contain: content;

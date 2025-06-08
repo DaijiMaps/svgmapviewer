@@ -84,6 +84,7 @@ a:link {
 #ui {
   contain: content;
 }
+
 .map,
 .map > * {
   contain: content;
