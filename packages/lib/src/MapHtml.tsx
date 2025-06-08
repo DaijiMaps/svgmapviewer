@@ -4,7 +4,7 @@ import { fixupCssString } from './lib/css'
 import { renderShadowRoot } from './lib/dom'
 import { type POI } from './lib/geo'
 import { isLiked, useLikes } from './lib/like'
-import { MAP_HTML_ROOT_ID, useMapHtmlRendered } from './lib/map-html-react'
+import { MAP_HTML_ROOT_ID } from './lib/map-html-react'
 import { useNames } from './lib/names'
 import { useViewerLayoutSvgScaleS } from './lib/viewer-xstate'
 import './MapHtml.css'
@@ -18,9 +18,6 @@ export function MapHtmlRoot(): ReactNode {
 
 export function MapHtml(): ReactNode {
   const { pointNames, areaNames } = useNames()
-
-  // eslint-disable-next-line functional/no-expression-statements
-  useMapHtmlRendered()
 
   return (
     <>

@@ -19,7 +19,7 @@ import { UiStyle as StyleUiStyle } from './Style'
 import { UiCss } from './UiStyle'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { renderShadowRoot } from './lib/dom'
-import { UI_ROOT_ID, useUiRendered } from './lib/ui-react'
+import { UI_ROOT_ID } from './lib/ui-react'
 
 // XXX group UI part animations into one
 // XXX receive animationend here (.ui)
@@ -32,8 +32,6 @@ export function UiRoot(): ReactNode {
 }
 
 export function Ui(): ReactNode {
-  useUiRendered()
-
   return (
     <>
       <UiContent />

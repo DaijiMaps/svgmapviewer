@@ -24,11 +24,14 @@ import {
   makeLayout,
   scrollLayout,
 } from './layout'
+import { MAP_HTML_ROOT_ID } from './map-html-react'
+import { MAP_SVG_ROOT_ID, MAP_SVG_SYMBOLS_ROOT_ID } from './map-svg-react'
 import { getCurrentScroll } from './scroll'
 import { type GetDone, type SyncSyncDone } from './scroll-types'
 import { scrollCbs, scrollSend } from './scroll-xstate'
 import { styleSend } from './style-xstate'
 import { type SearchRes } from './types'
+import { UI_ROOT_ID } from './ui-react'
 import { type VecVec as Vec, vecVec } from './vec/prefixed'
 import {
   EXPAND_PANNING,
@@ -58,10 +61,15 @@ const viewerMachine = setup({
     shouldZoom: (_, { ev }: { ev: KeyboardEvent }) => keyToZoom(ev.key) !== 0,
     isTouching: ({ context: { touching } }) => touching,
     isHoming: ({ context: { homing } }) => homing,
-    isMapHtmlRendered: ({ context }) => context.mapHtmlRendered,
-    isMapSvgRendered: ({ context }) => context.mapSvgRendered,
-    isMapSvgSymbolsRendered: ({ context }) => context.mapSvgSymbolsRendered,
-    isUiRendered: ({ context }) => context.uiRendered,
+    isMapHtmlRendered: () =>
+      document.querySelector(`#${MAP_HTML_ROOT_ID}`)?.shadowRoot !== null,
+    isMapSvgRendered: () =>
+      document.querySelector(`#${MAP_SVG_ROOT_ID}`)?.shadowRoot !== null,
+    isMapSvgSymbolsRendered: () =>
+      document.querySelector(`#${MAP_SVG_SYMBOLS_ROOT_ID}`)?.shadowRoot !==
+      null,
+    isUiRendered: () =>
+      document.querySelector(`#${UI_ROOT_ID}`)?.shadowRoot !== null,
     isContainerRendered: () => document.querySelector('.container') !== null,
   },
   actions: {
@@ -234,10 +242,6 @@ const viewerMachine = setup({
     ),
     notifyLock: emit({ type: 'LOCK', ok: true }),
     setRendered: assign({ rendered: true }),
-    setMapHtmlRendered: assign({ mapHtmlRendered: true }),
-    setMapSvgRendered: assign({ mapSvgRendered: true }),
-    setMapSvgSymbolsRendered: assign({ mapSvgSymbolsRendered: true }),
-    setUiRendered: assign({ uiRendered: true }),
   },
 }).createMachine({
   id: 'viewer',
@@ -255,24 +259,8 @@ const viewerMachine = setup({
     touching: false,
     animating: false,
     rendered: false,
-    mapHtmlRendered: false,
-    mapSvgRendered: false,
-    mapSvgSymbolsRendered: false,
-    uiRendered: false,
   },
   on: {
-    'RENDERED.MAP-HTML': {
-      actions: 'setMapHtmlRendered',
-    },
-    'RENDERED.MAP-SVG': {
-      actions: 'setMapSvgRendered',
-    },
-    'RENDERED.MAP-SVG-SYMBOLS': {
-      actions: 'setMapSvgSymbolsRendered',
-    },
-    'RENDERED.UI': {
-      actions: 'setUiRendered',
-    },
     'TOUCH.LOCK': {
       actions: [
         'startTouching',

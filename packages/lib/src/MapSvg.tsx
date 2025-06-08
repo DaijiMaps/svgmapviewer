@@ -3,11 +3,7 @@ import { type ReactNode, useEffect } from 'react'
 import { svgMapViewerConfig } from './lib'
 import { boxMap, boxToViewBox } from './lib/box/prefixed'
 import { renderShadowRoot } from './lib/dom'
-import {
-  MAP_SVG_CONTENT_ID,
-  MAP_SVG_ROOT_ID,
-  useMapSvgRendered,
-} from './lib/map-svg-react'
+import { MAP_SVG_CONTENT_ID, MAP_SVG_ROOT_ID } from './lib/map-svg-react'
 import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
 import { RenderMap } from './Map'
@@ -30,9 +26,6 @@ export function MapSvg(): ReactNode {
 }
 
 function MapSvgSvg(): ReactNode {
-  // eslint-disable-next-line functional/no-expression-statements
-  useMapSvgRendered()
-
   const { scroll } = useLayout()
   const { x, y, width, height } = boxMap(svgMapViewerConfig.origViewBox, trunc2)
 

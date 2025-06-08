@@ -37,10 +37,6 @@ export type ViewerContext = {
   homing: boolean
   animating: boolean // XXX
   rendered: boolean
-  mapHtmlRendered: boolean
-  mapSvgRendered: boolean
-  mapSvgSymbolsRendered: boolean
-  uiRendered: boolean
 }
 
 //// external event (request)

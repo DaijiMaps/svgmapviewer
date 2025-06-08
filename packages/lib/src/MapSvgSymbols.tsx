@@ -7,7 +7,6 @@ import { renderShadowRoot } from './lib/dom'
 import {
   MAP_SVG_SYMBOLS_CONTENT_ID,
   MAP_SVG_SYMBOLS_ROOT_ID,
-  useMapSvgSymbolsRendered,
 } from './lib/map-svg-react'
 import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
@@ -35,9 +34,6 @@ export function MapSvgSymbols(): ReactNode {
 }
 
 function MapSvgSymbolsSvg(): ReactNode {
-  // eslint-disable-next-line functional/no-expression-statements
-  useMapSvgSymbolsRendered()
-
   const { scroll } = useLayout()
 
   // viewBox will be updated by syncViewBox()
