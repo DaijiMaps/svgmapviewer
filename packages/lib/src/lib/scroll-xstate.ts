@@ -105,21 +105,30 @@ const scrollMachine = setup({
 export type SlideDoneCb = (ev: SlideDone) => void
 export type GetDoneCb = (ev: GetDone) => void
 export type SyncSyncDoneCb = (ev: SyncSyncDone) => void
+export type ScrollCbs = {
+  slideDoneCbs: Set<SlideDoneCb>
+  getDoneCbs: Set<GetDoneCb>
+  syncSyncDoneCbs: Set<SyncSyncDoneCb>
+}
 
-export const slideDoneCbs: Set<SlideDoneCb> = new Set<SlideDoneCb>()
-export const getDoneCbs: Set<GetDoneCb> = new Set<GetDoneCb>()
-export const syncSyncDoneCbs: Set<SyncSyncDoneCb> = new Set<SyncSyncDoneCb>()
+export const scrollCbs: ScrollCbs = {
+  slideDoneCbs: new Set(),
+  getDoneCbs: new Set(),
+  syncSyncDoneCbs: new Set(),
+}
 
 const scrollActor = createActor(scrollMachine, {
   systemId: 'system-scroll1',
 })
 
 scrollActor.on('SCROLL.SLIDE.DONE', (ev) =>
-  slideDoneCbs.forEach((cb) => cb(ev))
+  scrollCbs.slideDoneCbs.forEach((cb) => cb(ev))
 )
-scrollActor.on('SCROLL.GET.DONE', (ev) => getDoneCbs.forEach((cb) => cb(ev)))
+scrollActor.on('SCROLL.GET.DONE', (ev) =>
+  scrollCbs.getDoneCbs.forEach((cb) => cb(ev))
+)
 scrollActor.on('SCROLL.SYNCSYNC.DONE', (ev) =>
-  syncSyncDoneCbs.forEach((cb) => cb(ev))
+  scrollCbs.syncSyncDoneCbs.forEach((cb) => cb(ev))
 )
 
 export function scrollActorStart(): void {

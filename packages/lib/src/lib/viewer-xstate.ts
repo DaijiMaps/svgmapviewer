@@ -26,7 +26,7 @@ import {
 } from './layout'
 import { getCurrentScroll } from './scroll'
 import { type GetDone, type SyncSyncDone } from './scroll-types'
-import { getDoneCbs, scrollSend, syncSyncDoneCbs } from './scroll-xstate'
+import { scrollCbs, scrollSend } from './scroll-xstate'
 import { styleSend } from './style-xstate'
 import { type SearchRes } from './types'
 import { type VecVec as Vec, vecVec } from './vec/prefixed'
@@ -702,8 +702,8 @@ function syncSyncDoneCb(ev: SyncSyncDone) {
     viewerSend({ type: 'SCROLL.SYNCSYNC.DONE', scroll: ev.scroll })
   }
 }
-getDoneCbs.add(getDoneCb)
-syncSyncDoneCbs.add(syncSyncDoneCb)
+scrollCbs.getDoneCbs.add(getDoneCb)
+scrollCbs.syncSyncDoneCbs.add(syncSyncDoneCb)
 
 //let pointereventmask: boolean = false
 //let toucheventmask: boolean = false
