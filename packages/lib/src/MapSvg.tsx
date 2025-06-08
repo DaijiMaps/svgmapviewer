@@ -1,11 +1,24 @@
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+import { type ReactNode, useEffect } from 'react'
 import { svgMapViewerConfig } from './lib'
 import { boxMap, boxToViewBox } from './lib/box/prefixed'
-import { MAP_SVG_CONTENT_ID, useMapSvgRendered } from './lib/map-svg-react'
+import { renderShadowRoot } from './lib/dom'
+import {
+  MAP_SVG_CONTENT_ID,
+  MAP_SVG_ROOT_ID,
+  useMapSvgRendered,
+} from './lib/map-svg-react'
 import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
 import { RenderMap } from './Map'
+import './MapSvg.css'
+
+export function MapSvgRoot(): ReactNode {
+  // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
+  useEffect(() => renderShadowRoot(MAP_SVG_ROOT_ID, <MapSvg />), [])
+
+  return <div id={MAP_SVG_ROOT_ID} className="content svg" />
+}
 
 export function MapSvg(): ReactNode {
   return (

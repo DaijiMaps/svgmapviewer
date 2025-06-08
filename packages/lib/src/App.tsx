@@ -2,7 +2,7 @@
 import { type ReactNode } from 'react'
 import './App.css'
 import { Container } from './Container'
-import { UiRoot } from './UiRoot'
+import { UiRoot } from './Ui'
 
 function App(): ReactNode {
   return (

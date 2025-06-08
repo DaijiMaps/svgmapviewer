@@ -1,11 +1,20 @@
 /* eslint-disable functional/functional-parameters */
-import { Fragment, type ReactNode, useMemo } from 'react'
+import { Fragment, type ReactNode, useEffect, useMemo } from 'react'
 import { fixupCssString } from './lib/css'
+import { renderShadowRoot } from './lib/dom'
 import { type POI } from './lib/geo'
 import { isLiked, useLikes } from './lib/like'
-import { useMapHtmlRendered } from './lib/map-html-react'
+import { MAP_HTML_ROOT_ID, useMapHtmlRendered } from './lib/map-html-react'
 import { useNames } from './lib/names'
 import { useViewerLayoutSvgScaleS } from './lib/viewer-xstate'
+import './MapHtml.css'
+
+export function MapHtmlRoot(): ReactNode {
+  // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
+  useEffect(() => renderShadowRoot(MAP_HTML_ROOT_ID, <MapHtml />), [])
+
+  return <div id={MAP_HTML_ROOT_ID} className="content html" />
+}
 
 export function MapHtml(): ReactNode {
   const { pointNames, areaNames } = useNames()
