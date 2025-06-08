@@ -30,6 +30,17 @@ export function MapSvgLabels(): ReactNode {
     <>
       <MapSvgLabelsSvg />
       <MapSvgLabelsDefs />
+      <style>
+        {`
+#map-svg-labels-svg,
+#map-svg-labels1 {
+  contain: layout;
+}
+text, tspan {
+  contain: layout;
+}
+`}
+      </style>
     </>
   )
 }
@@ -100,7 +111,12 @@ function RenderName(props: Readonly<{ _idx: number; _poi: POI }>): ReactNode {
       }}
     >
       {name.map((n, j) => (
-        <tspan key={j} textAnchor="middle" x="0" y={trunc2(j * 16 * 1.1)}>
+        <tspan
+          key={j}
+          textAnchor="middle"
+          x="0"
+          y={trunc2((-0.55 * name.length + j + 1.1) * 16 * 1.1)}
+        >
           {n}
         </tspan>
       ))}

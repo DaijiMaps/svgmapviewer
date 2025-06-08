@@ -21,6 +21,12 @@ export function MapSvg(): ReactNode {
     <>
       <MapSvgSvg />
       <MapSvgDefs />
+      <style>{`
+#map-svg-svg,
+#map1 {
+  contain: content;
+}
+`}</style>
     </>
   )
 }

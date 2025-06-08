@@ -30,6 +30,14 @@ export function MapSvgSymbols(): ReactNode {
     <>
       <MapSvgSymbolsSvg />
       <MapSvgSymbolsDefs />
+      <style>
+        {`
+#map-svg-symbols-svg,
+#map-svg-symbols1 {
+  contain: content;
+}
+`}
+      </style>
     </>
   )
 }
