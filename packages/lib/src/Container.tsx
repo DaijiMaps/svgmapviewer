@@ -16,7 +16,6 @@ import {
   sendScroll,
   sendWheel,
 } from './lib/viewer-react'
-import { MapHtmlRoot } from './MapHtml'
 import { MapSvgRoot } from './MapSvg'
 import { MapSvgLabelsRoot } from './MapSvgLabels'
 import { MapSvgSymbolsRoot } from './MapSvgSymbols'
@@ -47,7 +46,6 @@ export function Container(): ReactNode {
       <MapSvgRoot />
       <MapSvgSymbolsRoot />
       <MapSvgLabelsRoot />
-      <MapHtmlRoot />
     </div>
   )
 }

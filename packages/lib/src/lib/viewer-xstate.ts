@@ -319,7 +319,6 @@ const viewerMachine = setup({
               'isMapSvgRendered',
               'isMapSvgSymbolsRendered',
               'isMapSvgLabelsRendered',
-              'isMapHtmlRendered',
               'isUiRendered',
             ]),
             target: 'Layouting',
