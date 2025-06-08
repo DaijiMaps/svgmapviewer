@@ -9,6 +9,7 @@ import { findRadius } from './distance'
 import type { DistanceRadius } from './distance-types'
 import { emptyLayout, type Layout } from './layout'
 import { UI_ROOT_ID } from './ui-react'
+import { trunc7 } from './utils'
 import type { VecVec } from './vec/prefixed'
 
 export type StyleEvent =
@@ -61,8 +62,8 @@ const styleMachine = setup({
       const ew = pgeo.x > 0 ? 'E' : 'W'
       const ns = pgeo.y > 0 ? 'N' : 'S'
       if (!!lon && !!lat) {
-        lon.innerHTML = `${ew} ${truncate7(Math.abs(pgeo.x))}`
-        lat.innerHTML = `${ns} ${truncate7(Math.abs(pgeo.y))}`
+        lon.innerHTML = `${ew} ${trunc7(Math.abs(pgeo.x))}`
+        lat.innerHTML = `${ns} ${trunc7(Math.abs(pgeo.y))}`
       }
     },
     setDistance: ({ context }) => {
@@ -148,10 +149,6 @@ const styleMachine = setup({
     },
   },
 })
-
-function truncate7(n: number): number {
-  return Math.round(n * 10000000) / 10000000
-}
 
 const styleActor = createActor(styleMachine, {
   systemId: 'system-viewer1',
