@@ -39,11 +39,11 @@ function UiContent(): ReactNode {
   return (
     <div className="ui">
       <Shadow />
-      <Guides />
-      <Detail />
       <Header />
       <Footer />
       <Right />
+      <Guides />
+      <Detail />
     </div>
   )
 }
@@ -52,14 +52,14 @@ function UiStyle(): ReactNode {
   return (
     <>
       <AppCss />
+      <UiCss />
+      <ShadowCss />
+      <HeaderCss />
+      <FooterCss />
+      <RightCss />
       <GuidesCss />
       <BalloonCss />
       <DetailCss />
-      <FooterCss />
-      <HeaderCss />
-      <RightCss />
-      <ShadowCss />
-      <UiCss />
       <StyleUiStyle />
     </>
   )
