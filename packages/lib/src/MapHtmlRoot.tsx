@@ -3,12 +3,12 @@
 /* eslint-disable functional/no-return-void */
 import { type ReactNode, useEffect } from 'react'
 import { renderShadowRoot } from './lib/dom'
-import { ROOT_ID } from './lib/map-html-react'
+import { MAP_HTML_ROOT_ID } from './lib/map-html-react'
 import { MapHtml } from './MapHtml'
 import './MapHtml.css'
 
 export function MapHtmlRoot(): ReactNode {
-  useEffect(() => renderShadowRoot(ROOT_ID, <MapHtml />), [])
+  useEffect(() => renderShadowRoot(MAP_HTML_ROOT_ID, <MapHtml />), [])
 
-  return <div id={ROOT_ID} className="content html" />
+  return <div id={MAP_HTML_ROOT_ID} className="content html" />
 }
