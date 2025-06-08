@@ -26,3 +26,7 @@ export function renderShadowRoot(
   // eslint-disable-next-line functional/no-expression-statements
   createRoot(shadowRoot).render(children)
 }
+
+export function isShadowRootRendered(id: string): boolean {
+  return (document.querySelector(`#${id}`)?.shadowRoot ?? null) !== null
+}

@@ -16,6 +16,7 @@ import {
   registerCbs,
 } from './config-xstate'
 import { fromMatrixSvg } from './coord'
+import { isShadowRootRendered } from './dom'
 import { keyToZoom } from './key'
 import {
   emptyLayout,
@@ -61,15 +62,11 @@ const viewerMachine = setup({
     shouldZoom: (_, { ev }: { ev: KeyboardEvent }) => keyToZoom(ev.key) !== 0,
     isTouching: ({ context: { touching } }) => touching,
     isHoming: ({ context: { homing } }) => homing,
-    isMapHtmlRendered: () =>
-      document.querySelector(`#${MAP_HTML_ROOT_ID}`)?.shadowRoot !== null,
-    isMapSvgRendered: () =>
-      document.querySelector(`#${MAP_SVG_ROOT_ID}`)?.shadowRoot !== null,
+    isMapHtmlRendered: () => isShadowRootRendered(MAP_HTML_ROOT_ID),
+    isMapSvgRendered: () => isShadowRootRendered(MAP_SVG_ROOT_ID),
     isMapSvgSymbolsRendered: () =>
-      document.querySelector(`#${MAP_SVG_SYMBOLS_ROOT_ID}`)?.shadowRoot !==
-      null,
-    isUiRendered: () =>
-      document.querySelector(`#${UI_ROOT_ID}`)?.shadowRoot !== null,
+      isShadowRootRendered(MAP_SVG_SYMBOLS_ROOT_ID),
+    isUiRendered: () => isShadowRootRendered(UI_ROOT_ID),
     isContainerRendered: () => document.querySelector('.container') !== null,
   },
   actions: {
