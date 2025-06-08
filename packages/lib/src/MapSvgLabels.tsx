@@ -1,5 +1,5 @@
 /* eslint-disable functional/functional-parameters */
-import { Fragment, type ReactNode, useEffect } from 'react'
+import { Fragment, type ReactNode, useEffect, useMemo } from 'react'
 import { svgMapViewerConfig } from './lib'
 import { boxMap, boxScaleAtCenter, boxToViewBox } from './lib/box/prefixed'
 import { renderShadowRoot } from './lib/dom'
@@ -29,7 +29,7 @@ export function MapSvgLabelsRoot(): ReactNode {
 
 export function MapSvgLabels(): ReactNode {
   return (
-    <div>
+    <>
       <MapSvgLabelsSvg />
       <MapSvgLabelsDefs />
       <style>
@@ -47,7 +47,7 @@ text, tspan {
       </style>
       <MapSvgLabelsStylePos />
       <MapSvgLabelsStyleSizes />
-    </div>
+    </>
   )
 }
 
@@ -79,32 +79,10 @@ ${pointNames
 }
 
 function MapSvgLabelsStyleSizes(): ReactNode {
-  const { areaNames } = useNames()
+  const { sizes } = useNames()
   const s = useLayoutSvgScaleS()
 
-  // XXX
-  // XXX
-  // XXX
-  // XXX
-  // XXX
-  return <></>
-  // XXX
-  // XXX
-  // XXX
-  // XXX
-  // XXX
-
-  const sizes = new Set(areaNames.map(({ size }) => Math.round(size / 10)))
-  const opacities = sizes.keys().map((sz) => {
-    const ss = sz / s
-    const MAX = 100
-    const MIN = 0
-    const opacity = Math.pow(
-      ss > MAX ? 0 : ss < MIN ? 1 : (MAX - ss) / (MAX - MIN),
-      2
-    )
-    return { size: sz, opacity }
-  })
+  const opacities = useMemo(() => getOpacities(sizes, s), [s, sizes])
 
   return (
     <style>{`
@@ -176,9 +154,13 @@ function MapSvgLabelsDefs(): ReactNode {
 }
 
 function RenderName(props: Readonly<{ _poi: POI }>): ReactNode {
-  const { id, name, size } = props._poi
-  const sz = Math.round(size / 10)
-  return (
+  const { id, name } = props._poi
+  const { sizeMap } = useNames()
+
+  const sz = id === null ? undefined : sizeMap.get(id)
+  return sz === undefined ? (
+    <></>
+  ) : (
     <text id={`name-${id}`} className={`size-${sz}`}>
       {name.map((n, j) => (
         <Fragment key={j}>
@@ -208,4 +190,20 @@ function RenderName(props: Readonly<{ _poi: POI }>): ReactNode {
       ))}
     </text>
   )
+}
+
+function getOpacities(
+  sizes: readonly number[],
+  scale: number
+): readonly { size: number; opacity: number }[] {
+  return sizes.map((size) => {
+    const l = Math.pow(2, size)
+    const ss = l / scale
+    const MAX = 1000
+    const MIN = 0
+    const opacity = trunc2(
+      Math.pow(ss > MAX ? 0 : ss < MIN ? 1 : (MAX - ss) / (MAX - MIN), 2)
+    )
+    return { size, opacity }
+  })
 }
