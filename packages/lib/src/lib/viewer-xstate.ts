@@ -62,12 +62,12 @@ const viewerMachine = setup({
     shouldZoom: (_, { ev }: { ev: KeyboardEvent }) => keyToZoom(ev.key) !== 0,
     isTouching: ({ context: { touching } }) => touching,
     isHoming: ({ context: { homing } }) => homing,
+    isContainerRendered: () => document.querySelector('.container') !== null,
     isMapHtmlRendered: () => isShadowRootRendered(MAP_HTML_ROOT_ID),
     isMapSvgRendered: () => isShadowRootRendered(MAP_SVG_ROOT_ID),
     isMapSvgSymbolsRendered: () =>
       isShadowRootRendered(MAP_SVG_SYMBOLS_ROOT_ID),
     isUiRendered: () => isShadowRootRendered(UI_ROOT_ID),
-    isContainerRendered: () => document.querySelector('.container') !== null,
   },
   actions: {
     //
