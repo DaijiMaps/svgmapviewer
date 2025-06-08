@@ -82,6 +82,18 @@ function MapSvgLabelsStyleSizes(): ReactNode {
   const { areaNames } = useNames()
   const s = useLayoutSvgScaleS()
 
+  // XXX
+  // XXX
+  // XXX
+  // XXX
+  // XXX
+  return <></>
+  // XXX
+  // XXX
+  // XXX
+  // XXX
+  // XXX
+
   const sizes = new Set(areaNames.map(({ size }) => Math.round(size / 10)))
   const opacities = sizes.keys().map((sz) => {
     const ss = sz / s
