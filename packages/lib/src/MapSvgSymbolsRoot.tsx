@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode, useEffect } from 'react'
-import { createRoot } from 'react-dom/client'
+import { renderShadowRoot } from './lib/dom'
 import { MAP_SVG_SYMBOLS_ROOT_ID } from './lib/map-svg-react'
 import { MapSvgSymbols } from './MapSvgSymbols'
 import './MapSvgSymbolsRoot.css'
@@ -14,12 +14,8 @@ export function MapSvgSymbolsRoot(): ReactNode {
 }
 
 function useMapSvgSymbolsRoot(): void {
-  useEffect(() => {
-    const root = document.querySelector(`#${MAP_SVG_SYMBOLS_ROOT_ID}`)
-    if (root === null || root.shadowRoot !== null) {
-      return
-    }
-    const shadowRoot = root.attachShadow({ mode: 'open' })
-    createRoot(shadowRoot).render(<MapSvgSymbols />)
-  }, [])
+  useEffect(
+    () => renderShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbols />),
+    []
+  )
 }

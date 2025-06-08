@@ -16,13 +16,13 @@ export function mountShadowRoot(id: string): void {
 export function renderShadowRoot(
   id: string,
   children: Readonly<ReactNode>
-): boolean {
+  // eslint-disable-next-line functional/no-return-void
+): void {
   const root = document.querySelector(`#${id}`)
   if (root === null || root.shadowRoot !== null) {
-    return false
+    return
   }
   const shadowRoot = root.attachShadow({ mode: 'open' })
   // eslint-disable-next-line functional/no-expression-statements
   createRoot(shadowRoot).render(children)
-  return true
 }
