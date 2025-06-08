@@ -19,6 +19,7 @@ export function MapHtmlRoot(): ReactNode {
 export function MapHtml(): ReactNode {
   const { pointNames, areaNames } = useNames()
 
+  return <p></p>
   return (
     <>
       <style>
