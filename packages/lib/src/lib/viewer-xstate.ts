@@ -312,6 +312,7 @@ const viewerMachine = setup({
           },
         },
         WaitingForMapRendered: {
+          after: { 250: { target: 'WaitingForMapRendered', reenter: true } },
           always: {
             guard: and([
               'isContainerRendered',

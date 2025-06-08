@@ -16,7 +16,9 @@ export function renderShadowRoot(
 }
 
 export function isShadowRootRendered(id: string): boolean {
-  return (document.querySelector(`#${id}`)?.shadowRoot ?? null) !== null
+  const l =
+    document.querySelector(`#${id}`)?.shadowRoot?.children?.length ?? null
+  return l !== null && l > 0
 }
 
 export function queryShadowRoot(
