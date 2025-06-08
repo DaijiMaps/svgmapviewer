@@ -1,3 +1,4 @@
+/* eslint-disable functional/functional-parameters */
 import { useMemo } from 'react'
 import { useConfigMapNames } from './config-xstate'
 import { type POI } from './geo'

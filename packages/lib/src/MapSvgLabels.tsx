@@ -91,10 +91,16 @@ function RenderName(props: Readonly<{ _idx: number; _poi: POI }>): ReactNode {
     pos: { x, y },
   } = props._poi
   const fs = Math.round(size / 10)
+  const s = fs / 16
   return (
-    <text key={props._idx} fontSize={fs}>
+    <text
+      key={props._idx}
+      style={{
+        transform: `translate(${trunc2(x)}px, ${trunc2(y)}px) scale(${s})`,
+      }}
+    >
       {name.map((n, j) => (
-        <tspan key={j} x={x} y={y + j * fs} textAnchor="middle">
+        <tspan key={j} textAnchor="middle" x="0" y={trunc2(j * 16 * 1.1)}>
           {n}
         </tspan>
       ))}

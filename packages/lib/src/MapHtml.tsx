@@ -1,12 +1,7 @@
 /* eslint-disable functional/functional-parameters */
-import { Fragment, type ReactNode, useEffect, useMemo } from 'react'
-import { fixupCssString } from './lib/css'
+import { type ReactNode, useEffect } from 'react'
 import { renderShadowRoot } from './lib/dom'
-import { type POI } from './lib/geo'
-import { isLiked, useLikes } from './lib/like'
 import { MAP_HTML_ROOT_ID } from './lib/map-html-react'
-import { useNames } from './lib/names'
-import { useViewerLayoutSvgScaleS } from './lib/viewer-xstate'
 import './MapHtml.css'
 
 export function MapHtmlRoot(): ReactNode {
@@ -17,9 +12,10 @@ export function MapHtmlRoot(): ReactNode {
 }
 
 export function MapHtml(): ReactNode {
+  return <p></p>
+  /*
   const { pointNames, areaNames } = useNames()
 
-  return <p></p>
   return (
     <>
       <style>
@@ -31,8 +27,10 @@ export function MapHtml(): ReactNode {
       <MapHtmlContentNamesArea _areaNames={areaNames} />
     </>
   )
+  */
 }
 
+/*
 function MapHtmlContentStyle(): ReactNode {
   return (
     <>
@@ -234,3 +232,4 @@ function RenderName(props: Readonly<{ poi: POI }>) {
     </>
   )
 }
+*/
