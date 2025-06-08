@@ -1,5 +1,5 @@
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode, useEffect } from 'react'
+import { Fragment, type ReactNode, useEffect } from 'react'
 import { svgMapViewerConfig } from './lib'
 import { boxMap, boxScaleAtCenter, boxToViewBox } from './lib/box/prefixed'
 import { renderShadowRoot } from './lib/dom'
@@ -8,8 +8,10 @@ import {
   MAP_SVG_LABELS_CONTENT_ID,
   MAP_SVG_LABELS_ROOT_ID,
 } from './lib/map-svg-react'
+import { useLayoutSvgScaleS } from './lib/map-xstate'
 import { useNames } from './lib/names'
 import { useLayout } from './lib/style-xstate'
+import { voffset } from './lib/text'
 import { trunc2 } from './lib/utils'
 import './MapSvgLabels.css'
 import { MapSvgLabelsStyle } from './MapSvgStyle'
@@ -35,13 +37,47 @@ export function MapSvgLabels(): ReactNode {
 #map-svg-labels-svg,
 #map-svg-labels1 {
   contain: layout;
+  text-rendering: optimizespeed;
+  shape-rendering: optimizespeed;
 }
 text, tspan {
   contain: layout;
 }
 `}
       </style>
+      <MapSvgLabelsStyleSizes />
     </>
+  )
+}
+
+function MapSvgLabelsStyleSizes(): ReactNode {
+  const { areaNames } = useNames()
+  const s = useLayoutSvgScaleS()
+
+  const sizes = new Set(areaNames.map(({ size }) => Math.round(size / 10)))
+  const opacities = sizes.keys().map((sz) => {
+    const ss = sz / s
+    const MAX = 100
+    const MIN = 0
+    const opacity = Math.pow(
+      ss > MAX ? 0 : ss < MIN ? 1 : (MAX - ss) / (MAX - MIN),
+      2
+    )
+    return { size: sz, opacity }
+  })
+
+  return (
+    <style>{`
+${opacities
+  .map(
+    ({ size, opacity }) => `
+.size-${size} {
+  opacity: ${opacity};
+}
+`
+  )
+  .reduce((a, b) => a + b)}
+`}</style>
   )
 }
 
@@ -81,12 +117,16 @@ function MapSvgLabelsDefs(): ReactNode {
       <g id="map-svg-labels1">
         <g>
           {pointNames.map((poi, idx) => (
-            <RenderName _idx={idx} _poi={poi} />
+            <Fragment key={idx}>
+              <RenderName _poi={poi} />
+            </Fragment>
           ))}
         </g>
         <g>
           {areaNames.map((poi, idx) => (
-            <RenderName _idx={idx} _poi={poi} />
+            <Fragment key={idx}>
+              <RenderName _poi={poi} />
+            </Fragment>
           ))}
         </g>
         <MapSvgLabelsStyle />
@@ -95,30 +135,46 @@ function MapSvgLabelsDefs(): ReactNode {
   )
 }
 
-function RenderName(props: Readonly<{ _idx: number; _poi: POI }>): ReactNode {
+function RenderName(props: Readonly<{ _poi: POI }>): ReactNode {
   const {
     name,
     size,
     pos: { x, y },
   } = props._poi
-  const fs = Math.round(size / 10)
-  const s = fs / 16
+  const sz = Math.round(size / 10)
+  const s = sz / 16
   return (
     <text
-      key={props._idx}
+      className={`size-${sz}`}
       style={{
         transform: `translate(${trunc2(x)}px, ${trunc2(y)}px) scale(${s})`,
       }}
     >
       {name.map((n, j) => (
-        <tspan
-          key={j}
-          textAnchor="middle"
-          x="0"
-          y={trunc2((-0.55 * name.length + j + 1.1) * 16 * 1.1)}
-        >
-          {n}
-        </tspan>
+        <Fragment key={j}>
+          <tspan
+            textAnchor="middle"
+            alignmentBaseline="middle"
+            x="0"
+            y={trunc2(voffset(name.length, j) * 16)}
+            fill="none"
+            stroke="white"
+            strokeWidth="1"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            {n}
+          </tspan>
+          <tspan
+            textAnchor="middle"
+            alignmentBaseline="middle"
+            x="0"
+            y={trunc2(voffset(name.length, j) * 16)}
+            fill="black"
+          >
+            {n}
+          </tspan>
+        </Fragment>
       ))}
     </text>
   )
