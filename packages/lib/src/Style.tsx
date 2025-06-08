@@ -25,6 +25,7 @@ import {
   useSvgMatrix,
 } from './lib/style-xstate'
 import { useDetail } from './lib/ui-xstate'
+import { trunc2 } from './lib/utils'
 import { viewerSend } from './lib/viewer-xstate'
 import { MeasurePath, MeasureStyle } from './Measure'
 import { RightStyle } from './Right'
@@ -47,12 +48,12 @@ export function styleRoot(): void {
 
 function Style(): ReactNode {
   return (
-    <style>
+    <>
       <LayoutStyle />
       <DraggingStyle />
       <ModeStyle />
       <AnimationStyle />
-    </style>
+    </>
   )
 }
 
@@ -78,22 +79,22 @@ function LayoutStyle(): ReactNode {
   }, [rendered])
 
   return (
-    <>{`
+    <style>{`
 /* layout */
 .container, #ui { display: ${!rendered ? `none` : `initial`}; }
 ${!animating ? appearing_none : appearing}
 .container > .content {
-  width: ${scroll.width}px;
-  height: ${scroll.height}px;
+  width: ${trunc2(scroll.width)}px;
+  height: ${trunc2(scroll.height)}px;
 }
 .container > .content.svg {
-  --svg-viewbox: ${svg.x} ${svg.y} ${svg.width} ${svg.height};
+  --svg-viewbox: ${trunc2(svg.x)} ${trunc2(svg.y)} ${trunc2(svg.width)} ${trunc2(svg.height)};
 }
 .container > .content.html {
   --svg-matrix: ${matrixString};
   --svg-scale: ${svgScale.s};
 }
-`}</>
+`}</style>
   )
 }
 
@@ -106,7 +107,7 @@ const appearing_none = `
 `
 const appearing = `
 .container, #ui {
-  will-change: opacity;
+  will-change: opacity transform;
   animation: container-appearing ${1000}ms ease;
 }
 @keyframes container-appearing {
@@ -123,7 +124,7 @@ function DraggingStyle(): ReactNode {
   const dragging = useDragging()
 
   return (
-    <>
+    <style>
       {!dragging
         ? ``
         : `
@@ -133,7 +134,7 @@ function DraggingStyle(): ReactNode {
   overflow: scroll;
 }
 `}
-    </>
+    </style>
   )
 }
 
@@ -143,7 +144,7 @@ function DraggingStyle(): ReactNode {
 function ModeStyle(): ReactNode {
   const mode = useMode()
   return (
-    <>
+    <style>
       {mode === 'pointing' || mode === 'locked'
         ? `
 /* mode */
@@ -158,12 +159,12 @@ function ModeStyle(): ReactNode {
   --mode: ${mode};
   cursor: move;
   overflow: scroll;
-  will-change: scroll-position;
+  will-change: scroll-position transform;
   touch-action: pan-x pan-y;
   transform: translate3d(0px, 0px, 0px);
 }
 `}
-    </>
+    </style>
   )
 }
 
@@ -178,10 +179,10 @@ function AnimationStyle(): ReactNode {
           ? css(animation.zoom.q)
           : ''
   return (
-    <>
+    <style>
       {'/* animation */'}
       {style}
-    </>
+    </style>
   )
 }
 
