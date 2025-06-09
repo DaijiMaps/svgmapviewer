@@ -13,6 +13,11 @@ export const getMapLayers: () => MapLayer[] = () => [
   },
   {
     type: 'multipolygon',
+    name: 'rock',
+    filter: (p) => !!p.natural?.match(/bare_rock/),
+  },
+  {
+    type: 'multipolygon',
     name: 'playground',
     filter: (p) =>
       !!p.tourism?.match(/zoo/) ||
@@ -84,7 +89,7 @@ export const getMapLayers: () => MapLayer[] = () => [
     type: 'line',
     name: 'footway',
     width: 1,
-    filter: (p) => !!p.highway?.match(/^(footway|pedestrian|steps)$/),
+    filter: (p) => !!p.highway?.match(/^(footway|steps)$/),
   },
   {
     type: 'line',
@@ -103,6 +108,12 @@ export const getMapLayers: () => MapLayer[] = () => [
     name: 'service',
     width: 4,
     filter: (p) => !!p.highway?.match(/^(service)$/),
+  },
+  {
+    type: 'line',
+    name: 'pedestrian',
+    width: 8,
+    filter: (p) => !!p.highway?.match(/^(pedestrian)$/),
   },
   {
     type: 'line',

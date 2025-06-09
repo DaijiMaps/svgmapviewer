@@ -4,6 +4,11 @@ export const mapSvgStyle = `
   fill-opacity: 1;
 }
 
+.rock {
+  fill: gray;
+  fill-opacity: 0.5;
+}
+
 .grave_yard {
   fill: black;
   fill-opacity: 0.1;
@@ -106,6 +111,7 @@ export const mapSvgStyle = `
   stroke-linejoin: round;
 }
 
+.pedestrian,
 .footway {
   fill: none;
   stroke: white;
