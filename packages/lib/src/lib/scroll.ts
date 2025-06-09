@@ -9,7 +9,7 @@ import type { Size } from './types'
 // XXX make this async
 // XXX call this from scroll-xstate as invoke (Promise)
 // XXX return status
-export const syncScroll = (b: BoxBox): boolean => {
+export function syncScroll(b: BoxBox): boolean {
   if (b === null) {
     return true
   }
