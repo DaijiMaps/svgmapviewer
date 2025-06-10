@@ -2,8 +2,6 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode, useEffect, useMemo } from 'react'
-import { svgMapViewerConfig } from './lib'
-import { boxMap, boxScaleAtCenter, boxToViewBox } from './lib/box/prefixed'
 import { renderShadowRoot } from './lib/dom'
 import type { POI } from './lib/geo'
 import {
@@ -101,29 +99,17 @@ ${opacities
 }
 
 function MapSvgLabelsSvg(): ReactNode {
-  const { scroll } = useLayout()
-  const { x, y, width, height } = boxMap(
-    boxScaleAtCenter(svgMapViewerConfig.origViewBox, 3),
-    trunc2
-  )
+  const { scroll, svg } = useLayout()
 
   // viewBox will be updated by syncViewBox()
   return (
     <svg
       id={MAP_SVG_LABELS_CONTENT_ID}
-      viewBox="0 0 1 1"
+      viewBox={`${trunc2(svg.x)} ${trunc2(svg.y)} ${trunc2(svg.width)} ${trunc2(svg.height)}`}
       width={trunc2(scroll.width)}
       height={trunc2(scroll.height)}
     >
-      <svg
-        viewBox={boxToViewBox({ x, y, width, height })}
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-      >
-        <use href="#map-svg-labels1" />
-      </svg>
+      <use href="#map-svg-labels1" />
     </svg>
   )
 }
