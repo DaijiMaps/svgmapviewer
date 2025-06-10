@@ -35,6 +35,10 @@ export function MapSvgSymbols(): ReactNode {
 #map-svg-symbols-svg,
 #map-svg-symbols1 {
   contain: content;
+  pointer-events: none;
+}
+#map-svg-symbols-defs {
+  display: none;
 }
 `}
       </style>
@@ -72,7 +76,7 @@ function MapSvgSymbolsSvg(): ReactNode {
 
 function MapSvgSymbolsDefs(): ReactNode {
   return (
-    <svg>
+    <svg id="map-svg-symbols-defs">
       <g id="map-svg-symbols1">
         <defs>
           <RenderMapAssetsDefault />
