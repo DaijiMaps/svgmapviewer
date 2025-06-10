@@ -1,3 +1,5 @@
+/* eslint-disable functional/no-expression-statements */
+/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode, useEffect, useMemo } from 'react'
 import { svgMapViewerConfig } from './lib'
@@ -17,9 +19,7 @@ import './MapSvgLabels.css'
 import { MapSvgLabelsStyle } from './MapSvgStyle'
 
 export function MapSvgLabelsRoot(): ReactNode {
-  // eslint-disable-next-line functional/no-expression-statements
   useEffect(
-    // eslint-disable-next-line functional/no-return-void
     () => renderShadowRoot(MAP_SVG_LABELS_ROOT_ID, <MapSvgLabels />),
     []
   )
@@ -37,8 +37,9 @@ export function MapSvgLabels(): ReactNode {
 #map-svg-labels-svg,
 #map-svg-labels1 {
   contain: content;
-  text-rendering: optimizespeed;
-  shape-rendering: optimizespeed;
+}
+#map-svg-labels-defs {
+  display: none;
 }
 text, tspan {
   contain: layout;
@@ -131,24 +132,26 @@ function MapSvgLabelsDefs(): ReactNode {
   const { pointNames, areaNames } = useNames()
 
   return (
-    <svg>
-      <g id="map-svg-labels1">
-        <g>
-          {pointNames.map((poi, idx) => (
-            <Fragment key={idx}>
-              <RenderName _poi={poi} />
-            </Fragment>
-          ))}
+    <svg id="map-svg-labels-defs">
+      <defs>
+        <g id="map-svg-labels1">
+          <g>
+            {pointNames.map((poi, idx) => (
+              <Fragment key={idx}>
+                <RenderName _poi={poi} />
+              </Fragment>
+            ))}
+          </g>
+          <g>
+            {areaNames.map((poi, idx) => (
+              <Fragment key={idx}>
+                <RenderName _poi={poi} />
+              </Fragment>
+            ))}
+          </g>
+          <MapSvgLabelsStyle />
         </g>
-        <g>
-          {areaNames.map((poi, idx) => (
-            <Fragment key={idx}>
-              <RenderName _poi={poi} />
-            </Fragment>
-          ))}
-        </g>
-        <MapSvgLabelsStyle />
-      </g>
+      </defs>
     </svg>
   )
 }
