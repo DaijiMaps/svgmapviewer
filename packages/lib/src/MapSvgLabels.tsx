@@ -44,36 +44,39 @@ text, tspan {
 }
 `}
       </style>
-      <MapSvgLabelsStylePos />
       <MapSvgLabelsStyleSizes />
     </>
   )
 }
 
-function MapSvgLabelsStylePos(): ReactNode {
+function MapSvgLabelsUses(): ReactNode {
   const { pointNames, areaNames } = useNames()
 
   return (
-    <style>{`
-${areaNames
-  .map(
-    ({ id, size, pos: { x, y } }) => `
-#name-${id} {
-  transform: translate(${trunc2(x)}px, ${trunc2(y)}px) scale(${Math.round(size / 10) / 16});
-}
-`
-  )
-  .reduce((a, b) => a + b)}
-${pointNames
-  .map(
-    ({ id, size, pos: { x, y } }) => `
-#name-${id} {
-  transform: translate(${trunc2(x)}px, ${trunc2(y)}px) scale(${Math.round(size / 10) / 16});
-}
-`
-  )
-  .reduce((a, b) => a + b)}
-`}</style>
+    <g id="map-svg-labels1">
+      <g>
+        {pointNames.map(({ id, pos: { x, y }, size }, idx) => (
+          <use
+            key={idx}
+            href={`#name-${id}`}
+            style={{
+              transform: `translate(${trunc2(x)}px, ${trunc2(y)}px) scale(${Math.round(size / 10) / 16})`,
+            }}
+          />
+        ))}
+      </g>
+      <g>
+        {areaNames.map(({ id, pos: { x, y }, size }, idx) => (
+          <use
+            key={idx}
+            href={`#name-${id}`}
+            style={{
+              transform: `translate(${trunc2(x)}px, ${trunc2(y)}px) scale(${Math.round(size / 10) / 16})`,
+            }}
+          />
+        ))}
+      </g>
+    </g>
   )
 }
 
@@ -120,24 +123,23 @@ function MapSvgLabelsDefs(): ReactNode {
   return (
     <svg id="map-svg-labels-defs">
       <defs>
-        <g id="map-svg-labels1">
-          <g>
-            {pointNames.map((poi, idx) => (
-              <Fragment key={idx}>
-                <RenderName _poi={poi} />
-              </Fragment>
-            ))}
-          </g>
-          <g>
-            {areaNames.map((poi, idx) => (
-              <Fragment key={idx}>
-                <RenderName _poi={poi} />
-              </Fragment>
-            ))}
-          </g>
-          <MapSvgLabelsStyle />
+        <g>
+          {pointNames.map((poi, idx) => (
+            <Fragment key={idx}>
+              <RenderName _poi={poi} />
+            </Fragment>
+          ))}
         </g>
+        <g>
+          {areaNames.map((poi, idx) => (
+            <Fragment key={idx}>
+              <RenderName _poi={poi} />
+            </Fragment>
+          ))}
+        </g>
+        <MapSvgLabelsStyle />
       </defs>
+      <MapSvgLabelsUses />
     </svg>
   )
 }
