@@ -6,7 +6,7 @@ import { type ReactNode } from 'react'
 import { assign, createActor, emit, setup } from 'xstate'
 import { getCurrentScroll, scrollEventCbs } from './lib/scroll'
 import { styleSend } from './lib/style-xstate'
-import { Measure, MeasureCoordinate } from './Measure'
+import { Measure, MeasureCoordinate, MeasureDistance } from './Measure'
 
 export function Guides(): ReactNode {
   return (
@@ -14,6 +14,7 @@ export function Guides(): ReactNode {
       <svg className="guides">
         <Measure />
       </svg>
+      <MeasureDistance />
       <MeasureCoordinate />
     </div>
   )

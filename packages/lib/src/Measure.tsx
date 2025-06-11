@@ -22,7 +22,6 @@ export function Measure(): ReactNode {
         */}
         <MeasurePath />
       </g>
-      <MeasureDistance />
     </>
   )
 }
@@ -31,15 +30,19 @@ export function MeasureDistance(): ReactNode {
   const { svg } = useDistanceRadius()
 
   return (
-    <g className="distance">
-      <text id={`distance-origin`}>0m</text>
+    <div id="distance">
+      <p id={`distance-origin`}>0m</p>
       {INDEXES.map((i) => (
         <Fragment key={i}>
-          <text id={`distance-x-${i + 1}`}>{svg + i}m</text>
-          <text id={`distance-y-${i + 1}`}>{svg + i}m</text>
+          <p id={`distance-x-${i + 1}`} className="distance-x">
+            {svg * (i + 1)}m
+          </p>
+          <p id={`distance-y-${i + 1}`} className="distance-y">
+            {svg * (i + 1)}m
+          </p>
         </Fragment>
       ))}
-    </g>
+    </div>
   )
 }
 
@@ -157,6 +160,7 @@ export function MeasureStyle(): ReactNode {
 `
 
   const coordinateStyle = `
+#distance,
 #coordinate {
   position: absolute;
   left: 0;
@@ -193,20 +197,35 @@ export function MeasureStyle(): ReactNode {
 
   const distanceOriginStyle = `
 #distance-origin {
-  transform: translate(${width / 2 + 2}px, ${height / 2 + 8}px) scale(0.5);
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0.1em;
+  padding: 0;
+  transform: translate(${width / 2}px, ${height / 2}px) scale(0.5);
+  transform-origin: left top;
   font-size: medium;
   font-weight: lighter;
-  text-anchor: start;
+}
+`
+  const distanceStyle = `
+.distance-x,
+.distance-y {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0.1em;
+  padding: 0;
+  font-size: medium;
+  font-weight: lighter;
+  transform-origin: left top;
 }
 `
   const distanceXStyle = INDEXES.map((i) => {
     const r = client * (i + 1)
     return `
 #distance-x-${i + 1} {
-  transform: translate(${width / 2 + 2 + r}px, ${height / 2 + 8}px) scale(0.5);
-  font-size: medium;
-  font-weight: lighter;
-  text-anchor: start;
+  transform: translate(${width / 2 + r}px, ${height / 2}px) scale(0.5);
 }
 `
   })
@@ -215,10 +234,7 @@ export function MeasureStyle(): ReactNode {
     const r = client * (i + 1)
     return `
 #distance-y-${i + 1} {
-  transform: translate(${width / 2 + 2}px, ${height / 2 + 8 + r}px) scale(0.5);
-  font-size: medium;
-  font-weight: lighter;
-  text-anchor: start;
+  transform: translate(${width / 2}px, ${height / 2 + r}px) scale(0.5);
 }
 `
   })
@@ -231,6 +247,7 @@ export function MeasureStyle(): ReactNode {
       {longitudeStyle}
       {latitudeStyle}
       {distanceOriginStyle}
+      {distanceStyle}
       {distanceXStyle}
       {distanceYStyle}
     </>
