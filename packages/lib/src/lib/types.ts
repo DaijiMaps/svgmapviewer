@@ -45,6 +45,16 @@ export interface SearchResP {
   p: Vec // cclient
 }
 
+export interface LonLat {
+  lon: string
+  lat: string
+}
+
+export interface Range {
+  start: Vec
+  end: Vec
+}
+
 ////
 
 export type ZoomStartCb = (

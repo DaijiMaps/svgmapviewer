@@ -10,7 +10,7 @@ import {
   MAP_SVG_LABELS_ROOT_ID,
 } from './lib/map-svg-react'
 import { useLayoutSvgScaleS } from './lib/map-xstate'
-import { useNames } from './lib/names'
+import { useNameRanges, useNames } from './lib/names'
 import { useLayout } from './lib/style-xstate'
 import { voffset } from './lib/text'
 import { trunc2 } from './lib/utils'
@@ -46,6 +46,7 @@ text, tspan {
 `}
       </style>
       <MapSvgLabelsStyle />
+      <MapSvgLabelsStyleRanges />
       <MapSvgLabelsStyleSizes />
     </>
   )
@@ -71,6 +72,7 @@ function MapSvgLabelsUses(): ReactNode {
         {areaNames.map(({ id, pos: { x, y }, size }, idx) => (
           <use
             key={idx}
+            id={`use-${id}`}
             href={`#name-${id}`}
             style={{
               transform: `translate(${trunc2(x)}px, ${trunc2(y)}px) scale(${Math.round(size / 10) / 16})`,
@@ -79,6 +81,28 @@ function MapSvgLabelsUses(): ReactNode {
         ))}
       </g>
     </g>
+  )
+}
+
+function MapSvgLabelsStyleRanges(): ReactNode {
+  const { areaRange } = useNameRanges()
+
+  const iids = Array.from(areaRange.insides.keys())
+    .map((id) => `#use-${id}`)
+    .join(', ')
+  const oids = Array.from(areaRange.outsides.keys())
+    .map((id) => `#use-${id}`)
+    .join(', ')
+
+  return (
+    <style>{`
+${iids} {
+  display: initial !important;
+}
+${oids} {
+  display: none !important;
+}
+`}</style>
   )
 }
 

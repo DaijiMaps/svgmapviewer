@@ -21,12 +21,12 @@ export type StyleEvent =
   | { type: 'STYLE.SCROLL'; currentScroll: CurrentScroll } // p == pscroll
   | { type: 'ANIMATION.END' } // null to stop animation
 
-interface LonLat {
+export interface LonLat {
   lon: string
   lat: string
 }
 
-interface Range {
+export interface Range {
   start: VecVec
   end: VecVec
 }
