@@ -6,15 +6,17 @@ import { useMemo } from 'react'
 import { useConfigMapNames } from './config-xstate'
 import { type POI } from './geo'
 
-// XXX
-// XXX
-// XXX
-export function useNames(): Readonly<{
+export interface Names {
   readonly pointNames: readonly POI[]
   readonly areaNames: readonly POI[]
   readonly sizeMap: Readonly<Map<number, number>>
   readonly sizes: readonly number[]
-}> {
+}
+
+// XXX
+// XXX
+// XXX
+export function useNames(): Readonly<Names> {
   const mapNames = useConfigMapNames()
 
   const pointNames = useMemo(() => {
@@ -47,10 +49,7 @@ export function useNames(): Readonly<{
 // XXX
 // XXX
 
-function getSizes(names: readonly POI[]): {
-  readonly sizeMap: Readonly<Map<number, number>>
-  readonly sizes: readonly number[]
-} {
+function getSizes(names: readonly POI[]): Pick<Names, 'sizeMap' | 'sizes'> {
   const xs: readonly [number, number][] = pipe(
     names,
     readonlyArray.filterMap(({ id, size }) =>
