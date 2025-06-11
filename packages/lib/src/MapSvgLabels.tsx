@@ -45,6 +45,7 @@ text, tspan {
 }
 `}
       </style>
+      <MapSvgLabelsStyle />
       <MapSvgLabelsStyleSizes />
     </>
   )
@@ -138,7 +139,6 @@ function MapSvgLabelsDefs(): ReactNode {
             </Fragment>
           ))}
         </g>
-        <MapSvgLabelsStyle />
       </defs>
       <MapSvgLabelsUses />
     </svg>
