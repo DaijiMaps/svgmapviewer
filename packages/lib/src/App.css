@@ -88,3 +88,7 @@ a:link {
 .map > * {
   contain: content;
 }
+
+#style-svg-defs {
+  display: none;
+}

@@ -59,7 +59,7 @@ function Style(): ReactNode {
 
 function Defs(): ReactNode {
   return (
-    <svg>
+    <svg id="style-svg-defs">
       <defs>
         <MeasureDefs />
       </defs>
