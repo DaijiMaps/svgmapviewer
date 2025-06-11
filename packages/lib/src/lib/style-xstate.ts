@@ -8,7 +8,6 @@ import { fromSvgToScroll } from './coord'
 import { findRadius } from './distance'
 import type { DistanceRadius } from './distance-types'
 import { emptyLayout, type Layout } from './layout'
-import { UI_ROOT_ID } from './ui-react'
 import { trunc7 } from './utils'
 import type { VecVec } from './vec/prefixed'
 
@@ -20,12 +19,18 @@ export type StyleEvent =
   | { type: 'STYLE.LONLAT'; p: VecVec } // p == pscroll
   | { type: 'ANIMATION.END' } // null to stop animation
 
+interface LonLat {
+  lon: string
+  lat: string
+}
+
 interface StyleContext {
   rendered: boolean
   animating: boolean
   layout: Layout
   svgMatrix: DOMMatrixReadOnly
   geoMatrix: DOMMatrixReadOnly
+  lonLat: LonLat
   distanceRadius: DistanceRadius
   dragging: boolean
   mode: string
@@ -50,37 +55,17 @@ const styleMachine = setup({
     updateDistanceRadius: assign({
       distanceRadius: ({ context: { layout } }) => findRadius(layout),
     }),
-    setLonLat: ({ context }, { p }: { p: VecVec }) => {
-      const root = document.querySelector(`#${UI_ROOT_ID}`)?.shadowRoot
-      if (!root) {
-        return
-      }
-      // p == pscroll
-      const pgeo = context.geoMatrix.transformPoint(p)
-      const lon = root.querySelector('#longitude')
-      const lat = root.querySelector('#latitude')
-      const ew = pgeo.x > 0 ? 'E' : 'W'
-      const ns = pgeo.y > 0 ? 'N' : 'S'
-      if (!!lon && !!lat) {
-        lon.innerHTML = `${ew} ${trunc7(Math.abs(pgeo.x))}`
-        lat.innerHTML = `${ns} ${trunc7(Math.abs(pgeo.y))}`
-      }
-    },
-    setDistance: ({ context }) => {
-      const root = document.querySelector(`#${UI_ROOT_ID}`)?.shadowRoot
-      if (!root) {
-        return
-      }
-      const { svg } = context.distanceRadius
-      for (let i = 1; i < 20; i++) {
-        const dx = root.querySelector(`#distance-x-${i}`)
-        const dy = root.querySelector(`#distance-y-${i}`)
-        if (!!dx && !!dy) {
-          dx.innerHTML = `${svg * i}m`
-          dy.innerHTML = `${svg * i}m`
-        }
-      }
-    },
+    setLonLat: assign({
+      lonLat: ({ context }, { p }: { p: VecVec }) => {
+        // p == pscroll
+        const pgeo = context.geoMatrix.transformPoint(p)
+        const ew = pgeo.x > 0 ? 'E' : 'W'
+        const ns = pgeo.y > 0 ? 'N' : 'S'
+        const lon = `${ew} ${trunc7(Math.abs(pgeo.x))}`
+        const lat = `${ns} ${trunc7(Math.abs(pgeo.y))}`
+        return { lon, lat }
+      },
+    }),
   },
 }).createMachine({
   id: 'style1',
@@ -90,6 +75,7 @@ const styleMachine = setup({
     layout: emptyLayout,
     svgMatrix: new DOMMatrixReadOnly(),
     geoMatrix: new DOMMatrixReadOnly(),
+    lonLat: { lon: '', lat: '' },
     distanceRadius: {
       svg: 0,
       client: 0,
@@ -116,7 +102,6 @@ const styleMachine = setup({
             'updateSvgMatrix',
             'updateGeoMatrix',
             'updateDistanceRadius',
-            'setDistance',
           ],
         },
         'STYLE.DRAGGING': {
@@ -191,6 +176,9 @@ export function useMode(): string {
 }
 export function useAnimation(): null | Animation {
   return useSelector(styleActor, (s) => s.context.animation)
+}
+export function useLonLat(): LonLat {
+  return useSelector(styleActor, (s) => s.context.lonLat)
 }
 export function useDistanceRadius(): DistanceRadius {
   return useSelector(styleActor, (s) => s.context.distanceRadius)

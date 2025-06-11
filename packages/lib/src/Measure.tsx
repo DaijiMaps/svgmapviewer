@@ -1,6 +1,10 @@
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode } from 'react'
-import { useDistanceRadius, useLayoutContainer } from './lib/style-xstate'
+import {
+  useDistanceRadius,
+  useLayoutContainer,
+  useLonLat,
+} from './lib/style-xstate'
 import { useOpenCloseBalloon } from './lib/ui-xstate'
 
 export function Measure(): ReactNode {
@@ -18,21 +22,37 @@ export function Measure(): ReactNode {
         */}
         <MeasurePath />
       </g>
-      <g className="distance">
-        <text id={`distance-origin`}>0m</text>
-        {INDEXES.map((i) => (
-          <Fragment key={i}>
-            <text id={`distance-x-${i + 1}`} />
-            <text id={`distance-y-${i + 1}`} />
-          </Fragment>
-        ))}
-      </g>
-      <g className="coordinate">
-        {/* placeholder - updated by style lonlat */}
-        <text id="longitude" />
-        <text id="latitude" />
-      </g>
+      <MeasureDistance />
+      <MeasureCoordinate />
     </>
+  )
+}
+
+function MeasureDistance() {
+  const { svg } = useDistanceRadius()
+
+  return (
+    <g className="distance">
+      <text id={`distance-origin`}>0m</text>
+      {INDEXES.map((i) => (
+        <Fragment key={i}>
+          <text id={`distance-x-${i + 1}`}>{svg + i}m</text>
+          <text id={`distance-y-${i + 1}`}>{svg + i}m</text>
+        </Fragment>
+      ))}
+    </g>
+  )
+}
+
+function MeasureCoordinate() {
+  const { lon, lat } = useLonLat()
+
+  return (
+    <g className="coordinate">
+      {/* placeholder - updated by style lonlat */}
+      <text id="longitude">{lon}</text>
+      <text id="latitude">{lat}</text>
+    </g>
   )
 }
 
