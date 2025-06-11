@@ -23,12 +23,11 @@ export function Measure(): ReactNode {
         <MeasurePath />
       </g>
       <MeasureDistance />
-      <MeasureCoordinate />
     </>
   )
 }
 
-function MeasureDistance() {
+export function MeasureDistance(): ReactNode {
   const { svg } = useDistanceRadius()
 
   return (
@@ -44,15 +43,15 @@ function MeasureDistance() {
   )
 }
 
-function MeasureCoordinate() {
+export function MeasureCoordinate(): ReactNode {
   const { lon, lat } = useLonLat()
 
   return (
-    <g className="coordinate">
+    <div id="coordinate">
       {/* placeholder - updated by style lonlat */}
-      <text id="longitude">{lon}</text>
-      <text id="latitude">{lat}</text>
-    </g>
+      <p id="longitude">{lon}</p>
+      <p id="latitude">{lat}</p>
+    </div>
   )
 }
 
@@ -157,20 +156,38 @@ export function MeasureStyle(): ReactNode {
 }
 `
 
+  const coordinateStyle = `
+#coordinate {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: ${width}px;
+  height: ${height}px;
+}
+`
+
   const longitudeStyle = `
 #longitude {
-  transform: translate(${width / 2 + 2}px, ${height / 2 - 2}px) scale(0.5);
-  font-size: medium;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0.1em;
+  padding: 0;
+  transform: translate(${-width / 2}px, ${-height / 2}px) scale(0.5);
+  transform-origin: right bottom;
   font-weight: lighter;
-  text-anchor: start;
 }
 `
   const latitudeStyle = `
 #latitude {
-  transform: translate(${width / 2 - 2}px, ${height / 2 - 2}px) scale(0.5);
-  font-size: medium;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 0.1em;
+  padding: 0;
+  transform: translate(${width / 2}px, ${-height / 2}px) scale(0.5);
+  transform-origin: left bottom;
   font-weight: lighter;
-  text-anchor: end;
 }
 `
 
@@ -210,6 +227,7 @@ export function MeasureStyle(): ReactNode {
     <>
       {pathStyle}
       {animationStyle}
+      {coordinateStyle}
       {longitudeStyle}
       {latitudeStyle}
       {distanceOriginStyle}
