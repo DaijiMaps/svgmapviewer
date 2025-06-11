@@ -7,7 +7,9 @@ import { registerCbs } from './config-xstate'
 import { fromSvgToScroll } from './coord'
 import { findRadius } from './distance'
 import type { DistanceRadius } from './distance-types'
+import { makeExpire } from './expire-xstate'
 import { emptyLayout, type Layout } from './layout'
+import { getCurrentScroll, scrollEventCbs } from './scroll'
 import { trunc7 } from './utils'
 import type { VecVec } from './vec/prefixed'
 
@@ -189,3 +191,18 @@ registerCbs({
     styleSend({ type: 'STYLE.LAYOUT', layout, rendered }),
   animationCb: (animation) => styleSend({ type: 'STYLE.ANIMATION', animation }),
 })
+
+// scroll & expire
+
+function expireCb() {
+  const { scroll, client } = getCurrentScroll()
+  const p = {
+    x: scroll.x + client.width / 2,
+    y: scroll.y + client.height / 2,
+  }
+  styleSend({ type: 'STYLE.LONLAT', p })
+}
+
+const expire = makeExpire(500, expireCb)
+
+scrollEventCbs.add(expire.tick)
