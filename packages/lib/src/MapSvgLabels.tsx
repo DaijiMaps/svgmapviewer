@@ -104,8 +104,8 @@ ${oids} {
 }
 /* define these to kick style re-calculation */
 use {
-  --niids: ${iids.length};
-  --noids: ${oids.length};
+  --n-insides: ${iids.length};
+  --n-outsides: ${oids.length};
 }
 `}</style>
   )
