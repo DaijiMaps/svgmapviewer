@@ -113,17 +113,17 @@ function filterName(
       return []
     }
   }
-  return split === undefined ? [name] : splitName(name.replace(split, ' $1 '))
+  return splitName(split === undefined ? name : name.replace(split, ' $1 '))
 }
 
+// eslint-disable-next-line no-irregular-whitespace
+const WHITESPACE = /[ 　][ 　]*/
+
 function splitName(s: string): string[] {
-  return (
-    s
-      .trim()
-      // eslint-disable-next-line no-irregular-whitespace
-      .split(/[ 　][ 　]*/)
-      .map((s) => s.trim())
-  )
+  return s
+    .trim()
+    .split(WHITESPACE)
+    .map((s) => s.trim())
 }
 
 function conv(p: V): V {
