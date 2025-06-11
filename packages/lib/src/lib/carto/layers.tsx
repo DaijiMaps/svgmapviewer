@@ -45,19 +45,22 @@ function LineLayerToPaths(layer: Readonly<MapLineLayer>): ReactNode {
     <></>
   ) : (
     <g className={layer.name} style={{ contain: 'content' }}>
-      {xs.map((x) => LinePathToPath(x, layer.name, layer.width))}
+      {xs.map((x, idx) =>
+        LinePathToPath(x, 'l' + idx, layer.name, layer.width)
+      )}
     </g>
   )
 }
 
 function LinePathToPath(
   { id, tags, width, vs }: Readonly<LinePath>,
+  key: string,
   layerName: string,
   defaultStrokeWidth?: number
 ): ReactNode {
   return (
     <path
-      key={`path${id}`}
+      key={key}
       id={id === undefined ? undefined : `path${id}`}
       className={[layerName, ...tags].join(' ').replaceAll(/;/g, '_')} // XXX level=0;1
       strokeWidth={width ?? defaultStrokeWidth}
@@ -110,19 +113,22 @@ function MultiPolygonLayerToPath(
     <></>
   ) : (
     <g className={layer.name}>
-      {xs.map((x) => MultiPolygonPathToPath(x, layer.name, layer.width))}
+      {xs.map((x, idx) =>
+        MultiPolygonPathToPath(x, 'mp' + idx, layer.name, layer.width)
+      )}
     </g>
   )
 }
 
 function MultiPolygonPathToPath(
   { id, tags, width, vs }: Readonly<MultiPolygonPath>,
+  key: string,
   layerName: string,
   defaultStrokeWidth?: number
 ): ReactNode {
   return (
     <path
-      key={id}
+      key={key}
       id={id}
       className={[layerName, ...tags].join(' ').replaceAll(/;/g, '_')} // XXX level=0;1
       strokeWidth={width ?? defaultStrokeWidth}
