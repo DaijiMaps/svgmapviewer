@@ -97,10 +97,15 @@ function MapSvgLabelsStyleRanges(): ReactNode {
   return (
     <style>{`
 ${iids} {
-  display: initial !important;
+  display: initial;
 }
 ${oids} {
-  display: none !important;
+  display: none;
+}
+/* define these to kick style re-calculation */
+use {
+  --niids: ${iids.length};
+  --noids: ${oids.length};
 }
 `}</style>
   )
