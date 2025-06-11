@@ -215,8 +215,11 @@ export function useSvgRange(): Range {
 }
 
 registerCbs({
-  layoutCb: (layout, rendered) =>
-    styleSend({ type: 'STYLE.LAYOUT', layout, rendered }),
+  layoutCb: (layout, rendered) => {
+    styleSend({ type: 'STYLE.LAYOUT', layout, rendered })
+    // XXX update name range after scroll is updated
+    requestAnimationFrame(() => expireCb())
+  },
   animationCb: (animation) => styleSend({ type: 'STYLE.ANIMATION', animation }),
 })
 

@@ -87,11 +87,17 @@ export function useNameRanges(): Ranges {
 
   const smallMap = pipe(
     sizes,
-    readonlyArray.map((sz) => {
+    readonlyArray.map<number, [number, boolean]>((sz) => {
+      // XXX
+      // XXX
+      // XXX
       const scale = Math.pow(2, sz) / 10 / 4
+      // XXX
+      // XXX
+      // XXX
       return [sz, scale < s]
     }),
-    (xs) => new Map<number, boolean>(xs as [number, boolean][])
+    (xs) => new Map(xs)
   )
 
   const pointRange = useMemo(
