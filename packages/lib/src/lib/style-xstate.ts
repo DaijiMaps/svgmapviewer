@@ -9,16 +9,15 @@ import { findRadius } from './distance'
 import type { DistanceRadius } from './distance-types'
 import { makeExpire } from './expire-xstate'
 import { emptyLayout, type Layout } from './layout'
-import { getCurrentScroll, scrollEventCbs } from './scroll'
+import { getCurrentScroll, scrollEventCbs, type CurrentScroll } from './scroll'
 import { trunc7 } from './utils'
-import type { VecVec } from './vec/prefixed'
 
 export type StyleEvent =
   | { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
   | { type: 'STYLE.DRAGGING'; dragging: boolean }
   | { type: 'STYLE.MODE'; mode: string }
   | { type: 'STYLE.ANIMATION'; animation: null | Animation } // null to stop animation
-  | { type: 'STYLE.LONLAT'; p: VecVec } // p == pscroll
+  | { type: 'STYLE.SCROLL'; currentScroll: CurrentScroll } // p == pscroll
   | { type: 'ANIMATION.END' } // null to stop animation
 
 interface LonLat {
@@ -58,8 +57,11 @@ const styleMachine = setup({
       distanceRadius: ({ context: { layout } }) => findRadius(layout),
     }),
     setLonLat: assign({
-      lonLat: ({ context }, { p }: { p: VecVec }) => {
-        // p == pscroll
+      lonLat: ({ context }, { scroll, client }: CurrentScroll) => {
+        const p = {
+          x: scroll.x + client.width / 2,
+          y: scroll.y + client.height / 2,
+        }
         const pgeo = context.geoMatrix.transformPoint(p)
         const ew = pgeo.x > 0 ? 'E' : 'W'
         const ns = pgeo.y > 0 ? 'N' : 'S'
@@ -121,11 +123,14 @@ const styleMachine = setup({
             animation: ({ event }) => event.animation,
           }),
         },
-        'STYLE.LONLAT': {
-          actions: {
-            type: 'setLonLat',
-            params: ({ event }) => ({ p: event.p }),
-          },
+        'STYLE.SCROLL': {
+          actions: [
+            {
+              type: 'setLonLat',
+              params: ({ event }) => event.currentScroll,
+            },
+            // XXX updateRange
+          ],
         },
         'ANIMATION.END': {
           actions: assign({
@@ -195,12 +200,8 @@ registerCbs({
 // scroll & expire
 
 function expireCb() {
-  const { scroll, client } = getCurrentScroll()
-  const p = {
-    x: scroll.x + client.width / 2,
-    y: scroll.y + client.height / 2,
-  }
-  styleSend({ type: 'STYLE.LONLAT', p })
+  const currentScroll = getCurrentScroll()
+  styleSend({ type: 'STYLE.SCROLL', currentScroll })
 }
 
 const expire = makeExpire(500, expireCb)
