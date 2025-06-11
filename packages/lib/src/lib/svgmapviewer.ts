@@ -1,6 +1,5 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import { expireActorStart } from '../Guides'
 import { root } from '../Root'
 import { styleRoot } from '../Style'
 import { type Box } from './box/main'
@@ -74,7 +73,6 @@ function startAllActors() {
   // for module dependency
   // (order doesn't matter)
   configActorStart()
-  expireActorStart()
   geolocActorStart()
   renderMapActorStart()
   resizeActorStart()

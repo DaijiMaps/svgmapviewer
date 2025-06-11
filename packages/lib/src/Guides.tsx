@@ -3,7 +3,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { assign, createActor, emit, setup } from 'xstate'
+import { makeExpire } from './lib/expire-xstate'
 import { getCurrentScroll, scrollEventCbs } from './lib/scroll'
 import { styleSend } from './lib/style-xstate'
 import { Measure, MeasureCoordinate, MeasureDistance } from './Measure'
@@ -20,6 +20,7 @@ export function Guides(): ReactNode {
   )
 }
 
+/*
 type EV = { timeStamp: number }
 
 type Events = { type: 'TICK'; ev: EV }
@@ -96,3 +97,17 @@ expireActor.on('CALL', () => {
 scrollEventCbs.add(function (ev: Readonly<EV>): void {
   expireActor.send({ type: 'TICK', ev })
 })
+*/
+
+function expireCb() {
+  const { scroll, client } = getCurrentScroll()
+  const p = {
+    x: scroll.x + client.width / 2,
+    y: scroll.y + client.height / 2,
+  }
+  styleSend({ type: 'STYLE.LONLAT', p })
+}
+
+const expire = makeExpire(500, expireCb)
+
+scrollEventCbs.add(expire.tick)
