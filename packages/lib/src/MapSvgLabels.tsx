@@ -15,7 +15,6 @@ import { useLayout } from './lib/style-xstate'
 import { voffset } from './lib/text'
 import { trunc2 } from './lib/utils'
 import './MapSvgLabels.css'
-import { MapSvgLabelsStyle } from './MapSvgStyle'
 
 export function MapSvgLabelsRoot(): ReactNode {
   useEffect(
@@ -45,7 +44,6 @@ text, tspan {
 }
 `}
       </style>
-      <MapSvgLabelsStyle />
       <MapSvgLabelsStyleRanges />
       <MapSvgLabelsStyleSizes />
     </>

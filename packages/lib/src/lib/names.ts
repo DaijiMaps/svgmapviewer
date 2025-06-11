@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { number, option, readonlyArray } from 'fp-ts'
 import { pipe } from 'fp-ts/lib/function'
@@ -6,6 +5,7 @@ import { none, some } from 'fp-ts/lib/Option'
 import { useMemo } from 'react'
 import { useConfigMapNames } from './config-xstate'
 import { type POI } from './geo'
+import { useLayoutSvgScaleS } from './map-xstate'
 import { useSvgRange } from './style-xstate'
 import type { Range } from './types'
 import type { VecVec } from './vec/prefixed'
@@ -82,15 +82,25 @@ interface Ranges {
 
 export function useNameRanges(): Ranges {
   const svgRange = useSvgRange()
-  const { pointNames, areaNames } = useNames()
+  const s = useLayoutSvgScaleS()
+  const { sizes, sizeMap, pointNames, areaNames } = useNames()
+
+  const smallMap = pipe(
+    sizes,
+    readonlyArray.map((sz) => {
+      const scale = Math.pow(2, sz) / 10 / 4
+      return [sz, scale < s]
+    }),
+    (xs) => new Map<number, boolean>(xs as [number, boolean][])
+  )
 
   const pointRange = useMemo(
-    () => namesToRange(pointNames, svgRange),
-    [pointNames, svgRange]
+    () => namesToRange(pointNames, svgRange, sizeMap, smallMap),
+    [pointNames, svgRange, sizeMap, smallMap]
   )
   const areaRange = useMemo(
-    () => namesToRange(areaNames, svgRange),
-    [areaNames, svgRange]
+    () => namesToRange(areaNames, svgRange, sizeMap, smallMap),
+    [areaNames, svgRange, sizeMap, smallMap]
   )
 
   return { pointRange, areaRange }
@@ -98,23 +108,42 @@ export function useNameRanges(): Ranges {
 
 function namesToRange(
   names: readonly POI[],
-  svgRange: Readonly<Range>
+  svgRange: Readonly<Range>,
+  sizeMap: Readonly<Map<number, number>>,
+  smallMap: Readonly<Map<number, boolean>>
 ): NameRangeMap {
   const xs = pipe(
     names,
-    readonlyArray.map(({ id, pos }) => ({ id, inout: inRange(pos, svgRange) }))
+    readonlyArray.filterMap(({ id, pos }) => {
+      if (id === null) {
+        return none
+      }
+      const sz = sizeMap.get(id)
+      if (sz === undefined) {
+        return none
+      }
+      const small = smallMap.get(sz)
+      if (small === undefined) {
+        return none
+      }
+      return some({
+        id,
+        inout: inRange(pos, svgRange),
+        small,
+      })
+    })
   )
   const insides = pipe(
     xs,
-    readonlyArray.filterMap(({ id, inout }) =>
-      id !== null && inout ? some(id) : none
+    readonlyArray.filterMap(({ id, inout, small }) =>
+      inout && !small ? some(id) : none
     ),
     (xs) => new Set(xs)
   )
   const outsides = pipe(
     xs,
-    readonlyArray.filterMap(({ id, inout }) =>
-      id !== null && !inout ? some(id) : none
+    readonlyArray.filterMap(({ id, inout, small }) =>
+      !(inout && !small) ? some(id) : none
     ),
     (xs) => new Set(xs)
   )
