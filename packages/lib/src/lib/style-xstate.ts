@@ -11,6 +11,7 @@ import { makeExpire } from './expire-xstate'
 import { emptyLayout, type Layout } from './layout'
 import { getCurrentScroll, scrollEventCbs, type CurrentScroll } from './scroll'
 import { trunc7 } from './utils'
+import { vecZero, type VecVec } from './vec/prefixed'
 
 export type StyleEvent =
   | { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
@@ -25,6 +26,11 @@ interface LonLat {
   lat: string
 }
 
+interface Range {
+  start: VecVec
+  end: VecVec
+}
+
 interface StyleContext {
   rendered: boolean
   animating: boolean
@@ -33,6 +39,7 @@ interface StyleContext {
   geoMatrix: DOMMatrixReadOnly
   lonLat: LonLat
   distanceRadius: DistanceRadius
+  svgRange: Range
   dragging: boolean
   mode: string
   animation: null | Animation
@@ -69,6 +76,15 @@ const styleMachine = setup({
         const lat = `${ns} ${trunc7(Math.abs(pgeo.y))}`
         return { lon, lat }
       },
+      svgRange: ({ context }, { scroll, client }: CurrentScroll) => {
+        const s = { x: scroll.x, y: scroll.y }
+        const e = { x: scroll.x + client.width, y: scroll.y + client.height }
+        const m = context.svgMatrix.inverse()
+        return {
+          start: m.transformPoint(s),
+          end: m.transformPoint(e),
+        }
+      },
     }),
   },
 }).createMachine({
@@ -83,6 +99,10 @@ const styleMachine = setup({
     distanceRadius: {
       svg: 0,
       client: 0,
+    },
+    svgRange: {
+      start: vecZero,
+      end: vecZero,
     },
     dragging: false,
     mode: 'panning',
@@ -189,6 +209,9 @@ export function useLonLat(): LonLat {
 }
 export function useDistanceRadius(): DistanceRadius {
   return useSelector(styleActor, (s) => s.context.distanceRadius)
+}
+export function useSvgRange(): Range {
+  return useSelector(styleActor, (s) => s.context.svgRange)
 }
 
 registerCbs({
