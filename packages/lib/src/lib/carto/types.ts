@@ -20,10 +20,26 @@ export interface MapLineLayer {
 export interface MapMultiPolygonLayer {
   type: 'multipolygon'
   name: string
+  width?: number
   filter?: MultiPolygonsFilter
   data?: MultiPolygon[]
 }
 
+export interface LinePath {
+  name?: string
+  id?: string
+  tags: string[]
+  width?: number
+  vs: Line
+}
+
+export interface MultiPolygonPath {
+  name?: string
+  id?: string
+  tags: string[]
+  width?: number
+  vs: MultiPolygon
+}
 //// markers
 
 export interface RenderMapMarkersProps {

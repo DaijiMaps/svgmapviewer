@@ -16,12 +16,12 @@ function pointNames(skip?: Readonly<RegExp>, split?: Readonly<RegExp>): POI[] {
       const centroid: V = [properties.centroid_x, properties.centroid_y]
       const pos = vVec(conv(centroid))
       const name = filterName(properties, skip, split)
-      return name === null
+      return name.length === 0
         ? []
         : [
             {
               id: id === null ? null : id,
-              name: splitName(name),
+              name: name,
               pos,
               size: 0,
               area: undefined,
@@ -31,7 +31,6 @@ function pointNames(skip?: Readonly<RegExp>, split?: Readonly<RegExp>): POI[] {
   )
 }
 
-/*
 function lineNames(skip?: Readonly<RegExp>, split?: Readonly<RegExp>): POI[] {
   return svgMapViewerConfig.mapData.lines.features.flatMap(({ properties }) => {
     const id = getOsmId(properties)
@@ -41,12 +40,12 @@ function lineNames(skip?: Readonly<RegExp>, split?: Readonly<RegExp>): POI[] {
     const centroid: V = [properties.centroid_x, properties.centroid_y]
     const pos = vVec(conv(centroid))
     const name = filterName(properties, skip, split)
-    return name === null
+    return name.length === 0
       ? []
       : [
           {
             id: id === null ? null : id,
-            name: splitName(name),
+            name: name,
             pos,
             size: 0,
             area: undefined,
@@ -54,7 +53,6 @@ function lineNames(skip?: Readonly<RegExp>, split?: Readonly<RegExp>): POI[] {
         ]
   })
 }
-*/
 
 function polygonNames(
   skip?: Readonly<RegExp>,
@@ -70,12 +68,12 @@ function polygonNames(
       const pos = vVec(conv(centroid))
       const area = undefinedIfNull(properties?.area)
       const name = filterName(properties, skip, split)
-      return name === null
+      return name.length === 0
         ? []
         : [
             {
               id: id === null ? null : id,
-              name: splitName(name),
+              name: name,
               pos,
               size: 0,
               area,
@@ -95,28 +93,37 @@ export function getMapNames(): POI[] {
   ]
 }
 
+export function getMapLineNames(): POI[] {
+  const skip = svgMapViewerConfig.cartoConfig?.skipNamePattern
+  const split = svgMapViewerConfig.cartoConfig?.splitNamePattern
+  return lineNames(skip, split)
+}
+
 function filterName(
   properties: DeepReadonly<OsmProperties>,
   skip?: Readonly<RegExp>,
   split?: Readonly<RegExp>
-): null | string {
+): string[] {
   const name = properties.name
   if (name === null || typeof name !== 'string') {
-    return null
+    return []
   }
   if (skip !== undefined) {
     if (name.match(skip)) {
-      return null
+      return []
     }
   }
-  return split === undefined ? name : name.replace(split, ' $1 ')
+  return split === undefined ? [name] : splitName(name.replace(split, ' $1 '))
 }
 
 function splitName(s: string): string[] {
-  return s
-    .trim()
-    .split(/[ 　][ 　]*/)
-    .map((s) => s.trim())
+  return (
+    s
+      .trim()
+      // eslint-disable-next-line no-irregular-whitespace
+      .split(/[ 　][ 　]*/)
+      .map((s) => s.trim())
+  )
 }
 
 function conv(p: V): V {

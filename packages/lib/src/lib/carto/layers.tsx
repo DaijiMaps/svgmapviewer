@@ -10,7 +10,13 @@ import {
   multiPolygonToPathD,
   type OsmProperties,
 } from '../geo'
-import type { MapLayer, MapLineLayer, MapMultiPolygonLayer } from './types'
+import type {
+  LinePath,
+  MapLayer,
+  MapLineLayer,
+  MapMultiPolygonLayer,
+  MultiPolygonPath,
+} from './types'
 
 export function RenderMapLayers(
   props: Readonly<{ mapLayers: MapLayer[] }>
@@ -35,12 +41,11 @@ function LineLayerToPaths(layer: Readonly<MapLineLayer>): ReactNode {
       : layer.data !== undefined
         ? layer.data.map((vs) => ({ tags: [], vs }))
         : []
-  const defaultStrokeWidth = layerToWidth(layer)
   return xs.length === 0 ? (
     <></>
   ) : (
     <g className={layer.name} style={{ contain: 'content' }}>
-      {xs.map((x) => LinePathToPath(x, layer.name, defaultStrokeWidth))}
+      {xs.map((x) => LinePathToPath(x, layer.name, layer.width))}
     </g>
   )
 }
@@ -61,6 +66,9 @@ function LinePathToPath(
   )
 }
 
+// XXX
+// XXX slow
+// XXX
 export function LinePathToTextPath(
   { name, id, tags, width }: Readonly<LinePath>,
   layerName: string,
@@ -98,12 +106,11 @@ function MultiPolygonLayerToPath(
       : layer.data !== undefined
         ? layer.data.map((vs) => ({ tags: [], vs }))
         : []
-  const defaultStrokeWidth = layerToWidth(layer)
   return xs.length === 0 ? (
     <></>
   ) : (
     <g className={layer.name}>
-      {xs.map((x) => MultiPolygonPathToPath(x, layer.name, defaultStrokeWidth))}
+      {xs.map((x) => MultiPolygonPathToPath(x, layer.name, layer.width))}
     </g>
   )
 }
@@ -122,27 +129,6 @@ function MultiPolygonPathToPath(
       d={multiPolygonToPathD(vs)}
     />
   )
-}
-
-function layerToWidth(layer: Readonly<MapLayer>): undefined | number {
-  return layer.type === 'line' && typeof layer.width === 'number'
-    ? layer.width
-    : undefined
-}
-
-interface LinePath {
-  name?: string
-  id?: string
-  tags: string[]
-  width?: number
-  vs: Line
-}
-interface MultiPolygonPath {
-  name?: string
-  id?: string
-  tags: string[]
-  width?: number
-  vs: MultiPolygon
 }
 
 function getLines(filter: LinesFilter): LinePath[] {
