@@ -20,15 +20,15 @@ export function RenderMapLayers(
       {props.mapLayers.map((layer, i) => (
         <Fragment key={i}>
           {layer.type === 'line'
-            ? lineLayerToPaths(layer)
-            : multiPolygonLayerToPath(layer)}
+            ? LineLayerToPaths(layer)
+            : MultiPolygonLayerToPath(layer)}
         </Fragment>
       ))}
     </g>
   )
 }
 
-function lineLayerToPaths(layer: Readonly<MapLineLayer>): ReactNode {
+function LineLayerToPaths(layer: Readonly<MapLineLayer>): ReactNode {
   const xs: LinePath[] =
     layer.filter !== undefined
       ? getLines(layer.filter)
@@ -40,39 +40,56 @@ function lineLayerToPaths(layer: Readonly<MapLineLayer>): ReactNode {
     <></>
   ) : (
     <g className={layer.name} style={{ contain: 'content' }}>
-      {xs.map(({ name, id, tags, width, vs }, idx) => {
-        const strokeWidth = width == undefined ? defaultStrokeWidth : width
-        return (
-          <Fragment key={idx}>
-            <path
-              id={id === undefined ? undefined : `path${id}`}
-              className={[layer.name, ...tags].join(' ').replaceAll(/;/g, '_')} // XXX level=0;1
-              strokeWidth={strokeWidth}
-              d={lineToPathD(vs)}
-            />
-            {name !== undefined &&
-              id !== undefined &&
-              strokeWidth !== undefined && (
-                <text>
-                  <textPath
-                    href={`#path${id}`}
-                    startOffset="50%"
-                    fontSize={strokeWidth}
-                    fill="green"
-                    stroke="none"
-                  >
-                    {name}
-                  </textPath>
-                </text>
-              )}
-          </Fragment>
-        )
-      })}
+      {xs.map((x) => LinePathToPath(x, layer.name, defaultStrokeWidth))}
     </g>
   )
 }
 
-function multiPolygonLayerToPath(
+function LinePathToPath(
+  { id, tags, width, vs }: Readonly<LinePath>,
+  layerName: string,
+  defaultStrokeWidth?: number
+): ReactNode {
+  return (
+    <path
+      key={`path${id}`}
+      id={id === undefined ? undefined : `path${id}`}
+      className={[layerName, ...tags].join(' ').replaceAll(/;/g, '_')} // XXX level=0;1
+      strokeWidth={width ?? defaultStrokeWidth}
+      d={lineToPathD(vs)}
+    />
+  )
+}
+
+export function LinePathToTextPath(
+  { name, id, tags, width }: Readonly<LinePath>,
+  layerName: string,
+  defaultStrokeWidth?: number
+): ReactNode {
+  return name === undefined ||
+    id === undefined ||
+    (width ?? defaultStrokeWidth) === undefined ? (
+    <></>
+  ) : (
+    <text
+      key={`textpath${id}`}
+      id={id === undefined ? undefined : `textpath${id}`}
+      className={[layerName, ...tags].join(' ').replaceAll(/;/g, '_')} // XXX level=0;1
+    >
+      <textPath
+        href={`#path${id}`}
+        startOffset="50%"
+        fontSize={width ?? defaultStrokeWidth}
+        fill="green"
+        stroke="none"
+      >
+        {name}
+      </textPath>
+    </text>
+  )
+}
+
+function MultiPolygonLayerToPath(
   layer: Readonly<MapMultiPolygonLayer>
 ): ReactNode {
   const xs: MultiPolygonPath[] =
@@ -81,21 +98,29 @@ function multiPolygonLayerToPath(
       : layer.data !== undefined
         ? layer.data.map((vs) => ({ tags: [], vs }))
         : []
-  const strokeWidth = layerToWidth(layer)
+  const defaultStrokeWidth = layerToWidth(layer)
   return xs.length === 0 ? (
     <></>
   ) : (
     <g className={layer.name}>
-      {xs.map(({ id, tags, width, vs }, idx) => (
-        <path
-          key={idx}
-          id={id}
-          className={[layer.name, ...tags].join(' ').replaceAll(/;/g, '_')} // XXX level=0;1
-          strokeWidth={width === undefined ? strokeWidth : width}
-          d={multiPolygonToPathD(vs)}
-        />
-      ))}
+      {xs.map((x) => MultiPolygonPathToPath(x, layer.name, defaultStrokeWidth))}
     </g>
+  )
+}
+
+function MultiPolygonPathToPath(
+  { id, tags, width, vs }: Readonly<MultiPolygonPath>,
+  layerName: string,
+  defaultStrokeWidth?: number
+): ReactNode {
+  return (
+    <path
+      key={id}
+      id={id}
+      className={[layerName, ...tags].join(' ').replaceAll(/;/g, '_')} // XXX level=0;1
+      strokeWidth={width ?? defaultStrokeWidth}
+      d={multiPolygonToPathD(vs)}
+    />
   )
 }
 
