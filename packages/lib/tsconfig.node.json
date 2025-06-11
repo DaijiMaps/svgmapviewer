@@ -23,6 +23,5 @@
 
     "types": ["@vitest/browser/providers/playwright"]
   },
-  "include": ["tests"],
-  "exclude": ["tests/browser"]
+  "include": ["vite.config.ts", "vitest.config.ts"]
 }
