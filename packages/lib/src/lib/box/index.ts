@@ -9,6 +9,7 @@ import {
   move,
   moveTo,
   toViewBox,
+  toViewBox2,
   unit,
 } from './main'
 import {
@@ -43,6 +44,7 @@ export {
   scaleAtRatio,
   toTlBr,
   toViewBox,
+  toViewBox2,
   transform,
   unit,
 }

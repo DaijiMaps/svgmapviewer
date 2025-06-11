@@ -1,5 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode, useEffect } from 'react'
+import { boxToViewBox2 } from './lib/box/prefixed'
 import { renderShadowRoot } from './lib/dom'
 import { MAP_SVG_CONTENT_ID, MAP_SVG_ROOT_ID } from './lib/map-svg-react'
 import { useLayout } from './lib/style-xstate'
@@ -39,7 +40,7 @@ function MapSvgSvg(): ReactNode {
   return (
     <svg
       id={MAP_SVG_CONTENT_ID}
-      viewBox={`${trunc2(svg.x)} ${trunc2(svg.y)} ${trunc2(svg.width)} ${trunc2(svg.height)}`}
+      viewBox={boxToViewBox2(svg)}
       width={trunc2(scroll.width)}
       height={trunc2(scroll.height)}
     >

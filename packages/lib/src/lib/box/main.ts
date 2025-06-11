@@ -64,6 +64,13 @@ export function toViewBox({ x, y, width, height }: Box): string {
   return `${x} ${y} ${width} ${height}`
 }
 
+export function toViewBox2(box: Box): string {
+  function trunc2(n: number): number {
+    return Math.round(n * 100) / 100
+  }
+  return toViewBox(map(box, trunc2))
+}
+
 //// B
 
 export function mapF([tl, br]: B, f: (_v: V) => V): B {

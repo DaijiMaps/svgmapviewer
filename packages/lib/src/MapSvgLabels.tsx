@@ -2,6 +2,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode, useEffect, useMemo } from 'react'
+import { boxToViewBox2 } from './lib/box/prefixed'
 import { renderShadowRoot } from './lib/dom'
 import type { POI } from './lib/geo'
 import {
@@ -108,7 +109,7 @@ function MapSvgLabelsSvg(): ReactNode {
   return (
     <svg
       id={MAP_SVG_LABELS_CONTENT_ID}
-      viewBox={`${trunc2(svg.x)} ${trunc2(svg.y)} ${trunc2(svg.width)} ${trunc2(svg.height)}`}
+      viewBox={boxToViewBox2(svg)}
       width={trunc2(scroll.width)}
       height={trunc2(scroll.height)}
     >

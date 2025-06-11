@@ -1,6 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode, useEffect } from 'react'
 import { svgMapViewerConfig } from './lib'
+import { boxToViewBox2 } from './lib/box/prefixed'
 import { RenderMapSymbols } from './lib/carto'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { renderShadowRoot } from './lib/dom'
@@ -52,7 +53,7 @@ function MapSvgSymbolsSvg(): ReactNode {
   return (
     <svg
       id={MAP_SVG_SYMBOLS_CONTENT_ID}
-      viewBox={`${trunc2(svg.x)} ${trunc2(svg.y)} ${trunc2(svg.width)} ${trunc2(svg.height)}`}
+      viewBox={boxToViewBox2(svg)}
       width={trunc2(scroll.width)}
       height={trunc2(scroll.height)}
     >
