@@ -5,13 +5,10 @@ import { BalloonCss } from './BalloonStyle'
 import { Detail } from './Detail'
 import { DetailCss } from './DetailStyle'
 import { Footer } from './Footer'
-import { FooterCss } from './FooterStyle'
 import { Guides } from './Guides'
 import { GuidesCss } from './GuidesStyle'
 import { Header } from './Header'
-import { HeaderCss } from './HeaderStyle'
 import { Right } from './Right'
-import { RightCss } from './RightStyle'
 import { Shadow } from './Shadow'
 import { UiStyle as StyleUiStyle } from './Style'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
@@ -55,9 +52,6 @@ function UiContent(): ReactNode {
 function UiStyle(): ReactNode {
   return (
     <>
-      <HeaderCss />
-      <FooterCss />
-      <RightCss />
       <GuidesCss />
       <BalloonCss />
       <DetailCss />
