@@ -4,9 +4,12 @@ import { svgMapViewerConfig as cfg } from '../config'
 import { usePosition } from '../geo'
 import { useLayoutConfig, useLayoutSvgScaleS } from '../map-xstate'
 import { type V } from '../tuple'
-import type { MapMarker } from './types'
+import { entryToVs } from './point'
+import type { MapMarker, RenderMapMarkersProps } from './types'
 
-export function RenderMapMarkers(): ReactNode {
+export function RenderMapMarkers(
+  props: Readonly<RenderMapMarkersProps>
+): ReactNode {
   const config = useLayoutConfig()
   const s = useLayoutSvgScaleS()
 
@@ -14,18 +17,42 @@ export function RenderMapMarkers(): ReactNode {
 
   return (
     <g className="map-markers">
-      {/*
       {props.mapMarkers.map((entry, i) => (
         <g key={i}>
-          <RenderMarkers sz={sz} name={entry.name} vs={entryToVs(entry)} />
+          <RenderUses
+            sz={sz}
+            name={entry.name}
+            href={entry.name} // XXX XXX XXX
+            vs={entryToVs(entry)}
+          />
         </g>
       ))}
-      */}
       <RenderPosition sz={sz} />
       <style>
         <RenderPositionStyle />
       </style>
     </g>
+  )
+}
+
+function RenderUses(
+  props: Readonly<{ sz: number; name: string; href: string; vs: V[] }>
+): ReactNode {
+  return (
+    <>
+      {props.vs.map(([x, y], j) => (
+        <use
+          key={j}
+          className={`${props.name}-${j}`}
+          href={props.href}
+          style={{
+            transform:
+              `translate(${x}px, ${y}px)`.replaceAll(/([.]\d\d)\d*/g, '$1') +
+              `scale(var(${props.sz}))`,
+          }}
+        />
+      ))}
+    </>
   )
 }
 

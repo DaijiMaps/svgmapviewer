@@ -208,6 +208,10 @@ function css(q: Matrix): string {
 `
 }
 
+export function SvgMarkerStyle(): ReactNode {
+  return <></>
+}
+
 export function SvgSymbolStyle(): ReactNode {
   const config = useLayoutConfig()
   const s = useLayoutSvgScaleS()
