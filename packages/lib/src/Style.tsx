@@ -7,7 +7,6 @@ import { createRoot } from 'react-dom/client'
 import { BalloonStyle } from './Balloon'
 import { FooterStyle } from './Footer'
 import { HeaderStyle } from './Header'
-import { fixupCssString } from './lib/css'
 import { diag } from './lib/diag'
 import { useLayoutConfig, useLayoutSvgScaleS, useZoom } from './lib/map-xstate'
 import {
@@ -22,7 +21,6 @@ import {
   useLayout,
   useMode,
   useRendered,
-  useSvgMatrix,
 } from './lib/style-xstate'
 import { useDetail } from './lib/ui-xstate'
 import { trunc2 } from './lib/utils'
@@ -70,9 +68,7 @@ function Defs(): ReactNode {
 function LayoutStyle(): ReactNode {
   const rendered = useRendered()
   const animating = useAnimating()
-  const { svg, svgScale, scroll } = useLayout()
-  const svgMatrix = useSvgMatrix()
-  const matrixString = fixupCssString(svgMatrix.toString())
+  const { scroll } = useLayout()
 
   useEffect(() => {
     requestAnimationFrame(() => viewerSend({ type: 'RENDERED' }))
