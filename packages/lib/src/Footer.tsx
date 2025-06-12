@@ -21,13 +21,15 @@ export function Footer(): ReactNode {
       <h2 className="subtitle">{config.subtitle}</h2>
       */}
       <p>{config.copyright}</p>
-      <style>{style}</style>
+      <style>{`@scope {
+${style}
+}`}</style>
     </div>
   )
 }
 
 const style = `
-.footer {
+:scope {
   padding: 0.4em;
   position: absolute;
   bottom: 0;
@@ -39,6 +41,7 @@ const style = `
   font-size: xx-small;
   pointer-events: none;
 }
+
 .footer > p {
   margin: 0.25em;
 }

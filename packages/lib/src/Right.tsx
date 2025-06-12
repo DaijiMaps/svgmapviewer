@@ -50,13 +50,15 @@ export function Right(): ReactNode {
           </svg>
         </div>
       </div>
-      <style>{style}</style>
+      <style>{`@scope {
+${style}
+}`}</style>
     </div>
   )
 }
 
 const style = `
-.right {
+:scope {
   padding: 0.4em;
   position: absolute;
   top: 0;
@@ -70,7 +72,8 @@ const style = `
 
   transform-origin: 100% 50%;
 }
-.bottom {
+
+:scope {
   top: initial;
   bottom: 0;
   align-items: end;
@@ -78,7 +81,7 @@ const style = `
   transform-origin: 100% 100%;
 }
 
-.right > * {
+:scope > * {
   pointer-events: initial;
 }
 

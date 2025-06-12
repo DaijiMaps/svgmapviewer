@@ -47,13 +47,15 @@ export function Container(): ReactNode {
       <MapSvgSymbolsRoot />
       <MapSvgMarkersRoot />
       <MapSvgLabelsRoot />
-      <style>{style}</style>
+      <style>{`@scope {
+${style}
+}`}</style>
     </div>
   )
 }
 
 const style = `
-.container {
+:scope {
   width: 100vw;
   height: 100vh;
   height: 100svh;
@@ -74,7 +76,7 @@ const style = `
   top: 0;
 }
 
-.container,
+:scope,
 .content.svg {
   background: none;
 }

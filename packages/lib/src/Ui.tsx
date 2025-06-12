@@ -28,7 +28,6 @@ export function Ui(): ReactNode {
       <UiContent />
       <UiStyle />
       <Assets />
-      <style>{style}</style>
     </>
   )
 }
@@ -42,6 +41,7 @@ function UiContent(): ReactNode {
       <Right />
       <Guides />
       <Detail />
+      <style>{style}</style>
     </div>
   )
 }

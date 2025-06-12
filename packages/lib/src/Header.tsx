@@ -20,13 +20,16 @@ export function Header(): ReactNode {
       >
         {config.title}
       </h1>
-      <style>{style}</style>
+      <style>{`
+@scope {
+${style}
+}`}</style>
     </div>
   )
 }
 
 const style = `
-.header {
+:scope {
   padding: 0.5em;
   position: absolute;
   top: 0;
@@ -39,19 +42,19 @@ const style = `
   pointer-events: none;
 }
 
-.header > * {
+:scope > * {
   pointer-events: initial;
 }
 
-.header h1,
-.header h2,
-.header p {
+:scope h1,
+:scope h2,
+:scope p {
   -webkit-user-select: none;
   user-select: none;
 }
 
-.header > h1,
-.header > h2 {
+:scope > h1,
+:scope > h2 {
   margin: 0.25em;
   cursor: default;
 }

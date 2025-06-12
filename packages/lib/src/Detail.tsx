@@ -28,7 +28,9 @@ export function Detail(): ReactNode {
           !isDetailEmpty(detail) &&
           cfg.renderInfo({ info: detail.info })}
       </div>
-      <style>{style}</style>
+      <style>{`@scope {
+${style}
+}`}</style>
     </div>
   )
 }

@@ -12,24 +12,26 @@ export function Shadow(): ReactNode {
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiSend({ type: 'SHADOW.ANIMATION.END' })}
     >
-      <style>{style}</style>
+      <style>{`@scope {
+${style}
+}`}</style>
     </div>
   )
 }
 
 const style = `
-  .shadow {
-    background-color: black;
-    opacity: 0;
-    pointer-events: initial !important;
-    cursor: default;
+:scope {
+  /* XXX */
+  background-color: black;
+  pointer-events: initial !important;
+  cursor: default;
 
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-  }
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+}
 `
 
 export function ShadowStyle(): ReactNode {
