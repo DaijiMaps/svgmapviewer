@@ -29,3 +29,14 @@
   left: 0;
   top: 0;
 }
+
+html,
+body,
+:root {
+  background-color: darkgray;
+}
+
+.container,
+.content.svg {
+  background-color: none;
+}

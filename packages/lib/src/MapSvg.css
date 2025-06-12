@@ -12,10 +12,3 @@
 .map > * {
   contain: content;
 }
-
-html,
-body,
-:root,
-.content.svg {
-  background-color: darkgray;
-}
