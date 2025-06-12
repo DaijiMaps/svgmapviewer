@@ -11,7 +11,6 @@ import {
 } from './lib/map-svg-react'
 import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
-import './MapSvgMarkers.css'
 import { MapSvgMarkersStyle } from './MapSvgStyle'
 
 export function MapSvgMarkersRoot(): ReactNode {

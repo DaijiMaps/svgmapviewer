@@ -40,9 +40,18 @@ export function styleRoot(): void {
     <StrictMode>
       <Style />
       <Defs />
+      <style>{style}</style>
     </StrictMode>
   )
 }
+
+const style = `
+@scope {
+  #style-svg-defs {
+    display: none;
+  }
+}
+`
 
 function Style(): ReactNode {
   return (

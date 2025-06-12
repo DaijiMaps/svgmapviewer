@@ -2,7 +2,6 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 import { type ReactNode, useRef } from 'react'
-import './Container.css'
 import { styleAnimationEnd } from './lib/style-xstate'
 import {
   touchSendTouchEnd,
@@ -48,6 +47,35 @@ export function Container(): ReactNode {
       <MapSvgSymbolsRoot />
       <MapSvgMarkersRoot />
       <MapSvgLabelsRoot />
+      <style>{style}</style>
     </div>
   )
 }
+
+const style = `
+.container {
+  width: 100vw;
+  height: 100vh;
+  height: 100svh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  cursor: pointer;
+  overscroll-behavior: none;
+  will-change: scroll-position;
+
+  scrollbar-width: thin;
+}
+
+.content {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.container,
+.content.svg {
+  background: none;
+}
+`

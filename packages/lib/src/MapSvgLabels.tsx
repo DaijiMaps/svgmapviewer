@@ -14,7 +14,6 @@ import { useNameRanges, useNames } from './lib/names'
 import { useLayout } from './lib/style-xstate'
 import { voffset } from './lib/text'
 import { trunc2 } from './lib/utils'
-import './MapSvgLabels.css'
 
 export function MapSvgLabelsRoot(): ReactNode {
   useEffect(

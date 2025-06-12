@@ -6,7 +6,6 @@ import { MAP_SVG_CONTENT_ID, MAP_SVG_ROOT_ID } from './lib/map-svg-react'
 import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
 import { RenderMap } from './Map'
-import './MapSvg.css'
 
 export function MapSvgRoot(): ReactNode {
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
@@ -28,6 +27,7 @@ export function MapSvg(): ReactNode {
 #map-svg-defs {
   display: none;
 }
+${style}
 `}</style>
     </>
   )
@@ -68,3 +68,20 @@ path {
     </svg>
   )
 }
+
+const style = `
+.content.svg {
+  /*
+  transform: translate3d(0px, 0px, 0px);
+  */
+}
+
+.content.svg > svg {
+  position: absolute;
+}
+
+.map,
+.map > * {
+  contain: content;
+}
+`

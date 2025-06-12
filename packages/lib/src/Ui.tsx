@@ -1,7 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 import { useEffect, type ReactNode } from 'react'
-import { AppCss } from './AppStyle'
 import { BalloonCss } from './BalloonStyle'
 import { Detail } from './Detail'
 import { DetailCss } from './DetailStyle'
@@ -16,7 +15,6 @@ import { RightCss } from './RightStyle'
 import { Shadow } from './Shadow'
 import { ShadowCss } from './ShadowStyle'
 import { UiStyle as StyleUiStyle } from './Style'
-import { UiCss } from './UiStyle'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { renderShadowRoot } from './lib/dom'
 import { UI_ROOT_ID } from './lib/ui-react'
@@ -37,6 +35,7 @@ export function Ui(): ReactNode {
       <UiContent />
       <UiStyle />
       <Assets />
+      <style>{style}</style>
     </>
   )
 }
@@ -57,8 +56,6 @@ function UiContent(): ReactNode {
 function UiStyle(): ReactNode {
   return (
     <>
-      <AppCss />
-      <UiCss />
       <ShadowCss />
       <HeaderCss />
       <FooterCss />
@@ -80,3 +77,61 @@ function Assets(): ReactNode {
     </svg>
   )
 }
+
+const style = `
+.ui > * {
+  contain: content;
+}
+
+.ui > .detail-balloon {
+  contain: initial;
+}
+
+.balloon,
+.detail {
+  contain: content;
+}
+
+.detail,
+.balloon,
+.balloon-container,
+.container {
+  box-sizing: border-box;
+
+  /* XXX */
+  touch-action: none;
+  /* XXX */
+  user-select: none; /* Standard syntax */
+}
+
+.right,
+.header,
+.footer {
+  box-sizing: border-box;
+}
+
+div {
+  transform-origin: 50% 50%;
+}
+
+svg {
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: sans-serif;
+  font-weight: lighter;
+}
+
+a:link {
+  text-decoration: none;
+}
+`

@@ -12,7 +12,6 @@ import {
 import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
 import { MapSvgSymbolsStyle } from './MapSvgStyle'
-import './MapSvgSymbols.css'
 
 export function MapSvgSymbolsRoot(): ReactNode {
   // eslint-disable-next-line functional/no-expression-statements
