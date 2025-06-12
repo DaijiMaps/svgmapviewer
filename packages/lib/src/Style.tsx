@@ -87,13 +87,6 @@ ${!animating ? appearing_none : appearing}
   width: ${trunc2(scroll.width)}px;
   height: ${trunc2(scroll.height)}px;
 }
-.container > .content.svg {
-  --svg-viewbox: ${trunc2(svg.x)} ${trunc2(svg.y)} ${trunc2(svg.width)} ${trunc2(svg.height)};
-}
-.container > .content.html {
-  --svg-matrix: ${matrixString};
-  --svg-scale: ${svgScale.s};
-}
 `}</style>
   )
 }
@@ -149,14 +142,12 @@ function ModeStyle(): ReactNode {
         ? `
 /* mode */
 .container {
-  --mode: ${mode};
   transform: translate3d(0px, 0px, 0px);
 }
 `
         : `
 /* mode */
 .container {
-  --mode: ${mode};
   cursor: move;
   overflow: scroll;
   will-change: scroll-position transform;

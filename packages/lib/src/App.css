@@ -79,7 +79,6 @@ a:link {
 
 #viewer,
 .content.svg,
-.content.html,
 #ui {
   contain: content;
 }
