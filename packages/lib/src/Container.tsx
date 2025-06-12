@@ -15,8 +15,8 @@ import {
   sendScroll,
   sendWheel,
 } from './lib/viewer-react'
-import { MapSvgRoot } from './MapSvg'
 import { MapSvgLabelsRoot } from './MapSvgLabels'
+import { MapSvgLayersRoot } from './MapSvgLayers'
 import { MapSvgMarkersRoot } from './MapSvgMarkers'
 import { MapSvgSymbolsRoot } from './MapSvgSymbols'
 
@@ -43,7 +43,7 @@ export function Container(): ReactNode {
         styleAnimationEnd()
       }}
     >
-      <MapSvgRoot />
+      <MapSvgLayersRoot />
       <MapSvgSymbolsRoot />
       <MapSvgMarkersRoot />
       <MapSvgLabelsRoot />

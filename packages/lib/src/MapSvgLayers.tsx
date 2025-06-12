@@ -7,18 +7,18 @@ import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
 import { RenderMap } from './Map'
 
-export function MapSvgRoot(): ReactNode {
+export function MapSvgLayersRoot(): ReactNode {
   // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
-  useEffect(() => renderShadowRoot(MAP_SVG_ROOT_ID, <MapSvg />), [])
+  useEffect(() => renderShadowRoot(MAP_SVG_ROOT_ID, <MapSvgLayers />), [])
 
   return <div id={MAP_SVG_ROOT_ID} className="content svg" />
 }
 
-export function MapSvg(): ReactNode {
+export function MapSvgLayers(): ReactNode {
   return (
     <>
-      <MapSvgSvg />
-      <MapSvgDefs />
+      <MapSvgLayersSvg />
+      <MapSvgLayersDefs />
       <style>{`
 #map-svg-svg,
 #map1 {
@@ -33,7 +33,7 @@ ${style}
   )
 }
 
-function MapSvgSvg(): ReactNode {
+function MapSvgLayersSvg(): ReactNode {
   const { scroll, svg } = useLayout()
 
   // viewBox will be updated by syncViewBox()
@@ -49,7 +49,7 @@ function MapSvgSvg(): ReactNode {
   )
 }
 
-function MapSvgDefs(): ReactNode {
+function MapSvgLayersDefs(): ReactNode {
   return (
     <svg id="map-svg-defs" viewBox="0 0 1 1">
       <defs>

@@ -8,7 +8,6 @@ function App(): ReactNode {
   return (
     <>
       <Container />
-      {/* XXX Ui -> UiRoot */}
       <UiRoot />
       <style>{style}</style>
     </>
