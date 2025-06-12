@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { Balloon } from './Balloon'
+import { Balloon, BalloonStyle } from './Balloon'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import { diag } from './lib/diag'
 import { isDetailEmpty, uiSend, useDetail } from './lib/ui-xstate'
@@ -68,3 +68,17 @@ const style = `
   margin: 0.5em;
 }
 `
+
+export function DetailStyle(): ReactNode {
+  const detail = useDetail()
+
+  const p = detail.p
+  const layout = detail.layout
+
+  const dir = diag(detail.layout.container, p)
+
+  const W = layout.container.width
+  const H = layout.container.height
+
+  return <BalloonStyle _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
+}

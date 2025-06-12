@@ -4,10 +4,6 @@
 /* eslint-disable functional/no-throw-statements */
 import { type ReactNode, StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BalloonStyle } from './Balloon'
-import { FooterStyle } from './Footer'
-import { HeaderStyle } from './Header'
-import { diag } from './lib/diag'
 import { useLayoutConfig, useLayoutSvgScaleS, useZoom } from './lib/map-xstate'
 import {
   type MatrixMatrix as Matrix,
@@ -22,12 +18,9 @@ import {
   useMode,
   useRendered,
 } from './lib/style-xstate'
-import { useDetail } from './lib/ui-xstate'
 import { trunc2 } from './lib/utils'
 import { viewerSend } from './lib/viewer-xstate'
-import { MeasurePath, MeasureStyle } from './Measure'
-import { RightStyle } from './Right'
-import { ShadowStyle } from './Shadow'
+import { MeasurePath } from './Measure'
 
 export function styleRoot(): void {
   const e = document.getElementById('style-root')
@@ -220,33 +213,6 @@ use,
 }
 `}
     </>
-  )
-}
-
-function DetailStyle() {
-  const detail = useDetail()
-
-  const p = detail.p
-  const layout = detail.layout
-
-  const dir = diag(detail.layout.container, p)
-
-  const W = layout.container.width
-  const H = layout.container.height
-
-  return <BalloonStyle _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
-}
-
-export function UiStyle(): ReactNode {
-  return (
-    <style>
-      <DetailStyle />
-      <MeasureStyle />
-      <HeaderStyle />
-      <RightStyle />
-      <FooterStyle />
-      <ShadowStyle />
-    </style>
   )
 }
 

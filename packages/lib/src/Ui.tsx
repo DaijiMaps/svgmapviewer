@@ -1,16 +1,16 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 import { useEffect, type ReactNode } from 'react'
-import { Detail } from './Detail'
-import { Footer } from './Footer'
+import { Detail, DetailStyle } from './Detail'
+import { Footer, FooterStyle } from './Footer'
 import { Guides } from './Guides'
-import { Header } from './Header'
-import { Right } from './Right'
-import { Shadow } from './Shadow'
-import { UiStyle as StyleUiStyle } from './Style'
+import { Header, HeaderStyle } from './Header'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { renderShadowRoot } from './lib/dom'
 import { UI_ROOT_ID } from './lib/ui-react'
+import { MeasureStyle } from './Measure'
+import { Right, RightStyle } from './Right'
+import { Shadow, ShadowStyle } from './Shadow'
 
 // XXX group UI part animations into one
 // XXX receive animationend here (.ui)
@@ -43,24 +43,6 @@ function UiContent(): ReactNode {
       <Detail />
       <style>{style}</style>
     </div>
-  )
-}
-
-function UiStyle(): ReactNode {
-  return (
-    <>
-      <StyleUiStyle />
-    </>
-  )
-}
-
-function Assets(): ReactNode {
-  return (
-    <svg id="ui-svg-defs">
-      <defs>
-        <RenderMapAssetsDefault />
-      </defs>
-    </svg>
   )
 }
 
@@ -125,3 +107,26 @@ a:link {
   display: none;
 }
 `
+
+export function UiStyle(): ReactNode {
+  return (
+    <style>
+      <DetailStyle />
+      <MeasureStyle />
+      <HeaderStyle />
+      <RightStyle />
+      <FooterStyle />
+      <ShadowStyle />
+    </style>
+  )
+}
+
+function Assets(): ReactNode {
+  return (
+    <svg id="ui-svg-defs">
+      <defs>
+        <RenderMapAssetsDefault />
+      </defs>
+    </svg>
+  )
+}
