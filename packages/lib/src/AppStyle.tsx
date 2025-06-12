@@ -89,8 +89,7 @@ a:link {
 }
 
 #viewer,
-#map-svg,
-#map-html {
+#map-svg {
   contain: content;
 }
 

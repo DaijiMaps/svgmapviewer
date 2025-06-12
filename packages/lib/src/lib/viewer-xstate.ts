@@ -25,7 +25,6 @@ import {
   makeLayout,
   scrollLayout,
 } from './layout'
-import { MAP_HTML_ROOT_ID } from './map-html-react'
 import {
   MAP_SVG_LABELS_ROOT_ID,
   MAP_SVG_MARKERS_ROOT_ID,
@@ -68,7 +67,6 @@ const viewerMachine = setup({
     isTouching: ({ context: { touching } }) => touching,
     isHoming: ({ context: { homing } }) => homing,
     isContainerRendered: () => document.querySelector('.container') !== null,
-    isMapHtmlRendered: () => isShadowRootRendered(MAP_HTML_ROOT_ID),
     isMapSvgRendered: () => isShadowRootRendered(MAP_SVG_ROOT_ID),
     isMapSvgSymbolsRendered: () =>
       isShadowRootRendered(MAP_SVG_SYMBOLS_ROOT_ID),
