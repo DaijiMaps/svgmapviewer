@@ -12,44 +12,7 @@ export function Right(): ReactNode {
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiSend({ type: 'RIGHT.ANIMATION.END' })}
     >
-      <div className="zoom">
-        <div
-          className={'zoom-item'}
-          // eslint-disable-next-line functional/no-return-void
-          onClick={() => getPosition()}
-        >
-          <svg viewBox="-5.25 -5.25 10.5 10.5">
-            <path d={positionPath} />
-          </svg>
-        </div>
-        <div
-          className={'zoom-item'}
-          // eslint-disable-next-line functional/no-return-void
-          onClick={() => viewerSend({ type: 'RECENTER' })}
-        >
-          <svg viewBox="-5.25 -5.25 10.5 10.5">
-            <path d={panningPath} />
-          </svg>
-        </div>
-        <div
-          className={'zoom-item'}
-          // eslint-disable-next-line functional/no-return-void
-          onClick={() => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null })}
-        >
-          <svg viewBox="-5.25 -5.25 10.5 10.5">
-            <path d={zoomOutPath} />
-          </svg>
-        </div>
-        <div
-          className={'zoom-item'}
-          // eslint-disable-next-line functional/no-return-void
-          onClick={() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })}
-        >
-          <svg viewBox="-5.25 -5.25 10.5 10.5">
-            <path d={zoomInPath} />
-          </svg>
-        </div>
-      </div>
+      <Zoom />
       <style>{`@scope {
 ${style}
 }`}</style>
@@ -84,7 +47,23 @@ const style = `
 :scope > * {
   pointer-events: initial;
 }
+`
 
+function Zoom(): ReactNode {
+  return (
+    <div className="zoom">
+      <Position />
+      <Recenter />
+      <ZoomOut />
+      <ZoomIn />
+      <style>{`@scope {
+${zoomStyle}
+}`}</style>
+    </div>
+  )
+}
+
+const zoomStyle = `
 .zoom {
   font-size: large;
   margin: 0;
@@ -111,6 +90,62 @@ const style = `
   fill: none;
 }
 `
+
+function Position() {
+  return (
+    <div
+      className={'zoom-item'}
+      // eslint-disable-next-line functional/no-return-void
+      onClick={() => getPosition()}
+    >
+      <svg viewBox="-5.25 -5.25 10.5 10.5">
+        <path d={positionPath} />
+      </svg>
+    </div>
+  )
+}
+
+function Recenter() {
+  return (
+    <div
+      className={'zoom-item'}
+      // eslint-disable-next-line functional/no-return-void
+      onClick={() => viewerSend({ type: 'RECENTER' })}
+    >
+      <svg viewBox="-5.25 -5.25 10.5 10.5">
+        <path d={panningPath} />
+      </svg>
+    </div>
+  )
+}
+
+function ZoomOut() {
+  return (
+    <div
+      className={'zoom-item'}
+      // eslint-disable-next-line functional/no-return-void
+      onClick={() => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null })}
+    >
+      <svg viewBox="-5.25 -5.25 10.5 10.5">
+        <path d={zoomOutPath} />
+      </svg>
+    </div>
+  )
+}
+
+function ZoomIn() {
+  return (
+    <div
+      className={'zoom-item'}
+      // eslint-disable-next-line functional/no-return-void
+      onClick={() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })}
+    >
+      <svg viewBox="-5.25 -5.25 10.5 10.5">
+        <path d={zoomInPath} />
+      </svg>
+    </div>
+  )
+}
 
 export function RightStyle(): ReactNode {
   const { open, animating } = useOpenCloseRight()

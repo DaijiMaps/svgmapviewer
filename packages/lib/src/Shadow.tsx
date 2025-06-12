@@ -21,7 +21,6 @@ ${style}
 
 const style = `
 :scope {
-  /* XXX */
   background-color: black;
   pointer-events: initial !important;
   cursor: default;
