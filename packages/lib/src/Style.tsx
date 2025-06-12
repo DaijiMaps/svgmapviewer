@@ -147,7 +147,7 @@ function ModeStyle(): ReactNode {
         ? `
 /* mode */
 .container {
-  transform: translate3d(0px, 0px, 0px);
+  overflow: hidden !important;
 }
 `
         : `
@@ -184,9 +184,7 @@ function css(q: Matrix): string {
   return `
 .container {
   will-change: transform;
-  /*
-  overflow: hidden;
-  */
+  overflow: hidden !important;
   animation: container-zoom ${500}ms ease;
 }
 @keyframes container-zoom {
