@@ -11,7 +11,7 @@ import {
 } from './lib/map-svg-react'
 import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
-import { MapSvgMarkersStyle } from './MapSvgStyle'
+import { SvgSymbolStyle } from './Style'
 
 export function MapSvgMarkersRoot(): ReactNode {
   // eslint-disable-next-line functional/no-expression-statements
@@ -69,7 +69,9 @@ function MapSvgMarkersDefs(): ReactNode {
           <RenderMapAssetsDefault />
         </defs>
         <RenderMapMarkers mapMarkers={svgMapViewerConfig.getMapMarkers()} />
-        <MapSvgMarkersStyle />
+        <style>
+          <SvgSymbolStyle />
+        </style>
       </g>
     </svg>
   )
