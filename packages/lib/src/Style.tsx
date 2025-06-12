@@ -20,7 +20,6 @@ import {
 } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
 import { viewerSend } from './lib/viewer-xstate'
-import { MeasurePath } from './Measure'
 
 export function styleRoot(): void {
   const e = document.getElementById('style-root')
@@ -32,7 +31,6 @@ export function styleRoot(): void {
   createRoot(e).render(
     <StrictMode>
       <Style />
-      <Defs />
       <style>{style}</style>
     </StrictMode>
   )
@@ -54,16 +52,6 @@ function Style(): ReactNode {
       <ModeStyle />
       <AnimationStyle />
     </>
-  )
-}
-
-function Defs(): ReactNode {
-  return (
-    <svg id="style-svg-defs">
-      <defs>
-        <MeasureDefs />
-      </defs>
-    </svg>
   )
 }
 
@@ -214,8 +202,4 @@ use,
 `}
     </>
   )
-}
-
-function MeasureDefs() {
-  return <MeasurePath />
 }
