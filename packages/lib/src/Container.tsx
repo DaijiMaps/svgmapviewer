@@ -18,6 +18,7 @@ import {
 } from './lib/viewer-react'
 import { MapSvgRoot } from './MapSvg'
 import { MapSvgLabelsRoot } from './MapSvgLabels'
+import { MapSvgMarkersRoot } from './MapSvgMarkers'
 import { MapSvgSymbolsRoot } from './MapSvgSymbols'
 
 export function Container(): ReactNode {
@@ -45,6 +46,7 @@ export function Container(): ReactNode {
     >
       <MapSvgRoot />
       <MapSvgSymbolsRoot />
+      <MapSvgMarkersRoot />
       <MapSvgLabelsRoot />
     </div>
   )

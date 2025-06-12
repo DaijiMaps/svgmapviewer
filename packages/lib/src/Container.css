@@ -18,7 +18,8 @@
 #viewer,
 #map-svg,
 #map-svg-symbols,
-#map-html,
+#map-svg-markers,
+#map-svg-labels,
 #ui {
   contain: content;
 }
