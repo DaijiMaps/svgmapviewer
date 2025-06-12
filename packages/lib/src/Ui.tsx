@@ -56,7 +56,7 @@ function UiStyle(): ReactNode {
 
 function Assets(): ReactNode {
   return (
-    <svg>
+    <svg id="ui-svg-defs">
       <defs>
         <RenderMapAssetsDefault />
       </defs>
@@ -119,5 +119,9 @@ h5 {
 
 a:link {
   text-decoration: none;
+}
+
+#ui-svg-defs {
+  display: none;
 }
 `
