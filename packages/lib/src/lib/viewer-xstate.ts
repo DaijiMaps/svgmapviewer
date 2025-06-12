@@ -28,6 +28,7 @@ import {
 import {
   MAP_SVG_LABELS_ROOT_ID,
   MAP_SVG_MARKERS_ROOT_ID,
+  MAP_SVG_OBJECTS_ROOT_ID,
   MAP_SVG_ROOT_ID,
   MAP_SVG_SYMBOLS_ROOT_ID,
 } from './map-svg-react'
@@ -68,6 +69,8 @@ const viewerMachine = setup({
     isHoming: ({ context: { homing } }) => homing,
     isContainerRendered: () => document.querySelector('.container') !== null,
     isMapSvgRendered: () => isShadowRootRendered(MAP_SVG_ROOT_ID),
+    isMapSvgObjectsRendered: () =>
+      isShadowRootRendered(MAP_SVG_OBJECTS_ROOT_ID),
     isMapSvgSymbolsRendered: () =>
       isShadowRootRendered(MAP_SVG_SYMBOLS_ROOT_ID),
     isMapSvgMarkersRendered: () =>
@@ -318,6 +321,7 @@ const viewerMachine = setup({
             guard: and([
               'isContainerRendered',
               'isMapSvgRendered',
+              'isMapSvgObjectsRendered',
               'isMapSvgSymbolsRendered',
               'isMapSvgMarkersRendered',
               'isMapSvgLabelsRendered',

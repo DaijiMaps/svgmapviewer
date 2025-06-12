@@ -1,3 +1,4 @@
+/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
 import { type ReactNode } from 'react'
 import { like, unlike, useLikes } from './lib/like'
