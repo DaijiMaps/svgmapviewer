@@ -153,11 +153,9 @@ function ModeStyle(): ReactNode {
         : `
 /* mode */
 .container {
-  cursor: move;
-  overflow: scroll;
-  will-change: scroll-position transform;
-  touch-action: pan-x pan-y;
-  transform: translate3d(0px, 0px, 0px);
+  cursor: move !important;
+  overflow: scroll !important;
+  touch-action: pan-x pan-y !important;
 }
 `}
     </style>
