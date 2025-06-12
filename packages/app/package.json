@@ -52,6 +52,7 @@
     "@types/react-dom": "^19.1.6",
     "@unocss/vite": "^66.2.0",
     "@vitejs/plugin-react": "^4.5.2",
+    "@vitejs/plugin-react-oxc": "^0.2.2",
     "@vitest/browser": "^3.2.3",
     "eslint": "^9.28.0",
     "eslint-config-prettier": "^10.1.5",
@@ -77,6 +78,7 @@
     "vite-plugin-circular-dependency": "^0.5.0",
     "vite-plugin-dts": "^4.5.4",
     "vite-plugin-lib-inject-css": "^2.2.2",
+    "vite-plugin-libcss": "^1.1.2",
     "vitest": "^3.2.3"
   }
 }

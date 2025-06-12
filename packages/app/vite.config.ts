@@ -1,8 +1,7 @@
-import react from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react-oxc'
 import UnoCSS from 'unocss/vite'
 import { defineConfig } from 'vite'
-//import dts from 'vite-plugin-dts'
-import { libInjectCss } from 'vite-plugin-lib-inject-css'
+import libCss from 'vite-plugin-libcss'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,9 +19,8 @@ export default defineConfig({
     },
   },
   plugins: [
-    //dts({ rollupTypes: true, tsconfigPath: './tsconfig.app.json' }),
-    libInjectCss(),
     react(),
     UnoCSS(),
+    libCss(),
   ],
 })

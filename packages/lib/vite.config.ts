@@ -1,4 +1,4 @@
-import react from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react-oxc'
 import UnoCSS from 'unocss/vite'
 import { defineConfig } from 'vite'
 
