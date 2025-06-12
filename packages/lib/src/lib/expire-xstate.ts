@@ -1,8 +1,6 @@
 import { assign, createActor, emit, setup } from 'xstate'
 
-export type ExpireEvent = { timeStamp: number }
-
-type Events = { type: 'TICK'; ev: ExpireEvent }
+type Events = { type: 'TICK' }
 type Emitted = { type: 'CALL' }
 type Context = { ticked: boolean }
 
@@ -60,7 +58,7 @@ export interface Expire {
   machine: unknown
   actor: unknown
   start: () => void
-  tick: (ev: ExpireEvent) => void
+  tick: () => void
 }
 
 export function makeExpire(duration: number, cb: () => void): Expire {
@@ -74,8 +72,8 @@ export function makeExpire(duration: number, cb: () => void): Expire {
   function start() {
     actor.start()
   }
-  function tick(ev: ExpireEvent) {
-    actor.send({ type: 'TICK', ev })
+  function tick() {
+    actor.send({ type: 'TICK' })
   }
   return {
     machine,
