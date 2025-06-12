@@ -212,6 +212,7 @@ export function SvgSymbolStyle(): ReactNode {
   return (
     <>
       {`
+use,
 .map-symbols {
   --map-symbol-size: ${sz / 72};
 }
