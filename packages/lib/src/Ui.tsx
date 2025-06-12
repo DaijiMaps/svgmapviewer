@@ -13,7 +13,6 @@ import { HeaderCss } from './HeaderStyle'
 import { Right } from './Right'
 import { RightCss } from './RightStyle'
 import { Shadow } from './Shadow'
-import { ShadowCss } from './ShadowStyle'
 import { UiStyle as StyleUiStyle } from './Style'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { renderShadowRoot } from './lib/dom'
@@ -56,7 +55,6 @@ function UiContent(): ReactNode {
 function UiStyle(): ReactNode {
   return (
     <>
-      <ShadowCss />
       <HeaderCss />
       <FooterCss />
       <RightCss />

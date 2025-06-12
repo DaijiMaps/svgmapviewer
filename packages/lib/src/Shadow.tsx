@@ -11,9 +11,26 @@ export function Shadow(): ReactNode {
       onClick={() => notifyUiClose()}
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiSend({ type: 'SHADOW.ANIMATION.END' })}
-    />
+    >
+      <style>{style}</style>
+    </div>
   )
 }
+
+const style = `
+  .shadow {
+    background-color: black;
+    opacity: 0;
+    pointer-events: initial !important;
+    cursor: default;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+`
 
 export function ShadowStyle(): ReactNode {
   const { open, animating } = useOpenCloseShadow()
