@@ -231,5 +231,6 @@ function expireCb() {
 }
 
 const expire = makeExpire(500, expireCb)
+expire.start()
 
 scrollEventCbs.add(expire.tick)
