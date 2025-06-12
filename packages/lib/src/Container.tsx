@@ -2,6 +2,10 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 import { type ReactNode, useRef } from 'react'
+import {
+  position_absolute_left_0_top_0,
+  width_100vw_height_100svh,
+} from './lib/css'
 import { styleAnimationEnd } from './lib/style-xstate'
 import {
   touchSendTouchEnd,
@@ -58,12 +62,8 @@ ${style}
 
 const style = `
 :scope {
-  width: 100vw;
-  height: 100vh;
-  height: 100svh;
-  position: absolute;
-  left: 0;
-  top: 0;
+  ${position_absolute_left_0_top_0}
+  ${width_100vw_height_100svh}
   overflow: hidden;
   cursor: pointer;
   overscroll-behavior: none;
@@ -73,9 +73,7 @@ const style = `
 }
 
 .content {
-  position: absolute;
-  left: 0;
-  top: 0;
+  ${position_absolute_left_0_top_0}
 }
 
 :scope,

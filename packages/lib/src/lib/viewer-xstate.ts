@@ -27,9 +27,9 @@ import {
 } from './layout'
 import {
   MAP_SVG_LABELS_ROOT_ID,
+  MAP_SVG_LAYERS_ROOT_ID,
   MAP_SVG_MARKERS_ROOT_ID,
   MAP_SVG_OBJECTS_ROOT_ID,
-  MAP_SVG_ROOT_ID,
   MAP_SVG_SYMBOLS_ROOT_ID,
 } from './map-svg-react'
 import { getCurrentScroll } from './scroll'
@@ -68,7 +68,7 @@ const viewerMachine = setup({
     isTouching: ({ context: { touching } }) => touching,
     isHoming: ({ context: { homing } }) => homing,
     isContainerRendered: () => document.querySelector('.container') !== null,
-    isMapSvgRendered: () => isShadowRootRendered(MAP_SVG_ROOT_ID),
+    isMapSvgRendered: () => isShadowRootRendered(MAP_SVG_LAYERS_ROOT_ID),
     isMapSvgObjectsRendered: () =>
       isShadowRootRendered(MAP_SVG_OBJECTS_ROOT_ID),
     isMapSvgSymbolsRendered: () =>

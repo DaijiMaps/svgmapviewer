@@ -1,6 +1,11 @@
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode } from 'react'
 import {
+  position_absolute_left_0_bottom_0,
+  position_absolute_left_0_top_0,
+  position_absolute_right_0_bottom_0,
+} from './lib/css'
+import {
   useDistanceRadius,
   useLayoutContainer,
   useLonLat,
@@ -162,9 +167,7 @@ export function MeasureStyle(): ReactNode {
   const coordinateStyle = `
 #distance,
 #coordinate {
-  position: absolute;
-  left: 0;
-  top: 0;
+  ${position_absolute_left_0_top_0}
   width: ${width}px;
   height: ${height}px;
 }
@@ -172,9 +175,7 @@ export function MeasureStyle(): ReactNode {
 
   const longitudeStyle = `
 #longitude {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+  ${position_absolute_right_0_bottom_0}
   margin: 0.1em;
   padding: 0;
   transform: translate(${-width / 2}px, ${-height / 2}px) scale(0.5);
@@ -184,9 +185,7 @@ export function MeasureStyle(): ReactNode {
 `
   const latitudeStyle = `
 #latitude {
-  position: absolute;
-  left: 0;
-  bottom: 0;
+  ${position_absolute_left_0_bottom_0}
   margin: 0.1em;
   padding: 0;
   transform: translate(${width / 2}px, ${-height / 2}px) scale(0.5);
@@ -197,9 +196,7 @@ export function MeasureStyle(): ReactNode {
 
   const distanceOriginStyle = `
 #distance-origin {
-  position: absolute;
-  left: 0;
-  top: 0;
+  ${position_absolute_left_0_top_0}
   margin: 0.1em;
   padding: 0;
   transform: translate(${width / 2}px, ${height / 2}px) scale(0.5);
@@ -211,9 +208,7 @@ export function MeasureStyle(): ReactNode {
   const distanceStyle = `
 .distance-x,
 .distance-y {
-  position: absolute;
-  left: 0;
-  top: 0;
+  ${position_absolute_left_0_top_0}
   margin: 0.1em;
   padding: 0;
   font-size: medium;

@@ -1,6 +1,10 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { notifyUiClose } from './lib/config-xstate'
+import {
+  position_absolute_left_0_top_0,
+  width_100vw_height_100svh,
+} from './lib/css'
 import { uiSend, useOpenCloseShadow } from './lib/ui-xstate'
 
 export function Shadow(): ReactNode {
@@ -21,15 +25,11 @@ ${style}
 
 const style = `
 :scope {
+  ${position_absolute_left_0_top_0}
+  ${width_100vw_height_100svh}
   background-color: black;
-  pointer-events: initial !important;
   cursor: default;
-
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
+  pointer-events: initial !important;
 }
 `
 

@@ -1,4 +1,4 @@
-import { type MatrixMatrix as Matrix, matrixToString } from './matrix/prefixed'
+import { type MatrixMatrix as Matrix, matrixToString } from '../matrix/prefixed'
 
 export type CSSMatrix = Readonly<Matrix | Matrix[]>
 

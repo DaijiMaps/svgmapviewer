@@ -1,6 +1,10 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from './lib'
+import {
+  flex_column_center_center,
+  position_absolute_left_0_top_0,
+} from './lib/css'
 import { uiSend, useOpenCloseHeader } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
 
@@ -30,14 +34,9 @@ ${style}
 
 const style = `
 :scope {
+  ${position_absolute_left_0_top_0}
+  ${flex_column_center_center}
   padding: 0.5em;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-size: smaller;
   pointer-events: none;
 }

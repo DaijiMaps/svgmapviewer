@@ -3,6 +3,11 @@ import { type ReactNode } from 'react'
 import { Container } from './Container'
 import { likeStyle } from './Like'
 import { UiRoot } from './Ui'
+import {
+  margin_0_padding_0,
+  position_absolute_left_0_top_0,
+  width_100vw_height_100svh,
+} from './lib/css'
 
 function App(): ReactNode {
   return (
@@ -16,8 +21,7 @@ function App(): ReactNode {
 
 const style = `
 :root {
-  margin: 0;
-  padding: 0;
+  ${margin_0_padding_0}
   font-family: sans-serif;
   font-weight: lighter;
   box-sizing: border-box;
@@ -65,12 +69,8 @@ body,
 }
 
 body {
-  width: 100vw;
-  height: 100vh;
-  height: 100svh;
-  position: absolute;
-  left: 0;
-  top: 0;
+  ${width_100vw_height_100svh}
+  ${position_absolute_left_0_top_0}
   overflow: hidden;
   touch-action: none;
 }

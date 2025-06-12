@@ -1,6 +1,11 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from './lib'
+import {
+  flex_column_center_center,
+  flex_row_center_center,
+  position_absolute_left_0_bottom_0,
+} from './lib/css'
 import { uiSend, useOpenCloseFooter } from './lib/ui-xstate'
 
 export function Footer(): ReactNode {
@@ -30,14 +35,9 @@ ${style}
 
 const style = `
 :scope {
+  ${position_absolute_left_0_bottom_0}
+  ${flex_column_center_center}
   padding: 0.4em;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-size: xx-small;
   pointer-events: none;
 }
@@ -59,10 +59,7 @@ const style = `
 .mode {
   font-size: large;
   margin: 0.4em;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  ${flex_row_center_center}
 }
 
 .mode-item {

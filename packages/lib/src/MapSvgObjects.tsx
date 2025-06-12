@@ -87,10 +87,6 @@ const style = `
   */
 }
 
-.content.svg > svg {
-  position: absolute;
-}
-
 .map,
 .map > * {
   contain: content;

@@ -1,6 +1,10 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { Measure, MeasureCoordinate, MeasureDistance } from './Measure'
+import {
+  position_absolute_left_0_top_0,
+  width_100vw_height_100svh,
+} from './lib/css'
 
 export function Guides(): ReactNode {
   return (
@@ -17,12 +21,8 @@ export function Guides(): ReactNode {
 
 const style = `
 .guides {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  height: 100svh;
+  ${position_absolute_left_0_top_0}
+  ${width_100vw_height_100svh}
   pointer-events: none;
   z-index: 2;
 }

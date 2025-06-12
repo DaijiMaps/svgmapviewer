@@ -2,6 +2,7 @@
 import { type ReactNode } from 'react'
 import { Balloon, BalloonStyle } from './Balloon'
 import { svgMapViewerConfig as cfg } from './lib/config'
+import { position_absolute_left_0_top_0 } from './lib/css'
 import { diag } from './lib/diag'
 import { isDetailEmpty, uiSend, useDetail } from './lib/ui-xstate'
 
@@ -41,11 +42,9 @@ const style = `
 }
 
 .detail {
+  ${position_absolute_left_0_top_0}
   width: 50vmin;
   height: 50vmin;
-  position: absolute;
-  left: 0;
-  top: 0;
   padding: 0.5em;
   overflow: scroll;
   pointer-events: initial;

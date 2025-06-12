@@ -1,5 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { type PropsWithChildren, type ReactNode } from 'react'
+import { position_absolute_left_0_top_0 } from './lib/css'
 import { type OpenClose, openCloseIsVisible } from './lib/openclose'
 import { type Dir, type SearchRes } from './lib/types'
 import {
@@ -131,9 +132,7 @@ ${style}
 const style = `
 :scope,
 .balloon {
-  position: absolute;
-  left: 0;
-  top: 0;
+  ${position_absolute_left_0_top_0}
   pointer-events: none;
   z-index: 10;
 }

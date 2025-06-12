@@ -1,6 +1,11 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 //import clsx from 'clsx/clsx'
+import {
+  flex_column_center_center,
+  flex_row_center_center,
+  position_absolute_right_0_top_0,
+} from './lib/css'
 import { getPosition } from './lib/geo'
 import { uiSend, useOpenCloseRight } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
@@ -22,14 +27,9 @@ ${style}
 
 const style = `
 :scope {
+  ${position_absolute_right_0_top_0}
+  ${flex_row_center_center}
   padding: 0.4em;
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
   font-size: smaller;
   pointer-events: none;
 
@@ -67,10 +67,7 @@ const zoomStyle = `
 .zoom {
   font-size: large;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  ${flex_column_center_center}
 }
 
 .zoom-item {
