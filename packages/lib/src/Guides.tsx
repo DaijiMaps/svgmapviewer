@@ -10,6 +10,26 @@ export function Guides(): ReactNode {
       </svg>
       <MeasureDistance />
       <MeasureCoordinate />
+      <style>{style}</style>
     </div>
   )
 }
+
+const style = `
+.guides {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100svh;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.distance > text,
+.coordinate > text {
+  user-select: none;
+  -webkit-user-select: none;
+}
+`

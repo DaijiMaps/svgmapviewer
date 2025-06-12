@@ -121,10 +121,32 @@ export function Balloon(
         <path className="fg" d={fgPath} />
       </svg>
       {props.children}
+      <style>{style}</style>
     </div>
   )
 }
 
+const style = `
+.balloon-container,
+.balloon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.balloon > path.bg {
+  fill: black;
+  stroke: none;
+}
+
+.balloon > path.fg {
+  fill: white;
+  stroke: white;
+  stroke-width: 1px;
+}
+`
 export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
   const { _detail: content, _p: o, _dir: dir } = props
 

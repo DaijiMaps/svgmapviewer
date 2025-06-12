@@ -28,6 +28,41 @@ export function Detail(): ReactNode {
           !isDetailEmpty(detail) &&
           cfg.renderInfo({ info: detail.info })}
       </div>
+      <style>{style}</style>
     </div>
   )
 }
+
+const style = `
+.content {
+  overflow: hidden;
+}
+
+.detail {
+  width: 50vmin;
+  height: 50vmin;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0.5em;
+  overflow: scroll;
+  pointer-events: initial;
+  box-sizing: border-box;
+  z-index: 11;
+}
+
+.detail > h3,
+.detail p {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.detail > h3 {
+  margin: 1.5em;
+  text-align: center;
+}
+
+.detail > p {
+  margin: 0.5em;
+}
+`

@@ -1,12 +1,9 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 import { useEffect, type ReactNode } from 'react'
-import { BalloonCss } from './BalloonStyle'
 import { Detail } from './Detail'
-import { DetailCss } from './DetailStyle'
 import { Footer } from './Footer'
 import { Guides } from './Guides'
-import { GuidesCss } from './GuidesStyle'
 import { Header } from './Header'
 import { Right } from './Right'
 import { Shadow } from './Shadow'
@@ -52,9 +49,6 @@ function UiContent(): ReactNode {
 function UiStyle(): ReactNode {
   return (
     <>
-      <GuidesCss />
-      <BalloonCss />
-      <DetailCss />
       <StyleUiStyle />
     </>
   )
