@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import type { ReactNode } from 'react'
-import { SvgMarkerStyle, SvgSymbolStyle } from './Style'
+import { SvgSymbolStyle } from './Style'
 import { svgMapViewerConfig } from './lib'
 
 export function MapSvgStyle(): ReactNode {
@@ -12,7 +12,7 @@ export function MapSvgStyle(): ReactNode {
 export function MapSvgMarkersStyle(): ReactNode {
   return (
     <style>
-      <SvgMarkerStyle />
+      <SvgSymbolStyle />
     </style>
   )
 }

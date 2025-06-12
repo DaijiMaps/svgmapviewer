@@ -195,10 +195,6 @@ function css(q: Matrix): string {
 `
 }
 
-export function SvgMarkerStyle(): ReactNode {
-  return <></>
-}
-
 export function SvgSymbolStyle(): ReactNode {
   const config = useLayoutConfig()
   const s = useLayoutSvgScaleS()
@@ -213,10 +209,9 @@ export function SvgSymbolStyle(): ReactNode {
     <>
       {`
 use,
-.map-symbols {
-  --map-symbol-size: ${sz / 72};
-}
+.map-symbols,
 .map-markers {
+  --map-symbol-size: ${sz / 72};
 }
 `}
     </>

@@ -14,12 +14,12 @@ import {
 export function RenderMapAssetsDefault(): ReactNode {
   return (
     <g className="assets">
-      <Symbols />
+      <SymbolAssets />
     </g>
   )
 }
 
-export function Symbols(): ReactNode {
+export function SymbolAssets(): ReactNode {
   return (
     <g className="symbols">
       <Bus />
@@ -32,4 +32,8 @@ export function Symbols(): ReactNode {
       <Toilets />
     </g>
   )
+}
+
+export function MarkerAssets(): ReactNode {
+  return <g className="markers"></g>
 }

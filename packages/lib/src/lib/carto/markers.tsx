@@ -4,6 +4,7 @@ import { svgMapViewerConfig as cfg } from '../config'
 import { usePosition } from '../geo'
 import { useLayoutConfig, useLayoutSvgScaleS } from '../map-xstate'
 import { type V } from '../tuple'
+import { trunc2 } from '../utils'
 import { entryToVs } from './point'
 import type { MapMarker, RenderMapMarkersProps } from './types'
 
@@ -47,7 +48,7 @@ function RenderUses(
           href={props.href}
           style={{
             transform:
-              `translate(${x}px, ${y}px)`.replaceAll(/([.]\d\d)\d*/g, '$1') +
+              `translate(${trunc2(x)}px, ${trunc2(y)}px)` +
               `scale(var(${props.sz}))`,
           }}
         />
@@ -69,7 +70,7 @@ export function RenderMarkers(
             ? []
             : [{ name: m.name, href: m.href, x: m.data[0], y: m.data[1] }]
         )
-        .map(({ name, x, y }, idx) => (
+        .map(({ name }, idx) => (
           <path
             key={idx}
             className={name}
@@ -77,72 +78,45 @@ export function RenderMarkers(
             fillOpacity="1"
             stroke="gray"
             strokeWidth={r / 20}
-            d={`M 0,0 l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 z`.replaceAll(
-              /([.]\d\d)\d*/g,
-              '$1'
-            )}
-            style={{
-              transform: `translate(${x}px, ${y}px)`.replaceAll(
-                /([.]\d\d)\d*/g,
-                '$1'
-              ),
-            }}
+            d={markerPathD(h, r).replaceAll(/([.]\d\d)\d*/g, '$1')}
           />
         ))}
     </>
   )
 }
 
-export function RenderMarker(
-  props: Readonly<{ sz: number; name: string; m: MapMarker; o: V }>
-): ReactNode {
-  const { name } = props.m
-  const [x, y] = props.o
-  const h = 1
-  const r = Math.sqrt(2) * h
+export function RenderPosition(props: Readonly<{ sz: number }>): ReactNode {
+  const r = props.sz / 2
+  const h = r / Math.sqrt(2)
   return (
     <path
-      className={name}
-      fill="white"
+      id="position"
+      className="position"
+      fill="red"
       fillOpacity="1"
-      stroke="gray"
-      strokeWidth={r / 20}
-      d={`M ${x},${y} l ${-h},${-h} a ${r},${r} 0,1,1 ${2 * h},0 z`.replaceAll(
-        /([.]\d\d)\d*/g,
-        '$1'
-      )}
+      stroke="none"
+      d={positionPathD(h, r).replaceAll(/([.]\d\d)\d*/g, '$1')}
     />
   )
 }
 
-export function RenderPosition(props: Readonly<{ sz: number }>): ReactNode {
-  // XXX
-  // XXX
-  // XXX
-  const r = props.sz / 2
-  const h = r / Math.sqrt(2)
-  // XXX
-  // XXX
-  // XXX
-
-  return (
-    <path
-      className="position"
-      id="position"
-      fill="red"
-      fillOpacity="1"
-      stroke="none"
-      d={`
+function markerPathD(h: number, r: number): string {
+  return `
 M 0,0
 l ${-h},${-h}
 a ${r},${r} 0,1,1 ${2 * h},0
 z
+`
+}
+
+function positionPathD(h: number, r: number): string {
+  return `
+${markerPathD(h, r)}
 m 0,${-h - r / 4}
 a ${r / 2},${r / 2} 0,1,0 0,${-r}
 a ${r / 2},${r / 2} 0,1,0 0,${r}
-`.replaceAll(/([.]\d\d)\d*/g, '$1')}
-    />
-  )
+z
+`
 }
 
 export function RenderPositionStyle(): ReactNode {
