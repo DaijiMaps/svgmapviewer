@@ -18,14 +18,6 @@ export const getMapLayers: () => MapLayer[] = () => [
   },
   {
     type: 'multipolygon',
-    name: 'playground',
-    filter: (p) =>
-      !!p.tourism?.match(/zoo/) ||
-      !!p.leisure?.match(/playground/) ||
-      !!p.landuse?.match(/recreation_ground/),
-  },
-  {
-    type: 'multipolygon',
     name: 'grass',
     filter: (p) => !!p.landuse?.match(/grass/),
   },
@@ -63,6 +55,14 @@ export const getMapLayers: () => MapLayer[] = () => [
     type: 'multipolygon',
     name: 'wetland',
     filter: (p) => !!p.natural?.match(/wetland/),
+  },
+  {
+    type: 'multipolygon',
+    name: 'playground',
+    filter: (p) =>
+      !!p.tourism?.match(/zoo/) ||
+      !!p.leisure?.match(/ice_rink|pitch|playground/) ||
+      !!p.landuse?.match(/recreation_ground/),
   },
   {
     type: 'multipolygon',
