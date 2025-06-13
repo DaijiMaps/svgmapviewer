@@ -209,18 +209,23 @@ function balloonStyle(
 .balloon-container {
   --q-x: ${Q.x}px;
   --q-y: ${Q.y}px;
+  --sb: ${sb};
   --dp-x: ${dP.x}px;
   --dp-y: ${dP.y}px;
+  --dxb: ${dxb};
+  --dyb: ${dyb};
+  --pww: ${-p.ww / 2}px;
+  --phh: ${-p.hh / 2}px;
 }
 
 .detail {
   transform-origin: 0 0;
-  transform: translate(calc(var(--q-x) + ${dxb}), calc(var(--q-y) + ${dyb})) scale(${sb}) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+  transform: translate(calc(var(--q-x) + var(--dxb)), calc(var(--q-y) + var(--dyb))) scale(var(--sb)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
 }
 
 .balloon-container {
   transform-origin: 0 0;
-  transform: translate(calc(var(--q-x) + ${dxb}), calc(var(--q-y) + ${dyb})) scale(${sb}) translate(${-p.ww / 2}px, ${-p.hh / 2}px) translate3d(0px, 0px, 0px);
+  transform: translate(calc(var(--q-x) + var(--dxb)), calc(var(--q-y) + var(--dyb))) scale(var(--sb)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
 }
 `
   } else {
@@ -250,10 +255,6 @@ function balloonStyle(
   --dyb: ${dyb};
   --pww: ${-p.ww / 2}px;
   --phh: ${-p.hh / 2}px;
-}
-
-.detail,
-.balloon-container {
 }
 
 .detail {
