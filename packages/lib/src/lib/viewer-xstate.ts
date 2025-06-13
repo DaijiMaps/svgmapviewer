@@ -68,7 +68,7 @@ const viewerMachine = setup({
     isTouching: ({ context: { touching } }) => touching,
     isHoming: ({ context: { homing } }) => homing,
     isContainerRendered: () => document.querySelector('.container') !== null,
-    isMapSvgRendered: () => isShadowRootRendered(MAP_SVG_LAYERS_ROOT_ID),
+    isMapSvgLayersRendered: () => isShadowRootRendered(MAP_SVG_LAYERS_ROOT_ID),
     isMapSvgObjectsRendered: () =>
       isShadowRootRendered(MAP_SVG_OBJECTS_ROOT_ID),
     isMapSvgSymbolsRendered: () =>
@@ -320,7 +320,7 @@ const viewerMachine = setup({
           always: {
             guard: and([
               'isContainerRendered',
-              'isMapSvgRendered',
+              'isMapSvgLayersRendered',
               'isMapSvgObjectsRendered',
               'isMapSvgSymbolsRendered',
               'isMapSvgMarkersRendered',
