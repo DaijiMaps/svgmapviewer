@@ -24,7 +24,7 @@ export function Detail(): ReactNode {
   const H = layout.container.height
 
   return (
-    <div className="detail-balloon">
+    <div className="ui-content detail-balloon">
       <Balloon _detail={detail} _p={p} _dir={dir} _W={W} _H={H}></Balloon>
       <div
         className="detail"
@@ -34,11 +34,9 @@ export function Detail(): ReactNode {
         {cfg.renderInfo &&
           !isDetailEmpty(detail) &&
           cfg.renderInfo({ info: detail.info })}
-      </div>
-      <style>
-        {style}
         <DetailStyle />
-      </style>
+      </div>
+      <style>{style}</style>
     </div>
   )
 }

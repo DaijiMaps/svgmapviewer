@@ -60,9 +60,6 @@ const style = `
 .balloon,
 .balloon-container {
   box-sizing: border-box;
-
-  /* XXX */
-  touch-action: none;
 }
 
 .right,

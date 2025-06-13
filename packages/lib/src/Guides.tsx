@@ -16,7 +16,7 @@ import {
 
 export function Guides(): ReactNode {
   return (
-    <div className="guides">
+    <div className="ui-content guides">
       <svg className="guides">
         <Measure />
       </svg>

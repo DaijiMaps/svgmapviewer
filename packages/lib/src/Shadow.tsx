@@ -12,7 +12,7 @@ import { uiSend, useOpenCloseShadow } from './lib/ui-xstate'
 export function Shadow(): ReactNode {
   return (
     <div
-      className="shadow"
+      className="ui-content shadow"
       // eslint-disable-next-line functional/no-return-void
       onClick={() => notifyUiClose()}
       // eslint-disable-next-line functional/no-return-void

@@ -17,7 +17,7 @@ export function Header(): ReactNode {
 
   return (
     <div
-      className="header"
+      className="ui-content header"
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiSend({ type: 'HEADER.ANIMATION.END' })}
     >

@@ -17,7 +17,7 @@ export function Footer(): ReactNode {
 
   return (
     <div
-      className="footer"
+      className="ui-content footer"
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiSend({ type: 'FOOTER.ANIMATION.END' })}
     >

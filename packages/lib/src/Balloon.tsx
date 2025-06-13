@@ -150,6 +150,7 @@ const style = `
   stroke-width: 1px;
 }
 `
+
 export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
   const { _detail: content, _p: o, _dir: dir } = props
 
@@ -175,10 +176,10 @@ export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
     !openCloseIsVisible(balloon) ||
     !openCloseIsVisible(detail)
   ) {
-    return <>{`.balloon-container, .detail { display: none; }`}</>
+    return <style>{`.balloon-container, .detail { display: none; }`}</style>
   } else {
     const p = { dir, vmin, bw, bh, ll, d, ww, hh, fg: true }
-    return <>{balloonStyle(balloon, o, dir, p)}</>
+    return <style>{balloonStyle(balloon, o, dir, p)}</style>
   }
 }
 

@@ -14,7 +14,7 @@ import { viewerSend } from './lib/viewer-xstate'
 export function Right(): ReactNode {
   return (
     <div
-      className="right bottom"
+      className="ui-content right bottom"
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiSend({ type: 'RIGHT.ANIMATION.END' })}
     >
