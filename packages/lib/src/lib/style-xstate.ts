@@ -130,6 +130,7 @@ const styleMachine = setup({
         'STYLE.ANIMATION': {
           actions: assign({
             animation: ({ event }) => event.animation,
+            animating: true,
           }),
         },
         'STYLE.SCROLL': {
@@ -143,7 +144,7 @@ const styleMachine = setup({
         },
         'ANIMATION.END': {
           actions: assign({
-            animating: () => false,
+            animating: false,
           }),
         },
       },
