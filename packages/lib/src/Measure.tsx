@@ -37,13 +37,15 @@ export function MeasureDistance(): ReactNode {
 
   return (
     <div id="distance">
-      <p id={`distance-origin`}>0m</p>
+      <p id={`distance-origin`} className="distance">
+        0m
+      </p>
       {INDEXES.map((i) => (
         <Fragment key={i}>
-          <p id={`distance-x-${i + 1}`} className="distance-x">
+          <p id={`distance-x-${i + 1}`} className="distance distance-x">
             {svg * (i + 1)}m
           </p>
-          <p id={`distance-y-${i + 1}`} className="distance-y">
+          <p id={`distance-y-${i + 1}`} className="distance distance-y">
             {svg * (i + 1)}m
           </p>
         </Fragment>
@@ -212,24 +214,18 @@ export function DistanceStyle(): ReactNode {
   const { width, height } = useLayoutContainer()
   const { client } = useDistanceRadius()
 
-  const distanceOriginStyle = `
-#distance-origin {
+  const distanceStyle = `
+.distance {
   ${position_absolute_left_0_top_0}
   margin: 0.1em;
   padding: 0;
   font-weight: lighter;
   transform-origin: left top;
-  transform: translate(${width / 2}px, ${height / 2}px) scale(0.5);
 }
 `
-  const distanceStyle = `
-.distance-x,
-.distance-y {
-  ${position_absolute_left_0_top_0}
-  margin: 0.1em;
-  padding: 0;
-  font-weight: lighter;
-  transform-origin: left top;
+  const distanceOriginStyle = `
+#distance-origin {
+  transform: translate(${width / 2}px, ${height / 2}px) scale(0.5);
 }
 `
   const distanceXStyle = INDEXES.map((i) => {
