@@ -56,7 +56,7 @@ const styleMachine = setup({
     updateDistanceRadius: assign({
       distanceRadius: ({ context: { layout } }) => findRadius(layout),
     }),
-    setLonLat: assign({
+    updateScroll: assign({
       geoPoint: ({ context }, { scroll, client }: CurrentScroll) => {
         const p = {
           x: scroll.x + client.width / 2,
@@ -139,13 +139,10 @@ const styleMachine = setup({
           }),
         },
         'STYLE.SCROLL': {
-          actions: [
-            {
-              type: 'setLonLat',
-              params: ({ event }) => event.currentScroll,
-            },
-            // XXX updateRange
-          ],
+          actions: {
+            type: 'updateScroll',
+            params: ({ event }) => event.currentScroll,
+          },
         },
         'STYLE.ANIMATION.END': {
           actions: assign({
