@@ -35,7 +35,10 @@ export function Detail(): ReactNode {
           !isDetailEmpty(detail) &&
           cfg.renderInfo({ info: detail.info })}
       </div>
-      <style>{style}</style>
+      <style>
+        {style}
+        <DetailStyle />
+      </style>
     </div>
   )
 }

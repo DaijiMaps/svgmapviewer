@@ -18,7 +18,10 @@ export function Shadow(): ReactNode {
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiSend({ type: 'SHADOW.ANIMATION.END' })}
     >
-      <style>{style}</style>
+      <style>
+        {style}
+        <ShadowStyle />
+      </style>
     </div>
   )
 }

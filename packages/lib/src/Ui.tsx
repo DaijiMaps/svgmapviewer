@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 import { useEffect, type ReactNode } from 'react'
-import { Detail, DetailStyle } from './Detail'
+import { Detail } from './Detail'
 import { Footer, FooterStyle } from './Footer'
 import { Guides } from './Guides'
 import { Header, HeaderStyle } from './Header'
@@ -9,8 +9,8 @@ import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { renderShadowRoot } from './lib/dom'
 import { UI_ROOT_ID } from './lib/ui-react'
 import { CoordinateStyle, DistanceStyle, GuidesAnimationStyle } from './Measure'
-import { Right, RightStyle } from './Right'
-import { Shadow, ShadowStyle } from './Shadow'
+import { Right } from './Right'
+import { Shadow } from './Shadow'
 
 // XXX group UI part animations into one
 // XXX receive animationend here (.ui)
@@ -93,17 +93,15 @@ a:link {
 }
 `
 
+// XXX localize
 export function UiStyle(): ReactNode {
   return (
     <style>
-      <DetailStyle />
       <CoordinateStyle />
       <DistanceStyle />
       <GuidesAnimationStyle />
       <HeaderStyle />
-      <RightStyle />
       <FooterStyle />
-      <ShadowStyle />
     </style>
   )
 }

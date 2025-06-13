@@ -51,7 +51,10 @@ function Zoom(): ReactNode {
       <Recenter />
       <ZoomOut />
       <ZoomIn />
-      <style>{zoomStyle}</style>
+      <style>
+        {zoomStyle}
+        <RightStyle />
+      </style>
     </div>
   )
 }
