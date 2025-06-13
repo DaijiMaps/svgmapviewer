@@ -155,6 +155,7 @@ const styleMachine = setup({
         'ANIMATION.END': {
           actions: assign({
             animating: () => false,
+            mode: 'panning',
           }),
         },
       },
@@ -223,7 +224,13 @@ registerCbs({
     // XXX update name range after scroll is updated
     requestAnimationFrame(() => expireCb())
   },
-  animationCb: (animation) => styleSend({ type: 'STYLE.ANIMATION', animation }),
+  animationCb: (animation) => {
+    /* lock scroll => then start animation */
+    styleSend({ type: 'STYLE.MODE', mode: 'locked' })
+    requestAnimationFrame(() =>
+      styleSend({ type: 'STYLE.ANIMATION', animation })
+    )
+  },
 })
 
 // scroll & expire
