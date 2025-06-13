@@ -239,6 +239,17 @@ function balloonStyle(
   --q-y: ${Q.y}px;
   --dp-x: ${dP.x}px;
   --dp-y: ${dP.y}px;
+  --oa: ${oa};
+  --ob: ${ob};
+  --sa: ${sa};
+  --sb: ${sb};
+  --timing: ${t};
+  --dxa: ${dxa};
+  --dxb: ${dxb};
+  --dya: ${dya};
+  --dyb: ${dyb};
+  --pww: ${-p.ww / 2}px;
+  --phh: ${-p.hh / 2}px;
 }
 
 .detail,
@@ -247,35 +258,35 @@ function balloonStyle(
 
 .detail {
   transform-origin: 0 0;
-  animation: xxx-detail 300ms ${t};
+  animation: xxx-detail 300ms var(--timing);
   will-change: opacity, transform;
 }
 
 .balloon-container {
   transform-origin: 0 0;
-  animation: xxx-balloon 300ms ${t};
+  animation: xxx-balloon 300ms var(--timing);
   will-change: opacity, transform;
 }
 
 @keyframes xxx-detail {
   from {
-    opacity: ${oa};
-    transform: translate(calc(var(--q-x) + ${dxa}), calc(var(--q-y) + ${dya})) scale(${sa}) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+    opacity: var(--oa);
+    transform: translate(calc(var(--q-x) + var(--dxa)), calc(var(--q-y) + var(--dya))) scale(var(--sa)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: ${ob};
-    transform: translate(calc(var(--q-x) + ${dxb}), calc(var(--q-y) + ${dyb})) scale(${sb}) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+    opacity: var(--ob);
+    transform: translate(calc(var(--q-x) + var(--dxb)), calc(var(--q-y) + var(--dyb))) scale(var(--sb)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
 }
 
 @keyframes xxx-balloon {
   from {
-    opacity: ${oa};
-    transform: translate(calc(var(--q-x) + ${dxa}), calc(var(--q-y) + ${dya})) scale(${sa}) translate(${-p.ww / 2}px, ${-p.hh / 2}px) translate3d(0px, 0px, 0px);
+    opacity: var(--oa);
+    transform: translate(calc(var(--q-x) + var(--dxa)), calc(var(--q-y) + var(--dya))) scale(var(--sa)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: ${ob};
-    transform: translate(calc(var(--q-x) + ${dxb}), calc(var(--q-y) + ${dyb})) scale(${sb}) translate(${-p.ww / 2}px, ${-p.hh / 2}px) translate3d(0px, 0px, 0px);
+    opacity: var(--ob);
+    transform: translate(calc(var(--q-x) + var(--dxb)), calc(var(--q-y) + var(--dyb))) scale(var(--sb)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
   }
 }
 `
