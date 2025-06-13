@@ -1,10 +1,10 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-//import clsx from 'clsx/clsx'
 import {
   flex_column_center_center,
   flex_row_center_center,
   pointer_events_initial,
+  pointer_events_none,
   position_absolute_right_0_top_0,
 } from './lib/css'
 import { getPosition } from './lib/geo'
@@ -30,7 +30,7 @@ const style = `
   ${flex_row_center_center}
   padding: 0.4em;
   font-size: smaller;
-  pointer-events: none;
+  ${pointer_events_none}
 
   transform-origin: 100% 50%;
 }
