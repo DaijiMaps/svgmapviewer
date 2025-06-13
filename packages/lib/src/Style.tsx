@@ -10,12 +10,7 @@ import {
   matrixEmpty,
   matrixToString,
 } from './lib/matrix/prefixed'
-import {
-  useAnimation,
-  useDragging,
-  useLayoutScroll,
-  useRendered,
-} from './lib/style-xstate'
+import { useAnimation, useLayoutScroll, useRendered } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
 import { viewerSend } from './lib/viewer-xstate'
 
@@ -51,7 +46,6 @@ function Style(): ReactNode {
 export function ContainerStyle(): ReactNode {
   return (
     <>
-      <DraggingStyle />
       <AnimationStyle />
     </>
   )
@@ -97,20 +91,6 @@ const appearing = `
 }
 `
 */
-
-function DraggingStyle(): ReactNode {
-  const dragging = useDragging()
-  const style = !dragging
-    ? ``
-    : `
-/* dragging */
-#viewer {
-  cursor: grabbing;
-  overflow: scroll;
-}
-`
-  return <style>{style}</style>
-}
 
 // XXX .container should always have `transform: translate3d(0px, 0px, 0px);`
 // XXX define this statically elsewhere

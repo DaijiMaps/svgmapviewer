@@ -34,7 +34,6 @@ interface StyleContext {
   geoPoint: VecVec
   distanceRadius: DistanceRadius
   svgRange: Range
-  dragging: boolean
   mode: string
   animation: null | Animation
 }
@@ -93,7 +92,6 @@ const styleMachine = setup({
       start: vecZero,
       end: vecZero,
     },
-    dragging: false,
     mode: 'panning',
     animation: null,
   },
@@ -191,9 +189,6 @@ export function useLayoutScroll(): BoxBox {
 }
 export function useSvgMatrix(): DOMMatrixReadOnly {
   return useSelector(styleActor, (s) => s.context.svgMatrix)
-}
-export function useDragging(): boolean {
-  return useSelector(styleActor, (s) => s.context.dragging)
 }
 export function useMode(): string {
   return useSelector(styleActor, (s) => s.context.mode)
