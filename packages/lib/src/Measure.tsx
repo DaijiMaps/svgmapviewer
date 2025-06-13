@@ -26,7 +26,7 @@ export function Measure(): ReactNode {
         XXX
         XXX
         */}
-        <MeasurePath />
+        <MeasurePaths />
       </g>
     </>
   )
@@ -87,7 +87,7 @@ export function MeasurePathUse(): ReactNode {
   )
 }
 
-export function MeasurePath(): ReactNode {
+export function MeasurePaths(): ReactNode {
   const { width, height } = useLayoutContainer()
   const { client } = useDistanceRadius()
 
@@ -96,13 +96,14 @@ export function MeasurePath(): ReactNode {
   const rings = INDEXES.map((i) => {
     const r = client * (i + 1)
     return ringPath({ width, height, r })
-  }).join(' ')
+  })
 
   // XXX use
   return (
     <>
       <path
         id="measure-horizontal"
+        className="measure-line"
         stroke="black"
         strokeWidth="0.1px"
         fill="none"
@@ -110,18 +111,23 @@ export function MeasurePath(): ReactNode {
       />
       <path
         id="measure-vertical"
+        className="measure-line"
         stroke="black"
         strokeWidth="0.1px"
         fill="none"
         d={vertical}
       />
-      <path
-        id="measure-rings"
-        stroke="black"
-        strokeWidth="0.1px"
-        fill="none"
-        d={rings}
-      />
+      {rings.map((d, idx) => (
+        <path
+          key={idx}
+          id={`measure-ring-${idx + 1}`}
+          className="measure-line"
+          stroke="black"
+          strokeWidth="0.1px"
+          fill="none"
+          d={d}
+        />
+      ))}
     </>
   )
 }
