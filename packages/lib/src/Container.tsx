@@ -66,20 +66,17 @@ const style: string = `
   ${width_100vw_height_100svh}
 
   scrollbar-width: thin;
-  cursor: move;
 
   overflow: scroll;
   overscroll-behavior: none;
   touch-action: pan-x pan-y;
 
   will-change: scroll-position;
-  background: none;
   contain: strict;
 }
 
 .content {
   ${position_absolute_left_0_top_0}
-  background: none;
   contain: strict;
 }
 `

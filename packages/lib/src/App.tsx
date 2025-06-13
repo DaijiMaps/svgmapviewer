@@ -23,6 +23,7 @@ function App(): ReactNode {
 
 const style = `
 :root {
+  cursor: move;
   font-family: sans-serif;
   font-weight: lighter;
   user-select: none;
