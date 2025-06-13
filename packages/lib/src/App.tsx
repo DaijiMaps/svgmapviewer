@@ -25,7 +25,7 @@ const style = `
 :root {
   font-family: sans-serif;
   font-weight: lighter;
-  user-select: none; /* Standard syntax */
+  user-select: none;
 }
 
 body {

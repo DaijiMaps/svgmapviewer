@@ -40,6 +40,7 @@ const style = `
 #map-svg-labels-svg,
 #map-svg-labels1 {
   contain: content;
+  pointer-events: none;
 }
 #map-svg-labels-defs {
   display: none;

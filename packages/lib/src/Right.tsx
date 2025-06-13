@@ -41,10 +41,6 @@ const style = `
 
   transform-origin: 100% 100%;
 }
-
-.right > * {
-  pointer-events: initial;
-}
 `
 
 function Zoom(): ReactNode {

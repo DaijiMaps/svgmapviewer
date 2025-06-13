@@ -36,15 +36,10 @@ const style = `
 #map-svg-svg,
 #map1 {
   contain: content;
+  pointer-events: none;
 }
 #map-svg-defs {
   display: none;
-}
-
-.content.svg {
-  /*
-  transform: translate3d(0px, 0px, 0px);
-  */
 }
 `
 
