@@ -71,8 +71,7 @@ function LayoutStyle(): ReactNode {
     requestAnimationFrame(() => viewerSend({ type: 'RENDERED' }))
   }, [rendered])
 
-  return (
-    <style>{`
+  const style = `
 /* layout */
 .container, #ui { display: ${!rendered ? `none` : `initial`}; }
 ${!animating ? appearing_none : appearing}
@@ -80,8 +79,9 @@ ${!animating ? appearing_none : appearing}
   width: ${trunc2(scroll.width)}px;
   height: ${trunc2(scroll.height)}px;
 }
-`}</style>
-  )
+`
+
+  return <style>{style}</style>
 }
 
 const appearing_none = `
@@ -117,11 +117,7 @@ function DraggingStyle(): ReactNode {
   overflow: scroll;
 }
 `
-  return (
-    <style>{`@scope {
-${style}
-}`}</style>
-  )
+  return <style>{`@scope { ${style} }`}</style>
 }
 
 // XXX .container should always have `transform: translate3d(0px, 0px, 0px);`
@@ -145,11 +141,7 @@ function ModeStyle(): ReactNode {
   touch-action: pan-x pan-y;
 }
 `
-  return (
-    <style>{`@scope {
-${style}
-}`}</style>
-  )
+  return <style>{`@scope { ${style} }`}</style>
 }
 
 function AnimationStyle(): ReactNode {
@@ -162,14 +154,7 @@ function AnimationStyle(): ReactNode {
         : animation.zoom !== null
           ? css(animation.zoom.q)
           : ''
-  return (
-    <style>
-      {'/* animation */'}
-      {`@scope {
-${style}
-}`}
-    </style>
-  )
+  return <style>{`@scope { ${style} }`}</style>
 }
 
 function css(q: Matrix): string {
@@ -201,15 +186,13 @@ export function SvgSymbolStyle(): ReactNode {
     (0.5 + 0.5 * Math.log2(Math.max(1, zoom))) *
     s
 
-  return (
-    <>
-      {`
+  const style = `
 use,
 .map-symbols,
 .map-markers {
   --map-symbol-size: ${sz / 72};
 }
-`}
-    </>
-  )
+`
+
+  return <>{style}</>
 }

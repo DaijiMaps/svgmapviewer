@@ -16,7 +16,7 @@ import { trunc7 } from './lib/utils'
 export function Measure(): ReactNode {
   return (
     <>
-      <g className="measure">
+      <g id="measure">
         {/*
         XXX
         XXX
@@ -133,13 +133,8 @@ function ringPath({
   )
 }
 
-export function MeasureStyle(): ReactNode {
-  const { width, height } = useLayoutContainer()
-  const { client } = useDistanceRadius()
+export function GuidesAnimationStyle(): ReactNode {
   const { open, animating } = useOpenCloseBalloon()
-
-  const pathStyle = `
-`
 
   // balloon is not open => guide is shown (== opacity: 1)
   const [oa, ob] = !open ? [0, 1] : [1, 0]
@@ -147,15 +142,15 @@ export function MeasureStyle(): ReactNode {
     ? 'cubic-bezier(0.25, 0.25, 0.25, 1)'
     : 'cubic-bezier(0.75, 0, 0.75, 0.75)'
 
-  const animationStyle = !animating
+  const style = !animating
     ? `
-#measure {
+.guides {
   opacity: ${ob};
   will-change: opacity;
 }
 `
     : `
-#measure {
+.guides {
   animation: xxx-measure 300ms ${t};
   will-change: opacity;
 }
@@ -169,6 +164,12 @@ export function MeasureStyle(): ReactNode {
   }
 }
 `
+  return <>{style}</>
+}
+
+export function MeasureStyle(): ReactNode {
+  const { width, height } = useLayoutContainer()
+  const { client } = useDistanceRadius()
 
   const coordinateStyle = `
 #distance,
@@ -240,8 +241,6 @@ export function MeasureStyle(): ReactNode {
 
   return (
     <>
-      {pathStyle}
-      {animationStyle}
       {coordinateStyle}
       {longitudeStyle}
       {latitudeStyle}

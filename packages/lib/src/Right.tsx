@@ -18,9 +18,7 @@ export function Right(): ReactNode {
       onAnimationEnd={() => uiSend({ type: 'RIGHT.ANIMATION.END' })}
     >
       <Zoom />
-      <style>{`@scope {
-${style}
-}`}</style>
+      <style>{`@scope { ${style} }`}</style>
     </div>
   )
 }
@@ -56,9 +54,7 @@ function Zoom(): ReactNode {
       <Recenter />
       <ZoomOut />
       <ZoomIn />
-      <style>{`@scope {
-${zoomStyle}
-}`}</style>
+      <style>{`@scope { ${zoomStyle} }`}</style>
     </div>
   )
 }
