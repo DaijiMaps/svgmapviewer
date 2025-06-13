@@ -105,11 +105,13 @@ const styleMachine = setup({
           actions: [
             assign({
               rendered: ({ event }) => event.rendered,
+              /*
               animating: ({ context, event }) =>
                 // if animating, don't change (animating is cleared only by 'ANIMATION.END')
                 context.animating ||
                 // if not animating, transition from !rendered to rendered triggers opacity animation
                 (!context.rendered && event.rendered && !context.animating),
+              */
               layout: ({ event }) => event.layout,
             }),
             'updateSvgMatrix',
