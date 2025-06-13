@@ -1,9 +1,10 @@
+/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode, useEffect } from 'react'
 import { svgMapViewerConfig } from './lib'
 import { boxToViewBox2 } from './lib/box/prefixed'
 import { RenderMapMarkers } from './lib/carto'
-import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { renderShadowRoot } from './lib/dom'
 import {
   MAP_SVG_MARKERS_CONTENT_ID,
@@ -14,9 +15,7 @@ import { trunc2 } from './lib/utils'
 import { SvgSymbolStyle } from './Style'
 
 export function MapSvgMarkersRoot(): ReactNode {
-  // eslint-disable-next-line functional/no-expression-statements
   useEffect(
-    // eslint-disable-next-line functional/no-return-void
     () => renderShadowRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkers />),
     []
   )
@@ -29,8 +28,12 @@ export function MapSvgMarkers(): ReactNode {
     <>
       <MapSvgMarkersSvg />
       <MapSvgMarkersDefs />
-      <style>
-        {`
+      <style>{style}</style>
+    </>
+  )
+}
+
+const style = `
 #map-svg-markers-svg,
 #map-svg-markers1 {
   contain: content;
@@ -39,11 +42,7 @@ export function MapSvgMarkers(): ReactNode {
 #map-svg-markers-defs {
   display: none;
 }
-`}
-      </style>
-    </>
-  )
-}
+`
 
 function MapSvgMarkersSvg(): ReactNode {
   const { scroll, svg } = useLayout()
@@ -65,9 +64,6 @@ function MapSvgMarkersDefs(): ReactNode {
   return (
     <svg id="map-svg-markers-defs">
       <g id="map-svg-markers1">
-        <defs>
-          <RenderMapAssetsDefault />
-        </defs>
         <RenderMapMarkers mapMarkers={svgMapViewerConfig.getMapMarkers()} />
         <style>
           <SvgSymbolStyle />

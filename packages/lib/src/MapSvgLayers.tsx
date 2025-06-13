@@ -1,3 +1,5 @@
+/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode, useEffect } from 'react'
 import { svgMapViewerConfig } from './lib'
@@ -12,7 +14,6 @@ import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
 
 export function MapSvgLayersRoot(): ReactNode {
-  // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
   useEffect(
     () => renderShadowRoot(MAP_SVG_LAYERS_ROOT_ID, <MapSvgLayers />),
     []
@@ -26,7 +27,12 @@ export function MapSvgLayers(): ReactNode {
     <>
       <MapSvgLayersSvg />
       <MapSvgLayersDefs />
-      <style>{`
+      <style>{style}</style>
+    </>
+  )
+}
+
+const style = `
 #map-svg-svg,
 #map1 {
   contain: content;
@@ -34,11 +40,18 @@ export function MapSvgLayers(): ReactNode {
 #map-svg-defs {
   display: none;
 }
-${style}
-`}</style>
-    </>
-  )
+
+.content.svg {
+  /*
+  transform: translate3d(0px, 0px, 0px);
+  */
 }
+
+.map,
+.map > * {
+  contain: content;
+}
+`
 
 function MapSvgLayersSvg(): ReactNode {
   const { scroll, svg } = useLayout()
@@ -80,16 +93,3 @@ path {
     </svg>
   )
 }
-
-const style = `
-.content.svg {
-  /*
-  transform: translate3d(0px, 0px, 0px);
-  */
-}
-
-.map,
-.map > * {
-  contain: content;
-}
-`

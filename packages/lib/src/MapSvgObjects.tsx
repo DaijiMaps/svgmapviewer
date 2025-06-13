@@ -27,7 +27,12 @@ export function MapSvgObjects(): ReactNode {
     <>
       <MapSvgObjectsSvg />
       <MapSvgObjectsDefs />
-      <style>{`
+      <style>{style}</style>
+    </>
+  )
+}
+
+const style = `
 #map-svg-svg,
 #map1 {
   contain: content;
@@ -35,11 +40,18 @@ export function MapSvgObjects(): ReactNode {
 #map-svg-defs {
   display: none;
 }
-${style}
-`}</style>
-    </>
-  )
+
+.content.svg {
+  /*
+  transform: translate3d(0px, 0px, 0px);
+  */
 }
+
+.map,
+.map > * {
+  contain: content;
+}
+`
 
 function MapSvgObjectsSvg(): ReactNode {
   const { scroll, svg } = useLayout()
@@ -79,16 +91,3 @@ path {
     </svg>
   )
 }
-
-const style = `
-.content.svg {
-  /*
-  transform: translate3d(0px, 0px, 0px);
-  */
-}
-
-.map,
-.map > * {
-  contain: content;
-}
-`

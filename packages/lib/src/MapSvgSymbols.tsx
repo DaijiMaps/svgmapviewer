@@ -1,3 +1,5 @@
+/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode, useEffect } from 'react'
 import { svgMapViewerConfig } from './lib'
@@ -14,9 +16,7 @@ import { trunc2 } from './lib/utils'
 import { SvgSymbolStyle } from './Style'
 
 export function MapSvgSymbolsRoot(): ReactNode {
-  // eslint-disable-next-line functional/no-expression-statements
   useEffect(
-    // eslint-disable-next-line functional/no-return-void
     () => renderShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbols />),
     []
   )
@@ -29,8 +29,12 @@ export function MapSvgSymbols(): ReactNode {
     <>
       <MapSvgSymbolsSvg />
       <MapSvgSymbolsDefs />
-      <style>
-        {`
+      <style>{style}</style>
+    </>
+  )
+}
+
+const style = `
 #map-svg-symbols-svg,
 #map-svg-symbols1 {
   contain: content;
@@ -39,11 +43,7 @@ export function MapSvgSymbols(): ReactNode {
 #map-svg-symbols-defs {
   display: none;
 }
-`}
-      </style>
-    </>
-  )
-}
+`
 
 function MapSvgSymbolsSvg(): ReactNode {
   const { scroll, svg } = useLayout()

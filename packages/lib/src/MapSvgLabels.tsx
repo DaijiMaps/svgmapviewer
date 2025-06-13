@@ -29,8 +29,14 @@ export function MapSvgLabels(): ReactNode {
     <>
       <MapSvgLabelsSvg />
       <MapSvgLabelsDefs />
-      <style>
-        {`
+      <MapSvgLabelsStyleRanges />
+      <MapSvgLabelsStyleSizes />
+      <style>{style}</style>
+    </>
+  )
+}
+
+const style = `
 #map-svg-labels-svg,
 #map-svg-labels1 {
   contain: content;
@@ -41,13 +47,7 @@ export function MapSvgLabels(): ReactNode {
 text, tspan {
   contain: layout;
 }
-`}
-      </style>
-      <MapSvgLabelsStyleRanges />
-      <MapSvgLabelsStyleSizes />
-    </>
-  )
-}
+`
 
 function MapSvgLabelsUses(): ReactNode {
   const { pointNames, areaNames } = useNames()
