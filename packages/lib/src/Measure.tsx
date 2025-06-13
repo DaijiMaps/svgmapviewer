@@ -167,9 +167,8 @@ export function GuidesAnimationStyle(): ReactNode {
   return <>{style}</>
 }
 
-export function MeasureStyle(): ReactNode {
+export function CoordinateStyle(): ReactNode {
   const { width, height } = useLayoutContainer()
-  const { client } = useDistanceRadius()
 
   const coordinateStyle = `
 #distance,
@@ -200,6 +199,18 @@ export function MeasureStyle(): ReactNode {
   transform: translate(${width / 2}px, ${-height / 2}px) scale(0.5);
 }
 `
+  return (
+    <>
+      {coordinateStyle}
+      {longitudeStyle}
+      {latitudeStyle}
+    </>
+  )
+}
+
+export function DistanceStyle(): ReactNode {
+  const { width, height } = useLayoutContainer()
+  const { client } = useDistanceRadius()
 
   const distanceOriginStyle = `
 #distance-origin {
@@ -241,9 +252,6 @@ export function MeasureStyle(): ReactNode {
 
   return (
     <>
-      {coordinateStyle}
-      {longitudeStyle}
-      {latitudeStyle}
       {distanceOriginStyle}
       {distanceStyle}
       {distanceXStyle}

@@ -8,7 +8,7 @@ import { Header, HeaderStyle } from './Header'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { renderShadowRoot } from './lib/dom'
 import { UI_ROOT_ID } from './lib/ui-react'
-import { GuidesAnimationStyle, MeasureStyle } from './Measure'
+import { CoordinateStyle, DistanceStyle, GuidesAnimationStyle } from './Measure'
 import { Right, RightStyle } from './Right'
 import { Shadow, ShadowStyle } from './Shadow'
 
@@ -112,7 +112,8 @@ export function UiStyle(): ReactNode {
   return (
     <style>
       <DetailStyle />
-      <MeasureStyle />
+      <CoordinateStyle />
+      <DistanceStyle />
       <GuidesAnimationStyle />
       <HeaderStyle />
       <RightStyle />
