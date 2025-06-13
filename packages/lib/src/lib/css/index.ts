@@ -81,6 +81,21 @@ export const pointer_events_initial = `
 pointer-events: initial;
 `
 
+export const overflow_hidden = `
+overflow: hidden;
+`
+
+export const overflow_scroll = `
+overflow: scroll;
+`
+
+//// z-index
+
+export const Z_INDEX_GUIDES = 2
+export const Z_INDEX_SHADOW = 5
+export const Z_INDEX_BALLOON = 10
+export const Z_INDEX_DETAIL = 11
+
 //// values
 
 export const timing_opening = `

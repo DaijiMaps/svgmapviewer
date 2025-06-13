@@ -6,6 +6,7 @@ import {
   position_absolute_left_0_top_0,
   user_select_none,
   width_100vw_height_100svh,
+  Z_INDEX_GUIDES,
 } from './lib/css'
 
 export function Guides(): ReactNode {
@@ -26,7 +27,7 @@ const style = `
   ${position_absolute_left_0_top_0}
   ${width_100vw_height_100svh}
   ${pointer_events_none}
-  z-index: 2;
+  z-index: ${Z_INDEX_GUIDES};
 }
 
 text {

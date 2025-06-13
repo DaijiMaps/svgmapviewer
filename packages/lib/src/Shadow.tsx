@@ -4,6 +4,7 @@ import { notifyUiClose } from './lib/config-xstate'
 import {
   position_absolute_left_0_top_0,
   width_100vw_height_100svh,
+  Z_INDEX_SHADOW,
 } from './lib/css'
 import { useAnimating } from './lib/style-xstate'
 import { uiSend, useOpenCloseShadow } from './lib/ui-xstate'
@@ -29,6 +30,7 @@ const style = `
   background-color: black;
   cursor: default;
   pointer-events: initial;
+  z-index: ${Z_INDEX_SHADOW};
 }
 `
 

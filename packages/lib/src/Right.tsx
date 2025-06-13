@@ -4,6 +4,7 @@ import { type ReactNode } from 'react'
 import {
   flex_column_center_center,
   flex_row_center_center,
+  pointer_events_initial,
   position_absolute_right_0_top_0,
 } from './lib/css'
 import { getPosition } from './lib/geo'
@@ -66,6 +67,7 @@ const zoomStyle = `
   margin: 1.6px;
   padding: 0.4em;
   border: 1.6px black solid;
+  ${pointer_events_initial}
 }
 .zoom-item > svg {
   display: block;

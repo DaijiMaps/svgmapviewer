@@ -2,7 +2,13 @@
 import { type ReactNode } from 'react'
 import { Balloon, BalloonStyle } from './Balloon'
 import { svgMapViewerConfig as cfg } from './lib/config'
-import { position_absolute_left_0_top_0, user_select_none } from './lib/css'
+import {
+  box_sizing_border_box,
+  pointer_events_initial,
+  position_absolute_left_0_top_0,
+  user_select_none,
+  Z_INDEX_DETAIL,
+} from './lib/css'
 import { diag } from './lib/diag'
 import { isDetailEmpty, uiSend, useDetail } from './lib/ui-xstate'
 
@@ -35,32 +41,25 @@ export function Detail(): ReactNode {
 }
 
 const style = `
-.content {
-  overflow: hidden;
-}
-
 .detail {
   ${position_absolute_left_0_top_0}
   width: 50vmin;
   height: 50vmin;
   padding: 0.5em;
   overflow: scroll;
-  pointer-events: initial;
-  box-sizing: border-box;
-  z-index: 11;
-}
-
-h3,
-p {
-  ${user_select_none}
+  ${pointer_events_initial}
+  ${box_sizing_border_box}
+  z-index: ${Z_INDEX_DETAIL};
 }
 
 h3 {
+  ${user_select_none}
   margin: 1.5em;
   text-align: center;
 }
 
 p {
+  ${user_select_none}
   margin: 0.5em;
 }
 `
