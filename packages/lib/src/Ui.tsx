@@ -7,6 +7,7 @@ import { Guides } from './Guides'
 import { Header } from './Header'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { renderShadowRoot } from './lib/dom'
+import { useLayoutScroll } from './lib/style-xstate'
 import { UI_ROOT_ID } from './lib/ui-react'
 import { Right } from './Right'
 import { Shadow } from './Shadow'
@@ -25,6 +26,7 @@ export function Ui(): ReactNode {
   return (
     <>
       <UiContent />
+      <UiStyle />
       <Assets />
     </>
   )
@@ -45,7 +47,7 @@ function UiContent(): ReactNode {
 }
 
 const style = `
-.ui > .detail-balloon {
+.detail-balloon {
   contain: initial;
 }
 
@@ -90,6 +92,19 @@ a:link {
   display: none;
 }
 `
+
+function UiStyle() {
+  const scroll = useLayoutScroll()
+
+  return (
+    <style>{`
+.ui {
+  --width: ${scroll.width}px;
+  --height: ${scroll.height}px;
+}
+`}</style>
+  )
+}
 
 function Assets(): ReactNode {
   return (

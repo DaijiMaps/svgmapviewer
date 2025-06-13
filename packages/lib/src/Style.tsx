@@ -73,14 +73,8 @@ ${!rendered ? `#viewer, #ui { display: none; }` : ``}
 
 function AnimationStyle(): ReactNode {
   const animation = useAnimation()
-  const style =
-    animation === null
-      ? ''
-      : animation.move !== null
-        ? css(animation.move.q)
-        : animation.zoom !== null
-          ? css(animation.zoom.q)
-          : ''
+  const q = animation?.move?.q ?? animation?.zoom?.q ?? null
+  const style = q === null ? '' : css(q)
   return <style>{style}</style>
 }
 
