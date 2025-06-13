@@ -15,7 +15,6 @@ import {
   useAnimation,
   useDragging,
   useLayoutScroll,
-  useMode,
   useRendered,
 } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
@@ -56,7 +55,6 @@ export function ContainerStyle(): ReactNode {
   return (
     <>
       <DraggingStyle />
-      <ModeStyle />
       <AnimationStyle />
     </>
   )
@@ -122,27 +120,6 @@ function DraggingStyle(): ReactNode {
 
 // XXX .container should always have `transform: translate3d(0px, 0px, 0px);`
 // XXX define this statically elsewhere
-
-function ModeStyle(): ReactNode {
-  const mode = useMode()
-  const style =
-    mode === 'pointing' || mode === 'locked'
-      ? `
-/* mode */
-:scope {
-  overflow: hidden;
-}
-`
-      : `
-/* mode */
-:scope {
-  cursor: move;
-  overflow: scroll;
-  touch-action: pan-x pan-y;
-}
-`
-  return <style>{`@scope { ${style} }`}</style>
-}
 
 function AnimationStyle(): ReactNode {
   const animation = useAnimation()

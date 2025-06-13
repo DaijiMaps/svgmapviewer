@@ -82,4 +82,11 @@ const style = `
 .content.svg {
   background: none;
 }
+
+/* mode */
+:scope {
+  cursor: move;
+  overflow: scroll;
+  touch-action: pan-x pan-y;
+}
 `
