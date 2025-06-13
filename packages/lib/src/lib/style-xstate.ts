@@ -14,11 +14,10 @@ import { vecZero, type VecVec } from './vec/prefixed'
 
 export type StyleEvent =
   | { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
-  | { type: 'STYLE.DRAGGING'; dragging: boolean }
   | { type: 'STYLE.MODE'; mode: string }
   | { type: 'STYLE.ANIMATION'; animation: null | Animation } // null to stop animation
   | { type: 'STYLE.SCROLL'; currentScroll: CurrentScroll } // p == pscroll
-  | { type: 'ANIMATION.END' } // null to stop animation
+  | { type: 'STYLE.ANIMATION.END' } // null to stop animation
 
 export interface Range {
   start: VecVec
@@ -97,32 +96,36 @@ const styleMachine = setup({
     mode: 'panning',
     animation: null,
   },
-  initial: 'Idle',
+  initial: 'WaitingForLayout',
   states: {
-    Idle: {
+    WaitingForLayout: {
       on: {
         'STYLE.LAYOUT': {
           actions: [
             assign({
               rendered: ({ event }) => event.rendered,
-              /*
-              animating: ({ context, event }) =>
-                // if animating, don't change (animating is cleared only by 'ANIMATION.END')
-                context.animating ||
-                // if not animating, transition from !rendered to rendered triggers opacity animation
-                (!context.rendered && event.rendered && !context.animating),
-              */
               layout: ({ event }) => event.layout,
             }),
             'updateSvgMatrix',
             'updateGeoMatrix',
             'updateDistanceRadius',
           ],
+          target: 'Rendered',
         },
-        'STYLE.DRAGGING': {
-          actions: assign({
-            dragging: ({ event }) => event.dragging,
-          }),
+      },
+    },
+    Rendered: {
+      on: {
+        'STYLE.LAYOUT': {
+          actions: [
+            assign({
+              rendered: ({ event }) => event.rendered,
+              layout: ({ event }) => event.layout,
+            }),
+            'updateSvgMatrix',
+            'updateGeoMatrix',
+            'updateDistanceRadius',
+          ],
         },
         'STYLE.MODE': {
           actions: assign({
@@ -144,7 +147,7 @@ const styleMachine = setup({
             // XXX updateRange
           ],
         },
-        'ANIMATION.END': {
+        'STYLE.ANIMATION.END': {
           actions: assign({
             animating: false,
           }),
@@ -169,7 +172,7 @@ export function styleSend(ev: StyleEvent): void {
 }
 
 export function styleAnimationEnd(): void {
-  styleActor.send({ type: 'ANIMATION.END' })
+  styleActor.send({ type: 'STYLE.ANIMATION.END' })
 }
 
 export function useRendered(): boolean {
