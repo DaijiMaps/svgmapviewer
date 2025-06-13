@@ -3,6 +3,7 @@ import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from './lib'
 import {
   flex_column_center_center,
+  pointer_events_initial,
   position_absolute_left_0_top_0,
   timing_closing,
   timing_opening,
@@ -41,18 +42,15 @@ const style = `
   pointer-events: none;
 }
 
-.header > * {
-  pointer-events: initial;
-}
-
-.header h1,
-.header h2,
-.header p {
+h1,
+h2,
+p {
   ${user_select_none}
+  ${pointer_events_initial}
 }
 
-.header > h1,
-.header > h2 {
+h1,
+h2 {
   margin: 0.25em;
   cursor: default;
 }

@@ -3,8 +3,8 @@ import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from './lib'
 import {
   flex_column_center_center,
-  flex_row_center_center,
   position_absolute_left_0_bottom_0,
+  user_select_none,
 } from './lib/css'
 import { uiSend, useOpenCloseFooter } from './lib/ui-xstate'
 
@@ -40,52 +40,19 @@ const style = `
   pointer-events: none;
 }
 
-.footer > p {
-  margin: 0.25em;
-}
-
-.footer > * {
+h2,
+p {
+  ${user_select_none}
   pointer-events: initial;
 }
 
-.footer h2,
-.footer p {
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.mode {
-  font-size: large;
-  margin: 0.4em;
-  ${flex_row_center_center}
-}
-
-.mode-item {
-  margin: 0 1.6px;
-  padding: 0.4em;
-  border: 1.6px black solid;
-}
-.mode-item.selected {
-  pointer-events: none;
-}
-.mode-item:not(.selected) {
-  opacity: 0.375;
-}
-.mode-item > svg {
-  display: block;
-  width: 1.6em;
-  height: 1.6em;
-  pointer-events: none;
-}
-.mode-item > svg > path {
-  stroke: black;
-  stroke-width: 0.4px;
-  fill: none;
-}
-
-.footer > h2 {
+h2 {
   font-size: x-small;
   margin: 0;
+}
+
+p {
+  margin: 0.25em;
 }
 `
 

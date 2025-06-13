@@ -2,7 +2,9 @@
 import { type ReactNode } from 'react'
 import { Measure, MeasureCoordinate, MeasureDistance } from './Measure'
 import {
+  pointer_events_none,
   position_absolute_left_0_top_0,
+  user_select_none,
   width_100vw_height_100svh,
 } from './lib/css'
 
@@ -23,13 +25,11 @@ const style = `
 .guides {
   ${position_absolute_left_0_top_0}
   ${width_100vw_height_100svh}
-  pointer-events: none;
+  ${pointer_events_none}
   z-index: 2;
 }
 
-.distance > text,
-.coordinate > text {
-  user-select: none;
-  -webkit-user-select: none;
+text {
+  ${user_select_none}
 }
 `

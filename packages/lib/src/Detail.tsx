@@ -2,7 +2,7 @@
 import { type ReactNode } from 'react'
 import { Balloon, BalloonStyle } from './Balloon'
 import { svgMapViewerConfig as cfg } from './lib/config'
-import { position_absolute_left_0_top_0 } from './lib/css'
+import { position_absolute_left_0_top_0, user_select_none } from './lib/css'
 import { diag } from './lib/diag'
 import { isDetailEmpty, uiSend, useDetail } from './lib/ui-xstate'
 
@@ -50,18 +50,17 @@ const style = `
   z-index: 11;
 }
 
-.detail > h3,
-.detail p {
-  user-select: none;
-  -webkit-user-select: none;
+h3,
+p {
+  ${user_select_none}
 }
 
-.detail > h3 {
+h3 {
   margin: 1.5em;
   text-align: center;
 }
 
-.detail > p {
+p {
   margin: 0.5em;
 }
 `

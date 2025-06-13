@@ -73,6 +73,14 @@ export const touch_action_none = `
 touch-action: none;
 `
 
+export const pointer_events_none = `
+pointer-events: none;
+`
+
+export const pointer_events_initial = `
+pointer-events: initial;
+`
+
 //// values
 
 export const timing_opening = `

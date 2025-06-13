@@ -28,7 +28,7 @@ const style = `
   ${width_100vw_height_100svh}
   background-color: black;
   cursor: default;
-  pointer-events: initial !important;
+  pointer-events: initial;
 }
 `
 
@@ -51,7 +51,8 @@ export function ShadowStyle(): ReactNode {
 .shadow {
   opacity: 0.3;
   will-change: opacity;
-}`}
+}
+`}
       </>
     )
   } else {

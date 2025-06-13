@@ -47,10 +47,6 @@ function UiContent(): ReactNode {
 }
 
 const style = `
-.ui > * {
-  contain: content;
-}
-
 .ui > .detail-balloon {
   contain: initial;
 }
@@ -62,8 +58,7 @@ const style = `
 
 .detail,
 .balloon,
-.balloon-container,
-.container {
+.balloon-container {
   box-sizing: border-box;
 
   /* XXX */

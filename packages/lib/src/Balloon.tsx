@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { type PropsWithChildren, type ReactNode } from 'react'
-import { position_absolute_left_0_top_0 } from './lib/css'
+import { pointer_events_none, position_absolute_left_0_top_0 } from './lib/css'
 import { type OpenClose, openCloseIsVisible } from './lib/openclose'
 import { type Dir, type SearchRes } from './lib/types'
 import {
@@ -131,7 +131,7 @@ const style = `
 .balloon-container,
 .balloon {
   ${position_absolute_left_0_top_0}
-  pointer-events: none;
+  ${pointer_events_none}
   z-index: 10;
 }
 
