@@ -192,6 +192,9 @@ export function useLayout(): Layout {
 export function useLayoutContainer(): BoxBox {
   return useSelector(styleActor, (s) => s.context.layout.container)
 }
+export function useLayoutScroll(): BoxBox {
+  return useSelector(styleActor, (s) => s.context.layout.scroll)
+}
 export function useSvgMatrix(): DOMMatrixReadOnly {
   return useSelector(styleActor, (s) => s.context.svgMatrix)
 }

@@ -14,7 +14,7 @@ import {
   useAnimating,
   useAnimation,
   useDragging,
-  useLayout,
+  useLayoutScroll,
   useMode,
   useRendered,
 } from './lib/style-xstate'
@@ -65,7 +65,7 @@ export function ContainerStyle(): ReactNode {
 function LayoutStyle(): ReactNode {
   const rendered = useRendered()
   const animating = useAnimating()
-  const { scroll } = useLayout()
+  const scroll = useLayoutScroll()
 
   useEffect(() => {
     requestAnimationFrame(() => viewerSend({ type: 'RENDERED' }))
@@ -108,21 +108,19 @@ const appearing = `
 
 function DraggingStyle(): ReactNode {
   const dragging = useDragging()
-
-  return (
-    <style>
-      {!dragging
-        ? ``
-        : `
-@scope {
+  const style = !dragging
+    ? ``
+    : `
 /* dragging */
 :scope {
   cursor: grabbing;
   overflow: scroll;
 }
-}
-`}
-    </style>
+`
+  return (
+    <style>{`@scope {
+${style}
+}`}</style>
   )
 }
 
@@ -131,28 +129,26 @@ function DraggingStyle(): ReactNode {
 
 function ModeStyle(): ReactNode {
   const mode = useMode()
-  return (
-    <style>
-      {mode === 'pointing' || mode === 'locked'
-        ? `
-@scope {
+  const style =
+    mode === 'pointing' || mode === 'locked'
+      ? `
 /* mode */
 :scope {
   overflow: hidden;
 }
-}
 `
-        : `
-@scope {
+      : `
 /* mode */
 :scope {
   cursor: move;
   overflow: scroll;
   touch-action: pan-x pan-y;
 }
-}
-`}
-    </style>
+`
+  return (
+    <style>{`@scope {
+${style}
+}`}</style>
   )
 }
 
@@ -169,18 +165,18 @@ function AnimationStyle(): ReactNode {
   return (
     <style>
       {'/* animation */'}
-      {style}
+      {`@scope {
+${style}
+}`}
     </style>
   )
 }
 
 function css(q: Matrix): string {
   return `
-@scope {
 :scope {
   will-change: transform;
   animation: container-zoom ${500}ms ease;
-}
 }
 @keyframes container-zoom {
   from {
