@@ -48,6 +48,13 @@ function Style(): ReactNode {
   return (
     <>
       <LayoutStyle />
+    </>
+  )
+}
+
+export function ContainerStyle(): ReactNode {
+  return (
+    <>
       <DraggingStyle />
       <ModeStyle />
       <AnimationStyle />
@@ -107,10 +114,12 @@ function DraggingStyle(): ReactNode {
       {!dragging
         ? ``
         : `
+@scope {
 /* dragging */
-.container {
+:scope {
   cursor: grabbing;
   overflow: scroll;
+}
 }
 `}
     </style>
@@ -126,17 +135,21 @@ function ModeStyle(): ReactNode {
     <style>
       {mode === 'pointing' || mode === 'locked'
         ? `
+@scope {
 /* mode */
-.container {
-  overflow: hidden !important;
+:scope {
+  overflow: hidden;
+}
 }
 `
         : `
+@scope {
 /* mode */
-.container {
-  cursor: move !important;
-  overflow: scroll !important;
-  touch-action: pan-x pan-y !important;
+:scope {
+  cursor: move;
+  overflow: scroll;
+  touch-action: pan-x pan-y;
+}
 }
 `}
     </style>
@@ -163,10 +176,12 @@ function AnimationStyle(): ReactNode {
 
 function css(q: Matrix): string {
   return `
-.container {
+@scope {
+:scope {
   will-change: transform;
   overflow: hidden !important;
   animation: container-zoom ${500}ms ease;
+}
 }
 @keyframes container-zoom {
   from {

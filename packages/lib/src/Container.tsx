@@ -24,6 +24,7 @@ import { MapSvgLayersRoot } from './MapSvgLayers'
 import { MapSvgMarkersRoot } from './MapSvgMarkers'
 import { MapSvgObjectsRoot } from './MapSvgObjects'
 import { MapSvgSymbolsRoot } from './MapSvgSymbols'
+import { ContainerStyle } from './Style'
 
 export function Container(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
@@ -56,6 +57,7 @@ export function Container(): ReactNode {
       <style>{`@scope {
 ${style}
 }`}</style>
+      <ContainerStyle />
     </div>
   )
 }
