@@ -73,14 +73,13 @@ const style: string = `
   touch-action: pan-x pan-y;
 
   will-change: scroll-position;
+  background: none;
+  contain: strict;
 }
 
 .content {
   ${position_absolute_left_0_top_0}
-}
-
-.container,
-.content.svg {
   background: none;
+  contain: strict;
 }
 `

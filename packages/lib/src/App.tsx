@@ -50,10 +50,6 @@ a:link {
   text-decoration: none;
 }
 
-#viewer,
-.content.svg {
-  contain: strict;
-}
 ${likeStyle}
 `
 
