@@ -179,7 +179,6 @@ function css(q: Matrix): string {
 @scope {
 :scope {
   will-change: transform;
-  overflow: hidden !important;
   animation: container-zoom ${500}ms ease;
 }
 }
