@@ -10,7 +10,6 @@ import type { DistanceRadius } from './distance-types'
 import { makeExpire } from './expire-xstate'
 import { emptyLayout, type Layout } from './layout'
 import { getCurrentScroll, scrollEventCbs, type CurrentScroll } from './scroll'
-import { trunc7 } from './utils'
 import { vecZero, type VecVec } from './vec/prefixed'
 
 export type StyleEvent =
@@ -20,11 +19,6 @@ export type StyleEvent =
   | { type: 'STYLE.ANIMATION'; animation: null | Animation } // null to stop animation
   | { type: 'STYLE.SCROLL'; currentScroll: CurrentScroll } // p == pscroll
   | { type: 'ANIMATION.END' } // null to stop animation
-
-export interface LonLat {
-  lon: string
-  lat: string
-}
 
 export interface Range {
   start: VecVec
@@ -37,7 +31,7 @@ interface StyleContext {
   layout: Layout
   svgMatrix: DOMMatrixReadOnly
   geoMatrix: DOMMatrixReadOnly
-  lonLat: LonLat
+  geoPoint: VecVec
   distanceRadius: DistanceRadius
   svgRange: Range
   dragging: boolean
@@ -64,17 +58,12 @@ const styleMachine = setup({
       distanceRadius: ({ context: { layout } }) => findRadius(layout),
     }),
     setLonLat: assign({
-      lonLat: ({ context }, { scroll, client }: CurrentScroll) => {
+      geoPoint: ({ context }, { scroll, client }: CurrentScroll) => {
         const p = {
           x: scroll.x + client.width / 2,
           y: scroll.y + client.height / 2,
         }
-        const pgeo = context.geoMatrix.transformPoint(p)
-        const ew = pgeo.x > 0 ? 'E' : 'W'
-        const ns = pgeo.y > 0 ? 'N' : 'S'
-        const lon = `${ew} ${trunc7(Math.abs(pgeo.x))}`
-        const lat = `${ns} ${trunc7(Math.abs(pgeo.y))}`
-        return { lon, lat }
+        return context.geoMatrix.transformPoint(p)
       },
       svgRange: ({ context }, { scroll, client }: CurrentScroll) => {
         const s = { x: scroll.x, y: scroll.y }
@@ -95,7 +84,7 @@ const styleMachine = setup({
     layout: emptyLayout,
     svgMatrix: new DOMMatrixReadOnly(),
     geoMatrix: new DOMMatrixReadOnly(),
-    lonLat: { lon: '', lat: '' },
+    geoPoint: vecZero,
     distanceRadius: {
       svg: 0,
       client: 0,
@@ -208,8 +197,8 @@ export function useMode(): string {
 export function useAnimation(): null | Animation {
   return useSelector(styleActor, (s) => s.context.animation)
 }
-export function useLonLat(): LonLat {
-  return useSelector(styleActor, (s) => s.context.lonLat)
+export function useGeoPoint(): VecVec {
+  return useSelector(styleActor, (s) => s.context.geoPoint)
 }
 export function useDistanceRadius(): DistanceRadius {
   return useSelector(styleActor, (s) => s.context.distanceRadius)

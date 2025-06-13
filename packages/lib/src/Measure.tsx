@@ -7,10 +7,11 @@ import {
 } from './lib/css'
 import {
   useDistanceRadius,
+  useGeoPoint,
   useLayoutContainer,
-  useLonLat,
 } from './lib/style-xstate'
 import { useOpenCloseBalloon } from './lib/ui-xstate'
+import { trunc7 } from './lib/utils'
 
 export function Measure(): ReactNode {
   return (
@@ -52,7 +53,12 @@ export function MeasureDistance(): ReactNode {
 }
 
 export function MeasureCoordinate(): ReactNode {
-  const { lon, lat } = useLonLat()
+  const pgeo = useGeoPoint()
+
+  const ew = pgeo.x > 0 ? 'E' : 'W'
+  const ns = pgeo.y > 0 ? 'N' : 'S'
+  const lon = `${ew} ${trunc7(Math.abs(pgeo.x))}`
+  const lat = `${ns} ${trunc7(Math.abs(pgeo.y))}`
 
   return (
     <div id="coordinate">
