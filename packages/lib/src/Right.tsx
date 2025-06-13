@@ -18,13 +18,13 @@ export function Right(): ReactNode {
       onAnimationEnd={() => uiSend({ type: 'RIGHT.ANIMATION.END' })}
     >
       <Zoom />
-      <style>{`@scope { ${style} }`}</style>
+      <style>{style}</style>
     </div>
   )
 }
 
 const style = `
-:scope {
+.right {
   ${position_absolute_right_0_top_0}
   ${flex_row_center_center}
   padding: 0.4em;
@@ -34,7 +34,7 @@ const style = `
   transform-origin: 100% 50%;
 }
 
-:scope {
+.right {
   top: initial;
   bottom: 0;
   align-items: end;
@@ -42,7 +42,7 @@ const style = `
   transform-origin: 100% 100%;
 }
 
-:scope > * {
+.right > * {
   pointer-events: initial;
 }
 `
@@ -54,7 +54,7 @@ function Zoom(): ReactNode {
       <Recenter />
       <ZoomOut />
       <ZoomIn />
-      <style>{`@scope { ${zoomStyle} }`}</style>
+      <style>{zoomStyle}</style>
     </div>
   )
 }

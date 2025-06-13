@@ -17,13 +17,13 @@ export function Shadow(): ReactNode {
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiSend({ type: 'SHADOW.ANIMATION.END' })}
     >
-      <style>{`@scope { ${style} }`}</style>
+      <style>{style}</style>
     </div>
   )
 }
 
 const style = `
-:scope {
+.shadow {
   ${position_absolute_left_0_top_0}
   ${width_100vw_height_100svh}
   background-color: black;

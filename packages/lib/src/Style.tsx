@@ -11,7 +11,6 @@ import {
   matrixToString,
 } from './lib/matrix/prefixed'
 import {
-  useAnimating,
   useAnimation,
   useDragging,
   useLayoutScroll,
@@ -36,10 +35,8 @@ export function styleRoot(): void {
 }
 
 const style = `
-@scope {
-  #style-svg-defs {
-    display: none;
-  }
+#style-svg-defs {
+  display: none;
 }
 `
 
@@ -62,18 +59,18 @@ export function ContainerStyle(): ReactNode {
 
 function LayoutStyle(): ReactNode {
   const rendered = useRendered()
-  const animating = useAnimating()
+  //const animating = useAnimating()
   const scroll = useLayoutScroll()
 
   useEffect(() => {
     requestAnimationFrame(() => viewerSend({ type: 'RENDERED' }))
   }, [rendered])
 
+  //${!animating ? appearing_none : appearing}
   const style = `
 /* layout */
-${!rendered ? `.container, #ui { display: none; }` : ``}
-${!animating ? appearing_none : appearing}
-.container > .content {
+${!rendered ? `#viewer, #ui { display: none; }` : ``}
+#viewer > .content {
   width: ${trunc2(scroll.width)}px;
   height: ${trunc2(scroll.height)}px;
 }
@@ -82,10 +79,11 @@ ${!animating ? appearing_none : appearing}
   return <style>{style}</style>
 }
 
+/*
 const appearing_none = `
 `
 const appearing = `
-.container, #ui {
+#viewer, #ui {
   will-change: opacity, transform;
   animation: container-appearing ${1000}ms ease;
 }
@@ -98,6 +96,7 @@ const appearing = `
   }
 }
 `
+*/
 
 function DraggingStyle(): ReactNode {
   const dragging = useDragging()
@@ -105,12 +104,12 @@ function DraggingStyle(): ReactNode {
     ? ``
     : `
 /* dragging */
-:scope {
+#viewer {
   cursor: grabbing;
   overflow: scroll;
 }
 `
-  return <style>{`@scope { ${style} }`}</style>
+  return <style>{style}</style>
 }
 
 // XXX .container should always have `transform: translate3d(0px, 0px, 0px);`
@@ -126,12 +125,12 @@ function AnimationStyle(): ReactNode {
         : animation.zoom !== null
           ? css(animation.zoom.q)
           : ''
-  return <style>{`@scope { ${style} }`}</style>
+  return <style>{style}</style>
 }
 
 function css(q: Matrix): string {
   return `
-:scope {
+#viewer {
   will-change: transform;
   animation: container-zoom ${500}ms ease;
 }

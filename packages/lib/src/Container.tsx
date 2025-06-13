@@ -54,16 +54,14 @@ export function Container(): ReactNode {
       <MapSvgSymbolsRoot />
       <MapSvgMarkersRoot />
       <MapSvgLabelsRoot />
-      <style>{`@scope {
-${style}
-}`}</style>
+      <style>{style}</style>
       <ContainerStyle />
     </div>
   )
 }
 
-const style = `
-:scope {
+const style: string = `
+.container {
   ${position_absolute_left_0_top_0}
   ${width_100vw_height_100svh}
 
@@ -81,7 +79,7 @@ const style = `
   ${position_absolute_left_0_top_0}
 }
 
-:scope,
+.container,
 .content.svg {
   background: none;
 }

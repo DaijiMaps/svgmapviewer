@@ -122,15 +122,13 @@ export function Balloon(
         <path className="fg" d={fgPath} />
       </svg>
       {props.children}
-      <style>{`@scope {
-${style}
-}`}</style>
+      <style>{style}</style>
     </div>
   )
 }
 
 const style = `
-:scope,
+.balloon-container,
 .balloon {
   ${position_absolute_left_0_top_0}
   pointer-events: none;

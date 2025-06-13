@@ -26,15 +26,13 @@ export function Footer(): ReactNode {
       <h2 className="subtitle">{config.subtitle}</h2>
       */}
       <p>{config.copyright}</p>
-      <style>{`@scope {
-${style}
-}`}</style>
+      <style>{style}</style>
     </div>
   )
 }
 
 const style = `
-:scope {
+.footer {
   ${position_absolute_left_0_bottom_0}
   ${flex_column_center_center}
   padding: 0.4em;
