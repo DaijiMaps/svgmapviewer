@@ -53,18 +53,16 @@ export function ContainerStyle(): ReactNode {
 
 function LayoutStyle(): ReactNode {
   const rendered = useRendered()
-  //const animating = useAnimating()
   const scroll = useLayoutScroll()
 
   useEffect(() => {
     requestAnimationFrame(() => viewerSend({ type: 'RENDERED' }))
   }, [rendered])
 
-  //${!animating ? appearing_none : appearing}
   const style = `
 /* layout */
 ${!rendered ? `#viewer, #ui { display: none; }` : ``}
-#viewer > .content {
+.content {
   width: ${trunc2(scroll.width)}px;
   height: ${trunc2(scroll.height)}px;
 }
@@ -72,28 +70,6 @@ ${!rendered ? `#viewer, #ui { display: none; }` : ``}
 
   return <style>{style}</style>
 }
-
-/*
-const appearing_none = `
-`
-const appearing = `
-#viewer, #ui {
-  will-change: opacity, transform;
-  animation: container-appearing ${1000}ms ease;
-}
-@keyframes container-appearing {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-`
-*/
-
-// XXX .container should always have `transform: translate3d(0px, 0px, 0px);`
-// XXX define this statically elsewhere
 
 function AnimationStyle(): ReactNode {
   const animation = useAnimation()
