@@ -51,7 +51,7 @@ a:link {
 }
 
 #viewer,
-.viewer-content.svg {
+.content.svg {
   contain: strict;
 }
 ${likeStyle}

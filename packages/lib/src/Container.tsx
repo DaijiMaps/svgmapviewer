@@ -80,7 +80,7 @@ const style: string = `
 }
 
 .container,
-.viewer-content.svg {
+.content.svg {
   background: none;
 }
 `

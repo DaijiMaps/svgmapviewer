@@ -21,7 +21,7 @@ export function MapSvgLabelsRoot(): ReactNode {
     []
   )
 
-  return <div id={MAP_SVG_LABELS_ROOT_ID} className="viewer-content svg" />
+  return <div id={MAP_SVG_LABELS_ROOT_ID} className="content svg" />
 }
 
 export function MapSvgLabels(): ReactNode {

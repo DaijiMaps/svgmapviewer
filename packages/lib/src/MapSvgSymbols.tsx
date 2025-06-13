@@ -21,7 +21,7 @@ export function MapSvgSymbolsRoot(): ReactNode {
     []
   )
 
-  return <div id={MAP_SVG_SYMBOLS_ROOT_ID} className="viewer-content svg" />
+  return <div id={MAP_SVG_SYMBOLS_ROOT_ID} className="content svg" />
 }
 
 export function MapSvgSymbols(): ReactNode {
