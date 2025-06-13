@@ -5,6 +5,7 @@ import {
   position_absolute_left_0_top_0,
   width_100vw_height_100svh,
 } from './lib/css'
+import { useAnimating } from './lib/style-xstate'
 import { uiSend, useOpenCloseShadow } from './lib/ui-xstate'
 
 export function Shadow(): ReactNode {
@@ -33,10 +34,17 @@ const style = `
 
 export function ShadowStyle(): ReactNode {
   const { open, animating } = useOpenCloseShadow()
+  const zooming = useAnimating()
 
   if (!animating) {
     return !open ? (
-      <>{`.shadow { display: none; }`}</>
+      !zooming ? (
+        <>{`.shadow { display: none; }`}</>
+      ) : (
+        // protect scroll during zoom animation
+        // (changing overflow of viewer is expensive)
+        <>{`.shadow { display: initial; opacity: 0; } `}</>
+      )
     ) : (
       <>
         {`
