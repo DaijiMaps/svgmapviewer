@@ -50,6 +50,9 @@ export function MeasureDistance(): ReactNode {
           </p>
         </Fragment>
       ))}
+      <style>
+        <DistanceStyle />
+      </style>
     </div>
   )
 }
@@ -67,6 +70,9 @@ export function MeasureCoordinate(): ReactNode {
       {/* placeholder - updated by style lonlat */}
       <p id="longitude">{lon}</p>
       <p id="latitude">{lat}</p>
+      <style>
+        <CoordinateStyle />
+      </style>
     </div>
   )
 }

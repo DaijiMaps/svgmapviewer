@@ -28,7 +28,10 @@ export function Header(): ReactNode {
       >
         {config.title}
       </h1>
-      <style>{style}</style>
+      <style>
+        {style}
+        <HeaderStyle />
+      </style>
     </div>
   )
 }

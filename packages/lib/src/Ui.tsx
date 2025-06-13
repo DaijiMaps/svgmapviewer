@@ -2,13 +2,12 @@
 /* eslint-disable functional/no-expression-statements */
 import { useEffect, type ReactNode } from 'react'
 import { Detail } from './Detail'
-import { Footer, FooterStyle } from './Footer'
+import { Footer } from './Footer'
 import { Guides } from './Guides'
-import { Header, HeaderStyle } from './Header'
+import { Header } from './Header'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { renderShadowRoot } from './lib/dom'
 import { UI_ROOT_ID } from './lib/ui-react'
-import { CoordinateStyle, DistanceStyle, GuidesAnimationStyle } from './Measure'
 import { Right } from './Right'
 import { Shadow } from './Shadow'
 
@@ -26,7 +25,6 @@ export function Ui(): ReactNode {
   return (
     <>
       <UiContent />
-      <UiStyle />
       <Assets />
     </>
   )
@@ -92,19 +90,6 @@ a:link {
   display: none;
 }
 `
-
-// XXX localize
-export function UiStyle(): ReactNode {
-  return (
-    <style>
-      <CoordinateStyle />
-      <DistanceStyle />
-      <GuidesAnimationStyle />
-      <HeaderStyle />
-      <FooterStyle />
-    </style>
-  )
-}
 
 function Assets(): ReactNode {
   return (

@@ -26,7 +26,10 @@ export function Footer(): ReactNode {
       <h2 className="subtitle">{config.subtitle}</h2>
       */}
       <p>{config.copyright}</p>
-      <style>{style}</style>
+      <style>
+        {style}
+        <FooterStyle />
+      </style>
     </div>
   )
 }

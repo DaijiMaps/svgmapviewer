@@ -1,6 +1,11 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { Measure, MeasureCoordinate, MeasureDistance } from './Measure'
+import {
+  GuidesAnimationStyle,
+  Measure,
+  MeasureCoordinate,
+  MeasureDistance,
+} from './Measure'
 import {
   pointer_events_none,
   position_absolute_left_0_top_0,
@@ -17,7 +22,10 @@ export function Guides(): ReactNode {
       </svg>
       <MeasureDistance />
       <MeasureCoordinate />
-      <style>{style}</style>
+      <style>
+        {style}
+        <GuidesAnimationStyle />
+      </style>
     </div>
   )
 }
