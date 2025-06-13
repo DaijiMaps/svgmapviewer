@@ -89,17 +89,15 @@ function css(q: Matrix): string {
 #viewer {
   will-change: transform;
   animation: container-zoom ${500}ms ease;
-  --matrix-a: ${matrixToString(matrixEmpty)};
-  --matrix-b: ${matrixToString(q)};
 }
 @keyframes container-zoom {
   from {
     transform-origin: left top;
-    transform: var(--matrix-a) translate3d(0px, 0px, 0px);
+    transform: ${matrixToString(matrixEmpty)} translate3d(0px, 0px, 0px);
   }
   to {
     transform-origin: left top;
-    transform: var(--matrix-b) translate3d(0px, 0px, 0px);
+    transform: ${matrixToString(q)} translate3d(0px, 0px, 0px);
   }
 }
 `
