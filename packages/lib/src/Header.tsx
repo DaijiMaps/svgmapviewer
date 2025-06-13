@@ -4,6 +4,9 @@ import { svgMapViewerConfig } from './lib'
 import {
   flex_column_center_center,
   position_absolute_left_0_top_0,
+  timing_closing,
+  timing_opening,
+  user_select_none,
 } from './lib/css'
 import { uiSend, useOpenCloseHeader } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
@@ -48,8 +51,7 @@ const style = `
 :scope h1,
 :scope h2,
 :scope p {
-  -webkit-user-select: none;
-  user-select: none;
+  ${user_select_none}
 }
 
 :scope > h1,
@@ -77,9 +79,7 @@ export function HeaderStyle(): ReactNode {
     )
   } else {
     const [a, b] = !open ? [1, 0] : [0, 1]
-    const t = !open
-      ? 'cubic-bezier(0.25, 0.25, 0.25, 1)'
-      : 'cubic-bezier(0.75, 0, 0.75, 0.75)'
+    const t = !open ? timing_opening : timing_closing
 
     return (
       <>{`

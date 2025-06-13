@@ -178,9 +178,9 @@ export function MeasureStyle(): ReactNode {
   ${position_absolute_right_0_bottom_0}
   margin: 0.1em;
   padding: 0;
-  transform: translate(${-width / 2}px, ${-height / 2}px) scale(0.5);
-  transform-origin: right bottom;
   font-weight: lighter;
+  transform-origin: right bottom;
+  transform: translate(${-width / 2}px, ${-height / 2}px) scale(0.5);
 }
 `
   const latitudeStyle = `
@@ -188,9 +188,9 @@ export function MeasureStyle(): ReactNode {
   ${position_absolute_left_0_bottom_0}
   margin: 0.1em;
   padding: 0;
-  transform: translate(${width / 2}px, ${-height / 2}px) scale(0.5);
-  transform-origin: left bottom;
   font-weight: lighter;
+  transform-origin: left bottom;
+  transform: translate(${width / 2}px, ${-height / 2}px) scale(0.5);
 }
 `
 
@@ -199,10 +199,9 @@ export function MeasureStyle(): ReactNode {
   ${position_absolute_left_0_top_0}
   margin: 0.1em;
   padding: 0;
-  transform: translate(${width / 2}px, ${height / 2}px) scale(0.5);
-  transform-origin: left top;
-  font-size: medium;
   font-weight: lighter;
+  transform-origin: left top;
+  transform: translate(${width / 2}px, ${height / 2}px) scale(0.5);
 }
 `
   const distanceStyle = `
@@ -211,7 +210,6 @@ export function MeasureStyle(): ReactNode {
   ${position_absolute_left_0_top_0}
   margin: 0.1em;
   padding: 0;
-  font-size: medium;
   font-weight: lighter;
   transform-origin: left top;
 }

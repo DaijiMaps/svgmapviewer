@@ -1,3 +1,5 @@
+//// rules
+
 export const position_absolute_left_0_top_0 = `
 position: absolute;
 left: 0;
@@ -50,15 +52,30 @@ height: 100svh;
 `
 
 export const flex_column_center_center = `
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
 `
 
 export const flex_row_center_center = `
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+`
+
+export const user_select_none = `
+-webkit-user-select: none;
+user-select: none;
+`
+
+//// values
+
+export const timing_opening = `
+cubic-bezier(0.25, 0.25, 0.25, 1)
+`
+
+export const timing_closing = `
+cubic-bezier(0.75, 0, 0.75, 0.75)
 `
