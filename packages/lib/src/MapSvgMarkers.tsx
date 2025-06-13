@@ -20,7 +20,7 @@ export function MapSvgMarkersRoot(): ReactNode {
     []
   )
 
-  return <div id={MAP_SVG_MARKERS_ROOT_ID} className="content svg" />
+  return <div id={MAP_SVG_MARKERS_ROOT_ID} className="viewer-content svg" />
 }
 
 export function MapSvgMarkers(): ReactNode {

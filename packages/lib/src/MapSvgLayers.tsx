@@ -19,7 +19,7 @@ export function MapSvgLayersRoot(): ReactNode {
     []
   )
 
-  return <div id={MAP_SVG_LAYERS_ROOT_ID} className="content svg" />
+  return <div id={MAP_SVG_LAYERS_ROOT_ID} className="viewer-content svg" />
 }
 
 export function MapSvgLayers(): ReactNode {
@@ -41,7 +41,7 @@ const style = `
   display: none;
 }
 
-.content.svg {
+.viewer-content.svg {
   /*
   transform: translate3d(0px, 0px, 0px);
   */
