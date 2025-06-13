@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { assign, createActor, setup } from 'xstate'
+import { assign, createActor, raise, setup } from 'xstate'
 import { type Animation } from './animation-types'
 import type { BoxBox } from './box/prefixed'
 import { svgMapViewerConfig } from './config'
@@ -18,6 +18,7 @@ export type StyleEvent =
   | { type: 'STYLE.ANIMATION'; animation: null | Animation } // null to stop animation
   | { type: 'STYLE.SCROLL'; currentScroll: CurrentScroll } // p == pscroll
   | { type: 'STYLE.ANIMATION.END' } // null to stop animation
+  | { type: 'LAYOUT.DONE' } // internal
 
 export interface Range {
   start: VecVec
@@ -96,58 +97,59 @@ const styleMachine = setup({
     mode: 'panning',
     animation: null,
   },
+  on: {
+    'STYLE.LAYOUT': {
+      actions: [
+        assign({
+          rendered: ({ event }) => event.rendered,
+          layout: ({ event }) => event.layout,
+        }),
+        'updateSvgMatrix',
+        'updateGeoMatrix',
+        'updateDistanceRadius',
+        raise({ type: 'LAYOUT.DONE' }),
+      ],
+    },
+    'STYLE.SCROLL': {
+      actions: {
+        type: 'updateScroll',
+        params: ({ event }) => event.currentScroll,
+      },
+    },
+    'STYLE.MODE': {
+      actions: assign({
+        mode: ({ event }) => event.mode,
+      }),
+    },
+  },
   initial: 'WaitingForLayout',
   states: {
     WaitingForLayout: {
       on: {
-        'STYLE.LAYOUT': {
-          actions: [
-            assign({
-              rendered: ({ event }) => event.rendered,
-              layout: ({ event }) => event.layout,
-            }),
-            'updateSvgMatrix',
-            'updateGeoMatrix',
-            'updateDistanceRadius',
-          ],
-          target: 'Rendered',
+        'LAYOUT.DONE': {
+          target: 'Idle',
         },
       },
     },
-    Rendered: {
+    Idle: {
       on: {
-        'STYLE.LAYOUT': {
-          actions: [
-            assign({
-              rendered: ({ event }) => event.rendered,
-              layout: ({ event }) => event.layout,
-            }),
-            'updateSvgMatrix',
-            'updateGeoMatrix',
-            'updateDistanceRadius',
-          ],
-        },
-        'STYLE.MODE': {
-          actions: assign({
-            mode: ({ event }) => event.mode,
-          }),
-        },
         'STYLE.ANIMATION': {
           actions: assign({
             animation: ({ event }) => event.animation,
             animating: true,
           }),
+          target: 'Animating',
         },
-        'STYLE.SCROLL': {
-          actions: {
-            type: 'updateScroll',
-            params: ({ event }) => event.currentScroll,
-          },
-        },
+      },
+    },
+    Animating: {
+      on: {
         'STYLE.ANIMATION.END': {
           actions: assign({
+            animation: null,
             animating: false,
           }),
+          target: 'Idle',
         },
       },
     },
