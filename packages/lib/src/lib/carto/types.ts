@@ -89,6 +89,7 @@ export interface WithFilters {
 ////
 
 export interface CartoConfig {
+  backgroundColor?: string
   mapSvgStyle?: string
   skipNamePattern?: RegExp
   splitNamePattern?: RegExp

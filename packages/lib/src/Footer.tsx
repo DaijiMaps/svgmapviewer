@@ -103,7 +103,7 @@ export function FooterStyle(): ReactNode {
   transform-origin: 50% 100%;
   opacity: ${b};
   transform: translate(calc(50vw - 50%), 0%) scale(${b});
-  will-change: opacity transform;
+  will-change: opacity, transform;
 }
 `}</>
     )
@@ -118,7 +118,7 @@ export function FooterStyle(): ReactNode {
 .footer {
   transform-origin: 50% 100%;
   animation: xxx-footer 300ms ${t};
-  will-change: opacity transform;
+  will-change: opacity, transform;
 }
 
 @keyframes xxx-footer {

@@ -66,12 +66,15 @@ const style = `
 :scope {
   ${position_absolute_left_0_top_0}
   ${width_100vw_height_100svh}
-  overflow: hidden;
-  cursor: pointer;
-  overscroll-behavior: none;
-  will-change: scroll-position;
 
   scrollbar-width: thin;
+  cursor: move;
+
+  overflow: scroll;
+  overscroll-behavior: none;
+  touch-action: pan-x pan-y;
+
+  will-change: scroll-position;
 }
 
 .content {
@@ -81,12 +84,5 @@ const style = `
 :scope,
 .content.svg {
   background: none;
-}
-
-/* mode */
-:scope {
-  cursor: move;
-  overflow: scroll;
-  touch-action: pan-x pan-y;
 }
 `

@@ -246,13 +246,13 @@ function balloonStyle(
 .detail {
   transform-origin: 0 0;
   animation: xxx-detail 300ms ${t};
-  will-change: opacity transform;
+  will-change: opacity, transform;
 }
 
 .balloon-container {
   transform-origin: 0 0;
   animation: xxx-balloon 300ms ${t};
-  will-change: opacity transform;
+  will-change: opacity, transform;
 }
 
 @keyframes xxx-detail {

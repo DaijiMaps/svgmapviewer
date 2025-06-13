@@ -73,7 +73,7 @@ export function HeaderStyle(): ReactNode {
   transform-origin: 50% 0%;
   opacity: ${b};
   transform: translate(calc(50vw - 50%), 0%) scale(${b});
-  will-change: opacity transform;
+  will-change: opacity, transform;
 }
 `}</>
     )
@@ -86,7 +86,7 @@ export function HeaderStyle(): ReactNode {
 .header {
   transform-origin: 50% 0%;
   animation: xxx-header 300ms ${t};
-  will-change: opacity transform;
+  will-change: opacity, transform;
 }
 
 @keyframes xxx-header {

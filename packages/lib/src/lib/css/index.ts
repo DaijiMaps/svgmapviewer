@@ -33,8 +33,7 @@ padding: 0;
 `
 
 export const margin_0_padding_0: string = `
-{margin_0}
-${padding_0}
+${margin_0} ${padding_0}
 `
 
 export const box_sizing_border_box = `
@@ -68,6 +67,10 @@ justify-content: center;
 export const user_select_none = `
 -webkit-user-select: none;
 user-select: none;
+`
+
+export const touch_action_none = `
+touch-action: none;
 `
 
 //// values

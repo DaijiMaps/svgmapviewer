@@ -71,7 +71,7 @@ function LayoutStyle(): ReactNode {
 
   const style = `
 /* layout */
-.container, #ui { display: ${!rendered ? `none` : `initial`}; }
+${!rendered ? `.container, #ui { display: none; }` : ``}
 ${!animating ? appearing_none : appearing}
 .container > .content {
   width: ${trunc2(scroll.width)}px;
@@ -83,15 +83,10 @@ ${!animating ? appearing_none : appearing}
 }
 
 const appearing_none = `
-.container, #ui {
-  animation: none;
-}
-@keyframes container-appearing {
-}
 `
 const appearing = `
 .container, #ui {
-  will-change: opacity transform;
+  will-change: opacity, transform;
   animation: container-appearing ${1000}ms ease;
 }
 @keyframes container-appearing {

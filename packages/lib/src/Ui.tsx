@@ -68,8 +68,6 @@ const style = `
 
   /* XXX */
   touch-action: none;
-  /* XXX */
-  user-select: none; /* Standard syntax */
 }
 
 .right,
@@ -78,8 +76,9 @@ const style = `
   box-sizing: border-box;
 }
 
-div {
-  transform-origin: 50% 50%;
+h1, h2, h3, h4, h5, h6 {
+  font-family: sans-serif;
+  font-weight: lighter;
 }
 
 svg {
@@ -88,15 +87,6 @@ svg {
 
 ul {
   list-style: none;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: sans-serif;
-  font-weight: lighter;
 }
 
 a:link {

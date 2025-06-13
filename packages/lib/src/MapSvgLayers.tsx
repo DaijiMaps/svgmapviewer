@@ -46,11 +46,6 @@ const style = `
   transform: translate3d(0px, 0px, 0px);
   */
 }
-
-.map,
-.map > * {
-  contain: content;
-}
 `
 
 function MapSvgLayersSvg(): ReactNode {

@@ -4,8 +4,10 @@ import { Container } from './Container'
 import { likeStyle } from './Like'
 import { UiRoot } from './Ui'
 import {
+  box_sizing_border_box,
   margin_0_padding_0,
   position_absolute_left_0_top_0,
+  touch_action_none,
   width_100vw_height_100svh,
 } from './lib/css'
 
@@ -21,62 +23,19 @@ function App(): ReactNode {
 
 const style = `
 :root {
-  ${margin_0_padding_0}
   font-family: sans-serif;
   font-weight: lighter;
-  box-sizing: border-box;
-
-  /* XXX */
-  touch-action: none;
-  /* XXX */
   user-select: none; /* Standard syntax */
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-
-  /* XXX */
-  touch-action: none;
-  /* XXX */
-  user-select: none; /* Standard syntax */
-}
-
-html,
-body,
-:root {
-  background-color: darkgray;
-}
-
-.detail,
-.balloon,
-.balloon-container,
-.container {
-  box-sizing: border-box;
-
-  /* XXX */
-  touch-action: none;
-  /* XXX */
-  user-select: none; /* Standard syntax */
-}
-
-.right,
-.header,
-.footer {
-  box-sizing: border-box;
 }
 
 body {
-  ${width_100vw_height_100svh}
   ${position_absolute_left_0_top_0}
+  ${width_100vw_height_100svh}
+  ${margin_0_padding_0}
+  ${box_sizing_border_box}
+  ${touch_action_none}
+  background-color: darkgray;
   overflow: hidden;
-  touch-action: none;
-}
-
-div {
-  transform-origin: 50% 50%;
 }
 
 svg {
@@ -87,30 +46,14 @@ ul {
   list-style: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: sans-serif;
-  font-weight: lighter;
-}
-
 a:link {
   text-decoration: none;
 }
 
 #viewer,
-.content.svg,
-#ui {
+.content.svg {
   contain: strict;
 }
-
-.map,
-.map > * {
-  contain: content;
-}
-
 ${likeStyle}
 `
 

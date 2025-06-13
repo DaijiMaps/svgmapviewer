@@ -154,7 +154,7 @@ export function RightStyle(): ReactNode {
   /*
   transform: scale(${b});
   */
-  will-change: opacity transform;
+  will-change: opacity, transform;
 }
 .bottom {
   transform-origin: 100% 100%;
@@ -172,7 +172,7 @@ export function RightStyle(): ReactNode {
 .right {
   transform-origin: 100% 50%;
   animation: xxx-right 300ms ${t};
-  will-change: opacity transform;
+  will-change: opacity, transform;
 }
 .bottom {
   transform-origin: 100% 100%;
