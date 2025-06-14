@@ -1,5 +1,8 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
+import { Container } from './Container'
+import { likeStyle } from './Like'
+import { UiRoot } from './Ui'
 import { svgMapViewerConfig } from './lib'
 import {
   box_sizing_border_box,
@@ -8,9 +11,6 @@ import {
   touch_action_none,
   width_100vw_height_100svh,
 } from './lib/css'
-import { likeStyle } from './Like'
-import { UiRoot } from './Ui'
-import { Viewer } from './Viewer'
 
 function App(): ReactNode {
   const backgroundColor =
@@ -18,7 +18,7 @@ function App(): ReactNode {
 
   return (
     <>
-      <Viewer />
+      <Container />
       <UiRoot />
       <style>
         {style}

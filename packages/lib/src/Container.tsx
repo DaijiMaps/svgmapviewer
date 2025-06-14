@@ -27,7 +27,7 @@ import { MapSvgMarkersRoot } from './MapSvgMarkers'
 import { MapSvgObjectsRoot } from './MapSvgObjects'
 import { MapSvgSymbolsRoot } from './MapSvgSymbols'
 
-export function Viewer(): ReactNode {
+export function Container(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
   return (
