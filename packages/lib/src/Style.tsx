@@ -43,37 +43,27 @@ const style = `
 `
 
 function Style(): ReactNode {
-  return (
-    <>
-      <LayoutStyle />
-    </>
-  )
+  return <LayoutStyle />
 }
 
 export function ContainerStyle(): ReactNode {
-  return (
-    <>
-      <AnimationStyle />
-    </>
-  )
+  return <AnimationStyle />
 }
 
 function LayoutStyle(): ReactNode {
   const rendered = useRendered()
-  const shown = useShown()
-  const appearing = useAppearing()
-  const scroll = useLayoutScroll()
 
   useEffect(() => {
     requestAnimationFrame(() => viewerSend({ type: 'RENDERED' }))
   }, [rendered])
 
-  const style = `
-/* layout */
-${!shown ? `#viewer, #ui { opacity: 0; }` : ``}
-${
-  appearing
-    ? `
+  const shown = useShown()
+  const shown_style = shown ? '' : `#viewer, #ui { opacity: 0; }`
+
+  const appearing = useAppearing()
+  const appearing_style = !appearing
+    ? ''
+    : `
 #viewer, #ui {
   will-change: opacity;
   animation: xxx-appearing 2s ${timing_opening};
@@ -87,15 +77,21 @@ ${
   }
 }
 `
-    : ``
-}
+  const scroll = useLayoutScroll()
+  const scroll_style = `
 .content {
   width: ${trunc2(scroll.width)}px;
   height: ${trunc2(scroll.height)}px;
 }
 `
 
-  return <style>{style}</style>
+  return (
+    <style>
+      {shown_style}
+      {appearing_style}
+      {scroll_style}
+    </style>
+  )
 }
 
 function AnimationStyle(): ReactNode {
