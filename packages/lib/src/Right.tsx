@@ -71,6 +71,7 @@ const zoomStyle = `
   padding: 0.4em;
   border: 1.6px black solid;
   ${pointer_events_initial}
+  cursor: default;
 }
 .zoom-item > svg {
   display: block;
