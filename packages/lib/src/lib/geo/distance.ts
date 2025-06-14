@@ -1,25 +1,27 @@
-import type { VecVec } from '../vec/prefixed'
+import { vecMap, vecSub, type VecVec } from '../vec/prefixed'
 
-const RADIUS = 6371 // km
+const R = 6371 // km
 const PI = Math.PI
 const cos = Math.cos
 const sin = Math.sin
 const atan2 = Math.atan2
 const sqrt = Math.sqrt
+function pow2(n: number): number {
+  return Math.pow(n, 2)
+}
 
-function r(n: number): number {
+function rad(n: number): number {
   return (n * PI) / 180
 }
 
-export function haversineDistance(a: VecVec, b: VecVec): number {
-  const dy = r(b.y - a.y)
-  const dx = r(b.x - a.x)
+export function haversineDistance(oa: VecVec, ob: VecVec): number {
+  const a = vecMap(oa, rad)
+  const b = vecMap(ob, rad)
+  const d = vecSub(b, a)
 
-  const h =
-    cos(r(a.y)) * cos(r(b.y)) * sin(dx / 2) * sin(dx / 2) +
-    sin(dy / 2) * sin(dy / 2)
+  const h = cos(a.y) * cos(b.y) * pow2(sin(d.x / 2)) + pow2(sin(d.y / 2))
 
   const angularDistance = 2 * atan2(sqrt(h), sqrt(1 - h))
 
-  return RADIUS * angularDistance * 1000
+  return R * angularDistance * 1000
 }

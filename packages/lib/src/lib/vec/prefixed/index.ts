@@ -6,6 +6,7 @@ import { div, divF } from '../div'
 import { compare, ord } from '../fp-ts'
 import { interpolate, interpolateF } from '../interpolate'
 import { type Vec, type Vecs, fromV, one, toV, vec, zero } from '../main'
+import { map } from '../map'
 import { midpoint } from '../midpoint'
 import { min, minF } from '../min'
 import { mul, mulF } from '../mul'
@@ -28,6 +29,7 @@ export {
   fromV as vecFromV,
   interpolate as vecInterpolate,
   interpolateF as vecInterpolateF,
+  map as vecMap,
   midpoint as vecMidpoint,
   min as vecMin,
   minF as vecMinF,
