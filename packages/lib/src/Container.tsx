@@ -35,9 +35,6 @@ export function Container(): ReactNode {
       ref={ref}
       id="viewer"
       className="container"
-      //onPointerDown={sendPointerDown}
-      //onPointerMove={sendPointerMove}
-      //onPointerUp={sendPointerUp}
       onTouchStart={touchSendTouchStart}
       onTouchMove={touchSendTouchMove}
       onTouchEnd={touchSendTouchEnd}
