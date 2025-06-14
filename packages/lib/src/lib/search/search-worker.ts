@@ -17,7 +17,6 @@ export type SearchWorkerReq = InitReq | SearchReq
 export type SearchWorkerRes =
   | { type: 'INIT.DONE' }
   | { type: 'SEARCH.DONE'; res: SearchAddressRes }
-type PostMessage = (e: Readonly<SearchWorkerRes>) => void
 
 interface SearchWorkerContext {
   ctx: null | SearchContext
@@ -25,26 +24,12 @@ interface SearchWorkerContext {
 
 const searchWorkerMachine = setup({
   types: {
-    events: {} as
-      | (InitReq & { postMessage: PostMessage })
-      | (SearchReq & { postMessage: PostMessage }),
+    events: {} as InitReq | SearchReq,
     context: {} as SearchWorkerContext,
   },
   actions: {
-    initDone: (_, { postMessage }: Readonly<{ postMessage: PostMessage }>) =>
-      postMessage({ type: 'INIT.DONE' }),
-    doSearch: (
-      _,
-      {
-        postMessage,
-        ctx,
-        pgeo,
-      }: Readonly<{
-        postMessage: PostMessage
-        ctx: null | SearchContext
-        pgeo: Vec
-      }>
-    ) => {
+    initDone: () => postMessage({ type: 'INIT.DONE' }),
+    doSearch: ({ context: { ctx } }, { pgeo }: Readonly<{ pgeo: Vec }>) => {
       if (ctx === null) {
         return
       }
@@ -63,7 +48,6 @@ const searchWorkerMachine = setup({
   initial: 'Uninited',
   states: {
     Uninited: {
-      entry: () => console.log('Uninited!'),
       on: {
         INIT: {
           actions: [
@@ -72,7 +56,6 @@ const searchWorkerMachine = setup({
             }),
             {
               type: 'initDone',
-              params: ({ event: { postMessage } }) => ({ postMessage }),
             },
           ],
           target: 'Inited',
@@ -85,9 +68,7 @@ const searchWorkerMachine = setup({
           {
             actions: {
               type: 'doSearch',
-              params: ({ context: { ctx }, event: { postMessage, pgeo } }) => ({
-                postMessage,
-                ctx,
+              params: ({ event: { pgeo } }) => ({
                 pgeo,
               }),
             },
@@ -103,5 +84,5 @@ const searchWorkerActor = createActor(searchWorkerMachine)
 searchWorkerActor.start()
 
 onmessage = function (e: Readonly<MessageEvent<SearchWorkerReq>>) {
-  searchWorkerActor.send({ ...e.data, postMessage: this.postMessage })
+  searchWorkerActor.send(e.data)
 }
