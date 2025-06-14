@@ -1,4 +1,9 @@
 export const mapSvgStyle = `
+.island {
+  fill: darkgray;
+  fill-opacity: 1;
+}
+
 .area {
   fill: #bcd35f;
   fill-opacity: 1;

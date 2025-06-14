@@ -6,6 +6,11 @@ import { MultiPolygon } from '@daijimaps/svgmapviewer/geo'
 export const getMapLayers: () => MapLayer[] = () => [
   {
     type: 'multipolygon',
+    name: 'island',
+    filter: (p) => !!p.natural?.match(/^coastline$/),
+  },
+  {
+    type: 'multipolygon',
     name: 'area',
     data: svgMapViewerConfig.mapData.internals.features.map(
       (f) => f.geometry.coordinates
