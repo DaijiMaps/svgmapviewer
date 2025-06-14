@@ -27,6 +27,8 @@ export interface Range {
 
 interface StyleContext {
   rendered: boolean
+  appearing: boolean
+  shown: boolean
   animating: boolean
   layout: Layout
   svgMatrix: DOMMatrixReadOnly
@@ -79,6 +81,8 @@ const styleMachine = setup({
   id: 'style1',
   context: {
     rendered: true,
+    appearing: false,
+    shown: false,
     animating: false,
     layout: emptyLayout,
     svgMatrix: new DOMMatrixReadOnly(),
@@ -100,6 +104,7 @@ const styleMachine = setup({
       actions: [
         assign({
           rendered: ({ event }) => event.rendered,
+          shown: false,
           layout: ({ event }) => event.layout,
         }),
         'updateSvgMatrix',
@@ -126,6 +131,15 @@ const styleMachine = setup({
       on: {
         'LAYOUT.DONE': {
           guard: ({ event }) => event.rendered,
+          actions: assign({ appearing: true }),
+          target: 'Appearing',
+        },
+      },
+    },
+    Appearing: {
+      on: {
+        'STYLE.ANIMATION.END': {
+          actions: assign({ appearing: false, shown: true }),
           target: 'Idle',
         },
       },
@@ -139,10 +153,11 @@ const styleMachine = setup({
           }),
           target: 'Animating',
         },
-        // XXX
-        // XXX handle resize
-        // XXX LAYOUT.DONE rendered=false => WaitingForLayout
-        // XXX
+        'LAYOUT.DONE': {
+          guard: ({ event }) => !event.rendered,
+          actions: assign({ shown: false }),
+          target: 'WaitingForLayout',
+        },
       },
     },
     Animating: {
@@ -179,6 +194,12 @@ export function styleAnimationEnd(): void {
 
 export function useRendered(): boolean {
   return useSelector(styleActor, (s) => s.context.rendered)
+}
+export function useAppearing(): boolean {
+  return useSelector(styleActor, (s) => s.context.appearing)
+}
+export function useShown(): boolean {
+  return useSelector(styleActor, (s) => s.context.shown)
 }
 export function useAnimating(): boolean {
   return useSelector(styleActor, (s) => s.context.animating)

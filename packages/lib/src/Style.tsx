@@ -4,13 +4,20 @@
 /* eslint-disable functional/no-throw-statements */
 import { type ReactNode, StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
+import { timing_opening } from './lib/css'
 import { useLayoutConfig, useLayoutSvgScaleS, useZoom } from './lib/map-xstate'
 import {
   type MatrixMatrix as Matrix,
   matrixEmpty,
   matrixToString,
 } from './lib/matrix/prefixed'
-import { useAnimation, useLayoutScroll, useRendered } from './lib/style-xstate'
+import {
+  useAnimation,
+  useAppearing,
+  useLayoutScroll,
+  useRendered,
+  useShown,
+} from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
 import { viewerSend } from './lib/viewer-xstate'
 
@@ -53,6 +60,8 @@ export function ContainerStyle(): ReactNode {
 
 function LayoutStyle(): ReactNode {
   const rendered = useRendered()
+  const shown = useShown()
+  const appearing = useAppearing()
   const scroll = useLayoutScroll()
 
   useEffect(() => {
@@ -61,7 +70,25 @@ function LayoutStyle(): ReactNode {
 
   const style = `
 /* layout */
-${!rendered ? `#viewer, #ui { display: none; }` : ``}
+${!shown ? `#viewer, #ui { opacity: 0; }` : ``}
+${
+  appearing
+    ? `
+#viewer, #ui {
+  will-change: opacity;
+  animation: xxx-appearing 2s ${timing_opening};
+}
+@keyframes xxx-appearing {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+`
+    : ``
+}
 .content {
   width: ${trunc2(scroll.width)}px;
   height: ${trunc2(scroll.height)}px;
