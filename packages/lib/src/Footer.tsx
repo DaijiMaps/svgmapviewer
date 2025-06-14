@@ -4,16 +4,14 @@ import { svgMapViewerConfig } from './lib'
 import {
   flex_column_center_center,
   position_absolute_left_0_bottom_0,
+  timing_closing,
+  timing_opening,
   user_select_none,
 } from './lib/css'
 import { uiSend, useOpenCloseFooter } from './lib/ui-xstate'
 
 export function Footer(): ReactNode {
   const config = svgMapViewerConfig
-  //const mode = useSelector(viewerActor, selectMode)
-
-  //const vecs = useTouchesVecs()
-  //const z = useTouchesZ()
 
   return (
     <div
@@ -21,10 +19,6 @@ export function Footer(): ReactNode {
       // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiSend({ type: 'FOOTER.ANIMATION.END' })}
     >
-      {/*
-      <p>{`v=${vecs.size};z=${z};touching=${touching}`}</p>
-      <h2 className="subtitle">{config.subtitle}</h2>
-      */}
       <p>{config.copyright}</p>
       <style>
         {style}
@@ -77,9 +71,7 @@ export function FooterStyle(): ReactNode {
     )
   } else {
     const [a, b] = !open ? [1, 0] : [0, 1]
-    const t = !open
-      ? 'cubic-bezier(0.25, 0.25, 0.25, 1)'
-      : 'cubic-bezier(0.75, 0, 0.75, 0.75)'
+    const t = open ? timing_opening : timing_closing
 
     return (
       <>{`

@@ -77,7 +77,7 @@ export function HeaderStyle(): ReactNode {
     )
   } else {
     const [a, b] = !open ? [1, 0] : [0, 1]
-    const t = !open ? timing_opening : timing_closing
+    const t = open ? timing_opening : timing_closing
 
     return (
       <>{`

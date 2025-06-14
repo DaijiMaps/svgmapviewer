@@ -51,6 +51,7 @@ const style = `
   ${pointer_events_initial}
   ${box_sizing_border_box}
   z-index: ${Z_INDEX_DETAIL};
+  will-change: transform;
   cursor: default;
 }
 

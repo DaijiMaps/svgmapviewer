@@ -4,6 +4,8 @@ import {
   position_absolute_left_0_bottom_0,
   position_absolute_left_0_top_0,
   position_absolute_right_0_bottom_0,
+  timing_closing,
+  timing_opening,
 } from './lib/css'
 import {
   useDistanceRadius,
@@ -152,9 +154,7 @@ export function GuidesAnimationStyle(): ReactNode {
 
   // balloon is not open => guide is shown (== opacity: 1)
   const [oa, ob] = !open ? [0, 1] : [1, 0]
-  const t = !open
-    ? 'cubic-bezier(0.25, 0.25, 0.25, 1)'
-    : 'cubic-bezier(0.75, 0, 0.75, 0.75)'
+  const t = open ? timing_opening : timing_closing
 
   const style = !animating
     ? `

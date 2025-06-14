@@ -3,6 +3,8 @@ import { type ReactNode } from 'react'
 import { notifyUiClose } from './lib/config-xstate'
 import {
   position_absolute_left_0_top_0,
+  timing_closing,
+  timing_opening,
   width_100vw_height_100svh,
   Z_INDEX_SHADOW,
 } from './lib/css'
@@ -34,6 +36,7 @@ const style = `
   cursor: default;
   pointer-events: initial;
   z-index: ${Z_INDEX_SHADOW};
+  will-change: opacity;
 }
 `
 
@@ -62,9 +65,7 @@ export function ShadowStyle(): ReactNode {
     )
   } else {
     const [a, b] = !open ? [0.3, 0] : [0, 0.3]
-    const t = open
-      ? 'cubic-bezier(0.25, 0.25, 0.25, 1)'
-      : 'cubic-bezier(0.75, 0, 0.75, 0.75)'
+    const t = open ? timing_opening : timing_closing
 
     return (
       <>

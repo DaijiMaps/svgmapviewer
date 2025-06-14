@@ -3,6 +3,8 @@ import { type PropsWithChildren, type ReactNode } from 'react'
 import {
   pointer_events_none,
   position_absolute_left_0_top_0,
+  timing_closing,
+  timing_opening,
   Z_INDEX_BALLOON,
 } from './lib/css'
 import { type OpenClose, openCloseIsVisible } from './lib/openclose'
@@ -137,6 +139,7 @@ const style = `
   ${position_absolute_left_0_top_0}
   ${pointer_events_none}
   z-index: ${Z_INDEX_BALLOON};
+  will-change: transform;
 }
 
 .balloon > path.bg {
@@ -234,9 +237,7 @@ function balloonStyle(
     const [sa, sb] = open ? [0, 1] : [1, 0]
     const [dxa, dxb] = open ? ['0px', 'var(--dp-x)'] : ['var(--dp-x)', '0px']
     const [dya, dyb] = open ? ['0px', 'var(--dp-y)'] : ['var(--dp-y)', '0px']
-    const t = open
-      ? 'cubic-bezier(0.25, 0.25, 0.25, 1)'
-      : 'cubic-bezier(0.75, 0, 0.75, 0.75)'
+    const t = open ? timing_opening : timing_closing
 
     return `
 .detail,

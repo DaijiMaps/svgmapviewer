@@ -6,6 +6,8 @@ import {
   pointer_events_initial,
   pointer_events_none,
   position_absolute_right_0_top_0,
+  timing_closing,
+  timing_opening,
 } from './lib/css'
 import { getPosition } from './lib/geo'
 import { uiSend, useOpenCloseRight } from './lib/ui-xstate'
@@ -165,9 +167,7 @@ export function RightStyle(): ReactNode {
     )
   } else {
     const [a, b] = !open ? [1, 0] : [0, 1]
-    const t = !open
-      ? 'cubic-bezier(0.25, 0.25, 0.25, 1)'
-      : 'cubic-bezier(0.75, 0, 0.75, 0.75)'
+    const t = open ? timing_opening : timing_closing
 
     return (
       <>{`
