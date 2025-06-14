@@ -11,9 +11,9 @@ import {
   type SearchContext,
 } from './address-types'
 
-type InitReq = { type: 'INIT'; entries: AddressEntries }
-type SearchReq = { type: 'SEARCH'; pgeo: Vec }
-export type SearchWorkerReq = InitReq | SearchReq
+export type SearchWorkerReq =
+  | { type: 'INIT'; entries: AddressEntries }
+  | { type: 'SEARCH'; pgeo: Vec }
 export type SearchWorkerRes =
   | { type: 'INIT.DONE' }
   | { type: 'SEARCH.DONE'; res: SearchAddressRes }
@@ -24,7 +24,7 @@ interface SearchWorkerContext {
 
 const searchWorkerMachine = setup({
   types: {
-    events: {} as InitReq | SearchReq,
+    events: {} as SearchWorkerReq,
     context: {} as SearchWorkerContext,
   },
   actions: {
