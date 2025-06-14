@@ -13,13 +13,16 @@ import { UiRoot } from './Ui'
 import { Viewer } from './Viewer'
 
 function App(): ReactNode {
+  const backgroundColor =
+    svgMapViewerConfig.cartoConfig?.backgroundColor ?? 'darkgray'
+
   return (
     <>
       <Viewer />
       <UiRoot />
       <style>
         {style}
-        {`body { background-color: ${svgMapViewerConfig.cartoConfig?.backgroundColor ?? 'darkgray'}; }`}
+        {`body { background-color: ${backgroundColor}; }`}
       </style>
     </>
   )
