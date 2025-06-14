@@ -139,7 +139,7 @@ const style = `
   ${position_absolute_left_0_top_0}
   ${pointer_events_none}
   z-index: ${Z_INDEX_BALLOON};
-  will-change: transform;
+  will-change: opacity, transform;
 }
 
 .balloon > path.bg {

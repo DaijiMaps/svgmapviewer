@@ -99,9 +99,9 @@ export const Z_INDEX_DETAIL = 11
 //// values
 
 export const timing_opening = `
-cubic-bezier(0.25, 0.25, 0.25, 1)
+cubic-bezier(0, 0, 0, 1)
 `
 
 export const timing_closing = `
-cubic-bezier(0.75, 0, 0.75, 0.75)
+cubic-bezier(1, 0, 1, 1)
 `

@@ -12,7 +12,7 @@ import {
   useGeoPoint,
   useLayoutContainer,
 } from './lib/style-xstate'
-import { useOpenCloseBalloon } from './lib/ui-xstate'
+import { useOpenCloseHeader } from './lib/ui-xstate'
 import { trunc7 } from './lib/utils'
 
 export function Measure(): ReactNode {
@@ -150,10 +150,10 @@ function ringPath({
 }
 
 export function GuidesAnimationStyle(): ReactNode {
-  const { open, animating } = useOpenCloseBalloon()
+  const { open, animating } = useOpenCloseHeader()
 
   // balloon is not open => guide is shown (== opacity: 1)
-  const [oa, ob] = !open ? [0, 1] : [1, 0]
+  const [oa, ob] = !open ? [1, 0] : [0, 1]
   const t = open ? timing_opening : timing_closing
 
   const style = !animating
