@@ -18,7 +18,7 @@ export type StyleEvent =
   | { type: 'STYLE.ANIMATION'; animation: null | Animation } // null to stop animation
   | { type: 'STYLE.SCROLL'; currentScroll: CurrentScroll } // p == pscroll
   | { type: 'STYLE.ANIMATION.END' } // null to stop animation
-  | { type: 'LAYOUT.DONE' } // internal
+  | { type: 'LAYOUT.DONE'; rendered: boolean } // internal
 
 export interface Range {
   start: VecVec
@@ -105,7 +105,7 @@ const styleMachine = setup({
         'updateSvgMatrix',
         'updateGeoMatrix',
         'updateDistanceRadius',
-        raise({ type: 'LAYOUT.DONE' }),
+        raise(({ event: { rendered } }) => ({ type: 'LAYOUT.DONE', rendered })),
       ],
     },
     'STYLE.SCROLL': {
@@ -125,6 +125,7 @@ const styleMachine = setup({
     WaitingForLayout: {
       on: {
         'LAYOUT.DONE': {
+          guard: ({ event }) => event.rendered,
           target: 'Idle',
         },
       },
@@ -138,6 +139,10 @@ const styleMachine = setup({
           }),
           target: 'Animating',
         },
+        // XXX
+        // XXX handle resize
+        // XXX LAYOUT.DONE rendered=false => WaitingForLayout
+        // XXX
       },
     },
     Animating: {
