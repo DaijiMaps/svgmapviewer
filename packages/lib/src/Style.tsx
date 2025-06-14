@@ -7,12 +7,6 @@ import { createRoot } from 'react-dom/client'
 import { timing_opening } from './lib/css'
 import { useLayoutConfig, useLayoutSvgScaleS, useZoom } from './lib/map-xstate'
 import {
-  type MatrixMatrix as Matrix,
-  matrixEmpty,
-  matrixToString,
-} from './lib/matrix/prefixed'
-import {
-  useAnimation,
   useAppearing,
   useLayoutScroll,
   useRendered,
@@ -30,27 +24,12 @@ export function styleRoot(): void {
 
   createRoot(e).render(
     <StrictMode>
-      <Style />
-      <style>{style}</style>
+      <RootStyle />
     </StrictMode>
   )
 }
 
-const style = `
-#style-svg-defs {
-  display: none;
-}
-`
-
-function Style(): ReactNode {
-  return <LayoutStyle />
-}
-
-export function ContainerStyle(): ReactNode {
-  return <AnimationStyle />
-}
-
-function LayoutStyle(): ReactNode {
+function RootStyle(): ReactNode {
   const rendered = useRendered()
 
   useEffect(() => {
@@ -92,32 +71,6 @@ function LayoutStyle(): ReactNode {
       {scroll_style}
     </style>
   )
-}
-
-function AnimationStyle(): ReactNode {
-  const animation = useAnimation()
-  const q = animation?.move?.q ?? animation?.zoom?.q ?? null
-  const style = q === null ? '' : css(q)
-  return <style>{style}</style>
-}
-
-function css(q: Matrix): string {
-  return `
-#viewer {
-  will-change: transform;
-  animation: container-zoom ${500}ms ease;
-}
-@keyframes container-zoom {
-  from {
-    transform-origin: left top;
-    transform: ${matrixToString(matrixEmpty)} translate3d(0px, 0px, 0px);
-  }
-  to {
-    transform-origin: left top;
-    transform: ${matrixToString(q)} translate3d(0px, 0px, 0px);
-  }
-}
-`
 }
 
 export function SvgSymbolStyle(): ReactNode {
