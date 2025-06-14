@@ -104,7 +104,6 @@ const styleMachine = setup({
       actions: [
         assign({
           rendered: ({ event }) => event.rendered,
-          shown: false,
           layout: ({ event }) => event.layout,
         }),
         'updateSvgMatrix',
