@@ -3,6 +3,7 @@ import { type ReactNode } from 'react'
 import { Container } from './Container'
 import { likeStyle } from './Like'
 import { UiRoot } from './Ui'
+import { svgMapViewerConfig } from './lib'
 import {
   box_sizing_border_box,
   margin_0_padding_0,
@@ -16,7 +17,10 @@ function App(): ReactNode {
     <>
       <Container />
       <UiRoot />
-      <style>{style}</style>
+      <style>
+        {style}
+        {`body { background-color: ${svgMapViewerConfig.cartoConfig?.backgroundColor ?? 'darkgray'}; }`}
+      </style>
     </>
   )
 }
