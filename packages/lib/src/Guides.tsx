@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import {
@@ -13,8 +14,15 @@ import {
   width_100vw_height_100svh,
   Z_INDEX_GUIDES,
 } from './lib/css'
+import { useShadorRoot } from './lib/dom'
 
 export function Guides(): ReactNode {
+  useShadorRoot('guides', <GuidesContent />, 'ui')
+
+  return <div id="guides" />
+}
+
+function GuidesContent(): ReactNode {
   return (
     <div className="ui-content guides">
       <svg className="guides">

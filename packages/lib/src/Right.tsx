@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import {
@@ -9,11 +10,18 @@ import {
   timing_closing,
   timing_opening,
 } from './lib/css'
+import { useShadorRoot } from './lib/dom'
 import { getPosition } from './lib/geo'
 import { useOpenCloseHeader } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
 
 export function Right(): ReactNode {
+  useShadorRoot('right', <RightContent />, 'ui')
+
+  return <div id="right" />
+}
+
+function RightContent(): ReactNode {
   return (
     <div className="ui-content right bottom">
       <Zoom />

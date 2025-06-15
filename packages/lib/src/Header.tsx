@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from './lib'
@@ -10,10 +11,17 @@ import {
   user_select_none,
   ZOOM_DURATION_HEADER,
 } from './lib/css'
+import { useShadorRoot } from './lib/dom'
 import { uiSend, useOpenCloseHeader } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
 
 export function Header(): ReactNode {
+  useShadorRoot('header', <HeaderContent />, 'ui')
+
+  return <div id="header" />
+}
+
+function HeaderContent(): ReactNode {
   const config = svgMapViewerConfig
 
   return (
