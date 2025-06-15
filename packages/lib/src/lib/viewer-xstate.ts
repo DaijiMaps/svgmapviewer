@@ -25,13 +25,7 @@ import {
   makeLayout,
   scrollLayout,
 } from './layout'
-import {
-  MAP_SVG_LABELS_ROOT_ID,
-  MAP_SVG_LAYERS_ROOT_ID,
-  MAP_SVG_MARKERS_ROOT_ID,
-  MAP_SVG_OBJECTS_ROOT_ID,
-  MAP_SVG_SYMBOLS_ROOT_ID,
-} from './map-svg-react'
+import { MAP_SVG_LAYERS_ROOT_ID } from './map-svg-react'
 import { getCurrentScroll } from './scroll'
 import { type GetDone, type SyncSyncDone } from './scroll-types'
 import { scrollCbs, scrollSend } from './scroll-xstate'
@@ -69,13 +63,6 @@ const viewerMachine = setup({
     isHoming: ({ context: { homing } }) => homing,
     isContainerRendered: () => document.querySelector('.container') !== null,
     isMapSvgLayersRendered: () => isShadowRootRendered(MAP_SVG_LAYERS_ROOT_ID),
-    isMapSvgObjectsRendered: () =>
-      isShadowRootRendered(MAP_SVG_OBJECTS_ROOT_ID),
-    isMapSvgSymbolsRendered: () =>
-      isShadowRootRendered(MAP_SVG_SYMBOLS_ROOT_ID),
-    isMapSvgMarkersRendered: () =>
-      isShadowRootRendered(MAP_SVG_MARKERS_ROOT_ID),
-    isMapSvgLabelsRendered: () => isShadowRootRendered(MAP_SVG_LABELS_ROOT_ID),
     isUiRendered: () => isShadowRootRendered(UI_ROOT_ID),
   },
   actions: {
@@ -321,10 +308,6 @@ const viewerMachine = setup({
             guard: and([
               'isContainerRendered',
               'isMapSvgLayersRendered',
-              'isMapSvgObjectsRendered',
-              'isMapSvgSymbolsRendered',
-              'isMapSvgMarkersRendered',
-              'isMapSvgLabelsRendered',
               'isUiRendered',
             ]),
             target: 'Layouting',
