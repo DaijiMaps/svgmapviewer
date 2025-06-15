@@ -70,7 +70,7 @@ const uiMachine = setup({
     isFooterVisible: ({ context: { m } }) => isVisible(m, 'footer'),
     isRightVisible: ({ context: { m } }) => isVisible(m, 'right'),
     //isShadowVisible: ({ context: { m } }) => isVisible(m, 'shadow'),
-    isBalloonVisible: ({ context: { m } }) => isVisible(m, 'balloon'),
+    //isBalloonVisible: ({ context: { m } }) => isVisible(m, 'balloon'),
     isDetailVisible: ({ context: { m } }) => isVisible(m, 'detail'),
   },
   actions: {
@@ -102,7 +102,7 @@ const uiMachine = setup({
       footer: openCloseReset(true),
       right: openCloseReset(true),
       //shadow: openCloseReset(false),
-      balloon: openCloseReset(false),
+      //balloon: openCloseReset(false),
       detail: openCloseReset(false),
     },
   }),
@@ -162,7 +162,7 @@ const uiMachine = setup({
                 { type: 'close', params: { part: 'footer' } },
                 { type: 'close', params: { part: 'right' } },
                 //{ type: 'open', params: { part: 'shadow' } },
-                { type: 'open', params: { part: 'balloon' } },
+                //{ type: 'open', params: { part: 'balloon' } },
                 { type: 'open', params: { part: 'detail' } },
               ],
               on: {
@@ -171,7 +171,7 @@ const uiMachine = setup({
                   { guard: 'isFooterVisible' },
                   { guard: 'isRightVisible' },
                   //{ guard: not('isShadowVisible') },
-                  { guard: not('isBalloonVisible') },
+                  //{ guard: not('isBalloonVisible') },
                   { guard: not('isDetailVisible') },
                   {
                     actions: assign({
@@ -199,7 +199,7 @@ const uiMachine = setup({
                 { type: 'open', params: { part: 'footer' } },
                 { type: 'open', params: { part: 'right' } },
                 //{ type: 'close', params: { part: 'shadow' } },
-                { type: 'close', params: { part: 'balloon' } },
+                //{ type: 'close', params: { part: 'balloon' } },
                 { type: 'close', params: { part: 'detail' } },
               ],
               exit: 'endCancel',
@@ -209,7 +209,7 @@ const uiMachine = setup({
                   { guard: not('isFooterVisible') },
                   { guard: not('isRightVisible') },
                   //{ guard: 'isShadowVisible' },
-                  { guard: 'isBalloonVisible' },
+                  //{ guard: 'isBalloonVisible' },
                   { guard: 'isDetailVisible' },
                   {
                     actions: assign({
@@ -256,13 +256,13 @@ const uiMachine = setup({
             raise({ type: 'DONE' }),
           ],
         },
-        */
         'BALLOON.ANIMATION.END': {
           actions: [
             { type: 'handle', params: { part: 'balloon' } },
             raise({ type: 'DONE' }),
           ],
         },
+        */
         'DETAIL.ANIMATION.END': {
           actions: [
             { type: 'handle', params: { part: 'detail' } },
@@ -293,10 +293,10 @@ export function useOpenCloseRight(): OpenClose {
 export function useOpenCloseShadow(): OpenClose {
   return useSelector(uiActor, (ui) => ui.context.m['shadow'])
 }
-*/
 export function useOpenCloseBalloon(): OpenClose {
   return useSelector(uiActor, (ui) => ui.context.m['balloon'])
 }
+*/
 export function useOpenCloseDetail(): OpenClose {
   return useSelector(uiActor, (ui) => ui.context.m['detail'])
 }

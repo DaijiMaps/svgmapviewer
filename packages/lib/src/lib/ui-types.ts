@@ -8,7 +8,7 @@ export type UiPart =
   | 'footer'
   | 'right'
   //| 'shadow'
-  | 'balloon'
+  //| 'balloon'
   | 'detail'
 
 export type OpenCloseMap = Record<UiPart, OpenClose>
@@ -38,7 +38,7 @@ export type UiPartEvent =
   | { type: 'FOOTER.ANIMATION.END' }
   | { type: 'RIGHT.ANIMATION.END' }
   //| { type: 'SHADOW.ANIMATION.END' }
-  | { type: 'BALLOON.ANIMATION.END' }
+  //| { type: 'BALLOON.ANIMATION.END' }
   | { type: 'DETAIL.ANIMATION.END' }
 
 export type UiInternalEvent = { type: 'DONE' }

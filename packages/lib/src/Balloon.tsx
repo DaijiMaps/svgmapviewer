@@ -10,11 +10,7 @@ import {
 } from './lib/css'
 import { type OpenClose, openCloseIsVisible } from './lib/openclose'
 import { type Dir } from './lib/types'
-import {
-  uiSend,
-  useOpenCloseBalloon,
-  useOpenCloseDetail,
-} from './lib/ui-xstate'
+import { useOpenCloseDetail } from './lib/ui-xstate'
 import { type Vec } from './lib/vec'
 import { type VecVec } from './lib/vec/prefixed'
 
@@ -120,8 +116,8 @@ export function Balloon(
   return (
     <div
       className="balloon-container"
-      // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => uiSend({ type: 'BALLOON.ANIMATION.END' })}
+      //// eslint-disable-next-line functional/no-return-void
+      //onAnimationEnd={() => uiSend({ type: 'BALLOON.ANIMATION.END' })}
     >
       <svg className="balloon" viewBox={viewBox} width={ww} height={hh}>
         <path className="bg" d={bgPath} />
@@ -157,7 +153,7 @@ const style = `
 export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
   const { _p: o, _dir: dir } = props
 
-  const balloon = useOpenCloseBalloon()
+  //const balloon = useOpenCloseBalloon()
   const detail = useOpenCloseDetail()
 
   // XXX
@@ -175,13 +171,13 @@ export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
   if (
     o === null ||
     dir === null ||
-    !openCloseIsVisible(balloon) ||
+    //!openCloseIsVisible(balloon) ||
     !openCloseIsVisible(detail)
   ) {
     return <style>{`.balloon-container, .detail { display: none; }`}</style>
   } else {
     const p = { dir, vmin, bw, bh, ll, d, ww, hh, fg: true }
-    return <style>{balloonStyle(balloon, o, dir, p)}</style>
+    return <style>{balloonStyle(detail, o, dir, p)}</style>
   }
 }
 
@@ -256,17 +252,18 @@ function balloonStyle(
   --dyb: ${dyb};
   --pww: ${-p.ww / 2}px;
   --phh: ${-p.hh / 2}px;
+  --duration: ${ZOOM_DURATION_DETAIL}ms;
 }
 
 .detail {
   transform-origin: 0 0;
-  animation: xxx-detail ${ZOOM_DURATION_DETAIL}ms var(--timing);
+  animation: xxx-detail var(--duration) var(--timing);
   will-change: opacity, transform;
 }
 
 .balloon-container {
   transform-origin: 0 0;
-  animation: xxx-balloon ${ZOOM_DURATION_DETAIL}ms var(--timing);
+  animation: xxx-balloon var(--duration) var(--timing);
   will-change: opacity, transform;
 }
 
