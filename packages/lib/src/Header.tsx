@@ -64,6 +64,7 @@ p {
 h1,
 h2 {
   margin: 0.25em;
+  font-weight: 100;
   cursor: default;
 }
 `
