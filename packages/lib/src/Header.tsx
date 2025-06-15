@@ -8,6 +8,7 @@ import {
   timing_closing,
   timing_opening,
   user_select_none,
+  ZOOM_DURATION_HEADER,
 } from './lib/css'
 import { uiSend, useOpenCloseHeader } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
@@ -68,9 +69,10 @@ export function HeaderStyle(): ReactNode {
     return (
       <>{`
 .header {
+  --b: ${b};
   transform-origin: 50% 0%;
-  opacity: ${b};
-  transform: translate(calc(50vw - 50%), 0%) scale(${b});
+  opacity: var(--b);
+  transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
   will-change: opacity, transform;
 }
 `}</>
@@ -82,19 +84,23 @@ export function HeaderStyle(): ReactNode {
     return (
       <>{`
 .header {
+  --timing: ${t};
+  --duration: ${ZOOM_DURATION_HEADER}ms;
+  --a: ${a};
+  --b: ${b};
   transform-origin: 50% 0%;
-  animation: xxx-header 300ms ${t};
+  animation: xxx-header var(--duration) var(--timing);
   will-change: opacity, transform;
 }
 
 @keyframes xxx-header {
   from {
-    opacity: ${a};
-    transform: translate(calc(50vw - 50%), 0%) scale(${a}) translate3d(0px, 0px, 0px);
+    opacity: var(--a);
+    transform: translate(calc(50vw - 50%), 0%) scale(var(--a)) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: ${b};
-    transform: translate(calc(50vw - 50%), 0%) scale(${b}) translate3d(0px, 0px, 0px);
+    opacity: var(--b);
+    transform: translate(calc(50vw - 50%), 0%) scale(var(--b)) translate3d(0px, 0px, 0px);
   }
 }
 `}</>

@@ -67,10 +67,6 @@ const uiMachine = setup({
   },
   guards: {
     isHeaderVisible: ({ context: { m } }) => isVisible(m, 'header'),
-    //isFooterVisible: ({ context: { m } }) => isVisible(m, 'footer'),
-    //isRightVisible: ({ context: { m } }) => isVisible(m, 'right'),
-    //isShadowVisible: ({ context: { m } }) => isVisible(m, 'shadow'),
-    //isBalloonVisible: ({ context: { m } }) => isVisible(m, 'balloon'),
     isDetailVisible: ({ context: { m } }) => isVisible(m, 'detail'),
   },
   actions: {
@@ -99,10 +95,6 @@ const uiMachine = setup({
     detail: emptyDetail,
     m: {
       header: openCloseReset(true),
-      //footer: openCloseReset(true),
-      //right: openCloseReset(true),
-      //shadow: openCloseReset(false),
-      //balloon: openCloseReset(false),
       detail: openCloseReset(false),
     },
   }),
@@ -159,19 +151,11 @@ const uiMachine = setup({
             Opening: {
               entry: [
                 { type: 'close', params: { part: 'header' } },
-                //{ type: 'close', params: { part: 'footer' } },
-                //{ type: 'close', params: { part: 'right' } },
-                //{ type: 'open', params: { part: 'shadow' } },
-                //{ type: 'open', params: { part: 'balloon' } },
                 { type: 'open', params: { part: 'detail' } },
               ],
               on: {
                 DONE: [
                   { guard: 'isHeaderVisible' },
-                  //{ guard: 'isFooterVisible' },
-                  //{ guard: 'isRightVisible' },
-                  //{ guard: not('isShadowVisible') },
-                  //{ guard: not('isBalloonVisible') },
                   { guard: not('isDetailVisible') },
                   {
                     actions: assign({
@@ -196,20 +180,12 @@ const uiMachine = setup({
               entry: [
                 'startCancel',
                 { type: 'open', params: { part: 'header' } },
-                //{ type: 'open', params: { part: 'footer' } },
-                //{ type: 'open', params: { part: 'right' } },
-                //{ type: 'close', params: { part: 'shadow' } },
-                //{ type: 'close', params: { part: 'balloon' } },
                 { type: 'close', params: { part: 'detail' } },
               ],
               exit: 'endCancel',
               on: {
                 DONE: [
                   { guard: not('isHeaderVisible') },
-                  //{ guard: not('isFooterVisible') },
-                  //{ guard: not('isRightVisible') },
-                  //{ guard: 'isShadowVisible' },
-                  //{ guard: 'isBalloonVisible' },
                   { guard: 'isDetailVisible' },
                   {
                     actions: assign({
@@ -237,32 +213,6 @@ const uiMachine = setup({
             raise({ type: 'DONE' }),
           ],
         },
-        /*
-        'FOOTER.ANIMATION.END': {
-          actions: [
-            { type: 'handle', params: { part: 'footer' } },
-            raise({ type: 'DONE' }),
-          ],
-        },
-        'RIGHT.ANIMATION.END': {
-          actions: [
-            { type: 'handle', params: { part: 'right' } },
-            raise({ type: 'DONE' }),
-          ],
-        },
-        'SHADOW.ANIMATION.END': {
-          actions: [
-            { type: 'handle', params: { part: 'shadow' } },
-            raise({ type: 'DONE' }),
-          ],
-        },
-        'BALLOON.ANIMATION.END': {
-          actions: [
-            { type: 'handle', params: { part: 'balloon' } },
-            raise({ type: 'DONE' }),
-          ],
-        },
-        */
         'DETAIL.ANIMATION.END': {
           actions: [
             { type: 'handle', params: { part: 'detail' } },
@@ -283,20 +233,6 @@ export function useDetail(): UiDetailContent {
 export function useOpenCloseHeader(): OpenClose {
   return useSelector(uiActor, (ui) => ui.context.m['header'])
 }
-/*
-export function useOpenCloseFooter(): OpenClose {
-  return useSelector(uiActor, (ui) => ui.context.m['footer'])
-}
-export function useOpenCloseRight(): OpenClose {
-  return useSelector(uiActor, (ui) => ui.context.m['right'])
-}
-export function useOpenCloseShadow(): OpenClose {
-  return useSelector(uiActor, (ui) => ui.context.m['shadow'])
-}
-export function useOpenCloseBalloon(): OpenClose {
-  return useSelector(uiActor, (ui) => ui.context.m['balloon'])
-}
-*/
 export function useOpenCloseDetail(): OpenClose {
   return useSelector(uiActor, (ui) => ui.context.m['detail'])
 }

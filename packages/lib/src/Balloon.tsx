@@ -1,4 +1,3 @@
-/* eslint-disable functional/functional-parameters */
 import { type PropsWithChildren, type ReactNode } from 'react'
 import {
   pointer_events_none,
@@ -114,11 +113,7 @@ export function Balloon(
     props._dir === null ? '' : balloonPath({ dir: props._dir, ...p, fg: true })
 
   return (
-    <div
-      className="balloon-container"
-      //// eslint-disable-next-line functional/no-return-void
-      //onAnimationEnd={() => uiSend({ type: 'BALLOON.ANIMATION.END' })}
-    >
+    <div className="balloon-container">
       <svg className="balloon" viewBox={viewBox} width={ww} height={hh}>
         <path className="bg" d={bgPath} />
         <path className="fg" d={fgPath} />

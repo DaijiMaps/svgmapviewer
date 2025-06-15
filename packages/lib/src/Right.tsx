@@ -15,11 +15,7 @@ import { viewerSend } from './lib/viewer-xstate'
 
 export function Right(): ReactNode {
   return (
-    <div
-      className="ui-content right bottom"
-      //// eslint-disable-next-line functional/no-return-void
-      //onAnimationEnd={() => uiSend({ type: 'RIGHT.ANIMATION.END' })}
-    >
+    <div className="ui-content right bottom">
       <Zoom />
       <style>{style}</style>
     </div>
@@ -134,8 +130,8 @@ function ZoomIn() {
   return (
     <div
       className={'zoom-item'}
-      //// eslint-disable-next-line functional/no-return-void
-      //onClick={() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })}
+      // eslint-disable-next-line functional/no-return-void
+      onClick={() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })}
     >
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={zoomInPath} />
@@ -153,10 +149,11 @@ export function RightStyle(): ReactNode {
     return (
       <>{`
 .right {
+  --b: ${b};
   transform-origin: 100% 50%;
-  opacity: ${b};
+  opacity: var(--b);
   /*
-  transform: scale(${b});
+  transform: scale(var(--b));
   */
   will-change: opacity, transform;
 }
@@ -172,8 +169,11 @@ export function RightStyle(): ReactNode {
     return (
       <>{`
 .right {
+  --timing: ${t};
+  --a: ${a};
+  --b: ${b};
   transform-origin: 100% 50%;
-  animation: xxx-right 300ms ${t};
+  animation: xxx-right 300ms var(--timing);
   will-change: opacity, transform;
 }
 .bottom {
@@ -182,12 +182,12 @@ export function RightStyle(): ReactNode {
 
 @keyframes xxx-right {
   from {
-    opacity: ${a};
-    transform: scale(${a}) translate3d(0px, 0px, 0px);
+    opacity: var(--a);
+    transform: scale(var(--a)) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: ${b};
-    transform: scale(${b}) translate3d(0px, 0px, 0px);
+    opacity: var(--b);
+    transform: scale(var(--b)) translate3d(0px, 0px, 0px);
   }
 }
 `}</>

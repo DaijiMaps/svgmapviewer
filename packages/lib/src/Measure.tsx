@@ -6,6 +6,7 @@ import {
   position_absolute_right_0_bottom_0,
   timing_closing,
   timing_opening,
+  ZOOM_DURATION_HEADER,
 } from './lib/css'
 import {
   useDistanceRadius,
@@ -159,22 +160,27 @@ export function GuidesAnimationStyle(): ReactNode {
   const style = !animating
     ? `
 .guides {
-  opacity: ${ob};
+  --ob: ${ob};
+  opacity: var(--ob);
   will-change: opacity;
 }
 `
     : `
 .guides {
-  animation: xxx-measure 300ms ${t};
+  --timing: ${t};
+  --duration: ${ZOOM_DURATION_HEADER}ms;
+  --oa: ${oa};
+  --ob: ${ob};
+  animation: xxx-measure var(--duration) var(--timing);
   will-change: opacity;
 }
 
 @keyframes xxx-measure {
   from {
-    opacity: ${oa};
+    opacity: var(--oa);
   }
   to {
-    opacity: ${ob};
+    opacity: var(--ob);
   }
 }
 `

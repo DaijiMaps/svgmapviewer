@@ -18,8 +18,6 @@ export function Shadow(): ReactNode {
       className="ui-content shadow"
       // eslint-disable-next-line functional/no-return-void
       onClick={() => notifyUiClose()}
-      //// eslint-disable-next-line functional/no-return-void
-      //onAnimationEnd={() => uiSend({ type: 'SHADOW.ANIMATION.END' })}
     >
       <style>
         {style}
@@ -72,17 +70,21 @@ export function ShadowStyle(): ReactNode {
       <>
         {`
 .shadow {
+  --duration: ${ZOOM_DURATION_DETAIL}ms;
+  --timing: ${t};
+  --a: ${a};
+  --b: ${b};
   pointer-events: none;
   will-change: opacity;
-  animation: xxx-shadow ${ZOOM_DURATION_DETAIL}ms ${t};
+  animation: xxx-shadow var(--duration) var(--timing);
 }
 
 @keyframes xxx-shadow {
   from {
-    opacity: ${a};
+    opacity: var(--a);
   }
   to {
-    opacity: ${b};
+    opacity: var(--b);
   }
 }
 `}

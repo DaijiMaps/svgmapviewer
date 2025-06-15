@@ -7,6 +7,7 @@ import {
   timing_closing,
   timing_opening,
   user_select_none,
+  ZOOM_DURATION_HEADER,
 } from './lib/css'
 import { useOpenCloseHeader } from './lib/ui-xstate'
 
@@ -14,11 +15,7 @@ export function Footer(): ReactNode {
   const config = svgMapViewerConfig
 
   return (
-    <div
-      className="ui-content footer"
-      //// eslint-disable-next-line functional/no-return-void
-      //onAnimationEnd={() => uiSend({ type: 'FOOTER.ANIMATION.END' })}
-    >
+    <div className="ui-content footer">
       <p>{config.copyright}</p>
       <style>
         {style}
@@ -62,9 +59,10 @@ export function FooterStyle(): ReactNode {
     return (
       <>{`
 .footer {
+  --b: ${b};
   transform-origin: 50% 100%;
-  opacity: ${b};
-  transform: translate(calc(50vw - 50%), 0%) scale(${b});
+  opacity: var(--b);
+  transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
   will-change: opacity, transform;
 }
 `}</>
@@ -76,19 +74,23 @@ export function FooterStyle(): ReactNode {
     return (
       <>{`
 .footer {
+  --duration: ${ZOOM_DURATION_HEADER}ms;
+  --timing: ${t};
+  --a: ${a};
+  --b: ${b};
   transform-origin: 50% 100%;
-  animation: xxx-footer 300ms ${t};
+  animation: xxx-footer var(--duration) var(--timing);
   will-change: opacity, transform;
 }
 
 @keyframes xxx-footer {
   from {
-    opacity: ${a};
-    transform: translate(calc(50vw - 50%), 0%) scale(${a}) translate3d(0px, 0px, 0px);
+    opacity: var(--a);
+    transform: translate(calc(50vw - 50%), 0%) scale(var(--a)) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: ${b};
-    transform: translate(calc(50vw - 50%), 0%) scale(${b}) translate3d(0px, 0px, 0px);
+    opacity: var(--b);
+    transform: translate(calc(50vw - 50%), 0%) scale(var(--b)) translate3d(0px, 0px, 0px);
   }
 }
 `}</>
