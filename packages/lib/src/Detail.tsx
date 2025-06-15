@@ -1,6 +1,8 @@
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { Balloon, BalloonStyle } from './Balloon'
+import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import {
   box_sizing_border_box,
@@ -10,9 +12,16 @@ import {
   Z_INDEX_DETAIL,
 } from './lib/css'
 import { diag } from './lib/diag'
+import { useShadorRoot } from './lib/dom'
 import { isDetailEmpty, uiSend, useDetail } from './lib/ui-xstate'
 
 export function Detail(): ReactNode {
+  useShadorRoot('detail', <DetailContent />, 'ui')
+
+  return <div id="detail" />
+}
+
+export function DetailContent(): ReactNode {
   const detail = useDetail()
 
   const p = detail.p
@@ -36,6 +45,7 @@ export function Detail(): ReactNode {
           cfg.renderInfo({ info: detail.info })}
         <DetailStyle />
       </div>
+      <Assets />
       <style>{style}</style>
     </div>
   )
@@ -65,6 +75,10 @@ p {
   ${user_select_none}
   margin: 0.5em;
 }
+
+#ui-svg-defs {
+  display: none;
+}
 `
 
 export function DetailStyle(): ReactNode {
@@ -79,4 +93,14 @@ export function DetailStyle(): ReactNode {
   const H = layout.container.height
 
   return <BalloonStyle _p={p} _dir={dir} _W={W} _H={H} />
+}
+
+function Assets(): ReactNode {
+  return (
+    <svg id="ui-svg-defs">
+      <defs>
+        <RenderMapAssetsDefault />
+      </defs>
+    </svg>
+  )
 }

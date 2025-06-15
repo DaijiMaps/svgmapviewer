@@ -5,7 +5,6 @@ import { Detail } from './Detail'
 import { Footer } from './Footer'
 import { Guides } from './Guides'
 import { Header } from './Header'
-import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { renderShadowRoot } from './lib/dom'
 import { UI_ROOT_ID } from './lib/ui-react'
 import { Right } from './Right'
@@ -25,7 +24,6 @@ export function Ui(): ReactNode {
   return (
     <>
       <UiContent />
-      <Assets />
     </>
   )
 }
@@ -88,13 +86,3 @@ a:link {
   display: none;
 }
 `
-
-function Assets(): ReactNode {
-  return (
-    <svg id="ui-svg-defs">
-      <defs>
-        <RenderMapAssetsDefault />
-      </defs>
-    </svg>
-  )
-}
