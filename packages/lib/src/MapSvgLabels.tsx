@@ -1,5 +1,4 @@
 /* eslint-disable functional/no-expression-statements */
-/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode, useMemo } from 'react'
 import { boxToViewBox2 } from './lib/box/prefixed'
@@ -15,13 +14,13 @@ import { useLayout } from './lib/style-xstate'
 import { voffset } from './lib/text'
 import { trunc2 } from './lib/utils'
 
-export function MapSvgLabelsRoot(): ReactNode {
-  useShadorRoot(MAP_SVG_LABELS_ROOT_ID, <MapSvgLabels />)
+export function MapSvgLabels(): ReactNode {
+  useShadorRoot(MAP_SVG_LABELS_ROOT_ID, <MapSvgLabelsContent />)
 
   return <div id={MAP_SVG_LABELS_ROOT_ID} className="content svg" />
 }
 
-export function MapSvgLabels(): ReactNode {
+export function MapSvgLabelsContent(): ReactNode {
   return (
     <>
       <MapSvgLabelsSvg />

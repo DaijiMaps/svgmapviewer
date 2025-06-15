@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
@@ -14,13 +13,13 @@ import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
 import { SvgSymbolStyle } from './Style'
 
-export function MapSvgMarkersRoot(): ReactNode {
-  useShadorRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkers />)
+export function MapSvgMarkers(): ReactNode {
+  useShadorRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkersContent />)
 
   return <div id={MAP_SVG_MARKERS_ROOT_ID} className="content svg" />
 }
 
-export function MapSvgMarkers(): ReactNode {
+export function MapSvgMarkersContent(): ReactNode {
   return (
     <>
       <MapSvgMarkersSvg />

@@ -21,11 +21,11 @@ import {
   sendScroll,
   sendWheel,
 } from './lib/viewer-react'
-import { MapSvgLabelsRoot } from './MapSvgLabels'
-import { MapSvgLayersRoot } from './MapSvgLayers'
-import { MapSvgMarkersRoot } from './MapSvgMarkers'
-import { MapSvgObjectsRoot } from './MapSvgObjects'
-import { MapSvgSymbolsRoot } from './MapSvgSymbols'
+import { MapSvgLabels } from './MapSvgLabels'
+import { MapSvgLayers } from './MapSvgLayers'
+import { MapSvgMarkers } from './MapSvgMarkers'
+import { MapSvgObjects } from './MapSvgObjects'
+import { MapSvgSymbols } from './MapSvgSymbols'
 
 export function Container(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
@@ -47,11 +47,11 @@ export function Container(): ReactNode {
         styleAnimationEnd()
       }}
     >
-      <MapSvgLayersRoot />
-      <MapSvgObjectsRoot />
-      <MapSvgSymbolsRoot />
-      <MapSvgMarkersRoot />
-      <MapSvgLabelsRoot />
+      <MapSvgLayers />
+      <MapSvgObjects />
+      <MapSvgSymbols />
+      <MapSvgMarkers />
+      <MapSvgLabels />
       <style>{style}</style>
       <AnimationStyle />
     </div>

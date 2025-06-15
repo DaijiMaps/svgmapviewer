@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
@@ -13,13 +12,13 @@ import {
 import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
 
-export function MapSvgLayersRoot(): ReactNode {
-  useShadorRoot(MAP_SVG_LAYERS_ROOT_ID, <MapSvgLayers />)
+export function MapSvgLayers(): ReactNode {
+  useShadorRoot(MAP_SVG_LAYERS_ROOT_ID, <MapSvgLayersContent />)
 
   return <div id={MAP_SVG_LAYERS_ROOT_ID} className="content svg" />
 }
 
-export function MapSvgLayers(): ReactNode {
+export function MapSvgLayersContent(): ReactNode {
   return (
     <>
       <MapSvgLayersSvg />
