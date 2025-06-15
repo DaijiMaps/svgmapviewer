@@ -1,6 +1,8 @@
 import { useEffect, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 
+export const shadowRootMap: Map<string, ShadowRoot> = new Map()
+
 export function useShadowRoot(
   id: string,
   root: Readonly<ReactNode>,
@@ -14,19 +16,21 @@ export function useShadowRoot(
 function renderShadowRoot(
   id: string,
   children: Readonly<ReactNode>,
-  parent?: string
+  parentId?: string
   // eslint-disable-next-line functional/no-return-void
 ): void {
-  const root =
-    parent === undefined
-      ? document.querySelector(`#${id}`)
-      : (document
-          .querySelector(`#${parent}`)
-          ?.shadowRoot?.querySelector(`#${id}`) ?? null)
+  const parent =
+    parentId === undefined ? document : (shadowRootMap.get(parentId) ?? null)
+  if (parent === null) {
+    return
+  }
+  const root = parent.querySelector(`#${id}`) ?? null
   if (root === null || root.shadowRoot !== null) {
     return
   }
   const shadowRoot = root.attachShadow({ mode: 'open' })
+  // eslint-disable-next-line functional/no-expression-statements, functional/immutable-data
+  shadowRootMap.set(id, shadowRoot)
   // eslint-disable-next-line functional/no-expression-statements
   createRoot(shadowRoot).render(children)
 }
