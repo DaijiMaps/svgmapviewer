@@ -3,7 +3,7 @@ import React from 'react'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import { animationEndLayout, animationHome, animationZoom } from './animation'
 import { type Animation } from './animation-types'
-import { type BoxBox, boxCenter } from './box/prefixed'
+import { boxCenter } from './box/prefixed'
 import {
   notifyAnimation,
   notifyLayout,
@@ -116,12 +116,6 @@ const viewerMachine = setup({
     //
     // layout
     //
-    scrollLayout: assign({
-      layout: (
-        { context: { layout } },
-        { scroll }: { scroll: BoxBox }
-      ): Layout => scrollLayout(layout, scroll),
-    }),
     syncLayout: ({ context: { layout, rendered } }) =>
       notifyLayout(layout, rendered),
     //
