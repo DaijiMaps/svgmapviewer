@@ -1,12 +1,28 @@
-import { type ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
+
+export function useShadorRoot(
+  id: string,
+  root: Readonly<ReactNode>,
+  parent?: string
+  // eslint-disable-next-line functional/no-return-void
+): void {
+  // eslint-disable-next-line functional/no-expression-statements, functional/no-return-void
+  useEffect(() => renderShadowRoot(id, root, parent), [id, parent, root])
+}
 
 export function renderShadowRoot(
   id: string,
-  children: Readonly<ReactNode>
+  children: Readonly<ReactNode>,
+  parent?: string
   // eslint-disable-next-line functional/no-return-void
 ): void {
-  const root = document.querySelector(`#${id}`)
+  const root =
+    parent === undefined
+      ? document.querySelector(`#${id}`)
+      : (document
+          .querySelector(`#${parent}`)
+          ?.shadowRoot?.querySelector(`#${id}`) ?? null)
   if (root === null || root.shadowRoot !== null) {
     return
   }

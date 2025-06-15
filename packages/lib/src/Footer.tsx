@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from './lib'
@@ -9,9 +10,16 @@ import {
   user_select_none,
   ZOOM_DURATION_HEADER,
 } from './lib/css'
+import { useShadorRoot } from './lib/dom'
 import { useOpenCloseHeader } from './lib/ui-xstate'
 
 export function Footer(): ReactNode {
+  useShadorRoot('footer', <FooterContent />, 'ui')
+
+  return <div id="footer" />
+}
+
+function FooterContent(): ReactNode {
   const config = svgMapViewerConfig
 
   return (
