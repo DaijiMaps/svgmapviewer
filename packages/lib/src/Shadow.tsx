@@ -7,9 +7,10 @@ import {
   timing_opening,
   width_100vw_height_100svh,
   Z_INDEX_SHADOW,
+  ZOOM_DURATION_DETAIL,
 } from './lib/css'
 import { useAnimating } from './lib/style-xstate'
-import { uiSend, useOpenCloseShadow } from './lib/ui-xstate'
+import { useOpenCloseDetail } from './lib/ui-xstate'
 
 export function Shadow(): ReactNode {
   return (
@@ -17,8 +18,8 @@ export function Shadow(): ReactNode {
       className="ui-content shadow"
       // eslint-disable-next-line functional/no-return-void
       onClick={() => notifyUiClose()}
-      // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => uiSend({ type: 'SHADOW.ANIMATION.END' })}
+      //// eslint-disable-next-line functional/no-return-void
+      //onAnimationEnd={() => uiSend({ type: 'SHADOW.ANIMATION.END' })}
     >
       <style>
         {style}
@@ -41,7 +42,7 @@ const style = `
 `
 
 export function ShadowStyle(): ReactNode {
-  const { open, animating } = useOpenCloseShadow()
+  const { open, animating } = useOpenCloseDetail()
   const zooming = useAnimating()
 
   if (!animating) {
@@ -71,8 +72,9 @@ export function ShadowStyle(): ReactNode {
       <>
         {`
 .shadow {
+  pointer-events: none;
   will-change: opacity;
-  animation: xxx-shadow 300ms ${t};
+  animation: xxx-shadow ${ZOOM_DURATION_DETAIL}ms ${t};
 }
 
 @keyframes xxx-shadow {

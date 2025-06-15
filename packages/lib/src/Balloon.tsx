@@ -6,6 +6,7 @@ import {
   timing_closing,
   timing_opening,
   Z_INDEX_BALLOON,
+  ZOOM_DURATION_DETAIL,
 } from './lib/css'
 import { type OpenClose, openCloseIsVisible } from './lib/openclose'
 import { type Dir } from './lib/types'
@@ -259,13 +260,13 @@ function balloonStyle(
 
 .detail {
   transform-origin: 0 0;
-  animation: xxx-detail 300ms var(--timing);
+  animation: xxx-detail ${ZOOM_DURATION_DETAIL}ms var(--timing);
   will-change: opacity, transform;
 }
 
 .balloon-container {
   transform-origin: 0 0;
-  animation: xxx-balloon 300ms var(--timing);
+  animation: xxx-balloon ${ZOOM_DURATION_DETAIL}ms var(--timing);
   will-change: opacity, transform;
 }
 

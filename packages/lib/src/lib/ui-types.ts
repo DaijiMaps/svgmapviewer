@@ -7,7 +7,7 @@ export type UiPart =
   | 'header'
   | 'footer'
   | 'right'
-  | 'shadow'
+  //| 'shadow'
   | 'balloon'
   | 'detail'
 
@@ -37,7 +37,7 @@ export type UiPartEvent =
   | { type: 'HEADER.ANIMATION.END' }
   | { type: 'FOOTER.ANIMATION.END' }
   | { type: 'RIGHT.ANIMATION.END' }
-  | { type: 'SHADOW.ANIMATION.END' }
+  //| { type: 'SHADOW.ANIMATION.END' }
   | { type: 'BALLOON.ANIMATION.END' }
   | { type: 'DETAIL.ANIMATION.END' }
 
