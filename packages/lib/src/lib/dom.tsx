@@ -11,7 +11,7 @@ export function useShadorRoot(
   useEffect(() => renderShadowRoot(id, root, parent), [id, parent, root])
 }
 
-export function renderShadowRoot(
+function renderShadowRoot(
   id: string,
   children: Readonly<ReactNode>,
   parent?: string

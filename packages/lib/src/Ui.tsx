@@ -1,11 +1,11 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
-import { useEffect, type ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { Detail } from './Detail'
 import { Footer } from './Footer'
 import { Guides } from './Guides'
 import { Header } from './Header'
-import { renderShadowRoot } from './lib/dom'
+import { useShadorRoot } from './lib/dom'
 import { UI_ROOT_ID } from './lib/ui-react'
 import { Right } from './Right'
 import { Shadow } from './Shadow'
@@ -14,8 +14,7 @@ import { Shadow } from './Shadow'
 // XXX receive animationend here (.ui)
 
 export function UiRoot(): ReactNode {
-  // eslint-disable-next-line functional/no-return-void
-  useEffect(() => renderShadowRoot(UI_ROOT_ID, <Ui />), [])
+  useShadorRoot(UI_ROOT_ID, <Ui />)
 
   return <div id={UI_ROOT_ID} />
 }

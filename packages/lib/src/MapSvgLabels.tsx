@@ -1,9 +1,9 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
-import { Fragment, type ReactNode, useEffect, useMemo } from 'react'
+import { Fragment, type ReactNode, useMemo } from 'react'
 import { boxToViewBox2 } from './lib/box/prefixed'
-import { renderShadowRoot } from './lib/dom'
+import { useShadorRoot } from './lib/dom'
 import type { POI } from './lib/geo'
 import {
   MAP_SVG_LABELS_CONTENT_ID,
@@ -16,10 +16,7 @@ import { voffset } from './lib/text'
 import { trunc2 } from './lib/utils'
 
 export function MapSvgLabelsRoot(): ReactNode {
-  useEffect(
-    () => renderShadowRoot(MAP_SVG_LABELS_ROOT_ID, <MapSvgLabels />),
-    []
-  )
+  useShadorRoot(MAP_SVG_LABELS_ROOT_ID, <MapSvgLabels />)
 
   return <div id={MAP_SVG_LABELS_ROOT_ID} className="content svg" />
 }

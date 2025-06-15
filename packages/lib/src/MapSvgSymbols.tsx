@@ -1,12 +1,12 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode, useEffect } from 'react'
+import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from './lib'
 import { boxToViewBox2 } from './lib/box/prefixed'
 import { RenderMapSymbols } from './lib/carto'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
-import { renderShadowRoot } from './lib/dom'
+import { useShadorRoot } from './lib/dom'
 import {
   MAP_SVG_SYMBOLS_CONTENT_ID,
   MAP_SVG_SYMBOLS_ROOT_ID,
@@ -16,10 +16,7 @@ import { trunc2 } from './lib/utils'
 import { SvgSymbolStyle } from './Style'
 
 export function MapSvgSymbolsRoot(): ReactNode {
-  useEffect(
-    () => renderShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbols />),
-    []
-  )
+  useShadorRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbols />)
 
   return <div id={MAP_SVG_SYMBOLS_ROOT_ID} className="content svg" />
 }

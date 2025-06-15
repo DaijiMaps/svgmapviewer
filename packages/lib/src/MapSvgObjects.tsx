@@ -1,11 +1,11 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode, useEffect } from 'react'
+import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from './lib'
 import { boxToViewBox2 } from './lib/box/prefixed'
 import { RenderMapObjects } from './lib/carto'
-import { renderShadowRoot } from './lib/dom'
+import { useShadorRoot } from './lib/dom'
 import {
   MAP_SVG_OBJECTS_CONTENT_ID,
   MAP_SVG_OBJECTS_ROOT_ID,
@@ -14,10 +14,7 @@ import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
 
 export function MapSvgObjectsRoot(): ReactNode {
-  useEffect(
-    () => renderShadowRoot(MAP_SVG_OBJECTS_ROOT_ID, <MapSvgObjects />),
-    []
-  )
+  useShadorRoot(MAP_SVG_OBJECTS_ROOT_ID, <MapSvgObjects />)
 
   return <div id={MAP_SVG_OBJECTS_ROOT_ID} className="content svg" />
 }
