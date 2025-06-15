@@ -8,7 +8,7 @@ import {
   timing_opening,
   user_select_none,
 } from './lib/css'
-import { uiSend, useOpenCloseFooter } from './lib/ui-xstate'
+import { useOpenCloseHeader } from './lib/ui-xstate'
 
 export function Footer(): ReactNode {
   const config = svgMapViewerConfig
@@ -16,8 +16,8 @@ export function Footer(): ReactNode {
   return (
     <div
       className="ui-content footer"
-      // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => uiSend({ type: 'FOOTER.ANIMATION.END' })}
+      //// eslint-disable-next-line functional/no-return-void
+      //onAnimationEnd={() => uiSend({ type: 'FOOTER.ANIMATION.END' })}
     >
       <p>{config.copyright}</p>
       <style>
@@ -54,7 +54,7 @@ p {
 `
 
 export function FooterStyle(): ReactNode {
-  const { open, animating } = useOpenCloseFooter()
+  const { open, animating } = useOpenCloseHeader()
 
   if (!animating) {
     const b = !open ? 0 : 1

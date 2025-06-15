@@ -10,15 +10,15 @@ import {
   timing_opening,
 } from './lib/css'
 import { getPosition } from './lib/geo'
-import { uiSend, useOpenCloseRight } from './lib/ui-xstate'
+import { useOpenCloseHeader } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
 
 export function Right(): ReactNode {
   return (
     <div
       className="ui-content right bottom"
-      // eslint-disable-next-line functional/no-return-void
-      onAnimationEnd={() => uiSend({ type: 'RIGHT.ANIMATION.END' })}
+      //// eslint-disable-next-line functional/no-return-void
+      //onAnimationEnd={() => uiSend({ type: 'RIGHT.ANIMATION.END' })}
     >
       <Zoom />
       <style>{style}</style>
@@ -134,8 +134,8 @@ function ZoomIn() {
   return (
     <div
       className={'zoom-item'}
-      // eslint-disable-next-line functional/no-return-void
-      onClick={() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })}
+      //// eslint-disable-next-line functional/no-return-void
+      //onClick={() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })}
     >
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={zoomInPath} />
@@ -145,7 +145,7 @@ function ZoomIn() {
 }
 
 export function RightStyle(): ReactNode {
-  const { open, animating } = useOpenCloseRight()
+  const { open, animating } = useOpenCloseHeader()
 
   if (!animating) {
     const b = !open ? 0 : 1

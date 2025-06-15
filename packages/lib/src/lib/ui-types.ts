@@ -5,8 +5,8 @@ import { type VecVec } from './vec/prefixed'
 
 export type UiPart =
   | 'header'
-  | 'footer'
-  | 'right'
+  //| 'footer'
+  //| 'right'
   //| 'shadow'
   //| 'balloon'
   | 'detail'
@@ -35,8 +35,8 @@ export type UiModeEvent =
 
 export type UiPartEvent =
   | { type: 'HEADER.ANIMATION.END' }
-  | { type: 'FOOTER.ANIMATION.END' }
-  | { type: 'RIGHT.ANIMATION.END' }
+  //| { type: 'FOOTER.ANIMATION.END' }
+  //| { type: 'RIGHT.ANIMATION.END' }
   //| { type: 'SHADOW.ANIMATION.END' }
   //| { type: 'BALLOON.ANIMATION.END' }
   | { type: 'DETAIL.ANIMATION.END' }
