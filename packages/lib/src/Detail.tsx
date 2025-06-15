@@ -25,7 +25,7 @@ export function Detail(): ReactNode {
 
   return (
     <div className="ui-content detail-balloon">
-      <Balloon _p={p} _dir={dir} _W={W} _H={H}></Balloon>
+      <Balloon _p={p} _dir={dir} _W={W} _H={H} />
       <div
         className="detail"
         // eslint-disable-next-line functional/no-return-void
