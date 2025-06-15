@@ -12,11 +12,11 @@ import {
   Z_INDEX_DETAIL,
 } from './lib/css'
 import { diag } from './lib/diag'
-import { useShadorRoot } from './lib/dom'
+import { useShadowRoot } from './lib/dom'
 import { isDetailEmpty, uiSend, useDetail } from './lib/ui-xstate'
 
 export function Detail(): ReactNode {
-  useShadorRoot('detail', <DetailContent />, 'ui')
+  useShadowRoot('detail', <DetailContent />, 'ui')
 
   return <div id="detail" />
 }

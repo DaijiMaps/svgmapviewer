@@ -10,11 +10,11 @@ import {
   user_select_none,
   ZOOM_DURATION_HEADER,
 } from './lib/css'
-import { useShadorRoot } from './lib/dom'
+import { useShadowRoot } from './lib/dom'
 import { useOpenCloseHeader } from './lib/ui-xstate'
 
 export function Footer(): ReactNode {
-  useShadorRoot('footer', <FooterContent />, 'ui')
+  useShadowRoot('footer', <FooterContent />, 'ui')
 
   return <div id="footer" />
 }

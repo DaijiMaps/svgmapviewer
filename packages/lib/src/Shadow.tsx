@@ -10,12 +10,12 @@ import {
   Z_INDEX_SHADOW,
   ZOOM_DURATION_DETAIL,
 } from './lib/css'
-import { useShadorRoot } from './lib/dom'
+import { useShadowRoot } from './lib/dom'
 import { useAnimating } from './lib/style-xstate'
 import { useOpenCloseDetail } from './lib/ui-xstate'
 
 export function Shadow(): ReactNode {
-  useShadorRoot('shadow', <ShadowContent />, 'ui')
+  useShadowRoot('shadow', <ShadowContent />, 'ui')
 
   return <div id="shadow" />
 }

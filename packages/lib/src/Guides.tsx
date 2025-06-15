@@ -14,10 +14,10 @@ import {
   width_100vw_height_100svh,
   Z_INDEX_GUIDES,
 } from './lib/css'
-import { useShadorRoot } from './lib/dom'
+import { useShadowRoot } from './lib/dom'
 
 export function Guides(): ReactNode {
-  useShadorRoot('guides', <GuidesContent />, 'ui')
+  useShadowRoot('guides', <GuidesContent />, 'ui')
 
   return <div id="guides" />
 }

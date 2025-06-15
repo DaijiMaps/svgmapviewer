@@ -4,7 +4,7 @@ import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from './lib'
 import { boxToViewBox2 } from './lib/box/prefixed'
 import { RenderMapMarkers } from './lib/carto'
-import { useShadorRoot } from './lib/dom'
+import { useShadowRoot } from './lib/dom'
 import {
   MAP_SVG_MARKERS_CONTENT_ID,
   MAP_SVG_MARKERS_ROOT_ID,
@@ -14,7 +14,7 @@ import { trunc2 } from './lib/utils'
 import { SvgSymbolStyle } from './Style'
 
 export function MapSvgMarkers(): ReactNode {
-  useShadorRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkersContent />)
+  useShadowRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkersContent />)
 
   return <div id={MAP_SVG_MARKERS_ROOT_ID} className="content svg" />
 }

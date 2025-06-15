@@ -5,7 +5,7 @@ import { Detail } from './Detail'
 import { Footer } from './Footer'
 import { Guides } from './Guides'
 import { Header } from './Header'
-import { useShadorRoot } from './lib/dom'
+import { useShadowRoot } from './lib/dom'
 import { UI_ROOT_ID } from './lib/ui-react'
 import { Right } from './Right'
 import { Shadow } from './Shadow'
@@ -14,7 +14,7 @@ import { Shadow } from './Shadow'
 // XXX receive animationend here (.ui)
 
 export function UiRoot(): ReactNode {
-  useShadorRoot(UI_ROOT_ID, <Ui />)
+  useShadowRoot(UI_ROOT_ID, <Ui />)
 
   return <div id={UI_ROOT_ID} />
 }

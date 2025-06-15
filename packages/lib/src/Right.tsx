@@ -10,13 +10,13 @@ import {
   timing_closing,
   timing_opening,
 } from './lib/css'
-import { useShadorRoot } from './lib/dom'
+import { useShadowRoot } from './lib/dom'
 import { getPosition } from './lib/geo'
 import { useOpenCloseHeader } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
 
 export function Right(): ReactNode {
-  useShadorRoot('right', <RightContent />, 'ui')
+  useShadowRoot('right', <RightContent />, 'ui')
 
   return <div id="right" />
 }

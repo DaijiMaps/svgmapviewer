@@ -11,12 +11,12 @@ import {
   user_select_none,
   ZOOM_DURATION_HEADER,
 } from './lib/css'
-import { useShadorRoot } from './lib/dom'
+import { useShadowRoot } from './lib/dom'
 import { uiSend, useOpenCloseHeader } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
 
 export function Header(): ReactNode {
-  useShadorRoot('header', <HeaderContent />, 'ui')
+  useShadowRoot('header', <HeaderContent />, 'ui')
 
   return <div id="header" />
 }

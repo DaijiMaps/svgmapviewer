@@ -4,7 +4,7 @@ import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from './lib'
 import { boxToViewBox2 } from './lib/box/prefixed'
 import { RenderMapLayers } from './lib/carto'
-import { useShadorRoot } from './lib/dom'
+import { useShadowRoot } from './lib/dom'
 import {
   MAP_SVG_LAYERS_CONTENT_ID,
   MAP_SVG_LAYERS_ROOT_ID,
@@ -13,7 +13,7 @@ import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
 
 export function MapSvgLayers(): ReactNode {
-  useShadorRoot(MAP_SVG_LAYERS_ROOT_ID, <MapSvgLayersContent />)
+  useShadowRoot(MAP_SVG_LAYERS_ROOT_ID, <MapSvgLayersContent />)
 
   return <div id={MAP_SVG_LAYERS_ROOT_ID} className="content svg" />
 }

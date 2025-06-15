@@ -5,7 +5,7 @@ import { svgMapViewerConfig } from './lib'
 import { boxToViewBox2 } from './lib/box/prefixed'
 import { RenderMapSymbols } from './lib/carto'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
-import { useShadorRoot } from './lib/dom'
+import { useShadowRoot } from './lib/dom'
 import {
   MAP_SVG_SYMBOLS_CONTENT_ID,
   MAP_SVG_SYMBOLS_ROOT_ID,
@@ -15,7 +15,7 @@ import { trunc2 } from './lib/utils'
 import { SvgSymbolStyle } from './Style'
 
 export function MapSvgSymbols(): ReactNode {
-  useShadorRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbolsContent />)
+  useShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbolsContent />)
 
   return <div id={MAP_SVG_SYMBOLS_ROOT_ID} className="content svg" />
 }

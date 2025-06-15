@@ -1,7 +1,7 @@
 import { useEffect, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-export function useShadorRoot(
+export function useShadowRoot(
   id: string,
   root: Readonly<ReactNode>,
   parent?: string
