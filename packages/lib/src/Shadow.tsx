@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { notifyUiClose } from './lib/config-xstate'
@@ -9,10 +10,17 @@ import {
   Z_INDEX_SHADOW,
   ZOOM_DURATION_DETAIL,
 } from './lib/css'
+import { useShadorRoot } from './lib/dom'
 import { useAnimating } from './lib/style-xstate'
 import { useOpenCloseDetail } from './lib/ui-xstate'
 
 export function Shadow(): ReactNode {
+  useShadorRoot('shadow', <ShadowContent />, 'ui')
+
+  return <div id="shadow" />
+}
+
+function ShadowContent(): ReactNode {
   return (
     <div
       className="ui-content shadow"
