@@ -7,7 +7,7 @@ import { notifySearchDone, registerCbs } from '../config-xstate'
 import type { Vec } from '../vec'
 import { getAddressInfo } from './address-data'
 import type { AddressEntries, SearchAddressRes } from './address-types'
-import type { SearchWorkerRes } from './search-worker'
+import type { SearchWorkerRes } from './search-worker-types'
 
 const worker = new Worker(new URL('./search-worker.js', import.meta.url), {
   type: 'module',
