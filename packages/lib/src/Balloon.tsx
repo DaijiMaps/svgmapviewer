@@ -8,7 +8,7 @@ import {
   Z_INDEX_BALLOON,
 } from './lib/css'
 import { type OpenClose, openCloseIsVisible } from './lib/openclose'
-import { type Dir, type SearchRes } from './lib/types'
+import { type Dir } from './lib/types'
 import {
   uiSend,
   useOpenCloseBalloon,
@@ -82,7 +82,6 @@ l${ll},${hlw}
 }
 
 export interface BalloonProps {
-  _detail: null | SearchRes
   _p: null | VecVec
   _dir: null | Dir
   _W: number
@@ -155,7 +154,7 @@ const style = `
 `
 
 export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
-  const { _detail: content, _p: o, _dir: dir } = props
+  const { _p: o, _dir: dir } = props
 
   const balloon = useOpenCloseBalloon()
   const detail = useOpenCloseDetail()
@@ -173,7 +172,6 @@ export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
   const hh = bh + 2 * ll + 2 * d
 
   if (
-    content === null ||
     o === null ||
     dir === null ||
     !openCloseIsVisible(balloon) ||

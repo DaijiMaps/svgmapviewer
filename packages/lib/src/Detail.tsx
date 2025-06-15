@@ -25,7 +25,7 @@ export function Detail(): ReactNode {
 
   return (
     <div className="ui-content detail-balloon">
-      <Balloon _detail={detail} _p={p} _dir={dir} _W={W} _H={H}></Balloon>
+      <Balloon _p={p} _dir={dir} _W={W} _H={H}></Balloon>
       <div
         className="detail"
         // eslint-disable-next-line functional/no-return-void
@@ -78,5 +78,5 @@ export function DetailStyle(): ReactNode {
   const W = layout.container.width
   const H = layout.container.height
 
-  return <BalloonStyle _detail={detail} _p={p} _dir={dir} _W={W} _H={H} />
+  return <BalloonStyle _p={p} _dir={dir} _W={W} _H={H} />
 }
