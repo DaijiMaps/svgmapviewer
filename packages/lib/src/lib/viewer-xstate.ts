@@ -629,10 +629,15 @@ viewerActor.on('SEARCH.END.DONE', ({ psvg, info, layout }) => {
   notifyUiOpen(psvg, info, layout)
 })
 viewerActor.on('LOCK', ({ ok }) => notifyUiOpenDone(ok))
-viewerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
+viewerActor.on('ZOOM.START', ({ layout, zoom, z }) => {
+  wheeleventmask = true
   notifyZoomStart(layout, zoom, z)
-)
-viewerActor.on('ZOOM.END', ({ layout, zoom }) => notifyZoomEnd(layout, zoom))
+})
+viewerActor.on('ZOOM.END', ({ layout, zoom }) => {
+  notifyZoomEnd(layout, zoom)
+  wheeleventmask = false
+})
+
 viewerActor.on('LAYOUT', ({ layout }) => notifyZoomEnd(layout, 1))
 viewerActor.on('MODE', ({ mode }) => {
   // XXX
@@ -683,6 +688,7 @@ scrollCbs.syncSyncDoneCbs.add(syncSyncDoneCb)
 //let toucheventmask: boolean = false
 export let clickeventmask: boolean = false
 export let scrolleventmask: boolean = false
+export let wheeleventmask: boolean = false
 
 function reflectMode(mode: ViewerMode): void {
   //pointereventmask = mode !== 'pointing'
@@ -692,6 +698,7 @@ function reflectMode(mode: ViewerMode): void {
   //  'click' to shadow; shadow receives 'click' to cancel 'locked'
   clickeventmask = mode === 'locked'
   scrolleventmask = mode !== 'panning'
+  wheeleventmask = mode === 'locked'
 }
 
 //// handlers

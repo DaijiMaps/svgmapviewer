@@ -10,6 +10,7 @@ import { type SvgMapViewerConfig } from './lib'
 import { svgMapViewerConfig } from './lib/config'
 import { touching } from './lib/touch-xstate'
 import { keyDown, keyUp } from './lib/viewer-react'
+import { wheeleventmask } from './lib/viewer-xstate'
 
 export const SvgMapViewerConfigContext: Context<SvgMapViewerConfig> =
   createContext(svgMapViewerConfig)
@@ -27,7 +28,7 @@ export function root(config: Readonly<SvgMapViewerConfig>): void {
     //const c = document.querySelector('.container')
     const c = e.children[0] // XXX must be .container
 
-    if (c !== null && c.clientWidth === c.scrollWidth) {
+    if ((c !== null && c.clientWidth === c.scrollWidth) || wheeleventmask) {
       ev.preventDefault()
     }
   }
