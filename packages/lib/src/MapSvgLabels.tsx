@@ -129,7 +129,6 @@ ${opacities
 function MapSvgLabelsSvg(): ReactNode {
   const { scroll, svg } = useLayout()
 
-  // viewBox will be updated by syncViewBox()
   return (
     <svg
       id={MAP_SVG_LABELS_CONTENT_ID}

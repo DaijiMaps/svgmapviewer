@@ -44,7 +44,6 @@ const style = `
 function MapSvgSymbolsSvg(): ReactNode {
   const { scroll, svg } = useLayout()
 
-  // viewBox will be updated by syncViewBox()
   return (
     <svg
       id={MAP_SVG_SYMBOLS_CONTENT_ID}

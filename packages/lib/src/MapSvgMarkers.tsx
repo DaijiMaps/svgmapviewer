@@ -43,7 +43,6 @@ const style = `
 function MapSvgMarkersSvg(): ReactNode {
   const { scroll, svg } = useLayout()
 
-  // viewBox will be updated by syncViewBox()
   return (
     <svg
       id={MAP_SVG_MARKERS_CONTENT_ID}

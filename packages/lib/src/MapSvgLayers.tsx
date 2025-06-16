@@ -42,7 +42,6 @@ const style = `
 function MapSvgLayersSvg(): ReactNode {
   const { scroll, svg } = useLayout()
 
-  // viewBox will be updated by syncViewBox()
   return (
     <svg
       id={MAP_SVG_LAYERS_CONTENT_ID}
