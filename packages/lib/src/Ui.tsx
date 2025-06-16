@@ -10,9 +10,6 @@ import { UI_ROOT_ID } from './lib/ui-react'
 import { Right } from './Right'
 import { Shadow } from './Shadow'
 
-// XXX group UI part animations into one
-// XXX receive animationend here (.ui)
-
 export function Ui(): ReactNode {
   useShadowRoot(UI_ROOT_ID, <UiContent />)
 
