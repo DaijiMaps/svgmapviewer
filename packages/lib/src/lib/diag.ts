@@ -19,16 +19,16 @@ export function diag2(size: Readonly<Size>, { x, y }: Vec): HV {
         : r.x < 0.5
           ? -1
           : 0
-      : r.x < 0.25
+      : r.x < 0.3
         ? 1
-        : r.x > 0.75
+        : r.x > 0.7
           ? -1
           : 0
   const v =
     a > 1
-      ? r.y < 0.25
+      ? r.y < 0.3
         ? 1
-        : r.y > 0.75
+        : r.y > 0.7
           ? -1
           : 0
       : r.y > 0.5
