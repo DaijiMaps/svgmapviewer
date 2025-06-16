@@ -90,10 +90,10 @@ export function layoutLeg(
         ? vecVec(0, -hlw)
         : vecVec(hlw * hv.h, 0)
   const db =
-    hv.h === 0
-      ? vecVec(hlw, 0)
-      : hv.v === 0
-        ? vecVec(0, hlw)
+    hv.v === 0
+      ? vecVec(0, hlw)
+      : hv.h === 0
+        ? vecVec(hlw, 0)
         : vecVec(0, hlw * hv.v)
   const a = vecAdd(p, da)
   const b = vecAdd(p, db)
