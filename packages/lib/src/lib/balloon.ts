@@ -1,7 +1,7 @@
 import { boxBox, type BoxBox } from './box/prefixed'
 import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from './css'
 import type { OpenClose } from './openclose'
-import type { Dir } from './types'
+import type { Dir, Size } from './types'
 import type { VecVec } from './vec/prefixed'
 
 export interface BalloonPathProps {
@@ -9,6 +9,13 @@ export interface BalloonPathProps {
   bw: number
   bh: number
   ll: number
+}
+
+export interface BalloonSize extends Size {
+  bw: number
+  bh: number
+  ll: number
+  d: number
 }
 
 interface BalloonPath {
@@ -64,6 +71,22 @@ l${ll},${hlw}
 `
 
   return { body, leg }
+}
+
+export function calcBalloonSize(_W: number, _H: number): BalloonSize {
+  // XXX
+  const vmin = Math.min(_W, _H) * 0.01
+
+  const bw = vmin * BW // body width
+  const bh = vmin * BH // body height
+  const ll = vmin * BL // leg length
+
+  const d = bw / 100 // shadow
+
+  const width = bw + 2 * ll + 2 * d
+  const height = bh + 2 * ll + 2 * d
+
+  return { width, height, bw, bh, ll, d }
 }
 
 export interface BalloonProps {
