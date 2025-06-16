@@ -27,22 +27,7 @@ export function findProperties(
   id: undefined | number,
   mapMap: Readonly<MapMap>
 ): null | OsmProperties {
-  if (id === undefined) {
-    return null
-  }
-  const fs1 = mapMap.pointMap.get(id)
-  if (fs1 !== undefined) {
-    return fs1.properties
-  }
-  const fs3 = mapMap.lineMap.get(id)
-  if (fs3 !== undefined) {
-    return fs3.properties
-  }
-  const fs2 = mapMap.multipolygonMap.get(id)
-  if (fs2 !== undefined) {
-    return fs2.properties
-  }
-  return null
+  return findFeature(id, mapMap)?.properties ?? null
 }
 
 export function getOsmId(properties: Readonly<OsmProperties>): null | number {
