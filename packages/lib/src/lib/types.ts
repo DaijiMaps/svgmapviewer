@@ -21,6 +21,11 @@ import { type Vec } from './vec'
 // top, right, bottom, left
 export type Dir = 0 | 1 | 2 | 3
 
+export type HV = {
+  h: -1 | 0 | 1 // left, none, right
+  v: -1 | 0 | 1 // top, none, bottom
+}
+
 export interface Size {
   width: number
   height: number

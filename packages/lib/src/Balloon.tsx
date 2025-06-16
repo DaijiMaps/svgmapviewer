@@ -7,13 +7,14 @@ import {
   Z_INDEX_BALLOON,
 } from './lib/css'
 import { openCloseIsVisible } from './lib/openclose'
-import { type Dir } from './lib/types'
+import { type Dir, type HV } from './lib/types'
 import { useOpenCloseDetail } from './lib/ui-xstate'
 import { type VecVec } from './lib/vec/prefixed'
 
 export interface BalloonProps {
   _p: null | VecVec
   _dir: null | Dir
+  _hv: null | HV
   _W: number
   _H: number
 }
@@ -44,12 +45,14 @@ function BalloonSvg(
   props: Readonly<PropsWithChildren<BalloonProps>>
 ): ReactNode {
   const _dir = props._dir
-  if (_dir === null) {
+  const _hv = props._hv
+  if (_dir === null || _hv === null) {
     return <svg />
   }
 
   const { viewBox, width, height, fg, bg } = balloonPaths(
     _dir,
+    _hv,
     props._W,
     props._H
   )
@@ -79,15 +82,19 @@ path.fg {
   )
 }
 
-export function DetailBalloonStyle(props: Readonly<BalloonProps>): ReactNode {
-  const { _p: o, _dir: dir } = props
-
+export function DetailBalloonStyle({
+  _p,
+  _dir,
+  _hv,
+  _W,
+  _H,
+}: Readonly<BalloonProps>): ReactNode {
   const detail = useOpenCloseDetail()
 
   const style =
-    o === null || dir === null || !openCloseIsVisible(detail)
+    _p === null || _dir === null || _hv === null || !openCloseIsVisible(detail)
       ? `.balloon, .detail { display: none; }`
-      : balloonStyle(detail, o, dir, props._W, props._H)
+      : balloonStyle(detail, _p, _dir, _hv, _W, _H)
 
   return <style>{style}</style>
 }

@@ -1,9 +1,9 @@
 import type { BalloonProps } from '../Balloon'
 import { boxBox, type BoxBox } from './box/prefixed'
 import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from './css'
-import { diag } from './diag'
+import { diag, diag2 } from './diag'
 import type { OpenClose } from './openclose'
-import type { Dir, Size } from './types'
+import type { Dir, HV, Size } from './types'
 import type { UiDetailContent } from './ui-types'
 import type { VecVec } from './vec/prefixed'
 
@@ -40,11 +40,12 @@ export function calcBalloonLayout(
   const layout = detail.layout
 
   const _dir = diag(detail.layout.container, _p)
+  const _hv = diag2(detail.layout.container, _p)
 
   const _W = layout.container.width
   const _H = layout.container.height
 
-  return { _p, _dir, _W, _H }
+  return { _p, _dir, _hv, _W, _H }
 }
 
 function calcBalloonSize(_W: number, _H: number): BalloonSize {
@@ -65,6 +66,7 @@ function calcBalloonSize(_W: number, _H: number): BalloonSize {
 
 function balloonPath(
   dir: Dir,
+  hv: Readonly<HV>,
   bw: number,
   bh: number,
   ll: number
@@ -101,12 +103,17 @@ z
   return { body, leg }
 }
 
-export function balloonPaths(_dir: Dir, _W: number, _H: number): BalloonPaths {
+export function balloonPaths(
+  _dir: Dir,
+  _hv: Readonly<HV>,
+  _W: number,
+  _H: number
+): BalloonPaths {
   const { bw, bh, ll, d, width, height } = calcBalloonSize(_W, _H)
 
   const viewBox = boxBox(-width / 2, -width / 2, width, height)
 
-  const { body, leg } = balloonPath(_dir, bw, bh, ll)
+  const { body, leg } = balloonPath(_dir, _hv, bw, bh, ll)
 
   const fg = `M0,0` + body + `M0,0` + leg
   const bg = `M${d},${d}` + body + `M${d},${d}` + leg
@@ -124,6 +131,7 @@ export function balloonStyle(
   { open, animating }: OpenClose,
   Q: VecVec,
   dir: Dir,
+  hv: Readonly<HV>,
   W: number,
   H: number
 ): string {
