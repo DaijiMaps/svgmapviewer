@@ -63,6 +63,7 @@ const style = `
   z-index: ${Z_INDEX_DETAIL};
   will-change: opacity, transform;
   cursor: default;
+  touch-action: none;
 }
 
 h3 {
