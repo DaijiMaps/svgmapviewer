@@ -11,18 +11,6 @@ import { type Dir } from './lib/types'
 import { useOpenCloseDetail } from './lib/ui-xstate'
 import { type VecVec } from './lib/vec/prefixed'
 
-export interface BalloonPathProps {
-  dir: Dir
-  vmin: number
-  bw: number
-  bh: number
-  ll: number
-  d: number
-  ww: number
-  hh: number
-  fg: boolean
-}
-
 export interface BalloonProps {
   _p: null | VecVec
   _dir: null | Dir
