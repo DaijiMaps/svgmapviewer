@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 import { type ReactNode } from 'react'
-import { Detail } from './Detail'
+import { DetailBalloon } from './Detail'
 import { Footer } from './Footer'
 import { Guides } from './Guides'
 import { Header } from './Header'
@@ -24,7 +24,7 @@ function UiContent(): ReactNode {
       <Footer />
       <Right />
       <Guides />
-      <Detail />
+      <DetailBalloon />
     </div>
   )
 }

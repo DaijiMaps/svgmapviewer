@@ -1,7 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { Balloon, BalloonStyle } from './Balloon'
+import { Balloon, DetailBalloonStyle } from './Balloon'
 import { calcBalloonLayout } from './lib/balloon'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { svgMapViewerConfig as cfg } from './lib/config'
@@ -13,15 +13,16 @@ import {
   Z_INDEX_DETAIL,
 } from './lib/css'
 import { useShadowRoot } from './lib/dom'
+import type { UiDetailContent } from './lib/ui-types'
 import { isDetailEmpty, uiSend, useDetail } from './lib/ui-xstate'
 
-export function Detail(): ReactNode {
-  useShadowRoot('detail', <DetailContent />, 'ui')
+export function DetailBalloon(): ReactNode {
+  useShadowRoot('detail', <DetailBalloonContent />, 'ui')
 
   return <div id="detail" />
 }
 
-export function DetailContent(): ReactNode {
+export function DetailBalloonContent(): ReactNode {
   const detail = useDetail()
 
   const props = calcBalloonLayout(detail)
@@ -29,16 +30,23 @@ export function DetailContent(): ReactNode {
   return (
     <div className="ui-content detail-balloon">
       <Balloon {...props} />
-      <div
-        className="detail"
-        // eslint-disable-next-line functional/no-return-void
-        onAnimationEnd={() => uiSend({ type: 'DETAIL.ANIMATION.END' })}
-      >
-        {cfg.renderInfo &&
-          !isDetailEmpty(detail) &&
-          cfg.renderInfo({ info: detail.info })}
-      </div>
-      <BalloonStyle {...props} />
+      <Detail _detail={detail} />
+      <DetailBalloonStyle {...props} />
+    </div>
+  )
+}
+
+function Detail(props: Readonly<{ _detail: UiDetailContent }>): ReactNode {
+  const { _detail } = props
+  return (
+    <div
+      className="detail"
+      // eslint-disable-next-line functional/no-return-void
+      onAnimationEnd={() => uiSend({ type: 'DETAIL.ANIMATION.END' })}
+    >
+      {cfg.renderInfo &&
+        !isDetailEmpty(_detail) &&
+        cfg.renderInfo({ info: _detail.info })}
       <Assets />
       <style>{style}</style>
     </div>

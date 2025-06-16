@@ -79,7 +79,7 @@ path.fg {
   )
 }
 
-export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
+export function DetailBalloonStyle(props: Readonly<BalloonProps>): ReactNode {
   const { _p: o, _dir: dir } = props
 
   const detail = useOpenCloseDetail()
