@@ -38,7 +38,11 @@ export function Balloon(
     return <></>
   }
 
-  const { viewBox, width, height, fg, bg } = balloonPaths({ ...props, _dir })
+  const { viewBox, width, height, fg, bg } = balloonPaths(
+    _dir,
+    props._W,
+    props._H
+  )
 
   return (
     <div className="balloon-container">

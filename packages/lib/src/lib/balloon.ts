@@ -107,11 +107,7 @@ export interface BalloonPaths {
   bg: string
 }
 
-export function balloonPaths({
-  _dir,
-  _W,
-  _H,
-}: Readonly<BalloonProps>): BalloonPaths {
+export function balloonPaths(_dir: Dir, _W: number, _H: number): BalloonPaths {
   const { bw, bh, ll, d, width, height } = calcBalloonSize(_W, _H)
 
   const viewBox = boxBox(-width / 2, -width / 2, width, height)
