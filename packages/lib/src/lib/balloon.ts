@@ -80,7 +80,7 @@ l${ll},${hlw}
   return { body, leg }
 }
 
-export function calcBalloonSize(_W: number, _H: number): BalloonSize {
+function calcBalloonSize(_W: number, _H: number): BalloonSize {
   // XXX
   const vmin = Math.min(_W, _H) * 0.01
 
@@ -119,9 +119,11 @@ export function balloonStyle(
   { open, animating }: OpenClose,
   Q: VecVec,
   dir: Dir,
-  width: number,
-  height: number
+  W: number,
+  H: number
 ): string {
+  const { width, height } = calcBalloonSize(W, H)
+
   const dPs = [
     { x: 0, y: height / 2 },
     { x: -width / 2, y: 0 },
