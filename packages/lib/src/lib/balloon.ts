@@ -5,7 +5,7 @@ import { diag, diag2 } from './diag'
 import type { OpenClose } from './openclose'
 import type { Dir, HV, Size } from './types'
 import type { UiDetailContent } from './ui-types'
-import type { VecVec } from './vec/prefixed'
+import { vecAdd, vecVec, type VecVec } from './vec/prefixed'
 
 const BW = 50
 const BH = 50
@@ -64,6 +64,44 @@ function calcBalloonSize(_W: number, _H: number): BalloonSize {
   return { bw, bh, ll, d, width, height }
 }
 
+export function layoutLeg(
+  hv: Readonly<HV>,
+  bw: number,
+  bh: number,
+  ll: number
+): {
+  p: VecVec
+  q: VecVec
+  a: VecVec
+  b: VecVec
+} {
+  const hbw = bw / 2
+  const hbh = bh / 2
+
+  const lw = bw / 20
+  const hlw = lw / 2
+
+  const p = vecVec(-hbw * hv.h, -hbh * hv.v)
+  const q = vecVec(-(hbw + ll) * hv.h, -(hbh + ll) * hv.v)
+
+  const da =
+    hv.h === 0
+      ? vecVec(-hlw, 0)
+      : hv.v === 0
+        ? vecVec(0, -hlw)
+        : vecVec(hlw * hv.h, 0)
+  const db =
+    hv.h === 0
+      ? vecVec(hlw, 0)
+      : hv.v === 0
+        ? vecVec(0, hlw)
+        : vecVec(0, hlw * hv.v)
+  const a = vecAdd(p, da)
+  const b = vecAdd(p, db)
+
+  return { p, q, a, b }
+}
+
 function balloonPath(
   dir: Dir,
   hv: Readonly<HV>,
@@ -74,9 +112,6 @@ function balloonPath(
   const hbw = bw / 2
   const hbh = bh / 2
 
-  const lw = bw / 20
-  const hlw = lw / 2
-
   const body = `
 m${-hbw},${-hbh}
 h${bw}
@@ -84,19 +119,13 @@ v${bh}
 h${-bw}
 z
 `
-  const virtical = dir === 0 || dir === 2
-  const inv = dir === 1 || dir === 2 ? -1 : 1
-  const leg = virtical
-    ? `
-m${-hlw},${-hbh * inv}
-l${hlw},${-ll * inv}
-l${hlw},${ll * inv}
-z
-`
-    : `
-m${-hbw * inv},${-hlw}
-l${-ll * inv},${hlw}
-l${ll * inv},${hlw}
+  const { p, q, a, b } = layoutLeg(hv, bw, bh, ll)
+
+  const leg = `
+m${a.x},${a.y}
+l${q.x - a.x},${q.y - a.y}
+l${b.x - q.x},${b.y - q.y}
+l${p.x - b.x},${p.y - b.y}
 z
 `
 
@@ -137,6 +166,7 @@ export function balloonStyle(
 ): string {
   const { width, height } = calcBalloonSize(W, H)
 
+  /*
   const dPs = [
     { x: 0, y: height / 2 },
     { x: -width / 2, y: 0 },
@@ -144,6 +174,8 @@ export function balloonStyle(
     { x: width / 2, y: 0 },
   ]
   const dP = dPs[dir]
+  */
+  const dP = vecVec((width / 2) * hv.h, (height / 2) * hv.v)
 
   if (!animating) {
     const sb = 1
