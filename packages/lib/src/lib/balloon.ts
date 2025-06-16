@@ -1,9 +1,9 @@
 import type { BalloonProps } from '../Balloon'
 import { boxBox, type BoxBox } from './box/prefixed'
 import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from './css'
-import { diag, diag2 } from './diag'
+import { diag2 } from './diag'
 import type { OpenClose } from './openclose'
-import type { Dir, HV, Size } from './types'
+import type { HV, Size } from './types'
 import type { UiDetailContent } from './ui-types'
 import { vecAdd, vecVec, type VecVec } from './vec/prefixed'
 
@@ -39,13 +39,12 @@ export function calcBalloonLayout(
   const _p = detail.p
   const layout = detail.layout
 
-  const _dir = diag(detail.layout.container, _p)
   const _hv = diag2(detail.layout.container, _p)
 
   const _W = layout.container.width
   const _H = layout.container.height
 
-  return { _p, _dir, _hv, _W, _H }
+  return { _p, _hv, _W, _H }
 }
 
 function calcBalloonSize(_W: number, _H: number): BalloonSize {
@@ -103,7 +102,6 @@ export function layoutLeg(
 }
 
 function balloonPath(
-  dir: Dir,
   hv: Readonly<HV>,
   bw: number,
   bh: number,
@@ -133,7 +131,6 @@ z
 }
 
 export function balloonPaths(
-  _dir: Dir,
   _hv: Readonly<HV>,
   _W: number,
   _H: number
@@ -142,7 +139,7 @@ export function balloonPaths(
 
   const viewBox = boxBox(-width / 2, -width / 2, width, height)
 
-  const { body, leg } = balloonPath(_dir, _hv, bw, bh, ll)
+  const { body, leg } = balloonPath(_hv, bw, bh, ll)
 
   const fg = `M0,0` + body + `M0,0` + leg
   const bg = `M${d},${d}` + body + `M${d},${d}` + leg
@@ -159,22 +156,12 @@ export function balloonPaths(
 export function balloonStyle(
   { open, animating }: OpenClose,
   Q: VecVec,
-  dir: Dir,
   hv: Readonly<HV>,
   W: number,
   H: number
 ): string {
   const { width, height } = calcBalloonSize(W, H)
 
-  /*
-  const dPs = [
-    { x: 0, y: height / 2 },
-    { x: -width / 2, y: 0 },
-    { x: 0, y: -height / 2 },
-    { x: width / 2, y: 0 },
-  ]
-  const dP = dPs[dir]
-  */
   const dP = vecVec((width / 2) * hv.h, (height / 2) * hv.v)
 
   if (!animating) {
