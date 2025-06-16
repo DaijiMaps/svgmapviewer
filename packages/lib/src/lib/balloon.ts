@@ -49,32 +49,20 @@ v${bh}
 h${-bw}
 z
 `
-  const leg =
-    dir === 0
-      ? `
-m${-hlw},${-hbh}
-l${hlw},${-ll}
-l${hlw},${ll}
+  const virtical = dir === 0 || dir === 2
+  const inv = dir === 1 || dir === 3 ? -1 : 1
+  const leg = virtical
+    ? `
+m${-hlw},${-hbh * inv}
+l${hlw},${-ll * inv}
+l${hlw},${ll * inv}
 z
 `
-      : dir === 1
-        ? `
-m${hbw},${-hlw}
-l${ll},${hlw}
-l${-ll},${hlw}
+    : `
+m${-hbw * inv},${-hlw}
+l${-ll * inv},${hlw}
+l${ll * inv},${hlw}
 z
-`
-        : dir === 2
-          ? `
-m${-hlw},${hbh}
-l${hlw},${ll}
-l${hlw},${-ll}
-z
-`
-          : `
-m${-hbw},${-hlw}
-l${-ll},${hlw}
-l${ll},${hlw}
 `
 
   return { body, leg }
