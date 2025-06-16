@@ -1,7 +1,10 @@
+import type { BalloonProps } from '../Balloon'
 import { boxBox, type BoxBox } from './box/prefixed'
 import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from './css'
+import { diag } from './diag'
 import type { OpenClose } from './openclose'
 import type { Dir, Size } from './types'
+import type { UiDetailContent } from './ui-types'
 import type { VecVec } from './vec/prefixed'
 
 const BW = 50
@@ -29,6 +32,20 @@ export interface BalloonPaths {
 }
 
 ////
+
+export function calcBalloonLayout(
+  detail: Readonly<UiDetailContent>
+): BalloonProps {
+  const _p = detail.p
+  const layout = detail.layout
+
+  const _dir = diag(detail.layout.container, _p)
+
+  const _W = layout.container.width
+  const _H = layout.container.height
+
+  return { _p, _dir, _W, _H }
+}
 
 function calcBalloonSize(_W: number, _H: number): BalloonSize {
   // XXX

@@ -2,6 +2,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { Balloon, BalloonStyle } from './Balloon'
+import { calcBalloonLayout } from './lib/balloon'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import {
@@ -11,7 +12,6 @@ import {
   user_select_none,
   Z_INDEX_DETAIL,
 } from './lib/css'
-import { diag } from './lib/diag'
 import { useShadowRoot } from './lib/dom'
 import { isDetailEmpty, uiSend, useDetail } from './lib/ui-xstate'
 
@@ -24,17 +24,11 @@ export function Detail(): ReactNode {
 export function DetailContent(): ReactNode {
   const detail = useDetail()
 
-  const p = detail.p
-  const layout = detail.layout
-
-  const dir = diag(detail.layout.container, p)
-
-  const W = layout.container.width
-  const H = layout.container.height
+  const props = calcBalloonLayout(detail)
 
   return (
     <div className="ui-content detail-balloon">
-      <Balloon _p={p} _dir={dir} _W={W} _H={H} />
+      <Balloon {...props} />
       <div
         className="detail"
         // eslint-disable-next-line functional/no-return-void
@@ -43,8 +37,8 @@ export function DetailContent(): ReactNode {
         {cfg.renderInfo &&
           !isDetailEmpty(detail) &&
           cfg.renderInfo({ info: detail.info })}
-        <DetailStyle />
       </div>
+      <BalloonStyle {...props} />
       <Assets />
       <style>{style}</style>
     </div>
@@ -81,20 +75,6 @@ p {
   display: none;
 }
 `
-
-export function DetailStyle(): ReactNode {
-  const detail = useDetail()
-
-  const p = detail.p
-  const layout = detail.layout
-
-  const dir = diag(detail.layout.container, p)
-
-  const W = layout.container.width
-  const H = layout.container.height
-
-  return <BalloonStyle _p={p} _dir={dir} _W={W} _H={H} />
-}
 
 function Assets(): ReactNode {
   return (
