@@ -185,18 +185,16 @@ export function balloonStyle(
   --pww: ${-width / 2}px;
   --phh: ${-height / 2}px;
   --duration: ${ZOOM_DURATION_DETAIL}ms;
+  transform-origin: 0 0;
+  will-change: opacity, transform;
 }
 
 .detail {
-  transform-origin: 0 0;
   animation: xxx-detail var(--duration) var(--timing);
-  will-change: opacity, transform;
 }
 
 .balloon-container {
-  transform-origin: 0 0;
   animation: xxx-balloon var(--duration) var(--timing);
-  will-change: opacity, transform;
 }
 
 @keyframes xxx-detail {
