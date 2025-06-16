@@ -23,12 +23,12 @@ interface BalloonPath {
   leg: string
 }
 
-function balloonPath({
-  dir,
-  ll,
-  bw,
-  bh,
-}: Readonly<BalloonPathProps>): BalloonPath {
+function balloonPath(
+  dir: Dir,
+  bw: number,
+  bh: number,
+  ll: number
+): BalloonPath {
   const hbw = bw / 2
   const hbh = bh / 2
 
@@ -116,9 +116,7 @@ export function balloonPaths({
 
   const viewBox = boxBox(-width / 2, -width / 2, width, height)
 
-  const p = { bw, bh, ll }
-
-  const { body, leg } = balloonPath({ dir: _dir, ...p })
+  const { body, leg } = balloonPath(_dir, bw, bh, ll)
 
   const fg = `M0,0` + body + `M0,0` + leg
   const bg = `M${d},${d}` + body + `M${d},${d}` + leg
