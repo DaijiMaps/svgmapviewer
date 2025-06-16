@@ -13,18 +13,10 @@ import { Shadow } from './Shadow'
 // XXX group UI part animations into one
 // XXX receive animationend here (.ui)
 
-export function UiRoot(): ReactNode {
-  useShadowRoot(UI_ROOT_ID, <Ui />)
+export function Ui(): ReactNode {
+  useShadowRoot(UI_ROOT_ID, <UiContent />)
 
   return <div id={UI_ROOT_ID} />
-}
-
-export function Ui(): ReactNode {
-  return (
-    <>
-      <UiContent />
-    </>
-  )
 }
 
 function UiContent(): ReactNode {

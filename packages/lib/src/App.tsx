@@ -2,7 +2,7 @@
 import { type ReactNode } from 'react'
 import { Container } from './Container'
 import { likeStyle } from './Like'
-import { UiRoot } from './Ui'
+import { Ui } from './Ui'
 import { svgMapViewerConfig } from './lib'
 import {
   box_sizing_border_box,
@@ -19,7 +19,7 @@ function App(): ReactNode {
   return (
     <>
       <Container />
-      <UiRoot />
+      <Ui />
       <style>
         {style}
         {`body { background-color: ${backgroundColor}; }`}
