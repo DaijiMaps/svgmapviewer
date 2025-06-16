@@ -1,16 +1,14 @@
 import { type PropsWithChildren, type ReactNode } from 'react'
+import { balloonPaths, balloonStyle } from './lib/balloon'
+import { boxToViewBox2 } from './lib/box/prefixed'
 import {
   pointer_events_none,
   position_absolute_left_0_top_0,
-  timing_closing,
-  timing_opening,
   Z_INDEX_BALLOON,
-  ZOOM_DURATION_DETAIL,
 } from './lib/css'
-import { type OpenClose, openCloseIsVisible } from './lib/openclose'
+import { openCloseIsVisible } from './lib/openclose'
 import { type Dir } from './lib/types'
 import { useOpenCloseDetail } from './lib/ui-xstate'
-import { type Vec } from './lib/vec'
 import { type VecVec } from './lib/vec/prefixed'
 
 export interface BalloonPathProps {
@@ -25,6 +23,7 @@ export interface BalloonPathProps {
   fg: boolean
 }
 
+/*
 function balloonPath(props: Readonly<BalloonPathProps>): string {
   const { fg, d, dir, ll, bw, bh } = props
 
@@ -76,6 +75,7 @@ l${ll},${hlw}
 
   return bodyPath + legPath
 }
+*/
 
 export interface BalloonProps {
   _p: null | VecVec
@@ -91,6 +91,14 @@ const BL = 10
 export function Balloon(
   props: Readonly<PropsWithChildren<BalloonProps>>
 ): ReactNode {
+  const _dir = props._dir
+  if (_dir === null) {
+    return <></>
+  }
+
+  const { viewBox, width, height, fg, bg } = balloonPaths({ ...props, _dir })
+
+  /*
   // XXX
   const vmin = Math.min(props._W, props._H) * 0.01
 
@@ -111,12 +119,18 @@ export function Balloon(
     props._dir === null ? '' : balloonPath({ dir: props._dir, ...p, fg: false })
   const fgPath =
     props._dir === null ? '' : balloonPath({ dir: props._dir, ...p, fg: true })
+  */
 
   return (
     <div className="balloon-container">
-      <svg className="balloon" viewBox={viewBox} width={ww} height={hh}>
-        <path className="bg" d={bgPath} />
-        <path className="fg" d={fgPath} />
+      <svg
+        className="balloon"
+        viewBox={boxToViewBox2(viewBox)}
+        width={width}
+        height={height}
+      >
+        <path className="bg" d={bg} />
+        <path className="fg" d={fg} />
       </svg>
       {props.children}
       <style>{style}</style>
@@ -163,19 +177,14 @@ export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
   const ww = bw + 2 * ll + 2 * d
   const hh = bh + 2 * ll + 2 * d
 
-  if (
-    o === null ||
-    dir === null ||
-    //!openCloseIsVisible(balloon) ||
-    !openCloseIsVisible(detail)
-  ) {
+  if (o === null || dir === null || !openCloseIsVisible(detail)) {
     return <style>{`.balloon-container, .detail { display: none; }`}</style>
   } else {
-    const p = { dir, vmin, bw, bh, ll, d, ww, hh, fg: true }
-    return <style>{balloonStyle(detail, o, dir, p)}</style>
+    return <style>{balloonStyle(detail, o, dir, ww, hh)}</style>
   }
 }
 
+/*
 function balloonStyle(
   { open, animating }: OpenClose,
   Q: null | Vec,
@@ -286,3 +295,4 @@ function balloonStyle(
 `
   }
 }
+*/
