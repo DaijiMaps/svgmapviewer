@@ -5,7 +5,12 @@ import { diag2 } from './diag'
 import type { OpenClose } from './openclose'
 import type { HV, Size } from './types'
 import type { UiDetailContent } from './ui-types'
-import { vecAdd, vecSub, vecVec, type VecVec } from './vec/prefixed'
+import {
+  vecVec as vec,
+  vecAdd,
+  vecSub,
+  type VecVec as Vec,
+} from './vec/prefixed'
 
 const BW = 50
 const BH = 50
@@ -69,10 +74,10 @@ export function layoutLeg(
   bh: number,
   ll: number
 ): {
-  p: VecVec
-  q: VecVec
-  a: VecVec
-  b: VecVec
+  p: Vec
+  q: Vec
+  a: Vec
+  b: Vec
 } {
   const hbw = bw / 2
   const hbh = bh / 2
@@ -80,21 +85,15 @@ export function layoutLeg(
   const lw = bw / 20
   const hlw = lw / 2
 
-  const p = vecVec(-hbw * hv.h, -hbh * hv.v)
-  const q = vecVec(-(hbw + ll) * hv.h, -(hbh + ll) * hv.v)
+  const p = vec(-hbw * hv.h, -hbh * hv.v)
+  const q = vec(-(hbw + ll) * hv.h, -(hbh + ll) * hv.v)
 
-  const da =
+  const [da, db]: [Vec, Vec] =
     hv.h === 0
-      ? vecVec(-hlw, 0)
+      ? [vec(-hlw, 0), vec(hlw, 0)] // vertical leg
       : hv.v === 0
-        ? vecVec(0, -hlw)
-        : vecVec(hlw * hv.h, 0)
-  const db =
-    hv.v === 0
-      ? vecVec(0, hlw)
-      : hv.h === 0
-        ? vecVec(hlw, 0)
-        : vecVec(0, hlw * hv.v)
+        ? [vec(0, -hlw), vec(0, hlw)] // horizontal leg
+        : [vec(hlw * hv.h, 0), vec(0, hlw * hv.v)] // angled (diagonal) leg
   const a = vecAdd(p, da)
   const b = vecAdd(p, db)
 
@@ -158,14 +157,14 @@ export function balloonPaths(
 
 export function balloonStyle(
   { open, animating }: OpenClose,
-  Q: VecVec,
+  Q: Vec,
   hv: Readonly<HV>,
   W: number,
   H: number
 ): string {
   const { width, height } = calcBalloonSize(W, H)
 
-  const dP = vecVec((width / 2) * hv.h, (height / 2) * hv.v)
+  const dP = vec((width / 2) * hv.h, (height / 2) * hv.v)
 
   if (!animating) {
     const sb = 1
