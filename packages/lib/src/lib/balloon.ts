@@ -5,7 +5,7 @@ import { diag2 } from './diag'
 import type { OpenClose } from './openclose'
 import type { HV, Size } from './types'
 import type { UiDetailContent } from './ui-types'
-import { vecAdd, vecVec, type VecVec } from './vec/prefixed'
+import { vecAdd, vecSub, vecVec, type VecVec } from './vec/prefixed'
 
 const BW = 50
 const BH = 50
@@ -117,13 +117,16 @@ v${bh}
 h${-bw}
 z
 `
-  const { p, q, a, b } = layoutLeg(hv, bw, bh, ll)
 
+  const { p, q, a, b } = layoutLeg(hv, bw, bh, ll)
+  const aq = vecSub(q, a)
+  const qb = vecSub(b, q)
+  const bp = vecSub(p, b)
   const leg = `
 m${a.x},${a.y}
-l${q.x - a.x},${q.y - a.y}
-l${b.x - q.x},${b.y - q.y}
-l${p.x - b.x},${p.y - b.y}
+l${aq.x},${aq.y}
+l${qb.x},${qb.y}
+l${bp.x},${bp.y}
 z
 `
 
