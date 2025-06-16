@@ -22,7 +22,7 @@ export function Balloon(
   props: Readonly<PropsWithChildren<BalloonProps>>
 ): ReactNode {
   return (
-    <div className="balloon-container">
+    <div className="balloon">
       <BalloonSvg {...props} />
       {props.children}
       <style>{style}</style>
@@ -31,7 +31,7 @@ export function Balloon(
 }
 
 const style = `
-.balloon-container,
+.balloon,
 .balloon-svg {
   ${position_absolute_left_0_top_0}
   ${pointer_events_none}
@@ -85,7 +85,7 @@ export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
 
   const style =
     o === null || dir === null || !openCloseIsVisible(detail)
-      ? `.balloon-container, .detail { display: none; }`
+      ? `.balloon, .detail { display: none; }`
       : balloonStyle(detail, o, dir, props._W, props._H)
 
   return <style>{style}</style>

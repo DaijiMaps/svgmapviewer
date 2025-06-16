@@ -127,7 +127,7 @@ export function balloonStyle(
 
     return `
 .detail,
-.balloon-container {
+.balloon {
   --q-x: ${Q.x}px;
   --q-y: ${Q.y}px;
   --sb: ${sb};
@@ -144,7 +144,7 @@ export function balloonStyle(
   transform: translate(calc(var(--q-x) + var(--dxb)), calc(var(--q-y) + var(--dyb))) scale(var(--sb)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
 }
 
-.balloon-container {
+.balloon {
   transform-origin: 0 0;
   transform: translate(calc(var(--q-x) + var(--dxb)), calc(var(--q-y) + var(--dyb))) scale(var(--sb)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
 }
@@ -158,7 +158,7 @@ export function balloonStyle(
 
     return `
 .detail,
-.balloon-container {
+.balloon {
   --q-x: ${Q.x}px;
   --q-y: ${Q.y}px;
   --dp-x: ${dP.x}px;
@@ -183,7 +183,7 @@ export function balloonStyle(
   animation: xxx-detail var(--duration) var(--timing);
 }
 
-.balloon-container {
+.balloon {
   animation: xxx-balloon var(--duration) var(--timing);
 }
 
