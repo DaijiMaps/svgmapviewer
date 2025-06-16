@@ -66,7 +66,7 @@ h${-bw}
 z
 `
   const virtical = dir === 0 || dir === 2
-  const inv = dir === 1 || dir === 3 ? -1 : 1
+  const inv = dir === 1 || dir === 2 ? -1 : 1
   const leg = virtical
     ? `
 m${-hlw},${-hbh * inv}
