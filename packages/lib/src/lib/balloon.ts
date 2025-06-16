@@ -112,17 +112,7 @@ export function balloonPaths({
   _W,
   _H,
 }: Readonly<BalloonProps>): BalloonPaths {
-  // XXX
-  const vmin = Math.min(_W, _H) * 0.01
-
-  const bw = vmin * BW // body width
-  const bh = vmin * BH // body height
-  const ll = vmin * BL // leg length
-
-  const d = bw / 100 // shadow
-
-  const width = bw + 2 * ll + 2 * d
-  const height = bh + 2 * ll + 2 * d
+  const { bw, bh, ll, d, width, height } = calcBalloonSize(_W, _H)
 
   const viewBox = boxBox(-width / 2, -width / 2, width, height)
 

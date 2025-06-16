@@ -30,10 +30,6 @@ export interface BalloonProps {
   _H: number
 }
 
-const BW = 50
-const BH = 50
-const BL = 10
-
 export function Balloon(
   props: Readonly<PropsWithChildren<BalloonProps>>
 ): ReactNode {
