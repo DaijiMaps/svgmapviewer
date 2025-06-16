@@ -38,17 +38,6 @@ const style = `
   z-index: ${Z_INDEX_BALLOON};
   will-change: opacity, transform;
 }
-
-path.bg {
-  fill: black;
-  stroke: none;
-}
-
-path.fg {
-  fill: white;
-  stroke: white;
-  stroke-width: 1px;
-}
 `
 
 function BalloonSvg(
@@ -74,6 +63,18 @@ function BalloonSvg(
     >
       <path className="bg" d={bg} />
       <path className="fg" d={fg} />
+      <style>{`
+path.bg {
+  fill: black;
+  stroke: none;
+}
+
+path.fg {
+  fill: white;
+  stroke: white;
+  stroke-width: 1px;
+}
+`}</style>
     </svg>
   )
 }
