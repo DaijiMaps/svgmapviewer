@@ -13,7 +13,7 @@ interface BalloonPath {
   leg: string
 }
 
-export interface BalloonSize extends Size {
+interface BalloonSize extends Size {
   bw: number
   bh: number
   ll: number
@@ -29,6 +29,22 @@ export interface BalloonPaths {
 }
 
 ////
+
+function calcBalloonSize(_W: number, _H: number): BalloonSize {
+  // XXX
+  const vmin = Math.min(_W, _H) * 0.01
+
+  const bw = vmin * BW // body width
+  const bh = vmin * BH // body height
+  const ll = vmin * BL // leg length
+
+  const d = bw / 100 // shadow
+
+  const width = bw + 2 * ll + 2 * d
+  const height = bh + 2 * ll + 2 * d
+
+  return { bw, bh, ll, d, width, height }
+}
 
 function balloonPath(
   dir: Dir,
@@ -66,22 +82,6 @@ z
 `
 
   return { body, leg }
-}
-
-function calcBalloonSize(_W: number, _H: number): BalloonSize {
-  // XXX
-  const vmin = Math.min(_W, _H) * 0.01
-
-  const bw = vmin * BW // body width
-  const bh = vmin * BH // body height
-  const ll = vmin * BL // leg length
-
-  const d = bw / 100 // shadow
-
-  const width = bw + 2 * ll + 2 * d
-  const height = bh + 2 * ll + 2 * d
-
-  return { width, height, bw, bh, ll, d }
 }
 
 export function balloonPaths(_dir: Dir, _W: number, _H: number): BalloonPaths {

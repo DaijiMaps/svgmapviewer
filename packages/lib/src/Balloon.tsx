@@ -21,28 +21,9 @@ export interface BalloonProps {
 export function Balloon(
   props: Readonly<PropsWithChildren<BalloonProps>>
 ): ReactNode {
-  const _dir = props._dir
-  if (_dir === null) {
-    return <></>
-  }
-
-  const { viewBox, width, height, fg, bg } = balloonPaths(
-    _dir,
-    props._W,
-    props._H
-  )
-
   return (
     <div className="balloon-container">
-      <svg
-        className="balloon"
-        viewBox={boxToViewBox2(viewBox)}
-        width={width}
-        height={height}
-      >
-        <path className="bg" d={bg} />
-        <path className="fg" d={fg} />
-      </svg>
+      <BalloonSvg {...props} />
       {props.children}
       <style>{style}</style>
     </div>
@@ -70,14 +51,42 @@ const style = `
 }
 `
 
+function BalloonSvg(
+  props: Readonly<PropsWithChildren<BalloonProps>>
+): ReactNode {
+  const _dir = props._dir
+  if (_dir === null) {
+    return <svg />
+  }
+
+  const { viewBox, width, height, fg, bg } = balloonPaths(
+    _dir,
+    props._W,
+    props._H
+  )
+
+  return (
+    <svg
+      className="balloon"
+      viewBox={boxToViewBox2(viewBox)}
+      width={width}
+      height={height}
+    >
+      <path className="bg" d={bg} />
+      <path className="fg" d={fg} />
+    </svg>
+  )
+}
+
 export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
   const { _p: o, _dir: dir } = props
 
   const detail = useOpenCloseDetail()
 
-  if (o === null || dir === null || !openCloseIsVisible(detail)) {
-    return <style>{`.balloon-container, .detail { display: none; }`}</style>
-  } else {
-    return <style>{balloonStyle(detail, o, dir, props._W, props._H)}</style>
-  }
+  const style =
+    o === null || dir === null || !openCloseIsVisible(detail)
+      ? `.balloon-container, .detail { display: none; }`
+      : balloonStyle(detail, o, dir, props._W, props._H)
+
+  return <style>{style}</style>
 }
