@@ -12,29 +12,15 @@ export function diag(size: Readonly<Size>, v: Vec): Dir {
 export function diag2(size: Readonly<Size>, { x, y }: Vec): HV {
   const a = size.width / size.height
   const r = vecVec(x / size.width, y / size.height)
-  const h =
-    a > 1
-      ? r.x > 0.5
-        ? 1
-        : r.x < 0.5
-          ? -1
-          : 0
-      : r.x < 0.3
-        ? 1
-        : r.x > 0.7
-          ? -1
-          : 0
-  const v =
-    a > 1
-      ? r.y < 0.3
-        ? 1
-        : r.y > 0.7
-          ? -1
-          : 0
-      : r.y > 0.5
-        ? -1
-        : r.y < 0.5
-          ? 1
-          : 0
+  const h = a > 1 ? div2(r.x) : div3(r.x)
+  const v = a > 1 ? div3(r.y) : div2(r.y)
   return { h, v }
+}
+
+function div2(n: number): -1 | 0 | 1 {
+  return n > 0.5 ? -1 : n < 0.5 ? 1 : 0
+}
+
+function div3(n: number): -1 | 0 | 1 {
+  return n < 0.3 ? 1 : n > 0.7 ? -1 : 0
 }
