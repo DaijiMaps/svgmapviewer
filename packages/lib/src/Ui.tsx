@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 import { type ReactNode } from 'react'
-import { DetailBalloon } from './Detail'
+import { DetailBalloon } from './DetailBalloon'
 import { Footer } from './Footer'
 import { Guides } from './Guides'
 import { Header } from './Header'
