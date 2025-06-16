@@ -32,19 +32,19 @@ export function Balloon(
 
 const style = `
 .balloon-container,
-.balloon {
+.balloon-svg {
   ${position_absolute_left_0_top_0}
   ${pointer_events_none}
   z-index: ${Z_INDEX_BALLOON};
   will-change: opacity, transform;
 }
 
-.balloon > path.bg {
+path.bg {
   fill: black;
   stroke: none;
 }
 
-.balloon > path.fg {
+path.fg {
   fill: white;
   stroke: white;
   stroke-width: 1px;
@@ -67,7 +67,7 @@ function BalloonSvg(
 
   return (
     <svg
-      className="balloon"
+      className="balloon-svg"
       viewBox={boxToViewBox2(viewBox)}
       width={width}
       height={height}

@@ -36,52 +36,6 @@ function UiContent(): ReactNode {
       <Right />
       <Guides />
       <Detail />
-      <style>{style}</style>
     </div>
   )
 }
-
-const style = `
-.detail-balloon {
-  contain: initial;
-}
-
-.balloon,
-.detail {
-  contain: content;
-}
-
-.detail,
-.balloon,
-.balloon-container {
-  box-sizing: border-box;
-}
-
-.right,
-.header,
-.footer {
-  box-sizing: border-box;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: sans-serif;
-  font-weight: lighter;
-  text-align: center;
-}
-
-svg {
-  display: block;
-}
-
-ul {
-  list-style: none;
-}
-
-a:link {
-  text-decoration: none;
-}
-
-#ui-svg-defs {
-  display: none;
-}
-`
