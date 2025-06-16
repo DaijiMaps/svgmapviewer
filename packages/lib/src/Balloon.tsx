@@ -73,7 +73,6 @@ const style = `
 export function BalloonStyle(props: Readonly<BalloonProps>): ReactNode {
   const { _p: o, _dir: dir } = props
 
-  //const balloon = useOpenCloseBalloon()
   const detail = useOpenCloseDetail()
 
   const { width, height } = calcBalloonSize(props._W, props._H)

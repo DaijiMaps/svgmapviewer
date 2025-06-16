@@ -4,11 +4,13 @@ import type { OpenClose } from './openclose'
 import type { Dir, Size } from './types'
 import type { VecVec } from './vec/prefixed'
 
-export interface BalloonPathProps {
-  dir: Dir
-  bw: number
-  bh: number
-  ll: number
+const BW = 50
+const BH = 50
+const BL = 10
+
+interface BalloonPath {
+  body: string
+  leg: string
 }
 
 export interface BalloonSize extends Size {
@@ -18,10 +20,15 @@ export interface BalloonSize extends Size {
   d: number
 }
 
-interface BalloonPath {
-  body: string
-  leg: string
+export interface BalloonPaths {
+  viewBox: Readonly<BoxBox>
+  width: number
+  height: number
+  fg: string
+  bg: string
 }
+
+////
 
 function balloonPath(
   dir: Dir,
@@ -87,24 +94,6 @@ export function calcBalloonSize(_W: number, _H: number): BalloonSize {
   const height = bh + 2 * ll + 2 * d
 
   return { width, height, bw, bh, ll, d }
-}
-
-export interface BalloonProps {
-  _dir: Dir
-  _W: number
-  _H: number
-}
-
-const BW = 50
-const BH = 50
-const BL = 10
-
-export interface BalloonPaths {
-  viewBox: Readonly<BoxBox>
-  width: number
-  height: number
-  fg: string
-  bg: string
 }
 
 export function balloonPaths(_dir: Dir, _W: number, _H: number): BalloonPaths {
