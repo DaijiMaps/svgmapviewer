@@ -12,7 +12,7 @@ export const mapSvgStyle = `
 .cliff {
   fill: none;
   stroke: black;
-  stroke-opacity: 0.2;
+  stroke-opacity: 0.25;
   stroke-width: 10px;
 }
 
@@ -159,6 +159,23 @@ export const mapSvgStyle = `
   stroke-width: 1px;
   stroke-dasharray: 0.5, 0.5;
   stroke-dashoffset: 0.5;
+}
+
+.tunnel {
+}
+
+.bridge {
+  fill: none;
+  stroke: white;
+}
+.bridge.shadow {
+  fill: none;
+  stroke: black;
+  stroke-opacity: 0.2;
+}
+.bridge.edge {
+  fill: none;
+  stroke: black;
 }
 
 .wall {

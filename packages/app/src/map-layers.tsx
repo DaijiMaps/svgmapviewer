@@ -26,7 +26,7 @@ export const getMapLayers: () => MapLayer[] = () => [
   {
     type: 'line',
     name: 'cliff',
-    filter: (p) => !!p.other_tags?.match(/^"natural"=>"(cliff)"$/),
+    filter: (p) => !!p.other_tags?.match(/"natural"=>"(cliff)"/),
   },
   {
     type: 'multipolygon',
@@ -186,6 +186,23 @@ export const getMapLayers: () => MapLayer[] = () => [
     type: 'line',
     name: 'retaining-wall',
     filter: (p) => !!p.barrier?.match(/^(retaining_wall)$/),
+  },
+  {
+    type: 'line',
+    name: 'bridge shadow',
+    widthScale: 3.5,
+    filter: (p) => !!p.other_tags?.match(/"bridge"/),
+  },
+  {
+    type: 'line',
+    name: 'bridge edge',
+    widthScale: 1.4,
+    filter: (p) => !!p.other_tags?.match(/"bridge"/),
+  },
+  {
+    type: 'line',
+    name: 'bridge road',
+    filter: (p) => !!p.other_tags?.match(/"bridge"/),
   },
   {
     type: 'multipolygon',
