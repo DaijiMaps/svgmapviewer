@@ -3,6 +3,13 @@ import { svgMapViewerConfig } from '@daijimaps/svgmapviewer'
 import { MapLayer } from '@daijimaps/svgmapviewer/carto'
 import { MultiPolygon } from '@daijimaps/svgmapviewer/geo'
 
+function getInternals() {
+  return (
+    svgMapViewerConfig.cartoConfig?.internals ??
+    svgMapViewerConfig.mapData.internals
+  )
+}
+
 export const getMapLayers: () => MapLayer[] = () => [
   {
     type: 'multipolygon',
@@ -12,7 +19,7 @@ export const getMapLayers: () => MapLayer[] = () => [
   {
     type: 'multipolygon',
     name: 'area',
-    data: svgMapViewerConfig.mapData.internals.features.map(
+    data: getInternals().features.map(
       (f) => f.geometry.coordinates
     ) as unknown as MultiPolygon[],
   },

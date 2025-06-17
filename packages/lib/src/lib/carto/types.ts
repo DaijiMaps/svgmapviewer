@@ -1,3 +1,4 @@
+import type { MultiPolygonGeoJSON } from '../geo'
 import { type Line, type MultiPolygon, type Point } from '../geo/path-types'
 import {
   type LinesFilter,
@@ -91,6 +92,9 @@ export interface WithFilters {
 export interface CartoConfig {
   backgroundColor?: string
   mapSvgStyle?: string
+
+  internals?: MultiPolygonGeoJSON
+
   skipNamePattern?: RegExp
   splitNamePattern?: RegExp
 }
