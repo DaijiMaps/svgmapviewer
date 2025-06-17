@@ -24,9 +24,14 @@ export const getMapLayers: () => MapLayer[] = () => [
     ) as unknown as MultiPolygon[],
   },
   {
+    type: 'line',
+    name: 'cliff',
+    filter: (p) => !!p.other_tags?.match(/^"natural"=>"(cliff)"$/),
+  },
+  {
     type: 'multipolygon',
     name: 'rock',
-    filter: (p) => !!p.natural?.match(/bare_rock/),
+    filter: (p) => !!p.natural?.match(/rock|bare_rock/),
   },
   {
     type: 'multipolygon',

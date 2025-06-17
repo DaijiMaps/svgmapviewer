@@ -9,6 +9,13 @@ export const mapSvgStyle = `
   fill-opacity: 1;
 }
 
+.cliff {
+  fill: none;
+  stroke: black;
+  stroke-opacity: 0.2;
+  stroke-width: 10px;
+}
+
 .rock {
   fill: gray;
   fill-opacity: 0.5;
