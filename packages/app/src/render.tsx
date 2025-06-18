@@ -5,7 +5,7 @@ import {
   getPropertyValue,
   type OsmProperties,
 } from '@daijimaps/svgmapviewer/geo'
-import type { ReactNode } from 'react'
+import { Fragment, type ReactNode } from 'react'
 import { type FacilityInfo, type Info, type ShopInfo } from './info'
 
 export interface Props {
@@ -135,9 +135,9 @@ function RenderProperties(
     <table
       className="properties"
       style={{
-        fontSize: 'small',
+        fontSize: 'x-small',
         borderSpacing: 0,
-        margin: '1em',
+        margin: '1em 0.5em',
       }}
     >
       <tbody style={{ border: 0 }}>
@@ -152,21 +152,37 @@ function RenderTags(props: Readonly<{ tags: Map<string, string> }>) {
   return (
     <>
       {Array.from(props.tags.entries()).map(([k, v], idx) => (
-        <tr key={idx} style={{ margin: 0, boxSizing: 'border-box' }}>
-          {[k, v].map((ss, j) => (
+        <Fragment key={idx}>
+          <tr
+            style={{
+              margin: 0,
+              boxSizing: 'border-box',
+            }}
+          >
             <td
-              key={j}
               style={{
                 border: '0.5px darkgray solid',
                 margin: 0,
                 padding: '0.25em',
                 boxSizing: 'border-box',
+                overflow: 'scroll',
+                overscrollBehavior: 'contain',
+                scrollbarWidth: 'none',
+                width: 'calc(50vmin - 2em)',
               }}
             >
-              {ss}
+              <span
+                style={{
+                  color: 'gray',
+                }}
+              >
+                {k}
+                {` `}
+              </span>
+              <span style={{}}>{v}</span>
             </td>
-          ))}
-        </tr>
+          </tr>
+        </Fragment>
       ))}
     </>
   )
