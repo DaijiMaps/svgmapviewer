@@ -70,17 +70,14 @@ h4 {
   ${user_select_none}
   margin: 1.5em;
   text-align: center;
-  pointer-events: none;
 }
 
 p {
   ${user_select_none}
   margin: 0.5em;
-  pointer-events: none;
 }
 
 table, tbody, th, tr, td {
-  pointer-events: none;
 }
 
 #ui-svg-defs {
