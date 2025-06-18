@@ -13,11 +13,11 @@ export function Like(props: Readonly<LikeProps>): ReactNode {
   const ids = useLikes()
 
   return ids.has(id) ? (
-    <span className="liked" onClick={() => unlike(id)}>
+    <span className="like liked" onClick={() => unlike(id)}>
       ★
     </span>
   ) : (
-    <span className="not-liked" onClick={() => like(id)}>
+    <span className="like not-liked" onClick={() => like(id)}>
       ☆
     </span>
   )

@@ -131,7 +131,7 @@ function useOnWheel(ref: Readonly<RefObject<null | HTMLDivElement>>): void {
 }
 
 function onwheel(ev: Readonly<WheelEvent | React.WheelEvent>): void {
-  const t = ev.target
+  const t = ev.currentTarget
   if (
     wheeleventmask &&
     t instanceof HTMLDivElement &&
