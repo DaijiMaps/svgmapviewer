@@ -64,6 +64,7 @@ function RenderShopInfo(
           </a>
         )}
       </p>
+      <RenderProperties properties={props.properties} />
     </>
   )
 }
@@ -96,6 +97,77 @@ function RenderFacilityInfo(
         </svg>
       </div>
       <p>{props.x.properties.name}</p>
+      <RenderProperties properties={props.properties} />
+    </>
+  )
+}
+
+function RenderProperties(
+  props: Readonly<{ properties: OsmProperties }>
+): ReactNode {
+  // XXX
+  // XXX
+  // XXX
+  // XXX
+  // XXX
+  const xs: [string, string][] = Object.keys(props.properties)
+    .filter((s) => s !== 'other_tags' && !s.match(/centroid/)) // XXX
+    .filter(
+      (s) =>
+        s in props.properties &&
+        props.properties instanceof Object &&
+        props.properties[s as keyof OsmProperties] !== null
+    )
+    .map((x) => [x, String(props.properties[x as keyof OsmProperties])])
+  const key_map = new Map(xs as [string, string][])
+  const a =
+    props.properties.other_tags
+      ?.split(/","/g)
+      .map((s) => s.split(/"=>"/).map((ss) => ss.replace(/"/, ''))) ?? []
+  const other_tags_map = new Map(a as [string, string][])
+  // XXX
+  // XXX
+  // XXX
+  // XXX
+  // XXX
+
+  return (
+    <table
+      className="properties"
+      style={{
+        fontSize: 'small',
+        borderSpacing: 0,
+        margin: '1em',
+      }}
+    >
+      <tbody style={{ border: 0 }}>
+        <RenderTags tags={key_map} />
+        <RenderTags tags={other_tags_map} />
+      </tbody>
+    </table>
+  )
+}
+
+function RenderTags(props: Readonly<{ tags: Map<string, string> }>) {
+  return (
+    <>
+      {Array.from(props.tags.entries()).map(([k, v], idx) => (
+        <tr key={idx} style={{ margin: 0, boxSizing: 'border-box' }}>
+          {[k, v].map((ss, j) => (
+            <td
+              key={j}
+              style={{
+                border: '0.5px darkgray solid',
+                margin: 0,
+                padding: '0.25em',
+                boxSizing: 'border-box',
+              }}
+            >
+              {ss}
+            </td>
+          ))}
+        </tr>
+      ))}
     </>
   )
 }
