@@ -1,8 +1,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
-/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/functional-parameters */
-import { useEffect, useRef, type ReactNode, type RefObject } from 'react'
+import { useRef, type ReactNode } from 'react'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import {
@@ -14,7 +13,7 @@ import {
 } from './lib/css'
 import type { UiDetailContent } from './lib/ui-types'
 import { isDetailEmpty, uiSend } from './lib/ui-xstate'
-import { wheeleventmask } from './lib/viewer-xstate'
+import { useOnWheel } from './lib/wheel'
 
 export function Detail(
   props: Readonly<{ _detail: UiDetailContent }>
@@ -97,37 +96,4 @@ function Assets(): ReactNode {
       </defs>
     </svg>
   )
-}
-
-// XXX
-// XXX
-// XXX - prevent wheel events from propagating
-// XXX - if detail content is short & is NOT scrollable, overscroll-behavior does NOT work
-// XXX - we cannot make container unscrollable, because it is VERY expensive
-// XXX
-// XXX
-
-function useOnWheel(ref: Readonly<RefObject<null | HTMLDivElement>>): void {
-  useEffect(() => {
-    const e = ref.current
-    if (!e) {
-      return
-    }
-    e.addEventListener('wheel', onwheel)
-    return () => {
-      e.removeEventListener('wheel', onwheel)
-    }
-  }, [ref])
-}
-
-function onwheel(ev: Readonly<WheelEvent | React.WheelEvent>): void {
-  const t = ev.currentTarget
-  if (
-    wheeleventmask &&
-    t instanceof HTMLDivElement &&
-    t.scrollWidth === t.clientWidth &&
-    t.scrollHeight === t.clientHeight
-  ) {
-    ev.preventDefault()
-  }
 }
