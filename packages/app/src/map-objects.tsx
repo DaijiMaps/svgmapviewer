@@ -58,7 +58,7 @@ export const getMapObjects: () => MapObjects[] = () => [
     path: monumentPath,
     width: 0.05,
     pointsFilter: (p) =>
-      !!p.other_tags?.match(/"historic"=>"(monument|memorial)"/),
+      !!p.other_tags?.match(/"historic"=>"(monument|memorial|tomb)"/),
   },
   {
     name: 'statue',

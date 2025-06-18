@@ -111,7 +111,7 @@ function RenderProperties(
   // XXX
   // XXX
   const xs: [string, string][] = Object.keys(props.properties)
-    .filter((s) => s !== 'other_tags' && !s.match(/centroid/)) // XXX
+    .filter((s) => s !== 'other_tags' && !s.match(/^centroid|^area$/)) // XXX
     .filter(
       (s) =>
         s in props.properties &&
