@@ -44,7 +44,11 @@ const style = `
   will-change: opacity, transform;
   cursor: default;
   touch-action: pan-x pan-y;
-  overscroll-behaviour: contain;
+  overscroll-behavior: contain;
+}
+
+.liked {
+  color: orange;
 }
 
 h3 {
