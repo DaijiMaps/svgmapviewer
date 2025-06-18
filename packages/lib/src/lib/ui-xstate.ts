@@ -13,6 +13,7 @@ import {
   openCloseReset,
 } from './openclose'
 import { type Info } from './types'
+import { resetDetailScroll } from './ui-react'
 import type {
   OpenCloseMap,
   UiContext,
@@ -254,6 +255,9 @@ function uiDetail(psvg: VecVec, info: Info, layout: LayoutCoord) {
 }
 function uiOpen(ok: boolean) {
   uiActor.send({ type: ok ? 'OPEN' : 'CANCEL' })
+  requestAnimationFrame(
+    () => resetDetailScroll() // XXX
+  )
 }
 function uiCancel() {
   uiActor.send({ type: 'CANCEL' })
