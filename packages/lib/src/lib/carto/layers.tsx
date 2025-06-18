@@ -60,7 +60,7 @@ function LineLayerToPaths(layer: Readonly<MapLineLayer>): ReactNode {
     <g className={layer.name} style={{ contain: 'content' }}>
       {xs.map((x, idx) => (
         <Fragment key={idx}>
-          {LinePathToPath(x, layer.name, layer.width)}
+          {LinePathToPath(x, layer.name, layer.width, layer.widthScale)}
         </Fragment>
       ))}
     </g>
@@ -68,15 +68,19 @@ function LineLayerToPaths(layer: Readonly<MapLineLayer>): ReactNode {
 }
 
 function LinePathToPath(
-  { id, tags, width, vs }: Readonly<LinePath>,
+  { id, tags, width, widthScale, vs }: Readonly<LinePath>,
   layerName: string,
-  defaultStrokeWidth?: number
+  defaultStrokeWidth?: number,
+  defaultStrokeWidthScale?: number
 ): ReactNode {
   return (
     <path
       id={id === undefined ? undefined : `path${id}`}
       className={[layerName, ...tags].join(' ').replaceAll(/;/g, '_')} // XXX level=0;1
-      strokeWidth={width ?? defaultStrokeWidth}
+      strokeWidth={
+        (width ?? defaultStrokeWidth ?? 1) *
+        (widthScale ?? defaultStrokeWidthScale ?? 1)
+      }
       d={lineToPathD(vs)}
     />
   )
@@ -103,7 +107,7 @@ export function LinePathToTextPath(
       <textPath
         href={`#path${id}`}
         startOffset="50%"
-        fontSize={width ?? defaultStrokeWidth}
+        fontSize={width ?? defaultStrokeWidth ?? 1}
         fill="green"
         stroke="none"
       >
@@ -123,7 +127,7 @@ function MultiPolygonLayerToPath(
     <g className={layer.name}>
       {xs.map((x, idx) => (
         <Fragment key={idx}>
-          {MultiPolygonPathToPath(x, layer.name, layer.width)}
+          {MultiPolygonPathToPath(x, layer.name, layer.width, layer.widthScale)}
         </Fragment>
       ))}
     </g>
@@ -131,15 +135,19 @@ function MultiPolygonLayerToPath(
 }
 
 function MultiPolygonPathToPath(
-  { id, tags, width, vs }: Readonly<MultiPolygonPath>,
+  { id, tags, width, widthScale, vs }: Readonly<MultiPolygonPath>,
   layerName: string,
-  defaultStrokeWidth?: number
+  defaultStrokeWidth?: number,
+  defaultStrokeWidthScale?: number
 ): ReactNode {
   return (
     <path
       id={id}
       className={[layerName, ...tags].join(' ').replaceAll(/;/g, '_')} // XXX level=0;1
-      strokeWidth={width ?? defaultStrokeWidth}
+      strokeWidth={
+        (width ?? defaultStrokeWidth ?? 1) *
+        (widthScale ?? defaultStrokeWidthScale ?? 1)
+      }
       d={multiPolygonToPathD(vs)}
     />
   )

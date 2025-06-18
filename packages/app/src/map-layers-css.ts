@@ -12,7 +12,7 @@ export const mapSvgStyle = `
 .cliff {
   fill: none;
   stroke: black;
-  stroke-opacity: 0.25;
+  stroke-opacity: 0.2;
   stroke-width: 10px;
 }
 

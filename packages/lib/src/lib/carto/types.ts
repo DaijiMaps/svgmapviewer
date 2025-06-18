@@ -14,6 +14,7 @@ export interface MapLineLayer {
   type: 'line'
   name: string
   width?: number
+  widthScale?: number
   filter?: LinesFilter
   data?: Line[]
 }
@@ -22,6 +23,7 @@ export interface MapMultiPolygonLayer {
   type: 'multipolygon'
   name: string
   width?: number
+  widthScale?: number
   filter?: MultiPolygonsFilter
   data?: MultiPolygon[]
 }
@@ -31,6 +33,7 @@ export interface LinePath {
   id?: string
   tags: string[]
   width?: number
+  widthScale?: number
   vs: Line
 }
 
@@ -39,6 +42,7 @@ export interface MultiPolygonPath {
   id?: string
   tags: string[]
   width?: number
+  widthScale?: number
   vs: MultiPolygon
 }
 //// markers
