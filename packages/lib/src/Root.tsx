@@ -49,9 +49,15 @@ export function root(config: Readonly<SvgMapViewerConfig>): void {
   */
   // XXX prevent touch move during multi-touch
   e.ontouchmove = function (ev) {
-    if (touching) {
+    if (wheeleventmask) {
+      if (ev.target instanceof HTMLDivElement && ev.target?.id === 'ui') {
+        return
+      }
       ev.preventDefault()
+    } else if (!touching) {
+      return
     }
+    ev.preventDefault()
   }
   /*
   e.onmousedown = function (ev) {

@@ -43,7 +43,8 @@ const style = `
   z-index: ${Z_INDEX_DETAIL};
   will-change: opacity, transform;
   cursor: default;
-  touch-action: none;
+  touch-action: pan-x pan-y;
+  overscroll-behaviour: contain;
 }
 
 h3 {
