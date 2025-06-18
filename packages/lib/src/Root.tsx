@@ -28,6 +28,9 @@ export function root(config: Readonly<SvgMapViewerConfig>): void {
     //const c = document.querySelector('.container')
     const c = e.children[0] // XXX must be .container
 
+    if (ev.target instanceof HTMLDivElement && ev.target?.id === 'ui') {
+      return
+    }
     if ((c !== null && c.clientWidth === c.scrollWidth) || wheeleventmask) {
       ev.preventDefault()
     }
