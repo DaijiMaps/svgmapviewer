@@ -1,5 +1,10 @@
 import { type PropsWithChildren, type ReactNode } from 'react'
-import { balloonPaths, balloonStyle } from './lib/balloon'
+import {
+  balloonPaths,
+  balloonStyle,
+  type BalloonSize,
+  type LegLayout,
+} from './lib/balloon'
 import { boxToViewBox2 } from './lib/box/prefixed'
 import {
   pointer_events_none,
@@ -16,6 +21,8 @@ export interface BalloonProps {
   _hv: null | HV
   _W: number
   _H: number
+  _size: BalloonSize
+  _leg: LegLayout
 }
 
 export function Balloon(
@@ -84,13 +91,15 @@ export function DetailBalloonStyle({
   _hv,
   _W,
   _H,
+  _size,
+  _leg,
 }: Readonly<BalloonProps>): ReactNode {
   const detail = useOpenCloseDetail()
 
   const style =
     _p === null || _hv === null || !openCloseIsVisible(detail)
       ? `.balloon, .detail { display: none; }`
-      : balloonStyle(detail, _p, _hv, _W, _H)
+      : balloonStyle(detail, _p, _hv, _W, _H, _size, _leg)
 
   return <style>{style}</style>
 }

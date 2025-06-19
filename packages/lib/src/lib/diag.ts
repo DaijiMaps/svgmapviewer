@@ -14,7 +14,8 @@ export function diag2(size: Readonly<Size>, { x, y }: Vec): HV {
   const r = vecVec(x / size.width, y / size.height)
   const h = a > 1 ? div2(r.x) : div3(r.x)
   const v = a > 1 ? div3(r.y) : div2(r.y)
-  return { h, v }
+  const th = Math.atan2(size.height, size.width)
+  return { h, v, th }
 }
 
 function div2(n: number): -1 | 0 | 1 {

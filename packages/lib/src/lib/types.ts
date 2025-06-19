@@ -24,6 +24,7 @@ export type Dir = 0 | 1 | 2 | 3
 export type HV = {
   h: -1 | 0 | 1 // left, none, right
   v: -1 | 0 | 1 // top, none, bottom
+  th: number // angle (radian)
 }
 
 export interface Size {

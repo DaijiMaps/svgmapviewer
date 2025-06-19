@@ -16,13 +16,20 @@ export function DetailBalloon(): ReactNode {
 export function DetailBalloonContent(): ReactNode {
   const detail = useDetail()
 
-  const props = calcBalloonLayout(detail)
+  const layout = calcBalloonLayout(detail)
+  /*
+  const size = calcBalloonSize(layout._W, layout._H)
+  if (layout._hv === null) {
+    return <></>
+  }
+  const leg = layoutLeg2(layout._hv, size.bw, size.bh, size.ll)
+  */
 
   return (
     <div className="ui-content detail-balloon">
-      <Balloon {...props} />
+      <Balloon {...layout} />
       <Detail _detail={detail} />
-      <DetailBalloonStyle {...props} />
+      <DetailBalloonStyle {...layout} />
     </div>
   )
 }

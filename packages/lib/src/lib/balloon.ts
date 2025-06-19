@@ -21,7 +21,7 @@ interface BalloonPath {
   leg: string
 }
 
-interface BalloonSize extends Size {
+export interface BalloonSize extends Size {
   bw: number
   bh: number
   ll: number
@@ -34,6 +34,13 @@ export interface BalloonPaths {
   height: number
   fg: string
   bg: string
+}
+
+export interface LegLayout {
+  p: Vec
+  q: Vec
+  a: Vec
+  b: Vec
 }
 
 ////
@@ -49,10 +56,14 @@ export function calcBalloonLayout(
   const _W = layout.container.width
   const _H = layout.container.height
 
-  return { _p, _hv, _W, _H }
+  const _size = calcBalloonSize(_W, _H)
+
+  const _leg = layoutLeg2(_hv, _size.bw, _size.bh, _size.ll)
+
+  return { _p, _hv, _W, _H, _size, _leg }
 }
 
-function calcBalloonSize(_W: number, _H: number): BalloonSize {
+export function calcBalloonSize(_W: number, _H: number): BalloonSize {
   // XXX
   const vmin = Math.min(_W, _H) * 0.01
 
@@ -73,12 +84,7 @@ export function layoutLeg(
   bw: number,
   bh: number,
   ll: number
-): {
-  p: Vec
-  q: Vec
-  a: Vec
-  b: Vec
-} {
+): LegLayout {
   const hbw = bw / 2
   const hbh = bh / 2
 
@@ -94,6 +100,47 @@ export function layoutLeg(
       : hv.v === 0
         ? [vec(0, -hlw), vec(0, hlw)] // horizontal leg
         : [vec(hlw * hv.h, 0), vec(0, hlw * hv.v)] // angled (diagonal) leg
+  const a = vecAdd(p, da)
+  const b = vecAdd(p, db)
+
+  return { p, q, a, b }
+}
+
+export function layoutLeg2(
+  hv: Readonly<HV>,
+  bw: number,
+  bh: number,
+  ll: number
+): {
+  p: Vec
+  q: Vec
+  a: Vec
+  b: Vec
+} {
+  const hbw = bw / 2
+  const hbh = bh / 2
+
+  const lw = bw / 20
+  const hlw = lw / 2
+
+  const p = vec(-hbw * hv.h, -hbh * hv.v)
+
+  const q =
+    hv.h === 0 || hv.v === 0
+      ? vec(-(hbw + ll) * hv.h, -(hbh + ll) * hv.v)
+      : vec(
+          -(hbw + ll * Math.cos(hv.th)) * hv.h,
+          -(hbh + ll * Math.sin(hv.th)) * hv.v
+        )
+
+  const [da, db]: [Vec, Vec] =
+    hv.h === 0
+      ? [vec(-hlw, 0), vec(hlw, 0)] // vertical leg
+      : hv.v === 0
+        ? [vec(0, -hlw), vec(0, hlw)] // horizontal leg
+        : hv.th < Math.PI / 4
+          ? [vec(0, 0), vec(0, lw * hv.v)] // angled (landscape)
+          : [vec(0, 0), vec(lw * hv.h, 0)] // angled (portrait)
   const a = vecAdd(p, da)
   const b = vecAdd(p, db)
 
@@ -117,7 +164,7 @@ h${-bw}
 z
 `
 
-  const { p, q, a, b } = layoutLeg(hv, bw, bh, ll)
+  const { p, q, a, b } = layoutLeg2(hv, bw, bh, ll)
   const aq = vecSub(q, a)
   const qb = vecSub(b, q)
   const bp = vecSub(p, b)
@@ -160,11 +207,17 @@ export function balloonStyle(
   Q: Vec,
   hv: Readonly<HV>,
   W: number,
-  H: number
+  H: number,
+  size: Readonly<BalloonSize>,
+  leg: Readonly<LegLayout>
 ): string {
   const { width, height } = calcBalloonSize(W, H)
 
-  const dP = vec((width / 2) * hv.h, (height / 2) * hv.v)
+  const pq = vecSub(leg.q, leg.p)
+  const dP = vec(
+    (size.bw / 2 + Math.abs(pq.x)) * hv.h,
+    (size.bh / 2 + Math.abs(pq.y)) * hv.v
+  )
 
   if (!animating) {
     const sb = 1
