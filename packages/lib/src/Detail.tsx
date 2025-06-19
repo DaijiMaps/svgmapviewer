@@ -1,7 +1,6 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import {
   box_sizing_border_box,
@@ -30,7 +29,6 @@ export function Detail(
       {cfg.renderInfo &&
         !isDetailEmpty(_detail) &&
         cfg.renderInfo({ info: _detail.info })}
-      <Assets />
       <style>{style}</style>
     </div>
   )
@@ -85,13 +83,3 @@ table, tbody, th, tr, td {
   display: none;
 }
 `
-
-function Assets(): ReactNode {
-  return (
-    <svg id="ui-svg-defs">
-      <defs>
-        <RenderMapAssetsDefault />
-      </defs>
-    </svg>
-  )
-}

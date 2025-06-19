@@ -4,6 +4,7 @@ import { type ReactNode } from 'react'
 import { Balloon, DetailBalloonStyle } from './Balloon'
 import { Detail } from './Detail'
 import { calcBalloonLayout } from './lib/balloon'
+import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { useShadowRoot } from './lib/dom'
 import { useDetail } from './lib/ui-xstate'
 
@@ -14,15 +15,34 @@ export function DetailBalloon(): ReactNode {
 }
 
 export function DetailBalloonContent(): ReactNode {
+  return (
+    <div className="ui-content detail-balloon">
+      <BalloonDetailStyle />
+      <Assets />
+    </div>
+  )
+}
+
+function BalloonDetailStyle() {
   const detail = useDetail()
 
   const props = calcBalloonLayout(detail)
 
   return (
-    <div className="ui-content detail-balloon">
+    <>
       <Balloon {...props} />
       <Detail _detail={detail} />
       <DetailBalloonStyle {...props} />
-    </div>
+    </>
+  )
+}
+
+function Assets() {
+  return (
+    <svg id="ui-svg-defs">
+      <defs>
+        <RenderMapAssetsDefault />
+      </defs>
+    </svg>
   )
 }
