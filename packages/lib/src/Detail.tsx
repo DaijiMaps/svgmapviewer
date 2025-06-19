@@ -75,6 +75,10 @@ p {
   margin: 0.5em;
 }
 
+a {
+  text-decoration: none;
+}
+
 table, tbody, th, tr, td {
 }
 
