@@ -22,7 +22,7 @@ export function DetailBalloonContent(): ReactNode {
   if (layout._hv === null) {
     return <></>
   }
-  const leg = layoutLeg2(layout._hv, size.bw, size.bh, size.ll)
+  const leg = layoutLeg(layout._hv, size.bw, size.bh, size.ll)
   */
 
   return (

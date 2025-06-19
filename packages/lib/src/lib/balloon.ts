@@ -58,7 +58,7 @@ export function calcBalloonLayout(
 
   const _size = calcBalloonSize(_W, _H)
 
-  const _leg = layoutLeg2(_hv, _size.bw, _size.bh, _size.ll)
+  const _leg = layoutLeg(_hv, _size.bw, _size.bh, _size.ll)
 
   return { _p, _hv, _W, _H, _size, _leg }
 }
@@ -80,33 +80,6 @@ export function calcBalloonSize(_W: number, _H: number): BalloonSize {
 }
 
 export function layoutLeg(
-  hv: Readonly<HV>,
-  bw: number,
-  bh: number,
-  ll: number
-): LegLayout {
-  const hbw = bw / 2
-  const hbh = bh / 2
-
-  const lw = bw / 20
-  const hlw = lw / 2
-
-  const p = vec(-hbw * hv.h, -hbh * hv.v)
-  const q = vec(-(hbw + ll) * hv.h, -(hbh + ll) * hv.v)
-
-  const [da, db]: [Vec, Vec] =
-    hv.h === 0
-      ? [vec(-hlw, 0), vec(hlw, 0)] // vertical leg
-      : hv.v === 0
-        ? [vec(0, -hlw), vec(0, hlw)] // horizontal leg
-        : [vec(hlw * hv.h, 0), vec(0, hlw * hv.v)] // angled (diagonal) leg
-  const a = vecAdd(p, da)
-  const b = vecAdd(p, db)
-
-  return { p, q, a, b }
-}
-
-export function layoutLeg2(
   hv: Readonly<HV>,
   bw: number,
   bh: number,
@@ -164,7 +137,7 @@ h${-bw}
 z
 `
 
-  const { p, q, a, b } = layoutLeg2(hv, bw, bh, ll)
+  const { p, q, a, b } = layoutLeg(hv, bw, bh, ll)
   const aq = vecSub(q, a)
   const qb = vecSub(b, q)
   const bp = vecSub(p, b)
