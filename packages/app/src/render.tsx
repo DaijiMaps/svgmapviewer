@@ -110,7 +110,7 @@ function RenderProperties(
   // XXX
   // XXX
   // XXX
-  const xs: [string, string][] = Object.keys(props.properties)
+  const tags_entries: [string, string][] = Object.keys(props.properties)
     .filter((s) => s !== 'other_tags' && !s.match(/^centroid|^area$/)) // XXX
     .filter(
       (s) =>
@@ -119,12 +119,14 @@ function RenderProperties(
         props.properties[s as keyof OsmProperties] !== null
     )
     .map((x) => [x, String(props.properties[x as keyof OsmProperties])])
-  const key_map = new Map(xs as [string, string][])
-  const a =
+  const other_tags_entries =
     props.properties.other_tags
       ?.split(/","/g)
       .map((s) => s.split(/"=>"/).map((ss) => ss.replace(/"/, ''))) ?? []
-  const other_tags_map = new Map(a as [string, string][])
+  const tags_map = new Map([...tags_entries, ...other_tags_entries] as [
+    string,
+    string,
+  ][])
   // XXX
   // XXX
   // XXX
@@ -141,8 +143,7 @@ function RenderProperties(
       }}
     >
       <tbody style={{ border: 0 }}>
-        <RenderTags tags={key_map} />
-        <RenderTags tags={other_tags_map} />
+        <RenderTags tags={tags_map} />
       </tbody>
     </table>
   )
