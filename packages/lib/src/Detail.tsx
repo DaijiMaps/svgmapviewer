@@ -1,7 +1,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { useRef, type ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { svgMapViewerConfig as cfg } from './lib/config'
 import {
@@ -20,9 +20,7 @@ export function Detail(
 ): ReactNode {
   const { _detail } = props
 
-  const ref = useRef<HTMLDivElement>(null)
-
-  useOnWheel(ref)
+  const ref = useOnWheel()
 
   return (
     <div

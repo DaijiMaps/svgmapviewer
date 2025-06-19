@@ -1,7 +1,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { useRef, type ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { notifyUiClose } from './lib/config-xstate'
 import {
   position_absolute_left_0_top_0,
@@ -23,9 +23,7 @@ export function Shadow(): ReactNode {
 }
 
 function ShadowContent(): ReactNode {
-  const ref = useRef<HTMLDivElement>(null)
-
-  useOnWheel(ref)
+  const ref = useOnWheel()
 
   return (
     <div

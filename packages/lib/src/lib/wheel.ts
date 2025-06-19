@@ -11,12 +11,12 @@
 // XXX
 // XXX
 
-import { useEffect, type RefObject } from 'react'
+import { useEffect, useRef, type RefObject } from 'react'
 import { wheeleventmask } from './viewer-xstate'
 
-export function useOnWheel(
-  ref: Readonly<RefObject<null | HTMLDivElement>>
-): void {
+export function useOnWheel(): RefObject<null | HTMLDivElement> {
+  const ref = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
     const e = ref.current
     if (!e) {
@@ -27,6 +27,8 @@ export function useOnWheel(
       e.removeEventListener('wheel', onwheel)
     }
   }, [ref])
+
+  return ref
 }
 
 function onwheel(ev: Readonly<WheelEvent | React.WheelEvent>): void {
