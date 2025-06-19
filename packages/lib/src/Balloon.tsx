@@ -55,11 +55,7 @@ function BalloonSvg(
     return <svg />
   }
 
-  const { viewBox, width, height, fg, bg } = balloonPaths(
-    _hv,
-    props._W,
-    props._H
-  )
+  const { viewBox, width, height, fg, bg } = balloonPaths(_hv, props._size)
 
   return (
     <svg
@@ -89,8 +85,6 @@ path.fg {
 export function DetailBalloonStyle({
   _p,
   _hv,
-  _W,
-  _H,
   _size,
   _leg,
 }: Readonly<BalloonProps>): ReactNode {
@@ -99,7 +93,7 @@ export function DetailBalloonStyle({
   const style =
     _p === null || _hv === null || !openCloseIsVisible(detail)
       ? `.balloon, .detail { display: none; }`
-      : balloonStyle(detail, _p, _hv, _W, _H, _size, _leg)
+      : balloonStyle(detail, _p, _hv, _size, _leg)
 
   return <style>{style}</style>
 }

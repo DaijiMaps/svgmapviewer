@@ -153,15 +153,14 @@ z
 }
 
 export function balloonPaths(
-  _hv: Readonly<HV>,
-  _W: number,
-  _H: number
+  hv: Readonly<HV>,
+  size: Readonly<BalloonSize>
 ): BalloonPaths {
-  const { bw, bh, ll, d, width, height } = calcBalloonSize(_W, _H)
+  const { bw, bh, ll, d, width, height } = size
 
   const viewBox = boxBox(-width / 2, -width / 2, width, height)
 
-  const { body, leg } = balloonPath(_hv, bw, bh, ll)
+  const { body, leg } = balloonPath(hv, bw, bh, ll)
 
   const fg = `M0,0` + body + `M0,0` + leg
   const bg = `M${d},${d}` + body + `M${d},${d}` + leg
@@ -179,17 +178,15 @@ export function balloonStyle(
   { open, animating }: OpenClose,
   Q: Vec,
   hv: Readonly<HV>,
-  W: number,
-  H: number,
   size: Readonly<BalloonSize>,
   leg: Readonly<LegLayout>
 ): string {
-  const { width, height } = calcBalloonSize(W, H)
+  const { bw, bh, width, height } = size
 
   const pq = vecSub(leg.q, leg.p)
   const dP = vec(
-    (size.bw / 2 + Math.abs(pq.x)) * hv.h,
-    (size.bh / 2 + Math.abs(pq.y)) * hv.v
+    (bw / 2 + Math.abs(pq.x)) * hv.h,
+    (bh / 2 + Math.abs(pq.y)) * hv.v
   )
 
   if (!animating) {
