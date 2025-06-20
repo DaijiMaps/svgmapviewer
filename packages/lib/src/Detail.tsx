@@ -40,14 +40,16 @@ const style = `
   width: 50vmin;
   height: 50vmin;
   padding: 0.5em;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
   ${pointer_events_initial}
   ${box_sizing_border_box}
   z-index: ${Z_INDEX_DETAIL};
   will-change: opacity, transform;
   cursor: default;
-  touch-action: pan-x pan-y;
-  overscroll-behavior: contain;
+  touch-action: pan-y;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
 }
 
 .like {
