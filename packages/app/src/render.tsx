@@ -166,8 +166,8 @@ function RenderTags(props: Readonly<{ tags: Map<string, string> }>) {
                 margin: 0,
                 padding: '0.25em',
                 boxSizing: 'border-box',
-                overflow: 'scroll',
-                overscrollBehavior: 'contain',
+                //overflow: 'scroll',
+                //overscrollBehavior: 'contain',
                 scrollbarWidth: 'none',
                 width: 'calc(50vmin - 2em)',
               }}
