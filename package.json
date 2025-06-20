@@ -5,11 +5,9 @@
     "prettier": "pnpx prettier -w ."
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.9",
-    "globals": "^15.10.0",
-    "husky": "^9.1.6",
-    "lint-staged": "^15.2.10",
-    "prettier-plugin-organize-imports": "^4.1.0"
+    "@changesets/cli": "^2.29.5",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
