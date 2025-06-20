@@ -92,7 +92,7 @@ export function DetailBalloonStyle({
 
   const style =
     _p === null || _hv === null || !openCloseIsVisible(detail)
-      ? `.balloon, .detail { display: none; }`
+      ? `.balloon, .detail { visibility: hidden; }`
       : balloonStyle(detail, _p, _hv, _size, _leg)
 
   return <style>{style}</style>

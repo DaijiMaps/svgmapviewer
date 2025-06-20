@@ -248,6 +248,7 @@ registerCbs({
   searchEndDoneCb: uiDetail,
   uiOpenDoneCb: uiOpen,
   uiCloseCb: uiCancel,
+  uiCloseDoneCb: uiCloseDone,
 })
 
 function uiDetail(psvg: VecVec, info: Info, layout: LayoutCoord) {
@@ -255,12 +256,14 @@ function uiDetail(psvg: VecVec, info: Info, layout: LayoutCoord) {
 }
 function uiOpen(ok: boolean) {
   uiActor.send({ type: ok ? 'OPEN' : 'CANCEL' })
-  requestAnimationFrame(
-    () => resetDetailScroll() // XXX
-  )
 }
 function uiCancel() {
   uiActor.send({ type: 'CANCEL' })
+}
+function uiCloseDone() {
+  requestAnimationFrame(
+    () => resetDetailScroll() // XXX
+  )
 }
 
 ////
