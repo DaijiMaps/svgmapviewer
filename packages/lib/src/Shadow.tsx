@@ -62,7 +62,7 @@ export function ShadowStyle(): ReactNode {
       ) : (
         // protect scroll during zoom animation
         // (changing overflow of viewer is expensive)
-        <>{`.shadow { display: initial; opacity: 0; } `}</>
+        <>{`.shadow { display: initial; opacity: 0; }`}</>
       )
     ) : (
       <>
@@ -86,7 +86,6 @@ export function ShadowStyle(): ReactNode {
   --timing: ${t};
   --a: ${a};
   --b: ${b};
-  pointer-events: none;
   will-change: opacity;
   animation: xxx-shadow var(--duration) var(--timing);
 }
