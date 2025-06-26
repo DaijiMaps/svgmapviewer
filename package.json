@@ -15,5 +15,10 @@
   },
   "dependencies": {
     "@daijimaps/svgmapviewer": "link:packages/lib"
+  },
+  "pnpm": {
+    "updateConfig": {
+      "ignoreDependencies": ["@types/node"]
+    }
   }
 }
