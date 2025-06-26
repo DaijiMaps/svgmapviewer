@@ -137,9 +137,13 @@ function RenderProperties(
     <table
       className="properties"
       style={{
+        display: 'block',
         fontSize: 'x-small',
         borderSpacing: 0,
         margin: '1em 0.5em',
+        maxWidth: 'calc(50vmin - 2em)',
+        overflowX: 'scroll',
+        overscrollBehaviorX: 'none',
       }}
     >
       <tbody style={{ border: 0 }}>
