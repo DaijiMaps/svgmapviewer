@@ -88,7 +88,6 @@ export function RenderMarkers(
 
 export function RenderMarker(props: Readonly<{ sz: number }>): ReactNode {
   const r = props.sz / 2
-  const h = r / Math.sqrt(2)
   return (
     <path
       id="point-name-marker"
@@ -96,7 +95,7 @@ export function RenderMarker(props: Readonly<{ sz: number }>): ReactNode {
       fillOpacity="0.5"
       stroke="none"
       strokeWidth={r / 20}
-      d={circlePathD(h, r).replaceAll(/([.]\d\d)\d*/g, '$1')}
+      d={circlePathD(r).replaceAll(/([.]\d\d)\d*/g, '$1')}
     />
   )
 }
@@ -116,7 +115,7 @@ export function RenderPosition(props: Readonly<{ sz: number }>): ReactNode {
   )
 }
 
-function circlePathD(h: number, r: number): string {
+function circlePathD(r: number): string {
   return `
 M 0,0
 m ${-r},0
