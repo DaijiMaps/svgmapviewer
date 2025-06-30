@@ -69,8 +69,8 @@ const uiMachine = setup({
   guards: {
     isHeaderVisible: ({ context: { m } }) => isVisible(m, 'header'),
     isDetailVisible: ({ context: { m } }) => isVisible(m, 'detail'),
-    animationEnded: ({ context: { animationEndRecord } }) =>
-      animationEndRecord.header && animationEndRecord.detail,
+    animationEnded: ({ context: { animationEnded } }) =>
+      animationEnded.header && animationEnded.detail,
   },
   actions: {
     startCancel: assign({ canceling: () => true }),
@@ -100,7 +100,7 @@ const uiMachine = setup({
       header: openCloseReset(true),
       detail: openCloseReset(false),
     },
-    animationEndRecord: { header: true, detail: true },
+    animationEnded: { header: true, detail: true },
   }),
   states: {
     Ui: {
@@ -146,7 +146,7 @@ const uiMachine = setup({
                   {
                     actions: assign({
                       all: { open: true, animating: true },
-                      animationEndRecord: { header: false, detail: false },
+                      animationEnded: { header: false, detail: false },
                     }),
                     target: 'Opening',
                   },
@@ -181,7 +181,7 @@ const uiMachine = setup({
                   {
                     actions: assign({
                       all: { open: false, animating: true },
-                      animationEndRecord: { header: false, detail: false },
+                      animationEnded: { header: false, detail: false },
                     }),
                     target: 'Closing',
                   },
@@ -223,8 +223,8 @@ const uiMachine = setup({
           actions: [
             { type: 'handle', params: { part: 'header' } },
             assign({
-              animationEndRecord: ({ context }) => ({
-                ...context.animationEndRecord,
+              animationEnded: ({ context }) => ({
+                ...context.animationEnded,
                 header: true,
               }),
             }),
@@ -235,8 +235,8 @@ const uiMachine = setup({
           actions: [
             { type: 'handle', params: { part: 'detail' } },
             assign({
-              animationEndRecord: ({ context }) => ({
-                ...context.animationEndRecord,
+              animationEnded: ({ context }) => ({
+                ...context.animationEnded,
                 detail: true,
               }),
             }),

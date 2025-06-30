@@ -17,7 +17,7 @@ export interface UiContext {
   canceling: boolean
   detail: UiDetailContent
   m: OpenCloseMap
-  animationEndRecord: {
+  animationEnded: {
     header: boolean
     detail: boolean
   }
