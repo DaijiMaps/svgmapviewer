@@ -9,6 +9,7 @@ import {
   MAP_SVG_MARKERS_CONTENT_ID,
   MAP_SVG_MARKERS_ROOT_ID,
 } from './lib/map-svg-react'
+import { useNames } from './lib/names'
 import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
 import { SvgSymbolStyle } from './Style'
@@ -60,10 +61,29 @@ function MapSvgMarkersDefs(): ReactNode {
     <svg id="map-svg-markers-defs">
       <g id="map-svg-markers1">
         <RenderMapMarkers mapMarkers={svgMapViewerConfig.getMapMarkers()} />
+        <MapSvgMarkersUses />
         <style>
           <SvgSymbolStyle />
         </style>
       </g>
     </svg>
+  )
+}
+
+function MapSvgMarkersUses(): ReactNode {
+  const { pointNames } = useNames()
+
+  return (
+    <g>
+      {pointNames.map(({ pos }, idx) => (
+        <use
+          key={idx}
+          href="#point-name-marker"
+          style={{
+            transform: `translate(${trunc2(pos.x)}px, ${trunc2(pos.y)}px)`,
+          }}
+        />
+      ))}
+    </g>
   )
 }
