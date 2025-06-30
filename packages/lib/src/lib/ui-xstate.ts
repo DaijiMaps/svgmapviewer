@@ -69,6 +69,8 @@ const uiMachine = setup({
   guards: {
     isHeaderVisible: ({ context: { m } }) => isVisible(m, 'header'),
     isDetailVisible: ({ context: { m } }) => isVisible(m, 'detail'),
+    animationEnded: ({ context: { animationEndRecord } }) =>
+      animationEndRecord.header && animationEndRecord.detail,
   },
   actions: {
     startCancel: assign({ canceling: () => true }),
@@ -98,6 +100,7 @@ const uiMachine = setup({
       header: openCloseReset(true),
       detail: openCloseReset(false),
     },
+    animationEndRecord: { header: true, detail: true },
   }),
   states: {
     Ui: {
@@ -138,12 +141,16 @@ const uiMachine = setup({
           states: {
             Waiting: {
               on: {
-                OPEN: {
-                  actions: assign({
-                    all: { open: true, animating: true },
-                  }),
-                  target: 'Opening',
-                },
+                OPEN: [
+                  { guard: not('animationEnded') },
+                  {
+                    actions: assign({
+                      all: { open: true, animating: true },
+                      animationEndRecord: { header: false, detail: false },
+                    }),
+                    target: 'Opening',
+                  },
+                ],
                 CANCEL: {
                   target: 'Closed',
                 },
@@ -169,12 +176,16 @@ const uiMachine = setup({
             },
             Opened: {
               on: {
-                CANCEL: {
-                  actions: assign({
-                    all: { open: false, animating: true },
-                  }),
-                  target: 'Closing',
-                },
+                CANCEL: [
+                  { guard: not('animationEnded') },
+                  {
+                    actions: assign({
+                      all: { open: false, animating: true },
+                      animationEndRecord: { header: false, detail: false },
+                    }),
+                    target: 'Closing',
+                  },
+                ],
               },
             },
             Closing: {
@@ -211,12 +222,24 @@ const uiMachine = setup({
         'HEADER.ANIMATION.END': {
           actions: [
             { type: 'handle', params: { part: 'header' } },
+            assign({
+              animationEndRecord: ({ context }) => ({
+                ...context.animationEndRecord,
+                header: true,
+              }),
+            }),
             raise({ type: 'DONE' }),
           ],
         },
         'DETAIL.ANIMATION.END': {
           actions: [
             { type: 'handle', params: { part: 'detail' } },
+            assign({
+              animationEndRecord: ({ context }) => ({
+                ...context.animationEndRecord,
+                detail: true,
+              }),
+            }),
             raise({ type: 'DONE' }),
           ],
         },

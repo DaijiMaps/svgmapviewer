@@ -17,6 +17,10 @@ export interface UiContext {
   canceling: boolean
   detail: UiDetailContent
   m: OpenCloseMap
+  animationEndRecord: {
+    header: boolean
+    detail: boolean
+  }
 }
 
 export type UiModeEvent =
