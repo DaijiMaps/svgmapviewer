@@ -21,6 +21,7 @@ import {
   sendScroll,
   sendWheel,
 } from './lib/viewer-react'
+import { MapHtml } from './MapHtml'
 import { MapSvgLabels } from './MapSvgLabels'
 import { MapSvgLayers } from './MapSvgLayers'
 import { MapSvgMarkers } from './MapSvgMarkers'
@@ -52,6 +53,7 @@ export function Container(): ReactNode {
       <MapSvgSymbols />
       <MapSvgMarkers />
       <MapSvgLabels />
+      <MapHtml />
       <style>{style}</style>
       <AnimationStyle />
     </div>
