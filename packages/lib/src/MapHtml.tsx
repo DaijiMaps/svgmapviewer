@@ -54,12 +54,15 @@ function MapHtmlPointNames(): ReactNode {
             position: 'absolute',
             left: 0,
             top: 0,
-            transform: `translate(${poi.pos.x}px, ${poi.pos.y}px) scale(0.02) translate(-50%, -50%)`,
+            transform: `translate(${poi.pos.x}px, ${poi.pos.y}px) scale(0.05) translate(-50%, -50%)`,
             transformOrigin: 'left top',
           }}
         >
           {poi.name.map((s, idx2) => (
-            <p key={idx2} style={{ margin: 0, textAlign: 'center' }}>
+            <p
+              key={idx2}
+              style={{ margin: 0, textAlign: 'center', width: '20em' }}
+            >
               {s}
             </p>
           ))}
