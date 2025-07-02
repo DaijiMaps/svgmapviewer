@@ -2,7 +2,7 @@
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import { usePosition } from '../geo'
-import { useLayoutConfig, useLayoutSvgScaleS } from '../map-xstate'
+import { useLayoutConfig } from '../map-xstate'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'
 import { entryToVs } from './point'
@@ -12,12 +12,13 @@ export function RenderMapMarkers(
   props: Readonly<RenderMapMarkersProps>
 ): ReactNode {
   const config = useLayoutConfig()
-  const s = useLayoutSvgScaleS()
+  //const s = useLayoutSvgScaleS()
 
-  const sz = s * config.fontSize * 0.9
+  //const sz = s * config.fontSize * 0.9
+  const sz = 25 / config.fontSize
 
   return (
-    <g className="map-markers">
+    <defs className="map-markers">
       {props.mapMarkers.map((entry, i) => (
         <g key={i}>
           <RenderUses
@@ -28,12 +29,12 @@ export function RenderMapMarkers(
           />
         </g>
       ))}
-      <RenderMarker sz={sz} />
+      <RenderCircle sz={sz} />
       <RenderPosition sz={sz} />
       <style>
         <RenderPositionStyle />
       </style>
-    </g>
+    </defs>
   )
 }
 
@@ -86,7 +87,7 @@ export function RenderMarkers(
   )
 }
 
-export function RenderMarker(props: Readonly<{ sz: number }>): ReactNode {
+export function RenderCircle(props: Readonly<{ sz: number }>): ReactNode {
   const r = props.sz / 2
   return (
     <path

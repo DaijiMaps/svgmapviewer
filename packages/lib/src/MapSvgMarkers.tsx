@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+import { Fragment, type ReactNode } from 'react'
 import { svgMapViewerConfig } from './lib'
 import { boxToViewBox2 } from './lib/box/prefixed'
 import { RenderMapMarkers } from './lib/carto'
@@ -12,6 +12,7 @@ import {
 import { useNames } from './lib/names'
 import { useLayout } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
+import type { VecVec } from './lib/vec/prefixed'
 import { SvgSymbolStyle } from './Style'
 
 export function MapSvgMarkers(): ReactNode {
@@ -59,8 +60,8 @@ function MapSvgMarkersSvg(): ReactNode {
 function MapSvgMarkersDefs(): ReactNode {
   return (
     <svg id="map-svg-markers-defs">
+      <RenderMapMarkers mapMarkers={svgMapViewerConfig.getMapMarkers()} />
       <g id="map-svg-markers1">
-        <RenderMapMarkers mapMarkers={svgMapViewerConfig.getMapMarkers()} />
         <MapSvgMarkersUses />
         <style>
           <SvgSymbolStyle />
@@ -76,14 +77,27 @@ function MapSvgMarkersUses(): ReactNode {
   return (
     <g>
       {pointNames.map(({ pos }, idx) => (
-        <use
-          key={idx}
-          href="#point-name-marker"
-          style={{
-            transform: `translate(${trunc2(pos.x)}px, ${trunc2(pos.y)}px)`,
-          }}
-        />
+        <Fragment key={idx}>
+          <MapSvgMarkersUse pos={pos} />
+        </Fragment>
       ))}
     </g>
+  )
+}
+
+function MapSvgMarkersUse(
+  props: Readonly<{
+    pos: VecVec
+  }>
+): ReactNode {
+  const { pos } = props
+
+  return (
+    <use
+      href="#point-name-marker"
+      style={{
+        transform: `translate(${trunc2(pos.x)}px, ${trunc2(pos.y)}px)`,
+      }}
+    />
   )
 }

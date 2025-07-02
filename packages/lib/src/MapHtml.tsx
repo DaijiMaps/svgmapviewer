@@ -54,7 +54,7 @@ function MapHtmlPointNames(): ReactNode {
             position: 'absolute',
             left: 0,
             top: 0,
-            transform: `translate(${poi.pos.x}px, ${poi.pos.y}px) scale(0.05) translate(-50%, -50%)`,
+            transform: `translate(${poi.pos.x}px, ${poi.pos.y}px) scale(0.025) translate(-50%, -50%)`,
             transformOrigin: 'left top',
           }}
         >
