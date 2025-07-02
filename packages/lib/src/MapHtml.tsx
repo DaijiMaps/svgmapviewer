@@ -15,34 +15,32 @@ export function MapHtml(): ReactNode {
 }
 
 function MapHtmlContent(): ReactNode {
-  const { scroll, svg, svgOffset, svgScale } = useLayout()
-  const m = fromSvgToScroll({ svg, svgOffset, svgScale })
-
   return (
-    <div
-      id={MAP_HTML_CONTENT_ID}
-      style={{
-        width: trunc2(scroll.width),
-        height: trunc2(scroll.height),
-        transform: `
-        ${m.toString()}
-        `,
-        transformOrigin: `left top`,
-      }}
-    >
+    <div id={MAP_HTML_CONTENT_ID}>
       <MapHtmlPointNames />
-      <style>{style}</style>
+      <MapHtmlStyle />
     </div>
   )
 }
 
-const style = `
+function MapHtmlStyle(): ReactNode {
+  const { scroll, svg, svgOffset, svgScale } = useLayout()
+  const m = fromSvgToScroll({ svg, svgOffset, svgScale })
+
+  const style = `
 #map-html-content {
   position: absolute;
   left: 0;
   top: 0;
+  width: ${trunc2(scroll.width)};
+  height: ${trunc2(scroll.height)};
+  transform: ${m.toString()};
+  transformOrigin: left top;
 }
 `
+
+  return <style>{style}</style>
+}
 
 function MapHtmlPointNames(): ReactNode {
   const { pointNames } = useNames()
