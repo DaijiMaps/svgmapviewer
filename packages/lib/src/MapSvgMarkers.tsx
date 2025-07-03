@@ -66,6 +66,7 @@ function MapSvgMarkersDefs(): ReactNode {
         <style>
           <SvgSymbolStyle />
         </style>
+        <use href="#position" />
       </g>
     </svg>
   )

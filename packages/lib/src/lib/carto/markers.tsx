@@ -2,7 +2,7 @@
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import { usePosition } from '../geo'
-import { useLayoutConfig } from '../map-xstate'
+import { useLayoutConfig, useLayoutSvgScaleS } from '../map-xstate'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'
 import { entryToVs } from './point'
@@ -147,6 +147,9 @@ z
 
 export function RenderPositionStyle(): ReactNode {
   const position = usePosition()
+  const config = useLayoutConfig()
+  const s = useLayoutSvgScaleS()
+  const sz = s * config.fontSize * 0.9
 
   if (position === null) {
     return (
@@ -166,7 +169,7 @@ export function RenderPositionStyle(): ReactNode {
     <>{`
 #position {
   display: initial !important;
-  transform: translate(${x}px, ${y}px) scale(2);
+  transform: translate(${x}px, ${y}px) scale(${sz});
 }
 `}</>
   )
