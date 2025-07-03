@@ -275,7 +275,7 @@ const viewerMachine = setup({
   states: {
     Resizing: {
       initial: 'WaitingForResizeRequest',
-      onDone: 'Panning',
+      onDone: 'Appearing',
       states: {
         WaitingForResizeRequest: {
           on: {
@@ -326,6 +326,13 @@ const viewerMachine = setup({
           },
         },
         Done: { type: 'final' },
+      },
+    },
+    Appearing: {
+      on: {
+        'ANIMATION.END': {
+          target: 'Panning',
+        },
       },
     },
     Panning: {
