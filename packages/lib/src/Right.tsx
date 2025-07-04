@@ -11,6 +11,7 @@ import {
   timing_opening,
 } from './lib/css'
 import { useShadowRoot } from './lib/dom'
+import { toggleFullscreen } from './lib/fullscreen'
 import { getPosition } from './lib/geo'
 import { useOpenCloseHeader } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
@@ -53,6 +54,7 @@ const style = `
 function Zoom(): ReactNode {
   return (
     <div className="zoom">
+      <Fullscreen />
       <Position />
       <Recenter />
       <ZoomOut />
@@ -91,6 +93,20 @@ const zoomStyle = `
   fill: none;
 }
 `
+
+function Fullscreen() {
+  return (
+    <div
+      className={'zoom-item'}
+      // eslint-disable-next-line functional/no-return-void
+      onClick={() => toggleFullscreen()}
+    >
+      <svg viewBox="-5.25 -5.25 10.5 10.5">
+        <path d={fullscreenPath} />
+      </svg>
+    </div>
+  )
+}
 
 function Position() {
   return (
@@ -270,3 +286,16 @@ a ${r / 2},${r / 2} 0,1,0 0,${r}
 // XXX
 // XXX
 // XXX
+
+const fullscreenPath = `
+M0,0
+m5,5
+m-1,-1
+h-8
+v-8
+h8
+z
+m1,-1
+v-8
+h-8
+`
