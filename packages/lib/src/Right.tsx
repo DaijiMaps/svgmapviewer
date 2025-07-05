@@ -92,12 +92,16 @@ const zoomStyle = `
   stroke-width: 0.4;
   fill: none;
 }
+
+.fullscreen {
+  display: none;
+}
 `
 
 function Fullscreen() {
   return (
     <div
-      className={'zoom-item'}
+      className={'zoom-item fullscreen'}
       // eslint-disable-next-line functional/no-return-void
       onClick={() => toggleFullscreen()}
     >
@@ -111,7 +115,7 @@ function Fullscreen() {
 function Position() {
   return (
     <div
-      className={'zoom-item'}
+      className={'zoom-item position'}
       // eslint-disable-next-line functional/no-return-void
       onClick={() => getPosition()}
     >
@@ -125,7 +129,7 @@ function Position() {
 function Recenter() {
   return (
     <div
-      className={'zoom-item'}
+      className={'zoom-item recenter'}
       // eslint-disable-next-line functional/no-return-void
       onClick={() => viewerSend({ type: 'RECENTER' })}
     >
@@ -139,7 +143,7 @@ function Recenter() {
 function ZoomOut() {
   return (
     <div
-      className={'zoom-item'}
+      className={'zoom-item zoom-out'}
       // eslint-disable-next-line functional/no-return-void
       onClick={() => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null })}
     >
@@ -153,7 +157,7 @@ function ZoomOut() {
 function ZoomIn() {
   return (
     <div
-      className={'zoom-item'}
+      className={'zoom-item zoom-in'}
       // eslint-disable-next-line functional/no-return-void
       onClick={() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })}
     >
