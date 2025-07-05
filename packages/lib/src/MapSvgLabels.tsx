@@ -161,8 +161,8 @@ function MapSvgLabelsDefs(): ReactNode {
             </Fragment>
           ))}
         </g>
+        <MapSvgLabelsUses />
       </defs>
-      <MapSvgLabelsUses />
     </svg>
   )
 }
