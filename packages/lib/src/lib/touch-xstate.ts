@@ -94,7 +94,7 @@ const touchMachine = setup({
       actions: 'handleTouchEnd',
     },
     CANCEL: {
-      target: 'Canceling',
+      target: '.Canceling',
     },
   },
   states: {
