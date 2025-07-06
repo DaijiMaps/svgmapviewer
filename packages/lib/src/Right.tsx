@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
@@ -13,6 +14,7 @@ import {
 import { useShadowRoot } from './lib/dom'
 import { toggleFullscreen } from './lib/fullscreen'
 import { getPosition } from './lib/geo'
+import { touchSendCancel } from './lib/touch-xstate'
 import { useOpenCloseHeader } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
 
@@ -103,7 +105,7 @@ function Fullscreen() {
     <div
       className={'zoom-item fullscreen'}
       // eslint-disable-next-line functional/no-return-void
-      onClick={() => toggleFullscreen()}
+      onClick={() => doFullscreen()}
     >
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={fullscreenPath} />
@@ -117,7 +119,7 @@ function Position() {
     <div
       className={'zoom-item position'}
       // eslint-disable-next-line functional/no-return-void
-      onClick={() => getPosition()}
+      onClick={() => doPosition()}
     >
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={positionPath} />
@@ -131,7 +133,7 @@ function Recenter() {
     <div
       className={'zoom-item recenter'}
       // eslint-disable-next-line functional/no-return-void
-      onClick={() => viewerSend({ type: 'RECENTER' })}
+      onClick={() => doRecenter()}
     >
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={panningPath} />
@@ -145,7 +147,7 @@ function ZoomOut() {
     <div
       className={'zoom-item zoom-out'}
       // eslint-disable-next-line functional/no-return-void
-      onClick={() => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null })}
+      onClick={() => doZoomOut()}
     >
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={zoomOutPath} />
@@ -159,13 +161,38 @@ function ZoomIn() {
     <div
       className={'zoom-item zoom-in'}
       // eslint-disable-next-line functional/no-return-void
-      onClick={() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })}
+      onClick={() => doZoomIn()}
     >
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={zoomInPath} />
       </svg>
     </div>
   )
+}
+
+function doFullscreen() {
+  toggleFullscreen()
+  touchSendCancel()
+}
+
+function doPosition() {
+  getPosition()
+  touchSendCancel()
+}
+
+function doRecenter() {
+  viewerSend({ type: 'RECENTER' })
+  touchSendCancel()
+}
+
+function doZoomOut() {
+  viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null })
+  touchSendCancel()
+}
+
+function doZoomIn() {
+  viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })
+  touchSendCancel()
 }
 
 export function RightStyle(): ReactNode {

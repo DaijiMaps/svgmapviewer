@@ -93,6 +93,9 @@ const touchMachine = setup({
     'TOUCH.END': {
       actions: 'handleTouchEnd',
     },
+    CANCEL: {
+      target: 'Canceling',
+    },
   },
   states: {
     Idle: {
@@ -114,9 +117,6 @@ const touchMachine = setup({
         ],
         //MOVED: {},
         //ENDED: [],
-        CANCEL: {
-          target: 'Canceling',
-        },
       },
     },
     SingleTouching: {
@@ -138,9 +138,6 @@ const touchMachine = setup({
             target: 'Idle',
           },
         ],
-        CANCEL: {
-          target: 'Canceling',
-        },
       },
     },
     DoubleTouching: {
@@ -167,9 +164,6 @@ const touchMachine = setup({
             target: 'SingleTouching',
           },
         ],
-        CANCEL: {
-          target: 'Canceling',
-        },
       },
     },
     ManyTouching: {
@@ -190,9 +184,6 @@ const touchMachine = setup({
             target: 'DoubleTouching',
           },
         ],
-        CANCEL: {
-          target: 'Canceling',
-        },
       },
     },
     Canceling: {
@@ -201,7 +192,7 @@ const touchMachine = setup({
         //MOVED: {},
         ENDED: [
           {
-            guard: 'isAllEnding',
+            //guard: 'isAllEnding',
             target: 'Idle',
           },
         ],

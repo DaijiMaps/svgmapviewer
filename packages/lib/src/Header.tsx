@@ -12,6 +12,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from './lib/css'
 import { useShadowRoot } from './lib/dom'
+import { touchSendCancel } from './lib/touch-xstate'
 import { uiSend, useOpenCloseHeader } from './lib/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
 
@@ -33,7 +34,7 @@ function HeaderContent(): ReactNode {
       <h1
         className="title"
         // eslint-disable-next-line functional/no-return-void
-        onClick={() => viewerSend({ type: 'LAYOUT.RESET' })}
+        onClick={() => doTitle()}
       >
         {config.title}
       </h1>
@@ -43,6 +44,12 @@ function HeaderContent(): ReactNode {
       </style>
     </div>
   )
+}
+
+// eslint-disable-next-line functional/no-return-void
+function doTitle() {
+  viewerSend({ type: 'LAYOUT.RESET' })
+  touchSendCancel()
 }
 
 const style = `
