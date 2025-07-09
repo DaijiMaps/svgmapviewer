@@ -195,7 +195,7 @@ export const getMapLayers: () => MapLayer[] = () => [
   {
     type: 'line',
     name: 'bridge shadow',
-    widthScale: 3.5,
+    widthScale: 1.8,
     filter: (p) => !!p.other_tags?.match(/"bridge"/),
   },
   {
