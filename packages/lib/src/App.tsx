@@ -36,6 +36,10 @@ const style = `
   user-select: none;
 }
 
+html, body {
+  overflow: hidden;
+}
+
 body {
   ${position_absolute_left_0_top_0}
   ${width_100vw_height_100svh}
@@ -43,7 +47,6 @@ body {
   ${box_sizing_border_box}
   ${touch_action_none}
   background-color: darkgray;
-  overflow: hidden;
 }
 
 svg {
