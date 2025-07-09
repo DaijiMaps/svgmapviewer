@@ -81,6 +81,11 @@ export const mapSvgStyle = `
 
 .grass {
   fill: khaki;
+  fill-opacity: 0.25;
+}
+
+.farmland {
+  fill: khaki;
   fill-opacity: 0.5;
 }
 
