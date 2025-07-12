@@ -92,7 +92,7 @@ export const mapSvgStyle = `
 .forest,
 .garden {
   fill: darkgreen;
-  fill-opacity: 0.25;
+  fill-opacity: 0.2;
 }
 
 .playground {
@@ -181,6 +181,12 @@ export const mapSvgStyle = `
 .bridge.edge {
   fill: none;
   stroke: black;
+}
+
+.tunnel.shadow {
+  fill: none;
+  stroke: black;
+  stroke-opacity: 0.2;
 }
 
 .wall {

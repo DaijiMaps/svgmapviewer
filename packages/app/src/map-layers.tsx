@@ -210,6 +210,12 @@ export const getMapLayers: () => MapLayer[] = () => [
     filter: (p) => !!p.other_tags?.match(/"bridge"/),
   },
   {
+    type: 'line',
+    name: 'tunnel shadow',
+    widthScale: 1.8,
+    filter: (p) => !!p.other_tags?.match(/"tunnel"/),
+  },
+  {
     type: 'multipolygon',
     name: 'roof',
     filter: (p) => !!p.building?.match(/./) && !!p.building?.match(/roof/),
