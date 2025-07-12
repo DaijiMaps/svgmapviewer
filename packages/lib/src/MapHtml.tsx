@@ -16,10 +16,12 @@ export function MapHtml(): ReactNode {
 
 function MapHtmlContent(): ReactNode {
   return (
-    <div id={MAP_HTML_CONTENT_ID}>
-      <MapHtmlPointNames />
+    <>
+      <div id={MAP_HTML_CONTENT_ID}>
+        <MapHtmlPointNames />
+      </div>
       <MapHtmlStyle />
-    </div>
+    </>
   )
 }
 
@@ -32,10 +34,10 @@ function MapHtmlStyle(): ReactNode {
   position: absolute;
   left: 0;
   top: 0;
-  width: ${trunc2(scroll.width)};
-  height: ${trunc2(scroll.height)};
+  width: ${trunc2(scroll.width)}px;
+  height: ${trunc2(scroll.height)}px;
   transform: ${m.toString()};
-  transformOrigin: left top;
+  transform-origin: left top;
 }
 `
 
