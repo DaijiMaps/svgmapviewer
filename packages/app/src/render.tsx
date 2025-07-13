@@ -144,6 +144,7 @@ function RenderProperties(
         maxWidth: 'calc(50vmin - 2em)',
         overflowX: 'scroll',
         overscrollBehaviorX: 'none',
+        touchAction: 'none',
       }}
     >
       <tbody style={{ border: 0 }}>
