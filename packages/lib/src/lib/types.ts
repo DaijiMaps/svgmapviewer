@@ -172,6 +172,7 @@ export interface RenderConfig {
   searchEntries: SearchEntry[]
   renderInfo: RenderInfo
   mapSvgStyle: string
+  renderMap: RenderMap
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>

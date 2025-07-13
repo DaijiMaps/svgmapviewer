@@ -2,6 +2,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 import { type ReactNode, useRef } from 'react'
+import { svgMapViewerConfig } from './lib'
 import {
   position_absolute_left_0_top_0,
   width_100vw_height_100svh,
@@ -21,7 +22,6 @@ import {
   sendScroll,
   sendWheel,
 } from './lib/viewer-react'
-import { RenderMapDefault } from './Map'
 
 export function Container(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
@@ -43,7 +43,7 @@ export function Container(): ReactNode {
         styleAnimationEnd()
       }}
     >
-      <RenderMapDefault />
+      {svgMapViewerConfig.renderMap()}
       <style>{style}</style>
       <AnimationStyle />
     </div>
