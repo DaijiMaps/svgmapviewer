@@ -1,4 +1,8 @@
-import { type RenderConfig, RenderMapOsmDefault } from '@daijimaps/svgmapviewer'
+import {
+  isMapRenderedOsmDefault,
+  type RenderConfig,
+  RenderMapOsmDefault,
+} from '@daijimaps/svgmapviewer'
 import { getMapNames } from '@daijimaps/svgmapviewer/carto'
 import { getMapLayers } from './map-layers'
 import { mapSvgStyle } from './map-layers-css'
@@ -18,4 +22,5 @@ export const renderConfig: RenderConfig = {
   renderInfo: RenderInfo,
   mapSvgStyle,
   renderMap: RenderMapOsmDefault,
+  isMapRendered: isMapRenderedOsmDefault,
 }

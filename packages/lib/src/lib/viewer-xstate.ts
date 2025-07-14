@@ -4,6 +4,7 @@ import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import { animationEndLayout, animationHome, animationZoom } from './animation'
 import { type Animation } from './animation-types'
 import { boxCenter } from './box/prefixed'
+import { svgMapViewerConfig } from './config'
 import {
   notifyAnimation,
   notifyLayout,
@@ -25,7 +26,6 @@ import {
   makeLayout,
   scrollLayout,
 } from './layout'
-import { MAP_SVG_LAYERS_ROOT_ID } from './map-svg-react'
 import { getCurrentScroll } from './scroll'
 import { type GetDone, type SyncSyncDone } from './scroll-types'
 import { scrollCbs, scrollSend } from './scroll-xstate'
@@ -62,7 +62,7 @@ const viewerMachine = setup({
     isTouching: ({ context: { touching } }) => touching,
     isHoming: ({ context: { homing } }) => homing,
     isContainerRendered: () => document.querySelector('.container') !== null,
-    isMapSvgLayersRendered: () => isShadowRootRendered(MAP_SVG_LAYERS_ROOT_ID),
+    isMapRendered: () => svgMapViewerConfig.isMapRendered(),
     isUiRendered: () => isShadowRootRendered(UI_ROOT_ID),
   },
   actions: {
@@ -301,7 +301,7 @@ const viewerMachine = setup({
           always: {
             guard: and([
               'isContainerRendered',
-              'isMapSvgLayersRendered',
+              'isMapRendered',
               'isUiRendered',
             ]),
             target: 'Layouting',

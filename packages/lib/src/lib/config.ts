@@ -48,6 +48,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   renderInfo: renderInfoDefault,
   mapSvgStyle: '',
   renderMap: RenderMapDefault,
+  isMapRendered: () => true,
 
   // DataConfig
   mapData: emptyMapData,

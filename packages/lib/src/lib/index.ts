@@ -1,5 +1,9 @@
 import { Like } from '../Like'
-import { RenderMapDefault, RenderMapOsmDefault } from '../Map'
+import {
+  RenderMapDefault,
+  RenderMapOsmDefault,
+  isMapRenderedOsmDefault,
+} from '../Map'
 import { svgMapViewerConfig } from './config'
 import {
   configActorStart,
@@ -21,6 +25,7 @@ import {
   useConfigMapNames,
 } from './config-xstate'
 import { type Layout } from './layout'
+import { useLayout } from './style-xstate'
 import { svgmapviewer } from './svgmapviewer'
 import {
   type DataConfig,
@@ -82,6 +87,10 @@ export { type Layout }
 
 export { Like }
 
+// style
+
+export { useLayout }
+
 // map
 
-export { RenderMapDefault, RenderMapOsmDefault }
+export { RenderMapDefault, RenderMapOsmDefault, isMapRenderedOsmDefault }

@@ -173,6 +173,7 @@ export interface RenderConfig {
   renderInfo: RenderInfo
   mapSvgStyle: string
   renderMap: RenderMap
+  isMapRendered: () => boolean
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>
