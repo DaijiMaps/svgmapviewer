@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { root } from '../Root'
@@ -56,12 +57,13 @@ export function svgmapviewer(
     searchDoneCb: searchSearchDone,
   })
 
-  // eslint-disable-next-line functional/no-conditional-statements
   if (configUser.getMapNames) {
     configSend({ type: 'SET.MAPNAMES', mapNames: configUser.getMapNames() })
   }
 
-  workerSearchInit(getAddressEntries(config.mapData, config.searchEntries))
+  if (config.searchEntries.length > 0) {
+    workerSearchInit(getAddressEntries(config.mapData, config.searchEntries))
+  }
 
   root(config)
   styleRoot()
