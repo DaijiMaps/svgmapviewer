@@ -25,7 +25,7 @@ import {
   useConfigMapNames,
 } from './config-xstate'
 import { type Layout } from './layout'
-import { useLayout } from './style-xstate'
+import { useLayout, useLayout2 } from './style-xstate'
 import { svgmapviewer } from './svgmapviewer'
 import {
   type DataConfig,
@@ -89,7 +89,7 @@ export { Like }
 
 // style
 
-export { useLayout }
+export { useLayout, useLayout2 }
 
 // map
 

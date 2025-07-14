@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, raise, setup } from 'xstate'
 import { type Animation } from './animation-types'
-import type { BoxBox } from './box/prefixed'
+import { boxToViewBox2, type BoxBox } from './box/prefixed'
 import { svgMapViewerConfig } from './config'
 import { registerCbs } from './config-xstate'
 import { fromSvgToScroll } from './coord'
@@ -10,6 +10,7 @@ import type { DistanceRadius } from './distance-types'
 import { makeExpire } from './expire-xstate'
 import { emptyLayout, type Layout } from './layout'
 import { getCurrentScroll, scrollEventCbs, type CurrentScroll } from './scroll'
+import { trunc2 } from './utils'
 import { vecZero, type VecVec } from './vec/prefixed'
 
 export type StyleEvent =
@@ -229,6 +230,19 @@ export function useDistanceRadius(): DistanceRadius {
 }
 export function useSvgRange(): Range {
   return useSelector(styleActor, (s) => s.context.svgRange)
+}
+export function useLayout2(): {
+  viewBox: string
+  width: number
+  height: number
+} {
+  const { scroll, svg } = useSelector(styleActor, (s) => s.context.layout)
+
+  return {
+    viewBox: boxToViewBox2(svg),
+    width: trunc2(scroll.width),
+    height: trunc2(scroll.height),
+  }
 }
 
 registerCbs({
