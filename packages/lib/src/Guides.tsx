@@ -7,6 +7,7 @@ import {
   MeasureCoordinate,
   MeasureDistance,
 } from './Measure'
+import { svgMapViewerConfig } from './lib'
 import {
   pointer_events_none,
   position_absolute_left_0_top_0,
@@ -23,7 +24,9 @@ export function Guides(): ReactNode {
 }
 
 function GuidesContent(): ReactNode {
-  return (
+  return svgMapViewerConfig.mapCoord.matrix.isIdentity ? (
+    <></>
+  ) : (
     <div className="ui-content guides">
       <svg className="guides">
         <Measure />
