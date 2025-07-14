@@ -13,6 +13,10 @@ export function RenderMap(): ReactNode {
 }
 
 export function RenderMapDefault(): ReactNode {
+  return <></>
+}
+
+export function RenderMapOsmDefault(): ReactNode {
   return (
     <>
       <MapSvgLayers />

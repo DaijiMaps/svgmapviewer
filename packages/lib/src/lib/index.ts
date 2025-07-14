@@ -1,4 +1,5 @@
 import { Like } from '../Like'
+import { RenderMapDefault, RenderMapOsmDefault } from '../Map'
 import { svgMapViewerConfig } from './config'
 import {
   configActorStart,
@@ -80,3 +81,7 @@ export { type Layout }
 // like
 
 export { Like }
+
+// map
+
+export { RenderMapDefault, RenderMapOsmDefault }
