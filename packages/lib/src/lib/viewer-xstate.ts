@@ -362,6 +362,8 @@ const viewerMachine = setup({
           },
         ],
         CLICK: {
+          // only when search entries exist
+          guard: () => svgMapViewerConfig.searchEntries.length > 0,
           actions: [
             {
               type: 'cursor',
