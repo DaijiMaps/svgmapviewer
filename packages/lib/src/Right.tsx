@@ -2,6 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
+import { svgMapViewerConfig } from './lib'
 import {
   flex_column_center_center,
   flex_row_center_center,
@@ -102,11 +103,7 @@ const zoomStyle = `
 
 function Fullscreen() {
   return (
-    <div
-      className={'zoom-item fullscreen'}
-      // eslint-disable-next-line functional/no-return-void
-      onClick={() => doFullscreen()}
-    >
+    <div className={'zoom-item fullscreen'} onClick={() => doFullscreen()}>
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={fullscreenPath} />
       </svg>
@@ -115,12 +112,10 @@ function Fullscreen() {
 }
 
 function Position() {
-  return (
-    <div
-      className={'zoom-item position'}
-      // eslint-disable-next-line functional/no-return-void
-      onClick={() => doPosition()}
-    >
+  return svgMapViewerConfig.mapCoord.matrix.isIdentity ? (
+    <></>
+  ) : (
+    <div className={'zoom-item position'} onClick={() => doPosition()}>
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={positionPath} />
       </svg>
@@ -130,11 +125,7 @@ function Position() {
 
 function Recenter() {
   return (
-    <div
-      className={'zoom-item recenter'}
-      // eslint-disable-next-line functional/no-return-void
-      onClick={() => doRecenter()}
-    >
+    <div className={'zoom-item recenter'} onClick={() => doRecenter()}>
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={panningPath} />
       </svg>
@@ -144,11 +135,7 @@ function Recenter() {
 
 function ZoomOut() {
   return (
-    <div
-      className={'zoom-item zoom-out'}
-      // eslint-disable-next-line functional/no-return-void
-      onClick={() => doZoomOut()}
-    >
+    <div className={'zoom-item zoom-out'} onClick={() => doZoomOut()}>
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={zoomOutPath} />
       </svg>
@@ -158,11 +145,7 @@ function ZoomOut() {
 
 function ZoomIn() {
   return (
-    <div
-      className={'zoom-item zoom-in'}
-      // eslint-disable-next-line functional/no-return-void
-      onClick={() => doZoomIn()}
-    >
+    <div className={'zoom-item zoom-in'} onClick={() => doZoomIn()}>
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={zoomInPath} />
       </svg>
