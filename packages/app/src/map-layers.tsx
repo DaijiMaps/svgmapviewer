@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 import { svgMapViewerConfig } from '@daijimaps/svgmapviewer'
-import { MapLayer } from '@daijimaps/svgmapviewer/carto'
-import { MultiPolygon } from '@daijimaps/svgmapviewer/geo'
+import { type MapLayer } from '@daijimaps/svgmapviewer/carto'
+import { type MultiPolygon } from '@daijimaps/svgmapviewer/geo'
 
 function getInternals() {
   return (
