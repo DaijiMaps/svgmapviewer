@@ -5,7 +5,11 @@
 import { type ReactNode, StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { timing_opening } from './lib/css'
-import { useLayoutConfig, useLayoutSvgScaleS, useZoom } from './lib/map-xstate'
+import {
+  useLayoutConfig,
+  useLayoutSvgScaleS,
+  useZoom,
+} from './lib/map/map-xstate'
 import {
   useAppearing,
   useLayoutScroll,

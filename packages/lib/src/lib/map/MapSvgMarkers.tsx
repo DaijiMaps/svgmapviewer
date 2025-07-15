@@ -6,14 +6,14 @@ import { SvgSymbolStyle } from '../../Style'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapMarkers } from '../carto'
 import { useShadowRoot } from '../dom'
-import {
-  MAP_SVG_MARKERS_CONTENT_ID,
-  MAP_SVG_MARKERS_ROOT_ID,
-} from '../map-svg-react'
 import { useNames } from '../names'
 import { useLayout } from '../style-xstate'
 import { trunc2 } from '../utils'
 import type { VecVec } from '../vec/prefixed'
+import {
+  MAP_SVG_MARKERS_CONTENT_ID,
+  MAP_SVG_MARKERS_ROOT_ID,
+} from './map-svg-react'
 
 export function MapSvgMarkers(): ReactNode {
   useShadowRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkersContent />)

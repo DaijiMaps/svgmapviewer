@@ -2,7 +2,7 @@
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import { usePosition } from '../geo'
-import { useLayoutConfig, useLayoutSvgScaleS } from '../map-xstate'
+import { useLayoutConfig, useLayoutSvgScaleS } from '../map/map-xstate'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'
 import { entryToVs } from './point'

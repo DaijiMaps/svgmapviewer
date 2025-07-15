@@ -2,7 +2,7 @@
 import { type ReactNode } from 'react'
 import { RenderMapCommon } from '../carto'
 import { isShadowRootRendered } from '../dom'
-import { MAP_SVG_LAYERS_ROOT_ID } from '../map-svg-react'
+import { MAP_SVG_LAYERS_ROOT_ID } from './map-svg-react'
 import { MapHtml } from './MapHtml'
 import { MapSvgLabels } from './MapSvgLabels'
 import { MapSvgLayers } from './MapSvgLayers'

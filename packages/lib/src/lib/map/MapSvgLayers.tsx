@@ -5,12 +5,12 @@ import { svgMapViewerConfig } from '..'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapLayers } from '../carto'
 import { useShadowRoot } from '../dom'
+import { useLayout } from '../style-xstate'
+import { trunc2 } from '../utils'
 import {
   MAP_SVG_LAYERS_CONTENT_ID,
   MAP_SVG_LAYERS_ROOT_ID,
-} from '../map-svg-react'
-import { useLayout } from '../style-xstate'
-import { trunc2 } from '../utils'
+} from './map-svg-react'
 
 export function MapSvgLayers(): ReactNode {
   useShadowRoot(MAP_SVG_LAYERS_ROOT_ID, <MapSvgLayersContent />)

@@ -7,12 +7,12 @@ import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapSymbols } from '../carto'
 import { RenderMapAssetsDefault } from '../carto/assets'
 import { useShadowRoot } from '../dom'
+import { useLayout } from '../style-xstate'
+import { trunc2 } from '../utils'
 import {
   MAP_SVG_SYMBOLS_CONTENT_ID,
   MAP_SVG_SYMBOLS_ROOT_ID,
-} from '../map-svg-react'
-import { useLayout } from '../style-xstate'
-import { trunc2 } from '../utils'
+} from './map-svg-react'
 
 export function MapSvgSymbols(): ReactNode {
   useShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbolsContent />)
