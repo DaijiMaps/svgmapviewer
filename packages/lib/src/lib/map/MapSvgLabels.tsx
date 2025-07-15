@@ -1,18 +1,18 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode, useMemo } from 'react'
-import { boxToViewBox2 } from './lib/box/prefixed'
-import { useShadowRoot } from './lib/dom'
-import type { POI } from './lib/geo'
+import { boxToViewBox2 } from '../box/prefixed'
+import { useShadowRoot } from '../dom'
+import type { POI } from '../geo'
 import {
   MAP_SVG_LABELS_CONTENT_ID,
   MAP_SVG_LABELS_ROOT_ID,
-} from './lib/map-svg-react'
-import { useLayoutSvgScaleS } from './lib/map-xstate'
-import { useNameRanges, useNames } from './lib/names'
-import { useLayout } from './lib/style-xstate'
-import { voffset } from './lib/text'
-import { trunc2 } from './lib/utils'
+} from '../map-svg-react'
+import { useLayoutSvgScaleS } from '../map-xstate'
+import { useNameRanges, useNames } from '../names'
+import { useLayout } from '../style-xstate'
+import { voffset } from '../text'
+import { trunc2 } from '../utils'
 
 export function MapSvgLabels(): ReactNode {
   useShadowRoot(MAP_SVG_LABELS_ROOT_ID, <MapSvgLabelsContent />)

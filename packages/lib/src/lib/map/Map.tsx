@@ -1,8 +1,8 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { RenderMapCommon } from './lib/carto'
-import { isShadowRootRendered } from './lib/dom'
-import { MAP_SVG_LAYERS_ROOT_ID } from './lib/map-svg-react'
+import { RenderMapCommon } from '../carto'
+import { isShadowRootRendered } from '../dom'
+import { MAP_SVG_LAYERS_ROOT_ID } from '../map-svg-react'
 import { MapHtml } from './MapHtml'
 import { MapSvgLabels } from './MapSvgLabels'
 import { MapSvgLayers } from './MapSvgLayers'

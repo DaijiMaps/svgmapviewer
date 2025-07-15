@@ -1,16 +1,16 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig } from './lib'
-import { boxToViewBox2 } from './lib/box/prefixed'
-import { RenderMapLayers } from './lib/carto'
-import { useShadowRoot } from './lib/dom'
+import { svgMapViewerConfig } from '..'
+import { boxToViewBox2 } from '../box/prefixed'
+import { RenderMapLayers } from '../carto'
+import { useShadowRoot } from '../dom'
 import {
   MAP_SVG_LAYERS_CONTENT_ID,
   MAP_SVG_LAYERS_ROOT_ID,
-} from './lib/map-svg-react'
-import { useLayout } from './lib/style-xstate'
-import { trunc2 } from './lib/utils'
+} from '../map-svg-react'
+import { useLayout } from '../style-xstate'
+import { trunc2 } from '../utils'
 
 export function MapSvgLayers(): ReactNode {
   useShadowRoot(MAP_SVG_LAYERS_ROOT_ID, <MapSvgLayersContent />)

@@ -1,12 +1,12 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import type { ReactNode } from 'react'
-import { fromSvgToScroll } from './lib/coord'
-import { useShadowRoot } from './lib/dom'
-import { MAP_HTML_CONTENT_ID, MAP_HTML_ROOT_ID } from './lib/map-svg-react'
-import { useNames } from './lib/names'
-import { useLayout } from './lib/style-xstate'
-import { trunc2 } from './lib/utils'
+import { fromSvgToScroll } from '../coord'
+import { useShadowRoot } from '../dom'
+import { MAP_HTML_CONTENT_ID, MAP_HTML_ROOT_ID } from '../map-svg-react'
+import { useNames } from '../names'
+import { useLayout } from '../style-xstate'
+import { trunc2 } from '../utils'
 
 export function MapHtml(): ReactNode {
   useShadowRoot(MAP_HTML_ROOT_ID, <MapHtmlContent />)

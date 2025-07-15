@@ -1,18 +1,18 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig } from './lib'
-import { boxToViewBox2 } from './lib/box/prefixed'
-import { RenderMapSymbols } from './lib/carto'
-import { RenderMapAssetsDefault } from './lib/carto/assets'
-import { useShadowRoot } from './lib/dom'
+import { svgMapViewerConfig } from '..'
+import { SvgSymbolStyle } from '../../Style'
+import { boxToViewBox2 } from '../box/prefixed'
+import { RenderMapSymbols } from '../carto'
+import { RenderMapAssetsDefault } from '../carto/assets'
+import { useShadowRoot } from '../dom'
 import {
   MAP_SVG_SYMBOLS_CONTENT_ID,
   MAP_SVG_SYMBOLS_ROOT_ID,
-} from './lib/map-svg-react'
-import { useLayout } from './lib/style-xstate'
-import { trunc2 } from './lib/utils'
-import { SvgSymbolStyle } from './Style'
+} from '../map-svg-react'
+import { useLayout } from '../style-xstate'
+import { trunc2 } from '../utils'
 
 export function MapSvgSymbols(): ReactNode {
   useShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbolsContent />)
