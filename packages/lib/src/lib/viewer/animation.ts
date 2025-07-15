@@ -1,12 +1,12 @@
 import { pipe } from 'fp-ts/lib/function'
+import { boxCenter, boxScaleAt } from '../box/prefixed'
+import { svgMapViewerConfig } from '../config'
+import { matrixMultiply, matrixScaleAt } from '../matrix/prefixed'
+import { type VecVec as Vec } from '../vec/prefixed'
 import type { Animation } from './animation-types'
-import { boxCenter, boxScaleAt } from './box/prefixed'
-import { svgMapViewerConfig } from './config'
 import { fromMatrixSvg } from './coord'
 import { type Layout, relocLayout, zoomLayout } from './layout'
-import { matrixMultiply, matrixScaleAt } from './matrix/prefixed'
 import { fromTransform, invMove, invScale, transformScale } from './transform'
-import { type VecVec as Vec } from './vec/prefixed'
 
 export const animationZoom = (
   layout: Layout,

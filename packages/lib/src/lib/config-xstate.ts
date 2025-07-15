@@ -1,8 +1,6 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
-import type { Animation } from './animation-types'
 import { type POI } from './geo'
-import { type Layout } from './layout'
 import {
   type ConfigCb,
   type ConfigCbs,
@@ -21,6 +19,8 @@ import {
   type ZoomStartCb,
 } from './types'
 import { type VecVec } from './vec/prefixed'
+import type { Animation } from './viewer/animation-types'
+import { type Layout } from './viewer/layout'
 
 interface ConfigContext extends ConfigCbs {
   // XXX SvgMapViewerConfig

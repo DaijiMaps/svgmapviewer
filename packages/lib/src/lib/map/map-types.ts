@@ -1,4 +1,4 @@
-import { type Layout } from '../layout-types'
+import { type Layout } from '../viewer/layout-types'
 
 type RenderMapContext = {
   layout: Readonly<Layout>

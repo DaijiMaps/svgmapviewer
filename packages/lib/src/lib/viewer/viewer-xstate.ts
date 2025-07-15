@@ -1,10 +1,8 @@
 import { useSelector } from '@xstate/react'
 import React from 'react'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
-import { animationEndLayout, animationHome, animationZoom } from './animation'
-import { type Animation } from './animation-types'
-import { boxCenter } from './box/prefixed'
-import { svgMapViewerConfig } from './config'
+import { boxCenter } from '../box/prefixed'
+import { svgMapViewerConfig } from '../config'
 import {
   notifyAnimation,
   notifyLayout,
@@ -15,7 +13,12 @@ import {
   notifyZoomEnd,
   notifyZoomStart,
   registerCbs,
-} from './config-xstate'
+} from '../config-xstate'
+import { styleSend } from '../style-xstate'
+import { type SearchRes } from '../types'
+import { type VecVec as Vec, vecVec } from '../vec/prefixed'
+import { animationEndLayout, animationHome, animationZoom } from './animation'
+import { type Animation } from './animation-types'
 import { fromMatrixSvg } from './coord'
 import { keyToZoom } from './key'
 import {
@@ -28,9 +31,6 @@ import {
 import { getCurrentScroll } from './scroll'
 import { type GetDone, type SyncSyncDone } from './scroll-types'
 import { scrollCbs, scrollSend } from './scroll-xstate'
-import { styleSend } from './style-xstate'
-import { type SearchRes } from './types'
-import { type VecVec as Vec, vecVec } from './vec/prefixed'
 import {
   EXPAND_PANNING,
   type ReactUIEvent,

@@ -19,7 +19,6 @@ import {
   registerCbs,
   useConfigMapNames,
 } from './config-xstate'
-import { type Layout } from './layout'
 import { useLayout, useLayout2 } from './style-xstate'
 import { svgmapviewer } from './svgmapviewer'
 import {
@@ -32,6 +31,7 @@ import {
   type SvgMapViewerConfig,
   type SvgMapViewerConfigUser,
 } from './types'
+import { type Layout } from './viewer/layout'
 
 // types
 

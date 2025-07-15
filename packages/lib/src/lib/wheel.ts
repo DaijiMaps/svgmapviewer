@@ -12,7 +12,7 @@
 // XXX
 
 import { useEffect, useRef, type RefObject } from 'react'
-import { wheeleventmask } from './viewer-xstate'
+import { wheeleventmask } from './viewer/viewer-xstate'
 
 export function useOnWheel(): RefObject<null | HTMLDivElement> {
   const ref = useRef<HTMLDivElement>(null)

@@ -1,9 +1,9 @@
 import React from 'react'
+import { type BoxBox } from '../box/prefixed'
+import { type Info, type SearchRes } from '../types'
+import { type VecVec as Vec, type VecVec } from '../vec/prefixed'
 import { type Animation } from './animation-types'
-import { type BoxBox } from './box/prefixed'
 import { type Layout } from './layout'
-import { type Info, type SearchRes } from './types'
-import { type VecVec as Vec, type VecVec } from './vec/prefixed'
 
 export const EXPAND_PANNING = 9
 

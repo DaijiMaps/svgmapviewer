@@ -1,10 +1,10 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import type { ReactNode } from 'react'
-import { fromSvgToScroll } from '../coord'
 import { useShadowRoot } from '../dom'
 import { useLayout } from '../style-xstate'
 import { trunc2 } from '../utils'
+import { fromSvgToScroll } from '../viewer/coord'
 import { MAP_HTML_CONTENT_ID, MAP_HTML_ROOT_ID } from './map-svg-react'
 import { useNames } from './names'
 

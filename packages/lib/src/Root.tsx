@@ -8,9 +8,9 @@ import { createRoot } from 'react-dom/client'
 import App from './App'
 import { type SvgMapViewerConfig } from './lib'
 import { svgMapViewerConfig } from './lib/config'
-import { touching } from './lib/touch-xstate'
-import { keyDown, keyUp } from './lib/viewer-react'
-import { wheeleventmask } from './lib/viewer-xstate'
+import { touching } from './lib/viewer/touch-xstate'
+import { keyDown, keyUp } from './lib/viewer/viewer-react'
+import { wheeleventmask } from './lib/viewer/viewer-xstate'
 
 export const SvgMapViewerConfigContext: Context<SvgMapViewerConfig> =
   createContext(svgMapViewerConfig)

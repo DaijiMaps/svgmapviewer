@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-throw-statements */
 import type { DistanceRadius } from './distance-types'
-import type { Layout } from './layout-types'
+import type { Layout } from './viewer/layout-types'
 
 export function findRadius({
   container,

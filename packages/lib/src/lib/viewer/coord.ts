@@ -1,11 +1,11 @@
-import { type BoxBox as Box, boxCopy, boxUnit } from './box/prefixed'
+import { type BoxBox as Box, boxCopy, boxUnit } from '../box/prefixed'
+import { vecScale } from '../vec/prefixed'
 import type {
   HtmlLayoutCoord,
   LayoutConfig,
   LayoutCoord,
   SvgLayoutCoord,
 } from './layout-types'
-import { vecScale } from './vec/prefixed'
 
 //// LayoutCoord
 //// makeCoord

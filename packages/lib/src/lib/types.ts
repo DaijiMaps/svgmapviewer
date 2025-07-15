@@ -1,7 +1,6 @@
 /* eslint-disable functional/no-mixed-types */
 /* eslint-disable functional/no-return-void */
 import { type ReactNode } from 'react'
-import type { Animation } from './animation-types'
 import { type BoxBox } from './box/prefixed'
 import type { CartoConfig } from './carto'
 import {
@@ -13,8 +12,9 @@ import {
 import type { SearchEntry } from './geo'
 import { type MapCoord, type MapData, type MapMap } from './geo/data-types'
 import { type POI } from './geo/poi-types'
-import { type Layout, type LayoutCoord } from './layout-types'
 import { type Vec } from './vec'
+import type { Animation } from './viewer/animation-types'
+import { type Layout, type LayoutCoord } from './viewer/layout-types'
 
 //// layout
 

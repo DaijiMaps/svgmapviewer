@@ -1,8 +1,8 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
 import { registerCbs } from '../config-xstate'
-import { emptyLayout } from '../layout'
-import { type Layout, type LayoutConfig } from '../layout-types'
+import { emptyLayout } from '../viewer/layout'
+import { type Layout, type LayoutConfig } from '../viewer/layout-types'
 import type { RenderMapContext, RenderMapEvent } from './map-types'
 
 const renderMapMachine = setup({

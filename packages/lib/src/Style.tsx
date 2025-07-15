@@ -17,7 +17,7 @@ import {
   useShown,
 } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
-import { viewerSend } from './lib/viewer-xstate'
+import { viewerSend } from './lib/viewer/viewer-xstate'
 
 export function styleRoot(): void {
   const e = document.getElementById('style-root')

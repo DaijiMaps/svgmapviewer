@@ -1,5 +1,5 @@
+import { type VecVec } from '../vec/prefixed'
 import { type Touches } from './touch'
-import { type VecVec } from './vec/prefixed'
 
 // XXX TouchEvent is DOM
 type TouchEventStart = { type: 'TOUCH.START'; ev: React.TouchEvent }

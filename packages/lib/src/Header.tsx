@@ -12,9 +12,9 @@ import {
   ZOOM_DURATION_HEADER,
 } from './lib/css'
 import { useShadowRoot } from './lib/dom'
-import { touchSendCancel } from './lib/touch-xstate'
 import { uiSend, useOpenCloseHeader } from './lib/ui/ui-xstate'
-import { viewerSend } from './lib/viewer-xstate'
+import { touchSendCancel } from './lib/viewer/touch-xstate'
+import { viewerSend } from './lib/viewer/viewer-xstate'
 
 export function Header(): ReactNode {
   useShadowRoot('header', <HeaderContent />, 'ui')

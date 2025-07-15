@@ -1,4 +1,4 @@
-import { type BoxBox as Box, type BoxBox } from './box/prefixed'
+import { type BoxBox as Box, type BoxBox } from '../box/prefixed'
 
 type ScrollGet = {
   type: 'GET'

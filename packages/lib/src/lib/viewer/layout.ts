@@ -8,7 +8,8 @@ import {
   boxMoveTo,
   boxScaleAt,
   boxUnit,
-} from './box/prefixed'
+} from '../box/prefixed'
+import { type VecVec as Vec, vecScale, vecSub } from '../vec/prefixed'
 import {
   emptyLayoutCoord,
   fromMatrixSvg,
@@ -25,7 +26,6 @@ import type {
   SvgLayoutCoord,
 } from './layout-types'
 import { type Scale } from './transform'
-import { type VecVec as Vec, vecScale, vecSub } from './vec/prefixed'
 
 //// LayoutConfig
 //// Layout

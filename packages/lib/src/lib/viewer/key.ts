@@ -1,4 +1,4 @@
-import { type Vec } from './vec'
+import { type Vec } from '../vec'
 
 export function keyToDir(key: string): Vec {
   return {

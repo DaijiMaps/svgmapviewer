@@ -1,4 +1,4 @@
-import { type BoxBox as Box } from './box/prefixed'
+import { type BoxBox as Box } from '../box/prefixed'
 import { type Layout } from './layout'
 
 type ResizeEvent = { type: 'RESIZE' } | { type: 'EXPIRED' }

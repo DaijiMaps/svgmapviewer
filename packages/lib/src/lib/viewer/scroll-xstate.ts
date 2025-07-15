@@ -1,5 +1,5 @@
 import { assign, createActor, emit, fromPromise, setup } from 'xstate'
-import { type BoxBox as Box } from './box/prefixed'
+import { type BoxBox as Box } from '../box/prefixed'
 import { getScroll, syncScroll } from './scroll'
 import type {
   GetDone,

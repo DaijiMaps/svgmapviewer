@@ -1,5 +1,5 @@
-import { type BoxBox as Box } from './box/prefixed'
-import { type V } from './tuple'
+import { type BoxBox as Box } from '../box/prefixed'
+import { type V } from '../tuple'
 
 const fitH = (o: Box, r: number): V => [0, (o.height - o.width / r) / 2]
 

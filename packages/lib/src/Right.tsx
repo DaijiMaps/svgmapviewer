@@ -14,10 +14,10 @@ import {
 } from './lib/css'
 import { useShadowRoot } from './lib/dom'
 import { getPosition } from './lib/geo'
-import { touchSendCancel } from './lib/touch-xstate'
 import { toggleFullscreen } from './lib/ui/fullscreen'
 import { useOpenCloseHeader } from './lib/ui/ui-xstate'
-import { viewerSend } from './lib/viewer-xstate'
+import { touchSendCancel } from './lib/viewer/touch-xstate'
+import { viewerSend } from './lib/viewer/viewer-xstate'
 
 export function Right(): ReactNode {
   useShadowRoot('right', <RightContent />, 'ui')

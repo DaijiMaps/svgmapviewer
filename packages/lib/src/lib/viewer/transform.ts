@@ -1,10 +1,10 @@
-import { type BoxBox as Box } from './box/prefixed'
+import { type BoxBox as Box } from '../box/prefixed'
 import {
   type MatrixMatrix as Matrix,
   matrixApply,
   matrixMultiply,
-} from './matrix/prefixed'
-import { type VecVec as Vec } from './vec/prefixed'
+} from '../matrix/prefixed'
+import { type VecVec as Vec } from '../vec/prefixed'
 
 //// Transform
 //// Move

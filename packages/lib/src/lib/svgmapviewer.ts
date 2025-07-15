@@ -10,8 +10,6 @@ import { configActorStart, configSend, registerCbs } from './config-xstate'
 import { isShadowRootRendered } from './dom'
 import { geolocActorStart } from './geo'
 import { renderMapActorStart } from './map/map-xstate'
-import { resizeActorStart } from './resize-xstate'
-import { scrollActorStart } from './scroll-xstate'
 import { getAddressEntries } from './search'
 import { workerSearchInit } from './search/search-main'
 import {
@@ -20,11 +18,13 @@ import {
   searchSearchStart,
 } from './search/search-xstate'
 import { styleActorStart } from './style-xstate'
-import { touchActorStart } from './touch-xstate'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
 import { UI_ROOT_ID } from './ui/ui-react'
 import { uiActorStart } from './ui/ui-xstate'
-import { viewerActorStart } from './viewer-xstate'
+import { resizeActorStart } from './viewer/resize-xstate'
+import { scrollActorStart } from './viewer/scroll-xstate'
+import { touchActorStart } from './viewer/touch-xstate'
+import { viewerActorStart } from './viewer/viewer-xstate'
 
 export function svgmapviewer(
   configUser: Readonly<SvgMapViewerConfigUser>

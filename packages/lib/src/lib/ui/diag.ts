@@ -1,6 +1,6 @@
-import { type Dir, type HV, type Size } from './types'
-import { type Vec } from './vec'
-import { vecVec } from './vec/prefixed'
+import { type Dir, type HV, type Size } from '../types'
+import { type Vec } from '../vec'
+import { vecVec } from '../vec/prefixed'
 
 export function diag(size: Readonly<Size>, v: Vec): Dir {
   const a = size.width / size.height

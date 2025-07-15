@@ -14,14 +14,14 @@ import {
   touchSendTouchEnd,
   touchSendTouchMove,
   touchSendTouchStart,
-} from './lib/touch-xstate'
+} from './lib/viewer/touch-xstate'
 import {
   sendAnimationEnd,
   sendClick,
   sendContextMenu,
   sendScroll,
   sendWheel,
-} from './lib/viewer-react'
+} from './lib/viewer/viewer-react'
 
 export function Container(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)

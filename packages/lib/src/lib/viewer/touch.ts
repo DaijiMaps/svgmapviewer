@@ -7,14 +7,14 @@ import {
 import { pipe } from 'fp-ts/lib/function'
 import { type Touch } from 'react'
 //import { type ReadonlyDeep } from 'type-fest'
-import { isUndefined } from './utils'
-import { dist } from './vec/dist'
+import { isUndefined } from '../utils'
 import {
   type VecVec as Vec,
   vecAngle,
+  vecDist,
   vecMidpoint,
   vecOrd,
-} from './vec/prefixed'
+} from '../vec/prefixed'
 
 const vecsOrd = ReadonlyArray.getOrd<Vec>(vecOrd)
 
@@ -127,7 +127,7 @@ export function handleTouchMove(
   if (cursor === null || isUndefined(p) || isUndefined(q)) {
     return { ...touches, vecs, points, cursor }
   }
-  const dists = updateDists(touches.dists, dist(p, q), limit)
+  const dists = updateDists(touches.dists, vecDist(p, q), limit)
   const z = calcZoom(dists)
   return {
     vecs,
