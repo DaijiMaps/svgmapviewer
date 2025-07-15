@@ -1,4 +1,3 @@
-import { assign, createActor, setup } from 'xstate'
 import {
   animationCbs,
   layoutCbs,
@@ -15,7 +14,6 @@ import {
   zoomEndCbs,
   zoomStartCbs,
 } from './config'
-import { type POI } from './geo'
 import {
   type Info,
   type SearchCb,
@@ -33,52 +31,6 @@ import {
 import { type VecVec } from './vec/prefixed'
 import type { Animation } from './viewer/animation-types'
 import { type Layout } from './viewer/layout'
-
-interface ConfigContext {
-  // XXX SvgMapViewerConfig
-  mapNames: POI[]
-}
-
-type ConfigEvent = { type: 'SET.MAPNAMES'; mapNames: POI[] }
-
-const configMachine = setup({
-  types: {
-    context: {} as ConfigContext,
-    events: {} as ConfigEvent,
-  },
-  actions: {
-    addCallbacks: () => {},
-    deleteCallbacks: () => {},
-  },
-}).createMachine({
-  id: 'config1',
-  initial: 'Idle',
-  context: {
-    mapNames: [],
-  },
-  states: {
-    Idle: {
-      on: {
-        'SET.MAPNAMES': {
-          actions: assign({
-            mapNames: ({ event }) => event.mapNames,
-          }),
-        },
-      },
-    },
-  },
-})
-
-////
-
-const configActor = createActor(configMachine)
-configActor.start()
-
-export function configActorStart(): void {
-  configActor.start()
-}
-
-////
 
 export function notifySearchStart(psvg: VecVec): void {
   searchStartCbs.forEach((cb: SearchStartCb) => cb(psvg))

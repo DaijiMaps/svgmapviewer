@@ -12,7 +12,6 @@ import {
   svgMapViewerConfig,
   updateSvgMapViewerConfig,
 } from './config'
-import { configActorStart } from './config-xstate'
 import { geolocActorStart } from './geo'
 import { renderMapActorStart } from './map/map-xstate'
 import { setNames } from './map/names'
@@ -83,7 +82,6 @@ function startAllActors() {
   // reference & ensure all actors are started
   // for module dependency
   // (order doesn't matter)
-  configActorStart()
   geolocActorStart()
   renderMapActorStart()
   resizeActorStart()
