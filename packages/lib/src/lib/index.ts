@@ -1,5 +1,4 @@
 import { Like } from '../Like'
-import { svgMapViewerConfig } from './config'
 import {
   notifyLayout,
   notifyResize,
@@ -14,7 +13,8 @@ import {
   notifyUiOpenDone,
   notifyZoomEnd,
   notifyZoomStart,
-} from './config-xstate'
+  svgMapViewerConfig,
+} from './config'
 import { useLayout, useLayout2 } from './style-xstate'
 import { svgmapviewer } from './svgmapviewer'
 import {

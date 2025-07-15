@@ -1,12 +1,12 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, emit, not, raise, setup } from 'xstate'
 import {
+  notifyUiCloseDone,
   searchEndDoneCbs,
   uiCloseCbs,
   uiCloseDoneCbs,
   uiOpenDoneCbs,
 } from '../config'
-import { notifyUiCloseDone } from '../config-xstate'
 import { type Info } from '../types'
 import { type VecVec, vecZero } from '../vec/prefixed'
 import {

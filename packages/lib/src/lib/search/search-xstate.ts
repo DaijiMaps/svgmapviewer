@@ -1,5 +1,5 @@
 import { createActor, emit, setup } from 'xstate'
-import { notifySearch, notifySearchEnd } from '../config-xstate'
+import { notifySearch, notifySearchEnd } from '../config'
 import { type Info, type SearchRes } from '../types'
 import { type Vec } from '../vec'
 

@@ -3,6 +3,14 @@ import React from 'react'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import { boxCenter } from '../box/prefixed'
 import {
+  notifyAnimation,
+  notifyLayout,
+  notifySearchEndDone,
+  notifySearchStart,
+  notifyUiOpen,
+  notifyUiOpenDone,
+  notifyZoomEnd,
+  notifyZoomStart,
   resizeCbs,
   searchEndCbs,
   svgMapViewerConfig,
@@ -13,16 +21,6 @@ import {
   uiCloseDoneCbs,
   uiOpenCbs,
 } from '../config'
-import {
-  notifyAnimation,
-  notifyLayout,
-  notifySearchEndDone,
-  notifySearchStart,
-  notifyUiOpen,
-  notifyUiOpenDone,
-  notifyZoomEnd,
-  notifyZoomStart,
-} from '../config-xstate'
 import { renderedCbs, styleSend } from '../style-xstate'
 import { type SearchRes } from '../types'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'

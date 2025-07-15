@@ -2,8 +2,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
-import { searchCbs, svgMapViewerConfig } from '../config'
-import { notifySearchDone } from '../config-xstate'
+import { notifySearchDone, searchCbs, svgMapViewerConfig } from '../config'
 import type { Vec } from '../vec'
 import { getAddressInfo } from './address-data'
 import type { AddressEntries, SearchAddressRes } from './address-types'
