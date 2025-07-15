@@ -4,6 +4,13 @@
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from './lib'
 import {
+  uiActionFullscreenCbs,
+  uiActionPositionCbs,
+  uiActionRecenterCbs,
+  uiActionZoomInCbs,
+  uiActionZoomOutCbs,
+} from './lib/config'
+import {
   flex_column_center_center,
   flex_row_center_center,
   pointer_events_initial,
@@ -13,11 +20,7 @@ import {
   timing_opening,
 } from './lib/css'
 import { useShadowRoot } from './lib/dom'
-import { getPosition } from './lib/geo'
-import { toggleFullscreen } from './lib/ui/fullscreen'
 import { useOpenCloseHeader } from './lib/ui/ui-xstate'
-import { touchSendCancel } from './lib/viewer/touch-xstate'
-import { viewerSend } from './lib/viewer/viewer-xstate'
 
 export function Right(): ReactNode {
   useShadowRoot('right', <RightContent />, 'ui')
@@ -154,28 +157,23 @@ function ZoomIn() {
 }
 
 function doFullscreen() {
-  toggleFullscreen()
-  touchSendCancel()
+  uiActionFullscreenCbs.forEach((cb) => cb())
 }
 
 function doPosition() {
-  getPosition()
-  touchSendCancel()
+  uiActionPositionCbs.forEach((cb) => cb())
 }
 
 function doRecenter() {
-  viewerSend({ type: 'RECENTER' })
-  touchSendCancel()
+  uiActionRecenterCbs.forEach((cb) => cb())
 }
 
 function doZoomOut() {
-  viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null })
-  touchSendCancel()
+  uiActionZoomOutCbs.forEach((cb) => cb())
 }
 
 function doZoomIn() {
-  viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })
-  touchSendCancel()
+  uiActionZoomInCbs.forEach((cb) => cb())
 }
 
 export function RightStyle(): ReactNode {

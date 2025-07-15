@@ -63,6 +63,7 @@ export interface Range {
 
 ////
 
+export type Cb = () => void
 export type ZoomStartCb = (
   layout: Readonly<Layout>,
   zoom: number,

@@ -2,7 +2,12 @@ import { useSelector } from '@xstate/react'
 import React from 'react'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import { boxCenter } from '../box/prefixed'
-import { svgMapViewerConfig } from '../config'
+import {
+  svgMapViewerConfig,
+  uiActionRecenterCbs,
+  uiActionZoomInCbs,
+  uiActionZoomOutCbs,
+} from '../config'
 import {
   notifyAnimation,
   notifyLayout,
@@ -730,3 +735,7 @@ export function viewerSendEvent(
   }
   viewerSend(event)
 }
+
+uiActionRecenterCbs.add(() => viewerSend({ type: 'RECENTER' }))
+uiActionZoomOutCbs.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null }))
+uiActionZoomInCbs.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null }))

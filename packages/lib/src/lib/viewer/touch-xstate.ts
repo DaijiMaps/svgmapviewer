@@ -2,6 +2,13 @@ import { assign, createActor, enqueueActions, setup } from 'xstate'
 
 import { useSelector } from '@xstate/react'
 import {
+  uiActionFullscreenCbs,
+  uiActionPositionCbs,
+  uiActionRecenterCbs,
+  uiActionZoomInCbs,
+  uiActionZoomOutCbs,
+} from '../config'
+import {
   handleTouchEnd,
   handleTouchMove,
   handleTouchStart,
@@ -247,3 +254,9 @@ export function useTouchesVecs(): Vecs {
 export function useTouchesZ(): null | number {
   return useSelector(touchActor, (s) => s.context.touches.z)
 }
+
+uiActionFullscreenCbs.add(touchSendCancel)
+uiActionPositionCbs.add(touchSendCancel)
+uiActionRecenterCbs.add(touchSendCancel)
+uiActionZoomOutCbs.add(touchSendCancel)
+uiActionZoomInCbs.add(touchSendCancel)

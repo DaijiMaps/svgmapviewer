@@ -6,6 +6,7 @@ import { createElement } from 'react'
 import { RenderMapDefault } from '../Map'
 import { emptyMapData } from './geo/data-types'
 import {
+  type Cb,
   type Info,
   type RenderInfo,
   type SvgMapViewerConfig,
@@ -75,3 +76,10 @@ export function updateSvgMapViewerConfig(
 }
 
 ////
+
+export const uiActionZoomInCbs: Set<Cb> = new Set<Cb>()
+export const uiActionZoomOutCbs: Set<Cb> = new Set<Cb>()
+export const uiActionResetCbs: Set<Cb> = new Set<Cb>()
+export const uiActionRecenterCbs: Set<Cb> = new Set<Cb>()
+export const uiActionPositionCbs: Set<Cb> = new Set<Cb>()
+export const uiActionFullscreenCbs: Set<Cb> = new Set<Cb>()
