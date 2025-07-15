@@ -13,7 +13,7 @@ import {
   useGeoPoint,
   useLayoutContainer,
 } from './lib/style-xstate'
-import { useOpenCloseHeader } from './lib/ui-xstate'
+import { useOpenCloseHeader } from './lib/ui/ui-xstate'
 import { trunc7 } from './lib/utils'
 
 export function Measure(): ReactNode {

@@ -1,7 +1,9 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, emit, not, raise, setup } from 'xstate'
-import { notifyUiCloseDone, registerCbs } from './config-xstate'
-import { emptyLayoutCoord, fromMatrixSvg, type LayoutCoord } from './coord'
+import { notifyUiCloseDone, registerCbs } from '../config-xstate'
+import { emptyLayoutCoord, fromMatrixSvg, type LayoutCoord } from '../coord'
+import { type Info } from '../types'
+import { type VecVec, vecZero } from '../vec/prefixed'
 import {
   type OpenClose,
   openCloseClose,
@@ -12,7 +14,6 @@ import {
   openCloseOpened,
   openCloseReset,
 } from './openclose'
-import { type Info } from './types'
 import { resetDetailScroll } from './ui-react'
 import type {
   OpenCloseMap,
@@ -22,7 +23,6 @@ import type {
   UiEvent,
   UiPart,
 } from './ui-types'
-import { type VecVec, vecZero } from './vec/prefixed'
 
 const emptyDetail: UiDetailContent = {
   p: vecZero,

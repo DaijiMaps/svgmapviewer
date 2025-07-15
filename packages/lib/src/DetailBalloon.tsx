@@ -3,10 +3,10 @@
 import { type ReactNode } from 'react'
 import { Balloon, DetailBalloonStyle } from './Balloon'
 import { Detail } from './Detail'
-import { calcBalloonLayout } from './lib/balloon'
 import { RenderMapAssetsDefault } from './lib/carto/assets'
 import { useShadowRoot } from './lib/dom'
-import { useDetail } from './lib/ui-xstate'
+import { calcBalloonLayout } from './lib/ui/balloon'
+import { useDetail } from './lib/ui/ui-xstate'
 
 export function DetailBalloon(): ReactNode {
   useShadowRoot('detail', <DetailBalloonContent />, 'ui')

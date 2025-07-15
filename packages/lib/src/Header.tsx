@@ -13,7 +13,7 @@ import {
 } from './lib/css'
 import { useShadowRoot } from './lib/dom'
 import { touchSendCancel } from './lib/touch-xstate'
-import { uiSend, useOpenCloseHeader } from './lib/ui-xstate'
+import { uiSend, useOpenCloseHeader } from './lib/ui/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
 
 export function Header(): ReactNode {

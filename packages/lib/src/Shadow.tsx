@@ -13,7 +13,7 @@ import {
 } from './lib/css'
 import { useShadowRoot } from './lib/dom'
 import { useAnimating } from './lib/style-xstate'
-import { useOpenCloseDetail } from './lib/ui-xstate'
+import { useOpenCloseDetail } from './lib/ui/ui-xstate'
 import { useOnWheel } from './lib/wheel'
 
 export function Shadow(): ReactNode {

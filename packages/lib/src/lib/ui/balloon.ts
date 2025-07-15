@@ -1,16 +1,16 @@
-import type { BalloonProps } from '../Balloon'
-import { boxBox, type BoxBox } from './box/prefixed'
-import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from './css'
-import { diag2 } from './diag'
-import type { OpenClose } from './openclose'
-import type { HV, Size } from './types'
-import type { UiDetailContent } from './ui-types'
+import type { BalloonProps } from '../../Balloon'
+import { boxBox, type BoxBox } from '../box/prefixed'
+import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from '../css'
+import { diag2 } from '../diag'
+import type { HV, Size } from '../types'
 import {
   vecVec as vec,
   vecAdd,
   vecSub,
   type VecVec as Vec,
-} from './vec/prefixed'
+} from '../vec/prefixed'
+import type { OpenClose } from './openclose'
+import type { UiDetailContent } from './ui-types'
 
 const BW = 50
 const BH = 50

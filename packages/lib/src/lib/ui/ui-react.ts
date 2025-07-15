@@ -1,4 +1,4 @@
-import { shadowRootMap } from './dom'
+import { shadowRootMap } from '../dom'
 
 export const UI_ROOT_ID = 'ui'
 

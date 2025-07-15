@@ -9,8 +9,8 @@ import {
   user_select_none,
   Z_INDEX_DETAIL,
 } from './lib/css'
-import type { UiDetailContent } from './lib/ui-types'
-import { isDetailEmpty, uiSend } from './lib/ui-xstate'
+import type { UiDetailContent } from './lib/ui/ui-types'
+import { isDetailEmpty, uiSend } from './lib/ui/ui-xstate'
 import { useOnWheel } from './lib/wheel'
 
 export function Detail(

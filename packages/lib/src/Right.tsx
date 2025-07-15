@@ -13,10 +13,10 @@ import {
   timing_opening,
 } from './lib/css'
 import { useShadowRoot } from './lib/dom'
-import { toggleFullscreen } from './lib/fullscreen'
 import { getPosition } from './lib/geo'
 import { touchSendCancel } from './lib/touch-xstate'
-import { useOpenCloseHeader } from './lib/ui-xstate'
+import { toggleFullscreen } from './lib/ui/fullscreen'
+import { useOpenCloseHeader } from './lib/ui/ui-xstate'
 import { viewerSend } from './lib/viewer-xstate'
 
 export function Right(): ReactNode {

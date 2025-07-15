@@ -22,8 +22,8 @@ import {
 import { styleActorStart } from './style-xstate'
 import { touchActorStart } from './touch-xstate'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
-import { UI_ROOT_ID } from './ui-react'
-import { uiActorStart } from './ui-xstate'
+import { UI_ROOT_ID } from './ui/ui-react'
+import { uiActorStart } from './ui/ui-xstate'
 import { viewerActorStart } from './viewer-xstate'
 
 export function svgmapviewer(

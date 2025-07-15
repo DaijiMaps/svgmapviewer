@@ -6,7 +6,7 @@ import { Footer } from './Footer'
 import { Guides } from './Guides'
 import { Header } from './Header'
 import { useShadowRoot } from './lib/dom'
-import { UI_ROOT_ID } from './lib/ui-react'
+import { UI_ROOT_ID } from './lib/ui/ui-react'
 import { Right } from './Right'
 import { Shadow } from './Shadow'
 
