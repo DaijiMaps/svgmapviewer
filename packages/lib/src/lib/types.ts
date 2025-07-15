@@ -116,9 +116,6 @@ export interface SvgMapViewerConfig extends DataConfig, RenderConfig {
   copyright: string
   zoomFactor: number
   animationDuration: number
-  dragStepAlpha: number
-  dragStepStepLimit: number
-  dragStepMaxCount: number
   scrollIdleTimeout: number
   cartoConfig?: CartoConfig
   isContainerRendered: () => boolean
