@@ -37,6 +37,8 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   dragStepStepLimit: 10,
   dragStepMaxCount: 100,
   scrollIdleTimeout: 1000,
+  isContainerRendered: () => true,
+  isUiRendered: () => true,
 
   // RenderConfig
   getMapLayers: () => [],

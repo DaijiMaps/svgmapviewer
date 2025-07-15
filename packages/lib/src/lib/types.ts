@@ -154,6 +154,8 @@ export interface SvgMapViewerConfig extends DataConfig, RenderConfig {
   dragStepMaxCount: number
   scrollIdleTimeout: number
   cartoConfig?: CartoConfig
+  isContainerRendered: () => boolean
+  isUiRendered: () => boolean
 }
 
 export interface DataConfig {

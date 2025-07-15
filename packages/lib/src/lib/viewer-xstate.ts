@@ -17,7 +17,6 @@ import {
   registerCbs,
 } from './config-xstate'
 import { fromMatrixSvg } from './coord'
-import { isShadowRootRendered } from './dom'
 import { keyToZoom } from './key'
 import {
   emptyLayout,
@@ -31,7 +30,6 @@ import { type GetDone, type SyncSyncDone } from './scroll-types'
 import { scrollCbs, scrollSend } from './scroll-xstate'
 import { styleSend } from './style-xstate'
 import { type SearchRes } from './types'
-import { UI_ROOT_ID } from './ui-react'
 import { type VecVec as Vec, vecVec } from './vec/prefixed'
 import {
   EXPAND_PANNING,
@@ -63,7 +61,7 @@ const viewerMachine = setup({
     isHoming: ({ context: { homing } }) => homing,
     isContainerRendered: () => document.querySelector('.container') !== null,
     isMapRendered: () => svgMapViewerConfig.isMapRendered(),
-    isUiRendered: () => isShadowRootRendered(UI_ROOT_ID),
+    isUiRendered: () => svgMapViewerConfig.isUiRendered(),
   },
   actions: {
     //

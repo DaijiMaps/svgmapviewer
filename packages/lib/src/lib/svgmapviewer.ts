@@ -1,3 +1,4 @@
+/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
@@ -6,6 +7,7 @@ import { styleRoot } from '../Style'
 import { type Box } from './box/main'
 import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
 import { configActorStart, configSend, registerCbs } from './config-xstate'
+import { isShadowRootRendered } from './dom'
 import { geolocActorStart } from './geo'
 import { renderMapActorStart } from './map/map-xstate'
 import { resizeActorStart } from './resize-xstate'
@@ -20,6 +22,7 @@ import {
 import { styleActorStart } from './style-xstate'
 import { touchActorStart } from './touch-xstate'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
+import { UI_ROOT_ID } from './ui-react'
 import { uiActorStart } from './ui-xstate'
 import { viewerActorStart } from './viewer-xstate'
 
@@ -35,6 +38,8 @@ export function svgmapviewer(
 
   updateSvgMapViewerConfig({
     origViewBox,
+    isContainerRendered: () => document.querySelector('.container') !== null,
+    isUiRendered: () => isShadowRootRendered(UI_ROOT_ID),
     ...configUser,
   })
 
