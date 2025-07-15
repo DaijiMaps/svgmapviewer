@@ -24,7 +24,6 @@ import {
   type SearchEndCb,
   type SearchEndDoneCb,
   type SearchStartCb,
-  type SvgMapViewerConfig,
   type UiCloseCb,
   type UiCloseDoneCb,
   type UiOpenCb,
@@ -41,11 +40,7 @@ interface ConfigContext {
   mapNames: POI[]
 }
 
-type ConfigEvent =
-  | ({ type: 'SET' } & Partial<SvgMapViewerConfig>)
-  | { type: 'SET.MAPNAMES'; mapNames: POI[] }
-  | { type: 'ADD.CB' }
-  | { type: 'DELETE.CB' }
+type ConfigEvent = { type: 'SET.MAPNAMES'; mapNames: POI[] }
 
 const configMachine = setup({
   types: {
@@ -65,21 +60,6 @@ const configMachine = setup({
   states: {
     Idle: {
       on: {
-        // XXX refactor
-        'ADD.CB': {},
-        // XXX refactor
-        'DELETE.CB': {
-          actions: assign({}),
-        },
-        SET: {
-          // XXX
-          // XXX
-          // XXX
-          // XXX not yet
-          // XXX
-          // XXX
-          // XXX
-        },
         'SET.MAPNAMES': {
           actions: assign({
             mapNames: ({ event }) => event.mapNames,
