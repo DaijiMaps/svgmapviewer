@@ -1,5 +1,6 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, emit, not, raise, setup } from 'xstate'
+import { uiCloseCbs, uiCloseDoneCbs, uiOpenDoneCbs } from '../config'
 import { notifyUiCloseDone, registerCbs } from '../config-xstate'
 import { type Info } from '../types'
 import { type VecVec, vecZero } from '../vec/prefixed'
@@ -273,10 +274,11 @@ uiActor.start()
 
 registerCbs({
   searchEndDoneCb: uiDetail,
-  uiOpenDoneCb: uiOpen,
-  uiCloseCb: uiCancel,
-  uiCloseDoneCb: uiCloseDone,
 })
+
+uiOpenDoneCbs.add(uiOpen)
+uiCloseCbs.add(uiCancel)
+uiCloseDoneCbs.add(uiCloseDone)
 
 function uiDetail(psvg: VecVec, info: Info, layout: LayoutCoord) {
   uiActor.send({ type: 'DETAIL', psvg, info, layout })

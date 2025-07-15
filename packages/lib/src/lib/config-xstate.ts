@@ -4,6 +4,10 @@ import {
   animationCbs,
   layoutCbs,
   resizeCbs,
+  uiCloseCbs,
+  uiCloseDoneCbs,
+  uiOpenCbs,
+  uiOpenDoneCbs,
   zoomEndCbs,
   zoomStartCbs,
 } from './config'
@@ -58,10 +62,6 @@ const configMachine = setup({
     searchDoneCbs: new Set(),
     searchEndCbs: new Set(),
     searchEndDoneCbs: new Set(),
-    uiOpenCbs: new Set(),
-    uiOpenDoneCbs: new Set(),
-    uiCloseCbs: new Set(),
-    uiCloseDoneCbs: new Set(),
     mapNames: [],
   },
   states: {
@@ -90,22 +90,6 @@ const configMachine = setup({
               event.searchEndDoneCb === undefined
                 ? context.searchEndDoneCbs
                 : context.searchEndDoneCbs.add(event.searchEndDoneCb),
-            uiOpenCbs: ({ context, event }) =>
-              event.uiOpenCb === undefined
-                ? context.uiOpenCbs
-                : context.uiOpenCbs.add(event.uiOpenCb),
-            uiOpenDoneCbs: ({ context, event }) =>
-              event.uiOpenDoneCb === undefined
-                ? context.uiOpenDoneCbs
-                : context.uiOpenDoneCbs.add(event.uiOpenDoneCb),
-            uiCloseCbs: ({ context, event }) =>
-              event.uiCloseCb === undefined
-                ? context.uiCloseCbs
-                : context.uiCloseCbs.add(event.uiCloseCb),
-            uiCloseDoneCbs: ({ context, event }) =>
-              event.uiCloseDoneCb === undefined
-                ? context.uiCloseDoneCbs
-                : context.uiCloseDoneCbs.add(event.uiCloseDoneCb),
           }),
         },
         // XXX refactor
@@ -140,30 +124,6 @@ const configMachine = setup({
                 context.searchEndDoneCbs.delete(event.searchEndDoneCb)
               }
               return context.searchEndDoneCbs
-            },
-            uiOpenCbs: ({ context, event }) => {
-              if (event.uiOpenCb !== undefined) {
-                context.uiOpenCbs.delete(event.uiOpenCb)
-              }
-              return context.uiOpenCbs
-            },
-            uiOpenDoneCbs: ({ context, event }) => {
-              if (event.uiOpenDoneCb !== undefined) {
-                context.uiOpenDoneCbs.delete(event.uiOpenDoneCb)
-              }
-              return context.uiOpenDoneCbs
-            },
-            uiCloseCbs: ({ context, event }) => {
-              if (event.uiCloseCb !== undefined) {
-                context.uiCloseCbs.delete(event.uiCloseCb)
-              }
-              return context.uiCloseCbs
-            },
-            uiCloseDoneCbs: ({ context, event }) => {
-              if (event.uiCloseDoneCb !== undefined) {
-                context.uiCloseDoneCbs.delete(event.uiCloseDoneCb)
-              }
-              return context.uiCloseDoneCbs
             },
           }),
         },
@@ -243,22 +203,16 @@ export function notifyUiOpen(
   info: Readonly<Info>,
   layout: Readonly<Layout>
 ): void {
-  configActor
-    .getSnapshot()
-    .context.uiOpenCbs.forEach((cb: UiOpenCb) => cb(psvg, info, layout))
+  uiOpenCbs.forEach((cb: UiOpenCb) => cb(psvg, info, layout))
 }
 export function notifyUiOpenDone(ok: boolean): void {
-  configActor
-    .getSnapshot()
-    .context.uiOpenDoneCbs.forEach((cb: UiOpenDoneCb) => cb(ok))
+  uiOpenDoneCbs.forEach((cb: UiOpenDoneCb) => cb(ok))
 }
 export function notifyUiClose(): void {
-  configActor.getSnapshot().context.uiCloseCbs.forEach((cb: UiCloseCb) => cb())
+  uiCloseCbs.forEach((cb: UiCloseCb) => cb())
 }
 export function notifyUiCloseDone(): void {
-  configActor
-    .getSnapshot()
-    .context.uiCloseDoneCbs.forEach((cb: UiCloseDoneCb) => cb())
+  uiCloseDoneCbs.forEach((cb: UiCloseDoneCb) => cb())
 }
 
 export function notifyZoomStart(

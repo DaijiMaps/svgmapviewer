@@ -9,6 +9,8 @@ import {
   uiActionResetCbs,
   uiActionZoomInCbs,
   uiActionZoomOutCbs,
+  uiCloseDoneCbs,
+  uiOpenCbs,
 } from '../config'
 import {
   notifyAnimation,
@@ -680,10 +682,10 @@ function resizeCb(origLayout: Readonly<Layout>, force: boolean) {
 
 registerCbs({
   searchEndCb: viewerSearchEnd,
-  uiOpenCb: viewerSearchLock,
-  uiCloseDoneCb: viewerSearchUnlock,
 })
 
+uiOpenCbs.add(viewerSearchLock)
+uiCloseDoneCbs.add(viewerSearchUnlock)
 resizeCbs.add(resizeCb)
 
 function getDoneCb(ev: GetDone) {

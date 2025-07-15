@@ -100,10 +100,6 @@ export interface ConfigCb {
   searchDoneCb: SearchDoneCb
   searchEndCb: SearchEndCb
   searchEndDoneCb: SearchEndDoneCb
-  uiOpenCb: UiOpenCb
-  uiOpenDoneCb: UiOpenDoneCb
-  uiCloseCb: UiCloseCb
-  uiCloseDoneCb: UiCloseDoneCb
 }
 
 export interface ConfigCbs {
@@ -112,10 +108,6 @@ export interface ConfigCbs {
   searchDoneCbs: Set<SearchDoneCb>
   searchEndCbs: Set<SearchEndCb>
   searchEndDoneCbs: Set<SearchEndDoneCb>
-  uiOpenCbs: Set<UiOpenCb>
-  uiOpenDoneCbs: Set<UiOpenDoneCb>
-  uiCloseCbs: Set<UiCloseCb>
-  uiCloseDoneCbs: Set<UiCloseDoneCb>
 }
 
 ////

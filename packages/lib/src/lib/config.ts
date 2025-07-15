@@ -14,6 +14,10 @@ import {
   type ResizeCb,
   type SvgMapViewerConfig,
   type SvgMapViewerConfigUser,
+  type UiCloseCb,
+  type UiCloseDoneCb,
+  type UiOpenCb,
+  type UiOpenDoneCb,
   type ZoomEndCb,
   type ZoomStartCb,
 } from './types'
@@ -82,14 +86,18 @@ export function updateSvgMapViewerConfig(
 
 ////
 
-export const zoomStartCbs: Set<ZoomStartCb> = new Set<ZoomStartCb>()
-export const zoomEndCbs: Set<ZoomEndCb> = new Set<ZoomEndCb>()
-export const resizeCbs: Set<ResizeCb> = new Set<ResizeCb>()
-export const layoutCbs: Set<LayoutCb> = new Set<LayoutCb>()
-export const animationCbs: Set<AnimationCb> = new Set<AnimationCb>()
-export const uiActionZoomInCbs: Set<Cb> = new Set<Cb>()
-export const uiActionZoomOutCbs: Set<Cb> = new Set<Cb>()
-export const uiActionResetCbs: Set<Cb> = new Set<Cb>()
-export const uiActionRecenterCbs: Set<Cb> = new Set<Cb>()
-export const uiActionPositionCbs: Set<Cb> = new Set<Cb>()
-export const uiActionFullscreenCbs: Set<Cb> = new Set<Cb>()
+export const uiOpenCbs: Set<UiOpenCb> = new Set()
+export const uiOpenDoneCbs: Set<UiOpenDoneCb> = new Set()
+export const uiCloseCbs: Set<UiCloseCb> = new Set()
+export const uiCloseDoneCbs: Set<UiCloseDoneCb> = new Set()
+export const zoomStartCbs: Set<ZoomStartCb> = new Set()
+export const zoomEndCbs: Set<ZoomEndCb> = new Set()
+export const resizeCbs: Set<ResizeCb> = new Set()
+export const layoutCbs: Set<LayoutCb> = new Set()
+export const animationCbs: Set<AnimationCb> = new Set()
+export const uiActionZoomInCbs: Set<Cb> = new Set()
+export const uiActionZoomOutCbs: Set<Cb> = new Set()
+export const uiActionResetCbs: Set<Cb> = new Set()
+export const uiActionRecenterCbs: Set<Cb> = new Set()
+export const uiActionPositionCbs: Set<Cb> = new Set()
+export const uiActionFullscreenCbs: Set<Cb> = new Set()
