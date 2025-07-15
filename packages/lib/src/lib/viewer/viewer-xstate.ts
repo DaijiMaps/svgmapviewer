@@ -5,6 +5,7 @@ import { boxCenter } from '../box/prefixed'
 import {
   svgMapViewerConfig,
   uiActionRecenterCbs,
+  uiActionResetCbs,
   uiActionZoomInCbs,
   uiActionZoomOutCbs,
 } from '../config'
@@ -736,6 +737,7 @@ export function viewerSendEvent(
   viewerSend(event)
 }
 
+uiActionResetCbs.add(() => viewerSend({ type: 'LAYOUT.RESET' }))
 uiActionRecenterCbs.add(() => viewerSend({ type: 'RECENTER' }))
 uiActionZoomOutCbs.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null }))
 uiActionZoomInCbs.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null }))

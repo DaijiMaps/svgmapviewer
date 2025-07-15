@@ -1,7 +1,9 @@
+/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from './lib'
+import { uiActionResetCbs } from './lib/config'
 import {
   flex_column_center_center,
   pointer_events_initial,
@@ -13,8 +15,6 @@ import {
 } from './lib/css'
 import { useShadowRoot } from './lib/dom'
 import { uiSend, useOpenCloseHeader } from './lib/ui/ui-xstate'
-import { touchSendCancel } from './lib/viewer/touch-xstate'
-import { viewerSend } from './lib/viewer/viewer-xstate'
 
 export function Header(): ReactNode {
   useShadowRoot('header', <HeaderContent />, 'ui')
@@ -28,14 +28,9 @@ function HeaderContent(): ReactNode {
   return (
     <div
       className="ui-content header"
-      // eslint-disable-next-line functional/no-return-void
       onAnimationEnd={() => uiSend({ type: 'HEADER.ANIMATION.END' })}
     >
-      <h1
-        className="title"
-        // eslint-disable-next-line functional/no-return-void
-        onClick={() => doTitle()}
-      >
+      <h1 className="title" onClick={() => doTitle()}>
         {config.title}
       </h1>
       <style>
@@ -46,10 +41,8 @@ function HeaderContent(): ReactNode {
   )
 }
 
-// eslint-disable-next-line functional/no-return-void
 function doTitle() {
-  viewerSend({ type: 'LAYOUT.RESET' })
-  touchSendCancel()
+  uiActionResetCbs.forEach((cb) => cb())
 }
 
 const style = `

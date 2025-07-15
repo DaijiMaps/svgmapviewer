@@ -5,6 +5,7 @@ import {
   uiActionFullscreenCbs,
   uiActionPositionCbs,
   uiActionRecenterCbs,
+  uiActionResetCbs,
   uiActionZoomInCbs,
   uiActionZoomOutCbs,
 } from '../config'
@@ -255,6 +256,7 @@ export function useTouchesZ(): null | number {
   return useSelector(touchActor, (s) => s.context.touches.z)
 }
 
+uiActionResetCbs.add(touchSendCancel)
 uiActionFullscreenCbs.add(touchSendCancel)
 uiActionPositionCbs.add(touchSendCancel)
 uiActionRecenterCbs.add(touchSendCancel)
