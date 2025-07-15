@@ -2,26 +2,26 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 import { type ReactNode, useRef } from 'react'
-import { svgMapViewerConfig } from './lib'
+import { svgMapViewerConfig } from '..'
 import {
   position_absolute_left_0_top_0,
   width_100vw_height_100svh,
-} from './lib/css'
-import type { Matrix } from './lib/matrix'
-import { matrixEmpty, matrixToString } from './lib/matrix/prefixed'
-import { styleAnimationEnd, useAnimation } from './lib/style-xstate'
+} from '../css'
+import type { Matrix } from '../matrix'
+import { matrixEmpty, matrixToString } from '../matrix/prefixed'
+import { styleAnimationEnd, useAnimation } from '../style-xstate'
 import {
   touchSendTouchEnd,
   touchSendTouchMove,
   touchSendTouchStart,
-} from './lib/viewer/touch-xstate'
+} from './touch-xstate'
 import {
   sendAnimationEnd,
   sendClick,
   sendContextMenu,
   sendScroll,
   sendWheel,
-} from './lib/viewer/viewer-react'
+} from './viewer-react'
 
 export function Container(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)

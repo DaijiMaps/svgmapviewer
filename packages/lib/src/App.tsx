@@ -1,7 +1,5 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { Container } from './Container'
-import { likeStyle } from './Like'
 import { svgMapViewerConfig } from './lib'
 import {
   box_sizing_border_box,
@@ -11,6 +9,8 @@ import {
   width_100vw_height_100svh,
 } from './lib/css'
 import { Ui } from './lib/ui/Ui'
+import { Container } from './lib/viewer/Container'
+import { likeStyle } from './Like'
 
 function App(): ReactNode {
   const backgroundColor =
