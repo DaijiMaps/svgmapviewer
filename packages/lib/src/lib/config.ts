@@ -12,6 +12,11 @@ import {
   type LayoutCb,
   type RenderInfo,
   type ResizeCb,
+  type SearchCb,
+  type SearchDoneCb,
+  type SearchEndCb,
+  type SearchEndDoneCb,
+  type SearchStartCb,
   type SvgMapViewerConfig,
   type SvgMapViewerConfigUser,
   type UiCloseCb,
@@ -86,6 +91,11 @@ export function updateSvgMapViewerConfig(
 
 ////
 
+export const searchStartCbs: Set<SearchStartCb> = new Set()
+export const searchCbs: Set<SearchCb> = new Set()
+export const searchDoneCbs: Set<SearchDoneCb> = new Set()
+export const searchEndCbs: Set<SearchEndCb> = new Set()
+export const searchEndDoneCbs: Set<SearchEndDoneCb> = new Set()
 export const uiOpenCbs: Set<UiOpenCb> = new Set()
 export const uiOpenDoneCbs: Set<UiOpenDoneCb> = new Set()
 export const uiCloseCbs: Set<UiCloseCb> = new Set()

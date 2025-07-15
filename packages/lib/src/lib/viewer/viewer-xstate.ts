@@ -4,6 +4,7 @@ import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import { boxCenter } from '../box/prefixed'
 import {
   resizeCbs,
+  searchEndCbs,
   svgMapViewerConfig,
   uiActionRecenterCbs,
   uiActionResetCbs,
@@ -21,7 +22,6 @@ import {
   notifyUiOpenDone,
   notifyZoomEnd,
   notifyZoomStart,
-  registerCbs,
 } from '../config-xstate'
 import { renderedCbs, styleSend } from '../style-xstate'
 import { type SearchRes } from '../types'
@@ -680,10 +680,7 @@ function resizeCb(origLayout: Readonly<Layout>, force: boolean) {
   viewerSend({ type: 'RESIZE', layout: origLayout, force })
 }
 
-registerCbs({
-  searchEndCb: viewerSearchEnd,
-})
-
+searchEndCbs.add(viewerSearchEnd)
 uiOpenCbs.add(viewerSearchLock)
 uiCloseDoneCbs.add(viewerSearchUnlock)
 resizeCbs.add(resizeCb)

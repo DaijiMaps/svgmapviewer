@@ -94,22 +94,6 @@ export type AnimationCb = (animation: null | Animation) => void
 export type GeoLocCb = () => void
 export type GeoLocDoneCb = (position: GeolocationPosition) => void
 
-export interface ConfigCb {
-  searchStartCb: SearchStartCb
-  searchCb: SearchCb
-  searchDoneCb: SearchDoneCb
-  searchEndCb: SearchEndCb
-  searchEndDoneCb: SearchEndDoneCb
-}
-
-export interface ConfigCbs {
-  searchStartCbs: Set<SearchStartCb>
-  searchCbs: Set<SearchCb>
-  searchDoneCbs: Set<SearchDoneCb>
-  searchEndCbs: Set<SearchEndCb>
-  searchEndDoneCbs: Set<SearchEndDoneCb>
-}
-
 ////
 
 export type RenderAssets = () => ReactNode

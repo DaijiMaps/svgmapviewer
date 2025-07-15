@@ -1,7 +1,12 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, emit, not, raise, setup } from 'xstate'
-import { uiCloseCbs, uiCloseDoneCbs, uiOpenDoneCbs } from '../config'
-import { notifyUiCloseDone, registerCbs } from '../config-xstate'
+import {
+  searchEndDoneCbs,
+  uiCloseCbs,
+  uiCloseDoneCbs,
+  uiOpenDoneCbs,
+} from '../config'
+import { notifyUiCloseDone } from '../config-xstate'
 import { type Info } from '../types'
 import { type VecVec, vecZero } from '../vec/prefixed'
 import {
@@ -272,10 +277,7 @@ const uiActor = createActor(uiMachine)
 uiActor.on('CLOSE.DONE', notifyUiCloseDone)
 uiActor.start()
 
-registerCbs({
-  searchEndDoneCb: uiDetail,
-})
-
+searchEndDoneCbs.add(uiDetail)
 uiOpenDoneCbs.add(uiOpen)
 uiCloseCbs.add(uiCancel)
 uiCloseDoneCbs.add(uiCloseDone)

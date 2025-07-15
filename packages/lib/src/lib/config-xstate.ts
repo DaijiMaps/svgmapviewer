@@ -4,6 +4,11 @@ import {
   animationCbs,
   layoutCbs,
   resizeCbs,
+  searchCbs,
+  searchDoneCbs,
+  searchEndCbs,
+  searchEndDoneCbs,
+  searchStartCbs,
   uiCloseCbs,
   uiCloseDoneCbs,
   uiOpenCbs,
@@ -13,8 +18,6 @@ import {
 } from './config'
 import { type POI } from './geo'
 import {
-  type ConfigCb,
-  type ConfigCbs,
   type Info,
   type SearchCb,
   type SearchDoneCb,
@@ -33,7 +36,7 @@ import { type VecVec } from './vec/prefixed'
 import type { Animation } from './viewer/animation-types'
 import { type Layout } from './viewer/layout'
 
-interface ConfigContext extends ConfigCbs {
+interface ConfigContext {
   // XXX SvgMapViewerConfig
   mapNames: POI[]
 }
@@ -41,8 +44,8 @@ interface ConfigContext extends ConfigCbs {
 type ConfigEvent =
   | ({ type: 'SET' } & Partial<SvgMapViewerConfig>)
   | { type: 'SET.MAPNAMES'; mapNames: POI[] }
-  | ({ type: 'ADD.CB' } & Partial<ConfigCb>)
-  | ({ type: 'DELETE.CB' } & Partial<ConfigCb>)
+  | { type: 'ADD.CB' }
+  | { type: 'DELETE.CB' }
 
 const configMachine = setup({
   types: {
@@ -57,75 +60,16 @@ const configMachine = setup({
   id: 'config1',
   initial: 'Idle',
   context: {
-    searchStartCbs: new Set(),
-    searchCbs: new Set(),
-    searchDoneCbs: new Set(),
-    searchEndCbs: new Set(),
-    searchEndDoneCbs: new Set(),
     mapNames: [],
   },
   states: {
     Idle: {
       on: {
         // XXX refactor
-        'ADD.CB': {
-          actions: assign({
-            searchStartCbs: ({ context, event }) =>
-              event.searchStartCb === undefined
-                ? context.searchStartCbs
-                : context.searchStartCbs.add(event.searchStartCb),
-            searchCbs: ({ context, event }) =>
-              event.searchCb === undefined
-                ? context.searchCbs
-                : context.searchCbs.add(event.searchCb),
-            searchDoneCbs: ({ context, event }) =>
-              event.searchDoneCb === undefined
-                ? context.searchDoneCbs
-                : context.searchDoneCbs.add(event.searchDoneCb),
-            searchEndCbs: ({ context, event }) =>
-              event.searchEndCb === undefined
-                ? context.searchEndCbs
-                : context.searchEndCbs.add(event.searchEndCb),
-            searchEndDoneCbs: ({ context, event }) =>
-              event.searchEndDoneCb === undefined
-                ? context.searchEndDoneCbs
-                : context.searchEndDoneCbs.add(event.searchEndDoneCb),
-          }),
-        },
+        'ADD.CB': {},
         // XXX refactor
         'DELETE.CB': {
-          actions: assign({
-            searchStartCbs: ({ context, event }) => {
-              if (event.searchStartCb !== undefined) {
-                context.searchStartCbs.delete(event.searchStartCb)
-              }
-              return context.searchStartCbs
-            },
-            searchCbs: ({ context, event }) => {
-              if (event.searchCb !== undefined) {
-                context.searchCbs.delete(event.searchCb)
-              }
-              return context.searchCbs
-            },
-            searchDoneCbs: ({ context, event }) => {
-              if (event.searchDoneCb !== undefined) {
-                context.searchDoneCbs.delete(event.searchDoneCb)
-              }
-              return context.searchDoneCbs
-            },
-            searchEndCbs: ({ context, event }) => {
-              if (event.searchEndCb !== undefined) {
-                context.searchEndCbs.delete(event.searchEndCb)
-              }
-              return context.searchEndCbs
-            },
-            searchEndDoneCbs: ({ context, event }) => {
-              if (event.searchEndDoneCb !== undefined) {
-                context.searchEndDoneCbs.delete(event.searchEndDoneCb)
-              }
-              return context.searchEndDoneCbs
-            },
-          }),
+          actions: assign({}),
         },
         SET: {
           // XXX
@@ -168,35 +112,23 @@ export function useConfigMapNames(): POI[] {
 ////
 
 export function notifySearchStart(psvg: VecVec): void {
-  configActor
-    .getSnapshot()
-    .context.searchStartCbs.forEach((cb: SearchStartCb) => cb(psvg))
+  searchStartCbs.forEach((cb: SearchStartCb) => cb(psvg))
 }
 export function notifySearch(psvg: VecVec): void {
-  configActor
-    .getSnapshot()
-    .context.searchCbs.forEach((cb: SearchCb) => cb(psvg))
+  searchCbs.forEach((cb: SearchCb) => cb(psvg))
 }
 export function notifySearchDone(psvg: VecVec, info: Readonly<Info>): void {
-  configActor
-    .getSnapshot()
-    .context.searchDoneCbs.forEach((cb: SearchDoneCb) => cb({ psvg, info }))
+  searchDoneCbs.forEach((cb: SearchDoneCb) => cb({ psvg, info }))
 }
 export function notifySearchEnd(psvg: VecVec, info: Readonly<Info>): void {
-  configActor
-    .getSnapshot()
-    .context.searchEndCbs.forEach((cb: SearchEndCb) => cb({ psvg, info }))
+  searchEndCbs.forEach((cb: SearchEndCb) => cb({ psvg, info }))
 }
 export function notifySearchEndDone(
   psvg: VecVec,
   info: Readonly<Info>,
   layout: Readonly<Layout>
 ): void {
-  configActor
-    .getSnapshot()
-    .context.searchEndDoneCbs.forEach((cb: SearchEndDoneCb) =>
-      cb(psvg, info, layout)
-    )
+  searchEndDoneCbs.forEach((cb: SearchEndDoneCb) => cb(psvg, info, layout))
 }
 export function notifyUiOpen(
   psvg: VecVec,
@@ -234,11 +166,4 @@ export function notifyLayout(layout: Readonly<Layout>, force: boolean): void {
 }
 export function notifyAnimation(animation: null | Readonly<Animation>): void {
   animationCbs.forEach((cb) => cb(animation))
-}
-
-////
-
-export function registerCbs(cbs: Readonly<Partial<ConfigCb>>): void {
-  configActorStart()
-  configSend({ type: 'ADD.CB', ...cbs })
 }
