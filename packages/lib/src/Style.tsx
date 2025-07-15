@@ -11,13 +11,13 @@ import {
   useZoom,
 } from './lib/map/map-xstate'
 import {
+  renderedCbs,
   useAppearing,
   useLayoutScroll,
   useRendered,
   useShown,
 } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
-import { viewerSend } from './lib/viewer/viewer-xstate'
 
 export function styleRoot(): void {
   const e = document.getElementById('style-root')
@@ -37,7 +37,7 @@ function RootStyle(): ReactNode {
   const rendered = useRendered()
 
   useEffect(() => {
-    requestAnimationFrame(() => viewerSend({ type: 'RENDERED' }))
+    requestAnimationFrame(() => renderedCbs.forEach((cb) => cb()))
   }, [rendered])
 
   const shown = useShown()

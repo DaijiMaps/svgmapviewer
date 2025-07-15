@@ -20,7 +20,7 @@ import {
   notifyZoomStart,
   registerCbs,
 } from '../config-xstate'
-import { styleSend } from '../style-xstate'
+import { renderedCbs, styleSend } from '../style-xstate'
 import { type SearchRes } from '../types'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'
 import { animationEndLayout, animationHome, animationZoom } from './animation'
@@ -741,3 +741,5 @@ uiActionResetCbs.add(() => viewerSend({ type: 'LAYOUT.RESET' }))
 uiActionRecenterCbs.add(() => viewerSend({ type: 'RECENTER' }))
 uiActionZoomOutCbs.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null }))
 uiActionZoomInCbs.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null }))
+
+renderedCbs.add(() => viewerSend({ type: 'RENDERED' }))

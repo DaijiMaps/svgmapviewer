@@ -6,6 +6,7 @@ import { registerCbs } from './config-xstate'
 import { findRadius } from './distance'
 import type { DistanceRadius } from './distance-types'
 import { makeExpire } from './expire-xstate'
+import type { Cb } from './types'
 import { trunc2 } from './utils'
 import { vecZero, type VecVec } from './vec/prefixed'
 import { type Animation } from './viewer/animation-types'
@@ -269,3 +270,7 @@ const expire = makeExpire(500, expireCb)
 expire.start()
 
 scrollEventCbs.add(expire.tick)
+
+// rendered
+
+export const renderedCbs: Set<Cb> = new Set()
