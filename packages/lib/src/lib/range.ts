@@ -1,8 +1,8 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-loop-statements */
 /* eslint-disable functional/no-return-void */
-import { type BoxBox } from '../../src/lib/box/prefixed'
-import { vecDiv, type VecVec } from '../../src/lib/vec/prefixed'
+import { type BoxBox } from './box/prefixed'
+import { vecDiv, type VecVec } from './vec/prefixed'
 
 type Index = number // int
 type IVecVec = { x: Index; y: Index }
