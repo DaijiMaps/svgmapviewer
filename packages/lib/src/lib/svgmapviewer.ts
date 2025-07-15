@@ -7,7 +7,6 @@ import { styleRoot } from '../Style'
 import { type Box } from './box/main'
 import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
 import { configActorStart, configSend, registerCbs } from './config-xstate'
-import { isShadowRootRendered } from './dom'
 import { geolocActorStart } from './geo'
 import { renderMapActorStart } from './map/map-xstate'
 import { getAddressEntries } from './search'
@@ -19,8 +18,9 @@ import {
 } from './search/search-xstate'
 import { styleActorStart } from './style-xstate'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
-import { UI_ROOT_ID } from './ui/ui-react'
+import { isUiRendered } from './ui/Ui'
 import { uiActorStart } from './ui/ui-xstate'
+import { isContainerRendered } from './viewer/Container'
 import { resizeActorStart } from './viewer/resize-xstate'
 import { scrollActorStart } from './viewer/scroll-xstate'
 import { touchActorStart } from './viewer/touch-xstate'
@@ -38,8 +38,8 @@ export function svgmapviewer(
 
   updateSvgMapViewerConfig({
     origViewBox,
-    isContainerRendered: () => document.querySelector('.container') !== null,
-    isUiRendered: () => isShadowRootRendered(UI_ROOT_ID),
+    isContainerRendered,
+    isUiRendered,
     ...configUser,
   })
 

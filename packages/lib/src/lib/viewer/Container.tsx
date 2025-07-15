@@ -96,3 +96,7 @@ function css(q: Matrix): string {
 }
 `
 }
+
+export function isContainerRendered(): boolean {
+  return document.querySelector('.container') !== null
+}

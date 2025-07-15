@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 import { type ReactNode } from 'react'
-import { useShadowRoot } from '../dom'
+import { isShadowRootRendered, useShadowRoot } from '../dom'
 import { DetailBalloon } from './DetailBalloon'
 import { Footer } from './Footer'
 import { Guides } from './Guides'
@@ -27,4 +27,8 @@ function UiContent(): ReactNode {
       <DetailBalloon />
     </div>
   )
+}
+
+export function isUiRendered(): boolean {
+  return isShadowRootRendered(UI_ROOT_ID)
 }
