@@ -1,31 +1,12 @@
 import { pipe } from 'fp-ts/lib/function'
-//import { type Readonly } from 'type-fest'
 import type { Animation } from './animation-types'
 import { boxCenter, boxScaleAt } from './box/prefixed'
 import { svgMapViewerConfig } from './config'
 import { fromMatrixSvg } from './coord'
-import { type Drag } from './drag'
 import { type Layout, relocLayout, zoomLayout } from './layout'
 import { matrixMultiply, matrixScaleAt } from './matrix/prefixed'
 import { fromTransform, invMove, invScale, transformScale } from './transform'
-import { ifNullOr } from './utils'
-import { type VecVec as Vec, vecAdd, vecSub } from './vec/prefixed'
-
-export const animationMove = (
-  layout: Layout,
-  drag: Drag,
-  d: Vec
-): Animation => {
-  const move = vecAdd(drag.start, d)
-
-  const v = vecSub(ifNullOr(move, layout.scroll), layout.scroll)
-  const q = fromTransform(v)
-
-  return {
-    move: { move, q },
-    zoom: null,
-  }
-}
+import { type VecVec as Vec } from './vec/prefixed'
 
 export const animationZoom = (
   layout: Layout,
