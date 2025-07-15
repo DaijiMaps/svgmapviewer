@@ -1,9 +1,12 @@
+/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
+import { createStore } from '@xstate/store'
+import { useSelector } from '@xstate/store/react'
 import { number, option, readonlyArray } from 'fp-ts'
 import { pipe } from 'fp-ts/lib/function'
 import { none, some } from 'fp-ts/lib/Option'
 import { useMemo } from 'react'
-import { useConfigMapNames } from '../config-xstate'
 import { type POI } from '../geo'
 import { useSvgRange } from '../style-xstate'
 import type { Range } from '../types'
@@ -17,11 +20,26 @@ export interface Names {
   readonly sizes: readonly number[]
 }
 
+const namesStore = createStore({
+  context: {
+    names: [] as readonly POI[],
+  },
+  on: {
+    set: (_, { names }: Readonly<{ names: readonly POI[] }>) => ({
+      names,
+    }),
+  },
+})
+
+export function setNames(names: readonly POI[]): void {
+  namesStore.trigger.set({ names })
+}
+
 // XXX
 // XXX
 // XXX
 export function useNames(): Readonly<Names> {
-  const mapNames = useConfigMapNames()
+  const mapNames = useSelector(namesStore, (state) => state.context.names)
 
   const pointNames = useMemo(() => {
     return mapNames.filter(

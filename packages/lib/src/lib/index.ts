@@ -1,8 +1,6 @@
 import { Like } from '../Like'
 import { svgMapViewerConfig } from './config'
 import {
-  configActorStart,
-  configSend,
   notifyLayout,
   notifyResize,
   notifySearch,
@@ -16,7 +14,6 @@ import {
   notifyUiOpenDone,
   notifyZoomEnd,
   notifyZoomStart,
-  useConfigMapNames,
 } from './config-xstate'
 import { useLayout, useLayout2 } from './style-xstate'
 import { svgmapviewer } from './svgmapviewer'
@@ -38,7 +35,7 @@ export { type Info, type RenderMap, type SearchReq, type SearchRes }
 
 // svgmapviewer
 
-export { configActorStart, configSend, svgMapViewerConfig, useConfigMapNames }
+export { svgMapViewerConfig }
 
 export {
   notifyLayout,

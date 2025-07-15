@@ -1,4 +1,3 @@
-import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
 import {
   animationCbs,
@@ -77,16 +76,6 @@ configActor.start()
 
 export function configActorStart(): void {
   configActor.start()
-}
-
-export function configSend(ev: ConfigEvent): void {
-  configActor.send(ev)
-}
-
-////
-
-export function useConfigMapNames(): POI[] {
-  return useSelector(configActor, (state) => state.context.mapNames)
 }
 
 ////

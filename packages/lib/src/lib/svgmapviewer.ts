@@ -12,9 +12,10 @@ import {
   svgMapViewerConfig,
   updateSvgMapViewerConfig,
 } from './config'
-import { configActorStart, configSend } from './config-xstate'
+import { configActorStart } from './config-xstate'
 import { geolocActorStart } from './geo'
 import { renderMapActorStart } from './map/map-xstate'
+import { setNames } from './map/names'
 import { getAddressEntries } from './search'
 import { workerSearchInit } from './search/search-main'
 import {
@@ -67,7 +68,7 @@ export function svgmapviewer(
   searchDoneCbs.add(searchSearchDone)
 
   if (configUser.getMapNames) {
-    configSend({ type: 'SET.MAPNAMES', mapNames: configUser.getMapNames() })
+    setNames(configUser.getMapNames())
   }
 
   if (config.searchEntries.length > 0) {
