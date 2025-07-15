@@ -17,6 +17,7 @@
     "./carto-objects": "./dist/carto-objects.js",
     "./carto-symbols": "./dist/carto-symbols.js",
     "./geo": "./dist/geo.js",
+    "./map": "./dist/map.js",
     "./matrix": "./dist/matrix.js",
     "./search": "./dist/search.js",
     "./tuple": "./dist/tuple.js",

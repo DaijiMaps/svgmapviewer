@@ -28,6 +28,10 @@ export default defineConfig({
         __dirname,
         '../lib/src/lib/geo/index.ts'
       ),
+      '@daijimaps/svgmapviewer/map': path.resolve(
+        __dirname,
+        '../lib/src/lib/map/index.ts'
+      ),
       '@daijimaps/svgmapviewer/matrix': path.resolve(
         __dirname,
         '../lib/src/lib/matrix/prefixed/index.ts'

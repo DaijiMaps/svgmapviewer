@@ -20,11 +20,6 @@ import {
   useConfigMapNames,
 } from './config-xstate'
 import { type Layout } from './layout'
-import {
-  RenderMapDefault,
-  RenderMapOsmDefault,
-  isMapRenderedOsmDefault,
-} from './map/Map'
 import { useLayout, useLayout2 } from './style-xstate'
 import { svgmapviewer } from './svgmapviewer'
 import {
@@ -90,7 +85,3 @@ export { Like }
 // style
 
 export { useLayout, useLayout2 }
-
-// map
-
-export { RenderMapDefault, RenderMapOsmDefault, isMapRenderedOsmDefault }

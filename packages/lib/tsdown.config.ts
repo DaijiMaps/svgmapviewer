@@ -10,6 +10,7 @@ export default [
       'carto-symbols': 'src/lib/carto/symbols/index.ts',
       geo: 'src/lib/geo/index.ts',
       index: 'src/lib/index.ts',
+      map: 'src/lib/map/index.ts',
       matrix: 'src/lib/matrix/prefixed/index.ts',
       search: 'src/lib/search/index.ts',
       'search-worker': 'src/lib/search/search-worker.ts',
