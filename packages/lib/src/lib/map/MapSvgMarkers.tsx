@@ -14,6 +14,7 @@ import {
   MAP_SVG_MARKERS_CONTENT_ID,
   MAP_SVG_MARKERS_ROOT_ID,
 } from './map-svg-react'
+import { useLayoutConfig, useLayoutSvgScaleS } from './map-xstate'
 
 export function MapSvgMarkers(): ReactNode {
   useShadowRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkersContent />)
@@ -58,9 +59,16 @@ function MapSvgMarkersSvg(): ReactNode {
 }
 
 function MapSvgMarkersDefs(): ReactNode {
+  const { fontSize } = useLayoutConfig()
+  const s = useLayoutSvgScaleS()
+
   return (
     <svg id="map-svg-markers-defs">
-      <RenderMapMarkers mapMarkers={svgMapViewerConfig.getMapMarkers()} />
+      <RenderMapMarkers
+        mapMarkers={svgMapViewerConfig.getMapMarkers()}
+        fontSize={fontSize}
+        s={s}
+      />
       <g id="map-svg-markers1">
         <MapSvgMarkersUses />
         <style>

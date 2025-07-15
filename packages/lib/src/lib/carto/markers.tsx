@@ -1,8 +1,6 @@
-/* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../config'
 import { usePosition } from '../geo'
-import { useLayoutConfig, useLayoutSvgScaleS } from '../map/map-xstate'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'
 import { entryToVs } from './point'
@@ -11,11 +9,7 @@ import type { MapMarker, RenderMapMarkersProps } from './types'
 export function RenderMapMarkers(
   props: Readonly<RenderMapMarkersProps>
 ): ReactNode {
-  const config = useLayoutConfig()
-  //const s = useLayoutSvgScaleS()
-
-  //const sz = s * config.fontSize * 0.9
-  const sz = 25 / config.fontSize
+  const sz = 25 / props.fontSize
 
   return (
     <defs className="map-markers">
@@ -32,7 +26,7 @@ export function RenderMapMarkers(
       <RenderCircle sz={sz} />
       <RenderPosition sz={sz} />
       <style>
-        <RenderPositionStyle />
+        <RenderPositionStyle {...props} />
       </style>
     </defs>
   )
@@ -145,11 +139,14 @@ z
 `
 }
 
-export function RenderPositionStyle(): ReactNode {
+export function RenderPositionStyle(
+  props: Readonly<{
+    fontSize: number
+    s: number
+  }>
+): ReactNode {
   const position = usePosition()
-  const config = useLayoutConfig()
-  const s = useLayoutSvgScaleS()
-  const sz = s * config.fontSize * 0.9
+  const sz = props.s * props.fontSize * 0.9
 
   if (position === null) {
     return (

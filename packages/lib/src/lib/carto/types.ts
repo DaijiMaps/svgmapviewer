@@ -49,6 +49,8 @@ export interface MultiPolygonPath {
 
 export interface RenderMapMarkersProps {
   mapMarkers: MapMarkers[]
+  fontSize: number
+  s: number
 }
 
 export interface MapMarker {
