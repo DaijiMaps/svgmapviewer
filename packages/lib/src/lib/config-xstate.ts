@@ -1,5 +1,6 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
+import { animationCbs, layoutCbs, resizeCbs } from './config'
 import { type POI } from './geo'
 import {
   type ConfigCb,
@@ -57,9 +58,6 @@ const configMachine = setup({
     uiOpenDoneCbs: new Set(),
     uiCloseCbs: new Set(),
     uiCloseDoneCbs: new Set(),
-    resizeCbs: new Set(),
-    layoutCbs: new Set(),
-    animationCbs: new Set(),
     mapNames: [],
   },
   states: {
@@ -112,18 +110,6 @@ const configMachine = setup({
               event.uiCloseDoneCb === undefined
                 ? context.uiCloseDoneCbs
                 : context.uiCloseDoneCbs.add(event.uiCloseDoneCb),
-            resizeCbs: ({ context, event }) =>
-              event.resizeCb === undefined
-                ? context.resizeCbs
-                : context.resizeCbs.add(event.resizeCb),
-            layoutCbs: ({ context, event }) =>
-              event.layoutCb === undefined
-                ? context.layoutCbs
-                : context.layoutCbs.add(event.layoutCb),
-            animationCbs: ({ context, event }) =>
-              event.animationCb === undefined
-                ? context.animationCbs
-                : context.animationCbs.add(event.animationCb),
           }),
         },
         // XXX refactor
@@ -194,24 +180,6 @@ const configMachine = setup({
                 context.uiCloseDoneCbs.delete(event.uiCloseDoneCb)
               }
               return context.uiCloseDoneCbs
-            },
-            resizeCbs: ({ context, event }) => {
-              if (event.resizeCb !== undefined) {
-                context.resizeCbs.delete(event.resizeCb)
-              }
-              return context.resizeCbs
-            },
-            layoutCbs: ({ context, event }) => {
-              if (event.layoutCb !== undefined) {
-                context.layoutCbs.delete(event.layoutCb)
-              }
-              return context.layoutCbs
-            },
-            animationCbs: ({ context, event }) => {
-              if (event.animationCb !== undefined) {
-                context.animationCbs.delete(event.animationCb)
-              }
-              return context.animationCbs
             },
           }),
         },
@@ -325,13 +293,13 @@ export function notifyZoomEnd(layout: Readonly<Layout>, zoom: number): void {
 }
 
 export function notifyResize(layout: Readonly<Layout>, force: boolean): void {
-  configActor.getSnapshot().context.resizeCbs.forEach((cb) => cb(layout, force))
+  resizeCbs.forEach((cb) => cb(layout, force))
 }
 export function notifyLayout(layout: Readonly<Layout>, force: boolean): void {
-  configActor.getSnapshot().context.layoutCbs.forEach((cb) => cb(layout, force))
+  layoutCbs.forEach((cb) => cb(layout, force))
 }
 export function notifyAnimation(animation: null | Readonly<Animation>): void {
-  configActor.getSnapshot().context.animationCbs.forEach((cb) => cb(animation))
+  animationCbs.forEach((cb) => cb(animation))
 }
 
 ////

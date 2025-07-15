@@ -106,9 +106,6 @@ export interface ConfigCb {
   uiOpenDoneCb: UiOpenDoneCb
   uiCloseCb: UiCloseCb
   uiCloseDoneCb: UiCloseDoneCb
-  resizeCb: ResizeCb
-  layoutCb: LayoutCb
-  animationCb: AnimationCb
 }
 
 export interface ConfigCbs {
@@ -123,9 +120,6 @@ export interface ConfigCbs {
   uiOpenDoneCbs: Set<UiOpenDoneCb>
   uiCloseCbs: Set<UiCloseCb>
   uiCloseDoneCbs: Set<UiCloseDoneCb>
-  resizeCbs: Set<ResizeCb>
-  layoutCbs: Set<LayoutCb>
-  animationCbs: Set<AnimationCb>
 }
 
 ////

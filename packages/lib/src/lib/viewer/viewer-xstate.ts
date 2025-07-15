@@ -3,6 +3,7 @@ import React from 'react'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import { boxCenter } from '../box/prefixed'
 import {
+  resizeCbs,
   svgMapViewerConfig,
   uiActionRecenterCbs,
   uiActionResetCbs,
@@ -681,8 +682,9 @@ registerCbs({
   searchEndCb: viewerSearchEnd,
   uiOpenCb: viewerSearchLock,
   uiCloseDoneCb: viewerSearchUnlock,
-  resizeCb: resizeCb,
 })
+
+resizeCbs.add(resizeCb)
 
 function getDoneCb(ev: GetDone) {
   if (ev.scroll !== null) {

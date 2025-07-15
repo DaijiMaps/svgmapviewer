@@ -1,8 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, raise, setup } from 'xstate'
 import { boxToViewBox2, type BoxBox } from './box/prefixed'
-import { svgMapViewerConfig } from './config'
-import { registerCbs } from './config-xstate'
+import { animationCbs, layoutCbs, svgMapViewerConfig } from './config'
 import { findRadius } from './distance'
 import type { DistanceRadius } from './distance-types'
 import { makeExpire } from './expire-xstate'
@@ -250,14 +249,14 @@ export function useLayout2(): {
   }
 }
 
-registerCbs({
-  layoutCb: (layout, rendered) => {
-    styleSend({ type: 'STYLE.LAYOUT', layout, rendered })
-    // XXX update name range after scroll is updated
-    requestAnimationFrame(() => expireCb())
-  },
-  animationCb: (animation) => styleSend({ type: 'STYLE.ANIMATION', animation }),
+layoutCbs.add((layout, rendered) => {
+  styleSend({ type: 'STYLE.LAYOUT', layout, rendered })
+  // XXX update name range after scroll is updated
+  requestAnimationFrame(() => expireCb())
 })
+animationCbs.add((animation) =>
+  styleSend({ type: 'STYLE.ANIMATION', animation })
+)
 
 // scroll & expire
 
