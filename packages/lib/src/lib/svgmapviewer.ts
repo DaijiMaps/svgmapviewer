@@ -74,7 +74,6 @@ export function svgmapviewer(
   styleRoot()
 }
 
-// eslint-disable-next-line functional/functional-parameters
 function startAllActors() {
   // reference & ensure all actors are started
   // for module dependency

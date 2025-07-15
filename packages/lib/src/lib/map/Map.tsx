@@ -14,10 +14,6 @@ export function RenderMap(): ReactNode {
   return RenderMapCommon()
 }
 
-export function RenderMapDefault(): ReactNode {
-  return <></>
-}
-
 export function RenderMapOsmDefault(): ReactNode {
   return (
     <>

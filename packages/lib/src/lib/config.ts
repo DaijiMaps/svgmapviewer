@@ -3,8 +3,8 @@
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/no-return-void */
 import { createElement } from 'react'
+import { RenderMapDefault } from '../Map'
 import { emptyMapData } from './geo/data-types'
-import { RenderMapDefault } from './map/Map'
 import {
   type Info,
   type RenderInfo,
