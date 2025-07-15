@@ -3,10 +3,10 @@
 import type { ReactNode } from 'react'
 import { fromSvgToScroll } from '../coord'
 import { useShadowRoot } from '../dom'
-import { useNames } from '../names'
 import { useLayout } from '../style-xstate'
 import { trunc2 } from '../utils'
 import { MAP_HTML_CONTENT_ID, MAP_HTML_ROOT_ID } from './map-svg-react'
+import { useNames } from './names'
 
 export function MapHtml(): ReactNode {
   useShadowRoot(MAP_HTML_ROOT_ID, <MapHtmlContent />)

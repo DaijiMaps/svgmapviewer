@@ -3,12 +3,12 @@ import { number, option, readonlyArray } from 'fp-ts'
 import { pipe } from 'fp-ts/lib/function'
 import { none, some } from 'fp-ts/lib/Option'
 import { useMemo } from 'react'
-import { useConfigMapNames } from './config-xstate'
-import { type POI } from './geo'
-import { useLayoutSvgScaleS } from './map/map-xstate'
-import { useSvgRange } from './style-xstate'
-import type { Range } from './types'
-import type { VecVec } from './vec/prefixed'
+import { useConfigMapNames } from '../config-xstate'
+import { type POI } from '../geo'
+import { useSvgRange } from '../style-xstate'
+import type { Range } from '../types'
+import type { VecVec } from '../vec/prefixed'
+import { useLayoutSvgScaleS } from './map-xstate'
 
 export interface Names {
   readonly pointNames: readonly POI[]
