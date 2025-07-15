@@ -14,6 +14,8 @@ import {
   type ResizeCb,
   type SvgMapViewerConfig,
   type SvgMapViewerConfigUser,
+  type ZoomEndCb,
+  type ZoomStartCb,
 } from './types'
 
 const renderInfoDefault: RenderInfo = (
@@ -80,6 +82,8 @@ export function updateSvgMapViewerConfig(
 
 ////
 
+export const zoomStartCbs: Set<ZoomStartCb> = new Set<ZoomStartCb>()
+export const zoomEndCbs: Set<ZoomEndCb> = new Set<ZoomEndCb>()
 export const resizeCbs: Set<ResizeCb> = new Set<ResizeCb>()
 export const layoutCbs: Set<LayoutCb> = new Set<LayoutCb>()
 export const animationCbs: Set<AnimationCb> = new Set<AnimationCb>()

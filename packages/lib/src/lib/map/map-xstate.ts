@@ -1,7 +1,6 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
-import { layoutCbs } from '../config'
-import { registerCbs } from '../config-xstate'
+import { layoutCbs, zoomEndCbs, zoomStartCbs } from '../config'
 import { emptyLayout } from '../viewer/layout'
 import { type Layout, type LayoutConfig } from '../viewer/layout-types'
 import type { RenderMapContext, RenderMapEvent } from './map-types'
@@ -74,9 +73,6 @@ function renderMapLayout(layout: Layout) {
   renderMapActorSend({ type: 'LAYOUT', layout })
 }
 
-registerCbs({
-  zoomStartCb: renderMapZoomStart,
-  zoomEndCb: renderMapZoomEnd,
-})
-
+zoomStartCbs.add(renderMapZoomStart)
+zoomEndCbs.add(renderMapZoomEnd)
 layoutCbs.add(renderMapLayout)

@@ -95,8 +95,6 @@ export type GeoLocCb = () => void
 export type GeoLocDoneCb = (position: GeolocationPosition) => void
 
 export interface ConfigCb {
-  zoomStartCb: ZoomStartCb
-  zoomEndCb: ZoomEndCb
   searchStartCb: SearchStartCb
   searchCb: SearchCb
   searchDoneCb: SearchDoneCb
@@ -109,8 +107,6 @@ export interface ConfigCb {
 }
 
 export interface ConfigCbs {
-  zoomStartCbs: Set<ZoomStartCb>
-  zoomEndCbs: Set<ZoomEndCb>
   searchStartCbs: Set<SearchStartCb>
   searchCbs: Set<SearchCb>
   searchDoneCbs: Set<SearchDoneCb>

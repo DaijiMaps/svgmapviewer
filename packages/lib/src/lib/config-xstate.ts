@@ -1,6 +1,12 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
-import { animationCbs, layoutCbs, resizeCbs } from './config'
+import {
+  animationCbs,
+  layoutCbs,
+  resizeCbs,
+  zoomEndCbs,
+  zoomStartCbs,
+} from './config'
 import { type POI } from './geo'
 import {
   type ConfigCb,
@@ -47,8 +53,6 @@ const configMachine = setup({
   id: 'config1',
   initial: 'Idle',
   context: {
-    zoomStartCbs: new Set(),
-    zoomEndCbs: new Set(),
     searchStartCbs: new Set(),
     searchCbs: new Set(),
     searchDoneCbs: new Set(),
@@ -66,14 +70,6 @@ const configMachine = setup({
         // XXX refactor
         'ADD.CB': {
           actions: assign({
-            zoomStartCbs: ({ context, event }) =>
-              event.zoomStartCb === undefined
-                ? context.zoomStartCbs
-                : context.zoomStartCbs.add(event.zoomStartCb),
-            zoomEndCbs: ({ context, event }) =>
-              event.zoomEndCb === undefined
-                ? context.zoomEndCbs
-                : context.zoomEndCbs.add(event.zoomEndCb),
             searchStartCbs: ({ context, event }) =>
               event.searchStartCb === undefined
                 ? context.searchStartCbs
@@ -115,18 +111,6 @@ const configMachine = setup({
         // XXX refactor
         'DELETE.CB': {
           actions: assign({
-            zoomStartCbs: ({ context, event }) => {
-              if (event.zoomStartCb !== undefined) {
-                context.zoomStartCbs.delete(event.zoomStartCb)
-              }
-              return context.zoomStartCbs
-            },
-            zoomEndCbs: ({ context, event }) => {
-              if (event.zoomEndCb !== undefined) {
-                context.zoomEndCbs.delete(event.zoomEndCb)
-              }
-              return context.zoomEndCbs
-            },
             searchStartCbs: ({ context, event }) => {
               if (event.searchStartCb !== undefined) {
                 context.searchStartCbs.delete(event.searchStartCb)
@@ -282,14 +266,10 @@ export function notifyZoomStart(
   zoom: number,
   z: number
 ): void {
-  configActor
-    .getSnapshot()
-    .context.zoomStartCbs.forEach((cb: ZoomStartCb) => cb(layout, zoom, z))
+  zoomStartCbs.forEach((cb: ZoomStartCb) => cb(layout, zoom, z))
 }
 export function notifyZoomEnd(layout: Readonly<Layout>, zoom: number): void {
-  configActor
-    .getSnapshot()
-    .context.zoomEndCbs.forEach((cb: ZoomEndCb) => cb(layout, zoom))
+  zoomEndCbs.forEach((cb: ZoomEndCb) => cb(layout, zoom))
 }
 
 export function notifyResize(layout: Readonly<Layout>, force: boolean): void {
