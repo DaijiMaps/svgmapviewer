@@ -1,4 +1,3 @@
-import type { BalloonProps } from '../../Balloon'
 import { boxBox, type BoxBox } from '../box/prefixed'
 import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from '../css'
 import type { HV, Size } from '../types'
@@ -8,6 +7,7 @@ import {
   vecSub,
   type VecVec as Vec,
 } from '../vec/prefixed'
+import type { BalloonProps } from './Balloon'
 import { diag2 } from './diag'
 import type { OpenClose } from './openclose'
 import type { UiDetailContent } from './ui-types'

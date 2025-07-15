@@ -1,12 +1,12 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
+import { RenderMapAssetsDefault } from '../carto/assets'
+import { useShadowRoot } from '../dom'
 import { Balloon, DetailBalloonStyle } from './Balloon'
 import { Detail } from './Detail'
-import { RenderMapAssetsDefault } from './lib/carto/assets'
-import { useShadowRoot } from './lib/dom'
-import { calcBalloonLayout } from './lib/ui/balloon'
-import { useDetail } from './lib/ui/ui-xstate'
+import { calcBalloonLayout } from './balloon'
+import { useDetail } from './ui-xstate'
 
 export function DetailBalloon(): ReactNode {
   useShadowRoot('detail', <DetailBalloonContent />, 'ui')

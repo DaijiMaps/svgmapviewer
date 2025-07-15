@@ -1,17 +1,17 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig as cfg } from './lib/config'
+import { svgMapViewerConfig as cfg } from '../config'
 import {
   box_sizing_border_box,
   pointer_events_initial,
   position_absolute_left_0_top_0,
   user_select_none,
   Z_INDEX_DETAIL,
-} from './lib/css'
-import type { UiDetailContent } from './lib/ui/ui-types'
-import { isDetailEmpty, uiSend } from './lib/ui/ui-xstate'
-import { useOnWheel } from './lib/wheel'
+} from '../css'
+import { useOnWheel } from '../wheel'
+import type { UiDetailContent } from './ui-types'
+import { isDetailEmpty, uiSend } from './ui-xstate'
 
 export function Detail(
   props: Readonly<{ _detail: UiDetailContent }>

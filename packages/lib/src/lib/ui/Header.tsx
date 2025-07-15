@@ -1,64 +1,75 @@
+/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig } from './lib'
+import { svgMapViewerConfig } from '..'
+import { uiActionResetCbs } from '../config'
 import {
   flex_column_center_center,
-  position_absolute_left_0_bottom_0,
+  pointer_events_initial,
+  position_absolute_left_0_top_0,
   timing_closing,
   timing_opening,
   user_select_none,
   ZOOM_DURATION_HEADER,
-} from './lib/css'
-import { useShadowRoot } from './lib/dom'
-import { useOpenCloseHeader } from './lib/ui/ui-xstate'
+} from '../css'
+import { useShadowRoot } from '../dom'
+import { uiSend, useOpenCloseHeader } from './ui-xstate'
 
-export function Footer(): ReactNode {
-  useShadowRoot('footer', <FooterContent />, 'ui')
+export function Header(): ReactNode {
+  useShadowRoot('header', <HeaderContent />, 'ui')
 
-  return <div id="footer" />
+  return <div id="header" />
 }
 
-function FooterContent(): ReactNode {
+function HeaderContent(): ReactNode {
   const config = svgMapViewerConfig
 
   return (
-    <div className="ui-content footer">
-      <p>{config.copyright}</p>
+    <div
+      className="ui-content header"
+      onAnimationEnd={() => uiSend({ type: 'HEADER.ANIMATION.END' })}
+    >
+      <h1 className="title" onClick={() => doTitle()}>
+        {config.title}
+      </h1>
       <style>
         {style}
-        <FooterStyle />
+        <HeaderStyle />
       </style>
     </div>
   )
 }
 
+function doTitle() {
+  uiActionResetCbs.forEach((cb) => cb())
+}
+
 const style = `
-.footer {
-  ${position_absolute_left_0_bottom_0}
+.header {
+  ${position_absolute_left_0_top_0}
   ${flex_column_center_center}
-  padding: 0.4em;
-  font-size: xx-small;
+  padding: 0.5em;
+  font-size: smaller;
   pointer-events: none;
 }
 
+h1,
 h2,
 p {
   ${user_select_none}
-  pointer-events: initial;
+  ${pointer_events_initial}
 }
 
+h1,
 h2 {
-  font-size: x-small;
-  margin: 0;
-}
-
-p {
   margin: 0.25em;
+  font-weight: 100;
+  cursor: default;
 }
 `
 
-export function FooterStyle(): ReactNode {
+export function HeaderStyle(): ReactNode {
   const { open, animating } = useOpenCloseHeader()
 
   if (!animating) {
@@ -66,9 +77,9 @@ export function FooterStyle(): ReactNode {
 
     return (
       <>{`
-.footer {
+.header {
   --b: ${b};
-  transform-origin: 50% 100%;
+  transform-origin: 50% 0%;
   opacity: var(--b);
   transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
   will-change: opacity, transform;
@@ -81,17 +92,17 @@ export function FooterStyle(): ReactNode {
 
     return (
       <>{`
-.footer {
-  --duration: ${ZOOM_DURATION_HEADER}ms;
+.header {
   --timing: ${t};
+  --duration: ${ZOOM_DURATION_HEADER}ms;
   --a: ${a};
   --b: ${b};
-  transform-origin: 50% 100%;
-  animation: xxx-footer var(--duration) var(--timing);
+  transform-origin: 50% 0%;
+  animation: xxx-header var(--duration) var(--timing);
   will-change: opacity, transform;
 }
 
-@keyframes xxx-footer {
+@keyframes xxx-header {
   from {
     opacity: var(--a);
     transform: translate(calc(50vw - 50%), 0%) scale(var(--a)) translate3d(0px, 0px, 0px);

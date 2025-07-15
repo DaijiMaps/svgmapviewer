@@ -1,21 +1,21 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import {
-  GuidesAnimationStyle,
-  Measure,
-  MeasureCoordinate,
-  MeasureDistance,
-} from './Measure'
-import { svgMapViewerConfig } from './lib'
+import { svgMapViewerConfig } from '..'
 import {
   pointer_events_none,
   position_absolute_left_0_top_0,
   user_select_none,
   width_100vw_height_100svh,
   Z_INDEX_GUIDES,
-} from './lib/css'
-import { useShadowRoot } from './lib/dom'
+} from '../css'
+import { useShadowRoot } from '../dom'
+import {
+  GuidesAnimationStyle,
+  Measure,
+  MeasureCoordinate,
+  MeasureDistance,
+} from './Measure'
 
 export function Guides(): ReactNode {
   useShadowRoot('guides', <GuidesContent />, 'ui')

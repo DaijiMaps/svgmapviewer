@@ -1,20 +1,20 @@
 import { type PropsWithChildren, type ReactNode } from 'react'
-import { boxToViewBox2 } from './lib/box/prefixed'
+import { boxToViewBox2 } from '../box/prefixed'
 import {
   pointer_events_none,
   position_absolute_left_0_top_0,
   Z_INDEX_BALLOON,
-} from './lib/css'
-import { type HV } from './lib/types'
+} from '../css'
+import { type HV } from '../types'
+import { type VecVec } from '../vec/prefixed'
 import {
   balloonPaths,
   balloonStyle,
   type BalloonSize,
   type LegLayout,
-} from './lib/ui/balloon'
-import { openCloseIsVisible } from './lib/ui/openclose'
-import { useOpenCloseDetail } from './lib/ui/ui-xstate'
-import { type VecVec } from './lib/vec/prefixed'
+} from './balloon'
+import { openCloseIsVisible } from './openclose'
+import { useOpenCloseDetail } from './ui-xstate'
 
 export interface BalloonProps {
   _p: null | VecVec

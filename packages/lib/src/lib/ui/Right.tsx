@@ -2,14 +2,14 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig } from './lib'
+import { svgMapViewerConfig } from '..'
 import {
   uiActionFullscreenCbs,
   uiActionPositionCbs,
   uiActionRecenterCbs,
   uiActionZoomInCbs,
   uiActionZoomOutCbs,
-} from './lib/config'
+} from '../config'
 import {
   flex_column_center_center,
   flex_row_center_center,
@@ -18,9 +18,9 @@ import {
   position_absolute_right_0_top_0,
   timing_closing,
   timing_opening,
-} from './lib/css'
-import { useShadowRoot } from './lib/dom'
-import { useOpenCloseHeader } from './lib/ui/ui-xstate'
+} from '../css'
+import { useShadowRoot } from '../dom'
+import { useOpenCloseHeader } from './ui-xstate'
 
 export function Right(): ReactNode {
   useShadowRoot('right', <RightContent />, 'ui')

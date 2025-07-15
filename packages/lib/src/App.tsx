@@ -2,7 +2,6 @@
 import { type ReactNode } from 'react'
 import { Container } from './Container'
 import { likeStyle } from './Like'
-import { Ui } from './Ui'
 import { svgMapViewerConfig } from './lib'
 import {
   box_sizing_border_box,
@@ -11,6 +10,7 @@ import {
   touch_action_none,
   width_100vw_height_100svh,
 } from './lib/css'
+import { Ui } from './lib/ui/Ui'
 
 function App(): ReactNode {
   const backgroundColor =

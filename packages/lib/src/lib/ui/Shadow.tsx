@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { notifyUiClose } from './lib/config-xstate'
+import { notifyUiClose } from '../config-xstate'
 import {
   position_absolute_left_0_top_0,
   timing_closing,
@@ -10,11 +10,11 @@ import {
   width_100vw_height_100svh,
   Z_INDEX_SHADOW,
   ZOOM_DURATION_DETAIL,
-} from './lib/css'
-import { useShadowRoot } from './lib/dom'
-import { useAnimating } from './lib/style-xstate'
-import { useOpenCloseDetail } from './lib/ui/ui-xstate'
-import { useOnWheel } from './lib/wheel'
+} from '../css'
+import { useShadowRoot } from '../dom'
+import { useAnimating } from '../style-xstate'
+import { useOnWheel } from '../wheel'
+import { useOpenCloseDetail } from './ui-xstate'
 
 export function Shadow(): ReactNode {
   useShadowRoot('shadow', <ShadowContent />, 'ui')

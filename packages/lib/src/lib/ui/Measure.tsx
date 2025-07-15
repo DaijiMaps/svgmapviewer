@@ -7,14 +7,14 @@ import {
   timing_closing,
   timing_opening,
   ZOOM_DURATION_HEADER,
-} from './lib/css'
+} from '../css'
 import {
   useDistanceRadius,
   useGeoPoint,
   useLayoutContainer,
-} from './lib/style-xstate'
-import { useOpenCloseHeader } from './lib/ui/ui-xstate'
-import { trunc7 } from './lib/utils'
+} from '../style-xstate'
+import { trunc7 } from '../utils'
+import { useOpenCloseHeader } from './ui-xstate'
 
 export function Measure(): ReactNode {
   return (
