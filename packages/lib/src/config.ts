@@ -3,11 +3,11 @@
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/no-return-void */
 import { createElement } from 'react'
-import { RenderMapDefault } from './Map'
 import { emptyMapData } from './lib/geo/data-types'
 import {
   type Info,
   type RenderInfo,
+  type RenderMap,
   type SvgMapViewerConfig,
   type SvgMapViewerConfigUser,
 } from './types'
@@ -15,6 +15,8 @@ import {
 const renderInfoDefault: RenderInfo = (
   props: Readonly<{ info: Readonly<Info> }>
 ) => createElement('p', {}, props.info.title)
+
+const renderMapDefault: RenderMap = () => createElement('div')
 
 export let svgMapViewerConfig: SvgMapViewerConfig = {
   root: 'root',
@@ -43,7 +45,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   searchEntries: [],
   renderInfo: renderInfoDefault,
   mapSvgStyle: '',
-  renderMap: RenderMapDefault,
+  renderMap: renderMapDefault,
   isMapRendered: () => true,
 
   // DataConfig
