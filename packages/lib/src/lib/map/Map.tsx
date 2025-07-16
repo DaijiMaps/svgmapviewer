@@ -27,6 +27,6 @@ export function RenderMapOsmDefault(): ReactNode {
   )
 }
 
-export function isMapRenderedOsmDefault(): boolean {
+export function isMapOsmDefaultRendered(): boolean {
   return isShadowRootRendered(MAP_SVG_LAYERS_ROOT_ID)
 }

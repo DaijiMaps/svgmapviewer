@@ -1,15 +1,15 @@
 import { type RenderConfig } from '@daijimaps/svgmapviewer'
 import { getMapNames } from '@daijimaps/svgmapviewer/carto'
 import {
-  isMapRenderedOsmDefault,
-  RenderMapOsmDefault,
+  isMapOsmDefaultRendered as isMapRendered,
+  RenderMapOsmDefault as renderMap,
 } from '@daijimaps/svgmapviewer/map'
 import { getMapLayers } from './map-layers'
 import { mapSvgStyle } from './map-layers-css'
 import { getMapMarkers } from './map-markers'
 import { getMapObjects } from './map-objects'
 import { getMapSymbols } from './map-symbols'
-import { RenderInfo } from './render'
+import { RenderInfo as renderInfo } from './render'
 import { searchEntries } from './search-data'
 
 export const renderConfig: RenderConfig = {
@@ -19,8 +19,8 @@ export const renderConfig: RenderConfig = {
   getMapMarkers,
   getMapNames, // XXX
   searchEntries,
-  renderInfo: RenderInfo,
+  renderInfo,
   mapSvgStyle,
-  renderMap: RenderMapOsmDefault,
-  isMapRendered: isMapRenderedOsmDefault,
+  renderMap,
+  isMapRendered,
 }

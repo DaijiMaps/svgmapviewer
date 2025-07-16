@@ -1,3 +1,3 @@
-import { RenderMapOsmDefault, isMapRenderedOsmDefault } from './Map'
+import { RenderMapOsmDefault, isMapOsmDefaultRendered } from './Map'
 
-export { RenderMapOsmDefault, isMapRenderedOsmDefault }
+export { RenderMapOsmDefault, isMapOsmDefaultRendered }
