@@ -2,7 +2,6 @@ import { RenderMapLayers } from './layers'
 import { RenderMapMarkers, RenderMarkers } from './markers'
 import { getMapNames } from './names'
 import { RenderMapObjects, RenderObjects } from './objects'
-import { renderAreasPath, renderLinePath, renderMultiPolygonPath } from './path'
 import { RenderMapCommon } from './render'
 import { RenderMapSymbols, RenderUses } from './symbols'
 import {
@@ -18,8 +17,6 @@ import {
 } from './types'
 
 // XXX
-
-export { renderAreasPath, renderLinePath, renderMultiPolygonPath }
 
 export { type CartoConfig }
 

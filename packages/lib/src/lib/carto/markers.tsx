@@ -16,11 +16,11 @@ export function RenderMapMarkers(
       {props.mapMarkers.map((entry, i) => (
         <g key={i}>
           <RenderUses
+            m={props.m}
             sz={sz}
             name={entry.name}
             href={entry.name} // XXX XXX XXX
             vs={entryToVs(entry)}
-            m={props.m}
           />
         </g>
       ))}
@@ -35,11 +35,11 @@ export function RenderMapMarkers(
 
 function RenderUses(
   props: Readonly<{
+    m: DOMMatrixReadOnly
     sz: number
     name: string
     href: string
     vs: V[]
-    m: DOMMatrixReadOnly
   }>
 ): ReactNode {
   return (
