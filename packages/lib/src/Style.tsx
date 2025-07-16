@@ -5,6 +5,7 @@
 import { type ReactNode, StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { timing_opening } from './lib/css'
+import { trunc2 } from './lib/utils'
 import {
   renderedCbs,
   useAppearing,
@@ -14,8 +15,7 @@ import {
   useRendered,
   useShown,
   useZoom,
-} from './lib/style-xstate'
-import { trunc2 } from './lib/utils'
+} from './style-xstate'
 
 export function styleRoot(): void {
   const e = document.getElementById('style-root')

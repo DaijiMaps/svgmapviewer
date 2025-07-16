@@ -3,11 +3,11 @@
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
 import { SvgSymbolStyle } from '../../Style'
+import { useLayout } from '../../style-xstate'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapSymbols } from '../carto'
 import { RenderMapAssetsDefault } from '../carto/assets'
 import { useShadowRoot } from '../dom'
-import { useLayout } from '../style-xstate'
 import { trunc2 } from '../utils'
 import {
   MAP_SVG_SYMBOLS_CONTENT_ID,

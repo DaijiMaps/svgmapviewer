@@ -2,10 +2,10 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
+import { useLayout } from '../../style-xstate'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapObjects } from '../carto'
 import { useShadowRoot } from '../dom'
-import { useLayout } from '../style-xstate'
 import { trunc2 } from '../utils'
 import {
   MAP_SVG_OBJECTS_CONTENT_ID,

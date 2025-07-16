@@ -1,7 +1,6 @@
 import { useSelector } from '@xstate/react'
 import React from 'react'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
-import { boxCenter } from '../box/prefixed'
 import {
   notifyAnimation,
   notifyLayout,
@@ -21,7 +20,8 @@ import {
   uiCloseDoneCbs,
   uiOpenCbs,
 } from '../../config'
-import { renderedCbs, styleSend } from '../style-xstate'
+import { renderedCbs, styleSend } from '../../style-xstate'
+import { boxCenter } from '../box/prefixed'
 import { type SearchRes } from '../types'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'
 import { animationEndLayout, animationHome, animationZoom } from './animation'

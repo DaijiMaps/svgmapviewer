@@ -3,10 +3,14 @@
 import { Fragment, type ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
 import { SvgSymbolStyle } from '../../Style'
+import {
+  useLayout,
+  useLayoutConfig,
+  useLayoutSvgScaleS,
+} from '../../style-xstate'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapMarkers } from '../carto'
 import { useShadowRoot } from '../dom'
-import { useLayout, useLayoutConfig, useLayoutSvgScaleS } from '../style-xstate'
 import { trunc2 } from '../utils'
 import type { VecVec } from '../vec/prefixed'
 import {

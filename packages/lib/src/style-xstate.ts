@@ -6,22 +6,26 @@ import {
   svgMapViewerConfig,
   zoomEndCbs,
   zoomStartCbs,
-} from '../config'
-import { boxToViewBox2, type BoxBox } from './box/prefixed'
-import { findRadius } from './distance'
-import type { DistanceRadius } from './distance-types'
-import { makeExpire } from './expire-xstate'
-import type { Cb } from './types'
-import { trunc2 } from './utils'
-import { vecZero, type VecVec } from './vec/prefixed'
-import { type Animation } from './viewer/animation-types'
-import { fromSvgToScroll } from './viewer/coord'
-import { emptyLayout, type Layout, type LayoutConfig } from './viewer/layout'
+} from './config'
+import { boxToViewBox2, type BoxBox } from './lib/box/prefixed'
+import { findRadius } from './lib/distance'
+import type { DistanceRadius } from './lib/distance-types'
+import { makeExpire } from './lib/expire-xstate'
+import type { Cb } from './lib/types'
+import { trunc2 } from './lib/utils'
+import { vecZero, type VecVec } from './lib/vec/prefixed'
+import { type Animation } from './lib/viewer/animation-types'
+import { fromSvgToScroll } from './lib/viewer/coord'
+import {
+  emptyLayout,
+  type Layout,
+  type LayoutConfig,
+} from './lib/viewer/layout'
 import {
   getCurrentScroll,
   scrollEventCbs,
   type CurrentScroll,
-} from './viewer/scroll'
+} from './lib/viewer/scroll'
 
 type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number; z: null | number }
 export type StyleEvent =

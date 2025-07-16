@@ -3,13 +3,13 @@
 /* eslint-disable functional/no-expression-statements */
 import { type ReactNode, useRef } from 'react'
 import { svgMapViewerConfig } from '../../config'
+import { styleAnimationEnd, useAnimation } from '../../style-xstate'
 import {
   position_absolute_left_0_top_0,
   width_100vw_height_100svh,
 } from '../css'
 import type { Matrix } from '../matrix'
 import { matrixEmpty, matrixToString } from '../matrix/prefixed'
-import { styleAnimationEnd, useAnimation } from '../style-xstate'
 import {
   touchSendTouchEnd,
   touchSendTouchMove,

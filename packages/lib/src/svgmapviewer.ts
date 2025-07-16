@@ -19,7 +19,6 @@ import {
   searchSearchDone,
   searchSearchStart,
 } from './lib/search/search-xstate'
-import { styleActorStart } from './lib/style-xstate'
 import {
   type SvgMapViewerConfig,
   type SvgMapViewerConfigUser,
@@ -33,6 +32,7 @@ import { touchActorStart } from './lib/viewer/touch-xstate'
 import { viewerActorStart } from './lib/viewer/viewer-xstate'
 import { root } from './Root'
 import { styleRoot } from './Style'
+import { styleActorStart } from './style-xstate'
 
 export function svgmapviewer(
   configUser: Readonly<SvgMapViewerConfigUser>

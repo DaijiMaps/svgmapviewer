@@ -15,7 +15,6 @@ import {
   notifyZoomStart,
   svgMapViewerConfig,
 } from './config'
-import { useLayout, useLayout2 } from './lib/style-xstate'
 import {
   type DataConfig,
   type Info,
@@ -27,6 +26,7 @@ import {
   type SvgMapViewerConfigUser,
 } from './lib/types'
 import { type Layout } from './lib/viewer/layout'
+import { useLayout, useLayout2 } from './style-xstate'
 import { svgmapviewer } from './svgmapviewer'
 
 // types
