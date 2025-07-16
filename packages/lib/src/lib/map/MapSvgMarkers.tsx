@@ -1,7 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode } from 'react'
-import { svgMapViewerConfig } from '..'
+import { svgMapViewerConfig } from '../../config'
 import { SvgSymbolStyle } from '../../Style'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapMarkers } from '../carto'

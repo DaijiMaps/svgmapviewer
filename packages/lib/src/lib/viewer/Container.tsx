@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 import { type ReactNode, useRef } from 'react'
-import { svgMapViewerConfig } from '..'
+import { svgMapViewerConfig } from '../../config'
 import {
   position_absolute_left_0_top_0,
   width_100vw_height_100svh,

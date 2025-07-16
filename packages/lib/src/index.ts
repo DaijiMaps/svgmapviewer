@@ -1,4 +1,4 @@
-import { Like } from '../Like'
+import { Like } from './Like'
 import {
   notifyLayout,
   notifyResize,
@@ -14,9 +14,9 @@ import {
   notifyZoomEnd,
   notifyZoomStart,
   svgMapViewerConfig,
-} from '../config'
-import { useLayout, useLayout2 } from './style-xstate'
-import { svgmapviewer } from './svgmapviewer'
+} from './config'
+import { useLayout, useLayout2 } from './lib/style-xstate'
+import { svgmapviewer } from './lib/svgmapviewer'
 import {
   type DataConfig,
   type Info,
@@ -26,8 +26,8 @@ import {
   type SearchRes,
   type SvgMapViewerConfig,
   type SvgMapViewerConfigUser,
-} from './types'
-import { type Layout } from './viewer/layout'
+} from './lib/types'
+import { type Layout } from './lib/viewer/layout'
 
 // types
 

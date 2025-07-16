@@ -50,7 +50,7 @@ export default defineConfig({
       ),
       '@daijimaps/svgmapviewer': path.resolve(
         __dirname,
-        '../lib/src/lib/index.ts'
+        '../lib/src/index.ts'
       ),
     },
   },

@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig } from './lib'
+import { svgMapViewerConfig } from './config'
 import {
   box_sizing_border_box,
   margin_0_padding_0,
