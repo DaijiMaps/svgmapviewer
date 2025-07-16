@@ -16,7 +16,6 @@ import {
   svgMapViewerConfig,
 } from './config'
 import { useLayout, useLayout2 } from './lib/style-xstate'
-import { svgmapviewer } from './lib/svgmapviewer'
 import {
   type DataConfig,
   type Info,
@@ -28,6 +27,7 @@ import {
   type SvgMapViewerConfigUser,
 } from './lib/types'
 import { type Layout } from './lib/viewer/layout'
+import { svgmapviewer } from './svgmapviewer'
 
 // types
 

@@ -8,28 +8,31 @@ import {
   searchStartCbs,
   svgMapViewerConfig,
   updateSvgMapViewerConfig,
-} from '../config'
-import { root } from '../Root'
-import { styleRoot } from '../Style'
-import { type Box } from './box/main'
-import { geolocActorStart } from './geo'
-import { setNames } from './map/names'
-import { getAddressEntries } from './search'
-import { workerSearchInit } from './search/search-main'
+} from './config'
+import { type Box } from './lib/box/main'
+import { geolocActorStart } from './lib/geo'
+import { setNames } from './lib/map/names'
+import { getAddressEntries } from './lib/search'
+import { workerSearchInit } from './lib/search/search-main'
 import {
   searchActorStart,
   searchSearchDone,
   searchSearchStart,
-} from './search/search-xstate'
-import { styleActorStart } from './style-xstate'
-import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
-import { isUiRendered } from './ui/Ui'
-import { uiActorStart } from './ui/ui-xstate'
-import { isContainerRendered } from './viewer/Container'
-import { resizeActorStart } from './viewer/resize-xstate'
-import { scrollActorStart } from './viewer/scroll-xstate'
-import { touchActorStart } from './viewer/touch-xstate'
-import { viewerActorStart } from './viewer/viewer-xstate'
+} from './lib/search/search-xstate'
+import { styleActorStart } from './lib/style-xstate'
+import {
+  type SvgMapViewerConfig,
+  type SvgMapViewerConfigUser,
+} from './lib/types'
+import { isUiRendered } from './lib/ui/Ui'
+import { uiActorStart } from './lib/ui/ui-xstate'
+import { isContainerRendered } from './lib/viewer/Container'
+import { resizeActorStart } from './lib/viewer/resize-xstate'
+import { scrollActorStart } from './lib/viewer/scroll-xstate'
+import { touchActorStart } from './lib/viewer/touch-xstate'
+import { viewerActorStart } from './lib/viewer/viewer-xstate'
+import { root } from './Root'
+import { styleRoot } from './Style'
 
 export function svgmapviewer(
   configUser: Readonly<SvgMapViewerConfigUser>
