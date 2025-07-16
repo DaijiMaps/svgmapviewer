@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode, useMemo } from 'react'
+import { svgMapViewerConfig } from '../../config'
 import { useLayout, useLayoutSvgScaleS } from '../../style-xstate'
 import { boxToViewBox2 } from '../box/prefixed'
 import { useShadowRoot } from '../dom'
@@ -47,31 +48,36 @@ text, tspan {
 
 function MapSvgLabelsUses(): ReactNode {
   const { pointNames, areaNames } = useNames()
+  const m = svgMapViewerConfig.mapCoord.matrix
 
   return (
     <g id="map-svg-labels1">
       <g>
-        {pointNames.map(({ id, pos: { x, y }, size }, idx) => (
-          <use
-            key={idx}
-            href={`#name-${id}`}
-            style={{
-              transform: `translate(${trunc2(x)}px, ${trunc2(y)}px) scale(${Math.round(size / 10) / 16})`,
-            }}
-          />
-        ))}
+        {pointNames
+          .map((p) => ({ ...p, pos: m.transformPoint(p.pos) }))
+          .map(({ id, pos: { x, y }, size }, idx) => (
+            <use
+              key={idx}
+              href={`#name-${id}`}
+              style={{
+                transform: `translate(${trunc2(x)}px, ${trunc2(y)}px) scale(${Math.round(size / 10) / 16})`,
+              }}
+            />
+          ))}
       </g>
       <g>
-        {areaNames.map(({ id, pos: { x, y }, size }, idx) => (
-          <use
-            key={idx}
-            id={`use-${id}`}
-            href={`#name-${id}`}
-            style={{
-              transform: `translate(${trunc2(x)}px, ${trunc2(y)}px) scale(${Math.round(size / 10) / 16})`,
-            }}
-          />
-        ))}
+        {areaNames
+          .map((p) => ({ ...p, pos: m.transformPoint(p.pos) }))
+          .map(({ id, pos: { x, y }, size }, idx) => (
+            <use
+              key={idx}
+              id={`use-${id}`}
+              href={`#name-${id}`}
+              style={{
+                transform: `translate(${trunc2(x)}px, ${trunc2(y)}px) scale(${Math.round(size / 10) / 16})`,
+              }}
+            />
+          ))}
       </g>
     </g>
   )

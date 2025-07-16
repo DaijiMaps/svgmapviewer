@@ -86,14 +86,17 @@ function MapSvgMarkersDefs(): ReactNode {
 
 function MapSvgMarkersUses(): ReactNode {
   const { pointNames } = useNames()
+  const m = svgMapViewerConfig.mapCoord.matrix
 
   return (
     <g>
-      {pointNames.map(({ pos }, idx) => (
-        <Fragment key={idx}>
-          <MapSvgMarkersUse pos={pos} />
-        </Fragment>
-      ))}
+      {pointNames
+        .map((p) => ({ ...p, pos: m.transformPoint(p.pos) }))
+        .map(({ pos }, idx) => (
+          <Fragment key={idx}>
+            <MapSvgMarkersUse pos={pos} />
+          </Fragment>
+        ))}
     </g>
   )
 }

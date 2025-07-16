@@ -2,7 +2,7 @@
 
 import { svgMapViewerConfig } from '../../config'
 import { getOsmId, type OsmProperties, type POI } from '../geo'
-import { vUnvec, vVec, type V } from '../tuple'
+import { vVec, type V } from '../tuple'
 
 export const mapSymbols: POI[] = []
 
@@ -14,7 +14,7 @@ function pointNames(skip?: Readonly<RegExp>, split?: Readonly<RegExp>): POI[] {
         return []
       }
       const centroid: V = [properties.centroid_x, properties.centroid_y]
-      const pos = vVec(conv(centroid))
+      const pos = vVec(centroid)
       const name = filterName(properties, skip, split)
       return name.length === 0
         ? []
@@ -38,7 +38,7 @@ function lineNames(skip?: Readonly<RegExp>, split?: Readonly<RegExp>): POI[] {
       return []
     }
     const centroid: V = [properties.centroid_x, properties.centroid_y]
-    const pos = vVec(conv(centroid))
+    const pos = vVec(centroid)
     const name = filterName(properties, skip, split)
     return name.length === 0
       ? []
@@ -65,7 +65,7 @@ function polygonNames(
         return []
       }
       const centroid: V = [properties.centroid_x, properties.centroid_y]
-      const pos = vVec(conv(centroid))
+      const pos = vVec(centroid)
       const area = undefinedIfNull(properties?.area)
       const name = filterName(properties, skip, split)
       return name.length === 0
@@ -124,10 +124,6 @@ function splitName(s: string): string[] {
     .trim()
     .split(WHITESPACE)
     .map((s) => s.trim())
-}
-
-function conv(p: V): V {
-  return vUnvec(svgMapViewerConfig.mapCoord.matrix.transformPoint(vVec(p)))
 }
 
 type DeepReadonly<T> = {
