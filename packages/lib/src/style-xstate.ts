@@ -55,7 +55,7 @@ interface StyleContext {
   geoMatrix: DOMMatrixReadOnly
   geoPoint: VecVec
   distanceRadius: DistanceRadius
-  svgRange: Range
+  geoRange: Range
   mode: string
   animation: null | Animation
 }
@@ -90,7 +90,7 @@ const styleMachine = setup({
         }
         return context.geoMatrix.transformPoint(p)
       },
-      svgRange: ({ context }, { scroll, client }: CurrentScroll) => {
+      geoRange: ({ context }, { scroll, client }: CurrentScroll) => {
         const m = context.svgMatrix.inverse()
         const m2 = svgMapViewerConfig.mapCoord.matrix.inverse()
         const s = { x: scroll.x, y: scroll.y }
@@ -121,7 +121,7 @@ const styleMachine = setup({
       svg: 0,
       client: 0,
     },
-    svgRange: {
+    geoRange: {
       start: vecZero,
       end: vecZero,
     },
@@ -263,7 +263,7 @@ export function useDistanceRadius(): DistanceRadius {
   return useSelector(styleActor, (s) => s.context.distanceRadius)
 }
 export function useSvgRange(): Range {
-  return useSelector(styleActor, (s) => s.context.svgRange)
+  return useSelector(styleActor, (s) => s.context.geoRange)
 }
 export function useLayoutConfig(): LayoutConfig {
   return useSelector(styleActor, (state) => state.context.layout.config)

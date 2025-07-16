@@ -98,7 +98,7 @@ interface Ranges {
 }
 
 export function useNameRanges(): Ranges {
-  const svgRange = useSvgRange()
+  const geoRange = useSvgRange()
   const s = useLayoutSvgScaleS()
   const { sizes, sizeMap, pointNames, areaNames } = useNames()
 
@@ -118,12 +118,12 @@ export function useNameRanges(): Ranges {
   )
 
   const pointRange = useMemo(
-    () => namesToRange(pointNames, svgRange, sizeMap, smallMap),
-    [pointNames, svgRange, sizeMap, smallMap]
+    () => namesToRange(pointNames, geoRange, sizeMap, smallMap),
+    [pointNames, geoRange, sizeMap, smallMap]
   )
   const areaRange = useMemo(
-    () => namesToRange(areaNames, svgRange, sizeMap, smallMap),
-    [areaNames, svgRange, sizeMap, smallMap]
+    () => namesToRange(areaNames, geoRange, sizeMap, smallMap),
+    [areaNames, geoRange, sizeMap, smallMap]
   )
 
   return { pointRange, areaRange }
@@ -131,7 +131,7 @@ export function useNameRanges(): Ranges {
 
 function namesToRange(
   names: readonly POI[],
-  svgRange: Readonly<Range>,
+  geoRange: Readonly<Range>,
   sizeMap: Readonly<Map<number, number>>,
   smallMap: Readonly<Map<number, boolean>>
 ): NameRangeMap {
@@ -149,7 +149,7 @@ function namesToRange(
       if (small === undefined) {
         return none
       }
-      const inout = inRange(pos, svgRange)
+      const inout = inRange(pos, geoRange)
       return some({
         id,
         inout,
