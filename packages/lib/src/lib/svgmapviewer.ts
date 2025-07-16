@@ -13,7 +13,6 @@ import {
   updateSvgMapViewerConfig,
 } from './config'
 import { geolocActorStart } from './geo'
-import { renderMapActorStart } from './map/map-xstate'
 import { setNames } from './map/names'
 import { getAddressEntries } from './search'
 import { workerSearchInit } from './search/search-main'
@@ -83,7 +82,6 @@ function startAllActors() {
   // for module dependency
   // (order doesn't matter)
   geolocActorStart()
-  renderMapActorStart()
   resizeActorStart()
   scrollActorStart()
   searchActorStart()
