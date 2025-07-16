@@ -10,8 +10,14 @@ export function RenderMapCommon(): ReactNode {
   return (
     <>
       <g id={cfg.map} className="map">
-        <RenderMapLayers mapLayers={cfg.getMapLayers()} />
-        <RenderMapObjects mapObjects={cfg.getMapObjects()} />
+        <RenderMapLayers
+          m={cfg.mapCoord.matrix}
+          mapLayers={cfg.getMapLayers()}
+        />
+        <RenderMapObjects
+          m={cfg.mapCoord.matrix}
+          mapObjects={cfg.getMapObjects()}
+        />
         <style>{style}</style>
       </g>
     </>

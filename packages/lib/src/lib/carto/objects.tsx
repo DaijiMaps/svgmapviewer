@@ -14,11 +14,11 @@ export function RenderMapObjects(
       {props.mapObjects.map((entry, i) => (
         <g key={i}>
           <RenderObjects
+            m={props.m}
             name={entry.name}
             path={entry.path}
             width={entry.width}
             vs={entryToVs(entry)}
-            m={props.m}
           />
         </g>
       ))}
@@ -28,11 +28,11 @@ export function RenderMapObjects(
 
 export function RenderObjects(
   props: Readonly<{
+    m: DOMMatrixReadOnly
     name: string
     width: number
     path: string
     vs: V[]
-    m: DOMMatrixReadOnly
   }>
 ): ReactNode {
   return (

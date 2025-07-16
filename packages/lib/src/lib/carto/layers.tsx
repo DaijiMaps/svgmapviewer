@@ -10,6 +10,7 @@ import {
   multiPolygonToPathD,
   type OsmProperties,
 } from '../geo'
+import { lineToPathD2, multiPolygonToPathD2 } from '../geo/path'
 import type {
   LinePath,
   MapLayer,
@@ -19,15 +20,37 @@ import type {
 } from './types'
 
 export function RenderMapLayers(
-  props: Readonly<{ mapLayers: MapLayer[] }>
+  props: Readonly<{
+    m: DOMMatrixReadOnly
+    mapLayers: MapLayer[]
+  }>
 ): ReactNode {
   return (
     <g className="map-layers">
       {props.mapLayers.map((layer, i) => (
         <Fragment key={i}>
           {layer.type === 'line'
-            ? LineLayerToPaths(layer)
-            : MultiPolygonLayerToPath(layer)}
+            ? LineLayerToPaths2(props.m, layer)
+            : MultiPolygonLayerToPath2(props.m, layer)}
+        </Fragment>
+      ))}
+    </g>
+  )
+}
+
+export function RenderMapLayers2(
+  props: Readonly<{
+    m: DOMMatrixReadOnly
+    mapLayers: MapLayer[]
+  }>
+): ReactNode {
+  return (
+    <g className="map-layers">
+      {props.mapLayers.map((layer, i) => (
+        <Fragment key={i}>
+          {layer.type === 'line'
+            ? LineLayerToPaths2(props.m, layer)
+            : MultiPolygonLayerToPath2(props.m, layer)}
         </Fragment>
       ))}
     </g>
@@ -52,7 +75,8 @@ function multiPolygonLayerToMultiPolygonPaths(
       : []
 }
 
-function LineLayerToPaths(layer: Readonly<MapLineLayer>): ReactNode {
+// XXX
+export function LineLayerToPaths(layer: Readonly<MapLineLayer>): ReactNode {
   const xs: LinePath[] = lineLayerToLinePaths(layer)
   return xs.length === 0 ? (
     <></>
@@ -61,6 +85,24 @@ function LineLayerToPaths(layer: Readonly<MapLineLayer>): ReactNode {
       {xs.map((x, idx) => (
         <Fragment key={idx}>
           {LinePathToPath(x, layer.name, layer.width, layer.widthScale)}
+        </Fragment>
+      ))}
+    </g>
+  )
+}
+
+function LineLayerToPaths2(
+  m: DOMMatrixReadOnly,
+  layer: Readonly<MapLineLayer>
+): ReactNode {
+  const xs: LinePath[] = lineLayerToLinePaths(layer)
+  return xs.length === 0 ? (
+    <></>
+  ) : (
+    <g className={layer.name} style={{ contain: 'content' }}>
+      {xs.map((x, idx) => (
+        <Fragment key={idx}>
+          {LinePathToPath2(m, x, layer.name, layer.width, layer.widthScale)}
         </Fragment>
       ))}
     </g>
@@ -82,6 +124,26 @@ function LinePathToPath(
         (widthScale ?? defaultStrokeWidthScale ?? 1)
       }
       d={lineToPathD(vs)}
+    />
+  )
+}
+
+function LinePathToPath2(
+  m: DOMMatrixReadOnly,
+  { id, tags, width, widthScale, vs }: Readonly<LinePath>,
+  layerName: string,
+  defaultStrokeWidth?: number,
+  defaultStrokeWidthScale?: number
+): ReactNode {
+  return (
+    <path
+      id={id === undefined ? undefined : `path${id}`}
+      className={[layerName, ...tags].join(' ').replaceAll(/;/g, '_')} // XXX level=0;1
+      strokeWidth={
+        (width ?? defaultStrokeWidth ?? 1) *
+        (widthScale ?? defaultStrokeWidthScale ?? 1)
+      }
+      d={lineToPathD2(m)(vs)}
     />
   )
 }
@@ -117,7 +179,8 @@ export function LinePathToTextPath(
   )
 }
 
-function MultiPolygonLayerToPath(
+// XXX
+export function MultiPolygonLayerToPath(
   layer: Readonly<MapMultiPolygonLayer>
 ): ReactNode {
   const xs: MultiPolygonPath[] = multiPolygonLayerToMultiPolygonPaths(layer)
@@ -128,6 +191,30 @@ function MultiPolygonLayerToPath(
       {xs.map((x, idx) => (
         <Fragment key={idx}>
           {MultiPolygonPathToPath(x, layer.name, layer.width, layer.widthScale)}
+        </Fragment>
+      ))}
+    </g>
+  )
+}
+
+function MultiPolygonLayerToPath2(
+  m: DOMMatrixReadOnly,
+  layer: Readonly<MapMultiPolygonLayer>
+): ReactNode {
+  const xs: MultiPolygonPath[] = multiPolygonLayerToMultiPolygonPaths(layer)
+  return xs.length === 0 ? (
+    <></>
+  ) : (
+    <g className={layer.name}>
+      {xs.map((x, idx) => (
+        <Fragment key={idx}>
+          {MultiPolygonPathToPath2(
+            m,
+            x,
+            layer.name,
+            layer.width,
+            layer.widthScale
+          )}
         </Fragment>
       ))}
     </g>
@@ -149,6 +236,26 @@ function MultiPolygonPathToPath(
         (widthScale ?? defaultStrokeWidthScale ?? 1)
       }
       d={multiPolygonToPathD(vs)}
+    />
+  )
+}
+
+function MultiPolygonPathToPath2(
+  m: DOMMatrixReadOnly,
+  { id, tags, width, widthScale, vs }: Readonly<MultiPolygonPath>,
+  layerName: string,
+  defaultStrokeWidth?: number,
+  defaultStrokeWidthScale?: number
+): ReactNode {
+  return (
+    <path
+      id={id}
+      className={[layerName, ...tags].join(' ').replaceAll(/;/g, '_')} // XXX level=0;1
+      strokeWidth={
+        (width ?? defaultStrokeWidth ?? 1) *
+        (widthScale ?? defaultStrokeWidthScale ?? 1)
+      }
+      d={multiPolygonToPathD2(m)(vs)}
     />
   )
 }

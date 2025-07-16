@@ -10,6 +10,7 @@ import {
   type OsmLineProperties,
   type OsmPolygonProperties,
 } from '../geo'
+import { lineToPathD2, multiPolygonToPathD2 } from '../geo/path'
 
 export function renderAreasPath(): string {
   const xs: MultiPolygon[] = cfg.mapData.areas.features.map(
@@ -17,6 +18,14 @@ export function renderAreasPath(): string {
   ) as unknown as MultiPolygon[]
 
   return xs.map(multiPolygonToPathD).join('')
+}
+
+export function renderAreasPath2(m: DOMMatrixReadOnly): string {
+  const xs: MultiPolygon[] = cfg.mapData.areas.features.map(
+    (f) => f.geometry.coordinates
+  ) as unknown as MultiPolygon[]
+
+  return xs.map(multiPolygonToPathD2(m)).join('')
 }
 
 export function renderLinePath(
@@ -29,6 +38,17 @@ export function renderLinePath(
   return xs.map(lineToPathD).join('')
 }
 
+export function renderLinePath2(
+  filter: (f: Readonly<LineFeature<OsmLineProperties>>) => boolean,
+  m: DOMMatrixReadOnly
+): string {
+  const xs: Line[] = cfg.mapData.lines.features
+    .filter(filter)
+    .map((f) => f.geometry.coordinates) as unknown as Line[]
+
+  return xs.map(lineToPathD2(m)).join('')
+}
+
 export function renderMultiPolygonPath(
   filter: (f: Readonly<MultiPolygonFeature<OsmPolygonProperties>>) => boolean
 ): string {
@@ -37,4 +57,15 @@ export function renderMultiPolygonPath(
     .map((f) => f.geometry.coordinates) as unknown as MultiPolygon[]
 
   return xs.map(multiPolygonToPathD).join('')
+}
+
+export function renderMultiPolygonPath2(
+  filter: (f: Readonly<MultiPolygonFeature<OsmPolygonProperties>>) => boolean,
+  m: DOMMatrixReadOnly
+): string {
+  const xs: MultiPolygon[] = cfg.mapData.multipolygons.features
+    .filter(filter)
+    .map((f) => f.geometry.coordinates) as unknown as MultiPolygon[]
+
+  return xs.map(multiPolygonToPathD2(m)).join('')
 }

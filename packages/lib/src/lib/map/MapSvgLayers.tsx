@@ -61,7 +61,10 @@ function MapSvgLayersDefs(): ReactNode {
     <svg id="map-svg-defs" viewBox="0 0 1 1">
       <defs>
         <g id={cfg.map} className="map">
-          <RenderMapLayers mapLayers={cfg.getMapLayers()} />
+          <RenderMapLayers
+            m={svgMapViewerConfig.mapCoord.matrix}
+            mapLayers={cfg.getMapLayers()}
+          />
           <style>{cfg.mapSvgStyle}</style>
         </g>
       </defs>
