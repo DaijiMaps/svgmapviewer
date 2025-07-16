@@ -1,4 +1,3 @@
-import React from 'react'
 import { type Info, type SearchRes } from '../../types'
 import { type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec, type VecVec } from '../vec/prefixed'

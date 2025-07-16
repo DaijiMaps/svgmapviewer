@@ -1,5 +1,4 @@
 import { useSelector } from '@xstate/react'
-import React from 'react'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import {
   notifyAnimation,
@@ -736,9 +735,26 @@ export function viewerSendEvent(
   viewerSend(event)
 }
 
-uiActionResetCbs.add(() => viewerSend({ type: 'LAYOUT.RESET' }))
-uiActionRecenterCbs.add(() => viewerSend({ type: 'RECENTER' }))
-uiActionZoomOutCbs.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null }))
-uiActionZoomInCbs.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null }))
+function handleUiActionReset() {
+  viewerSend({ type: 'LAYOUT.RESET' })
+}
+function handleUiActionRecenter() {
+  viewerSend({ type: 'RECENTER' })
+}
+function handleUiActionZoomOut() {
+  viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null })
+}
+function handleUiActionZoomIn() {
+  viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })
+}
 
-renderedCbs.add(() => viewerSend({ type: 'RENDERED' }))
+uiActionResetCbs.add(handleUiActionReset)
+uiActionRecenterCbs.add(handleUiActionRecenter)
+uiActionZoomOutCbs.add(handleUiActionZoomOut)
+uiActionZoomInCbs.add(handleUiActionZoomIn)
+
+function handleRendered() {
+  viewerSend({ type: 'RENDERED' })
+}
+
+renderedCbs.add(handleRendered)

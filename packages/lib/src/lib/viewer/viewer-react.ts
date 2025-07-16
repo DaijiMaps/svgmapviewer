@@ -1,4 +1,3 @@
-import React from 'react'
 import { notifyScroll } from './scroll'
 import { clickeventmask, viewerSend, viewerSendEvent } from './viewer-xstate'
 
