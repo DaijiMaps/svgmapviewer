@@ -3,12 +3,8 @@
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import {
-  searchDoneCbs,
-  searchStartCbs,
-  svgMapViewerConfig,
-  updateSvgMapViewerConfig,
-} from './config'
+import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
+import { searchDoneCbs, searchStartCbs } from './event'
 import { type Box } from './lib/box/main'
 import { geolocActorStart } from './lib/geo'
 import { setNames } from './lib/map/names'

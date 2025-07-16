@@ -4,7 +4,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
 
-import { uiActionFullscreenCbs } from '../../config'
+import { uiActionFullscreenCbs } from '../../event'
 
 function toggleFullscreen(): void {
   if (!document.fullscreenElement) {

@@ -2,14 +2,14 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
+import { svgMapViewerConfig } from '../../config'
 import {
-  svgMapViewerConfig,
   uiActionFullscreenCbs,
   uiActionPositionCbs,
   uiActionRecenterCbs,
   uiActionZoomInCbs,
   uiActionZoomOutCbs,
-} from '../../config'
+} from '../../event'
 import {
   flex_column_center_center,
   flex_row_center_center,

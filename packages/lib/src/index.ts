@@ -1,3 +1,4 @@
+import { svgMapViewerConfig } from './config'
 import {
   notifyLayout,
   notifyResize,
@@ -12,8 +13,7 @@ import {
   notifyUiOpenDone,
   notifyZoomEnd,
   notifyZoomStart,
-  svgMapViewerConfig,
-} from './config'
+} from './event'
 import { Like } from './lib/Like'
 import { type Layout } from './lib/viewer/layout'
 import { svgmapviewer } from './main'

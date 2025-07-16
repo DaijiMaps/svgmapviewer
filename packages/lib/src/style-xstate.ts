@@ -1,13 +1,13 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, raise, setup } from 'xstate'
+import { svgMapViewerConfig } from './config'
 import {
   animationCbs,
   layoutCbs,
   modeCbs,
-  svgMapViewerConfig,
   zoomEndCbs,
   zoomStartCbs,
-} from './config'
+} from './event'
 import { boxToViewBox2, type BoxBox } from './lib/box/prefixed'
 import { findRadius } from './lib/distance'
 import type { DistanceRadius } from './lib/distance-types'

@@ -2,7 +2,8 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig, uiActionResetCbs } from '../../config'
+import { svgMapViewerConfig } from '../../config'
+import { uiActionResetCbs } from '../../event'
 import {
   flex_column_center_center,
   pointer_events_initial,

@@ -1,5 +1,6 @@
 import { useSelector } from '@xstate/react'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
+import { svgMapViewerConfig } from '../../config'
 import {
   modeCbs,
   notifyAnimation,
@@ -14,7 +15,6 @@ import {
   renderedCbs,
   resizeCbs,
   searchEndCbs,
-  svgMapViewerConfig,
   uiActionRecenterCbs,
   uiActionResetCbs,
   uiActionZoomInCbs,
@@ -23,7 +23,7 @@ import {
   uiOpenCbs,
   zoomEndCbs,
   zoomStartCbs,
-} from '../../config'
+} from '../../event'
 import { type SearchRes } from '../../types'
 import { boxCenter } from '../box/prefixed'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'

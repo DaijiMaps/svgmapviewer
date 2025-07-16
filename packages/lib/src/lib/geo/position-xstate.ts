@@ -8,7 +8,7 @@ import {
   type DoneActorEvent,
   type ErrorActorEvent,
 } from 'xstate'
-import { uiActionPositionCbs } from '../../config'
+import { uiActionPositionCbs } from '../../event'
 
 export type GeoLocContext = {
   position: null | GeolocationPosition
