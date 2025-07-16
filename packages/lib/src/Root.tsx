@@ -3,17 +3,13 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-throw-statements */
-import { createContext, StrictMode, type Context } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
-import { svgMapViewerConfig } from './config'
 import { touching } from './lib/viewer/touch-xstate'
 import { keyDown, keyUp } from './lib/viewer/viewer-react'
 import { wheeleventmask } from './lib/viewer/viewer-xstate'
 import type { SvgMapViewerConfig } from './types'
-
-export const SvgMapViewerConfigContext: Context<SvgMapViewerConfig> =
-  createContext(svgMapViewerConfig)
 
 export function root(config: Readonly<SvgMapViewerConfig>): void {
   const e = document.getElementById(config.root)
@@ -77,9 +73,7 @@ export function root(config: Readonly<SvgMapViewerConfig>): void {
 
   createRoot(e).render(
     <StrictMode>
-      <SvgMapViewerConfigContext.Provider value={config}>
-        <App />
-      </SvgMapViewerConfigContext.Provider>
+      <App />
     </StrictMode>
   )
 }
