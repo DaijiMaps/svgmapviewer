@@ -11,6 +11,7 @@ import {
   notifyUiOpenDone,
   notifyZoomEnd,
   notifyZoomStart,
+  renderedCbs,
   resizeCbs,
   searchEndCbs,
   svgMapViewerConfig,
@@ -23,7 +24,6 @@ import {
   zoomEndCbs,
   zoomStartCbs,
 } from '../../config'
-import { renderedCbs } from '../../style-xstate'
 import { type SearchRes } from '../../types'
 import { boxCenter } from '../box/prefixed'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'

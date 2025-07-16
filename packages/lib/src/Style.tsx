@@ -4,10 +4,10 @@
 /* eslint-disable functional/no-throw-statements */
 import { type ReactNode, StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
+import { notifyRendered } from './config'
 import { timing_opening } from './lib/css'
 import { trunc2 } from './lib/utils'
 import {
-  renderedCbs,
   useAppearing,
   useLayoutConfig,
   useLayoutScroll,
@@ -35,7 +35,7 @@ function RootStyle(): ReactNode {
   const rendered = useRendered()
 
   useEffect(() => {
-    requestAnimationFrame(() => renderedCbs.forEach((cb) => cb()))
+    requestAnimationFrame(notifyRendered)
   }, [rendered])
 
   const shown = useShown()

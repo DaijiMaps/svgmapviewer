@@ -90,6 +90,7 @@ export function updateSvgMapViewerConfig(
 
 ////
 
+export const renderedCbs: Set<Cb> = new Set()
 export const searchStartCbs: Set<SearchStartCb> = new Set()
 export const searchCbs: Set<SearchCb> = new Set()
 export const searchDoneCbs: Set<SearchDoneCb> = new Set()
@@ -112,6 +113,9 @@ export const uiActionRecenterCbs: Set<Cb> = new Set()
 export const uiActionPositionCbs: Set<Cb> = new Set()
 export const uiActionFullscreenCbs: Set<Cb> = new Set()
 
+export function notifyRendered(): void {
+  renderedCbs.forEach((cb) => cb())
+}
 export function notifySearchStart(psvg: VecVec): void {
   searchStartCbs.forEach((cb: SearchStartCb) => cb(psvg))
 }

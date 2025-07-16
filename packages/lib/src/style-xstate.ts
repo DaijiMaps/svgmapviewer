@@ -27,7 +27,6 @@ import {
   type CurrentScroll,
 } from './lib/viewer/scroll'
 import type { ViewerMode } from './lib/viewer/viewer-types'
-import type { Cb } from './types'
 
 type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number; z: null | number }
 export type StyleEvent =
@@ -321,7 +320,3 @@ const expire = makeExpire(500, expireCb)
 expire.start()
 
 scrollEventCbs.add(expire.tick)
-
-// rendered
-
-export const renderedCbs: Set<Cb> = new Set()
