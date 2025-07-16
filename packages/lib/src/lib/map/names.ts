@@ -149,9 +149,10 @@ function namesToRange(
       if (small === undefined) {
         return none
       }
+      const inout = inRange(pos, svgRange)
       return some({
         id,
-        inout: inRange(pos, svgRange),
+        inout,
         small,
       })
     })
@@ -175,5 +176,9 @@ function namesToRange(
 
 function inRange(p: VecVec, r: Readonly<Range>): boolean {
   const { start: s, end: e } = r
-  return p.x >= s.x && p.x <= e.x && p.y >= s.y && p.y <= e.y
+  return between(s.x, p.x, e.x) && between(s.y, p.y, e.y)
+}
+
+function between(a: number, b: number, c: number): boolean {
+  return (b - a) * (c - b) > 0
 }
