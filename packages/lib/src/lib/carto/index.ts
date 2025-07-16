@@ -1,4 +1,4 @@
-import { RenderMapLayers } from './layers'
+import { RenderMapLayers2 } from './layers'
 import { RenderMapMarkers, RenderMarkers } from './markers'
 import { getMapNames } from './names'
 import { RenderMapObjects, RenderObjects } from './objects'
@@ -27,7 +27,7 @@ export { type CartoConfig }
 
 export { type MapLayer, type MapLineLayer, type MapMultiPolygonLayer }
 
-export { RenderMapLayers }
+export { RenderMapLayers2 }
 
 //// objects
 

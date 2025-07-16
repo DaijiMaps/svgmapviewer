@@ -4,7 +4,7 @@ import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
 import { useLayout } from '../../style-xstate'
 import { boxToViewBox2 } from '../box/prefixed'
-import { RenderMapLayers } from '../carto'
+import { RenderMapLayers2 } from '../carto'
 import { useShadowRoot } from '../dom'
 import { trunc2 } from '../utils'
 import {
@@ -61,7 +61,7 @@ function MapSvgLayersDefs(): ReactNode {
     <svg id="map-svg-defs" viewBox="0 0 1 1">
       <defs>
         <g id={cfg.map} className="map">
-          <RenderMapLayers
+          <RenderMapLayers2
             m={svgMapViewerConfig.mapCoord.matrix}
             mapLayers={cfg.getMapLayers()}
           />
