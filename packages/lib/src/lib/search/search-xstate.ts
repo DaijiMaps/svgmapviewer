@@ -49,14 +49,6 @@ const searchMachine = setup({
   },
 })
 
-//type SearchMachine = typeof searchMachine
-
-//type SearchState = StateFrom<typeof searchMachine>
-
-//type SearchSend = (events: SearchEvent) => void
-
-//type SearchRef = ActorRefFrom<typeof searchMachine>
-
 ////
 
 const searchRef = createActor(searchMachine)

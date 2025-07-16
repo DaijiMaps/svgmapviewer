@@ -277,10 +277,14 @@ const uiActor = createActor(uiMachine)
 uiActor.on('CLOSE.DONE', notifyUiCloseDone)
 uiActor.start()
 
-searchEndDoneCbs.add(uiDetail)
-uiOpenDoneCbs.add(uiOpen)
-uiCloseCbs.add(uiCancel)
-uiCloseDoneCbs.add(uiCloseDone)
+export function uiActorStart(): void {
+  uiActor.start()
+}
+export function uiSend(ev: UiEvent): void {
+  uiActor.send(ev)
+}
+
+////
 
 function uiDetail(psvg: VecVec, info: Info, layout: LayoutCoord) {
   uiActor.send({ type: 'DETAIL', psvg, info, layout })
@@ -297,11 +301,7 @@ function uiCloseDone() {
   )
 }
 
-////
-
-export function uiActorStart(): void {
-  uiActor.start()
-}
-export function uiSend(ev: UiEvent): void {
-  uiActor.send(ev)
-}
+searchEndDoneCbs.add(uiDetail)
+uiOpenDoneCbs.add(uiOpen)
+uiCloseCbs.add(uiCancel)
+uiCloseDoneCbs.add(uiCloseDone)
