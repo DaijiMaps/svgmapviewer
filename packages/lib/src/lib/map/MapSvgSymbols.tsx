@@ -63,7 +63,10 @@ function MapSvgSymbolsDefs(): ReactNode {
         <defs>
           <RenderMapAssetsDefault />
         </defs>
-        <RenderMapSymbols mapSymbols={svgMapViewerConfig.getMapSymbols()} />
+        <RenderMapSymbols
+          m={svgMapViewerConfig.mapCoord.matrix}
+          mapSymbols={svgMapViewerConfig.getMapSymbols()}
+        />
         <style>
           <SvgSymbolStyle />
         </style>

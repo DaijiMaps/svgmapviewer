@@ -20,6 +20,7 @@ export function RenderMapMarkers(
             name={entry.name}
             href={entry.name} // XXX XXX XXX
             vs={entryToVs(entry)}
+            m={props.m}
           />
         </g>
       ))}
@@ -33,22 +34,30 @@ export function RenderMapMarkers(
 }
 
 function RenderUses(
-  props: Readonly<{ sz: number; name: string; href: string; vs: V[] }>
+  props: Readonly<{
+    sz: number
+    name: string
+    href: string
+    vs: V[]
+    m: DOMMatrixReadOnly
+  }>
 ): ReactNode {
   return (
     <>
-      {props.vs.map(([x, y], j) => (
-        <use
-          key={j}
-          className={`${props.name}-${j}`}
-          href={props.href}
-          style={{
-            transform:
-              `translate(${trunc2(x)}px, ${trunc2(y)}px)` +
-              `scale(var(${props.sz}))`,
-          }}
-        />
-      ))}
+      {props.vs
+        .map(([x, y]) => props.m.transformPoint({ x, y }))
+        .map(({ x, y }, j) => (
+          <use
+            key={j}
+            className={`${props.name}-${j}`}
+            href={props.href}
+            style={{
+              transform:
+                `translate(${trunc2(x)}px, ${trunc2(y)}px)` +
+                `scale(var(${props.sz}))`,
+            }}
+          />
+        ))}
     </>
   )
 }

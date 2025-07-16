@@ -34,9 +34,6 @@ const renderInfoDefault: RenderInfo = (
   props: Readonly<{ info: Readonly<Info> }>
 ) => createElement('p', {}, props.info.title)
 
-// XXX
-// XXX migrate to configActor
-// XXX
 export let svgMapViewerConfig: SvgMapViewerConfig = {
   root: 'root',
   map: 'map',

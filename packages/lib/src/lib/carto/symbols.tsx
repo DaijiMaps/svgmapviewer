@@ -17,6 +17,7 @@ export function RenderMapSymbols(
                 name={entry.name}
                 href={entry.href}
                 vs={entryToVs(entry)}
+                m={props.m}
               />
             </g>
           </Fragment>
@@ -27,22 +28,24 @@ export function RenderMapSymbols(
 }
 
 export function RenderUses(
-  props: Readonly<{ name: string; href: string; vs: V[] }>
+  props: Readonly<{ name: string; href: string; vs: V[]; m: DOMMatrixReadOnly }>
 ): ReactNode {
   return (
     <>
-      {props.vs.map(([x, y], j) => (
-        <use
-          key={j}
-          className={`${props.name}-${j}`}
-          href={props.href}
-          style={{
-            transform:
-              `translate(${x}px, ${y}px)`.replaceAll(/([.]\d\d)\d*/g, '$1') +
-              `scale(var(--map-symbol-size))`,
-          }}
-        />
-      ))}
+      {props.vs
+        .map(([x, y]) => props.m.transformPoint({ x, y }))
+        .map(({ x, y }, j) => (
+          <use
+            key={j}
+            className={`${props.name}-${j}`}
+            href={props.href}
+            style={{
+              transform:
+                `translate(${x}px, ${y}px)`.replaceAll(/([.]\d\d)\d*/g, '$1') +
+                `scale(var(--map-symbol-size))`,
+            }}
+          />
+        ))}
     </>
   )
 }

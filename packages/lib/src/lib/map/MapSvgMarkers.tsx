@@ -68,6 +68,7 @@ function MapSvgMarkersDefs(): ReactNode {
   return (
     <svg id="map-svg-markers-defs">
       <RenderMapMarkers
+        m={svgMapViewerConfig.mapCoord.matrix}
         mapMarkers={svgMapViewerConfig.getMapMarkers()}
         fontSize={fontSize}
         s={s}

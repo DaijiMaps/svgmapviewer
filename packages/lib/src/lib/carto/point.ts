@@ -11,7 +11,7 @@ import type {
   OsmMultiPolygonFeature,
   OsmPointFeature,
 } from '../geo/osm-types'
-import { type V, vUnvec, vV, vVec } from '../tuple'
+import { type V, vV } from '../tuple'
 import type { WithFilters } from './types'
 
 export function entryToVs({
@@ -41,30 +41,21 @@ function getPoints(
   features: readonly OsmPointFeature[],
   filter: PointsFilter
 ): Point[] {
-  return features
-    .filter((f) => filter(f.properties))
-    .flatMap(fToV)
-    .map(conv)
+  return features.filter((f) => filter(f.properties)).flatMap(fToV)
 }
 
 function getLines(
   features: readonly OsmLineFeature[],
   filter: LinesFilter
 ): Point[] {
-  return features
-    .filter((f) => filter(f.properties))
-    .flatMap(fToV)
-    .map(conv)
+  return features.filter((f) => filter(f.properties)).flatMap(fToV)
 }
 
 function getPolygons(
   features: readonly OsmMultiPolygonFeature[],
   filter: MultiPolygonsFilter
 ): Point[] {
-  return features
-    .filter((f) => filter(f.properties))
-    .flatMap(fToV)
-    .map(conv)
+  return features.filter((f) => filter(f.properties)).flatMap(fToV)
 }
 
 function fToV(f: OsmFeature): V[] {
@@ -72,13 +63,3 @@ function fToV(f: OsmFeature): V[] {
   const y = f.properties.centroid_y
   return x === null || y === null ? [] : [vV(x, y)]
 }
-
-// XXX
-// XXX
-// XXX
-function conv(p: V): V {
-  return vUnvec(cfg.mapCoord.matrix.transformPoint(vVec(p)))
-}
-// XXX
-// XXX
-// XXX

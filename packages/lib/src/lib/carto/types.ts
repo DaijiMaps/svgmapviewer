@@ -48,6 +48,7 @@ export interface MultiPolygonPath {
 //// markers
 
 export interface RenderMapMarkersProps {
+  m: DOMMatrixReadOnly
   mapMarkers: MapMarkers[]
   fontSize: number
   s: number
@@ -76,6 +77,7 @@ export interface MapObjects extends WithFilters {
 //// symbols
 
 export interface RenderMapSymbolsProps {
+  m: DOMMatrixReadOnly
   mapSymbols: MapSymbols[]
 }
 

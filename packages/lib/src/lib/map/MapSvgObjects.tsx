@@ -60,7 +60,10 @@ function MapSvgObjectsDefs(): ReactNode {
     <svg id="map-svg-objects-defs" viewBox="0 0 1 1">
       <defs>
         <g id="map-svg-objects1">
-          <RenderMapObjects mapObjects={cfg.getMapObjects()} />
+          <RenderMapObjects
+            m={svgMapViewerConfig.mapCoord.matrix}
+            mapObjects={cfg.getMapObjects()}
+          />
         </g>
       </defs>
       <style>
