@@ -17,7 +17,7 @@ import type {
   MultiPolygonPath,
 } from './types'
 
-export function RenderMapLayers2(
+export function RenderMapLayers(
   props: Readonly<{
     m: DOMMatrixReadOnly
     mapLayers: MapLayer[]
@@ -28,7 +28,7 @@ export function RenderMapLayers2(
       {props.mapLayers.map((layer, i) => (
         <Fragment key={i}>
           {layer.type === 'line'
-            ? LineLayerToPaths2(props.m, layer)
+            ? LineLayerToPaths(props.m, layer)
             : MultiPolygonLayerToPath(props.m, layer)}
         </Fragment>
       ))}
@@ -54,7 +54,7 @@ function multiPolygonLayerToMultiPolygonPaths(
       : []
 }
 
-function LineLayerToPaths2(
+function LineLayerToPaths(
   m: DOMMatrixReadOnly,
   layer: Readonly<MapLineLayer>
 ): ReactNode {
