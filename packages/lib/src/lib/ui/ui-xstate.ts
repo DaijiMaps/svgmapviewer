@@ -6,7 +6,7 @@ import {
   uiCloseCbs,
   uiCloseDoneCbs,
   uiOpenDoneCbs,
-} from '../config'
+} from '../../config'
 import { type Info } from '../types'
 import { type VecVec, vecZero } from '../vec/prefixed'
 import {

@@ -3,15 +3,15 @@
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import { root } from '../Root'
-import { styleRoot } from '../Style'
-import { type Box } from './box/main'
 import {
   searchDoneCbs,
   searchStartCbs,
   svgMapViewerConfig,
   updateSvgMapViewerConfig,
-} from './config'
+} from '../config'
+import { root } from '../Root'
+import { styleRoot } from '../Style'
+import { type Box } from './box/main'
 import { geolocActorStart } from './geo'
 import { setNames } from './map/names'
 import { getAddressEntries } from './search'

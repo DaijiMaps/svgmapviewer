@@ -1,13 +1,13 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, raise, setup } from 'xstate'
-import { boxToViewBox2, type BoxBox } from './box/prefixed'
 import {
   animationCbs,
   layoutCbs,
   svgMapViewerConfig,
   zoomEndCbs,
   zoomStartCbs,
-} from './config'
+} from '../config'
+import { boxToViewBox2, type BoxBox } from './box/prefixed'
 import { findRadius } from './distance'
 import type { DistanceRadius } from './distance-types'
 import { makeExpire } from './expire-xstate'

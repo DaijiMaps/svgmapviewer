@@ -9,7 +9,7 @@ import {
   uiActionRecenterCbs,
   uiActionZoomInCbs,
   uiActionZoomOutCbs,
-} from '../config'
+} from '../../config'
 import {
   flex_column_center_center,
   flex_row_center_center,

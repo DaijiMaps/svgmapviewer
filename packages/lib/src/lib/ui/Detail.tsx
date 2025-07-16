@@ -1,7 +1,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig as cfg } from '../config'
+import { svgMapViewerConfig as cfg } from '../../config'
 import {
   box_sizing_border_box,
   pointer_events_initial,

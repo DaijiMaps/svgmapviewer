@@ -1,5 +1,5 @@
 /* eslint-disable functional/functional-parameters */
-import { svgMapViewerConfig as cfg } from '../config'
+import { svgMapViewerConfig as cfg } from '../../config'
 import {
   type Line,
   type LineFeature,

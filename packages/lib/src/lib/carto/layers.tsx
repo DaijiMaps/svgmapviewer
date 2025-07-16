@@ -1,5 +1,5 @@
 import { Fragment, type ReactNode } from 'react'
-import { svgMapViewerConfig as cfg } from '../config'
+import { svgMapViewerConfig as cfg } from '../../config'
 import {
   getOsmId,
   type Line,

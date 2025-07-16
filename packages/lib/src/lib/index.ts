@@ -14,7 +14,7 @@ import {
   notifyZoomEnd,
   notifyZoomStart,
   svgMapViewerConfig,
-} from './config'
+} from '../config'
 import { useLayout, useLayout2 } from './style-xstate'
 import { svgmapviewer } from './svgmapviewer'
 import {

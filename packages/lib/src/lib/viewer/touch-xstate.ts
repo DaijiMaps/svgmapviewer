@@ -8,7 +8,7 @@ import {
   uiActionResetCbs,
   uiActionZoomInCbs,
   uiActionZoomOutCbs,
-} from '../config'
+} from '../../config'
 import {
   handleTouchEnd,
   handleTouchMove,

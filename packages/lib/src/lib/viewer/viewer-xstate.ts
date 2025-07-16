@@ -20,7 +20,7 @@ import {
   uiActionZoomOutCbs,
   uiCloseDoneCbs,
   uiOpenCbs,
-} from '../config'
+} from '../../config'
 import { renderedCbs, styleSend } from '../style-xstate'
 import { type SearchRes } from '../types'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'

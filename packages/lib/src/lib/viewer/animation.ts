@@ -1,6 +1,6 @@
 import { pipe } from 'fp-ts/lib/function'
 import { boxCenter, boxScaleAt } from '../box/prefixed'
-import { svgMapViewerConfig } from '../config'
+import { svgMapViewerConfig } from '../../config'
 import { matrixMultiply, matrixScaleAt } from '../matrix/prefixed'
 import { type VecVec as Vec } from '../vec/prefixed'
 import type { Animation } from './animation-types'

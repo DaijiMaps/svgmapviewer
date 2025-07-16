@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig as cfg } from '../config'
+import { svgMapViewerConfig as cfg } from '../../config'
 import { usePosition } from '../geo'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'

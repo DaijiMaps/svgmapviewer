@@ -1,4 +1,4 @@
-import { svgMapViewerConfig as cfg } from '../config'
+import { svgMapViewerConfig as cfg } from '../../config'
 import { type V, vUnvec, vVec } from '../tuple'
 import type { Line, MultiLineString, MultiPolygon } from './path-types'
 

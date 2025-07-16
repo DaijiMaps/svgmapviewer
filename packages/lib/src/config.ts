@@ -3,8 +3,8 @@
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/no-return-void */
 import { createElement } from 'react'
-import { RenderMapDefault } from '../Map'
-import { emptyMapData } from './geo/data-types'
+import { RenderMapDefault } from './Map'
+import { emptyMapData } from './lib/geo/data-types'
 import {
   type AnimationCb,
   type Cb,
@@ -25,10 +25,10 @@ import {
   type UiOpenDoneCb,
   type ZoomEndCb,
   type ZoomStartCb,
-} from './types'
-import { type VecVec } from './vec/prefixed'
-import type { Animation } from './viewer/animation-types'
-import { type Layout } from './viewer/layout'
+} from './lib/types'
+import { type VecVec } from './lib/vec/prefixed'
+import type { Animation } from './lib/viewer/animation-types'
+import { type Layout } from './lib/viewer/layout'
 
 const renderInfoDefault: RenderInfo = (
   props: Readonly<{ info: Readonly<Info> }>

@@ -1,4 +1,4 @@
-import { svgMapViewerConfig as cfg } from '../config'
+import { svgMapViewerConfig as cfg } from '../../config'
 import {
   type LinesFilter,
   type MultiPolygonsFilter,

@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig as cfg } from '../config'
+import { svgMapViewerConfig as cfg } from '../../config'
 import { RenderMapLayers } from './layers'
 import { RenderMapObjects } from './objects'
 

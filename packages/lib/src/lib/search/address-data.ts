@@ -1,5 +1,5 @@
 /* eslint-disable functional/prefer-immutable-types */
-import { svgMapViewerConfig } from '../config'
+import { svgMapViewerConfig } from '../../config'
 import {
   findFeature,
   getOsmId,

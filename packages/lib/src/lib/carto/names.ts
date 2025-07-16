@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 
-import { svgMapViewerConfig } from '../config'
+import { svgMapViewerConfig } from '../../config'
 import { getOsmId, type OsmProperties, type POI } from '../geo'
 import { vUnvec, vVec, type V } from '../tuple'
 
