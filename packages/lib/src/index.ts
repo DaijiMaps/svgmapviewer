@@ -16,8 +16,8 @@ import {
 } from './config'
 import { Like } from './lib/Like'
 import { type Layout } from './lib/viewer/layout'
+import { svgmapviewer } from './main'
 import { useLayout, useLayout2 } from './style-xstate'
-import { svgmapviewer } from './svgmapviewer'
 import {
   type DataConfig,
   type Info,
