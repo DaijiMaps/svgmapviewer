@@ -8,10 +8,9 @@ import { pipe } from 'fp-ts/lib/function'
 import { none, some } from 'fp-ts/lib/Option'
 import { useMemo } from 'react'
 import { type POI } from '../geo'
-import { useSvgRange } from '../style-xstate'
+import { useLayoutSvgScaleS, useSvgRange } from '../style-xstate'
 import type { Range } from '../types'
 import type { VecVec } from '../vec/prefixed'
-import { useLayoutSvgScaleS } from './map-xstate'
 
 export interface Names {
   readonly pointNames: readonly POI[]

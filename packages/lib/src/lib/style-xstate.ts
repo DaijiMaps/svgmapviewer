@@ -1,7 +1,13 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, raise, setup } from 'xstate'
 import { boxToViewBox2, type BoxBox } from './box/prefixed'
-import { animationCbs, layoutCbs, svgMapViewerConfig } from './config'
+import {
+  animationCbs,
+  layoutCbs,
+  svgMapViewerConfig,
+  zoomEndCbs,
+  zoomStartCbs,
+} from './config'
 import { findRadius } from './distance'
 import type { DistanceRadius } from './distance-types'
 import { makeExpire } from './expire-xstate'
@@ -10,13 +16,14 @@ import { trunc2 } from './utils'
 import { vecZero, type VecVec } from './vec/prefixed'
 import { type Animation } from './viewer/animation-types'
 import { fromSvgToScroll } from './viewer/coord'
-import { emptyLayout, type Layout } from './viewer/layout'
+import { emptyLayout, type Layout, type LayoutConfig } from './viewer/layout'
 import {
   getCurrentScroll,
   scrollEventCbs,
   type CurrentScroll,
 } from './viewer/scroll'
 
+type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number; z: null | number }
 export type StyleEvent =
   | { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
   | { type: 'STYLE.MODE'; mode: string }
@@ -24,6 +31,7 @@ export type StyleEvent =
   | { type: 'STYLE.SCROLL'; currentScroll: CurrentScroll } // p == pscroll
   | { type: 'STYLE.ANIMATION.END' } // null to stop animation
   | { type: 'LAYOUT.DONE'; rendered: boolean } // internal
+  | ZoomEvent
 
 export interface Range {
   start: VecVec
@@ -36,6 +44,8 @@ interface StyleContext {
   shown: boolean
   animating: boolean
   layout: Layout
+  zoom: number
+  z: null | number
   svgMatrix: DOMMatrixReadOnly
   geoMatrix: DOMMatrixReadOnly
   geoPoint: VecVec
@@ -51,6 +61,10 @@ const styleMachine = setup({
     context: {} as StyleContext,
   },
   actions: {
+    updateZoom: assign({
+      zoom: (_, ev: ZoomEvent) => ev.zoom,
+      z: (_, ev: ZoomEvent) => ev.z,
+    }),
     updateSvgMatrix: assign({
       svgMatrix: ({ context: { layout } }) => fromSvgToScroll(layout),
     }),
@@ -90,6 +104,8 @@ const styleMachine = setup({
     shown: false,
     animating: false,
     layout: emptyLayout,
+    zoom: 1,
+    z: null,
     svgMatrix: new DOMMatrixReadOnly(),
     geoMatrix: new DOMMatrixReadOnly(),
     geoPoint: vecZero,
@@ -116,6 +132,12 @@ const styleMachine = setup({
         'updateDistanceRadius',
         raise(({ event: { rendered } }) => ({ type: 'LAYOUT.DONE', rendered })),
       ],
+    },
+    'STYLE.ZOOM': {
+      actions: {
+        type: 'updateZoom',
+        params: ({ event }) => event,
+      },
     },
     'STYLE.SCROLL': {
       actions: {
@@ -235,6 +257,15 @@ export function useDistanceRadius(): DistanceRadius {
 export function useSvgRange(): Range {
   return useSelector(styleActor, (s) => s.context.svgRange)
 }
+export function useLayoutConfig(): LayoutConfig {
+  return useSelector(styleActor, (state) => state.context.layout.config)
+}
+export function useLayoutSvgScaleS(): number {
+  return useSelector(styleActor, (state) => state.context.layout.svgScale.s)
+}
+export function useZoom(): number {
+  return useSelector(styleActor, (state) => state.context.zoom)
+}
 export function useLayout2(): {
   viewBox: string
   width: number
@@ -249,14 +280,25 @@ export function useLayout2(): {
   }
 }
 
-layoutCbs.add((layout, rendered) => {
+function handleLayout(layout: Layout, rendered: boolean) {
   styleSend({ type: 'STYLE.LAYOUT', layout, rendered })
   // XXX update name range after scroll is updated
   requestAnimationFrame(() => expireCb())
-})
-animationCbs.add((animation) =>
+}
+function handleZoomStart(_: Layout, zoom: number, z: number) {
+  styleSend({ type: 'STYLE.ZOOM', zoom, z })
+}
+function handleZoomEnd(_: Layout, zoom: number) {
+  styleSend({ type: 'STYLE.ZOOM', zoom, z: null })
+}
+function handleAnimation(animation: null | Animation) {
   styleSend({ type: 'STYLE.ANIMATION', animation })
-)
+}
+
+layoutCbs.add(handleLayout)
+zoomStartCbs.add(handleZoomStart)
+zoomEndCbs.add(handleZoomEnd)
+animationCbs.add(handleAnimation)
 
 // scroll & expire
 

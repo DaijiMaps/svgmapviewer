@@ -6,16 +6,14 @@ import { type ReactNode, StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { timing_opening } from './lib/css'
 import {
-  useLayoutConfig,
-  useLayoutSvgScaleS,
-  useZoom,
-} from './lib/map/map-xstate'
-import {
   renderedCbs,
   useAppearing,
+  useLayoutConfig,
   useLayoutScroll,
+  useLayoutSvgScaleS,
   useRendered,
   useShown,
+  useZoom,
 } from './lib/style-xstate'
 import { trunc2 } from './lib/utils'
 
