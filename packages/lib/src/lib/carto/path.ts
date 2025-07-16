@@ -3,23 +3,23 @@ import { svgMapViewerConfig as cfg } from '../../config'
 import {
   type Line,
   type LineFeature,
-  lineToPathD2,
+  lineToPathD,
   type MultiPolygon,
   type MultiPolygonFeature,
-  multiPolygonToPathD2,
+  multiPolygonToPathD,
   type OsmLineProperties,
   type OsmPolygonProperties,
 } from '../geo'
 
-export function renderAreasPath2(m: DOMMatrixReadOnly): string {
+export function renderAreasPath(m: DOMMatrixReadOnly): string {
   const xs: MultiPolygon[] = cfg.mapData.areas.features.map(
     (f) => f.geometry.coordinates
   ) as unknown as MultiPolygon[]
 
-  return xs.map(multiPolygonToPathD2(m)).join('')
+  return xs.map(multiPolygonToPathD(m)).join('')
 }
 
-export function renderLinePath2(
+export function renderLinePath(
   filter: (f: Readonly<LineFeature<OsmLineProperties>>) => boolean,
   m: DOMMatrixReadOnly
 ): string {
@@ -27,10 +27,10 @@ export function renderLinePath2(
     .filter(filter)
     .map((f) => f.geometry.coordinates) as unknown as Line[]
 
-  return xs.map(lineToPathD2(m)).join('')
+  return xs.map(lineToPathD(m)).join('')
 }
 
-export function renderMultiPolygonPath2(
+export function renderMultiPolygonPath(
   filter: (f: Readonly<MultiPolygonFeature<OsmPolygonProperties>>) => boolean,
   m: DOMMatrixReadOnly
 ): string {
@@ -38,5 +38,5 @@ export function renderMultiPolygonPath2(
     .filter(filter)
     .map((f) => f.geometry.coordinates) as unknown as MultiPolygon[]
 
-  return xs.map(multiPolygonToPathD2(m)).join('')
+  return xs.map(multiPolygonToPathD(m)).join('')
 }

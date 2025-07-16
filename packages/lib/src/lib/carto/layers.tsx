@@ -8,7 +8,7 @@ import {
   type MultiPolygonsFilter,
   type OsmProperties,
 } from '../geo'
-import { lineToPathD2, multiPolygonToPathD2 } from '../geo/path'
+import { lineToPathD, multiPolygonToPathD } from '../geo/path'
 import type {
   LinePath,
   MapLayer,
@@ -29,7 +29,7 @@ export function RenderMapLayers2(
         <Fragment key={i}>
           {layer.type === 'line'
             ? LineLayerToPaths2(props.m, layer)
-            : MultiPolygonLayerToPath2(props.m, layer)}
+            : MultiPolygonLayerToPath(props.m, layer)}
         </Fragment>
       ))}
     </g>
@@ -65,14 +65,14 @@ function LineLayerToPaths2(
     <g className={layer.name} style={{ contain: 'content' }}>
       {xs.map((x, idx) => (
         <Fragment key={idx}>
-          {LinePathToPath2(m, x, layer.name, layer.width, layer.widthScale)}
+          {LinePathToPath(m, x, layer.name, layer.width, layer.widthScale)}
         </Fragment>
       ))}
     </g>
   )
 }
 
-function LinePathToPath2(
+function LinePathToPath(
   m: DOMMatrixReadOnly,
   { id, tags, width, widthScale, vs }: Readonly<LinePath>,
   layerName: string,
@@ -87,7 +87,7 @@ function LinePathToPath2(
         (width ?? defaultStrokeWidth ?? 1) *
         (widthScale ?? defaultStrokeWidthScale ?? 1)
       }
-      d={lineToPathD2(m)(vs)}
+      d={lineToPathD(m)(vs)}
     />
   )
 }
@@ -123,7 +123,7 @@ export function LinePathToTextPath(
   )
 }
 
-function MultiPolygonLayerToPath2(
+function MultiPolygonLayerToPath(
   m: DOMMatrixReadOnly,
   layer: Readonly<MapMultiPolygonLayer>
 ): ReactNode {
@@ -134,7 +134,7 @@ function MultiPolygonLayerToPath2(
     <g className={layer.name}>
       {xs.map((x, idx) => (
         <Fragment key={idx}>
-          {MultiPolygonPathToPath2(
+          {MultiPolygonPathToPath(
             m,
             x,
             layer.name,
@@ -147,7 +147,7 @@ function MultiPolygonLayerToPath2(
   )
 }
 
-function MultiPolygonPathToPath2(
+function MultiPolygonPathToPath(
   m: DOMMatrixReadOnly,
   { id, tags, width, widthScale, vs }: Readonly<MultiPolygonPath>,
   layerName: string,
@@ -162,7 +162,7 @@ function MultiPolygonPathToPath2(
         (width ?? defaultStrokeWidth ?? 1) *
         (widthScale ?? defaultStrokeWidthScale ?? 1)
       }
-      d={multiPolygonToPathD2(m)(vs)}
+      d={multiPolygonToPathD(m)(vs)}
     />
   )
 }
