@@ -226,6 +226,8 @@ export function styleAnimationEnd(): void {
   styleActor.send({ type: 'STYLE.ANIMATION.END' })
 }
 
+//// selectors
+
 export function useRendered(): boolean {
   return useSelector(styleActor, (s) => s.context.rendered)
 }
@@ -288,10 +290,12 @@ export function useLayout2(): {
   }
 }
 
+// handlers
+
 function handleLayout(layout: Layout, rendered: boolean) {
   styleSend({ type: 'STYLE.LAYOUT', layout, rendered })
   // XXX update name range after scroll is updated
-  requestAnimationFrame(() => expireCb())
+  requestAnimationFrame(() => handleExpire())
 }
 function handleZoomStart(_: Layout, zoom: number, z: number) {
   styleSend({ type: 'STYLE.ZOOM', zoom, z })
@@ -314,12 +318,11 @@ modeCbs.add(handleMode)
 
 // scroll & expire
 
-function expireCb() {
+function handleExpire() {
   const currentScroll = getCurrentScroll()
   styleSend({ type: 'STYLE.SCROLL', currentScroll })
 }
 
-const expire = makeExpire(500, expireCb)
-expire.start()
+const expire = makeExpire(500, handleExpire)
 
 scrollEventCbs.add(expire.tick)

@@ -57,7 +57,6 @@ const expireMachine = setup({
 export interface Expire {
   machine: unknown
   actor: unknown
-  start: () => void
   tick: () => void
 }
 
@@ -69,16 +68,13 @@ export function makeExpire(duration: number, cb: () => void): Expire {
   })
   const actor = createActor(machine)
   actor.on('CALL', cb)
-  function start() {
-    actor.start()
-  }
+  actor.start()
   function tick() {
     actor.send({ type: 'TICK' })
   }
   return {
     machine,
     actor,
-    start,
     tick,
   }
 }
