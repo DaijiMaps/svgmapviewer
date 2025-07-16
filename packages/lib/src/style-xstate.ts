@@ -91,12 +91,15 @@ const styleMachine = setup({
         return context.geoMatrix.transformPoint(p)
       },
       svgRange: ({ context }, { scroll, client }: CurrentScroll) => {
+        const m = context.svgMatrix.inverse()
+        const m2 = svgMapViewerConfig.mapCoord.matrix.inverse()
         const s = { x: scroll.x, y: scroll.y }
         const e = { x: scroll.x + client.width, y: scroll.y + client.height }
-        const m = context.svgMatrix.inverse()
+        const start = m2.transformPoint(m.transformPoint(s))
+        const end = m2.transformPoint(m.transformPoint(e))
         return {
-          start: m.transformPoint(s),
-          end: m.transformPoint(e),
+          start,
+          end,
         }
       },
     }),
