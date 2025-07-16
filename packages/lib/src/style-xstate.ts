@@ -11,7 +11,6 @@ import { boxToViewBox2, type BoxBox } from './lib/box/prefixed'
 import { findRadius } from './lib/distance'
 import type { DistanceRadius } from './lib/distance-types'
 import { makeExpire } from './lib/expire-xstate'
-import type { Cb } from './lib/types'
 import { trunc2 } from './lib/utils'
 import { vecZero, type VecVec } from './lib/vec/prefixed'
 import { type Animation } from './lib/viewer/animation-types'
@@ -26,6 +25,7 @@ import {
   scrollEventCbs,
   type CurrentScroll,
 } from './lib/viewer/scroll'
+import type { Cb } from './types'
 
 type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number; z: null | number }
 export type StyleEvent =

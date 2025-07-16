@@ -19,10 +19,6 @@ import {
   searchSearchDone,
   searchSearchStart,
 } from './lib/search/search-xstate'
-import {
-  type SvgMapViewerConfig,
-  type SvgMapViewerConfigUser,
-} from './lib/types'
 import { isUiRendered } from './lib/ui/Ui'
 import { uiActorStart } from './lib/ui/ui-xstate'
 import { isContainerRendered } from './lib/viewer/Container'
@@ -33,6 +29,7 @@ import { viewerActorStart } from './lib/viewer/viewer-xstate'
 import { root } from './Root'
 import { styleRoot } from './Style'
 import { styleActorStart } from './style-xstate'
+import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
 
 export function svgmapviewer(
   configUser: Readonly<SvgMapViewerConfigUser>

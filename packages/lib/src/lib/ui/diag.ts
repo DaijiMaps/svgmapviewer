@@ -1,4 +1,4 @@
-import { type Dir, type HV, type Size } from '../types'
+import { type Dir, type HV, type Size } from '../../types'
 import { type Vec } from '../vec'
 import { vecVec } from '../vec/prefixed'
 

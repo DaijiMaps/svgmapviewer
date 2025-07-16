@@ -1,20 +1,20 @@
 /* eslint-disable functional/no-mixed-types */
 /* eslint-disable functional/no-return-void */
 import { type ReactNode } from 'react'
-import { type BoxBox } from './box/prefixed'
-import type { CartoConfig } from './carto'
+import { type BoxBox } from './lib/box/prefixed'
+import type { CartoConfig } from './lib/carto'
 import {
   type MapLayer,
   type MapMarkers,
   type MapObjects,
   type MapSymbols,
-} from './carto/types'
-import type { SearchEntry } from './geo'
-import { type MapCoord, type MapData, type MapMap } from './geo/data-types'
-import { type POI } from './geo/poi-types'
-import { type Vec } from './vec'
-import type { Animation } from './viewer/animation-types'
-import { type Layout, type LayoutCoord } from './viewer/layout-types'
+} from './lib/carto/types'
+import type { SearchEntry } from './lib/geo'
+import { type MapCoord, type MapData, type MapMap } from './lib/geo/data-types'
+import { type POI } from './lib/geo/poi-types'
+import { type Vec } from './lib/vec'
+import type { Animation } from './lib/viewer/animation-types'
+import { type Layout, type LayoutCoord } from './lib/viewer/layout-types'
 
 //// layout
 

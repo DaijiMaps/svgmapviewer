@@ -5,6 +5,9 @@
 import { createElement } from 'react'
 import { RenderMapDefault } from './Map'
 import { emptyMapData } from './lib/geo/data-types'
+import { type VecVec } from './lib/vec/prefixed'
+import type { Animation } from './lib/viewer/animation-types'
+import { type Layout } from './lib/viewer/layout'
 import {
   type AnimationCb,
   type Cb,
@@ -25,10 +28,7 @@ import {
   type UiOpenDoneCb,
   type ZoomEndCb,
   type ZoomStartCb,
-} from './lib/types'
-import { type VecVec } from './lib/vec/prefixed'
-import type { Animation } from './lib/viewer/animation-types'
-import { type Layout } from './lib/viewer/layout'
+} from './types'
 
 const renderInfoDefault: RenderInfo = (
   props: Readonly<{ info: Readonly<Info> }>

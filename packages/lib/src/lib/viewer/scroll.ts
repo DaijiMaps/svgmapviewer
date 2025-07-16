@@ -2,8 +2,8 @@
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-conditional-statements */
+import type { Size } from '../../types'
 import { boxBox, type BoxBox, boxUnit } from '../box/prefixed'
-import type { Size } from '../types'
 import type { ScrollCb } from './scroll-types'
 
 // XXX make this async

@@ -21,8 +21,8 @@ import {
   uiOpenCbs,
 } from '../../config'
 import { renderedCbs, styleSend } from '../../style-xstate'
+import { type SearchRes } from '../../types'
 import { boxCenter } from '../box/prefixed'
-import { type SearchRes } from '../types'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'
 import { animationEndLayout, animationHome, animationZoom } from './animation'
 import { type Animation } from './animation-types'

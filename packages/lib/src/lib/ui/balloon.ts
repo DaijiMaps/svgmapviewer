@@ -1,6 +1,6 @@
+import type { HV, Size } from '../../types'
 import { boxBox, type BoxBox } from '../box/prefixed'
 import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from '../css'
-import type { HV, Size } from '../types'
 import {
   vecVec as vec,
   vecAdd,
