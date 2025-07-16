@@ -3,6 +3,7 @@ import { assign, createActor, raise, setup } from 'xstate'
 import {
   animationCbs,
   layoutCbs,
+  modeCbs,
   svgMapViewerConfig,
   zoomEndCbs,
   zoomStartCbs,
@@ -25,6 +26,7 @@ import {
   scrollEventCbs,
   type CurrentScroll,
 } from './lib/viewer/scroll'
+import type { ViewerMode } from './lib/viewer/viewer-types'
 import type { Cb } from './types'
 
 type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number; z: null | number }
@@ -298,11 +300,15 @@ function handleZoomEnd(_: Layout, zoom: number) {
 function handleAnimation(animation: null | Animation) {
   styleSend({ type: 'STYLE.ANIMATION', animation })
 }
+function handleMode(mode: ViewerMode) {
+  styleSend({ type: 'STYLE.MODE', mode })
+}
 
 layoutCbs.add(handleLayout)
 zoomStartCbs.add(handleZoomStart)
 zoomEndCbs.add(handleZoomEnd)
 animationCbs.add(handleAnimation)
+modeCbs.add(handleMode)
 
 // scroll & expire
 

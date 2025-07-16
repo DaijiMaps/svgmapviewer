@@ -8,11 +8,13 @@ import { emptyMapData } from './lib/geo/data-types'
 import { type VecVec } from './lib/vec/prefixed'
 import type { Animation } from './lib/viewer/animation-types'
 import { type Layout } from './lib/viewer/layout'
+import type { ViewerMode } from './lib/viewer/viewer-types'
 import {
   type AnimationCb,
   type Cb,
   type Info,
   type LayoutCb,
+  type ModeCb,
   type RenderInfo,
   type ResizeCb,
   type SearchCb,
@@ -102,6 +104,7 @@ export const zoomEndCbs: Set<ZoomEndCb> = new Set()
 export const resizeCbs: Set<ResizeCb> = new Set()
 export const layoutCbs: Set<LayoutCb> = new Set()
 export const animationCbs: Set<AnimationCb> = new Set()
+export const modeCbs: Set<ModeCb> = new Set()
 export const uiActionZoomInCbs: Set<Cb> = new Set()
 export const uiActionZoomOutCbs: Set<Cb> = new Set()
 export const uiActionResetCbs: Set<Cb> = new Set()
@@ -164,4 +167,7 @@ export function notifyLayout(layout: Readonly<Layout>, force: boolean): void {
 }
 export function notifyAnimation(animation: null | Readonly<Animation>): void {
   animationCbs.forEach((cb) => cb(animation))
+}
+export function notifyMode(mode: ViewerMode): void {
+  modeCbs.forEach((cb) => cb(mode))
 }

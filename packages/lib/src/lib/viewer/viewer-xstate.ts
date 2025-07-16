@@ -1,8 +1,10 @@
 import { useSelector } from '@xstate/react'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import {
+  modeCbs,
   notifyAnimation,
   notifyLayout,
+  notifyMode,
   notifySearchEndDone,
   notifySearchStart,
   notifyUiOpen,
@@ -18,8 +20,10 @@ import {
   uiActionZoomOutCbs,
   uiCloseDoneCbs,
   uiOpenCbs,
+  zoomEndCbs,
+  zoomStartCbs,
 } from '../../config'
-import { renderedCbs, styleSend } from '../../style-xstate'
+import { renderedCbs } from '../../style-xstate'
 import { type SearchRes } from '../../types'
 import { boxCenter } from '../box/prefixed'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'
@@ -642,27 +646,16 @@ viewerActor.on('SEARCH.END.DONE', ({ psvg, info, layout }) => {
   notifyUiOpen(psvg, info, layout)
 })
 viewerActor.on('LOCK', ({ ok }) => notifyUiOpenDone(ok))
-viewerActor.on('ZOOM.START', ({ layout, zoom, z }) => {
-  wheeleventmask = true
+viewerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
   notifyZoomStart(layout, zoom, z)
-})
-viewerActor.on('ZOOM.END', ({ layout, zoom }) => {
-  notifyZoomEnd(layout, zoom)
-  wheeleventmask = false
-})
-
+)
+viewerActor.on('ZOOM.END', ({ layout, zoom }) => notifyZoomEnd(layout, zoom))
 viewerActor.on('LAYOUT', ({ layout }) => notifyZoomEnd(layout, 1))
-viewerActor.on('MODE', ({ mode }) => {
-  // XXX
-  // XXX
-  // XXX
-  styleSend({ type: 'STYLE.MODE', mode })
-  reflectMode(mode)
-  // XXX
-  // XXX
-  // XXX
-})
+viewerActor.on('MODE', ({ mode }) => notifyMode(mode))
+
 viewerActor.start()
+
+////
 
 function viewerSearchEnd(res: Readonly<SearchRes>) {
   viewerActor.send({ type: 'SEARCH.END', res })
@@ -711,6 +704,7 @@ function reflectMode(mode: ViewerMode): void {
   scrolleventmask = mode !== 'panning'
   wheeleventmask = mode === 'locked'
 }
+modeCbs.add(reflectMode)
 
 //// handlers
 
@@ -734,6 +728,15 @@ export function viewerSendEvent(
   }
   viewerSend(event)
 }
+
+function maskWheel() {
+  wheeleventmask = true
+}
+function unmaskWheel() {
+  wheeleventmask = false
+}
+zoomStartCbs.add(maskWheel)
+zoomEndCbs.add(unmaskWheel)
 
 function handleUiActionReset() {
   viewerSend({ type: 'LAYOUT.RESET' })
