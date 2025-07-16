@@ -8,9 +8,9 @@ import {
   touch_action_none,
   width_100vw_height_100svh,
 } from './lib/css'
+import { likeStyle } from './lib/Like'
 import { Ui } from './lib/ui/Ui'
 import { Container } from './lib/viewer/Container'
-import { likeStyle } from './Like'
 
 function App(): ReactNode {
   const backgroundColor =

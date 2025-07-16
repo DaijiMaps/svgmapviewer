@@ -1,4 +1,3 @@
-import { Like } from './Like'
 import {
   notifyLayout,
   notifyResize,
@@ -15,6 +14,7 @@ import {
   notifyZoomStart,
   svgMapViewerConfig,
 } from './config'
+import { Like } from './lib/Like'
 import { type Layout } from './lib/viewer/layout'
 import { useLayout, useLayout2 } from './style-xstate'
 import { svgmapviewer } from './svgmapviewer'
