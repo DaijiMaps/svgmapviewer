@@ -144,7 +144,6 @@ export interface Floor {
 export interface FloorsConfig {
   floors: Floor[]
   fidx: number
-  nextFidx: null | number
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>
