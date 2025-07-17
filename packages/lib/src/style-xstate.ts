@@ -27,21 +27,23 @@ import {
   type CurrentScroll,
 } from './lib/viewer/scroll'
 import type { ViewerMode } from './lib/viewer/viewer-types'
+import type { Range } from './types'
 
+type LayoutEvent = { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
 type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number; z: null | number }
+type ScrollEvent = { type: 'STYLE.SCROLL'; currentScroll: CurrentScroll } // p == pscroll
+type ModeEvent = { type: 'STYLE.MODE'; mode: string }
+type AnimationEvent = { type: 'STYLE.ANIMATION'; animation: null | Animation } // null to stop animation
+type AnimationEndEvent = { type: 'STYLE.ANIMATION.END' } // null to stop animation
+type LayoutDoneEvent = { type: 'LAYOUT.DONE'; rendered: boolean } // internal
 export type StyleEvent =
-  | { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
-  | { type: 'STYLE.MODE'; mode: string }
-  | { type: 'STYLE.ANIMATION'; animation: null | Animation } // null to stop animation
-  | { type: 'STYLE.SCROLL'; currentScroll: CurrentScroll } // p == pscroll
-  | { type: 'STYLE.ANIMATION.END' } // null to stop animation
-  | { type: 'LAYOUT.DONE'; rendered: boolean } // internal
+  | LayoutEvent
   | ZoomEvent
-
-export interface Range {
-  start: VecVec
-  end: VecVec
-}
+  | ScrollEvent
+  | ModeEvent
+  | AnimationEvent
+  | AnimationEndEvent
+  | LayoutDoneEvent
 
 interface StyleContext {
   rendered: boolean
@@ -84,19 +86,19 @@ const styleMachine = setup({
     }),
     updateScroll: assign({
       geoPoint: ({ context }, { scroll, client }: CurrentScroll) => {
+        const m = context.geoMatrix
         const p = {
           x: scroll.x + client.width / 2,
           y: scroll.y + client.height / 2,
         }
-        return context.geoMatrix.transformPoint(p)
+        return m.transformPoint(p)
       },
       geoRange: ({ context }, { scroll, client }: CurrentScroll) => {
-        const m = context.svgMatrix.inverse()
-        const m2 = svgMapViewerConfig.mapCoord.matrix.inverse()
+        const m = context.geoMatrix
         const s = { x: scroll.x, y: scroll.y }
         const e = { x: scroll.x + client.width, y: scroll.y + client.height }
-        const start = m2.transformPoint(m.transformPoint(s))
-        const end = m2.transformPoint(m.transformPoint(e))
+        const start = m.transformPoint(s)
+        const end = m.transformPoint(e)
         return {
           start,
           end,

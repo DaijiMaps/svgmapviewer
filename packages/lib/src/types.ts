@@ -43,12 +43,6 @@ export interface SearchRes {
   info: Readonly<Info>
 }
 
-export interface SearchResP {
-  psvg: Vec
-  info: Readonly<Info>
-  p: Vec // cclient
-}
-
 export interface LonLat {
   lon: string
   lat: string
