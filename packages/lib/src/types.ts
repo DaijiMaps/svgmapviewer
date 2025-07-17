@@ -137,9 +137,9 @@ export interface RenderConfig {
 }
 
 export interface FloorsConfig {
-  idx: number
-  nextIdx: null | number
-  idxs: number[]
+  fidxs: number[]
+  fidx: number
+  nextFidx: null | number
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>

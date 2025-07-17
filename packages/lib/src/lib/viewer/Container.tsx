@@ -46,6 +46,7 @@ export function Container(): ReactNode {
       {svgMapViewerConfig.renderMap()}
       <style>{style}</style>
       <AnimationStyle />
+      <FloorsStyle />
     </div>
   )
 }
@@ -76,6 +77,19 @@ function AnimationStyle(): ReactNode {
   const animation = useAnimation()
   const q = animation?.move?.q ?? animation?.zoom?.q ?? null
   const style = q === null ? '' : css(q)
+  return <style>{style}</style>
+}
+
+function FloorsStyle(): ReactNode {
+  const floorsConfig = svgMapViewerConfig.floorsConfig
+  if (floorsConfig === undefined) {
+    return <></>
+  }
+  const style = floorsConfig.fidxs
+    .map((fidx) =>
+      fidx === floorsConfig.fidx ? `` : `.fidx-${fidx} { display: none; }`
+    )
+    .join('\n')
   return <style>{style}</style>
 }
 
