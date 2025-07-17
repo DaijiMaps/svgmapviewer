@@ -3,7 +3,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
-import { notifyFloorLock, uiActionResetCbs } from '../../event'
+import { uiActionResetCbs } from '../../event'
 import {
   flex_column_center_center,
   pointer_events_initial,
@@ -14,7 +14,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
-import { useFloors } from '../viewer/floors-xstate'
+import { FloorName, Floors } from './Floor'
 import { uiSend, useOpenCloseHeader } from './ui-xstate'
 
 export function Header(): ReactNode {
@@ -31,42 +31,15 @@ function HeaderContent(): ReactNode {
       className="ui-content header"
       onAnimationEnd={() => uiSend({ type: 'HEADER.ANIMATION.END' })}
     >
+      <Floors />
       <h1 className="title" onClick={() => doTitle()}>
         {config.title}
       </h1>
-      <Floors />
+      <FloorName />
       <style>
         {style}
         <HeaderStyle />
       </style>
-    </div>
-  )
-}
-
-function Floors(): ReactNode {
-  const floors = useFloors()
-  const floorsConfig = svgMapViewerConfig.floorsConfig
-  if (floorsConfig === undefined) {
-    return <></>
-  }
-  return (
-    <div className="floors">
-      <ul className="floor-list">
-        {floorsConfig.floors.map(({ name }, fidx) => (
-          <li
-            key={fidx}
-            className={
-              'floor-item' +
-              (fidx === floors.fidx || fidx === floors.newFidx
-                ? ' selected'
-                : ' unselected')
-            }
-            onClick={() => notifyFloorLock(fidx)}
-          >
-            {name}
-          </li>
-        ))}
-      </ul>
     </div>
   )
 }
@@ -98,31 +71,6 @@ h2 {
   cursor: default;
 }
 
-.floors {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.floor-list {
-  margin: 0.5em;
-  padding: 0;
-  list-style: none;
-  font-size: 2em;
-  display: flex;
-  flex-direction: row;
-}
-.floor-item {
-  padding: 0.5em 0.75em;
-  border: 1.5px solid black;
-  pointer-events: initial;
-  transition: opacity 500ms;
-}
-.floor-item.selected {
-  opacity: 1;
-}
-.floor-item.unselected {
-  opacity: 0.5;
-}
 `
 
 export function HeaderStyle(): ReactNode {
