@@ -14,6 +14,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
+import { useFloors } from '../viewer/floors'
 import { uiSend, useOpenCloseHeader } from './ui-xstate'
 
 export function Header(): ReactNode {
@@ -43,6 +44,7 @@ function HeaderContent(): ReactNode {
 }
 
 function Floors(): ReactNode {
+  const floors = useFloors()
   const floorsConfig = svgMapViewerConfig.floorsConfig
   if (floorsConfig === undefined) {
     return <></>
@@ -53,7 +55,10 @@ function Floors(): ReactNode {
         {floorsConfig.floors.map(({ name }, fidx) => (
           <li
             key={fidx}
-            className="floor-item"
+            className={
+              'floor-item' +
+              (fidx === floors.fidx ? ' selected' : ' unselected')
+            }
             onClick={() => notifyFloor(fidx)}
           >
             {name}
@@ -107,6 +112,7 @@ h2 {
 .floor-item {
   padding: 0.5em 0.75em;
   border: 1.5px solid black;
+  pointer-events: initial;
 }
 `
 

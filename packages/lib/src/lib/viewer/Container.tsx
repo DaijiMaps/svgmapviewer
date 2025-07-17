@@ -10,6 +10,7 @@ import {
 } from '../css'
 import type { Matrix } from '../matrix'
 import { matrixEmpty, matrixToString } from '../matrix/prefixed'
+import { useFloors } from './floors'
 import {
   touchSendTouchEnd,
   touchSendTouchMove,
@@ -81,13 +82,14 @@ function AnimationStyle(): ReactNode {
 }
 
 function FloorsStyle(): ReactNode {
+  const floors = useFloors()
   const floorsConfig = svgMapViewerConfig.floorsConfig
   if (floorsConfig === undefined) {
     return <></>
   }
   const style = floorsConfig.floors
     .map((_, fidx) =>
-      fidx === floorsConfig.fidx ? `` : `.fidx-${fidx} { display: none; }`
+      fidx === floors.fidx ? `` : `.fidx-${fidx} { display: none; }`
     )
     .join('\n')
   return <style>{style}</style>
