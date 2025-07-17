@@ -57,7 +57,7 @@ function Floors(): ReactNode {
             key={fidx}
             className={
               'floor-item' +
-              (fidx === floors.fidx || fidx === floors.nextFidx
+              (fidx === floors.fidx || fidx === floors.newFidx
                 ? ' selected'
                 : ' unselected')
             }

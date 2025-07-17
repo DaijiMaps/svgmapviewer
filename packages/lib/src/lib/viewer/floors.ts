@@ -12,9 +12,8 @@ interface FloorsInput {
 }
 interface FloorsContext {
   fidx: number
-  prevFidx: null | number
-  nextFidx: null | number
-  animating: boolean
+  oldFidx: null | number
+  newFidx: null | number
   changing: Set<number>
   changed: Set<number>
 }
@@ -33,9 +32,8 @@ const floorsMachine = setup({
   id: 'floors1',
   context: ({ input: { fidx } }) => ({
     fidx,
-    prevFidx: null,
-    nextFidx: null,
-    animating: false,
+    oldFidx: null,
+    newFidx: null,
     changing: new Set(),
     changed: new Set(),
   }),
@@ -46,8 +44,8 @@ const floorsMachine = setup({
         SELECT: {
           guard: ({ context, event }) => context.fidx !== event.fidx,
           actions: assign({
-            prevFidx: ({ context }) => context.fidx,
-            nextFidx: ({ event }) => event.fidx,
+            oldFidx: ({ context }) => context.fidx,
+            newFidx: ({ event }) => event.fidx,
             changing: ({ context, event }) =>
               new Set([context.fidx, event.fidx]),
             changed: new Set(),
@@ -75,10 +73,10 @@ const floorsMachine = setup({
         },
         {
           actions: assign({
-            fidx: ({ context: { fidx, nextFidx } }) =>
-              nextFidx === null ? fidx : nextFidx,
-            prevFidx: null,
-            nextFidx: null,
+            fidx: ({ context: { fidx, newFidx } }) =>
+              newFidx === null ? fidx : newFidx,
+            oldFidx: null,
+            newFidx: null,
           }),
           target: 'Idle',
         },
