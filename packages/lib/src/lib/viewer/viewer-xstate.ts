@@ -2,8 +2,12 @@ import { useSelector } from '@xstate/react'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import { svgMapViewerConfig } from '../../config'
 import {
+  floorDoneCbs,
+  floorLockCbs,
   modeCbs,
   notifyAnimation,
+  notifyFloor,
+  notifyFloorUnlock,
   notifyLayout,
   notifyMode,
   notifySearchEndDone,
@@ -46,6 +50,7 @@ import {
   type ReactUIEvent,
   type ResizeRequest,
   type SearchEnd,
+  type SwitchRequest,
   type ViewerContext,
   type ViewerEmitted,
   type ViewerEvent,
@@ -237,6 +242,17 @@ const viewerMachine = setup({
     ),
     notifyLock: emit({ type: 'LOCK', ok: true }),
     setRendered: assign({ rendered: true }),
+    notifySwitch: emit(
+      (_, { fidx }: SwitchRequest): ViewerEmitted => ({
+        type: 'SWITCH',
+        fidx,
+      })
+    ),
+    notifySwitchDone: emit(
+      (): ViewerEmitted => ({
+        type: 'SWITCH.DONE',
+      })
+    ),
   },
 }).createMachine({
   id: 'viewer',
@@ -380,6 +396,13 @@ const viewerMachine = setup({
           ],
           target: 'Searching',
         },
+        SWITCH: {
+          actions: {
+            type: 'notifySwitch',
+            params: ({ event }) => event,
+          },
+          target: 'Switching',
+        },
         CONTEXTMENU: {
           target: 'Recentering',
         },
@@ -460,6 +483,25 @@ const viewerMachine = setup({
           },
         },
         Done: { type: 'final' },
+      },
+    },
+    Switching: {
+      initial: 'Animating',
+      onDone: 'Panning',
+      states: {
+        Animating: {
+          on: {
+            'SWITCH.DONE': {
+              actions: {
+                type: 'notifySwitchDone',
+              },
+              target: 'Done',
+            },
+          },
+        },
+        Done: {
+          type: 'final',
+        },
       },
     },
     // fast 'recenter'
@@ -653,6 +695,9 @@ viewerActor.on('ZOOM.END', ({ layout, zoom }) => notifyZoomEnd(layout, zoom))
 viewerActor.on('LAYOUT', ({ layout }) => notifyZoomEnd(layout, 1))
 viewerActor.on('MODE', ({ mode }) => notifyMode(mode))
 
+viewerActor.on('SWITCH', ({ fidx }) => notifyFloor(fidx))
+viewerActor.on('SWITCH.DONE', () => notifyFloorUnlock())
+
 viewerActor.start()
 
 ////
@@ -669,6 +714,15 @@ function viewerSearchUnlock() {
 function resizeCb(origLayout: Readonly<Layout>, force: boolean) {
   viewerSend({ type: 'RESIZE', layout: origLayout, force })
 }
+
+function viewerSwitch(fidx: number): void {
+  viewerSend({ type: 'SWITCH', fidx })
+}
+function viewerSwitchDone(): void {
+  viewerSend({ type: 'SWITCH.DONE' }) // XXX animation end
+}
+floorLockCbs.add(viewerSwitch)
+floorDoneCbs.add(viewerSwitchDone) // XXX animation end
 
 searchEndCbs.add(viewerSearchEnd)
 uiOpenCbs.add(viewerSearchLock)

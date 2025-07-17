@@ -89,10 +89,50 @@ function FloorsStyle(): ReactNode {
   }
   const style = floorsConfig.floors
     .map((_, fidx) =>
-      fidx === floors.fidx ? `` : `.fidx-${fidx} { display: none; }`
+      fidx === floors.fidx ||
+      fidx === floors.prevFidx ||
+      fidx === floors.nextFidx
+        ? ``
+        : `.fidx-${fidx} { display: none; }`
     )
     .join('\n')
-  return <style>{style}</style>
+  const prev = floors.prevFidx
+  const next = floors.nextFidx
+  const animation =
+    prev === null || next === null
+      ? ``
+      : `
+.fidx-${prev} {
+  will-change: opacity;
+  animation: xxx-disappearing 1s;
+}
+.fidx-${next} {
+  will-change: opacity;
+  animation: xxx-appearing 1s;
+}
+@keyframes xxx-disappearing {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes xxx-appearing {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+`
+  return (
+    <style>
+      {style}
+      {animation}
+    </style>
+  )
 }
 
 function css(q: Matrix): string {

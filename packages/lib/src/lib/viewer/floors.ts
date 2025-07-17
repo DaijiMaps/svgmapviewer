@@ -5,7 +5,7 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
 import { svgMapViewerConfig } from '../../config'
-import { floorCbs } from '../../event'
+import { floorCbs, floorDoneCbs } from '../../event'
 
 interface FloorsInput {
   fidx: number
@@ -15,10 +15,13 @@ interface FloorsContext {
   prevFidx: null | number
   nextFidx: null | number
   animating: boolean
+  changing: Set<number>
+  changed: Set<number>
 }
 
 type Select = { type: 'SELECT'; fidx: number }
-type FloorsEvents = Select
+type Done = { type: 'DONE'; fidx: number }
+type FloorsEvents = Select | Done
 
 const floorsMachine = setup({
   types: {
@@ -33,19 +36,54 @@ const floorsMachine = setup({
     prevFidx: null,
     nextFidx: null,
     animating: false,
+    changing: new Set(),
+    changed: new Set(),
   }),
   initial: 'Idle',
-  on: {
-    SELECT: {
-      actions: assign({
-        fidx: ({ event }) => event.fidx,
-      }),
-    },
-  },
   states: {
-    Idle: {},
-    Animating: {},
-    Done: {},
+    Idle: {
+      on: {
+        SELECT: {
+          guard: ({ context, event }) => context.fidx !== event.fidx,
+          actions: assign({
+            prevFidx: ({ context }) => context.fidx,
+            nextFidx: ({ event }) => event.fidx,
+            changing: ({ context, event }) =>
+              new Set([context.fidx, event.fidx]),
+            changed: new Set(),
+          }),
+          target: 'Animating',
+        },
+      },
+    },
+    Animating: {
+      on: {
+        DONE: {
+          actions: assign({
+            changed: ({ context, event }) => context.changed.add(event.fidx),
+          }),
+          target: 'Checking',
+        },
+      },
+    },
+    Checking: {
+      always: [
+        {
+          guard: ({ context }) =>
+            context.changing.difference(context.changed).size > 0,
+          target: 'Animating',
+        },
+        {
+          actions: assign({
+            fidx: ({ context: { fidx, nextFidx } }) =>
+              nextFidx === null ? fidx : nextFidx,
+            prevFidx: null,
+            nextFidx: null,
+          }),
+          target: 'Idle',
+        },
+      ],
+    },
   },
 })
 
@@ -60,8 +98,12 @@ floorsActor.start()
 function handleFloor(fidx: number): void {
   floorsActor.send({ type: 'SELECT', fidx })
 }
+function handleFloorDone(fidx: number): void {
+  floorsActor.send({ type: 'DONE', fidx })
+}
 
 floorCbs.add(handleFloor)
+floorDoneCbs.add(handleFloorDone)
 
 // selectors
 

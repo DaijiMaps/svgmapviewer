@@ -1,5 +1,6 @@
 import { svgMapViewerConfig } from './config'
 import {
+  notifyFloorDone,
   notifyLayout,
   notifyResize,
   notifySearch,
@@ -39,6 +40,7 @@ export { type Info, type RenderMap, type SearchReq, type SearchRes }
 export { svgMapViewerConfig }
 
 export {
+  notifyFloorDone,
   notifyLayout,
   notifyResize,
   notifySearch,

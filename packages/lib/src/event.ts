@@ -36,6 +36,11 @@ export const uiOpenDoneCbs: Set<UiOpenDoneCb> = new Set()
 export const uiCloseCbs: Set<UiCloseCb> = new Set()
 export const uiCloseDoneCbs: Set<UiCloseDoneCb> = new Set()
 
+export const floorLockCbs: Set<FloorCb> = new Set()
+export const floorCbs: Set<FloorCb> = new Set()
+export const floorDoneCbs: Set<FloorCb> = new Set()
+export const floorUnlockCbs: Set<Cb> = new Set()
+
 export const renderedCbs: Set<Cb> = new Set()
 export const resizeCbs: Set<ResizeCb> = new Set()
 export const layoutCbs: Set<LayoutCb> = new Set()
@@ -43,7 +48,6 @@ export const zoomStartCbs: Set<ZoomStartCb> = new Set()
 export const zoomEndCbs: Set<ZoomEndCb> = new Set()
 export const animationCbs: Set<AnimationCb> = new Set()
 export const modeCbs: Set<ModeCb> = new Set()
-export const floorCbs: Set<FloorCb> = new Set()
 
 export const uiActionZoomInCbs: Set<Cb> = new Set()
 export const uiActionZoomOutCbs: Set<Cb> = new Set()
@@ -113,6 +117,16 @@ export function notifyAnimation(animation: null | Readonly<Animation>): void {
 export function notifyMode(mode: ViewerMode): void {
   modeCbs.forEach((cb) => cb(mode))
 }
+
+export function notifyFloorLock(fidx: number): void {
+  floorLockCbs.forEach((cb) => cb(fidx))
+}
 export function notifyFloor(fidx: number): void {
   floorCbs.forEach((cb) => cb(fidx))
+}
+export function notifyFloorDone(fidx: number): void {
+  floorDoneCbs.forEach((cb) => cb(fidx))
+}
+export function notifyFloorUnlock(): void {
+  floorUnlockCbs.forEach((cb) => cb())
 }

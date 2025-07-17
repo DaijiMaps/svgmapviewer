@@ -3,7 +3,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
-import { notifyFloor, uiActionResetCbs } from '../../event'
+import { notifyFloorLock, uiActionResetCbs } from '../../event'
 import {
   flex_column_center_center,
   pointer_events_initial,
@@ -59,7 +59,7 @@ function Floors(): ReactNode {
               'floor-item' +
               (fidx === floors.fidx ? ' selected' : ' unselected')
             }
-            onClick={() => notifyFloor(fidx)}
+            onClick={() => notifyFloorLock(fidx)}
           >
             {name}
           </li>
