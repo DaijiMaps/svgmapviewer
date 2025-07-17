@@ -10,13 +10,7 @@ import {
   boxUnit,
 } from '../box/prefixed'
 import { type VecVec as Vec, vecScale, vecSub } from '../vec/prefixed'
-import {
-  emptyLayoutCoord,
-  fromMatrixSvg,
-  fromScroll,
-  fromSvgToScroll,
-  makeCoord,
-} from './coord'
+import { emptyLayoutCoord, fromMatrixSvg, fromScroll, makeCoord } from './coord'
 import { fit } from './fit'
 import type {
   HtmlLayoutCoord,
@@ -66,11 +60,9 @@ export function configLayout(
 
 export function makeLayout(config: LayoutConfig): Layout {
   const coord = makeCoord(config)
-  const svgMatrix = fromSvgToScroll(coord)
 
   const layout = {
     config,
-    svgMatrix,
     ...coord,
   }
 
