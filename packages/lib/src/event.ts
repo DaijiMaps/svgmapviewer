@@ -8,6 +8,7 @@ import type { ViewerMode } from './lib/viewer/viewer-types'
 import {
   type AnimationCb,
   type Cb,
+  type FloorCb,
   type Info,
   type LayoutCb,
   type ModeCb,
@@ -42,6 +43,7 @@ export const zoomStartCbs: Set<ZoomStartCb> = new Set()
 export const zoomEndCbs: Set<ZoomEndCb> = new Set()
 export const animationCbs: Set<AnimationCb> = new Set()
 export const modeCbs: Set<ModeCb> = new Set()
+export const floorCbs: Set<FloorCb> = new Set()
 
 export const uiActionZoomInCbs: Set<Cb> = new Set()
 export const uiActionZoomOutCbs: Set<Cb> = new Set()
@@ -110,4 +112,7 @@ export function notifyAnimation(animation: null | Readonly<Animation>): void {
 }
 export function notifyMode(mode: ViewerMode): void {
   modeCbs.forEach((cb) => cb(mode))
+}
+export function notifyFloor(fidx: number): void {
+  floorCbs.forEach((cb) => cb(fidx))
 }

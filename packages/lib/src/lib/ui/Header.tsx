@@ -3,7 +3,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
-import { uiActionResetCbs } from '../../event'
+import { notifyFloor, uiActionResetCbs } from '../../event'
 import {
   flex_column_center_center,
   pointer_events_initial,
@@ -33,10 +33,33 @@ function HeaderContent(): ReactNode {
       <h1 className="title" onClick={() => doTitle()}>
         {config.title}
       </h1>
+      <Floors />
       <style>
         {style}
         <HeaderStyle />
       </style>
+    </div>
+  )
+}
+
+function Floors(): ReactNode {
+  const floorsConfig = svgMapViewerConfig.floorsConfig
+  if (floorsConfig === undefined) {
+    return <></>
+  }
+  return (
+    <div className="floors">
+      <ul className="floor-list">
+        {floorsConfig.floors.map(({ name }, fidx) => (
+          <li
+            key={fidx}
+            className="floor-item"
+            onClick={() => notifyFloor(fidx)}
+          >
+            {name}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
@@ -66,6 +89,24 @@ h2 {
   margin: 0.25em;
   font-weight: 100;
   cursor: default;
+}
+
+.floors {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.floor-list {
+  margin: 0.5em;
+  padding: 0;
+  list-style: none;
+  font-size: 2em;
+  display: flex;
+  flex-direction: row;
+}
+.floor-item {
+  padding: 0.5em 0.75em;
+  border: 1.5px solid black;
 }
 `
 

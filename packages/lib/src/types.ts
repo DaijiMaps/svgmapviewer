@@ -83,6 +83,7 @@ export type ResizeCb = (layout: Layout, force: boolean) => void
 export type LayoutCb = (layout: Layout, force: boolean) => void
 export type AnimationCb = (animation: null | Animation) => void
 export type ModeCb = (mode: ViewerMode) => void
+export type FloorCb = (fidx: number) => void
 
 export type GeoLocCb = () => void
 export type GeoLocDoneCb = (position: GeolocationPosition) => void
@@ -136,8 +137,12 @@ export interface RenderConfig {
   isMapRendered: () => boolean
 }
 
+export interface Floor {
+  name: string
+}
+
 export interface FloorsConfig {
-  fidxs: number[]
+  floors: Floor[]
   fidx: number
   nextFidx: null | number
 }

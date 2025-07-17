@@ -85,8 +85,8 @@ function FloorsStyle(): ReactNode {
   if (floorsConfig === undefined) {
     return <></>
   }
-  const style = floorsConfig.fidxs
-    .map((fidx) =>
+  const style = floorsConfig.floors
+    .map((_, fidx) =>
       fidx === floorsConfig.fidx ? `` : `.fidx-${fidx} { display: none; }`
     )
     .join('\n')
