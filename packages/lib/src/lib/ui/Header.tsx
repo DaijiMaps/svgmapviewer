@@ -57,7 +57,9 @@ function Floors(): ReactNode {
             key={fidx}
             className={
               'floor-item' +
-              (fidx === floors.fidx ? ' selected' : ' unselected')
+              (fidx === floors.fidx || fidx === floors.nextFidx
+                ? ' selected'
+                : ' unselected')
             }
             onClick={() => notifyFloorLock(fidx)}
           >
@@ -113,6 +115,13 @@ h2 {
   padding: 0.5em 0.75em;
   border: 1.5px solid black;
   pointer-events: initial;
+  transition: opacity 500ms;
+}
+.floor-item.selected {
+  opacity: 1;
+}
+.floor-item.unselected {
+  opacity: 0.5;
 }
 `
 

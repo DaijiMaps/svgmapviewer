@@ -104,11 +104,11 @@ function FloorsStyle(): ReactNode {
       : `
 .fidx-${prev} {
   will-change: opacity;
-  animation: xxx-disappearing 1s;
+  animation: xxx-disappearing 500ms linear;
 }
 .fidx-${next} {
   will-change: opacity;
-  animation: xxx-appearing 1s;
+  animation: xxx-appearing 500ms linear;
 }
 @keyframes xxx-disappearing {
   from {
