@@ -20,6 +20,7 @@ import { svgmapviewer } from './main'
 import { useLayout, useLayout2 } from './style-xstate'
 import {
   type DataConfig,
+  type FloorsConfig,
   type Info,
   type RenderConfig,
   type RenderMap,
@@ -57,6 +58,7 @@ export {
 
 export {
   type DataConfig,
+  type FloorsConfig,
   type RenderConfig,
   type SvgMapViewerConfig,
   type SvgMapViewerConfigUser,

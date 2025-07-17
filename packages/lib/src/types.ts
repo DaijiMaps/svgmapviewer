@@ -111,6 +111,7 @@ export interface SvgMapViewerConfig extends DataConfig, RenderConfig {
   animationDuration: number
   scrollIdleTimeout: number
   cartoConfig?: CartoConfig
+  floorsConfig?: FloorsConfig
   isContainerRendered: () => boolean
   isUiRendered: () => boolean
 }
@@ -133,6 +134,12 @@ export interface RenderConfig {
   mapSvgStyle: string
   renderMap: RenderMap
   isMapRendered: () => boolean
+}
+
+export interface FloorsConfig {
+  idx: number
+  nextIdx: null | number
+  idxs: number[]
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>
