@@ -2,7 +2,7 @@ import { type HV, type Size } from '../../types'
 import { type Vec } from '../vec'
 import { vecVec } from '../vec/prefixed'
 
-export function diag2(size: Readonly<Size>, { x, y }: Vec): HV {
+export function diag(size: Readonly<Size>, { x, y }: Vec): HV {
   const a = size.width / size.height
   const r = vecVec(x / size.width, y / size.height)
   const h = a > 1 ? div2(r.x) : div3(r.x)

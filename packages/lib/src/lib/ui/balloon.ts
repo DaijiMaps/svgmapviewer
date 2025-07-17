@@ -8,7 +8,7 @@ import {
   type VecVec as Vec,
 } from '../vec/prefixed'
 import type { BalloonProps } from './Balloon'
-import { diag2 } from './diag'
+import { diag } from './diag'
 import type { OpenClose } from './openclose'
 import type { UiDetailContent } from './ui-types'
 
@@ -51,7 +51,7 @@ export function calcBalloonLayout(
   const _p = detail.p
   const layout = detail.layout
 
-  const _hv = diag2(detail.layout.container, _p)
+  const _hv = diag(detail.layout.container, _p)
 
   const _W = layout.container.width
   const _H = layout.container.height
