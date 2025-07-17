@@ -14,7 +14,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
-import { useFloors } from '../viewer/floors'
+import { useFloors } from '../viewer/floors-xstate'
 import { uiSend, useOpenCloseHeader } from './ui-xstate'
 
 export function Header(): ReactNode {

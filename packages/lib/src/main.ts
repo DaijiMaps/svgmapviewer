@@ -18,6 +18,7 @@ import {
 import { isUiRendered } from './lib/ui/Ui'
 import { uiActorStart } from './lib/ui/ui-xstate'
 import { isContainerRendered } from './lib/viewer/Container'
+import { floorsActorStart } from './lib/viewer/floors-xstate'
 import { resizeActorStart } from './lib/viewer/resize-xstate'
 import { scrollActorStart } from './lib/viewer/scroll-xstate'
 import { touchActorStart } from './lib/viewer/touch-xstate'
@@ -77,6 +78,7 @@ function startAllActors() {
   // reference & ensure all actors are started
   // for module dependency
   // (order doesn't matter)
+  floorsActorStart()
   geolocActorStart()
   resizeActorStart()
   scrollActorStart()

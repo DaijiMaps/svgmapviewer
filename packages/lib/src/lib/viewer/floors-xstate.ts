@@ -1,7 +1,3 @@
-/* eslint-disable functional/functional-parameters */
-/* eslint-disable functional/immutable-data */
-/* eslint-disable functional/no-return-void */
-/* eslint-disable functional/no-expression-statements */
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
 import { svgMapViewerConfig } from '../../config'
@@ -89,7 +85,11 @@ const floorsActor = createActor(floorsMachine, {
   input: { fidx: svgMapViewerConfig.floorsConfig?.fidx ?? 0 },
 })
 
-floorsActor.start()
+export function floorsActorStart(): void {
+  floorsActor.start()
+}
+
+floorsActorStart()
 
 // handlers
 
