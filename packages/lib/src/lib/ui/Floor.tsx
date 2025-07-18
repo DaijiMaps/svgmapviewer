@@ -3,35 +3,34 @@
 import type { ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
 import { notifyFloorLock } from '../../event'
-import { useFloors } from '../viewer/floors-xstate'
+import { isAnimating, isSelected, useFloors } from '../viewer/floors-xstate'
 
 export function Floors(): ReactNode {
-  const { fidx, newFidx } = useFloors()
+  const { fidx, oldFidx, newFidx } = useFloors()
   const floorsConfig = svgMapViewerConfig.floorsConfig
   if (floorsConfig === undefined) {
     return <></>
   }
+  const animating = isAnimating(oldFidx, newFidx)
   return (
     <div className="floors">
       <ul className="floor-list">
-        {floorsConfig.floors.map(({ name }, idx) => (
-          <li
-            key={idx}
-            className={
-              'floor-item' +
-              (idx === fidx || idx === newFidx ? ' selected' : ' unselected')
-            }
-            onClick={
-              newFidx !== null
-                ? undefined
-                : idx === fidx
-                  ? undefined
-                  : () => notifyFloorLock(idx)
-            }
-          >
-            {name}
-          </li>
-        ))}
+        {floorsConfig.floors.map(({ name }, idx) => {
+          const selected = isSelected(idx, fidx, oldFidx, newFidx)
+          return (
+            <li
+              key={idx}
+              className={
+                'floor-item' + (selected ? ' selected' : ' unselected')
+              }
+              onClick={
+                animating || selected ? undefined : () => notifyFloorLock(idx)
+              }
+            >
+              {name}
+            </li>
+          )
+        })}
       </ul>
       <style>{floorsStyle}</style>
     </div>
@@ -75,26 +74,20 @@ export function FloorName(): ReactNode {
   }
   return (
     <div>
-      {floorsConfig.floors.map((floor, idx) => (
-        <h2
-          key={idx}
-          className={`floor-name ${isSelected(idx, fidx, oldFidx, newFidx) ? 'selected' : 'unselected'}`}
-        >
-          {floor.name}
-        </h2>
-      ))}
+      {floorsConfig.floors.map((floor, idx) => {
+        const selected = isSelected(idx, fidx, oldFidx, newFidx)
+        return (
+          <h2
+            key={idx}
+            className={`floor-name ${selected ? 'selected' : 'unselected'}`}
+          >
+            {floor.name}
+          </h2>
+        )
+      })}
       <style>{floorNameStyle}</style>
     </div>
   )
-}
-
-function isSelected(
-  idx: number,
-  fidx: number,
-  oldFidx: null | number,
-  newFidx: null | number
-): boolean {
-  return oldFidx === null && newFidx === null ? idx === fidx : idx === newFidx
 }
 
 const floorNameStyle = `
