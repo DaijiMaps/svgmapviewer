@@ -2,7 +2,12 @@ import { useSelector } from '@xstate/react'
 import { useCallback } from 'react'
 import { assign, createActor, setup } from 'xstate'
 import { svgMapViewerConfig } from '../../config'
-import { floorCbs, floorDoneCbs, notifyFloorDone } from '../../event'
+import {
+  floorCbs,
+  floorDoneCbs,
+  notifyFloorDone,
+  notifyFloorLock,
+} from '../../event'
 
 interface FloorsInput {
   fidx: number
@@ -87,11 +92,14 @@ floorDoneCbs.add(handleFloorDone)
 // selectors
 
 export type FidxToOnAnimationEnd = (idx: number) => undefined | (() => void)
+export type FidxToOnClick = (idx: number) => undefined | (() => void)
 
 export function useFloors(): FloorsContext & {
   fidxToOnAnimationEnd: FidxToOnAnimationEnd
+  fidxToOnClick: FidxToOnClick
 } {
   const context = useSelector(floorsActor, (state) => state.context)
+  const animating = isAnimating(context.oldFidx, context.newFidx)
 
   const fidxToOnAnimationEnd: FidxToOnAnimationEnd = useCallback(
     (idx: number) =>
@@ -101,7 +109,16 @@ export function useFloors(): FloorsContext & {
     [context.newFidx, context.oldFidx]
   )
 
-  return { ...context, fidxToOnAnimationEnd }
+  const fidxToOnClick: FidxToOnClick = useCallback(
+    (idx: number) =>
+      animating ||
+      isSelected(idx, context.fidx, context.oldFidx, context.newFidx)
+        ? undefined
+        : () => notifyFloorLock(idx),
+    [animating, context.fidx, context.newFidx, context.oldFidx]
+  )
+
+  return { ...context, fidxToOnAnimationEnd, fidxToOnClick }
 }
 
 export function isAnimating(

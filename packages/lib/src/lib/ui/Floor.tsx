@@ -2,16 +2,14 @@
 /* eslint-disable functional/functional-parameters */
 import type { ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
-import { notifyFloorLock } from '../../event'
-import { isAnimating, isSelected, useFloors } from '../viewer/floors-xstate'
+import { isSelected, useFloors } from '../viewer/floors-xstate'
 
 export function Floors(): ReactNode {
-  const { fidx, oldFidx, newFidx } = useFloors()
+  const { fidx, oldFidx, newFidx, fidxToOnClick } = useFloors()
   const floorsConfig = svgMapViewerConfig.floorsConfig
   if (floorsConfig === undefined) {
     return <></>
   }
-  const animating = isAnimating(oldFidx, newFidx)
   return (
     <div className="floors">
       <ul className="floor-list">
@@ -20,12 +18,8 @@ export function Floors(): ReactNode {
           return (
             <li
               key={idx}
-              className={
-                'floor-item' + (selected ? ' selected' : ' unselected')
-              }
-              onClick={
-                animating || selected ? undefined : () => notifyFloorLock(idx)
-              }
+              className={`floor-item ${s(selected)}`}
+              onClick={fidxToOnClick(idx)}
             >
               {name}
             </li>
@@ -77,10 +71,7 @@ export function FloorName(): ReactNode {
       {floorsConfig.floors.map((floor, idx) => {
         const selected = isSelected(idx, fidx, oldFidx, newFidx)
         return (
-          <h2
-            key={idx}
-            className={`floor-name ${selected ? 'selected' : 'unselected'}`}
-          >
+          <h2 key={idx} className={`floor-name ${s(selected)}`}>
             {floor.name}
           </h2>
         )
@@ -106,3 +97,7 @@ const floorNameStyle = `
   opacity: 0;
 }
 `
+
+function s(selected: boolean): string {
+  return selected ? 'selected' : 'unselected'
+}
