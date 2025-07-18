@@ -108,9 +108,15 @@ function FloorsStyle(): ReactNode {
   }
   const style = floorsConfig.floors
     .map((_, idx) =>
-      idx === fidx || idx === prevFidx ? `` : `.fidx-${idx} { display: none; }`
+      idx === fidx || idx === prevFidx
+        ? ``
+        : `
+.fidx-${idx} {
+  display: none;
+}
+`
     )
-    .join('\n')
+    .join('')
   const animation =
     prevFidx === null
       ? ``
