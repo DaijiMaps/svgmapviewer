@@ -94,7 +94,7 @@ export function useFloors(): FloorsContext & {
   fidxToOnClick: FidxToOnClick
 } {
   const context = useSelector(floorsActor, (state) => state.context)
-  const animating = isAnimating(context.prevFidx)
+  const animating = context.prevFidx !== null
 
   const fidxToOnAnimationEnd: FidxToOnAnimationEnd = useCallback(
     (idx: number) =>
@@ -104,19 +104,11 @@ export function useFloors(): FloorsContext & {
 
   const fidxToOnClick: FidxToOnClick = useCallback(
     (idx: number) =>
-      animating || isSelected(idx, context.fidx)
+      animating || idx === context.fidx
         ? undefined
         : () => notifyFloorLock(idx),
     [animating, context.fidx]
   )
 
   return { ...context, fidxToOnAnimationEnd, fidxToOnClick }
-}
-
-export function isAnimating(prevFidx: null | number): boolean {
-  return prevFidx !== null
-}
-
-export function isSelected(idx: number, fidx: number): boolean {
-  return idx === fidx
 }

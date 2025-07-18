@@ -81,6 +81,25 @@ function AnimationStyle(): ReactNode {
   return <style>{style}</style>
 }
 
+function css(q: Matrix): string {
+  return `
+#viewer {
+  will-change: transform;
+  animation: container-zoom ${500}ms ease;
+}
+@keyframes container-zoom {
+  from {
+    transform-origin: left top;
+    transform: ${matrixToString(matrixEmpty)} translate3d(0px, 0px, 0px);
+  }
+  to {
+    transform-origin: left top;
+    transform: ${matrixToString(q)} translate3d(0px, 0px, 0px);
+  }
+}
+`
+}
+
 function FloorsStyle(): ReactNode {
   const { fidx, prevFidx } = useFloors()
   const floorsConfig = svgMapViewerConfig.floorsConfig
@@ -127,25 +146,6 @@ function FloorsStyle(): ReactNode {
       {animation}
     </style>
   )
-}
-
-function css(q: Matrix): string {
-  return `
-#viewer {
-  will-change: transform;
-  animation: container-zoom ${500}ms ease;
-}
-@keyframes container-zoom {
-  from {
-    transform-origin: left top;
-    transform: ${matrixToString(matrixEmpty)} translate3d(0px, 0px, 0px);
-  }
-  to {
-    transform-origin: left top;
-    transform: ${matrixToString(q)} translate3d(0px, 0px, 0px);
-  }
-}
-`
 }
 
 export function isContainerRendered(): boolean {

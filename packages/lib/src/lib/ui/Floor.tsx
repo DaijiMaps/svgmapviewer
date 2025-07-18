@@ -1,8 +1,7 @@
-/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
 import type { ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
-import { isSelected, useFloors } from '../viewer/floors-xstate'
+import { useFloors } from '../viewer/floors-xstate'
 
 export function Floors(): ReactNode {
   const { fidx, fidxToOnClick } = useFloors()
@@ -13,18 +12,15 @@ export function Floors(): ReactNode {
   return (
     <div className="floors">
       <ul className="floor-list">
-        {floorsConfig.floors.map(({ name }, idx) => {
-          const selected = isSelected(idx, fidx)
-          return (
-            <li
-              key={idx}
-              className={`floor-item ${s(selected)}`}
-              onClick={fidxToOnClick(idx)}
-            >
-              {name}
-            </li>
-          )
-        })}
+        {floorsConfig.floors.map(({ name }, idx) => (
+          <li
+            key={idx}
+            className={`floor-item ${s(idx === fidx)}`}
+            onClick={fidxToOnClick(idx)}
+          >
+            {name}
+          </li>
+        ))}
       </ul>
       <style>{floorsStyle}</style>
     </div>
@@ -68,14 +64,11 @@ export function FloorName(): ReactNode {
   }
   return (
     <div>
-      {floorsConfig.floors.map((floor, idx) => {
-        const selected = isSelected(idx, fidx)
-        return (
-          <h2 key={idx} className={`floor-name ${s(selected)}`}>
-            {floor.name}
-          </h2>
-        )
-      })}
+      {floorsConfig.floors.map((floor, idx) => (
+        <h2 key={idx} className={`floor-name ${s(idx === fidx)}`}>
+          {floor.name}
+        </h2>
+      ))}
       <style>{floorNameStyle}</style>
     </div>
   )
