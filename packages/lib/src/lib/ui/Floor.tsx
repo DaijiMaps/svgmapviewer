@@ -56,6 +56,7 @@ const floorsStyle = `
   padding: 0.5em 0.75em;
   border: 1.5px solid black;
   pointer-events: initial;
+  will-change: opacity;
   transition: opacity 500ms;
 }
 .floor-item.selected {
@@ -67,22 +68,48 @@ const floorsStyle = `
 `
 
 export function FloorName(): ReactNode {
-  const { fidx } = useFloors()
+  const { fidx, oldFidx, newFidx } = useFloors()
   const floorsConfig = svgMapViewerConfig.floorsConfig
   if (floorsConfig === undefined) {
     return <></>
   }
-  const name = floorsConfig.floors[fidx].name
   return (
     <div>
-      <h2 className="floor-name">{name}</h2>
+      {floorsConfig.floors.map((floor, idx) => (
+        <h2
+          key={idx}
+          className={`floor-name ${isSelected(idx, fidx, oldFidx, newFidx) ? 'selected' : 'unselected'}`}
+        >
+          {floor.name}
+        </h2>
+      ))}
       <style>{floorNameStyle}</style>
     </div>
   )
 }
 
+function isSelected(
+  idx: number,
+  fidx: number,
+  oldFidx: null | number,
+  newFidx: null | number
+): boolean {
+  return oldFidx === null && newFidx === null ? idx === fidx : idx === newFidx
+}
+
 const floorNameStyle = `
 .floor-name {
+  position: absolute;
+  transform: translate(-50%, 0);
+  margin: 0.25em 0;
   font-size: 4em;
+  will-change: opacity;
+  transition: opacity 500ms;
+}
+.floor-name.selected {
+  opacity: 1;
+}
+.floor-name.unselected {
+  opacity: 0;
 }
 `
