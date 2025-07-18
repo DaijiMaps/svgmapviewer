@@ -10,8 +10,8 @@ interface FloorsContext {
   fidx: number
   oldFidx: null | number
   newFidx: null | number
-  changing: Set<number>
-  changed: Set<number>
+  changing: number[]
+  changed: number[]
 }
 
 type Select = { type: 'SELECT'; fidx: number }
@@ -30,8 +30,8 @@ const floorsMachine = setup({
     fidx,
     oldFidx: null,
     newFidx: null,
-    changing: new Set(),
-    changed: new Set(),
+    changing: [],
+    changed: [],
   }),
   initial: 'Idle',
   states: {
@@ -43,8 +43,8 @@ const floorsMachine = setup({
             oldFidx: ({ context }) => context.fidx,
             newFidx: ({ event }) => event.fidx,
             changing: ({ context, event }) =>
-              new Set([context.fidx, event.fidx]),
-            changed: new Set(),
+              makeSet([context.fidx, event.fidx]),
+            changed: [],
           }),
           target: 'Animating',
         },
@@ -54,39 +54,46 @@ const floorsMachine = setup({
       on: {
         DONE: {
           actions: assign({
-            changed: ({ context, event }) =>
-              new Set([...context.changed.keys(), event.fidx]),
-          }),
-          target: 'Checking',
-        },
-      },
-    },
-    Checking: {
-      always: [
-        {
-          guard: ({ context }) =>
-            context.changing.difference(context.changed).size > 0,
-          target: 'Animating',
-        },
-        {
-          actions: assign({
             fidx: ({ context: { fidx, newFidx } }) =>
               newFidx === null ? fidx : newFidx,
             oldFidx: null,
             newFidx: null,
-            changing: new Set(),
-            changed: new Set(),
+            changing: [],
+            changed: [],
           }),
           target: 'Idle',
         },
-      ],
+      },
     },
   },
 })
 
+function makeSet(xs: number[]): number[] {
+  return Array.from(new Set(xs))
+}
+
+function addSet(xs: number[], x: number): number[] {
+  const s = new Set(xs)
+  return Array.from(s.add(x))
+}
+
+function compareSet(xs: number[], ys: number[]): boolean {
+  const sxs = new Set(xs)
+  const sys = new Set(ys)
+  return sxs.difference(sys).size === 0
+}
+
 const floorsActor = createActor(floorsMachine, {
   input: { fidx: svgMapViewerConfig.floorsConfig?.fidx ?? 0 },
-  inspect: console.log,
+  /*
+  inspect: (iev) =>
+    console.log(
+      iev.type,
+      JSON.stringify(iev?.event),
+      JSON.stringify(iev?.snapshot?.context),
+      iev
+    ),
+    */
 })
 
 export function floorsActorStart(): void {
