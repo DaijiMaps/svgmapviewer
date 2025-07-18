@@ -93,22 +93,20 @@ export function useFloors(): FloorsContext & {
   fidxToOnAnimationEnd: FidxToOnAnimationEnd
   fidxToOnClick: FidxToOnClick
 } {
-  const context = useSelector(floorsActor, (state) => state.context)
-  const animating = context.prevFidx !== null
+  const { fidx, prevFidx } = useSelector(floorsActor, (state) => state.context)
+  const animating = prevFidx !== null
 
+  // XXX receive only one (appearing) animationend event
   const fidxToOnAnimationEnd: FidxToOnAnimationEnd = useCallback(
-    (idx: number) =>
-      idx === context.prevFidx ? () => notifyFloorDone(idx) : undefined,
-    [context.prevFidx]
+    (idx: number) => (idx === fidx ? () => notifyFloorDone(idx) : undefined),
+    [fidx]
   )
 
   const fidxToOnClick: FidxToOnClick = useCallback(
     (idx: number) =>
-      animating || idx === context.fidx
-        ? undefined
-        : () => notifyFloorLock(idx),
-    [animating, context.fidx]
+      animating || idx === fidx ? undefined : () => notifyFloorLock(idx),
+    [animating, fidx]
   )
 
-  return { ...context, fidxToOnAnimationEnd, fidxToOnClick }
+  return { fidx, prevFidx, fidxToOnAnimationEnd, fidxToOnClick }
 }
