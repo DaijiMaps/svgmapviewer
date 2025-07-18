@@ -83,6 +83,6 @@ export function FloorName(): ReactNode {
 
 const floorNameStyle = `
 .floor-name {
-  font-size: 1em;
+  font-size: 4em;
 }
 `
