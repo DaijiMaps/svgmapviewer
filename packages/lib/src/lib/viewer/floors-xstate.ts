@@ -10,8 +10,6 @@ interface FloorsContext {
   fidx: number
   oldFidx: null | number
   newFidx: null | number
-  changing: number[]
-  changed: number[]
 }
 
 type Select = { type: 'SELECT'; fidx: number }
@@ -30,8 +28,6 @@ const floorsMachine = setup({
     fidx,
     oldFidx: null,
     newFidx: null,
-    changing: [],
-    changed: [],
   }),
   initial: 'Idle',
   states: {
@@ -42,9 +38,6 @@ const floorsMachine = setup({
           actions: assign({
             oldFidx: ({ context }) => context.fidx,
             newFidx: ({ event }) => event.fidx,
-            changing: ({ context, event }) =>
-              makeSet([context.fidx, event.fidx]),
-            changed: [],
           }),
           target: 'Animating',
         },
@@ -52,14 +45,14 @@ const floorsMachine = setup({
     },
     Animating: {
       on: {
+        // XXX receive one DONE event
+        // XXX (receiving two without race is difficult/complex)
         DONE: {
           actions: assign({
             fidx: ({ context: { fidx, newFidx } }) =>
               newFidx === null ? fidx : newFidx,
             oldFidx: null,
             newFidx: null,
-            changing: [],
-            changed: [],
           }),
           target: 'Idle',
         },
@@ -68,32 +61,8 @@ const floorsMachine = setup({
   },
 })
 
-function makeSet(xs: number[]): number[] {
-  return Array.from(new Set(xs))
-}
-
-function addSet(xs: number[], x: number): number[] {
-  const s = new Set(xs)
-  return Array.from(s.add(x))
-}
-
-function compareSet(xs: number[], ys: number[]): boolean {
-  const sxs = new Set(xs)
-  const sys = new Set(ys)
-  return sxs.difference(sys).size === 0
-}
-
 const floorsActor = createActor(floorsMachine, {
   input: { fidx: svgMapViewerConfig.floorsConfig?.fidx ?? 0 },
-  /*
-  inspect: (iev) =>
-    console.log(
-      iev.type,
-      JSON.stringify(iev?.event),
-      JSON.stringify(iev?.snapshot?.context),
-      iev
-    ),
-    */
 })
 
 export function floorsActorStart(): void {

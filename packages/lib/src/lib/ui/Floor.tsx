@@ -68,7 +68,6 @@ const floorsStyle = `
 
 export function FloorName(): ReactNode {
   const { fidx } = useFloors()
-  const xxx = useFloors()
   const floorsConfig = svgMapViewerConfig.floorsConfig
   if (floorsConfig === undefined) {
     return <></>
@@ -76,15 +75,7 @@ export function FloorName(): ReactNode {
   const name = floorsConfig.floors[fidx].name
   return (
     <div>
-      <h2 className="floor-name">
-        {name}
-        <br />
-        {JSON.stringify(xxx)}
-        <br />
-        {JSON.stringify(Array.from(xxx.changing))}
-        <br />
-        {JSON.stringify(Array.from(xxx.changed))}
-      </h2>
+      <h2 className="floor-name">{name}</h2>
       <style>{floorNameStyle}</style>
     </div>
   )
