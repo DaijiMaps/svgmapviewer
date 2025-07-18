@@ -14,7 +14,7 @@ interface FloorsInput {
 }
 interface FloorsContext {
   fidx: number
-  oldFidx: null | number
+  prevFidx: null | number
 }
 
 type Select = { type: 'SELECT'; fidx: number }
@@ -31,7 +31,7 @@ const floorsMachine = setup({
   id: 'floors1',
   context: ({ input: { fidx } }) => ({
     fidx,
-    oldFidx: null,
+    prevFidx: null,
   }),
   initial: 'Idle',
   states: {
@@ -41,7 +41,7 @@ const floorsMachine = setup({
           guard: ({ context, event }) => context.fidx !== event.fidx,
           actions: assign({
             fidx: ({ event }) => event.fidx,
-            oldFidx: ({ context }) => context.fidx,
+            prevFidx: ({ context }) => context.fidx,
           }),
           target: 'Animating',
         },
@@ -53,7 +53,7 @@ const floorsMachine = setup({
         // XXX (receiving two without race is difficult/complex)
         DONE: {
           actions: assign({
-            oldFidx: null,
+            prevFidx: null,
           }),
           target: 'Idle',
         },
@@ -94,12 +94,12 @@ export function useFloors(): FloorsContext & {
   fidxToOnClick: FidxToOnClick
 } {
   const context = useSelector(floorsActor, (state) => state.context)
-  const animating = isAnimating(context.oldFidx)
+  const animating = isAnimating(context.prevFidx)
 
   const fidxToOnAnimationEnd: FidxToOnAnimationEnd = useCallback(
     (idx: number) =>
-      idx === context.oldFidx ? () => notifyFloorDone(idx) : undefined,
-    [context.oldFidx]
+      idx === context.prevFidx ? () => notifyFloorDone(idx) : undefined,
+    [context.prevFidx]
   )
 
   const fidxToOnClick: FidxToOnClick = useCallback(
@@ -113,8 +113,8 @@ export function useFloors(): FloorsContext & {
   return { ...context, fidxToOnAnimationEnd, fidxToOnClick }
 }
 
-export function isAnimating(oldFidx: null | number): boolean {
-  return oldFidx !== null
+export function isAnimating(prevFidx: null | number): boolean {
+  return prevFidx !== null
 }
 
 export function isSelected(idx: number, fidx: number): boolean {
