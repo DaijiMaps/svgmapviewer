@@ -16,6 +16,7 @@ import {
   notifyZoomStart,
 } from './event'
 import { Like } from './lib/Like'
+import { useFloors } from './lib/viewer/floors-xstate'
 import { type Layout } from './lib/viewer/layout'
 import { svgmapviewer } from './main'
 import { useLayout, useLayout2 } from './style-xstate'
@@ -68,9 +69,11 @@ export {
 
 export { svgmapviewer }
 
-// layout
+// viewer
 
 export { type Layout }
+
+export { useFloors }
 
 // like
 

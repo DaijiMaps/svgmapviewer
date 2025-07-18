@@ -54,7 +54,8 @@ const floorsMachine = setup({
       on: {
         DONE: {
           actions: assign({
-            changed: ({ context, event }) => context.changed.add(event.fidx),
+            changed: ({ context, event }) =>
+              new Set([...context.changed.keys(), event.fidx]),
           }),
           target: 'Checking',
         },
@@ -73,6 +74,8 @@ const floorsMachine = setup({
               newFidx === null ? fidx : newFidx,
             oldFidx: null,
             newFidx: null,
+            changing: new Set(),
+            changed: new Set(),
           }),
           target: 'Idle',
         },
@@ -83,6 +86,7 @@ const floorsMachine = setup({
 
 const floorsActor = createActor(floorsMachine, {
   input: { fidx: svgMapViewerConfig.floorsConfig?.fidx ?? 0 },
+  inspect: console.log,
 })
 
 export function floorsActorStart(): void {

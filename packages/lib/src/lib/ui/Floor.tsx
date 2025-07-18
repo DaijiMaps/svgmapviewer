@@ -21,7 +21,13 @@ export function Floors(): ReactNode {
               'floor-item' +
               (idx === fidx || idx === newFidx ? ' selected' : ' unselected')
             }
-            onClick={() => notifyFloorLock(idx)}
+            onClick={
+              newFidx !== null
+                ? undefined
+                : idx === fidx
+                  ? undefined
+                  : () => notifyFloorLock(idx)
+            }
           >
             {name}
           </li>
@@ -62,6 +68,7 @@ const floorsStyle = `
 
 export function FloorName(): ReactNode {
   const { fidx } = useFloors()
+  const xxx = useFloors()
   const floorsConfig = svgMapViewerConfig.floorsConfig
   if (floorsConfig === undefined) {
     return <></>
@@ -69,7 +76,15 @@ export function FloorName(): ReactNode {
   const name = floorsConfig.floors[fidx].name
   return (
     <div>
-      <h2 className="floor-name">{name}</h2>
+      <h2 className="floor-name">
+        {name}
+        <br />
+        {JSON.stringify(xxx)}
+        <br />
+        {JSON.stringify(Array.from(xxx.changing))}
+        <br />
+        {JSON.stringify(Array.from(xxx.changed))}
+      </h2>
       <style>{floorNameStyle}</style>
     </div>
   )
@@ -77,6 +92,6 @@ export function FloorName(): ReactNode {
 
 const floorNameStyle = `
 .floor-name {
-  font-size: 4em;
+  font-size: 1em;
 }
 `
