@@ -15,7 +15,6 @@ interface FloorsInput {
 interface FloorsContext {
   fidx: number
   oldFidx: null | number
-  newFidx: null | number
 }
 
 type Select = { type: 'SELECT'; fidx: number }
@@ -33,7 +32,6 @@ const floorsMachine = setup({
   context: ({ input: { fidx } }) => ({
     fidx,
     oldFidx: null,
-    newFidx: null,
   }),
   initial: 'Idle',
   states: {
@@ -42,8 +40,8 @@ const floorsMachine = setup({
         SELECT: {
           guard: ({ context, event }) => context.fidx !== event.fidx,
           actions: assign({
+            fidx: ({ event }) => event.fidx,
             oldFidx: ({ context }) => context.fidx,
-            newFidx: ({ event }) => event.fidx,
           }),
           target: 'Animating',
         },
@@ -55,10 +53,7 @@ const floorsMachine = setup({
         // XXX (receiving two without race is difficult/complex)
         DONE: {
           actions: assign({
-            fidx: ({ context: { fidx, newFidx } }) =>
-              newFidx === null ? fidx : newFidx,
             oldFidx: null,
-            newFidx: null,
           }),
           target: 'Idle',
         },
@@ -99,40 +94,29 @@ export function useFloors(): FloorsContext & {
   fidxToOnClick: FidxToOnClick
 } {
   const context = useSelector(floorsActor, (state) => state.context)
-  const animating = isAnimating(context.oldFidx, context.newFidx)
+  const animating = isAnimating(context.oldFidx)
 
   const fidxToOnAnimationEnd: FidxToOnAnimationEnd = useCallback(
     (idx: number) =>
-      idx === context.oldFidx || idx === context.newFidx
-        ? () => notifyFloorDone(idx)
-        : undefined,
-    [context.newFidx, context.oldFidx]
+      idx === context.oldFidx ? () => notifyFloorDone(idx) : undefined,
+    [context.oldFidx]
   )
 
   const fidxToOnClick: FidxToOnClick = useCallback(
     (idx: number) =>
-      animating ||
-      isSelected(idx, context.fidx, context.oldFidx, context.newFidx)
+      animating || isSelected(idx, context.fidx)
         ? undefined
         : () => notifyFloorLock(idx),
-    [animating, context.fidx, context.newFidx, context.oldFidx]
+    [animating, context.fidx]
   )
 
   return { ...context, fidxToOnAnimationEnd, fidxToOnClick }
 }
 
-export function isAnimating(
-  oldFidx: null | number,
-  newFidx: null | number
-): boolean {
-  return oldFidx !== null || newFidx !== null
+export function isAnimating(oldFidx: null | number): boolean {
+  return oldFidx !== null
 }
 
-export function isSelected(
-  idx: number,
-  fidx: number,
-  oldFidx: null | number,
-  newFidx: null | number
-): boolean {
-  return oldFidx === null && newFidx === null ? idx === fidx : idx === newFidx
+export function isSelected(idx: number, fidx: number): boolean {
+  return idx === fidx
 }

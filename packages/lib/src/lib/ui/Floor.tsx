@@ -5,7 +5,7 @@ import { svgMapViewerConfig } from '../../config'
 import { isSelected, useFloors } from '../viewer/floors-xstate'
 
 export function Floors(): ReactNode {
-  const { fidx, oldFidx, newFidx, fidxToOnClick } = useFloors()
+  const { fidx, fidxToOnClick } = useFloors()
   const floorsConfig = svgMapViewerConfig.floorsConfig
   if (floorsConfig === undefined) {
     return <></>
@@ -14,7 +14,7 @@ export function Floors(): ReactNode {
     <div className="floors">
       <ul className="floor-list">
         {floorsConfig.floors.map(({ name }, idx) => {
-          const selected = isSelected(idx, fidx, oldFidx, newFidx)
+          const selected = isSelected(idx, fidx)
           return (
             <li
               key={idx}
@@ -61,7 +61,7 @@ const floorsStyle = `
 `
 
 export function FloorName(): ReactNode {
-  const { fidx, oldFidx, newFidx } = useFloors()
+  const { fidx } = useFloors()
   const floorsConfig = svgMapViewerConfig.floorsConfig
   if (floorsConfig === undefined) {
     return <></>
@@ -69,7 +69,7 @@ export function FloorName(): ReactNode {
   return (
     <div>
       {floorsConfig.floors.map((floor, idx) => {
-        const selected = isSelected(idx, fidx, oldFidx, newFidx)
+        const selected = isSelected(idx, fidx)
         return (
           <h2 key={idx} className={`floor-name ${s(selected)}`}>
             {floor.name}

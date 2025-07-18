@@ -82,27 +82,25 @@ function AnimationStyle(): ReactNode {
 }
 
 function FloorsStyle(): ReactNode {
-  const { fidx, oldFidx, newFidx } = useFloors()
+  const { fidx, oldFidx } = useFloors()
   const floorsConfig = svgMapViewerConfig.floorsConfig
   if (floorsConfig === undefined) {
     return <></>
   }
   const style = floorsConfig.floors
     .map((_, idx) =>
-      idx === fidx || idx === oldFidx || idx === newFidx
-        ? ``
-        : `.fidx-${idx} { display: none; }`
+      idx === fidx || idx === oldFidx ? `` : `.fidx-${idx} { display: none; }`
     )
     .join('\n')
   const animation =
-    oldFidx === null || newFidx === null
+    oldFidx === null
       ? ``
       : `
 .fidx-${oldFidx} {
   will-change: opacity;
   animation: xxx-disappearing 500ms linear;
 }
-.fidx-${newFidx} {
+.fidx-${fidx} {
   will-change: opacity;
   animation: xxx-appearing 500ms linear;
 }
