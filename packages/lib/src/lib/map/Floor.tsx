@@ -31,3 +31,7 @@ export function RenderFloors(): ReactNode {
     </svg>
   )
 }
+
+export function isFloorsRendered(): boolean {
+  return true
+}

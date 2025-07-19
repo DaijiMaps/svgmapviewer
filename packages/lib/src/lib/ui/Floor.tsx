@@ -31,8 +31,9 @@ const floorsStyle = `
 .floors {
   max-width: calc(100vw - 2em);
   overflow-x: scroll;
-  touch-action: pan-x;
+  scrollbar-width: none;
   pointer-events: initial;
+  touch-action: pan-x;
 }
 .floor-list {
   margin: 0.5em 0;
