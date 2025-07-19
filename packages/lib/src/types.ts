@@ -139,6 +139,7 @@ export interface RenderConfig {
 
 export interface Floor {
   name: string
+  href: string
 }
 
 export interface FloorsConfig {
