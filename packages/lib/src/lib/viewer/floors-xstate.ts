@@ -8,6 +8,7 @@ import {
   notifyFloorDone,
   notifyFloorLock,
 } from '../../event'
+import { floor_switch_duration } from '../css'
 
 interface FloorsInput {
   fidx: number
@@ -137,11 +138,11 @@ function makeStyle(fidx: number, prevFidx: null | number): null | string {
       : `
 .fidx-${prevFidx} {
   will-change: opacity;
-  animation: xxx-disappearing 500ms linear;
+  animation: xxx-disappearing ${floor_switch_duration} linear;
 }
 .fidx-${fidx} {
   will-change: opacity;
-  animation: xxx-appearing 500ms linear;
+  animation: xxx-appearing ${floor_switch_duration} linear;
 }
 @keyframes xxx-disappearing {
   from {

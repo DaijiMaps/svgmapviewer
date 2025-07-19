@@ -1,6 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 import type { ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
+import { floor_switch_duration } from '../css'
 import { useFloors } from '../viewer/floors-xstate'
 
 export function Floors(): ReactNode {
@@ -47,7 +48,7 @@ const floorsStyle = `
   border: 1.5px solid black;
   pointer-events: initial;
   will-change: opacity;
-  transition: opacity 500ms;
+  transition: opacity ${floor_switch_duration};
 }
 .floor-item.selected {
   opacity: 1;
@@ -82,7 +83,7 @@ const floorNameStyle = `
   margin: 0.25em 0;
   font-size: 4em;
   will-change: opacity;
-  transition: opacity 500ms;
+  transition: opacity ${floor_switch_duration};
 }
 .floor-name.selected {
   opacity: 1;

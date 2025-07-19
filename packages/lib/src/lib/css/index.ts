@@ -110,3 +110,5 @@ cubic-bezier(1, 0, 1, 1)
 
 export const ZOOM_DURATION_DETAIL = 400
 export const ZOOM_DURATION_HEADER = 300
+
+export const floor_switch_duration = '250ms'
