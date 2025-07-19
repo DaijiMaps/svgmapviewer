@@ -29,15 +29,13 @@ export function Floors(): ReactNode {
 
 const floorsStyle = `
 .floors {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  max-width: calc(100vw - 2em);
+  overflow-x: scroll;
 }
 .floor-list {
-  margin: 0.5em;
+  margin: 0.5em 0;
   padding: 0;
   list-style: none;
-  font-size: 1.75em;
   display: flex;
   flex-direction: row;
 }

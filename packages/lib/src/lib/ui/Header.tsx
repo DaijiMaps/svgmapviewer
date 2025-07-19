@@ -69,6 +69,8 @@ h2 {
   margin: 0.25em;
   font-weight: 100;
   cursor: default;
+  text-align: center;
+  font-size: large;
 }
 
 `
