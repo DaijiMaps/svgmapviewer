@@ -90,10 +90,13 @@ export type FidxToOnAnimationEnd = (idx: number) => undefined | (() => void)
 export type FidxToOnClick = (idx: number) => undefined | (() => void)
 
 export function useFloors(): FloorsContext & {
+  style: null | string
   fidxToOnAnimationEnd: FidxToOnAnimationEnd
   fidxToOnClick: FidxToOnClick
 } {
   const { fidx, prevFidx } = useSelector(floorsActor, (state) => state.context)
+
+  const style = makeStyle(fidx, prevFidx)
 
   // XXX receive only one (appearing) animationend event
   const fidxToOnAnimationEnd: FidxToOnAnimationEnd = useCallback(
@@ -109,5 +112,56 @@ export function useFloors(): FloorsContext & {
     [fidx, prevFidx]
   )
 
-  return { fidx, prevFidx, fidxToOnAnimationEnd, fidxToOnClick }
+  return { fidx, prevFidx, style, fidxToOnAnimationEnd, fidxToOnClick }
+}
+
+function makeStyle(fidx: number, prevFidx: null | number): null | string {
+  const floorsConfig = svgMapViewerConfig.floorsConfig
+  if (floorsConfig === undefined) {
+    return null
+  }
+  const style = floorsConfig.floors
+    .map((_, idx) =>
+      idx === fidx || idx === prevFidx
+        ? ``
+        : `
+.fidx-${idx} {
+  display: none;
+}
+`
+    )
+    .join('')
+  const animation =
+    prevFidx === null
+      ? ``
+      : `
+.fidx-${prevFidx} {
+  will-change: opacity;
+  animation: xxx-disappearing 500ms linear;
+}
+.fidx-${fidx} {
+  will-change: opacity;
+  animation: xxx-appearing 500ms linear;
+}
+@keyframes xxx-disappearing {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes xxx-appearing {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+`
+  return `
+${style}
+${animation}
+`
 }

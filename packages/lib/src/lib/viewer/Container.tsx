@@ -101,57 +101,8 @@ function css(q: Matrix): string {
 }
 
 function FloorsStyle(): ReactNode {
-  const { fidx, prevFidx } = useFloors()
-  const floorsConfig = svgMapViewerConfig.floorsConfig
-  if (floorsConfig === undefined) {
-    return <></>
-  }
-  const style = floorsConfig.floors
-    .map((_, idx) =>
-      idx === fidx || idx === prevFidx
-        ? ``
-        : `
-.fidx-${idx} {
-  display: none;
-}
-`
-    )
-    .join('')
-  const animation =
-    prevFidx === null
-      ? ``
-      : `
-.fidx-${prevFidx} {
-  will-change: opacity;
-  animation: xxx-disappearing 500ms linear;
-}
-.fidx-${fidx} {
-  will-change: opacity;
-  animation: xxx-appearing 500ms linear;
-}
-@keyframes xxx-disappearing {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-@keyframes xxx-appearing {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-`
-  return (
-    <style>
-      {style}
-      {animation}
-    </style>
-  )
+  const { style } = useFloors()
+  return style === null ? <></> : <style>{style}</style>
 }
 
 export function isContainerRendered(): boolean {
