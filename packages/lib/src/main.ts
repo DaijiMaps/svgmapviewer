@@ -18,7 +18,7 @@ import {
 import { isUiRendered } from './lib/ui/Ui'
 import { uiActorStart } from './lib/ui/ui-xstate'
 import { isContainerRendered } from './lib/viewer/Container'
-import { floorsActorStart } from './lib/viewer/floors-xstate'
+import { floorsActorStart, selectFloor } from './lib/viewer/floors-xstate'
 import { resizeActorStart } from './lib/viewer/resize-xstate'
 import { scrollActorStart } from './lib/viewer/scroll-xstate'
 import { touchActorStart } from './lib/viewer/touch-xstate'
@@ -68,6 +68,10 @@ export function svgmapviewer(
 
   if (config.searchEntries.length > 0) {
     workerSearchInit(getAddressEntries(config.mapData, config.searchEntries))
+  }
+
+  if (config.floorsConfig !== undefined) {
+    selectFloor(config.floorsConfig.fidx)
   }
 
   root(config)

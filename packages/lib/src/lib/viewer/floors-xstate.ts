@@ -10,42 +10,46 @@ import {
 } from '../../event'
 import { floor_switch_duration } from '../css'
 
-interface FloorsInput {
-  fidx: number
-}
 interface FloorsContext {
   fidx: number
   prevFidx: null | number
 }
 
-type Select = { type: 'SELECT'; fidx: number }
+type Select = { type: 'SELECT'; fidx: number; force?: boolean }
 type Done = { type: 'DONE'; fidx: number }
 type FloorsEvents = Select | Done
 
 const floorsMachine = setup({
   types: {
-    input: {} as FloorsInput,
     context: {} as FloorsContext,
     events: {} as FloorsEvents,
   },
 }).createMachine({
   id: 'floors1',
-  context: ({ input: { fidx } }) => ({
-    fidx,
+  context: {
+    fidx: 0,
     prevFidx: null,
-  }),
+  },
   initial: 'Idle',
   states: {
     Idle: {
       on: {
-        SELECT: {
-          guard: ({ context, event }) => context.fidx !== event.fidx,
-          actions: assign({
-            fidx: ({ event }) => event.fidx,
-            prevFidx: ({ context }) => context.fidx,
-          }),
-          target: 'Animating',
-        },
+        SELECT: [
+          {
+            guard: ({ event }) => event.force ?? false,
+            actions: assign({
+              fidx: ({ event }) => event.fidx,
+            }),
+          },
+          {
+            guard: ({ context, event }) => context.fidx !== event.fidx,
+            actions: assign({
+              fidx: ({ event }) => event.fidx,
+              prevFidx: ({ context }) => context.fidx,
+            }),
+            target: 'Animating',
+          },
+        ],
       },
     },
     Animating: {
@@ -63,12 +67,14 @@ const floorsMachine = setup({
   },
 })
 
-const floorsActor = createActor(floorsMachine, {
-  input: { fidx: svgMapViewerConfig.floorsConfig?.fidx ?? 0 },
-})
+const floorsActor = createActor(floorsMachine)
 
 export function floorsActorStart(): void {
   floorsActor.start()
+}
+
+export function selectFloor(fidx: number): void {
+  floorsActor.send({ type: 'SELECT', fidx, force: true })
 }
 
 floorsActorStart()
