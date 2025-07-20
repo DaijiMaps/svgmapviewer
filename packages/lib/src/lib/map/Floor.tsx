@@ -13,20 +13,22 @@ export function RenderFloors(): ReactNode {
   return floorsConfig === undefined ? (
     <></>
   ) : (
-    <svg viewBox={viewBox} width={width} height={height}>
-      {floorsConfig.floors.map(({ href }, idx) => (
-        <image
-          key={idx}
-          className={`floor fidx-${idx}`}
-          href={href}
-          x={origViewBox.x}
-          y={origViewBox.y}
-          width={origViewBox.width}
-          height={origViewBox.height}
-          onAnimationEnd={fidxToOnAnimationEnd(idx)}
-        />
-      ))}
-    </svg>
+    <div className="content">
+      <svg viewBox={viewBox} width={width} height={height}>
+        {floorsConfig.floors.map(({ href }, idx) => (
+          <image
+            key={idx}
+            className={`floor fidx-${idx}`}
+            href={href}
+            x={origViewBox.x}
+            y={origViewBox.y}
+            width={origViewBox.width}
+            height={origViewBox.height}
+            onAnimationEnd={fidxToOnAnimationEnd(idx)}
+          />
+        ))}
+      </svg>
+    </div>
   )
 }
 

@@ -46,6 +46,7 @@ export function Container(): ReactNode {
     >
       {svgMapViewerConfig.renderMap()}
       <style>{style}</style>
+      <ContentStyle />
       <AnimationStyle />
       <FloorsStyle />
     </div>
@@ -66,13 +67,19 @@ const style: string = `
   will-change: scroll-position;
   contain: strict;
 }
+`
 
+function ContentStyle(): ReactNode {
+  // XXX rotate
+  const style = `
 .content {
   ${position_absolute_left_0_top_0}
   contain: strict;
   transform: translate3d(0, 0, 0);
 }
 `
+  return <style>{style}</style>
+}
 
 function AnimationStyle(): ReactNode {
   const animation = useAnimation()
