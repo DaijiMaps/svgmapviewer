@@ -13,10 +13,10 @@ import { type VecVec as Vec, vecScale, vecSub } from '../vec/prefixed'
 import { emptyLayoutCoord, fromMatrixSvg, fromScroll, makeCoord } from './coord'
 import { fit } from './fit'
 import type {
-  HtmlLayoutCoord,
   Layout,
   LayoutConfig,
   LayoutCoord,
+  ScrollLayoutCoord,
   SvgLayoutCoord,
 } from './layout-types'
 import { type Scale } from './transform'
@@ -160,9 +160,9 @@ export function scrollLayout(layout: Layout, scroll: Box): Layout {
 ////
 
 export {
-  type HtmlLayoutCoord,
   type Layout,
   type LayoutConfig,
   type LayoutCoord,
+  type ScrollLayoutCoord,
   type SvgLayoutCoord,
 }

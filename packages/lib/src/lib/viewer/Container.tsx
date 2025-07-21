@@ -3,7 +3,11 @@
 /* eslint-disable functional/no-expression-statements */
 import { type ReactNode, useRef } from 'react'
 import { svgMapViewerConfig } from '../../config'
-import { styleAnimationEnd, useAnimation } from '../../style-xstate'
+import {
+  styleAnimationEnd,
+  useAnimation,
+  useLayoutContent,
+} from '../../style-xstate'
 import {
   position_absolute_left_0_top_0,
   width_100vw_height_100svh,
@@ -70,12 +74,15 @@ const style: string = `
 `
 
 function ContentStyle(): ReactNode {
+  const content = useLayoutContent()
+
   // XXX rotate
   const style = `
 .content {
   ${position_absolute_left_0_top_0}
   contain: strict;
-  transform: translate3d(0, 0, 0);
+  transform: ${content.toString()} translate3d(0, 0, 0);
+  transform-origin: left top;
 }
 `
   return <style>{style}</style>

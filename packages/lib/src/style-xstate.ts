@@ -251,9 +251,6 @@ export function useLayoutContainer(): BoxBox {
 export function useLayoutScroll(): BoxBox {
   return useSelector(styleActor, (s) => s.context.layout.scroll)
 }
-export function useSvgMatrix(): DOMMatrixReadOnly {
-  return useSelector(styleActor, (s) => s.context.svgMatrix)
-}
 export function useMode(): string {
   return useSelector(styleActor, (s) => s.context.mode)
 }
@@ -274,6 +271,9 @@ export function useLayoutConfig(): LayoutConfig {
 }
 export function useLayoutSvgScaleS(): number {
   return useSelector(styleActor, (state) => state.context.layout.svgScale.s)
+}
+export function useLayoutContent(): DOMMatrixReadOnly {
+  return useSelector(styleActor, (state) => state.context.layout.content)
 }
 export function useZoom(): number {
   return useSelector(styleActor, (state) => state.context.zoom)

@@ -10,9 +10,14 @@ export interface ContainerLayoutCoord {
   readonly container: Box
 }
 
-export interface HtmlLayoutCoord {
-  // scroll (C) -> svg (C)
+export interface ScrollLayoutCoord {
+  // scroll (C) -> container (C)
   readonly scroll: Box
+}
+
+export interface ContentLayoutCoord {
+  // content (C) -> svg (C)
+  readonly content: DOMMatrixReadOnly
 }
 
 export interface SvgLayoutCoord {
@@ -27,7 +32,8 @@ export interface SvgLayoutCoord {
 }
 
 export type LayoutCoord = ContainerLayoutCoord &
-  HtmlLayoutCoord &
+  ScrollLayoutCoord &
+  ContentLayoutCoord &
   SvgLayoutCoord
 
 export type LayoutConfig = Readonly<{
