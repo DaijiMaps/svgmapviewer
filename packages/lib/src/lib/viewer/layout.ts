@@ -137,9 +137,26 @@ export function zoomLayout(layout: Layout, svg: Box, svgScale: Scale): Layout {
   }
 }
 
+export function rotateLayout(layout: Layout, deg: number): Layout {
+  const ox = layout.scroll.width / 2
+  const oy = layout.scroll.height / 2
+  const rotate = new DOMMatrixReadOnly()
+    .translate(ox, oy)
+    .rotate(deg)
+    .translate(-ox, -oy)
+  const content = rotate.multiply(layout.content)
+  return {
+    ...layout,
+    content,
+  }
+}
+
 export function recenterLayout(layout: Layout, start: Vec): Layout {
   const d = vecSub(layout.scroll, start)
-  const dsvg = vecScale(d, -layout.svgScale.s)
+  // XXX content
+  const m = layout.content.inverse()
+  const dcontent = m.transformPoint(d)
+  const dsvg = vecScale(dcontent, -layout.svgScale.s)
 
   return {
     ...layout,
