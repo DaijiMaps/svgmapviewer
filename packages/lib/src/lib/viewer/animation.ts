@@ -2,10 +2,10 @@ import { pipe } from 'fp-ts/lib/function'
 import { svgMapViewerConfig } from '../../config'
 import { boxCenter, boxScaleAt } from '../box/prefixed'
 import { matrixMultiply, matrixScaleAt } from '../matrix/prefixed'
-import { type VecVec as Vec } from '../vec/prefixed'
+import { vecAdd, type VecVec as Vec } from '../vec/prefixed'
 import type { Animation } from './animation-types'
 import { fromMatrixSvg } from './coord'
-import { type Layout, relocLayout, zoomLayout } from './layout'
+import { relocLayout, zoomLayout, type Layout } from './layout'
 import { fromTransform, invMove, invScale, transformScale } from './transform'
 
 export const animationZoom = (
@@ -16,14 +16,15 @@ export const animationZoom = (
   const osvg = fromMatrixSvg(layout).inverse().transformPoint(cursor)
   const s = 1 / zoomToScale(z)
   const q = matrixScaleAt([1 / s, 1 / s], [cursor.x, cursor.y])
-
+  const zoom = {
+    svg: boxScaleAt(layout.svg, s, osvg.x, osvg.y),
+    svgScale: transformScale(layout.svgScale, s),
+    q,
+  }
   return {
     move: null,
-    zoom: {
-      svg: boxScaleAt(layout.svg, s, osvg.x, osvg.y),
-      svgScale: transformScale(layout.svgScale, s),
-      q,
-    },
+    zoom,
+    rotate: null,
   }
 }
 
@@ -43,13 +44,40 @@ export const animationHome = (
 
   const q = [m3, m2, m1].reduce(matrixMultiply)
 
+  const zoom = {
+    svg: nextLayout.svg,
+    svgScale: nextLayout.svgScale,
+    q,
+  }
+
   return {
     move: null,
-    zoom: {
-      svg: nextLayout.svg,
-      svgScale: nextLayout.svgScale,
-      q,
-    },
+    zoom,
+    rotate: null,
+  }
+}
+
+export const animationRotate = (
+  layout: Layout,
+  deg: number,
+  cursor: Vec
+): Animation => {
+  const { x, y } = vecAdd(cursor, layout.scroll)
+
+  const d = new DOMMatrixReadOnly()
+    .translate(x, y)
+    .rotate(deg)
+    .translate(-x, -y)
+
+  const content = d.multiply(layout.content)
+  const rotate = {
+    content,
+  }
+
+  return {
+    move: null,
+    zoom: null,
+    rotate,
   }
 }
 
@@ -64,6 +92,7 @@ export const animationEndLayout = (
       animation.zoom === null
         ? l
         : zoomLayout(l, animation.zoom.svg, animation.zoom.svgScale)
+    // XXX rotate
   )
 }
 

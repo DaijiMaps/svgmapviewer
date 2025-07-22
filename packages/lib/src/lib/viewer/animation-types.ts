@@ -15,7 +15,12 @@ export type AnimationZoom = Readonly<{
   q: Matrix
 }>
 
+export type AnimationRotate = Readonly<{
+  content: DOMMatrixReadOnly
+}>
+
 export type Animation = Readonly<{
   move: null | AnimationMove
   zoom: null | AnimationZoom
+  rotate: null | AnimationRotate
 }>

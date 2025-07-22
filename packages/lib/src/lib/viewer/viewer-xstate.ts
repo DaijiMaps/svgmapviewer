@@ -71,6 +71,8 @@ const viewerMachine = setup({
   guards: {
     // key
     shouldReset: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'r',
+    shouldRecenter: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'c',
+    shouldRotate: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 't',
     shouldZoom: (_, { ev }: { ev: KeyboardEvent }) => keyToZoom(ev.key) !== 0,
     isTouching: ({ context: { touching } }) => touching,
     isHoming: ({ context: { homing } }) => homing,
