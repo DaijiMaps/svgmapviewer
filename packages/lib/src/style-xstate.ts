@@ -14,7 +14,6 @@ import type { DistanceRadius } from './lib/distance-types'
 import { makeExpire } from './lib/expire-xstate'
 import { trunc2 } from './lib/utils'
 import { vecZero, type VecVec } from './lib/vec/prefixed'
-import { type Animation } from './lib/viewer/animation-types'
 import { fromSvgToScroll } from './lib/viewer/coord'
 import {
   emptyLayout,
@@ -33,7 +32,10 @@ type LayoutEvent = { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
 type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number; z: null | number }
 type ScrollEvent = { type: 'STYLE.SCROLL'; currentScroll: CurrentScroll } // p == pscroll
 type ModeEvent = { type: 'STYLE.MODE'; mode: string }
-type AnimationEvent = { type: 'STYLE.ANIMATION'; animation: null | Animation } // null to stop animation
+type AnimationEvent = {
+  type: 'STYLE.ANIMATION'
+  animation: null | DOMMatrixReadOnly
+} // null to stop animation
 type AnimationEndEvent = { type: 'STYLE.ANIMATION.END' } // null to stop animation
 type LayoutDoneEvent = { type: 'LAYOUT.DONE'; rendered: boolean } // internal
 export type StyleEvent =
@@ -187,8 +189,7 @@ const styleMachine = setup({
       on: {
         'STYLE.ANIMATION': {
           actions: assign({
-            animation: ({ event: { animation } }) =>
-              animation?.move?.q ?? animation?.zoom?.q ?? null,
+            animation: ({ event: { animation } }) => animation,
             animating: true,
           }),
           target: 'Animating',
@@ -312,7 +313,7 @@ function handleZoomStart(_: Layout, zoom: number, z: number) {
 function handleZoomEnd(_: Layout, zoom: number) {
   styleSend({ type: 'STYLE.ZOOM', zoom, z: null })
 }
-function handleAnimation(animation: null | Animation) {
+function handleAnimation(animation: null | DOMMatrixReadOnly) {
   styleSend({ type: 'STYLE.ANIMATION', animation })
 }
 function handleMode(mode: ViewerMode) {

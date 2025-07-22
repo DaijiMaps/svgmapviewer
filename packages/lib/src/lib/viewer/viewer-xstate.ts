@@ -126,7 +126,8 @@ const viewerMachine = setup({
       zoom: ({ context: { z, zoom } }) =>
         z === null ? zoom : zoom * Math.pow(2, z),
     }),
-    syncAnimation: ({ context: { animation } }) => notifyAnimation(animation),
+    syncAnimation: ({ context: { animation } }) =>
+      notifyAnimation(animation?.move?.q ?? animation?.zoom?.q ?? null),
     //
     // layout
     //

@@ -2,7 +2,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { type VecVec } from './lib/vec/prefixed'
-import type { Animation } from './lib/viewer/animation-types'
 import { type Layout } from './lib/viewer/layout'
 import type { ViewerMode } from './lib/viewer/viewer-types'
 import {
@@ -111,7 +110,9 @@ export function notifyZoomStart(
 export function notifyZoomEnd(layout: Readonly<Layout>, zoom: number): void {
   zoomEndCbs.forEach((cb: ZoomEndCb) => cb(layout, zoom))
 }
-export function notifyAnimation(animation: null | Readonly<Animation>): void {
+export function notifyAnimation(
+  animation: null | Readonly<DOMMatrixReadOnly>
+): void {
   animationCbs.forEach((cb) => cb(animation))
 }
 export function notifyMode(mode: ViewerMode): void {

@@ -13,7 +13,6 @@ import type { SearchEntry } from './lib/geo'
 import { type MapCoord, type MapData, type MapMap } from './lib/geo/data-types'
 import { type POI } from './lib/geo/poi-types'
 import { type Vec } from './lib/vec'
-import type { Animation } from './lib/viewer/animation-types'
 import { type Layout, type LayoutCoord } from './lib/viewer/layout-types'
 import type { ViewerMode } from './lib/viewer/viewer-types'
 
@@ -81,7 +80,7 @@ export type UiCloseCb = () => void
 export type UiCloseDoneCb = () => void
 export type ResizeCb = (layout: Layout, force: boolean) => void
 export type LayoutCb = (layout: Layout, force: boolean) => void
-export type AnimationCb = (animation: null | Animation) => void
+export type AnimationCb = (animation: null | DOMMatrixReadOnly) => void
 export type ModeCb = (mode: ViewerMode) => void
 export type FloorCb = (fidx: number) => void
 
