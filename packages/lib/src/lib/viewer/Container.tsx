@@ -89,8 +89,7 @@ function ContentStyle(): ReactNode {
 }
 
 function AnimationStyle(): ReactNode {
-  const animation = useAnimation()
-  const q = animation?.move?.q ?? animation?.zoom?.q ?? null
+  const q = useAnimation()
   const style = q === null ? '' : css(q)
   return <style>{style}</style>
 }

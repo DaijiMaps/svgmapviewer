@@ -12,6 +12,7 @@ import { boxToViewBox2, type BoxBox } from './lib/box/prefixed'
 import { findRadius } from './lib/distance'
 import type { DistanceRadius } from './lib/distance-types'
 import { makeExpire } from './lib/expire-xstate'
+import type { Matrix } from './lib/matrix'
 import { trunc2 } from './lib/utils'
 import { vecZero, type VecVec } from './lib/vec/prefixed'
 import { type Animation } from './lib/viewer/animation-types'
@@ -60,7 +61,7 @@ interface StyleContext {
   distanceRadius: DistanceRadius
   geoRange: Range
   mode: string
-  animation: null | Animation
+  animation: null | Matrix
 }
 
 const styleMachine = setup({
@@ -187,7 +188,8 @@ const styleMachine = setup({
       on: {
         'STYLE.ANIMATION': {
           actions: assign({
-            animation: ({ event }) => event.animation,
+            animation: ({ event: { animation } }) =>
+              animation?.move?.q ?? animation?.zoom?.q ?? null,
             animating: true,
           }),
           target: 'Animating',
@@ -257,7 +259,7 @@ export function useLayoutScroll(): BoxBox {
 export function useMode(): string {
   return useSelector(styleActor, (s) => s.context.mode)
 }
-export function useAnimation(): null | Animation {
+export function useAnimation(): null | Matrix {
   return useSelector(styleActor, (s) => s.context.animation)
 }
 export function useGeoPoint(): VecVec {
