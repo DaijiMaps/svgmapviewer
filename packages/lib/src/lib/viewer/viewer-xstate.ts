@@ -115,13 +115,12 @@ const viewerMachine = setup({
           : animationZoom(layout, z, cursor),
     }),
     updateZoom: assign({
-      nextLayout: ({ context: { layout, animation } }): null | Layout =>
-        animation === null ? null : animationEndLayout(layout, animation),
+      prevLayout: ({ context: { layout } }): null | Layout => layout,
+      layout: ({ context: { layout, animation } }): Layout =>
+        animation === null ? layout : animationEndLayout(layout, animation),
     }),
     endZoom: assign({
-      layout: ({ context: { layout, nextLayout } }): Layout =>
-        nextLayout === null ? layout : nextLayout,
-      nextLayout: () => null,
+      prevLayout: () => null,
       animation: () => null,
       z: () => null,
       zoom: ({ context: { z, zoom } }) =>
@@ -262,7 +261,7 @@ const viewerMachine = setup({
   context: {
     origLayout: emptyLayout,
     layout: emptyLayout,
-    nextLayout: null,
+    prevLayout: null,
     cursor: boxCenter(emptyLayout.container),
     z: null,
     zoom: 1,

@@ -24,7 +24,7 @@ export const viewerModeLocked: ViewerModeLocked = 'locked'
 export type ViewerContext = {
   origLayout: Layout
   layout: Layout
-  nextLayout: null | Layout
+  prevLayout: null | Layout
   cursor: Vec
   z: null | number
   zoom: number
