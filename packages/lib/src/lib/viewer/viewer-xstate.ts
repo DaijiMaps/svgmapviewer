@@ -31,7 +31,12 @@ import {
 import { type SearchRes } from '../../types'
 import { boxCenter } from '../box/prefixed'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'
-import { animationEndLayout, animationHome, animationZoom } from './animation'
+import {
+  animationEndLayout,
+  animationHome,
+  animationRotate,
+  animationZoom,
+} from './animation'
 import { type Animation } from './animation-types'
 import { fromMatrixSvg } from './coord'
 import { keyToZoom } from './key'
@@ -118,6 +123,10 @@ const viewerMachine = setup({
           ? animationHome(layout, makeLayout(layout.config))
           : animationZoom(layout, z, cursor),
     }),
+    startRotate: assign({
+      animation: ({ context: { layout, cursor } }): null | Animation =>
+        animationRotate(layout, 90, cursor),
+    }),
     updateZoom: assign({
       prevLayout: ({ context: { layout } }): null | Layout => layout,
       layout: ({ context: { layout, animation } }): Layout =>
@@ -131,8 +140,11 @@ const viewerMachine = setup({
       zoom: ({ context: { z, zoom } }) =>
         z === null ? zoom : zoom * Math.pow(2, z),
     }),
-    // XXX startRotate
-    // XXX endRotate
+    endRotate: assign({
+      prevLayout: null,
+      want_animation: null,
+      animation: null,
+    }),
     wantZoom: assign({ want_animation: 'zoom' }),
     wantRotate: assign({ want_animation: 'rotate' }),
     syncAnimation: ({ context: { animation } }) =>
@@ -609,7 +621,17 @@ const viewerMachine = setup({
               ],
               target: 'Animating',
             },
-            // XXX rotate
+            {
+              guard: 'isRotateWanted',
+              actions: [
+                // XXX rotate
+                'updateLayoutFromScroll',
+                'startRotate',
+                'updateZoom',
+                'notifyZoomStart',
+              ],
+              target: 'Animating',
+            },
           ],
         },
         Animating: {
@@ -629,6 +651,19 @@ const viewerMachine = setup({
                     guard: 'isZoomWanted',
                     actions: [
                       'endZoom',
+                      'syncLayout',
+                      // fast sync - sync scroll NOT after resize
+                      'syncScroll',
+                      'notifyZoomEnd',
+                      'stopAnimating',
+                      'syncAnimation',
+                    ],
+                    target: 'Homing',
+                  },
+                  {
+                    guard: 'isRotateWanted',
+                    actions: [
+                      'endRotate',
                       'syncLayout',
                       // fast sync - sync scroll NOT after resize
                       'syncScroll',
