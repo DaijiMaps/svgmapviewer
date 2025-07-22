@@ -52,6 +52,11 @@ export interface Range {
   end: Vec
 }
 
+export interface AnimationMatrix {
+  readonly matrix: DOMMatrixReadOnly
+  readonly origin: Vec
+}
+
 ////
 
 export type Cb = () => void
@@ -80,7 +85,7 @@ export type UiCloseCb = () => void
 export type UiCloseDoneCb = () => void
 export type ResizeCb = (layout: Layout, force: boolean) => void
 export type LayoutCb = (layout: Layout, force: boolean) => void
-export type AnimationCb = (animation: null | DOMMatrixReadOnly) => void
+export type AnimationCb = (animation: null | AnimationMatrix) => void
 export type ModeCb = (mode: ViewerMode) => void
 export type FloorCb = (fidx: number) => void
 

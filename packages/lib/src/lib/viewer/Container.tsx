@@ -8,6 +8,7 @@ import {
   useAnimation,
   useLayoutContent,
 } from '../../style-xstate'
+import type { AnimationMatrix } from '../../types'
 import {
   position_absolute_left_0_top_0,
   width_100vw_height_100svh,
@@ -87,12 +88,16 @@ function ContentStyle(): ReactNode {
 }
 
 function AnimationStyle(): ReactNode {
-  const q = useAnimation()
-  const style = q === null ? '' : css(q)
+  const a = useAnimation()
+  const style = a === null ? '' : css(a)
   return <style>{style}</style>
 }
 
-function css(q: DOMMatrixReadOnly): string {
+function css({
+  matrix: q,
+  origin: { x, y },
+}: Readonly<AnimationMatrix>): string {
+  const p = new DOMMatrixReadOnly()
   return `
 #viewer {
   will-change: transform;
@@ -100,11 +105,11 @@ function css(q: DOMMatrixReadOnly): string {
 }
 @keyframes container-zoom {
   from {
-    transform-origin: left top;
-    transform: ${new DOMMatrixReadOnly().toString()} translate3d(0px, 0px, 0px);
+    transform-origin: ${x}px ${y}px;
+    transform: ${p.toString()} translate3d(0px, 0px, 0px);
   }
   to {
-    transform-origin: left top;
+    transform-origin: ${x} ${y};
     transform: ${q.toString()} translate3d(0px, 0px, 0px);
   }
 }

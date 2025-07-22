@@ -26,7 +26,7 @@ import {
   type CurrentScroll,
 } from './lib/viewer/scroll'
 import type { ViewerMode } from './lib/viewer/viewer-types'
-import type { Range } from './types'
+import type { AnimationMatrix, Range } from './types'
 
 type LayoutEvent = { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
 type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number; z: null | number }
@@ -34,7 +34,7 @@ type ScrollEvent = { type: 'STYLE.SCROLL'; currentScroll: CurrentScroll } // p =
 type ModeEvent = { type: 'STYLE.MODE'; mode: string }
 type AnimationEvent = {
   type: 'STYLE.ANIMATION'
-  animation: null | DOMMatrixReadOnly
+  animation: null | AnimationMatrix
 } // null to stop animation
 type AnimationEndEvent = { type: 'STYLE.ANIMATION.END' } // null to stop animation
 type LayoutDoneEvent = { type: 'LAYOUT.DONE'; rendered: boolean } // internal
@@ -62,7 +62,7 @@ interface StyleContext {
   distanceRadius: DistanceRadius
   geoRange: Range
   mode: string
-  animation: null | DOMMatrixReadOnly
+  animation: null | AnimationMatrix
 }
 
 const styleMachine = setup({
@@ -259,7 +259,7 @@ export function useLayoutScroll(): BoxBox {
 export function useMode(): string {
   return useSelector(styleActor, (s) => s.context.mode)
 }
-export function useAnimation(): null | DOMMatrixReadOnly {
+export function useAnimation(): null | AnimationMatrix {
   return useSelector(styleActor, (s) => s.context.animation)
 }
 export function useGeoPoint(): VecVec {
@@ -313,7 +313,7 @@ function handleZoomStart(_: Layout, zoom: number, z: number) {
 function handleZoomEnd(_: Layout, zoom: number) {
   styleSend({ type: 'STYLE.ZOOM', zoom, z: null })
 }
-function handleAnimation(animation: null | DOMMatrixReadOnly) {
+function handleAnimation(animation: null | AnimationMatrix) {
   styleSend({ type: 'STYLE.ANIMATION', animation })
 }
 function handleMode(mode: ViewerMode) {

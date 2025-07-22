@@ -147,8 +147,15 @@ const viewerMachine = setup({
     }),
     wantZoom: assign({ want_animation: 'zoom' }),
     wantRotate: assign({ want_animation: 'rotate' }),
-    syncAnimation: ({ context: { animation } }) =>
-      notifyAnimation(animation?.move?.q ?? animation?.zoom?.q ?? null),
+    syncAnimation: ({ context: { animation } }) => {
+      const matrix =
+        animation?.move?.q ?? animation?.zoom?.q ?? animation?.rotate?.q ?? null
+      const origin =
+        animation?.move?.o ?? animation?.zoom?.o ?? animation?.rotate?.o ?? null
+      if (matrix !== null && origin !== null) {
+        notifyAnimation({ matrix, origin })
+      }
+    },
     //
     // layout
     //
@@ -407,6 +414,14 @@ const viewerMachine = setup({
               },
               'wantZoom',
             ],
+            target: 'Zooming',
+          },
+          {
+            guard: {
+              type: 'shouldRotate',
+              params: ({ event }) => ({ ev: event.ev }),
+            },
+            actions: 'wantRotate',
             target: 'Zooming',
           },
         ],

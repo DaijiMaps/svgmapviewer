@@ -6,6 +6,7 @@ import { type Layout } from './lib/viewer/layout'
 import type { ViewerMode } from './lib/viewer/viewer-types'
 import {
   type AnimationCb,
+  type AnimationMatrix,
   type Cb,
   type FloorCb,
   type Info,
@@ -111,7 +112,7 @@ export function notifyZoomEnd(layout: Readonly<Layout>, zoom: number): void {
   zoomEndCbs.forEach((cb: ZoomEndCb) => cb(layout, zoom))
 }
 export function notifyAnimation(
-  animation: null | Readonly<DOMMatrixReadOnly>
+  animation: null | Readonly<AnimationMatrix>
 ): void {
   animationCbs.forEach((cb) => cb(animation))
 }
