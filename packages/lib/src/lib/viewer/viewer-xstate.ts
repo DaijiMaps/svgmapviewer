@@ -76,6 +76,10 @@ const viewerMachine = setup({
     shouldZoom: (_, { ev }: { ev: KeyboardEvent }) => keyToZoom(ev.key) !== 0,
     isTouching: ({ context: { touching } }) => touching,
     isHoming: ({ context: { homing } }) => homing,
+    isZoomWanted: ({ context: { want_animation } }) =>
+      want_animation === 'zoom',
+    isRotateWanted: ({ context: { want_animation } }) =>
+      want_animation === 'rotate',
     isContainerRendered: () => document.querySelector('.container') !== null,
     isMapRendered: () => svgMapViewerConfig.isMapRendered(),
     isUiRendered: () => svgMapViewerConfig.isUiRendered(),
@@ -120,12 +124,17 @@ const viewerMachine = setup({
         animation === null ? layout : animationEndLayout(layout, animation),
     }),
     endZoom: assign({
-      prevLayout: () => null,
-      animation: () => null,
-      z: () => null,
+      prevLayout: null,
+      want_animation: null,
+      animation: null,
+      z: null,
       zoom: ({ context: { z, zoom } }) =>
         z === null ? zoom : zoom * Math.pow(2, z),
     }),
+    // XXX startRotate
+    // XXX endRotate
+    wantZoom: assign({ want_animation: 'zoom' }),
+    wantRotate: assign({ want_animation: 'rotate' }),
     syncAnimation: ({ context: { animation } }) =>
       notifyAnimation(animation?.move?.q ?? animation?.zoom?.q ?? null),
     //
@@ -267,6 +276,7 @@ const viewerMachine = setup({
     z: null,
     zoom: 1,
     homing: false,
+    want_animation: null,
     animation: null,
     mode: viewerModePanning,
     touching: false,
@@ -369,7 +379,7 @@ const viewerMachine = setup({
           target: '#Resizing-WaitingForWindowStabilized',
         },
         'LAYOUT.RESET': {
-          actions: 'zoomHome',
+          actions: ['zoomHome', 'wantZoom'],
           target: 'Zooming',
         },
         'KEY.UP': [
@@ -383,6 +393,7 @@ const viewerMachine = setup({
                 type: 'zoomKey',
                 params: ({ event }) => ({ ev: event.ev }),
               },
+              'wantZoom',
             ],
             target: 'Zooming',
           },
@@ -417,6 +428,7 @@ const viewerMachine = setup({
               type: 'zoomEvent',
               params: ({ event: { z, p } }) => ({ z, p }),
             },
+            'wantZoom',
           ],
           target: 'Zooming',
         },
@@ -448,6 +460,7 @@ const viewerMachine = setup({
                   type: 'zoomEvent',
                   params: ({ event: { z, p } }) => ({ z, p }),
                 },
+                'wantZoom',
               ],
               target: '#Zooming',
             },
@@ -585,15 +598,19 @@ const viewerMachine = setup({
           },
         },
         Starting: {
-          always: {
-            actions: [
-              'updateLayoutFromScroll',
-              'startZoom',
-              'updateZoom',
-              'notifyZoomStart',
-            ],
-            target: 'Animating',
-          },
+          always: [
+            {
+              guard: 'isZoomWanted',
+              actions: [
+                'updateLayoutFromScroll',
+                'startZoom',
+                'updateZoom',
+                'notifyZoomStart',
+              ],
+              target: 'Animating',
+            },
+            // XXX rotate
+          ],
         },
         Animating: {
           initial: 'Starting',
@@ -607,18 +624,22 @@ const viewerMachine = setup({
             },
             Ending: {
               on: {
-                'ANIMATION.END': {
-                  actions: [
-                    'endZoom',
-                    'syncLayout',
-                    // fast sync - sync scroll NOT after resize
-                    'syncScroll',
-                    'notifyZoomEnd',
-                    'stopAnimating',
-                    'syncAnimation',
-                  ],
-                  target: 'Homing',
-                },
+                'ANIMATION.END': [
+                  {
+                    guard: 'isZoomWanted',
+                    actions: [
+                      'endZoom',
+                      'syncLayout',
+                      // fast sync - sync scroll NOT after resize
+                      'syncScroll',
+                      'notifyZoomEnd',
+                      'stopAnimating',
+                      'syncAnimation',
+                    ],
+                    target: 'Homing',
+                  },
+                  // XXX rotate
+                ],
               },
             },
             Homing: {

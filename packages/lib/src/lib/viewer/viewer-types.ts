@@ -19,6 +19,8 @@ export const viewerModePanning: ViewerModePanning = 'panning'
 export const viewerModeTouching: ViewerModeTouching = 'touching'
 export const viewerModeLocked: ViewerModeLocked = 'locked'
 
+type WantAnimation = null | 'zoom' | 'rotate'
+
 //// context
 
 export type ViewerContext = {
@@ -28,6 +30,7 @@ export type ViewerContext = {
   cursor: Vec
   z: null | number
   zoom: number
+  want_animation: WantAnimation
   animation: null | Animation
 
   mode: ViewerMode
