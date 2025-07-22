@@ -5,7 +5,7 @@ import { matrixMultiply, matrixScaleAt } from '../matrix/prefixed'
 import { vecAdd, type VecVec as Vec } from '../vec/prefixed'
 import type { Animation } from './animation-types'
 import { fromMatrixSvg } from './coord'
-import { relocLayout, zoomLayout, type Layout } from './layout'
+import { relocLayout, rotateLayout, zoomLayout, type Layout } from './layout'
 import { fromTransform, invMove, invScale, transformScale } from './transform'
 
 export const animationZoom = (
@@ -71,6 +71,7 @@ export const animationRotate = (
 
   const content = d.multiply(layout.content)
   const rotate = {
+    deg,
     content,
   }
 
@@ -91,8 +92,9 @@ export const animationEndLayout = (
     (l) =>
       animation.zoom === null
         ? l
-        : zoomLayout(l, animation.zoom.svg, animation.zoom.svgScale)
-    // XXX rotate
+        : zoomLayout(l, animation.zoom.svg, animation.zoom.svgScale),
+    (l) =>
+      animation.rotate === null ? l : rotateLayout(l, animation.rotate.deg)
   )
 }
 

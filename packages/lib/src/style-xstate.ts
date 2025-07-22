@@ -53,6 +53,7 @@ interface StyleContext {
   layout: Layout
   zoom: number
   z: null | number
+  rotate: null | number
   svgMatrix: DOMMatrixReadOnly
   geoMatrix: DOMMatrixReadOnly
   geoPoint: VecVec
@@ -72,6 +73,7 @@ const styleMachine = setup({
       zoom: (_, ev: ZoomEvent) => ev.zoom,
       z: (_, ev: ZoomEvent) => ev.z,
     }),
+    updateRotate: assign({}),
     updateSvgMatrix: assign({
       svgMatrix: ({ context: { layout } }) => fromSvgToScroll(layout),
     }),
@@ -116,6 +118,7 @@ const styleMachine = setup({
     layout: emptyLayout,
     zoom: 1,
     z: null,
+    rotate: null,
     svgMatrix: new DOMMatrixReadOnly(),
     geoMatrix: new DOMMatrixReadOnly(),
     geoPoint: vecZero,
@@ -277,6 +280,9 @@ export function useLayoutContent(): DOMMatrixReadOnly {
 }
 export function useZoom(): number {
   return useSelector(styleActor, (state) => state.context.zoom)
+}
+export function useRotate(): null | number {
+  return useSelector(styleActor, (state) => state.context.rotate)
 }
 export function useLayout2(): {
   viewBox: string

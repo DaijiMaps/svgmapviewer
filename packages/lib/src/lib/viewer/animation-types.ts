@@ -16,6 +16,7 @@ export type AnimationZoom = Readonly<{
 }>
 
 export type AnimationRotate = Readonly<{
+  deg: number
   content: DOMMatrixReadOnly
 }>
 
