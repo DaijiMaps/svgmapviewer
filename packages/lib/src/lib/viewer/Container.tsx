@@ -12,8 +12,6 @@ import {
   position_absolute_left_0_top_0,
   width_100vw_height_100svh,
 } from '../css'
-import type { Matrix } from '../matrix'
-import { matrixEmpty, matrixToString } from '../matrix/prefixed'
 import { useFloors } from './floors-xstate'
 import {
   touchSendTouchEnd,
@@ -94,7 +92,7 @@ function AnimationStyle(): ReactNode {
   return <style>{style}</style>
 }
 
-function css(q: Matrix): string {
+function css(q: DOMMatrixReadOnly): string {
   return `
 #viewer {
   will-change: transform;
@@ -103,11 +101,11 @@ function css(q: Matrix): string {
 @keyframes container-zoom {
   from {
     transform-origin: left top;
-    transform: ${matrixToString(matrixEmpty)} translate3d(0px, 0px, 0px);
+    transform: ${new DOMMatrixReadOnly().toString()} translate3d(0px, 0px, 0px);
   }
   to {
     transform-origin: left top;
-    transform: ${matrixToString(q)} translate3d(0px, 0px, 0px);
+    transform: ${q.toString()} translate3d(0px, 0px, 0px);
   }
 }
 `
