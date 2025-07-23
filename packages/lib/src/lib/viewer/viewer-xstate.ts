@@ -44,7 +44,9 @@ import {
   emptyLayout,
   expandLayoutCenter,
   type Layout,
+  layoutToDeg,
   resetLayout,
+  rotateLayout,
   scrollLayout,
 } from './layout'
 import { getCurrentScroll } from './scroll'
@@ -264,7 +266,16 @@ const viewerMachine = setup({
     endHoming: assign({
       cursor: ({ context }) => boxCenter(context.origLayout.container),
       layout: ({ context }) =>
-        expandLayoutCenter(context.origLayout, EXPAND_PANNING),
+        rotateLayout(
+          expandLayoutCenter(context.origLayout, EXPAND_PANNING),
+          // XXX
+          // XXX
+          // XXX
+          layoutToDeg(context.layout)
+          // XXX
+          // XXX
+          // XXX
+        ),
       homing: () => false,
     }),
     notifyMode: emit(

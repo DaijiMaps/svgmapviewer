@@ -87,11 +87,22 @@ export function resetLayout({ config, content }: Layout): Layout {
   return l
 }
 
-function toDeg(m: DOMMatrixReadOnly): number {
+function toDeg({ a, b, c, d }: DOMMatrixReadOnly): number {
+  const m = new DOMMatrixReadOnly([a, b, c, d, 0, 0])
   const v = m.transformPoint({ x: 1, y: 0 })
   const deg = (Math.atan2(v.y, v.x) / Math.PI) * 180
   return deg
 }
+
+// XXX
+// XXX
+// XXX
+export function layoutToDeg(layout: Layout): number {
+  return toDeg(layout.content)
+}
+// XXX
+// XXX
+// XXX
 
 export function resizeLayout(
   origViewBox: Box,

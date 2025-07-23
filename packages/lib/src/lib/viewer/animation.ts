@@ -1,7 +1,7 @@
 import { pipe } from 'fp-ts/lib/function'
 import { svgMapViewerConfig } from '../../config'
 import { boxCenter, boxScaleAt } from '../box/prefixed'
-import { type VecVec as Vec } from '../vec/prefixed'
+import { vecScale, vecSub, type VecVec as Vec } from '../vec/prefixed'
 import type { Animation } from './animation-types'
 import { fromMatrixSvg } from './coord'
 import { relocLayout, rotateLayout, zoomLayout, type Layout } from './layout'
@@ -35,7 +35,7 @@ export const animationHome = (
   const ms = fromTransform(invScale({ s }))
   const dms = new DOMMatrixReadOnly(ms.flat())
 
-  const c = boxCenter(layout.container)
+  const c = vecScale(vecSub(boxCenter(layout.container), o), 1 / s)
   const mc = fromTransform(c)
   const dmc = new DOMMatrixReadOnly(mc.flat())
 
