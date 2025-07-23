@@ -7,7 +7,7 @@ import { fromMatrixSvg } from './coord'
 import { relocLayout, rotateLayout, zoomLayout, type Layout } from './layout'
 import { fromTransform, invScale, transformScale } from './transform'
 
-export const animationZoom = (layout: Layout, z: number, o: Vec): Animation => {
+export function animationZoom(layout: Layout, z: number, o: Vec): Animation {
   const osvg = fromMatrixSvg(layout).inverse().transformPoint(o)
   const s = 1 / zoomToScale(z)
   const q = new DOMMatrixReadOnly().scale(1 / s, 1 / s)
@@ -24,10 +24,7 @@ export const animationZoom = (layout: Layout, z: number, o: Vec): Animation => {
   }
 }
 
-export const animationHome = (
-  layout: Layout,
-  nextLayout: Layout
-): Animation => {
+export function animationHome(layout: Layout, nextLayout: Layout): Animation {
   const osvg = boxCenter(nextLayout.config.svg)
   const o = pipe(osvg, (p) => fromMatrixSvg(layout).transformPoint(p))
 
@@ -55,11 +52,11 @@ export const animationHome = (
   }
 }
 
-export const animationRotate = (
+export function animationRotate(
   _layout: Layout,
   deg: number,
   o: Vec
-): Animation => {
+): Animation {
   const q = new DOMMatrixReadOnly().rotate(deg)
 
   const rotate = {
@@ -75,10 +72,10 @@ export const animationRotate = (
   }
 }
 
-export const animationEndLayout = (
+export function animationEndLayout(
   layout: Layout,
   animation: Animation
-): Layout => {
+): Layout {
   return pipe(
     layout,
     (l) => (animation.move === null ? l : relocLayout(l, animation.move.move)),
@@ -91,5 +88,6 @@ export const animationEndLayout = (
   )
 }
 
-const zoomToScale = (z: number): number =>
-  Math.pow(svgMapViewerConfig.zoomFactor, z)
+function zoomToScale(z: number): number {
+  return Math.pow(svgMapViewerConfig.zoomFactor, z)
+}
