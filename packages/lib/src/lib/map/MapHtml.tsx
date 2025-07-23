@@ -29,7 +29,6 @@ function MapHtmlContent(): ReactNode {
 function MapHtmlStyle(): ReactNode {
   const layout = useLayout()
   const { scroll } = layout
-  // XXX fromSvgToContent
   const m = fromSvgToContent(layout)
 
   const style = `
