@@ -9,7 +9,13 @@ import {
   boxScaleAt,
   boxUnit,
 } from '../box/prefixed'
-import { type VecVec as Vec, vecScale, vecSub } from '../vec/prefixed'
+import {
+  type VecVec as Vec,
+  vecAdd,
+  vecScale,
+  vecSub,
+  vecVec,
+} from '../vec/prefixed'
 import { emptyLayoutCoord, fromMatrixSvg, fromScroll, makeCoord } from './coord'
 import { fit } from './fit'
 import type {
@@ -152,10 +158,16 @@ export function rotateLayout(layout: Layout, deg: number): Layout {
 }
 
 export function recenterLayout(layout: Layout, start: Vec): Layout {
-  const d = vecSub(layout.scroll, start)
-  // XXX content
   const m = layout.content.inverse()
-  const dcontent = m.transformPoint(d)
+
+  const o = vecVec(layout.scroll.width / 2, layout.scroll.height / 2)
+  const d = vecSub(layout.scroll, start)
+  const p = vecAdd(o, d)
+
+  const o1 = m.transformPoint(o)
+  const p1 = m.transformPoint(p)
+  const dcontent = vecSub(p1, o1)
+
   const dsvg = vecScale(dcontent, -layout.svgScale.s)
 
   return {
