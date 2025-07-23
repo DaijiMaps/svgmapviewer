@@ -7,6 +7,7 @@ import {
   uiActionFullscreenCbs,
   uiActionPositionCbs,
   uiActionRecenterCbs,
+  uiActionRotateCbs,
   uiActionZoomInCbs,
   uiActionZoomOutCbs,
 } from '../../event'
@@ -63,6 +64,7 @@ function Zoom(): ReactNode {
       <Fullscreen />
       <Position />
       <Recenter />
+      <Rotate />
       <ZoomOut />
       <ZoomIn />
       <style>
@@ -136,6 +138,16 @@ function Recenter() {
   )
 }
 
+function Rotate() {
+  return (
+    <div className={'zoom-item rotate'} onClick={() => doRotate()}>
+      <svg viewBox="-5.25 -5.25 10.5 10.5">
+        <path d={turnPath} />
+      </svg>
+    </div>
+  )
+}
+
 function ZoomOut() {
   return (
     <div className={'zoom-item zoom-out'} onClick={() => doZoomOut()}>
@@ -166,6 +178,10 @@ function doPosition() {
 
 function doRecenter() {
   uiActionRecenterCbs.forEach((cb) => cb())
+}
+
+function doRotate() {
+  uiActionRotateCbs.forEach((cb) => cb())
 }
 
 function doZoomOut() {
@@ -253,6 +269,16 @@ a3,3 0,1,1 6,6
 m-3-3
 m-2.5,0
 h5
+`
+
+const turnPath = `
+M -4,-4
+l 2,0
+a 6,6 0,0,1 6,6
+l 0,2
+m -1,-2
+l 1,2
+l 1,-2
 `
 
 const panningPath = `

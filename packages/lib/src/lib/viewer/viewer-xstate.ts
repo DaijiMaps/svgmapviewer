@@ -21,6 +21,7 @@ import {
   searchEndCbs,
   uiActionRecenterCbs,
   uiActionResetCbs,
+  uiActionRotateCbs,
   uiActionZoomInCbs,
   uiActionZoomOutCbs,
   uiCloseDoneCbs,
@@ -457,6 +458,10 @@ const viewerMachine = setup({
         CONTEXTMENU: {
           target: 'Recentering',
         },
+        ROTATE: {
+          actions: 'wantRotate',
+          target: 'Zooming',
+        },
         RECENTER: {
           target: 'Recentering',
         },
@@ -882,6 +887,9 @@ function handleUiActionReset() {
 function handleUiActionRecenter() {
   viewerSend({ type: 'RECENTER' })
 }
+function handleUiActionRotate() {
+  viewerSend({ type: 'ROTATE' })
+}
 function handleUiActionZoomOut() {
   viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null })
 }
@@ -891,6 +899,7 @@ function handleUiActionZoomIn() {
 
 uiActionResetCbs.add(handleUiActionReset)
 uiActionRecenterCbs.add(handleUiActionRecenter)
+uiActionRotateCbs.add(handleUiActionRotate)
 uiActionZoomOutCbs.add(handleUiActionZoomOut)
 uiActionZoomInCbs.add(handleUiActionZoomIn)
 

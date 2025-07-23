@@ -47,6 +47,7 @@ export type ResizeRequest = { type: 'RESIZE'; layout: Layout; force: boolean }
 export type LayoutResetRequest = { type: 'LAYOUT.RESET' }
 export type SwitchRequest = { type: 'SWITCH'; fidx: number }
 export type SwitchDoneRequest = { type: 'SWITCH.DONE' }
+export type RotateRequest = { type: 'ROTATE' }
 export type RecenterRequest = { type: 'RECENTER' }
 export type RenderedRequest = { type: 'RENDERED' }
 export type AnimationEndRequest = { type: 'ANIMATION.END' }
@@ -66,6 +67,7 @@ export type ViewerRequest =
   | LayoutResetRequest
   | SwitchRequest
   | SwitchDoneRequest
+  | RotateRequest
   | RecenterRequest
   | RenderedRequest
   | ScrollGetDoneRequest

@@ -53,6 +53,7 @@ export const uiActionZoomInCbs: Set<Cb> = new Set()
 export const uiActionZoomOutCbs: Set<Cb> = new Set()
 export const uiActionResetCbs: Set<Cb> = new Set()
 export const uiActionRecenterCbs: Set<Cb> = new Set()
+export const uiActionRotateCbs: Set<Cb> = new Set()
 export const uiActionPositionCbs: Set<Cb> = new Set()
 export const uiActionFullscreenCbs: Set<Cb> = new Set()
 
