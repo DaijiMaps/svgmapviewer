@@ -5,7 +5,7 @@ import { svgMapViewerConfig } from '../../config'
 import { useLayout } from '../../style-xstate'
 import { useShadowRoot } from '../dom'
 import { trunc2 } from '../utils'
-import { fromSvgToScroll } from '../viewer/coord'
+import { fromSvgToContent } from '../viewer/coord'
 import { MAP_HTML_CONTENT_ID, MAP_HTML_ROOT_ID } from './map-svg-react'
 import { useNames } from './names'
 
@@ -30,7 +30,7 @@ function MapHtmlStyle(): ReactNode {
   const layout = useLayout()
   const { scroll } = layout
   // XXX fromSvgToContent
-  const m = fromSvgToScroll(layout)
+  const m = fromSvgToContent(layout)
 
   const style = `
 #map-html-content {
