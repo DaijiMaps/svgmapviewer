@@ -83,16 +83,16 @@ const zoomStyle = `
 }
 
 .zoom-item {
-  margin: 1.6px;
-  padding: 0.4em;
-  border: 1.6px black solid;
+  margin: 1.25px;
+  padding: 0.25em;
+  border: 1.25px black solid;
   ${pointer_events_initial}
   cursor: default;
 }
 .zoom-item > svg {
   display: block;
-  width: 1.6em;
-  height: 1.6em;
+  width: 1.25em;
+  height: 1.25em;
   pointer-events: none;
 }
 .zoom-item > svg > path {
