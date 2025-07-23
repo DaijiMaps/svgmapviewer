@@ -44,7 +44,7 @@ import {
   emptyLayout,
   expandLayoutCenter,
   type Layout,
-  makeLayout,
+  resetLayout,
   scrollLayout,
 } from './layout'
 import { getCurrentScroll } from './scroll'
@@ -120,7 +120,7 @@ const viewerMachine = setup({
     startZoom: assign({
       animation: ({ context: { layout, cursor, z } }): null | Animation =>
         z === null
-          ? animationHome(layout, makeLayout(layout.config))
+          ? animationHome(layout, resetLayout(layout))
           : animationZoom(layout, z, cursor),
     }),
     startRotate: assign({

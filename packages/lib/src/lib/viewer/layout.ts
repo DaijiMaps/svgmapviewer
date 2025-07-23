@@ -75,6 +75,24 @@ export function makeLayout(config: LayoutConfig): Layout {
   return layout
 }
 
+// reset (recenter) but keep rotate
+export function resetLayout({ config, content }: Layout): Layout {
+  const coord = makeCoord(config)
+  const deg = toDeg(content)
+  const layout = {
+    config,
+    ...coord,
+  }
+  const l = rotateLayout(layout, deg)
+  return l
+}
+
+function toDeg(m: DOMMatrixReadOnly): number {
+  const v = m.transformPoint({ x: 1, y: 0 })
+  const deg = (Math.atan2(v.y, v.x) / Math.PI) * 180
+  return deg
+}
+
 export function resizeLayout(
   origViewBox: Box,
   fontSize: number,
