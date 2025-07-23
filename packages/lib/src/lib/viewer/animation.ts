@@ -30,19 +30,16 @@ export const animationHome = (
 ): Animation => {
   const osvg = boxCenter(nextLayout.config.svg)
   const o = pipe(osvg, (p) => fromMatrixSvg(layout).transformPoint(p))
-  //const m1 = fromTransform(invMove(o))
-  //const dm1 = new DOMMatrixReadOnly(m1.flat())
 
   const s = nextLayout.svgScale.s / layout.svgScale.s
-  const m2 = fromTransform(invScale({ s }))
-  const dm2 = new DOMMatrixReadOnly(m2.flat())
+  const ms = fromTransform(invScale({ s }))
+  const dms = new DOMMatrixReadOnly(ms.flat())
 
   const c = boxCenter(layout.container)
-  const m3 = fromTransform(c)
-  const dm3 = new DOMMatrixReadOnly(m3.flat())
+  const mc = fromTransform(c)
+  const dmc = new DOMMatrixReadOnly(mc.flat())
 
-  const q = dm3.multiply(dm2)
-  //.multiply(dm1)
+  const q = dmc.multiply(dms)
 
   const zoom = {
     svg: nextLayout.svg,
