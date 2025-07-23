@@ -655,7 +655,6 @@ const viewerMachine = setup({
             {
               guard: 'isRotateWanted',
               actions: [
-                // XXX rotate
                 'updateLayoutFromScroll',
                 'startRotate',
                 'updateZoom',
@@ -704,7 +703,6 @@ const viewerMachine = setup({
                     ],
                     target: 'Homing',
                   },
-                  // XXX rotate
                 ],
               },
             },
