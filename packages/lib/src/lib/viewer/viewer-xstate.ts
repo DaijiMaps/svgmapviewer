@@ -155,7 +155,7 @@ const viewerMachine = setup({
         animation?.move?.q ?? animation?.zoom?.q ?? animation?.rotate?.q ?? null
       const origin =
         animation?.move?.o ?? animation?.zoom?.o ?? animation?.rotate?.o ?? null
-      if (matrix !== null && origin !== null) {
+      if (matrix !== null) {
         notifyAnimation({ matrix, origin })
       }
     },

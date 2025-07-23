@@ -93,10 +93,7 @@ function AnimationStyle(): ReactNode {
   return <style>{style}</style>
 }
 
-function css({
-  matrix: q,
-  origin: { x, y },
-}: Readonly<AnimationMatrix>): string {
+function css({ matrix: q, origin: o }: Readonly<AnimationMatrix>): string {
   const p = new DOMMatrixReadOnly()
   return `
 #viewer {
@@ -105,11 +102,11 @@ function css({
 }
 @keyframes container-zoom {
   from {
-    transform-origin: ${x}px ${y}px;
+    transform-origin: ${o === null ? `left top` : `${o.x}px ${o.y}px`};
     transform: ${p.toString()} translate3d(0px, 0px, 0px);
   }
   to {
-    transform-origin: ${x} ${y};
+    transform-origin: ${o === null ? `left top` : `${o.x}px ${o.y}px`};
     transform: ${q.toString()} translate3d(0px, 0px, 0px);
   }
 }

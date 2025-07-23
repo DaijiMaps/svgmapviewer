@@ -54,7 +54,7 @@ export interface Range {
 
 export interface AnimationMatrix {
   readonly matrix: DOMMatrixReadOnly
-  readonly origin: Vec
+  readonly origin: null | Vec
 }
 
 ////

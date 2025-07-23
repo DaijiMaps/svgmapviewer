@@ -1,11 +1,11 @@
 import { pipe } from 'fp-ts/lib/function'
 import { svgMapViewerConfig } from '../../config'
 import { boxCenter, boxScaleAt } from '../box/prefixed'
-import { vecScale, vecSub, type VecVec as Vec } from '../vec/prefixed'
+import { type VecVec as Vec } from '../vec/prefixed'
 import type { Animation } from './animation-types'
 import { fromMatrixSvg } from './coord'
 import { relocLayout, rotateLayout, zoomLayout, type Layout } from './layout'
-import { fromTransform, invScale, transformScale } from './transform'
+import { transformScale } from './transform'
 
 export function animationZoom(layout: Layout, z: number, o: Vec): Animation {
   const osvg = fromMatrixSvg(layout).inverse().transformPoint(o)
@@ -26,23 +26,23 @@ export function animationZoom(layout: Layout, z: number, o: Vec): Animation {
 
 export function animationHome(layout: Layout, nextLayout: Layout): Animation {
   const osvg = boxCenter(nextLayout.config.svg)
-  const o = pipe(osvg, (p) => fromMatrixSvg(layout).transformPoint(p))
+  const msvg = fromMatrixSvg(layout)
+  const o = msvg.transformPoint(osvg)
 
   const s = nextLayout.svgScale.s / layout.svgScale.s
-  const ms = fromTransform(invScale({ s }))
-  const dms = new DOMMatrixReadOnly(ms.flat())
 
-  const c = vecScale(vecSub(boxCenter(layout.container), o), 1 / s)
-  const mc = fromTransform(c)
-  const dmc = new DOMMatrixReadOnly(mc.flat())
+  const c = boxCenter(layout.container)
 
-  const q = dmc.multiply(dms)
+  const q = new DOMMatrixReadOnly()
+    .translate(c.x, c.y)
+    .scale(1 / s)
+    .translate(-o.x, -o.y)
 
   const zoom = {
     svg: nextLayout.svg,
     svgScale: nextLayout.svgScale,
     q,
-    o,
+    o: null,
   }
 
   return {
