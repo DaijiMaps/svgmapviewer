@@ -9,4 +9,10 @@ export function apply(m: M, v: V, n: number): V {
 
 export type ApplyF = (n: number) => (v: V) => (m: M) => V
 
-export const applyF: ApplyF = (n: number) => (v: V) => (m: M) => apply(m, v, n)
+export function applyF(n: number): ReturnType<ApplyF> {
+  return function (v: V) {
+    return function (m: M) {
+      return apply(m, v, n)
+    }
+  }
+}

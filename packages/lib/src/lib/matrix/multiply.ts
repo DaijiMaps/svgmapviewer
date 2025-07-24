@@ -8,4 +8,8 @@ export function multiply(p: M, q: M): M {
 
 export type MultiplyF = (q: M) => (p: M) => M
 
-export const multiplyF: MultiplyF = (q: M) => (p: M) => multiply(p, q)
+export function multiplyF(q: M): ReturnType<MultiplyF> {
+  return function (p: M) {
+    return multiply(p, q)
+  }
+}

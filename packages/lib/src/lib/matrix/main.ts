@@ -39,15 +39,26 @@ function copy([[a, b], [c, d], [e, f]]: Readonly<
 
 ////
 
-export const ab = ([ab]: M): V => ab
-export const cd = ([, cd]: M): V => cd
-export const ef = ([, , ef]: M): V => ef
+export function ab([ab]: M): V {
+  return ab
+}
+export function cd([, cd]: M): V {
+  return cd
+}
+export function ef([, , ef]: M): V {
+  return ef
+}
 
-export const ace = ([[a], [c], [e]]: M): H => [a, c, e]
-export const bdf = ([[, b], [, d], [, f]]: M): H => [b, d, f]
+export function ace([[a], [c], [e]]: M): H {
+  return [a, c, e]
+}
+export function bdf([[, b], [, d], [, f]]: M): H {
+  return [b, d, f]
+}
 
-export const prod = ([p, q, r]: H, [s, t]: V, n: number): number =>
-  p * s + q * t + r * n
+export function prod([p, q, r]: H, [s, t]: V, n: number): number {
+  return p * s + q * t + r * n
+}
 
 export function toDOMMatrix([
   [a, b],
