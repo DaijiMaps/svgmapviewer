@@ -2,21 +2,23 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/no-return-void */
-import { createElement } from 'react'
+import { createElement, type ReactNode } from 'react'
 import { emptyMapData } from './lib/geo/data-types'
 import {
   type Info,
-  type RenderInfo,
-  type RenderMap,
   type SvgMapViewerConfig,
   type SvgMapViewerConfigUser,
 } from './types'
 
-const renderInfoDefault: RenderInfo = (
+function renderInfoDefault(
   props: Readonly<{ info: Readonly<Info> }>
-) => createElement('p', {}, props.info.title)
+): ReactNode {
+  return createElement('p', {}, props.info.title)
+}
 
-const renderMapDefault: RenderMap = () => createElement('div')
+function renderMapDefault(): ReactNode {
+  return createElement('div')
+}
 
 export let svgMapViewerConfig: SvgMapViewerConfig = {
   root: 'root',

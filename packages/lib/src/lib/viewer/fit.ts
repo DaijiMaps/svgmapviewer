@@ -1,9 +1,13 @@
 import { type BoxBox as Box } from '../box/prefixed'
 import { type V } from '../tuple'
 
-const fitH = (o: Box, r: number): V => [0, (o.height - o.width / r) / 2]
+function fitH(o: Box, r: number): V {
+  return [0, (o.height - o.width / r) / 2]
+}
 
-const fitV = (o: Box, r: number): V => [(o.width - o.height * r) / 2, 0]
+function fitV(o: Box, r: number): V {
+  return [(o.width - o.height * r) / 2, 0]
+}
 
 export function fit(
   o: Box,
