@@ -1,8 +1,8 @@
 import { type ReactNode } from 'react'
 
-const DefaultCursorPath = (
+function DefaultCursorPath(
   props: Readonly<{ x: number; y: number; r: number }>
-) => {
+) {
   const { x, y, r } = props
 
   return (
@@ -60,11 +60,11 @@ function MultiTouchCursor(
   )
 }
 
-export const Cursor = (
+export function Cursor(
   props: Readonly<{
     _r: number
   }>
-): ReactNode => {
+): ReactNode {
   return (
     <>
       <DefaultCursor {...props} />

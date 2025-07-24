@@ -5,10 +5,10 @@ const fitH = (o: Box, r: number): V => [0, (o.height - o.width / r) / 2]
 
 const fitV = (o: Box, r: number): V => [(o.width - o.height * r) / 2, 0]
 
-export const fit = (
+export function fit(
   o: Box,
   i: Box
-): readonly [readonly [x: number, y: number], s: number] => {
+): readonly [readonly [x: number, y: number], s: number] {
   const R = o.width / o.height
   const r = i.width / i.height
   const [x, y] = R > r ? fitV(o, r) : fitH(o, r)
