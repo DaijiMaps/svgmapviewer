@@ -79,9 +79,13 @@ const likesStore = createStore({
 
 likesStore.subscribe(saveSnapshot)
 
-export const like = (id: number): void => likesStore.trigger.like({ id })
-export const unlike = (id: number): void => likesStore.trigger.unlike({ id })
-export const isLiked = (id: number): boolean => {
+export function like(id: number): void {
+  return likesStore.trigger.like({ id })
+}
+export function unlike(id: number): void {
+  return likesStore.trigger.unlike({ id })
+}
+export function isLiked(id: number): boolean {
   return likesStore.getSnapshot().context.ids.has(id)
 }
 
