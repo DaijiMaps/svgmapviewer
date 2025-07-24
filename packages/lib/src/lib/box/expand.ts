@@ -7,7 +7,7 @@ import { transform } from './transform'
 //// expandAtCenter
 //// expandAtOff
 
-export const expandAt = (b: Box, s: number, cx: number, cy: number): Box => {
+export function expandAt(b: Box, s: number, cx: number, cy: number): Box {
   const r = transform(b, scaleAt([s, s], [cx, cy]))
   return {
     x: -r.x,
@@ -17,11 +17,14 @@ export const expandAt = (b: Box, s: number, cx: number, cy: number): Box => {
   }
 }
 
-export const expandAtRatio = (b: Box, s: number, rx: number, ry: number): Box =>
-  expandAt(b, s, b.x + b.width * rx, b.y + b.height * ry)
+export function expandAtRatio(b: Box, s: number, rx: number, ry: number): Box {
+  return expandAt(b, s, b.x + b.width * rx, b.y + b.height * ry)
+}
 
-export const expandAtCenter = (b: Box, s: number): Box =>
-  expandAtRatio(b, s, 0.5, 0.5)
+export function expandAtCenter(b: Box, s: number): Box {
+  return expandAtRatio(b, s, 0.5, 0.5)
+}
 
-export const expandAtOff = (b: Box, s: number, dx: number, dy: number): Box =>
-  expandAt(b, s, b.x + b.width * 0.5 + dx, b.y + b.height * 0.5 + dy)
+export function expandAtOff(b: Box, s: number, dx: number, dy: number): Box {
+  return expandAt(b, s, b.x + b.width * 0.5 + dx, b.y + b.height * 0.5 + dy)
+}

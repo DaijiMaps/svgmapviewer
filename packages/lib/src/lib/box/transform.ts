@@ -5,8 +5,8 @@ import { apply, type Matrix } from '../matrix'
 import { type Box, mapF } from './main'
 import { fromTlBr, tlBrFromB, tlBrToB, toTlBr } from './tlbr'
 
-export const transform = (b: Box, m: Matrix): Box =>
-  pipe(
+export function transform(b: Box, m: Matrix): Box {
+  return pipe(
     b,
     toTlBr,
     tlBrToB,
@@ -14,3 +14,4 @@ export const transform = (b: Box, m: Matrix): Box =>
     tlBrFromB,
     fromTlBr
   )
+}

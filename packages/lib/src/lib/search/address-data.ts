@@ -15,37 +15,40 @@ import type {
   SearchAddressRes,
 } from './address-types'
 
-const pointAddresses = (
+function pointAddresses(
   mapData: MapData,
   entries: SearchEntry[],
   skip?: Readonly<RegExp>
-): AddressEntries =>
-  mapData.points.features.flatMap(({ properties }) => {
+): AddressEntries {
+  return mapData.points.features.flatMap(({ properties }) => {
     const e = filterFeature(properties, entries, skip)
     return e === null ? [] : [e]
   })
+}
 
 /*
-const lineAddresses = (
+function lineAddresses(
   mapData: MapData,
   entries: SearchEntry[],
   skip?: Readonly<RegExp>
-): AddressEntries =>
-  mapData.lines.features.flatMap(({ properties }) => {
+): AddressEntries {
+  return mapData.lines.features.flatMap(({ properties }) => {
     const e = filterFeature(properties, entries, skip)
     return e === null ? [] : [e]
   })
+}
 */
 
-const polygonAddresses = (
+function polygonAddresses(
   mapData: MapData,
   entries: SearchEntry[],
   skip?: Readonly<RegExp>
-): AddressEntries =>
-  mapData.multipolygons.features.flatMap(({ properties }) => {
+): AddressEntries {
+  return mapData.multipolygons.features.flatMap(({ properties }) => {
     const e = filterFeature(properties, entries, skip)
     return e === null ? [] : [e]
   })
+}
 
 export function getAddressEntries(
   mapData: MapData,

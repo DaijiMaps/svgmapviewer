@@ -22,12 +22,10 @@ const TIMEOUT = 5000
 
 async function getGeolocationPosition(): Promise<GeolocationPosition> {
   return new Promise((resolve, reject) => {
-    const successCb: PositionCallback = (position: GeolocationPosition) => {
+    function successCb(position: GeolocationPosition) {
       resolve(position)
     }
-    const errorCb: PositionErrorCallback = (
-      error: GeolocationPositionError
-    ) => {
+    function errorCb(error: GeolocationPositionError) {
       reject(error)
     }
     const options: PositionOptions = {

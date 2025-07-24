@@ -11,12 +11,9 @@ export interface Size {
 
 export type Box = Readonly<Vec & Size>
 
-export const box = (
-  x: number,
-  y: number,
-  width: number,
-  height: number
-): Box => ({ x, y, width, height })
+export function box(x: number, y: number, width: number, height: number): Box {
+  return { x, y, width, height }
+}
 
 //// unit
 //// copy
