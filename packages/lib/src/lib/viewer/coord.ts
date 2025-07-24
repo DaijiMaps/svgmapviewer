@@ -22,12 +22,12 @@ export const emptyLayoutCoord: Readonly<LayoutCoord> = {
   svg: boxUnit,
 }
 
-export const makeCoord = ({
+export function makeCoord({
   container,
   svgOffset,
   svgScale,
   svg,
-}: Readonly<LayoutConfig>): LayoutCoord => {
+}: Readonly<LayoutConfig>): LayoutCoord {
   return {
     container: boxCopy(container),
     scroll: boxCopy(container),
@@ -38,18 +38,18 @@ export const makeCoord = ({
   }
 }
 
-export const fromContentToScroll = ({
+export function fromContentToScroll({
   content,
-}: Readonly<ContentLayoutCoord>): DOMMatrixReadOnly => {
+}: Readonly<ContentLayoutCoord>): DOMMatrixReadOnly {
   return content
 }
 
 // svg -> content
-export const fromSvgToContent = ({
+export function fromSvgToContent({
   svgOffset,
   svgScale,
   svg,
-}: Readonly<ContentLayoutCoord & SvgLayoutCoord>): DOMMatrixReadOnly => {
+}: Readonly<ContentLayoutCoord & SvgLayoutCoord>): DOMMatrixReadOnly {
   return new DOMMatrixReadOnly()
     .translate(-svgOffset.x, -svgOffset.y)
     .scale(1 / svgScale.s, 1 / svgScale.s)
@@ -57,12 +57,12 @@ export const fromSvgToContent = ({
 }
 
 // svg -> scroll
-export const fromSvgToScroll = ({
+export function fromSvgToScroll({
   content,
   svgOffset,
   svgScale,
   svg,
-}: Readonly<ContentLayoutCoord & SvgLayoutCoord>): DOMMatrixReadOnly => {
+}: Readonly<ContentLayoutCoord & SvgLayoutCoord>): DOMMatrixReadOnly {
   return new DOMMatrixReadOnly()
     .multiply(content)
     .translate(-svgOffset.x, -svgOffset.y)
@@ -71,20 +71,20 @@ export const fromSvgToScroll = ({
 }
 
 // scroll -> container
-export const fromMatrixOuter = ({
+export function fromMatrixOuter({
   scroll,
-}: Readonly<LayoutCoord>): DOMMatrixReadOnly => {
+}: Readonly<LayoutCoord>): DOMMatrixReadOnly {
   return new DOMMatrixReadOnly().translate(scroll.x, scroll.y)
 }
 
 // svg -> container
-export const fromMatrixSvg = ({
+export function fromMatrixSvg({
   scroll,
   content,
   svgOffset,
   svgScale,
   svg,
-}: Readonly<LayoutCoord>): DOMMatrixReadOnly => {
+}: Readonly<LayoutCoord>): DOMMatrixReadOnly {
   return new DOMMatrixReadOnly()
     .translate(scroll.x, scroll.y)
     .multiply(content)
@@ -94,7 +94,11 @@ export const fromMatrixSvg = ({
 }
 
 // inverse x/y
-export const fromScroll = (s: Box): Box => vecScale(s, -1)
-export const toScroll = (s: Box): Box => vecScale(s, -1)
+export function fromScroll(s: Box): Box {
+  return vecScale(s, -1)
+}
+export function toScroll(s: Box): Box {
+  return vecScale(s, -1)
+}
 
 export { type LayoutCoord, type ScrollLayoutCoord, type SvgLayoutCoord }
