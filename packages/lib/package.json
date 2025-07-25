@@ -1,7 +1,6 @@
 {
   "name": "@daijimaps/svgmapviewer",
   "type": "module",
-  "private": "false",
   "version": "0.0.1",
   "keywords": [
     "SVG",
