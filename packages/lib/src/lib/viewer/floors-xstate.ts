@@ -133,7 +133,7 @@ function makeStyle(fidx: number, prevFidx: null | number): null | string {
         ? ``
         : `
 .fidx-${idx} {
-  display: none;
+  visibility: hidden;
 }
 `
     )
