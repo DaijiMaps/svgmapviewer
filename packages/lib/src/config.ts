@@ -22,6 +22,7 @@ function renderMapDefault(): ReactNode {
 
 export let svgMapViewerConfig: SvgMapViewerConfig = {
   root: 'root',
+  map: 'map',
   href: 'map.svg',
   width: 0,
   height: 0,

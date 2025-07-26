@@ -104,6 +104,7 @@ export type RenderInfo = (props: Readonly<{ info: Info }>) => ReactNode
 
 export interface SvgMapViewerConfig extends DataConfig, RenderConfig {
   root: string
+  map: string
   href: string
   width: number
   height: number
