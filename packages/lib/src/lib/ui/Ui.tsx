@@ -6,6 +6,7 @@ import { DetailBalloon } from './DetailBalloon'
 import { Footer } from './Footer'
 import { Guides } from './Guides'
 import { Header } from './Header'
+import { Left } from './Left'
 import { Right } from './Right'
 import { Shadow } from './Shadow'
 import { UI_ROOT_ID } from './ui-react'
@@ -22,6 +23,7 @@ function UiContent(): ReactNode {
       <Shadow />
       <Header />
       <Footer />
+      <Left />
       <Right />
       <Guides />
       <DetailBalloon />
