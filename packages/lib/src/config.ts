@@ -33,8 +33,6 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
     'svgmapviewer - An (opinionated) interactive offline SVG map viewer',
   copyright: '@ Daiji Maps',
   zoomFactor: 3,
-  animationDuration: 625,
-  scrollIdleTimeout: 1000,
   isContainerRendered: () => true,
   isUiRendered: () => true,
 

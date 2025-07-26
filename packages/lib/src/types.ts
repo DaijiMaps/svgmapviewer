@@ -113,8 +113,6 @@ export interface SvgMapViewerConfig extends DataConfig, RenderConfig {
   subtitle: string
   copyright: string
   zoomFactor: number
-  animationDuration: number
-  scrollIdleTimeout: number
   cartoConfig?: CartoConfig
   floorsConfig?: FloorsConfig
   isContainerRendered: () => boolean
