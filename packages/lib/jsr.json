@@ -4,6 +4,6 @@
   "license": "ISC",
   "exports": "./src/index.ts",
   "publish": {
-    "include": ["package.json"]
+    "include": ["src", "package.json"]
   }
 }
