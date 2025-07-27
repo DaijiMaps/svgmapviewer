@@ -14,7 +14,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
-import { FloorName, Floors } from './Floor'
+import { FloorName } from './Floor'
 import { uiSend, useOpenCloseHeader } from './ui-xstate'
 
 export function Header(): ReactNode {
@@ -31,7 +31,6 @@ function HeaderContent(): ReactNode {
       className="ui-content header"
       onAnimationEnd={() => uiSend({ type: 'HEADER.ANIMATION.END' })}
     >
-      <Floors />
       <h1 className="title" onClick={() => doTitle()}>
         {config.title}
       </h1>

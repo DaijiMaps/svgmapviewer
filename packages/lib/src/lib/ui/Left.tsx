@@ -7,6 +7,7 @@ import {
   position_absolute_left_0_top_0,
 } from '../css'
 import { useShadowRoot } from '../dom'
+import { Floors } from './Floor'
 
 export function Left(): ReactNode {
   useShadowRoot('left', <LeftContent />, 'ui')
@@ -17,6 +18,7 @@ export function Left(): ReactNode {
 function LeftContent(): ReactNode {
   return (
     <div className="ui-content left bottom">
+      <Floors />
       <style>{style}</style>
     </div>
   )
@@ -31,11 +33,11 @@ const style = `
   ${pointer_events_none}
 
   transform-origin: 100% 50%;
+  transform: translateY(calc(-50% + 50vh));
 }
 
 .left {
   top: initial;
-  bottom: 0;
   align-items: end;
 
   transform-origin: 100% 100%;

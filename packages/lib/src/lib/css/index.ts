@@ -89,6 +89,10 @@ export const overflow_scroll = `
 overflow: scroll;
 `
 
+export const background_white_opaque = `
+background-color: rgba(255, 255, 255, 0.5);
+`
+
 //// z-index
 
 export const Z_INDEX_GUIDES = 2

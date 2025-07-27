@@ -12,6 +12,7 @@ import {
   uiActionZoomOutCbs,
 } from '../../event'
 import {
+  background_white_opaque,
   flex_column_center_center,
   flex_row_center_center,
   pointer_events_initial,
@@ -88,6 +89,7 @@ const zoomStyle = `
   border: 1.25px black solid;
   ${pointer_events_initial}
   cursor: default;
+  ${background_white_opaque}
 }
 .zoom-item > svg {
   display: block;

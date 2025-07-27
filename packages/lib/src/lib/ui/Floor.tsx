@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 import type { ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
-import { floor_switch_duration } from '../css'
+import { background_white_opaque, floor_switch_duration } from '../css'
 import { useFloors } from '../viewer/floors-xstate'
 
 export function Floors(): ReactNode {
@@ -37,13 +37,15 @@ const floorsStyle = `
   touch-action: pan-x;
 }
 .floor-list {
-  margin: 0.5em 0;
+  margin: 0.25em;
   padding: 0;
   list-style: none;
   display: flex;
-  flex-direction: row;
+  flex-direction: column-reverse;
+  ${background_white_opaque}
 }
 .floor-item {
+  text-align: center;
   padding: 0.5em 0.75em;
   border: 1.5px solid black;
   pointer-events: initial;
