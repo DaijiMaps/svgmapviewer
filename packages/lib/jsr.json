@@ -2,17 +2,8 @@
   "name": "@daijimaps/svgmapviewer",
   "version": "0.0.1",
   "license": "ISC",
-  "exports": {
-    ".": "./src/index.ts",
-    "./box": "./src/lib/box/index.ts",
-    "./carto": "./src/lib/carto/index.ts",
-    "./carto-objects": "./src/lib/carto/objects/index.ts",
-    "./carto-symbols": "./src/lib/carto/symbols/index.ts",
-    "./geo": "./src/lib/geo/index.ts",
-    "./map": "./src/lib/map/index.ts",
-    "./matrix": "./src/lib/matrix/index.ts",
-    "./search": "./src/lib/search/index.ts",
-    "./tuple": "./src/lib/tuple/index.ts",
-    "./vec": "./src/lib/vec/index.ts"
+  "exports": "./src/index.ts",
+  "publish": {
+    "include": ["package.json"]
   }
 }
