@@ -1,5 +1,5 @@
 {
-  "name": "@daijimaps/svgmapviewer",
+  "name": "svgmapviewer",
   "type": "module",
   "version": "0.0.1",
   "keywords": [
@@ -34,6 +34,7 @@
     "build:watch": "vite build --watch --mode development --sourcemap true",
     "lint": "eslint .",
     "preview": "vite preview",
+    "publish:jsr": "pnpm dlx jsr publish",
     "test": "vitest --workspace=vitest.workspace.ts --project unit",
     "test:unit": "vitest --workspace=vitest.workspace.ts --project unit",
     "test:jsdom": "vitest --workspace=vitest.workspace.ts --project jsdom",
