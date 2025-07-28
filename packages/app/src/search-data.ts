@@ -1,4 +1,4 @@
-import type { SearchEntry } from '@daijimaps/svgmapviewer/geo'
+import type { SearchEntry } from 'svgmapviewer/geo'
 
 export const searchEntries: SearchEntry[] = [
   {

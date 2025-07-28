@@ -1,9 +1,9 @@
-import { type RenderConfig } from '@daijimaps/svgmapviewer'
-import { getMapNames } from '@daijimaps/svgmapviewer/carto'
+import { type RenderConfig } from 'svgmapviewer'
+import { getMapNames } from 'svgmapviewer/carto'
 import {
   isMapOsmDefaultRendered as isMapRendered,
   RenderMapOsmDefault as renderMap,
-} from '@daijimaps/svgmapviewer/map'
+} from 'svgmapviewer/map'
 import { getMapLayers } from './map-layers'
 import { mapSvgStyle } from './map-layers-css'
 import { getMapMarkers } from './map-markers'

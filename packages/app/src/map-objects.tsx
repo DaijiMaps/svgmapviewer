@@ -1,5 +1,5 @@
 /* eslint-disable functional/functional-parameters */
-import type { MapObjects } from '@daijimaps/svgmapviewer/carto'
+import type { MapObjects } from 'svgmapviewer/carto'
 import {
   benchPath,
   entrancePath,
@@ -11,7 +11,7 @@ import {
   tree4x8Path,
   vendingMachinePath,
   wasteBasketPath,
-} from '@daijimaps/svgmapviewer/carto-objects'
+} from 'svgmapviewer/carto-objects'
 
 export const getMapObjects: () => MapObjects[] = () => [
   {

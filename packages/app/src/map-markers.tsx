@@ -1,4 +1,4 @@
-import { type MapMarkers } from '@daijimaps/svgmapviewer/carto'
+import { type MapMarkers } from 'svgmapviewer/carto'
 
 // eslint-disable-next-line functional/functional-parameters
 export const getMapMarkers: () => MapMarkers[] = () => [

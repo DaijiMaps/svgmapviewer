@@ -1,10 +1,10 @@
-import { Like, svgMapViewerConfig } from '@daijimaps/svgmapviewer'
-import { symbolNameMap } from '@daijimaps/svgmapviewer/carto-symbols'
+import { Like, svgMapViewerConfig } from 'svgmapviewer'
+import { symbolNameMap } from 'svgmapviewer/carto-symbols'
 import {
   findProperties,
   getPropertyValue,
   type OsmProperties,
-} from '@daijimaps/svgmapviewer/geo'
+} from 'svgmapviewer/geo'
 import { Fragment, type ReactNode } from 'react'
 import { type FacilityInfo, type Info, type ShopInfo } from './info'
 

@@ -1,4 +1,4 @@
-import type { MapSymbols } from '@daijimaps/svgmapviewer/carto'
+import type { MapSymbols } from 'svgmapviewer/carto'
 
 // eslint-disable-next-line functional/functional-parameters
 export const getMapSymbols: () => MapSymbols[] = () => [

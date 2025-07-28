@@ -1,5 +1,5 @@
-import { type Info } from '@daijimaps/svgmapviewer'
-import { type OsmProperties } from '@daijimaps/svgmapviewer/geo'
+import { type Info } from 'svgmapviewer'
+import { type OsmProperties } from 'svgmapviewer/geo'
 
 export interface ShopInfo {
   tag: 'shop'
@@ -20,7 +20,7 @@ export interface FacilityInfo {
 
 export type XInfo = ShopInfo | FacilityInfo
 
-declare module '@daijimaps/svgmapviewer' {
+declare module 'svgmapviewer' {
   interface Info {
     x: XInfo
   }
