@@ -8,8 +8,7 @@ import { searchDoneCbs, searchStartCbs } from './event'
 import { type Box } from './lib/box/main'
 import { geolocActorStart } from './lib/geo'
 import { setNames } from './lib/map/names'
-import { getAddressEntries } from './lib/search'
-import { workerSearchInit } from './lib/search/search-main'
+import { getAddressEntries, workerSearchInit } from './lib/search'
 import {
   searchActorStart,
   searchSearchDone,
