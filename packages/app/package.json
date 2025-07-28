@@ -1,8 +1,7 @@
 {
-  "name": "@daijimaps/svgmapviewer-app",
+  "name": "svgmapviewer-app",
   "type": "module",
-  "private": "false",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "keywords": [
     "SVG",
     "map",
@@ -31,7 +30,6 @@
     "test:browser": "vitest --workspace=vitest.workspace.ts --project browser"
   },
   "dependencies": {
-    "@daijimaps/svgmapviewer": "link:../lib",
     "@xstate/react": "^6.0.0",
     "@xstate/store": "^3.8.2",
     "clsx": "^2.1.1",
@@ -39,9 +37,9 @@
     "fp-ts": "^2.16.10",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "svgmapviewer": "^0.0.1",
     "type-fest": "^4.41.0",
-    "xstate": "^5.20.1",
-    "zustand": "^5.0.6"
+    "xstate": "^5.20.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.31.0",
