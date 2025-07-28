@@ -18,5 +18,12 @@ export default [
       index: 'src/index.ts',
     },
     tsconfig: 'tsconfig.app.json',
+    external: [
+      'flatbush',
+      'react',
+      'react-dom',
+      'xstate',
+      '@xstate/react',
+    ],
   }),
 ]

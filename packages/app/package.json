@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "tsc -b && vite build && tsdown",
+    "build": "tsc -b && vite build && rsync -avz ./dist/ ./dist.vite/ && tsdown",
     "build:dev": "tsc -b && vite build --mode development --sourcemap true && tsdown",
     "build:prod": "tsc -b && vite build && tsdown",
     "build:watch": "vite build --watch --mode development --sourcemap true",

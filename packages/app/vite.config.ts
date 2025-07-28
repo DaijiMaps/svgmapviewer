@@ -14,7 +14,7 @@ export default defineConfig({
       name: 'svgmapviewer-app',
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'xstate', '@xstate/react'],
+      external: ['flatbush', 'react', 'react-dom', 'svgmapviewer', 'xstate', '@xstate/react'],
       jsx: 'react',
     },
   },
