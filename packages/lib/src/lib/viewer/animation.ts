@@ -1,4 +1,4 @@
-import { pipe } from 'fp-ts/lib/function'
+import { pipe } from 'fp-ts/function'
 import { svgMapViewerConfig } from '../../config'
 import { boxCenter, boxScaleAt } from '../box/prefixed'
 import { type VecVec as Vec } from '../vec/prefixed'

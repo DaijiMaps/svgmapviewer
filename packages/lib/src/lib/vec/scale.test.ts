@@ -1,4 +1,4 @@
-import { pipe } from 'fp-ts/lib/function'
+import { pipe } from 'fp-ts/function'
 import { expect, test } from 'vitest'
 import { vec } from './index'
 import { scaleF } from './scale'

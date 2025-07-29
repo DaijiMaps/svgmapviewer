@@ -4,7 +4,7 @@
 import { createStore } from '@xstate/store'
 import { useSelector } from '@xstate/store/react'
 import { number, option, readonlyArray } from 'fp-ts'
-import { pipe } from 'fp-ts/lib/function'
+import { pipe } from 'fp-ts/function'
 import { none, some } from 'fp-ts/lib/Option'
 import { useMemo } from 'react'
 import { useLayoutSvgScaleS, useSvgRange } from '../../style-xstate'

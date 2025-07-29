@@ -4,7 +4,7 @@ import {
   readonlyArray as ReadonlyArray,
   readonlyMap as ReadonlyMap,
 } from 'fp-ts'
-import { pipe } from 'fp-ts/lib/function'
+import { pipe } from 'fp-ts/function'
 import { type Touch } from 'react'
 //import { type ReadonlyDeep } from 'type-fest'
 import { isUndefined } from '../utils'

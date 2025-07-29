@@ -1,6 +1,6 @@
 //// boxTransform
 
-import { pipe } from 'fp-ts/lib/function'
+import { pipe } from 'fp-ts/function'
 import { apply, type Matrix } from '../matrix'
 import { type Box, mapF } from './main'
 import { fromTlBr, tlBrFromB, tlBrToB, toTlBr } from './tlbr'
