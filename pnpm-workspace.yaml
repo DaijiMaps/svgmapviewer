@@ -1,5 +1,4 @@
 packages:
   - packages/app
+  - packages/example
   - packages/lib
-overrides:
-  '@daijimaps/svgmapviewer': link:packages/lib
