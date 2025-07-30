@@ -11,6 +11,7 @@
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "declaration": true,
+    "declarationDir": "./dist-types",
     "isolatedDeclarations": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",

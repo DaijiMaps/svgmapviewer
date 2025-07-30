@@ -1,7 +1,7 @@
 {
   "name": "svgmapviewer",
   "type": "module",
-  "version": "0.0.2-alpha.1",
+  "version": "0.0.2-alpha.2",
   "keywords": [
     "SVG",
     "map",
@@ -19,6 +19,7 @@
     "./map": "./dist/map.js",
     "./matrix": "./dist/matrix.js",
     "./search": "./dist/search.js",
+    "./search-worker": "./dist/search-worker.js",
     "./tuple": "./dist/tuple.js",
     "./vec": "./dist/vec.js"
   },
