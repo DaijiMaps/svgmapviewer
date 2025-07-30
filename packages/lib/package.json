@@ -1,7 +1,7 @@
 {
   "name": "svgmapviewer",
   "type": "module",
-  "version": "0.0.2-alpha.2",
+  "version": "0.0.2-alpha.3",
   "keywords": [
     "SVG",
     "map",
@@ -11,17 +11,17 @@
   "license": "ISC",
   "exports": {
     ".": "./dist/index.js",
-    "./box": "./dist/box.js",
-    "./carto": "./dist/carto.js",
-    "./carto-objects": "./dist/carto-objects.js",
-    "./carto-symbols": "./dist/carto-symbols.js",
-    "./geo": "./dist/geo.js",
-    "./map": "./dist/map.js",
-    "./matrix": "./dist/matrix.js",
-    "./search": "./dist/search.js",
-    "./search-worker": "./dist/search-worker.js",
-    "./tuple": "./dist/tuple.js",
-    "./vec": "./dist/vec.js"
+    "./box": "./dist/box/index.js",
+    "./carto": "./dist/carto/index.js",
+    "./carto-objects": "./dist/carto-objects/index.js",
+    "./carto-symbols": "./dist/carto-symbols/index.js",
+    "./geo": "./dist/geo/index.js",
+    "./map": "./dist/map/index.js",
+    "./matrix": "./dist/matrix/index.js",
+    "./search": "./dist/search/index.js",
+    "./search-worker": "./dist/search-worker/index.js",
+    "./tuple": "./dist/tuple/index.js",
+    "./vec": "./dist/vec/index.js"
   },
   "types": "./dist/index.d.ts",
   "files": [
