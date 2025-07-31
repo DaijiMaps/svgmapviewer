@@ -2,53 +2,14 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="300mm"
-   height="400mm"
-   viewBox="0 0 300 400"
+   width="200mm"
+   height="310mm"
+   viewBox="0 0 200 310"
    version="1.1"
    id="svg1"
-   inkscape:version="1.4.2 (1:1.4.2+202505120737+ebf0e940d0)"
-   sodipodi:docname="1f.inkscape.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
-     id="namedview1"
-     pagecolor="#cccccc"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     inkscape:document-units="mm"
-     showgrid="true"
-     inkscape:zoom="0.74810937"
-     inkscape:cx="461.16252"
-     inkscape:cy="858.16329"
-     inkscape:window-width="2560"
-     inkscape:window-height="1363"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="g2">
-    <inkscape:grid
-       id="grid1"
-       units="mm"
-       originx="0"
-       originy="0"
-       spacingx="10"
-       spacingy="10"
-       empcolor="#0099e5"
-       empopacity="0.30196078"
-       color="#0099e5"
-       opacity="0.14901961"
-       empspacing="5"
-       enabled="true"
-       visible="true" />
-  </sodipodi:namedview>
   <defs
      id="defs1">
     <symbol
@@ -229,9 +190,8 @@
     </symbol>
   </defs>
   <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-50,-40)">
     <path
        style="fill:#ffffff;stroke-width:0.1"
        d="m 50,50 h 150 v 100 h 50 V 350 H 100 V 300 H 50 Z"
@@ -240,44 +200,39 @@
        id="g2">
       <path
          style="fill:#e5ff80;stroke-width:0.1"
-         d="m 50,60 30,0 v 40 H 50 Z"
-         id="path2"
-         sodipodi:nodetypes="ccccc" />
+         d="m 50,60 h 30 v 40 H 50 Z"
+         id="path2" />
       <path
          style="fill:#e5ff80;stroke-width:0.1"
-         d="m 50,110 h 30 v 40 h -30 z"
-         id="path3"
-         sodipodi:nodetypes="ccccc" />
+         d="m 50,110 h 30 v 40 H 50 Z"
+         id="path3" />
       <path
          style="fill:#e5ff80;stroke-width:0.1"
-         d="m 50,160 h 30 v 40 h -30 z"
-         id="path4"
-         sodipodi:nodetypes="ccccc" />
+         d="m 50,160 h 30 v 40 H 50 Z"
+         id="path4" />
       <path
          style="fill:#e5ff80;stroke-width:0.1"
-         d="m 110,60 80,0 L 190,160 h 50 L 240,200 H 110 Z"
+         d="m 110,60 h 80 v 100 h 50 v 40 H 110 Z"
          id="path5" />
       <path
          style="fill:#87de87;stroke-width:0.1"
-         d="m 50,210 h 30 v 80 h -30 z"
-         id="path6"
-         sodipodi:nodetypes="ccccc" />
+         d="m 50,210 h 30 v 80 H 50 Z"
+         id="path6" />
       <path
          style="fill:#80e5ff;stroke-width:0.1"
-         d="m 110,300 v 40 l 130,0 v -40 z"
+         d="m 110,300 v 40 h 130 v -40 z"
          id="path7" />
       <path
          style="fill:#80e5ff;stroke-width:0.1"
-         d="M 200,250 240,250 v 20 h -40 z"
+         d="m 200,250 h 40 v 20 h -40 z"
          id="path8" />
       <path
          style="fill:#80e5ff;stroke-width:0.1"
-         d="m 180,220 0,50 -70,0 v -50 z"
-         id="path9"
-         sodipodi:nodetypes="ccccc" />
+         d="m 180,220 v 50 h -70 v -50 z"
+         id="path9" />
       <path
          style="fill:#80e5ff;stroke-width:0.1"
-         d="m 200,220 h 40 v 20 l -40,0 z"
+         d="m 200,220 h 40 v 20 h -40 z"
          id="path10" />
     </g>
     <g

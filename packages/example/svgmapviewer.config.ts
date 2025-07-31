@@ -1,13 +1,13 @@
 import { SvgMapViewerConfigUser } from 'svgmapviewer'
 import { RenderFloors as renderMap, isFloorsRendered as isMapRendered } from 'svgmapviewer/map'
-import floor1f from './1f.inkscape.svg'
-import floor2f from './2f.inkscape.svg'
+import floor1f from './1f.svg'
+import floor2f from './2f.svg'
 
 const origViewBox = {
   x: 0,
   y: 0,
-  width: 1000,
-  height: 1000,
+  width: 200,
+  height: 310,
 }
 
 const userConfig: SvgMapViewerConfigUser = {
