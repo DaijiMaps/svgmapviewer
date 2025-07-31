@@ -21,8 +21,8 @@ importers:
         specifier: ^19.1.1
         version: 19.1.1(react@19.1.1)
       svgmapviewer:
-        specifier: 0.0.2-alpha.4
-        version: 0.0.2-alpha.4
+        specifier: 0.0.2-alpha.5
+        version: 0.0.2-alpha.5
       xstate:
         specifier: ^5.20.1
         version: 5.20.1
@@ -195,8 +195,8 @@ packages:
   scheduler@0.26.0:
     resolution: {integrity: sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==}
 
-  svgmapviewer@0.0.2-alpha.4:
-    resolution: {integrity: sha512-2Eo7uIAuZuSQWfLF/TITZfkLYipuQuU0Q+fQouhREp2YxmKzFv0GKEz+Tn91/I3FZXK8bciDF6UsIQtDMz5duw==}
+  svgmapviewer@0.0.2-alpha.5:
+    resolution: {integrity: sha512-/v/WQ7dKF5F5RO39WPDNVRYwAsSdb1s2ztaRe1aSZj0Jz9E8D31VOOISRYrcxFdxpqoJT47iJOkb+LJxTlG1wA==}
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
@@ -386,7 +386,7 @@ snapshots:
 
   scheduler@0.26.0: {}
 
-  svgmapviewer@0.0.2-alpha.4:
+  svgmapviewer@0.0.2-alpha.5:
     dependencies:
       '@xstate/react': 6.0.0(react@19.1.1)(xstate@5.20.1)
       '@xstate/store': 3.8.3(react@19.1.1)

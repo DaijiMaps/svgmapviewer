@@ -16,7 +16,7 @@
     "flatbush": "^4.4.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "svgmapviewer": "0.0.2-alpha.4",
+    "svgmapviewer": "^0.0.2-alpha.5",
     "xstate": "^5.20.1"
   },
   "devDependencies": {
