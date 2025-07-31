@@ -306,7 +306,7 @@
          xlink:href="#AigaSymbols.svg:Elevator_Inv"
          style="fill:#000000;stroke:#000000"
          id="use2"
-         transform="matrix(0.25,0,0,0.25,180,40)" />
+         transform="matrix(0.25,0,0,0.25,180,55)" />
       <use
          xlink:href="#AigaSymbols.svg:Information_Inv"
          style="fill:#000000;stroke:#000000"

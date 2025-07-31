@@ -34,6 +34,7 @@ const style = `
 
   transform-origin: 100% 50%;
   transform: translateY(calc(-50% + 50vh));
+  transform: translateY(calc(-50% + 50svh));
 }
 
 .left {

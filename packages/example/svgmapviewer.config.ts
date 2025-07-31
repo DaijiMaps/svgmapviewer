@@ -7,7 +7,7 @@ const origViewBox = {
   x: 0,
   y: 0,
   width: 200,
-  height: 310,
+  height: 300,
 }
 
 const userConfig: SvgMapViewerConfigUser = {
