@@ -3,22 +3,18 @@ import { RenderFloors as renderMap, isFloorsRendered as isMapRendered } from 'sv
 import floor1f from './1f.svg'
 import floor2f from './2f.svg'
 
-const origViewBox = {
-  x: 0,
-  y: 0,
-  width: 200,
-  height: 300,
-}
-
-const userConfig: SvgMapViewerConfigUser = {
-  title: 'Example Floor Map',
-  zoomFactor: 2,
+const mapConfig: SvgMapViewerConfigUser = {
   cartoConfig: {
     backgroundColor: 'grey',
   },
   renderMap,
   isMapRendered,
-  origViewBox,
+  origViewBox : {
+    x: 0,
+    y: 0,
+    width: 200,
+    height: 300,
+  },
   floorsConfig: {
     floors: [
       { name: "1F", href: floor1f },
@@ -28,4 +24,4 @@ const userConfig: SvgMapViewerConfigUser = {
   },
 }
 
-export default userConfig
+export default mapConfig
