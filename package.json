@@ -13,12 +13,9 @@
     "*.{ts,tsx}": "eslint --fix",
     "*": "prettier --write --cache --ignore-unknown"
   },
-  "dependencies": {
-    "@daijimaps/svgmapviewer": "link:packages/lib"
-  },
   "pnpm": {
     "updateConfig": {
-      "ignoreDependencies": ["@types/node"]
+      "ignoreDependencies": ["@types/node", "typescript"]
     }
   }
 }
