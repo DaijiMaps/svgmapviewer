@@ -7,7 +7,7 @@ import { useFloors } from '../viewer/floors-xstate'
 export function Floors(): ReactNode {
   const { fidx, fidxToOnClick } = useFloors()
   const floorsConfig = svgMapViewerConfig.floorsConfig
-  if (floorsConfig === undefined) {
+  if (floorsConfig === undefined || floorsConfig.floors.length < 2) {
     return <></>
   }
   return (
