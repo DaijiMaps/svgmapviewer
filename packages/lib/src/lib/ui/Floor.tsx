@@ -7,10 +7,9 @@ import { useFloors } from '../viewer/floors-xstate'
 export function Floors(): ReactNode {
   const { fidx, fidxToOnClick } = useFloors()
   const floorsConfig = svgMapViewerConfig.floorsConfig
-  if (floorsConfig === undefined || floorsConfig.floors.length < 2) {
-    return <></>
-  }
-  return (
+  return floorsConfig === undefined || floorsConfig.floors.length < 2 ? (
+    <></>
+  ) : (
     <div className="floors">
       <ul className="floor-list">
         {floorsConfig.floors.map(({ name }, idx) => (
@@ -63,10 +62,9 @@ const floorsStyle = `
 export function FloorName(): ReactNode {
   const { fidx } = useFloors()
   const floorsConfig = svgMapViewerConfig.floorsConfig
-  if (floorsConfig === undefined) {
-    return <></>
-  }
-  return (
+  return floorsConfig === undefined ? (
+    <></>
+  ) : (
     <div>
       {floorsConfig.floors.map((floor, idx) => (
         <h2 key={idx} className={`floor-name ${s(idx === fidx)}`}>
