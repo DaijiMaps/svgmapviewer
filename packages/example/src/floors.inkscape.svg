@@ -33,7 +33,7 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g2">
+     inkscape:current-layer="layer2">
     <inkscape:grid
        id="grid1"
        units="mm"
@@ -229,7 +229,7 @@
     </symbol>
   </defs>
   <g
-     inkscape:label="Layer 1"
+     inkscape:label="1F"
      inkscape:groupmode="layer"
      id="layer1">
     <path
@@ -293,11 +293,6 @@
          id="use1-6"
          transform="matrix(0.25,0,0,0.25,55,190)" />
       <use
-         xlink:href="#AigaSymbols.svg:Elevator_Inv"
-         style="fill:#000000;stroke:#000000"
-         id="use1-2"
-         transform="matrix(0.25,0,0,0.25,230,280)" />
-      <use
          xlink:href="#AigaSymbols.svg:Toilets_Inv"
          style="fill:#000000;stroke:#000000"
          id="use1-5"
@@ -312,6 +307,94 @@
          style="fill:#000000;stroke:#000000"
          id="use1-29"
          transform="matrix(0.25,0,0,0.25,180,190)" />
+    </g>
+  </g>
+  <g
+     inkscape:label="2F"
+     inkscape:groupmode="layer"
+     id="layer2"
+     style="display:inline">
+    <path
+       style="fill:#ffffff;stroke-width:0.1"
+       d="m 50,50 h 150 v 100 h 50 V 300 H 50 Z"
+       id="path1-5"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       style="fill:none;stroke:none;stroke-width:0.1"
+       d="m 100,300 h 150 v 50 H 100 Z"
+       id="path11" />
+    <g
+       id="g2-6">
+      <path
+         style="fill:#de8787;stroke-width:0.1"
+         d="m 50,60 h 30 v 40 H 50 Z"
+         id="path2-2"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:#de8787;stroke-width:0.1"
+         d="m 50,110 h 30 v 40 H 50 Z"
+         id="path3-9"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:#de8787;stroke-width:0.1"
+         d="m 50,160 h 30 v 40 H 50 Z"
+         id="path4-1"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:#de8787;stroke-width:0.1"
+         d="m 110,60 h 80 v 90 h -80 z"
+         id="path5-2"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:#ccff00;stroke-width:0.1"
+         d="m 50,210 h 30 v 80 H 50 Z"
+         id="path6-7"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:#00aad4;stroke-width:0.1"
+         d="m 200,250 h 40 v 20 h -40 z"
+         id="path8-0" />
+      <path
+         style="fill:#d4aa00;stroke-width:0.1"
+         d="M 180,160 V 270 H 110 V 160 Z"
+         id="path9-9"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:#00aad4;stroke-width:0.1"
+         d="m 200,220 h 40 v 20 h -40 z"
+         id="path10-3" />
+      <path
+         style="fill:#00aad4;stroke-width:0.1"
+         d="m 200,160 h 40 v 20 h -40 z"
+         id="path7-6" />
+    </g>
+    <g
+       id="g3">
+      <use
+         xlink:href="#AigaSymbols.svg:Escalator_Inv"
+         style="fill:#000000;stroke:#000000"
+         id="use1-0"
+         transform="matrix(0.25,0,0,0.25,140,280)" />
+      <use
+         xlink:href="#AigaSymbols.svg:Stairs_Inv"
+         style="fill:#000000;stroke:#000000"
+         id="use1-6-6"
+         transform="matrix(0.25,0,0,0.25,55,190)" />
+      <use
+         xlink:href="#AigaSymbols.svg:Toilets_Inv"
+         style="fill:#000000;stroke:#000000"
+         id="use1-5-6"
+         transform="matrix(0.25,0,0,0.25,55,280)" />
+      <use
+         xlink:href="#AigaSymbols.svg:Elevator_Inv"
+         style="fill:#000000;stroke:#000000"
+         id="use1-2"
+         transform="matrix(0.25,0,0,0.25,230,280)" />
+      <use
+         xlink:href="#AigaSymbols.svg:Elevator_Inv"
+         style="fill:#000000;stroke:#000000"
+         id="use5"
+         transform="matrix(0.25,0,0,0.25,180,55)" />
     </g>
   </g>
 </svg>
