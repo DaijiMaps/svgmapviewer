@@ -17,12 +17,17 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "svgmapviewer": "0.0.2-alpha.5",
-    "xstate": "^5.20.1"
+    "xstate": "^5.20.2"
   },
   "devDependencies": {
-    "@rsbuild/core": "^1.4.12",
-    "@vitejs/plugin-react": "^4.7.0",
+    "@rsbuild/core": "^1.4.15",
+    "@vitejs/plugin-react": "^5.0.0",
     "typescript": "^5.8.3",
-    "vite": "^7.0.6"
+    "vite": "^7.1.1"
+  },
+  "pnpm": {
+    "updateConfig": {
+      "ignoreDependencies": ["@types/node", "typescript"]
+    }
   }
 }

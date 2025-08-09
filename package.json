@@ -12,10 +12,5 @@
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
     "*": "prettier --write --cache --ignore-unknown"
-  },
-  "pnpm": {
-    "updateConfig": {
-      "ignoreDependencies": ["@types/node", "typescript"]
-    }
   }
 }
