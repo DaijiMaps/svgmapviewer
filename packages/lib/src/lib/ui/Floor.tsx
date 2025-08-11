@@ -62,7 +62,7 @@ const floorsStyle = `
 export function FloorName(): ReactNode {
   const { fidx } = useFloors()
   const floorsConfig = svgMapViewerConfig.floorsConfig
-  return floorsConfig === undefined ? (
+  return floorsConfig === undefined || floorsConfig.floors.length < 2 ? (
     <></>
   ) : (
     <div>
