@@ -1,7 +1,7 @@
 {
   "name": "svgmapviewer-app",
   "type": "module",
-  "version": "0.0.2-alpha.5",
+  "version": "0.0.2-alpha.6",
   "keywords": [
     "SVG",
     "map",
@@ -18,10 +18,7 @@
   ],
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "tsc -b && tsdown",
-    "build:dev": "tsc -b && tsdown --sourcemap",
-    "build:prod": "tsc -b && tsdown",
-    "build:watch": "tsdown --watch --sourcemap",
+    "build": "tsc -b && rslib build",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest --workspace=vitest.workspace.ts --project unit",
@@ -33,19 +30,20 @@
     "@xstate/react": "^6.0.0",
     "@xstate/store": "^3.8.5",
     "clsx": "^2.1.1",
-    "flatbush": "^4.4.1",
+    "flatbush": "^4.5.0",
     "fp-ts": "^2.16.10",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "svgmapviewer": "0.0.2-alpha.5",
+    "svgmapviewer": "0.0.2-alpha.8",
     "type-fest": "^4.41.0",
     "xstate": "^5.20.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@rslib/core": "^0.11.2",
     "@testing-library/react": "^16.3.0",
-    "@types/node": "^22.15.33",
-    "@types/react": "^19.1.9",
+    "@types/node": "^24.2.1",
+    "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@unocss/vite": "^66.4.2",
     "@vitejs/plugin-react": "^5.0.0",
@@ -61,17 +59,17 @@
     "globals": "^16.3.0",
     "monocle-ts": "^2.3.13",
     "newtype-ts": "^0.3.5",
-    "oxlint": "^1.11.1",
+    "oxlint": "^1.11.2",
     "playwright": "^1.54.2",
     "prettier": "3.6.2",
     "prettier-plugin-organize-imports": "^4.2.0",
-    "rolldown": "1.0.0-beta.31",
-    "tsdown": "^0.13.4",
+    "rolldown": "1.0.0-beta.32",
+    "tsdown": "^0.14.1",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.39.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.39.1",
     "unocss": "^66.4.2",
-    "vite": "npm:rolldown-vite@^7.1.0",
+    "vite": "npm:rolldown-vite@^7.1.2",
     "vite-plugin-circular-dependency": "^0.5.0",
     "vite-plugin-dts": "^4.5.4",
     "vite-plugin-lib-inject-css": "^2.2.2",
@@ -80,7 +78,10 @@
   },
   "pnpm": {
     "updateConfig": {
-      "ignoreDependencies": ["@types/node", "typescript"]
+      "ignoreDependencies": [
+        "@types/node",
+        "typescript"
+      ]
     }
   }
 }
