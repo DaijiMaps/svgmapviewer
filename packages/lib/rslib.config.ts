@@ -10,7 +10,7 @@ export default defineConfig({
   ],
   source: {
     entry: {
-      'index': 'src/index.ts',
+      index: 'src/index.ts',
       'lib/box/prefixed/index': 'src/lib/box/prefixed/index.ts',
       'lib/carto/index': 'src/lib/carto/index.ts',
       'lib/carto/objects/index': 'src/lib/carto/objects/index.ts',
