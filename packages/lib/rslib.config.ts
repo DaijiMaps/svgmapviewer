@@ -17,6 +17,7 @@ export default defineConfig({
       'lib/carto/symbols/index': 'src/lib/carto/symbols/index.ts',
       'lib/geo/index': 'src/lib/geo/index.ts',
       'lib/map/index': 'src/lib/map/index.ts',
+      'lib/map/floors/index': 'src/lib/map/floors/index.ts',
       'lib/matrix/prefixed/index': 'src/lib/matrix/prefixed/index.ts',
       'lib/search/index': 'src/lib/search/index.ts',
       'lib/tuple/index': 'src/lib/box/index.ts',

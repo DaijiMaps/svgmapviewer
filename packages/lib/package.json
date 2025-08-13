@@ -1,7 +1,7 @@
 {
   "name": "svgmapviewer",
   "type": "module",
-  "version": "0.0.2-alpha.8",
+  "version": "0.0.2-alpha.9",
   "keywords": [
     "SVG",
     "map",
@@ -17,6 +17,7 @@
     "./carto-symbols": "./dist/lib/carto/symbols/index.js",
     "./geo": "./dist/lib/geo/index.js",
     "./map": "./dist/lib/map/index.js",
+    "./map-floors": "./dist/lib/map/floors/index.js",
     "./matrix": "./dist/lib/matrix/prefixed/index.js",
     "./search": "./dist/lib/search/index.js",
     "./search-worker": "./dist/search-worker.js",
