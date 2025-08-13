@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "rsbuild --port 5173 --host 0.0.0.0",
+    "dev": "rsbuild",
+    "dev:local": "rsbuild --config rsbuild.config-local.ts",
     "build": "vite build"
   },
   "keywords": [],
@@ -16,7 +17,7 @@
     "flatbush": "^4.5.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "svgmapviewer": "0.0.2-alpha.8",
+    "svgmapviewer": "0.0.2-alpha.9",
     "xstate": "^5.20.2"
   },
   "devDependencies": {

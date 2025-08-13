@@ -1,5 +1,5 @@
 import { SvgMapViewerConfigUser } from 'svgmapviewer'
-import { RenderFloors as renderMap, isFloorsRendered as isMapRendered } from 'svgmapviewer/map'
+import { RenderFloors as renderMap, isFloorsRendered as isMapRendered } from 'svgmapviewer/map-floors'
 import floor1f from './1f.svg'
 import floor2f from './2f.svg'
 

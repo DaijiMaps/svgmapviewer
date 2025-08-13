@@ -49,6 +49,10 @@ export default defineConfig({
         __dirname,
         `${LIB}/map/index.ts`
       ),
+      'svgmapviewer/map-floors': path.resolve(
+        __dirname,
+        `${LIB}/map/floors/index.ts`
+      ),
       'svgmapviewer/matrix': path.resolve(
         __dirname,
         `${LIB}/matrix/prefixed/index.ts`
