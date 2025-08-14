@@ -7,12 +7,13 @@ export default defineConfig({
     {
       format: 'esm',
       syntax: 'esnext',
+      bundle: false,
       dts: { bundle: false, distPath: './dist' },
     },
   ],
   source: {
     entry: {
-      'index': 'src/index.ts',
+      'index': ['src/**/*.ts', '!src/**/*.test.ts'],
     },
     tsconfigPath: './tsconfig.app.json',
   },
