@@ -12,7 +12,7 @@ import {
   balloonStyle,
   type BalloonSize,
   type LegLayout,
-} from './balloon'
+} from './balloon-common'
 import { openCloseIsVisible } from './openclose'
 import { useOpenCloseDetail } from './ui-xstate'
 

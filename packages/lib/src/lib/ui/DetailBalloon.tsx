@@ -5,7 +5,7 @@ import { RenderMapAssetsDefault } from '../carto/assets'
 import { useShadowRoot } from '../dom'
 import { Balloon, DetailBalloonStyle } from './Balloon'
 import { Detail } from './Detail'
-import { calcBalloonLayout } from './balloon'
+import { calcBalloonLayout } from './balloon-common'
 import { useDetail } from './ui-xstate'
 
 export function DetailBalloon(): ReactNode {
