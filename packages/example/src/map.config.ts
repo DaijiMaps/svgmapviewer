@@ -1,5 +1,8 @@
 import { SvgMapViewerConfigUser } from 'svgmapviewer'
-import { RenderFloors as renderMap, isFloorsRendered as isMapRendered } from 'svgmapviewer/map-floors'
+import {
+  isFloorsRendered as isMapRendered,
+  RenderFloors as renderMap,
+} from 'svgmapviewer/map-floors'
 import floor1f from './1f.svg'
 import floor2f from './2f.svg'
 
@@ -9,7 +12,7 @@ const mapConfig: SvgMapViewerConfigUser = {
   },
   renderMap,
   isMapRendered,
-  origViewBox : {
+  origViewBox: {
     x: 0,
     y: 0,
     width: 200,
@@ -17,8 +20,8 @@ const mapConfig: SvgMapViewerConfigUser = {
   },
   floorsConfig: {
     floors: [
-      { name: "1F", href: floor1f },
-      { name: "2F", href: floor2f },
+      { name: '1F', href: floor1f },
+      { name: '2F', href: floor2f },
     ],
     fidx: 0,
   },

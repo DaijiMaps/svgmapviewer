@@ -7,7 +7,7 @@ const userConfig: SvgMapViewerConfigUser = {
   cartoConfig: {
     backgroundColor: 'grey',
   },
-  ...mapConfig
+  ...mapConfig,
 }
 
 export default userConfig
