@@ -75,8 +75,8 @@ importers:
         specifier: ^19.1.1
         version: 19.1.1(react@19.1.1)
       svgmapviewer:
-        specifier: 0.0.2-alpha.12
-        version: 0.0.2-alpha.12(@types/react@19.1.10)
+        specifier: 0.0.2-alpha.13
+        version: 0.0.2-alpha.13(@types/react@19.1.10)
       type-fest:
         specifier: ^4.41.0
         version: 4.41.0
@@ -212,7 +212,7 @@ importers:
         version: 19.1.1(react@19.1.1)
       svgmapviewer:
         specifier: 0.0.2-alpha.12
-        version: 0.0.2-alpha.12(@types/react@19.1.10)
+        version: 0.0.2-alpha.12
       xstate:
         specifier: ^5.20.2
         version: 5.20.2
@@ -3707,6 +3707,9 @@ packages:
 
   svgmapviewer@0.0.2-alpha.12:
     resolution: {integrity: sha512-dvhaqpiijzJdqY8COKaM0AxRZZOaOj1bEFNiRBILw3Xyu0K/IfcvhQP1Bb9+sO++wOHq1fPMdoC462sRmsdR3w==}
+
+  svgmapviewer@0.0.2-alpha.13:
+    resolution: {integrity: sha512-rduYYzhLmHNpkl0lbFgynnhoBDEA9KJZrU1VFCOT2LdPJ2z/Biu7Aov9sl5Z+ptYkrgTjg6QNw2wX8YQtJ3yRg==}
 
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
@@ -7791,7 +7794,22 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  svgmapviewer@0.0.2-alpha.12(@types/react@19.1.10):
+  svgmapviewer@0.0.2-alpha.12:
+    dependencies:
+      '@xstate/react': 6.0.0(@types/react@19.1.10)(react@19.1.1)(xstate@5.20.2)
+      '@xstate/store': 3.8.5(react@19.1.1)
+      clsx: 2.1.1
+      flatbush: 4.5.0
+      fp-ts: 2.16.10
+      react: 19.1.1
+      react-dom: 19.1.1(react@19.1.1)
+      type-fest: 4.41.0
+      xstate: 5.20.2
+    transitivePeerDependencies:
+      - '@types/react'
+      - solid-js
+
+  svgmapviewer@0.0.2-alpha.13(@types/react@19.1.10):
     dependencies:
       '@xstate/react': 6.0.0(@types/react@19.1.10)(react@19.1.1)(xstate@5.20.2)
       '@xstate/store': 3.8.5(react@19.1.1)
