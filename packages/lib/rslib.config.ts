@@ -13,7 +13,7 @@ export default defineConfig({
   ],
   source: {
     entry: {
-      index: ['src/**/*.ts', '!src/**/*.test.ts'],
+      index: ['src/**/*.{ts,tsx}', '!src/**/*.test.*'],
     },
     tsconfigPath: './tsconfig.app.json',
   },
