@@ -9,4 +9,4 @@
 
 ## Demos
 
-https://svgmapviewer.pages.dev/
+https://svgmapviewer2.pages.dev/
