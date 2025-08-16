@@ -53,8 +53,8 @@
   "devDependencies": {
     "@eslint/js": "^9.33.0",
     "@rsbuild/plugin-react": "^1.3.5",
-    "@rslib/core": "^0.12.0",
-    "@rslint/core": "^0.1.10",
+    "@rslib/core": "^0.12.1",
+    "@rslint/core": "^0.1.11",
     "@testing-library/react": "^16.3.0",
     "@types/node": "^24.2.1",
     "@types/react": "^19.1.10",
@@ -89,13 +89,5 @@
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vite-plugin-libcss": "^1.1.2",
     "vitest": "^3.2.4"
-  },
-  "pnpm": {
-    "updateConfig": {
-      "ignoreDependencies": [
-        "@types/node",
-        "typescript"
-      ]
-    }
   }
 }
