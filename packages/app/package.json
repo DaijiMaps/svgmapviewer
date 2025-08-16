@@ -1,6 +1,6 @@
 {
-  "name": "svgmapviewer-app",
   "type": "module",
+  "name": "svgmapviewer-app",
   "version": "0.0.2-alpha.12",
   "keywords": [
     "SVG",
