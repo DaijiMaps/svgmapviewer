@@ -14,7 +14,9 @@ import { Container } from './lib/viewer/Container'
 
 function App(): ReactNode {
   const backgroundColor =
-    svgMapViewerConfig.cartoConfig?.backgroundColor ?? 'darkgray'
+    svgMapViewerConfig.cartoConfig?.backgroundColor ??
+    svgMapViewerConfig.backgroundColor ??
+    'darkgray'
 
   return (
     <>

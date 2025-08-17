@@ -109,6 +109,7 @@ export interface SvgMapViewerConfig extends DataConfig, RenderConfig {
   width: number
   height: number
   fontSize: number
+  backgroundColor?: string
   title: string
   subtitle: string
   copyright: string
