@@ -24,7 +24,9 @@ export function Guides(): ReactNode {
 }
 
 function GuidesContent(): ReactNode {
-  return svgMapViewerConfig.mapCoord.matrix.isIdentity ? (
+  const showGuides = svgMapViewerConfig.uiConfig?.showGuides ?? true
+
+  return !showGuides || svgMapViewerConfig.mapCoord.matrix.isIdentity ? (
     <></>
   ) : (
     <div className="ui-content guides">

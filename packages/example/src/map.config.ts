@@ -7,9 +7,7 @@ import floor1f from './1f.svg'
 import floor2f from './2f.svg'
 
 const mapConfig: SvgMapViewerConfigUser = {
-  cartoConfig: {
-    backgroundColor: 'grey',
-  },
+  backgroundColor: 'grey',
   renderMap,
   isMapRendered,
   origViewBox: {

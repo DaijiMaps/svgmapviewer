@@ -114,10 +114,15 @@ export interface SvgMapViewerConfig extends DataConfig, RenderConfig {
   subtitle: string
   copyright: string
   zoomFactor: number
+  uiConfig?: UiConfig
   cartoConfig?: CartoConfig
   floorsConfig?: FloorsConfig
   isContainerRendered: () => boolean
   isUiRendered: () => boolean
+}
+
+export interface UiConfig {
+  showGuides: boolean
 }
 
 export interface DataConfig {

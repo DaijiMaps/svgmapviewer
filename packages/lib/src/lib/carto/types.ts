@@ -105,4 +105,6 @@ export interface CartoConfig {
 
   skipNamePattern?: RegExp
   splitNamePattern?: RegExp
+
+  filterLabelsByRange?: boolean
 }

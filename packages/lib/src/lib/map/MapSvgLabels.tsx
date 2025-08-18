@@ -21,11 +21,13 @@ export function MapSvgLabels(): ReactNode {
 }
 
 export function MapSvgLabelsContent(): ReactNode {
+  const f = svgMapViewerConfig.cartoConfig?.filterLabelsByRange ?? true
+
   return (
     <>
       <MapSvgLabelsSvg />
       <MapSvgLabelsDefs />
-      <MapSvgLabelsStyleRanges />
+      {f ? <MapSvgLabelsStyleRanges /> : <></>}
       <MapSvgLabelsStyleSizes />
       <style>{style}</style>
     </>
