@@ -65,6 +65,11 @@ export const getMapLayers: () => MapLayer[] = () => [
   },
   {
     type: 'line',
+    name: 'drain',
+    filter: (p) => !!p.waterway?.match(/^(drain)$/),
+  },
+  {
+    type: 'line',
     name: 'stream',
     filter: (p) => !!p.waterway?.match(/^(stream)$/),
   },
@@ -213,7 +218,7 @@ export const getMapLayers: () => MapLayer[] = () => [
     type: 'line',
     name: 'tunnel shadow',
     widthScale: 1.8,
-    filter: (p) => !!p.other_tags?.match(/"tunnel"/),
+    filter: (p) => !!p.highway?.match(/./) && !!p.other_tags?.match(/"tunnel"/),
   },
   {
     type: 'multipolygon',

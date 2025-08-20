@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from 'react'
 import { Like, svgMapViewerConfig } from 'svgmapviewer'
 import { symbolNameMap } from 'svgmapviewer/carto-symbols'
 import {
@@ -5,7 +6,6 @@ import {
   getPropertyValue,
   type OsmProperties,
 } from 'svgmapviewer/geo'
-import { Fragment, type ReactNode } from 'react'
 import { type FacilityInfo, type Info, type ShopInfo } from './info'
 
 export interface Props {

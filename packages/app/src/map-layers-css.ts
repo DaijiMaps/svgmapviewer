@@ -58,6 +58,14 @@ export const mapSvgStyle = `
   stroke-linejoin: round;
 }
 
+.drain {
+  fill: none;
+  stroke: lightblue;
+  stroke-width: 0.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .stream {
   fill: none;
   stroke: lightblue;
