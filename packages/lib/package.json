@@ -31,7 +31,7 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc -b && rslib build",
-    "lint": "eslint .",
+    "lint": "eslint . && oxlint",
     "preview": "vite preview",
     "publish:jsr": "pnpm dlx jsr publish",
     "test": "vitest --workspace=vitest.workspace.ts --project unit",
