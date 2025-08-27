@@ -3,7 +3,7 @@ const config = {
   tabWidth: 2,
   semi: false,
   singleQuote: true,
-  plugins: ['prettier-plugin-organize-imports'],
+  plugins: ['prettier-plugin-organize-imports', '@prettier/plugin-oxc'],
 }
 
 export default config
