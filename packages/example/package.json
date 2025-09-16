@@ -22,11 +22,11 @@
     "xstate": "^5.21.0"
   },
   "devDependencies": {
-    "@rsbuild/core": "^1.5.4",
+    "@rsbuild/core": "^1.5.7",
     "@rsbuild/plugin-react": "^1.4.0",
     "@vitejs/plugin-react": "^5.0.2",
     "typescript": "^5.9.2",
-    "vite": "^7.1.4"
+    "vite": "^7.1.5"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
