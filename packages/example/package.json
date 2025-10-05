@@ -16,17 +16,17 @@
   "dependencies": {
     "@xstate/react": "^6.0.0",
     "flatbush": "^4.5.0",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "svgmapviewer": "0.0.2-alpha.13",
-    "xstate": "^5.22.0"
+    "xstate": "^5.22.1"
   },
   "devDependencies": {
-    "@rsbuild/core": "^1.5.12",
+    "@rsbuild/core": "^1.5.13",
     "@rsbuild/plugin-react": "^1.4.1",
-    "@vitejs/plugin-react": "^5.0.3",
-    "typescript": "^5.9.2",
-    "vite": "^7.1.7"
+    "@vitejs/plugin-react": "^5.0.4",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.9"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
