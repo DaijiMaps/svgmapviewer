@@ -13,14 +13,10 @@ export default defineConfig({
       formats: ['es'],
       name: 'svgmapviewer-app',
     },
-    rollupOptions: {
-      external: ['flatbush', 'react', 'react-dom', 'svgmapviewer', 'xstate', '@xstate/react'],
-      jsx: 'react',
-    },
+    //rollupOptions: {
+    //external: ['flatbush', 'react', 'react-dom', 'svgmapviewer', 'xstate', '@xstate/react'],
+    //jsx: 'react',
+    //},
   },
-  plugins: [
-    react(),
-    UnoCSS(),
-    libCss(),
-  ],
+  plugins: [react(), UnoCSS(), libCss()],
 })

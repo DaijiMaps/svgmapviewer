@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "svgmapviewer-app",
-  "version": "0.0.2-alpha.12",
+  "version": "0.0.2-alpha.13",
   "keywords": [
     "SVG",
     "map",
@@ -34,7 +34,7 @@
     "fp-ts": "^2.16.11",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "svgmapviewer": "0.0.2-alpha.13",
+    "svgmapviewer": "0.0.2-alpha.14",
     "type-fest": "^5.2.0",
     "xstate": "^5.24.0"
   },
