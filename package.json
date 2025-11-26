@@ -30,6 +30,9 @@
         "@types/node",
         "typescript"
       ]
-    }
+    },
+    "onlyBuiltDependencies": [
+      "msw"
+    ]
   }
 }

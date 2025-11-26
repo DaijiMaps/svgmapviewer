@@ -1,3 +1,4 @@
+import { playwright } from '@vitest/browser-playwright'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -5,9 +6,8 @@ export default defineConfig({
     name: 'node',
     environment: 'jsdom',
     browser: {
-      provider: 'playwright',
-      enabled: true,
-      name: 'chromium',
+      provider: playwright(),
+      instances: [{ browser: 'chromium' }],
     },
   },
 })
