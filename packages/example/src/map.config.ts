@@ -3,8 +3,8 @@ import {
   isFloorsRendered as isMapRendered,
   RenderFloors as renderMap,
 } from 'svgmapviewer/map-floors'
-import floor1f from './1f.svg'
-import floor2f from './2f.svg'
+import floor1f from './assets/1f.svg'
+import floor2f from './assets/2f.svg'
 
 const mapConfig: SvgMapViewerConfigUser = {
   backgroundColor: 'grey',
