@@ -3,8 +3,7 @@ import {
   isFloorsRendered as isMapRendered,
   RenderFloors as renderMap,
 } from 'svgmapviewer/map-floors'
-import floor1f from './assets/1f.svg'
-import floor2f from './assets/2f.svg'
+import { floorsConfig } from './floors.config.ts'
 
 const mapConfig: SvgMapViewerConfigUser = {
   backgroundColor: 'grey',
@@ -16,13 +15,7 @@ const mapConfig: SvgMapViewerConfigUser = {
     width: 200,
     height: 300,
   },
-  floorsConfig: {
-    floors: [
-      { name: '1F', href: floor1f },
-      { name: '2F', href: floor2f },
-    ],
-    fidx: 0,
-  },
+  floorsConfig,
 }
 
 export default mapConfig
