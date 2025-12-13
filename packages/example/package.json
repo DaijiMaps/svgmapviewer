@@ -1,13 +1,13 @@
 {
-  "type": "module",
   "name": "svgmapviewer-example",
+  "type": "module",
   "version": "0.0.1-alpha",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "rsbuild dev",
-    "dev:local": "rsbuild --config rsbuild.config-local.ts dev",
-    "build": "vite build"
+    "dev": "rsbuild",
+    "dev:local": "rsbuild --config rsbuild.config-local.ts",
+    "build": "rsbuild build"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +24,7 @@
   "devDependencies": {
     "@rsbuild/core": "^1.6.14",
     "@rsbuild/plugin-react": "^1.4.2",
+    "@types/node": "^25.0.1",
     "@vitejs/plugin-react": "^5.1.2",
     "typescript": "^5.9.3",
     "vite": "^7.2.7"
