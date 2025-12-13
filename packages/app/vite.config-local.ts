@@ -48,10 +48,7 @@ export default defineConfig({
         __dirname,
         '../lib/src/lib/vec/prefixed/index.ts'
       ),
-      '@daijimaps/svgmapviewer': path.resolve(
-        __dirname,
-        '../lib/src/index.ts'
-      ),
+      '@daijimaps/svgmapviewer': path.resolve(__dirname, '../lib/src/index.ts'),
     },
   },
 })

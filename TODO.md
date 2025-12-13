@@ -29,4 +29,3 @@
 - xstate: use only actor-ref (useActorRef)
   - use ref.subscribe()
   - don't use state (ref.getSnapshot())
-
