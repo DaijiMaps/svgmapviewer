@@ -22,19 +22,19 @@ import { svgmapviewer } from './main'
 import { useLayout, useLayout2 } from './style-xstate'
 import {
   type DataConfig,
+  type Floor,
   type FloorsConfig,
   type Info,
+  type RenderAssets,
   type RenderConfig,
+  type RenderInfo,
   type RenderMap,
   type SearchReq,
   type SearchRes,
   type SvgMapViewerConfig,
   type SvgMapViewerConfigUser,
+  type UiConfig,
 } from './types'
-
-// types
-
-export { type Info, type RenderMap, type SearchReq, type SearchRes }
 
 // svgmapviewer
 
@@ -57,14 +57,22 @@ export {
   notifyZoomStart,
 }
 
-// svgmapviewer
+// types
 
 export {
   type DataConfig,
+  type Floor,
   type FloorsConfig,
+  type Info,
+  type RenderAssets,
   type RenderConfig,
+  type RenderInfo,
+  type RenderMap,
+  type SearchReq,
+  type SearchRes,
   type SvgMapViewerConfig,
   type SvgMapViewerConfigUser,
+  type UiConfig,
 }
 
 export { svgmapviewer }
