@@ -55,6 +55,13 @@ export interface MapMap {
   multipolygonMap: MultiPolygonMap
 }
 
+export const emptyMapMap: MapMap = {
+  pointMap: new Map(),
+  lineMap: new Map(),
+  multilinestringMap: new Map(),
+  multipolygonMap: new Map(),
+}
+
 ////
 
 export interface MeasureProperties {
@@ -65,4 +72,8 @@ export interface MeasureProperties {
 
 export interface MapCoord {
   matrix: DOMMatrixReadOnly
+}
+
+export const emptyMapCoord: MapCoord = {
+  matrix: new DOMMatrixReadOnly(),
 }
