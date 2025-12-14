@@ -13,20 +13,31 @@ import {
   MAP_SVG_LABELS_ROOT_ID,
 } from './map-svg-react'
 import { useNameRanges, useNames } from './names'
+import type { DataConfig, RenderConfig } from '../../types'
 
-export function MapSvgLabels(): ReactNode {
-  useShadowRoot(MAP_SVG_LABELS_ROOT_ID, <MapSvgLabelsContent />)
+export function MapSvgLabels(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
+  useShadowRoot(MAP_SVG_LABELS_ROOT_ID, <MapSvgLabelsContent {...props} />)
 
   return <div id={MAP_SVG_LABELS_ROOT_ID} className="content svg" />
 }
 
-export function MapSvgLabelsContent(): ReactNode {
+export function MapSvgLabelsContent(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
+  // XXX
+  // XXX
+  // XXX
   const f = svgMapViewerConfig.cartoConfig?.filterLabelsByRange ?? true
+  // XXX
+  // XXX
+  // XXX
 
   return (
     <>
       <MapSvgLabelsSvg />
-      <MapSvgLabelsDefs />
+      <MapSvgLabelsDefs {...props} />
       {f ? <MapSvgLabelsStyleRanges /> : <></>}
       <MapSvgLabelsStyleSizes />
       <style>{style}</style>
@@ -48,9 +59,11 @@ text, tspan {
 }
 `
 
-function MapSvgLabelsUses(): ReactNode {
+function MapSvgLabelsUses(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
   const { pointNames, areaNames } = useNames()
-  const m = svgMapViewerConfig.mapCoord.matrix
+  const m = props.data.mapCoord.matrix
 
   return (
     <g id="map-svg-labels1">
@@ -148,7 +161,9 @@ function MapSvgLabelsSvg(): ReactNode {
   )
 }
 
-function MapSvgLabelsDefs(): ReactNode {
+function MapSvgLabelsDefs(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
   const { pointNames, areaNames } = useNames()
 
   return (
@@ -168,7 +183,7 @@ function MapSvgLabelsDefs(): ReactNode {
             </Fragment>
           ))}
         </g>
-        <MapSvgLabelsUses />
+        <MapSvgLabelsUses {...props} />
       </defs>
     </svg>
   )
