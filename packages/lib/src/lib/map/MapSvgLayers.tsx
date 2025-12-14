@@ -1,7 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig } from '../../config'
 import { useLayout } from '../../style-xstate'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapLayers } from '../carto'
@@ -11,18 +10,23 @@ import {
   MAP_SVG_LAYERS_CONTENT_ID,
   MAP_SVG_LAYERS_ROOT_ID,
 } from './map-svg-react'
+import type { DataConfig, RenderConfig } from '../../types'
 
-export function MapSvgLayers(): ReactNode {
-  useShadowRoot(MAP_SVG_LAYERS_ROOT_ID, <MapSvgLayersContent />)
+export function MapSvgLayers(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
+  useShadowRoot(MAP_SVG_LAYERS_ROOT_ID, <MapSvgLayersContent {...props} />)
 
   return <div id={MAP_SVG_LAYERS_ROOT_ID} className="content svg" />
 }
 
-export function MapSvgLayersContent(): ReactNode {
+export function MapSvgLayersContent(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
   return (
     <>
       <MapSvgLayersSvg />
-      <MapSvgLayersDefs />
+      <MapSvgLayersDefs {...props} />
       <style>{style}</style>
     </>
   )
@@ -54,18 +58,18 @@ function MapSvgLayersSvg(): ReactNode {
   )
 }
 
-function MapSvgLayersDefs(): ReactNode {
-  const cfg = svgMapViewerConfig
-
+function MapSvgLayersDefs(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
   return (
     <svg id="map-svg-defs" viewBox="0 0 1 1">
       <defs>
-        <g id={cfg.map} className="map">
+        <g id={props.render.map} className="map">
           <RenderMapLayers
-            m={svgMapViewerConfig.mapCoord.matrix}
-            mapLayers={cfg.getMapLayers()}
+            m={props.data.mapCoord.matrix}
+            mapLayers={props.render.getMapLayers()}
           />
-          <style>{cfg.mapSvgStyle}</style>
+          <style>{props.render.mapSvgStyle}</style>
         </g>
       </defs>
       <style>

@@ -47,7 +47,16 @@ export function Container(): ReactNode {
         styleAnimationEnd()
       }}
     >
-      {svgMapViewerConfig.renderMap()}
+      {svgMapViewerConfig.renderMap({
+        // XXX
+        // XXX
+        // XXX
+        data: svgMapViewerConfig,
+        render: svgMapViewerConfig,
+        // XXX
+        // XXX
+        // XXX
+      })}
       <style>{style}</style>
       <ContentStyle />
       <AnimationStyle />

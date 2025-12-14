@@ -96,7 +96,12 @@ export type GeoLocDoneCb = (position: GeolocationPosition) => void
 
 export type RenderAssets = () => ReactNode
 
-export type RenderMap = () => ReactNode
+export type RenderMap = (
+  props: Readonly<{
+    data: Readonly<DataConfig>
+    render: Readonly<RenderConfig>
+  }>
+) => ReactNode
 
 export type RenderInfo = (props: Readonly<{ info: Info }>) => ReactNode
 
@@ -104,7 +109,6 @@ export type RenderInfo = (props: Readonly<{ info: Info }>) => ReactNode
 
 export interface SvgMapViewerConfig extends DataConfig, RenderConfig {
   root: string
-  map: string
   href: string
   width: number
   height: number
@@ -133,6 +137,7 @@ export interface DataConfig {
 }
 
 export interface RenderConfig {
+  map: string
   getMapLayers: () => MapLayer[]
   getMapObjects: () => MapObjects[]
   getMapSymbols: () => MapSymbols[]

@@ -1,22 +1,23 @@
-/* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig as cfg } from '../../config'
 import { RenderMapLayers } from './layers'
 import { RenderMapObjects } from './objects'
+import type { DataConfig, RenderConfig } from '../../types'
 
-export function RenderMapCommon(): ReactNode {
-  const style = cfg.mapSvgStyle
+export function RenderMapCommon(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
+  const style = props.render.mapSvgStyle
 
   return (
     <>
-      <g id={cfg.map} className="map">
+      <g id={props.render.map} className="map">
         <RenderMapLayers
-          m={cfg.mapCoord.matrix}
-          mapLayers={cfg.getMapLayers()}
+          m={props.data.mapCoord.matrix}
+          mapLayers={props.render.getMapLayers()}
         />
         <RenderMapObjects
-          m={cfg.mapCoord.matrix}
-          mapObjects={cfg.getMapObjects()}
+          m={props.data.mapCoord.matrix}
+          mapObjects={props.render.getMapObjects()}
         />
         <style>{style}</style>
       </g>
