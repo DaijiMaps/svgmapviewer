@@ -1,25 +1,29 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import type { ReactNode } from 'react'
-import { svgMapViewerConfig } from '../../config'
 import { useLayout } from '../../style-xstate'
 import { useShadowRoot } from '../dom'
 import { trunc2 } from '../utils'
 import { fromSvgToContent } from '../viewer/coord'
 import { MAP_HTML_CONTENT_ID, MAP_HTML_ROOT_ID } from './map-svg-react'
 import { useNames } from './names'
+import type { DataConfig, RenderConfig } from '../../types'
 
-export function MapHtml(): ReactNode {
-  useShadowRoot(MAP_HTML_ROOT_ID, <MapHtmlContent />)
+export function MapHtml(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
+  useShadowRoot(MAP_HTML_ROOT_ID, <MapHtmlContent {...props} />)
 
   return <div id={MAP_HTML_ROOT_ID} className="content svg" />
 }
 
-function MapHtmlContent(): ReactNode {
+function MapHtmlContent(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
   return (
     <>
       <div id={MAP_HTML_CONTENT_ID}>
-        <MapHtmlPointNames />
+        <MapHtmlPointNames {...props} />
       </div>
       <MapHtmlStyle />
     </>
@@ -46,9 +50,11 @@ function MapHtmlStyle(): ReactNode {
   return <style>{style}</style>
 }
 
-function MapHtmlPointNames(): ReactNode {
+function MapHtmlPointNames(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
   const { pointNames } = useNames()
-  const m = svgMapViewerConfig.mapCoord.matrix
+  const m = props.data.mapCoord.matrix
 
   return (
     <>
