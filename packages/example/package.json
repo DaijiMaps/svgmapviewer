@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "rsbuild",
     "dev:local": "rsbuild --config rsbuild.config-local.ts",
-    "build": "rsbuild build"
+    "build": "rsbuild build",
+    "build:assets:floors": "cd src/assets && sh split-layers.sh"
   },
   "keywords": [],
   "author": "",
