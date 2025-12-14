@@ -1,7 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode } from 'react'
-import { svgMapViewerConfig } from '../../config'
 import { SvgSymbolStyle } from '../../Style'
 import {
   useLayout,
@@ -18,18 +17,23 @@ import {
   MAP_SVG_MARKERS_ROOT_ID,
 } from './map-svg-react'
 import { useNames } from './names'
+import type { DataConfig, RenderConfig } from '../../types'
 
-export function MapSvgMarkers(): ReactNode {
-  useShadowRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkersContent />)
+export function MapSvgMarkers(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
+  useShadowRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkersContent {...props} />)
 
   return <div id={MAP_SVG_MARKERS_ROOT_ID} className="content svg" />
 }
 
-export function MapSvgMarkersContent(): ReactNode {
+export function MapSvgMarkersContent(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
   return (
     <>
       <MapSvgMarkersSvg />
-      <MapSvgMarkersDefs />
+      <MapSvgMarkersDefs {...props} />
       <style>{style}</style>
     </>
   )
@@ -61,20 +65,22 @@ function MapSvgMarkersSvg(): ReactNode {
   )
 }
 
-function MapSvgMarkersDefs(): ReactNode {
+function MapSvgMarkersDefs(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
   const { fontSize } = useLayoutConfig()
   const s = useLayoutSvgScaleS()
 
   return (
     <svg id="map-svg-markers-defs">
       <RenderMapMarkers
-        m={svgMapViewerConfig.mapCoord.matrix}
-        mapMarkers={svgMapViewerConfig.getMapMarkers()}
+        m={props.data.mapCoord.matrix}
+        mapMarkers={props.render.getMapMarkers()}
         fontSize={fontSize}
         s={s}
       />
       <g id="map-svg-markers1">
-        <MapSvgMarkersUses />
+        <MapSvgMarkersUses {...props} />
         <style>
           <SvgSymbolStyle />
         </style>
@@ -84,9 +90,11 @@ function MapSvgMarkersDefs(): ReactNode {
   )
 }
 
-function MapSvgMarkersUses(): ReactNode {
+function MapSvgMarkersUses(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
   const { pointNames } = useNames()
-  const m = svgMapViewerConfig.mapCoord.matrix
+  const m = props.data.mapCoord.matrix
 
   return (
     <g>
