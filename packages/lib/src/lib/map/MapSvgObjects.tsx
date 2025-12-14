@@ -1,7 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig } from '../../config'
 import { useLayout } from '../../style-xstate'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapObjects } from '../carto'
@@ -11,18 +10,23 @@ import {
   MAP_SVG_OBJECTS_CONTENT_ID,
   MAP_SVG_OBJECTS_ROOT_ID,
 } from './map-svg-react'
+import type { DataConfig, RenderConfig } from '../../types'
 
-export function MapSvgObjects(): ReactNode {
-  useShadowRoot(MAP_SVG_OBJECTS_ROOT_ID, <MapSvgObjectsContent />)
+export function MapSvgObjects(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
+  useShadowRoot(MAP_SVG_OBJECTS_ROOT_ID, <MapSvgObjectsContent {...props} />)
 
   return <div id={MAP_SVG_OBJECTS_ROOT_ID} className="content svg" />
 }
 
-export function MapSvgObjectsContent(): ReactNode {
+export function MapSvgObjectsContent(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
   return (
     <>
       <MapSvgObjectsSvg />
-      <MapSvgObjectsDefs />
+      <MapSvgObjectsDefs {...props} />
       <style>{style}</style>
     </>
   )
@@ -54,15 +58,16 @@ function MapSvgObjectsSvg(): ReactNode {
   )
 }
 
-function MapSvgObjectsDefs(): ReactNode {
-  const cfg = svgMapViewerConfig
+function MapSvgObjectsDefs(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
   return (
     <svg id="map-svg-objects-defs" viewBox="0 0 1 1">
       <defs>
         <g id="map-svg-objects1">
           <RenderMapObjects
-            m={svgMapViewerConfig.mapCoord.matrix}
-            mapObjects={cfg.getMapObjects()}
+            m={props.data.mapCoord.matrix}
+            mapObjects={props.render.getMapObjects()}
           />
         </g>
       </defs>

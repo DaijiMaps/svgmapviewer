@@ -23,7 +23,7 @@ export function RenderMapOsmDefault(
   return (
     <>
       <MapSvgLayers {...props} />
-      <MapSvgObjects />
+      <MapSvgObjects {...props} />
       <MapSvgSymbols />
       <MapSvgMarkers />
       <MapSvgLabels />
