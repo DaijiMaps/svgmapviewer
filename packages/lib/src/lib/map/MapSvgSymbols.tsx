@@ -1,7 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig } from '../../config'
 import { SvgSymbolStyle } from '../../Style'
 import { useLayout } from '../../style-xstate'
 import { boxToViewBox2 } from '../box/prefixed'
@@ -13,18 +12,23 @@ import {
   MAP_SVG_SYMBOLS_CONTENT_ID,
   MAP_SVG_SYMBOLS_ROOT_ID,
 } from './map-svg-react'
+import type { DataConfig, RenderConfig } from '../../types'
 
-export function MapSvgSymbols(): ReactNode {
-  useShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbolsContent />)
+export function MapSvgSymbols(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
+  useShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbolsContent {...props} />)
 
   return <div id={MAP_SVG_SYMBOLS_ROOT_ID} className="content svg" />
 }
 
-export function MapSvgSymbolsContent(): ReactNode {
+export function MapSvgSymbolsContent(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
   return (
     <>
       <MapSvgSymbolsSvg />
-      <MapSvgSymbolsDefs />
+      <MapSvgSymbolsDefs {...props} />
       <style>{style}</style>
     </>
   )
@@ -56,7 +60,9 @@ function MapSvgSymbolsSvg(): ReactNode {
   )
 }
 
-function MapSvgSymbolsDefs(): ReactNode {
+function MapSvgSymbolsDefs(
+  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+): ReactNode {
   return (
     <svg id="map-svg-symbols-defs">
       <g id="map-svg-symbols1">
@@ -64,8 +70,8 @@ function MapSvgSymbolsDefs(): ReactNode {
           <RenderMapAssetsDefault />
         </defs>
         <RenderMapSymbols
-          m={svgMapViewerConfig.mapCoord.matrix}
-          mapSymbols={svgMapViewerConfig.getMapSymbols()}
+          m={props.data.mapCoord.matrix}
+          mapSymbols={props.render.getMapSymbols()}
         />
         <style>
           <SvgSymbolStyle />
