@@ -1,4 +1,3 @@
-/* eslint-disable functional/prefer-immutable-types */
 import type { Info, SearchProps } from '../../types'
 import {
   findFeature,
@@ -80,9 +79,9 @@ function filterFeature(
 }
 
 export function getAddressInfo(
-  mapMap: MapMap,
-  entries: SearchEntry[],
-  res: SearchAddressRes
+  mapMap: Readonly<MapMap>,
+  entries: readonly SearchEntry[],
+  res: Readonly<SearchAddressRes>
 ): null | Info {
   const id = Number(res.address)
   const feature = findFeature(id, mapMap)
