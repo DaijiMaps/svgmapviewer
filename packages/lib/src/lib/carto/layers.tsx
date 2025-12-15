@@ -15,7 +15,6 @@ import type {
   MultiPolygonPath,
 } from './types'
 import type { OsmRenderMapProps } from '../../types'
-import type { ReadonlyDeep } from 'type-fest'
 
 export function RenderMapLayers(
   props: Readonly<
@@ -39,7 +38,7 @@ export function RenderMapLayers(
 }
 
 function lineLayerToLinePaths(
-  mapData: ReadonlyDeep<OsmMapData>,
+  mapData: Readonly<OsmMapData>,
   layer: Readonly<MapLineLayer>
 ) {
   return layer.filter !== undefined
@@ -50,7 +49,7 @@ function lineLayerToLinePaths(
 }
 
 function multiPolygonLayerToMultiPolygonPaths(
-  mapData: ReadonlyDeep<OsmMapData>,
+  mapData: Readonly<OsmMapData>,
   layer: Readonly<MapMultiPolygonLayer>
 ) {
   return layer.filter !== undefined
@@ -61,7 +60,7 @@ function multiPolygonLayerToMultiPolygonPaths(
 }
 
 function LineLayerToPaths(
-  mapData: ReadonlyDeep<OsmMapData>,
+  mapData: Readonly<OsmMapData>,
   m: DOMMatrixReadOnly,
   layer: Readonly<MapLineLayer>
 ): ReactNode {
@@ -131,7 +130,7 @@ export function LinePathToTextPath(
 }
 
 function MultiPolygonLayerToPath(
-  mapData: ReadonlyDeep<OsmMapData>,
+  mapData: Readonly<OsmMapData>,
   m: DOMMatrixReadOnly,
   layer: Readonly<MapMultiPolygonLayer>
 ): ReactNode {
@@ -179,7 +178,7 @@ function MultiPolygonPathToPath(
 }
 
 function getLines(
-  mapData: ReadonlyDeep<OsmMapData>,
+  mapData: Readonly<OsmMapData>,
   filter: LinesFilter
 ): readonly LinePath[] {
   return mapData.lines.features
@@ -194,7 +193,7 @@ function getLines(
 }
 
 function getMultiPolygons(
-  mapData: ReadonlyDeep<OsmMapData>,
+  mapData: Readonly<OsmMapData>,
   filter: MultiPolygonsFilter
 ): readonly MultiPolygonPath[] {
   return mapData.multipolygons.features
