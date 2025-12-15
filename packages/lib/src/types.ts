@@ -152,7 +152,7 @@ export interface RenderConfig {
   getMapObjects: () => MapObjects[]
   getMapSymbols: () => MapSymbols[]
   getMapMarkers: () => MapMarkers[]
-  getMapNames: () => POI[] // XXX
+  getMapNames: (props: Readonly<RenderMapProps>) => POI[] // XXX
   searchEntries: SearchEntry[] // XXX
   renderInfo: RenderInfo
   mapSvgStyle: string

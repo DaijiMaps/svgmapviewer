@@ -62,7 +62,14 @@ export function svgmapviewer(
   searchDoneCbs.add(searchSearchDone)
 
   if (configUser.getMapNames) {
-    setNames(configUser.getMapNames())
+    setNames(
+      configUser.getMapNames({
+        data: config,
+        render: config,
+        carto: config.cartoConfig,
+        floors: config.floorsConfig,
+      })
+    )
   }
 
   if (config.searchEntries.length > 0) {
