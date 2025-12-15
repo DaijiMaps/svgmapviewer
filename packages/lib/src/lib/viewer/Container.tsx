@@ -1,14 +1,13 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
-import { type ReactNode, useRef } from 'react'
-import { svgMapViewerConfig } from '../../config'
+import { type PropsWithChildren, type ReactNode, useRef } from 'react'
 import {
   styleAnimationEnd,
   useAnimation,
   useLayoutContent,
 } from '../../style-xstate'
-import type { AnimationMatrix, RenderMapProps } from '../../types'
+import type { AnimationMatrix } from '../../types'
 import {
   position_absolute_left_0_top_0,
   width_100vw_height_100svh,
@@ -27,7 +26,7 @@ import {
   sendWheel,
 } from './viewer-react'
 
-export function Container(props: Readonly<RenderMapProps>): ReactNode {
+export function Container(props: Readonly<PropsWithChildren>): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
   return (
@@ -47,7 +46,7 @@ export function Container(props: Readonly<RenderMapProps>): ReactNode {
         styleAnimationEnd()
       }}
     >
-      {svgMapViewerConfig.renderMap(props)}
+      {props.children}
       <style>{style}</style>
       <ContentStyle />
       <AnimationStyle />

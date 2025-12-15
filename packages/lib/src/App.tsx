@@ -28,7 +28,7 @@ function App(): ReactNode {
 
   return (
     <>
-      <Container {...props} />
+      <Container {...props}>{svgMapViewerConfig.renderMap(props)}</Container>
       <Ui />
       <style>
         {style}
