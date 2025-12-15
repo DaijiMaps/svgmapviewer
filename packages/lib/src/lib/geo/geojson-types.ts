@@ -37,38 +37,6 @@ export type MultiPointGeometry = CommontGeometry<MultiPointCoordinate>
 export type MultiLineGeometry = CommontGeometry<MultiLineCoordinate>
 export type MultiPolygonGeometry = CommontGeometry<MultiPolygonCoordinate>
 
-/*
-export interface PointGeometry {
-  type: string // 'point' | 'Point'
-  coordinates: PointCoordinate
-}
-
-export interface LineGeometry {
-  type: string // 'linestring' | 'LineString'
-  coordinates: LineCoordinate
-}
-
-export interface PolygonGeometry {
-  type: string // 'polygon' | 'Polygon'
-  coordinates: PolygonCoordinate
-}
-
-export interface MultiPointGeometry {
-  type: string // 'multipoint' | 'MultiPoint'
-  coordinates: MultiPointCoordinate
-}
-
-export interface MultiLineGeometry {
-  type: string // 'multilinestring' | 'MultiLineString'
-  coordinates: MultiLineCoordinate
-}
-
-export interface MultiPolygonGeometry {
-  type: string // 'multipolygon' | 'MultiPolygon'
-  coordinates: MultiPolygonCoordinate
-}
-*/
-
 //// feature
 
 export interface CommonFeature<P = object, G = object> {
@@ -87,53 +55,12 @@ export type MultiPolygonFeature<P = object> = CommonFeature<
   MultiPolygonGeometry
 >
 
-/*
-export interface PointFeature<P = object> {
-  type: string
-  properties: P
-  geometry: PointGeometry
-}
-
-export interface LineFeature<P = object> {
-  type: string
-  properties: P
-  geometry: LineGeometry
-}
-
-export interface PolygonFeature<P = object> {
-  type: string
-  properties: P
-  geometry: PolygonGeometry
-}
-
-export interface MultiPointFeature<P = object> {
-  type: string
-  properties: P
-  geometry: MultiPointGeometry
-}
-
-export interface MultiLineFeature<P = object> {
-  type: string
-  properties: P
-  geometry: MultiLineGeometry
-}
-
-export interface MultiPolygonFeature<P = object> {
-  type: string
-  properties: P
-  geometry: MultiPolygonGeometry
-}
-*/
-
 //// geojson
 
-export interface BaseGeoJSON {
+export interface CommonGeoJSON<P = object, G = object> {
   type: string
   name?: string
   crs?: CRS
-}
-
-export interface CommonGeoJSON<P = object, G = object> extends BaseGeoJSON {
   features: CommonFeature<P, G>[]
 }
 
@@ -146,32 +73,6 @@ export type MultiPolygonGeoJSON<P = object> = CommonGeoJSON<
   P,
   MultiPolygonGeometry
 >
-
-/*
-export interface PointGeoJSON<P = object> extends BaseGeoJSON {
-  features: PointFeature<P>[]
-}
-
-export interface LineGeoJSON<P = object> extends BaseGeoJSON {
-  features: LineFeature<P>[]
-}
-
-export interface PolygonGeoJSON<P = object> extends BaseGeoJSON {
-  features: PolygonFeature<P>[]
-}
-
-export interface MultiPointGeoJSON<P = object> extends BaseGeoJSON {
-  features: MultiPointFeature<P>[]
-}
-
-export interface MultiLineGeoJSON<P = object> extends BaseGeoJSON {
-  features: MultiLineFeature<P>[]
-}
-
-export interface MultiPolygonGeoJSON<P = object> extends BaseGeoJSON {
-  features: MultiPolygonFeature<P>[]
-}
-*/
 
 export const emptyGeoJSON: CommonGeoJSON = {
   type: '',
