@@ -1,3 +1,4 @@
+/* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 
 export function Tree2x4(): ReactNode {
