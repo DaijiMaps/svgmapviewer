@@ -16,57 +16,57 @@ import {
 export type OsmMapLayer = MapLineLayer | MapMultiPolygonLayer
 
 export interface MapLineLayer {
-  type: 'line'
-  name: string
-  width?: number
-  widthScale?: number
-  filter?: LinesFilter
-  data?: Line[]
+  readonly type: 'line'
+  readonly name: string
+  readonly width?: number
+  readonly widthScale?: number
+  readonly filter?: LinesFilter
+  readonly data?: readonly Line[]
 }
 
 export interface MapMultiPolygonLayer {
-  type: 'multipolygon'
-  name: string
-  width?: number
-  widthScale?: number
-  filter?: MultiPolygonsFilter
-  data?: MultiPolygon[]
+  readonly type: 'multipolygon'
+  readonly name: string
+  readonly width?: number
+  readonly widthScale?: number
+  readonly filter?: MultiPolygonsFilter
+  readonly data?: readonly MultiPolygon[]
 }
 
 export interface LinePath {
-  name?: string
-  id?: string
-  tags: string[]
-  width?: number
-  widthScale?: number
-  vs: Line
+  readonly name?: string
+  readonly id?: string
+  readonly tags: readonly string[]
+  readonly width?: number
+  readonly widthScale?: number
+  readonly vs: Line
 }
 
 export interface MultiPolygonPath {
-  name?: string
-  id?: string
-  tags: string[]
-  width?: number
-  widthScale?: number
-  vs: MultiPolygon
+  readonly name?: string
+  readonly id?: string
+  readonly tags: readonly string[]
+  readonly width?: number
+  readonly widthScale?: number
+  readonly vs: MultiPolygon
 }
 //// markers
 
 export interface RenderMapMarkersProps {
-  m: DOMMatrixReadOnly
-  mapMarkers: OsmMapMarkers[]
-  fontSize: number
-  s: number
+  readonly m: DOMMatrixReadOnly
+  readonly mapMarkers: readonly OsmMapMarkers[]
+  readonly fontSize: number
+  readonly s: number
 }
 
 export interface MapMarker {
-  name: string
-  href: string
-  data?: Point
+  readonly name: string
+  readonly href: string
+  readonly data?: Point
 }
 
 export interface OsmMapMarkers extends WithFilters {
-  name: string
+  readonly name: string
 }
 
 //// objects
@@ -74,48 +74,48 @@ export interface OsmMapMarkers extends WithFilters {
 // XXX take size (width/height)
 // XXX calc stroke-width (0.05% of width/height)
 export interface OsmMapObjects extends WithFilters {
-  name: string
-  path: string
-  width: number
+  readonly name: string
+  readonly path: string
+  readonly width: number
 }
 
 //// symbols
 
 export interface RenderMapSymbolsProps {
-  m: DOMMatrixReadOnly
-  mapSymbols: OsmMapSymbols[]
+  readonly m: DOMMatrixReadOnly
+  readonly mapSymbols: readonly OsmMapSymbols[]
 }
 
 export interface OsmMapSymbols extends WithFilters {
-  name: string
-  href: string
+  readonly name: string
+  readonly href: string
 }
 
 //// common
 
 export interface WithFilters {
-  pointsFilter?: PointsFilter
-  linesFilter?: LinesFilter
-  polygonsFilter?: MultiPolygonsFilter
-  data?: Point[]
+  readonly pointsFilter?: PointsFilter
+  readonly linesFilter?: LinesFilter
+  readonly polygonsFilter?: MultiPolygonsFilter
+  readonly data?: readonly Point[]
 }
 
 export interface WithFeatures<P = object> {
-  pointFeatures: PointFeature<P>[]
-  lineFeatures: LineFeature<P>[]
-  polygonFeatures: PolygonFeature<P>[]
+  readonly pointFeatures: readonly PointFeature<P>[]
+  readonly lineFeatures: readonly LineFeature<P>[]
+  readonly polygonFeatures: readonly PolygonFeature<P>[]
 }
 
 ////
 
 export interface CartoConfig {
-  backgroundColor?: string
-  mapSvgStyle?: string
+  readonly backgroundColor?: string
+  readonly mapSvgStyle?: string
 
-  internals?: MultiPolygonGeoJSON
+  readonly internals?: MultiPolygonGeoJSON
 
-  skipNamePattern?: RegExp
-  splitNamePattern?: RegExp
+  readonly skipNamePattern?: RegExp
+  readonly splitNamePattern?: RegExp
 
-  filterLabelsByRange?: boolean
+  readonly filterLabelsByRange?: boolean
 }

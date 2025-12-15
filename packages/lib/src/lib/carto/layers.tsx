@@ -15,12 +15,13 @@ import type {
   MultiPolygonPath,
 } from './types'
 import type { OsmRenderMapProps } from '../../types'
+import type { ReadonlyDeep } from 'type-fest'
 
 export function RenderMapLayers(
   props: Readonly<
     OsmRenderMapProps & {
       m: DOMMatrixReadOnly
-      mapLayers: OsmMapLayer[]
+      mapLayers: readonly OsmMapLayer[]
     }
   >
 ): ReactNode {
@@ -38,7 +39,7 @@ export function RenderMapLayers(
 }
 
 function lineLayerToLinePaths(
-  mapData: Readonly<OsmMapData>,
+  mapData: ReadonlyDeep<OsmMapData>,
   layer: Readonly<MapLineLayer>
 ) {
   return layer.filter !== undefined
@@ -49,7 +50,7 @@ function lineLayerToLinePaths(
 }
 
 function multiPolygonLayerToMultiPolygonPaths(
-  mapData: Readonly<OsmMapData>,
+  mapData: ReadonlyDeep<OsmMapData>,
   layer: Readonly<MapMultiPolygonLayer>
 ) {
   return layer.filter !== undefined
@@ -60,11 +61,11 @@ function multiPolygonLayerToMultiPolygonPaths(
 }
 
 function LineLayerToPaths(
-  mapData: Readonly<OsmMapData>,
+  mapData: ReadonlyDeep<OsmMapData>,
   m: DOMMatrixReadOnly,
   layer: Readonly<MapLineLayer>
 ): ReactNode {
-  const xs: LinePath[] = lineLayerToLinePaths(mapData, layer)
+  const xs: readonly LinePath[] = lineLayerToLinePaths(mapData, layer)
   return xs.length === 0 ? (
     <></>
   ) : (
@@ -130,11 +131,11 @@ export function LinePathToTextPath(
 }
 
 function MultiPolygonLayerToPath(
-  mapData: Readonly<OsmMapData>,
+  mapData: ReadonlyDeep<OsmMapData>,
   m: DOMMatrixReadOnly,
   layer: Readonly<MapMultiPolygonLayer>
 ): ReactNode {
-  const xs: MultiPolygonPath[] = multiPolygonLayerToMultiPolygonPaths(
+  const xs: readonly MultiPolygonPath[] = multiPolygonLayerToMultiPolygonPaths(
     mapData,
     layer
   )
@@ -178,9 +179,9 @@ function MultiPolygonPathToPath(
 }
 
 function getLines(
-  mapData: Readonly<OsmMapData>,
+  mapData: ReadonlyDeep<OsmMapData>,
   filter: LinesFilter
-): LinePath[] {
+): readonly LinePath[] {
   return mapData.lines.features
     .filter((f) => filter(f.properties))
     .map((f) => ({
@@ -193,9 +194,9 @@ function getLines(
 }
 
 function getMultiPolygons(
-  mapData: Readonly<OsmMapData>,
+  mapData: ReadonlyDeep<OsmMapData>,
   filter: MultiPolygonsFilter
-): MultiPolygonPath[] {
+): readonly MultiPolygonPath[] {
   return mapData.multipolygons.features
     .filter((f) => filter(f.properties))
     .map((f) => ({
@@ -219,7 +220,7 @@ function propertiesToWidth(p: OsmProperties): undefined | number {
   // XXX
 }
 
-function propertiesToTags(p: OsmProperties): string[] {
+function propertiesToTags(p: Readonly<OsmProperties>): readonly string[] {
   return ops.flatMap((f) => f(p))
 }
 
@@ -233,43 +234,43 @@ const ops = [
   toLevel,
 ]
 
-function toAccess(p: OsmProperties): string[] {
+function toAccess(p: OsmProperties): readonly string[] {
   const re = /"access"=>"([^"][^"]*)"/
   const m = p?.other_tags?.match(re)
   return !m ? [] : [`access-${m[1]}`]
 }
 
-function toService(p: OsmProperties): string[] {
+function toService(p: OsmProperties): readonly string[] {
   const re = /"service"=>"([^"][^"]*)"/
   const m = p?.other_tags?.match(re)
   return !m ? [] : [`service-${m[1]}`]
 }
 
-function toSurface(p: OsmProperties): string[] {
+function toSurface(p: OsmProperties): readonly string[] {
   const re = /"surface"=>"([^"][^"]*)"/
   const m = p?.other_tags?.match(re)
   return !m ? [] : [`surface-${m[1]}`]
 }
 
-function toLanes(p: OsmProperties): string[] {
+function toLanes(p: OsmProperties): readonly string[] {
   const re = /"lanes"=>"([^"][^"]*)"/
   const m = p?.other_tags?.match(re)
   return !m ? [] : [`lanes-${m[1]}`]
 }
 
-function toTunnel(p: OsmProperties): string[] {
+function toTunnel(p: OsmProperties): readonly string[] {
   const re = /"tunnel"=>"([^"][^"]*)"/
   const m = p?.other_tags?.match(re)
   return !m ? [] : [`tunnel-${m[1]}`]
 }
 
-function toBuilding(p: OsmProperties): string[] {
+function toBuilding(p: OsmProperties): readonly string[] {
   const re = /"building"=>"([^"][^"]*)"/
   const m = p?.other_tags?.match(re)
   return !m ? [] : [`building-${m[1]}`]
 }
 
-function toLevel(p: OsmProperties): string[] {
+function toLevel(p: OsmProperties): readonly string[] {
   const re = /"level"=>"([^"][^"]*)"/
   const m = p?.other_tags?.match(re)
   return !m ? [] : [`level-${m[1]}`]

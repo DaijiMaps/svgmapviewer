@@ -43,10 +43,10 @@ export const emptyMapData: OsmMapData = {
 
 ////
 
-export type PointMap = Map<number, OsmPointFeature>
-export type LineMap = Map<number, OsmLineFeature>
-export type MultiLineStringMap = Map<number, OsmMultiLineStringFeature>
-export type MultiPolygonMap = Map<number, OsmMultiPolygonFeature>
+export type PointMap = ReadonlyMap<number, OsmPointFeature>
+export type LineMap = ReadonlyMap<number, OsmLineFeature>
+export type MultiLineStringMap = ReadonlyMap<number, OsmMultiLineStringFeature>
+export type MultiPolygonMap = ReadonlyMap<number, OsmMultiPolygonFeature>
 
 export interface OsmMapMap {
   pointMap: PointMap

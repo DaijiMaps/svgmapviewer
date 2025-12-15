@@ -1,9 +1,9 @@
 // XXX can't use tuple to read (import) JSON as external
 
 export interface CRS {
-  type: string
-  properties: {
-    name: string
+  readonly type: string
+  readonly properties: {
+    readonly name: string
   }
 }
 
@@ -16,18 +16,18 @@ export const emptyCRS: CRS = {
 
 //// coordinate
 
-export type PointCoordinate = [x: number, y: number]
-export type LineCoordinate = PointCoordinate[]
-export type PolygonCoordinate = LineCoordinate[]
-export type MultiPointCoordinate = PointCoordinate[]
-export type MultiLineCoordinate = LineCoordinate[]
-export type MultiPolygonCoordinate = PolygonCoordinate[]
+export type PointCoordinate = readonly [x: number, y: number]
+export type LineCoordinate = readonly PointCoordinate[]
+export type PolygonCoordinate = readonly LineCoordinate[]
+export type MultiPointCoordinate = readonly PointCoordinate[]
+export type MultiLineCoordinate = readonly LineCoordinate[]
+export type MultiPolygonCoordinate = readonly PolygonCoordinate[]
 
 //// geometry
 
-export interface CommontGeometry<C = unknown[]> {
-  type: string
-  coordinates: C
+export interface CommontGeometry<C = readonly unknown[]> {
+  readonly type: string
+  readonly coordinates: Readonly<C>
 }
 
 export type PointGeometry = CommontGeometry<PointCoordinate>
@@ -40,9 +40,9 @@ export type MultiPolygonGeometry = CommontGeometry<MultiPolygonCoordinate>
 //// feature
 
 export interface CommonFeature<P = object, G = object> {
-  type: string
-  properties: P
-  geometry: G
+  readonly type: string
+  readonly properties: Readonly<P>
+  readonly geometry: Readonly<G>
 }
 
 export type PointFeature<P = object> = CommonFeature<P, PointGeometry>
@@ -58,10 +58,10 @@ export type MultiPolygonFeature<P = object> = CommonFeature<
 //// geojson
 
 export interface CommonGeoJSON<P = object, G = object> {
-  type: string
-  name?: string
-  crs?: CRS
-  features: CommonFeature<P, G>[]
+  readonly type: string
+  readonly name?: string
+  readonly crs?: CRS
+  readonly features: readonly Readonly<CommonFeature<P, G>>[]
 }
 
 export type PointGeoJSON<P = object> = CommonGeoJSON<P, PointGeometry>

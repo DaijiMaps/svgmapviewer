@@ -1,3 +1,4 @@
+import type { ReadonlyDeep } from 'type-fest'
 import type { Info, OsmSearchProps } from '../../types'
 import {
   findFeature,
@@ -79,7 +80,7 @@ function filterFeature(
 }
 
 export function getAddressInfo(
-  mapMap: Readonly<OsmMapMap>,
+  mapMap: ReadonlyDeep<OsmMapMap>, // XXX Readonly?
   entries: readonly SearchEntry[],
   res: Readonly<SearchAddressRes>
 ): null | Info {

@@ -1,3 +1,4 @@
+import type { ReadonlyRecord } from 'fp-ts/lib/ReadonlyRecord'
 import {
   type LineFeature,
   type LineGeoJSON,
@@ -65,29 +66,29 @@ export type OsmPolygonPropertiesKey =
   | 'other_tags'
 
 export type OsmPointProperties = Readonly<
-  Record<OsmPointPropertiesKey, null | string> & {
-    centroid_x: null | number
-    centroid_y: null | number
+  ReadonlyRecord<OsmPointPropertiesKey, null | string> & {
+    readonly centroid_x: null | number
+    readonly centroid_y: null | number
   }
 >
 export type OsmLineProperties = Readonly<
-  Record<OsmLinePropertiesKey, null | string> & {
-    centroid_x: null | number
-    centroid_y: null | number
-    z_order: number
+  ReadonlyRecord<OsmLinePropertiesKey, null | string> & {
+    readonly centroid_x: null | number
+    readonly centroid_y: null | number
+    readonly z_order: number
   }
 >
 export type OsmLineStringProperties = Readonly<
-  Record<OsmLineStringPropertiesKey, null | string> & {
-    centroid_x: null | number
-    centroid_y: null | number
+  ReadonlyRecord<OsmLineStringPropertiesKey, null | string> & {
+    readonly centroid_x: null | number
+    readonly centroid_y: null | number
   }
 >
 export type OsmPolygonProperties = Readonly<
-  Record<OsmPolygonPropertiesKey, null | string> & {
-    centroid_x: null | number
-    centroid_y: null | number
-    area: null | number
+  ReadonlyRecord<OsmPolygonPropertiesKey, null | string> & {
+    readonly centroid_x: null | number
+    readonly centroid_y: null | number
+    readonly area: null | number
   }
 >
 
