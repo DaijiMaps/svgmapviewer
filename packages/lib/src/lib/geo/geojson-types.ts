@@ -25,6 +25,18 @@ export type MultiPolygonCoordinate = PolygonCoordinate[]
 
 //// geometry
 
+export interface CommontGeometry<C> {
+  type: string // 'point' | 'Point'
+  coordinates: unknown[] | C
+}
+
+export type PointGeometry2 = CommontGeometry<PointCoordinate>
+export type LineGeometry2 = CommontGeometry<LineCoordinate>
+export type PolygonGeometry2 = CommontGeometry<PolygonCoordinate>
+export type MultiPointGeometry2 = CommontGeometry<MultiPointCoordinate>
+export type MultiLineGeometry2 = CommontGeometry<MultiLineCoordinate>
+export type MultiPolygonGeometry2 = CommontGeometry<MultiPolygonCoordinate>
+
 export interface PointGeometry {
   type: string // 'point' | 'Point'
   coordinates: PointCoordinate
@@ -62,6 +74,19 @@ export interface CommonFeature<P = object, G = object> {
   properties: P
   geometry: G
 }
+
+export type PointFeature2<P = object> = CommonFeature<P, PointGeometry>
+export type LineFeature2<P = object> = CommonFeature<P, LineGeometry>
+export type PolygonFeature2<P = object> = CommonFeature<P, PolygonGeometry>
+export type MultiPointFeature2<P = object> = CommonFeature<
+  P,
+  MultiPointGeometry
+>
+export type MultiLineFeature2<P = object> = CommonFeature<P, MultiLineGeometry>
+export type MultiPolygonFeature2<P = object> = CommonFeature<
+  P,
+  MultiPolygonGeometry
+>
 
 export interface PointFeature<P = object> {
   type: string
@@ -101,53 +126,38 @@ export interface MultiPolygonFeature<P = object> {
 
 //// geojson
 
-export interface CommonGeoJSON<P = object, G = object> {
+export interface BaseGeoJSON {
   type: string
   name?: string
   crs?: CRS
+}
+
+export interface CommonGeoJSON<P = object, G = object> extends BaseGeoJSON {
   features: CommonFeature<P, G>[]
 }
 
-export interface PointGeoJSON<P = object> {
-  type: string
-  name?: string
-  crs?: CRS
+export interface PointGeoJSON<P = object> extends BaseGeoJSON {
   features: PointFeature<P>[]
 }
 export type PointGeoJSON2<P = object> = CommonGeoJSON<PointFeature<P>>
 
-export interface LineGeoJSON<P = object> {
-  type: string
-  name?: string
-  crs?: CRS
+export interface LineGeoJSON<P = object> extends BaseGeoJSON {
   features: LineFeature<P>[]
 }
 
-export interface PolygonGeoJSON<P = object> {
-  type: string
-  name?: string
-  crs?: CRS
+export interface PolygonGeoJSON<P = object> extends BaseGeoJSON {
   features: PolygonFeature<P>[]
 }
 
-export interface MultiPointGeoJSON<P = object> {
-  type: string
-  name?: string
-  crs?: CRS
+export interface MultiPointGeoJSON<P = object> extends BaseGeoJSON {
   features: MultiPointFeature<P>[]
 }
 
-export interface MultiLineGeoJSON<P = object> {
-  type: string
-  name?: string
-  crs?: CRS
+export interface MultiLineGeoJSON<P = object> extends BaseGeoJSON {
   features: MultiLineFeature<P>[]
 }
 
-export interface MultiPolygonGeoJSON<P = object> {
-  type: string
-  name?: string
-  crs?: CRS
+export interface MultiPolygonGeoJSON<P = object> extends BaseGeoJSON {
   features: MultiPolygonFeature<P>[]
 }
 
