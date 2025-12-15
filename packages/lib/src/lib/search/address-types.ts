@@ -12,7 +12,7 @@ export interface AddressBuf {
 }
 
 export type AddressEntry = { a: Address; lonlat: VecVec }
-export type AddressEntries = AddressEntry[]
+export type AddressEntries = readonly AddressEntry[]
 
 export interface SearchContext {
   b: AddressBuf

@@ -8,7 +8,7 @@ export function RenderMapObjects(
   props: Readonly<
     OsmRenderMapProps & {
       m: DOMMatrixReadOnly
-      mapObjects: OsmMapObjects[]
+      mapObjects: readonly OsmMapObjects[]
     }
   >
 ): ReactNode {

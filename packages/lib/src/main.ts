@@ -8,7 +8,6 @@ import { searchDoneCbs, searchStartCbs } from './event'
 import { type Box } from './lib/box/main'
 import { geolocActorStart } from './lib/geo'
 import { setNames } from './lib/map/names'
-import { getAddressEntries } from './lib/search'
 import {
   searchActorStart,
   searchSearchDone,
@@ -73,8 +72,10 @@ export function svgmapviewer(
     )
   }
 
-  if (config.searchEntries.length > 0) {
-    workerSearchInit(getAddressEntries(config))
+  if (configUser.getAddressEntries) {
+    if (config.searchEntries.length > 0) {
+      workerSearchInit(configUser.getAddressEntries(config))
+    }
   }
 
   if (config.floorsConfig !== undefined) {

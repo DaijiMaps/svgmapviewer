@@ -19,6 +19,7 @@ import { type POI } from './lib/geo/poi-types'
 import { type Vec } from './lib/vec'
 import { type Layout, type LayoutCoord } from './lib/viewer/layout-types'
 import type { ViewerMode } from './lib/viewer/viewer-types'
+import type { AddressEntries } from './lib/search'
 
 //// layout
 
@@ -152,12 +153,13 @@ export interface OsmDataConfig {
 
 export interface OsmRenderConfig {
   map: string
-  getMapLayers: () => OsmMapLayer[]
-  getMapObjects: () => OsmMapObjects[]
-  getMapSymbols: () => OsmMapSymbols[]
-  getMapMarkers: () => OsmMapMarkers[]
-  getMapNames: (props: Readonly<OsmRenderMapProps>) => POI[] // XXX
-  searchEntries: SearchEntry[] // XXX
+  getMapLayers: () => readonly OsmMapLayer[]
+  getMapObjects: () => readonly OsmMapObjects[]
+  getMapSymbols: () => readonly OsmMapSymbols[]
+  getMapMarkers: () => readonly OsmMapMarkers[]
+  getMapNames: (props: Readonly<OsmRenderMapProps>) => readonly POI[] // XXX
+  getAddressEntries: (props: Readonly<OsmSearchProps>) => AddressEntries // XXX
+  searchEntries: readonly SearchEntry[] // XXX
   renderInfo: RenderInfo
   mapSvgStyle: string
   renderMap: RenderMap
