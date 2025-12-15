@@ -64,12 +64,12 @@ export function notifySearch(psvg: VecVec): void {
   searchCbs.forEach((cb: SearchCb) => cb(psvg))
 }
 export function notifySearchDone(
-  res: null | Readonly<{ psvg: VecVec; info: Readonly<Info> }>
+  res: Readonly<null | { psvg: VecVec; info: Readonly<Info> }>
 ): void {
   searchDoneCbs.forEach((cb: SearchDoneCb) => cb(res))
 }
 export function notifySearchEnd(
-  res: null | Readonly<{ psvg: VecVec; info: Readonly<Info> }>
+  res: Readonly<null | { psvg: VecVec; info: Readonly<Info> }>
 ): void {
   searchEndCbs.forEach((cb: SearchEndCb) => cb(res))
 }
@@ -117,7 +117,7 @@ export function notifyZoomEnd(layout: Readonly<Layout>, zoom: number): void {
   zoomEndCbs.forEach((cb: ZoomEndCb) => cb(layout, zoom))
 }
 export function notifyAnimation(
-  animation: null | Readonly<AnimationMatrix>
+  animation: Readonly<null | AnimationMatrix>
 ): void {
   animationCbs.forEach((cb) => cb(animation))
 }

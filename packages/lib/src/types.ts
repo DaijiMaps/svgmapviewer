@@ -90,12 +90,12 @@ export type UiCloseCb = () => void
 export type UiCloseDoneCb = () => void
 export type ResizeCb = (layout: Layout, force: boolean) => void
 export type LayoutCb = (layout: Layout, force: boolean) => void
-export type AnimationCb = (animation: null | AnimationMatrix) => void
+export type AnimationCb = (animation: Readonly<null | AnimationMatrix>) => void
 export type ModeCb = (mode: ViewerMode) => void
 export type FloorCb = (fidx: number) => void
 
 export type GeoLocCb = () => void
-export type GeoLocDoneCb = (position: GeolocationPosition) => void
+export type GeoLocDoneCb = (position: Readonly<GeolocationPosition>) => void
 
 ////
 
@@ -171,7 +171,7 @@ export interface Floor {
 }
 
 export interface FloorsConfig {
-  floors: Floor[]
+  floors: readonly Floor[]
   fidx: number
 }
 
