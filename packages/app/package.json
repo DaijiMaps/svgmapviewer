@@ -34,7 +34,7 @@
     "fp-ts": "^2.16.11",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "svgmapviewer": "0.0.2-alpha.14",
+    "svgmapviewer": "0.0.2-alpha.15",
     "type-fest": "^5.3.1",
     "xstate": "^5.25.0"
   },
@@ -53,7 +53,7 @@
     "newtype-ts": "^0.3.5",
     "playwright": "^1.57.0",
     "rolldown": "1.0.0-beta.54",
-    "tsdown": "^0.17.3",
+    "tsdown": "^0.17.4",
     "typescript": "^5.9.2",
     "unocss": "^66.5.10",
     "vite": "npm:rolldown-vite@^7.2.11",
