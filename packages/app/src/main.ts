@@ -1,4 +1,5 @@
-import { type RenderConfig } from 'svgmapviewer'
+import { type OsmRenderConfig } from 'svgmapviewer'
+import { getAddressEntries } from 'svgmapviewer/search'
 import { getMapNames } from 'svgmapviewer/carto'
 import {
   isMapOsmDefaultRendered as isMapRendered,
@@ -12,12 +13,13 @@ import { getMapSymbols } from './map-symbols'
 import { RenderInfo as renderInfo } from './render'
 import { searchEntries } from './search-data'
 
-export const renderConfig: RenderConfig = {
+export const renderConfig: OsmRenderConfig = {
   getMapLayers,
   getMapObjects,
   getMapSymbols,
   getMapMarkers,
   getMapNames, // XXX
+  getAddressEntries, // XXX
   searchEntries,
   renderInfo,
   mapSvgStyle,
