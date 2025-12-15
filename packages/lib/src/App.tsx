@@ -11,7 +11,7 @@ import {
 import { likeStyle } from './lib/Like'
 import { Ui } from './lib/ui/Ui'
 import { Container } from './lib/viewer/Container'
-import type { RenderMapProps } from './types'
+import type { OsmRenderMapProps } from './types'
 
 function App(): ReactNode {
   const backgroundColor =
@@ -19,7 +19,7 @@ function App(): ReactNode {
     svgMapViewerConfig.backgroundColor ??
     'darkgray'
 
-  const props: Readonly<RenderMapProps> = {
+  const props: Readonly<OsmRenderMapProps> = {
     data: svgMapViewerConfig,
     render: svgMapViewerConfig,
     carto: svgMapViewerConfig.cartoConfig,

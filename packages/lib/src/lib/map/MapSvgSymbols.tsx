@@ -12,16 +12,16 @@ import {
   MAP_SVG_SYMBOLS_CONTENT_ID,
   MAP_SVG_SYMBOLS_ROOT_ID,
 } from './map-svg-react'
-import type { RenderMapProps } from '../../types'
+import type { OsmRenderMapProps } from '../../types'
 
-export function MapSvgSymbols(props: Readonly<RenderMapProps>): ReactNode {
+export function MapSvgSymbols(props: Readonly<OsmRenderMapProps>): ReactNode {
   useShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbolsContent {...props} />)
 
   return <div id={MAP_SVG_SYMBOLS_ROOT_ID} className="content svg" />
 }
 
 export function MapSvgSymbolsContent(
-  props: Readonly<RenderMapProps>
+  props: Readonly<OsmRenderMapProps>
 ): ReactNode {
   return (
     <>
@@ -58,7 +58,7 @@ function MapSvgSymbolsSvg(): ReactNode {
   )
 }
 
-function MapSvgSymbolsDefs(props: Readonly<RenderMapProps>): ReactNode {
+function MapSvgSymbolsDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
   return (
     <svg id="map-svg-symbols-defs">
       <g id="map-svg-symbols1">

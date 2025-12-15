@@ -13,7 +13,7 @@ import {
 
 //// layers
 
-export type MapLayer = MapLineLayer | MapMultiPolygonLayer
+export type OsmMapLayer = MapLineLayer | MapMultiPolygonLayer
 
 export interface MapLineLayer {
   type: 'line'
@@ -54,7 +54,7 @@ export interface MultiPolygonPath {
 
 export interface RenderMapMarkersProps {
   m: DOMMatrixReadOnly
-  mapMarkers: MapMarkers[]
+  mapMarkers: OsmMapMarkers[]
   fontSize: number
   s: number
 }
@@ -65,7 +65,7 @@ export interface MapMarker {
   data?: Point
 }
 
-export interface MapMarkers extends WithFilters {
+export interface OsmMapMarkers extends WithFilters {
   name: string
 }
 
@@ -73,7 +73,7 @@ export interface MapMarkers extends WithFilters {
 
 // XXX take size (width/height)
 // XXX calc stroke-width (0.05% of width/height)
-export interface MapObjects extends WithFilters {
+export interface OsmMapObjects extends WithFilters {
   name: string
   path: string
   width: number
@@ -83,10 +83,10 @@ export interface MapObjects extends WithFilters {
 
 export interface RenderMapSymbolsProps {
   m: DOMMatrixReadOnly
-  mapSymbols: MapSymbols[]
+  mapSymbols: OsmMapSymbols[]
 }
 
-export interface MapSymbols extends WithFilters {
+export interface OsmMapSymbols extends WithFilters {
   name: string
   href: string
 }

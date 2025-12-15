@@ -3,10 +3,10 @@ import { Fragment } from 'react/jsx-runtime'
 import { type V } from '../tuple'
 import { entryToVs } from './point'
 import type { RenderMapSymbolsProps } from './types'
-import type { RenderMapProps } from '../../types'
+import type { OsmRenderMapProps } from '../../types'
 
 export function RenderMapSymbols(
-  props: Readonly<RenderMapProps & RenderMapSymbolsProps>
+  props: Readonly<OsmRenderMapProps & RenderMapSymbolsProps>
 ): ReactNode {
   return (
     <g className="map-symbols">

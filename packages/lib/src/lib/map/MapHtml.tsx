@@ -7,15 +7,15 @@ import { trunc2 } from '../utils'
 import { fromSvgToContent } from '../viewer/coord'
 import { MAP_HTML_CONTENT_ID, MAP_HTML_ROOT_ID } from './map-svg-react'
 import { useNames } from './names'
-import type { RenderMapProps } from '../../types'
+import type { OsmRenderMapProps } from '../../types'
 
-export function MapHtml(props: Readonly<RenderMapProps>): ReactNode {
+export function MapHtml(props: Readonly<OsmRenderMapProps>): ReactNode {
   useShadowRoot(MAP_HTML_ROOT_ID, <MapHtmlContent {...props} />)
 
   return <div id={MAP_HTML_ROOT_ID} className="content svg" />
 }
 
-function MapHtmlContent(props: Readonly<RenderMapProps>): ReactNode {
+function MapHtmlContent(props: Readonly<OsmRenderMapProps>): ReactNode {
   return (
     <>
       <div id={MAP_HTML_CONTENT_ID}>
@@ -46,7 +46,7 @@ function MapHtmlStyle(): ReactNode {
   return <style>{style}</style>
 }
 
-function MapHtmlPointNames(props: Readonly<RenderMapProps>): ReactNode {
+function MapHtmlPointNames(props: Readonly<OsmRenderMapProps>): ReactNode {
   const { pointNames } = useNames()
   const m = props.data.mapCoord.matrix
 

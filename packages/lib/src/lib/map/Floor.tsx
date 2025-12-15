@@ -2,9 +2,9 @@
 import { type ReactNode } from 'react'
 import { useLayout2 } from '../../style-xstate'
 import { useFloors } from '../viewer/floors-xstate'
-import type { RenderMapProps } from '../../types'
+import type { OsmRenderMapProps } from '../../types'
 
-export function RenderFloors(props: Readonly<RenderMapProps>): ReactNode {
+export function RenderFloors(props: Readonly<OsmRenderMapProps>): ReactNode {
   const { viewBox, width, height } = useLayout2()
   const { fidxToOnAnimationEnd } = useFloors()
 

@@ -1,14 +1,14 @@
 import { type ReactNode } from 'react'
 import { type V } from '../tuple'
 import { entryToVs } from './point'
-import type { MapObjects } from './types'
-import type { RenderMapProps } from '../../types'
+import type { OsmMapObjects } from './types'
+import type { OsmRenderMapProps } from '../../types'
 
 export function RenderMapObjects(
   props: Readonly<
-    RenderMapProps & {
+    OsmRenderMapProps & {
       m: DOMMatrixReadOnly
-      mapObjects: MapObjects[]
+      mapObjects: OsmMapObjects[]
     }
   >
 ): ReactNode {

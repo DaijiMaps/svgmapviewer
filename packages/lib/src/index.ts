@@ -21,12 +21,12 @@ import { type Layout } from './lib/viewer/layout'
 import { svgmapviewer } from './main'
 import { useLayout, useLayout2 } from './style-xstate'
 import {
-  type DataConfig,
+  type OsmDataConfig,
   type Floor,
   type FloorsConfig,
   type Info,
   type RenderAssets,
-  type RenderConfig,
+  type OsmRenderConfig,
   type RenderInfo,
   type RenderMap,
   type SearchReq,
@@ -60,12 +60,12 @@ export {
 // types
 
 export {
-  type DataConfig,
+  type OsmDataConfig,
   type Floor,
   type FloorsConfig,
   type Info,
   type RenderAssets,
-  type RenderConfig,
+  type OsmRenderConfig,
   type RenderInfo,
   type RenderMap,
   type SearchReq,

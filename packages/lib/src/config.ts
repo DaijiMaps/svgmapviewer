@@ -36,7 +36,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   isContainerRendered: () => true,
   isUiRendered: () => true,
 
-  // RenderConfig
+  // OsmRenderConfig
   getMapLayers: () => [],
   getMapObjects: () => [],
   getMapSymbols: () => [],
@@ -48,7 +48,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   renderMap: renderMapDefault,
   isMapRendered: () => true,
 
-  // DataConfig
+  // OsmDataConfig
   mapData: emptyMapData,
   mapMap: {
     pointMap: new Map(),

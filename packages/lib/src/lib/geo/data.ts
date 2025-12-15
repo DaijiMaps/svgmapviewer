@@ -3,8 +3,8 @@ import { pipe } from 'fp-ts/function'
 import type { Option } from 'fp-ts/lib/Option'
 import type {
   LineMap,
-  MapData,
-  MapMap,
+  OsmMapData,
+  OsmMapMap,
   MultiLineStringMap,
   MultiPolygonMap,
   PointMap,
@@ -20,7 +20,7 @@ import type {
   OsmPointGeoJSON,
 } from './osm-types'
 
-export function mapMapFromMapData(mapData: Readonly<MapData>): MapMap {
+export function mapMapFromMapData(mapData: Readonly<OsmMapData>): OsmMapMap {
   return {
     pointMap: pointMapFromGeoJSON(mapData.points),
     lineMap: lineMapFromGeoJSON(mapData.lines),

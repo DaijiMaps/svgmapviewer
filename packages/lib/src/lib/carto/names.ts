@@ -1,11 +1,11 @@
-import type { RenderMapProps } from '../../types'
-import { getOsmId, type MapData, type OsmProperties, type POI } from '../geo'
+import type { OsmRenderMapProps } from '../../types'
+import { getOsmId, type OsmMapData, type OsmProperties, type POI } from '../geo'
 import { vVec, type V } from '../tuple'
 
 export const mapSymbols: POI[] = []
 
 function pointNames(
-  mapData: Readonly<MapData>,
+  mapData: Readonly<OsmMapData>,
   skip?: Readonly<RegExp>,
   split?: Readonly<RegExp>
 ): POI[] {
@@ -32,7 +32,7 @@ function pointNames(
 }
 
 function lineNames(
-  mapData: Readonly<MapData>,
+  mapData: Readonly<OsmMapData>,
   skip?: Readonly<RegExp>,
   split?: Readonly<RegExp>
 ): POI[] {
@@ -59,7 +59,7 @@ function lineNames(
 }
 
 function polygonNames(
-  mapData: Readonly<MapData>,
+  mapData: Readonly<OsmMapData>,
   skip?: Readonly<RegExp>,
   split?: Readonly<RegExp>
 ): POI[] {
@@ -86,7 +86,7 @@ function polygonNames(
   })
 }
 
-export function getMapNames(props: Readonly<RenderMapProps>): POI[] {
+export function getMapNames(props: Readonly<OsmRenderMapProps>): POI[] {
   const skip = props.carto?.skipNamePattern
   const split = props.carto?.splitNamePattern
   return [
@@ -96,7 +96,7 @@ export function getMapNames(props: Readonly<RenderMapProps>): POI[] {
   ]
 }
 
-export function getMapLineNames(props: Readonly<RenderMapProps>): POI[] {
+export function getMapLineNames(props: Readonly<OsmRenderMapProps>): POI[] {
   const skip = props.carto?.skipNamePattern
   const split = props.carto?.splitNamePattern
   return lineNames(props.data.mapData, skip, split)

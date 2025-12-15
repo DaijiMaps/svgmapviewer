@@ -1,7 +1,7 @@
 import { type BoxBox, boxScale } from '../box/prefixed'
 import { type V, vSub } from '../tuple'
 import { vecDiv, vecFromV, vecVec } from '../vec/prefixed'
-import { type MapCoord, type MapData } from './data-types'
+import { type MapCoord, type OsmMapData } from './data-types'
 import { type LineGeoJSON } from './geojson-types'
 
 function getViewBox(viewbox: Readonly<LineGeoJSON>): BoxBox {
@@ -17,7 +17,11 @@ function getViewBox(viewbox: Readonly<LineGeoJSON>): BoxBox {
 // XXX
 // XXX DOMMatrixReadonly
 // XXX
-export function calcScale({ origin, measures, viewbox }: Readonly<MapData>): {
+export function calcScale({
+  origin,
+  measures,
+  viewbox,
+}: Readonly<OsmMapData>): {
   mapCoord: MapCoord
   mapViewBox: BoxBox
 } {

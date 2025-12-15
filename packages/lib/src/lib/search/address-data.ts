@@ -1,8 +1,8 @@
-import type { Info, SearchProps } from '../../types'
+import type { Info, OsmSearchProps } from '../../types'
 import {
   findFeature,
   getOsmId,
-  type MapMap,
+  type OsmMapMap,
   type OsmProperties,
   type SearchEntry,
 } from '../geo'
@@ -13,7 +13,7 @@ import type {
 } from './address-types'
 
 function pointAddresses(
-  props: Readonly<SearchProps>,
+  props: Readonly<OsmSearchProps>,
   skip?: Readonly<RegExp>
 ): AddressEntries {
   return props.mapData.points.features.flatMap(({ properties }) => {
@@ -24,7 +24,7 @@ function pointAddresses(
 
 /*
 function lineAddresses(
-  props: Readonly<SearchProps>,
+  props: Readonly<OsmSearchProps>,
   skip?: Readonly<RegExp>
 ): AddressEntries {
   return props.mapData.lines.features.flatMap(({ properties }) => {
@@ -35,7 +35,7 @@ function lineAddresses(
 */
 
 function polygonAddresses(
-  props: Readonly<SearchProps>,
+  props: Readonly<OsmSearchProps>,
   skip?: Readonly<RegExp>
 ): AddressEntries {
   return props.mapData.multipolygons.features.flatMap(({ properties }) => {
@@ -45,7 +45,7 @@ function polygonAddresses(
 }
 
 export function getAddressEntries(
-  props: Readonly<SearchProps>
+  props: Readonly<OsmSearchProps>
 ): AddressEntries {
   const skip = props.cartoConfig?.skipNamePattern
   return [
@@ -79,7 +79,7 @@ function filterFeature(
 }
 
 export function getAddressInfo(
-  mapMap: Readonly<MapMap>,
+  mapMap: Readonly<OsmMapMap>,
   entries: readonly SearchEntry[],
   res: Readonly<SearchAddressRes>
 ): null | Info {

@@ -12,16 +12,16 @@ import {
   MAP_SVG_LABELS_ROOT_ID,
 } from './map-svg-react'
 import { useNameRanges, useNames } from './names'
-import type { RenderMapProps } from '../../types'
+import type { OsmRenderMapProps } from '../../types'
 
-export function MapSvgLabels(props: Readonly<RenderMapProps>): ReactNode {
+export function MapSvgLabels(props: Readonly<OsmRenderMapProps>): ReactNode {
   useShadowRoot(MAP_SVG_LABELS_ROOT_ID, <MapSvgLabelsContent {...props} />)
 
   return <div id={MAP_SVG_LABELS_ROOT_ID} className="content svg" />
 }
 
 export function MapSvgLabelsContent(
-  props: Readonly<RenderMapProps>
+  props: Readonly<OsmRenderMapProps>
 ): ReactNode {
   const f = props.carto?.filterLabelsByRange ?? true
 
@@ -50,7 +50,7 @@ text, tspan {
 }
 `
 
-function MapSvgLabelsUses(props: Readonly<RenderMapProps>): ReactNode {
+function MapSvgLabelsUses(props: Readonly<OsmRenderMapProps>): ReactNode {
   const { pointNames, areaNames } = useNames()
   const m = props.data.mapCoord.matrix
 
@@ -150,7 +150,7 @@ function MapSvgLabelsSvg(): ReactNode {
   )
 }
 
-function MapSvgLabelsDefs(props: Readonly<RenderMapProps>): ReactNode {
+function MapSvgLabelsDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
   const { pointNames, areaNames } = useNames()
 
   return (

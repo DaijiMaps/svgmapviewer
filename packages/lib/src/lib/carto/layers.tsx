@@ -2,25 +2,25 @@ import { Fragment, type ReactNode } from 'react'
 import {
   getOsmId,
   type LinesFilter,
-  type MapData,
+  type OsmMapData,
   type MultiPolygonsFilter,
   type OsmProperties,
 } from '../geo'
 import { lineToPathD, multiPolygonToPathD } from '../geo/path'
 import type {
   LinePath,
-  MapLayer,
+  OsmMapLayer,
   MapLineLayer,
   MapMultiPolygonLayer,
   MultiPolygonPath,
 } from './types'
-import type { RenderMapProps } from '../../types'
+import type { OsmRenderMapProps } from '../../types'
 
 export function RenderMapLayers(
   props: Readonly<
-    RenderMapProps & {
+    OsmRenderMapProps & {
       m: DOMMatrixReadOnly
-      mapLayers: MapLayer[]
+      mapLayers: OsmMapLayer[]
     }
   >
 ): ReactNode {
@@ -38,7 +38,7 @@ export function RenderMapLayers(
 }
 
 function lineLayerToLinePaths(
-  mapData: Readonly<MapData>,
+  mapData: Readonly<OsmMapData>,
   layer: Readonly<MapLineLayer>
 ) {
   return layer.filter !== undefined
@@ -49,7 +49,7 @@ function lineLayerToLinePaths(
 }
 
 function multiPolygonLayerToMultiPolygonPaths(
-  mapData: Readonly<MapData>,
+  mapData: Readonly<OsmMapData>,
   layer: Readonly<MapMultiPolygonLayer>
 ) {
   return layer.filter !== undefined
@@ -60,7 +60,7 @@ function multiPolygonLayerToMultiPolygonPaths(
 }
 
 function LineLayerToPaths(
-  mapData: Readonly<MapData>,
+  mapData: Readonly<OsmMapData>,
   m: DOMMatrixReadOnly,
   layer: Readonly<MapLineLayer>
 ): ReactNode {
@@ -130,7 +130,7 @@ export function LinePathToTextPath(
 }
 
 function MultiPolygonLayerToPath(
-  mapData: Readonly<MapData>,
+  mapData: Readonly<OsmMapData>,
   m: DOMMatrixReadOnly,
   layer: Readonly<MapMultiPolygonLayer>
 ): ReactNode {
@@ -177,7 +177,10 @@ function MultiPolygonPathToPath(
   )
 }
 
-function getLines(mapData: Readonly<MapData>, filter: LinesFilter): LinePath[] {
+function getLines(
+  mapData: Readonly<OsmMapData>,
+  filter: LinesFilter
+): LinePath[] {
   return mapData.lines.features
     .filter((f) => filter(f.properties))
     .map((f) => ({
@@ -190,7 +193,7 @@ function getLines(mapData: Readonly<MapData>, filter: LinesFilter): LinePath[] {
 }
 
 function getMultiPolygons(
-  mapData: Readonly<MapData>,
+  mapData: Readonly<OsmMapData>,
   filter: MultiPolygonsFilter
 ): MultiPolygonPath[] {
   return mapData.multipolygons.features

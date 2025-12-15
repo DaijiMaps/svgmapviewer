@@ -4,13 +4,17 @@ import { type ReactNode } from 'react'
 import { type BoxBox } from './lib/box/prefixed'
 import type { CartoConfig } from './lib/carto'
 import {
-  type MapLayer,
-  type MapMarkers,
-  type MapObjects,
-  type MapSymbols,
+  type OsmMapLayer,
+  type OsmMapMarkers,
+  type OsmMapObjects,
+  type OsmMapSymbols,
 } from './lib/carto/types'
 import type { SearchEntry } from './lib/geo'
-import { type MapCoord, type MapData, type MapMap } from './lib/geo/data-types'
+import {
+  type MapCoord,
+  type OsmMapData,
+  type OsmMapMap,
+} from './lib/geo/data-types'
 import { type POI } from './lib/geo/poi-types'
 import { type Vec } from './lib/vec'
 import { type Layout, type LayoutCoord } from './lib/viewer/layout-types'
@@ -94,8 +98,8 @@ export type GeoLocDoneCb = (position: GeolocationPosition) => void
 
 ////
 
-export interface SearchProps {
-  mapData: Readonly<MapData>
+export interface OsmSearchProps {
+  mapData: Readonly<OsmMapData>
   searchEntries: readonly SearchEntry[]
   cartoConfig?: Readonly<CartoConfig>
 }
@@ -104,20 +108,20 @@ export interface SearchProps {
 
 export type RenderAssets = () => ReactNode
 
-export interface RenderMapProps {
-  data: Readonly<DataConfig>
-  render: Readonly<RenderConfig>
+export interface OsmRenderMapProps {
+  data: Readonly<OsmDataConfig>
+  render: Readonly<OsmRenderConfig>
   carto?: Readonly<CartoConfig>
   floors?: Readonly<FloorsConfig>
 }
 
-export type RenderMap = (props: Readonly<RenderMapProps>) => ReactNode
+export type RenderMap = (props: Readonly<OsmRenderMapProps>) => ReactNode
 
 export type RenderInfo = (props: Readonly<{ info: Info }>) => ReactNode
 
 ////
 
-export interface SvgMapViewerConfig extends DataConfig, RenderConfig {
+export interface SvgMapViewerConfig extends OsmDataConfig, OsmRenderConfig {
   root: string
   href: string
   width: number
@@ -139,20 +143,20 @@ export interface UiConfig {
   showGuides: boolean
 }
 
-export interface DataConfig {
-  mapData: MapData
-  mapMap: MapMap
+export interface OsmDataConfig {
+  mapData: OsmMapData
+  mapMap: OsmMapMap
   mapCoord: MapCoord
   origViewBox: BoxBox
 }
 
-export interface RenderConfig {
+export interface OsmRenderConfig {
   map: string
-  getMapLayers: () => MapLayer[]
-  getMapObjects: () => MapObjects[]
-  getMapSymbols: () => MapSymbols[]
-  getMapMarkers: () => MapMarkers[]
-  getMapNames: (props: Readonly<RenderMapProps>) => POI[] // XXX
+  getMapLayers: () => OsmMapLayer[]
+  getMapObjects: () => OsmMapObjects[]
+  getMapSymbols: () => OsmMapSymbols[]
+  getMapMarkers: () => OsmMapMarkers[]
+  getMapNames: (props: Readonly<OsmRenderMapProps>) => POI[] // XXX
   searchEntries: SearchEntry[] // XXX
   renderInfo: RenderInfo
   mapSvgStyle: string

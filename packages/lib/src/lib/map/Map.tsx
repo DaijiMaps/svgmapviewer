@@ -9,14 +9,14 @@ import { MapSvgLayers } from './MapSvgLayers'
 import { MapSvgMarkers } from './MapSvgMarkers'
 import { MapSvgObjects } from './MapSvgObjects'
 import { MapSvgSymbols } from './MapSvgSymbols'
-import type { RenderMapProps } from '../../types'
+import type { OsmRenderMapProps } from '../../types'
 
-export function RenderMap(props: Readonly<RenderMapProps>): ReactNode {
+export function RenderMap(props: Readonly<OsmRenderMapProps>): ReactNode {
   return RenderMapCommon(props)
 }
 
 export function RenderMapOsmDefault(
-  props: Readonly<RenderMapProps>
+  props: Readonly<OsmRenderMapProps>
 ): ReactNode {
   return (
     <>

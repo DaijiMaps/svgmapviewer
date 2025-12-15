@@ -15,7 +15,7 @@ import {
   type OsmPointGeoJSON,
 } from './osm-types'
 
-export interface MapData {
+export interface OsmMapData {
   areas: MultiPolygonGeoJSON
   internals: MultiPolygonGeoJSON
   origin: PointGeoJSON
@@ -28,7 +28,7 @@ export interface MapData {
   multipolygons: OsmMultiPolygonGeoJSON
 }
 
-export const emptyMapData: MapData = {
+export const emptyMapData: OsmMapData = {
   areas: emptyGeoJSON as MultiPolygonGeoJSON,
   internals: emptyGeoJSON as MultiPolygonGeoJSON,
   origin: emptyGeoJSON as PointGeoJSON,
@@ -48,14 +48,14 @@ export type LineMap = Map<number, OsmLineFeature>
 export type MultiLineStringMap = Map<number, OsmMultiLineStringFeature>
 export type MultiPolygonMap = Map<number, OsmMultiPolygonFeature>
 
-export interface MapMap {
+export interface OsmMapMap {
   pointMap: PointMap
   lineMap: LineMap
   multilinestringMap: MultiLineStringMap
   multipolygonMap: MultiPolygonMap
 }
 
-export const emptyMapMap: MapMap = {
+export const emptyMapMap: OsmMapMap = {
   pointMap: new Map(),
   lineMap: new Map(),
   multilinestringMap: new Map(),

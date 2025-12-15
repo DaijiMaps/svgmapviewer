@@ -10,16 +10,16 @@ import {
   MAP_SVG_OBJECTS_CONTENT_ID,
   MAP_SVG_OBJECTS_ROOT_ID,
 } from './map-svg-react'
-import type { RenderMapProps } from '../../types'
+import type { OsmRenderMapProps } from '../../types'
 
-export function MapSvgObjects(props: Readonly<RenderMapProps>): ReactNode {
+export function MapSvgObjects(props: Readonly<OsmRenderMapProps>): ReactNode {
   useShadowRoot(MAP_SVG_OBJECTS_ROOT_ID, <MapSvgObjectsContent {...props} />)
 
   return <div id={MAP_SVG_OBJECTS_ROOT_ID} className="content svg" />
 }
 
 export function MapSvgObjectsContent(
-  props: Readonly<RenderMapProps>
+  props: Readonly<OsmRenderMapProps>
 ): ReactNode {
   return (
     <>
@@ -56,7 +56,7 @@ function MapSvgObjectsSvg(): ReactNode {
   )
 }
 
-function MapSvgObjectsDefs(props: Readonly<RenderMapProps>): ReactNode {
+function MapSvgObjectsDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
   return (
     <svg id="map-svg-objects-defs" viewBox="0 0 1 1">
       <defs>

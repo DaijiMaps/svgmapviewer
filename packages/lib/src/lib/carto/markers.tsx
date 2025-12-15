@@ -4,10 +4,10 @@ import { type V } from '../tuple'
 import { trunc2 } from '../utils'
 import { entryToVs } from './point'
 import type { MapMarker, RenderMapMarkersProps } from './types'
-import type { RenderMapProps } from '../../types'
+import type { OsmRenderMapProps } from '../../types'
 
 export function RenderMapMarkers(
-  props: Readonly<RenderMapProps & RenderMapMarkersProps>
+  props: Readonly<OsmRenderMapProps & RenderMapMarkersProps>
 ): ReactNode {
   const sz = 25 / props.fontSize
 
@@ -150,7 +150,7 @@ z
 
 export function RenderPositionStyle(
   props: Readonly<
-    RenderMapProps & {
+    OsmRenderMapProps & {
       fontSize: number
       s: number
     }

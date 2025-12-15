@@ -6,12 +6,12 @@ import { RenderMapCommon } from './render'
 import { RenderMapSymbols, RenderUses } from './symbols'
 import {
   type CartoConfig,
-  type MapLayer,
+  type OsmMapLayer,
   type MapLineLayer,
-  type MapMarkers,
+  type OsmMapMarkers,
   type MapMultiPolygonLayer,
-  type MapObjects,
-  type MapSymbols,
+  type OsmMapObjects,
+  type OsmMapSymbols,
   type RenderMapMarkersProps,
   type RenderMapSymbolsProps,
 } from './types'
@@ -22,25 +22,25 @@ export { type CartoConfig }
 
 //// layers
 
-export { type MapLayer, type MapLineLayer, type MapMultiPolygonLayer }
+export { type OsmMapLayer, type MapLineLayer, type MapMultiPolygonLayer }
 
 export { RenderMapLayers }
 
 //// objects
 
-export { type MapObjects }
+export { type OsmMapObjects }
 
 export { RenderMapObjects, RenderObjects }
 
 //// symbols
 
-export { type MapSymbols, type RenderMapSymbolsProps }
+export { type OsmMapSymbols, type RenderMapSymbolsProps }
 
 export { RenderMapSymbols, RenderUses }
 
 //// markers
 
-export { type MapMarkers, type RenderMapMarkersProps }
+export { type OsmMapMarkers, type RenderMapMarkersProps }
 
 export { RenderMapMarkers, RenderMarkers }
 

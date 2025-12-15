@@ -17,16 +17,16 @@ import {
   MAP_SVG_MARKERS_ROOT_ID,
 } from './map-svg-react'
 import { useNames } from './names'
-import type { RenderMapProps } from '../../types'
+import type { OsmRenderMapProps } from '../../types'
 
-export function MapSvgMarkers(props: Readonly<RenderMapProps>): ReactNode {
+export function MapSvgMarkers(props: Readonly<OsmRenderMapProps>): ReactNode {
   useShadowRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkersContent {...props} />)
 
   return <div id={MAP_SVG_MARKERS_ROOT_ID} className="content svg" />
 }
 
 export function MapSvgMarkersContent(
-  props: Readonly<RenderMapProps>
+  props: Readonly<OsmRenderMapProps>
 ): ReactNode {
   return (
     <>
@@ -63,7 +63,7 @@ function MapSvgMarkersSvg(): ReactNode {
   )
 }
 
-function MapSvgMarkersDefs(props: Readonly<RenderMapProps>): ReactNode {
+function MapSvgMarkersDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
   const { fontSize } = useLayoutConfig()
   const s = useLayoutSvgScaleS()
 
@@ -87,7 +87,7 @@ function MapSvgMarkersDefs(props: Readonly<RenderMapProps>): ReactNode {
   )
 }
 
-function MapSvgMarkersUses(props: Readonly<RenderMapProps>): ReactNode {
+function MapSvgMarkersUses(props: Readonly<OsmRenderMapProps>): ReactNode {
   const { pointNames } = useNames()
   const m = props.data.mapCoord.matrix
 

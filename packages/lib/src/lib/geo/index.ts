@@ -1,8 +1,8 @@
 import { mapMapFromMapData } from './data'
 import {
   type MapCoord,
-  type MapData,
-  type MapMap,
+  type OsmMapData,
+  type OsmMapMap,
   type MeasureProperties,
 } from './data-types'
 import { calcScale } from './geojson'
@@ -69,7 +69,12 @@ import { type SearchEntry } from './search-types'
 
 export { mapMapFromMapData }
 
-export { type MapCoord, type MapData, type MapMap, type MeasureProperties }
+export {
+  type MapCoord,
+  type OsmMapData,
+  type OsmMapMap,
+  type MeasureProperties,
+}
 
 export { calcScale }
 
