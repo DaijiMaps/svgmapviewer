@@ -2,9 +2,7 @@ import { Fragment, type ReactNode } from 'react'
 import { svgMapViewerConfig as cfg } from '../../config'
 import {
   getOsmId,
-  type Line,
   type LinesFilter,
-  type MultiPolygon,
   type MultiPolygonsFilter,
   type OsmProperties,
 } from '../geo'
@@ -175,7 +173,7 @@ function getLines(filter: LinesFilter): LinePath[] {
       id: getOsmId(f.properties) + '',
       tags: propertiesToTags(f.properties),
       width: propertiesToWidth(f.properties),
-      vs: f.geometry.coordinates as unknown as Line,
+      vs: f.geometry.coordinates,
     }))
 }
 
@@ -187,7 +185,7 @@ function getMultiPolygons(filter: MultiPolygonsFilter): MultiPolygonPath[] {
       id: getOsmId(f.properties) + '',
       tags: propertiesToTags(f.properties),
       width: propertiesToWidth(f.properties),
-      vs: f.geometry.coordinates as unknown as MultiPolygon,
+      vs: f.geometry.coordinates,
     }))
 }
 

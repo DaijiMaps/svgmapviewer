@@ -16,7 +16,7 @@ export const emptyCRS: CRS = {
 
 //// coordinate
 
-export type PointCoordinate = number[]
+export type PointCoordinate = [x: number, y: number]
 export type LineCoordinate = PointCoordinate[]
 export type PolygonCoordinate = LineCoordinate[]
 export type MultiPointCoordinate = PointCoordinate[]

@@ -127,9 +127,8 @@ function splitName(s: string): string[] {
 }
 
 type DeepReadonly<T> = {
-  readonly [P in keyof T]: T[P] extends (
-    ...args: Readonly<unknown[]>
-  ) => unknown
+  readonly [P in keyof T]: T[P] extends () //...args: readonly unknown[][]
+  => unknown
     ? T[P]
     : T[P] extends object
       ? DeepReadonly<T[P]>

@@ -18,7 +18,7 @@ import type { ViewerMode } from './lib/viewer/viewer-types'
 
 //// layout
 
-export type HV = {
+export interface HV {
   h: -1 | 0 | 1 // left, none, right
   v: -1 | 0 | 1 // top, none, bottom
   th: number // angle (radian)
