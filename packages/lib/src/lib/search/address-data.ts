@@ -1,10 +1,8 @@
 /* eslint-disable functional/prefer-immutable-types */
-import { svgMapViewerConfig } from '../../config'
-import type { Info } from '../../types'
+import type { Info, SearchProps } from '../../types'
 import {
   findFeature,
   getOsmId,
-  type MapData,
   type MapMap,
   type OsmProperties,
   type SearchEntry,
@@ -16,55 +14,51 @@ import type {
 } from './address-types'
 
 function pointAddresses(
-  mapData: MapData,
-  entries: SearchEntry[],
+  props: Readonly<SearchProps>,
   skip?: Readonly<RegExp>
 ): AddressEntries {
-  return mapData.points.features.flatMap(({ properties }) => {
-    const e = filterFeature(properties, entries, skip)
+  return props.mapData.points.features.flatMap(({ properties }) => {
+    const e = filterFeature(properties, props.searchEntries, skip)
     return e === null ? [] : [e]
   })
 }
 
 /*
 function lineAddresses(
-  mapData: MapData,
-  entries: SearchEntry[],
+  props: Readonly<SearchProps>,
   skip?: Readonly<RegExp>
 ): AddressEntries {
-  return mapData.lines.features.flatMap(({ properties }) => {
-    const e = filterFeature(properties, entries, skip)
+  return props.mapData.lines.features.flatMap(({ properties }) => {
+    const e = filterFeature(properties, props.searchEntries, skip)
     return e === null ? [] : [e]
   })
 }
 */
 
 function polygonAddresses(
-  mapData: MapData,
-  entries: SearchEntry[],
+  props: Readonly<SearchProps>,
   skip?: Readonly<RegExp>
 ): AddressEntries {
-  return mapData.multipolygons.features.flatMap(({ properties }) => {
-    const e = filterFeature(properties, entries, skip)
+  return props.mapData.multipolygons.features.flatMap(({ properties }) => {
+    const e = filterFeature(properties, props.searchEntries, skip)
     return e === null ? [] : [e]
   })
 }
 
 export function getAddressEntries(
-  mapData: MapData,
-  entries: SearchEntry[]
+  props: Readonly<SearchProps>
 ): AddressEntries {
-  const skip = svgMapViewerConfig.cartoConfig?.skipNamePattern
+  const skip = props.cartoConfig?.skipNamePattern
   return [
-    ...pointAddresses(mapData, entries, skip),
-    //...lineAddresses(mapData, entries, skip),
-    ...polygonAddresses(mapData, entries, skip),
+    ...pointAddresses(props, skip),
+    //...lineAddresses(props, skip),
+    ...polygonAddresses(props, skip),
   ]
 }
 
 function filterFeature(
   properties: OsmProperties,
-  entries: SearchEntry[],
+  entries: readonly SearchEntry[],
   skip?: Readonly<RegExp>
 ): null | AddressEntry {
   const id = getOsmId(properties)

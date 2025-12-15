@@ -94,6 +94,14 @@ export type GeoLocDoneCb = (position: GeolocationPosition) => void
 
 ////
 
+export interface SearchProps {
+  mapData: Readonly<MapData>
+  searchEntries: readonly SearchEntry[]
+  cartoConfig?: Readonly<CartoConfig>
+}
+
+////
+
 export type RenderAssets = () => ReactNode
 
 export interface RenderMapProps {
@@ -145,7 +153,7 @@ export interface RenderConfig {
   getMapSymbols: () => MapSymbols[]
   getMapMarkers: () => MapMarkers[]
   getMapNames: () => POI[] // XXX
-  searchEntries: SearchEntry[]
+  searchEntries: SearchEntry[] // XXX
   renderInfo: RenderInfo
   mapSvgStyle: string
   renderMap: RenderMap
