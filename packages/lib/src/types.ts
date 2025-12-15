@@ -152,7 +152,6 @@ export interface OsmDataConfig {
 }
 
 export interface OsmRenderConfig {
-  map: string
   getMapLayers: () => readonly OsmMapLayer[]
   getMapObjects: () => readonly OsmMapObjects[]
   getMapSymbols: () => readonly OsmMapSymbols[]

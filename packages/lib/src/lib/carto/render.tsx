@@ -8,7 +8,7 @@ export function RenderMapCommon(props: Readonly<OsmRenderMapProps>): ReactNode {
 
   return (
     <>
-      <g id={props.render.map} className="map">
+      <g id="map1" className="map">
         <RenderMapLayers
           {...props}
           m={props.data.mapCoord.matrix}

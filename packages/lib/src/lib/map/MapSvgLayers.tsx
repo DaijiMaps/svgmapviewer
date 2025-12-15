@@ -60,7 +60,7 @@ function MapSvgLayersDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
   return (
     <svg id="map-svg-defs" viewBox="0 0 1 1">
       <defs>
-        <g id={props.render.map} className="map">
+        <g id="map1" className="map">
           <RenderMapLayers
             {...props}
             m={props.data.mapCoord.matrix}
