@@ -109,7 +109,7 @@ function css({ matrix: q, origin: o }: Readonly<AnimationMatrix>): string {
   return `
 #viewer {
   will-change: transform;
-  animation: container-zoom ${500}ms ease;
+  animation: container-zoom 500ms ease;
 }
 @keyframes container-zoom {
   from {
