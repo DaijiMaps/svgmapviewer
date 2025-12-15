@@ -96,12 +96,14 @@ export type GeoLocDoneCb = (position: GeolocationPosition) => void
 
 export type RenderAssets = () => ReactNode
 
-export type RenderMap = (
-  props: Readonly<{
-    data: Readonly<DataConfig>
-    render: Readonly<RenderConfig>
-  }>
-) => ReactNode
+export interface RenderMapProps {
+  data: Readonly<DataConfig>
+  render: Readonly<RenderConfig>
+  carto?: Readonly<CartoConfig>
+  floors?: Readonly<FloorsConfig>
+}
+
+export type RenderMap = (props: Readonly<RenderMapProps>) => ReactNode
 
 export type RenderInfo = (props: Readonly<{ info: Info }>) => ReactNode
 

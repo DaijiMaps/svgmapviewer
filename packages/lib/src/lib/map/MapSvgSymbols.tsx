@@ -12,18 +12,16 @@ import {
   MAP_SVG_SYMBOLS_CONTENT_ID,
   MAP_SVG_SYMBOLS_ROOT_ID,
 } from './map-svg-react'
-import type { DataConfig, RenderConfig } from '../../types'
+import type { RenderMapProps } from '../../types'
 
-export function MapSvgSymbols(
-  props: Readonly<{ data: DataConfig; render: RenderConfig }>
-): ReactNode {
+export function MapSvgSymbols(props: Readonly<RenderMapProps>): ReactNode {
   useShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbolsContent {...props} />)
 
   return <div id={MAP_SVG_SYMBOLS_ROOT_ID} className="content svg" />
 }
 
 export function MapSvgSymbolsContent(
-  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+  props: Readonly<RenderMapProps>
 ): ReactNode {
   return (
     <>
@@ -60,9 +58,7 @@ function MapSvgSymbolsSvg(): ReactNode {
   )
 }
 
-function MapSvgSymbolsDefs(
-  props: Readonly<{ data: DataConfig; render: RenderConfig }>
-): ReactNode {
+function MapSvgSymbolsDefs(props: Readonly<RenderMapProps>): ReactNode {
   return (
     <svg id="map-svg-symbols-defs">
       <g id="map-svg-symbols1">

@@ -10,18 +10,16 @@ import {
   MAP_SVG_LAYERS_CONTENT_ID,
   MAP_SVG_LAYERS_ROOT_ID,
 } from './map-svg-react'
-import type { DataConfig, RenderConfig } from '../../types'
+import type { RenderMapProps } from '../../types'
 
-export function MapSvgLayers(
-  props: Readonly<{ data: DataConfig; render: RenderConfig }>
-): ReactNode {
+export function MapSvgLayers(props: Readonly<RenderMapProps>): ReactNode {
   useShadowRoot(MAP_SVG_LAYERS_ROOT_ID, <MapSvgLayersContent {...props} />)
 
   return <div id={MAP_SVG_LAYERS_ROOT_ID} className="content svg" />
 }
 
 export function MapSvgLayersContent(
-  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+  props: Readonly<RenderMapProps>
 ): ReactNode {
   return (
     <>
@@ -58,9 +56,7 @@ function MapSvgLayersSvg(): ReactNode {
   )
 }
 
-function MapSvgLayersDefs(
-  props: Readonly<{ data: DataConfig; render: RenderConfig }>
-): ReactNode {
+function MapSvgLayersDefs(props: Readonly<RenderMapProps>): ReactNode {
   return (
     <svg id="map-svg-defs" viewBox="0 0 1 1">
       <defs>

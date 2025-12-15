@@ -17,18 +17,16 @@ import {
   MAP_SVG_MARKERS_ROOT_ID,
 } from './map-svg-react'
 import { useNames } from './names'
-import type { DataConfig, RenderConfig } from '../../types'
+import type { RenderMapProps } from '../../types'
 
-export function MapSvgMarkers(
-  props: Readonly<{ data: DataConfig; render: RenderConfig }>
-): ReactNode {
+export function MapSvgMarkers(props: Readonly<RenderMapProps>): ReactNode {
   useShadowRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkersContent {...props} />)
 
   return <div id={MAP_SVG_MARKERS_ROOT_ID} className="content svg" />
 }
 
 export function MapSvgMarkersContent(
-  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+  props: Readonly<RenderMapProps>
 ): ReactNode {
   return (
     <>
@@ -65,9 +63,7 @@ function MapSvgMarkersSvg(): ReactNode {
   )
 }
 
-function MapSvgMarkersDefs(
-  props: Readonly<{ data: DataConfig; render: RenderConfig }>
-): ReactNode {
+function MapSvgMarkersDefs(props: Readonly<RenderMapProps>): ReactNode {
   const { fontSize } = useLayoutConfig()
   const s = useLayoutSvgScaleS()
 
@@ -90,9 +86,7 @@ function MapSvgMarkersDefs(
   )
 }
 
-function MapSvgMarkersUses(
-  props: Readonly<{ data: DataConfig; render: RenderConfig }>
-): ReactNode {
+function MapSvgMarkersUses(props: Readonly<RenderMapProps>): ReactNode {
   const { pointNames } = useNames()
   const m = props.data.mapCoord.matrix
 

@@ -1,7 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode, useMemo } from 'react'
-import { svgMapViewerConfig } from '../../config'
 import { useLayout, useLayoutSvgScaleS } from '../../style-xstate'
 import { boxToViewBox2 } from '../box/prefixed'
 import { useShadowRoot } from '../dom'
@@ -13,26 +12,18 @@ import {
   MAP_SVG_LABELS_ROOT_ID,
 } from './map-svg-react'
 import { useNameRanges, useNames } from './names'
-import type { DataConfig, RenderConfig } from '../../types'
+import type { RenderMapProps } from '../../types'
 
-export function MapSvgLabels(
-  props: Readonly<{ data: DataConfig; render: RenderConfig }>
-): ReactNode {
+export function MapSvgLabels(props: Readonly<RenderMapProps>): ReactNode {
   useShadowRoot(MAP_SVG_LABELS_ROOT_ID, <MapSvgLabelsContent {...props} />)
 
   return <div id={MAP_SVG_LABELS_ROOT_ID} className="content svg" />
 }
 
 export function MapSvgLabelsContent(
-  props: Readonly<{ data: DataConfig; render: RenderConfig }>
+  props: Readonly<RenderMapProps>
 ): ReactNode {
-  // XXX
-  // XXX
-  // XXX
-  const f = svgMapViewerConfig.cartoConfig?.filterLabelsByRange ?? true
-  // XXX
-  // XXX
-  // XXX
+  const f = props.carto?.filterLabelsByRange ?? true
 
   return (
     <>
@@ -59,9 +50,7 @@ text, tspan {
 }
 `
 
-function MapSvgLabelsUses(
-  props: Readonly<{ data: DataConfig; render: RenderConfig }>
-): ReactNode {
+function MapSvgLabelsUses(props: Readonly<RenderMapProps>): ReactNode {
   const { pointNames, areaNames } = useNames()
   const m = props.data.mapCoord.matrix
 
@@ -161,9 +150,7 @@ function MapSvgLabelsSvg(): ReactNode {
   )
 }
 
-function MapSvgLabelsDefs(
-  props: Readonly<{ data: DataConfig; render: RenderConfig }>
-): ReactNode {
+function MapSvgLabelsDefs(props: Readonly<RenderMapProps>): ReactNode {
   const { pointNames, areaNames } = useNames()
 
   return (

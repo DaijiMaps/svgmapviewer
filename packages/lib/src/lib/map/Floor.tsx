@@ -1,14 +1,15 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig } from '../../config'
 import { useLayout2 } from '../../style-xstate'
 import { useFloors } from '../viewer/floors-xstate'
+import type { RenderMapProps } from '../../types'
 
-export function RenderFloors(): ReactNode {
+export function RenderFloors(props: Readonly<RenderMapProps>): ReactNode {
   const { viewBox, width, height } = useLayout2()
   const { fidxToOnAnimationEnd } = useFloors()
 
-  const { origViewBox, floorsConfig } = svgMapViewerConfig
+  const origViewBox = props.data.origViewBox
+  const floorsConfig = props.floors
 
   return floorsConfig === undefined ? (
     <></>

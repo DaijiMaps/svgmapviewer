@@ -53,6 +53,8 @@ export function Container(): ReactNode {
         // XXX
         data: svgMapViewerConfig,
         render: svgMapViewerConfig,
+        carto: svgMapViewerConfig.cartoConfig,
+        floors: svgMapViewerConfig.floorsConfig,
         // XXX
         // XXX
         // XXX
