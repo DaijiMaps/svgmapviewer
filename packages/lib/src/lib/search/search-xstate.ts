@@ -1,5 +1,10 @@
 import { createActor, emit, setup } from 'xstate'
-import { notifySearch, notifySearchEnd } from '../../event'
+import {
+  notifySearch,
+  notifySearchEnd,
+  searchDoneCbs,
+  searchStartCbs,
+} from '../../event'
 import { type Info, type SearchRes } from '../../types'
 import { type Vec } from '../vec'
 
@@ -60,15 +65,18 @@ searchRef.start()
 
 ////
 
-export function searchSearchStart(psvg: Vec): void {
+function searchSearchStart(psvg: Vec): void {
   searchRef.send({ type: 'SEARCH', psvg })
 }
 
-export function searchSearchDone(res: Readonly<null | SearchRes>): void {
+function searchSearchDone(res: Readonly<null | SearchRes>): void {
   searchRef.send(
     res === null ? { type: 'SEARCH.CANCEL' } : { type: 'SEARCH.DONE', ...res }
   )
 }
+
+searchStartCbs.add(searchSearchStart)
+searchDoneCbs.add(searchSearchDone)
 
 export function searchActorStart(): void {
   searchRef.start()

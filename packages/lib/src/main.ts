@@ -1,18 +1,12 @@
-/* eslint-disable functional/immutable-data */
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
-import { searchDoneCbs, searchStartCbs } from './event'
 import { type Box } from './lib/box/main'
 import { geolocActorStart } from './lib/geo'
 import { setNames } from './lib/map/names'
-import {
-  searchActorStart,
-  searchSearchDone,
-  searchSearchStart,
-} from './lib/search/search-xstate'
+import { searchActorStart } from './lib/search/search-xstate'
 import { isUiRendered } from './lib/ui/Ui'
 import { uiActorStart } from './lib/ui/ui-xstate'
 import { isContainerRendered } from './lib/viewer/Container'
@@ -57,9 +51,6 @@ export function svgmapviewer(
   ////
 
   startAllActors()
-
-  searchStartCbs.add(searchSearchStart)
-  searchDoneCbs.add(searchSearchDone)
 
   if (configUser.getMapNames) {
     setNames(
