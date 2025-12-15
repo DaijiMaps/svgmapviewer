@@ -10,6 +10,7 @@ export function RenderMapCommon(props: Readonly<RenderMapProps>): ReactNode {
     <>
       <g id={props.render.map} className="map">
         <RenderMapLayers
+          {...props}
           m={props.data.mapCoord.matrix}
           mapLayers={props.render.getMapLayers()}
         />

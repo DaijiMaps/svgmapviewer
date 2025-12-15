@@ -1,38 +1,42 @@
-/* eslint-disable functional/functional-parameters */
-
-import { svgMapViewerConfig } from '../../config'
-import { getOsmId, type OsmProperties, type POI } from '../geo'
+import type { RenderMapProps } from '../../types'
+import { getOsmId, type MapData, type OsmProperties, type POI } from '../geo'
 import { vVec, type V } from '../tuple'
 
 export const mapSymbols: POI[] = []
 
-function pointNames(skip?: Readonly<RegExp>, split?: Readonly<RegExp>): POI[] {
-  return svgMapViewerConfig.mapData.points.features.flatMap(
-    ({ properties }) => {
-      const id = getOsmId(properties)
-      if (properties.centroid_x === null || properties.centroid_y === null) {
-        return []
-      }
-      const centroid: V = [properties.centroid_x, properties.centroid_y]
-      const pos = vVec(centroid)
-      const name = filterName(properties, skip, split)
-      return name.length === 0
-        ? []
-        : [
-            {
-              id: id === null ? null : id,
-              name: name,
-              pos,
-              size: 0,
-              area: undefined,
-            },
-          ]
+function pointNames(
+  mapData: Readonly<MapData>,
+  skip?: Readonly<RegExp>,
+  split?: Readonly<RegExp>
+): POI[] {
+  return mapData.points.features.flatMap(({ properties }) => {
+    const id = getOsmId(properties)
+    if (properties.centroid_x === null || properties.centroid_y === null) {
+      return []
     }
-  )
+    const centroid: V = [properties.centroid_x, properties.centroid_y]
+    const pos = vVec(centroid)
+    const name = filterName(properties, skip, split)
+    return name.length === 0
+      ? []
+      : [
+          {
+            id: id === null ? null : id,
+            name: name,
+            pos,
+            size: 0,
+            area: undefined,
+          },
+        ]
+  })
 }
 
-function lineNames(skip?: Readonly<RegExp>, split?: Readonly<RegExp>): POI[] {
-  return svgMapViewerConfig.mapData.lines.features.flatMap(({ properties }) => {
+function lineNames(
+  mapData: Readonly<MapData>,
+  skip?: Readonly<RegExp>,
+  split?: Readonly<RegExp>
+): POI[] {
+  return mapData.lines.features.flatMap(({ properties }) => {
     const id = getOsmId(properties)
     if (properties.centroid_x === null || properties.centroid_y === null) {
       return []
@@ -55,48 +59,47 @@ function lineNames(skip?: Readonly<RegExp>, split?: Readonly<RegExp>): POI[] {
 }
 
 function polygonNames(
+  mapData: Readonly<MapData>,
   skip?: Readonly<RegExp>,
   split?: Readonly<RegExp>
 ): POI[] {
-  return svgMapViewerConfig.mapData.multipolygons.features.flatMap(
-    ({ properties }) => {
-      const id = getOsmId(properties)
-      if (properties.centroid_x === null || properties.centroid_y === null) {
-        return []
-      }
-      const centroid: V = [properties.centroid_x, properties.centroid_y]
-      const pos = vVec(centroid)
-      const area = undefinedIfNull(properties?.area)
-      const name = filterName(properties, skip, split)
-      return name.length === 0
-        ? []
-        : [
-            {
-              id: id === null ? null : id,
-              name: name,
-              pos,
-              size: 0,
-              area,
-            },
-          ]
+  return mapData.multipolygons.features.flatMap(({ properties }) => {
+    const id = getOsmId(properties)
+    if (properties.centroid_x === null || properties.centroid_y === null) {
+      return []
     }
-  )
+    const centroid: V = [properties.centroid_x, properties.centroid_y]
+    const pos = vVec(centroid)
+    const area = undefinedIfNull(properties?.area)
+    const name = filterName(properties, skip, split)
+    return name.length === 0
+      ? []
+      : [
+          {
+            id: id === null ? null : id,
+            name: name,
+            pos,
+            size: 0,
+            area,
+          },
+        ]
+  })
 }
 
-export function getMapNames(): POI[] {
-  const skip = svgMapViewerConfig.cartoConfig?.skipNamePattern
-  const split = svgMapViewerConfig.cartoConfig?.splitNamePattern
+export function getMapNames(props: Readonly<RenderMapProps>): POI[] {
+  const skip = props.carto?.skipNamePattern
+  const split = props.carto?.splitNamePattern
   return [
-    ...pointNames(skip, split),
+    ...pointNames(props.data.mapData, skip, split),
     //...lineNames(skip, split),
-    ...polygonNames(skip, split),
+    ...polygonNames(props.data.mapData, skip, split),
   ]
 }
 
-export function getMapLineNames(): POI[] {
-  const skip = svgMapViewerConfig.cartoConfig?.skipNamePattern
-  const split = svgMapViewerConfig.cartoConfig?.splitNamePattern
-  return lineNames(skip, split)
+export function getMapLineNames(props: Readonly<RenderMapProps>): POI[] {
+  const skip = props.carto?.skipNamePattern
+  const split = props.carto?.splitNamePattern
+  return lineNames(props.data.mapData, skip, split)
 }
 
 function filterName(

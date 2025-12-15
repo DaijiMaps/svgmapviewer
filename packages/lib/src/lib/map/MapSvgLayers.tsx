@@ -62,6 +62,7 @@ function MapSvgLayersDefs(props: Readonly<RenderMapProps>): ReactNode {
       <defs>
         <g id={props.render.map} className="map">
           <RenderMapLayers
+            {...props}
             m={props.data.mapCoord.matrix}
             mapLayers={props.render.getMapLayers()}
           />

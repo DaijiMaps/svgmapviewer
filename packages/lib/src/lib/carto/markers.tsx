@@ -1,5 +1,4 @@
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig as cfg } from '../../config'
 import { usePosition } from '../geo'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'
@@ -150,10 +149,12 @@ z
 }
 
 export function RenderPositionStyle(
-  props: Readonly<{
-    fontSize: number
-    s: number
-  }>
+  props: Readonly<
+    RenderMapProps & {
+      fontSize: number
+      s: number
+    }
+  >
 ): ReactNode {
   const position = usePosition()
   const sz = props.s * props.fontSize * 0.9
@@ -167,7 +168,7 @@ export function RenderPositionStyle(
     )
   }
 
-  const { x, y } = cfg.mapCoord.matrix.transformPoint({
+  const { x, y } = props.data.mapCoord.matrix.transformPoint({
     x: position.coords.longitude,
     y: position.coords.latitude,
   })
