@@ -8,7 +8,7 @@ import {
   useAnimation,
   useLayoutContent,
 } from '../../style-xstate'
-import type { AnimationMatrix } from '../../types'
+import type { AnimationMatrix, RenderMapProps } from '../../types'
 import {
   position_absolute_left_0_top_0,
   width_100vw_height_100svh,
@@ -27,7 +27,7 @@ import {
   sendWheel,
 } from './viewer-react'
 
-export function Container(): ReactNode {
+export function Container(props: Readonly<RenderMapProps>): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
   return (
@@ -47,18 +47,7 @@ export function Container(): ReactNode {
         styleAnimationEnd()
       }}
     >
-      {svgMapViewerConfig.renderMap({
-        // XXX
-        // XXX
-        // XXX
-        data: svgMapViewerConfig,
-        render: svgMapViewerConfig,
-        carto: svgMapViewerConfig.cartoConfig,
-        floors: svgMapViewerConfig.floorsConfig,
-        // XXX
-        // XXX
-        // XXX
-      })}
+      {svgMapViewerConfig.renderMap(props)}
       <style>{style}</style>
       <ContentStyle />
       <AnimationStyle />
