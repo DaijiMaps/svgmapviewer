@@ -69,12 +69,14 @@ export type OsmPointProperties = Readonly<
   ReadonlyRecord<OsmPointPropertiesKey, null | string> & {
     readonly centroid_x: null | number
     readonly centroid_y: null | number
+    readonly area?: null
   }
 >
 export type OsmLineProperties = Readonly<
   ReadonlyRecord<OsmLinePropertiesKey, null | string> & {
     readonly centroid_x: null | number
     readonly centroid_y: null | number
+    readonly area?: null
     readonly z_order: number
   }
 >
@@ -82,6 +84,7 @@ export type OsmLineStringProperties = Readonly<
   ReadonlyRecord<OsmLineStringPropertiesKey, null | string> & {
     readonly centroid_x: null | number
     readonly centroid_y: null | number
+    readonly area?: null
   }
 >
 export type OsmPolygonProperties = Readonly<
