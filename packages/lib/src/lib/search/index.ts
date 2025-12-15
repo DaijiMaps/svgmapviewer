@@ -6,7 +6,6 @@ import {
   type SearchAddressRes,
   type SearchContext,
 } from './address-types'
-import { workerSearchInit } from './search-main'
 
 export {
   initAddresses,
@@ -18,5 +17,3 @@ export {
 }
 
 export { getAddressEntries, getAddressInfo }
-
-export { workerSearchInit }

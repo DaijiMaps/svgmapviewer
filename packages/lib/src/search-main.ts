@@ -2,12 +2,15 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
-import { svgMapViewerConfig } from '../../config'
-import { notifySearchDone, searchCbs } from '../../event'
-import type { Vec } from '../vec'
-import { getAddressInfo } from './address-data'
-import type { AddressEntries, SearchAddressRes } from './address-types'
-import type { SearchWorkerRes } from './search-worker-types'
+import { svgMapViewerConfig } from './config'
+import { notifySearchDone, searchCbs } from './event'
+import type { Vec } from './lib/vec'
+import { getAddressInfo } from './lib/search/address-data'
+import type {
+  AddressEntries,
+  SearchAddressRes,
+} from './lib/search/address-types'
+import type { SearchWorkerRes } from './lib/search/search-worker-types'
 
 const worker = new Worker(new URL('./search-worker.js', import.meta.url), {
   type: 'module',

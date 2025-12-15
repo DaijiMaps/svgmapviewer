@@ -8,7 +8,7 @@ import { searchDoneCbs, searchStartCbs } from './event'
 import { type Box } from './lib/box/main'
 import { geolocActorStart } from './lib/geo'
 import { setNames } from './lib/map/names'
-import { getAddressEntries, workerSearchInit } from './lib/search'
+import { getAddressEntries } from './lib/search'
 import {
   searchActorStart,
   searchSearchDone,
@@ -23,6 +23,7 @@ import { scrollActorStart } from './lib/viewer/scroll-xstate'
 import { touchActorStart } from './lib/viewer/touch-xstate'
 import { viewerActorStart } from './lib/viewer/viewer-xstate'
 import { root } from './Root'
+import { workerSearchInit } from './search-main'
 import { styleRoot } from './Style'
 import { styleActorStart } from './style-xstate'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
