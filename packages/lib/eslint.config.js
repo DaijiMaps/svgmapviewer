@@ -25,7 +25,7 @@ export default [
     rules: {
       ...reactHooks.configs.recommended.rules,
     },
-    ignores: ['tests/**/*.*'],
+    ignores: ['tests/**/*.*', 'src/**/*.test.*'],
     languageOptions: {
       parserOptions: {
         ecmaVersion: 2022,
