@@ -1,7 +1,7 @@
-import type { MapSymbols } from 'svgmapviewer/carto'
+import type { OsmMapSymbols } from 'svgmapviewer/carto'
 
 // eslint-disable-next-line functional/functional-parameters
-export const getMapSymbols: () => MapSymbols[] = () => [
+export const getMapSymbols: () => OsmMapSymbols[] = () => [
   {
     name: 'toilets',
     href: '#XToilets',

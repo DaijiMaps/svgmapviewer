@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { svgMapViewerConfig } from 'svgmapviewer'
-import { type MapLayer } from 'svgmapviewer/carto'
+import { type OsmMapLayer } from 'svgmapviewer/carto'
 import { type MultiPolygon } from 'svgmapviewer/geo'
 
 function getInternals() {
@@ -10,7 +10,7 @@ function getInternals() {
   )
 }
 
-export const getMapLayers: () => MapLayer[] = () => [
+export const getMapLayers: () => OsmMapLayer[] = () => [
   {
     type: 'multipolygon',
     name: 'island',

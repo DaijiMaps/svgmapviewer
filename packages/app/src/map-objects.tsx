@@ -1,5 +1,5 @@
 /* eslint-disable functional/functional-parameters */
-import type { MapObjects } from 'svgmapviewer/carto'
+import type { OsmMapObjects } from 'svgmapviewer/carto'
 import {
   benchPath,
   entrancePath,
@@ -13,7 +13,7 @@ import {
   wasteBasketPath,
 } from 'svgmapviewer/carto-objects'
 
-export const getMapObjects: () => MapObjects[] = () => [
+export const getMapObjects: () => OsmMapObjects[] = () => [
   {
     name: 'benches',
     path: benchPath,

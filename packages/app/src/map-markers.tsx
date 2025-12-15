@@ -1,7 +1,7 @@
-import { type MapMarkers } from 'svgmapviewer/carto'
+import { type OsmMapMarkers } from 'svgmapviewer/carto'
 
 // eslint-disable-next-line functional/functional-parameters
-export const getMapMarkers: () => MapMarkers[] = () => [
+export const getMapMarkers: () => OsmMapMarkers[] = () => [
   {
     name: 'all',
     /*
