@@ -89,8 +89,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(react@19.2.3)
       svgmapviewer:
-        specifier: 0.0.2-alpha.17
-        version: 0.0.2-alpha.17(@types/react@19.2.7)
+        specifier: 0.0.2-alpha.18
+        version: 0.0.2-alpha.18(@types/react@19.2.7)
       type-fest:
         specifier: ^5.3.1
         version: 5.3.1
@@ -6506,10 +6506,10 @@ packages:
         integrity: sha512-9rQRvt1kmQ2aJvvoIuM5BGpGFxQRffk1vJahatMr6UtBTw0mFc72NHwKh8qCQvv5Jkj0WTCh3pS6HvddO0KANg==,
       }
 
-  svgmapviewer@0.0.2-alpha.17:
+  svgmapviewer@0.0.2-alpha.18:
     resolution:
       {
-        integrity: sha512-KdXMvLbfg+aMxVnGr3K9zLM7QH/mZMuNgk9Ur69cl6hi9aVGH0ji/HHPjhFVovjmierwIAgEjiJu17L3kJz5mA==,
+        integrity: sha512-abnidlXf7TzbptFaA5mmvbHp12T5P+jTDtM3NRDgLP6qxro7uv19rrw++3hZbyxJgNw94R90AS2VAxa0g440HA==,
       }
 
   symbol-tree@3.2.4:
@@ -6644,6 +6644,7 @@ packages:
         integrity: sha512-z+kNuv1rwM1POQIufDUVrdNc/uGy0ueRVafCyDH39IdHxin4JXgB8DNGSPoqdIpcOpqUoRbNreK8NxENFmlhKw==,
       }
     engines: { node: ">=20.19.0" }
+    deprecated: Including an unexpected breaking change (copy behavior)
     hasBin: true
     peerDependencies:
       "@arethetypeswrong/core": ^0.18.1
@@ -11111,7 +11112,7 @@ snapshots:
       - "@types/react"
       - solid-js
 
-  svgmapviewer@0.0.2-alpha.17(@types/react@19.2.7):
+  svgmapviewer@0.0.2-alpha.18(@types/react@19.2.7):
     dependencies:
       "@xstate/react": 6.0.0(@types/react@19.2.7)(react@19.2.3)(xstate@5.25.0)
       "@xstate/store": 3.13.0(react@19.2.3)
