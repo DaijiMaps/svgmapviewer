@@ -14,6 +14,7 @@ export function RenderMapCommon(props: Readonly<RenderMapProps>): ReactNode {
           mapLayers={props.render.getMapLayers()}
         />
         <RenderMapObjects
+          {...props}
           m={props.data.mapCoord.matrix}
           mapObjects={props.render.getMapObjects()}
         />

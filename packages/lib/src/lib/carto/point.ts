@@ -1,6 +1,6 @@
-import { svgMapViewerConfig as cfg } from '../../config'
 import {
   type LinesFilter,
+  type MapData,
   type MultiPolygonsFilter,
   type OsmFeature,
   type Point,
@@ -14,13 +14,10 @@ import type {
 import { type V, vV } from '../tuple'
 import type { WithFilters } from './types'
 
-export function entryToVs({
-  pointsFilter,
-  polygonsFilter,
-  linesFilter,
-  data,
-}: Readonly<WithFilters>): Point[] {
-  const mapData = cfg.mapData
+export function entryToVs(
+  mapData: Readonly<MapData>,
+  { pointsFilter, polygonsFilter, linesFilter, data }: Readonly<WithFilters>
+): Point[] {
   const points =
     pointsFilter === undefined
       ? []

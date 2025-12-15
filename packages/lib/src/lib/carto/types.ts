@@ -1,4 +1,9 @@
-import type { MultiPolygonGeoJSON } from '../geo'
+import type {
+  LineFeature,
+  MultiPolygonGeoJSON,
+  PointFeature,
+  PolygonFeature,
+} from '../geo'
 import { type Line, type MultiPolygon, type Point } from '../geo/path-types'
 import {
   type LinesFilter,
@@ -93,6 +98,12 @@ export interface WithFilters {
   linesFilter?: LinesFilter
   polygonsFilter?: MultiPolygonsFilter
   data?: Point[]
+}
+
+export interface WithFeatures<P = object> {
+  pointFeatures: PointFeature<P>[]
+  lineFeatures: LineFeature<P>[]
+  polygonFeatures: PolygonFeature<P>[]
 }
 
 ////

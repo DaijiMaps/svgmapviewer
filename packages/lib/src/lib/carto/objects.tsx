@@ -2,12 +2,15 @@ import { type ReactNode } from 'react'
 import { type V } from '../tuple'
 import { entryToVs } from './point'
 import type { MapObjects } from './types'
+import type { RenderMapProps } from '../../types'
 
 export function RenderMapObjects(
-  props: Readonly<{
-    m: DOMMatrixReadOnly
-    mapObjects: MapObjects[]
-  }>
+  props: Readonly<
+    RenderMapProps & {
+      m: DOMMatrixReadOnly
+      mapObjects: MapObjects[]
+    }
+  >
 ): ReactNode {
   return (
     <g className="map-objects">
@@ -18,7 +21,7 @@ export function RenderMapObjects(
             name={entry.name}
             path={entry.path}
             width={entry.width}
-            vs={entryToVs(entry)}
+            vs={entryToVs(props.data.mapData, entry)}
           />
         </g>
       ))}

@@ -62,6 +62,7 @@ function MapSvgObjectsDefs(props: Readonly<RenderMapProps>): ReactNode {
       <defs>
         <g id="map-svg-objects1">
           <RenderMapObjects
+            {...props}
             m={props.data.mapCoord.matrix}
             mapObjects={props.render.getMapObjects()}
           />

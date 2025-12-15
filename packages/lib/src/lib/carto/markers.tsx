@@ -5,9 +5,10 @@ import { type V } from '../tuple'
 import { trunc2 } from '../utils'
 import { entryToVs } from './point'
 import type { MapMarker, RenderMapMarkersProps } from './types'
+import type { RenderMapProps } from '../../types'
 
 export function RenderMapMarkers(
-  props: Readonly<RenderMapMarkersProps>
+  props: Readonly<RenderMapProps & RenderMapMarkersProps>
 ): ReactNode {
   const sz = 25 / props.fontSize
 
@@ -20,7 +21,7 @@ export function RenderMapMarkers(
             sz={sz}
             name={entry.name}
             href={entry.name} // XXX XXX XXX
-            vs={entryToVs(entry)}
+            vs={entryToVs(props.data.mapData, entry)}
           />
         </g>
       ))}

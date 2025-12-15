@@ -66,6 +66,7 @@ function MapSvgSymbolsDefs(props: Readonly<RenderMapProps>): ReactNode {
           <RenderMapAssetsDefault />
         </defs>
         <RenderMapSymbols
+          {...props}
           m={props.data.mapCoord.matrix}
           mapSymbols={props.render.getMapSymbols()}
         />
