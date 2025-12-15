@@ -32,10 +32,11 @@ function handleSearchRes(res: Readonly<SearchAddressRes>): void {
     res
   )
   if (info === null) {
-    return
+    notifySearchDone(null)
+  } else {
+    const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(res.lonlat)
+    notifySearchDone({ psvg, info })
   }
-  const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(res.lonlat)
-  notifySearchDone(psvg, info)
 }
 
 worker.onerror = (ev) => {

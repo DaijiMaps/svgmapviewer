@@ -258,9 +258,14 @@ const viewerMachine = setup({
         const l = scrollLayout(context.layout, scroll)
         return {
           type: 'SEARCH.END.DONE',
-          psvg: res.psvg,
-          info: res.info,
-          layout: l,
+          res:
+            res === null
+              ? null
+              : {
+                  psvg: res.psvg,
+                  info: res.info,
+                  layout: l,
+                },
         }
       }
     ),
@@ -770,9 +775,13 @@ const viewerActor = createActor(viewerMachine, {
 })
 
 viewerActor.on('SEARCH', ({ psvg }) => notifySearchStart(psvg))
-viewerActor.on('SEARCH.END.DONE', ({ psvg, info, layout }) => {
-  notifySearchEndDone(psvg, info, layout)
-  notifyUiOpen(psvg, info, layout)
+viewerActor.on('SEARCH.END.DONE', ({ res }) => {
+  if (res === null) {
+    viewerSearchUnlock()
+  } else {
+    notifySearchEndDone(res.psvg, res.info, res.layout)
+    notifyUiOpen(res.psvg, res.info, res.layout)
+  }
 })
 viewerActor.on('LOCK', ({ ok }) => notifyUiOpenDone(ok))
 viewerActor.on('ZOOM.START', ({ layout, zoom, z }) =>
@@ -789,7 +798,7 @@ viewerActor.start()
 
 ////
 
-function viewerSearchEnd(res: Readonly<SearchRes>) {
+function viewerSearchEnd(res: Readonly<null | SearchRes>) {
   viewerActor.send({ type: 'SEARCH.END', res })
 }
 function viewerSearchLock(psvg: Vec) {

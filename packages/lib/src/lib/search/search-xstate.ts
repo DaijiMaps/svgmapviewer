@@ -16,6 +16,7 @@ export type SearchEvent =
 export type SearchEmitted =
   | { type: 'SEARCH'; psvg: Vec }
   | { type: 'SEARCH.DONE'; psvg: Vec; info: Info }
+  | { type: 'SEARCH.CANCEL' }
 
 const searchMachine = setup({
   types: {} as {
@@ -44,6 +45,7 @@ const searchMachine = setup({
           target: 'Done',
         },
         'SEARCH.CANCEL': {
+          actions: emit(({ event }) => event),
           target: 'Done',
         },
       },
@@ -59,7 +61,8 @@ const searchMachine = setup({
 const searchRef = createActor(searchMachine)
 
 searchRef.on('SEARCH', ({ psvg }) => notifySearch(psvg))
-searchRef.on('SEARCH.DONE', ({ psvg, info }) => notifySearchEnd(psvg, info))
+searchRef.on('SEARCH.DONE', (res) => notifySearchEnd(res))
+searchRef.on('SEARCH.CANCEL', () => notifySearchEnd(null))
 
 searchRef.start()
 

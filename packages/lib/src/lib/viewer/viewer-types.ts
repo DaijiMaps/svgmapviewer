@@ -59,7 +59,7 @@ export type ScrollSyncsyncDoneRequest = {
 export type TouchLockRequest = { type: 'TOUCH.LOCK' }
 export type TouchUnlockRequest = { type: 'TOUCH.UNLOCK' }
 export type ZoomRequest = { type: 'ZOOM.ZOOM'; z: -1 | 1; p: null | VecVec }
-export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<SearchRes> }
+export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
 export type Searchlock = { type: 'SEARCH.LOCK'; psvg: Vec }
 export type SearchUnlock = { type: 'SEARCH.UNLOCK' }
 export type ViewerRequest =
@@ -128,9 +128,11 @@ export type ViewerEvent = ViewerRequest | ViewerMessage | UIEvent
 export type SearchEmitted = { type: 'SEARCH'; psvg: Vec }
 export type SearchEndDoneEmitted = {
   type: 'SEARCH.END.DONE'
-  psvg: Vec
-  info: Info
-  layout: Layout
+  res: null | {
+    psvg: Vec
+    info: Info
+    layout: Layout
+  }
 }
 export type LockEmitted = { type: 'LOCK'; ok: boolean }
 export type LayoutEmitted = { type: 'LAYOUT'; layout: Layout }

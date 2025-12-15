@@ -74,7 +74,7 @@ export type ZoomEndCb = (layout: Readonly<Layout>, zoom: number) => void
 export type SearchStartCb = (psvg: Vec) => void
 export type SearchCb = (psvg: Vec) => void
 export type SearchDoneCb = (res: Readonly<null | SearchRes>) => void
-export type SearchEndCb = (res: Readonly<SearchRes>) => void
+export type SearchEndCb = (res: Readonly<null | SearchRes>) => void
 export type SearchEndDoneCb = (
   psvg: Vec,
   info: Readonly<Info>,

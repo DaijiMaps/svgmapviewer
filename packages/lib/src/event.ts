@@ -63,11 +63,15 @@ export function notifySearchStart(psvg: VecVec): void {
 export function notifySearch(psvg: VecVec): void {
   searchCbs.forEach((cb: SearchCb) => cb(psvg))
 }
-export function notifySearchDone(psvg: VecVec, info: Readonly<Info>): void {
-  searchDoneCbs.forEach((cb: SearchDoneCb) => cb({ psvg, info }))
+export function notifySearchDone(
+  res: null | Readonly<{ psvg: VecVec; info: Readonly<Info> }>
+): void {
+  searchDoneCbs.forEach((cb: SearchDoneCb) => cb(res))
 }
-export function notifySearchEnd(psvg: VecVec, info: Readonly<Info>): void {
-  searchEndCbs.forEach((cb: SearchEndCb) => cb({ psvg, info }))
+export function notifySearchEnd(
+  res: null | Readonly<{ psvg: VecVec; info: Readonly<Info> }>
+): void {
+  searchEndCbs.forEach((cb: SearchEndCb) => cb(res))
 }
 export function notifySearchEndDone(
   psvg: VecVec,
