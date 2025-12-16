@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { type VecVec } from './lib/vec/prefixed'
-import { type Layout } from './lib/viewer/layout'
+import { type Layout, type LayoutCoord } from './lib/viewer/layout'
 import type { ViewerMode } from './lib/viewer/viewer-types'
 import {
   type AnimationCb,
@@ -96,7 +96,7 @@ export function notifyLayout(layout: Readonly<Layout>, force: boolean): void {
   layoutCbs.forEach((cb) => cb(layout, force))
 }
 export function notifyZoomStart(
-  layout: Readonly<Layout>,
+  layout: Readonly<LayoutCoord>,
   zoom: number,
   z: number
 ): void {

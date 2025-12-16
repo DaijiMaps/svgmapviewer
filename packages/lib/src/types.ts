@@ -72,11 +72,11 @@ export interface AnimationMatrix {
 
 export type Cb = () => void
 export type ZoomStartCb = (
-  layout: Readonly<Layout>,
+  layout: Readonly<LayoutCoord>,
   zoom: number,
   z: number
 ) => void
-export type ZoomEndCb = (layout: Readonly<Layout>, zoom: number) => void
+export type ZoomEndCb = (layout: Readonly<LayoutCoord>, zoom: number) => void
 export type SearchStartCb = (psvg: Vec) => void
 export type SearchCb = (psvg: Vec) => void
 export type SearchDoneCb = (res: Readonly<null | SearchRes>) => void

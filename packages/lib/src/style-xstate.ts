@@ -14,7 +14,7 @@ import type { DistanceRadius } from './lib/distance-types'
 import { makeExpire } from './lib/expire-xstate'
 import { trunc2 } from './lib/utils'
 import { vecZero, type VecVec } from './lib/vec/prefixed'
-import { fromSvgToScroll } from './lib/viewer/coord'
+import { fromSvgToScroll, type LayoutCoord } from './lib/viewer/coord'
 import {
   emptyLayout,
   type Layout,
@@ -307,10 +307,10 @@ function handleLayout(layout: Layout, rendered: boolean) {
   // XXX update name range after scroll is updated
   requestAnimationFrame(() => handleExpire())
 }
-function handleZoomStart(_: Layout, zoom: number, z: number) {
+function handleZoomStart(_: LayoutCoord, zoom: number, z: number) {
   styleSend({ type: 'STYLE.ZOOM', zoom, z })
 }
-function handleZoomEnd(_: Layout, zoom: number) {
+function handleZoomEnd(_: LayoutCoord, zoom: number) {
   styleSend({ type: 'STYLE.ZOOM', zoom, z: null })
 }
 function handleAnimation(animation: null | AnimationMatrix) {
