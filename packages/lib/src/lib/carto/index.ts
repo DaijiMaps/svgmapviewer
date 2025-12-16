@@ -5,7 +5,7 @@ import { RenderMapObjects, RenderObjects } from './objects'
 import { RenderMapCommon } from './render'
 import { RenderMapSymbols, RenderUses } from './symbols'
 import {
-  type CartoConfig,
+  type OsmCartoConfig,
   type OsmMapLayer,
   type MapLineLayer,
   type OsmMapMarkers,
@@ -18,7 +18,7 @@ import {
 
 // XXX
 
-export { type CartoConfig }
+export { type OsmCartoConfig }
 
 //// layers
 

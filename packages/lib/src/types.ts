@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-return-void */
 import { type ReactNode } from 'react'
 import { type BoxBox } from './lib/box/prefixed'
-import { type CartoConfig } from './lib/carto'
+import { type OsmCartoConfig } from './lib/carto'
 import {
   type OsmMapLayer,
   type OsmMapMarkers,
@@ -112,7 +112,7 @@ export type GeoLocDoneCb = Cb1<Readonly<GeolocationPosition>>
 export interface OsmSearchProps {
   mapData: Readonly<OsmMapData>
   searchEntries: readonly SearchEntry[]
-  cartoConfig?: Readonly<CartoConfig>
+  cartoConfig?: Readonly<OsmCartoConfig>
 }
 
 ////
@@ -122,7 +122,7 @@ export type RenderAssets = () => ReactNode
 export interface OsmRenderMapProps {
   data: Readonly<OsmDataConfig>
   render: Readonly<OsmRenderConfig>
-  carto?: Readonly<CartoConfig>
+  carto?: Readonly<OsmCartoConfig>
   floors?: Readonly<FloorsConfig>
 }
 
@@ -155,7 +155,7 @@ export interface SvgMapViewerConfig
   copyright: string
   zoomFactor: number
   uiConfig?: UiConfig
-  cartoConfig?: CartoConfig
+  cartoConfig?: OsmCartoConfig
   floorsConfig?: FloorsConfig
   isContainerRendered: () => boolean
   isUiRendered: () => boolean

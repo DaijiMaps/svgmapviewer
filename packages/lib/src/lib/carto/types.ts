@@ -108,7 +108,7 @@ export interface WithFeatures<P = object> {
 
 ////
 
-export interface CartoConfig {
+export interface OsmCartoConfig {
   readonly backgroundColor?: string
   readonly mapSvgStyle?: string
 
