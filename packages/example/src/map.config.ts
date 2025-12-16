@@ -46,6 +46,7 @@ const pois: POI[] = [
 const addresses: AddressEntries = pois.map((poi) => ({
   a: poi.name.join(' '),
   coord: poi.pos,
+  fidx: 0,
 }))
 
 const mapConfig: SvgMapViewerConfigUser = {

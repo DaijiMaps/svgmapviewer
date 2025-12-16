@@ -18,6 +18,7 @@ function makeAddressBuf(entries: Readonly<AddressEntries>) {
   for (const {
     a,
     coord: { x, y },
+    // XXX fidx,
   } of entries) {
     const idx = fb.add(x, y)
     idxs[`${idx}`] = a
@@ -37,6 +38,14 @@ export function initAddresses(
   return { b, m }
 }
 
+// XXX
+// XXX
+// XXX
+const MAX_DISTANCE = 100
+// XXX
+// XXX
+// XXX
+
 export function searchAddress(
   { b, m }: SearchContext,
   pgeo: Vec,
@@ -44,7 +53,20 @@ export function searchAddress(
   _fidx: number // XXX for filter
 ): SearchAddressRes | null {
   const { fb, idxs } = b
-  const ns = fb.neighbors(pgeo.x, pgeo.y, 1, 100)
+
+  // XXX
+  // XXX
+  // XXX
+  const filter = (idx: number) => {
+    // XXX look up the matching entry from within `idxs`
+    // XXX compare fidx
+    return idx > 0
+  }
+  // XXX
+  // XXX
+  // XXX
+
+  const ns = fb.neighbors(pgeo.x, pgeo.y, 1, MAX_DISTANCE, filter)
   if (ns.length === 0) {
     return null
   }

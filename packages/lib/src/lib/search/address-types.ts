@@ -4,6 +4,7 @@ import { type VecVec } from '../vec/prefixed'
 export type Address = string
 export type Idx = string
 
+// XXX Idx -> AddressEntry
 export type FlatbushIndexes = Record<Idx, Address>
 
 export interface AddressBuf {
@@ -11,7 +12,11 @@ export interface AddressBuf {
   idxs: FlatbushIndexes
 }
 
-export type AddressEntry = { a: Address; coord: VecVec }
+export interface AddressEntry {
+  a: Address
+  coord: VecVec
+  fidx?: number
+}
 export type AddressEntries = readonly AddressEntry[]
 
 export interface SearchContext {
