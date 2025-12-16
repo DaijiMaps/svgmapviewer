@@ -112,10 +112,8 @@ export function notifyZoomStart(zoom: Readonly<ZoomInfo>): void {
 export function notifyZoomEnd(end: Readonly<ZoomEndInfo>): void {
   notifyCbs(zoomEndCbs, end)
 }
-export function notifyAnimation(
-  animation: Readonly<null | AnimationMatrix>
-): void {
-  notifyCbs(animationCbs, animation)
+export function notifyAnimation(a: Readonly<null | AnimationMatrix>): void {
+  notifyCbs(animationCbs, a)
 }
 export function notifyMode(mode: ViewerMode): void {
   notifyCbs(modeCbs, mode)
