@@ -84,6 +84,11 @@ export interface ResizeInfo {
 ////
 
 export type Cb = () => void
+export type Cbs = Set<Cb>
+
+export type Cb1<T> = (args: T) => void
+export type Cbs1<T> = Set<Cb1<T>>
+
 export type ZoomStartCb = (zoom: Readonly<ZoomInfo>) => void
 export type ZoomEndCb = (end: Readonly<ZoomEndInfo>) => void
 export type SearchStartCb = (psvg: Vec) => void

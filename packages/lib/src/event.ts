@@ -7,6 +7,7 @@ import {
   type AnimationCb,
   type AnimationMatrix,
   type Cb,
+  type Cb1,
   type FloorCb,
   type LayoutCb,
   type ModeCb,
@@ -60,67 +61,76 @@ export const uiActionRotateCbs: Set<Cb> = new Set()
 export const uiActionPositionCbs: Set<Cb> = new Set()
 export const uiActionFullscreenCbs: Set<Cb> = new Set()
 
+////
+
+export function notifyCbs0(cbs: Readonly<Set<Cb>>): void {
+  cbs.forEach((cb: Cb) => cb())
+}
+export function notifyCbs<T>(cbs: Readonly<Set<Cb1<T>>>, args: T): void {
+  cbs.forEach((cb: Cb1<T>) => cb(args))
+}
+
 export function notifySearchStart(psvg: VecVec): void {
-  searchStartCbs.forEach((cb: SearchStartCb) => cb(psvg))
+  notifyCbs(searchStartCbs, psvg)
 }
 export function notifySearch(psvg: VecVec): void {
-  searchCbs.forEach((cb: SearchCb) => cb(psvg))
+  notifyCbs(searchCbs, psvg)
 }
 export function notifySearchDone(res: Readonly<null | SearchRes>): void {
-  searchDoneCbs.forEach((cb: SearchDoneCb) => cb(res))
+  notifyCbs(searchDoneCbs, res)
 }
 export function notifySearchEnd(res: Readonly<null | SearchRes>): void {
-  searchEndCbs.forEach((cb: SearchEndCb) => cb(res))
+  notifyCbs(searchEndCbs, res)
 }
 export function notifySearchEndDone(data: Readonly<SearchData>): void {
-  searchEndDoneCbs.forEach((cb: SearchEndDoneCb) => cb(data))
+  notifyCbs(searchEndDoneCbs, data)
 }
 export function notifyUiOpen(psvg: VecVec): void {
-  uiOpenCbs.forEach((cb: UiOpenCb) => cb(psvg))
+  notifyCbs(uiOpenCbs, psvg)
 }
 export function notifyUiOpenDone(ok: boolean): void {
-  uiOpenDoneCbs.forEach((cb: UiOpenDoneCb) => cb(ok))
+  notifyCbs(uiOpenDoneCbs, ok)
 }
 export function notifyUiClose(): void {
-  uiCloseCbs.forEach((cb: UiCloseCb) => cb())
+  notifyCbs0(uiCloseCbs)
 }
 export function notifyUiCloseDone(): void {
-  uiCloseDoneCbs.forEach((cb: UiCloseDoneCb) => cb())
+  notifyCbs0(uiCloseDoneCbs)
 }
 
 export function notifyRendered(): void {
-  renderedCbs.forEach((cb) => cb())
+  notifyCbs0(renderedCbs)
 }
 export function notifyResize(resize: Readonly<ResizeInfo>): void {
-  resizeCbs.forEach((cb) => cb(resize))
+  notifyCbs(resizeCbs, resize)
 }
 export function notifyLayout(resize: Readonly<ResizeInfo>): void {
-  layoutCbs.forEach((cb) => cb(resize))
+  notifyCbs(layoutCbs, resize)
 }
 export function notifyZoomStart(zoom: Readonly<ZoomInfo>): void {
-  zoomStartCbs.forEach((cb: ZoomStartCb) => cb(zoom))
+  notifyCbs(zoomStartCbs, zoom)
 }
 export function notifyZoomEnd(end: Readonly<ZoomEndInfo>): void {
-  zoomEndCbs.forEach((cb: ZoomEndCb) => cb(end))
+  notifyCbs(zoomEndCbs, end)
 }
 export function notifyAnimation(
   animation: Readonly<null | AnimationMatrix>
 ): void {
-  animationCbs.forEach((cb) => cb(animation))
+  notifyCbs(animationCbs, animation)
 }
 export function notifyMode(mode: ViewerMode): void {
-  modeCbs.forEach((cb) => cb(mode))
+  notifyCbs(modeCbs, mode)
 }
 
 export function notifyFloorLock(fidx: number): void {
-  floorLockCbs.forEach((cb) => cb(fidx))
+  notifyCbs(floorLockCbs, fidx)
 }
 export function notifyFloor(fidx: number): void {
-  floorCbs.forEach((cb) => cb(fidx))
+  notifyCbs(floorCbs, fidx)
 }
 export function notifyFloorDone(fidx: number): void {
-  floorDoneCbs.forEach((cb) => cb(fidx))
+  notifyCbs(floorDoneCbs, fidx)
 }
 export function notifyFloorUnlock(): void {
-  floorUnlockCbs.forEach((cb) => cb())
+  notifyCbs0(floorUnlockCbs)
 }
