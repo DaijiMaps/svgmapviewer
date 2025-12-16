@@ -14,8 +14,7 @@ import {
 export function initAddresses(
   entries: Readonly<AddressEntries>
 ): SearchContext {
-  const l = entries.length
-  const fb: Flatbush = new Flatbush(l)
+  const fb: Flatbush = new Flatbush(entries.length)
   const idxs: FlatbushIndexes = {}
   for (const e of entries) {
     const { x, y } = e.coord
