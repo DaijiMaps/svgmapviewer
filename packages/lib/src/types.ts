@@ -74,6 +74,11 @@ export interface ZoomInfo {
   z: number
 }
 
+export interface ResizeInfo {
+  layout: Readonly<Layout>
+  force: boolean
+}
+
 ////
 
 export type Cb = () => void
