@@ -3,10 +3,10 @@ import {
   isFloorsRendered as isMapRendered,
   RenderFloors as renderMap,
 } from 'svgmapviewer/map-floors'
+import { AddressEntries } from 'svgmapviewer/search'
 import { RenderInfo as renderInfo } from './RenderInfo.tsx'
 import { floorsConfig } from './floors.config.ts'
-import { POI } from 'svgmapviewer/geo'
-import { AddressEntries } from 'svgmapviewer/search'
+import { type POI } from './info.ts'
 
 /*
 const searchEntries: SearchEntry[] = [
@@ -28,25 +28,28 @@ const pois: POI[] = [
     name: ['a'],
     pos: { x: 0, y: 0 },
     size: 10,
+    fidx: 0,
   },
   {
     id: 1,
     name: ['b'],
     pos: { x: 100, y: 100 },
     size: 10,
+    fidx: 0,
   },
   {
     id: 2,
     name: ['c'],
     pos: { x: 200, y: 200 },
     size: 10,
+    fidx: 0,
   },
 ]
 
 const addresses: AddressEntries = pois.map((poi) => ({
   address: poi.name.join(' '),
   coord: poi.pos,
-  fidx: 0,
+  fidx: poi.fidx,
 }))
 
 const mapConfig: SvgMapViewerConfigUser = {

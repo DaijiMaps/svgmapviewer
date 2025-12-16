@@ -1,4 +1,5 @@
 import { type Info } from 'svgmapviewer'
+import { type POI } from 'svgmapviewer/geo'
 
 export interface ShopInfo {
   tag: 'shop'
@@ -16,4 +17,10 @@ declare module 'svgmapviewer' {
   }
 }
 
-export type { Info }
+declare module 'svgmapviewer/geo' {
+  interface POI {
+    fidx: number
+  }
+}
+
+export { type Info, type POI }
