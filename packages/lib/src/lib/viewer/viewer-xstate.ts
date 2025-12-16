@@ -163,7 +163,7 @@ const viewerMachine = setup({
     // layout
     //
     syncLayout: ({ context: { layout, rendered } }) =>
-      notifyLayout(layout, rendered),
+      notifyLayout({ layout, force: rendered }),
     //
     // cursor
     //

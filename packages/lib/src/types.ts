@@ -94,7 +94,7 @@ export type UiOpenDoneCb = (ok: boolean) => void
 export type UiCloseCb = () => void
 export type UiCloseDoneCb = () => void
 export type ResizeCb = (resize: Readonly<ResizeInfo>) => void
-export type LayoutCb = (layout: Layout, force: boolean) => void
+export type LayoutCb = (resize: Readonly<ResizeInfo>) => void
 export type AnimationCb = (animation: Readonly<null | AnimationMatrix>) => void
 export type ModeCb = (mode: ViewerMode) => void
 export type FloorCb = (fidx: number) => void
