@@ -26,7 +26,6 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   width: 0,
   height: 0,
   fontSize: 16,
-  origViewBox: { x: 0, y: 0, width: 0, height: 0 },
   title: 'svgmapviewer',
   subtitle:
     'svgmapviewer - An (opinionated) interactive offline SVG map viewer',
@@ -34,20 +33,6 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   zoomFactor: 3,
   isContainerRendered: () => true,
   isUiRendered: () => true,
-
-  // OsmRenderConfig
-  getMapLayers: () => [],
-  getMapObjects: () => [],
-  getMapSymbols: () => [],
-  getMapMarkers: () => [],
-  getMapNames: () => [],
-  getAddressEntries: () => [],
-  getAddressInfo: () => null,
-  searchEntries: [],
-  renderInfo: renderInfoDefault,
-  mapSvgStyle: '',
-  renderMap: renderMapDefault,
-  isMapRendered: () => true,
 
   // OsmDataConfig
   mapData: emptyMapData,
@@ -60,6 +45,23 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   mapCoord: {
     matrix: new DOMMatrixReadOnly(),
   },
+  origViewBox: { x: 0, y: 0, width: 0, height: 0 },
+
+  // OsmRenderConfig
+  renderMap: renderMapDefault,
+  isMapRendered: () => true,
+  getMapNames: () => [],
+  getMapLayers: () => [],
+  getMapObjects: () => [],
+  getMapSymbols: () => [],
+  getMapMarkers: () => [],
+  mapSvgStyle: '',
+
+  // OsmSearchConfig
+  searchEntries: [],
+  getAddressEntries: () => [],
+  getAddressInfo: () => null,
+  renderInfo: renderInfoDefault,
 }
 
 export function updateSvgMapViewerConfig(
