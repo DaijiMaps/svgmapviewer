@@ -44,7 +44,7 @@ const pois: POI[] = [
 ]
 
 const addresses: AddressEntries = pois.map((poi) => ({
-  a: poi.name.join(' '),
+  address: poi.name.join(' '),
   coord: poi.pos,
   fidx: 0,
 }))
