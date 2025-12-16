@@ -132,7 +132,8 @@ export type RenderInfo = (props: Readonly<{ info: Info }>) => ReactNode
 
 ////
 
-export interface SvgMapViewerConfig extends OsmDataConfig, OsmRenderConfig {
+export interface SvgMapViewerConfig
+  extends OsmDataConfig, OsmRenderConfig, OsmSearchConfig {
   root: string
   href: string
   width: number
@@ -162,10 +163,17 @@ export interface OsmDataConfig {
 }
 
 export interface OsmRenderConfig {
+  renderMap: RenderMap
+  isMapRendered: () => boolean
   getMapLayers: () => readonly OsmMapLayer[]
   getMapObjects: () => readonly OsmMapObjects[]
   getMapSymbols: () => readonly OsmMapSymbols[]
   getMapMarkers: () => readonly OsmMapMarkers[]
+  mapSvgStyle: string
+}
+
+export interface OsmSearchConfig {
+  searchEntries: readonly SearchEntry[] // XXX
   getMapNames: (props: Readonly<OsmRenderMapProps>) => readonly POI[] // XXX
   getAddressEntries: (props: Readonly<OsmSearchProps>) => AddressEntries // XXX
   getAddressInfo: (
@@ -173,11 +181,7 @@ export interface OsmRenderConfig {
     entries: readonly SearchEntry[],
     res: Readonly<SearchAddressRes>
   ) => null | Info
-  searchEntries: readonly SearchEntry[] // XXX
   renderInfo: RenderInfo
-  mapSvgStyle: string
-  renderMap: RenderMap
-  isMapRendered: () => boolean
 }
 
 export interface Floor {
