@@ -175,6 +175,7 @@ export interface OsmDataConfig {
 export interface OsmRenderConfig {
   renderMap: RenderMap
   isMapRendered: () => boolean
+  getMapNames: GetMapNames
   getMapLayers: () => readonly OsmMapLayer[]
   getMapObjects: () => readonly OsmMapObjects[]
   getMapSymbols: () => readonly OsmMapSymbols[]
@@ -184,7 +185,6 @@ export interface OsmRenderConfig {
 
 export interface OsmSearchConfig {
   searchEntries: readonly SearchEntry[] // XXX
-  getMapNames: GetMapNames
   getAddressEntries: GetAddressEntries
   getAddressInfo: GetAddressInfo
   renderInfo: RenderInfo

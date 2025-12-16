@@ -14,6 +14,7 @@ import { RenderInfo as renderInfo } from './render'
 import { searchEntries } from './search-data'
 
 export const renderConfig: OsmRenderConfig = {
+  getMapNames, // XXX
   getMapLayers,
   getMapObjects,
   getMapSymbols,
@@ -25,7 +26,6 @@ export const renderConfig: OsmRenderConfig = {
 
 export const searchConfig: OsmSearchConfig = {
   searchEntries,
-  getMapNames, // XXX
   getAddressEntries, // XXX
   getAddressInfo, // XXX
   renderInfo,
