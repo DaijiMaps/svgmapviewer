@@ -16,12 +16,12 @@ function makeAddressBuf(entries: Readonly<AddressEntries>) {
   const fb: Flatbush = new Flatbush(l)
   const idxs: FlatbushIndexes = {}
   for (const {
-    a,
+    address,
     coord: { x, y },
     fidx,
   } of entries) {
     const idx = fb.add(x, y)
-    idxs[`${idx}`] = { a, coord: { x, y }, fidx }
+    idxs[`${idx}`] = { address, coord: { x, y }, fidx }
   }
   fb.finish()
   return {
@@ -34,8 +34,7 @@ export function initAddresses(
   entries: Readonly<AddressEntries>
 ): SearchContext {
   const b = makeAddressBuf(entries)
-  const m = new Map(entries.map(({ a, coord }) => [a, coord]))
-  return { b, m }
+  return { b }
 }
 
 // XXX
@@ -47,7 +46,7 @@ const MAX_DISTANCE = 100
 // XXX
 
 export function searchAddress(
-  { b, m }: SearchContext,
+  { b }: SearchContext,
   pgeo: Vec,
   fidx: number
 ): SearchAddressRes | null {
@@ -64,9 +63,8 @@ export function searchAddress(
   }
   const n = ns[0]
   const e = idxs[`${n}`]
-  const coord = m.get(e.a)
-  if (coord === undefined) {
+  if (e === undefined) {
     return null
   }
-  return { address: e.a, coord }
+  return e
 }

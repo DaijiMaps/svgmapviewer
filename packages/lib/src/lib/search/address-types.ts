@@ -13,7 +13,7 @@ export interface AddressBuf {
 }
 
 export interface AddressEntry {
-  a: Address
+  address: Address
   coord: VecVec
   fidx?: number
 }
@@ -21,7 +21,6 @@ export type AddressEntries = readonly AddressEntry[]
 
 export interface SearchContext {
   b: AddressBuf
-  m: Map<Address, VecVec>
 }
 
 export interface SearchAddressRes {

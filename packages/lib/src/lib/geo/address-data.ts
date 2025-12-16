@@ -56,7 +56,7 @@ function filterFeature(
   const matches = entries.filter((entry) => entry.filter(properties))
   return matches.length === 0
     ? null
-    : { a: id + '', coord: { x: centroid_x, y: centroid_y } }
+    : { address: id + '', coord: { x: centroid_x, y: centroid_y } }
 }
 
 export function getAddressEntries(
