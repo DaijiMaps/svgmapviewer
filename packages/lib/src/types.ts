@@ -89,25 +89,25 @@ export type Cbs = Set<Cb>
 export type Cb1<T> = (args: T) => void
 export type Cbs1<T> = Set<Cb1<T>>
 
-export type ZoomStartCb = (zoom: Readonly<ZoomInfo>) => void
-export type ZoomEndCb = (end: Readonly<ZoomEndInfo>) => void
-export type SearchStartCb = (psvg: Vec) => void
-export type SearchCb = (psvg: Vec) => void
-export type SearchDoneCb = (res: Readonly<null | SearchRes>) => void
-export type SearchEndCb = (res: Readonly<null | SearchRes>) => void
-export type SearchEndDoneCb = (data: Readonly<SearchData>) => void
-export type UiOpenCb = (psvg: Vec) => void
-export type UiOpenDoneCb = (ok: boolean) => void
-export type UiCloseCb = () => void
+export type ZoomStartCb = Cb1<Readonly<ZoomInfo>>
+export type ZoomEndCb = Cb1<Readonly<ZoomEndInfo>>
+export type SearchStartCb = Cb1<Vec>
+export type SearchCb = Cb1<Vec>
+export type SearchDoneCb = Cb1<Readonly<null | SearchRes>>
+export type SearchEndCb = Cb1<Readonly<null | SearchRes>>
+export type SearchEndDoneCb = Cb1<Readonly<SearchData>>
+export type UiOpenCb = Cb1<Vec>
+export type UiOpenDoneCb = Cb1<boolean>
+export type UiCloseCb = Cb
 export type UiCloseDoneCb = () => void
-export type ResizeCb = (resize: Readonly<ResizeInfo>) => void
-export type LayoutCb = (resize: Readonly<ResizeInfo>) => void
-export type AnimationCb = (animation: Readonly<null | AnimationMatrix>) => void
-export type ModeCb = (mode: ViewerMode) => void
-export type FloorCb = (fidx: number) => void
+export type ResizeCb = Cb1<Readonly<ResizeInfo>>
+export type LayoutCb = Cb1<Readonly<ResizeInfo>>
+export type AnimationCb = Cb1<Readonly<null | AnimationMatrix>>
+export type ModeCb = Cb1<ViewerMode>
+export type FloorCb = Cb1<number>
 
-export type GeoLocCb = () => void
-export type GeoLocDoneCb = (position: Readonly<GeolocationPosition>) => void
+export type GeoLocCb = Cb
+export type GeoLocDoneCb = Cb1<Readonly<GeolocationPosition>>
 
 ////
 
