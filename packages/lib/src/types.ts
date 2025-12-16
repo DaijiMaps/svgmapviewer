@@ -47,6 +47,12 @@ export interface SearchRes {
   info: Readonly<Info>
 }
 
+export interface SearchData {
+  psvg: Vec
+  info: Readonly<Info>
+  layout: Readonly<Layout>
+}
+
 export interface LonLat {
   lon: string
   lat: string

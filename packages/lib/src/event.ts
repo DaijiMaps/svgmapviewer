@@ -17,6 +17,7 @@ import {
   type SearchDoneCb,
   type SearchEndCb,
   type SearchEndDoneCb,
+  type SearchRes,
   type SearchStartCb,
   type UiCloseCb,
   type UiCloseDoneCb,
@@ -63,14 +64,10 @@ export function notifySearchStart(psvg: VecVec): void {
 export function notifySearch(psvg: VecVec): void {
   searchCbs.forEach((cb: SearchCb) => cb(psvg))
 }
-export function notifySearchDone(
-  res: Readonly<null | { psvg: VecVec; info: Readonly<Info> }>
-): void {
+export function notifySearchDone(res: Readonly<null | SearchRes>): void {
   searchDoneCbs.forEach((cb: SearchDoneCb) => cb(res))
 }
-export function notifySearchEnd(
-  res: Readonly<null | { psvg: VecVec; info: Readonly<Info> }>
-): void {
+export function notifySearchEnd(res: Readonly<null | SearchRes>): void {
   searchEndCbs.forEach((cb: SearchEndCb) => cb(res))
 }
 export function notifySearchEndDone(
