@@ -1,5 +1,4 @@
 import { initAddresses, searchAddress } from './address'
-import { getAddressEntries, getAddressInfo } from './address-data'
 import {
   type AddressEntries,
   type AddressEntry,
@@ -15,5 +14,3 @@ export {
   type SearchAddressRes,
   type SearchContext,
 }
-
-export { getAddressEntries, getAddressInfo }

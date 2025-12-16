@@ -1,16 +1,13 @@
 import { type Info, type OsmSearchProps } from '../../types'
 import {
-  findFeature,
-  getOsmId,
-  type OsmMapMap,
-  type OsmProperties,
-  type SearchEntry,
-} from '../geo'
-import {
   type AddressEntries,
   type AddressEntry,
   type SearchAddressRes,
-} from './address-types'
+} from '../search/address-types'
+import type { OsmMapMap } from './data-types'
+import type { OsmProperties } from './osm-types'
+import { findFeature, getOsmId } from './search'
+import type { SearchEntry } from './search-types'
 
 function pointAddresses(
   props: Readonly<OsmSearchProps>,

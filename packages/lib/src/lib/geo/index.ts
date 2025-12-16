@@ -1,3 +1,4 @@
+import { getAddressEntries, getAddressInfo } from './address-data'
 import { mapMapFromMapData } from './data'
 import {
   type MapCoord,
@@ -70,6 +71,8 @@ import {
   getPropertyValue,
 } from './search'
 import { type SearchEntry } from './search-types'
+
+export { getAddressEntries, getAddressInfo }
 
 export { mapMapFromMapData }
 
