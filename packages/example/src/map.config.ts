@@ -40,9 +40,16 @@ const pois: POI[] = [
   {
     id: 2,
     name: ['c'],
+    pos: { x: 100, y: 100 },
+    size: 10,
+    fidx: 1,
+  },
+  {
+    id: 3,
+    name: ['d'],
     pos: { x: 200, y: 200 },
     size: 10,
-    fidx: 0,
+    fidx: 1,
   },
 ]
 
