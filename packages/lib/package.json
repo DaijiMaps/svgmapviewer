@@ -65,8 +65,6 @@
     "@vitest/browser-playwright": "^4.0.15",
     "monocle-ts": "^2.3.13",
     "newtype-ts": "^0.3.5",
-    "oxfmt": "^0.18.0",
-    "oxlint": "^1.33.0",
     "playwright": "^1.57.0",
     "rolldown": "1.0.0-beta.54",
     "tsdown": "^0.18.0",
