@@ -77,7 +77,7 @@ export interface ZoomInfo {
 export type ZoomEndInfo = Omit<ZoomInfo, 'z'>
 
 export interface ResizeInfo {
-  layout: Layout
+  layout: Readonly<Layout>
   force: boolean
 }
 

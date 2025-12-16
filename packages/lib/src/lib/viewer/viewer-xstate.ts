@@ -805,8 +805,8 @@ function viewerSearchLock(psvg: Vec) {
 function viewerSearchUnlock() {
   viewerActor.send({ type: 'SEARCH.UNLOCK' })
 }
-function resizeCb(resize: Readonly<ResizeInfo>) {
-  viewerSend({ type: 'RESIZE', ...resize })
+function resizeCb({ layout, force }: Readonly<ResizeInfo>) {
+  viewerSend({ type: 'RESIZE', layout, force })
 }
 
 function viewerSwitch(fidx: number): void {

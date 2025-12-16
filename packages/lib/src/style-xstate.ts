@@ -308,12 +308,8 @@ export function useLayout2(): {
 
 // handlers
 
-function handleLayout(resize: Readonly<ResizeInfo>) {
-  styleSend({
-    type: 'STYLE.LAYOUT',
-    layout: resize.layout,
-    rendered: resize.force,
-  })
+function handleLayout({ layout, force }: Readonly<ResizeInfo>) {
+  styleSend({ type: 'STYLE.LAYOUT', layout, rendered: force })
   // XXX update name range after scroll is updated
   requestAnimationFrame(() => handleExpire())
 }
