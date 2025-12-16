@@ -18,10 +18,10 @@ function makeAddressBuf(entries: Readonly<AddressEntries>) {
   for (const {
     a,
     coord: { x, y },
-    // XXX fidx,
+    fidx,
   } of entries) {
     const idx = fb.add(x, y)
-    idxs[`${idx}`] = a
+    idxs[`${idx}`] = { a, coord: { x, y }, fidx }
   }
   fb.finish()
   return {
@@ -49,32 +49,24 @@ const MAX_DISTANCE = 100
 export function searchAddress(
   { b, m }: SearchContext,
   pgeo: Vec,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _fidx: number // XXX for filter
+  fidx: number
 ): SearchAddressRes | null {
   const { fb, idxs } = b
 
-  // XXX
-  // XXX
-  // XXX
   const filter = (idx: number) => {
-    // XXX look up the matching entry from within `idxs`
-    // XXX compare fidx
-    return idx > 0
+    const e = idxs[`${idx}`]
+    return e.fidx === undefined || e.fidx === fidx
   }
-  // XXX
-  // XXX
-  // XXX
 
   const ns = fb.neighbors(pgeo.x, pgeo.y, 1, MAX_DISTANCE, filter)
   if (ns.length === 0) {
     return null
   }
   const n = ns[0]
-  const address = idxs[`${n}`]
-  const coord = m.get(address)
+  const e = idxs[`${n}`]
+  const coord = m.get(e.a)
   if (coord === undefined) {
     return null
   }
-  return { address, coord }
+  return { address: e.a, coord }
 }

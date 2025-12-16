@@ -62,9 +62,9 @@ export function workerSearchInit(entries: Readonly<AddressEntries>): void {
   worker.postMessage(req)
 }
 
-function workerSearchStart({ psvg }: Readonly<SearchReq>): void {
+function workerSearchStart({ psvg, fidx }: Readonly<SearchReq>): void {
   const pgeo = svgMapViewerConfig.mapCoord.matrix.inverse().transformPoint(psvg)
-  const req: SearchWorkerReq = { type: 'SEARCH', pgeo, fidx: 0 }
+  const req: SearchWorkerReq = { type: 'SEARCH', pgeo, fidx }
   worker.postMessage(req)
 }
 
