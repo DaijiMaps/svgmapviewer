@@ -6,52 +6,7 @@ import {
 import { AddressEntries } from 'svgmapviewer/search'
 import { RenderInfo as renderInfo } from './RenderInfo.tsx'
 import { floorsConfig } from './floors.config.ts'
-import { type POI } from './types.ts'
-
-/*
-const searchEntries: SearchEntry[] = [
-  {
-    filter: () => true,
-    getInfo: (_p, a) => ({
-      title: a,
-      x: {
-        tag: 'shop',
-      },
-    }),
-  },
-]
-  */
-
-const pois: POI[] = [
-  {
-    id: 0,
-    name: ['a'],
-    pos: { x: 0, y: 0 },
-    size: 10,
-    fidx: 0,
-  },
-  {
-    id: 1,
-    name: ['b'],
-    pos: { x: 100, y: 100 },
-    size: 10,
-    fidx: 0,
-  },
-  {
-    id: 2,
-    name: ['c'],
-    pos: { x: 100, y: 100 },
-    size: 10,
-    fidx: 1,
-  },
-  {
-    id: 3,
-    name: ['d'],
-    pos: { x: 200, y: 200 },
-    size: 10,
-    fidx: 1,
-  },
-]
+import { pois } from './data.ts'
 
 const addresses: AddressEntries = pois.map((poi) => ({
   address: poi.name.join(' '),

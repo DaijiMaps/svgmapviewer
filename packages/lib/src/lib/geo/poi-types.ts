@@ -11,6 +11,7 @@ export interface POI {
   pos: VecVec
   size: number
   area?: number
+  fidx?: number
 }
 
 export type PointsFilter = (f: Readonly<OsmPointProperties>) => boolean
