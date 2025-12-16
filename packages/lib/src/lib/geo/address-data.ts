@@ -1,12 +1,7 @@
-import { type Info, type OsmSearchProps } from '../../types'
-import {
-  type AddressEntries,
-  type AddressEntry,
-  type SearchAddressRes,
-} from '../search/address-types'
-import type { OsmMapMap } from './data-types'
+import { type OsmSearchProps } from '../../types'
+import { type AddressEntries, type AddressEntry } from '../search/address-types'
 import type { OsmProperties } from './osm-types'
-import { findFeature, getOsmId } from './search'
+import { getOsmId } from './search'
 import type { SearchEntry } from './search-types'
 
 function pointAddresses(
@@ -41,17 +36,6 @@ function polygonAddresses(
   })
 }
 
-export function getAddressEntries(
-  props: Readonly<OsmSearchProps>
-): AddressEntries {
-  const skip = props.cartoConfig?.skipNamePattern
-  return [
-    ...pointAddresses(props, skip),
-    //...lineAddresses(props, skip),
-    ...polygonAddresses(props, skip),
-  ]
-}
-
 function filterFeature(
   properties: OsmProperties,
   entries: readonly SearchEntry[],
@@ -75,19 +59,13 @@ function filterFeature(
     : { a: id + '', coord: { x: centroid_x, y: centroid_y } }
 }
 
-export function getAddressInfo(
-  mapMap: Readonly<OsmMapMap>,
-  entries: readonly SearchEntry[],
-  res: Readonly<SearchAddressRes>
-): null | Info {
-  const id = Number(res.address)
-  const feature = findFeature(id, mapMap)
-  if (feature === null) {
-    return null
-  }
-  const properties = feature.properties
-  const matches = entries.flatMap((entry) =>
-    !entry.filter(properties) ? [] : [entry.getInfo(properties, res.address)]
-  )
-  return matches.length === 0 ? null : matches[0]
+export function getAddressEntries(
+  props: Readonly<OsmSearchProps>
+): AddressEntries {
+  const skip = props.cartoConfig?.skipNamePattern
+  return [
+    ...pointAddresses(props, skip),
+    //...lineAddresses(props, skip),
+    ...polygonAddresses(props, skip),
+  ]
 }
