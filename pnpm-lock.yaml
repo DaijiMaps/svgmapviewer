@@ -95,8 +95,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(react@19.2.3)
       svgmapviewer:
-        specifier: 0.0.2-alpha.22
-        version: 0.0.2-alpha.22(@types/react@19.2.7)
+        specifier: 0.0.2-alpha.24
+        version: 0.0.2-alpha.24(@types/react@19.2.7)
       type-fest:
         specifier: ^5.3.1
         version: 5.3.1
@@ -189,8 +189,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(react@19.2.3)
       svgmapviewer:
-        specifier: 0.0.2-alpha.19
-        version: 0.0.2-alpha.19(@types/react@19.2.7)
+        specifier: 0.0.2-alpha.24
+        version: 0.0.2-alpha.24(@types/react@19.2.7)
       xstate:
         specifier: ^5.25.0
         version: 5.25.0
@@ -6500,16 +6500,10 @@ packages:
       }
     engines: { node: ">= 0.4" }
 
-  svgmapviewer@0.0.2-alpha.19:
+  svgmapviewer@0.0.2-alpha.24:
     resolution:
       {
-        integrity: sha512-dbT/m0c/Z8to0R91p/SjF+r6XfoH5KhR6/d/xFkYjriILHhHRL4SLnbyHFIegpLG5xleJDq71GX0K9BSTyC8JQ==,
-      }
-
-  svgmapviewer@0.0.2-alpha.22:
-    resolution:
-      {
-        integrity: sha512-nBXVApmLF54BLQ74NjgnGiID0zg8smZb2+UmipXp+3bLizyKYxCQidrnEgfeCWGvD08ixeFxrlDbPksSGocouQ==,
+        integrity: sha512-w/A/oSclrz7Lh0bLIv4qPshDy7H5MEpKzwAmvXlkxSg0lj5u/jmDB1Bd9Ub+fyKtvjkCJ9KTxWZqnvRilQA0Vg==,
       }
 
   symbol-tree@3.2.4:
@@ -11105,22 +11099,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  svgmapviewer@0.0.2-alpha.19(@types/react@19.2.7):
-    dependencies:
-      "@xstate/react": 6.0.0(@types/react@19.2.7)(react@19.2.3)(xstate@5.25.0)
-      "@xstate/store": 3.13.0(react@19.2.3)
-      clsx: 2.1.1
-      flatbush: 4.5.0
-      fp-ts: 2.16.11
-      react: 19.2.3
-      react-dom: 19.2.3(react@19.2.3)
-      type-fest: 5.3.1
-      xstate: 5.25.0
-    transitivePeerDependencies:
-      - "@types/react"
-      - solid-js
-
-  svgmapviewer@0.0.2-alpha.22(@types/react@19.2.7):
+  svgmapviewer@0.0.2-alpha.24(@types/react@19.2.7):
     dependencies:
       "@xstate/react": 6.0.0(@types/react@19.2.7)(react@19.2.3)(xstate@5.25.0)
       "@xstate/store": 3.13.0(react@19.2.3)
