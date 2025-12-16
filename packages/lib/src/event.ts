@@ -1,13 +1,12 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
+import type { Cb, Cb1 } from './lib/cb'
 import { type VecVec } from './lib/vec/prefixed'
 import type { ViewerMode } from './lib/viewer/viewer-types'
 import {
   type AnimationCb,
   type AnimationMatrix,
-  type Cb,
-  type Cb1,
   type FloorCb,
   type LayoutCb,
   type ModeCb,

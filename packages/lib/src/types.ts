@@ -20,6 +20,7 @@ import { type Vec } from './lib/vec'
 import { type Layout, type LayoutCoord } from './lib/viewer/layout-types'
 import type { ViewerMode } from './lib/viewer/viewer-types'
 import type { AddressEntries } from './lib/search'
+import type { Cb, Cb1 } from './lib/cb'
 
 //// layout
 
@@ -82,12 +83,6 @@ export interface ResizeInfo {
 }
 
 ////
-
-export type Cb = () => void
-export type Cbs = Set<Cb>
-
-export type Cb1<T> = (args: T) => void
-export type Cbs1<T> = Set<Cb1<T>>
 
 export type ZoomStartCb = Cb1<Readonly<ZoomInfo>>
 export type ZoomEndCb = Cb1<Readonly<ZoomEndInfo>>
