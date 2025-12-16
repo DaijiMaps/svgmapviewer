@@ -1,13 +1,13 @@
 import { assign, createActor, emit, fromPromise, setup } from 'xstate'
 import { type BoxBox as Box } from '../box/prefixed'
 import { getScroll, syncScroll } from './scroll'
-import type {
-  GetDone,
-  ScrollContext,
-  ScrollEmitted,
-  ScrollEvent,
-  SlideDone,
-  SyncSyncDone,
+import {
+  type GetDone,
+  type ScrollContext,
+  type ScrollEmitted,
+  type ScrollEvent,
+  type SlideDone,
+  type SyncSyncDone,
 } from './scroll-types'
 
 const scrollMachine = setup({

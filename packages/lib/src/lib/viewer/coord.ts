@@ -1,11 +1,11 @@
 import { type BoxBox as Box, boxCopy, boxUnit } from '../box/prefixed'
 import { vecScale } from '../vec/prefixed'
-import type {
-  ContentLayoutCoord,
-  LayoutConfig,
-  LayoutCoord,
-  ScrollLayoutCoord,
-  SvgLayoutCoord,
+import {
+  type ContentLayoutCoord,
+  type LayoutConfig,
+  type LayoutCoord,
+  type ScrollLayoutCoord,
+  type SvgLayoutCoord,
 } from './layout-types'
 
 //// LayoutCoord

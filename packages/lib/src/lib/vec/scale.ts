@@ -1,4 +1,4 @@
-import type { V } from '../tuple'
+import { type V } from '../tuple'
 import { type Vec } from './index'
 
 export function scale<T extends Vec>(a: T, s: number | V | Vec): T {

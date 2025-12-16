@@ -1,4 +1,4 @@
-import type { OsmRenderMapProps } from '../../types'
+import { type OsmRenderMapProps } from '../../types'
 import { getOsmId, type OsmMapData, type OsmProperties, type POI } from '../geo'
 import { vVec, type V } from '../tuple'
 

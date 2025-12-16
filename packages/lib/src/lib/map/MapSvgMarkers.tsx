@@ -11,13 +11,13 @@ import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapMarkers } from '../carto'
 import { useShadowRoot } from '../dom'
 import { trunc2 } from '../utils'
-import type { VecVec } from '../vec/prefixed'
+import { type VecVec } from '../vec/prefixed'
 import {
   MAP_SVG_MARKERS_CONTENT_ID,
   MAP_SVG_MARKERS_ROOT_ID,
 } from './map-svg-react'
 import { useNames } from './names'
-import type { OsmRenderMapProps } from '../../types'
+import { type OsmRenderMapProps } from '../../types'
 
 export function MapSvgMarkers(props: Readonly<OsmRenderMapProps>): ReactNode {
   useShadowRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkersContent {...props} />)

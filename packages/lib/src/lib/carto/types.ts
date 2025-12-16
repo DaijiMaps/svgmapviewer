@@ -1,8 +1,8 @@
-import type {
-  LineFeature,
-  MultiPolygonGeoJSON,
-  PointFeature,
-  PolygonFeature,
+import {
+  type LineFeature,
+  type MultiPolygonGeoJSON,
+  type PointFeature,
+  type PolygonFeature,
 } from '../geo'
 import { type Line, type MultiPolygon, type Point } from '../geo/path-types'
 import {

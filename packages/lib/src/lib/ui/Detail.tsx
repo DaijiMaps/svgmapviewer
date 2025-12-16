@@ -10,7 +10,7 @@ import {
   Z_INDEX_DETAIL,
 } from '../css'
 import { useOnWheel } from '../wheel'
-import type { UiDetailContent } from './ui-types'
+import { type UiDetailContent } from './ui-types'
 import { isDetailEmpty, uiSend } from './ui-xstate'
 
 export function Detail(

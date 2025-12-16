@@ -9,7 +9,7 @@ import App from './App'
 import { touching } from './lib/viewer/touch-xstate'
 import { keyDown, keyUp } from './lib/viewer/viewer-react'
 import { wheeleventmask } from './lib/viewer/viewer-xstate'
-import type { SvgMapViewerConfig } from './types'
+import { type SvgMapViewerConfig } from './types'
 
 export function root(config: Readonly<SvgMapViewerConfig>): void {
   const e = document.getElementById(config.root)

@@ -7,7 +7,7 @@ import {
   useAnimation,
   useLayoutContent,
 } from '../../style-xstate'
-import type { AnimationMatrix } from '../../types'
+import { type AnimationMatrix } from '../../types'
 import {
   position_absolute_left_0_top_0,
   width_100vw_height_100svh,

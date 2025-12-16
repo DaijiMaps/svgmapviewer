@@ -1,6 +1,10 @@
 import { type V } from '../tuple'
-import type { VecVec } from '../vec/prefixed'
-import type { Line, MultiLineString, MultiPolygon } from './path-types'
+import { type VecVec } from '../vec/prefixed'
+import {
+  type Line,
+  type MultiLineString,
+  type MultiPolygon,
+} from './path-types'
 
 export function lineToPathD(
   m: DOMMatrixReadOnly

@@ -6,13 +6,13 @@ import {
   type Point,
   type PointsFilter,
 } from '../geo'
-import type {
-  OsmLineFeature,
-  OsmMultiPolygonFeature,
-  OsmPointFeature,
+import {
+  type OsmLineFeature,
+  type OsmMultiPolygonFeature,
+  type OsmPointFeature,
 } from '../geo/osm-types'
 import { type V, vV } from '../tuple'
-import type { WithFilters } from './types'
+import { type WithFilters } from './types'
 
 export function entryToVs(
   mapData: Readonly<OsmMapData>,

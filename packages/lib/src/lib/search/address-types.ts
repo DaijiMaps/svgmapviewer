@@ -1,4 +1,4 @@
-import Flatbush from 'flatbush'
+import type Flatbush from 'flatbush'
 import { type VecVec } from '../vec/prefixed'
 
 export type Address = string

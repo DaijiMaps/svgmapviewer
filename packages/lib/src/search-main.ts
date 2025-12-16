@@ -4,13 +4,13 @@
 /* eslint-disable functional/no-expression-statements */
 import { svgMapViewerConfig } from './config'
 import { notifySearchDone, searchCbs } from './event'
-import type { Vec } from './lib/vec'
+import { type Vec } from './lib/vec'
 import { getAddressInfo } from './lib/search/address-data'
-import type {
-  AddressEntries,
-  SearchAddressRes,
+import {
+  type AddressEntries,
+  type SearchAddressRes,
 } from './lib/search/address-types'
-import type { SearchWorkerRes } from './lib/search/search-worker-types'
+import { type SearchWorkerRes } from './lib/search/search-worker-types'
 
 const worker = new Worker(new URL('./search-worker.js', import.meta.url), {
   type: 'module',

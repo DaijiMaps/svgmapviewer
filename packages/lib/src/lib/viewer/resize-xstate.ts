@@ -4,7 +4,11 @@ import { notifyResize } from '../../event'
 import { boxEq, boxUnit } from '../box/prefixed'
 import { getBodySize } from '../utils'
 import { resizeLayout } from './layout'
-import type { ResizeContext, ResizeEmitted, ResizeEvent } from './resize-types'
+import {
+  type ResizeContext,
+  type ResizeEmitted,
+  type ResizeEvent,
+} from './resize-types'
 
 const resizeMachine = setup({
   types: {

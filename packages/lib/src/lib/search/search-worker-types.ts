@@ -1,8 +1,8 @@
-import type { VecVec } from '../vec/prefixed'
-import type {
-  AddressEntries,
-  SearchAddressRes,
-  SearchContext,
+import { type VecVec } from '../vec/prefixed'
+import {
+  type AddressEntries,
+  type SearchAddressRes,
+  type SearchContext,
 } from './address-types'
 
 export type SearchWorkerReq =

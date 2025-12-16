@@ -7,14 +7,14 @@ import {
   type OsmProperties,
 } from '../geo'
 import { lineToPathD, multiPolygonToPathD } from '../geo/path'
-import type {
-  LinePath,
-  OsmMapLayer,
-  MapLineLayer,
-  MapMultiPolygonLayer,
-  MultiPolygonPath,
+import {
+  type LinePath,
+  type OsmMapLayer,
+  type MapLineLayer,
+  type MapMultiPolygonLayer,
+  type MultiPolygonPath,
 } from './types'
-import type { OsmRenderMapProps } from '../../types'
+import { type OsmRenderMapProps } from '../../types'
 
 export function RenderMapLayers(
   props: Readonly<

@@ -11,7 +11,7 @@ import {
 import { likeStyle } from './lib/Like'
 import { Ui } from './lib/ui/Ui'
 import { Container } from './lib/viewer/Container'
-import type { OsmRenderMapProps } from './types'
+import { type OsmRenderMapProps } from './types'
 
 function App(): ReactNode {
   const backgroundColor =

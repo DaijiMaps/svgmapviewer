@@ -16,7 +16,11 @@ import {
   resetTouches,
   type Vecs,
 } from './touch'
-import type { TouchContext_, TouchEmit_, TouchEvent_ } from './touch-types'
+import {
+  type TouchContext_,
+  type TouchEmit_,
+  type TouchEvent_,
+} from './touch-types'
 import { viewerSend } from './viewer-xstate'
 
 const touchMachine = setup({

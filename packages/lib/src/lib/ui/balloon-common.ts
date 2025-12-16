@@ -1,4 +1,4 @@
-import type { HV, Size } from '../../types'
+import { type HV, type Size } from '../../types'
 import { boxBox, type BoxBox } from '../box/prefixed'
 import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from '../css'
 import {
@@ -7,10 +7,10 @@ import {
   vecSub,
   type VecVec as Vec,
 } from '../vec/prefixed'
-import type { BalloonProps } from './Balloon'
+import { type BalloonProps } from './Balloon'
 import { diag } from './diag'
-import type { OpenClose } from './openclose'
-import type { UiDetailContent } from './ui-types'
+import { type OpenClose } from './openclose'
+import { type UiDetailContent } from './ui-types'
 
 const BW = 50
 const BH = 50

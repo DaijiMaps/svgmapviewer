@@ -1,4 +1,4 @@
-import type { Info, OsmSearchProps } from '../../types'
+import { type Info, type OsmSearchProps } from '../../types'
 import {
   findFeature,
   getOsmId,
@@ -6,10 +6,10 @@ import {
   type OsmProperties,
   type SearchEntry,
 } from '../geo'
-import type {
-  AddressEntries,
-  AddressEntry,
-  SearchAddressRes,
+import {
+  type AddressEntries,
+  type AddressEntry,
+  type SearchAddressRes,
 } from './address-types'
 
 function pointAddresses(

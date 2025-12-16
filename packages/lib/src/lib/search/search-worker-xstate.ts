@@ -1,9 +1,9 @@
 import { assign, createActor, setup } from 'xstate'
-import type { Vec } from '../vec'
+import { type Vec } from '../vec'
 import { initAddresses, searchAddress } from './address'
-import type {
-  SearchWorkerContext,
-  SearchWorkerReq,
+import {
+  type SearchWorkerContext,
+  type SearchWorkerReq,
 } from './search-worker-types'
 
 const searchWorkerMachine = setup({

@@ -2,14 +2,14 @@
 /* eslint-disable functional/no-return-void */
 import { type ReactNode } from 'react'
 import { type BoxBox } from './lib/box/prefixed'
-import type { CartoConfig } from './lib/carto'
+import { type CartoConfig } from './lib/carto'
 import {
   type OsmMapLayer,
   type OsmMapMarkers,
   type OsmMapObjects,
   type OsmMapSymbols,
 } from './lib/carto/types'
-import type { SearchEntry } from './lib/geo'
+import { type SearchEntry } from './lib/geo/search-types'
 import {
   type MapCoord,
   type OsmMapData,
@@ -18,9 +18,12 @@ import {
 import { type POI } from './lib/geo/poi-types'
 import { type Vec } from './lib/vec'
 import { type Layout, type LayoutCoord } from './lib/viewer/layout-types'
-import type { ViewerMode } from './lib/viewer/viewer-types'
-import type { AddressEntries } from './lib/search'
-import type { Cb, Cb1 } from './lib/cb'
+import { type ViewerMode } from './lib/viewer/viewer-types'
+import {
+  type AddressEntries,
+  type SearchAddressRes,
+} from './lib/search/address-types'
+import { type Cb, type Cb1 } from './lib/cb'
 
 //// layout
 
@@ -165,6 +168,11 @@ export interface OsmRenderConfig {
   getMapMarkers: () => readonly OsmMapMarkers[]
   getMapNames: (props: Readonly<OsmRenderMapProps>) => readonly POI[] // XXX
   getAddressEntries: (props: Readonly<OsmSearchProps>) => AddressEntries // XXX
+  getAddressInfo: (
+    mapMap: Readonly<OsmMapMap>,
+    entries: readonly SearchEntry[],
+    res: Readonly<SearchAddressRes>
+  ) => null | Info
   searchEntries: readonly SearchEntry[] // XXX
   renderInfo: RenderInfo
   mapSvgStyle: string

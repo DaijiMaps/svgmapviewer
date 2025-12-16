@@ -21,13 +21,13 @@ import {
   openCloseReset,
 } from './openclose'
 import { resetDetailScroll } from './ui-react'
-import type {
-  OpenCloseMap,
-  UiContext,
-  UiDetailContent,
-  UiEmitted,
-  UiEvent,
-  UiPart,
+import {
+  type OpenCloseMap,
+  type UiContext,
+  type UiDetailContent,
+  type UiEmitted,
+  type UiEvent,
+  type UiPart,
 } from './ui-types'
 
 const emptyDetail: UiDetailContent = {

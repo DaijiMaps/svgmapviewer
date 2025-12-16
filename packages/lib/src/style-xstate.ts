@@ -10,7 +10,7 @@ import {
 } from './event'
 import { boxToViewBox2, type BoxBox } from './lib/box/prefixed'
 import { findRadius } from './lib/distance'
-import type { DistanceRadius } from './lib/distance-types'
+import { type DistanceRadius } from './lib/distance-types'
 import { makeExpire } from './lib/expire-xstate'
 import { trunc2 } from './lib/utils'
 import { vecZero, type VecVec } from './lib/vec/prefixed'
@@ -25,13 +25,13 @@ import {
   scrollEventCbs,
   type CurrentScroll,
 } from './lib/viewer/scroll'
-import type { ViewerMode } from './lib/viewer/viewer-types'
-import type {
-  AnimationMatrix,
-  Range,
-  ResizeInfo,
-  ZoomEndInfo,
-  ZoomInfo,
+import { type ViewerMode } from './lib/viewer/viewer-types'
+import {
+  type AnimationMatrix,
+  type Range,
+  type ResizeInfo,
+  type ZoomEndInfo,
+  type ZoomInfo,
 } from './types'
 
 type LayoutEvent = { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }

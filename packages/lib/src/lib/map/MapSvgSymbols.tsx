@@ -12,7 +12,7 @@ import {
   MAP_SVG_SYMBOLS_CONTENT_ID,
   MAP_SVG_SYMBOLS_ROOT_ID,
 } from './map-svg-react'
-import type { OsmRenderMapProps } from '../../types'
+import { type OsmRenderMapProps } from '../../types'
 
 export function MapSvgSymbols(props: Readonly<OsmRenderMapProps>): ReactNode {
   useShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbolsContent {...props} />)

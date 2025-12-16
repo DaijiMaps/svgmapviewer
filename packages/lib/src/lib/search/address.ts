@@ -4,11 +4,11 @@
 /* eslint-disable functional/no-loop-statements */
 import Flatbush from 'flatbush'
 import { type VecVec as Vec } from '../vec/prefixed'
-import type {
-  AddressEntries,
-  FlatbushIndexes,
-  SearchAddressRes,
-  SearchContext,
+import {
+  type AddressEntries,
+  type FlatbushIndexes,
+  type SearchAddressRes,
+  type SearchContext,
 } from './address-types'
 
 function makeAddressBuf(entries: Readonly<AddressEntries>) {

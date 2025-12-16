@@ -18,12 +18,12 @@ import {
 } from '../vec/prefixed'
 import { emptyLayoutCoord, fromMatrixSvg, fromScroll, makeCoord } from './coord'
 import { fit } from './fit'
-import type {
-  Layout,
-  LayoutConfig,
-  LayoutCoord,
-  ScrollLayoutCoord,
-  SvgLayoutCoord,
+import {
+  type Layout,
+  type LayoutConfig,
+  type LayoutCoord,
+  type ScrollLayoutCoord,
+  type SvgLayoutCoord,
 } from './layout-types'
 import { type Scale } from './transform'
 

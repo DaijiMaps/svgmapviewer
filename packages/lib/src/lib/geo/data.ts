@@ -1,23 +1,23 @@
 import { option, readonlyArray } from 'fp-ts'
 import { pipe } from 'fp-ts/function'
-import type { Option } from 'fp-ts/lib/Option'
-import type {
-  LineMap,
-  OsmMapData,
-  OsmMapMap,
-  MultiLineStringMap,
-  MultiPolygonMap,
-  PointMap,
+import { type Option } from 'fp-ts/lib/Option'
+import {
+  type LineMap,
+  type OsmMapData,
+  type OsmMapMap,
+  type MultiLineStringMap,
+  type MultiPolygonMap,
+  type PointMap,
 } from './data-types'
-import type {
-  OsmLineFeature,
-  OsmLineGeoJSON,
-  OsmMultiLineStringFeature,
-  OsmMultiLineStringGeoJSON,
-  OsmMultiPolygonFeature,
-  OsmMultiPolygonGeoJSON,
-  OsmPointFeature,
-  OsmPointGeoJSON,
+import {
+  type OsmLineFeature,
+  type OsmLineGeoJSON,
+  type OsmMultiLineStringFeature,
+  type OsmMultiLineStringGeoJSON,
+  type OsmMultiPolygonFeature,
+  type OsmMultiPolygonGeoJSON,
+  type OsmPointFeature,
+  type OsmPointGeoJSON,
 } from './osm-types'
 
 export function mapMapFromMapData(mapData: Readonly<OsmMapData>): OsmMapMap {

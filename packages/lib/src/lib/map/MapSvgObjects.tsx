@@ -10,7 +10,7 @@ import {
   MAP_SVG_OBJECTS_CONTENT_ID,
   MAP_SVG_OBJECTS_ROOT_ID,
 } from './map-svg-react'
-import type { OsmRenderMapProps } from '../../types'
+import { type OsmRenderMapProps } from '../../types'
 
 export function MapSvgObjects(props: Readonly<OsmRenderMapProps>): ReactNode {
   useShadowRoot(MAP_SVG_OBJECTS_ROOT_ID, <MapSvgObjectsContent {...props} />)

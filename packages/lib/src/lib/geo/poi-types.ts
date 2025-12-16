@@ -1,8 +1,8 @@
 import { type VecVec } from '../vec/prefixed'
-import type {
-  OsmLineProperties,
-  OsmPointProperties,
-  OsmPolygonProperties,
+import {
+  type OsmLineProperties,
+  type OsmPointProperties,
+  type OsmPolygonProperties,
 } from './osm-types'
 
 export interface POI {
