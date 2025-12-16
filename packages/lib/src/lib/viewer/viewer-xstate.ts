@@ -785,8 +785,8 @@ viewerActor.on('SEARCH.END.DONE', ({ res }) => {
 })
 viewerActor.on('LOCK', ({ ok }) => notifyUiOpenDone(ok))
 viewerActor.on('ZOOM.START', (args) => notifyZoomStart(args))
-viewerActor.on('ZOOM.END', ({ layout, zoom }) => notifyZoomEnd(layout, zoom))
-viewerActor.on('LAYOUT', ({ layout }) => notifyZoomEnd(layout, 1))
+viewerActor.on('ZOOM.END', (end) => notifyZoomEnd(end))
+viewerActor.on('LAYOUT', ({ layout }) => notifyZoomEnd({ layout, zoom: 1 }))
 viewerActor.on('MODE', ({ mode }) => notifyMode(mode))
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloor(fidx))

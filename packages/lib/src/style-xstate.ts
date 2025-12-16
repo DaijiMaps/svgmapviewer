@@ -14,7 +14,7 @@ import type { DistanceRadius } from './lib/distance-types'
 import { makeExpire } from './lib/expire-xstate'
 import { trunc2 } from './lib/utils'
 import { vecZero, type VecVec } from './lib/vec/prefixed'
-import { fromSvgToScroll, type LayoutCoord } from './lib/viewer/coord'
+import { fromSvgToScroll } from './lib/viewer/coord'
 import {
   emptyLayout,
   type Layout,
@@ -26,7 +26,13 @@ import {
   type CurrentScroll,
 } from './lib/viewer/scroll'
 import type { ViewerMode } from './lib/viewer/viewer-types'
-import type { AnimationMatrix, Range, ResizeInfo, ZoomInfo } from './types'
+import type {
+  AnimationMatrix,
+  Range,
+  ResizeInfo,
+  ZoomEndInfo,
+  ZoomInfo,
+} from './types'
 
 type LayoutEvent = { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
 type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number; z: null | number }
@@ -314,8 +320,8 @@ function handleLayout(resize: Readonly<ResizeInfo>) {
 function handleZoomStart(zoom: Readonly<ZoomInfo>) {
   styleSend({ type: 'STYLE.ZOOM', ...zoom })
 }
-function handleZoomEnd(_: LayoutCoord, zoom: number) {
-  styleSend({ type: 'STYLE.ZOOM', zoom, z: null })
+function handleZoomEnd(end: Readonly<ZoomEndInfo>) {
+  styleSend({ type: 'STYLE.ZOOM', zoom: end.zoom, z: null })
 }
 function handleAnimation(animation: null | AnimationMatrix) {
   styleSend({ type: 'STYLE.ANIMATION', animation })

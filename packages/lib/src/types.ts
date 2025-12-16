@@ -74,6 +74,8 @@ export interface ZoomInfo {
   z: number
 }
 
+export type ZoomEndInfo = Omit<ZoomInfo, 'z'>
+
 export interface ResizeInfo {
   layout: Layout
   force: boolean
@@ -83,7 +85,7 @@ export interface ResizeInfo {
 
 export type Cb = () => void
 export type ZoomStartCb = (zoom: Readonly<ZoomInfo>) => void
-export type ZoomEndCb = (layout: Readonly<LayoutCoord>, zoom: number) => void
+export type ZoomEndCb = (end: Readonly<ZoomEndInfo>) => void
 export type SearchStartCb = (psvg: Vec) => void
 export type SearchCb = (psvg: Vec) => void
 export type SearchDoneCb = (res: Readonly<null | SearchRes>) => void
