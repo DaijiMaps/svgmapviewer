@@ -11,8 +11,8 @@ import { AddressEntries } from 'svgmapviewer/search'
 const searchEntries: SearchEntry[] = [
   {
     filter: () => true,
-    getInfo: () => ({
-      title: 'xxx',
+    getInfo: (_p, a) => ({
+      title: a,
     }),
   },
 ]
@@ -21,6 +21,7 @@ const mapConfig: SvgMapViewerConfigUser = {
   backgroundColor: 'grey',
   getMapNames: () => pois,
   getAddressEntries: () => addresses,
+  getAddressInfo: (_mapmap, _entries, res) => ({ title: res.address }),
   searchEntries,
   renderMap,
   renderInfo,

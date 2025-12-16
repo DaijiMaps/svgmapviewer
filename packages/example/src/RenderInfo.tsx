@@ -1,6 +1,6 @@
-/* eslint-disable functional/functional-parameters */
 import { ReactNode } from 'react'
+import { Info } from 'svgmapviewer'
 
-export function RenderInfo(): ReactNode {
-  return <div>xxx</div>
+export function RenderInfo(props: Readonly<{ info: Info }>): ReactNode {
+  return <h1>{props.info.title}</h1>
 }
