@@ -33,7 +33,7 @@ function handleSearchRes(res: Readonly<SearchAddressRes>): void {
   if (info === null) {
     notifySearchDone(null)
   } else {
-    const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(res.lonlat)
+    const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(res.coord)
     notifySearchDone({ psvg, info })
   }
 }

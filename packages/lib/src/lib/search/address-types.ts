@@ -11,7 +11,7 @@ export interface AddressBuf {
   idxs: FlatbushIndexes
 }
 
-export type AddressEntry = { a: Address; lonlat: VecVec }
+export type AddressEntry = { a: Address; coord: VecVec }
 export type AddressEntries = readonly AddressEntry[]
 
 export interface SearchContext {
@@ -21,5 +21,5 @@ export interface SearchContext {
 
 export interface SearchAddressRes {
   address: Address
-  lonlat: VecVec
+  coord: VecVec
 }

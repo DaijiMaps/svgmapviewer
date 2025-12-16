@@ -70,7 +70,7 @@ export function MeasureCoordinate(): ReactNode {
 
   return (
     <div id="coordinate">
-      {/* placeholder - updated by style lonlat */}
+      {/* placeholder - updated by style coord */}
       <p id="longitude">{lon}</p>
       <p id="latitude">{lat}</p>
       <style>

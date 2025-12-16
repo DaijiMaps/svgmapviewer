@@ -17,7 +17,7 @@ function makeAddressBuf(entries: Readonly<AddressEntries>) {
   const idxs: FlatbushIndexes = {}
   for (const {
     a,
-    lonlat: { x, y },
+    coord: { x, y },
   } of entries) {
     const idx = fb.add(x, y)
     idxs[`${idx}`] = a
@@ -33,7 +33,7 @@ export function initAddresses(
   entries: Readonly<AddressEntries>
 ): SearchContext {
   const b = makeAddressBuf(entries)
-  const m = new Map(entries.map(({ a, lonlat }) => [a, lonlat]))
+  const m = new Map(entries.map(({ a, coord }) => [a, coord]))
   return { b, m }
 }
 
@@ -48,9 +48,9 @@ export function searchAddress(
   }
   const n = ns[0]
   const address = idxs[`${n}`]
-  const lonlat = m.get(address)
-  if (lonlat === undefined) {
+  const coord = m.get(address)
+  if (coord === undefined) {
     return null
   }
-  return { address, lonlat }
+  return { address, coord }
 }
