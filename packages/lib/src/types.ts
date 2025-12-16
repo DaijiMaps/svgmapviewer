@@ -153,6 +153,7 @@ export interface SvgMapViewerConfig
   href: string
   width: number
   height: number
+  origViewBox: BoxBox // XXX
   fontSize: number
   backgroundColor?: string
   title: string
@@ -169,10 +170,10 @@ export interface UiConfig {
 }
 
 export interface OsmDataConfig {
+  origViewBox: BoxBox // XXX
   mapData: OsmMapData
   mapMap: OsmMapMap
   mapCoord: MapCoord
-  origViewBox: BoxBox
 }
 
 export interface OsmRenderConfig {
