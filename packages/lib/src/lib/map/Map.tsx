@@ -11,7 +11,7 @@ import { MapSvgObjects } from './MapSvgObjects'
 import { MapSvgSymbols } from './MapSvgSymbols'
 import { type OsmRenderMapProps } from '../../types'
 
-export function RenderMap(props: Readonly<OsmRenderMapProps>): ReactNode {
+export function OsmRenderMap(props: Readonly<OsmRenderMapProps>): ReactNode {
   return RenderMapCommon(props)
 }
 

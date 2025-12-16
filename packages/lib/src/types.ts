@@ -126,13 +126,15 @@ export interface OsmRenderMapProps {
   floors?: Readonly<FloorsConfig>
 }
 
-export type RenderMap = (props: Readonly<OsmRenderMapProps>) => ReactNode
+export type OsmRenderMap = (props: Readonly<OsmRenderMapProps>) => ReactNode
 
-export type GetMapNames = (props: Readonly<OsmRenderMapProps>) => readonly POI[]
-export type GetAddressEntries = (
+export type OsmGetMapNames = (
+  props: Readonly<OsmRenderMapProps>
+) => readonly POI[]
+export type OsmGetAddressEntries = (
   props: Readonly<OsmSearchProps>
 ) => AddressEntries
-export type GetAddressInfo = (
+export type OsmGetAddressInfo = (
   mapMap: Readonly<OsmMapMap>,
   entries: readonly SearchEntry[],
   res: Readonly<SearchAddressRes>
@@ -173,9 +175,9 @@ export interface OsmDataConfig {
 }
 
 export interface OsmRenderConfig {
-  renderMap: RenderMap
+  renderMap: OsmRenderMap
   isMapRendered: () => boolean
-  getMapNames: GetMapNames
+  getMapNames: OsmGetMapNames
   getMapLayers: () => readonly OsmMapLayer[]
   getMapObjects: () => readonly OsmMapObjects[]
   getMapSymbols: () => readonly OsmMapSymbols[]
@@ -185,8 +187,8 @@ export interface OsmRenderConfig {
 
 export interface OsmSearchConfig {
   searchEntries: readonly SearchEntry[] // XXX
-  getAddressEntries: GetAddressEntries
-  getAddressInfo: GetAddressInfo
+  getAddressEntries: OsmGetAddressEntries
+  getAddressInfo: OsmGetAddressInfo
   renderInfo: RenderInfo
 }
 
