@@ -128,6 +128,16 @@ export interface OsmRenderMapProps {
 
 export type RenderMap = (props: Readonly<OsmRenderMapProps>) => ReactNode
 
+export type GetMapNames = (props: Readonly<OsmRenderMapProps>) => readonly POI[]
+export type GetAddressEntries = (
+  props: Readonly<OsmSearchProps>
+) => AddressEntries
+export type GetAddressInfo = (
+  mapMap: Readonly<OsmMapMap>,
+  entries: readonly SearchEntry[],
+  res: Readonly<SearchAddressRes>
+) => null | Info
+
 export type RenderInfo = (props: Readonly<{ info: Info }>) => ReactNode
 
 ////
@@ -174,13 +184,9 @@ export interface OsmRenderConfig {
 
 export interface OsmSearchConfig {
   searchEntries: readonly SearchEntry[] // XXX
-  getMapNames: (props: Readonly<OsmRenderMapProps>) => readonly POI[] // XXX
-  getAddressEntries: (props: Readonly<OsmSearchProps>) => AddressEntries // XXX
-  getAddressInfo: (
-    mapMap: Readonly<OsmMapMap>,
-    entries: readonly SearchEntry[],
-    res: Readonly<SearchAddressRes>
-  ) => null | Info
+  getMapNames: GetMapNames
+  getAddressEntries: GetAddressEntries
+  getAddressInfo: GetAddressInfo
   renderInfo: RenderInfo
 }
 
