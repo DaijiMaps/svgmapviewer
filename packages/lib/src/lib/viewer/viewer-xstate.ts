@@ -249,6 +249,7 @@ const viewerMachine = setup({
       return {
         type: 'SEARCH',
         psvg: m.transformPoint(context.cursor),
+        fidx: context.fidx,
       }
     }),
     notifySearchDone: raise({ type: 'SEARCH.DONE' }),
@@ -265,6 +266,7 @@ const viewerMachine = setup({
                   psvg: res.psvg,
                   info: res.info,
                   layout: l,
+                  fidx: context.fidx,
                 },
         }
       }
@@ -318,6 +320,7 @@ const viewerMachine = setup({
     touching: false,
     animating: false,
     rendered: false,
+    fidx: 0,
   },
   on: {
     'TOUCH.LOCK': {
@@ -452,10 +455,15 @@ const viewerMachine = setup({
           target: 'Searching',
         },
         SWITCH: {
-          actions: {
-            type: 'notifySwitch',
-            params: ({ event }) => event,
-          },
+          actions: [
+            assign({
+              fidx: ({ event }) => event.fidx,
+            }),
+            {
+              type: 'notifySwitch',
+              params: ({ event }) => event,
+            },
+          ],
           target: 'Switching',
         },
         CONTEXTMENU: {
@@ -772,7 +780,7 @@ const viewerActor = createActor(viewerMachine, {
   systemId: 'system-viewer1',
 })
 
-viewerActor.on('SEARCH', ({ psvg }) => notifySearchStart(psvg))
+viewerActor.on('SEARCH', ({ psvg, fidx }) => notifySearchStart({ psvg, fidx }))
 viewerActor.on('SEARCH.END.DONE', ({ res }) => {
   if (res === null) {
     viewerSearchUnlock()

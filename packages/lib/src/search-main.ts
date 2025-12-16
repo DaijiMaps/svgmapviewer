@@ -4,12 +4,15 @@
 /* eslint-disable functional/no-expression-statements */
 import { svgMapViewerConfig } from './config'
 import { notifySearchDone, searchCbs } from './event'
-import { type Vec } from './lib/vec'
 import {
   type AddressEntries,
   type SearchAddressRes,
 } from './lib/search/address-types'
-import { type SearchWorkerRes } from './lib/search/search-worker-types'
+import {
+  type SearchWorkerReq,
+  type SearchWorkerRes,
+} from './lib/search/search-worker-types'
+import type { SearchReq } from './types'
 
 const worker = new Worker(new URL('./search-worker.js', import.meta.url), {
   type: 'module',
@@ -55,12 +58,14 @@ worker.onmessageerror = (ev) => {
 }
 
 export function workerSearchInit(entries: Readonly<AddressEntries>): void {
-  worker.postMessage({ type: 'INIT', entries })
+  const req: SearchWorkerReq = { type: 'INIT', entries }
+  worker.postMessage(req)
 }
 
-function workerSearchStart(psvg: Readonly<Vec>): void {
+function workerSearchStart({ psvg }: Readonly<SearchReq>): void {
   const pgeo = svgMapViewerConfig.mapCoord.matrix.inverse().transformPoint(psvg)
-  worker.postMessage({ type: 'SEARCH', pgeo })
+  const req: SearchWorkerReq = { type: 'SEARCH', pgeo, fidx: 0 }
+  worker.postMessage(req)
 }
 
 searchCbs.add(workerSearchStart)

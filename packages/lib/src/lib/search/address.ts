@@ -39,7 +39,9 @@ export function initAddresses(
 
 export function searchAddress(
   { b, m }: SearchContext,
-  pgeo: Vec
+  pgeo: Vec,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _fidx: number // XXX for filter
 ): SearchAddressRes | null {
   const { fb, idxs } = b
   const ns = fb.neighbors(pgeo.x, pgeo.y, 1, 100)

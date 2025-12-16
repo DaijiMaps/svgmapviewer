@@ -1,4 +1,4 @@
-import { type Info, type SearchRes } from '../../types'
+import { type SearchData, type SearchRes } from '../../types'
 import { type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec, type VecVec } from '../vec/prefixed'
 import { type Animation } from './animation-types'
@@ -39,6 +39,8 @@ export type ViewerContext = {
   homing: boolean
   animating: boolean // XXX
   rendered: boolean
+
+  fidx: number
 }
 
 //// external event (request)
@@ -125,14 +127,10 @@ export type ViewerEvent = ViewerRequest | ViewerMessage | UIEvent
 
 //// emitted
 
-export type SearchEmitted = { type: 'SEARCH'; psvg: Vec }
+export type SearchEmitted = { type: 'SEARCH'; psvg: Vec; fidx: number }
 export type SearchEndDoneEmitted = {
   type: 'SEARCH.END.DONE'
-  res: null | {
-    psvg: Vec
-    info: Info
-    layout: Layout
-  }
+  res: null | SearchData
 }
 export type LockEmitted = { type: 'LOCK'; ok: boolean }
 export type LayoutEmitted = { type: 'LAYOUT'; layout: Layout }

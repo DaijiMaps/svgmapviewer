@@ -13,7 +13,10 @@ const searchWorkerMachine = setup({
   },
   actions: {
     initDone: () => postMessage({ type: 'INIT.DONE' }),
-    doSearch: ({ context: { ctx } }, { pgeo }: Readonly<{ pgeo: Vec }>) => {
+    doSearch: (
+      { context: { ctx } },
+      { pgeo, fidx }: Readonly<{ pgeo: Vec; fidx: number }>
+    ) => {
       if (ctx === null) {
         // XXX
         postMessage({
@@ -22,7 +25,7 @@ const searchWorkerMachine = setup({
         })
         return
       }
-      const res = searchAddress(ctx, pgeo)
+      const res = searchAddress(ctx, pgeo, fidx)
       if (res === null) {
         // XXX
         postMessage({
@@ -62,8 +65,9 @@ const searchWorkerMachine = setup({
           {
             actions: {
               type: 'doSearch',
-              params: ({ event: { pgeo } }) => ({
+              params: ({ event: { pgeo, fidx } }) => ({
                 pgeo,
+                fidx,
               }),
             },
           },

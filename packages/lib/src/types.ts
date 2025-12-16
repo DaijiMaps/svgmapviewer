@@ -44,6 +44,12 @@ export interface Info {
 
 export interface SearchReq {
   psvg: Vec
+  fidx: number
+}
+
+export interface SearchGeoReq {
+  pgeo: Vec
+  fidx: number
 }
 
 export interface SearchRes {
@@ -55,6 +61,7 @@ export interface SearchData {
   psvg: Vec
   info: Readonly<Info>
   layout: Readonly<LayoutCoord>
+  fidx: number
 }
 
 export interface LonLat {
@@ -89,8 +96,8 @@ export interface ResizeInfo {
 
 export type ZoomStartCb = Cb1<Readonly<ZoomInfo>>
 export type ZoomEndCb = Cb1<Readonly<ZoomEndInfo>>
-export type SearchStartCb = Cb1<Vec>
-export type SearchCb = Cb1<Vec>
+export type SearchStartCb = Cb1<SearchReq>
+export type SearchCb = Cb1<SearchReq>
 export type SearchDoneCb = Cb1<Readonly<null | SearchRes>>
 export type SearchEndCb = Cb1<Readonly<null | SearchRes>>
 export type SearchEndDoneCb = Cb1<Readonly<SearchData>>

@@ -7,7 +7,7 @@ import {
 
 export type SearchWorkerReq =
   | { type: 'INIT'; entries: AddressEntries }
-  | { type: 'SEARCH'; pgeo: VecVec }
+  | { type: 'SEARCH'; pgeo: VecVec; fidx: number }
 export type SearchWorkerRes =
   | { type: 'INIT.DONE' }
   | { type: 'SEARCH.DONE'; res: SearchAddressRes }
