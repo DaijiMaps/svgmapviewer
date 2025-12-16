@@ -12,6 +12,7 @@ import {
   type LayoutCb,
   type ModeCb,
   type ResizeCb,
+  type ResizeInfo,
   type SearchCb,
   type SearchData,
   type SearchDoneCb,
@@ -90,8 +91,8 @@ export function notifyUiCloseDone(): void {
 export function notifyRendered(): void {
   renderedCbs.forEach((cb) => cb())
 }
-export function notifyResize(layout: Readonly<Layout>, force: boolean): void {
-  resizeCbs.forEach((cb) => cb(layout, force))
+export function notifyResize(resize: Readonly<ResizeInfo>): void {
+  resizeCbs.forEach((cb) => cb(resize))
 }
 export function notifyLayout(layout: Readonly<Layout>, force: boolean): void {
   layoutCbs.forEach((cb) => cb(layout, force))

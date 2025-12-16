@@ -29,7 +29,7 @@ import {
   zoomEndCbs,
   zoomStartCbs,
 } from '../../event'
-import { type SearchRes } from '../../types'
+import { type ResizeInfo, type SearchRes } from '../../types'
 import { boxCenter } from '../box/prefixed'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'
 import {
@@ -805,8 +805,8 @@ function viewerSearchLock(psvg: Vec) {
 function viewerSearchUnlock() {
   viewerActor.send({ type: 'SEARCH.UNLOCK' })
 }
-function resizeCb(origLayout: Readonly<Layout>, force: boolean) {
-  viewerSend({ type: 'RESIZE', layout: origLayout, force })
+function resizeCb({ layout, force }: Readonly<ResizeInfo>) {
+  viewerSend({ type: 'RESIZE', layout, force })
 }
 
 function viewerSwitch(fidx: number): void {
