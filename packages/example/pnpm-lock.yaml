@@ -20,8 +20,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(react@19.2.3)
       svgmapviewer:
-        specifier: 0.0.2-alpha.19
-        version: 0.0.2-alpha.19(@types/react@19.2.7)
+        specifier: 0.0.2-alpha.22
+        version: 0.0.2-alpha.22
       xstate:
         specifier: ^5.25.0
         version: 5.25.0
@@ -1183,10 +1183,10 @@ packages:
         integrity: sha512-oeVtt7eWQS+Na6F//S4kJ2K2VbRlS9D43mAlMyVpVWovy9o+jfgH8O9agzANzaiLjclA0oYzUXEM4PurhSUChw==,
       }
 
-  svgmapviewer@0.0.2-alpha.19:
+  svgmapviewer@0.0.2-alpha.22:
     resolution:
       {
-        integrity: sha512-dbT/m0c/Z8to0R91p/SjF+r6XfoH5KhR6/d/xFkYjriILHhHRL4SLnbyHFIegpLG5xleJDq71GX0K9BSTyC8JQ==,
+        integrity: sha512-nBXVApmLF54BLQ74NjgnGiID0zg8smZb2+UmipXp+3bLizyKYxCQidrnEgfeCWGvD08ixeFxrlDbPksSGocouQ==,
       }
 
   tagged-tag@1.0.0:
@@ -1779,6 +1779,14 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
+  '@xstate/react@6.0.0(react@19.2.3)(xstate@5.25.0)':
+    dependencies:
+      react: 19.2.3
+      use-isomorphic-layout-effect: 1.2.1(react@19.2.3)
+      use-sync-external-store: 1.6.0(react@19.2.3)
+    optionalDependencies:
+      xstate: 5.25.0
+
   '@xstate/store@3.13.0(react@19.2.3)':
     optionalDependencies:
       react: 19.2.3
@@ -1936,9 +1944,9 @@ snapshots:
 
   stackframe@1.3.4: {}
 
-  svgmapviewer@0.0.2-alpha.19(@types/react@19.2.7):
+  svgmapviewer@0.0.2-alpha.22:
     dependencies:
-      '@xstate/react': 6.0.0(@types/react@19.2.7)(react@19.2.3)(xstate@5.25.0)
+      '@xstate/react': 6.0.0(react@19.2.3)(xstate@5.25.0)
       '@xstate/store': 3.13.0(react@19.2.3)
       clsx: 2.1.1
       flatbush: 4.5.0
@@ -1948,7 +1956,6 @@ snapshots:
       type-fest: 5.3.1
       xstate: 5.25.0
     transitivePeerDependencies:
-      - '@types/react'
       - solid-js
 
   tagged-tag@1.0.0: {}
@@ -1979,6 +1986,10 @@ snapshots:
       react: 19.2.3
     optionalDependencies:
       '@types/react': 19.2.7
+
+  use-isomorphic-layout-effect@1.2.1(react@19.2.3):
+    dependencies:
+      react: 19.2.3
 
   use-sync-external-store@1.6.0(react@19.2.3):
     dependencies:

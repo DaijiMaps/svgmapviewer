@@ -15,10 +15,20 @@ const searchWorkerMachine = setup({
     initDone: () => postMessage({ type: 'INIT.DONE' }),
     doSearch: ({ context: { ctx } }, { pgeo }: Readonly<{ pgeo: Vec }>) => {
       if (ctx === null) {
+        // XXX
+        postMessage({
+          type: 'SEARCH.ERROR',
+          error: 'ctx is null',
+        })
         return
       }
       const res = searchAddress(ctx, pgeo)
       if (res === null) {
+        // XXX
+        postMessage({
+          type: 'SEARCH.ERROR',
+          error: 'address not found',
+        })
         return
       }
       postMessage({

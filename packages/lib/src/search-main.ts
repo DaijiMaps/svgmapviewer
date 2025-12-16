@@ -17,10 +17,16 @@ const worker = new Worker(new URL('./search-worker.js', import.meta.url), {
 
 worker.onmessage = (e: Readonly<MessageEvent<SearchWorkerRes>>) => {
   const ev = e.data
-  if (ev.type === 'INIT.DONE') {
-    // XXX
-  } else if (ev.type === 'SEARCH.DONE') {
-    handleSearchRes(ev.res)
+  switch (ev.type) {
+    case 'INIT.DONE':
+      // XXX
+      break
+    case 'SEARCH.DONE':
+      handleSearchRes(ev.res)
+      break
+    case 'SEARCH.ERROR':
+      console.log('search error!', ev.error)
+      break
   }
 }
 
@@ -31,6 +37,7 @@ function handleSearchRes(res: Readonly<SearchAddressRes>): void {
     res
   )
   if (info === null) {
+    console.log('info not found!', res)
     notifySearchDone(null)
   } else {
     const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(res.coord)

@@ -2,5 +2,5 @@
 import { ReactNode } from 'react'
 
 export function RenderInfo(): ReactNode {
-  return <div></div>
+  return <div>xxx</div>
 }

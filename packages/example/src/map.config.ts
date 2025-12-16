@@ -57,7 +57,7 @@ const pois: POI[] = [
 
 const addresses: AddressEntries = pois.map((poi) => ({
   a: poi.name.join(' '),
-  lonlat: poi.pos,
+  coord: poi.pos,
 }))
 
 export default mapConfig

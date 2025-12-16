@@ -11,6 +11,7 @@ export type SearchWorkerReq =
 export type SearchWorkerRes =
   | { type: 'INIT.DONE' }
   | { type: 'SEARCH.DONE'; res: SearchAddressRes }
+  | { type: 'SEARCH.ERROR'; error: string }
 
 export interface SearchWorkerContext {
   ctx: null | SearchContext
