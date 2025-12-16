@@ -7,11 +7,6 @@ export type Idx = string
 // XXX Idx -> AddressEntry
 export type FlatbushIndexes = Record<Idx, AddressEntry>
 
-export interface AddressBuf {
-  fb: Flatbush
-  idxs: FlatbushIndexes
-}
-
 export interface AddressEntry {
   address: Address
   coord: VecVec
@@ -20,7 +15,8 @@ export interface AddressEntry {
 export type AddressEntries = readonly AddressEntry[]
 
 export interface SearchContext {
-  buf: AddressBuf
+  fb: Flatbush
+  idxs: FlatbushIndexes
 }
 
 export interface SearchAddressRes {

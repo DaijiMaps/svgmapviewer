@@ -11,7 +11,9 @@ import {
   type SearchContext,
 } from './address-types'
 
-function makeAddressBuf(entries: Readonly<AddressEntries>) {
+export function initAddresses(
+  entries: Readonly<AddressEntries>
+): SearchContext {
   const l = entries.length
   const fb: Flatbush = new Flatbush(l)
   const idxs: FlatbushIndexes = {}
@@ -30,13 +32,6 @@ function makeAddressBuf(entries: Readonly<AddressEntries>) {
   }
 }
 
-export function initAddresses(
-  entries: Readonly<AddressEntries>
-): SearchContext {
-  const buf = makeAddressBuf(entries)
-  return { buf }
-}
-
 // XXX
 // XXX
 // XXX
@@ -46,7 +41,7 @@ const MAX_DISTANCE = 100
 // XXX
 
 export function searchAddress(
-  { buf: { fb, idxs } }: SearchContext,
+  { fb, idxs }: SearchContext,
   pgeo: Vec,
   fidx: number
 ): SearchAddressRes | null {
