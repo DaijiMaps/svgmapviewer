@@ -20,7 +20,7 @@ export interface AddressEntry {
 export type AddressEntries = readonly AddressEntry[]
 
 export interface SearchContext {
-  b: AddressBuf
+  buf: AddressBuf
 }
 
 export interface SearchAddressRes {

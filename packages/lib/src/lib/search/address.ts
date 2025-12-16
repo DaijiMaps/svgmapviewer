@@ -33,8 +33,8 @@ function makeAddressBuf(entries: Readonly<AddressEntries>) {
 export function initAddresses(
   entries: Readonly<AddressEntries>
 ): SearchContext {
-  const b = makeAddressBuf(entries)
-  return { b }
+  const buf = makeAddressBuf(entries)
+  return { buf }
 }
 
 // XXX
@@ -46,12 +46,10 @@ const MAX_DISTANCE = 100
 // XXX
 
 export function searchAddress(
-  { b }: SearchContext,
+  { buf: { fb, idxs } }: SearchContext,
   pgeo: Vec,
   fidx: number
 ): SearchAddressRes | null {
-  const { fb, idxs } = b
-
   const filter = (idx: number) => {
     const e = idxs[`${idx}`]
     return e.fidx === undefined || e.fidx === fidx
