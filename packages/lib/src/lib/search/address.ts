@@ -46,7 +46,6 @@ export function searchAddress(
     const e = idxs[`${idx}`]
     return e.fidx === undefined || e.fidx === fidx
   }
-
   const ns = fb.neighbors(pgeo.x, pgeo.y, 1, MAX_DISTANCE, filter)
   if (ns.length === 0) {
     return null
