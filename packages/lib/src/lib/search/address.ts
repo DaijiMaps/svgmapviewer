@@ -17,13 +17,10 @@ export function initAddresses(
   const l = entries.length
   const fb: Flatbush = new Flatbush(l)
   const idxs: FlatbushIndexes = {}
-  for (const {
-    address,
-    coord: { x, y },
-    fidx,
-  } of entries) {
+  for (const e of entries) {
+    const { x, y } = e.coord
     const idx = fb.add(x, y)
-    idxs[`${idx}`] = { address, coord: { x, y }, fidx }
+    idxs[`${idx}`] = e
   }
   fb.finish()
   return {
