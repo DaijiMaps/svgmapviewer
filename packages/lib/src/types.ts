@@ -140,7 +140,10 @@ export type OsmGetAddressInfo = (
   res: Readonly<SearchAddressRes>
 ) => null | Info
 
-export type RenderInfo = (props: Readonly<{ info: Info }>) => ReactNode
+export interface RenderInfoProps {
+  info: Info
+}
+export type RenderInfo = (props: Readonly<RenderInfoProps>) => ReactNode
 
 ////
 

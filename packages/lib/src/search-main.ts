@@ -26,6 +26,7 @@ worker.onmessage = (e: Readonly<MessageEvent<SearchWorkerRes>>) => {
       break
     case 'SEARCH.ERROR':
       console.log('search error!', ev.error)
+      notifySearchDone(null)
       break
   }
 }
