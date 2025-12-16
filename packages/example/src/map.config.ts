@@ -6,19 +6,21 @@ import {
 import { RenderInfo as renderInfo } from './RenderInfo.tsx'
 import { floorsConfig } from './floors.config.ts'
 import { POI, SearchEntry } from 'svgmapviewer/geo'
+import { AddressEntries } from 'svgmapviewer/search'
 
 const searchEntries: SearchEntry[] = [
   {
     filter: () => true,
     getInfo: () => ({
       title: 'xxx',
-    })
-  }
+    }),
+  },
 ]
 
 const mapConfig: SvgMapViewerConfigUser = {
   backgroundColor: 'grey',
   getMapNames: () => pois,
+  getAddressEntries: () => addresses,
   searchEntries,
   renderMap,
   renderInfo,
@@ -52,5 +54,10 @@ const pois: POI[] = [
     size: 10,
   },
 ]
+
+const addresses: AddressEntries = pois.map((poi) => ({
+  a: poi.name.join(' '),
+  lonlat: poi.pos,
+}))
 
 export default mapConfig
