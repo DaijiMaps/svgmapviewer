@@ -26,7 +26,7 @@ import {
   type CurrentScroll,
 } from './lib/viewer/scroll'
 import type { ViewerMode } from './lib/viewer/viewer-types'
-import type { AnimationMatrix, Range } from './types'
+import type { AnimationMatrix, Range, ZoomInfo } from './types'
 
 type LayoutEvent = { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
 type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number; z: null | number }
@@ -307,8 +307,8 @@ function handleLayout(layout: Layout, rendered: boolean) {
   // XXX update name range after scroll is updated
   requestAnimationFrame(() => handleExpire())
 }
-function handleZoomStart(_: LayoutCoord, zoom: number, z: number) {
-  styleSend({ type: 'STYLE.ZOOM', zoom, z })
+function handleZoomStart(zoom: Readonly<ZoomInfo>) {
+  styleSend({ type: 'STYLE.ZOOM', ...zoom })
 }
 function handleZoomEnd(_: LayoutCoord, zoom: number) {
   styleSend({ type: 'STYLE.ZOOM', zoom, z: null })

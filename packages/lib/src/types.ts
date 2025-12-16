@@ -68,14 +68,16 @@ export interface AnimationMatrix {
   readonly origin: null | Vec
 }
 
+export interface ZoomInfo {
+  layout: Readonly<LayoutCoord>
+  zoom: number
+  z: number
+}
+
 ////
 
 export type Cb = () => void
-export type ZoomStartCb = (
-  layout: Readonly<LayoutCoord>,
-  zoom: number,
-  z: number
-) => void
+export type ZoomStartCb = (zoom: Readonly<ZoomInfo>) => void
 export type ZoomEndCb = (layout: Readonly<LayoutCoord>, zoom: number) => void
 export type SearchStartCb = (psvg: Vec) => void
 export type SearchCb = (psvg: Vec) => void

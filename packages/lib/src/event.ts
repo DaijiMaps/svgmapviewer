@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { type VecVec } from './lib/vec/prefixed'
-import { type Layout, type LayoutCoord } from './lib/viewer/layout'
+import { type Layout } from './lib/viewer/layout'
 import type { ViewerMode } from './lib/viewer/viewer-types'
 import {
   type AnimationCb,
@@ -24,6 +24,7 @@ import {
   type UiOpenCb,
   type UiOpenDoneCb,
   type ZoomEndCb,
+  type ZoomInfo,
   type ZoomStartCb,
 } from './types'
 
@@ -95,12 +96,8 @@ export function notifyResize(layout: Readonly<Layout>, force: boolean): void {
 export function notifyLayout(layout: Readonly<Layout>, force: boolean): void {
   layoutCbs.forEach((cb) => cb(layout, force))
 }
-export function notifyZoomStart(
-  layout: Readonly<LayoutCoord>,
-  zoom: number,
-  z: number
-): void {
-  zoomStartCbs.forEach((cb: ZoomStartCb) => cb(layout, zoom, z))
+export function notifyZoomStart(zoom: Readonly<ZoomInfo>): void {
+  zoomStartCbs.forEach((cb: ZoomStartCb) => cb(zoom))
 }
 export function notifyZoomEnd(layout: Readonly<Layout>, zoom: number): void {
   zoomEndCbs.forEach((cb: ZoomEndCb) => cb(layout, zoom))
