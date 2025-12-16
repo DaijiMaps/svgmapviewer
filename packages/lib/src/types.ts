@@ -74,6 +74,11 @@ export interface ZoomInfo {
   z: number
 }
 
+export interface ResizeInfo {
+  layout: Layout
+  force: boolean
+}
+
 ////
 
 export type Cb = () => void
@@ -88,8 +93,8 @@ export type UiOpenCb = (psvg: Vec) => void
 export type UiOpenDoneCb = (ok: boolean) => void
 export type UiCloseCb = () => void
 export type UiCloseDoneCb = () => void
-export type ResizeCb = (layout: Layout, force: boolean) => void
-export type LayoutCb = (layout: Layout, force: boolean) => void
+export type ResizeCb = (resize: Readonly<ResizeInfo>) => void
+export type LayoutCb = (resize: Readonly<ResizeInfo>) => void
 export type AnimationCb = (animation: Readonly<null | AnimationMatrix>) => void
 export type ModeCb = (mode: ViewerMode) => void
 export type FloorCb = (fidx: number) => void
