@@ -6,7 +6,7 @@ import {
 import { AddressEntries } from 'svgmapviewer/search'
 import { RenderInfo as renderInfo } from './RenderInfo.tsx'
 import { floorsConfig } from './floors.config.ts'
-import { type POI } from './info.ts'
+import { type POI } from './types.ts'
 
 /*
 const searchEntries: SearchEntry[] = [
