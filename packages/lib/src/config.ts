@@ -42,6 +42,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   getMapMarkers: () => [],
   getMapNames: () => [],
   getAddressEntries: () => [],
+  getAddressInfo: () => null,
   searchEntries: [],
   renderInfo: renderInfoDefault,
   mapSvgStyle: '',

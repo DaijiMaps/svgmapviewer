@@ -1,5 +1,5 @@
 import { type OsmRenderConfig } from 'svgmapviewer'
-import { getAddressEntries } from 'svgmapviewer/search'
+import { getAddressEntries, getAddressInfo } from 'svgmapviewer/search'
 import { getMapNames } from 'svgmapviewer/carto'
 import {
   isMapOsmDefaultRendered as isMapRendered,
@@ -20,6 +20,7 @@ export const renderConfig: OsmRenderConfig = {
   getMapMarkers,
   getMapNames, // XXX
   getAddressEntries, // XXX
+  getAddressInfo, // XXX
   searchEntries,
   renderInfo,
   mapSvgStyle,
