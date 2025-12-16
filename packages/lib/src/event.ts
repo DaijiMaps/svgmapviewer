@@ -9,11 +9,11 @@ import {
   type AnimationMatrix,
   type Cb,
   type FloorCb,
-  type Info,
   type LayoutCb,
   type ModeCb,
   type ResizeCb,
   type SearchCb,
+  type SearchData,
   type SearchDoneCb,
   type SearchEndCb,
   type SearchEndDoneCb,
@@ -70,19 +70,11 @@ export function notifySearchDone(res: Readonly<null | SearchRes>): void {
 export function notifySearchEnd(res: Readonly<null | SearchRes>): void {
   searchEndCbs.forEach((cb: SearchEndCb) => cb(res))
 }
-export function notifySearchEndDone(
-  psvg: VecVec,
-  info: Readonly<Info>,
-  layout: Readonly<Layout>
-): void {
-  searchEndDoneCbs.forEach((cb: SearchEndDoneCb) => cb(psvg, info, layout))
+export function notifySearchEndDone(data: Readonly<SearchData>): void {
+  searchEndDoneCbs.forEach((cb: SearchEndDoneCb) => cb(data))
 }
-export function notifyUiOpen(
-  psvg: VecVec,
-  info: Readonly<Info>,
-  layout: Readonly<Layout>
-): void {
-  uiOpenCbs.forEach((cb: UiOpenCb) => cb(psvg, info, layout))
+export function notifyUiOpen(psvg: VecVec): void {
+  uiOpenCbs.forEach((cb: UiOpenCb) => cb(psvg))
 }
 export function notifyUiOpenDone(ok: boolean): void {
   uiOpenDoneCbs.forEach((cb: UiOpenDoneCb) => cb(ok))

@@ -779,8 +779,8 @@ viewerActor.on('SEARCH.END.DONE', ({ res }) => {
   if (res === null) {
     viewerSearchUnlock()
   } else {
-    notifySearchEndDone(res.psvg, res.info, res.layout)
-    notifyUiOpen(res.psvg, res.info, res.layout)
+    notifySearchEndDone(res)
+    notifyUiOpen(res.psvg)
   }
 })
 viewerActor.on('LOCK', ({ ok }) => notifyUiOpenDone(ok))

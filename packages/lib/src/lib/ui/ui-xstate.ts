@@ -7,13 +7,9 @@ import {
   uiCloseDoneCbs,
   uiOpenDoneCbs,
 } from '../../event'
-import { type Info } from '../../types'
-import { type VecVec, vecZero } from '../vec/prefixed'
-import {
-  emptyLayoutCoord,
-  fromMatrixSvg,
-  type LayoutCoord,
-} from '../viewer/coord'
+import { type SearchData } from '../../types'
+import { vecZero } from '../vec/prefixed'
+import { emptyLayoutCoord, fromMatrixSvg } from '../viewer/coord'
 import {
   type OpenClose,
   openCloseClose,
@@ -286,8 +282,8 @@ export function uiSend(ev: UiEvent): void {
 
 ////
 
-function uiDetail(psvg: VecVec, info: Info, layout: LayoutCoord) {
-  uiActor.send({ type: 'DETAIL', psvg, info, layout })
+function uiDetail(data: Readonly<SearchData>) {
+  uiActor.send({ type: 'DETAIL', ...data })
 }
 function uiOpen(ok: boolean) {
   uiActor.send({ type: ok ? 'OPEN' : 'CANCEL' })

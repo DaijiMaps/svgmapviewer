@@ -50,7 +50,7 @@ export interface SearchRes {
 export interface SearchData {
   psvg: Vec
   info: Readonly<Info>
-  layout: Readonly<Layout>
+  layout: Readonly<LayoutCoord>
 }
 
 export interface LonLat {
@@ -81,16 +81,8 @@ export type SearchStartCb = (psvg: Vec) => void
 export type SearchCb = (psvg: Vec) => void
 export type SearchDoneCb = (res: Readonly<null | SearchRes>) => void
 export type SearchEndCb = (res: Readonly<null | SearchRes>) => void
-export type SearchEndDoneCb = (
-  psvg: Vec,
-  info: Readonly<Info>,
-  layout: Readonly<LayoutCoord>
-) => void
-export type UiOpenCb = (
-  psvg: Vec,
-  info: Readonly<Info>,
-  layout: Readonly<LayoutCoord>
-) => void
+export type SearchEndDoneCb = (data: Readonly<SearchData>) => void
+export type UiOpenCb = (psvg: Vec) => void
 export type UiOpenDoneCb = (ok: boolean) => void
 export type UiCloseCb = () => void
 export type UiCloseDoneCb = () => void
