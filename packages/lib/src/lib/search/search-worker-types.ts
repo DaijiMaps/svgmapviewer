@@ -1,7 +1,7 @@
 import type { SearchGeoReq } from '../../types'
 import {
   type AddressEntries,
-  type SearchAddress,
+  type SearchPos,
   type SearchContext,
 } from './address-types'
 
@@ -10,7 +10,7 @@ export type SearchWorkerReq =
   | { type: 'SEARCH'; greq: SearchGeoReq }
 export type SearchWorkerRes =
   | { type: 'INIT.DONE' }
-  | { type: 'SEARCH.DONE'; res: SearchAddress }
+  | { type: 'SEARCH.DONE'; res: SearchPos }
   | { type: 'SEARCH.ERROR'; error: string }
 
 export interface SearchWorkerContext {

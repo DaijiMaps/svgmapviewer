@@ -4,10 +4,7 @@
 /* eslint-disable functional/no-expression-statements */
 import { svgMapViewerConfig } from './config'
 import { notifySearchDone, searchCbs } from './event'
-import {
-  type AddressEntries,
-  type SearchAddress,
-} from './lib/search/address-types'
+import { type AddressEntries, type SearchPos } from './lib/search/address-types'
 import {
   type SearchWorkerReq,
   type SearchWorkerRes,
@@ -34,7 +31,7 @@ worker.onmessage = (e: Readonly<MessageEvent<SearchWorkerRes>>) => {
   }
 }
 
-function handleSearchRes(res: Readonly<SearchAddress>): void {
+function handleSearchRes(res: Readonly<SearchPos>): void {
   const info = svgMapViewerConfig.getAddressInfo(
     svgMapViewerConfig.mapMap,
     svgMapViewerConfig.searchEntries,
