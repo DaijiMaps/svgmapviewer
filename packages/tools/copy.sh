@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+tools=$( cd $( dirname $0 ); pwd )
+
 orig=$1
 shift
 dirs=$@
@@ -12,8 +14,8 @@ for d in ${dirs}; do
   popd
   pushd ${d}
     pnpm install
-    ../../tools/getOsm.sh
-    ../../tools/makeAreas.sh
-    ../../tools/readOsm.sh
+    ${tools}/getOsm.sh
+    ${tools}/makeAreas.sh
+    ${tools}/readOsm.sh
   popd
 done

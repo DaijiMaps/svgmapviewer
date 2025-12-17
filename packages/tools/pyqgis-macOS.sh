@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 #
 
+tools=$( cd $( dirname $0 ); pwd )
+
 QGIS_PREFIX_PATH="/Applications/QGIS-LTR.app/Contents/MacOS"
 
 _bin="${QGIS_PREFIX_PATH}/bin"

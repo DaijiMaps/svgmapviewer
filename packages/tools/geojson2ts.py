@@ -62,5 +62,3 @@ for _geojson in geojsons:
 
     except FileNotFound:
         print("%s.json not found" % _name)
-
-os.system('../../../../../node_modules/.bin/prettier -w *.ts')

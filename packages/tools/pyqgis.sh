@@ -3,6 +3,9 @@
 # Usage: ./pyqgis.sh extractAreas.py Gumyoji 'name' '弘明寺'
 #
 
+
+tools=$( cd $( dirname $0 ); pwd )
+
 _exe="/usr/bin/python3"
 
 _p="/usr/share/qgis/python"

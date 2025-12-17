@@ -1,2 +1,5 @@
 #!/bin/sh
-exec ../../tools/pyqgis.sh ../../tools/makeAreas.py "$@"
+
+tools=$( cd $( dirname $0 ); pwd )
+
+exec ${tools}/pyqgis.sh ${tools}/makeAreas.py "$@"

@@ -1,3 +1,6 @@
 #!/bin/sh
-../../tools/getOsm.sh
-../../tools/pyqgis.sh ../../tools/readOsm.py
+
+tools=$( cd $( dirname $0 ); pwd )
+
+${tools}/getOsm.sh
+${tools}/pyqgis.sh ${tools}/readOsm.py

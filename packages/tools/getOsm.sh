@@ -1,5 +1,8 @@
 # XXX rewrite this in python
 
+tools=$( cd $( dirname $0 ); pwd )
+
+
 # Take bbox and get map.osm
 getByBounds() {
     osm=$1; shift
