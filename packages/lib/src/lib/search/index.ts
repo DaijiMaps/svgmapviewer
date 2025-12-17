@@ -1,6 +1,6 @@
 import { initAddresses, searchAddress } from './address'
 import {
-  type AddressEntries,
+  type SearchEntries,
   type SearchPos,
   type SearchContext,
 } from './address-types'
@@ -8,7 +8,7 @@ import {
 export {
   initAddresses,
   searchAddress,
-  type AddressEntries,
+  type SearchEntries,
   type SearchPos,
   type SearchContext,
 }

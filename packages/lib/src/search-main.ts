@@ -4,7 +4,7 @@
 /* eslint-disable functional/no-expression-statements */
 import { svgMapViewerConfig } from './config'
 import { notifySearchDone, searchCbs } from './event'
-import { type AddressEntries, type SearchPos } from './lib/search/address-types'
+import { type SearchEntries, type SearchPos } from './lib/search/address-types'
 import {
   type SearchWorkerReq,
   type SearchWorkerRes,
@@ -54,7 +54,7 @@ worker.onmessageerror = (ev) => {
   console.log('messageerror', ev)
 }
 
-export function workerSearchInit(entries: Readonly<AddressEntries>): void {
+export function workerSearchInit(entries: Readonly<SearchEntries>): void {
   const req: SearchWorkerReq = { type: 'INIT', entries }
   worker.postMessage(req)
 }

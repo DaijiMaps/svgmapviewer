@@ -19,7 +19,7 @@ import { type POI } from './lib/geo/poi-types'
 import { type Vec } from './lib/vec'
 import { type Layout, type LayoutCoord } from './lib/viewer/layout-types'
 import { type ViewerMode } from './lib/viewer/viewer-types'
-import { type AddressEntries, type SearchPos } from './lib/search/address-types'
+import { type SearchEntries, type SearchPos } from './lib/search/address-types'
 import { type Cb, type Cb1 } from './lib/cb'
 
 //// layout
@@ -137,7 +137,7 @@ export type OsmGetMapNames = (
 ) => readonly POI[]
 export type OsmGetAddressEntries = (
   props: Readonly<OsmSearchProps>
-) => AddressEntries
+) => SearchEntries
 export type OsmGetAddressInfo = (
   mapMap: Readonly<OsmMapMap>,
   entries: readonly SearchEntry[],

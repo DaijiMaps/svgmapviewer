@@ -10,7 +10,7 @@ export interface SearchPos {
   fidx?: number
 }
 
-export type AddressEntries = readonly SearchPos[]
+export type SearchEntries = readonly SearchPos[]
 
 ////
 
