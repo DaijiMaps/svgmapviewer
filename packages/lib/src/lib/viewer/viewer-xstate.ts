@@ -248,8 +248,10 @@ const viewerMachine = setup({
       const m = fromMatrixSvg(l).inverse()
       return {
         type: 'SEARCH',
-        psvg: m.transformPoint(context.cursor),
-        fidx: context.fidx,
+        req: {
+          psvg: m.transformPoint(context.cursor),
+          fidx: context.fidx,
+        },
       }
     }),
     notifySearchDone: raise({ type: 'SEARCH.DONE' }),
@@ -780,7 +782,7 @@ const viewerActor = createActor(viewerMachine, {
   systemId: 'system-viewer1',
 })
 
-viewerActor.on('SEARCH', ({ psvg, fidx }) => notifySearchStart({ psvg, fidx }))
+viewerActor.on('SEARCH', ({ req }) => notifySearchStart(req))
 viewerActor.on('SEARCH.END.DONE', ({ res }) => {
   if (res === null) {
     viewerSearchUnlock()

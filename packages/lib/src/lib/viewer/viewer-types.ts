@@ -1,4 +1,4 @@
-import { type SearchData, type SearchRes } from '../../types'
+import { type SearchData, type SearchReq, type SearchRes } from '../../types'
 import { type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec, type VecVec } from '../vec/prefixed'
 import { type Animation } from './animation-types'
@@ -127,7 +127,7 @@ export type ViewerEvent = ViewerRequest | ViewerMessage | UIEvent
 
 //// emitted
 
-export type SearchEmitted = { type: 'SEARCH'; psvg: Vec; fidx: number }
+export type SearchEmitted = { type: 'SEARCH'; req: SearchReq }
 export type SearchEndDoneEmitted = {
   type: 'SEARCH.END.DONE'
   res: null | SearchData
