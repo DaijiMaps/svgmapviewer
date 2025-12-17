@@ -101,8 +101,8 @@ export interface ResizeInfo {
 
 export type ZoomStartCb = Cb1<Readonly<ZoomInfo>>
 export type ZoomEndCb = Cb1<Readonly<ZoomEndInfo>>
-export type SearchStartCb = Cb1<SearchReq>
-export type SearchCb = Cb1<SearchReq>
+export type SearchStartCb = Cb1<Readonly<SearchReq>>
+export type SearchCb = Cb1<Readonly<SearchReq>>
 export type SearchDoneCb = Cb1<Readonly<null | SearchRes>>
 export type SearchEndCb = Cb1<Readonly<null | SearchRes>>
 export type SearchEndDoneCb = Cb1<Readonly<SearchData>>
@@ -123,7 +123,7 @@ export type GeoLocDoneCb = Cb1<Readonly<GeolocationPosition>>
 
 export interface OsmSearchProps {
   mapData: Readonly<OsmMapData>
-  osmSearchEntries: readonly OsmSearchEntry[]
+  osmSearchEntries: readonly Readonly<OsmSearchEntry>[]
   cartoConfig?: Readonly<OsmCartoConfig>
 }
 
@@ -151,7 +151,7 @@ export type OsmGetSearchEntries = (
 export type OsmGetSearchInfo = (
   res: Readonly<SearchPos>,
   mapMap?: Readonly<OsmMapMap>,
-  entries?: readonly OsmSearchEntry[]
+  entries?: readonly Readonly<OsmSearchEntry>[]
 ) => null | Info
 
 export interface RenderInfoProps {
@@ -195,16 +195,16 @@ export interface OsmRenderConfig {
   renderMap: OsmRenderMap
   isMapRendered: () => boolean
   getMapNames: OsmGetMapNames
-  getMapLayers: () => readonly OsmMapLayer[]
-  getMapObjects: () => readonly OsmMapObjects[]
-  getMapSymbols: () => readonly OsmMapSymbols[]
-  getMapMarkers: () => readonly OsmMapMarkers[]
+  getMapLayers: () => readonly Readonly<OsmMapLayer>[]
+  getMapObjects: () => readonly Readonly<OsmMapObjects>[]
+  getMapSymbols: () => readonly Readonly<OsmMapSymbols>[]
+  getMapMarkers: () => readonly Readonly<OsmMapMarkers>[]
   mapSvgStyle: string
   cartoConfig?: OsmCartoConfig
 }
 
 export interface OsmSearchConfig {
-  osmSearchEntries: readonly OsmSearchEntry[] // XXX
+  osmSearchEntries: readonly Readonly<OsmSearchEntry>[] // XXX
   getSearchEntries: OsmGetSearchEntries
   getSearchInfo: OsmGetSearchInfo
   renderInfo: RenderInfo
