@@ -32,10 +32,11 @@ export default [
     rules: {
       ...reactHooks.configs.recommended.rules,
     },
+    ignores: ['tests/**/*.*', 'src/**/*.test.*'],
     languageOptions: {
       parserOptions: {
         ecmaVersion: 2022,
-        project: ['tsconfig.app.json', 'tsconfig.lib-app.json'],
+        project: ['tsconfig.app.json'],
         sourceType: 'module',
       },
     },
