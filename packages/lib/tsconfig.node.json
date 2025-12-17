@@ -9,9 +9,6 @@
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
-    "declaration": false,
-    "isolatedDeclarations": false,
-    "verbatimModuleSyntax": false,
     "moduleDetection": "force",
     "noEmit": true,
 
@@ -23,5 +20,5 @@
 
     "types": ["@vitest/browser-playwright"]
   },
-  "include": ["vite.config.ts", "vitest.config.ts"]
+  "include": ["*.config.ts", "*.config-*.ts"]
 }

@@ -1,4 +1,4 @@
-import { SvgMapViewerConfigUser } from 'svgmapviewer'
+import { type SvgMapViewerConfigUser } from 'svgmapviewer'
 import mapConfig from './map'
 
 const userConfig: SvgMapViewerConfigUser = {
