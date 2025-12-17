@@ -6,7 +6,7 @@ import { calcScale, mapMapFromMapData, type OsmMapMap } from 'svgmapviewer/geo'
 import { renderConfig, searchConfig } from './main'
 
 // eslint-disable-next-line functional/no-return-void
-export function defineConfig(cfg: Readonly<SvgMapViewerConfigUser>): void {
+export function svgmapviewerOsm(cfg: Readonly<SvgMapViewerConfigUser>): void {
   const mapData = cfg.mapData
 
   if (mapData === undefined) {

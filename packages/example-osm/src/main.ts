@@ -1,7 +1,5 @@
 /* eslint-disable functional/no-expression-statements */
-import { defineConfig } from 'svgmapviewer-app-osm'
-
-import userConfig from '../svgmapviewer.config'
+import { svgmapviewer } from 'svgmapviewer-app-osm'
 
 import { mapData } from './data/all'
 
@@ -9,7 +7,13 @@ import { mapData } from './data/all'
 // XXX
 // XXX
 
-defineConfig({ ...userConfig, mapData })
+svgmapviewer({
+  root: 'root',
+  title: 'Yugyoji',
+  copyright: '@ Daiji Maps | map data @ OpenStreetMap contributers',
+  zoomFactor: 3,
+  mapData,
+})
 
 // XXX
 // XXX

@@ -1,5 +1,6 @@
 import { svgmapviewer } from 'svgmapviewer-app-floors'
 import { floorsConfig } from './floors'
+import { searchConfig } from './search'
 
 // eslint-disable-next-line functional/no-expression-statements
 svgmapviewer({
@@ -11,5 +12,5 @@ svgmapviewer({
   },
   floorsConfig,
 
-  //...searchConfig,
+  ...searchConfig,
 })
