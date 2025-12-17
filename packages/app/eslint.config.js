@@ -18,7 +18,9 @@ export default [
   {
     languageOptions: {
       globals: globals.browser,
-      tsconfigRootDir: import.meta.dirname,
+      parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
   },
   js.configs.recommended,
