@@ -1,10 +1,38 @@
 import { assign, createActor, setup } from 'xstate'
-import { type Vec } from '../vec'
 import { initAddresses, searchAddress } from './address'
 import {
   type SearchWorkerContext,
   type SearchWorkerReq,
 } from './search-worker-types'
+import type { SearchContext } from './address-types'
+import type { SearchGeoReq } from '../../types'
+
+function doSearch(
+  ctx: null | SearchContext,
+  { pgeo, fidx }: Readonly<SearchGeoReq>
+) {
+  if (ctx === null) {
+    // XXX
+    postMessage({
+      type: 'SEARCH.ERROR',
+      error: 'ctx is null',
+    })
+    return
+  }
+  const res = searchAddress(ctx, pgeo, fidx)
+  if (res === null) {
+    // XXX
+    postMessage({
+      type: 'SEARCH.ERROR',
+      error: 'address not found',
+    })
+    return
+  }
+  postMessage({
+    type: 'SEARCH.DONE',
+    res,
+  })
+}
 
 const searchWorkerMachine = setup({
   types: {
@@ -13,32 +41,8 @@ const searchWorkerMachine = setup({
   },
   actions: {
     initDone: () => postMessage({ type: 'INIT.DONE' }),
-    doSearch: (
-      { context: { ctx } },
-      { pgeo, fidx }: Readonly<{ pgeo: Vec; fidx: number }>
-    ) => {
-      if (ctx === null) {
-        // XXX
-        postMessage({
-          type: 'SEARCH.ERROR',
-          error: 'ctx is null',
-        })
-        return
-      }
-      const res = searchAddress(ctx, pgeo, fidx)
-      if (res === null) {
-        // XXX
-        postMessage({
-          type: 'SEARCH.ERROR',
-          error: 'address not found',
-        })
-        return
-      }
-      postMessage({
-        type: 'SEARCH.DONE',
-        res,
-      })
-    },
+    doSearch: ({ context: { ctx } }, greq: Readonly<SearchGeoReq>) =>
+      doSearch(ctx, greq),
   },
 }).createMachine({
   context: { ctx: null },
@@ -65,10 +69,7 @@ const searchWorkerMachine = setup({
           {
             actions: {
               type: 'doSearch',
-              params: ({ event: { pgeo, fidx } }) => ({
-                pgeo,
-                fidx,
-              }),
+              params: ({ event }) => event,
             },
           },
         ],
