@@ -6,7 +6,6 @@ import os.path
 import pathlib
 import re
 import shutil
-import sys
 import typing
 
 ################################################################################
@@ -59,12 +58,12 @@ osmLayerNames = [
     ('lines', 'linestring'),
     ('multipolygons', 'multipolygon'),
     ('multilinestrings', 'multilinestring'),
-    #('other_relations', 'Polygon')
+    ('other_relations', 'Polygon')
 ]
 
 extraLayerNames = [
-    ('midpoints', 'point'),
-    ('centroids', 'point'),
+    #('midpoints', 'point'),
+    #('centroids', 'point'),
 ]
 
 # ./map*.osm
@@ -353,8 +352,13 @@ def expandOsm(osm: str, layername: str, name: str, outGeoJSON: str) -> tuple[Qgs
 
 def dumpGeoJSON(l: QgsVectorLayer, fn: str) -> tuple[QgsVectorFileWriter.WriterError, str, str, str]:
     tx = l.transformContext()
+    if tx is None:
+        tx = prj.transformContext()
+
     opts = QgsVectorFileWriter.SaveVectorOptions()
     opts.driverName = "GeoJSON"
+    if not os.path.exists(ctx.srcdir):
+        os.makedirs(ctx.srcdir)
     return QgsVectorFileWriter.writeAsVectorFormatV3(l, fn, tx, opts)
 
 def dumpCSV(l: QgsVectorLayer, fn: str) -> tuple[QgsVectorFileWriter.WriterError, str, str, str]:
@@ -451,7 +455,7 @@ def createEmptyGeoJSON(outGJ: str, typ: str, g: QgsGeometry) -> tuple[QgsVectorF
     tx = m.transformContext()
     opts = QgsVectorFileWriter.SaveVectorOptions()
     opts.driverName = "GeoJSON"
-    return QgsVectorFileWriter.writeAsVectorFormatV3(m, outGJ, tx,opts)
+    return QgsVectorFileWriter.writeAsVectorFormatV3(m, outGJ, tx, opts)
 
 def createEmptyLayer(typ: str, g: QgsGeometry) -> QgsVectorLayer:
     f = QgsFeature()
@@ -622,6 +626,10 @@ def tagAddresses(al: QgsVectorLayer, fname: str, srcShp, dstShp) -> QgsVectorLay
 def getAreas() -> QgsVectorLayer:
     gj = ctx.areasGJ
     return openVector('%s|geometrytype=MultiPolygon' % gj, "areas")
+
+def getInternals() -> QgsVectorLayer:
+    gj = ctx.internalsGJ
+    return openVector('%s|geometrytype=MultiPolygon' % gj, "internals")
 
 def getOrigin(gj: str) -> QgsPoint:
     l = openVector('%s|geometrytype=Point' % gj, "origin")
@@ -824,6 +832,78 @@ def fixupAttributes(prefix: str, l: QgsVectorLayer, outGeoJSON, origin: QgsPoint
     opts.driverName = "GeoJSON"
     return QgsVectorFileWriter.writeAsVectorFormatV3(m, outGeoJSON, tx, opts)
 
+def fixupVectorLayer(l: QgsVectorLayer) -> QgsVectorLayer:
+    provider = l.dataProvider()
+    caps = provider.capabilities()
+    if not (caps & QgsVectorDataProvider.ChangeGeometries):
+        return l
+    if not (caps & QgsVectorDataProvider.ChangeAttributeValues):
+        return l
+
+    # 0. de-duplicate features by osm_id/osm_way_id
+    all_osm_ids = {}
+    dups = {}
+    l.selectAll()
+    for f in l.selectedFeatures():
+        m = f.attributeMap()
+        osm_id = m['osm_id'] if ('osm_id' in m and m['osm_id'] != None) else m['osm_way_id'] if ('osm_way_id' in m and m['osm_way_id'] != None) else ''
+        if osm_id == '' or osm_id in all_osm_ids:
+            dups[f.id()] = osm_id
+        else:
+            all_osm_ids[osm_id] = 1
+    if dups != {}:
+        print('deleting duplicate features: ', list(dups.values()))
+    provider.deleteFeatures(list(dups.keys()))
+
+    # 1. fixup clockwise-ness
+    l.selectAll()
+    for f in l.selectedFeatures():
+        # fixup multipolygon clockwise-ness for SVG rendering
+        fid = f.id()
+        provider.changeGeometryValues({ fid: f.geometry().forcePolygonClockwise() })
+
+    # 2. add area field
+    sourceCrs = QgsCoordinateReferenceSystem.fromOgcWmsCrs("EPSG:4326")
+    destCrs = QgsCoordinateReferenceSystem.fromOgcWmsCrs("EPSG:3857") # XXX
+    tr = QgsCoordinateTransform(sourceCrs, destCrs, prj)
+
+    area_field = QgsField("area", QVariant.Double)
+    provider.addAttributes([area_field])
+    l.updateFields()
+
+    idx = provider.fieldNameIndex("area")
+
+    for f in l.getFeatures():
+        fid = f.id()
+        g = f.geometry()
+        g.transform(tr)
+        area = g.area()
+        if area > 0:
+            attrs = { idx: area }
+            provider.changeAttributeValues({ fid: attrs })
+
+    # 3. add centroid_x/centroid_y fields
+    centroid_x = QgsField("centroid_x", QVariant.Double)
+    centroid_y = QgsField("centroid_y", QVariant.Double)
+    provider.addAttributes([centroid_x, centroid_y])
+    l.updateFields()
+
+    idx_x = provider.fieldNameIndex("centroid_x")
+    idx_y = provider.fieldNameIndex("centroid_y")
+
+    for f in l.getFeatures():
+        fid = f.id()
+        g = f.geometry()
+        centroid = g.centroid()
+        for part in centroid.constParts():
+            for v in part.vertices():
+                attrs = { idx_x: v.x(), idx_y: v.y() }
+                provider.changeAttributeValues({ fid: attrs })
+                break
+            break
+
+    return l
+
 def calcEllipsoidalDistance(g: QgsGeometry) -> float:
     d = QgsDistanceArea()
     d.setEllipsoid('WGS84')
@@ -861,13 +941,18 @@ def makeExtent():
         internals_extent = getExtent(internals, 'memory:')
         res = dumpGeoJSON(internals_extent, ctx.internals_extentGJ)
         print(res)
+    else:
+        shutil.copy(ctx.areasGJ, ctx.internalsGJ)
+        shutil.copy(ctx.areas_extentGJ, ctx.internals_extentGJ)
 
 def makeOrigin():
     areas = openVector(ctx.areasGJ, "areas")
     extent = openVector(ctx.areas_extentGJ, "areas_extent")
 
-    origin = getRoundedOrigin(extent)
-    res = createPointGeoJSON(ctx.originGJ, origin)
+    l = extent.transformContext()
+    g = getRoundedOrigin(extent)
+    origin = createEmptyLayer("point", g)
+    res = dumpGeoJSON(origin, ctx.originGJ)
     print(res)
 
 def makeMeasures():

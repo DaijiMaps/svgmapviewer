@@ -1,3 +1,5 @@
+# XXX rewrite this in python
+
 # Take bbox and get map.osm
 getByBounds() {
     osm=$1; shift

@@ -1,5 +1,3 @@
-#! /bin/sh
-target=$1
-./initQgisPrj.sh $target
-./classifyGeometries.sh $target
-./tagAddresses.sh $target
+#!/bin/sh
+../../tools/getOsm.sh
+../../tools/pyqgis.sh ../../tools/readOsm.py
