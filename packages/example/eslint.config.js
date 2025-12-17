@@ -15,7 +15,12 @@ export default [
     ],
   },
   { files: ['src/**/*.{ts,tsx}'] },
-  { languageOptions: { globals: globals.browser } },
+  {
+    languageOptions: {
+      globals: globals.browser,
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
   js.configs.recommended,
   ...ts.configs.recommended,
   {
