@@ -1,5 +1,16 @@
 /* eslint-disable functional/no-expression-statements */
-import userConfig from '../svgmapviewer.config'
 import { defineConfig } from 'svgmapviewer-app-osm'
 
-defineConfig(userConfig)
+import userConfig from '../svgmapviewer.config'
+
+import { mapData } from './data/all'
+
+// XXX
+// XXX
+// XXX
+
+defineConfig({ ...userConfig, mapData })
+
+// XXX
+// XXX
+// XXX
