@@ -1,5 +1,7 @@
 import { type Info, type POI } from 'svgmapviewer'
 
+//// ShopKind
+
 export interface Restaurant {
   tag: 'restaurant'
 }
@@ -10,7 +12,7 @@ export interface Book {
 
 export type ShopKind = Book | Restaurant
 
-////
+//// FacilityKind
 
 export interface Toilet {
   tag: 'toilet'
@@ -21,7 +23,7 @@ export interface Stairs {
 
 export type FacilityKind = Toilet | Stairs
 
-////
+//// XInfo
 
 export interface ShopInfo {
   tag: 'shop'
