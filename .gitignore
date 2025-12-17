@@ -26,3 +26,5 @@ tmp
 *.sw?
 
 *.tsbuildinfo
+
+__pycache__
