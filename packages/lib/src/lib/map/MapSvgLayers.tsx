@@ -7,15 +7,15 @@ import { RenderMapLayers } from '../carto'
 import { useShadowRoot } from '../dom'
 import { trunc2 } from '../utils'
 import {
-  MAP_SVG_LAYERS_CONTENT_ID,
-  MAP_SVG_LAYERS_ROOT_ID,
+  MAP_SVG_PATHS_CONTENT_ID,
+  MAP_SVG_PATHS_ROOT_ID,
 } from './map-svg-react'
 import { type OsmRenderMapProps } from '../../types'
 
 export function MapSvgPaths(props: Readonly<OsmRenderMapProps>): ReactNode {
-  useShadowRoot(MAP_SVG_LAYERS_ROOT_ID, <MapSvgPathsContent {...props} />)
+  useShadowRoot(MAP_SVG_PATHS_ROOT_ID, <MapSvgPathsContent {...props} />)
 
-  return <div id={MAP_SVG_LAYERS_ROOT_ID} className="content svg" />
+  return <div id={MAP_SVG_PATHS_ROOT_ID} className="content svg" />
 }
 
 export function MapSvgPathsContent(
@@ -46,7 +46,7 @@ function MapSvgPathsSvg(): ReactNode {
 
   return (
     <svg
-      id={MAP_SVG_LAYERS_CONTENT_ID}
+      id={MAP_SVG_PATHS_CONTENT_ID}
       viewBox={boxToViewBox2(svg)}
       width={trunc2(scroll.width)}
       height={trunc2(scroll.height)}

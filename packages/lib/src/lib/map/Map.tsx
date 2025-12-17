@@ -2,7 +2,7 @@
 import { type ReactNode } from 'react'
 import { RenderMapCommon } from '../carto'
 import { isShadowRootRendered } from '../dom'
-import { MAP_SVG_LAYERS_ROOT_ID } from './map-svg-react'
+import { MAP_SVG_PATHS_ROOT_ID } from './map-svg-react'
 import { MapHtml } from './MapHtml'
 import { MapSvgLabels } from './MapSvgLabels'
 import { MapSvgPaths } from './MapSvgPaths'
@@ -31,5 +31,5 @@ export function RenderMapOsmDefault(
 }
 
 export function isMapOsmDefaultRendered(): boolean {
-  return isShadowRootRendered(MAP_SVG_LAYERS_ROOT_ID)
+  return isShadowRootRendered(MAP_SVG_PATHS_ROOT_ID)
 }

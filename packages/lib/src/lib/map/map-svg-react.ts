@@ -1,5 +1,5 @@
-export const MAP_SVG_LAYERS_ROOT_ID = 'map-svg-layers'
-export const MAP_SVG_LAYERS_CONTENT_ID = 'map-svg-layers-content'
+export const MAP_SVG_PATHS_ROOT_ID = 'map-svg-paths'
+export const MAP_SVG_PATHS_CONTENT_ID = 'map-svg-paths-content'
 export const MAP_SVG_OBJECTS_ROOT_ID = 'map-svg-objects'
 export const MAP_SVG_OBJECTS_CONTENT_ID = 'map-svg-objects-content'
 export const MAP_SVG_SYMBOLS_ROOT_ID = 'map-svg-symbols'
