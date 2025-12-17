@@ -71,7 +71,7 @@ function MapSvgPathsDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
       </defs>
       <style>
         {`
-.map-layers,
+.map-paths,
 .map-objects,
 .map-symbols,
 path {

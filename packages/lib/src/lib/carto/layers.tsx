@@ -25,7 +25,7 @@ export function RenderMapLayers(
   >
 ): ReactNode {
   return (
-    <g className="map-layers">
+    <g className="map-paths">
       {props.mapLayers.map((layer, i) => (
         <Fragment key={i}>
           {layer.type === 'line'
