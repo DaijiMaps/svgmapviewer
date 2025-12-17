@@ -1,5 +1,0 @@
-ignoredBuiltDependencies:
-  - core-js
-
-onlyBuiltDependencies:
-  - esbuild
