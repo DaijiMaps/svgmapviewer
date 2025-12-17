@@ -5,5 +5,4380 @@
     "type": "name",
     "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
   },
-  "features": []
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2204176327",
+        "name": null,
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4876243,
+        "centroid_y": 35.3482277
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4876243, 35.3482277] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2204176349",
+        "name": "遊行寺宝物館",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"tourism\"=>\"museum\",\"website\"=>\"http://homepage2.nifty.com/yugyoji-museum/\"",
+        "area": null,
+        "centroid_x": 139.4877588,
+        "centroid_y": 35.3479503
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4877588, 35.3479503] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2204185789",
+        "name": "惣門",
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4879411,
+        "centroid_y": 35.3476957
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4879411, 35.3476957] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2204187025",
+        "name": "真徳寺本堂",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"place_of_worship\",\"religion\"=>\"buddhist\"",
+        "area": null,
+        "centroid_x": 139.4879759,
+        "centroid_y": 35.3473202
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4879759, 35.3473202] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2204191721",
+        "name": "板割浅太郎の墓",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4872981,
+        "centroid_y": 35.3470303
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4872981, 35.3470303] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2204194042",
+        "name": "時宗真浄院",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"place_of_worship\",\"denomination\"=>\"ji_shu\",\"religion\"=>\"buddhist\"",
+        "area": null,
+        "centroid_x": 139.4872786,
+        "centroid_y": 35.3478104
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4872786, 35.3478104] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2204199272",
+        "name": "長生院小栗堂",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"place_of_worship\",\"religion\"=>\"buddhist\",\"wikidata\"=>\"Q22119407\"",
+        "area": null,
+        "centroid_x": 139.4891615,
+        "centroid_y": 35.3489982
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4891615, 35.3489982] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2204202593",
+        "name": "宗祖一遍上人像",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"artwork_type\"=>\"statue\",\"tourism\"=>\"artwork\"",
+        "area": null,
+        "centroid_x": 139.4884992,
+        "centroid_y": 35.3480715
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4884992, 35.3480715] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2204213119",
+        "name": "大悲水子地蔵菩薩",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"artwork_type\"=>\"statue\",\"memorial\"=>\"jizo\",\"tourism\"=>\"artwork\"",
+        "area": null,
+        "centroid_x": 139.4889743,
+        "centroid_y": 35.3484349
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4889743, 35.3484349] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2204226546",
+        "name": "犬猫慰霊碑",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4889498,
+        "centroid_y": 35.3483884
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4889498, 35.3483884] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2204242502",
+        "name": "大イチョウ",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4880462,
+        "centroid_y": 35.3479527
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488046200000014, 35.3479527]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2204245796",
+        "name": "俣野大権現",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"place_of_worship\",\"religion\"=>\"buddhist\"",
+        "area": null,
+        "centroid_x": 139.4886577,
+        "centroid_y": 35.3480018
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4886577, 35.3480018] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "2206033952",
+        "name": null,
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"access\"=>\"yes\"",
+        "area": null,
+        "centroid_x": 139.4877172,
+        "centroid_y": 35.3472876
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4877172, 35.3472876] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7915830510",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4880754,
+        "centroid_y": 35.3482814
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488075400000014, 35.3482814]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7916114981",
+        "name": null,
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4874085,
+        "centroid_y": 35.3469548
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487408499999987, 35.3469548]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7918820004",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4878858,
+        "centroid_y": 35.3483175
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487885799999987, 35.3483175]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7918859973",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": "water_tap",
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4884674,
+        "centroid_y": 35.3479564
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4884674, 35.3479564] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7918859977",
+        "name": "明治百年記念",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4884076,
+        "centroid_y": 35.3479518
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488407599999988, 35.3479518]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7918859978",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4886171,
+        "centroid_y": 35.3482272
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4886171, 35.3482272] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7918859979",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.488448,
+        "centroid_y": 35.3483275
+      },
+      "geometry": { "type": "Point", "coordinates": [139.488448, 35.3483275] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7919435779",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4878215,
+        "centroid_y": 35.3476937
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4878215, 35.3476937] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7919452270",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4880564,
+        "centroid_y": 35.34792
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4880564, 35.34792] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7919452271",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4880182,
+        "centroid_y": 35.3479347
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4880182, 35.3479347] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7919452272",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4880088,
+        "centroid_y": 35.3479643
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488008799999989, 35.3479643]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7919452273",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4880444,
+        "centroid_y": 35.3479843
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4880444, 35.3479843] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7919452274",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4880787,
+        "centroid_y": 35.3479694
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488078699999988, 35.3479694]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7919452275",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4880894,
+        "centroid_y": 35.3479396
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4880894, 35.3479396] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7919452276",
+        "name": "明治天皇御膳水",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": "water_well",
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4879063,
+        "centroid_y": 35.3479875
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4879063, 35.3479875] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7919704945",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": "torii",
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4884,
+        "centroid_y": 35.3490967
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4884, 35.3490967] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921927751",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4885232,
+        "centroid_y": 35.3478911
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4885232, 35.3478911] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921927753",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.488766,
+        "centroid_y": 35.3481667
+      },
+      "geometry": { "type": "Point", "coordinates": [139.488766, 35.3481667] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921927756",
+        "name": null,
+        "barrier": null,
+        "highway": "street_lamp",
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4876127,
+        "centroid_y": 35.34862
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4876127, 35.34862] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921927757",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4882451,
+        "centroid_y": 35.3482199
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4882451, 35.3482199] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921927759",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.487703,
+        "centroid_y": 35.3473169
+      },
+      "geometry": { "type": "Point", "coordinates": [139.487703, 35.3473169] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921927762",
+        "name": null,
+        "barrier": null,
+        "highway": "street_lamp",
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4892337,
+        "centroid_y": 35.3489336
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4892337, 35.3489336] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921927763",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4886113,
+        "centroid_y": 35.3481555
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4886113, 35.3481555] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921927764",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.489067,
+        "centroid_y": 35.3481063
+      },
+      "geometry": { "type": "Point", "coordinates": [139.489067, 35.3481063] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921927773",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4879849,
+        "centroid_y": 35.348367
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487984899999987, 35.348367]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921927777",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4884339,
+        "centroid_y": 35.3483519
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4884339, 35.3483519] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921927781",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4883774,
+        "centroid_y": 35.3479881
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4883774, 35.3479881] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921927782",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4885987,
+        "centroid_y": 35.3490467
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488598700000011, 35.3490467]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943490",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4887867,
+        "centroid_y": 35.3480902
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4887867, 35.3480902] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943496",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.487727,
+        "centroid_y": 35.3481141
+      },
+      "geometry": { "type": "Point", "coordinates": [139.487727, 35.3481141] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943497",
+        "name": "大イチョウ",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.488035,
+        "centroid_y": 35.3478822
+      },
+      "geometry": { "type": "Point", "coordinates": [139.488035, 35.3478822] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943498",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.487446,
+        "centroid_y": 35.3477487
+      },
+      "geometry": { "type": "Point", "coordinates": [139.487446, 35.3477487] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943499",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4874379,
+        "centroid_y": 35.3471019
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4874379, 35.3471019] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943500",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"map\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.4884862,
+        "centroid_y": 35.3478854
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488486200000011, 35.3478854]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943502",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4889119,
+        "centroid_y": 35.348308
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4889119, 35.348308] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943504",
+        "name": "遊行寺の宇賀神",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.4880779,
+        "centroid_y": 35.3483413
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4880779, 35.3483413] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943506",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.487883,
+        "centroid_y": 35.3486387
+      },
+      "geometry": { "type": "Point", "coordinates": [139.487883, 35.3486387] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943507",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4881452,
+        "centroid_y": 35.3480605
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4881452, 35.3480605] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943509",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4878092,
+        "centroid_y": 35.3475546
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487809199999987, 35.3475546]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943511",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4892429,
+        "centroid_y": 35.348891
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4892429, 35.348891] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943512",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4885922,
+        "centroid_y": 35.3481333
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4885922, 35.3481333] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943518",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4883219,
+        "centroid_y": 35.3481698
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488321899999988, 35.3481698]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943526",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4881894,
+        "centroid_y": 35.3485698
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.48818940000001, 35.3485698]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943534",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4883974,
+        "centroid_y": 35.3479795
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4883974, 35.3479795] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943538",
+        "name": null,
+        "barrier": null,
+        "highway": "street_lamp",
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4879415,
+        "centroid_y": 35.3485378
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4879415, 35.3485378] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943543",
+        "name": "酒井忠重五輪塔",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4888215,
+        "centroid_y": 35.3480727
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4888215, 35.3480727] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943544",
+        "name": "永代供養塔",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4888608,
+        "centroid_y": 35.348227
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4888608, 35.348227] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943549",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4876332,
+        "centroid_y": 35.3481373
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4876332, 35.3481373] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943550",
+        "name": "時宗総本山清浄光寺（遊行寺）境内案内",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"map\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.488047,
+        "centroid_y": 35.3478541
+      },
+      "geometry": { "type": "Point", "coordinates": [139.488047, 35.3478541] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943551",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4873778,
+        "centroid_y": 35.3477591
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4873778, 35.3477591] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943553",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4874114,
+        "centroid_y": 35.3470557
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487411400000013, 35.3470557]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943557",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"waste_basket\"",
+        "area": null,
+        "centroid_x": 139.488897,
+        "centroid_y": 35.3482966
+      },
+      "geometry": { "type": "Point", "coordinates": [139.488897, 35.3482966] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943562",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4878581,
+        "centroid_y": 35.3486786
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487858100000011, 35.3486786]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943563",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4881051,
+        "centroid_y": 35.3482292
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488105100000013, 35.3482292]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943565",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4878539,
+        "centroid_y": 35.3475356
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4878539, 35.3475356] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943569",
+        "name": "お地蔵さんの由来",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.4885036,
+        "centroid_y": 35.3481248
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4885036, 35.3481248] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943574",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4880464,
+        "centroid_y": 35.3482723
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4880464, 35.3482723] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943578",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.489101,
+        "centroid_y": 35.3487497
+      },
+      "geometry": { "type": "Point", "coordinates": [139.489101, 35.3487497] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943581",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4883362,
+        "centroid_y": 35.34833
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4883362, 35.34833] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943582",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4880979,
+        "centroid_y": 35.3471585
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488097900000014, 35.3471585]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943583",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4894755,
+        "centroid_y": 35.3488103
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4894755, 35.3488103] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943585",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4883845,
+        "centroid_y": 35.348035
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4883845, 35.348035] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943588",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4884859,
+        "centroid_y": 35.3492352
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4884859, 35.3492352] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943589",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"stone\"",
+        "area": null,
+        "centroid_x": 139.4879788,
+        "centroid_y": 35.3485864
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4879788, 35.3485864] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943590",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"stone\"",
+        "area": null,
+        "centroid_x": 139.4876941,
+        "centroid_y": 35.348399
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4876941, 35.348399] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943593",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4878386,
+        "centroid_y": 35.3472605
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4878386, 35.3472605] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943596",
+        "name": "俣野大権現",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.4886372,
+        "centroid_y": 35.3479467
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4886372, 35.3479467] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943601",
+        "name": "南部右馬頭茂時墓",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4883218,
+        "centroid_y": 35.3486122
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4883218, 35.3486122] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943606",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4873961,
+        "centroid_y": 35.3477912
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487396100000012, 35.3477912]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943607",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4875907,
+        "centroid_y": 35.347165
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4875907, 35.347165] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943615",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4878113,
+        "centroid_y": 35.3486314
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4878113, 35.3486314] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943620",
+        "name": "時宗総本山遊行寺",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.4884849,
+        "centroid_y": 35.3481192
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4884849, 35.3481192] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943627",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4881073,
+        "centroid_y": 35.3482481
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4881073, 35.3482481] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943629",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4874446,
+        "centroid_y": 35.3470441
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4874446, 35.3470441] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943632",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4890893,
+        "centroid_y": 35.3486577
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.489089299999989, 35.3486577]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943634",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4882029,
+        "centroid_y": 35.3485437
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4882029, 35.3485437] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943635",
+        "name": null,
+        "barrier": null,
+        "highway": "street_lamp",
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4878094,
+        "centroid_y": 35.3484596
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4878094, 35.3484596] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943636",
+        "name": "御行在所日",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.4879222,
+        "centroid_y": 35.3480224
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487922200000014, 35.3480224]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943637",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4883245,
+        "centroid_y": 35.3482697
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4883245, 35.3482697] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943639",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4881214,
+        "centroid_y": 35.3471808
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488121400000011, 35.3471808]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943641",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.488401,
+        "centroid_y": 35.3480575
+      },
+      "geometry": { "type": "Point", "coordinates": [139.488401, 35.3480575] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943646",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4878348,
+        "centroid_y": 35.3485741
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4878348, 35.3485741] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943647",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4877392,
+        "centroid_y": 35.3483405
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4877392, 35.3483405] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943649",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4878125,
+        "centroid_y": 35.3472208
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4878125, 35.3472208] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943652",
+        "name": null,
+        "barrier": null,
+        "highway": "street_lamp",
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4886625,
+        "centroid_y": 35.3479694
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4886625, 35.3479694] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943660",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"artwork_type\"=>\"statue\",\"tourism\"=>\"artwork\"",
+        "area": null,
+        "centroid_x": 139.4874395,
+        "centroid_y": 35.3478314
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4874395, 35.3478314] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943661",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4875223,
+        "centroid_y": 35.3470679
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4875223, 35.3470679] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943669",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4877346,
+        "centroid_y": 35.3486269
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.48773460000001, 35.3486269]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943674",
+        "name": "境内案内図",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"map\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.4884696,
+        "centroid_y": 35.3481093
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4884696, 35.3481093] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943680",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4881023,
+        "centroid_y": 35.3482021
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4881023, 35.3482021] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943683",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4874148,
+        "centroid_y": 35.3470032
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.48741480000001, 35.3470032]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943685",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4886417,
+        "centroid_y": 35.347788
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488641699999988, 35.347788]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943690",
+        "name": null,
+        "barrier": null,
+        "highway": "street_lamp",
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4878523,
+        "centroid_y": 35.3485348
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487852299999986, 35.3485348]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943691",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4878877,
+        "centroid_y": 35.3479652
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487887699999987, 35.3479652]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943694",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4884282,
+        "centroid_y": 35.3480275
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488428199999987, 35.3480275]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943696",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4888999,
+        "centroid_y": 35.3490083
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4888999, 35.3490083] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943697",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4880178,
+        "centroid_y": 35.348496
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4880178, 35.348496] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943698",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.487769,
+        "centroid_y": 35.3483715
+      },
+      "geometry": { "type": "Point", "coordinates": [139.487769, 35.3483715] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943701",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4878105,
+        "centroid_y": 35.3472518
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4878105, 35.3472518] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943705",
+        "name": null,
+        "barrier": null,
+        "highway": "street_lamp",
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4882178,
+        "centroid_y": 35.3486131
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4882178, 35.3486131] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943708",
+        "name": "水子地蔵",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"artwork_type\"=>\"statue\",\"tourism\"=>\"artwork\"",
+        "area": null,
+        "centroid_x": 139.4874656,
+        "centroid_y": 35.3478256
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4874656, 35.3478256] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943709",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4874889,
+        "centroid_y": 35.3470206
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487488899999988, 35.3470206]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943715",
+        "name": "魚鱗甲貝供養塔",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.487959,
+        "centroid_y": 35.3485952
+      },
+      "geometry": { "type": "Point", "coordinates": [139.487959, 35.3485952] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943723",
+        "name": "清浄光寺銅鐘",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.4881541,
+        "centroid_y": 35.3483382
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4881541, 35.3483382] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943726",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4881264,
+        "centroid_y": 35.3481577
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4881264, 35.3481577] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943728",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4875486,
+        "centroid_y": 35.3471853
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4875486, 35.3471853] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943731",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.488632,
+        "centroid_y": 35.3479108
+      },
+      "geometry": { "type": "Point", "coordinates": [139.488632, 35.3479108] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943735",
+        "name": "放生池",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.4879212,
+        "centroid_y": 35.3485549
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487921199999988, 35.3485549]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943736",
+        "name": null,
+        "barrier": null,
+        "highway": "street_lamp",
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4878593,
+        "centroid_y": 35.3479872
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4878593, 35.3479872] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943742",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4885184,
+        "centroid_y": 35.3480094
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4885184, 35.3480094] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943744",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4886298,
+        "centroid_y": 35.3490674
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488629800000012, 35.3490674]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943745",
+        "name": null,
+        "barrier": null,
+        "highway": "street_lamp",
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.488468,
+        "centroid_y": 35.3490363
+      },
+      "geometry": { "type": "Point", "coordinates": [139.488468, 35.3490363] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943746",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"tourism\"=>\"viewpoint\"",
+        "area": null,
+        "centroid_x": 139.4879794,
+        "centroid_y": 35.3486507
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4879794, 35.3486507] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943747",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4878309,
+        "centroid_y": 35.3483806
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4878309, 35.3483806] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943749",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4876363,
+        "centroid_y": 35.3476307
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4876363, 35.3476307] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943750",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"artwork_type\"=>\"statue\",\"tourism\"=>\"artwork\"",
+        "area": null,
+        "centroid_x": 139.487794,
+        "centroid_y": 35.3472884
+      },
+      "geometry": { "type": "Point", "coordinates": [139.487794, 35.3472884] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943754",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.48842,
+        "centroid_y": 35.3488337
+      },
+      "geometry": { "type": "Point", "coordinates": [139.48842, 35.3488337] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943755",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"artwork_type\"=>\"statue\",\"tourism\"=>\"artwork\"",
+        "area": null,
+        "centroid_x": 139.4882064,
+        "centroid_y": 35.3486601
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4882064, 35.3486601] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943759",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4874603,
+        "centroid_y": 35.3478069
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4874603, 35.3478069] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943761",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4874622,
+        "centroid_y": 35.3469829
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.48746220000001, 35.3469829]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943778",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4881646,
+        "centroid_y": 35.3482854
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4881646, 35.3482854] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943781",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4881652,
+        "centroid_y": 35.3481128
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4881652, 35.3481128] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943783",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4878533,
+        "centroid_y": 35.3472918
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487853300000012, 35.3472918]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943784",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4874241,
+        "centroid_y": 35.3473077
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4874241, 35.3473077] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943787",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4887138,
+        "centroid_y": 35.3479775
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4887138, 35.3479775] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943791",
+        "name": null,
+        "barrier": null,
+        "highway": "street_lamp",
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4878248,
+        "centroid_y": 35.3480216
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4878248, 35.3480216] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943797",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4888735,
+        "centroid_y": 35.349029
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488873500000011, 35.349029]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943798",
+        "name": null,
+        "barrier": null,
+        "highway": "street_lamp",
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4884328,
+        "centroid_y": 35.3491012
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4884328, 35.3491012] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943800",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4878375,
+        "centroid_y": 35.3484176
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487837500000012, 35.3484176]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943802",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4878355,
+        "centroid_y": 35.3476385
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487835499999989, 35.3476385]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943803",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4876627,
+        "centroid_y": 35.3474039
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487662699999987, 35.3474039]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943806",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4886011,
+        "centroid_y": 35.3477095
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488601100000011, 35.3477095]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943809",
+        "name": null,
+        "barrier": null,
+        "highway": "street_lamp",
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.488287,
+        "centroid_y": 35.3486849
+      },
+      "geometry": { "type": "Point", "coordinates": [139.488287, 35.3486849] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943810",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4881855,
+        "centroid_y": 35.3484249
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488185499999986, 35.3484249]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943811",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4879608,
+        "centroid_y": 35.3485239
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4879608, 35.3485239] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943814",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.487456,
+        "centroid_y": 35.3477836
+      },
+      "geometry": { "type": "Point", "coordinates": [139.487456, 35.3477836] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943821",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.4879425,
+        "centroid_y": 35.347968
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4879425, 35.347968] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943827",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4882007,
+        "centroid_y": 35.3480841
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4882007, 35.3480841] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943830",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4874731,
+        "centroid_y": 35.347334
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.487473099999988, 35.347334]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943833",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"artwork_type\"=>\"statue\",\"tourism\"=>\"artwork\"",
+        "area": null,
+        "centroid_x": 139.4887341,
+        "centroid_y": 35.3480479
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488734099999988, 35.3480479]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943835",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4883181,
+        "centroid_y": 35.3484358
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488318099999987, 35.3484358]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943843",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4888578,
+        "centroid_y": 35.348977
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4888578, 35.348977] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943844",
+        "name": null,
+        "barrier": null,
+        "highway": "street_lamp",
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4883846,
+        "centroid_y": 35.3491173
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488384599999989, 35.3491173]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943845",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4876529,
+        "centroid_y": 35.3483946
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4876529, 35.3483946] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943846",
+        "name": null,
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4877985,
+        "centroid_y": 35.3476311
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4877985, 35.3476311] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943847",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4877008,
+        "centroid_y": 35.347472
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4877008, 35.347472] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943848",
+        "name": "時宗板碑ニ基",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.4892551,
+        "centroid_y": 35.3488358
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4892551, 35.3488358] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943849",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4887416,
+        "centroid_y": 35.3476787
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4887416, 35.3476787] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943852",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4885379,
+        "centroid_y": 35.3486364
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488537900000011, 35.3486364]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943853",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4879738,
+        "centroid_y": 35.3485323
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4879738, 35.3485323] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943854",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4876372,
+        "centroid_y": 35.3482799
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4876372, 35.3482799] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943857",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4875118,
+        "centroid_y": 35.3471379
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4875118, 35.3471379] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943863",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4884397,
+        "centroid_y": 35.3479063
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488439699999986, 35.3479063]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943878",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4887556,
+        "centroid_y": 35.3480364
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4887556, 35.3480364] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943883",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.488233,
+        "centroid_y": 35.3485088
+      },
+      "geometry": { "type": "Point", "coordinates": [139.488233, 35.3485088] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943893",
+        "name": "歴代上人の墓",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4888062,
+        "centroid_y": 35.3491432
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4888062, 35.3491432] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943896",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4875936,
+        "centroid_y": 35.3485683
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4875936, 35.3485683] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943899",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4876447,
+        "centroid_y": 35.3473391
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4876447, 35.3473391] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943901",
+        "name": "木造阿弥陀如来坐像",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.4892709,
+        "centroid_y": 35.3488699
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4892709, 35.3488699] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943902",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4885262,
+        "centroid_y": 35.3477491
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4885262, 35.3477491] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943903",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4891606,
+        "centroid_y": 35.3482244
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4891606, 35.3482244] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943904",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4884657,
+        "centroid_y": 35.3486484
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4884657, 35.3486484] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943908",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4879324,
+        "centroid_y": 35.3472268
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4879324, 35.3472268] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943909",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4874797,
+        "centroid_y": 35.3470876
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4874797, 35.3470876] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943913",
+        "name": "遊行寺の宇賀神社",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.4884174,
+        "centroid_y": 35.3490462
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4884174, 35.3490462] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943914",
+        "name": "三宝の松",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4880676,
+        "centroid_y": 35.3484105
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4880676, 35.3484105] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943918",
+        "name": "手水の作法",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.488421,
+        "centroid_y": 35.3479642
+      },
+      "geometry": { "type": "Point", "coordinates": [139.488421, 35.3479642] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943923",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4883574,
+        "centroid_y": 35.3479965
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488357400000012, 35.3479965]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943926",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4885159,
+        "centroid_y": 35.3489687
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.48851590000001, 35.3489687]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943933",
+        "name": "酒井忠重逆修六地蔵供養塔",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"artwork_type\"=>\"statue\",\"tourism\"=>\"artwork\"",
+        "area": null,
+        "centroid_x": 139.4887899,
+        "centroid_y": 35.3480238
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4887899, 35.3480238] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943939",
+        "name": "境内案内図",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"map\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.4880366,
+        "centroid_y": 35.347925
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488036599999987, 35.347925]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7921943940",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4874653,
+        "centroid_y": 35.3476058
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4874653, 35.3476058] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922154363",
+        "name": null,
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.487914,
+        "centroid_y": 35.3483935
+      },
+      "geometry": { "type": "Point", "coordinates": [139.487914, 35.3483935] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922154367",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.488641,
+        "centroid_y": 35.3490949
+      },
+      "geometry": { "type": "Point", "coordinates": [139.488641, 35.3490949] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922154368",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4886154,
+        "centroid_y": 35.3490428
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488615399999986, 35.3490428]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922154369",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4889058,
+        "centroid_y": 35.3490357
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4889058, 35.3490357] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922154370",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4888804,
+        "centroid_y": 35.348968
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4888804, 35.348968] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922154381",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4880603,
+        "centroid_y": 35.3487091
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4880603, 35.3487091] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922154382",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4881626,
+        "centroid_y": 35.3487274
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.48816260000001, 35.3487274]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922174552",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4882522,
+        "centroid_y": 35.3491086
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4882522, 35.3491086] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922174553",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4882761,
+        "centroid_y": 35.3491671
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4882761, 35.3491671] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922174554",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4881935,
+        "centroid_y": 35.3491264
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4881935, 35.3491264] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922174555",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4883087,
+        "centroid_y": 35.3490803
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4883087, 35.3490803] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922174570",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4884709,
+        "centroid_y": 35.3491268
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.48847090000001, 35.3491268]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922183378",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4882786,
+        "centroid_y": 35.3476063
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4882786, 35.3476063] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922183379",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4885742,
+        "centroid_y": 35.3474406
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488574199999988, 35.3474406]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922183380",
+        "name": "敵御方供養塔",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4886869,
+        "centroid_y": 35.3476039
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4886869, 35.3476039] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922183381",
+        "name": "畜霊供養塔",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4885911,
+        "centroid_y": 35.3475159
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4885911, 35.3475159] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922183382",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4884989,
+        "centroid_y": 35.347714
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4884989, 35.347714] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7922806173",
+        "name": "中雀門",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.487972,
+        "centroid_y": 35.3483763
+      },
+      "geometry": { "type": "Point", "coordinates": [139.487972, 35.3483763] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7924563171",
+        "name": "小栗判官の墓",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4891484,
+        "centroid_y": 35.3491144
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4891484, 35.3491144] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7924563172",
+        "name": "照手姫のお墓",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.4890675,
+        "centroid_y": 35.3491056
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4890675, 35.3491056] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7975979913",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"artwork_type\"=>\"statue\",\"tourism\"=>\"artwork\"",
+        "area": null,
+        "centroid_x": 139.4892601,
+        "centroid_y": 35.3488891
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4892601, 35.3488891] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "7975979914",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"information\"=>\"board\",\"tourism\"=>\"information\"",
+        "area": null,
+        "centroid_x": 139.489122,
+        "centroid_y": 35.3490885
+      },
+      "geometry": { "type": "Point", "coordinates": [139.489122, 35.3490885] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8077275693",
+        "name": "戦没者供養塔",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"memorial\"",
+        "area": null,
+        "centroid_x": 139.488632,
+        "centroid_y": 35.3475659
+      },
+      "geometry": { "type": "Point", "coordinates": [139.488632, 35.3475659] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8178565233",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"stone\"",
+        "area": null,
+        "centroid_x": 139.4891939,
+        "centroid_y": 35.3491047
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4891939, 35.3491047] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8178565237",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"stone\"",
+        "area": null,
+        "centroid_x": 139.489203,
+        "centroid_y": 35.3490873
+      },
+      "geometry": { "type": "Point", "coordinates": [139.489203, 35.3490873] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8178565244",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"artwork_type\"=>\"statue\",\"tourism\"=>\"artwork\"",
+        "area": null,
+        "centroid_x": 139.4891753,
+        "centroid_y": 35.3490725
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4891753, 35.3490725] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8178565250",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4890385,
+        "centroid_y": 35.3491228
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4890385, 35.3491228] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8178565255",
+        "name": "名馬　鬼鹿毛之墓",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"historic\"=>\"monument\"",
+        "area": null,
+        "centroid_x": 139.4890861,
+        "centroid_y": 35.349097
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4890861, 35.349097] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8178565260",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4890653,
+        "centroid_y": 35.3491118
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4890653, 35.3491118] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8178565262",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"artwork_type\"=>\"statue\",\"tourism\"=>\"artwork\"",
+        "area": null,
+        "centroid_x": 139.4890636,
+        "centroid_y": 35.3490841
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4890636, 35.3490841] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8178565266",
+        "name": "照手姫建立　厄除地蔵尊",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"artwork_type\"=>\"statue\",\"tourism\"=>\"artwork\"",
+        "area": null,
+        "centroid_x": 139.4890713,
+        "centroid_y": 35.3490784
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4890713, 35.3490784] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8178565271",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"artwork_type\"=>\"statue\",\"tourism\"=>\"artwork\"",
+        "area": null,
+        "centroid_x": 139.489078,
+        "centroid_y": 35.3490719
+      },
+      "geometry": { "type": "Point", "coordinates": [139.489078, 35.3490719] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "8178565278",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.489199,
+        "centroid_y": 35.3491167
+      },
+      "geometry": { "type": "Point", "coordinates": [139.489199, 35.3491167] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "11038361288",
+        "name": "遊行寺",
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"addr:province\"=>\"神奈川県\",\"amenity\"=>\"bicycle_rental\",\"authentication:app\"=>\"yes\",\"brand\"=>\"HELLO CYCLING\",\"brand:ja\"=>\"ハローサイクリング\",\"brand:wikidata\"=>\"Q91231927\",\"capacity\"=>\"5\",\"contact:website\"=>\"https://www.hellocycling.jp\",\"fee\"=>\"yes\",\"gbfs:station_id\"=>\"6933\",\"gbfs:system_id\"=>\"hellocycling\",\"name:ja\"=>\"遊行寺\",\"network\"=>\"HELLO CYCLING\",\"network:ja\"=>\"ハローサイクリング\",\"network:wikidata\"=>\"Q91231927\"",
+        "area": null,
+        "centroid_x": 139.4882131,
+        "centroid_y": 35.3476183
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4882131, 35.3476183] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "12887878654",
+        "name": null,
+        "barrier": "gate",
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.4887629,
+        "centroid_y": 35.3490247
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.488762900000012, 35.3490247]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "12887926914",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"natural\"=>\"tree\"",
+        "area": null,
+        "centroid_x": 139.4886687,
+        "centroid_y": 35.3487574
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4886687, 35.3487574] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "12887926924",
+        "name": null,
+        "barrier": null,
+        "highway": null,
+        "ref": null,
+        "address": null,
+        "is_in": null,
+        "place": null,
+        "man_made": null,
+        "other_tags": "\"amenity\"=>\"bench\"",
+        "area": null,
+        "centroid_x": 139.4881727,
+        "centroid_y": 35.3480748
+      },
+      "geometry": { "type": "Point", "coordinates": [139.4881727, 35.3480748] }
+    }
+  ]
 }

@@ -5,5 +5,4164 @@
     "type": "name",
     "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
   },
-  "features": []
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209747515",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": "forest",
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 36914.066483184695,
+        "centroid_x": 139.48853251994373,
+        "centroid_y": 35.349733015092575
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4872014, 35.3490815],
+              [139.4870673, 35.3491428],
+              [139.4871049, 35.3494359],
+              [139.486981500000013, 35.3495584],
+              [139.487026, 35.3496621],
+              [139.487378400000011, 35.3496459],
+              [139.487448199999989, 35.3498253],
+              [139.487458, 35.3499645],
+              [139.487465899999989, 35.3500078],
+              [139.487448199999989, 35.3501751],
+              [139.48739, 35.3502389],
+              [139.487305, 35.3503534],
+              [139.4871279, 35.3503491],
+              [139.4870099, 35.3504016],
+              [139.487154800000013, 35.3504847],
+              [139.487378400000011, 35.3503983],
+              [139.4874965, 35.3503064],
+              [139.4875662, 35.3501795],
+              [139.4875242, 35.3498443],
+              [139.4877103, 35.3499074],
+              [139.4878291, 35.350127],
+              [139.487916500000011, 35.3503622],
+              [139.4880388, 35.3503861],
+              [139.4882974, 35.3504366],
+              [139.4884245, 35.350302],
+              [139.4885602, 35.3502353],
+              [139.4886353, 35.3501172],
+              [139.488721199999986, 35.3500865],
+              [139.4889947, 35.3501522],
+              [139.489138, 35.3500176],
+              [139.489256, 35.3500176],
+              [139.489202400000011, 35.3498385],
+              [139.4892399, 35.3497378],
+              [139.4894223, 35.3496197],
+              [139.4896224, 35.3496928],
+              [139.4897388, 35.3498951],
+              [139.4897871, 35.3499476],
+              [139.4899282, 35.3499553],
+              [139.4899802, 35.3500701],
+              [139.4900982, 35.3500876],
+              [139.4903396, 35.350092],
+              [139.490377200000012, 35.3502277],
+              [139.4905182, 35.3504366],
+              [139.4904646, 35.3505372],
+              [139.4905756, 35.3507789],
+              [139.4905933, 35.3511498],
+              [139.4906202, 35.3515042],
+              [139.4906937, 35.3515665],
+              [139.4906937, 35.3513521],
+              [139.4906293, 35.3508315],
+              [139.490559499999989, 35.3505208],
+              [139.490550399999989, 35.3504628],
+              [139.4904737, 35.3501883],
+              [139.4903557, 35.3499432],
+              [139.4901159, 35.3499728],
+              [139.4899872, 35.3499072],
+              [139.489794, 35.349789],
+              [139.4898622, 35.3495322],
+              [139.489712, 35.349379],
+              [139.489594, 35.349239],
+              [139.489411600000011, 35.3491296],
+              [139.4890876, 35.349173],
+              [139.4889368, 35.3491237],
+              [139.4888659, 35.3491002],
+              [139.4886367, 35.3491619],
+              [139.4885559, 35.3492259],
+              [139.488432, 35.3492663],
+              [139.4882826, 35.3492575],
+              [139.488015, 35.3493393],
+              [139.4879111, 35.3492904],
+              [139.4876789, 35.3492697],
+              [139.487250499999988, 35.3491538],
+              [139.4872014, 35.3490815]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209747572",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": "grave_yard",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 3121.7662427425385,
+        "centroid_x": 139.48752537714893,
+        "centroid_y": 35.347569724099813
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4872329, 35.3473443],
+              [139.487409, 35.3476078],
+              [139.4873326, 35.3476642],
+              [139.487443399999989, 35.3478358],
+              [139.4874812, 35.3478292],
+              [139.487541, 35.3479207],
+              [139.4877663, 35.3477588],
+              [139.4877701, 35.3475982],
+              [139.4876145, 35.3473882],
+              [139.4875375, 35.3472322],
+              [139.4872329, 35.3473443]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209747573",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": "grave_yard",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 2153.7922444939613,
+        "centroid_x": 139.4889749386945,
+        "centroid_y": 35.348803878210795
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.488682, 35.3487534],
+              [139.4887732, 35.3489065],
+              [139.4889063, 35.3489109],
+              [139.4889739, 35.3490916],
+              [139.48904060000001, 35.3490742],
+              [139.4890031, 35.3489872],
+              [139.489142500000014, 35.3489406],
+              [139.4891278, 35.3489134],
+              [139.48923880000001, 35.3488744],
+              [139.4891584, 35.3487192],
+              [139.4890752, 35.3485678],
+              [139.488926600000013, 35.3486316],
+              [139.488682, 35.3487534]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209747802",
+        "name": "本堂",
+        "type": null,
+        "aeroway": null,
+        "amenity": "place_of_worship",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"religion\"=>\"buddhist\"",
+        "area": 2073.5416853129864,
+        "centroid_x": 139.4886582053945,
+        "centroid_y": 35.34843432121918
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.48845080000001, 35.3483179],
+              [139.488473199999987, 35.348346],
+              [139.4883881, 35.3483912],
+              [139.4886079, 35.348667],
+              [139.4889402, 35.3484896],
+              [139.4888138, 35.3483238],
+              [139.4888023, 35.3483292],
+              [139.4887119, 35.3482198],
+              [139.488628299999988, 35.3482531],
+              [139.4886119, 35.3482324],
+              [139.4885339, 35.3482738],
+              [139.48845080000001, 35.3483179]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209747806",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 87.561116077005863,
+        "centroid_x": 139.48955241744744,
+        "centroid_y": 35.349012594199934
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.489496800000012, 35.3489923],
+              [139.4895458, 35.349062],
+              [139.489608, 35.3490329],
+              [139.4895591, 35.3489632],
+              [139.489496800000012, 35.3489923]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209747807",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 70.578076869249344,
+        "centroid_x": 139.4893438535816,
+        "centroid_y": 35.349043328656244
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4892858, 35.3490449],
+              [139.4893004, 35.349065],
+              [139.489314400000012, 35.3490841],
+              [139.4894019, 35.3490418],
+              [139.489373300000011, 35.3490025],
+              [139.489345500000013, 35.349016],
+              [139.4893232, 35.3490268],
+              [139.4892858, 35.3490449]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209747810",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 196.18937668204308,
+        "centroid_x": 139.48964214999998,
+        "centroid_y": 35.3489426
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.489553300000011, 35.3489321],
+              [139.4896128, 35.3490118],
+              [139.489731, 35.3489531],
+              [139.489671499999986, 35.3488734],
+              [139.489553300000011, 35.3489321]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209747814",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 283.11364535987377,
+        "centroid_x": 139.48918529893584,
+        "centroid_y": 35.348997638803382
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4890662, 35.3489828],
+              [139.4891141, 35.3490665],
+              [139.4892112, 35.349033],
+              [139.4892623, 35.3490154],
+              [139.4892858, 35.3490449],
+              [139.4893232, 35.3490268],
+              [139.489296599999989, 35.3489835],
+              [139.4892581, 35.349002],
+              [139.4892471, 35.348983],
+              [139.489270800000014, 35.3489735],
+              [139.4892594, 35.3489544],
+              [139.489248300000014, 35.3489358],
+              [139.489224, 35.3489433],
+              [139.489215699999988, 35.3489288],
+              [139.4890662, 35.3489828]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209747816",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 107.0414118245244,
+        "centroid_x": 139.48947055,
+        "centroid_y": 35.34904095
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4894099, 35.3490154],
+              [139.4894643, 35.3490964],
+              [139.489531199999988, 35.3490665],
+              [139.4894768, 35.3489855],
+              [139.4894099, 35.3490154]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209748031",
+        "name": "信徒会館",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 517.40904721058905,
+        "centroid_x": 139.48812440146835,
+        "centroid_y": 35.348876742635746
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.487982100000011, 35.3488099],
+              [139.4879709, 35.3489243],
+              [139.4882667, 35.3489436],
+              [139.4882778, 35.3488291],
+              [139.4880183, 35.3488123],
+              [139.487982100000011, 35.3488099]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209748032",
+        "name": "回向堂",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 84.432998415082693,
+        "centroid_x": 139.48864315066189,
+        "centroid_y": 35.34882836528196
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4885898, 35.3488141],
+              [139.4886243, 35.3488753],
+              [139.488695799999988, 35.3488435],
+              [139.488662799999986, 35.3487811],
+              [139.4886401, 35.3487914],
+              [139.4886095, 35.3488052],
+              [139.4885898, 35.3488141]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209748033",
+        "name": "僧堂",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 429.22281257808208,
+        "centroid_x": 139.48724846726643,
+        "centroid_y": 35.348891000191422
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4871458, 35.3488129],
+              [139.4871437, 35.348899],
+              [139.48718310000001, 35.3488997],
+              [139.4871813, 35.3489755],
+              [139.487334, 35.3489781],
+              [139.4873366, 35.3489059],
+              [139.4873388, 35.3488161],
+              [139.4871458, 35.3488129]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209748034",
+        "name": "御番方",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 759.87954425811768,
+        "centroid_x": 139.48771056014516,
+        "centroid_y": 35.348752224708697
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.487864, 35.3487697],
+              [139.487833200000011, 35.3487085],
+              [139.487836, 35.3486689],
+              [139.487774800000011, 35.3486657],
+              [139.487713899999989, 35.3486615],
+              [139.487707300000011, 35.3487017],
+              [139.4876844, 35.3486965],
+              [139.4876897, 35.3486462],
+              [139.487643600000013, 35.3486421],
+              [139.487587, 35.3486368],
+              [139.4875806, 35.3486793],
+              [139.487568399999986, 35.3488336],
+              [139.4876351, 35.3488359],
+              [139.487691500000011, 35.3488404],
+              [139.487846600000012, 35.3488529],
+              [139.487864, 35.3487697]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209748035",
+        "name": "寺務所",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 875.10956421494484,
+        "centroid_x": 139.487389592433,
+        "centroid_y": 35.348739333508298
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.487216, 35.3486444],
+              [139.4871943, 35.3487988],
+              [139.487568399999986, 35.3488336],
+              [139.4875806, 35.3486793],
+              [139.487216, 35.3486444]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209748036",
+        "name": "百間廊下",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "roof",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"layer\"=>\"1\"",
+        "area": 379.96719853952527,
+        "centroid_x": 139.48830232246075,
+        "centroid_y": 35.348756589126531
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4880425, 35.3487927],
+              [139.4883137, 35.3488097],
+              [139.488334, 35.348811],
+              [139.488550300000014, 35.3487148],
+              [139.4885832, 35.3487013],
+              [139.488618, 35.3486847],
+              [139.4885913, 35.3486595],
+              [139.4883223, 35.3487697],
+              [139.4880968, 35.348756],
+              [139.4880961, 35.3487308],
+              [139.488029899999987, 35.348727],
+              [139.4880243, 35.3487688],
+              [139.488041399999986, 35.3487687],
+              [139.4880425, 35.3487927]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209748037",
+        "name": "小書院",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 367.30130825191736,
+        "centroid_x": 139.48764808480658,
+        "centroid_y": 35.34908262419259
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4875515, 35.3490196],
+              [139.4875551, 35.3490972],
+              [139.4875573, 35.349149],
+              [139.487743200000011, 35.3491455],
+              [139.487740699999989, 35.3490168],
+              [139.4877033, 35.3490177],
+              [139.4875515, 35.3490196]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209748504",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 262.49746030569077,
+        "centroid_x": 139.48746027483753,
+        "centroid_y": 35.349058760756414
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4873756, 35.3490116],
+              [139.487372099999988, 35.3490462],
+              [139.4873757, 35.3490969],
+              [139.487392, 35.3490969],
+              [139.4873952, 35.3491246],
+              [139.487454500000013, 35.3491238],
+              [139.4874548, 35.3490958],
+              [139.4875551, 35.3490972],
+              [139.4875515, 35.3490196],
+              [139.487551599999989, 35.3490075],
+              [139.4873756, 35.3490116]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209748506",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 191.53606288507581,
+        "centroid_x": 139.48780168495679,
+        "centroid_y": 35.34922348977824
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4877415, 35.3491718],
+              [139.487738799999988, 35.3492768],
+              [139.4878674, 35.3492702],
+              [139.4878621, 35.3491729],
+              [139.4877415, 35.3491718]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209748508",
+        "name": "大書院",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 315.50064404308796,
+        "centroid_x": 139.48809377881625,
+        "centroid_y": 35.349081111336623
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.488041399999986, 35.3489906],
+              [139.488029899999987, 35.34914],
+              [139.488028, 35.3491658],
+              [139.488145800000012, 35.3491715],
+              [139.488160099999988, 35.348997],
+              [139.488041399999986, 35.3489906]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209748511",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 114.3447747156024,
+        "centroid_x": 139.48796984925042,
+        "centroid_y": 35.349169408470971
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4879147, 35.3491337],
+              [139.487910199999988, 35.3491994],
+              [139.4880253, 35.3492046],
+              [139.488028, 35.3491658],
+              [139.488029899999987, 35.34914],
+              [139.4879147, 35.3491337]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209748512",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 774.55194330215454,
+        "centroid_x": 139.48772987000618,
+        "centroid_y": 35.347969331178234
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4875328, 35.3480369],
+              [139.4876494, 35.3481258],
+              [139.4877831, 35.3480185],
+              [139.4879254, 35.3479047],
+              [139.4878114, 35.3478114],
+              [139.4875328, 35.3480369]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209748514",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 149.40620579570532,
+        "centroid_x": 139.48755651520131,
+        "centroid_y": 35.348494503498209
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4875599, 35.3484103],
+              [139.4874954, 35.3485624],
+              [139.4875532, 35.3485787],
+              [139.4876176, 35.3484265],
+              [139.4875599, 35.3484103]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209748515",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "roof",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 38.566118523478508,
+        "centroid_x": 139.48753661215275,
+        "centroid_y": 35.348877472951919
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4875088, 35.3489],
+              [139.4875645, 35.3489011],
+              [139.487563, 35.3488537],
+              [139.4875094, 35.3488545],
+              [139.4875088, 35.3489]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209748518",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 818.00172024965286,
+        "centroid_x": 139.48773693625247,
+        "centroid_y": 35.348935473793098
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4877424, 35.348944],
+              [139.4879769, 35.3489551],
+              [139.4879746, 35.3489821],
+              [139.488041399999986, 35.3489906],
+              [139.488160099999988, 35.348997],
+              [139.488232900000014, 35.3490009],
+              [139.4882384, 35.3489427],
+              [139.4878531, 35.3489174],
+              [139.4877621, 35.3489109],
+              [139.4876897, 35.348906],
+              [139.487691500000011, 35.3488404],
+              [139.4876351, 35.3488359],
+              [139.4876315, 35.3489023],
+              [139.4875645, 35.3489011],
+              [139.4875088, 35.3489],
+              [139.4874953, 35.3488998],
+              [139.48744, 35.3489016],
+              [139.487441600000011, 35.3488555],
+              [139.487441, 35.3488254],
+              [139.4873819, 35.3488205],
+              [139.4873799, 35.3489069],
+              [139.4873366, 35.3489059],
+              [139.487334, 35.3489781],
+              [139.4873316, 35.3490449],
+              [139.487372099999988, 35.3490462],
+              [139.4873756, 35.3490116],
+              [139.4873781, 35.3489394],
+              [139.4877042, 35.3489405],
+              [139.4877033, 35.3490177],
+              [139.487740699999989, 35.3490168],
+              [139.4877424, 35.348944]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209749022",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 49.834646657109261,
+        "centroid_x": 139.4873985,
+        "centroid_y": 35.3479027
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4873569, 35.3478891],
+              [139.4873816, 35.3479366],
+              [139.487440099999986, 35.3479163],
+              [139.4874154, 35.3478688],
+              [139.4873569, 35.3478891]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209749023",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 324.8707318007946,
+        "centroid_x": 139.48709179148119,
+        "centroid_y": 35.347943617770476
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.487158, 35.3478599],
+              [139.48697820000001, 35.3479248],
+              [139.487036100000012, 35.3480314],
+              [139.4871325, 35.3479966],
+              [139.487124099999988, 35.3479812],
+              [139.487207500000011, 35.347951],
+              [139.487158, 35.3478599]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209749024",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 114.42153078317642,
+        "centroid_x": 139.48732043624835,
+        "centroid_y": 35.347958273216641
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4872487, 35.3479517],
+              [139.487278300000014, 35.3480063],
+              [139.4873928, 35.3479656],
+              [139.4873605, 35.3479097],
+              [139.4872487, 35.3479517]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209749025",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 72.648981250822544,
+        "centroid_x": 139.48747285,
+        "centroid_y": 35.34789325
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.487426199999987, 35.3478649],
+              [139.4874661, 35.3479404],
+              [139.4875195, 35.3479216],
+              [139.4874796, 35.3478461],
+              [139.487426199999987, 35.3478649]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209749026",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 469.74095377326012,
+        "centroid_x": 139.48727560646273,
+        "centroid_y": 35.34780864769187
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4871431, 35.347777],
+              [139.487223199999988, 35.3479128],
+              [139.48740810000001, 35.3478403],
+              [139.4873728, 35.3477804],
+              [139.487328, 35.3477045],
+              [139.4871431, 35.347777]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209749204",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 128.28417038917542,
+        "centroid_x": 139.48813785507002,
+        "centroid_y": 35.346957667219378
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.488066300000014, 35.3469499],
+              [139.488119899999987, 35.3470147],
+              [139.488209399999988, 35.3469655],
+              [139.488155799999987, 35.3469006],
+              [139.488066300000014, 35.3469499]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209749205",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 117.14017040655017,
+        "centroid_x": 139.48801950355266,
+        "centroid_y": 35.347043685767879
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.488075400000014, 35.3470291],
+              [139.4880413, 35.3469909],
+              [139.488013599999988, 35.3470073],
+              [139.4880032, 35.3469957],
+              [139.4879526, 35.3470257],
+              [139.4880238, 35.3471055],
+              [139.48807260000001, 35.3470766],
+              [139.4880458, 35.3470466],
+              [139.488075400000014, 35.3470291]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209749206",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 97.553764246404171,
+        "centroid_x": 139.48793571826687,
+        "centroid_y": 35.347072692575153
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.487880100000012, 35.3470453],
+              [139.4879245, 35.3471249],
+              [139.4879913, 35.3471001],
+              [139.487947, 35.3470205],
+              [139.487880100000012, 35.3470453]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209749207",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": "grave_yard",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 579.50591168552637,
+        "centroid_x": 139.48774682241481,
+        "centroid_y": 35.347118595770446
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.487834600000014, 35.3470206],
+              [139.4875851, 35.3470863],
+              [139.4876573, 35.3472212],
+              [139.4878641, 35.347159],
+              [139.4879132, 35.3471336],
+              [139.487876300000011, 35.347082],
+              [139.487834600000014, 35.3470206]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209749208",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 599.62392187863588,
+        "centroid_x": 139.48802083981658,
+        "centroid_y": 35.347308888347094
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.48784710000001, 35.347328],
+              [139.4879004, 35.3474204],
+              [139.488041900000013, 35.3473609],
+              [139.4880478, 35.3473696],
+              [139.4881537, 35.3473256],
+              [139.4881584, 35.3473323],
+              [139.488204, 35.3473126],
+              [139.4881594, 35.3472361],
+              [139.4881363, 35.3472444],
+              [139.488109799999989, 35.3472034],
+              [139.4880365, 35.3472337],
+              [139.488028, 35.3472201],
+              [139.4879775, 35.3472406],
+              [139.487994, 35.3472636],
+              [139.487960500000014, 35.3472775],
+              [139.487949, 35.347259],
+              [139.4878833, 35.347288],
+              [139.4878933, 35.347308],
+              [139.48784710000001, 35.347328]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209749671",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 135.95633098483086,
+        "centroid_x": 139.488481,
+        "centroid_y": 35.34749225
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4884061, 35.3474928],
+              [139.4884658, 35.3475521],
+              [139.4885559, 35.3474917],
+              [139.488496199999986, 35.3474324],
+              [139.4884061, 35.3474928]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209749675",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "toilets",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"opening_hours\"=>\"Mo-Su 10:00-17:00; Th off\",\"url\"=>\"http://localwiki.jp/%E8%97%A4%E6%B2%A2/%E9%81%8A%E8%A1%8C%E8%8C%B6%E5%B1%8B\",\"wheelchair\"=>\"yes\"",
+        "area": 157.61266757547855,
+        "centroid_x": 139.4881409760188,
+        "centroid_y": 35.347575640092487
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4880628, 35.3475554],
+              [139.488142900000014, 35.3476425],
+              [139.4882191, 35.3475959],
+              [139.4882048, 35.3475803],
+              [139.4881724, 35.347545],
+              [139.488139100000012, 35.3475088],
+              [139.4880628, 35.3475554]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209751143",
+        "name": "私立藤嶺学園藤沢高等学校",
+        "type": null,
+        "aeroway": null,
+        "amenity": "school",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"note:ja\"=>\"国土数値情報（公共施設データ）平成19年　国土交通省\",\"source_ref\"=>\"http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html\"",
+        "area": 22015.07216796279,
+        "centroid_x": 139.48677452054747,
+        "centroid_y": 35.348763269509433
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.485974700000014, 35.3485829],
+              [139.486362, 35.348917],
+              [139.4864595, 35.3491142],
+              [139.4864866, 35.3493488],
+              [139.4863968, 35.3494873],
+              [139.48634340000001, 35.349641],
+              [139.4863595, 35.3497403],
+              [139.486985, 35.3496784],
+              [139.486955200000011, 35.3494853],
+              [139.487085799999988, 35.3493892],
+              [139.4870331, 35.3491245],
+              [139.4871412, 35.3490837],
+              [139.4871215, 35.3486627],
+              [139.4872382, 35.3486259],
+              [139.4874255, 35.3484913],
+              [139.487513299999989, 35.3483921],
+              [139.4875781, 35.3482186],
+              [139.4874466, 35.3479627],
+              [139.4871191, 35.3480674],
+              [139.4870261, 35.348068],
+              [139.486926399999987, 35.3480687],
+              [139.4865958, 35.3482119],
+              [139.486209800000012, 35.3484396],
+              [139.4860866, 35.3482892],
+              [139.4858841, 35.3484357],
+              [139.485974700000014, 35.3485829]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "209773555",
+        "name": "中雀門",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"layer\"=>\"1\"",
+        "area": 72.076683610677719,
+        "centroid_x": 139.48790761647848,
+        "centroid_y": 35.34841812228639
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4878716, 35.3483827],
+              [139.487853199999989, 35.3484304],
+              [139.4879436, 35.3484536],
+              [139.487962, 35.3484058],
+              [139.487914, 35.3483935],
+              [139.4878716, 35.3483827]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "210338140",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": "grave_yard",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 3880.0635413229465,
+        "centroid_x": 139.48925423292735,
+        "centroid_y": 35.348492170760885
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4888369, 35.3480031],
+              [139.4889073, 35.3481048],
+              [139.4889201, 35.3481233],
+              [139.4889504, 35.348167],
+              [139.488981, 35.3482298],
+              [139.4890055, 35.3482771],
+              [139.4890317, 35.3483295],
+              [139.4890572, 35.3483805],
+              [139.4890944, 35.348455],
+              [139.489300899999989, 35.3488679],
+              [139.4893496, 35.3488496],
+              [139.489412, 35.3489471],
+              [139.4894573, 35.3489268],
+              [139.489489, 35.3489692],
+              [139.4895391, 35.3489435],
+              [139.4895133, 35.3489014],
+              [139.48957630000001, 35.3488431],
+              [139.489648100000011, 35.3487943],
+              [139.4889679, 35.3479348],
+              [139.4888369, 35.3480031]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "210338831",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": "grave_yard",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 604.66407490521669,
+        "centroid_x": 139.48737583561609,
+        "centroid_y": 35.347130106667699
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4872552, 35.3470649],
+              [139.4873595, 35.3472683],
+              [139.4875183, 35.3472152],
+              [139.487382599999989, 35.3470063],
+              [139.4873652, 35.346979],
+              [139.4872713, 35.3470278],
+              [139.4872552, 35.3470649]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848297637",
+        "name": "放生池",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": "water",
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"water\"=>\"pond\"",
+        "area": 479.22324378788471,
+        "centroid_x": 139.4880878859714,
+        "centroid_y": 35.348640166274528
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4880704, 35.3485024],
+              [139.4880416, 35.3485044],
+              [139.4880329, 35.3485514],
+              [139.488017899999988, 35.3485912],
+              [139.4879463, 35.3486266],
+              [139.4879493, 35.3486776],
+              [139.4880279, 35.3487024],
+              [139.4880516, 35.3487024],
+              [139.4880679, 35.3486902],
+              [139.4880942, 35.3486912],
+              [139.4881818, 35.3487249],
+              [139.488203, 35.3487249],
+              [139.4882131, 35.3487126],
+              [139.4882381, 35.3487086],
+              [139.4882481, 35.3486973],
+              [139.488246800000013, 35.3486739],
+              [139.488178, 35.3486218],
+              [139.4881155, 35.3485994],
+              [139.4880942, 35.348582],
+              [139.4880867, 35.3485677],
+              [139.4880867, 35.3485381],
+              [139.4880704, 35.3485024]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848297638",
+        "name": "鐘楼",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "roof",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"name:en\"=>\"Shoro\",\"name:ja\"=>\"鐘楼\"",
+        "area": 50.366120647639036,
+        "centroid_x": 139.48821394960331,
+        "centroid_y": 35.34831867924467
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4881768, 35.3482983],
+              [139.4881905, 35.3483513],
+              [139.4882519, 35.3483371],
+              [139.488237700000013, 35.3482874],
+              [139.4881768, 35.3482983]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848297639",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "roof",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"name:ja\"=>\"手水舎\"",
+        "area": 62.720188587903976,
+        "centroid_x": 139.48846836859548,
+        "centroid_y": 35.347955568427324
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4884808, 35.3479166],
+              [139.4884195, 35.3479451],
+              [139.488438699999989, 35.3479729],
+              [139.4884533, 35.3479941],
+              [139.4885186, 35.3479661],
+              [139.4884808, 35.3479166]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848297640",
+        "name": "地蔵堂",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 150.57889848947525,
+        "centroid_x": 139.48866575802887,
+        "centroid_y": 35.348106130910139
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4887411, 35.3481146],
+              [139.488688599999989, 35.3480431],
+              [139.4885884, 35.3480992],
+              [139.488619, 35.3481361],
+              [139.488641300000012, 35.3481626],
+              [139.488646, 35.3481687],
+              [139.4887411, 35.3481146]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848297641",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 128.36586038768291,
+        "centroid_x": 139.48884894374405,
+        "centroid_y": 35.347933075676451
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4889192, 35.3479487],
+              [139.4888587, 35.3478745],
+              [139.4887784, 35.3479197],
+              [139.4888392, 35.3479905],
+              [139.4889192, 35.3479487]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848297643",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": "grave_yard",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 392.98130483925343,
+        "centroid_x": 139.48859553432496,
+        "centroid_y": 35.348911209028103
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.488466, 35.3488477],
+              [139.4884674, 35.3489437],
+              [139.488554599999986, 35.3489319],
+              [139.488592399999987, 35.3489923],
+              [139.4887712, 35.3489425],
+              [139.4887213, 35.3488849],
+              [139.4886258, 35.3489093],
+              [139.4885779, 35.3488264],
+              [139.488466, 35.3488477]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848297644",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "roof",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 27.880245491862297,
+        "centroid_x": 139.48848441320493,
+        "centroid_y": 35.348216075030628
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4885179, 35.3482199],
+              [139.4884921, 35.3481898],
+              [139.4884514, 35.3482111],
+              [139.4884763, 35.3482429],
+              [139.4885179, 35.3482199]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848297647",
+        "name": "山門",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"layer\"=>\"1\"",
+        "area": 15.126104455441236,
+        "centroid_x": 139.48741667663194,
+        "centroid_y": 35.346959008162386
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.487379299999986, 35.3469689],
+              [139.4873876, 35.3469795],
+              [139.4874542, 35.3469497],
+              [139.4874455, 35.3469388],
+              [139.487408499999987, 35.3469548],
+              [139.487379299999986, 35.3469689]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848297648",
+        "name": "赤門",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"layer\"=>\"1\",\"wikidata\"=>\"Q20045037\"",
+        "area": 27.003003418445587,
+        "centroid_x": 139.48773696267696,
+        "centroid_y": 35.347280273900267
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4877056, 35.3472702],
+              [139.4877172, 35.3472876],
+              [139.48773, 35.3473068],
+              [139.487768499999987, 35.347289],
+              [139.487744099999986, 35.3472545],
+              [139.4877056, 35.3472702]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848297649",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 57.114505790174007,
+        "centroid_x": 139.48743025991971,
+        "centroid_y": 35.347402086935453
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.487385499999988, 35.3473865],
+              [139.487429, 35.3474433],
+              [139.487475, 35.347419],
+              [139.487431500000014, 35.3473602],
+              [139.487385499999988, 35.3473865]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848297650",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 77.149913029745221,
+        "centroid_x": 139.48818480906559,
+        "centroid_y": 35.34718035692395
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4881385, 35.3471615],
+              [139.488172100000014, 35.3472264],
+              [139.488238, 35.3472021],
+              [139.488223, 35.3471727],
+              [139.488209399999988, 35.3471767],
+              [139.488187, 35.3471291],
+              [139.4881522, 35.3471423],
+              [139.4881584, 35.3471544],
+              [139.4881385, 35.3471615]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848305805",
+        "name": "黒門",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "roof",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"layer\"=>\"1\"",
+        "area": 19.625568574294448,
+        "centroid_x": 139.48781373777121,
+        "centroid_y": 35.348345119000875
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.487799599999988, 35.3483254],
+              [139.4877964, 35.3483336],
+              [139.4877941, 35.3483394],
+              [139.487788200000011, 35.3483544],
+              [139.4878263, 35.3483655],
+              [139.4878333, 35.3483501],
+              [139.4878367, 35.3483426],
+              [139.48784, 35.3483354],
+              [139.487799599999988, 35.3483254]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848305806",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "roof",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 55.572925344109535,
+        "centroid_x": 139.48859549391275,
+        "centroid_y": 35.34875279673777
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4886095, 35.3488052],
+              [139.4886401, 35.3487914],
+              [139.4885832, 35.3487013],
+              [139.488550300000014, 35.3487148],
+              [139.4886095, 35.3488052]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848305807",
+        "name": "太鼓堂",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 40.020087029784918,
+        "centroid_x": 139.48830915,
+        "centroid_y": 35.3487339
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.488283, 35.348709],
+              [139.4882781, 35.3487547],
+              [139.488335299999989, 35.3487588],
+              [139.48834020000001, 35.3487131],
+              [139.488283, 35.348709]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848305808",
+        "name": "宇賀神社",
+        "type": null,
+        "aeroway": null,
+        "amenity": "place_of_worship",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"religion\"=>\"shinto\"",
+        "area": 32.489908842369914,
+        "centroid_x": 139.48846536050937,
+        "centroid_y": 35.349194182075749
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4884333, 35.3491842],
+              [139.4884556, 35.349223],
+              [139.4884998, 35.349205],
+              [139.48847330000001, 35.3491662],
+              [139.4884491, 35.3491738],
+              [139.4884333, 35.3491842]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848305813",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": "grave_yard",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 251.40749755501747,
+        "centroid_x": 139.48814549857343,
+        "centroid_y": 35.349252500221503
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4881987, 35.3491888],
+              [139.4880186, 35.3492606],
+              [139.4880691, 35.349316],
+              [139.4881844, 35.349289],
+              [139.4882776, 35.3492181],
+              [139.4881987, 35.3491888]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848320787",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 163.59206332452595,
+        "centroid_x": 139.48794052871284,
+        "centroid_y": 35.348745851708827
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.487833200000011, 35.3487085],
+              [139.487864, 35.3487697],
+              [139.4879124, 35.3487708],
+              [139.4879137, 35.3487576],
+              [139.487982100000011, 35.3487609],
+              [139.487982100000011, 35.3488099],
+              [139.4880183, 35.3488123],
+              [139.488029, 35.3487271],
+              [139.4879526, 35.3487237],
+              [139.4879459, 35.3486986],
+              [139.487922200000014, 35.3486997],
+              [139.4879003, 35.3487007],
+              [139.4878976, 35.3487139],
+              [139.487833200000011, 35.3487085]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848327747",
+        "name": "清浄光寺",
+        "type": null,
+        "aeroway": null,
+        "amenity": "place_of_worship",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"alt_name:en\"=>\"Yugyoji\",\"alt_name:ja\"=>\"遊行寺\",\"denomination\"=>\"ji_shu\",\"denomination:ja\"=>\"時宗\",\"name:en\"=>\"Shojokoji\",\"name:ja\"=>\"清浄光寺\",\"religion\"=>\"buddhist\",\"website\"=>\"http://www.jishu.or.jp/\",\"wikidata\"=>\"Q11561284\",\"wikipedia:en\"=>\"Shōjōkō-ji\",\"wikipedia:ja\"=>\"清浄光寺\"",
+        "area": 62400.138866476715,
+        "centroid_x": 139.48819755227206,
+        "centroid_y": 35.348279468019044
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4872623, 35.347111],
+              [139.4872071, 35.347141],
+              [139.4872509, 35.3472219],
+              [139.4871502, 35.3472684],
+              [139.487318, 35.3475481],
+              [139.487169200000011, 35.3476029],
+              [139.48723050000001, 35.3476838],
+              [139.4869167, 35.3478243],
+              [139.4870261, 35.348068],
+              [139.4871191, 35.3480674],
+              [139.4874466, 35.3479627],
+              [139.4875781, 35.3482186],
+              [139.487513299999989, 35.3483921],
+              [139.4874255, 35.3484913],
+              [139.4872382, 35.3486259],
+              [139.4871215, 35.3486627],
+              [139.4871412, 35.3490837],
+              [139.4871425, 35.3491483],
+              [139.487996, 35.3493569],
+              [139.4883108, 35.3492832],
+              [139.4885559, 35.3492259],
+              [139.488571799999988, 35.3492222],
+              [139.4889231, 35.3491481],
+              [139.489094599999987, 35.3491809],
+              [139.4894691, 35.349122],
+              [139.4898038, 35.348948],
+              [139.488769100000013, 35.3476443],
+              [139.4884106, 35.3471939],
+              [139.488301400000012, 35.3472511],
+              [139.4881881, 35.3471185],
+              [139.488129500000014, 35.3471365],
+              [139.4881001, 35.3470959],
+              [139.487941, 35.3471618],
+              [139.4878396, 35.3470073],
+              [139.4875642, 35.3470775],
+              [139.4874632, 35.3469437],
+              [139.487454, 35.3469327],
+              [139.487542100000013, 35.3468841],
+              [139.4874714, 35.3468015],
+              [139.4873552, 35.3468487],
+              [139.4873101, 35.346867],
+              [139.487174, 35.3469222],
+              [139.487246699999986, 35.3470277],
+              [139.4872389, 35.3470729],
+              [139.4872623, 35.347111]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848683763",
+        "name": "菖蒲園",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": "garden",
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 454.83106152713299,
+        "centroid_x": 139.48786631143557,
+        "centroid_y": 35.348855132634178
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4876897, 35.348906],
+              [139.4877621, 35.3489109],
+              [139.4878531, 35.3489174],
+              [139.4879709, 35.3489243],
+              [139.487982100000011, 35.3488099],
+              [139.487982100000011, 35.3487609],
+              [139.4879137, 35.3487576],
+              [139.4879124, 35.3487708],
+              [139.487864, 35.3487697],
+              [139.487846600000012, 35.3488529],
+              [139.487691500000011, 35.3488404],
+              [139.4876897, 35.348906]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848683764",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "roof",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 37.607064945623279,
+        "centroid_x": 139.48746785365913,
+        "centroid_y": 35.348878041348861
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.487441600000011, 35.3488555],
+              [139.48744, 35.3489016],
+              [139.4874953, 35.3488998],
+              [139.4874949, 35.3488547],
+              [139.487441600000011, 35.3488555]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848683765",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": "garden",
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 366.68581761419773,
+        "centroid_x": 139.48754433000525,
+        "centroid_y": 35.348977034159049
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4873781, 35.3489394],
+              [139.4873756, 35.3490116],
+              [139.487551599999989, 35.3490075],
+              [139.4875515, 35.3490196],
+              [139.4877033, 35.3490177],
+              [139.4877042, 35.3489405],
+              [139.4873781, 35.3489394]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848683766",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": "garden",
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 788.35850042104721,
+        "centroid_x": 139.4878762609593,
+        "centroid_y": 35.349055173110145
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4877478, 35.3491607],
+              [139.4879065, 35.3491663],
+              [139.4879077, 35.3491233],
+              [139.4880219, 35.349131],
+              [139.4880345, 35.3489959],
+              [139.487963, 35.3489847],
+              [139.487966699999987, 35.3489606],
+              [139.487748399999987, 35.3489488],
+              [139.4877478, 35.3491607]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848732152",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": "parking",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 502.08792807161808,
+        "centroid_x": 139.48825047700913,
+        "centroid_y": 35.347112126883268
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4883073, 35.3472438],
+              [139.4883766, 35.3472061],
+              [139.4883887, 35.3471793],
+              [139.4882307, 35.346983],
+              [139.488092200000011, 35.3470782],
+              [139.4881359, 35.3471288],
+              [139.48818940000001, 35.3471149],
+              [139.4883073, 35.3472438]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848764910",
+        "name": "真浄院山門",
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"layer\"=>\"1\"",
+        "area": 23.871096435934305,
+        "centroid_x": 139.48761567629361,
+        "centroid_y": 35.347719320048121
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4875886, 35.3477071],
+              [139.4876073, 35.3477443],
+              [139.487642599999987, 35.3477323],
+              [139.487624, 35.3476939],
+              [139.4875886, 35.3477071]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "848820259",
+        "name": "遊行寺茶屋",
+        "type": null,
+        "aeroway": null,
+        "amenity": "cafe",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"name:ja_rm\"=>\"Yugyo-Chaya\"",
+        "area": 68.245981212705374,
+        "centroid_x": 139.48809641293869,
+        "centroid_y": 35.347635613216013
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.488151, 35.3476598],
+              [139.48807930000001, 35.3475869],
+              [139.4880418, 35.3476114],
+              [139.4881135, 35.3476843],
+              [139.488132, 35.3476723],
+              [139.488151, 35.3476598]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "849082183",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": "bicycle_parking",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 26.950554985553026,
+        "centroid_x": 139.48849682926001,
+        "centroid_y": 35.347860069993033
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4884629, 35.3478513],
+              [139.488489499999986, 35.3478849],
+              [139.488536, 35.3478628],
+              [139.488494800000012, 35.3478372],
+              [139.4884629, 35.3478513]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "849082187",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 37.800347596406937,
+        "centroid_x": 139.48757468463344,
+        "centroid_y": 35.348127253774351
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.48761540000001, 35.3481358],
+              [139.4875633, 35.3480943],
+              [139.487534, 35.3481187],
+              [139.487586, 35.3481602],
+              [139.48761540000001, 35.3481358]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "849082218",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": "parking",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 678.99416063725948,
+        "centroid_x": 139.488375901268,
+        "centroid_y": 35.347573963963029
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.48848, 35.3477418],
+              [139.4885794, 35.3476843],
+              [139.4883974, 35.3475162],
+              [139.488374099999987, 35.3474939],
+              [139.4883185, 35.3474161],
+              [139.488172600000013, 35.3474932],
+              [139.4882571, 35.3475794],
+              [139.4883199, 35.3475673],
+              [139.488419099999987, 35.3476797],
+              [139.48848, 35.3477418]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "849082238",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"bridge\"=>\"yes\",\"highway\"=>\"pedestrian\",\"surface\"=>\"wood\"",
+        "area": 21.063346138224006,
+        "centroid_x": 139.48797704409219,
+        "centroid_y": 35.34865154793728
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4879434, 35.3486613],
+              [139.48801, 35.3486626],
+              [139.4880107, 35.3486418],
+              [139.487944, 35.3486405],
+              [139.487943800000011, 35.34865],
+              [139.4879434, 35.3486613]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "849082258",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": "parking",
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 819.22137314081192,
+        "centroid_x": 139.48828743312629,
+        "centroid_y": 35.347792538269381
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.488078300000012, 35.3477827],
+              [139.4882433, 35.3478754],
+              [139.488299399999988, 35.3479365],
+              [139.4884688, 35.3478261],
+              [139.4884607, 35.3478147],
+              [139.4883065, 35.3476497],
+              [139.488078300000012, 35.3477827]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "849082259",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": "garden",
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 81.605755470693111,
+        "centroid_x": 139.48798718301825,
+        "centroid_y": 35.347184041870321
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.488053400000013, 35.3471846],
+              [139.488031400000011, 35.3471437],
+              [139.487914499999988, 35.3471871],
+              [139.487950399999988, 35.3472225],
+              [139.488053400000013, 35.3471846]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "849082260",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": "water",
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"water\"=>\"pond\"",
+        "area": 24.742085583508015,
+        "centroid_x": 139.48854608036618,
+        "centroid_y": 35.349185450789264
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4884999, 35.3492268],
+              [139.4885663, 35.3492021],
+              [139.4885515, 35.3491232],
+              [139.488537799999989, 35.3491962],
+              [139.4884999, 35.3492268]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "849113301",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": "garden",
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 102.10771784186363,
+        "centroid_x": 139.48857251609192,
+        "centroid_y": 35.349100007671417
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.488575700000013, 35.3491882],
+              [139.488621599999988, 35.3491467],
+              [139.4885621, 35.3490255],
+              [139.4885176, 35.349029],
+              [139.4885621, 35.3491186],
+              [139.488575700000013, 35.3491882]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "849113302",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": "garden",
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 49.260008627548814,
+        "centroid_x": 139.48839589384815,
+        "centroid_y": 35.34920261636541
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4884343, 35.3492415],
+              [139.4883834, 35.3491432],
+              [139.488364, 35.3491771],
+              [139.488397, 35.3492479],
+              [139.4884343, 35.3492415]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "850049888",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "yes",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 9.1312729585915804,
+        "centroid_x": 139.48905173914514,
+        "centroid_y": 35.349027416057154
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.489068300000014, 35.3490371],
+              [139.4890567, 35.3490115],
+              [139.489047, 35.3490151],
+              [139.4890354, 35.3490189],
+              [139.4890457, 35.3490421],
+              [139.489068300000014, 35.3490371]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "850049889",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "roof",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 9.3197303153574467,
+        "centroid_x": 139.489166377646,
+        "centroid_y": 35.348929335598477
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4891768, 35.3489154],
+              [139.4891462, 35.3489267],
+              [139.4891537, 35.3489389],
+              [139.489156400000013, 35.3489433],
+              [139.4891863, 35.348932],
+              [139.4891768, 35.3489154]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "855281275",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "roof",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 26.094573453068733,
+        "centroid_x": 139.489371244171,
+        "centroid_y": 35.348967032017399
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.489361699999989, 35.3489922],
+              [139.4894027, 35.3489741],
+              [139.4893808, 35.3489419],
+              [139.48933980000001, 35.3489599],
+              [139.489361699999989, 35.3489922]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "879135253",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": "roof",
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 13.112133529037237,
+        "centroid_x": 139.48876646613289,
+        "centroid_y": 35.349034189142259
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4887837, 35.3490195],
+              [139.488762900000012, 35.3490247],
+              [139.4887421, 35.3490299],
+              [139.4887493, 35.3490489],
+              [139.4887707, 35.3490435],
+              [139.4887908, 35.3490385],
+              [139.4887837, 35.3490195]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "879135255",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": "water",
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"water\"=>\"reservoir\"",
+        "area": 4.9829898700118065,
+        "centroid_x": 139.4891745598766,
+        "centroid_y": 35.349072067068114
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4891638, 35.349084],
+              [139.489184200000011, 35.3490771],
+              [139.4891844, 35.3490602],
+              [139.489165899999989, 35.3490664],
+              [139.4891638, 35.349084]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "879135256",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": null,
+        "man_made": null,
+        "military": null,
+        "natural": "water",
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": "\"water\"=>\"reservoir\"",
+        "area": 26.544696841388941,
+        "centroid_x": 139.48924889043994,
+        "centroid_y": 35.349065948451489
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4892477, 35.3490931],
+              [139.4892776, 35.349073],
+              [139.48925460000001, 35.3490388],
+              [139.4892303, 35.3490463],
+              [139.4892262, 35.3490779],
+              [139.4892477, 35.3490931]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": null,
+        "osm_way_id": "1392476406",
+        "name": null,
+        "type": null,
+        "aeroway": null,
+        "amenity": null,
+        "admin_level": null,
+        "barrier": null,
+        "boundary": null,
+        "building": null,
+        "craft": null,
+        "geological": null,
+        "historic": null,
+        "land_area": null,
+        "landuse": null,
+        "leisure": "garden",
+        "man_made": null,
+        "military": null,
+        "natural": null,
+        "office": null,
+        "place": null,
+        "shop": null,
+        "sport": null,
+        "tourism": null,
+        "other_tags": null,
+        "area": 127.14478766918182,
+        "centroid_x": 139.4881908585869,
+        "centroid_y": 35.348202540514926
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [139.4881272, 35.348221],
+              [139.4881393, 35.3482414],
+              [139.4881604, 35.3482484],
+              [139.488226, 35.3482359],
+              [139.488253899999989, 35.3482096],
+              [139.4882413, 35.3481766],
+              [139.488223799999986, 35.3481533],
+              [139.488189799999986, 35.3481556],
+              [139.4881576, 35.3481714],
+              [139.4881393, 35.3481944],
+              [139.4881272, 35.348221]
+            ]
+          ]
+        ]
+      }
+    }
+  ]
 }
