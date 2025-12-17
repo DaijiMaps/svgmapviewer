@@ -7,10 +7,7 @@ import {
 import type { SearchContext } from './address-types'
 import type { SearchGeoReq } from '../../types'
 
-function doSearch(
-  ctx: null | SearchContext,
-  { pgeo, fidx }: Readonly<SearchGeoReq>
-) {
+function doSearch(ctx: null | SearchContext, greq: Readonly<SearchGeoReq>) {
   if (ctx === null) {
     // XXX
     postMessage({
@@ -19,7 +16,7 @@ function doSearch(
     })
     return
   }
-  const res = searchAddress(ctx, pgeo, fidx)
+  const res = searchAddress(ctx, greq)
   if (res === null) {
     // XXX
     postMessage({

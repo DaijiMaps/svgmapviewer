@@ -3,13 +3,13 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-loop-statements */
 import Flatbush from 'flatbush'
-import { type VecVec as Vec } from '../vec/prefixed'
 import {
   type AddressEntries,
   type FlatbushIndexes,
   type SearchAddressRes,
   type SearchContext,
 } from './address-types'
+import type { SearchGeoReq } from '../../types'
 
 export function initAddresses(
   entries: Readonly<AddressEntries>
@@ -38,8 +38,7 @@ const MAX_DISTANCE = 100
 
 export function searchAddress(
   { fb, idxs }: SearchContext,
-  pgeo: Vec,
-  fidx: number
+  { pgeo, fidx }: Readonly<SearchGeoReq>
 ): SearchAddressRes | null {
   const filter = (idx: number) => {
     const e = idxs[idx]
