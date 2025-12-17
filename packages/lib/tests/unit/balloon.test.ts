@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import { layoutLeg } from '../../src/lib/balloon'
-import { HV } from '../../src/lib/types'
+import { type HV } from '../../src/lib/types'
 import { vecVec } from '../../src/lib/vec/prefixed'
 
 test('balloon down', () => {

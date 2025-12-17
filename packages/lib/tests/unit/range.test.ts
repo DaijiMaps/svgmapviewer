@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
-import { BoxBox } from '../../src/lib/box/prefixed'
+import { type BoxBox } from '../../src/lib/box/prefixed'
 import { makeRanges, printRanges, within } from '../../src/lib/range'
-import { VecVec } from '../../src/lib/vec/prefixed'
+import { type VecVec } from '../../src/lib/vec/prefixed'
 
 interface Ranges {
   o: VecVec

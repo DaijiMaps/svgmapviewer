@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import { findDiv, findRadius } from '../../src/lib/distance'
-import { emptyLayout, Layout } from '../../src/lib/layout'
+import { emptyLayout, type Layout } from '../../src/lib/layout'
 
 const layout: Layout = {
   ...emptyLayout,
