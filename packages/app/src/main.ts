@@ -1,6 +1,9 @@
 import { type OsmRenderConfig, type OsmSearchConfig } from 'svgmapviewer'
 import { getMapNames } from 'svgmapviewer/carto'
-import { getSearchEntries, getSearchInfo } from 'svgmapviewer/geo'
+import {
+  osmGetSearchEntries as getSearchEntries,
+  osmGetSearchInfo as getSearchInfo,
+} from 'svgmapviewer/geo'
 import {
   isMapOsmDefaultRendered as isMapRendered,
   RenderMapOsmDefault as renderMap,

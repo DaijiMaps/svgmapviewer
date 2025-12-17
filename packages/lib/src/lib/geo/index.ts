@@ -1,4 +1,4 @@
-import { getSearchEntries } from './address-data'
+import { osmGetSearchEntries } from './address-data'
 import { mapMapFromMapData } from './data'
 import {
   type MapCoord,
@@ -66,16 +66,19 @@ import { geolocActorStart, getPosition, usePosition } from './position-xstate'
 import {
   findFeature,
   findProperties,
-  getSearchInfo,
   getOsmId,
   getPropertyValue,
+  osmGetSearchInfo,
 } from './search'
 import { type OsmSearchEntry } from './search-types'
 
-export { getSearchEntries, getSearchInfo }
+// address-data
+export { osmGetSearchEntries }
 
+// data
 export { mapMapFromMapData }
 
+// data-types
 export {
   type MapCoord,
   type OsmMapData,
@@ -83,8 +86,10 @@ export {
   type MeasureProperties,
 }
 
+// geojson
 export { calcScale }
 
+// geojson-types
 export {
   type LineCoordinate,
   type LineFeature,
@@ -112,6 +117,7 @@ export {
   type PolygonGeometry,
 }
 
+// osm-types
 export {
   type OsmFeature,
   type OsmGeoJSON,
@@ -126,14 +132,26 @@ export {
   type OsmProperties,
 }
 
+// path
 export { lineToPathD, multiLineStringToPathD, multiPolygonToPathD }
 
+// path-types
 export { type Line, type MultiLineString, type MultiPolygon, type Point }
 
+// poi-types
 export { type LinesFilter, type MultiPolygonsFilter, type PointsFilter }
 
+// position-xstate
 export { geolocActorStart, getPosition, usePosition }
 
-export { findFeature, findProperties, getOsmId, getPropertyValue }
+// search
+export {
+  findFeature,
+  findProperties,
+  getOsmId,
+  getPropertyValue,
+  osmGetSearchInfo,
+}
 
+// search-types
 export { type OsmSearchEntry }

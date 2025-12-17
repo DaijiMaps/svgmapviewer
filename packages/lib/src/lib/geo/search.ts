@@ -56,7 +56,7 @@ export function getPropertyValue(
   return res === null ? null : res[1]
 }
 
-export function getSearchInfo(
+export function osmGetSearchInfo(
   res: Readonly<SearchPos>,
   mapMap?: Readonly<OsmMapMap>,
   entries?: readonly OsmSearchEntry[]
