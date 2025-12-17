@@ -4,7 +4,7 @@ import {
   type SearchWorkerContext,
   type SearchWorkerReq,
 } from './search-worker-types'
-import type { SearchContext } from './address-types'
+import type { SearchContext } from './types'
 import type { SearchGeoReq } from '../../types'
 
 function doSearch(ctx: null | SearchContext, greq: Readonly<SearchGeoReq>) {

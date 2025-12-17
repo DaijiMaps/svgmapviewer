@@ -1,9 +1,5 @@
 import type { SearchGeoReq } from '../../types'
-import {
-  type SearchEntries,
-  type SearchPos,
-  type SearchContext,
-} from './address-types'
+import { type SearchEntries, type SearchPos, type SearchContext } from './types'
 
 export type SearchWorkerReq =
   | { type: 'INIT'; entries: SearchEntries }

@@ -19,7 +19,7 @@ import { type POI } from './lib/geo/poi-types'
 import { type Vec } from './lib/vec'
 import { type Layout, type LayoutCoord } from './lib/viewer/layout-types'
 import { type ViewerMode } from './lib/viewer/viewer-types'
-import { type SearchEntries, type SearchPos } from './lib/search/address-types'
+import { type SearchEntries, type SearchPos } from './lib/search/types'
 import { type Cb, type Cb1 } from './lib/cb'
 
 //// layout

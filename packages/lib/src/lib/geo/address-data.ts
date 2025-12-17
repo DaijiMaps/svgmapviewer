@@ -1,5 +1,5 @@
 import { type OsmSearchProps } from '../../types'
-import { type SearchEntries, type SearchPos } from '../search/address-types'
+import { type SearchEntries, type SearchPos } from '../search/types'
 import type { OsmProperties } from './osm-types'
 import { getOsmId } from './search'
 import type { SearchEntry } from './search-types'

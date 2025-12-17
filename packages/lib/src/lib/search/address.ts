@@ -8,7 +8,7 @@ import {
   type FlatbushIndexes,
   type SearchPos,
   type SearchContext,
-} from './address-types'
+} from './types'
 import type { SearchGeoReq } from '../../types'
 
 export function initAddresses(entries: Readonly<SearchEntries>): SearchContext {

@@ -4,7 +4,7 @@
 /* eslint-disable functional/no-expression-statements */
 import { svgMapViewerConfig } from './config'
 import { notifySearchDone, searchCbs } from './event'
-import { type SearchEntries, type SearchPos } from './lib/search/address-types'
+import { type SearchEntries, type SearchPos } from './lib/search/types'
 import {
   type SearchWorkerReq,
   type SearchWorkerRes,
