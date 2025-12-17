@@ -1,4 +1,4 @@
-import { type VecVec } from '../vec/prefixed'
+import type { SearchGeoReq } from '../../types'
 import {
   type AddressEntries,
   type SearchAddressRes,
@@ -7,7 +7,7 @@ import {
 
 export type SearchWorkerReq =
   | { type: 'INIT'; entries: AddressEntries }
-  | { type: 'SEARCH'; pgeo: VecVec; fidx: number }
+  | { type: 'SEARCH'; greq: SearchGeoReq }
 export type SearchWorkerRes =
   | { type: 'INIT.DONE' }
   | { type: 'SEARCH.DONE'; res: SearchAddressRes }

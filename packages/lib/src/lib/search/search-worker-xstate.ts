@@ -69,7 +69,7 @@ const searchWorkerMachine = setup({
           {
             actions: {
               type: 'doSearch',
-              params: ({ event }) => event,
+              params: ({ event }) => event.greq,
             },
           },
         ],
