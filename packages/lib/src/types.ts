@@ -36,7 +36,7 @@ export interface Size {
 
 export interface POI {
   id: null | number
-  name: string[]
+  name: readonly string[]
   pos: Vec
   size: number
   area?: number
@@ -80,7 +80,7 @@ export interface Range {
 }
 
 export interface AnimationMatrix {
-  readonly matrix: DOMMatrixReadOnly
+  readonly matrix: Readonly<DOMMatrixReadOnly>
   readonly origin: null | Vec
 }
 
