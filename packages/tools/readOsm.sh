@@ -7,5 +7,5 @@ ${tools}/pyqgis.sh ${tools}/readOsm.py "$@"
 (
 cd src/data
 ${tools}/geojson2ts.py
-${tools}/../../node_modules/.bin/prettier -w *.ts
+${tools}/../../node_modules/.bin/prettier -w .
 )
