@@ -1,4 +1,4 @@
-import { getAddressEntries } from './address-data'
+import { getSearchEntries } from './address-data'
 import { mapMapFromMapData } from './data'
 import {
   type MapCoord,
@@ -66,13 +66,13 @@ import { geolocActorStart, getPosition, usePosition } from './position-xstate'
 import {
   findFeature,
   findProperties,
-  getAddressInfo,
+  getSearchInfo,
   getOsmId,
   getPropertyValue,
 } from './search'
 import { type OsmSearchEntry } from './search-types'
 
-export { getAddressEntries, getAddressInfo }
+export { getSearchEntries, getSearchInfo }
 
 export { mapMapFromMapData }
 

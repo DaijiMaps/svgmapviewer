@@ -63,8 +63,8 @@ export function svgmapviewer(
     )
   }
 
-  if (configUser.getAddressEntries) {
-    workerSearchInit(configUser.getAddressEntries(config))
+  if (configUser.getSearchEntries) {
+    workerSearchInit(configUser.getSearchEntries(config))
   }
 
   if (config.floorsConfig !== undefined) {

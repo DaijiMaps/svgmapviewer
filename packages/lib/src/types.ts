@@ -144,11 +144,11 @@ export type OsmGetMapNames = (
   props: Readonly<OsmRenderMapProps>
 ) => readonly POI[]
 
-export type OsmGetAddressEntries = (
+export type OsmGetSearchEntries = (
   props: Readonly<OsmSearchProps>
 ) => SearchEntries
 
-export type OsmGetAddressInfo = (
+export type OsmGetSearchInfo = (
   res: Readonly<SearchPos>,
   mapMap?: Readonly<OsmMapMap>,
   entries?: readonly OsmSearchEntry[]
@@ -205,8 +205,8 @@ export interface OsmRenderConfig {
 
 export interface OsmSearchConfig {
   osmSearchEntries: readonly OsmSearchEntry[] // XXX
-  getAddressEntries: OsmGetAddressEntries
-  getAddressInfo: OsmGetAddressInfo
+  getSearchEntries: OsmGetSearchEntries
+  getSearchInfo: OsmGetSearchInfo
   renderInfo: RenderInfo
 }
 

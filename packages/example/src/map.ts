@@ -18,11 +18,11 @@ const addressMap = new Map<string, POI>(
   pois.map((poi) => [poi.name.join(' '), poi])
 )
 
-function getAddressEntries(): SearchEntries {
+function getSearchEntries(): SearchEntries {
   return addresses
 }
 
-function getAddressInfo(pos: Readonly<SearchPos>): null | Info {
+function getSearchInfo(pos: Readonly<SearchPos>): null | Info {
   const poi = addressMap.get(pos.address)
   if (poi === undefined) {
     return null
@@ -51,8 +51,8 @@ const mapConfig: SvgMapViewerConfigUser = {
 
   // OsmSearchConfig
   //SearchEntries,
-  getAddressEntries,
-  getAddressInfo,
+  getSearchEntries,
+  getSearchInfo,
   renderInfo,
 
   // FloorsRenderConfig

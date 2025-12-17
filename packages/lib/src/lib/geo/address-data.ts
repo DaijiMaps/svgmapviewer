@@ -59,7 +59,7 @@ function filterFeature(
     : { address: id + '', coord: { x: centroid_x, y: centroid_y } }
 }
 
-export function getAddressEntries(
+export function getSearchEntries(
   props: Readonly<OsmSearchProps>
 ): SearchEntries {
   const skip = props.cartoConfig?.skipNamePattern

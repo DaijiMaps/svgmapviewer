@@ -1,6 +1,6 @@
 import { type OsmRenderConfig, type OsmSearchConfig } from 'svgmapviewer'
 import { getMapNames } from 'svgmapviewer/carto'
-import { getAddressEntries, getAddressInfo } from 'svgmapviewer/geo'
+import { getSearchEntries, getSearchInfo } from 'svgmapviewer/geo'
 import {
   isMapOsmDefaultRendered as isMapRendered,
   RenderMapOsmDefault as renderMap,
@@ -26,7 +26,7 @@ export const renderConfig: OsmRenderConfig = {
 
 export const searchConfig: OsmSearchConfig = {
   osmSearchEntries,
-  getAddressEntries, // XXX
-  getAddressInfo, // XXX
+  getSearchEntries, // XXX
+  getSearchInfo, // XXX
   renderInfo,
 }
