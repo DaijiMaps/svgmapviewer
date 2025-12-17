@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@xstate/react": "^6.0.0",
-    "@xstate/store": "^3.13.0",
+    "@xstate/store": "^3.14.0",
     "clsx": "^2.1.1",
     "flatbush": "^4.5.0",
     "fp-ts": "^2.16.11",
@@ -41,14 +41,14 @@
   "devDependencies": {
     "@rsbuild/plugin-react": "^1.4.2",
     "@rslib/core": "^0.18.4",
-    "@testing-library/react": "^16.3.0",
+    "@testing-library/react": "^16.3.1",
     "@types/node": "^24.2.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@unocss/vite": "^66.5.10",
     "@vitejs/plugin-react": "^5.1.2",
     "@vitejs/plugin-react-oxc": "^0.4.3",
-    "@vitest/browser": "^4.0.15",
+    "@vitest/browser": "^4.0.16",
     "monocle-ts": "^2.3.13",
     "newtype-ts": "^0.3.5",
     "playwright": "^1.57.0",
@@ -61,7 +61,7 @@
     "vite-plugin-dts": "^4.5.4",
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vite-plugin-libcss": "^1.1.2",
-    "vitest": "^4.0.15"
+    "vitest": "^4.0.16"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
