@@ -79,7 +79,6 @@ extraLayerNames = [
 # ./src/data/map-other_relations.geojson
 
 class Context:
-    prefix = ''
     prjdir = ''
     prj = ''
     srcdir = ''
@@ -99,10 +98,8 @@ class Context:
 
     def __init__(self):
         prjdir = os.getcwd()
-        prefix = os.path.basename(prjdir)
         srcdir = '%s/src/data' % prjdir
 
-        self.prefix = prefix
         self.prjdir = prjdir
         self.srcdir = srcdir
 
@@ -319,7 +316,6 @@ def readOsm(selector: typing.Callable[[QgsVectorLayer], None]) -> dict[str, QgsV
         layers = allLayers[layername]
         fields = layers[0].fields()
 
-        # XXX prefix
         name = 'map-%s' % layername
 
         m = makeVector(typ, name)
