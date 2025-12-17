@@ -5,7 +5,7 @@ import { isShadowRootRendered } from '../dom'
 import { MAP_SVG_LAYERS_ROOT_ID } from './map-svg-react'
 import { MapHtml } from './MapHtml'
 import { MapSvgLabels } from './MapSvgLabels'
-import { MapSvgLayers } from './MapSvgLayers'
+import { MapSvgPaths } from './MapSvgPaths'
 import { MapSvgMarkers } from './MapSvgMarkers'
 import { MapSvgObjects } from './MapSvgObjects'
 import { MapSvgSymbols } from './MapSvgSymbols'
@@ -20,7 +20,7 @@ export function RenderMapOsmDefault(
 ): ReactNode {
   return (
     <>
-      <MapSvgLayers {...props} />
+      <MapSvgPaths {...props} />
       <MapSvgObjects {...props} />
       <MapSvgSymbols {...props} />
       <MapSvgMarkers {...props} />
