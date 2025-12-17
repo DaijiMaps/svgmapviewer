@@ -1,6 +1,6 @@
 packages:
   - ./packages/app-osm
-  - ./packages/example
+  - ./packages/example-floors
   - ./packages/example-osm
   - ./packages/lib
 overrides:
