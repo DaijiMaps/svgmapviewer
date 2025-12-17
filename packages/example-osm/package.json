@@ -1,0 +1,62 @@
+{
+  "type": "module",
+  "name": "svgmapviewer-example-osm",
+  "version": "0.0.1-alpha.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "rsbuild",
+    "dev:local": "rsbuild --config rsbuild.config-local.ts",
+    "dev-vite": "vite --host 0.0.0.0",
+    "dev:local-vite": "vite --host 0.0.0.0 --config vite.config-local.ts",
+    "dev:local:ssl-vite": "vite --host 0.0.0.0 --config vite.config-local-ssl.ts",
+    "build": "tsc -b && rsbuild build",
+    "build:local": "tsc -b && rsbuild build --config rsbuild.config-local.ts",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "pages:deploy": "pnpm build && cd dist && wrangler pages deploy ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.26.0",
+  "dependencies": {
+    "@vitejs/plugin-basic-ssl": "^2.1.0",
+    "@xstate/react": "^6.0.0",
+    "flatbush": "^4.5.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "svgmapviewer": "workspace:*",
+    "svgmapviewer-app": "workspace:*",
+    "xstate": "^5.25.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@rsbuild/core": "^1.6.14",
+    "@rsbuild/plugin-react": "^1.4.2",
+    "@testing-library/react": "^16.3.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-functional": "^9.0.2",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.25",
+    "globals": "^16.5.0",
+    "prettier": "3.7.4",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.50.0",
+    "vite": "^7.3.0",
+    "vite-plugin-prebundle-workers": "^0.2.0",
+    "vite-plugin-svgr": "^4.5.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix",
+    "*": "prettier --write --cache --ignore-unknown"
+  }
+}

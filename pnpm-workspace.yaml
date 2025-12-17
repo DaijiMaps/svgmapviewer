@@ -1,6 +1,7 @@
 packages:
   - ./packages/app
   - ./packages/example
+  - ./packages/example-osm
   - ./packages/lib
 overrides:
   "tmp": "^0.2.4"
