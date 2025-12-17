@@ -4,5 +4,6 @@ import { mapData } from './data/all'
 
 svgmapviewer({
   root: 'root',
+  title: 'Yugyoji',
   mapData,
 })
