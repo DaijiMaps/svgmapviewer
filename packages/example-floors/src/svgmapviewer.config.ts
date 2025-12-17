@@ -1,8 +1,8 @@
 import { type SvgMapViewerConfigUser } from 'svgmapviewer'
-import { searchConfig } from './search'
-import { floorsConfig } from './floors.config'
 import { floorsCommonConfig } from './config'
+import { floorsConfig } from './floors'
 import { RenderInfo as renderInfo } from './render'
+import { searchConfig } from './search'
 
 const userConfig: SvgMapViewerConfigUser = {
   origViewBox: {
