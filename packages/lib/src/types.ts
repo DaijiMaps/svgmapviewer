@@ -143,9 +143,11 @@ export type OsmRenderMap = (props: Readonly<OsmRenderMapProps>) => ReactNode
 export type OsmGetMapNames = (
   props: Readonly<OsmRenderMapProps>
 ) => readonly POI[]
+
 export type OsmGetAddressEntries = (
   props: Readonly<OsmSearchProps>
 ) => SearchEntries
+
 export type OsmGetAddressInfo = (
   res: Readonly<SearchPos>,
   mapMap?: Readonly<OsmMapMap>,
@@ -155,6 +157,7 @@ export type OsmGetAddressInfo = (
 export interface RenderInfoProps {
   info: Info
 }
+
 export type RenderInfo = (props: Readonly<RenderInfoProps>) => ReactNode
 
 ////
