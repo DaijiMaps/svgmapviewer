@@ -1,13 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type Info, type POI, type SvgMapViewerConfigUser } from 'svgmapviewer'
-import {
-  isFloorsRendered as isMapRendered,
-  RenderFloors as renderMap,
-} from 'svgmapviewer/map-floors'
 import { type SearchEntries, type SearchPos } from 'svgmapviewer/search'
-import { floorsConfig } from './floors.config.ts'
 import { pois } from './data.ts'
-import { RenderInfo as renderInfo } from './render.tsx'
 
 const addresses: SearchEntries = pois.map((poi) => ({
   address: poi.name.join(' '),
@@ -33,30 +27,7 @@ function getSearchInfo(pos: Readonly<SearchPos>): null | Info {
   }
 }
 
-const mapConfig: SvgMapViewerConfigUser = {
-  origViewBox: {
-    x: 0,
-    y: 0,
-    width: 200,
-    height: 300,
-  },
-  backgroundColor: 'grey',
-
-  // OsmDataConfig
-
-  // OsmRenderConfig
-  renderMap,
-  isMapRendered,
-  getMapNames: () => pois,
-
-  // OsmSearchConfig
-  //SearchEntries,
+export const searchConfig: SvgMapViewerConfigUser = {
   getSearchEntries,
   getSearchInfo,
-  renderInfo,
-
-  // FloorsRenderConfig
-  floorsConfig,
 }
-
-export default mapConfig
