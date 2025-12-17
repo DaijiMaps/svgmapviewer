@@ -3,12 +3,12 @@ import {
   isFloorsRendered as isMapRendered,
   RenderFloors as renderMap,
 } from 'svgmapviewer/map-floors'
-import { AddressEntries } from 'svgmapviewer/search'
+import { SearchEntries } from 'svgmapviewer/search'
 import { RenderInfo as renderInfo } from './RenderInfo.tsx'
 import { floorsConfig } from './floors.config.ts'
 import { pois } from './data.ts'
 
-const addresses: AddressEntries = pois.map((poi) => ({
+const addresses: SearchEntries = pois.map((poi) => ({
   address: poi.name.join(' '),
   coord: poi.pos,
   fidx: poi.fidx,
@@ -31,9 +31,9 @@ const mapConfig: SvgMapViewerConfigUser = {
   getMapNames: () => pois,
 
   // OsmSearchConfig
-  //searchEntries,
+  //SearchEntries,
   getAddressEntries: () => addresses,
-  getAddressInfo: (_mapmap, _entries, res) => ({
+  getAddressInfo: (res) => ({
     title: res.address,
     x: { tag: 'shop' },
   }),

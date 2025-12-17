@@ -1,6 +1,6 @@
 packages:
-  - packages/app
-  - packages/example
-  - packages/lib
+  - ./packages/app
+  - ./packages/example
+  - ./packages/lib
 overrides:
   "tmp": "^0.2.4"

@@ -57,10 +57,13 @@ export function getPropertyValue(
 }
 
 export function getAddressInfo(
-  mapMap: Readonly<OsmMapMap>,
-  entries: readonly OsmSearchEntry[],
-  res: Readonly<SearchPos>
+  res: Readonly<SearchPos>,
+  mapMap?: Readonly<OsmMapMap>,
+  entries?: readonly OsmSearchEntry[]
 ): null | Info {
+  if (mapMap === undefined || entries === undefined) {
+    return null
+  }
   const id = Number(res.address)
   const feature = findFeature(id, mapMap)
   if (feature === null) {
