@@ -139,9 +139,9 @@ export type OsmGetAddressEntries = (
   props: Readonly<OsmSearchProps>
 ) => SearchEntries
 export type OsmGetAddressInfo = (
+  res: Readonly<SearchPos>,
   mapMap: Readonly<OsmMapMap>,
-  entries: readonly OsmSearchEntry[],
-  res: Readonly<SearchPos>
+  entries: readonly OsmSearchEntry[]
 ) => null | Info
 
 export interface RenderInfoProps {
