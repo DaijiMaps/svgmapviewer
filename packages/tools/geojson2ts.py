@@ -62,3 +62,15 @@ for _geojson in geojsons:
 
     except FileNotFound:
         print("%s.json not found" % _name)
+
+# write all.ts
+with open('all.ts', 'w') as ofile:
+    for _geojson in geojsons:
+        _name = _geojson.replace('map-', '')
+        ofile.write('import %s from "./%s"\n' % (_name, _geojson))
+    ofile.write('\n')
+    ofile.write('export const all = {\n')
+    for _geojson in geojsons:
+        _name = _geojson.replace('map-', '')
+        ofile.write('%s,\n' % (_name))
+    ofile.write('}\n')
