@@ -1,5 +1,5 @@
 import { SvgMapViewerConfigUser } from 'svgmapviewer'
-import mapConfig from './map.config'
+import mapConfig from './map'
 
 const userConfig: SvgMapViewerConfigUser = {
   title: 'Example Floor Map',

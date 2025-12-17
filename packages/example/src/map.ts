@@ -1,13 +1,14 @@
-import { Info, SvgMapViewerConfigUser } from 'svgmapviewer'
+/* eslint-disable functional/functional-parameters */
+import { type Info, type SvgMapViewerConfigUser } from 'svgmapviewer'
 import {
   isFloorsRendered as isMapRendered,
   RenderFloors as renderMap,
 } from 'svgmapviewer/map-floors'
-import { SearchEntries, SearchPos } from 'svgmapviewer/search'
+import { type SearchEntries, type SearchPos } from 'svgmapviewer/search'
 import { RenderInfo as renderInfo } from './RenderInfo.tsx'
 import { floorsConfig } from './floors.config.ts'
 import { pois } from './data.ts'
-import { POI } from 'svgmapviewer/geo'
+import { type POI } from 'svgmapviewer/geo'
 
 const addresses: SearchEntries = pois.map((poi) => ({
   address: poi.name.join(' '),
@@ -18,7 +19,7 @@ const addressMap = new Map<string, POI>(
   pois.map((poi) => [poi.name.join(' '), poi])
 )
 
-function getAddressEntries() {
+function getAddressEntries(): SearchEntries {
   return addresses
 }
 
