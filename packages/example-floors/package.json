@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "svgmapviewer-example",
+  "name": "svgmapviewer-example-floors",
   "version": "0.0.2",
   "description": "",
   "main": "index.js",
