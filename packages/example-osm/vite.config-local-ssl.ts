@@ -25,7 +25,10 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@daijimaps/svgmapviewer-app': path.resolve(__dirname, `${APP}/index.ts`),
+      '@daijimaps/svgmapviewer-app-osm': path.resolve(
+        __dirname,
+        `${APP}/index.ts`
+      ),
       '@daijimaps/svgmapviewer/box': path.resolve(
         __dirname,
         `${LIB}/box/prefixed/index.ts`

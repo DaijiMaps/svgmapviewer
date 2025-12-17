@@ -1,0 +1,4699 @@
+{
+  "type": "FeatureCollection",
+  "name": "map-midpoints",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817362",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.70715787611442,
+        "centroid_y": 35.686921951698778
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.707157876114422, 35.686921951698778]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817378",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70775150573252,
+        "centroid_y": 35.683688670979151
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.707751505732517, 35.683688670979151]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817534",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"check_date:surface\"=>\"2023-03-23\",\"smoothness\"=>\"good\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.71149645678824,
+        "centroid_y": 35.684179980039048
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71149645678824, 35.684179980039048]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817599",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71197524875106,
+        "centroid_y": 35.683076042413873
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71197524875106, 35.683076042413873]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817601",
+        "name": "shinjuku-gyoen promenade",
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70595947324705,
+        "centroid_y": 35.685957196146909
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.705959473247049, 35.685957196146909]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817633",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"surface\"=>\"fine_gravel\"",
+        "area": null,
+        "centroid_x": 139.70781091148294,
+        "centroid_y": 35.685310233473444
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.707810911482937, 35.685310233473444]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817701",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"surface\"=>\"fine_gravel\"",
+        "area": null,
+        "centroid_x": 139.70784402776215,
+        "centroid_y": 35.685676262336663
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70784402776215, 35.685676262336663]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817720",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.7067055929646,
+        "centroid_y": 35.68545751463256
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706705592964596, 35.68545751463256]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817730",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70635075768453,
+        "centroid_y": 35.685022921960908
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706350757684532, 35.685022921960908]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817747",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70684600300382,
+        "centroid_y": 35.685634292598458
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706846003003818, 35.685634292598458]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817781",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70711748583867,
+        "centroid_y": 35.685905324670891
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.707117485838666, 35.685905324670891]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817893",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70650504664121,
+        "centroid_y": 35.68721980080575
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706505046641212, 35.68721980080575]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817896",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70561503443562,
+        "centroid_y": 35.687291991182647
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.705615034435624, 35.687291991182647]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817936",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"surface\"=>\"compacted\"",
+        "area": null,
+        "centroid_x": 139.70632323907301,
+        "centroid_y": 35.686800934519901
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706323239073015, 35.686800934519901]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817941",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70534537744348,
+        "centroid_y": 35.687065814400128
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.705345377443479, 35.687065814400128]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27817973",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"intermediate\",\"surface\"=>\"fine_gravel\"",
+        "area": null,
+        "centroid_x": 139.70844494651189,
+        "centroid_y": 35.685799849243075
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708444946511889, 35.685799849243075]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27818048",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"good\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.70774371818013,
+        "centroid_y": 35.685987725884225
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.707743718180126, 35.685987725884225]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27818069",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.71107924655323,
+        "centroid_y": 35.685484756110633
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711079246553226, 35.685484756110633]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27818135",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.70784242935574,
+        "centroid_y": 35.687126922355063
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.707842429355736, 35.687126922355063]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27818140",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"excellent\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.707950744063,
+        "centroid_y": 35.686784659100127
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.707950744062998, 35.686784659100127]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27818173",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71122934652121,
+        "centroid_y": 35.682675872045941
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711229346521208, 35.682675872045941]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27818175",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"intermediate\",\"surface\"=>\"fine_gravel\"",
+        "area": null,
+        "centroid_x": 139.70880717863702,
+        "centroid_y": 35.685031386745955
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708807178637016, 35.685031386745955]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27818176",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70910268975203,
+        "centroid_y": 35.684820709485088
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709102689752029, 35.684820709485088]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27818256",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71126743360014,
+        "centroid_y": 35.683480851821876
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711267433600142, 35.683480851821876]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "27818273",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"excellent\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.71058039514577,
+        "centroid_y": 35.682512846228136
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.710580395145769, 35.682512846228136]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "41589440",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71355665,
+        "centroid_y": 35.68664065
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713556649999987, 35.68664065]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "158366796",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70586530055692,
+        "centroid_y": 35.685530203621092
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.705865300556923, 35.685530203621092]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "188006348",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71236827399431,
+        "centroid_y": 35.682370346677615
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712368273994315, 35.682370346677615]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "188006349",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71045207822414,
+        "centroid_y": 35.683670855247414
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.710452078224137, 35.683670855247414]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "188006354",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71052161813157,
+        "centroid_y": 35.683667619841479
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.710521618131565, 35.683667619841479]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "188006356",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71381716013366,
+        "centroid_y": 35.683258732205893
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713817160133658, 35.683258732205893]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "188006357",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 10,
+        "other_tags": "\"bridge\"=>\"yes\",\"surface\"=>\"wood\"",
+        "area": null,
+        "centroid_x": 139.71066185000001,
+        "centroid_y": 35.6838826
+      },
+      "geometry": { "type": "Point", "coordinates": [139.71066185, 35.6838826] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "188006358",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71435510043403,
+        "centroid_y": 35.683487000578182
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.714355100434034, 35.683487000578182]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "188006359",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"excellent\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.70965779619615,
+        "centroid_y": 35.685066396403457
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709657796196154, 35.685066396403457]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "188006360",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"excellent\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.71004579955047,
+        "centroid_y": 35.68476030710449
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.710045799550471, 35.68476030710449]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "188006363",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71362766946885,
+        "centroid_y": 35.683401623022263
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713627669468849, 35.683401623022263]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "188006842",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": "wall",
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71241179070483,
+        "centroid_y": 35.684778426462316
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712411790704834, 35.684778426462316]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "228926585",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71293778701369,
+        "centroid_y": 35.682842616383695
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712937787013686, 35.682842616383695]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "228926586",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71342236468715,
+        "centroid_y": 35.684800106843781
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713422364687148, 35.684800106843781]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "228926587",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70973650203732,
+        "centroid_y": 35.682762615143503
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709736502037316, 35.682762615143503]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "228926589",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71090293133264,
+        "centroid_y": 35.681989727883575
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71090293133264, 35.681989727883575]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "228926590",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71313330063904,
+        "centroid_y": 35.684834710651089
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713133300639043, 35.684834710651089]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "228926591",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"excellent\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.70995178295695,
+        "centroid_y": 35.682701698502342
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709951782956949, 35.682701698502342]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "228926592",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70957540403384,
+        "centroid_y": 35.682324760648186
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709575404033842, 35.682324760648186]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "228926593",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71419286225782,
+        "centroid_y": 35.683946652074454
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.714192862257818, 35.683946652074454]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "228926594",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"noname\"=>\"yes\"",
+        "area": null,
+        "centroid_x": 139.71385637221326,
+        "centroid_y": 35.684138732656407
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713856372213257, 35.684138732656407]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "228926595",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71410907276177,
+        "centroid_y": 35.684263068257764
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.714109072761772, 35.684263068257764]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "228926596",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"noname\"=>\"yes\"",
+        "area": null,
+        "centroid_x": 139.71302296913947,
+        "centroid_y": 35.683332757113675
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713022969139473, 35.683332757113675]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "228926597",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71235750809123,
+        "centroid_y": 35.685775069074083
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71235750809123, 35.685775069074083]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076835",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71370229046255,
+        "centroid_y": 35.685200017266219
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71370229046255, 35.685200017266219]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076836",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71321633438572,
+        "centroid_y": 35.685736602756641
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71321633438572, 35.685736602756641]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076837",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.70984970876495,
+        "centroid_y": 35.686470176192039
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709849708764949, 35.686470176192039]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076838",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.7131417854751,
+        "centroid_y": 35.685598092125595
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713141785475102, 35.685598092125595]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076839",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"good\",\"surface\"=>\"compacted\"",
+        "area": null,
+        "centroid_x": 139.70582122615116,
+        "centroid_y": 35.686908767153398
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.705821226151158, 35.686908767153398]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076840",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 10,
+        "other_tags": "\"bridge\"=>\"yes\"",
+        "area": null,
+        "centroid_x": 139.7138367,
+        "centroid_y": 35.68569525
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7138367, 35.68569525] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076841",
+        "name": null,
+        "highway": "steps",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71362175000002,
+        "centroid_y": 35.6851442
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713621750000016, 35.6851442]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076842",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 20,
+        "other_tags": "\"bridge\"=>\"yes\",\"layer\"=>\"1\"",
+        "area": null,
+        "centroid_x": 139.7135596,
+        "centroid_y": 35.6852672
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7135596, 35.6852672] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076843",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 10,
+        "other_tags": "\"bridge\"=>\"yes\"",
+        "area": null,
+        "centroid_x": 139.71365405,
+        "centroid_y": 35.68576105
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71365405, 35.68576105]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076844",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 20,
+        "other_tags": "\"bridge\"=>\"yes\",\"layer\"=>\"1\"",
+        "area": null,
+        "centroid_x": 139.7134887,
+        "centroid_y": 35.68548145
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7134887, 35.68548145] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076845",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"surface\"=>\"fine_gravel\"",
+        "area": null,
+        "centroid_x": 139.70873416386704,
+        "centroid_y": 35.684646740824839
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708734163867035, 35.684646740824839]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076846",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71357429146988,
+        "centroid_y": 35.685202114925112
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713574291469882, 35.685202114925112]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076847",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71393210534802,
+        "centroid_y": 35.685792661100002
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713932105348022, 35.685792661100002]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076848",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71321753931321,
+        "centroid_y": 35.685858746491519
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713217539313206, 35.685858746491519]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076849",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71372767868513,
+        "centroid_y": 35.684948332019992
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713727678685132, 35.684948332019992]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076850",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71378515448993,
+        "centroid_y": 35.685739321830432
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713785154489926, 35.685739321830432]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076851",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71184088059826,
+        "centroid_y": 35.686202087718442
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71184088059826, 35.686202087718442]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076852",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71356713284916,
+        "centroid_y": 35.685379658697741
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713567132849164, 35.685379658697741]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076853",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71295469945565,
+        "centroid_y": 35.685811614748324
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712954699455651, 35.685811614748324]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076854",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71209367998185,
+        "centroid_y": 35.683428046656559
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712093679981848, 35.683428046656559]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076855",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71040589104979,
+        "centroid_y": 35.686914002720911
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.710405891049788, 35.686914002720911]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076856",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71264234017448,
+        "centroid_y": 35.685451794840439
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712642340174483, 35.685451794840439]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076857",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71342472118829,
+        "centroid_y": 35.685690415419295
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713424721188289, 35.685690415419295]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076858",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71201026177508,
+        "centroid_y": 35.683534236605418
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712010261775077, 35.683534236605418]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076859",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71091507491178,
+        "centroid_y": 35.684123657065662
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.710915074911782, 35.684123657065662]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076860",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71259971458679,
+        "centroid_y": 35.685934897846778
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712599714586787, 35.685934897846778]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076861",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71336590934936,
+        "centroid_y": 35.685624793360098
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713365909349363, 35.685624793360098]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229076862",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71404921609329,
+        "centroid_y": 35.685517867783972
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.714049216093287, 35.685517867783972]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "229078520",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"excellent\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.71133464678886,
+        "centroid_y": 35.685663321654587
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711334646788856, 35.685663321654587]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "230068544",
+        "name": "渋谷川暗渠",
+        "highway": null,
+        "waterway": "stream",
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": -10,
+        "other_tags": "\"layer\"=>\"-1\",\"name:en\"=>\"Culvert of Shibuya River\",\"name:es\"=>\"Río urbano Shibuya\",\"name:ru\"=>\"Водопропускная труба реки Сибуя\",\"tunnel\"=>\"culvert\"",
+        "area": null,
+        "centroid_x": 139.71504186508739,
+        "centroid_y": 35.683642323865946
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.715041865087386, 35.683642323865946]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "285908112",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70967921970407,
+        "centroid_y": 35.684018440046167
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709679219704071, 35.684018440046167]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "360184105",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": "wall",
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70695904683609,
+        "centroid_y": 35.688470572481393
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70695904683609, 35.688470572481393]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "360184115",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"noname\"=>\"yes\",\"smoothness\"=>\"excellent\",\"surface\"=>\"asphalt\",\"tunnel\"=>\"building_passage\"",
+        "area": null,
+        "centroid_x": 139.70752411235156,
+        "centroid_y": 35.688333660579538
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.707524112351564, 35.688333660579538]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "360184124",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"excellent\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.70967949539263,
+        "centroid_y": 35.682898802486534
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709679495392635, 35.682898802486534]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "360184131",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 20,
+        "other_tags": "\"bridge\"=>\"yes\",\"layer\"=>\"1\"",
+        "area": null,
+        "centroid_x": 139.71283305,
+        "centroid_y": 35.68211435
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71283305, 35.68211435]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "360184143",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"noname\"=>\"yes\",\"tunnel\"=>\"building_passage\"",
+        "area": null,
+        "centroid_x": 139.70885417669419,
+        "centroid_y": 35.682474130570604
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708854176694189, 35.682474130570604]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "360184146",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"noname\"=>\"yes\",\"tunnel\"=>\"building_passage\"",
+        "area": null,
+        "centroid_x": 139.71359619784772,
+        "centroid_y": 35.68677178074072
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713596197847721, 35.68677178074072]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "360184151",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"noname\"=>\"yes\",\"smoothness\"=>\"excellent\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.71240426426175,
+        "centroid_y": 35.685417353470449
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71240426426175, 35.685417353470449]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "360184158",
+        "name": "shinjuku-gyoen promenade",
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70558102367841,
+        "centroid_y": 35.685053543009452
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.705581023678405, 35.685053543009452]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "360184160",
+        "name": "shinjuku-gyoen promenade",
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 20,
+        "other_tags": "\"bridge\"=>\"yes\",\"layer\"=>\"1\"",
+        "area": null,
+        "centroid_x": 139.70589965,
+        "centroid_y": 35.68541765000001
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70589965, 35.68541765]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "360184162",
+        "name": "shinjuku-gyoen promenade",
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 20,
+        "other_tags": "\"bridge\"=>\"yes\",\"layer\"=>\"1\"",
+        "area": null,
+        "centroid_x": 139.7059248230085,
+        "centroid_y": 35.685793506019301
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.705924823008502, 35.685793506019301]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "360184165",
+        "name": "shinjuku-gyoen promenade",
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70588030626737,
+        "centroid_y": 35.685613138269211
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.705880306267375, 35.685613138269211]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "407485562",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70682647174053,
+        "centroid_y": 35.685153639977869
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706826471740527, 35.685153639977869]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "407485563",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70825901009732,
+        "centroid_y": 35.685279971735326
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708259010097322, 35.685279971735326]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "407485564",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70814896781567,
+        "centroid_y": 35.685358754389462
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708148967815674, 35.685358754389462]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "407485566",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70831145,
+        "centroid_y": 35.6848211
+      },
+      "geometry": { "type": "Point", "coordinates": [139.70831145, 35.6848211] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "407485567",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70821255136019,
+        "centroid_y": 35.684896997682131
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708212551360191, 35.684896997682131]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "542874832",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70971848592322,
+        "centroid_y": 35.685254575614195
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709718485923219, 35.685254575614195]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "542874834",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70945685000001,
+        "centroid_y": 35.68506285
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70945685, 35.68506285]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "542874836",
+        "name": null,
+        "highway": "steps",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.7094738,
+        "centroid_y": 35.68503695
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709473800000012, 35.68503695]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "542874838",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70951634232378,
+        "centroid_y": 35.684994494194775
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709516342323781, 35.684994494194775]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "669694514",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"footway\"=>\"sidewalk\",\"lit\"=>\"yes\"",
+        "area": null,
+        "centroid_x": 139.71427776505951,
+        "centroid_y": 35.681651266383511
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.714277765059506, 35.681651266383511]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "693772495",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71265506574804,
+        "centroid_y": 35.686503211932106
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712655065748038, 35.686503211932106]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "693772496",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71199504063767,
+        "centroid_y": 35.686598318808294
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711995040637674, 35.686598318808294]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "808019462",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"intermediate\",\"surface\"=>\"fine_gravel\"",
+        "area": null,
+        "centroid_x": 139.70862592179529,
+        "centroid_y": 35.685345413369539
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708625921795289, 35.685345413369539]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "808019463",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"intermediate\",\"surface\"=>\"fine_gravel\"",
+        "area": null,
+        "centroid_x": 139.70914539806483,
+        "centroid_y": 35.6855988009249
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709145398064834, 35.6855988009249]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "808019464",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70803124367586,
+        "centroid_y": 35.685492900670766
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708031243675862, 35.685492900670766]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "808019465",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70811719070795,
+        "centroid_y": 35.685401668411508
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708117190707952, 35.685401668411508]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "808019466",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"surface\"=>\"unhewn_cobblestone\"",
+        "area": null,
+        "centroid_x": 139.70835607767049,
+        "centroid_y": 35.68577790787397
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708356077670487, 35.68577790787397]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "808019467",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70759080000028,
+        "centroid_y": 35.685726349955956
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.707590800000276, 35.685726349955956]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "808019468",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70751600505827,
+        "centroid_y": 35.685561212511452
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.707516005058267, 35.685561212511452]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "808019470",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70649276455819,
+        "centroid_y": 35.685956760112667
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706492764558192, 35.685956760112667]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "925872130",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71335280442702,
+        "centroid_y": 35.686493956093663
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713352804427018, 35.686493956093663]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "925872131",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71163605489451,
+        "centroid_y": 35.686754923314844
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711636054894512, 35.686754923314844]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "925881525",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"natural\"=>\"tree_row\"",
+        "area": null,
+        "centroid_x": 139.71430805,
+        "centroid_y": 35.68338165
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71430805, 35.68338165]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "925881526",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"natural\"=>\"tree_row\"",
+        "area": null,
+        "centroid_x": 139.71426145000001,
+        "centroid_y": 35.6833307
+      },
+      "geometry": { "type": "Point", "coordinates": [139.71426145, 35.6833307] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "925881527",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"natural\"=>\"tree_row\"",
+        "area": null,
+        "centroid_x": 139.7137707,
+        "centroid_y": 35.6828852
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7137707, 35.6828852] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "925881528",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"natural\"=>\"tree_row\"",
+        "area": null,
+        "centroid_x": 139.7144394,
+        "centroid_y": 35.6835283
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7144394, 35.6835283] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "925881529",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"natural\"=>\"tree_row\"",
+        "area": null,
+        "centroid_x": 139.71370745000002,
+        "centroid_y": 35.6828268
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713707450000015, 35.6828268]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "925881530",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"natural\"=>\"tree_row\"",
+        "area": null,
+        "centroid_x": 139.7135394,
+        "centroid_y": 35.6827269
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7135394, 35.6827269] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "925881531",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"natural\"=>\"tree_row\"",
+        "area": null,
+        "centroid_x": 139.7137236,
+        "centroid_y": 35.6825162
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7137236, 35.6825162] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "926121873",
+        "name": null,
+        "highway": "steps",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71325095,
+        "centroid_y": 35.6865679
+      },
+      "geometry": { "type": "Point", "coordinates": [139.71325095, 35.6865679] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "926121875",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"footway\"=>\"sidewalk\",\"lit\"=>\"yes\"",
+        "area": null,
+        "centroid_x": 139.71516270762709,
+        "centroid_y": 35.682370872982922
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.715162707627087, 35.682370872982922]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "926121876",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"access\"=>\"private\"",
+        "area": null,
+        "centroid_x": 139.71493234400904,
+        "centroid_y": 35.682409631107717
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.714932344009043, 35.682409631107717]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "926121877",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.70896710663584,
+        "centroid_y": 35.687985963669199
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708967106635839, 35.687985963669199]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "975039882",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70688249594974,
+        "centroid_y": 35.686966686661009
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706882495949742, 35.686966686661009]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1061944595",
+        "name": "渋谷川（隠田川）",
+        "highway": null,
+        "waterway": "stream",
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71293018491332,
+        "centroid_y": 35.681985232005658
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712930184913318, 35.681985232005658]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1061944596",
+        "name": "渋谷川（隠田川）暗渠",
+        "highway": null,
+        "waterway": "stream",
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": -10,
+        "other_tags": "\"layer\"=>\"-1\",\"tunnel\"=>\"culvert\"",
+        "area": null,
+        "centroid_x": 139.71390885886831,
+        "centroid_y": 35.681422214181275
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713908858868308, 35.681422214181275]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021733",
+        "name": null,
+        "highway": "steps",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.7062859,
+        "centroid_y": 35.6859192
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706285900000012, 35.6859192]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021734",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70624205000001,
+        "centroid_y": 35.6859236
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706242050000014, 35.6859236]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021735",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70637491173881,
+        "centroid_y": 35.685897968134221
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706374911738806, 35.685897968134221]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021736",
+        "name": null,
+        "highway": "steps",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70646325000001,
+        "centroid_y": 35.6858368
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706463250000013, 35.6858368]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021737",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70647295000001,
+        "centroid_y": 35.68580475
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70647295, 35.68580475]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021738",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"surface\"=>\"fine_gravel\"",
+        "area": null,
+        "centroid_x": 139.70831972735564,
+        "centroid_y": 35.685077544016707
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708319727355644, 35.685077544016707]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021739",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70819296623228,
+        "centroid_y": 35.685465525927512
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708192966232275, 35.685465525927512]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021740",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70521269573376,
+        "centroid_y": 35.684926249943942
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.705212695733763, 35.684926249943942]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021741",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"excellent\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.7079427,
+        "centroid_y": 35.6869219
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7079427, 35.6869219] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021742",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"good\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.70974037459118,
+        "centroid_y": 35.686035678236642
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709740374591178, 35.686035678236642]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021743",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71155838376518,
+        "centroid_y": 35.686305011899385
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71155838376518, 35.686305011899385]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021744",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71176727014077,
+        "centroid_y": 35.686494966635905
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711767270140768, 35.686494966635905]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021745",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71172125000001,
+        "centroid_y": 35.6864073
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711721250000011, 35.6864073]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021746",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.7118002087619,
+        "centroid_y": 35.686262609973305
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7118002087619, 35.686262609973305]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021747",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71169209715609,
+        "centroid_y": 35.686332445929509
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711692097156089, 35.686332445929509]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021748",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71169506795704,
+        "centroid_y": 35.686332747644684
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711695067957038, 35.686332747644684]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021749",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"excellent\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.70964847033153,
+        "centroid_y": 35.686254894972649
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70964847033153, 35.686254894972649]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021750",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70900849766835,
+        "centroid_y": 35.684211651949056
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70900849766835, 35.684211651949056]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021751",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70878235000001,
+        "centroid_y": 35.6843473
+      },
+      "geometry": { "type": "Point", "coordinates": [139.70878235, 35.6843473] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021752",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70878685000002,
+        "centroid_y": 35.68491765
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708786850000024, 35.68491765]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021753",
+        "name": "渋谷川（隠田川）",
+        "highway": null,
+        "waterway": "stream",
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70751472599699,
+        "centroid_y": 35.685087783029211
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.707514725996987, 35.685087783029211]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021754",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70673509758706,
+        "centroid_y": 35.685158236261159
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706735097587057, 35.685158236261159]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021755",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 20,
+        "other_tags": "\"bridge\"=>\"yes\",\"layer\"=>\"1\"",
+        "area": null,
+        "centroid_x": 139.70747835,
+        "centroid_y": 35.68508085
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70747835, 35.68508085]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021756",
+        "name": "渋谷川（隠田川）",
+        "highway": null,
+        "waterway": "stream",
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70677741476902,
+        "centroid_y": 35.685271362394417
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706777414769022, 35.685271362394417]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021757",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.7069244335282,
+        "centroid_y": 35.685266786596486
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706924433528201, 35.685266786596486]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021758",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 20,
+        "other_tags": "\"bridge\"=>\"yes\",\"layer\"=>\"1\"",
+        "area": null,
+        "centroid_x": 139.70689395,
+        "centroid_y": 35.68522595
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70689395, 35.68522595]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021759",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70651982543077,
+        "centroid_y": 35.685334400030591
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706519825430775, 35.685334400030591]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1134021760",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 20,
+        "other_tags": "\"bridge\"=>\"yes\",\"layer\"=>\"1\"",
+        "area": null,
+        "centroid_x": 139.7065933,
+        "centroid_y": 35.68538295
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7065933, 35.68538295] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1135065779",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.70876324365835,
+        "centroid_y": 35.683817460154792
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708763243658353, 35.683817460154792]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1135065780",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 20,
+        "other_tags": "\"bridge\"=>\"yes\",\"layer\"=>\"1\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.7093644,
+        "centroid_y": 35.68428685000001
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7093644, 35.68428685] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1135065781",
+        "name": "渋谷川（隠田川）",
+        "highway": null,
+        "waterway": "stream",
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71166839050215,
+        "centroid_y": 35.682486111379134
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711668390502155, 35.682486111379134]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1135065782",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71131652129344,
+        "centroid_y": 35.682086143803886
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71131652129344, 35.682086143803886]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1135065783",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 20,
+        "other_tags": "\"bridge\"=>\"yes\",\"layer\"=>\"1\"",
+        "area": null,
+        "centroid_x": 139.71158695,
+        "centroid_y": 35.68246615
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71158695, 35.68246615]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1135066946",
+        "name": null,
+        "highway": "service",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"access\"=>\"private\"",
+        "area": null,
+        "centroid_x": 139.70694123050407,
+        "centroid_y": 35.684090749021571
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706941230504071, 35.684090749021571]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1135066947",
+        "name": null,
+        "highway": "service",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"access\"=>\"private\"",
+        "area": null,
+        "centroid_x": 139.706267542907,
+        "centroid_y": 35.684185152125373
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706267542907, 35.684185152125373]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1135069547",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70576708070664,
+        "centroid_y": 35.68643548472906
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.705767080706636, 35.68643548472906]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1135073067",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"good\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.70657132316629,
+        "centroid_y": 35.688161622602756
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706571323166287, 35.688161622602756]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1135073068",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 20,
+        "other_tags": "\"bridge\"=>\"yes\",\"layer\"=>\"1\",\"surface\"=>\"wood\"",
+        "area": null,
+        "centroid_x": 139.70541355388409,
+        "centroid_y": 35.687729699397899
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.705413553884085, 35.687729699397899]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1135073069",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 20,
+        "other_tags": "\"bridge\"=>\"yes\",\"layer\"=>\"1\",\"surface\"=>\"wood\"",
+        "area": null,
+        "centroid_x": 139.70551936152239,
+        "centroid_y": 35.68764084203756
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.705519361522391, 35.68764084203756]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1135075679",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70971629844013,
+        "centroid_y": 35.685433138926072
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709716298440128, 35.685433138926072]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1135075680",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": "hedge",
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70987212590339,
+        "centroid_y": 35.685308398621984
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709872125903388, 35.685308398621984]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1135075681",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": "retaining_wall",
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70958469682878,
+        "centroid_y": 35.685305618329778
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.709584696828784, 35.685305618329778]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1135888158",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71069534999998,
+        "centroid_y": 35.6839588
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71069534999998, 35.6839588]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1215203400",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": "hedge",
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70968889634446,
+        "centroid_y": 35.686283759106622
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70968889634446, 35.686283759106622]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1241250726",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"admin_level\"=>\"10\",\"boundary\"=>\"administrative\"",
+        "area": null,
+        "centroid_x": 139.71175624050878,
+        "centroid_y": 35.681495968701121
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711756240508777, 35.681495968701121]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1241250729",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"admin_level\"=>\"10\",\"boundary\"=>\"administrative\"",
+        "area": null,
+        "centroid_x": 139.70610319524778,
+        "centroid_y": 35.684315645988455
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.706103195247778, 35.684315645988455]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1241250733",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"admin_level\"=>\"7\",\"boundary\"=>\"administrative\"",
+        "area": null,
+        "centroid_x": 139.70870607821635,
+        "centroid_y": 35.684716519596861
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708706078216352, 35.684716519596861]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1242173027",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"admin_level\"=>\"7\",\"boundary\"=>\"administrative\"",
+        "area": null,
+        "centroid_x": 139.71345345,
+        "centroid_y": 35.6818537
+      },
+      "geometry": { "type": "Point", "coordinates": [139.71345345, 35.6818537] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1267612024",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"good\",\"surface\"=>\"compacted\"",
+        "area": null,
+        "centroid_x": 139.70554165,
+        "centroid_y": 35.68736255
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.705541649999986, 35.68736255]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1267612025",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"good\",\"surface\"=>\"compacted\"",
+        "area": null,
+        "centroid_x": 139.7055224,
+        "centroid_y": 35.68743345
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7055224, 35.68743345] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1267632433",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"smoothness\"=>\"excellent\",\"surface\"=>\"asphalt\"",
+        "area": null,
+        "centroid_x": 139.70846642702119,
+        "centroid_y": 35.68710042597646
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708466427021193, 35.68710042597646]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1284649964",
+        "name": "渋谷川（隠田川）",
+        "highway": null,
+        "waterway": "stream",
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70891298469641,
+        "centroid_y": 35.684661698257464
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708912984696411, 35.684661698257464]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1321817927",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.7128036,
+        "centroid_y": 35.6820523
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7128036, 35.6820523] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1321817928",
+        "name": "擬木橋",
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 20,
+        "other_tags": "\"bridge\"=>\"yes\",\"layer\"=>\"1\"",
+        "area": null,
+        "centroid_x": 139.71277955,
+        "centroid_y": 35.6820161
+      },
+      "geometry": { "type": "Point", "coordinates": [139.71277955, 35.6820161] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1321832521",
+        "name": null,
+        "highway": null,
+        "waterway": "stream",
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"water\"=>\"stream\"",
+        "area": null,
+        "centroid_x": 139.70745076279817,
+        "centroid_y": 35.685422346343863
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.707450762798175, 35.685422346343863]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1321874093",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71311474871158,
+        "centroid_y": 35.686166429114152
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713114748711575, 35.686166429114152]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1321874094",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71338277601794,
+        "centroid_y": 35.686065413602577
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713382776017937, 35.686065413602577]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1321874095",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71307145,
+        "centroid_y": 35.68606225
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71307145, 35.68606225]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1321874098",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71237423677672,
+        "centroid_y": 35.686485857661829
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712374236776725, 35.686485857661829]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1321874099",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71266660044685,
+        "centroid_y": 35.686451495441148
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712666600446852, 35.686451495441148]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1321874100",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71296024999998,
+        "centroid_y": 35.68655875
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712960249999981, 35.68655875]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1321874101",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.7130672,
+        "centroid_y": 35.6866584
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713067200000012, 35.6866584]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1321874102",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71294533453826,
+        "centroid_y": 35.686783210159035
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712945334538261, 35.686783210159035]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1321874103",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71098437627762,
+        "centroid_y": 35.687029946542729
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.710984376277622, 35.687029946542729]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1321874105",
+        "name": null,
+        "highway": null,
+        "waterway": "stream",
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70557285409015,
+        "centroid_y": 35.687218792552272
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70557285409015, 35.687218792552272]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1321874106",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70864362055883,
+        "centroid_y": 35.686223246761109
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.708643620558831, 35.686223246761109]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1321874108",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70711298532242,
+        "centroid_y": 35.686199651367517
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.707112985322425, 35.686199651367517]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322002382",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": "\"natural\"=>\"tree_row\"",
+        "area": null,
+        "centroid_x": 139.7130899,
+        "centroid_y": 35.68299155
+      },
+      "geometry": { "type": "Point", "coordinates": [139.7130899, 35.68299155] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322002383",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71349385196396,
+        "centroid_y": 35.682718111765467
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71349385196396, 35.682718111765467]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322002384",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71445746107995,
+        "centroid_y": 35.683550725582798
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.714457461079945, 35.683550725582798]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322002385",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71371161548237,
+        "centroid_y": 35.682878218697873
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713711615482367, 35.682878218697873]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322002386",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71360920252022,
+        "centroid_y": 35.682798203309368
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713609202520217, 35.682798203309368]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322002404",
+        "name": null,
+        "highway": "pedestrian",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71093432539934,
+        "centroid_y": 35.686795819207006
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.710934325399336, 35.686795819207006]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322002407",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71205001212974,
+        "centroid_y": 35.686924296936382
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712050012129737, 35.686924296936382]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322002408",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.7123650018726,
+        "centroid_y": 35.686895393452744
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712365001872598, 35.686895393452744]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322002410",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": "wall",
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71344052798946,
+        "centroid_y": 35.685841282663681
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713440527989462, 35.685841282663681]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322002411",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": "wall",
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71228611609487,
+        "centroid_y": 35.68691169429183
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712286116094873, 35.68691169429183]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322002412",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": "wall",
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71163965,
+        "centroid_y": 35.6871011
+      },
+      "geometry": { "type": "Point", "coordinates": [139.71163965, 35.6871011] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322002413",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71128924699039,
+        "centroid_y": 35.687145852289298
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.71128924699039, 35.687145852289298]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322002414",
+        "name": null,
+        "highway": "service",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71063617559133,
+        "centroid_y": 35.687437301303724
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.710636175591333, 35.687437301303724]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322002415",
+        "name": null,
+        "highway": "service",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.70962169124482,
+        "centroid_y": 35.687618264369682
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70962169124482, 35.687618264369682]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322002416",
+        "name": null,
+        "highway": "service",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71176090146736,
+        "centroid_y": 35.687407766257891
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711760901467358, 35.687407766257891]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1322003056",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71135779261996,
+        "centroid_y": 35.683592370390748
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.711357792619964, 35.683592370390748]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1323200477",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71329749247082,
+        "centroid_y": 35.682802357344009
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.713297492470815, 35.682802357344009]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1328114871",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71280454282589,
+        "centroid_y": 35.686160020170433
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712804542825893, 35.686160020170433]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1328114872",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": "hedge",
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.712111322331,
+        "centroid_y": 35.685504342924077
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712111322330998, 35.685504342924077]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1328114873",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": "hedge",
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71232118933833,
+        "centroid_y": 35.685537838336487
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712321189338326, 35.685537838336487]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1328114874",
+        "name": null,
+        "highway": null,
+        "waterway": null,
+        "aerialway": null,
+        "barrier": "hedge",
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71242256324061,
+        "centroid_y": 35.685486654268161
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.712422563240608, 35.685486654268161]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": "1373702430",
+        "name": null,
+        "highway": "footway",
+        "waterway": null,
+        "aerialway": null,
+        "barrier": null,
+        "man_made": null,
+        "railway": null,
+        "z_order": 0,
+        "other_tags": null,
+        "area": null,
+        "centroid_x": 139.71455875513286,
+        "centroid_y": 35.682696406764826
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.714558755132856, 35.682696406764826]
+      }
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 packages:
-  - ./packages/app
+  - ./packages/app-osm
   - ./packages/example
   - ./packages/example-osm
   - ./packages/lib

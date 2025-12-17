@@ -29,7 +29,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'svgmapviewer-app': path.resolve(__dirname, `${APP}/index.ts`),
+      'svgmapviewer-app-osm': path.resolve(__dirname, `${APP}/index.ts`),
       'svgmapviewer/box': path.resolve(
         __dirname,
         `${LIB}/box/prefixed/index.ts`

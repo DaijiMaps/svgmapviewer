@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "svgmapviewer-app",
+  "name": "svgmapviewer-app-osm",
   "version": "0.0.2-alpha.20",
   "keywords": [
     "SVG",
