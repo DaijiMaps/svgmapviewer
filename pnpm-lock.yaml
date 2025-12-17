@@ -71,6 +71,109 @@ importers:
         specifier: ^8.50.0
         version: 8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
 
+  packages/app-floors:
+    dependencies:
+      "@xstate/react":
+        specifier: ^6.0.0
+        version: 6.0.0(@types/react@19.2.7)(react@19.2.3)(xstate@5.25.0)
+      "@xstate/store":
+        specifier: ^3.14.0
+        version: 3.14.0(react@19.2.3)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      flatbush:
+        specifier: ^4.5.0
+        version: 4.5.0
+      fp-ts:
+        specifier: ^2.16.11
+        version: 2.16.11
+      react:
+        specifier: ^19.2.3
+        version: 19.2.3
+      react-dom:
+        specifier: ^19.2.3
+        version: 19.2.3(react@19.2.3)
+      svgmapviewer:
+        specifier: workspace:*
+        version: link:../lib
+      type-fest:
+        specifier: ^5.3.1
+        version: 5.3.1
+      xstate:
+        specifier: ^5.25.0
+        version: 5.25.0
+    devDependencies:
+      "@rsbuild/plugin-react":
+        specifier: ^1.4.2
+        version: 1.4.2(@rsbuild/core@1.6.14)
+      "@rslib/core":
+        specifier: ^0.18.4
+        version: 0.18.4(@microsoft/api-extractor@7.55.2(@types/node@24.2.1))(typescript@5.9.3)
+      "@testing-library/react":
+        specifier: ^16.3.1
+        version: 16.3.1(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      "@types/node":
+        specifier: ^24.2.1
+        version: 24.2.1
+      "@types/react":
+        specifier: ^19.2.7
+        version: 19.2.7
+      "@types/react-dom":
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      "@unocss/vite":
+        specifier: ^66.5.10
+        version: 66.5.10(rolldown-vite@7.2.11(@types/node@24.2.1)(esbuild@0.25.12)(jiti@2.6.1)(yaml@2.8.2))
+      "@vitejs/plugin-react":
+        specifier: ^5.1.2
+        version: 5.1.2(rolldown-vite@7.2.11(@types/node@24.2.1)(esbuild@0.25.12)(jiti@2.6.1)(yaml@2.8.2))
+      "@vitejs/plugin-react-oxc":
+        specifier: ^0.4.3
+        version: 0.4.3(rolldown-vite@7.2.11(@types/node@24.2.1)(esbuild@0.25.12)(jiti@2.6.1)(yaml@2.8.2))
+      "@vitest/browser":
+        specifier: ^4.0.16
+        version: 4.0.16(msw@2.8.4(@types/node@24.2.1)(typescript@5.9.3))(rolldown-vite@7.2.11(@types/node@24.2.1)(esbuild@0.25.12)(jiti@2.6.1)(yaml@2.8.2))(vitest@4.0.16)
+      monocle-ts:
+        specifier: ^2.3.13
+        version: 2.3.13(fp-ts@2.16.11)
+      newtype-ts:
+        specifier: ^0.3.5
+        version: 0.3.5(fp-ts@2.16.11)(monocle-ts@2.3.13(fp-ts@2.16.11))
+      playwright:
+        specifier: ^1.57.0
+        version: 1.57.0
+      rolldown:
+        specifier: 1.0.0-beta.54
+        version: 1.0.0-beta.54
+      tsdown:
+        specifier: ^0.18.0
+        version: 0.18.0(synckit@0.11.11)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.3
+      unocss:
+        specifier: ^66.5.10
+        version: 66.5.10(postcss@8.5.6)(rolldown-vite@7.2.11(@types/node@24.2.1)(esbuild@0.25.12)(jiti@2.6.1)(yaml@2.8.2))
+      vite:
+        specifier: npm:rolldown-vite@^7.2.11
+        version: rolldown-vite@7.2.11(@types/node@24.2.1)(esbuild@0.25.12)(jiti@2.6.1)(yaml@2.8.2)
+      vite-plugin-circular-dependency:
+        specifier: ^0.5.0
+        version: 0.5.0(rollup@4.53.5)
+      vite-plugin-dts:
+        specifier: ^4.5.4
+        version: 4.5.4(@types/node@24.2.1)(rolldown-vite@7.2.11(@types/node@24.2.1)(esbuild@0.25.12)(jiti@2.6.1)(yaml@2.8.2))(rollup@4.53.5)(typescript@5.9.3)
+      vite-plugin-lib-inject-css:
+        specifier: ^2.2.2
+        version: 2.2.2(rolldown-vite@7.2.11(@types/node@24.2.1)(esbuild@0.25.12)(jiti@2.6.1)(yaml@2.8.2))
+      vite-plugin-libcss:
+        specifier: ^1.1.2
+        version: 1.1.2(rolldown-vite@7.2.11(@types/node@24.2.1)(esbuild@0.25.12)(jiti@2.6.1)(yaml@2.8.2))
+      vitest:
+        specifier: ^4.0.16
+        version: 4.0.16(@types/node@24.2.1)(@vitest/browser-playwright@4.0.16)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.2.1)(typescript@5.9.3))(yaml@2.8.2)
+
   packages/app-osm:
     dependencies:
       "@xstate/react":
@@ -191,6 +294,9 @@ importers:
       svgmapviewer:
         specifier: workspace:*
         version: link:../lib
+      svgmapviewer-app-floors:
+        specifier: workspace:*
+        version: link:../app-floors
       xstate:
         specifier: ^5.25.0
         version: 5.25.0

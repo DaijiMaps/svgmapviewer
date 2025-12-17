@@ -1,4 +1,5 @@
 packages:
+  - ./packages/app-floors
   - ./packages/app-osm
   - ./packages/example-floors
   - ./packages/example-osm
