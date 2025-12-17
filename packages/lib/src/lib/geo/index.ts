@@ -71,7 +71,7 @@ import {
   getOsmId,
   getPropertyValue,
 } from './search'
-import { type SearchEntry } from './search-types'
+import { type OsmSearchEntry } from './search-types'
 
 export { getAddressEntries, getAddressInfo }
 
@@ -142,4 +142,4 @@ export { geolocActorStart, getPosition, usePosition }
 
 export { findFeature, findProperties, getOsmId, getPropertyValue }
 
-export { type SearchEntry }
+export { type OsmSearchEntry }

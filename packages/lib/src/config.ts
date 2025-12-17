@@ -58,7 +58,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   mapSvgStyle: '',
 
   // OsmSearchConfig
-  searchEntries: [],
+  osmSearchEntries: [],
   getAddressEntries: () => [],
   getAddressInfo: () => null,
   renderInfo: renderInfoDefault,

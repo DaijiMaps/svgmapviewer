@@ -2,7 +2,7 @@ import type { Info } from '../../types'
 import type { SearchPos } from '../search'
 import { type OsmMapMap } from './data-types'
 import { type OsmFeature, type OsmProperties } from './osm-types'
-import type { SearchEntry } from './search-types'
+import type { OsmSearchEntry } from './search-types'
 
 export function findFeature(
   id: undefined | number,
@@ -58,7 +58,7 @@ export function getPropertyValue(
 
 export function getAddressInfo(
   mapMap: Readonly<OsmMapMap>,
-  entries: readonly SearchEntry[],
+  entries: readonly OsmSearchEntry[],
   res: Readonly<SearchPos>
 ): null | Info {
   const id = Number(res.address)

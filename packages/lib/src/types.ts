@@ -9,7 +9,7 @@ import {
   type OsmMapObjects,
   type OsmMapSymbols,
 } from './lib/carto/types'
-import { type SearchEntry } from './lib/geo/search-types'
+import { type OsmSearchEntry } from './lib/geo/search-types'
 import {
   type MapCoord,
   type OsmMapData,
@@ -115,7 +115,7 @@ export type GeoLocDoneCb = Cb1<Readonly<GeolocationPosition>>
 
 export interface OsmSearchProps {
   mapData: Readonly<OsmMapData>
-  searchEntries: readonly SearchEntry[]
+  osmSearchEntries: readonly OsmSearchEntry[]
   cartoConfig?: Readonly<OsmCartoConfig>
 }
 
@@ -140,7 +140,7 @@ export type OsmGetAddressEntries = (
 ) => SearchEntries
 export type OsmGetAddressInfo = (
   mapMap: Readonly<OsmMapMap>,
-  entries: readonly SearchEntry[],
+  entries: readonly OsmSearchEntry[],
   res: Readonly<SearchPos>
 ) => null | Info
 
@@ -193,7 +193,7 @@ export interface OsmRenderConfig {
 }
 
 export interface OsmSearchConfig {
-  searchEntries: readonly SearchEntry[] // XXX
+  osmSearchEntries: readonly OsmSearchEntry[] // XXX
   getAddressEntries: OsmGetAddressEntries
   getAddressInfo: OsmGetAddressInfo
   renderInfo: RenderInfo
