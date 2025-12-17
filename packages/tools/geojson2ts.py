@@ -69,7 +69,7 @@ with open('all.ts', 'w') as ofile:
         _name = _geojson.replace('map-', '')
         ofile.write('import %s from "./%s"\n' % (_name, _geojson))
     ofile.write('\n')
-    ofile.write('export const all = {\n')
+    ofile.write('export const mapData = {\n')
     for _geojson in geojsons:
         _name = _geojson.replace('map-', '')
         ofile.write('%s,\n' % (_name))

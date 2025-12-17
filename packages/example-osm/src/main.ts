@@ -1,14 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
-import { svgmapviewer } from 'svgmapviewer'
-import { renderConfig, searchConfig } from 'svgmapviewer-app-osm'
-import { dataConfig } from './map-data'
 
 import userConfig from '../svgmapviewer.config'
+import { defineConfig } from 'svgmapviewer-app-osm'
 
-svgmapviewer({
-  ...dataConfig,
-  ...renderConfig,
-  ...searchConfig,
-  ...userConfig,
-  root: 'root',
-})
+defineConfig(userConfig)

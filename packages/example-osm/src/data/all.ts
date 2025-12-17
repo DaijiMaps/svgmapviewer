@@ -8,7 +8,7 @@ import lines from './map-lines'
 import multilinestrings from './map-multilinestrings'
 import multipolygons from './map-multipolygons'
 
-export const all = {
+export const mapData = {
   areas,
   internals,
   origin,
