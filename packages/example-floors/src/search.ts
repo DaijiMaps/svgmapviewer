@@ -1,7 +1,8 @@
 /* eslint-disable functional/functional-parameters */
 import { type Info, type POI, type SvgMapViewerConfigUser } from 'svgmapviewer'
 import { type SearchEntries, type SearchPos } from 'svgmapviewer/search'
-import { pois } from './data.ts'
+import { pois } from './data'
+import { RenderInfo as renderInfo } from './render'
 
 const addresses: SearchEntries = pois.map((poi) => ({
   address: poi.name.join(' '),
@@ -30,4 +31,5 @@ function getSearchInfo(pos: Readonly<SearchPos>): null | Info {
 export const searchConfig: SvgMapViewerConfigUser = {
   getSearchEntries,
   getSearchInfo,
+  renderInfo,
 }
