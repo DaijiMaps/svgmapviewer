@@ -4,7 +4,6 @@ import { Fragment, type ReactNode, useMemo } from 'react'
 import { useLayout, useLayoutSvgScaleS } from '../../style-xstate'
 import { boxToViewBox2 } from '../box/prefixed'
 import { useShadowRoot } from '../dom'
-import { type POI } from '../geo'
 import { voffset } from '../text'
 import { trunc2 } from '../utils'
 import {
@@ -12,7 +11,7 @@ import {
   MAP_SVG_LABELS_ROOT_ID,
 } from './map-svg-react'
 import { useNameRanges, useNames } from './names'
-import { type OsmRenderMapProps } from '../../types'
+import { type OsmRenderMapProps, type POI } from '../../types'
 
 export function MapSvgLabels(props: Readonly<OsmRenderMapProps>): ReactNode {
   useShadowRoot(MAP_SVG_LABELS_ROOT_ID, <MapSvgLabelsContent {...props} />)

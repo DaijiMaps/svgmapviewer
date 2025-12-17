@@ -1,5 +1,5 @@
 /* eslint-disable functional/functional-parameters */
-import { type Info, type SvgMapViewerConfigUser } from 'svgmapviewer'
+import { type Info, type POI, type SvgMapViewerConfigUser } from 'svgmapviewer'
 import {
   isFloorsRendered as isMapRendered,
   RenderFloors as renderMap,
@@ -8,7 +8,6 @@ import { type SearchEntries, type SearchPos } from 'svgmapviewer/search'
 import { RenderInfo as renderInfo } from './RenderInfo.tsx'
 import { floorsConfig } from './floors.config.ts'
 import { pois } from './data.ts'
-import { type POI } from 'svgmapviewer/geo'
 
 const addresses: SearchEntries = pois.map((poi) => ({
   address: poi.name.join(' '),

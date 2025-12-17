@@ -1,5 +1,4 @@
-import { type Info } from 'svgmapviewer'
-import { type POI } from 'svgmapviewer/geo'
+import { type Info, type POI } from 'svgmapviewer'
 
 export interface Restaurant {
   tag: 'restaurant'
@@ -42,9 +41,6 @@ declare module 'svgmapviewer' {
   interface Info {
     x: XInfo
   }
-}
-
-declare module 'svgmapviewer/geo' {
   interface POI {
     x: XInfo
   }

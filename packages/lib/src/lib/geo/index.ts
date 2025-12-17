@@ -60,7 +60,6 @@ import {
 import {
   type LinesFilter,
   type MultiPolygonsFilter,
-  type POI,
   type PointsFilter,
 } from './poi-types'
 import { geolocActorStart, getPosition, usePosition } from './position-xstate'
@@ -131,12 +130,7 @@ export { lineToPathD, multiLineStringToPathD, multiPolygonToPathD }
 
 export { type Line, type MultiLineString, type MultiPolygon, type Point }
 
-export {
-  type LinesFilter,
-  type MultiPolygonsFilter,
-  type POI,
-  type PointsFilter,
-}
+export { type LinesFilter, type MultiPolygonsFilter, type PointsFilter }
 
 export { geolocActorStart, getPosition, usePosition }
 

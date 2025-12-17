@@ -8,8 +8,7 @@ import { pipe } from 'fp-ts/function'
 import { none, some } from 'fp-ts/lib/Option'
 import { useMemo } from 'react'
 import { useLayoutSvgScaleS, useSvgRange } from '../../style-xstate'
-import { type Range } from '../../types'
-import { type POI } from '../geo'
+import { type POI, type Range } from '../../types'
 import { type VecVec } from '../vec/prefixed'
 
 export interface Names {

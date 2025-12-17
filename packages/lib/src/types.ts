@@ -15,7 +15,6 @@ import {
   type OsmMapData,
   type OsmMapMap,
 } from './lib/geo/data-types'
-import { type POI } from './lib/geo/poi-types'
 import { type Vec } from './lib/vec'
 import { type Layout, type LayoutCoord } from './lib/viewer/layout-types'
 import { type ViewerMode } from './lib/viewer/viewer-types'
@@ -33,6 +32,15 @@ export interface HV {
 export interface Size {
   width: number
   height: number
+}
+
+export interface POI {
+  id: null | number
+  name: string[]
+  pos: Vec
+  size: number
+  area?: number
+  fidx?: number
 }
 
 export interface Info {

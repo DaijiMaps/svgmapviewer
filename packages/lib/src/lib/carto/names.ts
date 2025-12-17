@@ -1,5 +1,5 @@
-import { type OsmRenderMapProps } from '../../types'
-import { getOsmId, type OsmMapData, type OsmProperties, type POI } from '../geo'
+import { type OsmRenderMapProps, type POI } from '../../types'
+import { getOsmId, type OsmMapData, type OsmProperties } from '../geo'
 import { vVec, type V } from '../tuple'
 
 export const mapSymbols: POI[] = []
