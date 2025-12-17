@@ -19,7 +19,7 @@ declare module 'svgmapviewer' {
 
 declare module 'svgmapviewer/geo' {
   interface POI {
-    fidx: number
+    x: XInfo
   }
 }
 

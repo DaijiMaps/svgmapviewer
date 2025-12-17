@@ -7,6 +7,9 @@ export const pois: POI[] = [
     pos: { x: 0, y: 0 },
     size: 10,
     fidx: 0,
+    x: {
+      tag: 'facility',
+    },
   },
   {
     id: 1,
@@ -14,6 +17,9 @@ export const pois: POI[] = [
     pos: { x: 100, y: 100 },
     size: 10,
     fidx: 0,
+    x: {
+      tag: 'shop',
+    },
   },
   {
     id: 2,
@@ -21,6 +27,9 @@ export const pois: POI[] = [
     pos: { x: 100, y: 50 },
     size: 10,
     fidx: 1,
+    x: {
+      tag: 'shop',
+    },
   },
   {
     id: 3,
@@ -28,5 +37,8 @@ export const pois: POI[] = [
     pos: { x: 200, y: 200 },
     size: 10,
     fidx: 1,
+    x: {
+      tag: 'facility',
+    },
   },
 ]
