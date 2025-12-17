@@ -13,7 +13,6 @@ export default [
       '**/*.config.{js,ts}',
       '**/*.config-*.{js,ts}',
       '**/{vite,vitest}.*.{js,ts}',
-      '**/*.{osm,qgz}',
     ],
   },
   { files: ['src/**/*.{ts,tsx}'] },
