@@ -5,9 +5,9 @@ import {
   RenderFloors as renderMap,
 } from 'svgmapviewer/map-floors'
 import { type SearchEntries, type SearchPos } from 'svgmapviewer/search'
-import { RenderInfo as renderInfo } from './RenderInfo.tsx'
 import { floorsConfig } from './floors.config.ts'
 import { pois } from './data.ts'
+import { RenderInfo as renderInfo } from './render.tsx'
 
 const addresses: SearchEntries = pois.map((poi) => ({
   address: poi.name.join(' '),
