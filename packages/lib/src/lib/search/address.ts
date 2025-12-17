@@ -19,7 +19,7 @@ export function initAddresses(
   for (const e of entries) {
     const { x, y } = e.coord
     const idx = fb.add(x, y)
-    idxs[`${idx}`] = e
+    idxs[idx] = e
   }
   fb.finish()
   return {
@@ -42,7 +42,7 @@ export function searchAddress(
   fidx: number
 ): SearchAddressRes | null {
   const filter = (idx: number) => {
-    const e = idxs[`${idx}`]
+    const e = idxs[idx]
     return e.fidx === undefined || e.fidx === fidx
   }
   const ns = fb.neighbors(pgeo.x, pgeo.y, 1, MAX_DISTANCE, filter)
@@ -50,7 +50,7 @@ export function searchAddress(
     return null
   }
   const n = ns[0]
-  const e = idxs[`${n}`]
+  const e = idxs[n]
   if (e === undefined) {
     return null
   }
