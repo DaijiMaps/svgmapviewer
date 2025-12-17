@@ -1,6 +1,6 @@
-import type { SearchEntry } from 'svgmapviewer/geo'
+import { type OsmSearchEntry } from 'svgmapviewer/geo'
 
-export const searchEntries: SearchEntry[] = [
+export const osmSearchEntries: OsmSearchEntry[] = [
   {
     // toilets
     filter: (properties) => !!properties?.other_tags?.match(/"toilets"/),
