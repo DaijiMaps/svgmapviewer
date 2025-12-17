@@ -1,5 +1,8 @@
 import { type OsmSearchProps } from '../../types'
-import { type AddressEntries, type AddressEntry } from '../search/address-types'
+import {
+  type AddressEntries,
+  type SearchAddress,
+} from '../search/address-types'
 import type { OsmProperties } from './osm-types'
 import { getOsmId } from './search'
 import type { SearchEntry } from './search-types'
@@ -40,7 +43,7 @@ function filterFeature(
   properties: OsmProperties,
   entries: readonly SearchEntry[],
   skip?: Readonly<RegExp>
-): null | AddressEntry {
+): null | SearchAddress {
   const id = getOsmId(properties)
   if (id === null) {
     return null

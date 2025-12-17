@@ -6,7 +6,7 @@ import Flatbush from 'flatbush'
 import {
   type AddressEntries,
   type FlatbushIndexes,
-  type SearchAddressRes,
+  type SearchAddress,
   type SearchContext,
 } from './address-types'
 import type { SearchGeoReq } from '../../types'
@@ -39,7 +39,7 @@ const MAX_DISTANCE = 100
 export function searchAddress(
   { fb, idxs }: SearchContext,
   { pgeo, fidx }: Readonly<SearchGeoReq>
-): SearchAddressRes | null {
+): SearchAddress | null {
   const filter = (idx: number) => {
     const e = idxs[idx]
     return e.fidx === undefined || e.fidx === fidx

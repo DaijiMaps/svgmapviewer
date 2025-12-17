@@ -6,7 +6,7 @@ import { svgMapViewerConfig } from './config'
 import { notifySearchDone, searchCbs } from './event'
 import {
   type AddressEntries,
-  type SearchAddressRes,
+  type SearchAddress,
 } from './lib/search/address-types'
 import {
   type SearchWorkerReq,
@@ -34,7 +34,7 @@ worker.onmessage = (e: Readonly<MessageEvent<SearchWorkerRes>>) => {
   }
 }
 
-function handleSearchRes(res: Readonly<SearchAddressRes>): void {
+function handleSearchRes(res: Readonly<SearchAddress>): void {
   const info = svgMapViewerConfig.getAddressInfo(
     svgMapViewerConfig.mapMap,
     svgMapViewerConfig.searchEntries,

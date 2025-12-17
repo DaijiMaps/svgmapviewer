@@ -21,7 +21,7 @@ import { type Layout, type LayoutCoord } from './lib/viewer/layout-types'
 import { type ViewerMode } from './lib/viewer/viewer-types'
 import {
   type AddressEntries,
-  type SearchAddressRes,
+  type SearchAddress,
 } from './lib/search/address-types'
 import { type Cb, type Cb1 } from './lib/cb'
 
@@ -144,7 +144,7 @@ export type OsmGetAddressEntries = (
 export type OsmGetAddressInfo = (
   mapMap: Readonly<OsmMapMap>,
   entries: readonly SearchEntry[],
-  res: Readonly<SearchAddressRes>
+  res: Readonly<SearchAddress>
 ) => null | Info
 
 export interface RenderInfoProps {
