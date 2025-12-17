@@ -5,17 +5,16 @@ import {
   searchDoneCbs,
   searchStartCbs,
 } from '../../event'
-import { type Info, type SearchReq, type SearchRes } from '../../types'
-import { type Vec } from '../vec'
+import { type SearchReq, type SearchRes } from '../../types'
 
 export type SearchEvent =
   | { type: 'SEARCH'; req: SearchReq }
-  | { type: 'SEARCH.DONE'; psvg: Vec; info: Info }
+  | { type: 'SEARCH.DONE'; res: SearchRes }
   | { type: 'SEARCH.CANCEL' }
 
 export type SearchEmitted =
   | { type: 'SEARCH'; req: SearchReq }
-  | { type: 'SEARCH.DONE'; psvg: Vec; info: Info }
+  | { type: 'SEARCH.DONE'; res: SearchRes }
   | { type: 'SEARCH.CANCEL' }
 
 const searchMachine = setup({
@@ -61,7 +60,7 @@ const searchMachine = setup({
 const searchRef = createActor(searchMachine)
 
 searchRef.on('SEARCH', ({ req }) => notifySearch(req))
-searchRef.on('SEARCH.DONE', (res) => notifySearchEnd(res))
+searchRef.on('SEARCH.DONE', ({ res }) => notifySearchEnd(res))
 searchRef.on('SEARCH.CANCEL', () => notifySearchEnd(null))
 
 searchRef.start()
@@ -74,7 +73,7 @@ function searchSearchStart(req: Readonly<SearchReq>): void {
 
 function searchSearchDone(res: Readonly<null | SearchRes>): void {
   searchRef.send(
-    res === null ? { type: 'SEARCH.CANCEL' } : { type: 'SEARCH.DONE', ...res }
+    res === null ? { type: 'SEARCH.CANCEL' } : { type: 'SEARCH.DONE', res }
   )
 }
 
