@@ -22,6 +22,9 @@ export const pois: POI[] = [
     fidx: 0,
     x: {
       tag: 'shop',
+      kind: {
+        tag: 'restaurant',
+      },
     },
   },
   {
@@ -32,6 +35,9 @@ export const pois: POI[] = [
     fidx: 1,
     x: {
       tag: 'shop',
+      kind: {
+        tag: 'book',
+      },
     },
   },
   {

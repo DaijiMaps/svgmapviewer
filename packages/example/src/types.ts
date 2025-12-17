@@ -1,6 +1,18 @@
 import { type Info } from 'svgmapviewer'
 import { type POI } from 'svgmapviewer/geo'
 
+export interface Restaurant {
+  tag: 'restaurant'
+}
+
+export interface Book {
+  tag: 'book'
+}
+
+export type ShopKind = Book | Restaurant
+
+////
+
 export interface Toilet {
   tag: 'toilet'
 }
@@ -10,8 +22,11 @@ export interface Stairs {
 
 export type FacilityKind = Toilet | Stairs
 
+////
+
 export interface ShopInfo {
   tag: 'shop'
+  kind: ShopKind
 }
 
 export interface FacilityInfo {
@@ -20,6 +35,8 @@ export interface FacilityInfo {
 }
 
 export type XInfo = ShopInfo | FacilityInfo
+
+////
 
 declare module 'svgmapviewer' {
   interface Info {

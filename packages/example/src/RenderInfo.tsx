@@ -18,7 +18,9 @@ function RenderFacility(
 ): ReactNode {
   return (
     <>
-      <p>{props.facility.tag}</p>
+      <p>
+        {props.facility.tag}:{props.facility.kind.tag}
+      </p>
       <p>{props.info.title}</p>
     </>
   )
