@@ -11,7 +11,7 @@ export default [
       '**/dist',
       '**/*.d.ts',
       '**/*.config.{js,ts}',
-      '**/{vite,vitest}.*.{js,ts}',
+      '**/*.config-*.{js,ts}',
     ],
   },
   { files: ['src/**/*.{ts,tsx}'] },
