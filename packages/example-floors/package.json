@@ -14,13 +14,10 @@
   "license": "ISC",
   "packageManager": "pnpm@10.26.0",
   "dependencies": {
-    "@xstate/react": "^6.0.0",
-    "flatbush": "^4.5.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "svgmapviewer": "workspace:*",
-    "svgmapviewer-app-floors": "workspace:*",
-    "xstate": "^5.25.0"
+    "svgmapviewer-app-floors": "workspace:*"
   },
   "devDependencies": {
     "@rsbuild/core": "^1.6.15",

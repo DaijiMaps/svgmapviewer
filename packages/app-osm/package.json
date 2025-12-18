@@ -25,15 +25,9 @@
     "test:browser": "vitest --workspace=vitest.workspace.ts --project browser"
   },
   "dependencies": {
-    "@xstate/react": "^6.0.0",
-    "@xstate/store": "^3.14.0",
-    "clsx": "^2.1.1",
-    "flatbush": "^4.5.0",
-    "fp-ts": "^2.16.11",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "svgmapviewer": "workspace:*",
-    "xstate": "^5.25.0"
+    "svgmapviewer": "workspace:*"
   },
   "devDependencies": {
     "@rsbuild/plugin-react": "^1.4.2",

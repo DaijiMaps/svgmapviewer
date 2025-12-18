@@ -76,21 +76,6 @@ importers:
 
   packages/app-floors:
     dependencies:
-      "@xstate/react":
-        specifier: ^6.0.0
-        version: 6.0.0(@types/react@19.2.7)(react@19.2.3)(xstate@5.25.0)
-      "@xstate/store":
-        specifier: ^3.14.0
-        version: 3.14.0(react@19.2.3)
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
-      flatbush:
-        specifier: ^4.5.0
-        version: 4.5.0
-      fp-ts:
-        specifier: ^2.16.11
-        version: 2.16.11
       react:
         specifier: ^19.2.3
         version: 19.2.3
@@ -100,9 +85,6 @@ importers:
       svgmapviewer:
         specifier: workspace:*
         version: link:../lib
-      xstate:
-        specifier: ^5.25.0
-        version: 5.25.0
     devDependencies:
       "@rsbuild/plugin-react":
         specifier: ^1.4.2
@@ -137,21 +119,6 @@ importers:
 
   packages/app-osm:
     dependencies:
-      "@xstate/react":
-        specifier: ^6.0.0
-        version: 6.0.0(@types/react@19.2.7)(react@19.2.3)(xstate@5.25.0)
-      "@xstate/store":
-        specifier: ^3.14.0
-        version: 3.14.0(react@19.2.3)
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
-      flatbush:
-        specifier: ^4.5.0
-        version: 4.5.0
-      fp-ts:
-        specifier: ^2.16.11
-        version: 2.16.11
       react:
         specifier: ^19.2.3
         version: 19.2.3
@@ -161,9 +128,6 @@ importers:
       svgmapviewer:
         specifier: workspace:*
         version: link:../lib
-      xstate:
-        specifier: ^5.25.0
-        version: 5.25.0
     devDependencies:
       "@rsbuild/plugin-react":
         specifier: ^1.4.2
@@ -198,12 +162,6 @@ importers:
 
   packages/example-floors:
     dependencies:
-      "@xstate/react":
-        specifier: ^6.0.0
-        version: 6.0.0(@types/react@19.2.7)(react@19.2.3)(xstate@5.25.0)
-      flatbush:
-        specifier: ^4.5.0
-        version: 4.5.0
       react:
         specifier: ^19.2.3
         version: 19.2.3
@@ -216,9 +174,6 @@ importers:
       svgmapviewer-app-floors:
         specifier: workspace:*
         version: link:../app-floors
-      xstate:
-        specifier: ^5.25.0
-        version: 5.25.0
     devDependencies:
       "@rsbuild/core":
         specifier: ^1.6.15
@@ -241,12 +196,6 @@ importers:
 
   packages/example-osm:
     dependencies:
-      "@xstate/react":
-        specifier: ^6.0.0
-        version: 6.0.0(@types/react@19.2.7)(react@19.2.3)(xstate@5.25.0)
-      flatbush:
-        specifier: ^4.5.0
-        version: 4.5.0
       react:
         specifier: ^19.2.3
         version: 19.2.3
@@ -259,9 +208,6 @@ importers:
       svgmapviewer-app-osm:
         specifier: workspace:*
         version: link:../app-osm
-      xstate:
-        specifier: ^5.25.0
-        version: 5.25.0
     devDependencies:
       "@rsbuild/core":
         specifier: ^1.6.15
