@@ -36,7 +36,7 @@ export interface Size {
 
 export interface POI {
   id: null | number
-  name: readonly string[]
+  name: string | readonly string[]
   pos: Vec
   size: number
   area?: number

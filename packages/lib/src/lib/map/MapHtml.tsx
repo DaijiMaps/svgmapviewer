@@ -65,14 +65,16 @@ function MapHtmlPointNames(props: Readonly<OsmRenderMapProps>): ReactNode {
               transformOrigin: 'left top',
             }}
           >
-            {poi.name.map((s, idx2) => (
-              <p
-                key={idx2}
-                style={{ margin: 0, textAlign: 'center', width: '20em' }}
-              >
-                {s}
-              </p>
-            ))}
+            {(typeof poi.name === 'string' ? [poi.name] : poi.name).map(
+              (s, idx2) => (
+                <p
+                  key={idx2}
+                  style={{ margin: 0, textAlign: 'center', width: '20em' }}
+                >
+                  {s}
+                </p>
+              )
+            )}
           </div>
         ))}
     </>

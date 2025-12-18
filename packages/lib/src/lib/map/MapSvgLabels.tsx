@@ -184,7 +184,7 @@ function RenderName(props: Readonly<{ _poi: POI }>): ReactNode {
     <></>
   ) : (
     <text id={`name-${id}`} className={`size-${sz}`}>
-      {name.map((n, j) => (
+      {(typeof name === 'string' ? [name] : name).map((n, j) => (
         <Fragment key={j}>
           <tspan
             textAnchor="middle"

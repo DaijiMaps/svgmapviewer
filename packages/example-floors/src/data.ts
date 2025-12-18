@@ -3,7 +3,7 @@ import { type POI } from './types.ts'
 export const pois: POI[] = [
   {
     id: 0,
-    name: ['a'],
+    name: 'a',
     pos: { x: 0, y: 0 },
     size: 10,
     fidx: 0,
@@ -29,7 +29,7 @@ export const pois: POI[] = [
   },
   {
     id: 2,
-    name: ['書店'],
+    name: '書店',
     pos: { x: 100, y: 50 },
     size: 10,
     fidx: 1,
@@ -42,7 +42,7 @@ export const pois: POI[] = [
   },
   {
     id: 3,
-    name: ['d'],
+    name: 'd',
     pos: { x: 200, y: 200 },
     size: 10,
     fidx: 1,

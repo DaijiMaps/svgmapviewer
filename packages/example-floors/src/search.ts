@@ -4,13 +4,17 @@ import { type SearchEntries, type SearchPos } from 'svgmapviewer/search'
 import { pois } from './data'
 import { RenderInfo as renderInfo } from './render'
 
+function nameToArray(name: string | readonly string[]): readonly string[] {
+  return typeof name === 'string' ? [name] : name
+}
+
 const addresses: SearchEntries = pois.map((poi) => ({
-  address: poi.name.join(' '),
+  address: nameToArray(poi.name).join(' '),
   coord: poi.pos,
   fidx: poi.fidx,
 }))
 const addressMap = new Map<string, POI>(
-  pois.map((poi) => [poi.name.join(' '), poi])
+  pois.map((poi) => [nameToArray(poi.name).join(' '), poi])
 )
 
 function getSearchEntries(): SearchEntries {
