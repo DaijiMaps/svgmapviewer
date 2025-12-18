@@ -75,17 +75,14 @@ export function floorsActorStart(): void {
   floorsActor.start()
 }
 
-function selectFloor(fidx: number): void {
-  floorsActor.send({ type: 'SELECT', fidx, force: true })
-}
-
 floorsActorStart()
 
 // handlers
 
 function initFloor(cfg: Readonly<SvgMapViewerConfig>): void {
   if (cfg.floorsConfig) {
-    selectFloor(cfg.floorsConfig.fidx)
+    const fidx = cfg.floorsConfig.fidx
+    floorsActor.send({ type: 'SELECT', fidx, force: true })
   }
 }
 function handleFloor(fidx: number): void {
