@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "rsbuild",
+    "dev:local": "rsbuild --config rsbuild.config-local.ts",
     "build": "tsc -b && rsbuild build",
     "lint": "eslint ."
   },
