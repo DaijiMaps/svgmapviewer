@@ -5,6 +5,7 @@ import { searchConfig } from './search'
 
 svgmapviewer({
   root: 'root',
+  title: 'Floor Map Test',
   origViewBox: {
     x: 0,
     y: 0,
