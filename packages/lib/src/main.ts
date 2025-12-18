@@ -3,6 +3,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
+import { notifyInit } from './event'
 import { type Box } from './lib/box/main'
 import { geolocActorStart } from './lib/geo'
 import { setNames } from './lib/map/names'
@@ -10,13 +11,13 @@ import { searchActorStart } from './lib/search/search-xstate'
 import { isUiRendered } from './lib/ui/Ui'
 import { uiActorStart } from './lib/ui/ui-xstate'
 import { isContainerRendered } from './lib/viewer/Container'
-import { floorsActorStart, selectFloor } from './lib/viewer/floors-xstate'
+import { floorsActorStart } from './lib/viewer/floors-xstate'
 import { resizeActorStart } from './lib/viewer/resize-xstate'
 import { scrollActorStart } from './lib/viewer/scroll-xstate'
 import { touchActorStart } from './lib/viewer/touch-xstate'
 import { viewerActorStart } from './lib/viewer/viewer-xstate'
 import { root } from './Root'
-import { workerSearchInit } from './search-main'
+import { searchWorkerStart } from './search-main'
 import { styleRoot } from './Style'
 import { styleActorStart } from './style-xstate'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
@@ -63,13 +64,7 @@ export function svgmapviewer(
     )
   }
 
-  if (configUser.getSearchEntries) {
-    workerSearchInit(configUser.getSearchEntries(config))
-  }
-
-  if (config.floorsConfig !== undefined) {
-    selectFloor(config.floorsConfig.fidx)
-  }
+  notifyInit(config)
 
   root(config)
   styleRoot()
@@ -88,4 +83,7 @@ function startAllActors() {
   touchActorStart()
   uiActorStart()
   viewerActorStart()
+
+  // XXX force reference
+  searchWorkerStart()
 }

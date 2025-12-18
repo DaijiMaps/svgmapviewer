@@ -99,6 +99,7 @@ export interface ResizeInfo {
 
 ////
 
+export type InitCb = Cb1<Readonly<SvgMapViewerConfig>>
 export type ZoomStartCb = Cb1<Readonly<ZoomInfo>>
 export type ZoomEndCb = Cb1<Readonly<ZoomEndInfo>>
 export type SearchStartCb = Cb1<Readonly<SearchReq>>

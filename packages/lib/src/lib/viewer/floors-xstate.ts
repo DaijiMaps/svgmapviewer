@@ -5,10 +5,12 @@ import { svgMapViewerConfig } from '../../config'
 import {
   floorCbs,
   floorDoneCbs,
+  initCbs,
   notifyFloorDone,
   notifyFloorLock,
 } from '../../event'
 import { floor_switch_duration } from '../css'
+import type { SvgMapViewerConfig } from '../../types'
 
 interface FloorsContext {
   fidx: number
@@ -73,7 +75,7 @@ export function floorsActorStart(): void {
   floorsActor.start()
 }
 
-export function selectFloor(fidx: number): void {
+function selectFloor(fidx: number): void {
   floorsActor.send({ type: 'SELECT', fidx, force: true })
 }
 
@@ -81,6 +83,11 @@ floorsActorStart()
 
 // handlers
 
+function initFloor(cfg: Readonly<SvgMapViewerConfig>): void {
+  if (cfg.floorsConfig) {
+    selectFloor(cfg.floorsConfig.fidx)
+  }
+}
 function handleFloor(fidx: number): void {
   floorsActor.send({ type: 'SELECT', fidx })
 }
@@ -88,6 +95,7 @@ function handleFloorDone(fidx: number): void {
   floorsActor.send({ type: 'DONE', fidx })
 }
 
+initCbs.add(initFloor)
 floorCbs.add(handleFloor)
 floorDoneCbs.add(handleFloorDone)
 

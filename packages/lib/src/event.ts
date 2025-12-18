@@ -8,6 +8,7 @@ import {
   type AnimationCb,
   type AnimationMatrix,
   type FloorCb,
+  type InitCb,
   type LayoutCb,
   type ModeCb,
   type ResizeCb,
@@ -20,6 +21,7 @@ import {
   type SearchReq,
   type SearchRes,
   type SearchStartCb,
+  type SvgMapViewerConfig,
   type UiCloseCb,
   type UiCloseDoneCb,
   type UiOpenCb,
@@ -29,6 +31,8 @@ import {
   type ZoomInfo,
   type ZoomStartCb,
 } from './types'
+
+export const initCbs: Set<InitCb> = new Set()
 
 export const searchStartCbs: Set<SearchStartCb> = new Set()
 export const searchCbs: Set<SearchCb> = new Set()
@@ -68,6 +72,10 @@ export function notifyCbs0(cbs: Readonly<Set<Cb>>): void {
 }
 export function notifyCbs<T>(cbs: Readonly<Set<Cb1<T>>>, args: T): void {
   cbs.forEach((cb: Cb1<T>) => cb(args))
+}
+
+export function notifyInit(cfg: Readonly<SvgMapViewerConfig>): void {
+  notifyCbs(initCbs, cfg)
 }
 
 export function notifySearchStart(req: Readonly<SearchReq>): void {
