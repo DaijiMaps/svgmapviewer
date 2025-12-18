@@ -8,7 +8,7 @@ export default defineConfig({
     port: 5173,
   },
   html: {
-    template: './template.html',
+    template: './index.html',
   },
   source: {
     entry: {
