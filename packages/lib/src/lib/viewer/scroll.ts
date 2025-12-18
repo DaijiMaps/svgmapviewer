@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
@@ -120,7 +121,6 @@ export let currentScroll: CurrentScroll = {
 
 export function setCurrentScroll(
   ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
-  // eslint-disable-next-line functional/no-return-void
 ): void {
   const e: null | HTMLDivElement = ev.currentTarget
   if (e !== null) {
@@ -150,10 +150,10 @@ export const scrollEventCbs: Set<ScrollCb> = new Set()
 
 export function notifyScroll(
   ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
-  // eslint-disable-next-line functional/no-return-void
 ): void {
-  // eslint-disable-next-line functional/no-return-void
   scrollEventCbs.forEach((cb) => cb(ev))
 }
 
-scrollEventCbs.add(setCurrentScroll)
+export function scrollCbsStart(): void {
+  scrollEventCbs.add(setCurrentScroll)
+}

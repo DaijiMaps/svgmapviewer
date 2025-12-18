@@ -326,12 +326,6 @@ function handleMode(mode: ViewerMode) {
   styleSend({ type: 'STYLE.MODE', mode })
 }
 
-layoutCbs.add(handleLayout)
-zoomStartCbs.add(handleZoomStart)
-zoomEndCbs.add(handleZoomEnd)
-animationCbs.add(handleAnimation)
-modeCbs.add(handleMode)
-
 // scroll & expire
 
 function handleExpire() {
@@ -341,4 +335,11 @@ function handleExpire() {
 
 const expire = makeExpire(500, handleExpire)
 
-scrollEventCbs.add(expire.tick)
+export function styleCbsStart(): void {
+  layoutCbs.add(handleLayout)
+  zoomStartCbs.add(handleZoomStart)
+  zoomEndCbs.add(handleZoomEnd)
+  animationCbs.add(handleAnimation)
+  modeCbs.add(handleMode)
+  scrollEventCbs.add(expire.tick)
+}

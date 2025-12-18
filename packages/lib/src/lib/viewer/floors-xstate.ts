@@ -95,10 +95,6 @@ function handleFloorDone(fidx: number): void {
   floorsActor.send({ type: 'DONE', fidx })
 }
 
-initCbs.add(initFloor)
-floorCbs.add(handleFloor)
-floorDoneCbs.add(handleFloorDone)
-
 // selectors
 
 export type FidxToOnAnimationEnd = (idx: number) => undefined | (() => void)
@@ -179,4 +175,10 @@ function makeStyle(fidx: number, prevFidx: null | number): null | string {
 ${style}
 ${animation}
 `
+}
+
+export function floorsCbsStart(): void {
+  initCbs.add(initFloor)
+  floorCbs.add(handleFloor)
+  floorDoneCbs.add(handleFloorDone)
 }

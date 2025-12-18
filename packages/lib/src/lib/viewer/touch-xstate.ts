@@ -260,9 +260,11 @@ export function useTouchesZ(): null | number {
   return useSelector(touchActor, (s) => s.context.touches.z)
 }
 
-uiActionResetCbs.add(touchSendCancel)
-uiActionFullscreenCbs.add(touchSendCancel)
-uiActionPositionCbs.add(touchSendCancel)
-uiActionRecenterCbs.add(touchSendCancel)
-uiActionZoomOutCbs.add(touchSendCancel)
-uiActionZoomInCbs.add(touchSendCancel)
+export function touchCbsStart(): void {
+  uiActionResetCbs.add(touchSendCancel)
+  uiActionFullscreenCbs.add(touchSendCancel)
+  uiActionPositionCbs.add(touchSendCancel)
+  uiActionRecenterCbs.add(touchSendCancel)
+  uiActionZoomOutCbs.add(touchSendCancel)
+  uiActionZoomInCbs.add(touchSendCancel)
+}

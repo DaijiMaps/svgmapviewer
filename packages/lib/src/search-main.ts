@@ -68,8 +68,8 @@ function workerSearchStart({ psvg, fidx }: Readonly<SearchReq>): void {
   worker.postMessage(req)
 }
 
-initCbs.add(workerSearchInit)
-searchCbs.add(workerSearchStart)
-
 // eslint-disable-next-line functional/functional-parameters
-export function searchWorkerStart(): void {}
+export function searchWorkerCbsStart(): void {
+  initCbs.add(workerSearchInit)
+  searchCbs.add(workerSearchStart)
+}

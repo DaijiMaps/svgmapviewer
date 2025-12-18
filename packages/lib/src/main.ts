@@ -1,30 +1,32 @@
 /* eslint-disable functional/functional-parameters */
-/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
 import { notifyInit } from './event'
 import { type Box } from './lib/box/main'
 import { geolocActorStart } from './lib/geo'
-import { setNames } from './lib/map/names'
-import { searchActorStart } from './lib/search/search-xstate'
+import { positionCbsStart } from './lib/geo/position-xstate'
+import { namesCbsStart } from './lib/map/names'
+import { searchActorStart, searchCbsStart } from './lib/search/search-xstate'
+import { fullscreenCbsStart } from './lib/ui/fullscreen'
 import { isUiRendered } from './lib/ui/Ui'
-import { uiActorStart } from './lib/ui/ui-xstate'
+import { uiActorStart, uiCbsStart } from './lib/ui/ui-xstate'
 import { isContainerRendered } from './lib/viewer/Container'
-import { floorsActorStart } from './lib/viewer/floors-xstate'
+import { floorsActorStart, floorsCbsStart } from './lib/viewer/floors-xstate'
 import { resizeActorStart } from './lib/viewer/resize-xstate'
+import { scrollCbsStart } from './lib/viewer/scroll'
 import { scrollActorStart } from './lib/viewer/scroll-xstate'
-import { touchActorStart } from './lib/viewer/touch-xstate'
-import { viewerActorStart } from './lib/viewer/viewer-xstate'
+import { touchActorStart, touchCbsStart } from './lib/viewer/touch-xstate'
+import { viewerActorStart, viewerCbsStart } from './lib/viewer/viewer-xstate'
 import { root } from './Root'
-import { searchWorkerStart } from './search-main'
+import { searchWorkerCbsStart } from './search-main'
 import { styleRoot } from './Style'
-import { styleActorStart } from './style-xstate'
+import { styleActorStart, styleCbsStart } from './style-xstate'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
 
-export function svgmapviewer(
+function updateConfig(
   configUser: Readonly<SvgMapViewerConfigUser>
-): void {
+): SvgMapViewerConfig {
   const origViewBox: Box = {
     x: 0,
     y: 0,
@@ -49,25 +51,21 @@ export function svgmapviewer(
     ...configUser,
   }
 
-  ////
+  return config
+}
 
-  startAllActors()
-
-  if (configUser.getMapNames) {
-    setNames(
-      configUser.getMapNames({
-        data: config,
-        render: config,
-        carto: config.cartoConfig,
-        floors: config.floorsConfig,
-      })
-    )
-  }
-
-  notifyInit(config)
-
-  root(config)
-  styleRoot()
+function startAllCbs() {
+  floorsCbsStart()
+  fullscreenCbsStart()
+  namesCbsStart()
+  positionCbsStart()
+  scrollCbsStart()
+  searchCbsStart()
+  searchWorkerCbsStart()
+  styleCbsStart()
+  touchCbsStart()
+  uiCbsStart()
+  viewerCbsStart()
 }
 
 function startAllActors() {
@@ -83,7 +81,18 @@ function startAllActors() {
   touchActorStart()
   uiActorStart()
   viewerActorStart()
+}
 
-  // XXX force reference
-  searchWorkerStart()
+export function svgmapviewer(
+  configUser: Readonly<SvgMapViewerConfigUser>
+): void {
+  startAllCbs()
+  startAllActors()
+
+  const config = updateConfig(configUser)
+
+  notifyInit(config)
+
+  root(config)
+  styleRoot()
 }

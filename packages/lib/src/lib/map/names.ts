@@ -8,8 +8,9 @@ import { pipe } from 'fp-ts/function'
 import { none, some } from 'fp-ts/lib/Option'
 import { useMemo } from 'react'
 import { useLayoutSvgScaleS, useSvgRange } from '../../style-xstate'
-import { type POI, type Range } from '../../types'
+import { type POI, type Range, type SvgMapViewerConfig } from '../../types'
 import { type VecVec } from '../vec/prefixed'
+import { initCbs } from '../../event'
 
 export interface Names {
   readonly pointNames: readonly POI[]
@@ -180,4 +181,25 @@ function inRange(p: VecVec, r: Readonly<Range>): boolean {
 
 function between(a: number, b: number, c: number): boolean {
   return (b - a) * (c - b) > 0
+}
+
+////
+
+function initNames(cfg: Readonly<SvgMapViewerConfig>): void {
+  // eslint-disable-next-line functional/no-conditional-statements
+  if (cfg.getMapNames) {
+    setNames(
+      cfg.getMapNames({
+        data: cfg,
+        render: cfg,
+        carto: cfg.cartoConfig,
+        floors: cfg.floorsConfig,
+      })
+    )
+  }
+}
+
+export function namesCbsStart(): void {
+  // eslint-disable-next-line functional/immutable-data
+  initCbs.add(initNames)
 }

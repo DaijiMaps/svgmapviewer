@@ -297,7 +297,9 @@ function uiCloseDone() {
   )
 }
 
-searchEndDoneCbs.add(uiDetail)
-uiOpenDoneCbs.add(uiOpen)
-uiCloseCbs.add(uiCancel)
-uiCloseDoneCbs.add(uiCloseDone)
+export function uiCbsStart(): void {
+  searchEndDoneCbs.add(uiDetail)
+  uiOpenDoneCbs.add(uiOpen)
+  uiCloseCbs.add(uiCancel)
+  uiCloseDoneCbs.add(uiCloseDone)
+}

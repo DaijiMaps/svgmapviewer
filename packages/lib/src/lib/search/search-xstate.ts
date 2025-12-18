@@ -77,9 +77,11 @@ function searchSearchDone(res: Readonly<null | SearchRes>): void {
   )
 }
 
-searchStartCbs.add(searchSearchStart)
-searchDoneCbs.add(searchSearchDone)
-
 export function searchActorStart(): void {
   searchRef.start()
+}
+
+export function searchCbsStart(): void {
+  searchStartCbs.add(searchSearchStart)
+  searchDoneCbs.add(searchSearchDone)
 }

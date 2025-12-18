@@ -823,13 +823,6 @@ function viewerSwitch(fidx: number): void {
 function viewerSwitchDone(): void {
   viewerSend({ type: 'SWITCH.DONE' }) // XXX animation end
 }
-floorLockCbs.add(viewerSwitch)
-floorDoneCbs.add(viewerSwitchDone) // XXX animation end
-
-searchEndCbs.add(viewerSearchEnd)
-uiOpenCbs.add(viewerSearchLock)
-uiCloseDoneCbs.add(viewerSearchUnlock)
-resizeCbs.add(resizeCb)
 
 function getDoneCb(ev: GetDone) {
   if (ev.scroll !== null) {
@@ -841,8 +834,6 @@ function syncSyncDoneCb(ev: SyncSyncDone) {
     viewerSend({ type: 'SCROLL.SYNCSYNC.DONE', scroll: ev.scroll })
   }
 }
-scrollCbs.getDoneCbs.add(getDoneCb)
-scrollCbs.syncSyncDoneCbs.add(syncSyncDoneCb)
 
 //let pointereventmask: boolean = false
 //let toucheventmask: boolean = false
@@ -860,7 +851,6 @@ function reflectMode(mode: ViewerMode): void {
   scrolleventmask = mode !== 'panning'
   wheeleventmask = mode === 'locked'
 }
-modeCbs.add(reflectMode)
 
 //// handlers
 
@@ -891,8 +881,6 @@ function maskWheel() {
 function unmaskWheel() {
   wheeleventmask = false
 }
-zoomStartCbs.add(maskWheel)
-zoomEndCbs.add(unmaskWheel)
 
 function handleUiActionReset() {
   viewerSend({ type: 'LAYOUT.RESET' })
@@ -910,14 +898,32 @@ function handleUiActionZoomIn() {
   viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })
 }
 
-uiActionResetCbs.add(handleUiActionReset)
-uiActionRecenterCbs.add(handleUiActionRecenter)
-uiActionRotateCbs.add(handleUiActionRotate)
-uiActionZoomOutCbs.add(handleUiActionZoomOut)
-uiActionZoomInCbs.add(handleUiActionZoomIn)
-
 function handleRendered() {
   viewerSend({ type: 'RENDERED' })
 }
 
-renderedCbs.add(handleRendered)
+export function viewerCbsStart(): void {
+  floorLockCbs.add(viewerSwitch)
+  floorDoneCbs.add(viewerSwitchDone) // XXX animation end
+
+  searchEndCbs.add(viewerSearchEnd)
+  uiOpenCbs.add(viewerSearchLock)
+  uiCloseDoneCbs.add(viewerSearchUnlock)
+  resizeCbs.add(resizeCb)
+
+  scrollCbs.getDoneCbs.add(getDoneCb)
+  scrollCbs.syncSyncDoneCbs.add(syncSyncDoneCb)
+
+  modeCbs.add(reflectMode)
+
+  zoomStartCbs.add(maskWheel)
+  zoomEndCbs.add(unmaskWheel)
+
+  uiActionResetCbs.add(handleUiActionReset)
+  uiActionRecenterCbs.add(handleUiActionRecenter)
+  uiActionRotateCbs.add(handleUiActionRotate)
+  uiActionZoomOutCbs.add(handleUiActionZoomOut)
+  uiActionZoomInCbs.add(handleUiActionZoomIn)
+
+  renderedCbs.add(handleRendered)
+}
