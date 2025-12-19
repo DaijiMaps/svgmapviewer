@@ -179,7 +179,6 @@ const viewerMachine = setup({
         }: {
           ev: MouseEvent | React.MouseEvent | PointerEvent | React.PointerEvent
         }
-        //): Vec => (mode !== 'pointing' ? cursor : vecVec(ev.pageX, ev.pageY)),
       ): Vec => vecVec(ev.pageX, ev.pageY),
     }),
 
@@ -842,11 +841,6 @@ export let scrolleventmask: boolean = false
 export let wheeleventmask: boolean = false
 
 function reflectMode(mode: ViewerMode): void {
-  //pointereventmask = mode !== 'pointing'
-  //toucheventmask = mode !== 'pointing'
-  // - xstate-viewer receives 'click' to cancel 'panning'
-  // - xstate-viewer ignores 'click' to pass through (emulated)
-  //  'click' to shadow; shadow receives 'click' to cancel 'locked'
   clickeventmask = mode === 'locked'
   scrolleventmask = mode !== 'panning'
   wheeleventmask = mode === 'locked'
