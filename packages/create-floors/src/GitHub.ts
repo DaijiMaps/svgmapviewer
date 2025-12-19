@@ -7,7 +7,7 @@ import * as HttpClientResponse from '@effect/platform/HttpClientResponse'
 import * as Effect from 'effect/Effect'
 import * as Stream from 'effect/Stream'
 import * as Tar from 'tar'
-import type { TemplateConfig } from './index.ts'
+import type { TemplateConfig } from './Cli.ts'
 
 const GET_URL = 'https://codeload.github.com'
 const GET_PATH = '/DaijiMaps/svgmapviewer-floors-app-template/tar.gz/main'
