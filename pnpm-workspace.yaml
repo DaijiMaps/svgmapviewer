@@ -1,6 +1,7 @@
 packages:
   - ./packages/app-floors
   - ./packages/app-osm
+  - ./packages/create-floors
   - ./packages/example-floors
   - ./packages/example-osm
   - ./packages/lib

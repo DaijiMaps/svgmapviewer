@@ -39,8 +39,11 @@
       ]
     },
     "onlyBuiltDependencies": [
+      "@parcel/watcher",
       "esbuild",
-      "msw"
+      "msgpackr-extract",
+      "msw",
+      "unrs-resolver"
     ]
   }
 }
