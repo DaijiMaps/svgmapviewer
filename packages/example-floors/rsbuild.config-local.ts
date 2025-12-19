@@ -1,6 +1,7 @@
 import { defineConfig } from '@rsbuild/core'
 import { pluginReact } from '@rsbuild/plugin-react'
 import { alias as appFloorsAlias } from '../app-floors/rsbuild-common.config'
+import { alias as appOsmAlias } from '../app-osm/rsbuild-common.config'
 import { alias as libAlias } from '../lib/rsbuild-common.config'
 
 export default defineConfig({
@@ -18,6 +19,6 @@ export default defineConfig({
     },
   },
   resolve: {
-    alias: { ...appFloorsAlias, ...libAlias },
+    alias: { ...appFloorsAlias, ...appOsmAlias, ...libAlias },
   },
 })
