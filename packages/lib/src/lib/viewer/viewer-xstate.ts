@@ -209,8 +209,8 @@ const viewerMachine = setup({
     */
     startTouching: assign({ touching: true }),
     endTouching: assign({ touching: false }),
-    notifyTouching: raise({ type: 'TOUCHING' }),
-    notifyTouchingDone: raise({ type: 'TOUCHING.DONE' }),
+    raiseTouching: raise({ type: 'TOUCHING' }),
+    raiseTouchingDone: raise({ type: 'TOUCHING.DONE' }),
 
     startAnimating: assign({ animating: () => true }),
     stopAnimating: assign({ animating: () => false }),
@@ -227,7 +227,7 @@ const viewerMachine = setup({
         return scrollLayout(context.layout, scroll)
       },
     }),
-    notifyZoomStart: emit(
+    emitZoomStart: emit(
       ({ context: { layout, zoom, z } }): ViewerEmitted => ({
         type: 'ZOOM.START',
         layout,
@@ -235,14 +235,14 @@ const viewerMachine = setup({
         z: z === null ? 0 : z,
       })
     ),
-    notifyZoomEnd: emit(
+    emitZoomEnd: emit(
       ({ context: { layout, zoom } }): ViewerEmitted => ({
         type: 'ZOOM.END',
         layout,
         zoom,
       })
     ),
-    notifySearch: emit(({ context }): ViewerEmitted => {
+    emitSearch: emit(({ context }): ViewerEmitted => {
       const { scroll } = getCurrentScroll()
       const l = scrollLayout(context.layout, scroll)
       const m = fromMatrixSvg(l).inverse()
@@ -254,8 +254,8 @@ const viewerMachine = setup({
         },
       }
     }),
-    notifySearchDone: raise({ type: 'SEARCH.DONE' }),
-    notifySearchEndDone: emit(
+    raiseSearchDone: raise({ type: 'SEARCH.DONE' }),
+    raiseSearchEndDone: emit(
       ({ context }, { res }: SearchEnd): ViewerEmitted => {
         const { scroll } = getCurrentScroll()
         const l = scrollLayout(context.layout, scroll)
@@ -288,18 +288,18 @@ const viewerMachine = setup({
         ),
       homing: () => false,
     }),
-    notifyMode: emit(
+    emitMode: emit(
       ({ context: { mode } }): ViewerEmitted => ({ type: 'MODE', mode })
     ),
-    notifyLock: emit({ type: 'LOCK', ok: true }),
+    emitLock: emit({ type: 'LOCK', ok: true }),
     setRendered: assign({ rendered: true }),
-    notifySwitch: emit(
+    emitSwitch: emit(
       (_, { fidx }: SwitchRequest): ViewerEmitted => ({
         type: 'SWITCH',
         fidx,
       })
     ),
-    notifySwitchDone: emit(
+    emitSwitchDone: emit(
       (): ViewerEmitted => ({
         type: 'SWITCH.DONE',
       })
@@ -328,25 +328,25 @@ const viewerMachine = setup({
     'TOUCH.LOCK': {
       actions: [
         'startTouching',
-        'notifyTouching',
+        'raiseTouching',
         'setModeToTouching',
-        'notifyMode',
+        'emitMode',
       ],
     },
     'TOUCH.UNLOCK': {
       actions: [
         'endTouching',
-        'notifyTouchingDone',
+        'raiseTouchingDone',
         'setModeToPanning',
-        'notifyMode',
+        'emitMode',
       ],
     },
     'SEARCH.LOCK': {
       // XXX failure?
-      actions: ['notifyLock', 'setModeToLocked', 'notifyMode'],
+      actions: ['emitLock', 'setModeToLocked', 'emitMode'],
     },
     'SEARCH.UNLOCK': {
-      actions: ['setModeToPanning', 'notifyMode', 'notifySearchDone'],
+      actions: ['setModeToPanning', 'emitMode', 'raiseSearchDone'],
     },
   },
   states: {
@@ -462,7 +462,7 @@ const viewerMachine = setup({
               fidx: ({ event }) => event.fidx,
             }),
             {
-              type: 'notifySwitch',
+              type: 'emitSwitch',
               params: ({ event }) => event,
             },
           ],
@@ -531,7 +531,7 @@ const viewerMachine = setup({
       states: {
         Starting: {
           always: {
-            actions: 'notifySearch',
+            actions: 'emitSearch',
             target: 'WaitingForSearchEnd',
           },
         },
@@ -539,7 +539,7 @@ const viewerMachine = setup({
           on: {
             'SEARCH.END': {
               actions: {
-                type: 'notifySearchEndDone',
+                type: 'raiseSearchEndDone',
                 params: ({ event }) => event,
               },
               target: 'WaitingForSearchUnlock',
@@ -564,7 +564,7 @@ const viewerMachine = setup({
           on: {
             'SWITCH.DONE': {
               actions: {
-                type: 'notifySwitchDone',
+                type: 'emitSwitchDone',
               },
               target: 'Done',
             },
@@ -661,7 +661,7 @@ const viewerMachine = setup({
                 'updateLayoutFromScroll',
                 'startZoom',
                 'updateZoom',
-                'notifyZoomStart',
+                'emitZoomStart',
               ],
               target: 'Animating',
             },
@@ -671,7 +671,7 @@ const viewerMachine = setup({
                 'updateLayoutFromScroll',
                 'startRotate',
                 'updateZoom',
-                'notifyZoomStart',
+                'emitZoomStart',
               ],
               target: 'Animating',
             },
@@ -697,7 +697,7 @@ const viewerMachine = setup({
                       'syncLayout',
                       // fast sync - sync scroll NOT after resize
                       'syncScroll',
-                      'notifyZoomEnd',
+                      'emitZoomEnd',
                       'stopAnimating',
                       'syncAnimation',
                     ],
@@ -710,7 +710,7 @@ const viewerMachine = setup({
                       'syncLayout',
                       // fast sync - sync scroll NOT after resize
                       'syncScroll',
-                      'notifyZoomEnd',
+                      'emitZoomEnd',
                       'stopAnimating',
                       'syncAnimation',
                     ],
