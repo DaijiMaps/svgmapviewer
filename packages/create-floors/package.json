@@ -2,16 +2,15 @@
   "name": "create-svgmapviewer-floors-app",
   "version": "0.0.1",
   "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "bin": {
     "create-svgmapviewer-floors-app": "./dist/index.js"
   },
   "scripts": {
     "build": "rslib build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.26.0",
   "devDependencies": {
     "@effect/cli": "^0.73.0",
     "@effect/platform": "^0.94.0",
@@ -25,5 +24,6 @@
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
     "*": "prettier --write --cache --ignore-unknown"
-  }
+  },
+  "packageManager": "pnpm@10.26.0"
 }

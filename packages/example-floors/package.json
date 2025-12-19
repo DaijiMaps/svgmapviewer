@@ -1,8 +1,11 @@
 {
-  "type": "module",
   "name": "svgmapviewer-example-floors",
   "version": "0.0.2",
   "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "rsbuild",
@@ -10,10 +13,6 @@
     "build": "tsc -b && rsbuild build",
     "lint": "eslint ."
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.26.0",
   "dependencies": {
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
@@ -31,5 +30,6 @@
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
     "*": "prettier --write --cache --ignore-unknown"
-  }
+  },
+  "packageManager": "pnpm@10.26.0"
 }

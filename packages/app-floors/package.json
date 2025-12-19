@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "name": "svgmapviewer-app-floors",
   "version": "0.0.2",
   "keywords": [
@@ -7,15 +6,16 @@
     "map",
     "viewer"
   ],
-  "author": "Daiji Maps",
   "license": "ISC",
-  "exports": {
-    ".": "./dist/index.js"
-  },
-  "types": "./dist/index.d.ts",
+  "author": "Daiji Maps",
   "files": [
     "./dist"
   ],
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "scripts": {
     "build": "tsc -b && rslib build",
     "lint": "eslint . && oxlint",
