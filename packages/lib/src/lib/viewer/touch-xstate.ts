@@ -232,8 +232,6 @@ touchActor.on('ZOOM', ({ z, p }) => {
   viewerSend({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })
 })
 
-touchActor.start()
-
 ////
 
 export function touchActorStart(): void {

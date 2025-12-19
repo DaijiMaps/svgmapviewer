@@ -77,7 +77,9 @@ const searchWorkerMachine = setup({
 
 const searchWorkerActor = createActor(searchWorkerMachine)
 
-searchWorkerActor.start()
+export function searchWorkerActorStart(): void {
+  searchWorkerActor.start()
+}
 
 export function searchWorkerActorSend(e: SearchWorkerReq): void {
   searchWorkerActor.send(e)

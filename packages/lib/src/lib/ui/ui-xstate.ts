@@ -271,7 +271,6 @@ export function useOpenCloseDetail(): OpenClose {
 
 const uiActor = createActor(uiMachine)
 uiActor.on('CLOSE.DONE', notifyUiCloseDone)
-uiActor.start()
 
 export function uiActorStart(): void {
   uiActor.start()

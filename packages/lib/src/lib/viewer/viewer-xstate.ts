@@ -196,16 +196,6 @@ const viewerMachine = setup({
     setModeToLocked: assign({
       mode: viewerModeLocked,
     }),
-    /*
-    touchStart: enqueueActions(({ enqueue }) => {
-      enqueue.assign({ touching: true })
-      enqueue.raise({ type: 'TOUCHING' })
-    }),
-    touchEnd: enqueueActions(({ enqueue }) => {
-      enqueue.assign({ touching: false })
-      enqueue.raise({ type: 'TOUCHING.DONE' })
-    }),
-    */
     startTouching: assign({ touching: true }),
     endTouching: assign({ touching: false }),
     raiseTouching: raise({ type: 'TOUCHING' }),
@@ -798,8 +788,6 @@ viewerActor.on('MODE', ({ mode }) => notifyMode(mode))
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloor(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloorUnlock())
-
-viewerActor.start()
 
 ////
 

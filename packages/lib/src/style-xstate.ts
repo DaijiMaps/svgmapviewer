@@ -225,7 +225,6 @@ const styleActor = createActor(styleMachine, {
   systemId: 'system-viewer1',
   //inspect: (iev) => console.log('style', iev),
 })
-styleActor.start()
 
 export function styleActorStart(): void {
   styleActor.start()
