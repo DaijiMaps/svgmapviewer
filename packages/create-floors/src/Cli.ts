@@ -4,7 +4,9 @@ import * as Command from '@effect/cli/Command'
 //import * as Options from '@effect/cli/Options'
 //import * as Prompt from '@effect/cli/Prompt'
 import * as FileSystem from '@effect/platform/FileSystem'
+import * as Path from '@effect/platform/Path'
 import { GitHub } from './GitHub'
+import { validatePackageName } from './Validate'
 
 export interface TemplateConfig {
   readonly projectName: string
@@ -22,7 +24,14 @@ function createTemplate(config: Readonly<TemplateConfig>) {
 
 const projectName = Args.directory({
   name: 'project-name',
-})
+  exists: 'no',
+}).pipe(
+  Args.withDescription('folder name created for generated npm app'),
+  Args.mapEffect(validatePackageName),
+  Args.mapEffect((projectName) =>
+    Effect.map(Path.Path, (path) => path.resolve(projectName))
+  )
+)
 
 const options = {
   projectName,

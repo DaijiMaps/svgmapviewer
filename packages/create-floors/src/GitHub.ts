@@ -46,3 +46,5 @@ export class GitHub extends Effect.Service<GitHub>()('app/GitHub', {
     } as const
   }),
 }) {}
+
+export const GitHubLive = GitHub.Default

@@ -19,7 +19,8 @@
     "@types/node": "^25.0.3",
     "effect": "^3.19.13",
     "tar": "^7.5.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "validate-npm-package-name": "^7.0.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
