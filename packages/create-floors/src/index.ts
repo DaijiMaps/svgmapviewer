@@ -8,10 +8,13 @@ import * as NodeRuntime from '@effect/platform-node/NodeRuntime'
 import { GitHub } from './GitHub'
 import { cli } from './Cli'
 
-const MainLive = GitHub.Default.pipe(
-  Layer.provideMerge(
-    Layer.mergeAll(NodeContext.layer, NodeHttpClient.layerUndici)
-  )
+const NodeContextLive = NodeContext.layer
+const HttpClientLive = NodeHttpClient.layerUndici
+const GitHubLive = GitHub.Default
+
+const MainLive = GitHubLive.pipe(
+  Layer.provide(HttpClientLive),
+  Layer.provideMerge(NodeContextLive)
 )
 
 cli(process.argv).pipe(Effect.provide(MainLive), NodeRuntime.runMain())
