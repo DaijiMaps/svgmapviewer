@@ -11,6 +11,7 @@ import {
   type FloorCbs,
   type InitCb,
   type ResizeInfo,
+  type Scroll,
   type ScrollCbs,
   type SearchCbs,
   type SearchData,
@@ -103,7 +104,7 @@ export function notifyScrollEventExpire(): void {
 export function notifyScrollGet(): void {
   notifyCbs0(scrollCbs.get)
 }
-export function notifyScrollGetDone(scroll: Readonly<null | BoxBox>): void {
+export function notifyScrollGetDone(scroll: Readonly<Scroll>): void {
   notifyCbs(scrollCbs.getDone, scroll)
 }
 export function notifyScrollSync(pos: Readonly<BoxBox>): void {
@@ -112,9 +113,7 @@ export function notifyScrollSync(pos: Readonly<BoxBox>): void {
 export function notifyScrollSyncSync(pos: Readonly<BoxBox>): void {
   notifyCbs(scrollCbs.syncSync, pos)
 }
-export function notifyScrollSyncSyncDone(
-  scroll: Readonly<null | BoxBox>
-): void {
+export function notifyScrollSyncSyncDone(scroll: Readonly<Scroll>): void {
   notifyCbs(scrollCbs.syncSyncDone, scroll)
 }
 

@@ -25,6 +25,8 @@ import { type Cb, type Cb1 } from './lib/cb'
 
 export type Z = -1 | 0 | 1
 
+export type Scroll = null | BoxBox
+
 export interface HV {
   h: Z // -1 | 0 | 1 = left, none, right
   v: Z // -1 | 0 | 1 = top, none, bottom
@@ -108,7 +110,8 @@ export type InitCb = Cb1<Readonly<SvgMapViewerConfig>>
 export type ScrollEventCb = (
   ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
 ) => void
-export type ScrollCb = (scroll: Readonly<null | BoxBox>) => void
+export type ScrollCb = (scroll: Readonly<Scroll>) => void
+export type ScrollPosCb = (pos: Readonly<BoxBox>) => void
 export type ZoomStartCb = Cb1<Readonly<ZoomInfo>>
 export type ZoomEndCb = Cb1<Readonly<ZoomEndInfo>>
 export type SearchStartCb = Cb1<Readonly<SearchReq>>
@@ -131,10 +134,11 @@ export interface ScrollCbs {
   eventExpire: Set<Cb>
   get: Set<Cb>
   getDone: Set<ScrollCb>
-  sync: Set<(pos: Readonly<BoxBox>) => void>
-  syncSync: Set<(pos: Readonly<BoxBox>) => void>
+  sync: Set<ScrollPosCb>
+  syncSync: Set<ScrollPosCb>
   syncSyncDone: Set<ScrollCb>
 }
+
 export interface StyleCbs {
   resize: Set<ResizeCb>
   layout: Set<LayoutCb>
@@ -143,6 +147,7 @@ export interface StyleCbs {
   animation: Set<AnimationCb>
   mode: Set<ModeCb>
 }
+
 export interface SearchCbs {
   start: Set<SearchStartCb>
   request: Set<SearchCb>
@@ -150,23 +155,27 @@ export interface SearchCbs {
   end: Set<SearchEndCb>
   endDone: Set<SearchEndDoneCb>
 }
+
 export interface UiCbs {
   open: Set<UiOpenCb>
   openDone: Set<UiOpenDoneCb>
   close: Set<UiCloseCb>
   closeDone: Set<UiCloseDoneCb>
 }
+
 export interface FloorCbs {
   lock: Set<FloorCb>
   select: Set<FloorCb>
   selectDone: Set<FloorCb>
   unlock: Set<Cb>
 }
+
 export interface TouchCbs {
   multiStart: Set<Cb>
   multiEnd: Set<Cb>
   zoom: Set<TouchZoomCb>
 }
+
 export interface ActionCbs {
   zoomIn: Set<Cb>
   zoomOut: Set<Cb>
