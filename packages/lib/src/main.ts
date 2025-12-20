@@ -15,7 +15,7 @@ import { isContainerRendered } from './lib/viewer/Container'
 import { floorsActorStart, floorsCbsStart } from './lib/viewer/floors-xstate'
 import { resizeActorStart } from './lib/viewer/resize-xstate'
 import { scrollCbsStart } from './lib/viewer/scroll'
-import { scrollActorStart } from './lib/viewer/scroll-xstate'
+import { scrollActorStart, scrollCbsStart2 } from './lib/viewer/scroll-xstate'
 import { touchActorStart, touchCbsStart } from './lib/viewer/touch-xstate'
 import { viewerActorStart, viewerCbsStart } from './lib/viewer/viewer-xstate'
 import { root } from './Root'
@@ -60,6 +60,7 @@ function startAllCbs() {
   namesCbsStart()
   positionCbsStart()
   scrollCbsStart()
+  scrollCbsStart2()
   searchCbsStart()
   searchWorkerCbsStart()
   styleCbsStart()

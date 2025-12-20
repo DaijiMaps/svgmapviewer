@@ -30,7 +30,10 @@ export const initCbs: Set<InitCb> = new Set()
 export const scrollAllCbs: ScrollCbs = {
   eventTick: new Set(),
   eventExpire: new Set(),
+  get: new Set(),
   getDone: new Set(),
+  sync: new Set(),
+  syncSync: new Set(),
   syncSyncDone: new Set(),
 }
 
@@ -104,8 +107,17 @@ export function notifyScrollEventTick(
 export function notifyScrollEventExpire(): void {
   notifyCbs0(scrollAllCbs.eventExpire)
 }
+export function notifyScrollGet(): void {
+  notifyCbs0(scrollAllCbs.get)
+}
 export function notifyScrollGetDone(scroll: Readonly<null | BoxBox>): void {
   notifyCbs(scrollAllCbs.getDone, scroll)
+}
+export function notifyScrollSync(pos: Readonly<BoxBox>): void {
+  notifyCbs(scrollAllCbs.sync, pos)
+}
+export function notifyScrollSyncSync(pos: Readonly<BoxBox>): void {
+  notifyCbs(scrollAllCbs.syncSync, pos)
 }
 export function notifyScrollSyncSyncDone(
   scroll: Readonly<null | BoxBox>

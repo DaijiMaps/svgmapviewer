@@ -6,7 +6,11 @@ import {
   type ScrollEmitted,
   type ScrollEvent,
 } from './scroll-types'
-import { notifyScrollGetDone, notifyScrollSyncSyncDone } from '../../event'
+import {
+  notifyScrollGetDone,
+  notifyScrollSyncSyncDone,
+  scrollAllCbs,
+} from '../../event'
 
 const scrollMachine = setup({
   types: {} as {
@@ -104,15 +108,25 @@ const scrollActor = createActor(scrollMachine, {
   systemId: 'system-scroll1',
 })
 
+export function scrollSend(ev: ScrollEvent): void {
+  scrollActor.send(ev)
+}
+
 scrollActor.on('SCROLL.GET.DONE', ({ scroll }) => notifyScrollGetDone(scroll))
 scrollActor.on('SCROLL.SYNCSYNC.DONE', ({ scroll }) =>
   notifyScrollSyncSyncDone(scroll)
 )
 
-export function scrollActorStart(): void {
-  scrollActor.start()
+export function scrollCbsStart2(): void {
+  scrollAllCbs.sync.add((pos: Readonly<Box>): void =>
+    scrollSend({ type: 'SYNC', pos })
+  )
+  scrollAllCbs.syncSync.add((pos: Readonly<Box>): void =>
+    scrollSend({ type: 'SYNCSYNC', pos })
+  )
+  scrollAllCbs.get.add((): void => scrollSend({ type: 'GET' }))
 }
 
-export function scrollSend(ev: ScrollEvent): void {
-  scrollActor.send(ev)
+export function scrollActorStart(): void {
+  scrollActor.start()
 }

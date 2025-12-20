@@ -123,6 +123,7 @@ const resizeActor = createActor(resizeMachine)
 
 resizeActor.on('LAYOUT', (resize) => notifyResize(resize))
 
+// XXX
 window.addEventListener('resize', () => {
   resizeActor.send({ type: 'RESIZE' })
 })

@@ -1,4 +1,3 @@
-import { useSelector } from '@xstate/react'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import { svgMapViewerConfig } from '../../config'
 import {
@@ -9,6 +8,9 @@ import {
   notifyFloorUnlock,
   notifyLayout,
   notifyMode,
+  notifyScrollGet,
+  notifyScrollSync,
+  notifyScrollSyncSync,
   notifySearchEndDone,
   notifySearchStart,
   notifyUiOpen,
@@ -48,7 +50,6 @@ import {
   scrollLayout,
 } from './layout'
 import { getCurrentScroll } from './scroll'
-import { scrollSend } from './scroll-xstate'
 import {
   EXPAND_PANNING,
   type ReactUIEvent,
@@ -746,16 +747,6 @@ const viewerMachine = setup({
 
 ////
 
-export function useViewerLayoutSvgScaleS(): number {
-  return useSelector(viewerActor, (viewer) => viewer.context.layout.svgScale.s)
-}
-
-////
-
-export function viewerActorStart(): void {
-  viewerActor.start()
-}
-
 /*
 export type ViewerInspect = typeof viewerActor.options.inspect
 export function inspect(iev: InspectionEvent) {
@@ -769,13 +760,13 @@ export function inspect(iev: InspectionEvent) {
 }
 */
 
-export function viewerSend(ev: ViewerEvent): void {
-  viewerActor.send(ev)
-}
-
 const viewerActor = createActor(viewerMachine, {
   systemId: 'system-viewer1',
 })
+
+export function viewerSend(ev: ViewerEvent): void {
+  viewerActor.send(ev)
+}
 
 viewerActor.on('SEARCH', ({ req }) => notifySearchStart(req))
 viewerActor.on('SEARCH.END.DONE', ({ res }) => {
@@ -806,11 +797,9 @@ viewerActor.on('SYNC.ANIMATION', ({ animation }) => {
 viewerActor.on('SYNC.LAYOUT', ({ layout, force }) =>
   notifyLayout({ layout, force })
 )
-viewerActor.on('SCROLL.SYNC', ({ pos }) => scrollSend({ type: 'SYNC', pos }))
-viewerActor.on('SCROLL.SYNCSYNC', ({ pos }) =>
-  scrollSend({ type: 'SYNCSYNC', pos })
-)
-viewerActor.on('SCROLL.GET', () => scrollSend({ type: 'GET' }))
+viewerActor.on('SCROLL.SYNC', ({ pos }) => notifyScrollSync(pos))
+viewerActor.on('SCROLL.SYNCSYNC', ({ pos }) => notifyScrollSyncSync(pos))
+viewerActor.on('SCROLL.GET', () => notifyScrollGet())
 
 ////
 
@@ -944,4 +933,8 @@ export function viewerCbsStart(): void {
   touchCbs.zoom.add(handleTouchZoom)
 
   renderedCbs.add(handleRendered)
+}
+
+export function viewerActorStart(): void {
+  viewerActor.start()
 }

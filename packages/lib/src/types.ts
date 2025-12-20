@@ -129,7 +129,10 @@ export type FloorCb = Cb1<number>
 export interface ScrollCbs {
   eventTick: Set<ScrollEventCb>
   eventExpire: Set<Cb>
+  get: Set<Cb>
   getDone: Set<ScrollCb>
+  sync: Set<(pos: Readonly<BoxBox>) => void>
+  syncSync: Set<(pos: Readonly<BoxBox>) => void>
   syncSyncDone: Set<ScrollCb>
 }
 export interface StyleCbs {
