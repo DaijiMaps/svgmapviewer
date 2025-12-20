@@ -1,3 +1,4 @@
+import type { Z } from '../../types'
 import { type VecVec } from '../vec/prefixed'
 import { type Touches } from './touch'
 
@@ -21,7 +22,7 @@ type TouchEmit_ =
     }
   | { type: 'MULTI.START' }
   | { type: 'MULTI.END' }
-  | { type: 'ZOOM'; p: VecVec; z: number }
+  | { type: 'ZOOM'; p: VecVec; z: Z }
 type TouchContext_ = {
   touches: Touches
 }

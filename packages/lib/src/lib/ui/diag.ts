@@ -1,4 +1,4 @@
-import { type HV, type Size } from '../../types'
+import { type Dir, type HV, type Size } from '../../types'
 import { type Vec } from '../vec'
 import { vecVec } from '../vec/prefixed'
 
@@ -11,10 +11,10 @@ export function diag(size: Readonly<Size>, { x, y }: Vec): HV {
   return { h, v, th }
 }
 
-function div2(n: number): -1 | 0 | 1 {
+function div2(n: number): Dir {
   return n > 0.5 ? -1 : n < 0.5 ? 1 : 0
 }
 
-function div3(n: number): -1 | 0 | 1 {
+function div3(n: number): Dir {
   return n < 0.3 ? 1 : n > 0.7 ? -1 : 0
 }

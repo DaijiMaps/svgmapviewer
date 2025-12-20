@@ -1,4 +1,9 @@
-import { type SearchData, type SearchReq, type SearchRes } from '../../types'
+import {
+  type SearchData,
+  type SearchReq,
+  type SearchRes,
+  type Z,
+} from '../../types'
 import { type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec, type VecVec } from '../vec/prefixed'
 import { type Animation } from './animation-types'
@@ -28,7 +33,7 @@ export type ViewerContext = {
   layout: Layout
   prevLayout: null | Layout
   cursor: Vec
-  z: null | number
+  z: null | Z
   zoom: number
   want_animation: WantAnimation
   animation: null | Animation
@@ -60,7 +65,7 @@ export type ScrollSyncsyncDoneRequest = {
 }
 export type TouchLockRequest = { type: 'TOUCH.LOCK' }
 export type TouchUnlockRequest = { type: 'TOUCH.UNLOCK' }
-export type ZoomRequest = { type: 'ZOOM.ZOOM'; z: -1 | 1; p: null | VecVec }
+export type ZoomRequest = { type: 'ZOOM.ZOOM'; z: Z; p: null | VecVec }
 export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
 export type Searchlock = { type: 'SEARCH.LOCK'; psvg: Vec }
 export type SearchUnlock = { type: 'SEARCH.UNLOCK' }
@@ -138,7 +143,7 @@ export type ZoomStartEmitted = {
   type: 'ZOOM.START'
   layout: Layout
   zoom: number
-  z: number
+  z: Z
 }
 export type ZoomEndEmitted = { type: 'ZOOM.END'; layout: Layout; zoom: number }
 export type ModeEmitted = { type: 'MODE'; mode: ViewerMode }

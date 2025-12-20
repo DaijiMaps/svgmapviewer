@@ -50,7 +50,7 @@ function MultiTouchCursor(
           // XXX
           [{ x: 0, y: 0 }].map(
             ({ x, y }, i) => (i === 0 ? 'M' : 'L') + `${x},${y}`
-          ) + 'Z'
+          ) + 'Dir'
         }
         stroke="black"
         strokeWidth={r * 0.05}

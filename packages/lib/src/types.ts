@@ -20,13 +20,13 @@ import { type SearchEntries, type SearchPos } from './lib/search/types'
 
 //// layout
 
-export type Z = -1 | 0 | 1
+export type Dir = -1 | 0 | 1
 
 export type Scroll = null | BoxBox
 
 export interface HV {
-  h: Z // -1 | 0 | 1 = left, none, right
-  v: Z // -1 | 0 | 1 = top, none, bottom
+  h: Dir // -1 | 0 | 1 = left, none, right
+  v: Dir // -1 | 0 | 1 = top, none, bottom
   th: number // angle (radian)
 }
 
@@ -88,7 +88,7 @@ export interface AnimationMatrix {
 export interface ZoomInfo {
   layout: Readonly<LayoutCoord>
   zoom: number
-  z: number
+  z: Z
 }
 
 export type ZoomEndInfo = Omit<ZoomInfo, 'z'>

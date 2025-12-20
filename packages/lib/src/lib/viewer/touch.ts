@@ -15,6 +15,7 @@ import {
   vecMidpoint,
   vecOrd,
 } from '../vec/prefixed'
+import type { Z } from '../../types'
 
 const vecsOrd = ReadonlyArray.getOrd<Vec>(vecOrd)
 
@@ -34,13 +35,11 @@ export type Touches = Readonly<{
   points: readonly Vec[]
   cursor: null | Vec
   dists: readonly number[]
-  z: null | number
+  z: null | Z
   horizontal: null | boolean
 }>
 
-function calcZoom([d0, d1, d2, d3]: Readonly<readonly number[]>):
-  | null
-  | number {
+function calcZoom([d0, d1, d2, d3]: Readonly<readonly number[]>): null | Z {
   return isUndefined(d0) ||
     isUndefined(d1) ||
     isUndefined(d2) ||

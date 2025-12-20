@@ -6,8 +6,9 @@ import { type Animation } from './animation-types'
 import { fromMatrixSvg } from './coord'
 import { relocLayout, rotateLayout, zoomLayout, type Layout } from './layout'
 import { transformScale } from './transform'
+import type { Z } from '../../types'
 
-export function animationZoom(layout: Layout, z: number, o: Vec): Animation {
+export function animationZoom(layout: Layout, z: Z, o: Vec): Animation {
   const osvg = fromMatrixSvg(layout).inverse().transformPoint(o)
   const s = 1 / zoomToScale(z)
   const q = new DOMMatrixReadOnly().scale(1 / s, 1 / s)
@@ -88,6 +89,6 @@ export function animationEndLayout(
   )
 }
 
-function zoomToScale(z: number): number {
+function zoomToScale(z: Z): number {
   return Math.pow(svgMapViewerConfig.zoomFactor, z)
 }
