@@ -53,10 +53,10 @@ export const uiCbs: UiCbs = {
 }
 
 export const floorCbs: FloorCbs = {
-  floorLock: new Set(),
-  floorSelect: new Set(),
-  floorSelectDone: new Set(),
-  floorUnlock: new Set(),
+  lock: new Set(),
+  select: new Set(),
+  selectDone: new Set(),
+  unlock: new Set(),
 }
 
 export const renderedCbs: Set<Cb> = new Set()
@@ -173,16 +173,16 @@ export function notifyStyleMode(mode: ViewerMode): void {
 }
 
 export function notifyFloorLock(fidx: number): void {
-  notifyCbs(floorCbs.floorLock, fidx)
+  notifyCbs(floorCbs.lock, fidx)
 }
 export function notifyFloorSelect(fidx: number): void {
-  notifyCbs(floorCbs.floorSelect, fidx)
+  notifyCbs(floorCbs.select, fidx)
 }
 export function notifyFloorSelectDone(fidx: number): void {
-  notifyCbs(floorCbs.floorSelectDone, fidx)
+  notifyCbs(floorCbs.selectDone, fidx)
 }
 export function notifyFloorUnlock(): void {
-  notifyCbs0(floorCbs.floorUnlock)
+  notifyCbs0(floorCbs.unlock)
 }
 
 export function notifyTouchMultiStart(): void {

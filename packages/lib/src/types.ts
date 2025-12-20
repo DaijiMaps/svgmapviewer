@@ -157,10 +157,10 @@ export interface UiCbs {
   closeDone: Set<UiCloseDoneCb>
 }
 export interface FloorCbs {
-  floorLock: Set<FloorCb>
-  floorSelect: Set<FloorCb>
-  floorSelectDone: Set<FloorCb>
-  floorUnlock: Set<Cb>
+  lock: Set<FloorCb>
+  select: Set<FloorCb>
+  selectDone: Set<FloorCb>
+  unlock: Set<Cb>
 }
 export interface TouchCbs {
   multiStart: Set<Cb>

@@ -176,6 +176,6 @@ ${animation}
 
 export function floorsCbsStart(): void {
   initCbs.add(initFloor)
-  floorCbs.floorSelect.add(handleFloor)
-  floorCbs.floorSelectDone.add(handleFloorDone)
+  floorCbs.select.add(handleFloor)
+  floorCbs.selectDone.add(handleFloorDone)
 }

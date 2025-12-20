@@ -909,8 +909,8 @@ function handleTouchZoom({ z, p }: TouchZoomCbArgs) {
 }
 
 export function viewerCbsStart(): void {
-  floorCbs.floorLock.add(viewerSwitch)
-  floorCbs.floorSelectDone.add(viewerSwitchDone) // XXX animation end
+  floorCbs.lock.add(viewerSwitch)
+  floorCbs.selectDone.add(viewerSwitchDone) // XXX animation end
 
   searchCbs.end.add(viewerSearchEnd)
   uiCbs.open.add(viewerSearchLock)
