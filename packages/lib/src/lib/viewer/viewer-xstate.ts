@@ -24,11 +24,7 @@ import {
   touchCbs,
   uiCbs,
 } from '../../event'
-import {
-  type ResizeInfo,
-  type SearchRes,
-  type TouchZoomCbArgs,
-} from '../../types'
+import { type ResizeInfo, type SearchRes } from '../../types'
 import { boxCenter, type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'
 import {
@@ -64,6 +60,7 @@ import {
   viewerModePanning,
   viewerModeTouching,
 } from './viewer-types'
+import type { TouchZoomCbArgs } from '../../event-types'
 
 //// viewerMachine
 

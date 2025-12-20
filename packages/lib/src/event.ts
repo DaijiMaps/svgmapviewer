@@ -1,27 +1,29 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
+import type {
+  InitCb,
+  ScrollCbs,
+  SearchCbs,
+  UiCbs,
+  FloorCbs,
+  StyleCbs,
+  ActionCbs,
+  TouchCbs,
+  TouchZoomCbArgs,
+} from './event-types'
 import type { BoxBox } from './lib/box/prefixed'
 import { notifyCbs, notifyCbs0, type Cb } from './lib/cb'
 import { type VecVec } from './lib/vec/prefixed'
 import { type ViewerMode } from './lib/viewer/viewer-types'
 import {
-  type ActionCbs,
   type AnimationMatrix,
-  type FloorCbs,
-  type InitCb,
   type ResizeInfo,
   type Scroll,
-  type ScrollCbs,
-  type SearchCbs,
   type SearchData,
   type SearchReq,
   type SearchRes,
-  type StyleCbs,
   type SvgMapViewerConfig,
-  type TouchCbs,
-  type TouchZoomCbArgs,
-  type UiCbs,
   type ZoomEndInfo,
   type ZoomInfo,
 } from './types'
