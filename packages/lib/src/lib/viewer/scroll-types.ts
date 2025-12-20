@@ -15,12 +15,16 @@ type ScrollEventSyncSync = {
 
 export type ScrollEvent = ScrollGet | ScrollEventSync | ScrollEventSyncSync
 
-export type GetDone = { type: 'SCROLL.GET.DONE'; scroll: Scroll }
-export type SyncSyncDone = {
+////
+
+export type ScrollGetDone = { type: 'SCROLL.GET.DONE'; scroll: Scroll }
+export type ScrollSyncSyncDone = {
   type: 'SCROLL.SYNCSYNC.DONE'
   scroll: Scroll
 }
-export type ScrollEmitted = GetDone | SyncSyncDone
+export type ScrollEmitted = ScrollGetDone | ScrollSyncSyncDone
+
+////
 
 export interface ScrollContext {
   dest: Scroll

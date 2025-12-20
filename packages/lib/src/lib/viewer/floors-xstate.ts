@@ -41,7 +41,7 @@ const floorsMachine = setup({
       on: {
         // XXX receive one DONE event
         // XXX (receiving two without race is difficult/complex)
-        DONE: {
+        'SELECT.DONE': {
           actions: assign({
             prevFidx: null,
           }),
@@ -75,6 +75,6 @@ export function floorsCbsStart(): void {
     floorsActor.send({ type: 'SELECT', fidx })
   )
   floorCbs.selectDone.add((fidx: number) =>
-    floorsActor.send({ type: 'DONE', fidx })
+    floorsActor.send({ type: 'SELECT.DONE', fidx })
   )
 }
