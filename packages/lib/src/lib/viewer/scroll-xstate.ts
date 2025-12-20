@@ -2,12 +2,11 @@ import { assign, createActor, emit, fromPromise, setup } from 'xstate'
 import { type BoxBox as Box } from '../box/prefixed'
 import { getScroll, syncScroll } from './scroll'
 import {
-  type GetDone,
   type ScrollContext,
   type ScrollEmitted,
   type ScrollEvent,
-  type SyncSyncDone,
 } from './scroll-types'
+import { notifyScrollGetDone, notifyScrollSyncSyncDone } from '../../event'
 
 const scrollMachine = setup({
   types: {} as {
@@ -101,27 +100,13 @@ const scrollMachine = setup({
   },
 })
 
-export type GetDoneCb = (ev: GetDone) => void
-export type SyncSyncDoneCb = (ev: SyncSyncDone) => void
-export type ScrollCbs = {
-  getDoneCbs: Set<GetDoneCb>
-  syncSyncDoneCbs: Set<SyncSyncDoneCb>
-}
-
-export const scrollCbs: ScrollCbs = {
-  getDoneCbs: new Set(),
-  syncSyncDoneCbs: new Set(),
-}
-
 const scrollActor = createActor(scrollMachine, {
   systemId: 'system-scroll1',
 })
 
-scrollActor.on('SCROLL.GET.DONE', (ev) =>
-  scrollCbs.getDoneCbs.forEach((cb) => cb(ev))
-)
-scrollActor.on('SCROLL.SYNCSYNC.DONE', (ev) =>
-  scrollCbs.syncSyncDoneCbs.forEach((cb) => cb(ev))
+scrollActor.on('SCROLL.GET.DONE', ({ scroll }) => notifyScrollGetDone(scroll))
+scrollActor.on('SCROLL.SYNCSYNC.DONE', ({ scroll }) =>
+  notifyScrollSyncSyncDone(scroll)
 )
 
 export function scrollActorStart(): void {

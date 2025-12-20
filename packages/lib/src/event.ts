@@ -1,6 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
+import type { BoxBox } from './lib/box/prefixed'
 import { type Cb, type Cb1 } from './lib/cb'
 import { type VecVec } from './lib/vec/prefixed'
 import { type ViewerMode } from './lib/viewer/viewer-types'
@@ -29,6 +30,8 @@ export const initCbs: Set<InitCb> = new Set()
 export const scrollAllCbs: ScrollCbs = {
   eventTick: new Set(),
   eventExpire: new Set(),
+  getDone: new Set(),
+  syncSyncDone: new Set(),
 }
 
 export const searchCbs: SearchCbs = {
@@ -100,6 +103,14 @@ export function notifyScrollEventTick(
 }
 export function notifyScrollEventExpire(): void {
   notifyCbs0(scrollAllCbs.eventExpire)
+}
+export function notifyScrollGetDone(scroll: Readonly<null | BoxBox>): void {
+  notifyCbs(scrollAllCbs.getDone, scroll)
+}
+export function notifyScrollSyncSyncDone(
+  scroll: Readonly<null | BoxBox>
+): void {
+  notifyCbs(scrollAllCbs.syncSyncDone, scroll)
 }
 
 export function notifySearchStart(req: Readonly<SearchReq>): void {

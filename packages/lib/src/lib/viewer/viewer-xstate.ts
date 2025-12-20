@@ -16,6 +16,7 @@ import {
   notifyZoomEnd,
   notifyZoomStart,
   renderedCbs,
+  scrollAllCbs,
   searchCbs,
   styleCbs,
   touchCbs,
@@ -26,7 +27,7 @@ import {
   type SearchRes,
   type TouchZoomCbArgs,
 } from '../../types'
-import { boxCenter } from '../box/prefixed'
+import { boxCenter, type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'
 import {
   animationEndLayout,
@@ -47,8 +48,7 @@ import {
   scrollLayout,
 } from './layout'
 import { getCurrentScroll } from './scroll'
-import { type GetDone, type SyncSyncDone } from './scroll-types'
-import { scrollCbs, scrollSend } from './scroll-xstate'
+import { scrollSend } from './scroll-xstate'
 import {
   EXPAND_PANNING,
   type ReactUIEvent,
@@ -834,14 +834,14 @@ function viewerSwitchDone(): void {
   viewerSend({ type: 'SWITCH.DONE' }) // XXX animation end
 }
 
-function getDoneCb(ev: GetDone) {
-  if (ev.scroll !== null) {
-    viewerSend({ type: 'SCROLL.GET.DONE', scroll: ev.scroll })
+function getDoneCb(scroll: Readonly<null | BoxBox>) {
+  if (scroll !== null) {
+    viewerSend({ type: 'SCROLL.GET.DONE', scroll })
   }
 }
-function syncSyncDoneCb(ev: SyncSyncDone) {
-  if (ev.scroll !== null) {
-    viewerSend({ type: 'SCROLL.SYNCSYNC.DONE', scroll: ev.scroll })
+function syncSyncDoneCb(scroll: Readonly<null | BoxBox>) {
+  if (scroll !== null) {
+    viewerSend({ type: 'SCROLL.SYNCSYNC.DONE', scroll })
   }
 }
 
@@ -925,8 +925,8 @@ export function viewerCbsStart(): void {
   uiCbs.uiOpen.add(viewerSearchLock)
   uiCbs.uiCloseDone.add(viewerSearchUnlock)
 
-  scrollCbs.getDoneCbs.add(getDoneCb)
-  scrollCbs.syncSyncDoneCbs.add(syncSyncDoneCb)
+  scrollAllCbs.getDone.add(getDoneCb)
+  scrollAllCbs.syncSyncDone.add(syncSyncDoneCb)
 
   styleCbs.resize.add(resizeCb)
   styleCbs.mode.add(reflectMode)

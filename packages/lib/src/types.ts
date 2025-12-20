@@ -105,9 +105,10 @@ export type TouchZoomCb = Cb1<TouchZoomCbArgs>
 ////
 
 export type InitCb = Cb1<Readonly<SvgMapViewerConfig>>
-export type ScrollCb = (
+export type ScrollEventCb = (
   ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
 ) => void
+export type ScrollCb = (scroll: Readonly<null | BoxBox>) => void
 export type ZoomStartCb = Cb1<Readonly<ZoomInfo>>
 export type ZoomEndCb = Cb1<Readonly<ZoomEndInfo>>
 export type SearchStartCb = Cb1<Readonly<SearchReq>>
@@ -126,8 +127,10 @@ export type ModeCb = Cb1<ViewerMode>
 export type FloorCb = Cb1<number>
 
 export interface ScrollCbs {
-  eventTick: Set<ScrollCb>
+  eventTick: Set<ScrollEventCb>
   eventExpire: Set<Cb>
+  getDone: Set<ScrollCb>
+  syncSyncDone: Set<ScrollCb>
 }
 export interface StyleCbs {
   resize: Set<ResizeCb>
