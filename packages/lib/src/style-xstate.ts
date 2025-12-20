@@ -1,13 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, raise, setup } from 'xstate'
 import { svgMapViewerConfig } from './config'
-import {
-  animationCbs,
-  layoutCbs,
-  modeCbs,
-  zoomEndCbs,
-  zoomStartCbs,
-} from './event'
+import { styleCbs } from './event'
 import { boxToViewBox2, type BoxBox } from './lib/box/prefixed'
 import { findRadius } from './lib/distance'
 import { type DistanceRadius } from './lib/distance-types'
@@ -335,10 +329,10 @@ function handleExpire() {
 const expire = makeExpire(500, handleExpire)
 
 export function styleCbsStart(): void {
-  layoutCbs.add(handleLayout)
-  zoomStartCbs.add(handleZoomStart)
-  zoomEndCbs.add(handleZoomEnd)
-  animationCbs.add(handleAnimation)
-  modeCbs.add(handleMode)
+  styleCbs.layout.add(handleLayout)
+  styleCbs.zoomStart.add(handleZoomStart)
+  styleCbs.zoomEnd.add(handleZoomEnd)
+  styleCbs.animation.add(handleAnimation)
+  styleCbs.mode.add(handleMode)
   scrollEventCbs.add(expire.tick)
 }

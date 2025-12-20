@@ -6,26 +6,21 @@ import { type VecVec } from './lib/vec/prefixed'
 import { type ViewerMode } from './lib/viewer/viewer-types'
 import {
   type ActionCbs,
-  type AnimationCb,
   type AnimationMatrix,
   type FloorCbs,
   type InitCb,
-  type LayoutCb,
-  type ModeCb,
-  type ResizeCb,
   type ResizeInfo,
   type SearchCbs,
   type SearchData,
   type SearchReq,
   type SearchRes,
+  type StyleCbs,
   type SvgMapViewerConfig,
   type TouchCbs,
   type TouchZoomCbArgs,
   type UiCbs,
-  type ZoomEndCb,
   type ZoomEndInfo,
   type ZoomInfo,
-  type ZoomStartCb,
 } from './types'
 
 export const initCbs: Set<InitCb> = new Set()
@@ -53,12 +48,15 @@ export const floorCbs: FloorCbs = {
 }
 
 export const renderedCbs: Set<Cb> = new Set()
-export const resizeCbs: Set<ResizeCb> = new Set()
-export const layoutCbs: Set<LayoutCb> = new Set()
-export const zoomStartCbs: Set<ZoomStartCb> = new Set()
-export const zoomEndCbs: Set<ZoomEndCb> = new Set()
-export const animationCbs: Set<AnimationCb> = new Set()
-export const modeCbs: Set<ModeCb> = new Set()
+
+export const styleCbs: StyleCbs = {
+  resize: new Set(),
+  layout: new Set(),
+  zoomStart: new Set(),
+  zoomEnd: new Set(),
+  animation: new Set(),
+  mode: new Set(),
+}
 
 export const actionCbs: ActionCbs = {
   uiActionZoomIn: new Set(),
@@ -121,22 +119,22 @@ export function notifyRendered(): void {
   notifyCbs0(renderedCbs)
 }
 export function notifyResize(resize: Readonly<ResizeInfo>): void {
-  notifyCbs(resizeCbs, resize)
+  notifyCbs(styleCbs.resize, resize)
 }
 export function notifyLayout(resize: Readonly<ResizeInfo>): void {
-  notifyCbs(layoutCbs, resize)
+  notifyCbs(styleCbs.layout, resize)
 }
 export function notifyZoomStart(zoom: Readonly<ZoomInfo>): void {
-  notifyCbs(zoomStartCbs, zoom)
+  notifyCbs(styleCbs.zoomStart, zoom)
 }
 export function notifyZoomEnd(end: Readonly<ZoomEndInfo>): void {
-  notifyCbs(zoomEndCbs, end)
+  notifyCbs(styleCbs.zoomEnd, end)
 }
 export function notifyAnimation(a: Readonly<null | AnimationMatrix>): void {
-  notifyCbs(animationCbs, a)
+  notifyCbs(styleCbs.animation, a)
 }
 export function notifyMode(mode: ViewerMode): void {
-  notifyCbs(modeCbs, mode)
+  notifyCbs(styleCbs.mode, mode)
 }
 
 export function notifyFloorLock(fidx: number): void {

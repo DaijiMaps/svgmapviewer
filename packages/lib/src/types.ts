@@ -122,31 +122,39 @@ export type AnimationCb = Cb1<Readonly<null | AnimationMatrix>>
 export type ModeCb = Cb1<ViewerMode>
 export type FloorCb = Cb1<number>
 
-export type SearchCbs = {
+export interface StyleCbs {
+  resize: Set<ResizeCb>
+  layout: Set<LayoutCb>
+  zoomStart: Set<ZoomStartCb>
+  zoomEnd: Set<ZoomEndCb>
+  animation: Set<AnimationCb>
+  mode: Set<ModeCb>
+}
+export interface SearchCbs {
   searchStart: Set<SearchStartCb>
   search: Set<SearchCb>
   searchDone: Set<SearchDoneCb>
   searchEnd: Set<SearchEndCb>
   searchEndDone: Set<SearchEndDoneCb>
 }
-export type UiCbs = {
+export interface UiCbs {
   uiOpen: Set<UiOpenCb>
   uiOpenDone: Set<UiOpenDoneCb>
   uiClose: Set<UiCloseCb>
   uiCloseDone: Set<UiCloseDoneCb>
 }
-export type FloorCbs = {
+export interface FloorCbs {
   floorLock: Set<FloorCb>
   floor: Set<FloorCb>
   floorDone: Set<FloorCb>
   floorUnlock: Set<Cb>
 }
-export type TouchCbs = {
+export interface TouchCbs {
   multiStart: Set<Cb>
   multiEnd: Set<Cb>
   zoom: Set<TouchZoomCb>
 }
-export type ActionCbs = {
+export interface ActionCbs {
   uiActionZoomIn: Set<Cb>
   uiActionZoomOut: Set<Cb>
   uiActionReset: Set<Cb>

@@ -4,7 +4,6 @@ import { svgMapViewerConfig } from '../../config'
 import {
   actionCbs,
   floorCbs,
-  modeCbs,
   notifyAnimation,
   notifyFloor,
   notifyFloorUnlock,
@@ -17,12 +16,10 @@ import {
   notifyZoomEnd,
   notifyZoomStart,
   renderedCbs,
-  resizeCbs,
   searchCbs,
+  styleCbs,
   touchCbs,
   uiCbs,
-  zoomEndCbs,
-  zoomStartCbs,
 } from '../../event'
 import {
   type ResizeInfo,
@@ -927,15 +924,14 @@ export function viewerCbsStart(): void {
   searchCbs.searchEnd.add(viewerSearchEnd)
   uiCbs.uiOpen.add(viewerSearchLock)
   uiCbs.uiCloseDone.add(viewerSearchUnlock)
-  resizeCbs.add(resizeCb)
 
   scrollCbs.getDoneCbs.add(getDoneCb)
   scrollCbs.syncSyncDoneCbs.add(syncSyncDoneCb)
 
-  modeCbs.add(reflectMode)
-
-  zoomStartCbs.add(maskWheel)
-  zoomEndCbs.add(unmaskWheel)
+  styleCbs.resize.add(resizeCb)
+  styleCbs.mode.add(reflectMode)
+  styleCbs.zoomStart.add(maskWheel)
+  styleCbs.zoomEnd.add(unmaskWheel)
 
   actionCbs.uiActionReset.add(handleUiActionReset)
   actionCbs.uiActionRecenter.add(handleUiActionRecenter)
