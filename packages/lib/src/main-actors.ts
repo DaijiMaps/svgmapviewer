@@ -3,13 +3,13 @@
 /* eslint-disable functional/no-return-void */
 import { geolocActorStart } from './lib/geo'
 import { searchActorStart } from './lib/search/search-xstate'
+import { styleActorStart } from './lib/style/style-xstate'
 import { uiActorStart } from './lib/ui/ui-xstate'
 import { floorsActorStart } from './lib/viewer/floors-xstate'
 import { resizeActorStart } from './lib/viewer/resize-xstate'
 import { scrollActorStart } from './lib/viewer/scroll-xstate'
 import { touchActorStart } from './lib/viewer/touch-xstate'
 import { viewerActorStart } from './lib/viewer/viewer-xstate'
-import { styleActorStart } from './style-xstate'
 
 export function startAllActors(): void {
   // reference & ensure all actors are started

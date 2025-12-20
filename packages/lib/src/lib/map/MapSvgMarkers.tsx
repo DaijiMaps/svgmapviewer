@@ -1,12 +1,12 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode } from 'react'
-import { SvgSymbolStyle } from '../../Style'
+import { SvgSymbolStyle } from '../style/Style'
 import {
   useLayout,
   useLayoutConfig,
   useLayoutSvgScaleS,
-} from '../../style-react'
+} from '../style/style-react'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapMarkers } from '../carto'
 import { useShadowRoot } from '../dom'

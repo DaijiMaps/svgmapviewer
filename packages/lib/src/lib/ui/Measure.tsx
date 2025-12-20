@@ -4,7 +4,7 @@ import {
   useDistanceRadius,
   useGeoPoint,
   useLayoutContainer,
-} from '../../style-react'
+} from '../style/style-react'
 import {
   position_absolute_left_0_bottom_0,
   position_absolute_left_0_top_0,

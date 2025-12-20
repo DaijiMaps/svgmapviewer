@@ -3,12 +3,12 @@
 import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
 import { notifyInit } from './event'
 import { type Box } from './lib/box/main'
+import { styleRoot } from './lib/style/Style'
 import { isUiRendered } from './lib/ui/Ui'
 import { isContainerRendered } from './lib/viewer/Container'
 import { startAllActors } from './main-actors'
 import { startAllCbs } from './main-cbs'
 import { root } from './Root'
-import { styleRoot } from './Style'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
 
 function updateConfig(

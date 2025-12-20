@@ -1,14 +1,14 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, raise, setup } from 'xstate'
-import { svgMapViewerConfig } from './config'
-import { scrollCbs, styleCbs } from './event'
-import { findRadius } from './lib/distance'
-import { type DistanceRadius } from './lib/distance-types'
-import { vecZero, type VecVec } from './lib/vec/prefixed'
-import { fromSvgToScroll } from './lib/viewer/coord'
-import { emptyLayout, type Layout } from './lib/viewer/layout'
-import { getCurrentScroll, type CurrentScroll } from './lib/viewer/scroll'
-import { type ViewerMode } from './lib/viewer/viewer-types'
+import { svgMapViewerConfig } from '../../config'
+import { scrollCbs, styleCbs } from '../../event'
+import { findRadius } from '../distance'
+import { type DistanceRadius } from '../distance-types'
+import { vecZero, type VecVec } from '../vec/prefixed'
+import { fromSvgToScroll } from '../viewer/coord'
+import { emptyLayout, type Layout } from '../viewer/layout'
+import { getCurrentScroll, type CurrentScroll } from '../viewer/scroll'
+import { type ViewerMode } from '../viewer/viewer-types'
 import {
   type AnimationMatrix,
   type Range,
@@ -16,7 +16,7 @@ import {
   type Dir,
   type ZoomEndInfo,
   type ZoomInfo,
-} from './types'
+} from '../../types'
 
 type LayoutEvent = { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
 type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number; z: null | Dir }

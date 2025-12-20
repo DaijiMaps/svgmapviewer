@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 import { type PropsWithChildren, type ReactNode, useRef } from 'react'
-import { useAnimation, useLayoutContent } from '../../style-react'
+import { useAnimation, useLayoutContent } from '../style/style-react'
 import { type AnimationMatrix } from '../../types'
 import {
   position_absolute_left_0_top_0,

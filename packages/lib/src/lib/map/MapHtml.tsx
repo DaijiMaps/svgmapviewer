@@ -1,7 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { useLayout } from '../../style-react'
+import { useLayout } from '../style/style-react'
 import { useShadowRoot } from '../dom'
 import { trunc2 } from '../utils'
 import { fromSvgToContent } from '../viewer/coord'

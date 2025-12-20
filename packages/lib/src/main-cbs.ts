@@ -4,6 +4,7 @@
 import { positionCbsStart } from './lib/geo/position-xstate'
 import { namesCbsStart } from './lib/map/names'
 import { searchCbsStart } from './lib/search/search-xstate'
+import { styleCbsStart } from './lib/style/style-xstate'
 import { fullscreenCbsStart } from './lib/ui/fullscreen'
 import { uiCbsStart } from './lib/ui/ui-xstate'
 import { floorsCbsStart } from './lib/viewer/floors-xstate'
@@ -12,7 +13,6 @@ import { scrollCbsStart2 } from './lib/viewer/scroll-xstate'
 import { touchCbsStart } from './lib/viewer/touch-xstate'
 import { viewerCbsStart } from './lib/viewer/viewer-xstate'
 import { searchWorkerCbsStart } from './search-main'
-import { styleCbsStart } from './style-xstate'
 
 export function startAllCbs(): void {
   floorsCbsStart()

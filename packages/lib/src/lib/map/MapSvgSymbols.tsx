@@ -1,8 +1,8 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { SvgSymbolStyle } from '../../Style'
-import { useLayout } from '../../style-react'
+import { SvgSymbolStyle } from '../style/Style'
+import { useLayout } from '../style/style-react'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapSymbols } from '../carto'
 import { RenderMapAssetsDefault } from '../carto/assets'
