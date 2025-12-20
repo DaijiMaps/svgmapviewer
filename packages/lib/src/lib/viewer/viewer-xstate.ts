@@ -765,6 +765,10 @@ const viewerActor = createActor(viewerMachine, {
   systemId: 'system-viewer1',
 })
 
+export function viewerActorStart(): void {
+  viewerActor.start()
+}
+
 export function viewerSend(ev: ViewerEvent): void {
   viewerActor.send(ev)
 }
@@ -890,8 +894,4 @@ export function viewerCbsStart(): void {
   )
 
   renderedCbs.add(() => viewerSend({ type: 'RENDERED' }))
-}
-
-export function viewerActorStart(): void {
-  viewerActor.start()
 }

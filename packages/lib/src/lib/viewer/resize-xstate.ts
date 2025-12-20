@@ -121,13 +121,13 @@ const resizeMachine = setup({
 
 const resizeActor = createActor(resizeMachine)
 
+export function resizeActorStart(): void {
+  resizeActor.start()
+}
+
 resizeActor.on('LAYOUT', (resize) => notifyStyleResize(resize))
 
 // XXX
 window.addEventListener('resize', () => {
   resizeActor.send({ type: 'RESIZE' })
 })
-
-export function resizeActorStart(): void {
-  resizeActor.start()
-}

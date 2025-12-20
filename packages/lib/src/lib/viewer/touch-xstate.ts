@@ -214,6 +214,10 @@ const touchMachine = setup({
 
 const touchActor = createActor(touchMachine)
 
+export function touchActorStart(): void {
+  touchActor.start()
+}
+
 export let touching: boolean = false
 
 touchActor.on('MULTI.START', () => {
@@ -230,10 +234,6 @@ touchActor.on('ZOOM', ({ z, p }) => {
 
 ////
 
-export function touchActorStart(): void {
-  touchActor.start()
-}
-
 export function touchSendTouchStart(ev: React.TouchEvent): void {
   touchActor.send({ type: 'TOUCH.START', ev })
 }
@@ -243,7 +243,8 @@ export function touchSendTouchMove(ev: React.TouchEvent): void {
 export function touchSendTouchEnd(ev: React.TouchEvent): void {
   touchActor.send({ type: 'TOUCH.END', ev })
 }
-export function touchSendCancel(): void {
+
+function touchSendCancel(): void {
   touchActor.send({ type: 'CANCEL' })
 }
 

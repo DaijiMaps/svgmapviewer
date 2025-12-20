@@ -108,6 +108,10 @@ const scrollActor = createActor(scrollMachine, {
   systemId: 'system-scroll1',
 })
 
+export function scrollActorStart(): void {
+  scrollActor.start()
+}
+
 export function scrollSend(ev: ScrollEvent): void {
   scrollActor.send(ev)
 }
@@ -125,8 +129,4 @@ export function scrollCbsStart2(): void {
     scrollSend({ type: 'SYNCSYNC', pos })
   )
   scrollCbs.get.add((): void => scrollSend({ type: 'GET' }))
-}
-
-export function scrollActorStart(): void {
-  scrollActor.start()
 }

@@ -264,7 +264,6 @@ export function useOpenCloseDetail(): OpenClose {
 ////
 
 const uiActor = createActor(uiMachine)
-uiActor.on('CLOSE.DONE', notifyUiCloseDone)
 
 export function uiActorStart(): void {
   uiActor.start()
@@ -273,26 +272,21 @@ export function uiSend(ev: UiEvent): void {
   uiActor.send(ev)
 }
 
+uiActor.on('CLOSE.DONE', notifyUiCloseDone)
+
 ////
 
-function uiDetail(data: Readonly<SearchData>) {
-  uiActor.send({ type: 'DETAIL', ...data })
-}
-function open(ok: boolean) {
-  uiActor.send({ type: ok ? 'OPEN' : 'CANCEL' })
-}
-function uiCancel() {
-  uiActor.send({ type: 'CANCEL' })
-}
-function closeDone() {
-  requestAnimationFrame(
-    () => resetDetailScroll() // XXX
-  )
-}
-
 export function uiCbsStart(): void {
-  searchCbs.endDone.add(uiDetail)
-  uiCbs.openDone.add(open)
-  uiCbs.close.add(uiCancel)
-  uiCbs.closeDone.add(closeDone)
+  searchCbs.endDone.add((data: Readonly<SearchData>) =>
+    uiActor.send({ type: 'DETAIL', ...data })
+  )
+  uiCbs.openDone.add((ok: boolean) =>
+    uiActor.send({ type: ok ? 'OPEN' : 'CANCEL' })
+  )
+  uiCbs.close.add(() => uiActor.send({ type: 'CANCEL' }))
+  uiCbs.closeDone.add(() => {
+    requestAnimationFrame(
+      () => resetDetailScroll() // XXX
+    )
+  })
 }

@@ -117,14 +117,10 @@ export function geolocSend(ev: GeoLocEvent): void {
   geolocActor.send(ev)
 }
 
-export function getPosition(): void {
-  geolocSend({ type: 'GET' })
-}
-
 export function usePosition(): null | GeolocationPosition {
   return useSelector(geolocActor, (state) => state.context.position)
 }
 
 export function positionCbsStart(): void {
-  actionCbs.position.add(getPosition)
+  actionCbs.position.add(() => geolocSend({ type: 'GET' }))
 }
