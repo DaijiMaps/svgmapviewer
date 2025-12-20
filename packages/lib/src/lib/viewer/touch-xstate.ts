@@ -32,23 +32,15 @@ const touchMachine = setup({
     isZooming: ({ context: { touches } }) => touches.z !== null,
   },
   actions: {
-    handleTouchStart: assign({
+    updateTouches: assign({
       touches: ({ context: { touches }, event }) =>
-        event.type !== 'TOUCH.START'
-          ? touches
-          : handleTouchStart(touches, event.ev),
-    }),
-    handleTouchMove: assign({
-      touches: ({ context: { touches }, event }) =>
-        event.type !== 'TOUCH.MOVE'
-          ? touches
-          : handleTouchMove(touches, event.ev, 0),
-    }),
-    handleTouchEnd: assign({
-      touches: ({ context: { touches }, event }) =>
-        event.type !== 'TOUCH.END'
-          ? touches
-          : handleTouchEnd(touches, event.ev),
+        event.type === 'TOUCH.START'
+          ? handleTouchStart(touches, event.ev)
+          : event.type === 'TOUCH.MOVE'
+            ? handleTouchMove(touches, event.ev, 0)
+            : event.type === 'TOUCH.END'
+              ? handleTouchEnd(touches, event.ev)
+              : touches,
     }),
     raiseStarted: raise({ type: 'STARTED' }),
     raiseMoved: raise({ type: 'MOVED' }),
@@ -82,13 +74,13 @@ const touchMachine = setup({
   },
   on: {
     'TOUCH.START': {
-      actions: ['handleTouchStart', 'raiseStarted'],
+      actions: ['updateTouches', 'raiseStarted'],
     },
     'TOUCH.MOVE': {
-      actions: ['handleTouchMove', 'raiseMoved'],
+      actions: ['updateTouches', 'raiseMoved'],
     },
     'TOUCH.END': {
-      actions: ['handleTouchEnd', 'raiseEnded'],
+      actions: ['updateTouches', 'raiseEnded'],
     },
     CANCEL: {
       target: '.Canceling',
