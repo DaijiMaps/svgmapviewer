@@ -3,10 +3,8 @@
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-conditional-statements */
-import { notifyScrollEventExpire, scrollCbs } from '../../event'
 import { type Scroll, type Size } from '../../types'
 import { boxBox, type BoxBox, boxUnit } from '../box/prefixed'
-import { makeExpire, type Expire } from '../expire-xstate'
 
 // XXX make this async
 // XXX call this from scroll-xstate as invoke (Promise)
@@ -120,7 +118,7 @@ export let currentScroll: CurrentScroll = {
   timeStamp: 0,
 }
 
-function setCurrentScroll(
+export function setCurrentScroll(
   ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
 ): void {
   const e: null | HTMLDivElement = ev.currentTarget
@@ -143,13 +141,4 @@ function setCurrentScroll(
 
 export function getCurrentScroll(): CurrentScroll {
   return currentScroll
-}
-
-////
-
-const expire: Expire = makeExpire(500, notifyScrollEventExpire)
-
-export function scrollCbsStart(): void {
-  scrollCbs.eventTick.add(setCurrentScroll)
-  scrollCbs.eventTick.add(expire.tick)
 }

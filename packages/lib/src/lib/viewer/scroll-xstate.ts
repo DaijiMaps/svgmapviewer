@@ -1,16 +1,18 @@
 import { assign, createActor, emit, fromPromise, setup } from 'xstate'
 import { type BoxBox } from '../box/prefixed'
-import { getScroll, syncScroll } from './scroll'
+import { getScroll, setCurrentScroll, syncScroll } from './scroll'
 import {
   type ScrollContext,
   type ScrollEmitted,
   type ScrollEvent,
 } from './scroll-types'
 import {
+  notifyScrollEventExpire,
   notifyScrollGetDone,
   notifyScrollSyncSyncDone,
   scrollCbs,
 } from '../../event'
+import { makeExpire, type Expire } from '../expire-xstate'
 
 const scrollMachine = setup({
   types: {} as {
@@ -121,12 +123,16 @@ scrollActor.on('SCROLL.SYNCSYNC.DONE', ({ scroll }) =>
   notifyScrollSyncSyncDone(scroll)
 )
 
-export function scrollCbsStart2(): void {
+const expire: Expire = makeExpire(500, notifyScrollEventExpire)
+
+export function scrollCbsStart(): void {
+  scrollCbs.eventTick.add(setCurrentScroll)
+  scrollCbs.eventTick.add(expire.tick)
+  scrollCbs.get.add((): void => scrollSend({ type: 'GET' }))
   scrollCbs.sync.add((pos: Readonly<BoxBox>): void =>
     scrollSend({ type: 'SYNC', pos })
   )
   scrollCbs.syncSync.add((pos: Readonly<BoxBox>): void =>
     scrollSend({ type: 'SYNCSYNC', pos })
   )
-  scrollCbs.get.add((): void => scrollSend({ type: 'GET' }))
 }
