@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import { geolocActorStart } from './lib/geo'
+import { positionActorStart } from './lib/position'
 import { searchActorStart } from './lib/search/search-xstate'
 import { styleActorStart } from './lib/style/style-xstate'
 import { uiActorStart } from './lib/ui/ui-xstate'
@@ -16,7 +16,7 @@ export function startAllActors(): void {
   // for module dependency
   // (order doesn't matter)
   floorsActorStart()
-  geolocActorStart()
+  positionActorStart()
   resizeActorStart()
   scrollActorStart()
   searchActorStart()

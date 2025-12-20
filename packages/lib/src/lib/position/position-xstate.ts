@@ -9,47 +9,34 @@ import {
   type ErrorActorEvent,
 } from 'xstate'
 import { actionCbs } from '../event-action'
+import { getGeolocationPosition } from './api'
 
-export type GeoLocContext = {
+const TIMEOUT = 5000
+
+export type PositionContext = {
   position: null | GeolocationPosition
   error: null | GeolocationPositionError
 }
 
-export type GeoLocEvent = { type: 'GET' }
-export type GeoLocEmitted = { type: 'POSITION'; position: GeolocationPosition }
-
-const TIMEOUT = 5000
-
-async function getGeolocationPosition(): Promise<GeolocationPosition> {
-  return new Promise((resolve, reject) => {
-    function successCb(position: GeolocationPosition) {
-      resolve(position)
-    }
-    function errorCb(error: GeolocationPositionError) {
-      reject(error)
-    }
-    const options: PositionOptions = {
-      enableHighAccuracy: true,
-      timeout: TIMEOUT,
-      maximumAge: 0,
-    }
-    navigator.geolocation.getCurrentPosition(successCb, errorCb, options)
-  })
+export type PositionEvent = { type: 'GET' }
+export type PositionEmitted = {
+  type: 'POSITION'
+  position: GeolocationPosition
 }
 
-const geolocMachine = setup({
+const positionMachine = setup({
   types: {
-    events: {} as GeoLocEvent,
-    emitted: {} as GeoLocEmitted,
+    events: {} as PositionEvent,
+    emitted: {} as PositionEmitted,
   },
   actors: {
-    api: fromPromise(getGeolocationPosition),
+    api: fromPromise(() => getGeolocationPosition(TIMEOUT)),
   },
   delays: {
     TIMEOUT: TIMEOUT,
   },
 }).createMachine({
-  id: 'geoloc',
+  id: 'position',
   context: {
     position: null,
     error: null,
@@ -107,20 +94,20 @@ const geolocMachine = setup({
   },
 })
 
-const geolocActor = createActor(geolocMachine)
+const positionActor = createActor(positionMachine)
 
-export function geolocActorStart(): void {
-  geolocActor.start()
+export function positionActorStart(): void {
+  positionActor.start()
 }
 
-export function geolocSend(ev: GeoLocEvent): void {
-  geolocActor.send(ev)
+export function positionSend(ev: PositionEvent): void {
+  positionActor.send(ev)
 }
 
 export function usePosition(): null | GeolocationPosition {
-  return useSelector(geolocActor, (state) => state.context.position)
+  return useSelector(positionActor, (state) => state.context.position)
 }
 
 export function positionCbsStart(): void {
-  actionCbs.position.add(() => geolocSend({ type: 'GET' }))
+  actionCbs.position.add(() => positionSend({ type: 'GET' }))
 }

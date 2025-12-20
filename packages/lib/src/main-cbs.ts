@@ -1,8 +1,8 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import { positionCbsStart } from './lib/geo/position-xstate'
 import { namesCbsStart } from './lib/map/names'
+import { positionCbsStart } from './lib/position/position-xstate'
 import { searchWorkerCbsStart } from './lib/search/search-main'
 import { searchCbsStart } from './lib/search/search-xstate'
 import { styleCbsStart } from './lib/style/style-xstate'

@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react'
 import { type OsmRenderMapProps } from '../../types'
-import { usePosition } from '../geo'
+import { usePosition } from '../position'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'
 import { entryToVs } from './point'

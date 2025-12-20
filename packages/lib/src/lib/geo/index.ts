@@ -62,7 +62,6 @@ import {
   type MultiPolygonsFilter,
   type PointsFilter,
 } from './poi-types'
-import { geolocActorStart, usePosition } from './position-xstate'
 import {
   findFeature,
   findProperties,
@@ -140,9 +139,6 @@ export { type Line, type MultiLineString, type MultiPolygon, type Point }
 
 // poi-types
 export { type LinesFilter, type MultiPolygonsFilter, type PointsFilter }
-
-// position-xstate
-export { geolocActorStart, usePosition }
 
 // search
 export {
