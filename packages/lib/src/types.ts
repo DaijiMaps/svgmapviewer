@@ -20,7 +20,6 @@ import { type Layout, type LayoutCoord } from './lib/viewer/layout-types'
 import { type ViewerMode } from './lib/viewer/viewer-types'
 import { type SearchEntries, type SearchPos } from './lib/search/types'
 import { type Cb, type Cb1 } from './lib/cb'
-import type { ScrollCb } from './lib/viewer/scroll-types'
 
 //// layout
 
@@ -106,6 +105,9 @@ export type TouchZoomCb = Cb1<TouchZoomCbArgs>
 ////
 
 export type InitCb = Cb1<Readonly<SvgMapViewerConfig>>
+export type ScrollCb = (
+  ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
+) => void
 export type ZoomStartCb = Cb1<Readonly<ZoomInfo>>
 export type ZoomEndCb = Cb1<Readonly<ZoomEndInfo>>
 export type SearchStartCb = Cb1<Readonly<SearchReq>>

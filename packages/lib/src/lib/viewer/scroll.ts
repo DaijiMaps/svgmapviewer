@@ -120,7 +120,7 @@ export let currentScroll: CurrentScroll = {
   timeStamp: 0,
 }
 
-export function setCurrentScroll(
+function setCurrentScroll(
   ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
 ): void {
   const e: null | HTMLDivElement = ev.currentTarget
@@ -150,5 +150,6 @@ export function getCurrentScroll(): CurrentScroll {
 const expire: Expire = makeExpire(500, notifyScrollEventExpire)
 
 export function scrollCbsStart(): void {
+  scrollAllCbs.eventTick.add(setCurrentScroll)
   scrollAllCbs.eventTick.add(expire.tick)
 }

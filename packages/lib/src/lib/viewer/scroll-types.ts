@@ -26,8 +26,3 @@ export interface ScrollContext {
   dest: null | Box
   scroll: null | Box
 }
-
-export type ScrollCb = (
-  ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
-  // eslint-disable-next-line functional/no-return-void
-) => void
