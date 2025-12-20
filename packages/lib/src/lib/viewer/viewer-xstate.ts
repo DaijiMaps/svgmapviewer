@@ -18,7 +18,7 @@ import {
   notifyZoomEnd,
   notifyZoomStart,
   renderedCbs,
-  scrollAllCbs,
+  scrollCbs,
   searchCbs,
   styleCbs,
   touchCbs,
@@ -914,8 +914,8 @@ export function viewerCbsStart(): void {
   uiCbs.uiOpen.add(viewerSearchLock)
   uiCbs.uiCloseDone.add(viewerSearchUnlock)
 
-  scrollAllCbs.getDone.add(getDoneCb)
-  scrollAllCbs.syncSyncDone.add(syncSyncDoneCb)
+  scrollCbs.getDone.add(getDoneCb)
+  scrollCbs.syncSyncDone.add(syncSyncDoneCb)
 
   styleCbs.resize.add(resizeCb)
   styleCbs.mode.add(reflectMode)

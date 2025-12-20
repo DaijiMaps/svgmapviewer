@@ -3,7 +3,7 @@
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-conditional-statements */
-import { notifyScrollEventExpire, scrollAllCbs } from '../../event'
+import { notifyScrollEventExpire, scrollCbs } from '../../event'
 import { type Size } from '../../types'
 import { boxBox, type BoxBox, boxUnit } from '../box/prefixed'
 import { makeExpire, type Expire } from '../expire-xstate'
@@ -150,6 +150,6 @@ export function getCurrentScroll(): CurrentScroll {
 const expire: Expire = makeExpire(500, notifyScrollEventExpire)
 
 export function scrollCbsStart(): void {
-  scrollAllCbs.eventTick.add(setCurrentScroll)
-  scrollAllCbs.eventTick.add(expire.tick)
+  scrollCbs.eventTick.add(setCurrentScroll)
+  scrollCbs.eventTick.add(expire.tick)
 }

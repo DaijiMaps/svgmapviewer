@@ -27,7 +27,7 @@ import {
 
 export const initCbs: Set<InitCb> = new Set()
 
-export const scrollAllCbs: ScrollCbs = {
+export const scrollCbs: ScrollCbs = {
   eventTick: new Set(),
   eventExpire: new Set(),
   get: new Set(),
@@ -102,27 +102,27 @@ export function notifyInit(cfg: Readonly<SvgMapViewerConfig>): void {
 export function notifyScrollEventTick(
   ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
 ): void {
-  scrollAllCbs.eventTick.forEach((cb) => cb(ev))
+  scrollCbs.eventTick.forEach((cb) => cb(ev))
 }
 export function notifyScrollEventExpire(): void {
-  notifyCbs0(scrollAllCbs.eventExpire)
+  notifyCbs0(scrollCbs.eventExpire)
 }
 export function notifyScrollGet(): void {
-  notifyCbs0(scrollAllCbs.get)
+  notifyCbs0(scrollCbs.get)
 }
 export function notifyScrollGetDone(scroll: Readonly<null | BoxBox>): void {
-  notifyCbs(scrollAllCbs.getDone, scroll)
+  notifyCbs(scrollCbs.getDone, scroll)
 }
 export function notifyScrollSync(pos: Readonly<BoxBox>): void {
-  notifyCbs(scrollAllCbs.sync, pos)
+  notifyCbs(scrollCbs.sync, pos)
 }
 export function notifyScrollSyncSync(pos: Readonly<BoxBox>): void {
-  notifyCbs(scrollAllCbs.syncSync, pos)
+  notifyCbs(scrollCbs.syncSync, pos)
 }
 export function notifyScrollSyncSyncDone(
   scroll: Readonly<null | BoxBox>
 ): void {
-  notifyCbs(scrollAllCbs.syncSyncDone, scroll)
+  notifyCbs(scrollCbs.syncSyncDone, scroll)
 }
 
 export function notifySearchStart(req: Readonly<SearchReq>): void {

@@ -9,7 +9,7 @@ import {
 import {
   notifyScrollGetDone,
   notifyScrollSyncSyncDone,
-  scrollAllCbs,
+  scrollCbs,
 } from '../../event'
 
 const scrollMachine = setup({
@@ -118,13 +118,13 @@ scrollActor.on('SCROLL.SYNCSYNC.DONE', ({ scroll }) =>
 )
 
 export function scrollCbsStart2(): void {
-  scrollAllCbs.sync.add((pos: Readonly<Box>): void =>
+  scrollCbs.sync.add((pos: Readonly<Box>): void =>
     scrollSend({ type: 'SYNC', pos })
   )
-  scrollAllCbs.syncSync.add((pos: Readonly<Box>): void =>
+  scrollCbs.syncSync.add((pos: Readonly<Box>): void =>
     scrollSend({ type: 'SYNCSYNC', pos })
   )
-  scrollAllCbs.get.add((): void => scrollSend({ type: 'GET' }))
+  scrollCbs.get.add((): void => scrollSend({ type: 'GET' }))
 }
 
 export function scrollActorStart(): void {

@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, raise, setup } from 'xstate'
 import { svgMapViewerConfig } from './config'
-import { scrollAllCbs, styleCbs } from './event'
+import { scrollCbs, styleCbs } from './event'
 import { boxToViewBox2, type BoxBox } from './lib/box/prefixed'
 import { findRadius } from './lib/distance'
 import { type DistanceRadius } from './lib/distance-types'
@@ -327,5 +327,5 @@ export function styleCbsStart(): void {
   styleCbs.zoomEnd.add(handleZoomEnd)
   styleCbs.animation.add(handleAnimation)
   styleCbs.mode.add(handleMode)
-  scrollAllCbs.eventExpire.add(handleExpire)
+  scrollCbs.eventExpire.add(handleExpire)
 }
