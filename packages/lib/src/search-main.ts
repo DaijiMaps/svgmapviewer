@@ -71,5 +71,5 @@ function workerSearchStart({ psvg, fidx }: Readonly<SearchReq>): void {
 // eslint-disable-next-line functional/functional-parameters
 export function searchWorkerCbsStart(): void {
   initCbs.add(workerSearchInit)
-  searchCbs.searchRequest.add(workerSearchStart)
+  searchCbs.request.add(workerSearchStart)
 }

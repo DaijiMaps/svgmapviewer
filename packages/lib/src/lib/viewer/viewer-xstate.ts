@@ -912,9 +912,9 @@ export function viewerCbsStart(): void {
   floorCbs.floorLock.add(viewerSwitch)
   floorCbs.floorDone.add(viewerSwitchDone) // XXX animation end
 
-  searchCbs.searchEnd.add(viewerSearchEnd)
-  uiCbs.uiOpen.add(viewerSearchLock)
-  uiCbs.uiCloseDone.add(viewerSearchUnlock)
+  searchCbs.end.add(viewerSearchEnd)
+  uiCbs.open.add(viewerSearchLock)
+  uiCbs.closeDone.add(viewerSearchUnlock)
 
   scrollCbs.getDone.add(getDoneCb)
   scrollCbs.syncSyncDone.add(syncSyncDoneCb)

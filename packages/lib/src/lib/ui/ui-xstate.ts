@@ -278,21 +278,21 @@ export function uiSend(ev: UiEvent): void {
 function uiDetail(data: Readonly<SearchData>) {
   uiActor.send({ type: 'DETAIL', ...data })
 }
-function uiOpen(ok: boolean) {
+function open(ok: boolean) {
   uiActor.send({ type: ok ? 'OPEN' : 'CANCEL' })
 }
 function uiCancel() {
   uiActor.send({ type: 'CANCEL' })
 }
-function uiCloseDone() {
+function closeDone() {
   requestAnimationFrame(
     () => resetDetailScroll() // XXX
   )
 }
 
 export function uiCbsStart(): void {
-  searchCbs.searchEndDone.add(uiDetail)
-  uiCbs.uiOpenDone.add(uiOpen)
-  uiCbs.uiClose.add(uiCancel)
-  uiCbs.uiCloseDone.add(uiCloseDone)
+  searchCbs.endDone.add(uiDetail)
+  uiCbs.openDone.add(open)
+  uiCbs.close.add(uiCancel)
+  uiCbs.closeDone.add(closeDone)
 }

@@ -77,6 +77,6 @@ export function searchActorStart(): void {
 }
 
 export function searchCbsStart(): void {
-  searchCbs.searchStart.add(searchSearchStart)
-  searchCbs.searchRequestDone.add(searchSearchDone)
+  searchCbs.start.add(searchSearchStart)
+  searchCbs.requestDone.add(searchSearchDone)
 }

@@ -38,18 +38,18 @@ export const scrollCbs: ScrollCbs = {
 }
 
 export const searchCbs: SearchCbs = {
-  searchStart: new Set(),
-  searchRequest: new Set(),
-  searchRequestDone: new Set(),
-  searchEnd: new Set(),
-  searchEndDone: new Set(),
+  start: new Set(),
+  request: new Set(),
+  requestDone: new Set(),
+  end: new Set(),
+  endDone: new Set(),
 }
 
 export const uiCbs: UiCbs = {
-  uiOpen: new Set(),
-  uiOpenDone: new Set(),
-  uiClose: new Set(),
-  uiCloseDone: new Set(),
+  open: new Set(),
+  openDone: new Set(),
+  close: new Set(),
+  closeDone: new Set(),
 }
 
 export const floorCbs: FloorCbs = {
@@ -119,32 +119,32 @@ export function notifyScrollSyncSyncDone(
 }
 
 export function notifySearchStart(req: Readonly<SearchReq>): void {
-  notifyCbs(searchCbs.searchStart, req)
+  notifyCbs(searchCbs.start, req)
 }
 export function notifySearchRequest(req: Readonly<SearchReq>): void {
-  notifyCbs(searchCbs.searchRequest, req)
+  notifyCbs(searchCbs.request, req)
 }
 export function notifySearchRequestDone(res: Readonly<null | SearchRes>): void {
-  notifyCbs(searchCbs.searchRequestDone, res)
+  notifyCbs(searchCbs.requestDone, res)
 }
 export function notifySearchEnd(res: Readonly<null | SearchRes>): void {
-  notifyCbs(searchCbs.searchEnd, res)
+  notifyCbs(searchCbs.end, res)
 }
 export function notifySearchEndDone(data: Readonly<SearchData>): void {
-  notifyCbs(searchCbs.searchEndDone, data)
+  notifyCbs(searchCbs.endDone, data)
 }
 
 export function notifyUiOpen(psvg: VecVec): void {
-  notifyCbs(uiCbs.uiOpen, psvg)
+  notifyCbs(uiCbs.open, psvg)
 }
 export function notifyUiOpenDone(ok: boolean): void {
-  notifyCbs(uiCbs.uiOpenDone, ok)
+  notifyCbs(uiCbs.openDone, ok)
 }
 export function notifyUiClose(): void {
-  notifyCbs0(uiCbs.uiClose)
+  notifyCbs0(uiCbs.close)
 }
 export function notifyUiCloseDone(): void {
-  notifyCbs0(uiCbs.uiCloseDone)
+  notifyCbs0(uiCbs.closeDone)
 }
 
 export function notifyRendered(): void {

@@ -144,17 +144,17 @@ export interface StyleCbs {
   mode: Set<ModeCb>
 }
 export interface SearchCbs {
-  searchStart: Set<SearchStartCb>
-  searchRequest: Set<SearchCb>
-  searchRequestDone: Set<SearchDoneCb>
-  searchEnd: Set<SearchEndCb>
-  searchEndDone: Set<SearchEndDoneCb>
+  start: Set<SearchStartCb>
+  request: Set<SearchCb>
+  requestDone: Set<SearchDoneCb>
+  end: Set<SearchEndCb>
+  endDone: Set<SearchEndDoneCb>
 }
 export interface UiCbs {
-  uiOpen: Set<UiOpenCb>
-  uiOpenDone: Set<UiOpenDoneCb>
-  uiClose: Set<UiCloseCb>
-  uiCloseDone: Set<UiCloseDoneCb>
+  open: Set<UiOpenCb>
+  openDone: Set<UiOpenDoneCb>
+  close: Set<UiCloseCb>
+  closeDone: Set<UiCloseDoneCb>
 }
 export interface FloorCbs {
   floorLock: Set<FloorCb>
