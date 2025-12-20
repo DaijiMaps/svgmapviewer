@@ -11,7 +11,7 @@ export function validatePackageName(
     // XXX warnings
 
     if (result.errors && result.errors.length > 0) {
-      return yield* Effect.fail(HelpDoc.p(result.errors.join(' / ')))
+      return yield* Effect.fail(HelpDoc.blocks(result.errors.map(HelpDoc.p)))
     }
 
     return yield* Effect.succeed(name)
