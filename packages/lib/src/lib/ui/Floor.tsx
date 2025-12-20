@@ -2,7 +2,7 @@
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
 import { background_white_opaque, floor_switch_duration } from '../css'
-import { useFloors } from '../viewer/floors-xstate'
+import { useFloors } from '../viewer/floors-react'
 
 export function Floors(): ReactNode {
   const { fidx, fidxToOnClick } = useFloors()

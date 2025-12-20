@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { useLayout2 } from '../../style-xstate'
-import { useFloors } from '../viewer/floors-xstate'
+import { useFloors } from '../viewer/floors-react'
 import { type OsmRenderMapProps } from '../../types'
 
 export function RenderFloors(props: Readonly<OsmRenderMapProps>): ReactNode {

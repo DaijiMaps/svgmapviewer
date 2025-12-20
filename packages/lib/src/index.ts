@@ -16,7 +16,7 @@ import {
   notifyStyleZoomStart,
 } from './event'
 import { Like } from './lib/Like'
-import { useFloors } from './lib/viewer/floors-xstate'
+import { useFloors } from './lib/viewer/floors-react'
 import { type Layout } from './lib/viewer/layout'
 import { svgmapviewer } from './main'
 import { useLayout, useLayout2 } from './style-xstate'
