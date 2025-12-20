@@ -1,11 +1,10 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, raise, setup } from 'xstate'
 import { svgMapViewerConfig } from './config'
-import { styleCbs } from './event'
+import { scrollAllCbs, styleCbs } from './event'
 import { boxToViewBox2, type BoxBox } from './lib/box/prefixed'
 import { findRadius } from './lib/distance'
 import { type DistanceRadius } from './lib/distance-types'
-import { makeExpire } from './lib/expire-xstate'
 import { trunc2 } from './lib/utils'
 import { vecZero, type VecVec } from './lib/vec/prefixed'
 import { fromSvgToScroll } from './lib/viewer/coord'
@@ -14,11 +13,7 @@ import {
   type Layout,
   type LayoutConfig,
 } from './lib/viewer/layout'
-import {
-  getCurrentScroll,
-  scrollEventCbs,
-  type CurrentScroll,
-} from './lib/viewer/scroll'
+import { getCurrentScroll, type CurrentScroll } from './lib/viewer/scroll'
 import { type ViewerMode } from './lib/viewer/viewer-types'
 import {
   type AnimationMatrix,
@@ -321,12 +316,10 @@ function handleMode(mode: ViewerMode) {
 
 // scroll & expire
 
-function handleExpire() {
+function handleExpire(): void {
   const currentScroll = getCurrentScroll()
   styleSend({ type: 'STYLE.SCROLL', currentScroll })
 }
-
-const expire = makeExpire(500, handleExpire)
 
 export function styleCbsStart(): void {
   styleCbs.layout.add(handleLayout)
@@ -334,5 +327,5 @@ export function styleCbsStart(): void {
   styleCbs.zoomEnd.add(handleZoomEnd)
   styleCbs.animation.add(handleAnimation)
   styleCbs.mode.add(handleMode)
-  scrollEventCbs.add(expire.tick)
+  scrollAllCbs.eventExpire.add(handleExpire)
 }

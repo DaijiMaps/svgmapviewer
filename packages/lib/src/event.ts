@@ -10,6 +10,7 @@ import {
   type FloorCbs,
   type InitCb,
   type ResizeInfo,
+  type ScrollCbs,
   type SearchCbs,
   type SearchData,
   type SearchReq,
@@ -24,6 +25,11 @@ import {
 } from './types'
 
 export const initCbs: Set<InitCb> = new Set()
+
+export const scrollAllCbs: ScrollCbs = {
+  eventTick: new Set(),
+  eventExpire: new Set(),
+}
 
 export const searchCbs: SearchCbs = {
   searchStart: new Set(),
@@ -85,6 +91,15 @@ export function notifyCbs<T>(cbs: Readonly<Set<Cb1<T>>>, args: T): void {
 
 export function notifyInit(cfg: Readonly<SvgMapViewerConfig>): void {
   notifyCbs(initCbs, cfg)
+}
+
+export function notifyScrollEventTick(
+  ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
+): void {
+  scrollAllCbs.eventTick.forEach((cb) => cb(ev))
+}
+export function notifyScrollEventExpire(): void {
+  notifyCbs0(scrollAllCbs.eventExpire)
 }
 
 export function notifySearchStart(req: Readonly<SearchReq>): void {

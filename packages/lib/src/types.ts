@@ -20,6 +20,7 @@ import { type Layout, type LayoutCoord } from './lib/viewer/layout-types'
 import { type ViewerMode } from './lib/viewer/viewer-types'
 import { type SearchEntries, type SearchPos } from './lib/search/types'
 import { type Cb, type Cb1 } from './lib/cb'
+import type { ScrollCb } from './lib/viewer/scroll-types'
 
 //// layout
 
@@ -122,6 +123,10 @@ export type AnimationCb = Cb1<Readonly<null | AnimationMatrix>>
 export type ModeCb = Cb1<ViewerMode>
 export type FloorCb = Cb1<number>
 
+export interface ScrollCbs {
+  eventTick: Set<ScrollCb>
+  eventExpire: Set<Cb>
+}
 export interface StyleCbs {
   resize: Set<ResizeCb>
   layout: Set<LayoutCb>

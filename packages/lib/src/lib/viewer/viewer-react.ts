@@ -1,4 +1,4 @@
-import { notifyScroll } from './scroll'
+import { notifyScrollEventTick } from '../../event'
 import { clickeventmask, viewerSend, viewerSendEvent } from './viewer-xstate'
 
 export function sendClick(ev: React.MouseEvent<HTMLDivElement>): void {
@@ -15,7 +15,7 @@ export function sendWheel(ev: React.WheelEvent<HTMLDivElement>): void {
 }
 export function sendScroll(ev: React.UIEvent<HTMLDivElement, Event>): void {
   if (ev !== null) {
-    notifyScroll(ev)
+    notifyScrollEventTick(ev)
   }
 }
 export function sendAnimationEnd(

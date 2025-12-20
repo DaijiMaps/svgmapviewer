@@ -3,9 +3,10 @@
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-conditional-statements */
+import { notifyScrollEventExpire, scrollAllCbs } from '../../event'
 import { type Size } from '../../types'
 import { boxBox, type BoxBox, boxUnit } from '../box/prefixed'
-import { type ScrollCb } from './scroll-types'
+import { makeExpire, type Expire } from '../expire-xstate'
 
 // XXX make this async
 // XXX call this from scroll-xstate as invoke (Promise)
@@ -146,14 +147,8 @@ export function getCurrentScroll(): CurrentScroll {
 
 ////
 
-export const scrollEventCbs: Set<ScrollCb> = new Set()
-
-export function notifyScroll(
-  ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
-): void {
-  scrollEventCbs.forEach((cb) => cb(ev))
-}
+const expire: Expire = makeExpire(500, notifyScrollEventExpire)
 
 export function scrollCbsStart(): void {
-  scrollEventCbs.add(setCurrentScroll)
+  scrollAllCbs.eventTick.add(expire.tick)
 }
