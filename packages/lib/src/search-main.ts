@@ -3,7 +3,7 @@
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 import { svgMapViewerConfig } from './config'
-import { initCbs, notifySearchDone, searchCbs } from './event'
+import { initCbs, notifySearchDone, searchAllCbs } from './event'
 import { type SearchPos } from './lib/search/types'
 import {
   type SearchWorkerReq,
@@ -71,5 +71,5 @@ function workerSearchStart({ psvg, fidx }: Readonly<SearchReq>): void {
 // eslint-disable-next-line functional/functional-parameters
 export function searchWorkerCbsStart(): void {
   initCbs.add(workerSearchInit)
-  searchCbs.add(workerSearchStart)
+  searchAllCbs.search.add(workerSearchStart)
 }

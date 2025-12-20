@@ -1,10 +1,5 @@
 import { createActor, emit, setup } from 'xstate'
-import {
-  notifySearch,
-  notifySearchEnd,
-  searchDoneCbs,
-  searchStartCbs,
-} from '../../event'
+import { notifySearch, notifySearchEnd, searchAllCbs } from '../../event'
 import { type SearchReq, type SearchRes } from '../../types'
 
 export type SearchEvent =
@@ -82,6 +77,6 @@ export function searchActorStart(): void {
 }
 
 export function searchCbsStart(): void {
-  searchStartCbs.add(searchSearchStart)
-  searchDoneCbs.add(searchSearchDone)
+  searchAllCbs.searchStart.add(searchSearchStart)
+  searchAllCbs.searchDone.add(searchSearchDone)
 }

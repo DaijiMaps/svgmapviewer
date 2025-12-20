@@ -14,14 +14,10 @@ import {
   type ModeCb,
   type ResizeCb,
   type ResizeInfo,
-  type SearchCb,
+  type SearchCbs,
   type SearchData,
-  type SearchDoneCb,
-  type SearchEndCb,
-  type SearchEndDoneCb,
   type SearchReq,
   type SearchRes,
-  type SearchStartCb,
   type SvgMapViewerConfig,
   type TouchCbs,
   type TouchZoomCbArgs,
@@ -34,14 +30,14 @@ import {
 
 export const initCbs: Set<InitCb> = new Set()
 
-// XXX searchCbs
-export const searchStartCbs: Set<SearchStartCb> = new Set()
-export const searchCbs: Set<SearchCb> = new Set()
-export const searchDoneCbs: Set<SearchDoneCb> = new Set()
-export const searchEndCbs: Set<SearchEndCb> = new Set()
-export const searchEndDoneCbs: Set<SearchEndDoneCb> = new Set()
+export const searchAllCbs: SearchCbs = {
+  searchStart: new Set(),
+  search: new Set(),
+  searchDone: new Set(),
+  searchEnd: new Set(),
+  searchEndDone: new Set(),
+}
 
-// XXX uiCbs
 export const uiCbs: UiCbs = {
   uiOpen: new Set(),
   uiOpenDone: new Set(),
@@ -93,19 +89,19 @@ export function notifyInit(cfg: Readonly<SvgMapViewerConfig>): void {
 }
 
 export function notifySearchStart(req: Readonly<SearchReq>): void {
-  notifyCbs(searchStartCbs, req)
+  notifyCbs(searchAllCbs.searchStart, req)
 }
 export function notifySearch(req: Readonly<SearchReq>): void {
-  notifyCbs(searchCbs, req)
+  notifyCbs(searchAllCbs.search, req)
 }
 export function notifySearchDone(res: Readonly<null | SearchRes>): void {
-  notifyCbs(searchDoneCbs, res)
+  notifyCbs(searchAllCbs.searchDone, res)
 }
 export function notifySearchEnd(res: Readonly<null | SearchRes>): void {
-  notifyCbs(searchEndCbs, res)
+  notifyCbs(searchAllCbs.searchEnd, res)
 }
 export function notifySearchEndDone(data: Readonly<SearchData>): void {
-  notifyCbs(searchEndDoneCbs, data)
+  notifyCbs(searchAllCbs.searchEndDone, data)
 }
 export function notifyUiOpen(psvg: VecVec): void {
   notifyCbs(uiCbs.uiOpen, psvg)
