@@ -39,8 +39,8 @@ export const scrollCbs: ScrollCbs = {
 
 export const searchCbs: SearchCbs = {
   searchStart: new Set(),
-  search: new Set(),
-  searchDone: new Set(),
+  searchRequest: new Set(),
+  searchRequestDone: new Set(),
   searchEnd: new Set(),
   searchEndDone: new Set(),
 }
@@ -121,11 +121,11 @@ export function notifyScrollSyncSyncDone(
 export function notifySearchStart(req: Readonly<SearchReq>): void {
   notifyCbs(searchCbs.searchStart, req)
 }
-export function notifySearch(req: Readonly<SearchReq>): void {
-  notifyCbs(searchCbs.search, req)
+export function notifySearchRequest(req: Readonly<SearchReq>): void {
+  notifyCbs(searchCbs.searchRequest, req)
 }
-export function notifySearchDone(res: Readonly<null | SearchRes>): void {
-  notifyCbs(searchCbs.searchDone, res)
+export function notifySearchRequestDone(res: Readonly<null | SearchRes>): void {
+  notifyCbs(searchCbs.searchRequestDone, res)
 }
 export function notifySearchEnd(res: Readonly<null | SearchRes>): void {
   notifyCbs(searchCbs.searchEnd, res)

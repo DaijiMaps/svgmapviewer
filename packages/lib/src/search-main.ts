@@ -3,7 +3,7 @@
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 import { svgMapViewerConfig } from './config'
-import { initCbs, notifySearchDone, searchCbs } from './event'
+import { initCbs, notifySearchRequestDone, searchCbs } from './event'
 import { type SearchPos } from './lib/search/types'
 import {
   type SearchWorkerReq,
@@ -26,7 +26,7 @@ worker.onmessage = (e: Readonly<MessageEvent<SearchWorkerRes>>) => {
       break
     case 'SEARCH.ERROR':
       console.log('search error!', ev.error)
-      notifySearchDone(null)
+      notifySearchRequestDone(null)
       break
   }
 }
@@ -39,10 +39,10 @@ function handleSearchRes(res: Readonly<SearchPos>): void {
   )
   if (info === null) {
     console.log('info not found!', res)
-    notifySearchDone(null)
+    notifySearchRequestDone(null)
   } else {
     const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(res.coord)
-    notifySearchDone({ psvg, info })
+    notifySearchRequestDone({ psvg, info })
   }
 }
 
@@ -71,5 +71,5 @@ function workerSearchStart({ psvg, fidx }: Readonly<SearchReq>): void {
 // eslint-disable-next-line functional/functional-parameters
 export function searchWorkerCbsStart(): void {
   initCbs.add(workerSearchInit)
-  searchCbs.search.add(workerSearchStart)
+  searchCbs.searchRequest.add(workerSearchStart)
 }

@@ -145,8 +145,8 @@ export interface StyleCbs {
 }
 export interface SearchCbs {
   searchStart: Set<SearchStartCb>
-  search: Set<SearchCb>
-  searchDone: Set<SearchDoneCb>
+  searchRequest: Set<SearchCb>
+  searchRequestDone: Set<SearchDoneCb>
   searchEnd: Set<SearchEndCb>
   searchEndDone: Set<SearchEndDoneCb>
 }

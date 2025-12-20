@@ -1,5 +1,5 @@
 import { createActor, emit, setup } from 'xstate'
-import { notifySearch, notifySearchEnd, searchCbs } from '../../event'
+import { notifySearchRequest, notifySearchEnd, searchCbs } from '../../event'
 import { type SearchReq, type SearchRes } from '../../types'
 
 export type SearchEvent =
@@ -54,7 +54,7 @@ const searchMachine = setup({
 
 const searchRef = createActor(searchMachine)
 
-searchRef.on('SEARCH', ({ req }) => notifySearch(req))
+searchRef.on('SEARCH', ({ req }) => notifySearchRequest(req))
 searchRef.on('SEARCH.DONE', ({ res }) => notifySearchEnd(res))
 searchRef.on('SEARCH.CANCEL', () => notifySearchEnd(null))
 
@@ -78,5 +78,5 @@ export function searchActorStart(): void {
 
 export function searchCbsStart(): void {
   searchCbs.searchStart.add(searchSearchStart)
-  searchCbs.searchDone.add(searchSearchDone)
+  searchCbs.searchRequestDone.add(searchSearchDone)
 }
