@@ -1,4 +1,4 @@
-import { assign, createActor, emit, enqueueActions, setup } from 'xstate'
+import { assign, createActor, emit, raise, setup } from 'xstate'
 import { useSelector } from '@xstate/react'
 import {
   actionCbs,
@@ -32,33 +32,27 @@ const touchMachine = setup({
     isZooming: ({ context: { touches } }) => touches.z !== null,
   },
   actions: {
-    handleTouchStart: enqueueActions(({ enqueue }) => {
-      enqueue.assign({
-        touches: ({ context: { touches }, event }) =>
-          event.type !== 'TOUCH.START'
-            ? touches
-            : handleTouchStart(touches, event.ev),
-      })
-      enqueue.raise({ type: 'STARTED' })
+    handleTouchStart: assign({
+      touches: ({ context: { touches }, event }) =>
+        event.type !== 'TOUCH.START'
+          ? touches
+          : handleTouchStart(touches, event.ev),
     }),
-    handleTouchMove: enqueueActions(({ enqueue }) => {
-      enqueue.assign({
-        touches: ({ context: { touches }, event }) =>
-          event.type !== 'TOUCH.MOVE'
-            ? touches
-            : handleTouchMove(touches, event.ev, 0),
-      })
-      enqueue.raise({ type: 'MOVED' })
+    handleTouchMove: assign({
+      touches: ({ context: { touches }, event }) =>
+        event.type !== 'TOUCH.MOVE'
+          ? touches
+          : handleTouchMove(touches, event.ev, 0),
     }),
-    handleTouchEnd: enqueueActions(({ enqueue }) => {
-      enqueue.assign({
-        touches: ({ context: { touches }, event }) =>
-          event.type !== 'TOUCH.END'
-            ? touches
-            : handleTouchEnd(touches, event.ev),
-      })
-      enqueue.raise({ type: 'ENDED' })
+    handleTouchEnd: assign({
+      touches: ({ context: { touches }, event }) =>
+        event.type !== 'TOUCH.END'
+          ? touches
+          : handleTouchEnd(touches, event.ev),
     }),
+    raiseStarted: raise({ type: 'STARTED' }),
+    raiseMoved: raise({ type: 'MOVED' }),
+    raiseEnded: raise({ type: 'ENDED' }),
     resetTouches: assign({
       touches: () => resetTouches(),
     }),
@@ -88,13 +82,13 @@ const touchMachine = setup({
   },
   on: {
     'TOUCH.START': {
-      actions: 'handleTouchStart',
+      actions: ['handleTouchStart', 'raiseStarted'],
     },
     'TOUCH.MOVE': {
-      actions: 'handleTouchMove',
+      actions: ['handleTouchMove', 'raiseMoved'],
     },
     'TOUCH.END': {
-      actions: 'handleTouchEnd',
+      actions: ['handleTouchEnd', 'raiseEnded'],
     },
     CANCEL: {
       target: '.Canceling',
