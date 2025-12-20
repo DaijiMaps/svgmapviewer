@@ -6,7 +6,6 @@ import {
   type ScrollContext,
   type ScrollEmitted,
   type ScrollEvent,
-  type SlideDone,
   type SyncSyncDone,
 } from './scroll-types'
 
@@ -102,17 +101,14 @@ const scrollMachine = setup({
   },
 })
 
-export type SlideDoneCb = (ev: SlideDone) => void
 export type GetDoneCb = (ev: GetDone) => void
 export type SyncSyncDoneCb = (ev: SyncSyncDone) => void
 export type ScrollCbs = {
-  slideDoneCbs: Set<SlideDoneCb>
   getDoneCbs: Set<GetDoneCb>
   syncSyncDoneCbs: Set<SyncSyncDoneCb>
 }
 
 export const scrollCbs: ScrollCbs = {
-  slideDoneCbs: new Set(),
   getDoneCbs: new Set(),
   syncSyncDoneCbs: new Set(),
 }
@@ -121,9 +117,6 @@ const scrollActor = createActor(scrollMachine, {
   systemId: 'system-scroll1',
 })
 
-scrollActor.on('SCROLL.SLIDE.DONE', (ev) =>
-  scrollCbs.slideDoneCbs.forEach((cb) => cb(ev))
-)
 scrollActor.on('SCROLL.GET.DONE', (ev) =>
   scrollCbs.getDoneCbs.forEach((cb) => cb(ev))
 )

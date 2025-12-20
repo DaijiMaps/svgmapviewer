@@ -14,13 +14,12 @@ type ScrollEventSyncSync = {
 
 export type ScrollEvent = ScrollGet | ScrollEventSync | ScrollEventSyncSync
 
-export type SlideDone = { type: 'SCROLL.SLIDE.DONE' }
 export type GetDone = { type: 'SCROLL.GET.DONE'; scroll: null | BoxBox }
 export type SyncSyncDone = {
   type: 'SCROLL.SYNCSYNC.DONE'
   scroll: null | BoxBox
 }
-export type ScrollEmitted = SlideDone | GetDone | SyncSyncDone
+export type ScrollEmitted = GetDone | SyncSyncDone
 
 export interface ScrollContext {
   dest: null | Box
