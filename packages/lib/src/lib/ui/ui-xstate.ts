@@ -1,6 +1,6 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, emit, not, raise, setup } from 'xstate'
-import { notifyUiCloseDone, searchAllCbs, uiCbs } from '../../event'
+import { notifyUiCloseDone, searchCbs, uiCbs } from '../../event'
 import { type SearchData } from '../../types'
 import { vecZero } from '../vec/prefixed'
 import { emptyLayoutCoord, fromMatrixSvg } from '../viewer/coord'
@@ -291,7 +291,7 @@ function uiCloseDone() {
 }
 
 export function uiCbsStart(): void {
-  searchAllCbs.searchEndDone.add(uiDetail)
+  searchCbs.searchEndDone.add(uiDetail)
   uiCbs.uiOpenDone.add(uiOpen)
   uiCbs.uiClose.add(uiCancel)
   uiCbs.uiCloseDone.add(uiCloseDone)

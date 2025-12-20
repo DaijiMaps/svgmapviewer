@@ -19,7 +19,7 @@ import {
   notifyZoomStart,
   renderedCbs,
   resizeCbs,
-  searchAllCbs,
+  searchCbs,
   touchCbs,
   uiCbs,
   zoomEndCbs,
@@ -925,7 +925,7 @@ export function viewerCbsStart(): void {
   floorLockCbs.add(viewerSwitch)
   floorDoneCbs.add(viewerSwitchDone) // XXX animation end
 
-  searchAllCbs.searchEnd.add(viewerSearchEnd)
+  searchCbs.searchEnd.add(viewerSearchEnd)
   uiCbs.uiOpen.add(viewerSearchLock)
   uiCbs.uiCloseDone.add(viewerSearchUnlock)
   resizeCbs.add(resizeCb)

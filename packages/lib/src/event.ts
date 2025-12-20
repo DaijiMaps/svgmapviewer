@@ -30,7 +30,7 @@ import {
 
 export const initCbs: Set<InitCb> = new Set()
 
-export const searchAllCbs: SearchCbs = {
+export const searchCbs: SearchCbs = {
   searchStart: new Set(),
   search: new Set(),
   searchDone: new Set(),
@@ -89,19 +89,19 @@ export function notifyInit(cfg: Readonly<SvgMapViewerConfig>): void {
 }
 
 export function notifySearchStart(req: Readonly<SearchReq>): void {
-  notifyCbs(searchAllCbs.searchStart, req)
+  notifyCbs(searchCbs.searchStart, req)
 }
 export function notifySearch(req: Readonly<SearchReq>): void {
-  notifyCbs(searchAllCbs.search, req)
+  notifyCbs(searchCbs.search, req)
 }
 export function notifySearchDone(res: Readonly<null | SearchRes>): void {
-  notifyCbs(searchAllCbs.searchDone, res)
+  notifyCbs(searchCbs.searchDone, res)
 }
 export function notifySearchEnd(res: Readonly<null | SearchRes>): void {
-  notifyCbs(searchAllCbs.searchEnd, res)
+  notifyCbs(searchCbs.searchEnd, res)
 }
 export function notifySearchEndDone(data: Readonly<SearchData>): void {
-  notifyCbs(searchAllCbs.searchEndDone, data)
+  notifyCbs(searchCbs.searchEndDone, data)
 }
 export function notifyUiOpen(psvg: VecVec): void {
   notifyCbs(uiCbs.uiOpen, psvg)
