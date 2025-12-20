@@ -1,11 +1,11 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, emit, raise, setup } from 'xstate'
+import { actionCbs } from '../../event-action'
 import {
-  actionCbs,
   notifyTouchMultiEnd,
   notifyTouchMultiStart,
   notifyTouchZoom,
-} from '../../event'
+} from '../../event-touch'
 import {
   handleTouchEnd,
   handleTouchMove,

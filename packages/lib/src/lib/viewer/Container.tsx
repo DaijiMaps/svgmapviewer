@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 import { useRef, type PropsWithChildren, type ReactNode } from 'react'
-import { notifyStyleAnimationEnd } from '../../event'
+import { notifyStyleAnimationEnd } from '../../event-style'
 import { type AnimationMatrix } from '../../types'
 import {
   position_absolute_left_0_top_0,

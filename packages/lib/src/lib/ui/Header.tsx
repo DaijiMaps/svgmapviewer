@@ -3,7 +3,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
-import { notifyActionReset } from '../../event'
+import { notifyActionReset } from '../../event-action'
 import {
   flex_column_center_center,
   pointer_events_initial,

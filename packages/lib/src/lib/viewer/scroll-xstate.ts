@@ -4,7 +4,7 @@ import {
   notifyScrollGetDone,
   notifyScrollSyncSyncDone,
   scrollCbs,
-} from '../../event'
+} from '../../event-scroll'
 import { type BoxBox } from '../box/prefixed'
 import { makeExpire, type Expire } from '../expire-xstate'
 import { getScroll, setCurrentScroll, syncScroll } from './scroll'

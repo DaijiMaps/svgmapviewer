@@ -1,29 +1,33 @@
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import { svgMapViewerConfig } from '../../config'
+import { actionCbs } from '../../event-action'
 import {
-  actionCbs,
   floorCbs,
   notifyFloorSelect,
   notifyFloorUnlock,
+} from '../../event-floor'
+import { globalCbs } from '../../event-global'
+import {
   notifyScrollGet,
   notifyScrollSync,
   notifyScrollSyncSync,
+  scrollCbs,
+} from '../../event-scroll'
+import {
   notifySearchEndDone,
   notifySearchStart,
+  searchCbs,
+} from '../../event-search'
+import {
   notifyStyleAnimation,
   notifyStyleLayout,
   notifyStyleMode,
   notifyStyleZoomEnd,
   notifyStyleZoomStart,
-  notifyUiOpen,
-  notifyUiOpenDone,
-  renderedCbs,
-  scrollCbs,
-  searchCbs,
   styleCbs,
-  touchCbs,
-  uiCbs,
-} from '../../event'
+} from '../../event-style'
+import { touchCbs } from '../../event-touch'
+import { notifyUiOpen, notifyUiOpenDone, uiCbs } from '../../event-ui'
 import {
   type Dir,
   type ResizeInfo,
@@ -893,5 +897,5 @@ export function viewerCbsStart(): void {
     viewerSend({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })
   )
 
-  renderedCbs.add(() => viewerSend({ type: 'RENDERED' }))
+  globalCbs.rendered.add(() => viewerSend({ type: 'RENDERED' }))
 }

@@ -1,6 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
-import { floorCbs, initCbs } from '../../event'
+import { floorCbs } from '../../event-floor'
+import { globalCbs } from '../../event-global'
 import type { SvgMapViewerConfig } from '../../types'
 import type { FloorsContext, FloorsEvents } from './floors-types'
 
@@ -65,7 +66,7 @@ export function useFloorsContext(): FloorsContext {
 // handlers
 
 export function floorsCbsStart(): void {
-  initCbs.add((cfg: Readonly<SvgMapViewerConfig>) => {
+  globalCbs.init.add((cfg: Readonly<SvgMapViewerConfig>) => {
     if (cfg.floorsConfig) {
       const fidx = cfg.floorsConfig.fidx
       floorsActor.send({ type: 'SELECT', fidx, force: true })

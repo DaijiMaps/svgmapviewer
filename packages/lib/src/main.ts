@@ -1,7 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
-import { notifyInit } from './event'
+import { notifyInit } from './event-global'
 import { type BoxBox } from './lib/box/prefixed'
 import { styleRoot } from './lib/style/Style'
 import { isUiRendered } from './lib/ui/Ui'

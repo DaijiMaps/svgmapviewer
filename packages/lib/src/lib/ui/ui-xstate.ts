@@ -1,6 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, emit, not, raise, setup } from 'xstate'
-import { notifyUiCloseDone, searchCbs, uiCbs } from '../../event'
+import { searchCbs } from '../../event-search'
+import { notifyUiCloseDone, uiCbs } from '../../event-ui'
 import { type SearchData } from '../../types'
 import { vecZero } from '../vec/prefixed'
 import { emptyLayoutCoord, fromMatrixSvg } from '../viewer/coord'

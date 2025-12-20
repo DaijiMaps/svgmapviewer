@@ -10,7 +10,7 @@ import {
   notifyActionRotate,
   notifyActionZoomIn,
   notifyActionZoomOut,
-} from '../../event'
+} from '../../event-action'
 import {
   background_white_opaque,
   flex_column_center_center,

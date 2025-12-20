@@ -3,7 +3,8 @@
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 import { svgMapViewerConfig } from '../../config'
-import { initCbs, notifySearchRequestDone, searchCbs } from '../../event'
+import { globalCbs } from '../../event-global'
+import { notifySearchRequestDone, searchCbs } from '../../event-search'
 import type { SearchReq, SvgMapViewerConfig } from '../../types'
 import {
   type SearchWorkerReq,
@@ -56,7 +57,7 @@ worker.onmessageerror = (ev) => {
 
 // eslint-disable-next-line functional/functional-parameters
 export function searchWorkerCbsStart(): void {
-  initCbs.add((cfg: Readonly<SvgMapViewerConfig>) => {
+  globalCbs.init.add((cfg: Readonly<SvgMapViewerConfig>) => {
     if (cfg.getSearchEntries) {
       const entries = cfg.getSearchEntries(cfg)
       const req: SearchWorkerReq = { type: 'INIT', entries }

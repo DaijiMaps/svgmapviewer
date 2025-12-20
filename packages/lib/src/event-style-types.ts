@@ -1,0 +1,25 @@
+import type { Cb, Cb1 } from './lib/cb'
+import type { ViewerMode } from './lib/viewer/viewer-types'
+import type {
+  AnimationMatrix,
+  ResizeInfo,
+  ZoomEndInfo,
+  ZoomInfo,
+} from './types'
+
+export type ZoomStartCb = Cb1<Readonly<ZoomInfo>>
+export type ZoomEndCb = Cb1<Readonly<ZoomEndInfo>>
+export type ResizeCb = Cb1<Readonly<ResizeInfo>>
+export type LayoutCb = Cb1<Readonly<ResizeInfo>>
+export type AnimationCb = Cb1<Readonly<null | AnimationMatrix>>
+export type ModeCb = Cb1<ViewerMode>
+
+export interface StyleCbs {
+  resize: Set<ResizeCb>
+  layout: Set<LayoutCb>
+  zoomStart: Set<ZoomStartCb>
+  zoomEnd: Set<ZoomEndCb>
+  animation: Set<AnimationCb>
+  animationEnd: Set<Cb>
+  mode: Set<ModeCb>
+}

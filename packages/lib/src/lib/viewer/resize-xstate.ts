@@ -1,6 +1,6 @@
 import { assign, createActor, emit, raise, setup } from 'xstate'
 import { svgMapViewerConfig } from '../../config'
-import { notifyStyleResize } from '../../event'
+import { notifyStyleResize } from '../../event-style'
 import { boxEq, boxUnit } from '../box/prefixed'
 import { getBodySize } from '../utils'
 import { resizeLayout } from './layout'

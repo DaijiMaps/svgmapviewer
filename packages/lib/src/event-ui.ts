@@ -1,0 +1,26 @@
+/* eslint-disable functional/functional-parameters */
+/* eslint-disable functional/no-expression-statements */
+/* eslint-disable functional/no-return-void */
+import type { UiCbs } from './event-ui-types'
+import { notifyCbs, notifyCbs0 } from './lib/cb'
+import type { VecVec } from './lib/vec/prefixed'
+
+export const uiCbs: UiCbs = {
+  open: new Set(),
+  openDone: new Set(),
+  close: new Set(),
+  closeDone: new Set(),
+}
+
+export function notifyUiOpen(psvg: VecVec): void {
+  notifyCbs(uiCbs.open, psvg)
+}
+export function notifyUiOpenDone(ok: boolean): void {
+  notifyCbs(uiCbs.openDone, ok)
+}
+export function notifyUiClose(): void {
+  notifyCbs0(uiCbs.close)
+}
+export function notifyUiCloseDone(): void {
+  notifyCbs0(uiCbs.closeDone)
+}

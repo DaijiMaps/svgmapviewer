@@ -4,7 +4,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
 
-import { actionCbs } from '../../event'
+import { actionCbs } from '../../event-action'
 
 function toggleFullscreen(): void {
   if (!document.fullscreenElement) {

@@ -7,7 +7,7 @@ import { number, option, readonlyArray } from 'fp-ts'
 import { pipe } from 'fp-ts/function'
 import { none, some } from 'fp-ts/lib/Option'
 import { useMemo } from 'react'
-import { initCbs } from '../../event'
+import { globalCbs } from '../../event-global'
 import { type POI, type Range, type SvgMapViewerConfig } from '../../types'
 import { useLayoutSvgScaleS, useSvgRange } from '../style/style-react'
 import { type VecVec } from '../vec/prefixed'
@@ -201,5 +201,5 @@ function initNames(cfg: Readonly<SvgMapViewerConfig>): void {
 
 export function namesCbsStart(): void {
   // eslint-disable-next-line functional/immutable-data
-  initCbs.add(initNames)
+  globalCbs.init.add(initNames)
 }

@@ -1,4 +1,4 @@
-import { notifyScrollEventTick } from '../../event'
+import { notifyScrollEventTick } from '../../event-scroll'
 import { clickeventmask, viewerSend, viewerSendEvent } from './viewer-xstate'
 
 export function sendClick(ev: React.MouseEvent<HTMLDivElement>): void {

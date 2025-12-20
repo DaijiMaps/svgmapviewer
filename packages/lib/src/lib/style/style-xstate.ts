@@ -1,7 +1,8 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, raise, setup } from 'xstate'
 import { svgMapViewerConfig } from '../../config'
-import { scrollCbs, styleCbs } from '../../event'
+import { scrollCbs } from '../../event-scroll'
+import { styleCbs } from '../../event-style'
 import {
   type AnimationMatrix,
   type CurrentScroll,

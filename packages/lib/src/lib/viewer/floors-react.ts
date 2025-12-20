@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { svgMapViewerConfig } from '../../config'
-import { notifyFloorLock, notifyFloorSelectDone } from '../../event'
+import { notifyFloorLock, notifyFloorSelectDone } from '../../event-floor'
 import { floor_switch_duration } from '../css'
 import type {
   FidxToOnAnimationEnd,
