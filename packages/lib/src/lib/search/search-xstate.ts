@@ -10,7 +10,7 @@ import {
   notifySearchRequest,
   searchCbs,
 } from '../event-search'
-import { worker } from './search-main'
+import { searchWorker } from './search-main'
 import type { SearchWorkerReq } from './search-worker-types'
 
 export type SearchEvent =
@@ -80,7 +80,7 @@ export function searchCbsStart(): void {
     if (cfg.getSearchEntries) {
       const entries = cfg.getSearchEntries(cfg)
       const req: SearchWorkerReq = { type: 'INIT', entries }
-      worker.postMessage(req)
+      searchWorker.postMessage(req)
     }
   })
   searchCbs.start.add(function (req: Readonly<SearchReq>): void {
@@ -88,7 +88,7 @@ export function searchCbsStart(): void {
   })
   searchCbs.request.add(({ pgeo, fidx }: Readonly<SearchReq>) => {
     const req: SearchWorkerReq = { type: 'SEARCH', greq: { pgeo, fidx } }
-    worker.postMessage(req)
+    searchWorker.postMessage(req)
   })
   searchCbs.requestDone.add(function (res: Readonly<null | SearchRes>): void {
     searchActor.send(

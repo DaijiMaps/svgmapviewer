@@ -7,7 +7,7 @@ import { notifySearchRequestDone } from '../event-search'
 import { type SearchWorkerRes } from './search-worker-types'
 import { type SearchPos } from './types'
 
-export const worker: Worker = new Worker(
+const worker: Worker = new Worker(
   new URL('./search-worker.js', import.meta.url),
   {
     type: 'module',
@@ -52,3 +52,5 @@ worker.onerror = (ev) => {
 worker.onmessageerror = (ev) => {
   console.log('messageerror', ev)
 }
+
+export { worker as searchWorker }
