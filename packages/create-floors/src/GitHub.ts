@@ -24,25 +24,29 @@ export class GitHub extends Effect.Service<GitHub>()('app/GitHub', {
     const download = (
       username: string,
       repository: string,
-      branch?: string,
-      cwd?: string
+      options?: Readonly<{
+        branch?: string
+        cwd?: string
+      }>
     ) =>
-      client.get(`/${username}/${repository}/tar.gz/${branch ?? 'main'}`).pipe(
-        HttpClientResponse.stream,
-        Stream.run(
-          NodeSink.fromWritable(
-            () =>
-              Tar.extract({
-                cwd,
-                strip: 1,
-              }),
-            () =>
-              ValidationError.invalidValue(
-                HelpDoc.p(`Failed to download template`)
-              )
+      client
+        .get(`/${username}/${repository}/tar.gz/${options?.branch ?? 'main'}`)
+        .pipe(
+          HttpClientResponse.stream,
+          Stream.run(
+            NodeSink.fromWritable(
+              () =>
+                Tar.extract({
+                  cwd: options?.cwd,
+                  strip: 1,
+                }),
+              () =>
+                ValidationError.invalidValue(
+                  HelpDoc.p(`Failed to download template`)
+                )
+            )
           )
         )
-      )
 
     return {
       download,

@@ -18,7 +18,9 @@ function createTemplate(config: Readonly<TemplateConfig>) {
 
     yield* fs.makeDirectory(config.projectName, { recursive: true })
 
-    yield* GitHub.download('DaijiMaps', 'svgmapviewer-floors-app-template')
+    yield* GitHub.download('DaijiMaps', 'svgmapviewer-floors-app-template', {
+      cwd: config.projectName,
+    })
   })
 }
 
