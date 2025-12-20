@@ -1,7 +1,7 @@
 import { pipe } from 'fp-ts/function'
 //import { type ReadonlyDeep } from 'type-fest'
 import {
-  type BoxBox as Box,
+  type BoxBox,
   boxCenter,
   boxCopy,
   boxMove,
@@ -50,8 +50,8 @@ export const emptyLayout: Layout = {
 // == layout before expanded
 export function configLayout(
   fontSize: number,
-  svg: Box,
-  container: Box
+  svg: BoxBox,
+  container: BoxBox
 ): LayoutConfig {
   const [[x, y], s] = fit(container, svg)
 
@@ -105,9 +105,9 @@ export function layoutToDeg(layout: Layout): number {
 // XXX
 
 export function resizeLayout(
-  origViewBox: Box,
+  origViewBox: BoxBox,
   fontSize: number,
-  size: Box
+  size: BoxBox
 ): Layout {
   // XXX
   // XXX
@@ -164,7 +164,11 @@ export function moveLayout(layout: Layout, move: Vec): Layout {
   }
 }
 
-export function zoomLayout(layout: Layout, svg: Box, svgScale: Scale): Layout {
+export function zoomLayout(
+  layout: Layout,
+  svg: BoxBox,
+  svgScale: Scale
+): Layout {
   return {
     ...layout,
     svg: boxCopy(svg),
@@ -206,7 +210,7 @@ export function recenterLayout(layout: Layout, start: Vec): Layout {
   }
 }
 
-export function scrollLayout(layout: Layout, scroll: Box): Layout {
+export function scrollLayout(layout: Layout, scroll: BoxBox): Layout {
   const move = vecSub(fromScroll(scroll), layout.scroll)
   return pipe(
     layout,

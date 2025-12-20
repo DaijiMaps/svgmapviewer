@@ -1,10 +1,10 @@
-import { type BoxBox as Box } from '../box/prefixed'
+import { type BoxBox } from '../box/prefixed'
 import { type Layout } from './layout'
 
 type ResizeEvent = { type: 'RESIZE' } | { type: 'EXPIRED' }
 type ResizeContext = {
-  prev: Box
-  next: Box
+  prev: BoxBox
+  next: BoxBox
   waited: number
   first: boolean
 }

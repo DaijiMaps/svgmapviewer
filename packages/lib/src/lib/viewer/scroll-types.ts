@@ -1,27 +1,28 @@
-import { type BoxBox as Box, type BoxBox } from '../box/prefixed'
+import type { Scroll } from '../../types'
+import { type BoxBox } from '../box/prefixed'
 
 type ScrollGet = {
   type: 'GET'
 }
 type ScrollEventSync = {
   type: 'SYNC'
-  pos: Box
+  pos: BoxBox
 }
 type ScrollEventSyncSync = {
   type: 'SYNCSYNC'
-  pos: Box
+  pos: BoxBox
 }
 
 export type ScrollEvent = ScrollGet | ScrollEventSync | ScrollEventSyncSync
 
-export type GetDone = { type: 'SCROLL.GET.DONE'; scroll: null | BoxBox }
+export type GetDone = { type: 'SCROLL.GET.DONE'; scroll: Scroll }
 export type SyncSyncDone = {
   type: 'SCROLL.SYNCSYNC.DONE'
-  scroll: null | BoxBox
+  scroll: Scroll
 }
 export type ScrollEmitted = GetDone | SyncSyncDone
 
 export interface ScrollContext {
-  dest: null | Box
-  scroll: null | Box
+  dest: Scroll
+  scroll: Scroll
 }

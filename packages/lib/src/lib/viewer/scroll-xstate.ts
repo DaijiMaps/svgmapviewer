@@ -1,5 +1,5 @@
 import { assign, createActor, emit, fromPromise, setup } from 'xstate'
-import { type BoxBox as Box } from '../box/prefixed'
+import { type BoxBox } from '../box/prefixed'
 import { getScroll, syncScroll } from './scroll'
 import {
   type ScrollContext,
@@ -20,10 +20,10 @@ const scrollMachine = setup({
   },
   actions: {
     getScroll: assign({ scroll: () => getScroll() }),
-    syncScroll: (_, { pos }: { pos: Box }) => syncScroll(pos),
+    syncScroll: (_, { pos }: { pos: BoxBox }) => syncScroll(pos),
   },
   actors: {
-    syncScrollLogic: fromPromise<boolean, null | Box>(async ({ input }) => {
+    syncScrollLogic: fromPromise<boolean, null | BoxBox>(async ({ input }) => {
       if (input === null) {
         throw new Error('input is null')
       }
@@ -118,10 +118,10 @@ scrollActor.on('SCROLL.SYNCSYNC.DONE', ({ scroll }) =>
 )
 
 export function scrollCbsStart2(): void {
-  scrollCbs.sync.add((pos: Readonly<Box>): void =>
+  scrollCbs.sync.add((pos: Readonly<BoxBox>): void =>
     scrollSend({ type: 'SYNC', pos })
   )
-  scrollCbs.syncSync.add((pos: Readonly<Box>): void =>
+  scrollCbs.syncSync.add((pos: Readonly<BoxBox>): void =>
     scrollSend({ type: 'SYNCSYNC', pos })
   )
   scrollCbs.get.add((): void => scrollSend({ type: 'GET' }))

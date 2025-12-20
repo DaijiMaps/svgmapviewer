@@ -1,17 +1,17 @@
-import { type BoxBox as Box } from '../box/prefixed'
+import { type BoxBox } from '../box/prefixed'
 import { type V } from '../tuple'
 
-function fitH(o: Box, r: number): V {
+function fitH(o: BoxBox, r: number): V {
   return [0, (o.height - o.width / r) / 2]
 }
 
-function fitV(o: Box, r: number): V {
+function fitV(o: BoxBox, r: number): V {
   return [(o.width - o.height * r) / 2, 0]
 }
 
 export function fit(
-  o: Box,
-  i: Box
+  o: BoxBox,
+  i: BoxBox
 ): readonly [readonly [x: number, y: number], s: number] {
   const R = o.width / o.height
   const r = i.width / i.height

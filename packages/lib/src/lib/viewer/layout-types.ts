@@ -1,5 +1,5 @@
 //import { type ReadonlyDeep } from 'type-fest'
-import { type BoxBox as Box } from '../box/prefixed'
+import { type BoxBox } from '../box/prefixed'
 import { type Move, type Scale } from './transform'
 
 // C: client coord
@@ -7,12 +7,12 @@ import { type Move, type Scale } from './transform'
 
 export interface ContainerLayoutCoord {
   // container (C) size
-  readonly container: Box
+  readonly container: BoxBox
 }
 
 export interface ScrollLayoutCoord {
   // scroll (C) -> container (C)
-  readonly scroll: Box
+  readonly scroll: BoxBox
 }
 
 export interface ContentLayoutCoord {
@@ -28,7 +28,7 @@ export interface SvgLayoutCoord {
   readonly svgScale: Scale
 
   // svg viewbox (S) -> svg origin (S)
-  readonly svg: Box
+  readonly svg: BoxBox
 }
 
 export type LayoutCoord = ContainerLayoutCoord &
@@ -38,10 +38,10 @@ export type LayoutCoord = ContainerLayoutCoord &
 
 export type LayoutConfig = Readonly<{
   readonly fontSize: number
-  readonly container: Box
+  readonly container: BoxBox
   readonly svgOffset: Move
   readonly svgScale: Scale
-  readonly svg: Box
+  readonly svg: BoxBox
 }>
 
 export type Layout = Readonly<

@@ -4,7 +4,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-conditional-statements */
 import { notifyScrollEventExpire, scrollCbs } from '../../event'
-import { type Size } from '../../types'
+import { type Scroll, type Size } from '../../types'
 import { boxBox, type BoxBox, boxUnit } from '../box/prefixed'
 import { makeExpire, type Expire } from '../expire-xstate'
 
@@ -84,7 +84,7 @@ export function syncScroll(b: BoxBox): boolean {
   return true
 }
 
-export function getScroll(): null | BoxBox {
+export function getScroll(): Scroll {
   const e = document.querySelector('.container')
 
   if (e !== null) {

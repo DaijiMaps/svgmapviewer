@@ -1,4 +1,4 @@
-import { type BoxBox as Box, boxCopy, boxUnit } from '../box/prefixed'
+import { type BoxBox, boxCopy, boxUnit } from '../box/prefixed'
 import { vecScale } from '../vec/prefixed'
 import {
   type ContentLayoutCoord,
@@ -94,10 +94,10 @@ export function fromMatrixSvg({
 }
 
 // inverse x/y
-export function fromScroll(s: Box): Box {
+export function fromScroll(s: BoxBox): BoxBox {
   return vecScale(s, -1)
 }
-export function toScroll(s: Box): Box {
+export function toScroll(s: BoxBox): BoxBox {
   return vecScale(s, -1)
 }
 

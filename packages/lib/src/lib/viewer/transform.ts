@@ -1,4 +1,4 @@
-import { type BoxBox as Box } from '../box/prefixed'
+import { type BoxBox } from '../box/prefixed'
 import {
   type MatrixMatrix as Matrix,
   matrixApply,
@@ -19,8 +19,8 @@ export type Scale = Readonly<{ s: number }>
 //// transformScale
 
 function transformMove(xf: Move, x: number, y: number): Move
-function transformMove(xf: Box, x: number, y: number): Box
-function transformMove(xf: Move | Box, x: number, y: number): Move | Box {
+function transformMove(xf: BoxBox, x: number, y: number): BoxBox
+function transformMove(xf: Move | BoxBox, x: number, y: number): Move | BoxBox {
   return {
     ...xf,
     x: xf.x + x,
