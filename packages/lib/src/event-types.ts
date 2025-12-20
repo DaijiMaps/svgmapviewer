@@ -1,8 +1,8 @@
 /* eslint-disable functional/no-return-void */
 import { type BoxBox } from './lib/box/prefixed'
+import { type Cb, type Cb1 } from './lib/cb'
 import { type Vec } from './lib/vec'
 import { type ViewerMode } from './lib/viewer/viewer-types'
-import { type Cb, type Cb1 } from './lib/cb'
 import type {
   AnimationMatrix,
   ResizeInfo,
@@ -11,9 +11,9 @@ import type {
   SearchReq,
   SearchRes,
   SvgMapViewerConfig,
+  Zoom,
   ZoomEndInfo,
   ZoomInfo,
-  Zoom,
 } from './types'
 
 export type InitCb = Cb1<Readonly<SvgMapViewerConfig>>

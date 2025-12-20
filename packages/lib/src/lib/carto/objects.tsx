@@ -1,8 +1,8 @@
 import { type ReactNode } from 'react'
+import { type OsmRenderMapProps } from '../../types'
 import { type V } from '../tuple'
 import { entryToVs } from './point'
 import { type OsmMapObjects } from './types'
-import { type OsmRenderMapProps } from '../../types'
 
 export function RenderMapObjects(
   props: Readonly<

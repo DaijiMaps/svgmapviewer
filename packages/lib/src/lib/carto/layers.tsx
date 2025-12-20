@@ -1,20 +1,20 @@
 import { Fragment, type ReactNode } from 'react'
+import { type OsmRenderMapProps } from '../../types'
 import {
   getOsmId,
   type LinesFilter,
-  type OsmMapData,
   type MultiPolygonsFilter,
+  type OsmMapData,
   type OsmProperties,
 } from '../geo'
 import { lineToPathD, multiPolygonToPathD } from '../geo/path'
 import {
   type LinePath,
-  type OsmMapLayer,
   type MapLineLayer,
   type MapMultiPolygonLayer,
   type MultiPolygonPath,
+  type OsmMapLayer,
 } from './types'
-import { type OsmRenderMapProps } from '../../types'
 
 export function RenderMapLayers(
   props: Readonly<

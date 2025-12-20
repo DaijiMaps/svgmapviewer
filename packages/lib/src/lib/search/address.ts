@@ -3,13 +3,13 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-loop-statements */
 import Flatbush from 'flatbush'
-import {
-  type SearchEntries,
-  type FlatbushIndexes,
-  type SearchPos,
-  type SearchContext,
-} from './types'
 import type { SearchGeoReq } from '../../types'
+import {
+  type FlatbushIndexes,
+  type SearchContext,
+  type SearchEntries,
+  type SearchPos,
+} from './types'
 
 export function initAddresses(entries: Readonly<SearchEntries>): SearchContext {
   const fb: Flatbush = new Flatbush(entries.length)

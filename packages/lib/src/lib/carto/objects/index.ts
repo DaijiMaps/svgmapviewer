@@ -6,11 +6,11 @@ import { monumentPath } from './monument'
 import { statuePath } from './statue'
 import { toriiPath } from './torii'
 import {
-  tree16x16Path,
   tree2x4Path,
   tree4x8Path,
-  tree8x16Path,
   tree8x8Path,
+  tree8x16Path,
+  tree16x16Path,
 } from './tree'
 import { vendingMachinePath } from './vendingMachine'
 import { wasteBasketPath } from './wasteBasket'

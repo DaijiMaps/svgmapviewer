@@ -1,12 +1,12 @@
 import { pipe } from 'fp-ts/function'
 import { svgMapViewerConfig } from '../../config'
+import type { Dir } from '../../types'
 import { boxCenter, boxScaleAt } from '../box/prefixed'
 import { type VecVec as Vec } from '../vec/prefixed'
 import { type Animation } from './animation-types'
 import { fromMatrixSvg } from './coord'
 import { relocLayout, rotateLayout, zoomLayout, type Layout } from './layout'
 import { transformScale } from './transform'
-import type { Dir } from '../../types'
 
 export function animationZoom(layout: Layout, z: Dir, o: Vec): Animation {
   const osvg = fromMatrixSvg(layout).inverse().transformPoint(o)

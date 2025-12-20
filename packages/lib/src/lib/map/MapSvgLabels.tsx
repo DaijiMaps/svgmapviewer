@@ -1,9 +1,10 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { Fragment, type ReactNode, useMemo } from 'react'
-import { useLayout, useLayoutSvgScaleS } from '../style/style-react'
+import { Fragment, useMemo, type ReactNode } from 'react'
+import { type OsmRenderMapProps, type POI } from '../../types'
 import { boxToViewBox2 } from '../box/prefixed'
 import { useShadowRoot } from '../dom'
+import { useLayout, useLayoutSvgScaleS } from '../style/style-react'
 import { voffset } from '../text'
 import { trunc2 } from '../utils'
 import {
@@ -11,7 +12,6 @@ import {
   MAP_SVG_LABELS_ROOT_ID,
 } from './map-svg-react'
 import { useNameRanges, useNames } from './names'
-import { type OsmRenderMapProps, type POI } from '../../types'
 
 export function MapSvgLabels(props: Readonly<OsmRenderMapProps>): ReactNode {
   useShadowRoot(MAP_SVG_LABELS_ROOT_ID, <MapSvgLabelsContent {...props} />)

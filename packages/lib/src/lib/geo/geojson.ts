@@ -1,5 +1,5 @@
-import { type BoxBox, boxScale } from '../box/prefixed'
-import { type V, vSub } from '../tuple'
+import { boxScale, type BoxBox } from '../box/prefixed'
+import { vSub, type V } from '../tuple'
 import { vecDiv, vecFromV, vecVec } from '../vec/prefixed'
 import { type MapCoord, type OsmMapData } from './data-types'
 import { type LineGeoJSON } from './geojson-types'

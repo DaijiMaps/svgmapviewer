@@ -4,7 +4,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-conditional-statements */
 import { type Scroll, type Size } from '../../types'
-import { boxBox, type BoxBox, boxUnit } from '../box/prefixed'
+import { boxBox, boxUnit, type BoxBox } from '../box/prefixed'
 
 // XXX make this async
 // XXX call this from scroll-xstate as invoke (Promise)

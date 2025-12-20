@@ -1,5 +1,5 @@
-import { assign, createActor, emit, raise, setup } from 'xstate'
 import { useSelector } from '@xstate/react'
+import { assign, createActor, emit, raise, setup } from 'xstate'
 import {
   actionCbs,
   notifyTouchMultiEnd,

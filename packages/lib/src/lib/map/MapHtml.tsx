@@ -1,13 +1,13 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { useLayout } from '../style/style-react'
+import { type OsmRenderMapProps } from '../../types'
 import { useShadowRoot } from '../dom'
+import { useLayout } from '../style/style-react'
 import { trunc2 } from '../utils'
 import { fromSvgToContent } from '../viewer/coord'
 import { MAP_HTML_CONTENT_ID, MAP_HTML_ROOT_ID } from './map-svg-react'
 import { useNames } from './names'
-import { type OsmRenderMapProps } from '../../types'
 
 export function MapHtml(props: Readonly<OsmRenderMapProps>): ReactNode {
   useShadowRoot(MAP_HTML_ROOT_ID, <MapHtmlContent {...props} />)

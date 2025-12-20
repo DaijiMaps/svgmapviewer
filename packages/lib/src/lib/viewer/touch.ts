@@ -6,16 +6,16 @@ import {
 } from 'fp-ts'
 import { pipe } from 'fp-ts/function'
 import { type Touch } from 'react'
+import type { Dir } from '../../types'
 //import { type ReadonlyDeep } from 'type-fest'
 import { isUndefined } from '../utils'
 import {
-  type VecVec as Vec,
   vecAngle,
   vecDist,
   vecMidpoint,
   vecOrd,
+  type VecVec as Vec,
 } from '../vec/prefixed'
-import type { Dir } from '../../types'
 
 const vecsOrd = ReadonlyArray.getOrd<Vec>(vecOrd)
 

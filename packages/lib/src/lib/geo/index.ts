@@ -2,9 +2,9 @@ import { osmGetSearchEntries } from './address-data'
 import { mapMapFromMapData } from './data'
 import {
   type MapCoord,
+  type MeasureProperties,
   type OsmMapData,
   type OsmMapMap,
-  type MeasureProperties,
 } from './data-types'
 import { calcScale } from './geojson'
 import {

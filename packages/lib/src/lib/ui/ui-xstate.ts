@@ -8,10 +8,10 @@ import {
   openCloseClose,
   openCloseClosed,
   openCloseIsVisible,
-  type OpenCloseOp,
   openCloseOpen,
   openCloseOpened,
   openCloseReset,
+  type OpenCloseOp,
 } from './openclose'
 import { resetDetailScroll } from './ui-react'
 import {

@@ -3,20 +3,20 @@ import { svgMapViewerConfig } from '../../config'
 import {
   actionCbs,
   floorCbs,
-  notifyStyleAnimation,
   notifyFloorSelect,
   notifyFloorUnlock,
-  notifyStyleLayout,
-  notifyStyleMode,
   notifyScrollGet,
   notifyScrollSync,
   notifyScrollSyncSync,
   notifySearchEndDone,
   notifySearchStart,
-  notifyUiOpen,
-  notifyUiOpenDone,
+  notifyStyleAnimation,
+  notifyStyleLayout,
+  notifyStyleMode,
   notifyStyleZoomEnd,
   notifyStyleZoomStart,
+  notifyUiOpen,
+  notifyUiOpenDone,
   renderedCbs,
   scrollCbs,
   searchCbs,
@@ -25,14 +25,14 @@ import {
   uiCbs,
 } from '../../event'
 import {
-  type ResizeInfo,
-  type SearchRes,
   type Dir,
-  type Zoom,
+  type ResizeInfo,
   type SearchReq,
+  type SearchRes,
+  type Zoom,
 } from '../../types'
 import { boxCenter, type BoxBox } from '../box/prefixed'
-import { type VecVec as Vec, vecVec } from '../vec/prefixed'
+import { vecVec, type VecVec as Vec } from '../vec/prefixed'
 import {
   animationEndLayout,
   animationHome,
@@ -45,15 +45,18 @@ import { keyToZoom } from './key'
 import {
   emptyLayout,
   expandLayoutCenter,
-  type Layout,
   layoutToDeg,
   resetLayout,
   rotateLayout,
   scrollLayout,
+  type Layout,
 } from './layout'
 import { getCurrentScroll } from './scroll'
 import {
   EXPAND_PANNING,
+  viewerModeLocked,
+  viewerModePanning,
+  viewerModeTouching,
   type ReactUIEvent,
   type ResizeRequest,
   type SearchEnd,
@@ -62,9 +65,6 @@ import {
   type ViewerEmitted,
   type ViewerEvent,
   type ViewerMode,
-  viewerModeLocked,
-  viewerModePanning,
-  viewerModeTouching,
 } from './viewer-types'
 
 //// viewerMachine

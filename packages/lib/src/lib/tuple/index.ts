@@ -3,7 +3,6 @@ import { type H } from './h'
 import { type L } from './l'
 import { type M } from './m'
 import {
-  type V,
   add as vAdd,
   div as vDiv,
   mul as vMul,
@@ -11,6 +10,7 @@ import {
   unvec as vUnvec,
   v as vV,
   vec as vVec,
+  type V,
 } from './v'
 
 export { type B, type H, type L, type M, type V }

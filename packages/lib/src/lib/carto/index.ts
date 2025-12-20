@@ -5,11 +5,11 @@ import { RenderMapObjects, RenderObjects } from './objects'
 import { RenderMapCommon } from './render'
 import { RenderMapSymbols, RenderUses } from './symbols'
 import {
+  type MapLineLayer,
+  type MapMultiPolygonLayer,
   type OsmCartoConfig,
   type OsmMapLayer,
-  type MapLineLayer,
   type OsmMapMarkers,
-  type MapMultiPolygonLayer,
   type OsmMapObjects,
   type OsmMapSymbols,
   type RenderMapMarkersProps,

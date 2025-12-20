@@ -1,10 +1,10 @@
 import { type ReactNode } from 'react'
+import { type OsmRenderMapProps } from '../../types'
 import { usePosition } from '../geo'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'
 import { entryToVs } from './point'
 import { type MapMarker, type RenderMapMarkersProps } from './types'
-import { type OsmRenderMapProps } from '../../types'
 
 export function RenderMapMarkers(
   props: Readonly<OsmRenderMapProps & RenderMapMarkersProps>

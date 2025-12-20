@@ -1,3 +1,3 @@
-import { RenderFloors, isFloorsRendered } from '../Floor'
+import { isFloorsRendered, RenderFloors } from '../Floor'
 
 export { RenderFloors, isFloorsRendered }

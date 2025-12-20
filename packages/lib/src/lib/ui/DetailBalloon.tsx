@@ -4,8 +4,8 @@ import { type ReactNode } from 'react'
 import { RenderMapAssetsDefault } from '../carto/assets'
 import { useShadowRoot } from '../dom'
 import { Balloon, DetailBalloonStyle } from './Balloon'
-import { Detail } from './Detail'
 import { calcBalloonLayout } from './balloon-common'
+import { Detail } from './Detail'
 import { useDetail } from './ui-react'
 
 export function DetailBalloon(): ReactNode {

@@ -1,11 +1,11 @@
 import { assign, createActor, setup } from 'xstate'
+import type { SearchGeoReq } from '../../types'
 import { initAddresses, searchAddress } from './address'
 import {
   type SearchWorkerContext,
   type SearchWorkerReq,
 } from './search-worker-types'
 import type { SearchContext } from './types'
-import type { SearchGeoReq } from '../../types'
 
 function doSearch(ctx: null | SearchContext, greq: Readonly<SearchGeoReq>) {
   if (ctx === null) {

@@ -8,15 +8,15 @@ import {
   type OsmMapObjects,
   type OsmMapSymbols,
 } from './lib/carto/types'
-import { type OsmSearchEntry } from './lib/geo/search-types'
 import {
   type MapCoord,
   type OsmMapData,
   type OsmMapMap,
 } from './lib/geo/data-types'
+import { type OsmSearchEntry } from './lib/geo/search-types'
+import { type SearchEntries, type SearchPos } from './lib/search/types'
 import { type Vec } from './lib/vec'
 import { type Layout, type LayoutCoord } from './lib/viewer/layout-types'
-import { type SearchEntries, type SearchPos } from './lib/search/types'
 
 //// layout
 

@@ -1,5 +1,5 @@
 import { initAddresses, searchAddress } from './address'
-import { type SearchEntries, type SearchPos, type SearchContext } from './types'
+import { type SearchContext, type SearchEntries, type SearchPos } from './types'
 
 export {
   initAddresses,

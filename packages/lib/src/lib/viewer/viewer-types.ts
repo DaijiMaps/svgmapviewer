@@ -1,8 +1,8 @@
 import {
+  type Dir,
   type SearchData,
   type SearchReq,
   type SearchRes,
-  type Dir,
 } from '../../types'
 import { type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec, type VecVec } from '../vec/prefixed'

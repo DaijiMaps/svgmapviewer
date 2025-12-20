@@ -2,7 +2,7 @@
 
 import { pipe } from 'fp-ts/function'
 import { apply, type Matrix } from '../matrix'
-import { type Box, mapF } from './main'
+import { mapF, type Box } from './main'
 import { fromTlBr, tlBrFromB, tlBrToB, toTlBr } from './tlbr'
 
 export function transform(b: Box, m: Matrix): Box {

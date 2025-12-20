@@ -1,10 +1,10 @@
 import { expect, test } from 'vitest'
 import { scaleAt } from '../matrix/scale'
 import {
-  type BoxBox as Box,
   boxScaleAt,
   boxScaleAtCenter,
   boxTransform,
+  type BoxBox as Box,
 } from './prefixed'
 
 const u: Box = { x: 0, y: 0, width: 1, height: 1 }

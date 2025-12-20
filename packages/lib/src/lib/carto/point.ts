@@ -1,8 +1,8 @@
 import {
   type LinesFilter,
-  type OsmMapData,
   type MultiPolygonsFilter,
   type OsmFeature,
+  type OsmMapData,
   type Point,
   type PointsFilter,
 } from '../geo'
@@ -11,7 +11,7 @@ import {
   type OsmMultiPolygonFeature,
   type OsmPointFeature,
 } from '../geo/osm-types'
-import { type V, vV } from '../tuple'
+import { vV, type V } from '../tuple'
 import { type WithFilters } from './types'
 
 export function entryToVs(

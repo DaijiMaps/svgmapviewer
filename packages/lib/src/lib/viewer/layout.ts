@@ -1,20 +1,20 @@
 import { pipe } from 'fp-ts/function'
 //import { type ReadonlyDeep } from 'type-fest'
 import {
-  type BoxBox,
   boxCenter,
   boxCopy,
   boxMove,
   boxMoveTo,
   boxScaleAt,
   boxUnit,
+  type BoxBox,
 } from '../box/prefixed'
 import {
-  type VecVec as Vec,
   vecAdd,
   vecScale,
   vecSub,
   vecVec,
+  type VecVec as Vec,
 } from '../vec/prefixed'
 import { emptyLayoutCoord, fromMatrixSvg, fromScroll, makeCoord } from './coord'
 import { fit } from './fit'

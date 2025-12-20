@@ -4,12 +4,12 @@
 /* eslint-disable functional/no-expression-statements */
 import { svgMapViewerConfig } from '../../config'
 import { initCbs, notifySearchRequestDone, searchCbs } from '../../event'
-import { type SearchPos } from './types'
+import type { SearchReq, SvgMapViewerConfig } from '../../types'
 import {
   type SearchWorkerReq,
   type SearchWorkerRes,
 } from './search-worker-types'
-import type { SearchReq, SvgMapViewerConfig } from '../../types'
+import { type SearchPos } from './types'
 
 const worker = new Worker(new URL('./search-worker.js', import.meta.url), {
   type: 'module',

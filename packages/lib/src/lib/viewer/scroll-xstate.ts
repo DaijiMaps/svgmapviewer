@@ -1,18 +1,18 @@
 import { assign, createActor, emit, fromPromise, setup } from 'xstate'
-import { type BoxBox } from '../box/prefixed'
-import { getScroll, setCurrentScroll, syncScroll } from './scroll'
-import {
-  type ScrollContext,
-  type ScrollEmitted,
-  type ScrollEvent,
-} from './scroll-types'
 import {
   notifyScrollEventExpire,
   notifyScrollGetDone,
   notifyScrollSyncSyncDone,
   scrollCbs,
 } from '../../event'
+import { type BoxBox } from '../box/prefixed'
 import { makeExpire, type Expire } from '../expire-xstate'
+import { getScroll, setCurrentScroll, syncScroll } from './scroll'
+import {
+  type ScrollContext,
+  type ScrollEmitted,
+  type ScrollEvent,
+} from './scroll-types'
 
 const scrollMachine = setup({
   types: {} as {

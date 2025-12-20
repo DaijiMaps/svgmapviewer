@@ -1,8 +1,8 @@
 import { type BoxBox } from '../box/prefixed'
 import {
-  type MatrixMatrix as Matrix,
   matrixApply,
   matrixMultiply,
+  type MatrixMatrix as Matrix,
 } from '../matrix/prefixed'
 import { type VecVec as Vec } from '../vec/prefixed'
 

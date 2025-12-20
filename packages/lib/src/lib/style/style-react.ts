@@ -1,9 +1,9 @@
+import { type AnimationMatrix, type Range } from '../../types'
 import { boxToViewBox2, type BoxBox } from '../box/prefixed'
 import { type DistanceRadius } from '../distance-types'
 import { trunc2 } from '../utils'
 import { type VecVec } from '../vec/prefixed'
 import { type Layout, type LayoutConfig } from '../viewer/layout'
-import { type AnimationMatrix, type Range } from '../../types'
 import { useStyleContext } from './style-xstate'
 
 export function useRendered(): boolean {

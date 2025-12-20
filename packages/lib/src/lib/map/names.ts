@@ -7,10 +7,10 @@ import { number, option, readonlyArray } from 'fp-ts'
 import { pipe } from 'fp-ts/function'
 import { none, some } from 'fp-ts/lib/Option'
 import { useMemo } from 'react'
-import { useLayoutSvgScaleS, useSvgRange } from '../style/style-react'
-import { type POI, type Range, type SvgMapViewerConfig } from '../../types'
-import { type VecVec } from '../vec/prefixed'
 import { initCbs } from '../../event'
+import { type POI, type Range, type SvgMapViewerConfig } from '../../types'
+import { useLayoutSvgScaleS, useSvgRange } from '../style/style-react'
+import { type VecVec } from '../vec/prefixed'
 
 export interface Names {
   readonly pointNames: readonly POI[]

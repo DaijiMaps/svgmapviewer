@@ -1,15 +1,16 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode } from 'react'
+import { type OsmRenderMapProps } from '../../types'
+import { boxToViewBox2 } from '../box/prefixed'
+import { RenderMapMarkers } from '../carto'
+import { useShadowRoot } from '../dom'
 import { SvgSymbolStyle } from '../style/Style'
 import {
   useLayout,
   useLayoutConfig,
   useLayoutSvgScaleS,
 } from '../style/style-react'
-import { boxToViewBox2 } from '../box/prefixed'
-import { RenderMapMarkers } from '../carto'
-import { useShadowRoot } from '../dom'
 import { trunc2 } from '../utils'
 import { type VecVec } from '../vec/prefixed'
 import {
@@ -17,7 +18,6 @@ import {
   MAP_SVG_MARKERS_ROOT_ID,
 } from './map-svg-react'
 import { useNames } from './names'
-import { type OsmRenderMapProps } from '../../types'
 
 export function MapSvgMarkers(props: Readonly<OsmRenderMapProps>): ReactNode {
   useShadowRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkersContent {...props} />)

@@ -3,10 +3,10 @@ import { pipe } from 'fp-ts/function'
 import { type Option } from 'fp-ts/lib/Option'
 import {
   type LineMap,
-  type OsmMapData,
-  type OsmMapMap,
   type MultiLineStringMap,
   type MultiPolygonMap,
+  type OsmMapData,
+  type OsmMapMap,
   type PointMap,
 } from './data-types'
 import {

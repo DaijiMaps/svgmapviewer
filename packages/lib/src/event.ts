@@ -2,14 +2,14 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import type {
+  ActionCbs,
+  FloorCbs,
   InitCb,
   ScrollCbs,
   SearchCbs,
-  UiCbs,
-  FloorCbs,
   StyleCbs,
-  ActionCbs,
   TouchCbs,
+  UiCbs,
 } from './event-types'
 import type { BoxBox } from './lib/box/prefixed'
 import { notifyCbs, notifyCbs0, type Cb } from './lib/cb'

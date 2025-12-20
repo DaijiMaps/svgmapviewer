@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-throw-statements */
-import { type ReactNode, StrictMode, useEffect } from 'react'
+import { StrictMode, useEffect, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { notifyRendered } from '../../event'
 import { timing_opening } from '../css'

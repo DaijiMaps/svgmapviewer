@@ -14,7 +14,10 @@ export const map2 = <T extends Vec>(
   va: T,
   vb: T,
   f: (_a: number, _b: number) => number
-): T => ({ ...va, ...vec(f(va.x, vb.x), f(va.y, vb.y)) })
+): T => ({
+  ...va,
+  ...vec(f(va.x, vb.x), f(va.y, vb.y)),
+})
 
 type __f2 = (_a: number, _b: number) => number
 export const map2F: <T extends Vec>(_f: __f2) => (_fa: T) => (_fb: T) => Vec =

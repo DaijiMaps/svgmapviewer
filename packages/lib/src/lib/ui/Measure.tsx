@@ -1,11 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode } from 'react'
 import {
-  useDistanceRadius,
-  useGeoPoint,
-  useLayoutContainer,
-} from '../style/style-react'
-import {
   position_absolute_left_0_bottom_0,
   position_absolute_left_0_top_0,
   position_absolute_right_0_bottom_0,
@@ -13,6 +8,11 @@ import {
   timing_opening,
   ZOOM_DURATION_HEADER,
 } from '../css'
+import {
+  useDistanceRadius,
+  useGeoPoint,
+  useLayoutContainer,
+} from '../style/style-react'
 import { trunc7 } from '../utils'
 import { useOpenCloseHeader } from './ui-react'
 

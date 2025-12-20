@@ -1,18 +1,18 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { SvgSymbolStyle } from '../style/Style'
-import { useLayout } from '../style/style-react'
+import { type OsmRenderMapProps } from '../../types'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapSymbols } from '../carto'
 import { RenderMapAssetsDefault } from '../carto/assets'
 import { useShadowRoot } from '../dom'
+import { SvgSymbolStyle } from '../style/Style'
+import { useLayout } from '../style/style-react'
 import { trunc2 } from '../utils'
 import {
   MAP_SVG_SYMBOLS_CONTENT_ID,
   MAP_SVG_SYMBOLS_ROOT_ID,
 } from './map-svg-react'
-import { type OsmRenderMapProps } from '../../types'
 
 export function MapSvgSymbols(props: Readonly<OsmRenderMapProps>): ReactNode {
   useShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbolsContent {...props} />)

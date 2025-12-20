@@ -3,7 +3,6 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { notifyUiClose } from '../../event'
-import { useAnimating } from '../style/style-react'
 import {
   position_absolute_left_0_top_0,
   timing_closing,
@@ -13,6 +12,7 @@ import {
   ZOOM_DURATION_DETAIL,
 } from '../css'
 import { useShadowRoot } from '../dom'
+import { useAnimating } from '../style/style-react'
 import { useOnWheel } from '../wheel'
 import { useOpenCloseDetail } from './ui-react'
 
