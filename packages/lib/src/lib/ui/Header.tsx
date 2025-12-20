@@ -31,7 +31,7 @@ function HeaderContent(): ReactNode {
       className="ui-content header"
       onAnimationEnd={() => uiSend({ type: 'HEADER.ANIMATION.END' })}
     >
-      <h1 className="title" onClick={() => doTitle()}>
+      <h1 className="title" onClick={() => notifyActionReset()}>
         {config.title}
       </h1>
       <FloorName />
@@ -41,10 +41,6 @@ function HeaderContent(): ReactNode {
       </style>
     </div>
   )
-}
-
-function doTitle() {
-  notifyActionReset()
 }
 
 const style = `
