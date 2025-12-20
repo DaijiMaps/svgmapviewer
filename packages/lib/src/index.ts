@@ -1,8 +1,8 @@
 import { svgMapViewerConfig } from './config'
 import {
   notifyFloorDone,
-  notifyLayout,
-  notifyResize,
+  notifyStyleLayout,
+  notifyStyleResize,
   notifySearch,
   notifySearchDone,
   notifySearchEnd,
@@ -12,8 +12,8 @@ import {
   notifyUiCloseDone,
   notifyUiOpen,
   notifyUiOpenDone,
-  notifyZoomEnd,
-  notifyZoomStart,
+  notifyStyleZoomEnd,
+  notifyStyleZoomStart,
 } from './event'
 import { Like } from './lib/Like'
 import { useFloors } from './lib/viewer/floors-xstate'
@@ -48,8 +48,8 @@ export { svgMapViewerConfig }
 
 export {
   notifyFloorDone,
-  notifyLayout,
-  notifyResize,
+  notifyStyleLayout,
+  notifyStyleResize,
   notifySearch,
   notifySearchDone,
   notifySearchEnd,
@@ -59,8 +59,8 @@ export {
   notifyUiCloseDone,
   notifyUiOpen,
   notifyUiOpenDone,
-  notifyZoomEnd,
-  notifyZoomStart,
+  notifyStyleZoomEnd,
+  notifyStyleZoomStart,
 }
 
 // types

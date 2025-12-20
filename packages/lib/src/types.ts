@@ -168,13 +168,13 @@ export interface TouchCbs {
   zoom: Set<TouchZoomCb>
 }
 export interface ActionCbs {
-  uiActionZoomIn: Set<Cb>
-  uiActionZoomOut: Set<Cb>
-  uiActionReset: Set<Cb>
-  uiActionRecenter: Set<Cb>
-  uiActionRotate: Set<Cb>
-  uiActionPosition: Set<Cb>
-  uiActionFullscreen: Set<Cb>
+  zoomIn: Set<Cb>
+  zoomOut: Set<Cb>
+  reset: Set<Cb>
+  recenter: Set<Cb>
+  rotate: Set<Cb>
+  position: Set<Cb>
+  fullscreen: Set<Cb>
 }
 
 export type GeoLocCb = Cb

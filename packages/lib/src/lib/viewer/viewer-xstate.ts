@@ -3,11 +3,11 @@ import { svgMapViewerConfig } from '../../config'
 import {
   actionCbs,
   floorCbs,
-  notifyAnimation,
+  notifyStyleAnimation,
   notifyFloor,
   notifyFloorUnlock,
-  notifyLayout,
-  notifyMode,
+  notifyStyleLayout,
+  notifyStyleMode,
   notifyScrollGet,
   notifyScrollSync,
   notifyScrollSyncSync,
@@ -15,8 +15,8 @@ import {
   notifySearchStart,
   notifyUiOpen,
   notifyUiOpenDone,
-  notifyZoomEnd,
-  notifyZoomStart,
+  notifyStyleZoomEnd,
+  notifyStyleZoomStart,
   renderedCbs,
   scrollCbs,
   searchCbs,
@@ -778,10 +778,12 @@ viewerActor.on('SEARCH.END.DONE', ({ res }) => {
   }
 })
 viewerActor.on('LOCK', ({ ok }) => notifyUiOpenDone(ok))
-viewerActor.on('ZOOM.START', (args) => notifyZoomStart(args))
-viewerActor.on('ZOOM.END', (end) => notifyZoomEnd(end))
-viewerActor.on('LAYOUT', ({ layout }) => notifyZoomEnd({ layout, zoom: 1 }))
-viewerActor.on('MODE', ({ mode }) => notifyMode(mode))
+viewerActor.on('ZOOM.START', (args) => notifyStyleZoomStart(args))
+viewerActor.on('ZOOM.END', (end) => notifyStyleZoomEnd(end))
+viewerActor.on('LAYOUT', ({ layout }) =>
+  notifyStyleZoomEnd({ layout, zoom: 1 })
+)
+viewerActor.on('MODE', ({ mode }) => notifyStyleMode(mode))
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloor(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloorUnlock())
@@ -791,11 +793,11 @@ viewerActor.on('SYNC.ANIMATION', ({ animation }) => {
   const origin =
     animation?.move?.o ?? animation?.zoom?.o ?? animation?.rotate?.o ?? null
   if (matrix !== null) {
-    notifyAnimation({ matrix, origin })
+    notifyStyleAnimation({ matrix, origin })
   }
 })
 viewerActor.on('SYNC.LAYOUT', ({ layout, force }) =>
-  notifyLayout({ layout, force })
+  notifyStyleLayout({ layout, force })
 )
 viewerActor.on('SCROLL.SYNC', ({ pos }) => notifyScrollSync(pos))
 viewerActor.on('SCROLL.SYNCSYNC', ({ pos }) => notifyScrollSyncSync(pos))
@@ -922,11 +924,11 @@ export function viewerCbsStart(): void {
   styleCbs.zoomStart.add(maskWheel)
   styleCbs.zoomEnd.add(unmaskWheel)
 
-  actionCbs.uiActionReset.add(handleUiActionReset)
-  actionCbs.uiActionRecenter.add(handleUiActionRecenter)
-  actionCbs.uiActionRotate.add(handleUiActionRotate)
-  actionCbs.uiActionZoomOut.add(handleUiActionZoomOut)
-  actionCbs.uiActionZoomIn.add(handleUiActionZoomIn)
+  actionCbs.reset.add(handleUiActionReset)
+  actionCbs.recenter.add(handleUiActionRecenter)
+  actionCbs.rotate.add(handleUiActionRotate)
+  actionCbs.zoomOut.add(handleUiActionZoomOut)
+  actionCbs.zoomIn.add(handleUiActionZoomIn)
 
   touchCbs.multiStart.add(handleTouchMultiStart)
   touchCbs.multiEnd.add(handleTouchMultiEnd)

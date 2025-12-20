@@ -127,5 +127,5 @@ export function usePosition(): null | GeolocationPosition {
 }
 
 export function positionCbsStart(): void {
-  actionCbs.uiActionPosition.add(getPosition)
+  actionCbs.position.add(getPosition)
 }

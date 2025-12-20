@@ -45,7 +45,7 @@ function HeaderContent(): ReactNode {
 
 // XXX notify
 function doTitle() {
-  actionCbs.uiActionReset.forEach((cb) => cb())
+  actionCbs.reset.forEach((cb) => cb())
 }
 
 const style = `

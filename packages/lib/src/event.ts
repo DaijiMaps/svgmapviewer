@@ -71,13 +71,13 @@ export const styleCbs: StyleCbs = {
 }
 
 export const actionCbs: ActionCbs = {
-  uiActionZoomIn: new Set(),
-  uiActionZoomOut: new Set(),
-  uiActionReset: new Set(),
-  uiActionRecenter: new Set(),
-  uiActionRotate: new Set(),
-  uiActionPosition: new Set(),
-  uiActionFullscreen: new Set(),
+  zoomIn: new Set(),
+  zoomOut: new Set(),
+  reset: new Set(),
+  recenter: new Set(),
+  rotate: new Set(),
+  position: new Set(),
+  fullscreen: new Set(),
 }
 
 export const touchCbs: TouchCbs = {
@@ -151,22 +151,24 @@ export function notifyRendered(): void {
   notifyCbs0(renderedCbs)
 }
 
-export function notifyResize(resize: Readonly<ResizeInfo>): void {
+export function notifyStyleResize(resize: Readonly<ResizeInfo>): void {
   notifyCbs(styleCbs.resize, resize)
 }
-export function notifyLayout(resize: Readonly<ResizeInfo>): void {
+export function notifyStyleLayout(resize: Readonly<ResizeInfo>): void {
   notifyCbs(styleCbs.layout, resize)
 }
-export function notifyZoomStart(zoom: Readonly<ZoomInfo>): void {
+export function notifyStyleZoomStart(zoom: Readonly<ZoomInfo>): void {
   notifyCbs(styleCbs.zoomStart, zoom)
 }
-export function notifyZoomEnd(end: Readonly<ZoomEndInfo>): void {
+export function notifyStyleZoomEnd(end: Readonly<ZoomEndInfo>): void {
   notifyCbs(styleCbs.zoomEnd, end)
 }
-export function notifyAnimation(a: Readonly<null | AnimationMatrix>): void {
+export function notifyStyleAnimation(
+  a: Readonly<null | AnimationMatrix>
+): void {
   notifyCbs(styleCbs.animation, a)
 }
-export function notifyMode(mode: ViewerMode): void {
+export function notifyStyleMode(mode: ViewerMode): void {
   notifyCbs(styleCbs.mode, mode)
 }
 
@@ -194,20 +196,20 @@ export function notifyTouchZoom(args: Readonly<TouchZoomCbArgs>): void {
 }
 
 export function notifyActionFullscreen(): void {
-  actionCbs.uiActionFullscreen.forEach((cb) => cb())
+  actionCbs.fullscreen.forEach((cb) => cb())
 }
 export function notifyActionPosition(): void {
-  actionCbs.uiActionPosition.forEach((cb) => cb())
+  actionCbs.position.forEach((cb) => cb())
 }
 export function notifyActionRecenter(): void {
-  actionCbs.uiActionRecenter.forEach((cb) => cb())
+  actionCbs.recenter.forEach((cb) => cb())
 }
 export function notifyActionRotate(): void {
-  actionCbs.uiActionRotate.forEach((cb) => cb())
+  actionCbs.rotate.forEach((cb) => cb())
 }
 export function notifyActionZoomOut(): void {
-  actionCbs.uiActionZoomOut.forEach((cb) => cb())
+  actionCbs.zoomOut.forEach((cb) => cb())
 }
 export function notifyActionZoomIn(): void {
-  actionCbs.uiActionZoomIn.forEach((cb) => cb())
+  actionCbs.zoomIn.forEach((cb) => cb())
 }

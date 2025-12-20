@@ -255,10 +255,10 @@ export function useTouchesZ(): null | number {
 }
 
 export function touchCbsStart(): void {
-  actionCbs.uiActionReset.add(touchSendCancel)
-  actionCbs.uiActionFullscreen.add(touchSendCancel)
-  actionCbs.uiActionPosition.add(touchSendCancel)
-  actionCbs.uiActionRecenter.add(touchSendCancel)
-  actionCbs.uiActionZoomOut.add(touchSendCancel)
-  actionCbs.uiActionZoomIn.add(touchSendCancel)
+  actionCbs.reset.add(touchSendCancel)
+  actionCbs.fullscreen.add(touchSendCancel)
+  actionCbs.position.add(touchSendCancel)
+  actionCbs.recenter.add(touchSendCancel)
+  actionCbs.zoomOut.add(touchSendCancel)
+  actionCbs.zoomIn.add(touchSendCancel)
 }

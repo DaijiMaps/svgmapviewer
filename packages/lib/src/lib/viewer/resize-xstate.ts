@@ -1,6 +1,6 @@
 import { assign, createActor, emit, raise, setup } from 'xstate'
 import { svgMapViewerConfig } from '../../config'
-import { notifyResize } from '../../event'
+import { notifyStyleResize } from '../../event'
 import { boxEq, boxUnit } from '../box/prefixed'
 import { getBodySize } from '../utils'
 import { resizeLayout } from './layout'
@@ -121,7 +121,7 @@ const resizeMachine = setup({
 
 const resizeActor = createActor(resizeMachine)
 
-resizeActor.on('LAYOUT', (resize) => notifyResize(resize))
+resizeActor.on('LAYOUT', (resize) => notifyStyleResize(resize))
 
 // XXX
 window.addEventListener('resize', () => {

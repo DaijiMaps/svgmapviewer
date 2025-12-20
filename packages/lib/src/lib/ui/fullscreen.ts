@@ -15,5 +15,5 @@ function toggleFullscreen(): void {
 }
 
 export function fullscreenCbsStart(): void {
-  actionCbs.uiActionFullscreen.add(toggleFullscreen)
+  actionCbs.fullscreen.add(toggleFullscreen)
 }
