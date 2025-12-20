@@ -11,10 +11,11 @@ export interface TemplateConfig {
 function createTemplate(config: Readonly<TemplateConfig>) {
   return Effect.gen(function* () {
     const fs = yield* FileSystem.FileSystem
+    const gh = yield* GitHub
 
     yield* fs.makeDirectory(config.projectName, { recursive: true })
 
-    yield* GitHub.download('DaijiMaps', 'svgmapviewer-floors-app-template', {
+    yield* gh.download('DaijiMaps', 'svgmapviewer-floors-app-template', {
       branch: 'main',
       cwd: config.projectName,
     })
