@@ -6,7 +6,7 @@ import * as Command from '@effect/cli/Command'
 import * as FileSystem from '@effect/platform/FileSystem'
 import * as Path from '@effect/platform/Path'
 import { GitHub } from './GitHub'
-import { validatePackageName } from './Validate'
+import { validatePackageName } from './Npm'
 
 export interface TemplateConfig {
   readonly projectName: string
@@ -18,7 +18,7 @@ function createTemplate(config: Readonly<TemplateConfig>) {
 
     yield* fs.makeDirectory(config.projectName, { recursive: true })
 
-    yield* GitHub.downloadTemplate(config)
+    yield* GitHub.download('DaijiMaps', 'svgmapviewer-floors-app-template')
   })
 }
 

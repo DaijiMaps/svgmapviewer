@@ -7,10 +7,8 @@ import * as HttpClientResponse from '@effect/platform/HttpClientResponse'
 import * as Effect from 'effect/Effect'
 import * as Stream from 'effect/Stream'
 import * as Tar from 'tar'
-import type { TemplateConfig } from './Cli.ts'
 
 const GET_URL = 'https://codeload.github.com'
-const GET_PATH = '/DaijiMaps/svgmapviewer-floors-app-template/tar.gz/main'
 
 // eslint-disable-next-line functional/no-classes, functional/no-class-inheritance
 export class GitHub extends Effect.Service<GitHub>()('app/GitHub', {
@@ -23,14 +21,19 @@ export class GitHub extends Effect.Service<GitHub>()('app/GitHub', {
       HttpClient.mapRequest(HttpClientRequest.prependUrl(GET_URL))
     )
 
-    const downloadTemplate = (config: Readonly<TemplateConfig>) =>
-      client.get(GET_PATH).pipe(
+    const download = (
+      username: string,
+      repository: string,
+      branch?: string,
+      cwd?: string
+    ) =>
+      client.get(`/${username}/${repository}/tar.gz/${branch ?? 'main'}`).pipe(
         HttpClientResponse.stream,
         Stream.run(
           NodeSink.fromWritable(
             () =>
               Tar.extract({
-                cwd: config.projectName,
+                cwd,
                 strip: 1,
               }),
             () =>
@@ -42,7 +45,7 @@ export class GitHub extends Effect.Service<GitHub>()('app/GitHub', {
       )
 
     return {
-      downloadTemplate,
+      download,
     } as const
   }),
 }) {}
