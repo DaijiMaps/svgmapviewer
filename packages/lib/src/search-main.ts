@@ -54,22 +54,20 @@ worker.onmessageerror = (ev) => {
   console.log('messageerror', ev)
 }
 
-function workerSearchInit(cfg: Readonly<SvgMapViewerConfig>): void {
-  if (cfg.getSearchEntries) {
-    const entries = cfg.getSearchEntries(cfg)
-    const req: SearchWorkerReq = { type: 'INIT', entries }
-    worker.postMessage(req)
-  }
-}
-
-function workerSearchStart({ psvg, fidx }: Readonly<SearchReq>): void {
-  const pgeo = svgMapViewerConfig.mapCoord.matrix.inverse().transformPoint(psvg)
-  const req: SearchWorkerReq = { type: 'SEARCH', greq: { pgeo, fidx } }
-  worker.postMessage(req)
-}
-
 // eslint-disable-next-line functional/functional-parameters
 export function searchWorkerCbsStart(): void {
-  initCbs.add(workerSearchInit)
-  searchCbs.request.add(workerSearchStart)
+  initCbs.add((cfg: Readonly<SvgMapViewerConfig>) => {
+    if (cfg.getSearchEntries) {
+      const entries = cfg.getSearchEntries(cfg)
+      const req: SearchWorkerReq = { type: 'INIT', entries }
+      worker.postMessage(req)
+    }
+  })
+  searchCbs.request.add(({ psvg, fidx }: Readonly<SearchReq>) => {
+    const pgeo = svgMapViewerConfig.mapCoord.matrix
+      .inverse()
+      .transformPoint(psvg)
+    const req: SearchWorkerReq = { type: 'SEARCH', greq: { pgeo, fidx } }
+    worker.postMessage(req)
+  })
 }
