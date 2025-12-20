@@ -949,9 +949,9 @@ export function viewerCbsStart(): void {
   uiActionZoomOutCbs.add(handleUiActionZoomOut)
   uiActionZoomInCbs.add(handleUiActionZoomIn)
 
-  touchCbs.multiStartCbs.add(handleTouchMultiStart)
-  touchCbs.multiEndCbs.add(handleTouchMultiEnd)
-  touchCbs.zoomCbs.add(handleTouchZoom)
+  touchCbs.multiStart.add(handleTouchMultiStart)
+  touchCbs.multiEnd.add(handleTouchMultiEnd)
+  touchCbs.zoom.add(handleTouchZoom)
 
   renderedCbs.add(handleRendered)
 }

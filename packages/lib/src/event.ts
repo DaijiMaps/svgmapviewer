@@ -68,9 +68,9 @@ export const uiActionPositionCbs: Set<Cb> = new Set()
 export const uiActionFullscreenCbs: Set<Cb> = new Set()
 
 export const touchCbs: TouchCbs = {
-  multiStartCbs: new Set(),
-  multiEndCbs: new Set(),
-  zoomCbs: new Set(),
+  multiStart: new Set(),
+  multiEnd: new Set(),
+  zoom: new Set(),
 }
 
 ////
@@ -150,11 +150,11 @@ export function notifyFloorUnlock(): void {
 }
 
 export function notifyTouchMultiStart(): void {
-  notifyCbs0(touchCbs.multiStartCbs)
+  notifyCbs0(touchCbs.multiStart)
 }
 export function notifyTouchMultiEnd(): void {
-  notifyCbs0(touchCbs.multiEndCbs)
+  notifyCbs0(touchCbs.multiEnd)
 }
 export function notifyTouchZoom(args: Readonly<TouchZoomCbArgs>): void {
-  notifyCbs(touchCbs.zoomCbs, args)
+  notifyCbs(touchCbs.zoom, args)
 }

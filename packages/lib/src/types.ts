@@ -123,9 +123,9 @@ export type ModeCb = Cb1<ViewerMode>
 export type FloorCb = Cb1<number>
 
 export type TouchCbs = {
-  multiStartCbs: Set<Cb>
-  multiEndCbs: Set<Cb>
-  zoomCbs: Set<TouchZoomCb>
+  multiStart: Set<Cb>
+  multiEnd: Set<Cb>
+  zoom: Set<TouchZoomCb>
 }
 
 export type GeoLocCb = Cb
