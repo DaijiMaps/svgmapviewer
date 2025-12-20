@@ -1,14 +1,11 @@
-import * as HelpDoc from '@effect/cli/HelpDoc'
-import * as ValidationError from '@effect/cli/ValidationError'
-import * as NodeSink from '@effect/platform-node/NodeSink'
-import * as HttpClient from '@effect/platform/HttpClient'
-import * as HttpClientRequest from '@effect/platform/HttpClientRequest'
-import * as HttpClientResponse from '@effect/platform/HttpClientResponse'
-import * as Effect from 'effect/Effect'
-import * as Stream from 'effect/Stream'
+import { Effect, Stream } from 'effect'
+import { HelpDoc, ValidationError } from '@effect/cli'
+import { HttpClient, HttpClientResponse } from '@effect/platform'
+import { NodeSink } from '@effect/platform-node'
 import * as Tar from 'tar'
 
-const GET_URL = 'https://codeload.github.com'
+const CODELOAD_URL = 'https://codeload.github.com'
+const DEFAULT_BRANCH = 'main'
 
 // eslint-disable-next-line functional/no-classes, functional/no-class-inheritance
 export class GitHub extends Effect.Service<GitHub>()('app/GitHub', {
@@ -16,10 +13,7 @@ export class GitHub extends Effect.Service<GitHub>()('app/GitHub', {
   effect: Effect.gen(function* () {
     const httpClient = yield* HttpClient.HttpClient
 
-    const client = httpClient.pipe(
-      HttpClient.filterStatusOk,
-      HttpClient.mapRequest(HttpClientRequest.prependUrl(GET_URL))
-    )
+    const client = httpClient.pipe(HttpClient.filterStatusOk)
 
     const download = (
       username: string,
@@ -30,7 +24,9 @@ export class GitHub extends Effect.Service<GitHub>()('app/GitHub', {
       }>
     ) =>
       client
-        .get(`/${username}/${repository}/tar.gz/${options?.branch ?? 'main'}`)
+        .get(
+          `${CODELOAD_URL}/${username}/${repository}/tar.gz/${options?.branch ?? DEFAULT_BRANCH}`
+        )
         .pipe(
           HttpClientResponse.stream,
           Stream.run(
@@ -42,7 +38,7 @@ export class GitHub extends Effect.Service<GitHub>()('app/GitHub', {
                 }),
               () =>
                 ValidationError.invalidValue(
-                  HelpDoc.p(`Failed to download template`)
+                  HelpDoc.p(`Failed to download tar.gz`)
                 )
             )
           )

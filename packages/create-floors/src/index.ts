@@ -1,8 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 import { Effect, Layer } from 'effect'
-import * as NodeContext from '@effect/platform-node/NodeContext'
-import * as NodeHttpClient from '@effect/platform-node/NodeHttpClient'
-import * as NodeRuntime from '@effect/platform-node/NodeRuntime'
+import { NodeContext, NodeHttpClient, NodeRuntime } from '@effect/platform-node'
 import { cli } from './Cli'
 import { GitHubLive } from './GitHub'
 

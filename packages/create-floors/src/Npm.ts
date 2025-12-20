@@ -1,5 +1,5 @@
 import { Effect } from 'effect'
-import * as HelpDoc from '@effect/cli/HelpDoc'
+import { HelpDoc } from '@effect/cli'
 import validate from 'validate-npm-package-name'
 
 export function validatePackageName(
