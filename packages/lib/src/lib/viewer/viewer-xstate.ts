@@ -810,15 +810,11 @@ viewerActor.on('SYNC.ANIMATION', ({ animation }) => {
 viewerActor.on('SYNC.LAYOUT', ({ layout, force }) =>
   notifyLayout({ layout, force })
 )
-viewerActor.on('SCROLL.SYNC', ({ pos }) => {
-  scrollSend({ type: 'SYNC', pos })
-})
-viewerActor.on('SCROLL.SYNCSYNC', ({ pos }) => {
+viewerActor.on('SCROLL.SYNC', ({ pos }) => scrollSend({ type: 'SYNC', pos }))
+viewerActor.on('SCROLL.SYNCSYNC', ({ pos }) =>
   scrollSend({ type: 'SYNCSYNC', pos })
-})
-viewerActor.on('SCROLL.GET', () => {
-  scrollSend({ type: 'GET' })
-})
+)
+viewerActor.on('SCROLL.GET', () => scrollSend({ type: 'GET' }))
 
 ////
 
