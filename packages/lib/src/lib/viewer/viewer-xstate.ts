@@ -96,14 +96,19 @@ const viewerMachine = setup({
     //
     // scroll
     //
-    // XXX emit
-    syncScroll: ({ context: { layout } }) =>
-      scrollSend({ type: 'SYNC', pos: layout.scroll }),
-    // XXX emit
-    syncScrollSync: ({ context: { layout } }) =>
-      scrollSend({ type: 'SYNCSYNC', pos: layout.scroll }),
-    // XXX emit
-    getScroll: (): void => scrollSend({ type: 'GET' }),
+    emitSyncScroll: emit(
+      ({ context: { layout } }): ViewerEmitted => ({
+        type: 'SCROLL.SYNC',
+        pos: layout.scroll,
+      })
+    ),
+    emitSyncScrollSync: emit(
+      ({ context: { layout } }): ViewerEmitted => ({
+        type: 'SCROLL.SYNCSYNC',
+        pos: layout.scroll,
+      })
+    ),
+    emitGetScroll: emit((): ViewerEmitted => ({ type: 'SCROLL.GET' })),
 
     //
     // move + zoom
@@ -389,7 +394,7 @@ const viewerMachine = setup({
         },
         Syncing: {
           // slow sync - sync scroll after resize
-          entry: 'syncScrollSync',
+          entry: 'emitSyncScrollSync',
           on: {
             'SCROLL.SYNCSYNC.DONE': {
               target: 'Done',
@@ -492,7 +497,7 @@ const viewerMachine = setup({
       onDone: 'Panning',
       states: {
         Stopping: {
-          entry: 'getScroll',
+          entry: 'emitGetScroll',
           on: {
             'SCROLL.GET.DONE': {
               target: 'Waiting',
@@ -579,7 +584,7 @@ const viewerMachine = setup({
       onDone: 'Panning',
       states: {
         Stopping: {
-          entry: 'getScroll',
+          entry: 'emitGetScroll',
           on: {
             'SCROLL.GET.DONE': {
               target: 'Rendering',
@@ -605,7 +610,7 @@ const viewerMachine = setup({
               'updateLayoutFromScroll',
               'emitSyncLayout',
               // fast sync - sync scroll NOT after resize
-              'syncScroll',
+              'emitSyncScroll',
             ],
             // keep panning
             target: 'Done',
@@ -627,7 +632,7 @@ const viewerMachine = setup({
         // XXX otherwise a gap occurs between zoom & layout result
         // XXX
         Stopping: {
-          entry: 'getScroll',
+          entry: 'emitGetScroll',
           on: {
             'SCROLL.GET.DONE': {
               target: 'Rendering',
@@ -690,7 +695,7 @@ const viewerMachine = setup({
                       'endZoom',
                       'emitSyncLayout',
                       // fast sync - sync scroll NOT after resize
-                      'syncScroll',
+                      'emitSyncScroll',
                       'emitZoomEnd',
                       'stopAnimating',
                       'emitSyncAnimation',
@@ -703,7 +708,7 @@ const viewerMachine = setup({
                       'endRotate',
                       'emitSyncLayout',
                       // fast sync - sync scroll NOT after resize
-                      'syncScroll',
+                      'emitSyncScroll',
                       'emitZoomEnd',
                       'stopAnimating',
                       'emitSyncAnimation',
@@ -721,7 +726,7 @@ const viewerMachine = setup({
                     'endHoming',
                     'emitSyncLayout',
                     // fast sync - sync scroll NOT after resize
-                    'syncScroll',
+                    'emitSyncScroll',
                   ],
                   target: 'Done',
                 },
@@ -805,6 +810,15 @@ viewerActor.on('SYNC.ANIMATION', ({ animation }) => {
 viewerActor.on('SYNC.LAYOUT', ({ layout, force }) =>
   notifyLayout({ layout, force })
 )
+viewerActor.on('SCROLL.SYNC', ({ pos }) => {
+  scrollSend({ type: 'SYNC', pos })
+})
+viewerActor.on('SCROLL.SYNCSYNC', ({ pos }) => {
+  scrollSend({ type: 'SYNCSYNC', pos })
+})
+viewerActor.on('SCROLL.GET', () => {
+  scrollSend({ type: 'GET' })
+})
 
 ////
 
