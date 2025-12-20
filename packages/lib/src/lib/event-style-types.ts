@@ -1,11 +1,11 @@
-import type { Cb, Cb1 } from './lib/cb'
-import type { ViewerMode } from './lib/viewer/viewer-types'
 import type {
   AnimationMatrix,
   ResizeInfo,
   ZoomEndInfo,
   ZoomInfo,
-} from './types'
+} from '../types'
+import type { Cb, Cb1 } from './cb'
+import type { ViewerMode } from './viewer/viewer-types'
 
 export type ZoomStartCb = Cb1<Readonly<ZoomInfo>>
 export type ZoomEndCb = Cb1<Readonly<ZoomEndInfo>>

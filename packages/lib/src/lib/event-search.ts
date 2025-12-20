@@ -1,8 +1,8 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
+import type { SearchData, SearchReq, SearchRes } from '../types'
+import { notifyCbs } from './cb'
 import type { SearchCbs } from './event-search-types'
-import { notifyCbs } from './lib/cb'
-import type { SearchData, SearchReq, SearchRes } from './types'
 
 export const searchCbs: SearchCbs = {
   start: new Set(),

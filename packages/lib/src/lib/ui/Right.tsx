@@ -4,14 +4,6 @@
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
 import {
-  notifyActionFullscreen,
-  notifyActionPosition,
-  notifyActionRecenter,
-  notifyActionRotate,
-  notifyActionZoomIn,
-  notifyActionZoomOut,
-} from '../../event-action'
-import {
   background_white_opaque,
   flex_column_center_center,
   flex_row_center_center,
@@ -22,6 +14,14 @@ import {
   timing_opening,
 } from '../css'
 import { useShadowRoot } from '../dom'
+import {
+  notifyActionFullscreen,
+  notifyActionPosition,
+  notifyActionRecenter,
+  notifyActionRotate,
+  notifyActionZoomIn,
+  notifyActionZoomOut,
+} from '../event-action'
 import { useOpenCloseHeader } from './ui-react'
 
 export function Right(): ReactNode {

@@ -1,5 +1,5 @@
-import type { Cb1 } from './lib/cb'
-import type { SearchData, SearchReq, SearchRes } from './types'
+import type { SearchData, SearchReq, SearchRes } from '../types'
+import type { Cb1 } from './cb'
 
 export type SearchStartCb = Cb1<Readonly<SearchReq>>
 export type SearchCb = Cb1<Readonly<SearchReq>>

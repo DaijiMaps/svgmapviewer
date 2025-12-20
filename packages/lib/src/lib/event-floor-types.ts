@@ -1,4 +1,4 @@
-import type { Cb, Cb1 } from './lib/cb'
+import type { Cb, Cb1 } from './cb'
 
 export type FloorCb = Cb1<number>
 

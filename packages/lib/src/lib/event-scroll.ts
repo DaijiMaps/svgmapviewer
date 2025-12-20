@@ -1,10 +1,10 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
+import type { Scroll } from '../types'
+import type { BoxBox } from './box/prefixed'
+import { notifyCbs, notifyCbs0 } from './cb'
 import type { ScrollCbs } from './event-scroll-types'
-import type { BoxBox } from './lib/box/prefixed'
-import { notifyCbs, notifyCbs0 } from './lib/cb'
-import type { Scroll } from './types'
 
 export const scrollCbs: ScrollCbs = {
   eventTick: new Set(),

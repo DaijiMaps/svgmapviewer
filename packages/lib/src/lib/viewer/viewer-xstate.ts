@@ -1,33 +1,5 @@
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import { svgMapViewerConfig } from '../../config'
-import { actionCbs } from '../../event-action'
-import {
-  floorCbs,
-  notifyFloorSelect,
-  notifyFloorUnlock,
-} from '../../event-floor'
-import { globalCbs } from '../../event-global'
-import {
-  notifyScrollGet,
-  notifyScrollSync,
-  notifyScrollSyncSync,
-  scrollCbs,
-} from '../../event-scroll'
-import {
-  notifySearchEndDone,
-  notifySearchStart,
-  searchCbs,
-} from '../../event-search'
-import {
-  notifyStyleAnimation,
-  notifyStyleLayout,
-  notifyStyleMode,
-  notifyStyleZoomEnd,
-  notifyStyleZoomStart,
-  styleCbs,
-} from '../../event-style'
-import { touchCbs } from '../../event-touch'
-import { notifyUiOpen, notifyUiOpenDone, uiCbs } from '../../event-ui'
 import {
   type Dir,
   type ResizeInfo,
@@ -36,6 +8,30 @@ import {
   type Zoom,
 } from '../../types'
 import { boxCenter, type BoxBox } from '../box/prefixed'
+import { actionCbs } from '../event-action'
+import { floorCbs, notifyFloorSelect, notifyFloorUnlock } from '../event-floor'
+import { globalCbs } from '../event-global'
+import {
+  notifyScrollGet,
+  notifyScrollSync,
+  notifyScrollSyncSync,
+  scrollCbs,
+} from '../event-scroll'
+import {
+  notifySearchEndDone,
+  notifySearchStart,
+  searchCbs,
+} from '../event-search'
+import {
+  notifyStyleAnimation,
+  notifyStyleLayout,
+  notifyStyleMode,
+  notifyStyleZoomEnd,
+  notifyStyleZoomStart,
+  styleCbs,
+} from '../event-style'
+import { touchCbs } from '../event-touch'
+import { notifyUiOpen, notifyUiOpenDone, uiCbs } from '../event-ui'
 import { vecVec, type VecVec as Vec } from '../vec/prefixed'
 import {
   animationEndLayout,

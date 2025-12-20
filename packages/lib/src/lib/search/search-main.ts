@@ -3,9 +3,9 @@
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 import { svgMapViewerConfig } from '../../config'
-import { globalCbs } from '../../event-global'
-import { notifySearchRequestDone, searchCbs } from '../../event-search'
 import type { SearchReq, SvgMapViewerConfig } from '../../types'
+import { globalCbs } from '../event-global'
+import { notifySearchRequestDone, searchCbs } from '../event-search'
 import {
   type SearchWorkerReq,
   type SearchWorkerRes,

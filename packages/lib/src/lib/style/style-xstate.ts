@@ -1,8 +1,6 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, raise, setup } from 'xstate'
 import { svgMapViewerConfig } from '../../config'
-import { scrollCbs } from '../../event-scroll'
-import { styleCbs } from '../../event-style'
 import {
   type AnimationMatrix,
   type CurrentScroll,
@@ -11,6 +9,8 @@ import {
   type ZoomInfo,
 } from '../../types'
 import { findRadius } from '../distance'
+import { scrollCbs } from '../event-scroll'
+import { styleCbs } from '../event-style'
 import { vecZero } from '../vec/prefixed'
 import { fromSvgToScroll } from '../viewer/coord'
 import { emptyLayout } from '../viewer/layout'

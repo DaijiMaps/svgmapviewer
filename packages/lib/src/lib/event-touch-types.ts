@@ -1,5 +1,5 @@
-import type { Cb, Cb1 } from './lib/cb'
-import type { Zoom } from './types'
+import type { Zoom } from '../types'
+import type { Cb, Cb1 } from './cb'
 
 export type TouchZoomCb = Cb1<Zoom>
 

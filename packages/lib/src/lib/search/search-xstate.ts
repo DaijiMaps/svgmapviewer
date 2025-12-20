@@ -1,10 +1,10 @@
 import { createActor, emit, setup } from 'xstate'
+import { type SearchReq, type SearchRes } from '../../types'
 import {
   notifySearchEnd,
   notifySearchRequest,
   searchCbs,
-} from '../../event-search'
-import { type SearchReq, type SearchRes } from '../../types'
+} from '../event-search'
 
 export type SearchEvent =
   | { type: 'SEARCH'; req: SearchReq }

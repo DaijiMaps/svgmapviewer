@@ -1,15 +1,15 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import type { StyleCbs } from './event-style-types'
-import { notifyCbs, notifyCbs0 } from './lib/cb'
-import type { ViewerMode } from './lib/viewer/viewer-types'
 import type {
   AnimationMatrix,
   ResizeInfo,
   ZoomEndInfo,
   ZoomInfo,
-} from './types'
+} from '../types'
+import { notifyCbs, notifyCbs0 } from './cb'
+import type { StyleCbs } from './event-style-types'
+import type { ViewerMode } from './viewer/viewer-types'
 
 export const styleCbs: StyleCbs = {
   resize: new Set(),

@@ -1,8 +1,8 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
+import { notifyCbs, notifyCbs0 } from './cb'
 import type { FloorCbs } from './event-floor-types'
-import { notifyCbs, notifyCbs0 } from './lib/cb'
 
 export const floorCbs: FloorCbs = {
   lock: new Set(),

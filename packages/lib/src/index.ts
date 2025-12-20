@@ -1,24 +1,24 @@
 import { svgMapViewerConfig } from './config'
-import { notifyFloorSelectDone } from './event-floor'
+import { notifyFloorSelectDone } from './lib/event-floor'
 import {
   notifySearchEnd,
   notifySearchEndDone,
   notifySearchRequest,
   notifySearchRequestDone,
   notifySearchStart,
-} from './event-search'
+} from './lib/event-search'
 import {
   notifyStyleLayout,
   notifyStyleResize,
   notifyStyleZoomEnd,
   notifyStyleZoomStart,
-} from './event-style'
+} from './lib/event-style'
 import {
   notifyUiClose,
   notifyUiCloseDone,
   notifyUiOpen,
   notifyUiOpenDone,
-} from './event-ui'
+} from './lib/event-ui'
 import { Like } from './lib/Like'
 import { useLayout, useLayout2 } from './lib/style/style-react'
 import { useFloors } from './lib/viewer/floors-react'

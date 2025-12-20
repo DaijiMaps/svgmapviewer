@@ -4,8 +4,8 @@
 /* eslint-disable functional/no-throw-statements */
 import { StrictMode, useEffect, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { notifyRendered } from '../../event-global'
 import { timing_opening } from '../css'
+import { notifyRendered } from '../event-global'
 import { trunc2 } from '../utils'
 import {
   useAppearing,

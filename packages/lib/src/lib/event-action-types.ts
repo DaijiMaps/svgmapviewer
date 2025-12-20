@@ -1,4 +1,4 @@
-import type { Cb } from './lib/cb'
+import type { Cb } from './cb'
 
 export interface ActionCbs {
   zoomIn: Set<Cb>
