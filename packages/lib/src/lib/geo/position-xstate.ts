@@ -108,7 +108,6 @@ const geolocMachine = setup({
 })
 
 const geolocActor = createActor(geolocMachine)
-geolocActorStart()
 
 export function geolocActorStart(): void {
   geolocActor.start()
