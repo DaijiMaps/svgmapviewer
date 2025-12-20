@@ -1,5 +1,4 @@
 import { assign, createActor, enqueueActions, setup } from 'xstate'
-
 import { useSelector } from '@xstate/react'
 import {
   actionCbs,
@@ -12,7 +11,6 @@ import {
   handleTouchMove,
   handleTouchStart,
   resetTouches,
-  type Vecs,
 } from './touch'
 import {
   type TouchContext_,
@@ -218,6 +216,10 @@ export function touchActorStart(): void {
   touchActor.start()
 }
 
+export function useTouchContext(): TouchContext_ {
+  return useSelector(touchActor, (s) => s.context)
+}
+
 export let touching: boolean = false
 
 touchActor.on('MULTI.START', () => {
@@ -246,13 +248,6 @@ export function touchSendTouchEnd(ev: React.TouchEvent): void {
 
 function touchSendCancel(): void {
   touchActor.send({ type: 'CANCEL' })
-}
-
-export function useTouchesVecs(): Vecs {
-  return useSelector(touchActor, (s) => s.context.touches.vecs)
-}
-export function useTouchesZ(): null | number {
-  return useSelector(touchActor, (s) => s.context.touches.z)
 }
 
 export function touchCbsStart(): void {

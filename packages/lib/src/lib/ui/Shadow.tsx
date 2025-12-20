@@ -3,7 +3,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { notifyUiClose } from '../../event'
-import { useAnimating } from '../../style-xstate'
+import { useAnimating } from '../../style-react'
 import {
   position_absolute_left_0_top_0,
   timing_closing,

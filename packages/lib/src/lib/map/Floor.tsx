@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { useLayout2 } from '../../style-xstate'
+import { useLayout2 } from '../../style-react'
 import { useFloors } from '../viewer/floors-react'
 import { type OsmRenderMapProps } from '../../types'
 

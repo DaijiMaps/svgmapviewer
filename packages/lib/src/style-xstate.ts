@@ -2,17 +2,11 @@ import { useSelector } from '@xstate/react'
 import { assign, createActor, raise, setup } from 'xstate'
 import { svgMapViewerConfig } from './config'
 import { scrollCbs, styleCbs } from './event'
-import { boxToViewBox2, type BoxBox } from './lib/box/prefixed'
 import { findRadius } from './lib/distance'
 import { type DistanceRadius } from './lib/distance-types'
-import { trunc2 } from './lib/utils'
 import { vecZero, type VecVec } from './lib/vec/prefixed'
 import { fromSvgToScroll } from './lib/viewer/coord'
-import {
-  emptyLayout,
-  type Layout,
-  type LayoutConfig,
-} from './lib/viewer/layout'
+import { emptyLayout, type Layout } from './lib/viewer/layout'
 import { getCurrentScroll, type CurrentScroll } from './lib/viewer/scroll'
 import { type ViewerMode } from './lib/viewer/viewer-types'
 import {
@@ -224,75 +218,12 @@ export function styleSend(ev: StyleEvent): void {
   styleActor.send(ev)
 }
 
+export function useStyleContext(): StyleContext {
+  return useSelector(styleActor, (s) => s.context)
+}
+
 export function styleAnimationEnd(): void {
   styleActor.send({ type: 'STYLE.ANIMATION.END' })
-}
-
-//// selectors
-
-export function useRendered(): boolean {
-  return useSelector(styleActor, (s) => s.context.rendered)
-}
-export function useAppearing(): boolean {
-  return useSelector(styleActor, (s) => s.context.appearing)
-}
-export function useShown(): boolean {
-  return useSelector(styleActor, (s) => s.context.shown)
-}
-export function useAnimating(): boolean {
-  return useSelector(styleActor, (s) => s.context.animating)
-}
-export function useLayout(): Layout {
-  return useSelector(styleActor, (s) => s.context.layout)
-}
-export function useLayoutContainer(): BoxBox {
-  return useSelector(styleActor, (s) => s.context.layout.container)
-}
-export function useLayoutScroll(): BoxBox {
-  return useSelector(styleActor, (s) => s.context.layout.scroll)
-}
-export function useMode(): string {
-  return useSelector(styleActor, (s) => s.context.mode)
-}
-export function useAnimation(): null | AnimationMatrix {
-  return useSelector(styleActor, (s) => s.context.animation)
-}
-export function useGeoPoint(): VecVec {
-  return useSelector(styleActor, (s) => s.context.geoPoint)
-}
-export function useDistanceRadius(): DistanceRadius {
-  return useSelector(styleActor, (s) => s.context.distanceRadius)
-}
-export function useSvgRange(): Range {
-  return useSelector(styleActor, (s) => s.context.geoRange)
-}
-export function useLayoutConfig(): LayoutConfig {
-  return useSelector(styleActor, (state) => state.context.layout.config)
-}
-export function useLayoutSvgScaleS(): number {
-  return useSelector(styleActor, (state) => state.context.layout.svgScale.s)
-}
-export function useLayoutContent(): DOMMatrixReadOnly {
-  return useSelector(styleActor, (state) => state.context.layout.content)
-}
-export function useZoom(): number {
-  return useSelector(styleActor, (state) => state.context.zoom)
-}
-export function useRotate(): null | number {
-  return useSelector(styleActor, (state) => state.context.rotate)
-}
-export function useLayout2(): {
-  viewBox: string
-  width: number
-  height: number
-} {
-  const { scroll, svg } = useSelector(styleActor, (s) => s.context.layout)
-
-  return {
-    viewBox: boxToViewBox2(svg),
-    width: trunc2(scroll.width),
-    height: trunc2(scroll.height),
-  }
 }
 
 // handlers

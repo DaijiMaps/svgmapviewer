@@ -1,7 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode, useMemo } from 'react'
-import { useLayout, useLayoutSvgScaleS } from '../../style-xstate'
+import { useLayout, useLayoutSvgScaleS } from '../../style-react'
 import { boxToViewBox2 } from '../box/prefixed'
 import { useShadowRoot } from '../dom'
 import { voffset } from '../text'

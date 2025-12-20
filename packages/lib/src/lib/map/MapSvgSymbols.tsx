@@ -2,7 +2,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { SvgSymbolStyle } from '../../Style'
-import { useLayout } from '../../style-xstate'
+import { useLayout } from '../../style-react'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapSymbols } from '../carto'
 import { RenderMapAssetsDefault } from '../carto/assets'

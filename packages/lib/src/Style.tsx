@@ -15,7 +15,7 @@ import {
   useRendered,
   useShown,
   useZoom,
-} from './style-xstate'
+} from './style-react'
 
 export function styleRoot(): void {
   const e = document.getElementById('style-root')

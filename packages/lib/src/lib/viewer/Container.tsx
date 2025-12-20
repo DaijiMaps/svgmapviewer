@@ -2,11 +2,8 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 import { type PropsWithChildren, type ReactNode, useRef } from 'react'
-import {
-  styleAnimationEnd,
-  useAnimation,
-  useLayoutContent,
-} from '../../style-xstate'
+import { useAnimation, useLayoutContent } from '../../style-react'
+import { styleAnimationEnd } from '../../style-xstate'
 import { type AnimationMatrix } from '../../types'
 import {
   position_absolute_left_0_top_0,

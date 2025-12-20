@@ -6,7 +6,7 @@ import {
   useLayout,
   useLayoutConfig,
   useLayoutSvgScaleS,
-} from '../../style-xstate'
+} from '../../style-react'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapMarkers } from '../carto'
 import { useShadowRoot } from '../dom'
