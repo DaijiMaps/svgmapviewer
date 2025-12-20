@@ -1,5 +1,3 @@
-import type { Dir } from '../../types'
-import { type VecVec } from '../vec/prefixed'
 import { type Touches } from './touch'
 
 // XXX TouchEvent is DOM
@@ -16,13 +14,8 @@ type TouchEvent_ =
   | { type: 'MOVED' } // internal
   | { type: 'ENDED' } // internal
 type TouchEmit_ =
-  | {
-      type: 'EXPIRED'
-      ev: React.TouchEvent
-    }
-  | { type: 'MULTI.START' }
-  | { type: 'MULTI.END' }
-  | { type: 'ZOOM'; p: VecVec; z: Dir }
+  | { type: 'MULTI'; touches: Touches }
+  | { type: 'ZOOM'; touches: Touches }
 type TouchContext_ = {
   touches: Touches
 }

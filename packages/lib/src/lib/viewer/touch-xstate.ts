@@ -1,4 +1,4 @@
-import { assign, createActor, enqueueActions, setup } from 'xstate'
+import { assign, createActor, emit, enqueueActions, setup } from 'xstate'
 import { useSelector } from '@xstate/react'
 import {
   actionCbs,
@@ -62,20 +62,16 @@ const touchMachine = setup({
     resetTouches: assign({
       touches: () => resetTouches(),
     }),
-    notifyTouching: enqueueActions(({ enqueue, context }) =>
-      enqueue.emit(
-        context.touches.vecs.size === 2
-          ? { type: 'MULTI.START' }
-          : { type: 'MULTI.END' }
-      )
+    emitMulti: emit(
+      ({ context: { touches } }): TouchEmit_ => ({
+        type: 'MULTI',
+        touches,
+      })
     ),
-    notifyZoom: enqueueActions(({ context, enqueue }) => {
-      const p = context.touches.cursor
-      const z = context.touches.z
-      if (p !== null && z !== null) {
-        enqueue.emit({ type: 'ZOOM', p, z })
-      }
-    }),
+    emitZoom: emit(({ context: { touches } }) => ({
+      type: 'ZOOM',
+      touches,
+    })),
   },
 }).createMachine({
   id: 'touch1',
@@ -148,8 +144,8 @@ const touchMachine = setup({
       },
     },
     DoubleTouching: {
-      entry: 'notifyTouching',
-      exit: 'notifyTouching',
+      entry: 'emitMulti',
+      exit: 'emitMulti',
       on: {
         STARTED: [
           {
@@ -159,7 +155,7 @@ const touchMachine = setup({
         ],
         MOVED: {
           guard: 'isZooming',
-          actions: 'notifyZoom',
+          actions: 'emitZoom',
         },
         ENDED: [
           {
@@ -222,16 +218,21 @@ export function useTouchContext(): TouchContext_ {
 
 export let touching: boolean = false
 
-touchActor.on('MULTI.START', () => {
-  touching = true
-  notifyTouchMultiStart()
+touchActor.on('MULTI', ({ touches }) => {
+  if (touches.vecs.size === 2) {
+    touching = true
+    notifyTouchMultiStart()
+  } else {
+    notifyTouchMultiEnd()
+    touching = false
+  }
 })
-touchActor.on('MULTI.END', () => {
-  notifyTouchMultiEnd()
-  touching = false
-})
-touchActor.on('ZOOM', ({ z, p }) => {
-  notifyTouchZoom({ z: z > 0 ? 1 : -1, p })
+touchActor.on('ZOOM', ({ touches }) => {
+  const p = touches.cursor
+  const z = touches.z
+  if (p !== null && z !== null) {
+    notifyTouchZoom({ z: z > 0 ? 1 : -1, p })
+  }
 })
 
 ////
