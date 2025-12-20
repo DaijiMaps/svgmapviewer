@@ -5,7 +5,6 @@ import { type SearchData } from '../../types'
 import { vecZero } from '../vec/prefixed'
 import { emptyLayoutCoord, fromMatrixSvg } from '../viewer/coord'
 import {
-  type OpenClose,
   openCloseClose,
   openCloseClosed,
   openCloseIsVisible,
@@ -248,19 +247,6 @@ const uiMachine = setup({
   },
 })
 
-export function useOpenCloseAll(): OpenClose {
-  return useSelector(uiActor, (ui) => ui.context.all)
-}
-export function useDetail(): UiDetailContent {
-  return useSelector(uiActor, (ui) => ui.context.detail)
-}
-export function useOpenCloseHeader(): OpenClose {
-  return useSelector(uiActor, (ui) => ui.context.m['header'])
-}
-export function useOpenCloseDetail(): OpenClose {
-  return useSelector(uiActor, (ui) => ui.context.m['detail'])
-}
-
 ////
 
 const uiActor = createActor(uiMachine)
@@ -270,6 +256,9 @@ export function uiActorStart(): void {
 }
 export function uiSend(ev: UiEvent): void {
   uiActor.send(ev)
+}
+export function useUiContext(): UiContext {
+  return useSelector(uiActor, (ui) => ui.context)
 }
 
 uiActor.on('CLOSE.DONE', notifyUiCloseDone)

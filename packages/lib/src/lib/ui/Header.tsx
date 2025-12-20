@@ -15,7 +15,8 @@ import {
 } from '../css'
 import { useShadowRoot } from '../dom'
 import { FloorName } from './Floor'
-import { uiSend, useOpenCloseHeader } from './ui-xstate'
+import { useOpenCloseHeader } from './ui-react'
+import { uiSend } from './ui-xstate'
 
 export function Header(): ReactNode {
   useShadowRoot('header', <HeaderContent />, 'ui')

@@ -14,7 +14,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { trunc7 } from '../utils'
-import { useOpenCloseHeader } from './ui-xstate'
+import { useOpenCloseHeader } from './ui-react'
 
 export function Measure(): ReactNode {
   return (

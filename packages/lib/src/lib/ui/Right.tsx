@@ -22,7 +22,7 @@ import {
   timing_opening,
 } from '../css'
 import { useShadowRoot } from '../dom'
-import { useOpenCloseHeader } from './ui-xstate'
+import { useOpenCloseHeader } from './ui-react'
 
 export function Right(): ReactNode {
   useShadowRoot('right', <RightContent />, 'ui')

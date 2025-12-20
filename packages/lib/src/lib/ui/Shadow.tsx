@@ -14,7 +14,7 @@ import {
 } from '../css'
 import { useShadowRoot } from '../dom'
 import { useOnWheel } from '../wheel'
-import { useOpenCloseDetail } from './ui-xstate'
+import { useOpenCloseDetail } from './ui-react'
 
 export function Shadow(): ReactNode {
   useShadowRoot('shadow', <ShadowContent />, 'ui')

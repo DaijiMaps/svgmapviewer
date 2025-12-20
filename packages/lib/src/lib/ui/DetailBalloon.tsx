@@ -6,7 +6,7 @@ import { useShadowRoot } from '../dom'
 import { Balloon, DetailBalloonStyle } from './Balloon'
 import { Detail } from './Detail'
 import { calcBalloonLayout } from './balloon-common'
-import { useDetail } from './ui-xstate'
+import { useDetail } from './ui-react'
 
 export function DetailBalloon(): ReactNode {
   useShadowRoot('detail', <DetailBalloonContent />, 'ui')

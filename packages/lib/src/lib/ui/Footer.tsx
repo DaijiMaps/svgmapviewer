@@ -11,7 +11,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
-import { useOpenCloseHeader } from './ui-xstate'
+import { useOpenCloseHeader } from './ui-react'
 
 export function Footer(): ReactNode {
   useShadowRoot('footer', <FooterContent />, 'ui')

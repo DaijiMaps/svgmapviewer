@@ -14,7 +14,7 @@ import {
   type LegLayout,
 } from './balloon-common'
 import { openCloseIsVisible } from './openclose'
-import { useOpenCloseDetail } from './ui-xstate'
+import { useOpenCloseDetail } from './ui-react'
 
 export interface BalloonProps {
   _p: null | VecVec
