@@ -150,18 +150,16 @@ const viewerMachine = setup({
     }),
     wantZoom: assign({ want_animation: 'zoom' }),
     wantRotate: assign({ want_animation: 'rotate' }),
-    syncAnimation: ({ context: { animation } }) => {
-      const matrix =
-        animation?.move?.q ?? animation?.zoom?.q ?? animation?.rotate?.q ?? null
-      const origin =
-        animation?.move?.o ?? animation?.zoom?.o ?? animation?.rotate?.o ?? null
-      if (matrix !== null) {
-        notifyAnimation({ matrix, origin })
-      }
-    },
+    emitSyncAnimation: emit(
+      ({ context: { animation } }): ViewerEmitted => ({
+        type: 'SYNC.ANIMATION',
+        animation,
+      })
+    ),
     //
     // layout
     //
+    // XXX emit
     syncLayout: ({ context: { layout, rendered } }) =>
       notifyLayout({ layout, force: rendered }),
     //
@@ -672,7 +670,7 @@ const viewerMachine = setup({
           states: {
             Starting: {
               always: {
-                actions: ['startAnimating', 'syncAnimation'],
+                actions: ['startAnimating', 'emitSyncAnimation'],
                 target: 'Ending',
               },
             },
@@ -688,7 +686,7 @@ const viewerMachine = setup({
                       'syncScroll',
                       'emitZoomEnd',
                       'stopAnimating',
-                      'syncAnimation',
+                      'emitSyncAnimation',
                     ],
                     target: 'Homing',
                   },
@@ -701,7 +699,7 @@ const viewerMachine = setup({
                       'syncScroll',
                       'emitZoomEnd',
                       'stopAnimating',
-                      'syncAnimation',
+                      'emitSyncAnimation',
                     ],
                     target: 'Homing',
                   },
@@ -788,6 +786,15 @@ viewerActor.on('MODE', ({ mode }) => notifyMode(mode))
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloor(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloorUnlock())
+viewerActor.on('SYNC.ANIMATION', ({ animation }) => {
+  const matrix =
+    animation?.move?.q ?? animation?.zoom?.q ?? animation?.rotate?.q ?? null
+  const origin =
+    animation?.move?.o ?? animation?.zoom?.o ?? animation?.rotate?.o ?? null
+  if (matrix !== null) {
+    notifyAnimation({ matrix, origin })
+  }
+})
 
 ////
 

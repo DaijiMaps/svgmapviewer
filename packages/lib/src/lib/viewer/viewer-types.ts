@@ -143,6 +143,11 @@ export type ZoomStartEmitted = {
 export type ZoomEndEmitted = { type: 'ZOOM.END'; layout: Layout; zoom: number }
 export type ModeEmitted = { type: 'MODE'; mode: ViewerMode }
 
+export type SyncAnimationEmitted = {
+  type: 'SYNC.ANIMATION'
+  animation: null | Animation
+}
+
 export type ViewerEmitted =
   | SearchEmitted
   | SearchEndDoneEmitted
@@ -153,3 +158,4 @@ export type ViewerEmitted =
   | ModeEmitted
   | SwitchRequest
   | SwitchDoneRequest
+  | SyncAnimationEmitted
