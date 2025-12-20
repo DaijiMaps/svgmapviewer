@@ -3,7 +3,6 @@
 /* eslint-disable functional/no-expression-statements */
 import { type PropsWithChildren, type ReactNode, useRef } from 'react'
 import { useAnimation, useLayoutContent } from '../../style-react'
-import { styleAnimationEnd } from '../../style-xstate'
 import { type AnimationMatrix } from '../../types'
 import {
   position_absolute_left_0_top_0,
@@ -22,6 +21,7 @@ import {
   sendScroll,
   sendWheel,
 } from './viewer-react'
+import { notifyStyleAnimationEnd } from '../../event'
 
 export function Container(props: Readonly<PropsWithChildren>): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
@@ -40,7 +40,7 @@ export function Container(props: Readonly<PropsWithChildren>): ReactNode {
       onWheel={sendWheel}
       onAnimationEnd={(ev) => {
         sendAnimationEnd(ev)
-        styleAnimationEnd()
+        notifyStyleAnimationEnd()
       }}
     >
       {props.children}

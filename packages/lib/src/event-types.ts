@@ -59,6 +59,7 @@ export interface StyleCbs {
   zoomStart: Set<ZoomStartCb>
   zoomEnd: Set<ZoomEndCb>
   animation: Set<AnimationCb>
+  animationEnd: Set<Cb>
   mode: Set<ModeCb>
 }
 

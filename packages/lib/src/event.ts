@@ -70,6 +70,7 @@ export const styleCbs: StyleCbs = {
   zoomStart: new Set(),
   zoomEnd: new Set(),
   animation: new Set(),
+  animationEnd: new Set(),
   mode: new Set(),
 }
 
@@ -168,6 +169,9 @@ export function notifyStyleAnimation(
   a: Readonly<null | AnimationMatrix>
 ): void {
   notifyCbs(styleCbs.animation, a)
+}
+export function notifyStyleAnimationEnd(): void {
+  notifyCbs0(styleCbs.animationEnd)
 }
 export function notifyStyleMode(mode: ViewerMode): void {
   notifyCbs(styleCbs.mode, mode)

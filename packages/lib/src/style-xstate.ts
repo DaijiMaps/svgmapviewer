@@ -222,10 +222,6 @@ export function useStyleContext(): StyleContext {
   return useSelector(styleActor, (s) => s.context)
 }
 
-export function styleAnimationEnd(): void {
-  styleActor.send({ type: 'STYLE.ANIMATION.END' })
-}
-
 // handlers
 
 function handleExpire(): void {
@@ -247,6 +243,9 @@ export function styleCbsStart(): void {
   })
   styleCbs.animation.add(function (animation: null | AnimationMatrix) {
     styleSend({ type: 'STYLE.ANIMATION', animation })
+  })
+  styleCbs.animationEnd.add(function () {
+    styleSend({ type: 'STYLE.ANIMATION.END' })
   })
   styleCbs.mode.add(function (mode: ViewerMode) {
     styleSend({ type: 'STYLE.MODE', mode })
