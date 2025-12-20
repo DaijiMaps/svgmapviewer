@@ -2,14 +2,14 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
-import { svgMapViewerConfig } from './config'
-import { initCbs, notifySearchRequestDone, searchCbs } from './event'
-import { type SearchPos } from './lib/search/types'
+import { svgMapViewerConfig } from '../../config'
+import { initCbs, notifySearchRequestDone, searchCbs } from '../../event'
+import { type SearchPos } from './types'
 import {
   type SearchWorkerReq,
   type SearchWorkerRes,
-} from './lib/search/search-worker-types'
-import type { SearchReq, SvgMapViewerConfig } from './types'
+} from './search-worker-types'
+import type { SearchReq, SvgMapViewerConfig } from '../../types'
 
 const worker = new Worker(new URL('./search-worker.js', import.meta.url), {
   type: 'module',

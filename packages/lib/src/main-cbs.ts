@@ -12,7 +12,7 @@ import { scrollCbsStart } from './lib/viewer/scroll'
 import { scrollCbsStart2 } from './lib/viewer/scroll-xstate'
 import { touchCbsStart } from './lib/viewer/touch-xstate'
 import { viewerCbsStart } from './lib/viewer/viewer-xstate'
-import { searchWorkerCbsStart } from './search-main'
+import { searchWorkerCbsStart } from './lib/search/search-main'
 
 export function startAllCbs(): void {
   floorsCbsStart()
