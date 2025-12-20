@@ -1,4 +1,4 @@
-import type { Z } from '../../types'
+import type { Dir } from '../../types'
 import { type Vec } from '../vec'
 
 export function keyToDir(key: string): Vec {
@@ -8,6 +8,6 @@ export function keyToDir(key: string): Vec {
   }
 }
 
-export function keyToZoom(key: string): Z | 0 {
+export function keyToZoom(key: string): Dir | 0 {
   return '=+iI'.indexOf(key) >= 0 ? 1 : '-_oO'.indexOf(key) >= 0 ? -1 : 0
 }

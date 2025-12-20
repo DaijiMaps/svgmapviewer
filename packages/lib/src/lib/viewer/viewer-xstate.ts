@@ -24,7 +24,7 @@ import {
   touchCbs,
   uiCbs,
 } from '../../event'
-import { type ResizeInfo, type SearchRes, type Z } from '../../types'
+import { type ResizeInfo, type SearchRes, type Dir } from '../../types'
 import { boxCenter, type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'
 import {
@@ -108,17 +108,19 @@ const viewerMachine = setup({
     // move + zoom
     //
     zoomKey: assign({
-      z: (_, { ev }: { ev: KeyboardEvent }): Z | 0 => keyToZoom(ev.key),
+      z: (_, { ev }: { ev: KeyboardEvent }): Dir | 0 => keyToZoom(ev.key),
     }),
     zoomHome: assign({
-      z: (): null | Z => null,
+      z: (): null | Dir => null,
       zoom: () => 1,
       homing: () => true,
     }),
     zoomEvent: assign({
-      z: (_, { z }: { z: Z; p: null | Vec }): Z => z,
-      cursor: ({ context: { cursor } }, { p }: { z: Z; p: null | Vec }): Vec =>
-        p === null ? cursor : p,
+      z: (_, { z }: { z: Dir; p: null | Vec }): Dir => z,
+      cursor: (
+        { context: { cursor } },
+        { p }: { z: Dir; p: null | Vec }
+      ): Vec => (p === null ? cursor : p),
     }),
     startZoom: assign({
       animation: ({ context: { layout, cursor, z } }): null | Animation =>

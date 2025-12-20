@@ -19,13 +19,13 @@ import {
   type AnimationMatrix,
   type Range,
   type ResizeInfo,
-  type Z,
+  type Dir,
   type ZoomEndInfo,
   type ZoomInfo,
 } from './types'
 
 type LayoutEvent = { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
-type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number; z: null | Z }
+type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number; z: null | Dir }
 type ScrollEvent = { type: 'STYLE.SCROLL'; currentScroll: CurrentScroll } // p == pscroll
 type ModeEvent = { type: 'STYLE.MODE'; mode: string }
 type AnimationEvent = {
@@ -50,7 +50,7 @@ interface StyleContext {
   animating: boolean
   layout: Layout
   zoom: number
-  z: null | Z
+  z: null | Dir
   rotate: null | number
   svgMatrix: DOMMatrixReadOnly
   geoMatrix: DOMMatrixReadOnly
