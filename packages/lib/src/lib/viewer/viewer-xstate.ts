@@ -4,7 +4,7 @@ import {
   actionCbs,
   floorCbs,
   notifyStyleAnimation,
-  notifyFloor,
+  notifyFloorSelect,
   notifyFloorUnlock,
   notifyStyleLayout,
   notifyStyleMode,
@@ -785,7 +785,7 @@ viewerActor.on('LAYOUT', ({ layout }) =>
 )
 viewerActor.on('MODE', ({ mode }) => notifyStyleMode(mode))
 
-viewerActor.on('SWITCH', ({ fidx }) => notifyFloor(fidx))
+viewerActor.on('SWITCH', ({ fidx }) => notifyFloorSelect(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloorUnlock())
 viewerActor.on('SYNC.ANIMATION', ({ animation }) => {
   const matrix =
@@ -910,7 +910,7 @@ function handleTouchZoom({ z, p }: TouchZoomCbArgs) {
 
 export function viewerCbsStart(): void {
   floorCbs.floorLock.add(viewerSwitch)
-  floorCbs.floorDone.add(viewerSwitchDone) // XXX animation end
+  floorCbs.floorSelectDone.add(viewerSwitchDone) // XXX animation end
 
   searchCbs.end.add(viewerSearchEnd)
   uiCbs.open.add(viewerSearchLock)

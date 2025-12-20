@@ -158,8 +158,8 @@ export interface UiCbs {
 }
 export interface FloorCbs {
   floorLock: Set<FloorCb>
-  floor: Set<FloorCb>
-  floorDone: Set<FloorCb>
+  floorSelect: Set<FloorCb>
+  floorSelectDone: Set<FloorCb>
   floorUnlock: Set<Cb>
 }
 export interface TouchCbs {

@@ -1,6 +1,6 @@
 import { svgMapViewerConfig } from './config'
 import {
-  notifyFloorDone,
+  notifyFloorSelectDone,
   notifyStyleLayout,
   notifyStyleResize,
   notifySearchRequest,
@@ -47,7 +47,7 @@ import {
 export { svgMapViewerConfig }
 
 export {
-  notifyFloorDone,
+  notifyFloorSelectDone,
   notifyStyleLayout,
   notifyStyleResize,
   notifySearchRequest,

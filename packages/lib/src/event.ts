@@ -54,8 +54,8 @@ export const uiCbs: UiCbs = {
 
 export const floorCbs: FloorCbs = {
   floorLock: new Set(),
-  floor: new Set(),
-  floorDone: new Set(),
+  floorSelect: new Set(),
+  floorSelectDone: new Set(),
   floorUnlock: new Set(),
 }
 
@@ -175,11 +175,11 @@ export function notifyStyleMode(mode: ViewerMode): void {
 export function notifyFloorLock(fidx: number): void {
   notifyCbs(floorCbs.floorLock, fidx)
 }
-export function notifyFloor(fidx: number): void {
-  notifyCbs(floorCbs.floor, fidx)
+export function notifyFloorSelect(fidx: number): void {
+  notifyCbs(floorCbs.floorSelect, fidx)
 }
-export function notifyFloorDone(fidx: number): void {
-  notifyCbs(floorCbs.floorDone, fidx)
+export function notifyFloorSelectDone(fidx: number): void {
+  notifyCbs(floorCbs.floorSelectDone, fidx)
 }
 export function notifyFloorUnlock(): void {
   notifyCbs0(floorCbs.floorUnlock)

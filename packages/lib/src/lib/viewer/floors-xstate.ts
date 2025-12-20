@@ -5,7 +5,7 @@ import { svgMapViewerConfig } from '../../config'
 import {
   floorCbs,
   initCbs,
-  notifyFloorDone,
+  notifyFloorSelectDone,
   notifyFloorLock,
 } from '../../event'
 import { floor_switch_duration } from '../css'
@@ -107,7 +107,8 @@ export function useFloors(): FloorsContext & {
 
   // XXX receive only one (appearing) animationend event
   const fidxToOnAnimationEnd: FidxToOnAnimationEnd = useCallback(
-    (idx: number) => (idx === fidx ? () => notifyFloorDone(idx) : undefined),
+    (idx: number) =>
+      idx === fidx ? () => notifyFloorSelectDone(idx) : undefined,
     [fidx]
   )
 
@@ -175,6 +176,6 @@ ${animation}
 
 export function floorsCbsStart(): void {
   initCbs.add(initFloor)
-  floorCbs.floor.add(handleFloor)
-  floorCbs.floorDone.add(handleFloorDone)
+  floorCbs.floorSelect.add(handleFloor)
+  floorCbs.floorSelectDone.add(handleFloorDone)
 }
