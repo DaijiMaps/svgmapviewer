@@ -3,14 +3,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
-import {
-  uiActionFullscreenCbs,
-  uiActionPositionCbs,
-  uiActionRecenterCbs,
-  uiActionRotateCbs,
-  uiActionZoomInCbs,
-  uiActionZoomOutCbs,
-} from '../../event'
+import { actionCbs } from '../../event'
 import {
   background_white_opaque,
   flex_column_center_center,
@@ -170,28 +163,24 @@ function ZoomIn() {
   )
 }
 
+// XXX notify
 function doFullscreen() {
-  uiActionFullscreenCbs.forEach((cb) => cb())
+  actionCbs.uiActionFullscreen.forEach((cb) => cb())
 }
-
 function doPosition() {
-  uiActionPositionCbs.forEach((cb) => cb())
+  actionCbs.uiActionPosition.forEach((cb) => cb())
 }
-
 function doRecenter() {
-  uiActionRecenterCbs.forEach((cb) => cb())
+  actionCbs.uiActionRecenter.forEach((cb) => cb())
 }
-
 function doRotate() {
-  uiActionRotateCbs.forEach((cb) => cb())
+  actionCbs.uiActionRotate.forEach((cb) => cb())
 }
-
 function doZoomOut() {
-  uiActionZoomOutCbs.forEach((cb) => cb())
+  actionCbs.uiActionZoomOut.forEach((cb) => cb())
 }
-
 function doZoomIn() {
-  uiActionZoomInCbs.forEach((cb) => cb())
+  actionCbs.uiActionZoomIn.forEach((cb) => cb())
 }
 
 export function RightStyle(): ReactNode {

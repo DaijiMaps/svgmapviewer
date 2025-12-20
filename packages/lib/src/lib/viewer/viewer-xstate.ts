@@ -2,6 +2,7 @@ import { useSelector } from '@xstate/react'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import { svgMapViewerConfig } from '../../config'
 import {
+  actionCbs,
   floorDoneCbs,
   floorLockCbs,
   modeCbs,
@@ -20,11 +21,6 @@ import {
   resizeCbs,
   searchEndCbs,
   touchCbs,
-  uiActionRecenterCbs,
-  uiActionResetCbs,
-  uiActionRotateCbs,
-  uiActionZoomInCbs,
-  uiActionZoomOutCbs,
   uiCbs,
   zoomEndCbs,
   zoomStartCbs,
@@ -942,11 +938,11 @@ export function viewerCbsStart(): void {
   zoomStartCbs.add(maskWheel)
   zoomEndCbs.add(unmaskWheel)
 
-  uiActionResetCbs.add(handleUiActionReset)
-  uiActionRecenterCbs.add(handleUiActionRecenter)
-  uiActionRotateCbs.add(handleUiActionRotate)
-  uiActionZoomOutCbs.add(handleUiActionZoomOut)
-  uiActionZoomInCbs.add(handleUiActionZoomIn)
+  actionCbs.uiActionReset.add(handleUiActionReset)
+  actionCbs.uiActionRecenter.add(handleUiActionRecenter)
+  actionCbs.uiActionRotate.add(handleUiActionRotate)
+  actionCbs.uiActionZoomOut.add(handleUiActionZoomOut)
+  actionCbs.uiActionZoomIn.add(handleUiActionZoomIn)
 
   touchCbs.multiStart.add(handleTouchMultiStart)
   touchCbs.multiEnd.add(handleTouchMultiEnd)

@@ -146,6 +146,15 @@ export type TouchCbs = {
   multiEnd: Set<Cb>
   zoom: Set<TouchZoomCb>
 }
+export type ActionCbs = {
+  uiActionZoomIn: Set<Cb>
+  uiActionZoomOut: Set<Cb>
+  uiActionReset: Set<Cb>
+  uiActionRecenter: Set<Cb>
+  uiActionRotate: Set<Cb>
+  uiActionPosition: Set<Cb>
+  uiActionFullscreen: Set<Cb>
+}
 
 export type GeoLocCb = Cb
 export type GeoLocDoneCb = Cb1<Readonly<GeolocationPosition>>

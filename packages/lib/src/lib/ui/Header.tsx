@@ -3,7 +3,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 import { svgMapViewerConfig } from '../../config'
-import { uiActionResetCbs } from '../../event'
+import { actionCbs } from '../../event'
 import {
   flex_column_center_center,
   pointer_events_initial,
@@ -43,8 +43,9 @@ function HeaderContent(): ReactNode {
   )
 }
 
+// XXX notify
 function doTitle() {
-  uiActionResetCbs.forEach((cb) => cb())
+  actionCbs.uiActionReset.forEach((cb) => cb())
 }
 
 const style = `

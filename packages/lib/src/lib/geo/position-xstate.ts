@@ -8,7 +8,7 @@ import {
   type DoneActorEvent,
   type ErrorActorEvent,
 } from 'xstate'
-import { uiActionPositionCbs } from '../../event'
+import { actionCbs } from '../../event'
 
 export type GeoLocContext = {
   position: null | GeolocationPosition
@@ -126,6 +126,7 @@ export function usePosition(): null | GeolocationPosition {
   return useSelector(geolocActor, (state) => state.context.position)
 }
 
+// XXX notify
 export function positionCbsStart(): void {
-  uiActionPositionCbs.add(getPosition)
+  actionCbs.uiActionPosition.add(getPosition)
 }

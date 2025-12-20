@@ -5,6 +5,7 @@ import { type Cb, type Cb1 } from './lib/cb'
 import { type VecVec } from './lib/vec/prefixed'
 import { type ViewerMode } from './lib/viewer/viewer-types'
 import {
+  type ActionCbs,
   type AnimationCb,
   type AnimationMatrix,
   type FloorCb,
@@ -62,14 +63,15 @@ export const zoomEndCbs: Set<ZoomEndCb> = new Set()
 export const animationCbs: Set<AnimationCb> = new Set()
 export const modeCbs: Set<ModeCb> = new Set()
 
-// XXX actionCbs
-export const uiActionZoomInCbs: Set<Cb> = new Set()
-export const uiActionZoomOutCbs: Set<Cb> = new Set()
-export const uiActionResetCbs: Set<Cb> = new Set()
-export const uiActionRecenterCbs: Set<Cb> = new Set()
-export const uiActionRotateCbs: Set<Cb> = new Set()
-export const uiActionPositionCbs: Set<Cb> = new Set()
-export const uiActionFullscreenCbs: Set<Cb> = new Set()
+export const actionCbs: ActionCbs = {
+  uiActionZoomIn: new Set(),
+  uiActionZoomOut: new Set(),
+  uiActionReset: new Set(),
+  uiActionRecenter: new Set(),
+  uiActionRotate: new Set(),
+  uiActionPosition: new Set(),
+  uiActionFullscreen: new Set(),
+}
 
 export const touchCbs: TouchCbs = {
   multiStart: new Set(),

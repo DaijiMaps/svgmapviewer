@@ -2,15 +2,10 @@ import { assign, createActor, enqueueActions, setup } from 'xstate'
 
 import { useSelector } from '@xstate/react'
 import {
+  actionCbs,
   notifyTouchMultiEnd,
   notifyTouchMultiStart,
   notifyTouchZoom,
-  uiActionFullscreenCbs,
-  uiActionPositionCbs,
-  uiActionRecenterCbs,
-  uiActionResetCbs,
-  uiActionZoomInCbs,
-  uiActionZoomOutCbs,
 } from '../../event'
 import {
   handleTouchEnd,
@@ -260,10 +255,10 @@ export function useTouchesZ(): null | number {
 }
 
 export function touchCbsStart(): void {
-  uiActionResetCbs.add(touchSendCancel)
-  uiActionFullscreenCbs.add(touchSendCancel)
-  uiActionPositionCbs.add(touchSendCancel)
-  uiActionRecenterCbs.add(touchSendCancel)
-  uiActionZoomOutCbs.add(touchSendCancel)
-  uiActionZoomInCbs.add(touchSendCancel)
+  actionCbs.uiActionReset.add(touchSendCancel)
+  actionCbs.uiActionFullscreen.add(touchSendCancel)
+  actionCbs.uiActionPosition.add(touchSendCancel)
+  actionCbs.uiActionRecenter.add(touchSendCancel)
+  actionCbs.uiActionZoomOut.add(touchSendCancel)
+  actionCbs.uiActionZoomIn.add(touchSendCancel)
 }
