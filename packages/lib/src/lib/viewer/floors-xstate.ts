@@ -4,7 +4,6 @@ import { assign, createActor, setup } from 'xstate'
 import { svgMapViewerConfig } from '../../config'
 import {
   floorCbs,
-  floorDoneCbs,
   initCbs,
   notifyFloorDone,
   notifyFloorLock,
@@ -176,6 +175,6 @@ ${animation}
 
 export function floorsCbsStart(): void {
   initCbs.add(initFloor)
-  floorCbs.add(handleFloor)
-  floorDoneCbs.add(handleFloorDone)
+  floorCbs.floor.add(handleFloor)
+  floorCbs.floorDone.add(handleFloorDone)
 }

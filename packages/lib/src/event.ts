@@ -8,7 +8,7 @@ import {
   type ActionCbs,
   type AnimationCb,
   type AnimationMatrix,
-  type FloorCb,
+  type FloorCbs,
   type InitCb,
   type LayoutCb,
   type ModeCb,
@@ -45,11 +45,12 @@ export const uiCbs: UiCbs = {
   uiCloseDone: new Set(),
 }
 
-// XXX floorCbs
-export const floorLockCbs: Set<FloorCb> = new Set()
-export const floorCbs: Set<FloorCb> = new Set()
-export const floorDoneCbs: Set<FloorCb> = new Set()
-export const floorUnlockCbs: Set<Cb> = new Set()
+export const floorCbs: FloorCbs = {
+  floorLock: new Set(),
+  floor: new Set(),
+  floorDone: new Set(),
+  floorUnlock: new Set(),
+}
 
 export const renderedCbs: Set<Cb> = new Set()
 export const resizeCbs: Set<ResizeCb> = new Set()
@@ -139,16 +140,16 @@ export function notifyMode(mode: ViewerMode): void {
 }
 
 export function notifyFloorLock(fidx: number): void {
-  notifyCbs(floorLockCbs, fidx)
+  notifyCbs(floorCbs.floorLock, fidx)
 }
 export function notifyFloor(fidx: number): void {
-  notifyCbs(floorCbs, fidx)
+  notifyCbs(floorCbs.floor, fidx)
 }
 export function notifyFloorDone(fidx: number): void {
-  notifyCbs(floorDoneCbs, fidx)
+  notifyCbs(floorCbs.floorDone, fidx)
 }
 export function notifyFloorUnlock(): void {
-  notifyCbs0(floorUnlockCbs)
+  notifyCbs0(floorCbs.floorUnlock)
 }
 
 export function notifyTouchMultiStart(): void {

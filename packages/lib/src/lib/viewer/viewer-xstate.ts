@@ -3,8 +3,7 @@ import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import { svgMapViewerConfig } from '../../config'
 import {
   actionCbs,
-  floorDoneCbs,
-  floorLockCbs,
+  floorCbs,
   modeCbs,
   notifyAnimation,
   notifyFloor,
@@ -922,8 +921,8 @@ function handleTouchZoom({ z, p }: TouchZoomCbArgs) {
 }
 
 export function viewerCbsStart(): void {
-  floorLockCbs.add(viewerSwitch)
-  floorDoneCbs.add(viewerSwitchDone) // XXX animation end
+  floorCbs.floorLock.add(viewerSwitch)
+  floorCbs.floorDone.add(viewerSwitchDone) // XXX animation end
 
   searchCbs.searchEnd.add(viewerSearchEnd)
   uiCbs.uiOpen.add(viewerSearchLock)
