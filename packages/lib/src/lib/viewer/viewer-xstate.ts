@@ -19,6 +19,7 @@ import {
   renderedCbs,
   resizeCbs,
   searchEndCbs,
+  touchCbs,
   uiActionRecenterCbs,
   uiActionResetCbs,
   uiActionRotateCbs,
@@ -29,7 +30,11 @@ import {
   zoomEndCbs,
   zoomStartCbs,
 } from '../../event'
-import { type ResizeInfo, type SearchRes } from '../../types'
+import {
+  type ResizeInfo,
+  type SearchRes,
+  type TouchZoomCbArgs,
+} from '../../types'
 import { boxCenter } from '../box/prefixed'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'
 import {
@@ -911,6 +916,16 @@ function handleRendered() {
   viewerSend({ type: 'RENDERED' })
 }
 
+function handleTouchMultiStart() {
+  viewerSend({ type: 'TOUCH.LOCK' })
+}
+function handleTouchMultiEnd() {
+  viewerSend({ type: 'TOUCH.UNLOCK' })
+}
+function handleTouchZoom({ z, p }: TouchZoomCbArgs) {
+  viewerSend({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })
+}
+
 export function viewerCbsStart(): void {
   floorLockCbs.add(viewerSwitch)
   floorDoneCbs.add(viewerSwitchDone) // XXX animation end
@@ -933,6 +948,10 @@ export function viewerCbsStart(): void {
   uiActionRotateCbs.add(handleUiActionRotate)
   uiActionZoomOutCbs.add(handleUiActionZoomOut)
   uiActionZoomInCbs.add(handleUiActionZoomIn)
+
+  touchCbs.multiStartCbs.add(handleTouchMultiStart)
+  touchCbs.multiEndCbs.add(handleTouchMultiEnd)
+  touchCbs.zoomCbs.add(handleTouchZoom)
 
   renderedCbs.add(handleRendered)
 }

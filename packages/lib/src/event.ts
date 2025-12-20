@@ -22,6 +22,8 @@ import {
   type SearchRes,
   type SearchStartCb,
   type SvgMapViewerConfig,
+  type TouchCbs,
+  type TouchZoomCbArgs,
   type UiCloseCb,
   type UiCloseDoneCb,
   type UiOpenCb,
@@ -64,6 +66,12 @@ export const uiActionRecenterCbs: Set<Cb> = new Set()
 export const uiActionRotateCbs: Set<Cb> = new Set()
 export const uiActionPositionCbs: Set<Cb> = new Set()
 export const uiActionFullscreenCbs: Set<Cb> = new Set()
+
+export const touchCbs: TouchCbs = {
+  multiStartCbs: new Set(),
+  multiEndCbs: new Set(),
+  zoomCbs: new Set(),
+}
 
 ////
 
@@ -139,4 +147,14 @@ export function notifyFloorDone(fidx: number): void {
 }
 export function notifyFloorUnlock(): void {
   notifyCbs0(floorUnlockCbs)
+}
+
+export function notifyTouchMultiStart(): void {
+  notifyCbs0(touchCbs.multiStartCbs)
+}
+export function notifyTouchMultiEnd(): void {
+  notifyCbs0(touchCbs.multiEndCbs)
+}
+export function notifyTouchZoom(args: Readonly<TouchZoomCbArgs>): void {
+  notifyCbs(touchCbs.zoomCbs, args)
 }

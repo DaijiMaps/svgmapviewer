@@ -23,9 +23,11 @@ import { type Cb, type Cb1 } from './lib/cb'
 
 //// layout
 
+export type Z = -1 | 0 | 1
+
 export interface HV {
-  h: -1 | 0 | 1 // left, none, right
-  v: -1 | 0 | 1 // top, none, bottom
+  h: Z // -1 | 0 | 1 = left, none, right
+  v: Z // -1 | 0 | 1 = top, none, bottom
   th: number // angle (radian)
 }
 
@@ -97,6 +99,9 @@ export interface ResizeInfo {
   force: boolean
 }
 
+export type TouchZoomCbArgs = { z: number; p: null | Vec }
+export type TouchZoomCb = Cb1<TouchZoomCbArgs>
+
 ////
 
 export type InitCb = Cb1<Readonly<SvgMapViewerConfig>>
@@ -116,6 +121,12 @@ export type LayoutCb = Cb1<Readonly<ResizeInfo>>
 export type AnimationCb = Cb1<Readonly<null | AnimationMatrix>>
 export type ModeCb = Cb1<ViewerMode>
 export type FloorCb = Cb1<number>
+
+export type TouchCbs = {
+  multiStartCbs: Set<Cb>
+  multiEndCbs: Set<Cb>
+  zoomCbs: Set<TouchZoomCb>
+}
 
 export type GeoLocCb = Cb
 export type GeoLocDoneCb = Cb1<Readonly<GeolocationPosition>>

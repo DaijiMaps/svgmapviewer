@@ -2,6 +2,9 @@ import { assign, createActor, enqueueActions, setup } from 'xstate'
 
 import { useSelector } from '@xstate/react'
 import {
+  notifyTouchMultiEnd,
+  notifyTouchMultiStart,
+  notifyTouchZoom,
   uiActionFullscreenCbs,
   uiActionPositionCbs,
   uiActionRecenterCbs,
@@ -21,7 +24,6 @@ import {
   type TouchEmit_,
   type TouchEvent_,
 } from './touch-types'
-import { viewerSend } from './viewer-xstate'
 
 const touchMachine = setup({
   types: {
@@ -221,15 +223,14 @@ export let touching: boolean = false
 
 touchActor.on('MULTI.START', () => {
   touching = true
-  viewerSend({ type: 'TOUCH.LOCK' })
+  notifyTouchMultiStart()
 })
-
 touchActor.on('MULTI.END', () => {
-  viewerSend({ type: 'TOUCH.UNLOCK' })
+  notifyTouchMultiEnd()
   touching = false
 })
 touchActor.on('ZOOM', ({ z, p }) => {
-  viewerSend({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })
+  notifyTouchZoom({ z: z > 0 ? 1 : -1, p })
 })
 
 ////
