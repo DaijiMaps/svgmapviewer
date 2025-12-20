@@ -437,6 +437,14 @@ const viewerMachine = setup({
           },
           {
             guard: {
+              type: 'shouldReset',
+              params: ({ event }) => ({ ev: event.ev }),
+            },
+            actions: ['zoomHome', 'wantZoom'],
+            target: 'Zooming',
+          },
+          {
+            guard: {
               type: 'shouldRotate',
               params: ({ event }) => ({ ev: event.ev }),
             },
