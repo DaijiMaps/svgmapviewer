@@ -76,21 +76,6 @@ export function floorsActorStart(): void {
 
 floorsActorStart()
 
-// handlers
-
-function initFloor(cfg: Readonly<SvgMapViewerConfig>): void {
-  if (cfg.floorsConfig) {
-    const fidx = cfg.floorsConfig.fidx
-    floorsActor.send({ type: 'SELECT', fidx, force: true })
-  }
-}
-function handleFloor(fidx: number): void {
-  floorsActor.send({ type: 'SELECT', fidx })
-}
-function handleFloorDone(fidx: number): void {
-  floorsActor.send({ type: 'DONE', fidx })
-}
-
 // selectors
 
 export type FidxToOnAnimationEnd = (idx: number) => undefined | (() => void)
@@ -174,8 +159,19 @@ ${animation}
 `
 }
 
+// handlers
+
 export function floorsCbsStart(): void {
-  initCbs.add(initFloor)
-  floorCbs.select.add(handleFloor)
-  floorCbs.selectDone.add(handleFloorDone)
+  initCbs.add((cfg: Readonly<SvgMapViewerConfig>) => {
+    if (cfg.floorsConfig) {
+      const fidx = cfg.floorsConfig.fidx
+      floorsActor.send({ type: 'SELECT', fidx, force: true })
+    }
+  })
+  floorCbs.select.add((fidx: number) =>
+    floorsActor.send({ type: 'SELECT', fidx })
+  )
+  floorCbs.selectDone.add((fidx: number) =>
+    floorsActor.send({ type: 'DONE', fidx })
+  )
 }

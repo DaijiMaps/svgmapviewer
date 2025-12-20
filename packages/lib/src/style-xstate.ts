@@ -297,36 +297,29 @@ export function useLayout2(): {
 
 // handlers
 
-function handleLayout({ layout, force }: Readonly<ResizeInfo>) {
-  styleSend({ type: 'STYLE.LAYOUT', layout, rendered: force })
-  // XXX update name range after scroll is updated
-  requestAnimationFrame(() => handleExpire())
-}
-function handleZoomStart(zoom: Readonly<ZoomInfo>) {
-  styleSend({ type: 'STYLE.ZOOM', ...zoom })
-}
-function handleZoomEnd(end: Readonly<ZoomEndInfo>) {
-  styleSend({ type: 'STYLE.ZOOM', zoom: end.zoom, z: null })
-}
-function handleAnimation(animation: null | AnimationMatrix) {
-  styleSend({ type: 'STYLE.ANIMATION', animation })
-}
-function handleMode(mode: ViewerMode) {
-  styleSend({ type: 'STYLE.MODE', mode })
-}
-
-// scroll & expire
-
 function handleExpire(): void {
   const currentScroll = getCurrentScroll()
   styleSend({ type: 'STYLE.SCROLL', currentScroll })
 }
 
 export function styleCbsStart(): void {
-  styleCbs.layout.add(handleLayout)
-  styleCbs.zoomStart.add(handleZoomStart)
-  styleCbs.zoomEnd.add(handleZoomEnd)
-  styleCbs.animation.add(handleAnimation)
-  styleCbs.mode.add(handleMode)
+  styleCbs.layout.add(function ({ layout, force }: Readonly<ResizeInfo>) {
+    styleSend({ type: 'STYLE.LAYOUT', layout, rendered: force })
+    // XXX update name range after scroll is updated
+    requestAnimationFrame(() => handleExpire())
+  })
+  styleCbs.zoomStart.add(function (zoom: Readonly<ZoomInfo>) {
+    styleSend({ type: 'STYLE.ZOOM', ...zoom })
+  })
+  styleCbs.zoomEnd.add(function (end: Readonly<ZoomEndInfo>) {
+    styleSend({ type: 'STYLE.ZOOM', zoom: end.zoom, z: null })
+  })
+  styleCbs.animation.add(function (animation: null | AnimationMatrix) {
+    styleSend({ type: 'STYLE.ANIMATION', animation })
+  })
+  styleCbs.mode.add(function (mode: ViewerMode) {
+    styleSend({ type: 'STYLE.MODE', mode })
+  })
+
   scrollCbs.eventExpire.add(handleExpire)
 }
