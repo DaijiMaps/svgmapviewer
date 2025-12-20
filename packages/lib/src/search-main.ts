@@ -64,6 +64,7 @@ export function searchWorkerCbsStart(): void {
     }
   })
   searchCbs.request.add(({ psvg, fidx }: Readonly<SearchReq>) => {
+    // XXX convert elsewhere
     const pgeo = svgMapViewerConfig.mapCoord.matrix
       .inverse()
       .transformPoint(psvg)

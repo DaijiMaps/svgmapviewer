@@ -52,31 +52,25 @@ const searchMachine = setup({
 
 ////
 
-const searchRef = createActor(searchMachine)
+const searchActor = createActor(searchMachine)
 
-searchRef.on('SEARCH', ({ req }) => notifySearchRequest(req))
-searchRef.on('SEARCH.DONE', ({ res }) => notifySearchEnd(res))
-searchRef.on('SEARCH.CANCEL', () => notifySearchEnd(null))
+export function searchActorStart(): void {
+  searchActor.start()
+}
 
-searchRef.start()
+searchActor.on('SEARCH', ({ req }) => notifySearchRequest(req))
+searchActor.on('SEARCH.DONE', ({ res }) => notifySearchEnd(res))
+searchActor.on('SEARCH.CANCEL', () => notifySearchEnd(null))
 
 ////
 
-function searchSearchStart(req: Readonly<SearchReq>): void {
-  searchRef.send({ type: 'SEARCH', req })
-}
-
-function searchSearchDone(res: Readonly<null | SearchRes>): void {
-  searchRef.send(
-    res === null ? { type: 'SEARCH.CANCEL' } : { type: 'SEARCH.DONE', res }
-  )
-}
-
-export function searchActorStart(): void {
-  searchRef.start()
-}
-
 export function searchCbsStart(): void {
-  searchCbs.start.add(searchSearchStart)
-  searchCbs.requestDone.add(searchSearchDone)
+  searchCbs.start.add(function (req: Readonly<SearchReq>): void {
+    searchActor.send({ type: 'SEARCH', req })
+  })
+  searchCbs.requestDone.add(function (res: Readonly<null | SearchRes>): void {
+    searchActor.send(
+      res === null ? { type: 'SEARCH.CANCEL' } : { type: 'SEARCH.DONE', res }
+    )
+  })
 }
