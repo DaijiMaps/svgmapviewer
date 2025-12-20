@@ -3,7 +3,7 @@
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-conditional-statements */
-import { type Scroll, type Size } from '../../types'
+import { type CurrentScroll, type Scroll } from '../../types'
 import { boxBox, boxUnit, type BoxBox } from '../box/prefixed'
 
 // XXX make this async
@@ -104,12 +104,6 @@ export function getScroll(): Scroll {
 }
 
 ////
-
-export interface CurrentScroll {
-  scroll: BoxBox
-  client: Size
-  timeStamp: number
-}
 
 // eslint-disable-next-line functional/no-let
 export let currentScroll: CurrentScroll = {

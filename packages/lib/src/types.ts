@@ -24,6 +24,12 @@ export type Dir = -1 | 0 | 1
 
 export type Scroll = null | BoxBox
 
+export interface CurrentScroll {
+  scroll: BoxBox
+  client: Size
+  timeStamp: number
+}
+
 export interface HV {
   h: Dir // -1 | 0 | 1 = left, none, right
   v: Dir // -1 | 0 | 1 = top, none, bottom

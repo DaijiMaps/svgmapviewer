@@ -4,56 +4,18 @@ import { svgMapViewerConfig } from '../../config'
 import { scrollCbs, styleCbs } from '../../event'
 import {
   type AnimationMatrix,
-  type Dir,
-  type Range,
+  type CurrentScroll,
   type ResizeInfo,
   type ZoomEndInfo,
   type ZoomInfo,
 } from '../../types'
 import { findRadius } from '../distance'
-import { type DistanceRadius } from '../distance-types'
-import { vecZero, type VecVec } from '../vec/prefixed'
+import { vecZero } from '../vec/prefixed'
 import { fromSvgToScroll } from '../viewer/coord'
-import { emptyLayout, type Layout } from '../viewer/layout'
-import { getCurrentScroll, type CurrentScroll } from '../viewer/scroll'
+import { emptyLayout } from '../viewer/layout'
+import { getCurrentScroll } from '../viewer/scroll'
 import { type ViewerMode } from '../viewer/viewer-types'
-
-type LayoutEvent = { type: 'STYLE.LAYOUT'; layout: Layout; rendered: boolean }
-type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number; z: null | Dir }
-type ScrollEvent = { type: 'STYLE.SCROLL'; currentScroll: CurrentScroll } // p == pscroll
-type ModeEvent = { type: 'STYLE.MODE'; mode: string }
-type AnimationEvent = {
-  type: 'STYLE.ANIMATION'
-  animation: null | AnimationMatrix
-} // null to stop animation
-type AnimationEndEvent = { type: 'STYLE.ANIMATION.END' } // null to stop animation
-type LayoutDoneEvent = { type: 'LAYOUT.DONE'; rendered: boolean } // internal
-export type StyleEvent =
-  | LayoutEvent
-  | ZoomEvent
-  | ScrollEvent
-  | ModeEvent
-  | AnimationEvent
-  | AnimationEndEvent
-  | LayoutDoneEvent
-
-interface StyleContext {
-  rendered: boolean
-  appearing: boolean
-  shown: boolean
-  animating: boolean
-  layout: Layout
-  zoom: number
-  z: null | Dir
-  rotate: null | number
-  svgMatrix: DOMMatrixReadOnly
-  geoMatrix: DOMMatrixReadOnly
-  geoPoint: VecVec
-  distanceRadius: DistanceRadius
-  geoRange: Range
-  mode: string
-  animation: null | AnimationMatrix
-}
+import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
 
 const styleMachine = setup({
   types: {
