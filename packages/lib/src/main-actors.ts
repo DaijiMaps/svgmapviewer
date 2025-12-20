@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import { positionActorStart } from './lib/position'
+import { positionActorStart } from './lib/position/position-xstate'
 import { searchActorStart } from './lib/search/search-xstate'
 import { styleActorStart } from './lib/style/style-xstate'
 import { uiActorStart } from './lib/ui/ui-xstate'
