@@ -25,8 +25,7 @@ import {
   uiActionRotateCbs,
   uiActionZoomInCbs,
   uiActionZoomOutCbs,
-  uiCloseDoneCbs,
-  uiOpenCbs,
+  uiCbs,
   zoomEndCbs,
   zoomStartCbs,
 } from '../../event'
@@ -931,8 +930,8 @@ export function viewerCbsStart(): void {
   floorDoneCbs.add(viewerSwitchDone) // XXX animation end
 
   searchEndCbs.add(viewerSearchEnd)
-  uiOpenCbs.add(viewerSearchLock)
-  uiCloseDoneCbs.add(viewerSearchUnlock)
+  uiCbs.uiOpen.add(viewerSearchLock)
+  uiCbs.uiCloseDone.add(viewerSearchUnlock)
   resizeCbs.add(resizeCb)
 
   scrollCbs.getDoneCbs.add(getDoneCb)

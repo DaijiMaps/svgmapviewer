@@ -122,6 +122,25 @@ export type AnimationCb = Cb1<Readonly<null | AnimationMatrix>>
 export type ModeCb = Cb1<ViewerMode>
 export type FloorCb = Cb1<number>
 
+export type SearchCbs = {
+  searchStart: Set<SearchStartCb>
+  search: Set<SearchCb>
+  searchDone: Set<SearchDoneCb>
+  searchEnd: Set<SearchEndCb>
+  searchEndDone: Set<SearchEndDoneCb>
+}
+export type UiCbs = {
+  uiOpen: Set<UiOpenCb>
+  uiOpenDone: Set<UiOpenDoneCb>
+  uiClose: Set<UiCloseCb>
+  uiCloseDone: Set<UiCloseDoneCb>
+}
+export type FloorCbs = {
+  floorLock: Set<FloorCb>
+  floor: Set<FloorCb>
+  floorDone: Set<FloorCb>
+  floorUnlock: Set<Cb>
+}
 export type TouchCbs = {
   multiStart: Set<Cb>
   multiEnd: Set<Cb>

@@ -24,10 +24,7 @@ import {
   type SvgMapViewerConfig,
   type TouchCbs,
   type TouchZoomCbArgs,
-  type UiCloseCb,
-  type UiCloseDoneCb,
-  type UiOpenCb,
-  type UiOpenDoneCb,
+  type UiCbs,
   type ZoomEndCb,
   type ZoomEndInfo,
   type ZoomInfo,
@@ -36,16 +33,22 @@ import {
 
 export const initCbs: Set<InitCb> = new Set()
 
+// XXX searchCbs
 export const searchStartCbs: Set<SearchStartCb> = new Set()
 export const searchCbs: Set<SearchCb> = new Set()
 export const searchDoneCbs: Set<SearchDoneCb> = new Set()
 export const searchEndCbs: Set<SearchEndCb> = new Set()
 export const searchEndDoneCbs: Set<SearchEndDoneCb> = new Set()
-export const uiOpenCbs: Set<UiOpenCb> = new Set()
-export const uiOpenDoneCbs: Set<UiOpenDoneCb> = new Set()
-export const uiCloseCbs: Set<UiCloseCb> = new Set()
-export const uiCloseDoneCbs: Set<UiCloseDoneCb> = new Set()
 
+// XXX uiCbs
+export const uiCbs: UiCbs = {
+  uiOpen: new Set(),
+  uiOpenDone: new Set(),
+  uiClose: new Set(),
+  uiCloseDone: new Set(),
+}
+
+// XXX floorCbs
 export const floorLockCbs: Set<FloorCb> = new Set()
 export const floorCbs: Set<FloorCb> = new Set()
 export const floorDoneCbs: Set<FloorCb> = new Set()
@@ -59,6 +62,7 @@ export const zoomEndCbs: Set<ZoomEndCb> = new Set()
 export const animationCbs: Set<AnimationCb> = new Set()
 export const modeCbs: Set<ModeCb> = new Set()
 
+// XXX actionCbs
 export const uiActionZoomInCbs: Set<Cb> = new Set()
 export const uiActionZoomOutCbs: Set<Cb> = new Set()
 export const uiActionResetCbs: Set<Cb> = new Set()
@@ -102,16 +106,16 @@ export function notifySearchEndDone(data: Readonly<SearchData>): void {
   notifyCbs(searchEndDoneCbs, data)
 }
 export function notifyUiOpen(psvg: VecVec): void {
-  notifyCbs(uiOpenCbs, psvg)
+  notifyCbs(uiCbs.uiOpen, psvg)
 }
 export function notifyUiOpenDone(ok: boolean): void {
-  notifyCbs(uiOpenDoneCbs, ok)
+  notifyCbs(uiCbs.uiOpenDone, ok)
 }
 export function notifyUiClose(): void {
-  notifyCbs0(uiCloseCbs)
+  notifyCbs0(uiCbs.uiClose)
 }
 export function notifyUiCloseDone(): void {
-  notifyCbs0(uiCloseDoneCbs)
+  notifyCbs0(uiCbs.uiCloseDone)
 }
 
 export function notifyRendered(): void {
