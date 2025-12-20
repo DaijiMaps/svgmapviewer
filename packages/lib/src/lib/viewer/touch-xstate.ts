@@ -42,9 +42,15 @@ const touchMachine = setup({
               ? handleTouchEnd(touches, event.ev)
               : touches,
     }),
-    raiseStarted: raise({ type: 'STARTED' }),
-    raiseMoved: raise({ type: 'MOVED' }),
-    raiseEnded: raise({ type: 'ENDED' }),
+    raiseOp: raise(({ event }) =>
+      event.type === 'TOUCH.START'
+        ? { type: 'STARTED' }
+        : event.type === 'TOUCH.MOVE'
+          ? { type: 'MOVED' }
+          : event.type === 'TOUCH.END'
+            ? { type: 'ENDED' }
+            : { type: 'NONE' }
+    ),
     resetTouches: assign({
       touches: () => resetTouches(),
     }),
@@ -74,13 +80,13 @@ const touchMachine = setup({
   },
   on: {
     'TOUCH.START': {
-      actions: ['updateTouches', 'raiseStarted'],
+      actions: ['updateTouches', 'raiseOp'],
     },
     'TOUCH.MOVE': {
-      actions: ['updateTouches', 'raiseMoved'],
+      actions: ['updateTouches', 'raiseOp'],
     },
     'TOUCH.END': {
-      actions: ['updateTouches', 'raiseEnded'],
+      actions: ['updateTouches', 'raiseOp'],
     },
     CANCEL: {
       target: '.Canceling',

@@ -13,6 +13,7 @@ type TouchEvent_ =
   | { type: 'STARTED' } // internal
   | { type: 'MOVED' } // internal
   | { type: 'ENDED' } // internal
+  | { type: 'NONE' } // internal
 type TouchEmit_ =
   | { type: 'MULTI'; touches: Touches }
   | { type: 'ZOOM'; touches: Touches }
