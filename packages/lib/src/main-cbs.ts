@@ -3,7 +3,6 @@
 /* eslint-disable functional/no-return-void */
 import { namesCbsStart } from './lib/map/names'
 import { positionCbsStart } from './lib/position/position-xstate'
-import { searchWorkerCbsStart } from './lib/search/search-main'
 import { searchCbsStart } from './lib/search/search-xstate'
 import { styleCbsStart } from './lib/style/style-xstate'
 import { fullscreenCbsStart } from './lib/ui/fullscreen'
@@ -20,7 +19,6 @@ export function startAllCbs(): void {
   positionCbsStart()
   scrollCbsStart()
   searchCbsStart()
-  searchWorkerCbsStart()
   styleCbsStart()
   touchCbsStart()
   uiCbsStart()

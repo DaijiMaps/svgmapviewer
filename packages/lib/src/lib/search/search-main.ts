@@ -1,20 +1,18 @@
-/* eslint-disable functional/no-conditional-statements */
-/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/immutable-data */
+/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
+/* eslint-disable functional/no-return-void */
 import { svgMapViewerConfig } from '../../config'
-import type { SearchReq, SvgMapViewerConfig } from '../../types'
-import { globalCbs } from '../event-global'
-import { notifySearchRequestDone, searchCbs } from '../event-search'
-import {
-  type SearchWorkerReq,
-  type SearchWorkerRes,
-} from './search-worker-types'
+import { notifySearchRequestDone } from '../event-search'
+import { type SearchWorkerRes } from './search-worker-types'
 import { type SearchPos } from './types'
 
-const worker = new Worker(new URL('./search-worker.js', import.meta.url), {
-  type: 'module',
-})
+export const worker: Worker = new Worker(
+  new URL('./search-worker.js', import.meta.url),
+  {
+    type: 'module',
+  }
+)
 
 worker.onmessage = (e: Readonly<MessageEvent<SearchWorkerRes>>) => {
   const ev = e.data
@@ -53,19 +51,4 @@ worker.onerror = (ev) => {
 
 worker.onmessageerror = (ev) => {
   console.log('messageerror', ev)
-}
-
-// eslint-disable-next-line functional/functional-parameters
-export function searchWorkerCbsStart(): void {
-  globalCbs.init.add((cfg: Readonly<SvgMapViewerConfig>) => {
-    if (cfg.getSearchEntries) {
-      const entries = cfg.getSearchEntries(cfg)
-      const req: SearchWorkerReq = { type: 'INIT', entries }
-      worker.postMessage(req)
-    }
-  })
-  searchCbs.request.add(({ pgeo, fidx }: Readonly<SearchReq>) => {
-    const req: SearchWorkerReq = { type: 'SEARCH', greq: { pgeo, fidx } }
-    worker.postMessage(req)
-  })
 }

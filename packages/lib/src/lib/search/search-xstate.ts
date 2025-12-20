@@ -1,10 +1,17 @@
 import { createActor, emit, setup } from 'xstate'
-import { type SearchReq, type SearchRes } from '../../types'
+import {
+  type SearchReq,
+  type SearchRes,
+  type SvgMapViewerConfig,
+} from '../../types'
+import { globalCbs } from '../event-global'
 import {
   notifySearchEnd,
   notifySearchRequest,
   searchCbs,
 } from '../event-search'
+import { worker } from './search-main'
+import type { SearchWorkerReq } from './search-worker-types'
 
 export type SearchEvent =
   | { type: 'SEARCH'; req: SearchReq }
@@ -69,8 +76,19 @@ searchActor.on('SEARCH.CANCEL', () => notifySearchEnd(null))
 ////
 
 export function searchCbsStart(): void {
+  globalCbs.init.add((cfg: Readonly<SvgMapViewerConfig>) => {
+    if (cfg.getSearchEntries) {
+      const entries = cfg.getSearchEntries(cfg)
+      const req: SearchWorkerReq = { type: 'INIT', entries }
+      worker.postMessage(req)
+    }
+  })
   searchCbs.start.add(function (req: Readonly<SearchReq>): void {
     searchActor.send({ type: 'SEARCH', req })
+  })
+  searchCbs.request.add(({ pgeo, fidx }: Readonly<SearchReq>) => {
+    const req: SearchWorkerReq = { type: 'SEARCH', greq: { pgeo, fidx } }
+    worker.postMessage(req)
   })
   searchCbs.requestDone.add(function (res: Readonly<null | SearchRes>): void {
     searchActor.send(
