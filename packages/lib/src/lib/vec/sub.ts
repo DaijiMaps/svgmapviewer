@@ -1,4 +1,4 @@
-import { type Vec } from './index'
+import { type Vec } from './types'
 
 export function sub<T extends Vec>(a: T, b: T): T {
   const x = a.x - b.x

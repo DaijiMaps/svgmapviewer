@@ -1,5 +1,5 @@
 import { type V } from '../tuple'
-import { type Vec } from './index'
+import { type Vec } from './types'
 
 export function scale<T extends Vec>(a: T, s: number | V | Vec): T {
   const sx = typeof s === 'number' ? s : s instanceof Array ? s[0] : s.x

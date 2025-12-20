@@ -1,6 +1,6 @@
-import { type Vec } from './main'
 import { scale } from './scale'
 import { sum } from './sum'
+import { type Vec } from './types'
 
 export function midpoint(ps: Readonly<Vec[]>): null | Vec {
   const q = sum(ps)

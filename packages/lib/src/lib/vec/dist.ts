@@ -1,4 +1,4 @@
-import { type Vec } from './index'
+import { type Vec } from './types'
 
 export function dist<T extends Vec>(a: T, b: T): number {
   return Math.sqrt(qdist(a, b))

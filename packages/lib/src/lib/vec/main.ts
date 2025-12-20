@@ -1,14 +1,8 @@
 //import { type ReadonlyDeep } from 'type-fest'
 //import { type V } from '../tuple'
+import type { Vec } from './types'
 
 type V = [number, number]
-
-type Vec = Readonly<{
-  x: number
-  y: number
-}>
-
-type Vecs = Readonly<Vec[]>
 
 function vec(x: number, y: number): Vec {
   return { x, y }
@@ -24,7 +18,5 @@ function fromV([x, y]: Readonly<V>): Vec {
 function toV({ x, y }: Vec): V {
   return [x, y]
 }
-
-export { type Vec, type Vecs }
 
 export { fromV, one, toV, vec, zero }

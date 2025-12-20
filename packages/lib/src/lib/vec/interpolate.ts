@@ -1,6 +1,6 @@
 import { add } from './add'
-import { type Vec } from './index'
 import { scale } from './scale'
+import { type Vec } from './types'
 
 export function interpolate<T extends Vec>(a: T, b: T, t: number): T {
   return add(scale(b, t), scale(a, 1 - t))

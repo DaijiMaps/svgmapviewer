@@ -1,4 +1,4 @@
-import { type Vec } from './main'
+import { type Vec } from './types'
 
 export function sum(ps: Readonly<Vec[]>): null | Vec {
   return ps.length === 0

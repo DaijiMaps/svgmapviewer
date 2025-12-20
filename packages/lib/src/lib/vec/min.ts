@@ -1,5 +1,5 @@
-import { type Vec } from './index'
 import { map2 } from './map'
+import { type Vec } from './types'
 
 export function min<T extends Vec>(a: T, b: T): T {
   return map2(a, b, Math.min)

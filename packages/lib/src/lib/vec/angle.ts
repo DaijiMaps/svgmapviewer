@@ -1,5 +1,5 @@
-import { type Vec } from './main'
 import { sub } from './sub'
+import { type Vec } from './types'
 
 export function angle<T extends Vec>(a: T, b: T): number {
   const v = sub(a, b)

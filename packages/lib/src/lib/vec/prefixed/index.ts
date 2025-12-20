@@ -5,7 +5,7 @@ import { dist, qdist } from '../dist'
 import { div, divF } from '../div'
 import { compare, ord } from '../fp-ts'
 import { interpolate, interpolateF } from '../interpolate'
-import { fromV, one, toV, vec, zero, type Vec, type Vecs } from '../main'
+import { fromV, one, toV, vec, zero } from '../main'
 import { map } from '../map'
 import { midpoint } from '../midpoint'
 import { min, minF } from '../min'
@@ -13,6 +13,7 @@ import { mul, mulF } from '../mul'
 import { scale, scaleF } from '../scale'
 import { sub, subF } from '../sub'
 import { sum } from '../sum'
+import { type Vec, type Vecs } from '../types'
 
 export { type Vec as VecVec, type Vecs as VecVecs }
 
