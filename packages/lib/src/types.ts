@@ -49,7 +49,7 @@ export interface Info {
 }
 
 export interface SearchReq {
-  psvg: Vec
+  pgeo: Vec
   fidx: number
 }
 

@@ -239,15 +239,19 @@ const viewerMachine = setup({
         zoom,
       })
     ),
-    emitSearch: emit(({ context }): ViewerEmitted => {
+    emitSearch: emit(({ context: { fidx, layout, cursor } }): ViewerEmitted => {
       const { scroll } = getCurrentScroll()
-      const l = scrollLayout(context.layout, scroll)
+      const l = scrollLayout(layout, scroll)
       const m = fromMatrixSvg(l).inverse()
+      const psvg = m.transformPoint(cursor)
+      const pgeo = svgMapViewerConfig.mapCoord.matrix
+        .inverse()
+        .transformPoint(psvg)
       return {
         type: 'SEARCH',
         req: {
-          psvg: m.transformPoint(context.cursor),
-          fidx: context.fidx,
+          pgeo,
+          fidx,
         },
       }
     }),

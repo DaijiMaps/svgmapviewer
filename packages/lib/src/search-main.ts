@@ -63,11 +63,7 @@ export function searchWorkerCbsStart(): void {
       worker.postMessage(req)
     }
   })
-  searchCbs.request.add(({ psvg, fidx }: Readonly<SearchReq>) => {
-    // XXX convert elsewhere
-    const pgeo = svgMapViewerConfig.mapCoord.matrix
-      .inverse()
-      .transformPoint(psvg)
+  searchCbs.request.add(({ pgeo, fidx }: Readonly<SearchReq>) => {
     const req: SearchWorkerReq = { type: 'SEARCH', greq: { pgeo, fidx } }
     worker.postMessage(req)
   })
