@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-return-void */
 import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
 import { notifyInit } from './event'
-import { type Box } from './lib/box/main'
+import { type BoxBox } from './lib/box/prefixed'
 import { styleRoot } from './lib/style/Style'
 import { isUiRendered } from './lib/ui/Ui'
 import { isContainerRendered } from './lib/viewer/Container'
@@ -14,7 +14,7 @@ import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
 function updateConfig(
   configUser: Readonly<SvgMapViewerConfigUser>
 ): SvgMapViewerConfig {
-  const origViewBox: Box = {
+  const origViewBox: BoxBox = {
     x: 0,
     y: 0,
     width: typeof configUser.width === 'number' ? configUser.width : 0,

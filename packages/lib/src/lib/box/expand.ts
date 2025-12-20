@@ -1,6 +1,6 @@
 import { scaleAt } from '../matrix'
-import { type Box } from './main'
 import { transform } from './transform'
+import { type Box } from './types'
 
 //// expandAt
 //// expandAtRatio

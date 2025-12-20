@@ -10,7 +10,6 @@ import {
   toViewBox,
   toViewBox2,
   unit,
-  type Box,
 } from '../main'
 import {
   scale,
@@ -21,6 +20,7 @@ import {
 } from '../scale'
 import { fromTlBr, toTlBr, type TlBr } from '../tlbr'
 import { transform } from '../transform'
+import { type Box } from '../types'
 
 export { type Box as BoxBox, type TlBr as BoxTlBr }
 

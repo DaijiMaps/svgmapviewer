@@ -1,6 +1,6 @@
 import { type B } from '../tuple'
 import { type VecVec as Vec } from '../vec/prefixed'
-import { type Box } from './main'
+import { type Box } from './types'
 
 //// TlBr
 //// toTlBr
