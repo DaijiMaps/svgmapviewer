@@ -2,11 +2,12 @@ import { useCallback } from 'react'
 import { svgMapViewerConfig } from '../../config'
 import { notifyFloorSelectDone, notifyFloorLock } from '../../event'
 import { floor_switch_duration } from '../css'
-import type { FloorsContext } from './floors-types'
+import type {
+  FidxToOnAnimationEnd,
+  FidxToOnClick,
+  FloorsContext,
+} from './floors-types'
 import { useFloorsContext } from './floors-xstate'
-
-export type FidxToOnAnimationEnd = (idx: number) => undefined | (() => void)
-export type FidxToOnClick = (idx: number) => undefined | (() => void)
 
 export function useFloors(): FloorsContext & {
   style: null | string
