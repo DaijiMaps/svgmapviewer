@@ -164,3 +164,22 @@ export function notifyTouchMultiEnd(): void {
 export function notifyTouchZoom(args: Readonly<TouchZoomCbArgs>): void {
   notifyCbs(touchCbs.zoom, args)
 }
+
+export function notifyActionFullscreen(): void {
+  actionCbs.uiActionFullscreen.forEach((cb) => cb())
+}
+export function notifyActionPosition(): void {
+  actionCbs.uiActionPosition.forEach((cb) => cb())
+}
+export function notifyActionRecenter(): void {
+  actionCbs.uiActionRecenter.forEach((cb) => cb())
+}
+export function notifyActionRotate(): void {
+  actionCbs.uiActionRotate.forEach((cb) => cb())
+}
+export function notifyActionZoomOut(): void {
+  actionCbs.uiActionZoomOut.forEach((cb) => cb())
+}
+export function notifyActionZoomIn(): void {
+  actionCbs.uiActionZoomIn.forEach((cb) => cb())
+}

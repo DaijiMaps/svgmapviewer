@@ -126,7 +126,6 @@ export function usePosition(): null | GeolocationPosition {
   return useSelector(geolocActor, (state) => state.context.position)
 }
 
-// XXX notify
 export function positionCbsStart(): void {
   actionCbs.uiActionPosition.add(getPosition)
 }
