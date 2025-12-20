@@ -11,9 +11,9 @@ import type {
   SearchReq,
   SearchRes,
   SvgMapViewerConfig,
-  Dir,
   ZoomEndInfo,
   ZoomInfo,
+  Zoom,
 } from './types'
 
 export type InitCb = Cb1<Readonly<SvgMapViewerConfig>>
@@ -39,8 +39,9 @@ export type AnimationCb = Cb1<Readonly<null | AnimationMatrix>>
 export type ModeCb = Cb1<ViewerMode>
 export type FloorCb = Cb1<number>
 
-export type TouchZoomCbArgs = { z: Dir; p: null | Vec }
-export type TouchZoomCb = Cb1<TouchZoomCbArgs>
+export type TouchZoomCb = Cb1<Zoom>
+
+////
 
 export interface ScrollCbs {
   eventTick: Set<ScrollEventCb>

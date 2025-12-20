@@ -24,7 +24,12 @@ import {
   touchCbs,
   uiCbs,
 } from '../../event'
-import { type ResizeInfo, type SearchRes, type Dir } from '../../types'
+import {
+  type ResizeInfo,
+  type SearchRes,
+  type Dir,
+  type Zoom,
+} from '../../types'
 import { boxCenter, type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'
 import {
@@ -60,7 +65,6 @@ import {
   viewerModePanning,
   viewerModeTouching,
 } from './viewer-types'
-import type { TouchZoomCbArgs } from '../../event-types'
 
 //// viewerMachine
 
@@ -901,7 +905,7 @@ function handleTouchMultiStart() {
 function handleTouchMultiEnd() {
   viewerSend({ type: 'TOUCH.UNLOCK' })
 }
-function handleTouchZoom({ z, p }: TouchZoomCbArgs) {
+function handleTouchZoom({ z, p }: Zoom) {
   viewerSend({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })
 }
 

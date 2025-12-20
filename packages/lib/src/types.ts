@@ -93,6 +93,11 @@ export interface ZoomInfo {
 
 export type ZoomEndInfo = Omit<ZoomInfo, 'z'>
 
+export interface Zoom {
+  z: Dir
+  p: null | Vec
+}
+
 export interface ResizeInfo {
   layout: Readonly<Layout>
   force: boolean

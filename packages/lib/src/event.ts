@@ -10,7 +10,6 @@ import type {
   StyleCbs,
   ActionCbs,
   TouchCbs,
-  TouchZoomCbArgs,
 } from './event-types'
 import type { BoxBox } from './lib/box/prefixed'
 import { notifyCbs, notifyCbs0, type Cb } from './lib/cb'
@@ -24,6 +23,7 @@ import {
   type SearchReq,
   type SearchRes,
   type SvgMapViewerConfig,
+  type Zoom,
   type ZoomEndInfo,
   type ZoomInfo,
 } from './types'
@@ -192,7 +192,7 @@ export function notifyTouchMultiStart(): void {
 export function notifyTouchMultiEnd(): void {
   notifyCbs0(touchCbs.multiEnd)
 }
-export function notifyTouchZoom(args: Readonly<TouchZoomCbArgs>): void {
+export function notifyTouchZoom(args: Readonly<Zoom>): void {
   notifyCbs(touchCbs.zoom, args)
 }
 
