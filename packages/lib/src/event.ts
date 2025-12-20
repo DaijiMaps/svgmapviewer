@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import type { BoxBox } from './lib/box/prefixed'
-import { type Cb, type Cb1 } from './lib/cb'
+import { notifyCbs, notifyCbs0, type Cb } from './lib/cb'
 import { type VecVec } from './lib/vec/prefixed'
 import { type ViewerMode } from './lib/viewer/viewer-types'
 import {
@@ -88,13 +88,6 @@ export const touchCbs: TouchCbs = {
 
 ////
 
-export function notifyCbs0(cbs: Readonly<Set<Cb>>): void {
-  cbs.forEach((cb: Cb) => cb())
-}
-export function notifyCbs<T>(cbs: Readonly<Set<Cb1<T>>>, args: T): void {
-  cbs.forEach((cb: Cb1<T>) => cb(args))
-}
-
 export function notifyInit(cfg: Readonly<SvgMapViewerConfig>): void {
   notifyCbs(initCbs, cfg)
 }
@@ -140,6 +133,7 @@ export function notifySearchEnd(res: Readonly<null | SearchRes>): void {
 export function notifySearchEndDone(data: Readonly<SearchData>): void {
   notifyCbs(searchCbs.searchEndDone, data)
 }
+
 export function notifyUiOpen(psvg: VecVec): void {
   notifyCbs(uiCbs.uiOpen, psvg)
 }
@@ -156,6 +150,7 @@ export function notifyUiCloseDone(): void {
 export function notifyRendered(): void {
   notifyCbs0(renderedCbs)
 }
+
 export function notifyResize(resize: Readonly<ResizeInfo>): void {
   notifyCbs(styleCbs.resize, resize)
 }
