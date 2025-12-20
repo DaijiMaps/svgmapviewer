@@ -97,6 +97,3 @@ export interface ActionCbs {
   position: Set<Cb>
   fullscreen: Set<Cb>
 }
-
-export type GeoLocCb = Cb
-export type GeoLocDoneCb = Cb1<Readonly<GeolocationPosition>>

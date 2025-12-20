@@ -98,7 +98,7 @@ export function notifyInit(cfg: Readonly<SvgMapViewerConfig>): void {
 export function notifyScrollEventTick(
   ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
 ): void {
-  scrollCbs.eventTick.forEach((cb) => cb(ev))
+  notifyCbs(scrollCbs.eventTick, ev)
 }
 export function notifyScrollEventExpire(): void {
   notifyCbs0(scrollCbs.eventExpire)
@@ -197,20 +197,23 @@ export function notifyTouchZoom(args: Readonly<TouchZoomCbArgs>): void {
 }
 
 export function notifyActionFullscreen(): void {
-  actionCbs.fullscreen.forEach((cb) => cb())
+  notifyCbs0(actionCbs.fullscreen)
 }
 export function notifyActionPosition(): void {
-  actionCbs.position.forEach((cb) => cb())
+  notifyCbs0(actionCbs.position)
 }
 export function notifyActionRecenter(): void {
-  actionCbs.recenter.forEach((cb) => cb())
+  notifyCbs0(actionCbs.recenter)
+}
+export function notifyActionReset(): void {
+  notifyCbs0(actionCbs.reset)
 }
 export function notifyActionRotate(): void {
-  actionCbs.rotate.forEach((cb) => cb())
+  notifyCbs0(actionCbs.rotate)
 }
 export function notifyActionZoomOut(): void {
-  actionCbs.zoomOut.forEach((cb) => cb())
+  notifyCbs0(actionCbs.zoomOut)
 }
 export function notifyActionZoomIn(): void {
-  actionCbs.zoomIn.forEach((cb) => cb())
+  notifyCbs0(actionCbs.zoomIn)
 }
