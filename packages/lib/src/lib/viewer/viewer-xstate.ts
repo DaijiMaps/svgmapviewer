@@ -96,10 +96,13 @@ const viewerMachine = setup({
     //
     // scroll
     //
+    // XXX emit
     syncScroll: ({ context: { layout } }) =>
       scrollSend({ type: 'SYNC', pos: layout.scroll }),
+    // XXX emit
     syncScrollSync: ({ context: { layout } }) =>
       scrollSend({ type: 'SYNCSYNC', pos: layout.scroll }),
+    // XXX emit
     getScroll: (): void => scrollSend({ type: 'GET' }),
 
     //
@@ -159,9 +162,13 @@ const viewerMachine = setup({
     //
     // layout
     //
-    // XXX emit
-    syncLayout: ({ context: { layout, rendered } }) =>
-      notifyLayout({ layout, force: rendered }),
+    emitSyncLayout: emit(
+      ({ context: { layout, rendered } }): ViewerEmitted => ({
+        type: 'SYNC.LAYOUT',
+        layout,
+        force: rendered,
+      })
+    ),
     //
     // cursor
     //
@@ -372,10 +379,10 @@ const viewerMachine = setup({
           },
         },
         Layouting: {
-          entry: 'syncLayout',
+          entry: 'emitSyncLayout',
           on: {
             RENDERED: {
-              actions: ['setRendered', 'syncLayout', 'resetCursor'],
+              actions: ['setRendered', 'emitSyncLayout', 'resetCursor'],
               target: 'Syncing',
             },
           },
@@ -596,7 +603,7 @@ const viewerMachine = setup({
           always: {
             actions: [
               'updateLayoutFromScroll',
-              'syncLayout',
+              'emitSyncLayout',
               // fast sync - sync scroll NOT after resize
               'syncScroll',
             ],
@@ -681,7 +688,7 @@ const viewerMachine = setup({
                     guard: 'isZoomWanted',
                     actions: [
                       'endZoom',
-                      'syncLayout',
+                      'emitSyncLayout',
                       // fast sync - sync scroll NOT after resize
                       'syncScroll',
                       'emitZoomEnd',
@@ -694,7 +701,7 @@ const viewerMachine = setup({
                     guard: 'isRotateWanted',
                     actions: [
                       'endRotate',
-                      'syncLayout',
+                      'emitSyncLayout',
                       // fast sync - sync scroll NOT after resize
                       'syncScroll',
                       'emitZoomEnd',
@@ -712,7 +719,7 @@ const viewerMachine = setup({
                   guard: 'isHoming',
                   actions: [
                     'endHoming',
-                    'syncLayout',
+                    'emitSyncLayout',
                     // fast sync - sync scroll NOT after resize
                     'syncScroll',
                   ],
@@ -795,6 +802,9 @@ viewerActor.on('SYNC.ANIMATION', ({ animation }) => {
     notifyAnimation({ matrix, origin })
   }
 })
+viewerActor.on('SYNC.LAYOUT', ({ layout, force }) =>
+  notifyLayout({ layout, force })
+)
 
 ////
 

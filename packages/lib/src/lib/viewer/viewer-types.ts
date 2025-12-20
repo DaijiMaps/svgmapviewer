@@ -147,6 +147,18 @@ export type SyncAnimationEmitted = {
   type: 'SYNC.ANIMATION'
   animation: null | Animation
 }
+export type SyncLayoutEmitted = {
+  type: 'SYNC.LAYOUT'
+  layout: Readonly<Layout>
+  force: boolean
+}
+
+export type ScrollSyncEmitted = { type: 'SCROLL.SYNC'; pos: Readonly<BoxBox> }
+export type ScrollSyncSyncEmitted = {
+  type: 'SCROLL.SYNCSYNC'
+  pos: Readonly<BoxBox>
+}
+export type ScrollGetEmitted = { type: 'SCROLL.GET' }
 
 export type ViewerEmitted =
   | SearchEmitted
@@ -159,3 +171,7 @@ export type ViewerEmitted =
   | SwitchRequest
   | SwitchDoneRequest
   | SyncAnimationEmitted
+  | SyncLayoutEmitted
+  | ScrollSyncEmitted
+  | ScrollSyncSyncEmitted
+  | ScrollGetEmitted
