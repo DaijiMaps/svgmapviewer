@@ -29,6 +29,7 @@ import {
   type SearchRes,
   type Dir,
   type Zoom,
+  type SearchReq,
 } from '../../types'
 import { boxCenter, type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec, vecVec } from '../vec/prefixed'
@@ -247,13 +248,8 @@ const viewerMachine = setup({
       const pgeo = svgMapViewerConfig.mapCoord.matrix
         .inverse()
         .transformPoint(psvg)
-      return {
-        type: 'SEARCH',
-        req: {
-          pgeo,
-          fidx,
-        },
-      }
+      const req: SearchReq = { pgeo, fidx }
+      return { type: 'SEARCH', req }
     }),
     raiseSearchDone: raise({ type: 'SEARCH.DONE' }),
     raiseSearchEndDone: emit(
