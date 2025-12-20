@@ -769,10 +769,12 @@ export function viewerSend(ev: ViewerEvent): void {
   viewerActor.send(ev)
 }
 
+////
+
 viewerActor.on('SEARCH', ({ req }) => notifySearchStart(req))
 viewerActor.on('SEARCH.END.DONE', ({ res }) => {
   if (res === null) {
-    viewerSearchUnlock()
+    viewerActor.send({ type: 'SEARCH.UNLOCK' })
   } else {
     notifySearchEndDone(res)
     notifyUiOpen(res.psvg)
@@ -806,37 +808,6 @@ viewerActor.on('SCROLL.GET', () => notifyScrollGet())
 
 ////
 
-function viewerSearchEnd(res: Readonly<null | SearchRes>) {
-  viewerActor.send({ type: 'SEARCH.END', res })
-}
-function viewerSearchLock(psvg: Vec) {
-  viewerActor.send({ type: 'SEARCH.LOCK', psvg })
-}
-function viewerSearchUnlock() {
-  viewerActor.send({ type: 'SEARCH.UNLOCK' })
-}
-function resizeCb({ layout, force }: Readonly<ResizeInfo>) {
-  viewerSend({ type: 'RESIZE', layout, force })
-}
-
-function viewerSwitch(fidx: number): void {
-  viewerSend({ type: 'SWITCH', fidx })
-}
-function viewerSwitchDone(): void {
-  viewerSend({ type: 'SWITCH.DONE' }) // XXX animation end
-}
-
-function getDoneCb(scroll: Readonly<null | BoxBox>) {
-  if (scroll !== null) {
-    viewerSend({ type: 'SCROLL.GET.DONE', scroll })
-  }
-}
-function syncSyncDoneCb(scroll: Readonly<null | BoxBox>) {
-  if (scroll !== null) {
-    viewerSend({ type: 'SCROLL.SYNCSYNC.DONE', scroll })
-  }
-}
-
 //let pointereventmask: boolean = false
 //let toucheventmask: boolean = false
 export let clickeventmask: boolean = false
@@ -848,8 +819,6 @@ function reflectMode(mode: ViewerMode): void {
   scrolleventmask = mode !== 'panning'
   wheeleventmask = mode === 'locked'
 }
-
-//// handlers
 
 export function viewerSendEvent(
   // excluding key down/up events
@@ -872,70 +841,55 @@ export function viewerSendEvent(
   viewerSend(event)
 }
 
-function maskWheel() {
-  wheeleventmask = true
-}
-function unmaskWheel() {
-  wheeleventmask = false
-}
-
-function handleUiActionReset() {
-  viewerSend({ type: 'LAYOUT.RESET' })
-}
-function handleUiActionRecenter() {
-  viewerSend({ type: 'RECENTER' })
-}
-function handleUiActionRotate() {
-  viewerSend({ type: 'ROTATE' })
-}
-function handleUiActionZoomOut() {
-  viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null })
-}
-function handleUiActionZoomIn() {
-  viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null })
-}
-
-function handleRendered() {
-  viewerSend({ type: 'RENDERED' })
-}
-
-function handleTouchMultiStart() {
-  viewerSend({ type: 'TOUCH.LOCK' })
-}
-function handleTouchMultiEnd() {
-  viewerSend({ type: 'TOUCH.UNLOCK' })
-}
-function handleTouchZoom({ z, p }: Zoom) {
-  viewerSend({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })
-}
+////
 
 export function viewerCbsStart(): void {
-  floorCbs.lock.add(viewerSwitch)
-  floorCbs.selectDone.add(viewerSwitchDone) // XXX animation end
+  floorCbs.lock.add(function (fidx: number): void {
+    viewerSend({ type: 'SWITCH', fidx })
+  })
+  floorCbs.selectDone.add(() => viewerSend({ type: 'SWITCH.DONE' }))
 
-  searchCbs.end.add(viewerSearchEnd)
-  uiCbs.open.add(viewerSearchLock)
-  uiCbs.closeDone.add(viewerSearchUnlock)
+  searchCbs.end.add((res: Readonly<null | SearchRes>) =>
+    viewerActor.send({ type: 'SEARCH.END', res })
+  )
+  uiCbs.open.add((psvg: Vec) => viewerActor.send({ type: 'SEARCH.LOCK', psvg }))
+  uiCbs.closeDone.add(() => viewerActor.send({ type: 'SEARCH.UNLOCK' }))
 
-  scrollCbs.getDone.add(getDoneCb)
-  scrollCbs.syncSyncDone.add(syncSyncDoneCb)
+  scrollCbs.getDone.add((scroll: Readonly<null | BoxBox>) => {
+    if (scroll !== null) {
+      viewerSend({ type: 'SCROLL.GET.DONE', scroll })
+    }
+  })
+  scrollCbs.syncSyncDone.add((scroll: Readonly<null | BoxBox>) => {
+    if (scroll !== null) {
+      viewerSend({ type: 'SCROLL.SYNCSYNC.DONE', scroll })
+    }
+  })
 
-  styleCbs.resize.add(resizeCb)
+  styleCbs.resize.add(({ layout, force }: Readonly<ResizeInfo>) =>
+    viewerSend({ type: 'RESIZE', layout, force })
+  )
   styleCbs.mode.add(reflectMode)
-  styleCbs.zoomStart.add(maskWheel)
-  styleCbs.zoomEnd.add(unmaskWheel)
+  styleCbs.zoomStart.add(() => {
+    wheeleventmask = true
+  })
+  styleCbs.zoomEnd.add(() => {
+    wheeleventmask = false
+  })
 
-  actionCbs.reset.add(handleUiActionReset)
-  actionCbs.recenter.add(handleUiActionRecenter)
-  actionCbs.rotate.add(handleUiActionRotate)
-  actionCbs.zoomOut.add(handleUiActionZoomOut)
-  actionCbs.zoomIn.add(handleUiActionZoomIn)
+  actionCbs.reset.add(() => viewerSend({ type: 'LAYOUT.RESET' }))
+  actionCbs.recenter.add(() => viewerSend({ type: 'RECENTER' }))
+  actionCbs.rotate.add(() => viewerSend({ type: 'ROTATE' }))
+  actionCbs.zoomOut.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null }))
+  actionCbs.zoomIn.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null }))
 
-  touchCbs.multiStart.add(handleTouchMultiStart)
-  touchCbs.multiEnd.add(handleTouchMultiEnd)
-  touchCbs.zoom.add(handleTouchZoom)
+  touchCbs.multiStart.add(() => viewerSend({ type: 'TOUCH.LOCK' }))
+  touchCbs.multiEnd.add(() => viewerSend({ type: 'TOUCH.UNLOCK' }))
+  touchCbs.zoom.add(({ z, p }: Zoom) =>
+    viewerSend({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })
+  )
 
-  renderedCbs.add(handleRendered)
+  renderedCbs.add(() => viewerSend({ type: 'RENDERED' }))
 }
 
 export function viewerActorStart(): void {
