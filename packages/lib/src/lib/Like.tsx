@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
 import { type ReactNode } from 'react'
-import { like, unlike, useLikes } from './like-common'
+import { useLikes } from './like-common'
 
 //import './Like.css'
 
@@ -11,7 +11,7 @@ export interface LikeProps {
 
 export function Like(props: Readonly<LikeProps>): ReactNode {
   const { _id: id } = props
-  const { ids } = useLikes()
+  const { ids, like, unlike } = useLikes()
 
   return ids.has(id) ? (
     <span className="like liked" onClick={() => unlike(id)}>
