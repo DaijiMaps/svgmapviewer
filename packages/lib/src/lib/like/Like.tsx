@@ -2,11 +2,10 @@
 /* eslint-disable functional/no-return-void */
 import { type ReactNode } from 'react'
 import { useLikes } from './main'
-
-//import './Like.css'
+import type { ID } from './types'
 
 export interface LikeProps {
-  _id: number // osm_id or osm_way_id
+  _id: ID // osm_id or osm_way_id
 }
 
 export function Like(props: Readonly<LikeProps>): ReactNode {
