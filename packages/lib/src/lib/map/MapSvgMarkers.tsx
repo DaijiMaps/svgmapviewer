@@ -20,12 +20,12 @@ import {
 import { useNames } from './names'
 
 export function MapSvgMarkers(props: Readonly<OsmRenderMapProps>): ReactNode {
-  useShadowRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkersContent {...props} />)
+  useShadowRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkersRoot {...props} />)
 
   return <div id={MAP_SVG_MARKERS_ROOT_ID} className="content svg" />
 }
 
-export function MapSvgMarkersContent(
+export function MapSvgMarkersRoot(
   props: Readonly<OsmRenderMapProps>
 ): ReactNode {
   return (

@@ -13,12 +13,12 @@ import {
 } from './map-svg-react'
 
 export function MapSvgObjects(props: Readonly<OsmRenderMapProps>): ReactNode {
-  useShadowRoot(MAP_SVG_OBJECTS_ROOT_ID, <MapSvgObjectsContent {...props} />)
+  useShadowRoot(MAP_SVG_OBJECTS_ROOT_ID, <MapSvgObjectsRoot {...props} />)
 
   return <div id={MAP_SVG_OBJECTS_ROOT_ID} className="content svg" />
 }
 
-export function MapSvgObjectsContent(
+export function MapSvgObjectsRoot(
   props: Readonly<OsmRenderMapProps>
 ): ReactNode {
   return (

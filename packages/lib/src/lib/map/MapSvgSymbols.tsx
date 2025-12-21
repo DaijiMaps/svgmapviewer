@@ -15,12 +15,12 @@ import {
 } from './map-svg-react'
 
 export function MapSvgSymbols(props: Readonly<OsmRenderMapProps>): ReactNode {
-  useShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbolsContent {...props} />)
+  useShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbolsRoot {...props} />)
 
   return <div id={MAP_SVG_SYMBOLS_ROOT_ID} className="content svg" />
 }
 
-export function MapSvgSymbolsContent(
+export function MapSvgSymbolsRoot(
   props: Readonly<OsmRenderMapProps>
 ): ReactNode {
   return (

@@ -10,12 +10,12 @@ import { MAP_HTML_CONTENT_ID, MAP_HTML_ROOT_ID } from './map-svg-react'
 import { useNames } from './names'
 
 export function MapHtml(props: Readonly<OsmRenderMapProps>): ReactNode {
-  useShadowRoot(MAP_HTML_ROOT_ID, <MapHtmlContent {...props} />)
+  useShadowRoot(MAP_HTML_ROOT_ID, <MapHtmlRoot {...props} />)
 
   return <div id={MAP_HTML_ROOT_ID} className="content svg" />
 }
 
-function MapHtmlContent(props: Readonly<OsmRenderMapProps>): ReactNode {
+function MapHtmlRoot(props: Readonly<OsmRenderMapProps>): ReactNode {
   return (
     <>
       <div id={MAP_HTML_CONTENT_ID}>

@@ -14,12 +14,12 @@ import {
 import { useNameRanges, useNames } from './names'
 
 export function MapSvgLabels(props: Readonly<OsmRenderMapProps>): ReactNode {
-  useShadowRoot(MAP_SVG_LABELS_ROOT_ID, <MapSvgLabelsContent {...props} />)
+  useShadowRoot(MAP_SVG_LABELS_ROOT_ID, <MapSvgLabelsRoot {...props} />)
 
   return <div id={MAP_SVG_LABELS_ROOT_ID} className="content svg" />
 }
 
-export function MapSvgLabelsContent(
+export function MapSvgLabelsRoot(
   props: Readonly<OsmRenderMapProps>
 ): ReactNode {
   const f = props.carto?.filterLabelsByRange ?? true
