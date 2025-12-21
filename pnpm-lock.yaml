@@ -278,6 +278,9 @@ importers:
       xstate:
         specifier: ^5.25.0
         version: 5.25.0
+      zod:
+        specifier: ^4.2.1
+        version: 4.2.1
     devDependencies:
       "@rsbuild/plugin-react":
         specifier: ^1.4.2
