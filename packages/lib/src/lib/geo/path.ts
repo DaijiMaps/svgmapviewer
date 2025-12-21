@@ -55,7 +55,7 @@ function a(vs: Readonly<V[]>, m: DOMMatrixReadOnly): string {
       .slice(1, -1)
       .map(([x, y]) => m.transformPoint({ x, y }))
       .map((a: VecVec) => `L${s(a)}`) +
-    'Dir'
+    'Z'
   )
 }
 
