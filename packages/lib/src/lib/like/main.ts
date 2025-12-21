@@ -51,8 +51,7 @@ function stringifyContext(context: Readonly<LikesContext>) {
 
 function loadContext(key: string): LikesContext {
   const str = localStorage.getItem(key)
-  const context = parseContext(str)
-  return context === undefined ? emptyContext : context
+  return parseContext(str) ?? emptyContext
 }
 
 function saveContext(key: string, context: Readonly<LikesContext>): void {
@@ -70,17 +69,16 @@ function makeLikesStoreConfig(key: string) {
     on: {
       like: (context, event: Readonly<{ id: ID }>, q) => {
         q.emit.updated(context)
-        return {
-          ...context,
-          // eslint-disable-next-line functional/immutable-data
-          ids: new Set(context.ids.add(event.id)),
-        }
+        // eslint-disable-next-line functional/immutable-data
+        const ids = new Set(context.ids.add(event.id))
+        return { ...context, ids }
       },
       unlike: (context, event: Readonly<{ id: ID }>, q) => {
         q.emit.updated(context)
         // eslint-disable-next-line functional/immutable-data
         context.ids.delete(event.id) // returns boolean
-        return { ...context, ids: new Set(context.ids) }
+        const ids = new Set(context.ids)
+        return { ...context, ids }
       },
     },
   })
