@@ -2,27 +2,10 @@
 /* eslint-disable functional/no-return-void */
 import { createStoreConfig } from '@xstate/store'
 import { useSelector, useStore } from '@xstate/store/react'
-import { decode, encode } from './schema'
+import { loadContext, saveContext } from './storage'
 import type { ID, LikesContext } from './types'
 
 const LOCALSTORAGE_KEY = 'svgmapviewer:likes'
-
-const emptyContext = {
-  ids: new Set<ID>(),
-}
-
-function loadContext(key: string): LikesContext {
-  const jsonstr = localStorage.getItem(key)
-  if (jsonstr === null) {
-    return emptyContext
-  }
-  return decode(jsonstr)
-}
-
-function saveContext(key: string, context: Readonly<LikesContext>): void {
-  const jsonstr = encode(context)
-  localStorage.setItem(key, jsonstr)
-}
 
 ////
 

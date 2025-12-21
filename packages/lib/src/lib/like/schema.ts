@@ -2,13 +2,15 @@ import z from 'zod'
 import { json } from '../json'
 import type { LikesContext, LikesExternalContext } from './types'
 
+//// string -> LikesExternalContext
+
 const XIDSchema = z.union([z.number(), z.string()])
 const XIDSetSchema = z.array(XIDSchema)
 const XContextSchema = z.object({ ids: XIDSetSchema })
 
 const parse = json(XContextSchema)
 
-////
+//// LikesExternalContext -> LikesContext
 
 const IDSchema = z.union([z.number(), z.string()])
 const IDSetSchema = z.set(IDSchema)
@@ -23,7 +25,7 @@ const conv = z.codec(XContextSchema, ContextSchema, {
   }),
 })
 
-////
+//// string -> LikesContext
 
 const schema = z.pipe(parse, conv)
 
