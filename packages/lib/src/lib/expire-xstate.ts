@@ -1,4 +1,5 @@
 import { assign, createActor, emit, setup } from 'xstate'
+import type { Cb } from './cb'
 
 type Events = { type: 'TICK' }
 type Emitted = { type: 'EXPIRE' }
@@ -55,10 +56,10 @@ const expireMachine = setup({
 })
 
 export interface Expire {
-  tick: () => void
+  tick: Cb
 }
 
-export function makeExpire(duration: number, cb: () => void): Expire {
+export function makeExpire(duration: number, cb: Cb): Expire {
   const machine = expireMachine.provide({
     delays: {
       DURATION: duration,
