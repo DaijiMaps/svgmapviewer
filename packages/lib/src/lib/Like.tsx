@@ -11,7 +11,7 @@ export interface LikeProps {
 
 export function Like(props: Readonly<LikeProps>): ReactNode {
   const { _id: id } = props
-  const ids = useLikes()
+  const { ids } = useLikes()
 
   return ids.has(id) ? (
     <span className="like liked" onClick={() => unlike(id)}>
