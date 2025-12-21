@@ -29,7 +29,7 @@ export function Right(): ReactNode {
 function RightContent(): ReactNode {
   return (
     <div className="ui-content right bottom">
-      <Zoom />
+      <Buttons />
       <style>{style}</style>
     </div>
   )
@@ -55,9 +55,9 @@ const style = `
 }
 `
 
-function Zoom(): ReactNode {
+function Buttons(): ReactNode {
   return (
-    <div className="zoom">
+    <div className="button">
       <Fullscreen />
       <Position />
       <Recenter />
@@ -65,21 +65,21 @@ function Zoom(): ReactNode {
       <ZoomOut />
       <ZoomIn />
       <style>
-        {zoomStyle}
+        {buttonStyle}
         <RightStyle />
       </style>
     </div>
   )
 }
 
-const zoomStyle = `
-.zoom {
+const buttonStyle = `
+.button {
   font-size: large;
   margin: 0;
   ${flex_column_center_center}
 }
 
-.zoom-item {
+.button-item {
   margin: 1.25px;
   padding: 0.25em;
   border: 1.25px black solid;
@@ -87,13 +87,13 @@ const zoomStyle = `
   cursor: default;
   ${background_white_opaque}
 }
-.zoom-item > svg {
+.button-item > svg {
   display: block;
   width: 1.25em;
   height: 1.25em;
   pointer-events: none;
 }
-.zoom-item > svg > path {
+.button-item > svg > path {
   stroke: black;
   stroke-width: 0.4;
   fill: none;
