@@ -21,21 +21,27 @@ export function notifyScrollEventTick(
 ): void {
   notifyCbs(scrollCbs.eventTick, ev)
 }
+
 export function notifyScrollEventExpire(): void {
   notifyCbs0(scrollCbs.eventExpire)
 }
+
 export function notifyScrollGet(): void {
   notifyCbs0(scrollCbs.get)
 }
+
 export function notifyScrollGetDone(scroll: Readonly<Scroll>): void {
   notifyCbs(scrollCbs.getDone, scroll)
 }
+
 export function notifyScrollSync(pos: Readonly<BoxBox>): void {
   notifyCbs(scrollCbs.sync, pos)
 }
+
 export function notifyScrollSyncSync(pos: Readonly<BoxBox>): void {
   notifyCbs(scrollCbs.syncSync, pos)
 }
+
 export function notifyScrollSyncSyncDone(scroll: Readonly<Scroll>): void {
   notifyCbs(scrollCbs.syncSyncDone, scroll)
 }

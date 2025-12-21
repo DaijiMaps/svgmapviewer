@@ -15,12 +15,15 @@ export const uiCbs: UiCbs = {
 export function notifyUiOpen(psvg: VecVec): void {
   notifyCbs(uiCbs.open, psvg)
 }
+
 export function notifyUiOpenDone(ok: boolean): void {
   notifyCbs(uiCbs.openDone, ok)
 }
+
 export function notifyUiClose(): void {
   notifyCbs0(uiCbs.close)
 }
+
 export function notifyUiCloseDone(): void {
   notifyCbs0(uiCbs.closeDone)
 }

@@ -14,12 +14,15 @@ export const floorCbs: FloorCbs = {
 export function notifyFloorLock(fidx: number): void {
   notifyCbs(floorCbs.lock, fidx)
 }
+
 export function notifyFloorSelect(fidx: number): void {
   notifyCbs(floorCbs.select, fidx)
 }
+
 export function notifyFloorSelectDone(fidx: number): void {
   notifyCbs(floorCbs.selectDone, fidx)
 }
+
 export function notifyFloorUnlock(): void {
   notifyCbs0(floorCbs.unlock)
 }

@@ -15,15 +15,19 @@ export const searchCbs: SearchCbs = {
 export function notifySearchStart(req: Readonly<SearchReq>): void {
   notifyCbs(searchCbs.start, req)
 }
+
 export function notifySearchRequest(req: Readonly<SearchReq>): void {
   notifyCbs(searchCbs.request, req)
 }
+
 export function notifySearchRequestDone(res: Readonly<null | SearchRes>): void {
   notifyCbs(searchCbs.requestDone, res)
 }
+
 export function notifySearchEnd(res: Readonly<null | SearchRes>): void {
   notifyCbs(searchCbs.end, res)
 }
+
 export function notifySearchEndDone(data: Readonly<SearchData>): void {
   notifyCbs(searchCbs.endDone, data)
 }

@@ -14,9 +14,11 @@ export const touchCbs: TouchCbs = {
 export function notifyTouchMultiStart(): void {
   notifyCbs0(touchCbs.multiStart)
 }
+
 export function notifyTouchMultiEnd(): void {
   notifyCbs0(touchCbs.multiEnd)
 }
+
 export function notifyTouchZoom(args: Readonly<Zoom>): void {
   notifyCbs(touchCbs.zoom, args)
 }

@@ -24,23 +24,29 @@ export const styleCbs: StyleCbs = {
 export function notifyStyleResize(resize: Readonly<ResizeInfo>): void {
   notifyCbs(styleCbs.resize, resize)
 }
+
 export function notifyStyleLayout(resize: Readonly<ResizeInfo>): void {
   notifyCbs(styleCbs.layout, resize)
 }
+
 export function notifyStyleZoomStart(zoom: Readonly<ZoomInfo>): void {
   notifyCbs(styleCbs.zoomStart, zoom)
 }
+
 export function notifyStyleZoomEnd(end: Readonly<ZoomEndInfo>): void {
   notifyCbs(styleCbs.zoomEnd, end)
 }
+
 export function notifyStyleAnimation(
   a: Readonly<null | AnimationMatrix>
 ): void {
   notifyCbs(styleCbs.animation, a)
 }
+
 export function notifyStyleAnimationEnd(): void {
   notifyCbs0(styleCbs.animationEnd)
 }
+
 export function notifyStyleMode(mode: ViewerMode): void {
   notifyCbs(styleCbs.mode, mode)
 }

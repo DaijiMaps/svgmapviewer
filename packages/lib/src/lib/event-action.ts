@@ -17,21 +17,27 @@ export const actionCbs: ActionCbs = {
 export function notifyActionZoomIn(): void {
   notifyCbs0(actionCbs.zoomIn)
 }
+
 export function notifyActionZoomOut(): void {
   notifyCbs0(actionCbs.zoomOut)
 }
+
 export function notifyActionRotate(): void {
   notifyCbs0(actionCbs.rotate)
 }
+
 export function notifyActionReset(): void {
   notifyCbs0(actionCbs.reset)
 }
+
 export function notifyActionRecenter(): void {
   notifyCbs0(actionCbs.recenter)
 }
+
 export function notifyActionFullscreen(): void {
   notifyCbs0(actionCbs.fullscreen)
 }
+
 export function notifyActionPosition(): void {
   notifyCbs0(actionCbs.position)
 }
