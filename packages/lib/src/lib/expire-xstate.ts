@@ -1,7 +1,7 @@
 import { assign, createActor, emit, setup } from 'xstate'
 
 type Events = { type: 'TICK' }
-type Emitted = { type: 'CALL' }
+type Emitted = { type: 'EXPIRE' }
 type Context = { ticked: boolean }
 
 const expireMachine = setup({
@@ -13,7 +13,7 @@ const expireMachine = setup({
   actions: {
     clear: assign({ ticked: false }),
     set: assign({ ticked: true }),
-    call: emit({ type: 'CALL' }),
+    expire: emit({ type: 'EXPIRE' }),
   },
   delays: {
     DURATION: 500,
@@ -29,7 +29,7 @@ const expireMachine = setup({
       },
     },
     Empty: {
-      after: { DURATION: { actions: ['call', 'clear'], target: 'Idle' } },
+      after: { DURATION: { actions: ['expire', 'clear'], target: 'Idle' } },
       on: {
         TICK: {
           guard: ({ context }) => !context.ticked,
@@ -49,14 +49,12 @@ const expireMachine = setup({
     },
     Restarting: { always: 'Active' },
     Expired: {
-      always: { actions: ['call', 'clear'], target: 'Idle' },
+      always: { actions: ['expire', 'clear'], target: 'Idle' },
     },
   },
 })
 
 export interface Expire {
-  machine: unknown
-  actor: unknown
   tick: () => void
 }
 
@@ -67,14 +65,12 @@ export function makeExpire(duration: number, cb: () => void): Expire {
     },
   })
   const actor = createActor(machine)
-  actor.on('CALL', cb)
+  actor.on('EXPIRE', cb)
   actor.start()
   function tick() {
     actor.send({ type: 'TICK' })
   }
   return {
-    machine,
-    actor,
     tick,
   }
 }
