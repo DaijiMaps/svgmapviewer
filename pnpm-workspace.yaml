@@ -6,4 +6,4 @@ packages:
   - ./packages/example-osm
   - ./packages/lib
 overrides:
-  'tmp': '^0.2.4'
+  "tmp": "^0.2.4"
