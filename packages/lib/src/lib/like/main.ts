@@ -1,13 +1,13 @@
+/* eslint-disable functional/functional-parameters */
+/* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { createStoreConfig } from '@xstate/store'
 import { useSelector, useStore } from '@xstate/store/react'
 import { loadContext, saveContext } from './storage'
-import type { ID, LikesContext } from './types'
+import type { ID, LikesContext, LikesReturn } from './types'
 
 const LOCALSTORAGE_KEY = 'svgmapviewer:likes'
-
-////
 
 function makeLikesStoreConfig(key: string) {
   return createStoreConfig({
@@ -20,14 +20,12 @@ function makeLikesStoreConfig(key: string) {
     on: {
       like: (context, event: Readonly<{ id: ID }>, q) => {
         q.emit.updated(context)
-        // eslint-disable-next-line functional/immutable-data
         const ids = new Set(context.ids.add(event.id))
         return { ...context, ids }
       },
       unlike: (context, event: Readonly<{ id: ID }>, q) => {
         q.emit.updated(context)
-        // eslint-disable-next-line functional/immutable-data
-        context.ids.delete(event.id) // returns boolean
+        context.ids.delete(event.id)
         const ids = new Set(context.ids)
         return { ...context, ids }
       },
@@ -35,15 +33,6 @@ function makeLikesStoreConfig(key: string) {
   })
 }
 
-// eslint-disable-next-line functional/no-mixed-types
-export interface LikesReturn {
-  ids: Set<ID>
-  like: (id: ID) => void
-  unlike: (id: ID) => void
-  isLiked: (id: ID) => boolean
-}
-
-// eslint-disable-next-line functional/functional-parameters
 export function useLikes(): LikesReturn {
   const store = useStore(makeLikesStoreConfig(LOCALSTORAGE_KEY))
 
