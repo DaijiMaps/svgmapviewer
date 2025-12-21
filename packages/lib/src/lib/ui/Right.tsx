@@ -1,8 +1,6 @@
-/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
-import { svgMapViewerConfig } from '../../config'
 import {
   background_white_opaque,
   flex_column_center_center,
@@ -14,14 +12,12 @@ import {
   timing_opening,
 } from '../css'
 import { useShadowRoot } from '../dom'
-import {
-  notifyActionFullscreen,
-  notifyActionPosition,
-  notifyActionRecenter,
-  notifyActionRotate,
-  notifyActionZoomIn,
-  notifyActionZoomOut,
-} from '../event-action'
+import { Fullscreen } from './buttons/Fullscreen'
+import { Position } from './buttons/Position'
+import { Recenter } from './buttons/Recenter'
+import { Rotate } from './buttons/Rotate'
+import { ZoomIn } from './buttons/ZoomIn'
+import { ZoomOut } from './buttons/ZoomOut'
 import { useOpenCloseHeader } from './ui-react'
 
 export function Right(): ReactNode {
@@ -108,77 +104,6 @@ const zoomStyle = `
 }
 `
 
-function Fullscreen() {
-  return (
-    <div
-      className={'zoom-item fullscreen'}
-      onClick={() => notifyActionFullscreen()}
-    >
-      <svg viewBox="-5.25 -5.25 10.5 10.5">
-        <path d={fullscreenPath} />
-      </svg>
-    </div>
-  )
-}
-
-function Position() {
-  return svgMapViewerConfig.mapCoord.matrix.isIdentity ? (
-    <></>
-  ) : (
-    <div
-      className={'zoom-item position'}
-      onClick={() => notifyActionPosition()}
-    >
-      <svg viewBox="-5.25 -5.25 10.5 10.5">
-        <path d={positionPath} />
-      </svg>
-    </div>
-  )
-}
-
-function Recenter() {
-  return (
-    <div
-      className={'zoom-item recenter'}
-      onClick={() => notifyActionRecenter()}
-    >
-      <svg viewBox="-5.25 -5.25 10.5 10.5">
-        <path d={panningPath} />
-      </svg>
-    </div>
-  )
-}
-
-function Rotate() {
-  return (
-    <div className={'zoom-item rotate'} onClick={() => notifyActionRotate()}>
-      <svg viewBox="-5.25 -5.25 10.5 10.5">
-        <path d={turnPath} />
-      </svg>
-    </div>
-  )
-}
-
-function ZoomOut() {
-  return (
-    <div className={'zoom-item zoom-out'} onClick={() => notifyActionZoomOut()}>
-      <svg viewBox="-5.25 -5.25 10.5 10.5">
-        <path d={zoomOutPath} />
-      </svg>
-    </div>
-  )
-}
-
-function ZoomIn() {
-  return (
-    <div className={'zoom-item zoom-in'} onClick={() => notifyActionZoomIn()}>
-      <svg viewBox="-5.25 -5.25 10.5 10.5">
-        <path d={zoomInPath} />
-      </svg>
-    </div>
-  )
-}
-
 export function RightStyle(): ReactNode {
   const { open, animating } = useOpenCloseHeader()
 
@@ -233,94 +158,3 @@ export function RightStyle(): ReactNode {
     )
   }
 }
-
-const zoomInPath = `
-M0,0
-m5,5
-l-2,-2
-a3,3 0,1,1 -6,-6
-a3,3 0,1,1 6,6
-m-3-3
-m-2.5,0
-h5
-m-2.5,-2.5
-v5
-`
-
-const zoomOutPath = `
-M0,0
-m5,5
-l-2,-2
-a3,3 0,1,1 -6,-6
-a3,3 0,1,1 6,6
-m-3-3
-m-2.5,0
-h5
-`
-
-const turnPath = `
-M -4,-4
-l 2,0
-a 6,6 0,0,1 6,6
-l 0,2
-m -1,-2
-l 1,2
-l 1,-2
-`
-
-const panningPath = `
-M0,5
-V-5
-M5,0
-H-5
-M5,0
-m-2,-1
-l2,1
-l-2,1
-M-5,0
-m2,1
-l-2,-1
-l2,-1
-M0,5
-m1,-2
-l-1,2
-l-1,-2
-M0,-5
-m-1,2
-l1,-2
-l1,2
-`
-
-// XXX
-// XXX
-// XXX
-const h = 3
-const r = h * Math.sqrt(2)
-const H = r + h * 2
-const y = H / 2
-const positionPath = `
-M 0,0
-m 0,${y}
-l ${-h},${-h}
-a ${r},${r} 0,1,1 ${2 * h},0
-z
-m 0,${-H + r + r / 2}
-a ${r / 2},${r / 2} 0,1,0 0,${-r}
-a ${r / 2},${r / 2} 0,1,0 0,${r}
-`.replaceAll(/([.]\d\d)\d*/g, '$1')
-// XXX
-// XXX
-// XXX
-
-const fullscreenPath = `
-M0,0
-m5,5
-m-1,-1
-h-8
-v-8
-h8
-z
-m1,-1
-v-8
-h-8
-`
