@@ -46,6 +46,7 @@ const style = `
 }
 text, tspan {
   contain: layout;
+  pointer-events: none;
 }
 `
 

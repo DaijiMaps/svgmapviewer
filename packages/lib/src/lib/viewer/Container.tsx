@@ -78,6 +78,7 @@ function ContentStyle(): ReactNode {
   contain: strict;
   transform: ${content.toString()} translate3d(0, 0, 0);
   transform-origin: left top;
+  pointer-events: none;
 }
 `
   return <style>{style}</style>
