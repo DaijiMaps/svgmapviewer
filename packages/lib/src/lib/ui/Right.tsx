@@ -59,9 +59,9 @@ const style = `
 function Buttons(): ReactNode {
   return (
     <div className="button">
+      <Position />
       <Home />
       <Fullscreen />
-      <Position />
       <Recenter />
       <Rotate />
       <ZoomOut />

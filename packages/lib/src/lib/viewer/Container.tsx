@@ -57,7 +57,7 @@ const style: string = `
   ${position_absolute_left_0_top_0}
   ${width_100vw_height_100svh}
 
-  scrollbar-width: thin;
+  scrollbar-width: none;
 
   overflow: scroll;
   overscroll-behavior: none;
