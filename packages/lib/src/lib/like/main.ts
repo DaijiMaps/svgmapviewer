@@ -19,11 +19,11 @@ const emptyContext = {
   ids: new Set<ID>(),
 }
 
-function parseContext(str: null | string): undefined | LikesContext {
-  if (!str) {
+function parseContext(jsonstr: null | string): undefined | LikesContext {
+  if (!jsonstr) {
     return undefined
   }
-  const val = JSON.parse(str)
+  const val = JSON.parse(jsonstr)
   // XXX validate
   if (
     !(typeof val === 'object') ||
@@ -33,29 +33,30 @@ function parseContext(str: null | string): undefined | LikesContext {
     return undefined
   }
   return {
-    ...val,
     ids: new Set(val.ids),
   }
 }
 
-function externalizeContext(val: Readonly<LikesContext>): LikesExternalContext {
+function externalizeContext(
+  context: Readonly<LikesContext>
+): LikesExternalContext {
   return {
-    ids: Array.from(val.ids),
+    ids: Array.from(context.ids),
   }
 }
 
-function stringifyContext(val: Readonly<LikesContext>) {
-  return JSON.stringify(externalizeContext(val))
+function stringifyContext(context: Readonly<LikesContext>) {
+  return JSON.stringify(externalizeContext(context))
 }
 
-function loadContext(key: string) {
+function loadContext(key: string): LikesContext {
   const str = localStorage.getItem(key)
-  const val = parseContext(str)
-  return val === undefined ? emptyContext : val
+  const context = parseContext(str)
+  return context === undefined ? emptyContext : context
 }
 
-function saveContext(key: string, val: Readonly<LikesContext>): void {
-  localStorage.setItem(key, stringifyContext(val))
+function saveContext(key: string, context: Readonly<LikesContext>): void {
+  localStorage.setItem(key, stringifyContext(context))
 }
 
 function makeLikesStoreConfig(key: string) {
