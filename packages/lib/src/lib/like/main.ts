@@ -2,61 +2,29 @@
 /* eslint-disable functional/no-return-void */
 import { createStoreConfig } from '@xstate/store'
 import { useSelector, useStore } from '@xstate/store/react'
+import { decode, encode } from './schema'
+import type { ID, LikesContext } from './types'
 
 const LOCALSTORAGE_KEY = 'svgmapviewer:likes'
-
-type ID = number | string
-
-interface LikesContext {
-  ids: Set<ID>
-}
-
-interface LikesExternalContext {
-  ids: ID[]
-}
-
-const toExternal = (context: Readonly<LikesContext>): LikesExternalContext => ({
-  ids: Array.from(context.ids),
-})
-const fromExternal = (x: Readonly<LikesExternalContext>): LikesContext => ({
-  ids: new Set(x.ids),
-})
 
 const emptyContext = {
   ids: new Set<ID>(),
 }
 
-function parseContext(jsonstr: null | string): undefined | LikesContext {
-  if (!jsonstr) {
-    return undefined
-  }
-  const jsonval = JSON.parse(jsonstr)
-  // XXX validate
-  if (
-    !(typeof jsonval === 'object') ||
-    !('ids' in jsonval) ||
-    !(jsonval.ids instanceof Array)
-  ) {
-    return undefined
-  }
-  const x: LikesExternalContext = {
-    ids: jsonval.ids,
-  }
-  return fromExternal(x)
-}
-
-function stringifyContext(context: Readonly<LikesContext>): string {
-  return JSON.stringify(toExternal(context))
-}
-
 function loadContext(key: string): LikesContext {
-  const str = localStorage.getItem(key)
-  return parseContext(str) ?? emptyContext
+  const jsonstr = localStorage.getItem(key)
+  if (jsonstr === null) {
+    return emptyContext
+  }
+  return decode(jsonstr)
 }
 
 function saveContext(key: string, context: Readonly<LikesContext>): void {
-  localStorage.setItem(key, stringifyContext(context))
+  const jsonstr = encode(context)
+  localStorage.setItem(key, jsonstr)
 }
+
+////
 
 function makeLikesStoreConfig(key: string) {
   return createStoreConfig({
