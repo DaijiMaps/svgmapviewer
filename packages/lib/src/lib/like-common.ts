@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import { createStore, type StoreSnapshot } from '@xstate/store'
+import { createStore } from '@xstate/store'
 import { useSelector } from '@xstate/store/react'
 
 const LOCALSTORAGE_KEY = 'svgmapviewer:likes'
@@ -15,15 +15,11 @@ interface LikesExternalContext {
   ids: ID[]
 }
 
-const emptySnapshot = {
-  context: {
-    ids: new Set<ID>(),
-  },
+const emptyContext = {
+  ids: new Set<ID>(),
 }
 
-function parseSnapshot(
-  str: null | string
-): undefined | StoreSnapshot<LikesContext> {
+function parseContext(str: null | string): undefined | LikesContext {
   if (!str) {
     return undefined
   }
@@ -31,47 +27,41 @@ function parseSnapshot(
   // XXX validate
   if (
     !(typeof val === 'object') ||
-    !('context' in val) ||
-    !('ids' in val.context) ||
-    !(val.context.ids instanceof Array)
+    !('ids' in val) ||
+    !(val.ids instanceof Array)
   ) {
     return undefined
   }
   return {
     ...val,
-    context: { ...val.context, ids: new Set(val.context.ids) },
+    ids: new Set(val.ids),
   }
 }
 
-function externalizeSnapshot(
-  val: Readonly<StoreSnapshot<LikesContext>>
-): StoreSnapshot<LikesExternalContext> {
+function externalizeContext(val: Readonly<LikesContext>): LikesExternalContext {
   return {
     ...val,
-    context: {
-      ...val.context,
-      ids: Array.from(val.context.ids),
-    },
+    ids: Array.from(val.ids),
   }
 }
 
-function stringifySnapshot(val: Readonly<StoreSnapshot<LikesContext>>) {
-  return JSON.stringify(externalizeSnapshot(val))
+function stringifyContext(val: Readonly<LikesContext>) {
+  return JSON.stringify(externalizeContext(val))
 }
 
 // eslint-disable-next-line functional/functional-parameters
-function loadSnapshot() {
+function loadContext() {
   const str = localStorage.getItem(LOCALSTORAGE_KEY)
-  const val = parseSnapshot(str)
-  return val === undefined ? emptySnapshot : val
+  const val = parseContext(str)
+  return val === undefined ? emptyContext : val
 }
 
-function saveSnapshot(val: Readonly<StoreSnapshot<LikesContext>>): void {
-  localStorage.setItem(LOCALSTORAGE_KEY, stringifySnapshot(val))
+function saveContext(val: Readonly<LikesContext>): void {
+  localStorage.setItem(LOCALSTORAGE_KEY, stringifyContext(val))
 }
 
 const likesStore = createStore({
-  context: loadSnapshot().context,
+  context: loadContext(),
   on: {
     like: (context, event: Readonly<{ id: ID }>) => ({
       ...context,
@@ -86,7 +76,7 @@ const likesStore = createStore({
   },
 })
 
-likesStore.subscribe(saveSnapshot)
+likesStore.subscribe((s) => saveContext(s.context))
 
 export function like(id: ID): void {
   return likesStore.trigger.like({ id })
