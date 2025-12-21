@@ -13,6 +13,7 @@ import {
 } from '../css'
 import { useShadowRoot } from '../dom'
 import { Fullscreen } from './buttons/Fullscreen'
+import { Home } from './buttons/Home'
 import { Position } from './buttons/Position'
 import { Recenter } from './buttons/Recenter'
 import { Rotate } from './buttons/Rotate'
@@ -58,6 +59,7 @@ const style = `
 function Buttons(): ReactNode {
   return (
     <div className="button">
+      <Home />
       <Fullscreen />
       <Position />
       <Recenter />

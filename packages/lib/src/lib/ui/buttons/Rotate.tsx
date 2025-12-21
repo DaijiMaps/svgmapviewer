@@ -5,15 +5,15 @@ import { notifyActionRotate } from '../../event-action'
 
 export function Rotate(): ReactNode {
   return (
-    <div className={'zoom-item rotate'} onClick={() => notifyActionRotate()}>
+    <div className={'button-item rotate'} onClick={() => notifyActionRotate()}>
       <svg viewBox="-5.25 -5.25 10.5 10.5">
-        <path d={turnPath} />
+        <path d={d} />
       </svg>
     </div>
   )
 }
 
-const turnPath = `
+const d = `
 M -4,-4
 l 2,0
 a 6,6 0,0,1 6,6

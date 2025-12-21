@@ -5,15 +5,15 @@ import { notifyActionZoomIn } from '../../event-action'
 
 export function ZoomIn(): ReactNode {
   return (
-    <div className={'zoom-item zoom-in'} onClick={() => notifyActionZoomIn()}>
+    <div className={'button-item zoom-in'} onClick={() => notifyActionZoomIn()}>
       <svg viewBox="-5.25 -5.25 10.5 10.5">
-        <path d={zoomInPath} />
+        <path d={d} />
       </svg>
     </div>
   )
 }
 
-const zoomInPath = `
+const d = `
 M0,0
 m5,5
 l-2,-2

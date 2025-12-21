@@ -6,17 +6,17 @@ import { notifyActionRecenter } from '../../event-action'
 export function Recenter(): ReactNode {
   return (
     <div
-      className={'zoom-item recenter'}
+      className={'button-item recenter'}
       onClick={() => notifyActionRecenter()}
     >
       <svg viewBox="-5.25 -5.25 10.5 10.5">
-        <path d={panningPath} />
+        <path d={d} />
       </svg>
     </div>
   )
 }
 
-const panningPath = `
+const d = `
 M0,5
 V-5
 M5,0

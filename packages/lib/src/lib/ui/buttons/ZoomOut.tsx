@@ -5,15 +5,18 @@ import { notifyActionZoomOut } from '../../event-action'
 
 export function ZoomOut(): ReactNode {
   return (
-    <div className={'zoom-item zoom-out'} onClick={() => notifyActionZoomOut()}>
+    <div
+      className={'button-item zoom-out'}
+      onClick={() => notifyActionZoomOut()}
+    >
       <svg viewBox="-5.25 -5.25 10.5 10.5">
-        <path d={zoomOutPath} />
+        <path d={d} />
       </svg>
     </div>
   )
 }
 
-const zoomOutPath = `
+const d = `
 M0,0
 m5,5
 l-2,-2
