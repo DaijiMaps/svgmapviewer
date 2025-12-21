@@ -1,4 +1,4 @@
-import { decode, encode } from './schema'
+import { decodeContext, encodeContext } from './schema'
 import type { ID, LikesContext } from './types'
 
 const emptyContext: LikesContext = {
@@ -10,7 +10,7 @@ export function loadContext(key: string): LikesContext {
   if (jsonstr === null) {
     return emptyContext
   }
-  return decode(jsonstr)
+  return decodeContext(jsonstr)
 }
 
 export function saveContext(
@@ -18,7 +18,7 @@ export function saveContext(
   context: Readonly<LikesContext>
   // eslint-disable-next-line functional/no-return-void
 ): void {
-  const jsonstr = encode(context)
+  const jsonstr = encodeContext(context)
   // eslint-disable-next-line functional/no-expression-statements
   localStorage.setItem(key, jsonstr)
 }

@@ -29,12 +29,12 @@ const conv = z.codec(XContextSchema, ContextSchema, {
 
 const schema = z.pipe(parse, conv)
 
-export const encode: (
-  context: Readonly<LikesContext>,
-  params?: z.core.ParseContext<z.core.$ZodIssue>
-) => string = schema.encode
-
-export const decode: (
+export const decodeContext: (
   jsonstr: string,
   params?: z.core.ParseContext<z.core.$ZodIssue>
 ) => Readonly<LikesContext> = schema.decode
+
+export const encodeContext: (
+  context: Readonly<LikesContext>,
+  params?: z.core.ParseContext<z.core.$ZodIssue>
+) => string = schema.encode
