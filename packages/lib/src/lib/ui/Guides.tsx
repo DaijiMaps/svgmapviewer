@@ -18,12 +18,12 @@ import {
 } from './Measure'
 
 export function Guides(): ReactNode {
-  useShadowRoot('guides', <GuidesContent />, 'ui')
+  useShadowRoot('guides', <GuidesRoot />, 'ui')
 
   return <div id="guides" />
 }
 
-function GuidesContent(): ReactNode {
+function GuidesRoot(): ReactNode {
   const showGuides = svgMapViewerConfig.uiConfig?.showGuides ?? true
 
   return !showGuides || svgMapViewerConfig.mapCoord.matrix.isIdentity ? (

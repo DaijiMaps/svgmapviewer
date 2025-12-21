@@ -10,12 +10,12 @@ import { useShadowRoot } from '../dom'
 import { Floors } from './Floor'
 
 export function Left(): ReactNode {
-  useShadowRoot('left', <LeftContent />, 'ui')
+  useShadowRoot('left', <LeftRoot />, 'ui')
 
   return <div id="left" />
 }
 
-function LeftContent(): ReactNode {
+function LeftRoot(): ReactNode {
   return (
     <div className="ui-content left bottom">
       <Floors />

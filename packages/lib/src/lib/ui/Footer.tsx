@@ -14,12 +14,12 @@ import { useShadowRoot } from '../dom'
 import { useOpenCloseHeader } from './ui-react'
 
 export function Footer(): ReactNode {
-  useShadowRoot('footer', <FooterContent />, 'ui')
+  useShadowRoot('footer', <FooterRoot />, 'ui')
 
   return <div id="footer" />
 }
 
-function FooterContent(): ReactNode {
+function FooterRoot(): ReactNode {
   const config = svgMapViewerConfig
 
   return (

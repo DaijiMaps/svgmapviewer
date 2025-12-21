@@ -15,12 +15,15 @@ export function resetDetailScroll(): void {
 export function useOpenCloseAll(): OpenClose {
   return useUiContext().all
 }
+
 export function useDetail(): UiDetailContent {
   return useUiContext().detail
 }
+
 export function useOpenCloseHeader(): OpenClose {
   return useUiContext().m['header']
 }
+
 export function useOpenCloseDetail(): OpenClose {
   return useUiContext().m['detail']
 }

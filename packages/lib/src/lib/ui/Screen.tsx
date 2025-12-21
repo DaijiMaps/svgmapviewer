@@ -16,31 +16,31 @@ import { useAnimating } from '../style/style-react'
 import { useOnWheel } from '../wheel'
 import { useOpenCloseDetail } from './ui-react'
 
-export function Shadow(): ReactNode {
-  useShadowRoot('shadow', <ShadowContent />, 'ui')
+export function Screen(): ReactNode {
+  useShadowRoot('screen', <ScreenRoot />, 'ui')
 
-  return <div id="shadow" />
+  return <div id="screen" />
 }
 
-function ShadowContent(): ReactNode {
+function ScreenRoot(): ReactNode {
   const ref = useOnWheel()
 
   return (
     <div
       ref={ref}
-      className="ui-content shadow"
+      className="ui-content screen"
       onClick={() => notifyUiClose()}
     >
       <style>
         {style}
-        <ShadowStyle />
+        <ScreenStyle />
       </style>
     </div>
   )
 }
 
 const style = `
-.shadow {
+.screen {
   ${position_absolute_left_0_top_0}
   ${width_100vw_height_100svh}
   background-color: black;
@@ -51,23 +51,23 @@ const style = `
 }
 `
 
-export function ShadowStyle(): ReactNode {
+export function ScreenStyle(): ReactNode {
   const { open, animating } = useOpenCloseDetail()
   const zooming = useAnimating()
 
   if (!animating) {
     return !open ? (
       !zooming ? (
-        <>{`.shadow { display: none; }`}</>
+        <>{`.screen { display: none; }`}</>
       ) : (
         // protect scroll during zoom animation
         // (changing overflow of viewer is expensive)
-        <>{`.shadow { display: initial; opacity: 0; }`}</>
+        <>{`.screen { display: initial; opacity: 0; }`}</>
       )
     ) : (
       <>
         {`
-.shadow {
+.screen {
   opacity: 0.3;
   will-change: opacity;
 }
@@ -81,16 +81,16 @@ export function ShadowStyle(): ReactNode {
     return (
       <>
         {`
-.shadow {
+.screen {
   --duration: ${ZOOM_DURATION_DETAIL}ms;
   --timing: ${t};
   --a: ${a};
   --b: ${b};
   will-change: opacity;
-  animation: xxx-shadow var(--duration) var(--timing);
+  animation: xxx-screen var(--duration) var(--timing);
 }
 
-@keyframes xxx-shadow {
+@keyframes xxx-screen {
   from {
     opacity: var(--a);
   }

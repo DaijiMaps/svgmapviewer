@@ -8,7 +8,7 @@ import { Guides } from './Guides'
 import { Header } from './Header'
 import { Left } from './Left'
 import { Right } from './Right'
-import { Shadow } from './Shadow'
+import { Screen } from './Screen'
 import { UI_ROOT_ID } from './ui-react'
 
 export function Ui(): ReactNode {
@@ -20,7 +20,7 @@ export function Ui(): ReactNode {
 function UiContent(): ReactNode {
   return (
     <div className="ui">
-      <Shadow />
+      <Screen />
       <Header />
       <Footer />
       <Left />

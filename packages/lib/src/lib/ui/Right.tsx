@@ -22,12 +22,12 @@ import { ZoomOut } from './buttons/ZoomOut'
 import { useOpenCloseHeader } from './ui-react'
 
 export function Right(): ReactNode {
-  useShadowRoot('right', <RightContent />, 'ui')
+  useShadowRoot('right', <RightRoot />, 'ui')
 
   return <div id="right" />
 }
 
-function RightContent(): ReactNode {
+function RightRoot(): ReactNode {
   return (
     <div className="ui-content right bottom">
       <Buttons />

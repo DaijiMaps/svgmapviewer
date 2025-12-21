@@ -9,12 +9,12 @@ import { Detail } from './Detail'
 import { useDetail } from './ui-react'
 
 export function DetailBalloon(): ReactNode {
-  useShadowRoot('detail', <DetailBalloonContent />, 'ui')
+  useShadowRoot('detail', <DetailBalloonRoot />, 'ui')
 
   return <div id="detail" />
 }
 
-export function DetailBalloonContent(): ReactNode {
+export function DetailBalloonRoot(): ReactNode {
   return (
     <div className="ui-content detail-balloon">
       <BalloonDetailStyle />

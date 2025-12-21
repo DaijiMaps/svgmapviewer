@@ -19,12 +19,12 @@ import { useOpenCloseHeader } from './ui-react'
 import { uiSend } from './ui-xstate'
 
 export function Header(): ReactNode {
-  useShadowRoot('header', <HeaderContent />, 'ui')
+  useShadowRoot('header', <HeaderRoot />, 'ui')
 
   return <div id="header" />
 }
 
-function HeaderContent(): ReactNode {
+function HeaderRoot(): ReactNode {
   const config = svgMapViewerConfig
 
   return (
