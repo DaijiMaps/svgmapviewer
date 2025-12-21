@@ -40,7 +40,6 @@ function parseContext(str: null | string): undefined | LikesContext {
 
 function externalizeContext(val: Readonly<LikesContext>): LikesExternalContext {
   return {
-    ...val,
     ids: Array.from(val.ids),
   }
 }
@@ -62,21 +61,28 @@ function saveContext(val: Readonly<LikesContext>): void {
 
 const likesStore = createStore({
   context: loadContext(),
+  emits: {
+    updated: (context: Readonly<LikesContext>) => {
+      saveContext(context)
+    },
+  },
   on: {
-    like: (context, event: Readonly<{ id: ID }>) => ({
-      ...context,
-      // eslint-disable-next-line functional/immutable-data
-      ids: new Set(context.ids.add(event.id)),
-    }),
-    unlike: (context, event: Readonly<{ id: ID }>) => {
+    like: (context, event: Readonly<{ id: ID }>, q) => {
+      q.emit.updated(context)
+      return {
+        ...context,
+        // eslint-disable-next-line functional/immutable-data
+        ids: new Set(context.ids.add(event.id)),
+      }
+    },
+    unlike: (context, event: Readonly<{ id: ID }>, q) => {
+      q.emit.updated(context)
       // eslint-disable-next-line functional/immutable-data
       context.ids.delete(event.id) // returns boolean
       return { ...context, ids: new Set(context.ids) }
     },
   },
 })
-
-likesStore.subscribe((s) => saveContext(s.context))
 
 export function like(id: ID): void {
   return likesStore.trigger.like({ id })
