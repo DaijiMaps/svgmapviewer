@@ -15,6 +15,13 @@ interface LikesExternalContext {
   ids: ID[]
 }
 
+const toExternal = (context: Readonly<LikesContext>): LikesExternalContext => ({
+  ids: Array.from(context.ids),
+})
+const fromExternal = (x: Readonly<LikesExternalContext>): LikesContext => ({
+  ids: new Set(x.ids),
+})
+
 const emptyContext = {
   ids: new Set<ID>(),
 }
@@ -23,30 +30,23 @@ function parseContext(jsonstr: null | string): undefined | LikesContext {
   if (!jsonstr) {
     return undefined
   }
-  const val = JSON.parse(jsonstr)
+  const jsonval = JSON.parse(jsonstr)
   // XXX validate
   if (
-    !(typeof val === 'object') ||
-    !('ids' in val) ||
-    !(val.ids instanceof Array)
+    !(typeof jsonval === 'object') ||
+    !('ids' in jsonval) ||
+    !(jsonval.ids instanceof Array)
   ) {
     return undefined
   }
-  return {
-    ids: new Set(val.ids),
+  const x: LikesExternalContext = {
+    ids: jsonval.ids,
   }
+  return fromExternal(x)
 }
 
-function externalizeContext(
-  context: Readonly<LikesContext>
-): LikesExternalContext {
-  return {
-    ids: Array.from(context.ids),
-  }
-}
-
-function stringifyContext(context: Readonly<LikesContext>) {
-  return JSON.stringify(externalizeContext(context))
+function stringifyContext(context: Readonly<LikesContext>): string {
+  return JSON.stringify(toExternal(context))
 }
 
 function loadContext(key: string): LikesContext {
