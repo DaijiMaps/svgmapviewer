@@ -19,7 +19,7 @@ import {
   notifyUiOpen,
   notifyUiOpenDone,
 } from './lib/event-ui'
-import { Like } from './lib/Like'
+import { Like } from './lib/like/Like'
 import { useLayout, useLayout2 } from './lib/style/style-react'
 import { useFloors } from './lib/viewer/floors-react'
 import { type Layout } from './lib/viewer/layout'

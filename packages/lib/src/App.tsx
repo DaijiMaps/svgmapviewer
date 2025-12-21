@@ -8,7 +8,7 @@ import {
   touch_action_none,
   width_100vw_height_100svh,
 } from './lib/css'
-import { likeStyle } from './lib/Like'
+import { likeStyle } from './lib/like/Like'
 import { Ui } from './lib/ui/Ui'
 import { Container } from './lib/viewer/Container'
 import { type OsmRenderMapProps } from './types'

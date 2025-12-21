@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
 import { type ReactNode } from 'react'
-import { useLikes } from './like-common'
+import { useLikes } from './main'
 
 //import './Like.css'
 
