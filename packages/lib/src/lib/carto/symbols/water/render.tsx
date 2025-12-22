@@ -1,9 +1,9 @@
-/* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
+import type { Kind } from '..'
 
-export function DrinkingFountain(): ReactNode {
+export function DrinkingFountain(props: Readonly<{ id: Kind }>): ReactNode {
   return (
-    <g id="XDrinkingFountain">
+    <g id={`X${props.id}`}>
       <rect
         x="-35.5"
         y="-35.5"

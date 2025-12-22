@@ -1,9 +1,9 @@
-/* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
+import type { Kind } from '..'
 
-export function Locker(): ReactNode {
+export function Locker(props: Readonly<{ id: Kind }>): ReactNode {
   return (
-    <g id="XLocker" transform="translate(-36, -36)">
+    <g id={`X${props.id}`} transform="translate(-36, -36)">
       <rect x="0.5" y="0.5" width="71" height="71" ry="6" stroke="white" />
       <path
         d="m 34.625,11 a 7.5,7.5 0 1 0 0,7 l 2.375,0 2.5,-2.5 2,2 2,-2 2,2 2,-2 2,2 2.5,-2.5 c 0.5,-0.5 0.5,-1 0,-1.5 L 49.5,11 z M 27,14.5 a 2,2 0 1 1 -4,0 2,2 0 1 1 4,0 z"

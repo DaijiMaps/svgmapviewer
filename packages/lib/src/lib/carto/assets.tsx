@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode } from 'react'
-import { symbolRenderMap } from './symbols/index'
+import { symbolRenderMap, type Kind } from './symbols/index'
 
 export function RenderMapAssetsDefault(): ReactNode {
   return (
@@ -13,8 +13,8 @@ export function RenderMapAssetsDefault(): ReactNode {
 export function SymbolAssets(): ReactNode {
   return (
     <g className="symbols">
-      {Object.values(symbolRenderMap).map((render, idx) => (
-        <Fragment key={idx}>{render()}</Fragment>
+      {Object.entries(symbolRenderMap).map(([id, render], idx) => (
+        <Fragment key={idx}>{render({ id: id as Kind })}</Fragment>
       ))}
     </g>
   )

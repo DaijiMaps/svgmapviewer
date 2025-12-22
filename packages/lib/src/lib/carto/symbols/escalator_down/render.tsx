@@ -1,9 +1,9 @@
-/* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
+import type { Kind } from '..'
 
-export function EscalatorDown(): ReactNode {
+export function EscalatorDown(props: Readonly<{ id: Kind }>): ReactNode {
   return (
-    <g id="XEscalatorDown" transform="translate(-36, -36)">
+    <g id={`X${props.id}`} transform="translate(-36, -36)">
       <rect x="0.5" y="0.5" width="71" height="71" ry="6" stroke="white" />
       <path
         d="m 55,28 c -1,0 -2,0 -3,1 L 27,54 c -2,2 -4,3 -6,3 l -9,0 a 6,6 270 1 1 0,-12 l 5,0 c 1,0 2,0 3,-1 L 45,19 c 2,-2 4,-3 6,-3 l 9,0 a 6,6 90 1 1 0,12 z"

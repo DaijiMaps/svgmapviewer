@@ -2,7 +2,7 @@ import type { OsmMapSymbols } from 'svgmapviewer/carto'
 
 export const stairsGetMapSymbols: OsmMapSymbols = {
   name: 'stairs',
-  href: '#XStairs',
+  href: '#Xstairs',
   linesFilter: (p) =>
     !!p.highway?.match(/steps/) &&
     !p.other_tags?.match(/"conveying"=>"yes"/) &&

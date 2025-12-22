@@ -18,7 +18,7 @@ import { DrinkingFountain } from './water/render'
 import { WheelChair } from './wheelchair/render'
 
 // XXX POI kind
-type Kind =
+export type Kind =
   | 'bus'
   | 'elevator'
   | 'escalator'
@@ -38,28 +38,28 @@ type Kind =
   | 'wheelchair'
 
 const names: Record<Kind, string> = {
-  bus: '#XBus',
-  elevator: '#XElevator',
-  escalator: '#XEscalator',
-  'escalator-down': '#XEscalatorDown',
-  'escalator-up': '#XEscalatorUp',
-  information: '#XInformation',
-  locker: '#XLocker',
-  parking: '#XParking',
-  smoking: '#XSmoking',
-  stairs: '#XStairs',
-  'stairs-down': '#XStairsDown',
-  'stairs-up': '#XStairsUp',
-  toilets: '#XToilets',
-  'toilets-men': '#XToiletsMen',
-  'toilets-women': '#XToiletsWomen',
-  water: '#XDrinkingFountain',
-  wheelchair: '#XWheelChair',
+  bus: '#Xbus',
+  elevator: '#Xelevator',
+  escalator: '#Xescalator',
+  'escalator-down': '#Xescalator_down',
+  'escalator-up': '#Xescalator_up',
+  information: '#Xinformation',
+  locker: '#Xlocker',
+  parking: '#Xparking',
+  smoking: '#Xsmoking',
+  stairs: '#Xstairs',
+  'stairs-down': '#Xstairs_down',
+  'stairs-up': '#Xstairs_up',
+  toilets: '#Xtoilets',
+  'toilets-men': '#Xtoilets_men',
+  'toilets-women': '#Xtoilets_women',
+  water: '#Xwater',
+  wheelchair: '#Xwheelchair',
 }
 
 const nameMap: Map<string, string> = new Map(Object.entries(names))
 
-type RenderSymbol = () => ReactNode
+export type RenderSymbol = (props: Readonly<{ id: Kind }>) => ReactNode
 
 const renderMap: Record<Kind, RenderSymbol> = {
   bus: Bus,
