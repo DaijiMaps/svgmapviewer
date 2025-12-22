@@ -4,7 +4,7 @@ import { elevator } from './elevator/symbol'
 import { escalator } from './escalator/symbol'
 import { information } from './information/symbol'
 import { parking } from './parking/symbol'
-//import { stairs } from './stairs/symbol'
+import { stairs } from './stairs/symbol'
 import { toilet } from './toilet/symbol'
 import { water } from './water/symbol'
 
@@ -14,6 +14,7 @@ export const facility: OsmMapSymbols[] = [
   escalator,
   information,
   parking,
+  stairs,
   toilet,
   water,
 ]

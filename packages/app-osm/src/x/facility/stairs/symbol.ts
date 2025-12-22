@@ -1,6 +1,6 @@
 import type { OsmMapSymbols } from 'svgmapviewer/carto'
 
-export const stairsGetMapSymbols: OsmMapSymbols = {
+export const stairs: OsmMapSymbols = {
   name: 'stairs',
   href: '#Xstairs',
   linesFilter: (p) =>
