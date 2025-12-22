@@ -1,6 +1,11 @@
 import z from 'zod'
 import { json } from '../json'
-import type { LikesContext, LikesExternalContext } from './types'
+import type {
+  Decode,
+  Encode,
+  LikesContext,
+  LikesExternalContext,
+} from './types'
 
 //// string -> LikesExternalContext
 
@@ -29,12 +34,7 @@ const conv = z.codec(XContextSchema, ContextSchema, {
 
 const schema = z.pipe(parse, conv)
 
-export const decodeContext: (
-  jsonstr: string,
-  params?: z.core.ParseContext<z.core.$ZodIssue>
-) => Readonly<LikesContext> = schema.decode
-
-export const encodeContext: (
-  context: Readonly<LikesContext>,
-  params?: z.core.ParseContext<z.core.$ZodIssue>
-) => string = schema.encode
+export const decodeContext: Decode = (jsonstr, params) =>
+  schema.decode(jsonstr, params)
+export const encodeContext: Encode = (context, params) =>
+  schema.encode(context, params)

@@ -1,16 +1,16 @@
+/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-/* eslint-disable functional/functional-parameters */
 
 import { actionCbs } from '../event-action'
 
-function toggleFullscreen(): void {
+async function toggleFullscreen(): Promise<void> {
   if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen()
+    await document.documentElement.requestFullscreen().catch()
   } else {
-    document.exitFullscreen()
+    await document.exitFullscreen().catch()
   }
 }
 
