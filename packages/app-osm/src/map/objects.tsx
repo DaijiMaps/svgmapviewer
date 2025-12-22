@@ -1,81 +1,25 @@
 /* eslint-disable functional/functional-parameters */
 import type { OsmMapObjects } from 'svgmapviewer/carto'
-import {
-  benchPath,
-  entrancePath,
-  guidePostPath,
-  infoBoardPath,
-  monumentPath,
-  statuePath,
-  toriiPath,
-  tree4x8Path,
-  vendingMachinePath,
-  wasteBasketPath,
-} from 'svgmapviewer/carto-objects'
+import { bench } from '../x/object/bench/object'
+import { entrance } from '../x/object/entrance/object'
+import { guidepost } from '../x/object/guidepost/object'
+import { info_board } from '../x/object/info-board/object'
+import { monument } from '../x/object/monument/object'
+import { status } from '../x/object/statue/object'
+import { torii } from '../x/object/torii/object'
+import { tree1 } from '../x/object/tree1/object'
+import { vending_machine } from '../x/object/vending_machine/object'
+import { waste_basket } from '../x/object/waste_basket/object'
 
 export const getMapObjects: () => OsmMapObjects[] = () => [
-  {
-    name: 'benches',
-    path: benchPath,
-    width: 0.05,
-    pointsFilter: (p) => !!p.other_tags?.match(/"bench"/),
-  },
-  {
-    name: 'entrances',
-    path: entrancePath,
-    width: 0.05,
-    pointsFilter: (p) => !!p.other_tags?.match(/"entrance"/),
-  },
-  {
-    name: 'guide-posts',
-    path: guidePostPath,
-    width: 0.05,
-    pointsFilter: (p) => !!p.other_tags?.match(/"guidepost"/),
-  },
-  {
-    name: 'info-boards',
-    path: infoBoardPath,
-    width: 0.05,
-    pointsFilter: (p) => !!p.other_tags?.match(/"information"=>"(board|map)"/),
-  },
-  {
-    name: 'trees1',
-    path: tree4x8Path,
-    width: 0.15,
-    pointsFilter: (p) => !!p.other_tags?.match(/"tree"/),
-  },
-  {
-    name: 'torii',
-    path: toriiPath,
-    width: 0.05,
-    pointsFilter: (p) =>
-      !!p.man_made?.match(/^torii$/) ||
-      (!!p.other_tags?.match(/"amenity"=>"place_of_worship"/) &&
-        !!p.other_tags?.match(/"religion"=>"shinto"/)),
-  },
-  {
-    name: 'monument',
-    path: monumentPath,
-    width: 0.05,
-    pointsFilter: (p) =>
-      !!p.other_tags?.match(/"historic"=>"(monument|memorial|tomb)"/),
-  },
-  {
-    name: 'statue',
-    path: statuePath,
-    width: 0.05,
-    pointsFilter: (p) => !!p.other_tags?.match(/"artwork_type"=>"statue"/),
-  },
-  {
-    name: 'vending-machine',
-    path: vendingMachinePath,
-    width: 0.05,
-    pointsFilter: (p) => !!p.other_tags?.match(/"amenity"=>"vending_machine"/),
-  },
-  {
-    name: 'waste-basket',
-    path: wasteBasketPath,
-    width: 0.05,
-    pointsFilter: (p) => !!p.other_tags?.match(/"amenity"=>"waste_basket"/),
-  },
+  bench,
+  entrance,
+  guidepost,
+  info_board,
+  monument,
+  status,
+  torii,
+  tree1,
+  vending_machine,
+  waste_basket,
 ]
