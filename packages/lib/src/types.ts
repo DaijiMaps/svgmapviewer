@@ -14,7 +14,7 @@ import {
   type OsmMapMap,
 } from './lib/geo/data-types'
 import { type OsmSearchEntry } from './lib/geo/search-types'
-import { type SearchEntries, type SearchPos } from './lib/search/types'
+import { type SearchPos } from './lib/search/types'
 import { type Vec } from './lib/vec'
 import { type Layout, type LayoutCoord } from './lib/viewer/layout-types'
 
@@ -136,7 +136,7 @@ export type OsmGetMapNames = (
 
 export type OsmGetSearchEntries = (
   props: Readonly<OsmSearchProps>
-) => SearchEntries
+) => readonly SearchPos[]
 
 export type OsmGetSearchInfo = (
   res: Readonly<SearchPos>,

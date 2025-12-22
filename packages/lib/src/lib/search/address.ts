@@ -7,11 +7,10 @@ import type { SearchGeoReq } from '../../types'
 import {
   type FlatbushIndexes,
   type SearchContext,
-  type SearchEntries,
   type SearchPos,
 } from './types'
 
-export function initAddresses(entries: Readonly<SearchEntries>): SearchContext {
+export function initAddresses(entries: Readonly<SearchPos[]>): SearchContext {
   const fb: Flatbush = new Flatbush(entries.length)
   const idxs: FlatbushIndexes = {}
   for (const e of entries) {

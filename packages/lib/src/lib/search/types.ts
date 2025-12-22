@@ -10,8 +10,6 @@ export interface SearchPos {
   fidx?: number
 }
 
-export type SearchEntries = readonly SearchPos[]
-
 ////
 
 export type FlatbushIndexes = Record<Idx, SearchPos>

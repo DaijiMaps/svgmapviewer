@@ -1,5 +1,5 @@
 import { type OsmSearchProps } from '../../types'
-import { type SearchEntries, type SearchPos } from '../search/types'
+import { type SearchPos } from '../search/types'
 import type { OsmProperties } from './osm-types'
 import { getOsmId } from './search'
 import type { OsmSearchEntry } from './search-types'
@@ -7,33 +7,36 @@ import type { OsmSearchEntry } from './search-types'
 function pointAddresses(
   props: Readonly<OsmSearchProps>,
   skip?: Readonly<RegExp>
-): SearchEntries {
-  return props.mapData.points.features.flatMap(({ properties }) => {
-    const e = filterFeature(properties, props.osmSearchEntries, skip)
-    return e === null ? [] : [e]
-  })
+): readonly SearchPos[] {
+  return props.mapData.points.features
+    .map(({ properties }) =>
+      filterFeature(properties, props.osmSearchEntries, skip)
+    )
+    .filter((e) => e !== null)
 }
 
 /*
 function lineAddresses(
   props: Readonly<OsmSearchProps>,
   skip?: Readonly<RegExp>
-): SearchEntries {
-  return props.mapData.lines.features.flatMap(({ properties }) => {
-    const e = filterFeature(properties, props.osmSearchEntries, skip)
-    return e === null ? [] : [e]
-  })
+): readonly SearchPos[] {
+  return props.mapData.lines.features
+    .map(({ properties }) =>
+      filterFeature(properties, props.osmSearchEntries, skip)
+    )
+    .filter((e) => e !== null)
 }
 */
 
 function polygonAddresses(
   props: Readonly<OsmSearchProps>,
   skip?: Readonly<RegExp>
-): SearchEntries {
-  return props.mapData.multipolygons.features.flatMap(({ properties }) => {
-    const e = filterFeature(properties, props.osmSearchEntries, skip)
-    return e === null ? [] : [e]
-  })
+): readonly SearchPos[] {
+  return props.mapData.multipolygons.features
+    .map(({ properties }) =>
+      filterFeature(properties, props.osmSearchEntries, skip)
+    )
+    .filter((e) => e !== null)
 }
 
 function filterFeature(
@@ -45,14 +48,18 @@ function filterFeature(
   if (id === null) {
     return null
   }
+  // 1. name
   const name = properties.name
   if (name !== null && skip !== undefined && name.match(skip)) {
     return null
   }
+  // 2. centroid
   const { centroid_x, centroid_y } = properties
   if (centroid_x === null || centroid_y === null) {
     return null
   }
+  // 3. entry filter
+  // XXX slow
   const matches = entries.filter((entry) => entry.filter(properties))
   return matches.length === 0
     ? null
@@ -61,7 +68,7 @@ function filterFeature(
 
 export function osmGetSearchEntries(
   props: Readonly<OsmSearchProps>
-): SearchEntries {
+): SearchPos[] {
   const skip = props.cartoConfig?.skipNamePattern
   return [
     ...pointAddresses(props, skip),

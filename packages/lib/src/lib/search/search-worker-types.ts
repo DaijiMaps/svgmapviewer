@@ -1,8 +1,8 @@
 import type { SearchGeoReq } from '../../types'
-import { type SearchContext, type SearchEntries, type SearchPos } from './types'
+import { type SearchContext, type SearchPos } from './types'
 
 export type SearchWorkerReq =
-  | { type: 'INIT'; entries: SearchEntries }
+  | { type: 'INIT'; entries: readonly SearchPos[] }
   | { type: 'SEARCH'; greq: SearchGeoReq }
 export type SearchWorkerRes =
   | { type: 'INIT.DONE' }
