@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 
-export function EscalatorUp(): ReactNode {
+export function EscalatorDown(): ReactNode {
   return (
     <g id="XEscalatorDown" transform="translate(-36, -36)">
       <rect x="0.5" y="0.5" width="71" height="71" ry="6" stroke="white" />
