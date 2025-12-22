@@ -8,12 +8,12 @@ import {
   isMapOsmDefaultRendered as isMapRendered,
   RenderMapOsmDefault as renderMap,
 } from 'svgmapviewer/map'
+import { RenderInfo as renderInfo } from './info'
 import { getMapMarkers } from './map/markers'
 import { getMapObjects } from './map/objects'
 import { getMapPaths } from './map/paths'
 import { mapSvgStyle } from './map/paths-css'
 import { getMapSymbols } from './map/symbols'
-import { RenderInfo as renderInfo } from './render'
 import { osmSearchEntries } from './search-data'
 
 export const renderConfig: OsmRenderConfig = {
