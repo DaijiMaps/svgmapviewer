@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-mixed-types */
 import {
   type LineFeature,
   type MultiPolygonGeoJSON,
@@ -13,7 +14,11 @@ import {
 
 //// paths
 
-export type OsmMapPaths = MapLinePaths | MapMultiPolygonPaths
+export type OsmMapPaths =
+  | MapLinePaths
+  | MapMultiPolygonPaths
+  | readonly MapLinePaths[]
+  | readonly MapMultiPolygonPaths[]
 
 export interface MapLinePaths {
   readonly type: 'line'
@@ -21,7 +26,7 @@ export interface MapLinePaths {
   readonly width?: number
   readonly widthScale?: number
   readonly filter?: LinesFilter
-  readonly data?: readonly Line[]
+  readonly data?: () => readonly Line[]
 }
 
 export interface MapMultiPolygonPaths {
@@ -30,7 +35,7 @@ export interface MapMultiPolygonPaths {
   readonly width?: number
   readonly widthScale?: number
   readonly filter?: MultiPolygonsFilter
-  readonly data?: readonly MultiPolygon[]
+  readonly data?: () => readonly MultiPolygon[]
 }
 
 export interface LinePath {

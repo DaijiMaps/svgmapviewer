@@ -1,5 +1,5 @@
 import { Fragment, type ReactNode } from 'react'
-import { type OsmRenderMapProps } from '../../types'
+import { type OsmDataConfig, type OsmRenderMapProps } from '../../types'
 import {
   getOsmId,
   type LinesFilter,
@@ -28,13 +28,31 @@ export function RenderMapPaths(
     <g className="map-paths">
       {props.mapPaths.map((layer, i) => (
         <Fragment key={i}>
-          {layer.type === 'line'
-            ? LineLayerToPaths(props.data.mapData, props.m, layer)
-            : MultiPolygonPathsToPath(props.data.mapData, props.m, layer)}
+          {layer instanceof Array ? (
+            <g>
+              {layer.map((l, j) => (
+                <Fragment key={j}>
+                  {layerToPaths(l, props.data, props.m)}
+                </Fragment>
+              ))}
+            </g>
+          ) : (
+            <>{layerToPaths(layer, props.data, props.m)}</>
+          )}
         </Fragment>
       ))}
     </g>
   )
+}
+
+function layerToPaths(
+  layer: MapLinePaths | MapMultiPolygonPaths,
+  data: Readonly<OsmDataConfig>,
+  m: DOMMatrixReadOnly
+): ReactNode {
+  return layer.type === 'line'
+    ? LineLayerToPaths(data.mapData, m, layer)
+    : MultiPolygonPathsToPath(data.mapData, m, layer)
 }
 
 function lineLayerToLinePaths(
@@ -44,7 +62,7 @@ function lineLayerToLinePaths(
   return layer.filter !== undefined
     ? getLines(mapData, layer.filter)
     : layer.data !== undefined
-      ? layer.data.map((vs) => ({ tags: [], vs }))
+      ? layer.data().map((vs) => ({ tags: [], vs }))
       : []
 }
 
@@ -55,7 +73,7 @@ function multiPolygonLayerToMultiPolygonPaths(
   return layer.filter !== undefined
     ? getMultiPolygons(mapData, layer.filter)
     : layer.data !== undefined
-      ? layer.data.map((vs) => ({ tags: [], vs }))
+      ? layer.data().map((vs) => ({ tags: [], vs }))
       : []
 }
 
