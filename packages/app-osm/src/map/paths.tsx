@@ -1,228 +1,70 @@
 /* eslint-disable functional/functional-parameters */
-import { svgMapViewerConfig } from 'svgmapviewer'
 import { type OsmMapPaths } from 'svgmapviewer/carto'
-import { type MultiPolygon } from 'svgmapviewer/geo'
+import { area } from './paths/area'
+import { bridge } from './paths/bridge'
+import { building } from './paths/building'
+import { cliff } from './paths/cliff'
+import { cycleway } from './paths/cycleway'
+import { ditch } from './paths/ditch'
+import { drain } from './paths/drain'
+import { escalator } from './paths/escalator'
+import { farmland } from './paths/farmland'
+import { fence } from './paths/fence'
+import { footway } from './paths/footway'
+import { forest } from './paths/forest'
+import { garden } from './paths/garden'
+import { grass } from './paths/grass'
+import { grave_yard } from './paths/grave_yard'
+import { island } from './paths/island'
+import { parking } from './paths/parking'
+import { path } from './paths/path'
+import { pedestrian } from './paths/pedestrian'
+import { pedestrian_area } from './paths/pedestrian_area'
+import { playground } from './paths/playground'
+import { retaining_wall } from './paths/retaining_wall'
+import { river } from './paths/river'
+import { road } from './paths/road'
+import { rock } from './paths/rock'
+import { roof } from './paths/roof'
+import { service } from './paths/service'
+import { steps } from './paths/steps'
+import { stream } from './paths/stream'
+import { wall } from './paths/wall'
+import { water } from './paths/water'
+import { wetland } from './paths/wetland'
 
-function getInternals() {
-  return (
-    svgMapViewerConfig.cartoConfig?.internals ??
-    svgMapViewerConfig.mapData.internals
-  )
-}
-
-export const getMapPaths: () => OsmMapPaths[] = () => [
-  {
-    type: 'multipolygon',
-    name: 'island',
-    filter: (p) => !!p.natural?.match(/^coastline$/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'area',
-    data: getInternals().features.map(
-      (f) => f.geometry.coordinates
-    ) as unknown as MultiPolygon[],
-  },
-  {
-    type: 'line',
-    name: 'cliff',
-    filter: (p) => !!p.other_tags?.match(/"natural"=>"(cliff)"/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'rock',
-    filter: (p) => !!p.natural?.match(/rock|bare_rock/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'grass',
-    filter: (p) => !!p.landuse?.match(/grass/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'forest',
-    filter: (p) => !!p.landuse?.match(/forest/) || !!p.natural?.match(/wood/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'garden',
-    filter: (p) => !!p.leisure?.match(/garden/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'farmland',
-    filter: (p) => !!p.landuse?.match(/farmland/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'water',
-    filter: (p) => !!p.natural?.match(/^water$/),
-  },
-  {
-    type: 'line',
-    name: 'ditch',
-    filter: (p) => !!p.waterway?.match(/^(ditch)$/),
-  },
-  {
-    type: 'line',
-    name: 'drain',
-    filter: (p) => !!p.waterway?.match(/^(drain)$/),
-  },
-  {
-    type: 'line',
-    name: 'stream',
-    filter: (p) => !!p.waterway?.match(/^(stream)$/),
-  },
-  {
-    type: 'line',
-    name: 'river',
-    filter: (p) => !!p.waterway?.match(/^(river)$/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'wetland',
-    filter: (p) => !!p.natural?.match(/wetland/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'playground',
-    filter: (p) =>
-      !!p.tourism?.match(/zoo/) ||
-      !!p.leisure?.match(/ice_rink|pitch|playground/) ||
-      !!p.landuse?.match(/recreation_ground/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'grave_yard',
-    filter: (p) => !!p.amenity?.match(/grave_yard/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'parking',
-    filter: (p) => !!p.amenity?.match(/(parking|bicycle_parking)/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'building',
-    filter: (p) => !!p.building?.match(/./) && !p.building?.match(/roof/),
-  },
-  {
-    type: 'line',
-    name: 'path',
-    width: 1,
-    filter: (p) => !!p.highway?.match(/^(path|track)$/),
-  },
-  {
-    type: 'line',
-    name: 'footway',
-    width: 1,
-    filter: (p) => !!p.highway?.match(/^(footway|steps)$/),
-  },
-  {
-    type: 'line',
-    name: 'steps',
-    width: 1,
-    filter: (p) => !!p.highway?.match(/^(steps)$/),
-  },
-  {
-    type: 'line',
-    name: 'cycleway',
-    width: 3,
-    filter: (p) => !!p.highway?.match(/^(cycleway)$/),
-  },
-  {
-    type: 'line',
-    name: 'service',
-    width: 4,
-    filter: (p) => !!p.highway?.match(/^(service)$/),
-  },
-  {
-    type: 'line',
-    name: 'pedestrian',
-    width: 8,
-    filter: (p) => !!p.highway?.match(/^(pedestrian)$/),
-  },
-  {
-    type: 'line',
-    name: 'road',
-    width: 6,
-    filter: (p) =>
-      !!p.highway?.match(/./) &&
-      !p.highway?.match(
-        /^(footway|path|pedestrian|steps|cycleway|track|service)$/
-      ),
-  },
-  {
-    type: 'multipolygon',
-    name: 'pedestrian-area',
-    filter: (p) =>
-      !!p.other_tags?.match(/("highway"=>"service"|"area:highway"=>"service")/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'pedestrian-area',
-    filter: (p) => !!p.man_made?.match(/bridge/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'pedestrian-area',
-    filter: (p) => !!p.other_tags?.match(/"pedestrian"/),
-  },
-  {
-    type: 'line',
-    name: 'escalator background',
-    filter: (p) =>
-      !!p.highway?.match(/^(steps)$/) &&
-      !!p.other_tags?.match(/"conveying"=>"yes"/),
-  },
-  {
-    type: 'line',
-    name: 'escalator foreground',
-    filter: (p) =>
-      !!p.highway?.match(/^(steps)$/) &&
-      !!p.other_tags?.match(/"conveying"=>"yes"/),
-  },
-  {
-    type: 'line',
-    name: 'wall',
-    filter: (p) => !!p.barrier?.match(/^(wall)$/),
-  },
-  {
-    type: 'line',
-    name: 'fence',
-    filter: (p) => !!p.barrier?.match(/^(fence)$/),
-  },
-  {
-    type: 'line',
-    name: 'retaining-wall',
-    filter: (p) => !!p.barrier?.match(/^(retaining_wall)$/),
-  },
-  {
-    type: 'line',
-    name: 'bridge shadow',
-    widthScale: 1.8,
-    filter: (p) => !!p.other_tags?.match(/"bridge"/),
-  },
-  {
-    type: 'line',
-    name: 'bridge edge',
-    widthScale: 1.4,
-    filter: (p) => !!p.other_tags?.match(/"bridge"/),
-  },
-  {
-    type: 'line',
-    name: 'bridge road',
-    filter: (p) => !!p.other_tags?.match(/"bridge"/),
-  },
-  {
-    type: 'line',
-    name: 'tunnel shadow',
-    widthScale: 1.8,
-    filter: (p) => !!p.highway?.match(/./) && !!p.other_tags?.match(/"tunnel"/),
-  },
-  {
-    type: 'multipolygon',
-    name: 'roof',
-    filter: (p) => !!p.building?.match(/./) && !!p.building?.match(/roof/),
-  },
-]
+export const getMapPaths: () => OsmMapPaths[] = () =>
+  [
+    island,
+    area,
+    cliff,
+    rock,
+    grass,
+    forest,
+    garden,
+    farmland,
+    water,
+    ditch,
+    drain,
+    stream,
+    river,
+    wetland,
+    playground,
+    grave_yard,
+    parking,
+    building,
+    path,
+    footway,
+    steps,
+    cycleway,
+    service,
+    pedestrian,
+    road,
+    pedestrian_area,
+    escalator,
+    wall,
+    fence,
+    retaining_wall,
+    bridge,
+    roof,
+  ].flat()
