@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 import { symbolNameMap } from 'svgmapviewer/carto-symbols'
 import type { OsmProperties } from 'svgmapviewer/geo'
-import type { FacilityInfo } from '../../info'
 import { RenderProperties } from '../render'
+import type { FacilityInfo } from './types'
 
 export function RenderFacilityInfo(
   props: Readonly<{

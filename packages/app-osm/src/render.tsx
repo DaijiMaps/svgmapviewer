@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react'
-import { type Info } from './info'
 import { RenderXInfo } from './x/render'
+import { type Info } from './x/types'
 
 export interface Props {
   info: Info

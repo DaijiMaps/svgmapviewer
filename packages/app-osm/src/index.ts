@@ -1,7 +1,7 @@
-import { type Info } from './info'
 import { renderConfig, searchConfig } from './main'
 import { RenderInfo } from './render'
 import { svgmapviewerOsm } from './svgmapviewer'
+import { type Info } from './x/types'
 
 // info
 export { type Info }
