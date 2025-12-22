@@ -22,18 +22,18 @@ export type Kind =
   | 'bus'
   | 'elevator'
   | 'escalator'
-  | 'escalator-down'
-  | 'escalator-up'
+  | 'escalator_down'
+  | 'escalator_up'
   | 'information'
   | 'locker'
   | 'parking'
   | 'smoking'
   | 'stairs'
-  | 'stairs-down'
-  | 'stairs-up'
+  | 'stairs_down'
+  | 'stairs_up'
   | 'toilets'
-  | 'toilets-men'
-  | 'toilets-women'
+  | 'toilets_men'
+  | 'toilets_women'
   | 'water'
   | 'wheelchair'
 
@@ -41,18 +41,18 @@ const names: Record<Kind, string> = {
   bus: '#Xbus',
   elevator: '#Xelevator',
   escalator: '#Xescalator',
-  'escalator-down': '#Xescalator_down',
-  'escalator-up': '#Xescalator_up',
+  escalator_down: '#Xescalator_down',
+  escalator_up: '#Xescalator_up',
   information: '#Xinformation',
   locker: '#Xlocker',
   parking: '#Xparking',
   smoking: '#Xsmoking',
   stairs: '#Xstairs',
-  'stairs-down': '#Xstairs_down',
-  'stairs-up': '#Xstairs_up',
+  stairs_down: '#Xstairs_down',
+  stairs_up: '#Xstairs_up',
   toilets: '#Xtoilets',
-  'toilets-men': '#Xtoilets_men',
-  'toilets-women': '#Xtoilets_women',
+  toilets_men: '#Xtoilets_men',
+  toilets_women: '#Xtoilets_women',
   water: '#Xwater',
   wheelchair: '#Xwheelchair',
 }
@@ -65,18 +65,18 @@ const renderMap: Record<Kind, RenderSymbol> = {
   bus: Bus,
   elevator: Elevator,
   escalator: Escalator,
-  'escalator-down': EscalatorDown,
-  'escalator-up': EscalatorUp,
+  escalator_down: EscalatorDown,
+  escalator_up: EscalatorUp,
   information: Information,
   locker: Locker,
   parking: Parking,
   smoking: Smoking,
   stairs: Stairs,
-  'stairs-down': StairsDown,
-  'stairs-up': StairsUp,
+  stairs_down: StairsDown,
+  stairs_up: StairsUp,
   toilets: Toilets,
-  'toilets-men': ToiletsMen,
-  'toilets-women': ToiletsWomen,
+  toilets_men: ToiletsMen,
+  toilets_women: ToiletsWomen,
   water: DrinkingFountain,
   wheelchair: WheelChair,
 }
