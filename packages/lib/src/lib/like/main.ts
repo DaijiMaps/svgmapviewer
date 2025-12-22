@@ -1,4 +1,3 @@
-/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
@@ -40,8 +39,8 @@ function makeLikesStoreConfig(key: string) {
   })
 }
 
-export function useLikes(): LikesReturn {
-  const store = useStore(makeLikesStoreConfig(LOCALSTORAGE_KEY))
+export function useLikes(key?: string): LikesReturn {
+  const store = useStore(makeLikesStoreConfig(key ?? LOCALSTORAGE_KEY))
 
   const ids = useSelector(store, (s) => s.context.ids)
 
