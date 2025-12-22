@@ -14,7 +14,7 @@ import { getMapObjects } from './map/objects'
 import { getMapPaths } from './map/paths'
 import { mapSvgStyle } from './map/paths-css'
 import { getMapSymbols } from './map/symbols'
-import { osmSearchEntries } from './search-data'
+import { osmSearchEntries } from './x/info'
 
 export const renderConfig: OsmRenderConfig = {
   getMapNames, // XXX
