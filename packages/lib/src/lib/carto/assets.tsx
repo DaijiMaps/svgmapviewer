@@ -1,15 +1,6 @@
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
-import {
-  Bus,
-  DrinkingFountain,
-  Elevator,
-  Escalator,
-  Information,
-  Parking,
-  Stairs,
-  Toilets,
-} from './symbols/index'
+import { Fragment, type ReactNode } from 'react'
+import { symbolRenderMap } from './symbols/index'
 
 export function RenderMapAssetsDefault(): ReactNode {
   return (
@@ -22,14 +13,9 @@ export function RenderMapAssetsDefault(): ReactNode {
 export function SymbolAssets(): ReactNode {
   return (
     <g className="symbols">
-      <Bus />
-      <DrinkingFountain />
-      <Elevator />
-      <Escalator />
-      <Information />
-      <Parking />
-      <Stairs />
-      <Toilets />
+      {Object.values(symbolRenderMap).map((render, idx) => (
+        <Fragment key={idx}>{render()}</Fragment>
+      ))}
     </g>
   )
 }

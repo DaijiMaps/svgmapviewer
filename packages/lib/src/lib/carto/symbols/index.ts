@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { Bus } from './Bus'
 import { DrinkingFountain } from './DrinkingFountain'
 import { Elevator } from './Elevator'
@@ -31,19 +32,22 @@ const names: Record<Kind, string> = {
 
 const nameMap: Map<string, string> = new Map(Object.entries(names))
 
-export {
-  Bus,
-  DrinkingFountain,
-  Elevator,
-  Escalator,
-  Information,
-  Parking,
-  Stairs,
-  Toilets,
+type RenderSymbol = () => ReactNode
+
+const renderMap: Record<Kind, RenderSymbol> = {
+  bus: Bus,
+  elevator: Elevator,
+  escalator: Escalator,
+  information: Information,
+  parking: Parking,
+  stairs: Stairs,
+  toilets: Toilets,
+  water: DrinkingFountain,
 }
 
 export {
   nameMap as symbolNameMap,
   names as symbolNames,
+  renderMap as symbolRenderMap,
   type Kind as SymbolKind,
 }
