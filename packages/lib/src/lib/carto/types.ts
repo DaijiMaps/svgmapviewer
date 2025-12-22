@@ -11,11 +11,11 @@ import {
   type PointsFilter,
 } from '../geo/poi-types'
 
-//// layers
+//// paths
 
-export type OsmMapLayer = MapLineLayer | MapMultiPolygonLayer
+export type OsmMapPaths = MapLinePaths | MapMultiPolygonPaths
 
-export interface MapLineLayer {
+export interface MapLinePaths {
   readonly type: 'line'
   readonly name: string
   readonly width?: number
@@ -24,7 +24,7 @@ export interface MapLineLayer {
   readonly data?: readonly Line[]
 }
 
-export interface MapMultiPolygonLayer {
+export interface MapMultiPolygonPaths {
   readonly type: 'multipolygon'
   readonly name: string
   readonly width?: number

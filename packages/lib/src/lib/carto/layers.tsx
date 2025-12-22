@@ -10,27 +10,27 @@ import {
 import { lineToPathD, multiPolygonToPathD } from '../geo/path'
 import {
   type LinePath,
-  type MapLineLayer,
-  type MapMultiPolygonLayer,
+  type MapLinePaths,
+  type MapMultiPolygonPaths,
   type MultiPolygonPath,
-  type OsmMapLayer,
+  type OsmMapPaths,
 } from './types'
 
 export function RenderMapPaths(
   props: Readonly<
     OsmRenderMapProps & {
       m: DOMMatrixReadOnly
-      mapLayers: readonly OsmMapLayer[]
+      mapPaths: readonly OsmMapPaths[]
     }
   >
 ): ReactNode {
   return (
     <g className="map-paths">
-      {props.mapLayers.map((layer, i) => (
+      {props.mapPaths.map((layer, i) => (
         <Fragment key={i}>
           {layer.type === 'line'
             ? LineLayerToPaths(props.data.mapData, props.m, layer)
-            : MultiPolygonLayerToPath(props.data.mapData, props.m, layer)}
+            : MultiPolygonPathsToPath(props.data.mapData, props.m, layer)}
         </Fragment>
       ))}
     </g>
@@ -39,7 +39,7 @@ export function RenderMapPaths(
 
 function lineLayerToLinePaths(
   mapData: Readonly<OsmMapData>,
-  layer: Readonly<MapLineLayer>
+  layer: Readonly<MapLinePaths>
 ) {
   return layer.filter !== undefined
     ? getLines(mapData, layer.filter)
@@ -50,7 +50,7 @@ function lineLayerToLinePaths(
 
 function multiPolygonLayerToMultiPolygonPaths(
   mapData: Readonly<OsmMapData>,
-  layer: Readonly<MapMultiPolygonLayer>
+  layer: Readonly<MapMultiPolygonPaths>
 ) {
   return layer.filter !== undefined
     ? getMultiPolygons(mapData, layer.filter)
@@ -62,7 +62,7 @@ function multiPolygonLayerToMultiPolygonPaths(
 function LineLayerToPaths(
   mapData: Readonly<OsmMapData>,
   m: DOMMatrixReadOnly,
-  layer: Readonly<MapLineLayer>
+  layer: Readonly<MapLinePaths>
 ): ReactNode {
   const xs: readonly LinePath[] = lineLayerToLinePaths(mapData, layer)
   return xs.length === 0 ? (
@@ -129,10 +129,10 @@ export function LinePathToTextPath(
   )
 }
 
-function MultiPolygonLayerToPath(
+function MultiPolygonPathsToPath(
   mapData: Readonly<OsmMapData>,
   m: DOMMatrixReadOnly,
-  layer: Readonly<MapMultiPolygonLayer>
+  layer: Readonly<MapMultiPolygonPaths>
 ): ReactNode {
   const xs: readonly MultiPolygonPath[] = multiPolygonLayerToMultiPolygonPaths(
     mapData,

@@ -8,10 +8,10 @@ import {
   isMapOsmDefaultRendered as isMapRendered,
   RenderMapOsmDefault as renderMap,
 } from 'svgmapviewer/map'
-import { getMapPaths } from './map/layers'
-import { mapSvgStyle } from './map/layers-css'
 import { getMapMarkers } from './map/markers'
 import { getMapObjects } from './map/objects'
+import { getMapPaths } from './map/paths'
+import { mapSvgStyle } from './map/paths-css'
 import { getMapSymbols } from './map/symbols'
 import { RenderInfo as renderInfo } from './render'
 import { osmSearchEntries } from './search-data'

@@ -3,9 +3,9 @@ import { type ReactNode } from 'react'
 import { type BoxBox } from './lib/box/prefixed'
 import { type OsmCartoConfig } from './lib/carto'
 import {
-  type OsmMapLayer,
   type OsmMapMarkers,
   type OsmMapObjects,
+  type OsmMapPaths,
   type OsmMapSymbols,
 } from './lib/carto/types'
 import {
@@ -185,7 +185,7 @@ export interface OsmRenderConfig {
   renderMap: OsmRenderMap
   isMapRendered: () => boolean
   getMapNames: OsmGetMapNames
-  getMapPaths: () => readonly Readonly<OsmMapLayer>[]
+  getMapPaths: () => readonly Readonly<OsmMapPaths>[]
   getMapObjects: () => readonly Readonly<OsmMapObjects>[]
   getMapSymbols: () => readonly Readonly<OsmMapSymbols>[]
   getMapMarkers: () => readonly Readonly<OsmMapMarkers>[]
