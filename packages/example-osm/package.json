@@ -11,7 +11,7 @@
     "dev": "rsbuild",
     "dev:local": "rsbuild --config rsbuild.config-local.ts",
     "build": "tsc -b && rsbuild build",
-    "lint": "eslint ."
+    "lint": "eslint . && oxlint --type-aware"
   },
   "dependencies": {
     "svgmapviewer": "workspace:*",

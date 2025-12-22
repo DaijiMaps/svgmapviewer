@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "rsbuild",
     "build": "tsc -b && rsbuild build",
-    "lint": "eslint ."
+    "lint": "eslint . && oxlint --type-aware"
   },
   "dependencies": {
     "@xstate/store": "^3.14.0",

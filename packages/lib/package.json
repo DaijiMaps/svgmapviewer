@@ -30,7 +30,7 @@
   },
   "scripts": {
     "build": "tsc -b && rslib build",
-    "lint": "eslint . && oxlint",
+    "lint": "eslint . && oxlint --type-aware",
     "publish:jsr": "pnpm dlx jsr publish",
     "test": "vitest --workspace=vitest.workspace.ts --project unit",
     "test:unit": "vitest --workspace=vitest.workspace.ts --project unit",
