@@ -24,16 +24,18 @@ function makeLikesStoreConfig(key: string) {
       updated: (context) => saveContext(key, context),
     },
     on: {
-      like: (context, event, q) => {
+      like: (prev, event, q) => {
+        const ids = new Set(prev.ids.add(event.id))
+        const context = { ...prev, ids }
         q.emit.updated(context)
-        const ids = new Set(context.ids.add(event.id))
-        return { ...context, ids }
+        return context
       },
-      unlike: (context, event, q) => {
+      unlike: (prev, event, q) => {
+        prev.ids.delete(event.id)
+        const ids = new Set(prev.ids)
+        const context = { ...prev, ids }
         q.emit.updated(context)
-        context.ids.delete(event.id)
-        const ids = new Set(context.ids)
-        return { ...context, ids }
+        return context
       },
     },
   })
