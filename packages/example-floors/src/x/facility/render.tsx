@@ -1,8 +1,8 @@
 import { type ReactNode } from 'react'
-import { type FacilityKind } from './types'
 import { type Info } from 'svgmapviewer'
 import { RenderStairs } from './stairs/render'
 import { RenderToilet } from './toilet/render'
+import { type FacilityKind } from './types'
 
 export function RenderFacility(
   props: Readonly<{ info: Info; kind: FacilityKind }>

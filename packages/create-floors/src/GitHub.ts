@@ -1,7 +1,7 @@
-import { Effect, Stream } from 'effect'
 import { HelpDoc, ValidationError } from '@effect/cli'
 import { HttpClient, HttpClientResponse } from '@effect/platform'
 import { NodeSink } from '@effect/platform-node'
+import { Effect, Stream } from 'effect'
 import * as Tar from 'tar'
 
 const CODELOAD_URL = 'https://codeload.github.com'

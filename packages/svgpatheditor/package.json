@@ -1,0 +1,41 @@
+{
+  "name": "svgmapviewer-svgpatheditor",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "rsbuild",
+    "build": "tsc -b && rsbuild build",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@xstate/store": "^3.14.0",
+    "effect": "^3.19.13",
+    "rbush": "^4.0.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "svgmapviewer": "*",
+    "xstate": "^5.25.0"
+  },
+  "devDependencies": {
+    "@rsbuild/core": "^1.6.15",
+    "@rsbuild/plugin-react": "^1.4.2",
+    "@stylistic/eslint-plugin": "^5.6.1",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.0",
+    "@types/node": "^25.0.2",
+    "@types/rbush": "^4.0.0",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@xstate/react": "^6.0.0",
+    "typescript": "^5.9.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix",
+    "*": "prettier --write --cache --ignore-unknown"
+  },
+  "packageManager": "pnpm@10.26.0"
+}

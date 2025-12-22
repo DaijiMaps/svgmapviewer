@@ -8,6 +8,7 @@
   "bin": {
     "create-svgmapviewer-floors-app": "./dist/index.js"
   },
+  "type": "module",
   "scripts": {
     "build": "rslib build"
   },

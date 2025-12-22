@@ -5,5 +5,7 @@ packages:
   - ./packages/example-floors
   - ./packages/example-osm
   - ./packages/lib
+  - ./packages/svgpatheditor
+  - ./packages/vscode-svgpatheditor
 overrides:
   "tmp": "^0.2.4"

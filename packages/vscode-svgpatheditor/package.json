@@ -1,0 +1,50 @@
+{
+  "name": "svgpatheditor",
+  "displayName": "svgpatheditor",
+  "version": "0.0.1",
+  "description": "svg path editor",
+  "categories": [
+    "Other"
+  ],
+  "type": "module",
+  "main": "./out/extension.js",
+  "scripts": {
+    "vscode:prepublish": "pnpm run compile",
+    "build": "rslib build",
+    "build:watch": "rslib build --watch",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "pnpm run compile && pnpm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@rslib/core": "^0.18.5",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@types/vscode": "^1.107.0",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.39.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix",
+    "*": "prettier --write --cache --ignore-unknown"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "svgpatheditor.helloWorld",
+        "title": "Hello World"
+      }
+    ]
+  },
+  "activationEvents": [
+    "onWebviewPanel:catCoding"
+  ],
+  "engines": {
+    "vscode": "^1.107.0"
+  }
+}

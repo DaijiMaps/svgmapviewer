@@ -1,6 +1,6 @@
-import { Effect } from 'effect'
 import { Args, Command } from '@effect/cli'
 import { FileSystem, Path } from '@effect/platform'
+import { Effect } from 'effect'
 import { GitHub } from './GitHub'
 import { validatePackageName } from './Npm'
 

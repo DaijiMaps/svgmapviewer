@@ -1,8 +1,8 @@
 import { type ReactNode } from 'react'
 import { type Info } from 'svgmapviewer'
-import { type ShopKind } from './types'
 import { RenderBook } from './book/render'
 import { RenderRestaurant } from './restaurant/render'
+import { type ShopKind } from './types'
 
 export function RenderShop(
   props: Readonly<{ info: Info; kind: ShopKind }>
