@@ -37,28 +37,6 @@ export type Kind =
   | 'water'
   | 'wheelchair'
 
-const names: Record<Kind, string> = {
-  bus: '#Xbus',
-  elevator: '#Xelevator',
-  escalator: '#Xescalator',
-  escalator_down: '#Xescalator_down',
-  escalator_up: '#Xescalator_up',
-  information: '#Xinformation',
-  locker: '#Xlocker',
-  parking: '#Xparking',
-  smoking: '#Xsmoking',
-  stairs: '#Xstairs',
-  stairs_down: '#Xstairs_down',
-  stairs_up: '#Xstairs_up',
-  toilets: '#Xtoilets',
-  toilets_men: '#Xtoilets_men',
-  toilets_women: '#Xtoilets_women',
-  water: '#Xwater',
-  wheelchair: '#Xwheelchair',
-}
-
-const nameMap: Map<string, string> = new Map(Object.entries(names))
-
 export type RenderSymbol = (props: Readonly<{ id: Kind }>) => ReactNode
 
 const renderMap: Record<Kind, RenderSymbol> = {
@@ -81,9 +59,4 @@ const renderMap: Record<Kind, RenderSymbol> = {
   wheelchair: WheelChair,
 }
 
-export {
-  nameMap as symbolNameMap,
-  names as symbolNames,
-  renderMap as symbolRenderMap,
-  type Kind as SymbolKind,
-}
+export { renderMap as symbolRenderMap, type Kind as SymbolKind }

@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import { symbolNameMap } from 'svgmapviewer/carto-symbols'
 import type { OsmProperties } from 'svgmapviewer/geo'
 import { RenderProperties } from '../render'
 import type { FacilityInfo } from './types'
@@ -10,7 +9,7 @@ export function RenderFacilityInfo(
     properties: OsmProperties
   }>
 ): ReactNode {
-  const symbol = props.x.title !== undefined && symbolNameMap.get(props.x.title)
+  const symbol = props.x.title !== undefined && `#X${props.x.title}`
 
   return (
     <>
