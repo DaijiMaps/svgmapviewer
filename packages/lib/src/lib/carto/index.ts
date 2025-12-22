@@ -1,7 +1,7 @@
-import { RenderMapPaths } from './layers'
 import { RenderMapMarkers, RenderMarkers } from './markers'
 import { getMapNames } from './names'
 import { RenderMapObjects, RenderObjects } from './objects'
+import { RenderMapPaths } from './paths'
 import { RenderMapCommon } from './render'
 import { RenderMapSymbols, RenderUses } from './symbols'
 import {

@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react'
 import { type OsmRenderMapProps } from '../../types'
-import { RenderMapPaths } from './layers'
 import { RenderMapObjects } from './objects'
+import { RenderMapPaths } from './paths'
 
 export function RenderMapCommon(props: Readonly<OsmRenderMapProps>): ReactNode {
   const style = props.render.mapSvgStyle
