@@ -12,7 +12,7 @@ export function RenderMapCommon(props: Readonly<OsmRenderMapProps>): ReactNode {
         <RenderMapLayers
           {...props}
           m={props.data.mapCoord.matrix}
-          mapLayers={props.render.getMapLayers()}
+          mapLayers={props.render.getMapPaths()}
         />
         <RenderMapObjects
           {...props}

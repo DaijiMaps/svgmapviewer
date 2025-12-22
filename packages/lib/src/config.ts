@@ -51,7 +51,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   renderMap: renderMapDefault,
   isMapRendered: () => true,
   getMapNames: () => [],
-  getMapLayers: () => [],
+  getMapPaths: () => [],
   getMapObjects: () => [],
   getMapSymbols: () => [],
   getMapMarkers: () => [],

@@ -62,7 +62,7 @@ function MapSvgPathsDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
           <RenderMapLayers
             {...props}
             m={props.data.mapCoord.matrix}
-            mapLayers={props.render.getMapLayers()}
+            mapLayers={props.render.getMapPaths()}
           />
           <style>{props.render.mapSvgStyle}</style>
         </g>

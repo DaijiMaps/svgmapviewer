@@ -10,7 +10,7 @@ function getInternals() {
   )
 }
 
-export const getMapLayers: () => OsmMapLayer[] = () => [
+export const getMapPaths: () => OsmMapLayer[] = () => [
   {
     type: 'multipolygon',
     name: 'island',

@@ -185,7 +185,7 @@ export interface OsmRenderConfig {
   renderMap: OsmRenderMap
   isMapRendered: () => boolean
   getMapNames: OsmGetMapNames
-  getMapLayers: () => readonly Readonly<OsmMapLayer>[]
+  getMapPaths: () => readonly Readonly<OsmMapLayer>[]
   getMapObjects: () => readonly Readonly<OsmMapObjects>[]
   getMapSymbols: () => readonly Readonly<OsmMapSymbols>[]
   getMapMarkers: () => readonly Readonly<OsmMapMarkers>[]
