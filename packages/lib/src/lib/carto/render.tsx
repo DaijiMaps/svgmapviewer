@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react'
 import { type OsmRenderMapProps } from '../../types'
-import { RenderMapLayers } from './layers'
+import { RenderMapPaths } from './layers'
 import { RenderMapObjects } from './objects'
 
 export function RenderMapCommon(props: Readonly<OsmRenderMapProps>): ReactNode {
@@ -9,7 +9,7 @@ export function RenderMapCommon(props: Readonly<OsmRenderMapProps>): ReactNode {
   return (
     <>
       <g id="map1" className="map">
-        <RenderMapLayers
+        <RenderMapPaths
           {...props}
           m={props.data.mapCoord.matrix}
           mapLayers={props.render.getMapPaths()}

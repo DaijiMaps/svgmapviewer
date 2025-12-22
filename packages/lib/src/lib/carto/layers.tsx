@@ -16,7 +16,7 @@ import {
   type OsmMapLayer,
 } from './types'
 
-export function RenderMapLayers(
+export function RenderMapPaths(
   props: Readonly<
     OsmRenderMapProps & {
       m: DOMMatrixReadOnly

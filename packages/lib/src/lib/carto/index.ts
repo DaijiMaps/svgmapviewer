@@ -1,4 +1,4 @@
-import { RenderMapLayers } from './layers'
+import { RenderMapPaths } from './layers'
 import { RenderMapMarkers, RenderMarkers } from './markers'
 import { getMapNames } from './names'
 import { RenderMapObjects, RenderObjects } from './objects'
@@ -24,7 +24,7 @@ export { type OsmCartoConfig }
 
 export { type OsmMapLayer, type MapLineLayer, type MapMultiPolygonLayer }
 
-export { RenderMapLayers }
+export { RenderMapPaths }
 
 //// objects
 

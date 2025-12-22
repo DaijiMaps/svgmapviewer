@@ -3,7 +3,7 @@
 import { type ReactNode } from 'react'
 import { type OsmRenderMapProps } from '../../types'
 import { boxToViewBox2 } from '../box/prefixed'
-import { RenderMapLayers } from '../carto'
+import { RenderMapPaths } from '../carto'
 import { useShadowRoot } from '../dom'
 import { useLayout } from '../style/style-react'
 import { trunc2 } from '../utils'
@@ -59,7 +59,7 @@ function MapSvgPathsDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
     <svg id="map-svg-defs" viewBox="0 0 1 1">
       <defs>
         <g id="map1" className="map">
-          <RenderMapLayers
+          <RenderMapPaths
             {...props}
             m={props.data.mapCoord.matrix}
             mapLayers={props.render.getMapPaths()}
