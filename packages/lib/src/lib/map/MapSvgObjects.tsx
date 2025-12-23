@@ -31,12 +31,12 @@ export function MapSvgObjectsRoot(
 }
 
 const style = `
-#map-svg-svg,
+#${MAP_SVG_OBJECTS_CONTENT_ID},
 #map1 {
   contain: content;
   pointer-events: none;
 }
-#map-svg-defs {
+#map-svg-objects-defs {
   display: none;
 }
 `

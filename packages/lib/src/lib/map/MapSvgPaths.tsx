@@ -29,12 +29,12 @@ export function MapSvgPathsRoot(props: Readonly<OsmRenderMapProps>): ReactNode {
 }
 
 const style = `
-#map-svg-svg,
+#${MAP_SVG_PATHS_CONTENT_ID},
 #map1 {
   contain: content;
   pointer-events: none;
 }
-#map-svg-defs {
+#map-svg-paths-defs {
   display: none;
 }
 `
@@ -56,7 +56,7 @@ function MapSvgPathsSvg(): ReactNode {
 
 function MapSvgPathsDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
   return (
-    <svg id="map-svg-defs" viewBox="0 0 1 1">
+    <svg id="map-svg-paths-defs" viewBox="0 0 1 1">
       <defs>
         <g id="map1" className="map">
           <RenderMapPaths
