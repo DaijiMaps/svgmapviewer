@@ -19,14 +19,24 @@ type GetFeature<L extends MapPathOps> = L['type'] extends 'line'
   ? OsmLineFeature
   : OsmMultiPolygonFeature
 
-type GetOps<L extends MapPathOps> = L['type'] extends 'line'
-  ? readonly LinePath[]
-  : readonly MultiPolygonPath[]
+type GetOp<L extends MapPathOps> = L['type'] extends 'line'
+  ? LinePath
+  : MultiPolygonPath
+
+type GetOps<L extends MapPathOps> = readonly GetOp<L>[]
 
 type LayerToPaths<L extends MapPathOps> = (
   layer: L,
   features: readonly GetFeature<L>[]
 ) => GetOps<L>
+
+type RenderPath<L extends MapPathOps> = (
+  layer: L,
+  m: DOMMatrixReadOnly,
+  ops: Readonly<GetOp<L>>
+) => ReactNode
+
+////
 
 interface LineOps {
   renderPaths(
@@ -35,19 +45,9 @@ interface LineOps {
     features: OsmLineFeatures
   ): ReactNode
 
-  /*
-  layerToPaths(
-    layer: Readonly<MapLinePathOps>,
-    features: Readonly<OsmLineFeatures>
-  ): LinePaths
-  */
   layerToPaths: LayerToPaths<MapLinePathOps>
 
-  renderPath(
-    layer: Readonly<MapLinePathOps>,
-    m: DOMMatrixReadOnly,
-    ops: Readonly<LinePath>
-  ): ReactNode
+  renderPath: RenderPath<MapLinePathOps>
 
   toPathD(m: DOMMatrixReadOnly): (vs: Line) => string
 }
