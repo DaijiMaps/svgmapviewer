@@ -43,6 +43,6 @@ function layerToPaths(
   m: DOMMatrixReadOnly
 ): ReactNode {
   return layer.type === 'line'
-    ? LineLayerToPaths(data.mapData, m, layer)
-    : MultiPolygonPathsToPath(data.mapData, m, layer)
+    ? LineLayerToPaths(data.mapData.lines.features, m, layer)
+    : MultiPolygonPathsToPath(data.mapData.multipolygons.features, m, layer)
 }

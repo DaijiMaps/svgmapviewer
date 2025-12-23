@@ -103,6 +103,12 @@ export type OsmMultiLineStringFeature = Readonly<
 export type OsmMultiPolygonFeature = Readonly<
   MultiPolygonFeature<OsmPolygonProperties>
 >
+
+export type OsmPointFeatures = readonly OsmPointFeature[]
+export type OsmLineFeatures = readonly OsmLineFeature[]
+export type OsmMultiLineStringFeatures = readonly OsmMultiLineStringFeature[]
+export type OsmMultiPolygonFeatures = readonly OsmMultiPolygonFeature[]
+
 export type OsmPointGeoJSON = Readonly<PointGeoJSON<OsmPointProperties>>
 export type OsmLineGeoJSON = Readonly<LineGeoJSON<OsmLineProperties>>
 export type OsmMultiLineStringGeoJSON = Readonly<
@@ -111,6 +117,7 @@ export type OsmMultiLineStringGeoJSON = Readonly<
 export type OsmMultiPolygonGeoJSON = Readonly<
   MultiPolygonGeoJSON<OsmPolygonProperties>
 >
+
 export type OsmProperties =
   | OsmPointProperties
   | OsmLineProperties

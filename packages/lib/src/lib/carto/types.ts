@@ -39,6 +39,7 @@ export interface MapMultiPolygonPathOps {
 ////
 
 export interface LinePath {
+  readonly type: 'line'
   readonly name?: string
   readonly id?: string
   readonly tags: readonly string[]
@@ -48,6 +49,7 @@ export interface LinePath {
 }
 
 export interface MultiPolygonPath {
+  readonly type: 'multipolygon'
   readonly name?: string
   readonly id?: string
   readonly tags: readonly string[]

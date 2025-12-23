@@ -1,20 +1,16 @@
 import { Fragment, type ReactNode } from 'react'
 import { undefinedIfNull } from '../../utils'
-import {
-  getOsmId,
-  lineToPathD,
-  type LinesFilter,
-  type OsmMapData,
-} from '../geo'
+import { getOsmId, lineToPathD, type LinesFilter } from '../geo'
+import type { OsmLineFeatures } from '../geo/osm-types'
 import { propertiesToTags, propertiesToWidth } from './properties'
 import type { LinePath, MapLinePathOps } from './types'
 
 export function LineLayerToPaths(
-  mapData: Readonly<OsmMapData>,
+  features: OsmLineFeatures,
   m: DOMMatrixReadOnly,
   layer: Readonly<MapLinePathOps>
 ): ReactNode {
-  const xs: readonly LinePath[] = lineLayerToLinePaths(mapData, layer)
+  const xs: readonly LinePath[] = lineLayerToLinePaths(features, layer)
   return xs.length === 0 ? (
     <></>
   ) : (
@@ -80,23 +76,24 @@ export function LinePathToTextPath(
 }
 
 function lineLayerToLinePaths(
-  mapData: Readonly<OsmMapData>,
+  features: Readonly<OsmLineFeatures>,
   layer: Readonly<MapLinePathOps>
 ) {
   return layer.filter !== undefined
-    ? getLines(mapData, layer.filter)
+    ? getLines(features, layer.filter)
     : layer.data !== undefined
-      ? layer.data().map((vs) => ({ tags: [], vs }))
+      ? layer.data().map((vs) => ({ type: 'line', tags: [], vs }) as LinePath)
       : []
 }
 
 export function getLines(
-  mapData: Readonly<OsmMapData>,
+  features: Readonly<OsmLineFeatures>,
   filter: LinesFilter
 ): readonly LinePath[] {
-  return mapData.lines.features
+  return features
     .filter((f) => filter(f.properties))
     .map((f) => ({
+      type: 'line',
       name: undefinedIfNull(f.properties.name),
       id: getOsmId(f.properties) + '',
       tags: propertiesToTags(f.properties),

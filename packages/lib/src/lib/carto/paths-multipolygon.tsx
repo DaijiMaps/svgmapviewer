@@ -1,22 +1,18 @@
 import type { ReactNode } from 'react'
 import { Fragment } from 'react/jsx-runtime'
 import { undefinedIfNull } from '../../utils'
-import {
-  getOsmId,
-  multiPolygonToPathD,
-  type MultiPolygonsFilter,
-  type OsmMapData,
-} from '../geo'
+import { getOsmId, multiPolygonToPathD, type MultiPolygonsFilter } from '../geo'
+import type { OsmMultiPolygonFeatures } from '../geo/osm-types'
 import { propertiesToTags, propertiesToWidth } from './properties'
 import type { MapMultiPolygonPathOps, MultiPolygonPath } from './types'
 
 export function MultiPolygonPathsToPath(
-  mapData: Readonly<OsmMapData>,
+  features: Readonly<OsmMultiPolygonFeatures>,
   m: DOMMatrixReadOnly,
   layer: Readonly<MapMultiPolygonPathOps>
 ): ReactNode {
   const xs: readonly MultiPolygonPath[] = multiPolygonLayerToMultiPolygonPaths(
-    mapData,
+    features,
     layer
   )
   return xs.length === 0 ? (
@@ -59,23 +55,28 @@ function MultiPolygonPathToPath(
 }
 
 function multiPolygonLayerToMultiPolygonPaths(
-  mapData: Readonly<OsmMapData>,
+  features: OsmMultiPolygonFeatures,
   layer: Readonly<MapMultiPolygonPathOps>
 ) {
   return layer.filter !== undefined
-    ? getMultiPolygons(mapData, layer.filter)
+    ? getMultiPolygons(features, layer.filter)
     : layer.data !== undefined
-      ? layer.data().map((vs) => ({ tags: [], vs }))
+      ? layer
+          .data()
+          .map(
+            (vs) => ({ type: 'multipolygon', tags: [], vs }) as MultiPolygonPath
+          )
       : []
 }
 
 export function getMultiPolygons(
-  mapData: Readonly<OsmMapData>,
+  features: OsmMultiPolygonFeatures,
   filter: MultiPolygonsFilter
 ): readonly MultiPolygonPath[] {
-  return mapData.multipolygons.features
+  return features
     .filter((f) => filter(f.properties))
     .map((f) => ({
+      type: 'multipolygon',
       name: undefinedIfNull(f.properties.name),
       id: getOsmId(f.properties) + '',
       tags: propertiesToTags(f.properties),
