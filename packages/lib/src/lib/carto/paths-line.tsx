@@ -1,60 +1,9 @@
 import { Fragment, type ReactNode } from 'react'
 import { undefinedIfNull } from '../../utils'
 import { getOsmId, lineToPathD } from '../geo'
-import type {
-  OsmLineFeature,
-  OsmLineFeatures,
-  OsmMultiPolygonFeature,
-} from '../geo/osm-types'
+import type { OsmLineFeatures } from '../geo/osm-types'
 import { propertiesToTags, propertiesToWidth } from './properties'
-import type {
-  LinePath,
-  LinePaths,
-  MapLinePathOps,
-  MapPathOps,
-  MultiPolygonPath,
-} from './types'
-
-type GetFeature<L extends MapPathOps> = L['type'] extends 'line'
-  ? OsmLineFeature
-  : OsmMultiPolygonFeature
-
-type GetOp<L extends MapPathOps> = L['type'] extends 'line'
-  ? LinePath
-  : MultiPolygonPath
-
-type GetOps<L extends MapPathOps> = readonly GetOp<L>[]
-
-type GetCoordinate<L extends MapPathOps> =
-  GetFeature<L>['geometry']['coordinates']
-
-type RenderPaths<L extends MapPathOps> = (
-  layer: Readonly<L>,
-  m: DOMMatrixReadOnly,
-  features: readonly GetFeature<L>[]
-) => ReactNode
-
-type LayerToPaths<L extends MapPathOps> = (
-  layer: L,
-  features: readonly GetFeature<L>[]
-) => GetOps<L>
-
-type RenderPath<L extends MapPathOps> = (
-  layer: L,
-  m: DOMMatrixReadOnly,
-  ops: Readonly<GetOp<L>>
-) => ReactNode
-
-type ToPathD<L extends MapPathOps> = (
-  m: DOMMatrixReadOnly
-) => (vs: GetCoordinate<L>) => string
-
-interface PathOps<L extends MapPathOps> {
-  renderPaths: RenderPaths<L>
-  layerToPaths: LayerToPaths<L>
-  renderPath: RenderPath<L>
-  toPathD: ToPathD<L>
-}
+import type { LinePath, LinePaths, MapLinePathOps, PathOps } from './types'
 
 ////
 
