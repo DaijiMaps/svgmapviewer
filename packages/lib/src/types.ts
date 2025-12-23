@@ -5,7 +5,7 @@ import { type OsmCartoConfig } from './lib/carto'
 import {
   type OsmMapMarkers,
   type OsmMapObjects,
-  type OsmMapPaths,
+  type OsmMapPathOps,
   type OsmMapSymbols,
 } from './lib/carto/types'
 import {
@@ -185,7 +185,7 @@ export interface OsmRenderConfig {
   renderMap: OsmRenderMap
   isMapRendered: () => boolean
   getMapNames: OsmGetMapNames
-  getMapPaths: () => readonly Readonly<OsmMapPaths>[]
+  getMapPaths: () => readonly Readonly<OsmMapPathOps>[]
   getMapObjects: () => readonly Readonly<OsmMapObjects>[]
   getMapSymbols: () => readonly Readonly<OsmMapSymbols>[]
   getMapMarkers: () => readonly Readonly<OsmMapMarkers>[]

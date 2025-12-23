@@ -1,6 +1,6 @@
-import type { MapLinePaths } from 'svgmapviewer/carto'
+import type { MapLinePathOps } from 'svgmapviewer/carto'
 
-export const ditch: MapLinePaths = {
+export const ditch: MapLinePathOps = {
   type: 'line',
   name: 'ditch',
   filter: (p) => !!p.waterway?.match(/^(ditch)$/),

@@ -1,6 +1,6 @@
-import type { MapLinePaths } from 'svgmapviewer/carto'
+import type { MapLinePathOps } from 'svgmapviewer/carto'
 
-export const fence: MapLinePaths = {
+export const fence: MapLinePathOps = {
   type: 'line',
   name: 'fence',
   filter: (p) => !!p.barrier?.match(/^(fence)$/),

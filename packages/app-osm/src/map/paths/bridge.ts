@@ -1,6 +1,6 @@
-import type { MapLinePaths } from 'svgmapviewer/carto'
+import type { MapLinePathOps } from 'svgmapviewer/carto'
 
-export const bridge: MapLinePaths[] = [
+export const bridge: MapLinePathOps[] = [
   {
     type: 'line',
     name: 'bridge shadow',

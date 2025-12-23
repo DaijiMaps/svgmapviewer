@@ -1,6 +1,6 @@
-import type { MapLinePaths } from 'svgmapviewer/carto'
+import type { MapLinePathOps } from 'svgmapviewer/carto'
 
-export const pedestrian: MapLinePaths = {
+export const pedestrian: MapLinePathOps = {
   type: 'line',
   name: 'pedestrian',
   width: 8,

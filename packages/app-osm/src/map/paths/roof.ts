@@ -1,6 +1,6 @@
-import type { MapMultiPolygonPaths } from 'svgmapviewer/carto'
+import type { MapMultiPolygonPathOps } from 'svgmapviewer/carto'
 
-export const roof: MapMultiPolygonPaths = {
+export const roof: MapMultiPolygonPathOps = {
   type: 'multipolygon',
   name: 'roof',
   filter: (p) => !!p.building?.match(/./) && !!p.building?.match(/roof/),

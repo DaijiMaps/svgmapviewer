@@ -3,16 +3,16 @@ import { type OsmDataConfig, type OsmRenderMapProps } from '../../types'
 import { LineLayerToPaths } from './paths-line'
 import { MultiPolygonPathsToPath } from './paths-multipolygon'
 import {
-  type MapLinePaths,
-  type MapMultiPolygonPaths,
-  type OsmMapPaths,
+  type MapLinePathOps,
+  type MapMultiPolygonPathOps,
+  type OsmMapPathOps,
 } from './types'
 
 export function RenderMapPaths(
   props: Readonly<
     OsmRenderMapProps & {
       m: DOMMatrixReadOnly
-      mapPaths: readonly OsmMapPaths[]
+      mapPaths: readonly OsmMapPathOps[]
     }
   >
 ): ReactNode {
@@ -38,7 +38,7 @@ export function RenderMapPaths(
 }
 
 function layerToPaths(
-  layer: MapLinePaths | MapMultiPolygonPaths,
+  layer: MapLinePathOps | MapMultiPolygonPathOps,
   data: Readonly<OsmDataConfig>,
   m: DOMMatrixReadOnly
 ): ReactNode {

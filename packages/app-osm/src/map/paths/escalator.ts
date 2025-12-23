@@ -1,6 +1,6 @@
-import type { MapLinePaths } from 'svgmapviewer/carto'
+import type { MapLinePathOps } from 'svgmapviewer/carto'
 
-export const escalator: MapLinePaths[] = [
+export const escalator: MapLinePathOps[] = [
   {
     type: 'line',
     name: 'escalator background',

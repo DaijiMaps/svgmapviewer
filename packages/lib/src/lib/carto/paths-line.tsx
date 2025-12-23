@@ -7,12 +7,12 @@ import {
   type OsmMapData,
 } from '../geo'
 import { propertiesToTags, propertiesToWidth } from './properties'
-import type { LinePath, MapLinePaths } from './types'
+import type { LinePath, MapLinePathOps } from './types'
 
 export function LineLayerToPaths(
   mapData: Readonly<OsmMapData>,
   m: DOMMatrixReadOnly,
-  layer: Readonly<MapLinePaths>
+  layer: Readonly<MapLinePathOps>
 ): ReactNode {
   const xs: readonly LinePath[] = lineLayerToLinePaths(mapData, layer)
   return xs.length === 0 ? (
@@ -81,7 +81,7 @@ export function LinePathToTextPath(
 
 function lineLayerToLinePaths(
   mapData: Readonly<OsmMapData>,
-  layer: Readonly<MapLinePaths>
+  layer: Readonly<MapLinePathOps>
 ) {
   return layer.filter !== undefined
     ? getLines(mapData, layer.filter)

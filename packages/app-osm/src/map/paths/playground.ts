@@ -1,6 +1,6 @@
-import type { MapMultiPolygonPaths } from 'svgmapviewer/carto'
+import type { MapMultiPolygonPathOps } from 'svgmapviewer/carto'
 
-export const playground: MapMultiPolygonPaths = {
+export const playground: MapMultiPolygonPathOps = {
   type: 'multipolygon',
   name: 'playground',
   filter: (p) =>

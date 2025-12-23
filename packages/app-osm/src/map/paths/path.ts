@@ -1,6 +1,6 @@
-import type { MapLinePaths } from 'svgmapviewer/carto'
+import type { MapLinePathOps } from 'svgmapviewer/carto'
 
-export const path: MapLinePaths = {
+export const path: MapLinePathOps = {
   type: 'line',
   name: 'path',
   width: 1,

@@ -5,12 +5,12 @@ import { RenderMapPaths } from './paths'
 import { RenderMapCommon } from './render'
 import { RenderMapSymbols, RenderUses } from './symbols'
 import {
-  type MapLinePaths,
-  type MapMultiPolygonPaths,
+  type MapLinePathOps,
+  type MapMultiPolygonPathOps,
   type OsmCartoConfig,
   type OsmMapMarkers,
   type OsmMapObjects,
-  type OsmMapPaths,
+  type OsmMapPathOps,
   type OsmMapSymbols,
   type RenderMapMarkersProps,
   type RenderMapSymbolsProps,
@@ -22,7 +22,7 @@ export { type OsmCartoConfig }
 
 //// paths
 
-export { type OsmMapPaths, type MapLinePaths, type MapMultiPolygonPaths }
+export { type OsmMapPathOps, type MapLinePathOps, type MapMultiPolygonPathOps }
 
 export { RenderMapPaths }
 

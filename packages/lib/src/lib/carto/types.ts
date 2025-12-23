@@ -14,13 +14,11 @@ import {
 
 //// paths
 
-export type OsmMapPaths =
-  | MapLinePaths
-  | MapMultiPolygonPaths
-  | readonly MapLinePaths[]
-  | readonly MapMultiPolygonPaths[]
+export type MapPathOps = MapLinePathOps | MapMultiPolygonPathOps
 
-export interface MapLinePaths {
+export type OsmMapPathOps = MapPathOps | readonly MapPathOps[]
+
+export interface MapLinePathOps {
   readonly type: 'line'
   readonly name: string
   readonly width?: number
@@ -29,7 +27,7 @@ export interface MapLinePaths {
   readonly data?: () => readonly Line[]
 }
 
-export interface MapMultiPolygonPaths {
+export interface MapMultiPolygonPathOps {
   readonly type: 'multipolygon'
   readonly name: string
   readonly width?: number
@@ -37,6 +35,8 @@ export interface MapMultiPolygonPaths {
   readonly filter?: MultiPolygonsFilter
   readonly data?: () => readonly MultiPolygon[]
 }
+
+////
 
 export interface LinePath {
   readonly name?: string

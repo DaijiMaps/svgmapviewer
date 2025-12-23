@@ -1,5 +1,5 @@
 /* eslint-disable functional/functional-parameters */
-import { type OsmMapPaths } from 'svgmapviewer/carto'
+import { type OsmMapPathOps } from 'svgmapviewer/carto'
 import { area } from './paths/area'
 import { bridge } from './paths/bridge'
 import { building } from './paths/building'
@@ -33,7 +33,7 @@ import { wall } from './paths/wall'
 import { water } from './paths/water'
 import { wetland } from './paths/wetland'
 
-export const getMapPaths: () => OsmMapPaths[] = () => [
+export const getMapPaths: () => OsmMapPathOps[] = () => [
   island,
   area,
   cliff,

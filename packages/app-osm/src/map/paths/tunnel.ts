@@ -1,6 +1,6 @@
-import type { MapLinePaths } from 'svgmapviewer/carto'
+import type { MapLinePathOps } from 'svgmapviewer/carto'
 
-export const tunnel: MapLinePaths = {
+export const tunnel: MapLinePathOps = {
   type: 'line',
   name: 'tunnel shadow',
   widthScale: 1.8,

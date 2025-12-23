@@ -1,6 +1,6 @@
-import type { MapMultiPolygonPaths } from 'svgmapviewer/carto'
+import type { MapMultiPolygonPathOps } from 'svgmapviewer/carto'
 
-export const farmland: MapMultiPolygonPaths = {
+export const farmland: MapMultiPolygonPathOps = {
   type: 'multipolygon',
   name: 'farmland',
   filter: (p) => !!p.landuse?.match(/farmland/),

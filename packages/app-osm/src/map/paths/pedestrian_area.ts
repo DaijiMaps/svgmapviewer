@@ -1,6 +1,6 @@
-import type { MapMultiPolygonPaths } from 'svgmapviewer/carto'
+import type { MapMultiPolygonPathOps } from 'svgmapviewer/carto'
 
-export const pedestrian_area: MapMultiPolygonPaths[] = [
+export const pedestrian_area: MapMultiPolygonPathOps[] = [
   {
     type: 'multipolygon',
     name: 'pedestrian-area',
