@@ -10,15 +10,24 @@ import type {
   MultiPolygonPaths,
 } from './types'
 
-export function MultiPolygonPathsToPath(
+interface MultiPolygonOps {
+  renderPaths(
+    layer: Readonly<MapMultiPolygonPathOps>,
+    m: DOMMatrixReadOnly,
+    features: Readonly<OsmMultiPolygonFeatures>
+  ): ReactNode
+}
+
+export const multiPolygonOps: MultiPolygonOps = {
+  renderPaths,
+}
+
+export function renderPaths(
   layer: Readonly<MapMultiPolygonPathOps>,
   m: DOMMatrixReadOnly,
   features: Readonly<OsmMultiPolygonFeatures>
 ): ReactNode {
-  const xs: MultiPolygonPaths = multiPolygonLayerToMultiPolygonPaths(
-    layer,
-    features
-  )
+  const xs: MultiPolygonPaths = layerToPaths(layer, features)
   return (
     <g className={layer.name}>
       {xs.map((x, idx) => (
@@ -28,12 +37,12 @@ export function MultiPolygonPathsToPath(
   )
 }
 
-function multiPolygonLayerToMultiPolygonPaths(
+function layerToPaths(
   layer: Readonly<MapMultiPolygonPathOps>,
   features: OsmMultiPolygonFeatures
 ): MultiPolygonPaths {
   return layer.filter !== undefined
-    ? getMultiPolygons(layer.filter, features)
+    ? getPaths(layer.filter, features)
     : layer.data !== undefined
       ? layer
           .data()
@@ -43,7 +52,7 @@ function multiPolygonLayerToMultiPolygonPaths(
       : []
 }
 
-export function getMultiPolygons(
+export function getPaths(
   filter: MultiPolygonsFilter,
   features: OsmMultiPolygonFeatures
 ): MultiPolygonPaths {

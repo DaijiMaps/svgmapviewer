@@ -1,7 +1,7 @@
 import { Fragment, type ReactNode } from 'react'
 import { type OsmDataConfig, type OsmRenderMapProps } from '../../types'
-import { LineLayerToPaths } from './paths-line'
-import { MultiPolygonPathsToPath } from './paths-multipolygon'
+import { lineOps } from './paths-line'
+import { multiPolygonOps } from './paths-multipolygon'
 import {
   type MapLinePathOps,
   type MapMultiPolygonPathOps,
@@ -43,6 +43,6 @@ function layerToPaths(
   m: DOMMatrixReadOnly
 ): ReactNode {
   return layer.type === 'line'
-    ? LineLayerToPaths(layer, m, data.mapData.lines.features)
-    : MultiPolygonPathsToPath(layer, m, data.mapData.multipolygons.features)
+    ? lineOps.renderPaths(layer, m, data.mapData.lines.features)
+    : multiPolygonOps.renderPaths(layer, m, data.mapData.multipolygons.features)
 }

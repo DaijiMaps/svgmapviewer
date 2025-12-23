@@ -5,12 +5,24 @@ import type { OsmLineFeatures } from '../geo/osm-types'
 import { propertiesToTags, propertiesToWidth } from './properties'
 import type { LinePath, LinePaths, MapLinePathOps } from './types'
 
-export function LineLayerToPaths(
+interface LineOps {
+  renderPaths(
+    layer: Readonly<MapLinePathOps>,
+    m: DOMMatrixReadOnly,
+    features: OsmLineFeatures
+  ): ReactNode
+}
+
+export const lineOps: LineOps = {
+  renderPaths,
+}
+
+export function renderPaths(
   layer: Readonly<MapLinePathOps>,
   m: DOMMatrixReadOnly,
   features: OsmLineFeatures
 ): ReactNode {
-  const xs: LinePaths = lineLayerToLinePaths(layer, features)
+  const xs: LinePaths = layerToPaths(layer, features)
   return (
     <g className={layer.name} style={{ contain: 'content' }}>
       {xs.map((x, idx) => (
@@ -20,18 +32,18 @@ export function LineLayerToPaths(
   )
 }
 
-function lineLayerToLinePaths(
+function layerToPaths(
   layer: Readonly<MapLinePathOps>,
   features: Readonly<OsmLineFeatures>
 ): LinePaths {
   return layer.filter !== undefined
-    ? getLines(layer.filter, features)
+    ? getPaths(layer.filter, features)
     : layer.data !== undefined
       ? layer.data().map((vs) => ({ type: 'line', tags: [], vs }) as LinePath)
       : []
 }
 
-function getLines(
+function getPaths(
   filter: LinesFilter,
   features: Readonly<OsmLineFeatures>
 ): LinePaths {
