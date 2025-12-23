@@ -14,6 +14,24 @@ export const emptyCRS: CRS = {
   },
 }
 
+export type GeoJSONFeatureType = 'Feature' | 'FeatureCollection'
+
+export type GeoJSONGeometryType =
+  | 'point'
+  | 'Point'
+  | 'line'
+  | 'Line'
+  | 'linestring'
+  | 'LineString'
+  | 'multipoint'
+  | 'MultiPoint'
+  | 'multiline'
+  | 'MultiLine'
+  | 'multilinestring'
+  | 'MultiLineString'
+  | 'multipolygon'
+  | 'MultiPolygon'
+
 //// coordinate
 
 export type PointCoordinate = readonly [x: number, y: number]
@@ -26,7 +44,7 @@ export type MultiPolygonCoordinate = readonly PolygonCoordinate[]
 //// geometry
 
 export interface CommontGeometry<C = readonly unknown[]> {
-  readonly type: string
+  readonly type: GeoJSONGeometryType
   readonly coordinates: Readonly<C>
 }
 
@@ -40,7 +58,7 @@ export type MultiPolygonGeometry = CommontGeometry<MultiPolygonCoordinate>
 //// feature
 
 export interface CommonFeature<P = object, G = object> {
-  readonly type: string
+  readonly type: GeoJSONFeatureType
   readonly properties: Readonly<P>
   readonly geometry: Readonly<G>
 }
@@ -58,7 +76,7 @@ export type MultiPolygonFeature<P = object> = CommonFeature<
 //// geojson
 
 export interface CommonGeoJSON<P = object, G = object> {
-  readonly type: string
+  readonly type: GeoJSONFeatureType
   readonly name?: string
   readonly crs?: CRS
   readonly features: readonly Readonly<CommonFeature<P, G>>[]
@@ -75,7 +93,7 @@ export type MultiPolygonGeoJSON<P = object> = CommonGeoJSON<
 >
 
 export const emptyGeoJSON: CommonGeoJSON = {
-  type: '',
+  type: 'Feature',
   name: '',
   crs: emptyCRS,
   features: [],

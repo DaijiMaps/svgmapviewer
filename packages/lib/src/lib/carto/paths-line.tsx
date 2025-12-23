@@ -1,9 +1,32 @@
 import { Fragment, type ReactNode } from 'react'
 import { undefinedIfNull } from '../../utils'
 import { getOsmId, lineToPathD, type Line } from '../geo'
-import type { OsmLineFeatures } from '../geo/osm-types'
+import type {
+  OsmLineFeature,
+  OsmLineFeatures,
+  OsmMultiPolygonFeature,
+} from '../geo/osm-types'
 import { propertiesToTags, propertiesToWidth } from './properties'
-import type { LinePath, LinePaths, MapLinePathOps } from './types'
+import type {
+  LinePath,
+  LinePaths,
+  MapLinePathOps,
+  MapPathOps,
+  MultiPolygonPath,
+} from './types'
+
+type GetFeature<L extends MapPathOps> = L['type'] extends 'line'
+  ? OsmLineFeature
+  : OsmMultiPolygonFeature
+
+type GetOps<L extends MapPathOps> = L['type'] extends 'line'
+  ? readonly LinePath[]
+  : readonly MultiPolygonPath[]
+
+type LayerToPaths<L extends MapPathOps> = (
+  layer: L,
+  features: readonly GetFeature<L>[]
+) => GetOps<L>
 
 interface LineOps {
   renderPaths(
@@ -12,10 +35,13 @@ interface LineOps {
     features: OsmLineFeatures
   ): ReactNode
 
+  /*
   layerToPaths(
     layer: Readonly<MapLinePathOps>,
     features: Readonly<OsmLineFeatures>
   ): LinePaths
+  */
+  layerToPaths: LayerToPaths<MapLinePathOps>
 
   renderPath(
     layer: Readonly<MapLinePathOps>,
