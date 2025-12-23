@@ -1,6 +1,6 @@
 import { Fragment, type ReactNode } from 'react'
 import { undefinedIfNull } from '../../utils'
-import { getOsmId, lineToPathD, type LinesFilter } from '../geo'
+import { getOsmId, lineToPathD } from '../geo'
 import type { OsmLineFeatures } from '../geo/osm-types'
 import { propertiesToTags, propertiesToWidth } from './properties'
 import type { LinePath, LinePaths, MapLinePathOps } from './types'
@@ -11,10 +11,23 @@ interface LineOps {
     m: DOMMatrixReadOnly,
     features: OsmLineFeatures
   ): ReactNode
+
+  layerToPaths(
+    layer: Readonly<MapLinePathOps>,
+    features: Readonly<OsmLineFeatures>
+  ): LinePaths
+
+  renderPath(
+    layer: Readonly<MapLinePathOps>,
+    m: DOMMatrixReadOnly,
+    ops: Readonly<LinePath>
+  ): ReactNode
 }
 
 export const lineOps: LineOps = {
   renderPaths,
+  layerToPaths,
+  renderPath,
 }
 
 export function renderPaths(
@@ -26,7 +39,7 @@ export function renderPaths(
   return (
     <g className={layer.name} style={{ contain: 'content' }}>
       {xs.map((x, idx) => (
-        <Fragment key={idx}>{LinePathToPath(layer, m, x)}</Fragment>
+        <Fragment key={idx}>{renderPath(layer, m, x)}</Fragment>
       ))}
     </g>
   )
@@ -36,32 +49,36 @@ function layerToPaths(
   layer: Readonly<MapLinePathOps>,
   features: Readonly<OsmLineFeatures>
 ): LinePaths {
-  return layer.filter !== undefined
-    ? getPaths(layer.filter, features)
-    : layer.data !== undefined
-      ? layer.data().map((vs) => ({ type: 'line', tags: [], vs }) as LinePath)
-      : []
+  return [...getPathsByFilter(layer, features), ...getPathsByData(layer)]
 }
 
-function getPaths(
-  filter: LinesFilter,
+function getPathsByFilter(
+  { filter }: Readonly<MapLinePathOps>,
   features: Readonly<OsmLineFeatures>
 ): LinePaths {
-  return features
-    .filter((f) => filter(f.properties))
-    .map((f) => ({
-      type: 'line',
-      name: undefinedIfNull(f.properties.name),
-      id: getOsmId(f.properties) + '',
-      tags: propertiesToTags(f.properties),
-      width: propertiesToWidth(f.properties),
-      vs: f.geometry.coordinates,
-    }))
+  return filter
+    ? features
+        .filter((f) => filter(f.properties))
+        .map((f) => ({
+          type: 'line',
+          name: undefinedIfNull(f.properties.name),
+          id: getOsmId(f.properties) + '',
+          tags: propertiesToTags(f.properties),
+          width: propertiesToWidth(f.properties),
+          vs: f.geometry.coordinates,
+        }))
+    : []
+}
+
+function getPathsByData({ data }: Readonly<MapLinePathOps>): LinePaths {
+  return data
+    ? data().map((vs) => ({ type: 'line', tags: [], vs }) as LinePath)
+    : []
 }
 
 ////
 
-export function LinePathToPath(
+function renderPath(
   {
     name: layerName,
     width: defaultStrokeWidth,
