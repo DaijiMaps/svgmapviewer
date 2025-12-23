@@ -11,31 +11,64 @@ import type {
 } from './types'
 
 export function MultiPolygonPathsToPath(
-  features: Readonly<OsmMultiPolygonFeatures>,
+  layer: Readonly<MapMultiPolygonPathOps>,
   m: DOMMatrixReadOnly,
-  layer: Readonly<MapMultiPolygonPathOps>
+  features: Readonly<OsmMultiPolygonFeatures>
 ): ReactNode {
   const xs: MultiPolygonPaths = multiPolygonLayerToMultiPolygonPaths(
-    features,
-    layer
+    layer,
+    features
   )
   return (
     <g className={layer.name}>
       {xs.map((x, idx) => (
-        <Fragment key={idx}>{MultiPolygonPathToPath(x, m, layer)}</Fragment>
+        <Fragment key={idx}>{MultiPolygonPathToPath(layer, m, x)}</Fragment>
       ))}
     </g>
   )
 }
 
+function multiPolygonLayerToMultiPolygonPaths(
+  layer: Readonly<MapMultiPolygonPathOps>,
+  features: OsmMultiPolygonFeatures
+): MultiPolygonPaths {
+  return layer.filter !== undefined
+    ? getMultiPolygons(layer.filter, features)
+    : layer.data !== undefined
+      ? layer
+          .data()
+          .map(
+            (vs) => ({ type: 'multipolygon', tags: [], vs }) as MultiPolygonPath
+          )
+      : []
+}
+
+export function getMultiPolygons(
+  filter: MultiPolygonsFilter,
+  features: OsmMultiPolygonFeatures
+): MultiPolygonPaths {
+  return features
+    .filter((f) => filter(f.properties))
+    .map((f) => ({
+      type: 'multipolygon',
+      name: undefinedIfNull(f.properties.name),
+      id: getOsmId(f.properties) + '',
+      tags: propertiesToTags(f.properties),
+      width: propertiesToWidth(f.properties),
+      vs: f.geometry.coordinates,
+    }))
+}
+
+////
+
 function MultiPolygonPathToPath(
-  { id, tags, width, widthScale, vs }: Readonly<MultiPolygonPath>,
-  m: DOMMatrixReadOnly,
   {
     name: layerName,
     width: defaultStrokeWidth,
     widthScale: defaultStrokeWidthScale,
-  }: Readonly<MapMultiPolygonPathOps>
+  }: Readonly<MapMultiPolygonPathOps>,
+  m: DOMMatrixReadOnly,
+  { id, tags, width, widthScale, vs }: Readonly<MultiPolygonPath>
 ): ReactNode {
   return (
     <path
@@ -48,35 +81,4 @@ function MultiPolygonPathToPath(
       d={multiPolygonToPathD(m)(vs)}
     />
   )
-}
-
-function multiPolygonLayerToMultiPolygonPaths(
-  features: OsmMultiPolygonFeatures,
-  layer: Readonly<MapMultiPolygonPathOps>
-): MultiPolygonPaths {
-  return layer.filter !== undefined
-    ? getMultiPolygons(features, layer.filter)
-    : layer.data !== undefined
-      ? layer
-          .data()
-          .map(
-            (vs) => ({ type: 'multipolygon', tags: [], vs }) as MultiPolygonPath
-          )
-      : []
-}
-
-export function getMultiPolygons(
-  features: OsmMultiPolygonFeatures,
-  filter: MultiPolygonsFilter
-): MultiPolygonPaths {
-  return features
-    .filter((f) => filter(f.properties))
-    .map((f) => ({
-      type: 'multipolygon',
-      name: undefinedIfNull(f.properties.name),
-      id: getOsmId(f.properties) + '',
-      tags: propertiesToTags(f.properties),
-      width: propertiesToWidth(f.properties),
-      vs: f.geometry.coordinates,
-    }))
 }
