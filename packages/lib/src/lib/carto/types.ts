@@ -57,6 +57,10 @@ export interface MultiPolygonPath {
   readonly widthScale?: number
   readonly vs: MultiPolygon
 }
+
+export type LinePaths = readonly LinePath[]
+export type MultiPolygonPaths = readonly MultiPolygonPath[]
+
 //// markers
 
 export interface RenderMapMarkersProps {
