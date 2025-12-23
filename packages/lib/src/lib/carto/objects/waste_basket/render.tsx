@@ -12,4 +12,5 @@ export function WasteBasket(): ReactNode {
     />
   )
 }
+
 export const wasteBasketPath = 'm -0.5,-1 l 0.15,1 h 0.7 l 0.15,-1'

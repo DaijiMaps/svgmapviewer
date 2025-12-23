@@ -1,9 +1,9 @@
 import type { OsmMapObjects } from 'svgmapviewer/carto'
-import { toriiPath } from 'svgmapviewer/carto-objects'
+import { objectNames } from 'svgmapviewer/carto-objects'
 
 export const torii: OsmMapObjects = {
   name: 'torii',
-  path: toriiPath,
+  path: objectNames.torii,
   width: 0.05,
   pointsFilter: (p) =>
     !!p.man_made?.match(/^torii$/) ||

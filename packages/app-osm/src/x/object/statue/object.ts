@@ -1,9 +1,9 @@
 import type { OsmMapObjects } from 'svgmapviewer/carto'
-import { statuePath } from 'svgmapviewer/carto-objects'
+import { objectNames } from 'svgmapviewer/carto-objects'
 
-export const status: OsmMapObjects = {
+export const statue: OsmMapObjects = {
   name: 'statue',
-  path: statuePath,
+  path: objectNames.statue,
   width: 0.05,
   pointsFilter: (p) => !!p.other_tags?.match(/"artwork_type"=>"statue"/),
 }

@@ -5,7 +5,7 @@ import { entrance } from '../x/object/entrance/object'
 import { guidepost } from '../x/object/guidepost/object'
 import { info_board } from '../x/object/info_board/object'
 import { monument } from '../x/object/monument/object'
-import { status } from '../x/object/statue/object'
+import { statue } from '../x/object/statue/object'
 import { torii } from '../x/object/torii/object'
 import { tree1 } from '../x/object/tree1/object'
 import { vending_machine } from '../x/object/vending_machine/object'
@@ -17,7 +17,7 @@ export const getMapObjects: () => OsmMapObjects[] = () => [
   guidepost,
   info_board,
   monument,
-  status,
+  statue,
   torii,
   tree1,
   vending_machine,
