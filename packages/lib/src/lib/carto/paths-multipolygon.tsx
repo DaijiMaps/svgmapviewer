@@ -3,6 +3,7 @@ import { Fragment } from 'react/jsx-runtime'
 import { undefinedIfNull } from '../../utils'
 import { getOsmId, multiPolygonToPathD } from '../geo'
 import type { OsmMultiPolygonFeatures } from '../geo/osm-types'
+import { getPathsByData } from './path-common'
 import { propertiesToTags, propertiesToWidth } from './properties'
 import type {
   MapMultiPolygonPathOps,
@@ -43,14 +44,14 @@ function layerToPaths(
 }
 
 export function getPathsByFilter(
-  { filter }: Readonly<MapMultiPolygonPathOps>,
+  { type, filter }: Readonly<MapMultiPolygonPathOps>,
   features: OsmMultiPolygonFeatures
 ): MultiPolygonPaths {
   return filter
     ? features
         .filter((f) => filter(f.properties))
         .map((f) => ({
-          type: 'multipolygon',
+          type,
           name: undefinedIfNull(f.properties.name),
           id: getOsmId(f.properties) + '',
           tags: propertiesToTags(f.properties),
@@ -60,15 +61,16 @@ export function getPathsByFilter(
     : []
 }
 
+/*
 export function getPathsByData({
+  type,
   data,
 }: Readonly<MapMultiPolygonPathOps>): MultiPolygonPaths {
   return data
-    ? data().map(
-        (vs) => ({ type: 'multipolygon', tags: [], vs }) as MultiPolygonPath
-      )
+    ? data().map((vs) => ({ type, tags: [], vs }) as MultiPolygonPath)
     : []
 }
+*/
 
 ////
 

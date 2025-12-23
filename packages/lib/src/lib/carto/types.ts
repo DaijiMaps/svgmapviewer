@@ -125,11 +125,11 @@ type GetFeature<L extends MapPathOps> = L['type'] extends 'line'
   ? OsmLineFeature
   : OsmMultiPolygonFeature
 
-type GetOp<L extends MapPathOps> = L['type'] extends 'line'
+export type GetOp<L extends MapPathOps> = L['type'] extends 'line'
   ? LinePath
   : MultiPolygonPath
 
-type GetOps<L extends MapPathOps> = readonly GetOp<L>[]
+export type GetOps<L extends MapPathOps> = readonly GetOp<L>[]
 
 type GetCoordinate<L extends MapPathOps> =
   GetFeature<L>['geometry']['coordinates']

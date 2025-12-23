@@ -2,10 +2,9 @@ import { Fragment, type ReactNode } from 'react'
 import { undefinedIfNull } from '../../utils'
 import { getOsmId, lineToPathD } from '../geo'
 import type { OsmLineFeatures } from '../geo/osm-types'
+import { getPathsByData } from './path-common'
 import { propertiesToTags, propertiesToWidth } from './properties'
 import type { LinePath, LinePaths, MapLinePathOps, PathOps } from './types'
-
-////
 
 type LineOps = PathOps<MapLinePathOps>
 
@@ -39,14 +38,14 @@ function layerToPaths(
 }
 
 function getPathsByFilter(
-  { filter }: Readonly<MapLinePathOps>,
+  { type, filter }: Readonly<MapLinePathOps>,
   features: Readonly<OsmLineFeatures>
 ): LinePaths {
   return filter
     ? features
         .filter((f) => filter(f.properties))
         .map((f) => ({
-          type: 'line',
+          type,
           name: undefinedIfNull(f.properties.name),
           id: getOsmId(f.properties) + '',
           tags: propertiesToTags(f.properties),
@@ -56,11 +55,11 @@ function getPathsByFilter(
     : []
 }
 
-function getPathsByData({ data }: Readonly<MapLinePathOps>): LinePaths {
-  return data
-    ? data().map((vs) => ({ type: 'line', tags: [], vs }) as LinePath)
-    : []
+/*
+function getPathsByData({ type, data }: Readonly<MapLinePathOps>): LinePaths {
+  return data ? data().map((vs) => ({ type, tags: [], vs }) as LinePath) : []
 }
+*/
 
 ////
 
