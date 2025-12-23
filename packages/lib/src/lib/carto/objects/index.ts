@@ -49,25 +49,6 @@ const names: Record<Kind, string> = {
 
 const nameMap: Map<string, string> = new Map(Object.entries(names))
 
-/*
-export {
-  benchPath,
-  entrancePath,
-  guidePostPath,
-  infoBoardPath,
-  monumentPath,
-  statuePath,
-  toriiPath,
-  tree16x16Path,
-  tree2x4Path,
-  tree4x8Path,
-  tree8x16Path,
-  tree8x8Path,
-  vendingMachinePath,
-  wasteBasketPath,
-}
-*/
-
 export {
   nameMap as objectNameMap,
   names as objectNames,
