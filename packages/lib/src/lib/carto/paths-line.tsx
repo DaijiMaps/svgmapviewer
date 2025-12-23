@@ -1,6 +1,6 @@
 import { Fragment, type ReactNode } from 'react'
 import { undefinedIfNull } from '../../utils'
-import { getOsmId, lineToPathD } from '../geo'
+import { getOsmId, lineToPathD, type Line } from '../geo'
 import type { OsmLineFeatures } from '../geo/osm-types'
 import { propertiesToTags, propertiesToWidth } from './properties'
 import type { LinePath, LinePaths, MapLinePathOps } from './types'
@@ -22,12 +22,15 @@ interface LineOps {
     m: DOMMatrixReadOnly,
     ops: Readonly<LinePath>
   ): ReactNode
+
+  toPathD(m: DOMMatrixReadOnly): (vs: Line) => string
 }
 
 export const lineOps: LineOps = {
   renderPaths,
   layerToPaths,
   renderPath,
+  toPathD: lineToPathD,
 }
 
 export function renderPaths(
@@ -35,7 +38,7 @@ export function renderPaths(
   m: DOMMatrixReadOnly,
   features: OsmLineFeatures
 ): ReactNode {
-  const xs: LinePaths = layerToPaths(layer, features)
+  const xs: LinePaths = lineOps.layerToPaths(layer, features)
   return (
     <g className={layer.name} style={{ contain: 'content' }}>
       {xs.map((x, idx) => (
@@ -95,7 +98,7 @@ function renderPath(
         (width ?? defaultStrokeWidth ?? 1) *
         (widthScale ?? defaultStrokeWidthScale ?? 1)
       }
-      d={lineToPathD(m)(vs)}
+      d={lineOps.toPathD(m)(vs)}
     />
   )
 }

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Fragment } from 'react/jsx-runtime'
 import { undefinedIfNull } from '../../utils'
-import { getOsmId, multiPolygonToPathD } from '../geo'
+import { getOsmId, multiPolygonToPathD, type MultiPolygon } from '../geo'
 import type { OsmMultiPolygonFeatures } from '../geo/osm-types'
 import { propertiesToTags, propertiesToWidth } from './properties'
 import type {
@@ -27,12 +27,15 @@ interface MultiPolygonOps {
     m: DOMMatrixReadOnly,
     ops: Readonly<MultiPolygonPath>
   ): ReactNode
+
+  toPathD(m: DOMMatrixReadOnly): (vsss: Readonly<MultiPolygon>) => string
 }
 
 export const multiPolygonOps: MultiPolygonOps = {
   renderPaths,
   layerToPaths,
   renderPath,
+  toPathD: multiPolygonToPathD,
 }
 
 export function renderPaths(
@@ -40,11 +43,11 @@ export function renderPaths(
   m: DOMMatrixReadOnly,
   features: Readonly<OsmMultiPolygonFeatures>
 ): ReactNode {
-  const xs: MultiPolygonPaths = layerToPaths(layer, features)
+  const xs: MultiPolygonPaths = multiPolygonOps.layerToPaths(layer, features)
   return (
     <g className={layer.name}>
       {xs.map((x, idx) => (
-        <Fragment key={idx}>{renderPath(layer, m, x)}</Fragment>
+        <Fragment key={idx}>{multiPolygonOps.renderPath(layer, m, x)}</Fragment>
       ))}
     </g>
   )
@@ -104,7 +107,7 @@ function renderPath(
         (width ?? defaultStrokeWidth ?? 1) *
         (widthScale ?? defaultStrokeWidthScale ?? 1)
       }
-      d={multiPolygonToPathD(m)(vs)}
+      d={multiPolygonOps.toPathD(m)(vs)}
     />
   )
 }
