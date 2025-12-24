@@ -1,0 +1,10 @@
+{
+  "name": "svgmapviewer-tools-osm",
+  "version": "0.0.1",
+  "bin": {
+    "svgmapviewer-tools-osm-copy": "./scripts/copy.sh",
+    "svgmapviewer-tools-osm-getOsm": "./scripts/getOsm.sh",
+    "svgmapviewer-tools-osm-readOsm": "./scripts/readOsm.sh",
+    "svgmapviewer-tools-osm-regen": "./scripts/regen.sh"
+  }
+}
