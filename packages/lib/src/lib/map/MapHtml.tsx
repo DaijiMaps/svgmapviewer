@@ -19,6 +19,7 @@ function MapHtmlRoot(props: Readonly<OsmRenderMapProps>): ReactNode {
   return (
     <>
       <div id={MAP_HTML_CONTENT_ID}>
+        <MapHtmlPointNames {...props} stroke={true} />
         <MapHtmlPointNames {...props} />
       </div>
       <MapHtmlStyle />
@@ -41,12 +42,23 @@ function MapHtmlStyle(): ReactNode {
   transform: ${m.toString()};
   transform-origin: left top;
 }
+
+.stroke {
+  text-stroke: 3px white;
+  -webkit-text-stroke: 3px white;
+}
 `
 
   return <style>{style}</style>
 }
 
-function MapHtmlPointNames(props: Readonly<OsmRenderMapProps>): ReactNode {
+function MapHtmlPointNames(
+  props: Readonly<
+    OsmRenderMapProps & {
+      stroke?: boolean
+    }
+  >
+): ReactNode {
   const { pointNames } = useNames()
   const m = props.data.mapCoord.matrix
 
@@ -69,6 +81,7 @@ function MapHtmlPointNames(props: Readonly<OsmRenderMapProps>): ReactNode {
               (s, idx2) => (
                 <p
                   key={idx2}
+                  className={props.stroke ? 'stroke' : undefined}
                   style={{ margin: 0, textAlign: 'center', width: '20em' }}
                 >
                   {s}
