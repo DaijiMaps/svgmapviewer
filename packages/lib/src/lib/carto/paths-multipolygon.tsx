@@ -21,7 +21,7 @@ export const multiPolygonOps: MultiPolygonOps = {
   toPathD: multiPolygonToPathD,
 }
 
-export function renderPaths(
+function renderPaths(
   layer: Readonly<MapMultiPolygonPathOps>,
   m: DOMMatrixReadOnly,
   features: Readonly<OsmMultiPolygonFeatures>

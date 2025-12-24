@@ -15,7 +15,7 @@ export const lineOps: LineOps = {
   toPathD: lineToPathD,
 }
 
-export function renderPaths(
+function renderPaths(
   layer: Readonly<MapLinePathOps>,
   m: DOMMatrixReadOnly,
   features: OsmLineFeatures
