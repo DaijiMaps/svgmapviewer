@@ -1,5 +1,5 @@
 /* eslint-disable functional/functional-parameters */
-import { Fragment, type ReactNode } from 'react'
+import { Fragment, useMemo, type ReactNode } from 'react'
 import {
   position_absolute_left_0_bottom_0,
   position_absolute_left_0_top_0,
@@ -94,12 +94,21 @@ export function MeasurePaths(): ReactNode {
   const { width, height } = useLayoutContainer()
   const { client } = useDistanceRadius()
 
-  const horizontal = `M0,${height / 2} h${width}`
-  const vertical = `M${width / 2},0 v${height}`
-  const rings = INDEXES.map((i) => {
-    const r = client * (i + 1)
-    return ringPath({ width, height, r })
-  })
+  // XXX use cache
+
+  const horizontal = useMemo(
+    () => `M0,${height / 2} h${width}`,
+    [height, width]
+  )
+  const vertical = useMemo(() => `M${width / 2},0 v${height}`, [height, width])
+  const rings = useMemo(
+    () =>
+      INDEXES.map((i) => {
+        const r = client * (i + 1)
+        return ringPath({ width, height, r })
+      }),
+    [client, height, width]
+  )
 
   // XXX use
   return (
