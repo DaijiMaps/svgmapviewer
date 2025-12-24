@@ -3,8 +3,9 @@ import { undefinedIfNull } from '../../utils'
 import { getOsmId, lineToPathD } from '../geo'
 import type { OsmLineFeatures } from '../geo/osm-types'
 import { getPathsByData } from './path-common'
+import type { LinePath, LinePaths, PathOps } from './path-types'
 import { propertiesToTags, propertiesToWidth } from './properties'
-import type { LinePath, LinePaths, MapLinePathOps, PathOps } from './types'
+import type { MapLinePathOps } from './types'
 
 type LineOps = PathOps<MapLinePathOps>
 

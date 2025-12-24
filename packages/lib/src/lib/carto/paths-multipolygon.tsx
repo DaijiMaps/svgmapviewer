@@ -4,13 +4,9 @@ import { undefinedIfNull } from '../../utils'
 import { getOsmId, multiPolygonToPathD } from '../geo'
 import type { OsmMultiPolygonFeatures } from '../geo/osm-types'
 import { getPathsByData } from './path-common'
+import type { MultiPolygonPath, MultiPolygonPaths, PathOps } from './path-types'
 import { propertiesToTags, propertiesToWidth } from './properties'
-import type {
-  MapMultiPolygonPathOps,
-  MultiPolygonPath,
-  MultiPolygonPaths,
-  PathOps,
-} from './types'
+import type { MapMultiPolygonPathOps } from './types'
 
 type MultiPolygonOps = PathOps<MapMultiPolygonPathOps>
 

@@ -1,4 +1,5 @@
-import type { GetOp, GetOps, MapPathOps } from './types'
+import type { GetOp, GetOps } from './path-types'
+import type { MapPathOps } from './types'
 
 export function getPathsByData<L extends MapPathOps>({
   type,
