@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "rsbuild",
     "dev:local": "rsbuild --config rsbuild.config-local.ts",
-    "build": "tsc -b && rsbuild build",
+    "build": "tsgo -b && rsbuild build",
     "lint": "eslint . && oxlint --type-aware"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
     "@rsbuild/core": "^1.6.15",
     "@rsbuild/plugin-react": "^1.4.2",
     "@types/node": "^25.0.3",
+    "@typescript/native-preview": "7.0.0-dev.20251223.1",
     "typescript": "^5.9.3"
   },
   "lint-staged": {

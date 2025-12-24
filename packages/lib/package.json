@@ -29,7 +29,7 @@
     "./vec": "./dist/lib/vec/prefixed/index.js"
   },
   "scripts": {
-    "build": "tsc -b && rslib build",
+    "build": "tsgo -b && rslib build",
     "lint": "eslint . && oxlint --type-aware",
     "publish:jsr": "pnpm dlx jsr publish",
     "test": "vitest --workspace=vitest.workspace.ts --project unit",
@@ -57,6 +57,7 @@
     "@types/node": "^24.2.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "@typescript/native-preview": "7.0.0-dev.20251223.1",
     "@vitest/browser": "^4.0.16",
     "@vitest/browser-playwright": "^4.0.16",
     "playwright": "^1.57.0",
