@@ -3,7 +3,7 @@ import type { GetOp, GetOps, PathOps } from './path-types'
 import type { MapPathOps } from './types'
 
 export function renderPath<L extends MapPathOps>(
-  ops: Readonly<PathOps<L>>,
+  xxx: Readonly<PathOps<L>>,
   {
     name: layerName,
     width: defaultStrokeWidth,
@@ -20,7 +20,7 @@ export function renderPath<L extends MapPathOps>(
         (width ?? defaultStrokeWidth ?? 1) *
         (widthScale ?? defaultStrokeWidthScale ?? 1)
       }
-      d={ops.toPathD(m)(vs)}
+      d={xxx.toPathD(m)(vs)}
     />
   )
 }

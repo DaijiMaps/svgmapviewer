@@ -17,11 +17,12 @@ export const lineOps: LineOps = {
 }
 
 function renderPaths(
+  xxx: Readonly<PathOps<MapLinePathOps>>,
   layer: Readonly<MapLinePathOps>,
   m: DOMMatrixReadOnly,
   features: OsmLineFeatures
 ): ReactNode {
-  const xs: LinePaths = lineOps.layerToPaths(layer, features)
+  const xs: LinePaths = lineOps.layerToPaths(xxx, layer, features)
   return (
     <g className={layer.name}>
       {xs.map((x, idx) => (
@@ -34,6 +35,7 @@ function renderPaths(
 }
 
 function layerToPaths(
+  _xxx: Readonly<PathOps<MapLinePathOps>>,
   layer: Readonly<MapLinePathOps>,
   features: Readonly<OsmLineFeatures>
 ): LinePaths {

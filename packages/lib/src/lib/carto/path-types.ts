@@ -42,12 +42,14 @@ type GetCoordinate<L extends MapPathOps> =
   readonly GetFeature<L>['geometry']['coordinates'][0][]
 
 type RenderPaths<L extends MapPathOps> = (
+  xxx: PathOps<L>,
   layer: Readonly<L>,
   m: DOMMatrixReadOnly,
   features: readonly GetFeature<L>[]
 ) => ReactNode
 
 type LayerToPaths<L extends MapPathOps> = (
+  xxx: PathOps<L>,
   layer: L,
   features: readonly GetFeature<L>[]
 ) => GetOps<L>

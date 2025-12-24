@@ -18,11 +18,16 @@ export const multiPolygonOps: MultiPolygonOps = {
 }
 
 function renderPaths(
+  xxx: Readonly<PathOps<MapMultiPolygonPathOps>>,
   layer: Readonly<MapMultiPolygonPathOps>,
   m: DOMMatrixReadOnly,
   features: Readonly<OsmMultiPolygonFeatures>
 ): ReactNode {
-  const xs: MultiPolygonPaths = multiPolygonOps.layerToPaths(layer, features)
+  const xs: MultiPolygonPaths = multiPolygonOps.layerToPaths(
+    xxx,
+    layer,
+    features
+  )
   return (
     <g className={layer.name}>
       {xs.map((x, idx) => (
@@ -35,6 +40,7 @@ function renderPaths(
 }
 
 function layerToPaths(
+  _xxx: Readonly<PathOps<MapMultiPolygonPathOps>>,
   layer: Readonly<MapMultiPolygonPathOps>,
   features: OsmMultiPolygonFeatures
 ): MultiPolygonPaths {
