@@ -17,7 +17,7 @@ export function RenderMapPaths(
       {props.mapPaths.map((layer, i) => (
         <Fragment key={i}>
           {layer instanceof Array ? (
-            <g>
+            <g className="map-paths-group">
               {layer.map((l, j) => (
                 <Fragment key={j}>
                   {layerToPaths(l, props.data, props.m)}

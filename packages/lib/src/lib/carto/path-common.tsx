@@ -25,6 +25,29 @@ export function renderPath<L extends MapPathOps>(
   )
 }
 
+/*
+export function getPathsByFilter<L extends MapPathOps>(
+  { type, filter }: Readonly<L>,
+  features: readonly GetFeature<L>[]
+): GetOps<L> {
+  return filter
+    ? features
+        .filter((f) => filter(f.properties))
+        .map(
+          (f) =>
+            ({
+              type,
+              name: undefinedIfNull(f.properties.name),
+              id: getOsmId(f.properties) + '',
+              tags: propertiesToTags(f.properties),
+              width: propertiesToWidth(f.properties),
+              vs: f.geometry.coordinates,
+            }) as GetOp<L>
+        )
+    : []
+}
+*/
+
 export function getPathsByData<L extends MapPathOps>({
   type,
   data,

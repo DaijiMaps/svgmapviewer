@@ -28,7 +28,7 @@ export type MultiPolygonPaths = readonly MultiPolygonPath[]
 
 ////
 
-type GetFeature<L extends MapPathOps> = L['type'] extends 'line'
+export type GetFeature<L extends MapPathOps> = L['type'] extends 'line'
   ? OsmLineFeature
   : OsmMultiPolygonFeature
 
