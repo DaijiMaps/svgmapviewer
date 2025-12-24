@@ -250,6 +250,9 @@ importers:
       svgmapviewer-app-osm:
         specifier: workspace:*
         version: link:../app-osm
+      svgmapviewer-tools-osm:
+        specifier: workspace:*
+        version: link:../tools-osm
     devDependencies:
       "@rsbuild/core":
         specifier: ^1.6.15
