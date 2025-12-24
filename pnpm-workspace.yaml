@@ -6,6 +6,7 @@ packages:
   - ./packages/example-osm
   - ./packages/lib
   - ./packages/svgpatheditor
+  - ./packages/tools-osm
   - ./packages/vscode-svgpatheditor
 overrides:
   "tmp": "^0.2.4"
