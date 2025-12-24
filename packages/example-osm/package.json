@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "svgmapviewer": "workspace:*",
-    "svgmapviewer-app-osm": "workspace:*"
+    "svgmapviewer-app-osm": "workspace:*",
+    "svgmapviewer-tools-osm": "workspace:*"
   },
   "devDependencies": {
     "@rsbuild/core": "^1.6.15",
