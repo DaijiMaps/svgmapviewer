@@ -2,7 +2,7 @@ import { Fragment, type ReactNode } from 'react'
 import { undefinedIfNull } from '../../utils'
 import { getOsmId, lineToPathD } from '../geo'
 import type { OsmLineFeatures } from '../geo/osm-types'
-import { getPathsByData } from './path-common'
+import { getPathsByData, renderPath } from './path-common'
 import type { LinePath, LinePaths, PathOps } from './path-types'
 import { propertiesToTags, propertiesToWidth } from './properties'
 import type { MapLinePathOps } from './types'
@@ -23,9 +23,11 @@ function renderPaths(
 ): ReactNode {
   const xs: LinePaths = lineOps.layerToPaths(layer, features)
   return (
-    <g className={layer.name} style={{ contain: 'content' }}>
+    <g className={layer.name}>
       {xs.map((x, idx) => (
-        <Fragment key={idx}>{renderPath(layer, m, x)}</Fragment>
+        <Fragment key={idx}>
+          {lineOps.renderPath(lineOps, layer, m, x)}
+        </Fragment>
       ))}
     </g>
   )
@@ -64,6 +66,7 @@ function getPathsByData({ type, data }: Readonly<MapLinePathOps>): LinePaths {
 
 ////
 
+/*
 function renderPath(
   {
     name: layerName,
@@ -85,6 +88,7 @@ function renderPath(
     />
   )
 }
+*/
 
 // XXX
 // XXX slow

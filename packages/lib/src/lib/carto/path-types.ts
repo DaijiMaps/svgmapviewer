@@ -39,7 +39,7 @@ export type GetOp<L extends MapPathOps> = L['type'] extends 'line'
 export type GetOps<L extends MapPathOps> = readonly GetOp<L>[]
 
 type GetCoordinate<L extends MapPathOps> =
-  GetFeature<L>['geometry']['coordinates']
+  readonly GetFeature<L>['geometry']['coordinates'][0][]
 
 type RenderPaths<L extends MapPathOps> = (
   layer: Readonly<L>,
@@ -53,6 +53,7 @@ type LayerToPaths<L extends MapPathOps> = (
 ) => GetOps<L>
 
 type RenderPath<L extends MapPathOps> = (
+  xxx: PathOps<L>,
   layer: L,
   m: DOMMatrixReadOnly,
   ops: Readonly<GetOp<L>>
@@ -63,8 +64,8 @@ type ToPathD<L extends MapPathOps> = (
 ) => (vs: GetCoordinate<L>) => string
 
 export interface PathOps<L extends MapPathOps> {
-  renderPaths: RenderPaths<L>
-  layerToPaths: LayerToPaths<L>
-  renderPath: RenderPath<L>
-  toPathD: ToPathD<L>
+  readonly renderPaths: RenderPaths<L>
+  readonly layerToPaths: LayerToPaths<L>
+  readonly renderPath: RenderPath<L>
+  readonly toPathD: ToPathD<L>
 }

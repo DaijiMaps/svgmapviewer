@@ -3,8 +3,8 @@ import { Fragment } from 'react/jsx-runtime'
 import { undefinedIfNull } from '../../utils'
 import { getOsmId, multiPolygonToPathD } from '../geo'
 import type { OsmMultiPolygonFeatures } from '../geo/osm-types'
-import { getPathsByData } from './path-common'
-import type { MultiPolygonPath, MultiPolygonPaths, PathOps } from './path-types'
+import { getPathsByData, renderPath } from './path-common'
+import type { MultiPolygonPaths, PathOps } from './path-types'
 import { propertiesToTags, propertiesToWidth } from './properties'
 import type { MapMultiPolygonPathOps } from './types'
 
@@ -26,7 +26,9 @@ function renderPaths(
   return (
     <g className={layer.name}>
       {xs.map((x, idx) => (
-        <Fragment key={idx}>{multiPolygonOps.renderPath(layer, m, x)}</Fragment>
+        <Fragment key={idx}>
+          {multiPolygonOps.renderPath(multiPolygonOps, layer, m, x)}
+        </Fragment>
       ))}
     </g>
   )
@@ -70,6 +72,7 @@ export function getPathsByData({
 
 ////
 
+/*
 function renderPath(
   {
     name: layerName,
@@ -91,3 +94,4 @@ function renderPath(
     />
   )
 }
+*/
