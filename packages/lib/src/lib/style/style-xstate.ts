@@ -184,6 +184,9 @@ export function styleSend(ev: StyleEvent): void {
 export function useStyleContext(): StyleContext {
   return useSelector(styleActor, (s) => s.context)
 }
+export function useStyleContext2<T>(f: (s: StyleContext) => T): T {
+  return useSelector(styleActor, (s) => f(s.context))
+}
 
 // handlers
 
