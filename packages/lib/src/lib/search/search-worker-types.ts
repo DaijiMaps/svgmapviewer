@@ -9,6 +9,12 @@ export type SearchWorkerRes =
   | { type: 'SEARCH.DONE'; res: SearchPos }
   | { type: 'SEARCH.ERROR'; error: string }
 
+export type DoSearch = {
+  type: 'SEARCH'
+  ctx: null | SearchContext
+  greq: Readonly<SearchGeoReq>
+}
+
 export interface SearchWorkerContext {
   ctx: null | SearchContext
 }

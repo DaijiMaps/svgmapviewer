@@ -109,6 +109,12 @@ export interface ResizeInfo {
   force: boolean
 }
 
+export interface FloorImage {
+  fidx: number
+  url: string
+  buf?: ArrayBuffer // Blob.create
+}
+
 ////
 
 export interface OsmSearchProps {

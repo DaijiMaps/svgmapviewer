@@ -33,6 +33,7 @@ const MAX_DISTANCE = 100
 // XXX
 // XXX
 
+// XXX async?
 export function searchAddress(
   { fb, idxs }: SearchContext,
   { pgeo, fidx }: Readonly<SearchGeoReq>
