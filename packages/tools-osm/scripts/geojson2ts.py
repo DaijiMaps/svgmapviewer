@@ -1,4 +1,7 @@
 #! /usr/bin/env python3
+#
+# XXX node ts
+#
 
 import json
 import os
@@ -51,9 +54,9 @@ for _geojson in geojsons:
             with open('%s.ts' % _geojson, 'w') as ofile:
                 res = type_pat.match(_type)
                 if res is None:
-                    ofile.write('import { %s } from "svgmapviewer/geo"\n' % _type)
+                    ofile.write('import { type %s } from "svgmapviewer/geo"\n' % _type)
                 else:
-                    ofile.write('import { %s, %s } from "svgmapviewer/geo"\n' % (res.group(1), res.group(2)))
+                    ofile.write('import { type %s, type %s } from "svgmapviewer/geo"\n' % (res.group(1), res.group(2)))
                 ofile.write('\n')
                 ofile.write('export const %s: %s = \n' % (_name, _type))
                 printObjectAsTs(data, ofile)
