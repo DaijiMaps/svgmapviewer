@@ -3,13 +3,13 @@ import { expect, test } from '@rstest/core'
 import { decodeGeoJSON, decodeProperties } from './geojson'
 
 test('decodeProperties', () => {
-  const v = {
+  const o = {
     a: 1,
     b: 'b',
     c: null,
   }
-  const o = decodeProperties(v)
-  console.log(o)
+  const x = decodeProperties(o)
+  expect(x).toEqual(o)
 })
 
 test('decodeGeoJSON', () => {
