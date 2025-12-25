@@ -1,13 +1,17 @@
 import js from '@eslint/js'
 import functional from 'eslint-plugin-functional'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
-import reactHooks from 'eslint-plugin-react-hooks'
 import globals from 'globals'
 import ts from 'typescript-eslint'
 
 export default [
   {
-    ignores: ['**/dist', '**/*.d.ts', '**/*.config.{js,ts}', '**/*.config-*.{js,ts}'],
+    ignores: [
+      '**/dist',
+      '**/*.d.ts',
+      '**/*.config.{js,ts}',
+      '**/*.config-*.{js,ts}',
+    ],
   },
   { files: ['src/**/*.{ts,tsx}'] },
   {
@@ -20,22 +24,6 @@ export default [
   },
   js.configs.recommended,
   ...ts.configs.recommended,
-  {
-    plugins: {
-      'react-hooks': reactHooks,
-    },
-    rules: {
-      ...reactHooks.configs.recommended.rules,
-    },
-    ignores: ['tests/**/*.*', 'src/**/*.test.*'],
-    languageOptions: {
-      parserOptions: {
-        ecmaVersion: 2022,
-        project: ['tsconfig.json'],
-        sourceType: 'module',
-      },
-    },
-  },
   {
     ...functional.configs.recommended,
     ignores: [
