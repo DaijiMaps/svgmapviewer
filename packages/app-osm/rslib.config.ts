@@ -1,5 +1,5 @@
-import { defineConfig } from '@rslib/core'
 import { pluginReact } from '@rsbuild/plugin-react'
+import { defineConfig } from '@rslib/core'
 
 export default defineConfig({
   plugins: [pluginReact()],
@@ -7,11 +7,17 @@ export default defineConfig({
     {
       format: 'esm',
       syntax: 'esnext',
+      // bundleless
       bundle: false,
-      dts: { bundle: false, distPath: './dist' },
+      // bundleless
+      dts: {
+        bundle: false,
+        distPath: './dist',
+      },
     },
   ],
   source: {
+    // bundleless
     entry: {
       index: ['src/**/*.{ts,tsx}', '!src/**/*.test.*'],
     },
