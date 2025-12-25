@@ -406,15 +406,30 @@ importers:
 
   packages/tools-osm:
     devDependencies:
+      "@effect/cli":
+        specifier: ^0.73.0
+        version: 0.73.0(@effect/platform@0.94.0(effect@3.19.13))(@effect/printer-ansi@0.47.0(@effect/typeclass@0.38.0(effect@3.19.13))(effect@3.19.13))(@effect/printer@0.47.0(@effect/typeclass@0.38.0(effect@3.19.13))(effect@3.19.13))(effect@3.19.13)
+      "@effect/platform":
+        specifier: ^0.94.0
+        version: 0.94.0(effect@3.19.13)
+      "@effect/platform-node":
+        specifier: ^0.104.0
+        version: 0.104.0(@effect/cluster@0.56.0(@effect/platform@0.94.0(effect@3.19.13))(@effect/rpc@0.73.0(@effect/platform@0.94.0(effect@3.19.13))(effect@3.19.13))(@effect/sql@0.49.0(@effect/experimental@0.58.0(@effect/platform@0.94.0(effect@3.19.13))(effect@3.19.13))(@effect/platform@0.94.0(effect@3.19.13))(effect@3.19.13))(@effect/workflow@0.16.0(@effect/experimental@0.58.0(@effect/platform@0.94.0(effect@3.19.13))(effect@3.19.13))(@effect/platform@0.94.0(effect@3.19.13))(@effect/rpc@0.73.0(@effect/platform@0.94.0(effect@3.19.13))(effect@3.19.13))(effect@3.19.13))(effect@3.19.13))(@effect/platform@0.94.0(effect@3.19.13))(@effect/rpc@0.73.0(@effect/platform@0.94.0(effect@3.19.13))(effect@3.19.13))(@effect/sql@0.49.0(@effect/experimental@0.58.0(@effect/platform@0.94.0(effect@3.19.13))(effect@3.19.13))(@effect/platform@0.94.0(effect@3.19.13))(effect@3.19.13))(effect@3.19.13)
       "@rslib/core":
         specifier: ^0.18.6
         version: 0.18.6(@microsoft/api-extractor@7.55.2(@types/node@25.0.3))(typescript@5.9.3)
+      "@rstest/core":
+        specifier: ^0.7.6
+        version: 0.7.6(jsdom@26.1.0)
       "@types/node":
         specifier: ^25.0.3
         version: 25.0.3
       effect:
         specifier: ^3.19.13
         version: 3.19.13
+      geojson-schema:
+        specifier: ^1.0.5
+        version: 1.0.5
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -2593,6 +2608,22 @@ packages:
       webpack-hot-middleware:
         optional: true
 
+  "@rstest/core@0.7.6":
+    resolution:
+      {
+        integrity: sha512-Vi0hGwNTDi7TUCwhMPQdhobPOROEZJVQlLBi9rrcHF6g0GgopqNCaX9JaklK4RM7+dqzLdkFmt4VfzAjSU1lEw==,
+      }
+    engines: { node: ">=18.12.0" }
+    hasBin: true
+    peerDependencies:
+      happy-dom: "*"
+      jsdom: "*"
+    peerDependenciesMeta:
+      happy-dom:
+        optional: true
+      jsdom:
+        optional: true
+
   "@rushstack/node-core-library@5.19.1":
     resolution:
       {
@@ -4285,6 +4316,12 @@ packages:
         integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==,
       }
     engines: { node: ">=6.9.0" }
+
+  geojson-schema@1.0.5:
+    resolution:
+      {
+        integrity: sha512-YVaBev5YGd9qlX9qtDYtygFaGBrH66JcdUAzuXuslqx98TTzYMHzv5Q6nRi6AX35g6Or+CV7JcPZappm2T/wSA==,
+      }
 
   get-caller-file@2.0.5:
     resolution:
@@ -6575,6 +6612,13 @@ packages:
       }
     engines: { node: ">=12.0.0" }
 
+  tinypool@1.1.1:
+    resolution:
+      {
+        integrity: sha512-Zba82s87IFq9A9XmjiX5uZA/ARWDrB03OHlq+Vw1fSdt0I+4/Kutwy8BP4Y/y/aORMo61FQ0vIb5j44vSo5Pkg==,
+      }
+    engines: { node: ^18.0.0 || >=20.0.0 }
+
   tinypool@2.0.0:
     resolution:
       {
@@ -8546,6 +8590,14 @@ snapshots:
       html-entities: 2.6.0
       react-refresh: 0.18.0
 
+  "@rstest/core@0.7.6(jsdom@26.1.0)":
+    dependencies:
+      "@rsbuild/core": 1.7.0-beta.1
+      "@types/chai": 5.2.3
+      tinypool: 1.1.1
+    optionalDependencies:
+      jsdom: 26.1.0
+
   "@rushstack/node-core-library@5.19.1(@types/node@22.19.3)":
     dependencies:
       ajv: 8.13.0
@@ -9862,6 +9914,8 @@ snapshots:
   generator-function@2.0.1: {}
 
   gensync@1.0.0-beta.2: {}
+
+  geojson-schema@1.0.5: {}
 
   get-caller-file@2.0.5: {}
 
@@ -11334,6 +11388,8 @@ snapshots:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.3)
       picomatch: 4.0.3
+
+  tinypool@1.1.1: {}
 
   tinypool@2.0.0: {}
 

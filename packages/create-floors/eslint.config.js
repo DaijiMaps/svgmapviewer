@@ -14,16 +14,17 @@ export default [
     ],
   },
   { files: ['src/**/*.{ts,tsx}'] },
+  js.configs.recommended,
+  ...ts.configs.recommended,
   {
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
         tsconfigRootDir: import.meta.dirname,
+        projectService: true,
       },
     },
   },
-  js.configs.recommended,
-  ...ts.configs.recommended,
   {
     ...functional.configs.recommended,
     ignores: [

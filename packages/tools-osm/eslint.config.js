@@ -1,21 +1,26 @@
 import js from '@eslint/js'
 import functional from 'eslint-plugin-functional'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
+import { defineConfig } from 'eslint/config'
 import globals from 'globals'
 import ts from 'typescript-eslint'
 
-export default [
+export default defineConfig(
   {
     ignores: [
       '**/dist',
       '**/*.d.ts',
       '**/*.config.{js,ts}',
       '**/*.config-*.{js,ts}',
+      '**/test',
+      '**/*.test.{js,ts}',
     ],
   },
   {
     files: ['src/*.{ts,tsx}', 'src/**/*.{ts,tsx}'],
   },
+  js.configs.recommended,
+  ts.configs.recommendedTypeChecked,
   {
     languageOptions: {
       globals: {
@@ -24,11 +29,10 @@ export default [
       },
       parserOptions: {
         tsconfigRootDir: import.meta.dirname,
+        projectService: true,
       },
     },
   },
-  js.configs.recommended,
-  ...ts.configs.recommended,
   {
     ...functional.configs.recommended,
     ignores: [
@@ -50,5 +54,5 @@ export default [
         { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
       ],
     },
-  },
-]
+  }
+)

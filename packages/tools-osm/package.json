@@ -11,12 +11,19 @@
   },
   "type": "module",
   "scripts": {
-    "build": "rslib build"
+    "build": "rslib build",
+    "test": "rstest",
+    "test:watch": "rstest --watch"
   },
   "devDependencies": {
+    "@effect/cli": "^0.73.0",
+    "@effect/platform": "^0.94.0",
+    "@effect/platform-node": "^0.104.0",
     "@rslib/core": "^0.18.6",
+    "@rstest/core": "^0.7.6",
     "@types/node": "^25.0.3",
     "effect": "^3.19.13",
+    "geojson-schema": "^1.0.5",
     "typescript": "^5.9.3"
   },
   "lint-staged": {

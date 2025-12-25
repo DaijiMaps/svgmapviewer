@@ -12,13 +12,13 @@
     "moduleDetection": "force",
     "noEmit": true,
 
+    "resolveJsonModule": true,
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-
-    "types": ["@vitest/browser-playwright"]
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["*.config.ts", "*.config-*.ts"]
 }
