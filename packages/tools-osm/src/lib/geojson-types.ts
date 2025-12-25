@@ -9,6 +9,14 @@ export type _MultiLineCoordinates = readonly _LineCoordinates[]
 export type _PolygonCoordinates = _MultiLineCoordinates
 export type _MultiPolygonCoordinates = readonly _PolygonCoordinates[]
 
+export type _Coordinates =
+  | _PointCoordinates
+  | _MultiPointCoordinates
+  //| _LineCoordinates
+  | _MultiLineCoordinates
+  //| _PolygonCoordinates
+  | _MultiPolygonCoordinates
+
 export type _PointGeometry = {
   readonly type: 'Point'
   readonly coordinates: _PointCoordinates
