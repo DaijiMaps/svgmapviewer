@@ -1,6 +1,6 @@
 import { Schema } from 'effect'
 import type { ParseOptions } from 'effect/SchemaAST'
-import type { _Crs, _Feature } from './geojson-types'
+import type { _Crs, _Features } from './geojson-types'
 
 const PropertiesSchema = Schema.Record({
   key: Schema.String,
@@ -140,94 +140,12 @@ export const decodeProperties: (
   readonly [x: string]: string | number | null
 } = Schema.decodeUnknownSync(PropertiesSchema)
 
-// XXX
-// XXX let vscode generate type
-// XXX
 export const decodeGeoJSON: (
   u: unknown,
   overrideOptions?: ParseOptions
 ) => {
   readonly type: string
-  readonly features: readonly (
-    | _Feature
-    | {
-        readonly type: 'FeatureCollection'
-        readonly features: readonly (
-          | {
-              readonly type: 'Feature'
-              readonly properties: {
-                readonly [x: string]: string | number | null
-              }
-              readonly geometry: {
-                readonly type: 'Point'
-                readonly coordinates: readonly [number, number]
-              }
-            }
-          | {
-              readonly type: 'Feature'
-              readonly properties: {
-                readonly [x: string]: string | number | null
-              }
-              readonly geometry: {
-                readonly type: 'MultiPoint'
-                readonly coordinates: readonly (readonly [number, number])[]
-              }
-            }
-          | {
-              readonly type: 'Feature'
-              readonly properties: {
-                readonly [x: string]: string | number | null
-              }
-              readonly geometry: {
-                readonly type: 'LineString'
-                readonly coordinates: readonly (readonly [number, number])[]
-              }
-            }
-          | {
-              readonly type: 'Feature'
-              readonly properties: {
-                readonly [x: string]: string | number | null
-              }
-              readonly geometry: {
-                readonly type: 'MultiLineString'
-                readonly coordinates: readonly (readonly (readonly [
-                  number,
-                  number,
-                ])[])[]
-              }
-            }
-          | {
-              readonly type: 'Feature'
-              readonly properties: {
-                readonly [x: string]: string | number | null
-              }
-              readonly geometry: {
-                readonly type: 'Polygon'
-                readonly coordinates: readonly (readonly (readonly [
-                  number,
-                  number,
-                ])[])[]
-              }
-            }
-          | {
-              readonly type: 'Feature'
-              readonly properties: {
-                readonly [x: string]: string | number | null
-              }
-              readonly geometry: {
-                readonly type: 'MultiPolygon'
-                readonly coordinates: readonly (readonly (readonly (readonly [
-                  number,
-                  number,
-                ])[])[])[]
-              }
-            }
-        )[]
-      }
-  )[]
+  readonly features: _Features
   readonly name: string
   readonly crs: undefined | _Crs
 } = Schema.decodeUnknownSync(GeoJSONSchema)
-// XXX
-// XXX
-// XXX
