@@ -15,7 +15,7 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint",
-    "lint": "eslint src && oxlint --type-aware",
+    "lint": "eslint src && oxlint --type-aware --type-check",
     "test": "vscode-test"
   },
   "devDependencies": {

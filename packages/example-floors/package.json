@@ -11,7 +11,7 @@
     "dev": "rsbuild",
     "dev:local": "rsbuild --config rsbuild.config-local.ts",
     "build": "tsgo -b && rsbuild build",
-    "lint": "eslint . && oxlint --type-aware"
+    "lint": "eslint . && oxlint --type-aware --type-check"
   },
   "dependencies": {
     "react": "^19.2.3",
