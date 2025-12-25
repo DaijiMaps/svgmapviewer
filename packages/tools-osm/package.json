@@ -4,7 +4,7 @@
   "bin": {
     "svgmapviewer-tools-osm-copy": "./scripts/copy.sh",
     "svgmapviewer-tools-osm-extractAreas": "./scripts/extractAreas.sh",
-    "svgmapviewer-tools-osm-geojson2ts": "./dist/geojson2ts.py",
+    "svgmapviewer-tools-osm-geojson2ts": "./scripts/geojson2ts.py",
     "svgmapviewer-tools-osm-getOsm": "./scripts/getOsm.sh",
     "svgmapviewer-tools-osm-readOsm": "./scripts/readOsm.sh",
     "svgmapviewer-tools-osm-regen": "./scripts/regen.sh"
