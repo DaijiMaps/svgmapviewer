@@ -1,0 +1,5 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "rslint.enable": false,
+  "typescript.experimental.useTsgo": true
+}

@@ -8,5 +8,20 @@
     "svgmapviewer-tools-osm-getOsm": "./scripts/getOsm.sh",
     "svgmapviewer-tools-osm-readOsm": "./scripts/readOsm.sh",
     "svgmapviewer-tools-osm-regen": "./scripts/regen.sh"
-  }
+  },
+  "type": "module",
+  "scripts": {
+    "build": "rslib build"
+  },
+  "devDependencies": {
+    "@rslib/core": "^0.18.6",
+    "@types/node": "^25.0.3",
+    "effect": "^3.19.13",
+    "typescript": "^5.9.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix",
+    "*": "prettier --write --cache --ignore-unknown"
+  },
+  "packageManager": "pnpm@10.26.0"
 }
