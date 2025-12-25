@@ -18,11 +18,11 @@ export type _MultiPointGeometry = {
   readonly coordinates: _MultiPointCoordinates
 }
 
-export type _LineGeometry = {
+export type _LineStringGeometry = {
   readonly type: 'LineString'
   readonly coordinates: _LineCoordinates
 }
-export type _MultiLineGeometry = {
+export type _MultiLineStringGeometry = {
   readonly type: 'MultiLineString'
   readonly coordinates: _MultiLineCoordinates
 }
@@ -39,8 +39,8 @@ export type _MultiPolygonGeometry = {
 export type _Geometry =
   | _PointGeometry
   | _MultiPointGeometry
-  | _LineGeometry
-  | _MultiLineGeometry
+  | _LineStringGeometry
+  | _MultiLineStringGeometry
   | _PolygonGeometry
   | _MultiPolygonGeometry
 
@@ -52,16 +52,16 @@ export type _FeatureBase<G = _Geometry> = {
 
 export type _PointFeature = _FeatureBase<_PointGeometry>
 export type _MultiPointFeature = _FeatureBase<_MultiPointGeometry>
-export type _LineFeature = _FeatureBase<_LineGeometry>
-export type _MultiLineFeature = _FeatureBase<_MultiLineGeometry>
+export type _LineStringFeature = _FeatureBase<_LineStringGeometry>
+export type _MultiLineStringFeature = _FeatureBase<_MultiLineStringGeometry>
 export type _PolygonFeature = _FeatureBase<_PolygonGeometry>
 export type _MultiPolygonFeature = _FeatureBase<_MultiPolygonGeometry>
 
 export type _Feature =
   | _PointFeature
   | _MultiPointFeature
-  | _LineFeature
-  | _MultiLineFeature
+  | _LineStringFeature
+  | _MultiLineStringFeature
   | _PolygonFeature
   | _MultiPolygonFeature
 

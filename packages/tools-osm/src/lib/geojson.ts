@@ -1,6 +1,6 @@
 import { Schema } from 'effect'
 import type { ParseOptions } from 'effect/SchemaAST'
-import type { _Crs, _Features } from './geojson-types'
+import type { _Crs, _Features, _Properties } from './geojson-types'
 
 const PropertiesSchema = Schema.Record({
   key: Schema.String,
@@ -136,9 +136,7 @@ const GeoJSONSchema = Schema.Struct({
 export const decodeProperties: (
   u: unknown,
   overrideOptions?: ParseOptions
-) => {
-  readonly [x: string]: string | number | null
-} = Schema.decodeUnknownSync(PropertiesSchema)
+) => _Properties = Schema.decodeUnknownSync(PropertiesSchema)
 
 export const decodeGeoJSON: (
   u: unknown,
