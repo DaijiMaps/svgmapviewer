@@ -6,8 +6,7 @@ import {
   searchWorkerActorStart,
 } from './search-worker-xstate'
 
-onmessage = function (e: Readonly<MessageEvent<SearchWorkerReq>>) {
+onmessage = (e: Readonly<MessageEvent<SearchWorkerReq>>): void =>
   searchWorkerActorSend(e.data)
-}
 
 searchWorkerActorStart()

@@ -4,11 +4,13 @@ import type { SvgMapViewerConfig } from '../../types'
 import { floorCbs } from '../event-floor'
 import { globalCbs } from '../event-global'
 import type { FloorsContext, FloorsEvents } from './floors-types'
+import type { Res } from './floors-worker-types'
 
 const floorsMachine = setup({
   types: {
     context: {} as FloorsContext,
     events: {} as FloorsEvents,
+    // XXX emitted
   },
 }).createMachine({
   id: 'floors1',
@@ -17,6 +19,8 @@ const floorsMachine = setup({
     prevFidx: null,
   },
   initial: 'Idle',
+  // XXX handle image download event
+  // XXX on: {},
   states: {
     Idle: {
       on: {
@@ -59,9 +63,41 @@ export function floorsActorStart(): void {
   floorsActor.start()
 }
 
-export function useFloorsContext(): FloorsContext {
-  return useSelector(floorsActor, (state) => state.context)
+export function useFloorsContext<T>(f: (ctx: Readonly<FloorsContext>) => T): T {
+  return useSelector(floorsActor, (state) => f(state.context))
 }
+
+// worker
+
+const worker: Worker = new Worker(
+  new URL('./floors-worker.js', import.meta.url),
+  {
+    type: 'module',
+  }
+)
+
+worker.onmessage = (e: Readonly<MessageEvent<Res>>): void => {
+  const ev = e.data
+  // XXX floorsActor.send()
+  switch (ev.type) {
+    case 'INIT.DONE':
+      console.log(ev)
+      break
+  }
+}
+
+worker.onerror = (ev) => {
+  console.error('floors error', ev)
+}
+
+worker.onmessageerror = (ev) => {
+  console.error('floors messageerror', ev)
+}
+
+// XXX
+// floorsActor.on(..., () => {
+//   worker.postMessage()
+// })
 
 // handlers
 

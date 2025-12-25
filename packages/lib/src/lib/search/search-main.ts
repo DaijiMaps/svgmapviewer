@@ -46,11 +46,11 @@ function handleSearchRes(res: Readonly<SearchPos>): void {
 }
 
 worker.onerror = (ev) => {
-  console.log('error', ev)
+  console.error('search error', ev)
 }
 
 worker.onmessageerror = (ev) => {
-  console.log('messageerror', ev)
+  console.error('search messageerror', ev)
 }
 
 export { worker as searchWorker }
