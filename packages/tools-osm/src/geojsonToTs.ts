@@ -20,13 +20,3 @@ const program = Effect.gen(function* () {
 }).pipe(Effect.provide(NodeContextLive))
 
 NodeRuntime.runMain(program)
-
-// areas.json
-// internals.json
-// origin.json
-// measures.json
-// viewbox.json
-// map-points.json
-// map-lines.json
-// map-multilinestrings.json
-// map-multipolygons.json
