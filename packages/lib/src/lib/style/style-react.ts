@@ -4,58 +4,58 @@ import { type DistanceRadius } from '../distance-types'
 import { trunc2 } from '../utils'
 import { type VecVec } from '../vec/prefixed'
 import { type Layout, type LayoutConfig } from '../viewer/layout'
-import { useStyleContext2 } from './style-xstate'
+import { useStyleContext } from './style-xstate'
 
 export function useRendered(): boolean {
-  return useStyleContext2((ctx) => ctx.rendered)
+  return useStyleContext((ctx) => ctx.rendered)
 }
 export function useAppearing(): boolean {
-  return useStyleContext2((ctx) => ctx.appearing)
+  return useStyleContext((ctx) => ctx.appearing)
 }
 export function useShown(): boolean {
-  return useStyleContext2((ctx) => ctx.shown)
+  return useStyleContext((ctx) => ctx.shown)
 }
 export function useAnimating(): boolean {
-  return useStyleContext2((ctx) => ctx.animating)
+  return useStyleContext((ctx) => ctx.animating)
 }
 export function useLayout(): Layout {
-  return useStyleContext2((ctx) => ctx.layout)
+  return useStyleContext((ctx) => ctx.layout)
 }
 export function useLayoutContainer(): BoxBox {
-  return useStyleContext2((ctx) => ctx.layout.container)
+  return useStyleContext((ctx) => ctx.layout.container)
 }
 export function useLayoutScroll(): BoxBox {
-  return useStyleContext2((ctx) => ctx.layout.scroll)
+  return useStyleContext((ctx) => ctx.layout.scroll)
 }
 export function useMode(): string {
-  return useStyleContext2((ctx) => ctx.mode)
+  return useStyleContext((ctx) => ctx.mode)
 }
 export function useAnimation(): null | AnimationMatrix {
-  return useStyleContext2((ctx) => ctx.animation)
+  return useStyleContext((ctx) => ctx.animation)
 }
 export function useGeoPoint(): VecVec {
-  return useStyleContext2((ctx) => ctx.geoPoint)
+  return useStyleContext((ctx) => ctx.geoPoint)
 }
 export function useDistanceRadius(): DistanceRadius {
-  return useStyleContext2((ctx) => ctx.distanceRadius)
+  return useStyleContext((ctx) => ctx.distanceRadius)
 }
 export function useSvgRange(): Range {
-  return useStyleContext2((ctx) => ctx.geoRange)
+  return useStyleContext((ctx) => ctx.geoRange)
 }
 export function useLayoutConfig(): LayoutConfig {
-  return useStyleContext2((ctx) => ctx.layout.config)
+  return useStyleContext((ctx) => ctx.layout.config)
 }
 export function useLayoutSvgScaleS(): number {
-  return useStyleContext2((ctx) => ctx.layout.svgScale.s)
+  return useStyleContext((ctx) => ctx.layout.svgScale.s)
 }
 export function useLayoutContent(): DOMMatrixReadOnly {
-  return useStyleContext2((ctx) => ctx.layout.content)
+  return useStyleContext((ctx) => ctx.layout.content)
 }
 export function useZoom(): number {
-  return useStyleContext2((ctx) => ctx.zoom)
+  return useStyleContext((ctx) => ctx.zoom)
 }
 export function useRotate(): null | number {
-  return useStyleContext2((ctx) => ctx.rotate)
+  return useStyleContext((ctx) => ctx.rotate)
 }
 export function useLayout2(): {
   viewBox: string
