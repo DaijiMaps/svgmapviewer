@@ -1,21 +1,17 @@
 #!/bin/sh
 
-args=$@
-
 pkgdir=
 if [ -n "$NODE_PATH" ]; then
-  set -- $( echo $NODE_PATH | sed -e 's,:, ,g' )
+  paths=$NODE_PATH
   while :; do
-    pkgdir=$( echo $1 | sed -e 's,/node_modules$,,' )
-    [ -e $pkgdir/package.json ] && break
-    [ $# -eq 0 ] && echo >&2 'package directory not found!' && exit 1
-    shift
+    d=${paths%%/node_modules:*}
+    paths=${paths#*:}
+    [ -e "$d"/package.json ] && pkgdir="$d" && break
+    [ "$d"/node_modules = "$paths" ] && echo >&2 'package directory not found!' && exit 1
   done
 else
   pkgdir=$( cd $( dirname $0 ); cd ..; pwd )
 fi
-
-set -- $args
 
 ####
 
