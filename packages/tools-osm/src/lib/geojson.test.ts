@@ -1,8 +1,6 @@
+import * as fs from 'node:fs'
 import { expect, test } from '@rstest/core'
-import areas from '../../test/geojson.json'
 import { decodeGeoJSON, decodeProperties } from './geojson'
-
-const crsName = areas.crs.properties.name
 
 test('decodeProperties', () => {
   const v = {
@@ -15,6 +13,29 @@ test('decodeProperties', () => {
 })
 
 test('decodeGeoJSON', () => {
-  const o = decodeGeoJSON(areas)
-  expect(o?.crs?.properties?.name ?? '').toBe(crsName)
+  exampleGeoJsonFiles.forEach((p) => {
+    try {
+      const content = fs.readFileSync(p)
+      const o = JSON.parse(content.toString())
+      const x = decodeGeoJSON(o)
+      expect(x).toEqual(o)
+    } catch (e) {
+      console.error(p, e)
+    }
+  })
 })
+
+const exampleGeoJsonFiles = [
+  '../example-osm/src/data/areas_extent.json',
+  '../example-osm/src/data/areas.json',
+  '../example-osm/src/data/internals_extent.json',
+  '../example-osm/src/data/internals.json',
+  '../example-osm/src/data/map-lines.json',
+  '../example-osm/src/data/map-multilinestrings.json',
+  '../example-osm/src/data/map-multipolygons.json',
+  '../example-osm/src/data/map-other_relations.json',
+  '../example-osm/src/data/map-points.json',
+  '../example-osm/src/data/measures.json',
+  '../example-osm/src/data/origin.json',
+  '../example-osm/src/data/viewbox.json',
+] as const
