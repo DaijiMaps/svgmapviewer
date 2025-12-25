@@ -10,12 +10,17 @@ import type {
   _Properties,
 } from './geojson-types'
 
+// XXX
+export function xxxtrunc6(n: number): number {
+  return Math.round(n * 1000000) / 1000000
+}
+
 export function printValue(v: null | number | string): Doc.Doc<never> {
   return v === null
-    ? Doc.text('null')
+    ? Doc.text('null,')
     : typeof v === 'number'
-      ? Doc.text(`${v}`)
-      : Doc.text(`'${v}'`)
+      ? Doc.text(`${xxxtrunc6(v)},`)
+      : Doc.text(`"${v}",`)
 }
 
 export function printType(type: string): Doc.Doc<never> {
@@ -28,7 +33,7 @@ export function printProperties(obj: Readonly<_Properties>): Doc.Doc<never> {
     Doc.indent(
       Doc.vsep(
         Object.entries(obj).map(([k, v]) =>
-          Doc.hcat([Doc.text(`${k}: `), printValue(v), Doc.text(`,`)])
+          Doc.hcat([Doc.text(`${k}: `), printValue(v)])
         )
       ),
       2
@@ -44,7 +49,7 @@ export function printCrs(obj: Readonly<_Crs>): Doc.Doc<never> {
       Doc.vsep([printType(obj.type), printProperties(obj.properties)]),
       2
     ),
-    Doc.text(`}`),
+    Doc.text(`},`),
   ])
 }
 
@@ -141,6 +146,6 @@ export function printGeoJSON(obj: Readonly<_GeoJSON>): Doc.Doc<never> {
       ]),
       2
     ),
-    Doc.text(`},`),
+    Doc.text(`}`),
   ])
 }
