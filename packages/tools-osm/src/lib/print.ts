@@ -16,3 +16,30 @@ export function printGeoJsonAsTs(
     Doc.text(`export default ${filename}`),
   ])
 }
+
+// eslint-disable-next-line functional/functional-parameters
+export function printAllTs(): Doc.Doc<never> {
+  return Doc.text(`
+import areas from './areas'
+import internals from './internals'
+import lines from './map-lines'
+import multilinestrings from './map-multilinestrings'
+import multipolygons from './map-multipolygons'
+import points from './map-points'
+import measures from './measures'
+import origin from './origin'
+import viewbox from './viewbox'
+
+export const mapData = {
+  areas,
+  internals,
+  origin,
+  measures,
+  viewbox,
+  points,
+  lines,
+  multilinestrings,
+  multipolygons,
+}
+`)
+}
