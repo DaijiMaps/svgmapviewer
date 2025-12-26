@@ -8,7 +8,6 @@ test('printProperties', () => {
   const p: _Properties = { a: 123, b: 'xyz', c: null }
   const s = Doc.render(printProperties(p), { style: 'pretty' })
 
-  console.log(s)
   expect(s).toEqual(`properties: {
   a: 123,
   b: "xyz",
@@ -23,7 +22,6 @@ test('printGeoJSON', () => {
       const o = JSON.parse(b.toString())
       const doc = printGeoJSON(o)
       const s = Doc.render(doc, { style: 'pretty' })
-      console.log(s)
     } catch (e) {
       console.error(e)
     }
