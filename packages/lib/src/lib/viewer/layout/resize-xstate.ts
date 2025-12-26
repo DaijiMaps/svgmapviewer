@@ -1,9 +1,9 @@
 import { assign, createActor, emit, raise, setup } from 'xstate'
-import { svgMapViewerConfig } from '../../config'
-import { boxEq, boxUnit } from '../box/prefixed'
-import { notifyStyleResize } from '../event-style'
-import { getBodySize } from '../utils'
-import { resizeLayout } from './layout/layout'
+import { svgMapViewerConfig } from '../../../config'
+import { boxEq, boxUnit } from '../../box/prefixed'
+import { notifyStyleResize } from '../../event-style'
+import { getBodySize } from '../../utils'
+import { resizeLayout } from './layout'
 import {
   type ResizeContext,
   type ResizeEmitted,

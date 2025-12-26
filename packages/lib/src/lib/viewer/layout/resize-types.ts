@@ -1,5 +1,5 @@
-import { type BoxBox } from '../box/prefixed'
-import { type Layout } from './layout/layout'
+import { type BoxBox } from '../../box/prefixed'
+import { type Layout } from './layout'
 
 export type ResizeEvent = { type: 'RESIZE' } | { type: 'EXPIRED' }
 
