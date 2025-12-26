@@ -8,14 +8,14 @@ import {
   boxScaleAt,
   boxUnit,
   type BoxBox,
-} from '../box/prefixed'
+} from '../../box/prefixed'
 import {
   vecAdd,
   vecScale,
   vecSub,
   vecVec,
   type VecVec as Vec,
-} from '../vec/prefixed'
+} from '../../vec/prefixed'
 import { emptyLayoutCoord, fromMatrixSvg, fromScroll, makeCoord } from './coord'
 import { fit } from './fit'
 import {

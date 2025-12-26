@@ -16,7 +16,7 @@ import {
 import { type OsmSearchEntry } from './lib/geo/search-types'
 import { type SearchPos } from './lib/search/types'
 import { type Vec } from './lib/vec'
-import { type Layout, type LayoutCoord } from './lib/viewer/layout-types'
+import { type Layout, type LayoutCoord } from './lib/viewer/layout/layout-types'
 
 //// layout
 

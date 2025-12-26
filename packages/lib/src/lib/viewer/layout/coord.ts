@@ -1,5 +1,5 @@
-import { boxCopy, boxUnit, type BoxBox } from '../box/prefixed'
-import { vecScale } from '../vec/prefixed'
+import { boxCopy, boxUnit, type BoxBox } from '../../box/prefixed'
+import { vecScale } from '../../vec/prefixed'
 import {
   type ContentLayoutCoord,
   type LayoutConfig,

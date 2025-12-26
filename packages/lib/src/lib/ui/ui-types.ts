@@ -1,6 +1,6 @@
 import { type SearchRes } from '../../types'
 import { type VecVec } from '../vec/prefixed'
-import { type LayoutCoord } from '../viewer/coord'
+import { type LayoutCoord } from '../viewer/layout/coord'
 import { type OpenClose } from './openclose'
 
 export type UiPart = 'header' | 'detail'

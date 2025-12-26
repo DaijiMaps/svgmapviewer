@@ -6,8 +6,8 @@ import {
 } from '../../types'
 import { type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec, type VecVec } from '../vec/prefixed'
-import { type Animation } from './animation-types'
-import { type Layout } from './layout'
+import { type Animation } from './layout/animation-types'
+import { type Layout } from './layout/layout'
 
 export const EXPAND_PANNING = 9
 

@@ -22,7 +22,7 @@ import {
 import { Like } from './lib/like/Like'
 import { useLayout, useLayout2 } from './lib/style/style-react'
 import { useFloors } from './lib/viewer/floors/floors-react'
-import { type Layout } from './lib/viewer/layout'
+import { type Layout } from './lib/viewer/layout/layout'
 import { svgmapviewer } from './main'
 import {
   type Floor,

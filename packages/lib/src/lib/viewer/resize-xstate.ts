@@ -3,7 +3,7 @@ import { svgMapViewerConfig } from '../../config'
 import { boxEq, boxUnit } from '../box/prefixed'
 import { notifyStyleResize } from '../event-style'
 import { getBodySize } from '../utils'
-import { resizeLayout } from './layout'
+import { resizeLayout } from './layout/layout'
 import {
   type ResizeContext,
   type ResizeEmitted,

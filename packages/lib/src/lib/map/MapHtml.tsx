@@ -5,7 +5,7 @@ import { type OsmRenderMapProps } from '../../types'
 import { useShadowRoot } from '../dom'
 import { useLayout } from '../style/style-react'
 import { trunc2 } from '../utils'
-import { fromSvgToContent } from '../viewer/coord'
+import { fromSvgToContent } from '../viewer/layout/coord'
 import { MAP_HTML_CONTENT_ID, MAP_HTML_ROOT_ID } from './map-svg-react'
 import { useNames } from './names'
 

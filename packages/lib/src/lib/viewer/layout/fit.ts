@@ -1,5 +1,5 @@
-import { type BoxBox } from '../box/prefixed'
-import { type V } from '../tuple'
+import { type BoxBox } from '../../box/prefixed'
+import { type V } from '../../tuple'
 
 function fitH(o: BoxBox, r: number): V {
   return [0, (o.height - o.width / r) / 2]

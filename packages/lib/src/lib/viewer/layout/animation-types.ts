@@ -1,6 +1,6 @@
 //import { type Readonly } from 'type-fest'
-import { type Box } from '../box'
-import { type VecVec as Vec } from '../vec/prefixed'
+import { type Box } from '../../box'
+import { type VecVec as Vec } from '../../vec/prefixed'
 import { type Scale } from './transform'
 
 export type AnimationMove = Readonly<{

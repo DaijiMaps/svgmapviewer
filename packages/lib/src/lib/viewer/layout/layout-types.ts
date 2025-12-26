@@ -1,5 +1,5 @@
 //import { type ReadonlyDeep } from 'type-fest'
-import { type BoxBox } from '../box/prefixed'
+import { type BoxBox } from '../../box/prefixed'
 import { type Move, type Scale } from './transform'
 
 // C: client coord

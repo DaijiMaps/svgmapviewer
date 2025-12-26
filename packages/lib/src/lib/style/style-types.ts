@@ -6,7 +6,7 @@ import {
 } from '../../types'
 import { type DistanceRadius } from '../distance-types'
 import { type VecVec } from '../vec/prefixed'
-import { type Layout } from '../viewer/layout'
+import { type Layout } from '../viewer/layout/layout'
 
 export type LayoutEvent = {
   type: 'STYLE.LAYOUT'

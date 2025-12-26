@@ -4,7 +4,7 @@ import { type SearchData } from '../../types'
 import { searchCbs } from '../event-search'
 import { notifyUiCloseDone, uiCbs } from '../event-ui'
 import { vecZero } from '../vec/prefixed'
-import { emptyLayoutCoord, fromMatrixSvg } from '../viewer/coord'
+import { emptyLayoutCoord, fromMatrixSvg } from '../viewer/layout/coord'
 import {
   openCloseClose,
   openCloseClosed,

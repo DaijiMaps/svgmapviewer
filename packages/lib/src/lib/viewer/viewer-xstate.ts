@@ -33,15 +33,15 @@ import {
 import { touchCbs } from '../event-touch'
 import { notifyUiOpen, notifyUiOpenDone, uiCbs } from '../event-ui'
 import { vecVec, type VecVec as Vec } from '../vec/prefixed'
+import { keyToZoom } from './key'
 import {
   animationEndLayout,
   animationHome,
   animationRotate,
   animationZoom,
-} from './animation'
-import { type Animation } from './animation-types'
-import { fromMatrixSvg } from './coord'
-import { keyToZoom } from './key'
+} from './layout/animation'
+import { type Animation } from './layout/animation-types'
+import { fromMatrixSvg } from './layout/coord'
 import {
   emptyLayout,
   expandLayoutCenter,
@@ -50,7 +50,7 @@ import {
   rotateLayout,
   scrollLayout,
   type Layout,
-} from './layout'
+} from './layout/layout'
 import { getCurrentScroll } from './scroll/scroll'
 import {
   EXPAND_PANNING,
