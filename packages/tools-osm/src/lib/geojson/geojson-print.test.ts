@@ -27,6 +27,10 @@ test('printGeoJSON', () => {
       const o = JSON.parse(b.toString())
       const doc = printGeoJSON(o)
       const s = Doc.render(doc, { style: 'pretty' })
+      const ma = s.match(/^{/)
+      const mb = s.match(/}$/)
+      expect(ma !== null).toBe(true)
+      expect(mb !== null).toBe(true)
     } catch (e) {
       console.error(e)
     }
