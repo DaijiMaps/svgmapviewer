@@ -12,16 +12,12 @@ import type {
   _Value,
 } from './geojson-types'
 
+//// value
+
 // XXX
 export function truncNumber(n: number): number {
   return Math.round(n * 1000000) / 1000000
 }
-
-/*
-export function escapeString(v: string): string {
-  return v.replace(/"/g, '\\"')
-}
-*/
 
 export function printValue(v: _Value, comma: boolean): Doc.Doc<never> {
   return v === null
@@ -30,6 +26,8 @@ export function printValue(v: _Value, comma: boolean): Doc.Doc<never> {
       ? Doc.text(`${truncNumber(v)}${comma ? ',' : ''}`)
       : Doc.text(`'${v}'${comma ? ',' : ''}`)
 }
+
+//// tuple (for prettier)
 
 export function isTuple(obj: _Coordinates): obj is _Tuple {
   return (
@@ -49,26 +47,36 @@ export function printTuple([a, b]: _Tuple): Doc.Doc<never> {
   ])
 }
 
+//// type
+
 export function printType(type: string): Doc.Doc<never> {
   return Doc.text(`type: '${type}',`)
+}
+
+//// properties
+
+export function printProperties1(obj: Readonly<_Properties>): Doc.Doc<never> {
+  return Doc.vsep([
+    Doc.text(`properties: {`),
+    Doc.indent(
+      Doc.vsep(
+        Object.entries(obj).map(([k, v]) =>
+          Doc.hcat([Doc.text(`${k}: `), printValue(v, true)])
+        )
+      ),
+      2
+    ),
+    Doc.text(`},`),
+  ])
 }
 
 export function printProperties(obj: Readonly<_Properties>): Doc.Doc<never> {
   return Object.keys(obj).length === 0
     ? Doc.text(`properties: {},`)
-    : Doc.vsep([
-        Doc.text(`properties: {`),
-        Doc.indent(
-          Doc.vsep(
-            Object.entries(obj).map(([k, v]) =>
-              Doc.hcat([Doc.text(`${k}: `), printValue(v, true)])
-            )
-          ),
-          2
-        ),
-        Doc.text(`},`),
-      ])
+    : printProperties1(obj)
 }
+
+//// crs
 
 export function printCrs(obj: Readonly<_Crs>): Doc.Doc<never> {
   return Doc.vsep([
@@ -81,27 +89,38 @@ export function printCrs(obj: Readonly<_Crs>): Doc.Doc<never> {
   ])
 }
 
+//// coordinates
+
+export function printCoordinates1(
+  objs: Readonly<_Coordinates>,
+  top: boolean
+): Doc.Doc<never> {
+  return isTuple(objs)
+    ? Doc.hcat([Doc.text(top ? `coordinates: ` : ``), printTuple(objs)])
+    : Doc.vsep([
+        Doc.text(top ? `coordinates: [` : `[`),
+        Doc.indent(
+          Doc.vsep(
+            objs.map((obj) =>
+              isTuple(obj) ? printTuple(obj) : printCoordinates(obj, false)
+            )
+          ),
+          2
+        ),
+        Doc.text(`],`),
+      ])
+}
+
 export function printCoordinates(
   objs: Readonly<_Coordinates>,
   top: boolean
 ): Doc.Doc<never> {
   return objs.length === 0
     ? Doc.text(`${top ? 'coordinates: ' : ''}[],`)
-    : isTuple(objs)
-      ? Doc.hcat([Doc.text(top ? `coordinates: ` : ``), printTuple(objs)])
-      : Doc.vsep([
-          Doc.text(top ? `coordinates: [` : `[`),
-          Doc.indent(
-            Doc.vsep(
-              objs.map((obj) =>
-                isTuple(obj) ? printTuple(obj) : printCoordinates(obj, false)
-              )
-            ),
-            2
-          ),
-          Doc.text(`],`),
-        ])
+    : printCoordinates1(objs, top)
 }
+
+//// geometry
 
 export function printGeometry(obj: Readonly<_Geometry>): Doc.Doc<never> {
   return Doc.vsep([
@@ -113,6 +132,8 @@ export function printGeometry(obj: Readonly<_Geometry>): Doc.Doc<never> {
     Doc.text(`},`),
   ])
 }
+
+//// features
 
 export function printFeature(obj: Readonly<_Feature>): Doc.Doc<never> {
   return Doc.vsep([
@@ -147,7 +168,7 @@ export function printFeatureCollection(
   ])
 }
 
-export function printFeatures(objs: Readonly<_Features>): Doc.Doc<never> {
+export function printFeatures1(objs: Readonly<_Features>): Doc.Doc<never> {
   return Doc.vsep([
     Doc.text(`features: [`),
     Doc.indent(
@@ -164,16 +185,24 @@ export function printFeatures(objs: Readonly<_Features>): Doc.Doc<never> {
   ])
 }
 
+export function printFeatures(objs: Readonly<_Features>): Doc.Doc<never> {
+  return objs.length === 0 ? Doc.text(`features: [],`) : printFeatures1(objs)
+}
+
+//// GeoJSON
+
 export function printGeoJSON(obj: Readonly<_GeoJSON>): Doc.Doc<never> {
   return Doc.vsep([
     Doc.text(`{`),
     Doc.indent(
-      Doc.vsep([
-        printType(obj.type),
-        Doc.text(`name: '${obj.name}',`),
-        obj.crs === undefined ? Doc.empty : printCrs(obj.crs),
-        printFeatures(obj.features),
-      ]),
+      Doc.vsep(
+        [
+          [printType(obj.type)],
+          [Doc.text(`name: '${obj.name}',`)],
+          obj.crs === undefined ? [] : [printCrs(obj.crs)],
+          [printFeatures(obj.features)],
+        ].flat()
+      ),
       2
     ),
     Doc.text(`}`),
