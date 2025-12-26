@@ -14,7 +14,7 @@ import { styleCbs } from '../event-style'
 import { vecZero } from '../vec/prefixed'
 import { fromSvgToScroll } from '../viewer/coord'
 import { emptyLayout } from '../viewer/layout'
-import { getCurrentScroll } from '../viewer/scroll'
+import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { type ViewerMode } from '../viewer/viewer-types'
 import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
 

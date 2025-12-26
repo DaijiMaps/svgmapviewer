@@ -3,8 +3,8 @@
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-conditional-statements */
-import { type CurrentScroll, type Scroll } from '../../types'
-import { boxBox, boxUnit, type BoxBox } from '../box/prefixed'
+import { type CurrentScroll, type Scroll } from '../../../types'
+import { boxBox, boxUnit, type BoxBox } from '../../box/prefixed'
 
 // XXX make this async
 // XXX call this from scroll-xstate as invoke (Promise)

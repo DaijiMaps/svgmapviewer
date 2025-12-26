@@ -1,12 +1,12 @@
 import { assign, createActor, emit, fromPromise, setup } from 'xstate'
-import { type BoxBox } from '../box/prefixed'
+import { type BoxBox } from '../../box/prefixed'
 import {
   notifyScrollEventExpire,
   notifyScrollGetDone,
   notifyScrollSyncSyncDone,
   scrollCbs,
-} from '../event-scroll'
-import { makeExpire, type Expire } from '../expire-xstate'
+} from '../../event-scroll'
+import { makeExpire, type Expire } from '../../expire-xstate'
 import { getScroll, setCurrentScroll, syncScroll } from './scroll'
 import {
   type ScrollContext,

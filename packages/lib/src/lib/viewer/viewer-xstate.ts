@@ -51,7 +51,7 @@ import {
   scrollLayout,
   type Layout,
 } from './layout'
-import { getCurrentScroll } from './scroll'
+import { getCurrentScroll } from './scroll/scroll'
 import {
   EXPAND_PANNING,
   viewerModeLocked,
