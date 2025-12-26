@@ -7,7 +7,12 @@ import ts from 'typescript-eslint'
 
 export default [
   {
-    ignores: ['**/dist', '**/*.d.ts', '**/*.config.{js,ts}', '**/*.config-*.{js,ts}'],
+    ignores: [
+      '**/dist',
+      '**/*.d.ts',
+      '**/*.config.{js,ts}',
+      '**/*.config-*.{js,ts}',
+    ],
   },
   { files: ['src/**/*.{ts,tsx}'] },
   {
