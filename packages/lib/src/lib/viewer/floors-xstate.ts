@@ -18,7 +18,7 @@ const floorsMachine = setup({
     fidx: 0,
     prevFidx: null,
     images: new Map(),
-    nimages: 0,
+    urls: new Map(),
   },
   initial: 'Idle',
   on: {
@@ -26,7 +26,8 @@ const floorsMachine = setup({
       actions: assign({
         images: ({ context, event: { fidx, blob } }) =>
           new Map(context.images.set(fidx, blob)),
-        nimages: ({ context: { nimages } }) => nimages + 1,
+        urls: ({ context, event: { fidx, blob } }) =>
+          new Map(context.urls.set(fidx, URL.createObjectURL(blob))),
       }),
     },
   },

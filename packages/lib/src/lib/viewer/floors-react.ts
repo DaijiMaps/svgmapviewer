@@ -1,6 +1,4 @@
-import { createAtom } from '@xstate/store'
-import { useAtom } from '@xstate/store/react'
-import { useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 import { svgMapViewerConfig } from '../../config'
 import { floor_switch_duration } from '../css'
 import { notifyFloorLock, notifyFloorSelectDone } from '../event-floor'
@@ -16,12 +14,12 @@ export function useFloors(): FloorsContext & {
   fidxToOnAnimationEnd: FidxToOnAnimationEnd
   fidxToOnClick: FidxToOnClick
 } {
-  const { fidx, prevFidx, images, nimages } = useFloorsContext(
-    ({ fidx, prevFidx, images, nimages }) => ({
+  const { fidx, prevFidx, images, urls } = useFloorsContext(
+    ({ fidx, prevFidx, images, urls }) => ({
       fidx,
       prevFidx,
       images,
-      nimages,
+      urls,
     })
   )
 
@@ -46,7 +44,7 @@ export function useFloors(): FloorsContext & {
     fidx,
     prevFidx,
     images,
-    nimages,
+    urls,
     style,
     fidxToOnAnimationEnd,
     fidxToOnClick,
@@ -106,56 +104,15 @@ ${animation}
 
 ////
 
-function useFloorsImage(idx: number): { blob?: Blob; count: number } {
+function useFloorsImage(idx: number): { blob?: Blob; url?: string } {
   return useFloorsContext((context) => ({
     blob: context.images.get(idx),
-    count: context.nimages,
+    url: context.urls.get(idx),
   }))
 }
 
-////
-
-const imageUrlAtom = createAtom({ images: new Map<number, string>() })
-
-function useImageUrl(idx: number) {
-  return useAtom(imageUrlAtom, (s) => s.images.get(idx))
-}
-
-function createImageUrl(idx: number, blob?: Blob, url?: string) {
-  if (blob === undefined) {
-    return
-  }
-  if (url !== undefined) {
-    return
-  }
-  const objurl = URL.createObjectURL(blob)
-  imageUrlAtom.set(({ images }) => {
-    images.set(idx, objurl)
-    return { images: new Map(images) }
-  })
-}
-
-function destroyImageUrl(idx: number, url?: string) {
-  if (url !== undefined) {
-    URL.revokeObjectURL(url)
-    imageUrlAtom.set(({ images }) => {
-      images.delete(idx)
-      return { images: new Map(images) }
-    })
-  }
-}
-
-////
-
 export function useImage(idx: number): undefined | string {
-  const { blob } = useFloorsImage(idx)
-
-  const url = useImageUrl(idx)
-
-  useEffect(() => {
-    createImageUrl(idx, blob, url)
-    return () => destroyImageUrl(idx, url)
-  }, [blob, idx, url])
+  const { url } = useFloorsImage(idx)
 
   return url
 }
