@@ -34,10 +34,9 @@ export function RenderFloorImage({
 
   const url = useFloorImageUrl(idx)
 
+  // XXX better "loading" display?
   return url === undefined ? (
-    <text>
-      <tspan>Loading...</tspan>
-    </text>
+    <></>
   ) : (
     <image
       className={`floor fidx-${idx}`}
