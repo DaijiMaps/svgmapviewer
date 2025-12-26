@@ -8,7 +8,7 @@ import { uiActorStart } from './lib/ui/ui-xstate'
 import { floorsActorStart } from './lib/viewer/floors/floors-xstate'
 import { resizeActorStart } from './lib/viewer/resize-xstate'
 import { scrollActorStart } from './lib/viewer/scroll/scroll-xstate'
-import { touchActorStart } from './lib/viewer/touch-xstate'
+import { touchActorStart } from './lib/viewer/touch/touch-xstate'
 import { viewerActorStart } from './lib/viewer/viewer-xstate'
 
 export function startAllActors(): void {

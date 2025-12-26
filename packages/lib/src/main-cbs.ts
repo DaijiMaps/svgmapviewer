@@ -9,7 +9,7 @@ import { fullscreenCbsStart } from './lib/ui/fullscreen'
 import { uiCbsStart } from './lib/ui/ui-xstate'
 import { floorsCbsStart } from './lib/viewer/floors/floors-xstate'
 import { scrollCbsStart } from './lib/viewer/scroll/scroll-xstate'
-import { touchCbsStart } from './lib/viewer/touch-xstate'
+import { touchCbsStart } from './lib/viewer/touch/touch-xstate'
 import { viewerCbsStart } from './lib/viewer/viewer-xstate'
 
 export function startAllCbs(): void {

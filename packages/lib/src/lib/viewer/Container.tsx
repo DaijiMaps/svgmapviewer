@@ -14,7 +14,7 @@ import {
   touchSendTouchEnd,
   touchSendTouchMove,
   touchSendTouchStart,
-} from './touch-xstate'
+} from './touch/touch-xstate'
 import {
   sendAnimationEnd,
   sendClick,

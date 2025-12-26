@@ -6,7 +6,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
-import { touching } from './lib/viewer/touch-xstate'
+import { touching } from './lib/viewer/touch/touch-xstate'
 import { keyDown, keyUp } from './lib/viewer/viewer-react'
 import { wheeleventmask } from './lib/viewer/viewer-xstate'
 import { type SvgMapViewerConfig } from './types'
