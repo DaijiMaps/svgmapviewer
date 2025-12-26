@@ -1,5 +1,5 @@
 import { Array, Record } from 'effect'
-import type { _Properties, _Value } from './geojson-types'
+import type { _Properties, _Value } from './geojson/geojson-types'
 
 function expandVal(s: string): _Value {
   return s === 'null' ? null : !isNaN(Number(s)) ? Number(s) : s
