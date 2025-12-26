@@ -54,18 +54,20 @@ export function printType(type: string): Doc.Doc<never> {
 }
 
 export function printProperties(obj: Readonly<_Properties>): Doc.Doc<never> {
-  return Doc.vsep([
-    Doc.text(`properties: {`),
-    Doc.indent(
-      Doc.vsep(
-        Object.entries(obj).map(([k, v]) =>
-          Doc.hcat([Doc.text(`${k}: `), printValue(v, true)])
-        )
-      ),
-      2
-    ),
-    Doc.text(`},`),
-  ])
+  return Object.keys(obj).length === 0
+    ? Doc.text(`properties: {},`)
+    : Doc.vsep([
+        Doc.text(`properties: {`),
+        Doc.indent(
+          Doc.vsep(
+            Object.entries(obj).map(([k, v]) =>
+              Doc.hcat([Doc.text(`${k}: `), printValue(v, true)])
+            )
+          ),
+          2
+        ),
+        Doc.text(`},`),
+      ])
 }
 
 export function printCrs(obj: Readonly<_Crs>): Doc.Doc<never> {
@@ -83,20 +85,22 @@ export function printCoordinates(
   objs: Readonly<_Coordinates>,
   top: boolean
 ): Doc.Doc<never> {
-  return isTuple(objs)
-    ? Doc.hcat([Doc.text(top ? `coordinates: ` : ``), printTuple(objs)])
-    : Doc.vsep([
-        Doc.text(top ? `coordinates: [` : `[`),
-        Doc.indent(
-          Doc.vsep(
-            objs.map((obj) =>
-              isTuple(obj) ? printTuple(obj) : printCoordinates(obj, false)
-            )
+  return objs.length === 0
+    ? Doc.text(`${top ? 'coordinates: ' : ''}[],`)
+    : isTuple(objs)
+      ? Doc.hcat([Doc.text(top ? `coordinates: ` : ``), printTuple(objs)])
+      : Doc.vsep([
+          Doc.text(top ? `coordinates: [` : `[`),
+          Doc.indent(
+            Doc.vsep(
+              objs.map((obj) =>
+                isTuple(obj) ? printTuple(obj) : printCoordinates(obj, false)
+              )
+            ),
+            2
           ),
-          2
-        ),
-        Doc.text(`],`),
-      ])
+          Doc.text(`],`),
+        ])
 }
 
 export function printGeometry(obj: Readonly<_Geometry>): Doc.Doc<never> {

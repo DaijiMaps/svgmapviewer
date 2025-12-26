@@ -5,15 +5,27 @@ import { Effect, Order, Record } from 'effect'
 import { printGeoJSON } from './geojson/geojson-print'
 import { decodeGeoJSON } from './geojson/geojson-schema'
 import type { _GeoJSON } from './geojson/geojson-types'
+import { splitTypes } from './print-utils'
 
 export function printGeoJsonAsTs(
   varname: string,
   typename: string,
   geojson: Readonly<_GeoJSON>
 ): Doc.Doc<never> {
-  const basetypename = typename.replace(/<.*>$/, '')
+  const types = splitTypes(typename)
+  const basetypename = Doc.encloseSep(
+    types.map((t) => Doc.text(`type ${t}`)),
+    Doc.empty,
+    Doc.empty,
+    Doc.text(`, `)
+  )
+
   return Doc.vsep([
-    Doc.text(`import { type ${basetypename} } from 'svgmapviewer/geo'`),
+    Doc.hcat([
+      Doc.text(`import { `),
+      basetypename,
+      Doc.text(` } from 'svgmapviewer/geo'`),
+    ]),
     Doc.hcat([
       Doc.text(`export const ${varname}: ${typename} = `),
       printGeoJSON(geojson),
