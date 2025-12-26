@@ -10,3 +10,4 @@ packages:
   - ./packages/vscode-svgpatheditor
 overrides:
   "tmp": "^0.2.4"
+onlyBuiltDependencies: []
