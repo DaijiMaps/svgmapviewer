@@ -11,20 +11,24 @@ import type {
 } from './geojson-types'
 
 // XXX
-export function xxxtrunc6(n: number): number {
+export function truncNumber(n: number): number {
   return Math.round(n * 1000000) / 1000000
+}
+
+export function escapeString(v: string): string {
+  return v.replace(/"/g, '\\"')
 }
 
 export function printValue(v: null | number | string): Doc.Doc<never> {
   return v === null
     ? Doc.text('null,')
     : typeof v === 'number'
-      ? Doc.text(`${xxxtrunc6(v)},`)
-      : Doc.text(`"${v}",`)
+      ? Doc.text(`${truncNumber(v)},`)
+      : Doc.text(`'${escapeString(v)}',`)
 }
 
 export function printType(type: string): Doc.Doc<never> {
-  return Doc.text(`type: "${type}",`)
+  return Doc.text(`type: '${type}',`)
 }
 
 export function printProperties(obj: Readonly<_Properties>): Doc.Doc<never> {

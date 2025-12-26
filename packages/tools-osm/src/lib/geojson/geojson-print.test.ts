@@ -1,7 +1,7 @@
 import * as fs from 'node:fs'
 import { Doc } from '@effect/printer'
 import { expect, test } from '@rstest/core'
-import { printGeoJSON, printProperties, xxxtrunc6 } from './geojson-print'
+import { printGeoJSON, printProperties, truncNumber } from './geojson-print'
 import { _Properties } from './geojson-types'
 
 test('printProperties', () => {
@@ -28,10 +28,10 @@ test('printGeoJSON', () => {
   })
 })
 
-test('xxxtrunc6', () => {
-  const n = xxxtrunc6(1.1111111111)
+test('truncNumber', () => {
+  const n = truncNumber(1.1111111111)
   expect(`${n}`).toBe(`1.111111`)
-  const i = xxxtrunc6(123)
+  const i = truncNumber(123)
   expect(`${i}`).toBe(`123`)
 })
 

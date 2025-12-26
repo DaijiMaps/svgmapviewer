@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FileSystem } from '@effect/platform'
 import type { PlatformError } from '@effect/platform/Error'
 import { Doc } from '@effect/printer'
@@ -9,13 +8,15 @@ import type { _GeoJSON } from './geojson/geojson-types'
 
 export function printGeoJsonAsTs(
   filename: string,
+  varname: string,
   typename: string,
   geojson: Readonly<_GeoJSON>
 ): Doc.Doc<never> {
+  const basetypename = typename.replace(/<.*>$/, '')
   return Doc.vsep([
-    Doc.text(`import { type ${typename} } from "svgmapviewer/geo"`),
+    Doc.text(`import { type ${basetypename} } from 'svgmapviewer/geo'`),
     Doc.hcat([
-      Doc.text(`export const ${filename}: ${typename} = `),
+      Doc.text(`export const ${varname}: ${typename} = `),
       printGeoJSON(geojson),
     ]),
     Doc.text(`export default ${filename}`),
@@ -33,7 +34,7 @@ export function printAllTs(): Doc.Doc<never> {
     Doc.line,
     Doc.text(`export const mapData = {`),
     Doc.indent(
-      Doc.vsep(Record.toEntries(_names).map(([k, _v]) => Doc.text(`${k},`))),
+      Doc.vsep(Record.values(_names).map((v) => Doc.text(`${v},`))),
       2
     ),
     Doc.text(`}`),
@@ -49,7 +50,7 @@ export const convName = (
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const jsonObj = JSON.parse(jsonStr)
     const geojson = decodeGeoJSON(jsonObj)
-    const doc = printGeoJsonAsTs(_type, _types[_type], geojson)
+    const doc = printGeoJsonAsTs(_type, _names[_type], _types[_type], geojson)
     const ts = Doc.render(doc, { style: 'pretty' })
     yield* fs.writeFileString(`./${_type}.ts`, ts)
   })
