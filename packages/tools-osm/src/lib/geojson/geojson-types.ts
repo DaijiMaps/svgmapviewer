@@ -1,6 +1,7 @@
-//// value
+//// value, tuple
 
 export type _Value = null | number | string
+export type _Tuple = readonly [number, number]
 
 //// properties
 

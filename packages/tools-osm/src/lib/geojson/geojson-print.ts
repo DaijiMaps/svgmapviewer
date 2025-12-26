@@ -8,6 +8,8 @@ import type {
   _GeoJSON,
   _Geometry,
   _Properties,
+  _Tuple,
+  _Value,
 } from './geojson-types'
 
 // XXX
@@ -15,16 +17,36 @@ export function truncNumber(n: number): number {
   return Math.round(n * 1000000) / 1000000
 }
 
+/*
 export function escapeString(v: string): string {
   return v.replace(/"/g, '\\"')
 }
+*/
 
-export function printValue(v: null | number | string): Doc.Doc<never> {
+export function printValue(v: _Value, comma: boolean): Doc.Doc<never> {
   return v === null
     ? Doc.text('null,')
     : typeof v === 'number'
-      ? Doc.text(`${truncNumber(v)},`)
-      : Doc.text(`'${escapeString(v)}',`)
+      ? Doc.text(`${truncNumber(v)}${comma ? ',' : ''}`)
+      : Doc.text(`'${v}'${comma ? ',' : ''}`)
+}
+
+export function isTuple(obj: _Coordinates): obj is _Tuple {
+  return (
+    obj instanceof Array &&
+    obj.length === 2 &&
+    typeof obj[0] !== 'object' &&
+    typeof obj[1] !== 'object'
+  )
+}
+
+export function printTuple([a, b]: _Tuple): Doc.Doc<never> {
+  return Doc.hcat([
+    Doc.text(`[`),
+    printValue(a, true),
+    printValue(b, false),
+    Doc.text(`],`),
+  ])
 }
 
 export function printType(type: string): Doc.Doc<never> {
@@ -37,7 +59,7 @@ export function printProperties(obj: Readonly<_Properties>): Doc.Doc<never> {
     Doc.indent(
       Doc.vsep(
         Object.entries(obj).map(([k, v]) =>
-          Doc.hcat([Doc.text(`${k}: `), printValue(v)])
+          Doc.hcat([Doc.text(`${k}: `), printValue(v, true)])
         )
       ),
       2
@@ -61,20 +83,20 @@ export function printCoordinates(
   objs: Readonly<_Coordinates>,
   top: boolean
 ): Doc.Doc<never> {
-  return Doc.vsep([
-    Doc.text(top ? `coordinates: [` : `[`),
-    Doc.indent(
-      Doc.vsep(
-        objs.map((obj) =>
-          typeof obj === 'number'
-            ? printValue(obj)
-            : printCoordinates(obj, false)
-        )
-      ),
-      2
-    ),
-    Doc.text(`],`),
-  ])
+  return isTuple(objs)
+    ? Doc.hcat([Doc.text(top ? `coordinates: ` : ``), printTuple(objs)])
+    : Doc.vsep([
+        Doc.text(top ? `coordinates: [` : `[`),
+        Doc.indent(
+          Doc.vsep(
+            objs.map((obj) =>
+              isTuple(obj) ? printTuple(obj) : printCoordinates(obj, false)
+            )
+          ),
+          2
+        ),
+        Doc.text(`],`),
+      ])
 }
 
 export function printGeometry(obj: Readonly<_Geometry>): Doc.Doc<never> {

@@ -19,7 +19,7 @@ export function printGeoJsonAsTs(
       Doc.text(`export const ${varname}: ${typename} = `),
       printGeoJSON(geojson),
     ]),
-    Doc.text(`export default ${filename}`),
+    Doc.text(`export default ${varname}`),
   ])
 }
 
