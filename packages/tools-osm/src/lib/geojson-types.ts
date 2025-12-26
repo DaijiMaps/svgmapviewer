@@ -1,8 +1,14 @@
+//// value
+
 export type _Value = null | number | string
+
+//// properties
 
 export type _Properties = {
   readonly [x: string]: _Value
 }
+
+//// coordinates
 
 export type _PointCoordinates = readonly [number, number]
 export type _MultiPointCoordinates = readonly _PointCoordinates[]
@@ -18,6 +24,8 @@ export type _Coordinates =
   | _MultiLineCoordinates
   //| _PolygonCoordinates
   | _MultiPolygonCoordinates
+
+//// geometry
 
 type __Geometry<t, c> = {
   readonly type: t
@@ -47,6 +55,8 @@ export type _Geometry =
   | _MultiLineStringGeometry
   | _PolygonGeometry
   | _MultiPolygonGeometry
+
+//// features
 
 export type __Feature<G = _Geometry> = {
   readonly type: 'Feature'
@@ -81,6 +91,8 @@ export type _GeometryCollection = {
 
 export type _Features = readonly (_Feature | _FeatureCollection)[]
 
+//// crs
+
 export type _CrsName = {
   readonly type: 'name'
   readonly properties: _Properties
@@ -92,6 +104,8 @@ export type _CrsLink = {
 }
 
 export type _Crs = _CrsName | _CrsLink
+
+//// GeoJSON
 
 export type _GeoJSON = {
   readonly type: string

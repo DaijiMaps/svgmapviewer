@@ -3,8 +3,8 @@ import { FileSystem } from '@effect/platform'
 import type { PlatformError } from '@effect/platform/Error'
 import { Doc } from '@effect/printer'
 import { Effect, Record } from 'effect'
-import { decodeGeoJSON } from './geojson'
 import { printGeoJSON } from './geojson-print'
+import { decodeGeoJSON } from './geojson-schema'
 import type { _GeoJSON } from './geojson-types'
 
 export function printGeoJsonAsTs(

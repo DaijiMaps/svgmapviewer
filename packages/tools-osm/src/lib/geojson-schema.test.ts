@@ -1,6 +1,6 @@
 import * as fs from 'node:fs'
 import { expect, test } from '@rstest/core'
-import { decodeGeoJSON, decodeProperties } from './geojson'
+import { decodeGeoJSON, decodeProperties } from './geojson-schema'
 
 test('decodeProperties', () => {
   const o = {
