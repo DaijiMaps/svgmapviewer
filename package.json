@@ -41,8 +41,6 @@
         "typescript"
       ]
     },
-    "onlyBuiltDependencies": [
-      "lefthook"
-    ]
+    "onlyBuiltDependencies": []
   }
 }
