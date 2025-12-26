@@ -9,7 +9,7 @@ import {
 } from '../css'
 import { notifyStyleAnimationEnd } from '../event-style'
 import { useAnimation, useLayoutContent } from '../style/style-react'
-import { useFloors } from './floors-react'
+import { useFloors } from './floors/floors-react'
 import {
   touchSendTouchEnd,
   touchSendTouchMove,

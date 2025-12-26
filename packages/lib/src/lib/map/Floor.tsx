@@ -3,7 +3,7 @@ import { Fragment, type ReactNode } from 'react'
 import { type OsmRenderMapProps } from '../../types'
 import type { BoxBox } from '../box/prefixed'
 import { useLayout2 } from '../style/style-react'
-import { useFloorImageUrl, useFloors } from '../viewer/floors-react'
+import { useFloorImageUrl, useFloors } from '../viewer/floors/floors-react'
 
 export function RenderFloors({
   floors,
@@ -26,7 +26,7 @@ export function RenderFloors({
   )
 }
 
-export function RenderFloorImage({
+function RenderFloorImage({
   origViewBox,
   idx,
 }: Readonly<{ origViewBox: BoxBox; idx: number }>): ReactNode {

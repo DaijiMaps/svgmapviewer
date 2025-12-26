@@ -1,4 +1,4 @@
-import type { FloorsConfig } from '../../types'
+import type { FloorsConfig } from '../../../types'
 
 export type Context = { cfg?: FloorsConfig }
 

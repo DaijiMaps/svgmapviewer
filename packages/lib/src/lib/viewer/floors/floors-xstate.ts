@@ -1,8 +1,8 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, setup } from 'xstate'
-import type { SvgMapViewerConfig } from '../../types'
-import { floorCbs } from '../event-floor'
-import { globalCbs } from '../event-global'
+import type { SvgMapViewerConfig } from '../../../types'
+import { floorCbs } from '../../event-floor'
+import { globalCbs } from '../../event-global'
 import type { FloorsContext, FloorsEvents } from './floors-types'
 import type { Res } from './floors-worker-types'
 

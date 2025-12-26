@@ -1,4 +1,4 @@
-import type { Cb } from '../cb'
+import type { Cb } from '../../cb'
 
 export interface FloorsContext {
   fidx: number
