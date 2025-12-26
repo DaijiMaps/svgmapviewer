@@ -23,8 +23,6 @@ export function useFloors(): FloorsContext & {
     })
   )
 
-  console.log('useFloors', nimages)
-
   const style = makeStyle(fidx, prevFidx)
 
   // XXX receive only one (appearing) animationend event

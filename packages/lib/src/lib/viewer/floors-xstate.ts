@@ -69,9 +69,7 @@ const floorsMachine = setup({
   },
 })
 
-const floorsActor = createActor(floorsMachine, {
-  inspect: console.log,
-})
+const floorsActor = createActor(floorsMachine)
 
 export function floorsActorStart(): void {
   floorsActor.start()
