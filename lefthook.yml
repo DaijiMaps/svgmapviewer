@@ -1,8 +1,0 @@
-pre-commit:
-  parallel: true
-  jobs:
-    - run: ./node_modules/.bin/eslint --fix {staged_files}
-      glob: "*.{js,ts,jsx,tsx}"
-
-    - run: ./node_modules/.bin/prettier --write --cache --ignore-unknown {staged_files}
-      glob: "*"
