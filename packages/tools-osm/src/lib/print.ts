@@ -26,10 +26,12 @@ export function printGeoJsonAsTs(
       basetypename,
       Doc.text(` } from 'svgmapviewer/geo'`),
     ]),
+    Doc.line,
     Doc.hcat([
       Doc.text(`export const ${varname}: ${typename} = `),
       printGeoJSON(geojson),
     ]),
+    Doc.line,
     Doc.text(`export default ${varname}`),
   ])
 }
@@ -42,6 +44,7 @@ export function printAllTs(): Doc.Doc<never> {
         .toSorted((a, b) => Order.string(a[1], b[1]))
         .map(([k, v]) => Doc.text(`import ${v} from './${k}'`))
     ),
+    Doc.line,
     Doc.text(`export const mapData = {`),
     Doc.indent(
       Doc.vsep(Record.values(_names).map((v) => Doc.text(`${v},`))),

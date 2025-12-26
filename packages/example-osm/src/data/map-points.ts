@@ -159,12 +159,12 @@ export const points: OsmPointGeoJSON = {
         other_tags:
           '"amenity"=>"place_of_worship","religion"=>"buddhist","wikidata"=>"Q22119407"',
         area: null,
-        centroid_x: 139.489161,
+        centroid_x: 139.489162,
         centroid_y: 35.348998,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.489161, 35.348998],
+        coordinates: [139.489162, 35.348998],
       },
     },
     {
@@ -336,12 +336,12 @@ export const points: OsmPointGeoJSON = {
         man_made: null,
         other_tags: null,
         area: null,
-        centroid_x: 139.487408,
+        centroid_x: 139.487409,
         centroid_y: 35.346955,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.487408, 35.346955],
+        coordinates: [139.487409, 35.346955],
       },
     },
     {
@@ -468,12 +468,12 @@ export const points: OsmPointGeoJSON = {
         man_made: null,
         other_tags: '"natural"=>"tree"',
         area: null,
-        centroid_x: 139.487821,
+        centroid_x: 139.487822,
         centroid_y: 35.347694,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.487821, 35.347694],
+        coordinates: [139.487822, 35.347694],
       },
     },
     {
@@ -799,11 +799,11 @@ export const points: OsmPointGeoJSON = {
         other_tags: '"historic"=>"monument"',
         area: null,
         centroid_x: 139.488611,
-        centroid_y: 35.348155,
+        centroid_y: 35.348156,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.488611, 35.348155],
+        coordinates: [139.488611, 35.348156],
       },
     },
     {
@@ -1613,11 +1613,11 @@ export const points: OsmPointGeoJSON = {
         other_tags: '"natural"=>"tree"',
         area: null,
         centroid_x: 139.488098,
-        centroid_y: 35.347158,
+        centroid_y: 35.347159,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.488098, 35.347158],
+        coordinates: [139.488098, 35.347159],
       },
     },
     {
@@ -1634,12 +1634,12 @@ export const points: OsmPointGeoJSON = {
         man_made: null,
         other_tags: '"natural"=>"tree"',
         area: null,
-        centroid_x: 139.489475,
+        centroid_x: 139.489476,
         centroid_y: 35.34881,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.489475, 35.34881],
+        coordinates: [139.489476, 35.34881],
       },
     },
     {
@@ -1656,12 +1656,12 @@ export const points: OsmPointGeoJSON = {
         man_made: null,
         other_tags: '"amenity"=>"bench"',
         area: null,
-        centroid_x: 139.488384,
+        centroid_x: 139.488385,
         centroid_y: 35.348035,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.488384, 35.348035],
+        coordinates: [139.488385, 35.348035],
       },
     },
     {
@@ -1745,11 +1745,11 @@ export const points: OsmPointGeoJSON = {
         other_tags: '"natural"=>"tree"',
         area: null,
         centroid_x: 139.487839,
-        centroid_y: 35.34726,
+        centroid_y: 35.347261,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.487839, 35.34726],
+        coordinates: [139.487839, 35.347261],
       },
     },
     {
@@ -2119,11 +2119,11 @@ export const points: OsmPointGeoJSON = {
         other_tags: '"natural"=>"tree"',
         area: null,
         centroid_x: 139.487739,
-        centroid_y: 35.34834,
+        centroid_y: 35.348341,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.487739, 35.34834],
+        coordinates: [139.487739, 35.348341],
       },
     },
     {
@@ -2140,12 +2140,12 @@ export const points: OsmPointGeoJSON = {
         man_made: null,
         other_tags: '"natural"=>"tree"',
         area: null,
-        centroid_x: 139.487812,
+        centroid_x: 139.487813,
         centroid_y: 35.347221,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.487812, 35.347221],
+        coordinates: [139.487813, 35.347221],
       },
     },
     {
@@ -2184,12 +2184,12 @@ export const points: OsmPointGeoJSON = {
         man_made: null,
         other_tags: '"artwork_type"=>"statue","tourism"=>"artwork"',
         area: null,
-        centroid_x: 139.487439,
+        centroid_x: 139.48744,
         centroid_y: 35.347831,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.487439, 35.347831],
+        coordinates: [139.48744, 35.347831],
       },
     },
     {
@@ -2449,11 +2449,11 @@ export const points: OsmPointGeoJSON = {
         other_tags: '"natural"=>"tree"',
         area: null,
         centroid_x: 139.487769,
-        centroid_y: 35.348371,
+        centroid_y: 35.348372,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.487769, 35.348371],
+        coordinates: [139.487769, 35.348372],
       },
     },
     {
@@ -2470,12 +2470,12 @@ export const points: OsmPointGeoJSON = {
         man_made: null,
         other_tags: '"historic"=>"memorial"',
         area: null,
-        centroid_x: 139.48781,
+        centroid_x: 139.487811,
         centroid_y: 35.347252,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.48781, 35.347252],
+        coordinates: [139.487811, 35.347252],
       },
     },
     {
@@ -3043,11 +3043,11 @@ export const points: OsmPointGeoJSON = {
         other_tags: '"historic"=>"monument"',
         area: null,
         centroid_x: 139.488714,
-        centroid_y: 35.347977,
+        centroid_y: 35.347978,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.488714, 35.347977],
+        coordinates: [139.488714, 35.347978],
       },
     },
     {
@@ -3152,12 +3152,12 @@ export const points: OsmPointGeoJSON = {
         man_made: null,
         other_tags: '"historic"=>"monument"',
         area: null,
-        centroid_x: 139.487835,
+        centroid_x: 139.487836,
         centroid_y: 35.347639,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.487835, 35.347639],
+        coordinates: [139.487836, 35.347639],
       },
     },
     {
@@ -3240,12 +3240,12 @@ export const points: OsmPointGeoJSON = {
         man_made: null,
         other_tags: '"historic"=>"memorial"',
         area: null,
-        centroid_x: 139.488185,
+        centroid_x: 139.488186,
         centroid_y: 35.348425,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.488185, 35.348425],
+        coordinates: [139.488186, 35.348425],
       },
     },
     {
@@ -3482,12 +3482,12 @@ export const points: OsmPointGeoJSON = {
         man_made: null,
         other_tags: null,
         area: null,
-        centroid_x: 139.487798,
+        centroid_x: 139.487799,
         centroid_y: 35.347631,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.487798, 35.347631],
+        coordinates: [139.487799, 35.347631],
       },
     },
     {
@@ -3945,11 +3945,11 @@ export const points: OsmPointGeoJSON = {
         other_tags: '"natural"=>"tree"',
         area: null,
         centroid_x: 139.488068,
-        centroid_y: 35.34841,
+        centroid_y: 35.348411,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.488068, 35.34841],
+        coordinates: [139.488068, 35.348411],
       },
     },
     {
@@ -4296,12 +4296,12 @@ export const points: OsmPointGeoJSON = {
         man_made: null,
         other_tags: '"natural"=>"tree"',
         area: null,
-        centroid_x: 139.488193,
+        centroid_x: 139.488194,
         centroid_y: 35.349126,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.488193, 35.349126],
+        coordinates: [139.488194, 35.349126],
       },
     },
     {
@@ -4649,11 +4649,11 @@ export const points: OsmPointGeoJSON = {
         other_tags: '"artwork_type"=>"statue","tourism"=>"artwork"',
         area: null,
         centroid_x: 139.489175,
-        centroid_y: 35.349072,
+        centroid_y: 35.349073,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.489175, 35.349072],
+        coordinates: [139.489175, 35.349073],
       },
     },
     {
@@ -4670,12 +4670,12 @@ export const points: OsmPointGeoJSON = {
         man_made: null,
         other_tags: '"historic"=>"monument"',
         area: null,
-        centroid_x: 139.489038,
+        centroid_x: 139.489039,
         centroid_y: 35.349123,
       },
       geometry: {
         type: 'Point',
-        coordinates: [139.489038, 35.349123],
+        coordinates: [139.489039, 35.349123],
       },
     },
     {

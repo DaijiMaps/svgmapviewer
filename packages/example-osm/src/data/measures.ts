@@ -36,7 +36,7 @@ export const measures: LineGeoJSON<MeasureProperties> = {
         type: 'LineString',
         coordinates: [
           [139.48836, 35.348079],
-          [139.48836, 35.346801],
+          [139.48836, 35.346802],
         ],
       },
     },
