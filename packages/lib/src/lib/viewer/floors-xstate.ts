@@ -9,20 +9,11 @@ import { globalCbs } from '../event-global'
 import type { FloorsContext, FloorsEvents } from './floors-types'
 import type { Res } from './floors-worker-types'
 
-type SetImageParams = { fidx: number; blob: Blob }
-type SetImage = { type: 'setImage'; params: SetImageParams }
-
 const floorsMachine = setup({
   types: {
     context: {} as FloorsContext,
     events: {} as FloorsEvents,
     // XXX emitted
-  },
-  actions: {
-    setImage: assign({
-      images: ({ context }, { fidx, blob }: SetImageParams) =>
-        new Map(context.images.set(fidx, blob)),
-    }),
   },
 }).createMachine({
   id: 'floors1',
@@ -30,13 +21,15 @@ const floorsMachine = setup({
     fidx: 0,
     prevFidx: null,
     images: new Map(),
+    nimages: 0,
   },
   initial: 'Idle',
   on: {
     IMAGE: {
-      actions: ({ event: { fidx, blob } }): SetImage => ({
-        type: 'setImage',
-        params: { fidx, blob },
+      actions: assign({
+        images: ({ context, event: { fidx, blob } }) =>
+          new Map(context.images.set(fidx, blob)),
+        nimages: ({ context: { nimages } }) => nimages + 1,
       }),
     },
   },
@@ -76,46 +69,68 @@ const floorsMachine = setup({
   },
 })
 
-const floorsActor = createActor(floorsMachine)
+const floorsActor = createActor(floorsMachine, {
+  inspect: console.log,
+})
 
 export function floorsActorStart(): void {
   floorsActor.start()
 }
 
 export function useFloorsContext<T>(f: (ctx: Readonly<FloorsContext>) => T): T {
+  console.log('useFloorContext')
   return useSelector(floorsActor, (state) => f(state.context))
 }
 
-export function useFloorsImage(idx: number): undefined | Blob {
-  return useSelector(floorsActor, (state) => state.context.images.get(idx))
+export function useFloorsImage(idx: number): { blob?: Blob; count: number } {
+  return useSelector(floorsActor, (state) => ({
+    blob: state.context.images.get(idx),
+    count: state.context.nimages,
+  }))
 }
+
+////
 
 const imageUrlAtom = createAtom({ images: new Map<number, string>() })
 
+function useImageUrl(idx: number) {
+  return useAtom(imageUrlAtom, (s) => s.images.get(idx))
+}
+
+function createImageUrl(idx: number, blob?: Blob, url?: string) {
+  if (blob === undefined) {
+    return
+  }
+  if (url !== undefined) {
+    return
+  }
+  const objurl = URL.createObjectURL(blob)
+  imageUrlAtom.set(({ images }) => {
+    images.set(idx, objurl)
+    return { images: new Map(images) }
+  })
+}
+
+function destroyImageUrl(idx: number, url?: string) {
+  if (url !== undefined) {
+    URL.revokeObjectURL(url)
+    imageUrlAtom.set(({ images }) => {
+      images.delete(idx)
+      return { images: new Map(images) }
+    })
+  }
+}
+
+////
+
 export function useImage(idx: number): undefined | string {
-  const blob = useFloorsImage(idx)
+  const { blob } = useFloorsImage(idx)
 
-  const url = useAtom(imageUrlAtom, (s) => s.images.get(idx))
-
-  console.log('useImage', blob, url)
+  const url = useImageUrl(idx)
 
   useEffect(() => {
-    if (blob !== undefined) {
-      const objurl = URL.createObjectURL(blob)
-      imageUrlAtom.set(({ images }) => {
-        images.set(idx, objurl)
-        return { images: new Map() }
-      })
-    }
-    return () => {
-      if (url !== undefined) {
-        URL.revokeObjectURL(url)
-        imageUrlAtom.set(({ images }) => {
-          images.delete(idx)
-          return { images: new Map(images) }
-        })
-      }
-    }
+    createImageUrl(idx, blob, url)
+    return () => destroyImageUrl(idx, url)
   }, [blob, idx, url])
 
   return url

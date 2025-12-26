@@ -14,13 +14,16 @@ export function useFloors(): FloorsContext & {
   fidxToOnAnimationEnd: FidxToOnAnimationEnd
   fidxToOnClick: FidxToOnClick
 } {
-  const { fidx, prevFidx, images } = useFloorsContext(
-    ({ fidx, prevFidx, images }) => ({
+  const { fidx, prevFidx, images, nimages } = useFloorsContext(
+    ({ fidx, prevFidx, images, nimages }) => ({
       fidx,
       prevFidx,
       images,
+      nimages,
     })
   )
+
+  console.log('useFloors', nimages)
 
   const style = makeStyle(fidx, prevFidx)
 
@@ -39,7 +42,15 @@ export function useFloors(): FloorsContext & {
     [fidx, prevFidx]
   )
 
-  return { fidx, prevFidx, images, style, fidxToOnAnimationEnd, fidxToOnClick }
+  return {
+    fidx,
+    prevFidx,
+    images,
+    nimages,
+    style,
+    fidxToOnAnimationEnd,
+    fidxToOnClick,
+  }
 }
 
 function makeStyle(fidx: number, prevFidx: null | number): null | string {

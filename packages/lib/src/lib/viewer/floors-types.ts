@@ -4,6 +4,7 @@ export interface FloorsContext {
   fidx: number
   prevFidx: null | number
   images: Map<number, Blob>
+  nimages: number
 }
 
 export type Select = { type: 'SELECT'; fidx: number; force?: boolean }
