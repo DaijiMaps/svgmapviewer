@@ -10,17 +10,27 @@ const floorsMachine = setup({
   types: {
     context: {} as FloorsContext,
     events: {} as FloorsEvents,
-    // XXX emitted
   },
 }).createMachine({
   id: 'floors1',
   context: {
     fidx: 0,
     prevFidx: null,
+    images: new Map(),
+    urls: new Map(),
   },
   initial: 'Idle',
-  // XXX handle image download event
-  // XXX on: {},
+  on: {
+    IMAGE: {
+      actions: assign({
+        images: ({ context, event: { fidx, blob } }) =>
+          new Map(context.images.set(fidx, blob)),
+        urls: ({ context, event: { fidx, blob } }) =>
+          // XXX when to call URL.revokeObjectURL?
+          new Map(context.urls.set(fidx, URL.createObjectURL(blob))),
+      }),
+    },
+  },
   states: {
     Idle: {
       on: {
@@ -78,11 +88,14 @@ const worker: Worker = new Worker(
 
 worker.onmessage = (e: Readonly<MessageEvent<Res>>): void => {
   const ev = e.data
-  // XXX floorsActor.send()
   switch (ev.type) {
-    case 'INIT.DONE':
-      console.log(ev)
+    case 'INIT.DONE': {
       break
+    }
+    case 'FETCH.DONE': {
+      floorsActor.send({ type: 'IMAGE', fidx: ev.idx, blob: ev.blob })
+      break
+    }
   }
 }
 
@@ -94,11 +107,6 @@ worker.onmessageerror = (ev) => {
   console.error('floors messageerror', ev)
 }
 
-// XXX
-// floorsActor.on(..., () => {
-//   worker.postMessage()
-// })
-
 // handlers
 
 export function floorsCbsStart(): void {
@@ -106,6 +114,7 @@ export function floorsCbsStart(): void {
     if (cfg.floorsConfig) {
       const fidx = cfg.floorsConfig.fidx
       floorsActor.send({ type: 'SELECT', fidx, force: true })
+      worker.postMessage({ type: 'INIT', cfg: cfg.floorsConfig })
     }
   })
   floorCbs.select.add((fidx: number) =>

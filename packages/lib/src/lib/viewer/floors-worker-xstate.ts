@@ -1,27 +1,44 @@
-import { createActor, setup } from 'xstate'
-import type { Context, Req, Res } from './floors-worker-types'
+// eslint-env worker
+import { assign, createActor, emit, setup } from 'xstate'
+import type { Context, Emits, Events, Req } from './floors-worker-types'
 
 const floorsWorkerMachine = setup({
   types: {
     context: {} as Context,
-    events: {} as Req,
-    emitted: {} as Res,
+    events: {} as Events,
+    emitted: {} as Emits,
+  },
+  actions: {
+    fetch: emit(
+      ({ context: { cfg } }): Emits =>
+        cfg === undefined ? { type: 'NOOP' } : { type: 'FETCH', cfg }
+    ),
   },
 }).createMachine({
   id: 'floorsWorker1',
   context: {
-    fidx: 0,
+    cfg: undefined,
   },
-  initial: 'Idle',
+  initial: 'Uninited',
   states: {
-    Idle: {
+    Uninited: {
       on: {
         INIT: {
-          target: 'Busy',
+          actions: [
+            emit({ type: 'INIT.DONE' }),
+            assign({
+              cfg: ({ event: { cfg } }) => cfg,
+            }),
+          ],
+          target: 'LoadingFirst',
         },
       },
     },
-    Busy: {},
+    LoadingFirst: {
+      entry: 'fetch',
+    },
+    LoadingRest: {},
+    Idle: {},
   },
 })
 
@@ -35,6 +52,27 @@ export function floorsWorkerSend(ev: Req): void {
   floorsWorkerActor.send(ev)
 }
 
-floorsWorkerActor.on('INIT.DONE', (ev) => {
-  postMessage(ev)
-})
+floorsWorkerActor.on('INIT.DONE', (ev) => postMessage(ev))
+floorsWorkerActor.on('FETCH', ({ cfg }) =>
+  cfg.floors.forEach((f, idx) => {
+    fetch(f.href)
+      .then((response) => {
+        if (!response.ok) {
+          // XXX retry?
+          throw new Error(`fetch error!`)
+        }
+        return response.blob()
+      })
+      .then((blob) => {
+        blob
+          .arrayBuffer()
+          .then((buf) =>
+            postMessage(
+              { type: 'FETCH.DONE', idx, blob, buf },
+              { transfer: [buf] }
+            )
+          )
+      })
+      .catch((e) => console.error(e))
+  })
+)

@@ -1,35 +1,52 @@
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+import { Fragment, type ReactNode } from 'react'
 import { type OsmRenderMapProps } from '../../types'
+import type { BoxBox } from '../box/prefixed'
 import { useLayout2 } from '../style/style-react'
-import { useFloors } from '../viewer/floors-react'
+import { useFloorImageUrl, useFloors } from '../viewer/floors-react'
 
-export function RenderFloors(props: Readonly<OsmRenderMapProps>): ReactNode {
+export function RenderFloors({
+  floors,
+  data: { origViewBox },
+}: Readonly<OsmRenderMapProps>): ReactNode {
   const { viewBox, width, height } = useLayout2()
-  const { fidxToOnAnimationEnd } = useFloors()
 
-  const origViewBox = props.data.origViewBox
-  const floorsConfig = props.floors
-
-  return floorsConfig === undefined ? (
+  return floors === undefined ? (
     <></>
   ) : (
     <div className="content">
       <svg viewBox={viewBox} width={width} height={height}>
-        {floorsConfig.floors.map(({ href }, idx) => (
-          <image
-            key={idx}
-            className={`floor fidx-${idx}`}
-            href={href}
-            x={origViewBox.x}
-            y={origViewBox.y}
-            width={origViewBox.width}
-            height={origViewBox.height}
-            onAnimationEnd={fidxToOnAnimationEnd(idx)}
-          />
+        {floors.floors.map((_floor, idx) => (
+          <Fragment key={idx}>
+            <RenderFloorImage origViewBox={origViewBox} idx={idx} />
+          </Fragment>
         ))}
       </svg>
     </div>
+  )
+}
+
+export function RenderFloorImage({
+  origViewBox,
+  idx,
+}: Readonly<{ origViewBox: BoxBox; idx: number }>): ReactNode {
+  const { fidxToOnAnimationEnd } = useFloors()
+
+  const url = useFloorImageUrl(idx)
+
+  // XXX better "loading" display?
+  return url === undefined ? (
+    <></>
+  ) : (
+    <image
+      className={`floor fidx-${idx}`}
+      href={url}
+      x={origViewBox.x}
+      y={origViewBox.y}
+      width={origViewBox.width}
+      height={origViewBox.height}
+      onAnimationEnd={fidxToOnAnimationEnd(idx)}
+    />
   )
 }
 
