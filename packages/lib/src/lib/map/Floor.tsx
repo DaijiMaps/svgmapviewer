@@ -2,7 +2,7 @@
 import { Fragment, type ReactNode } from 'react'
 import { type OsmRenderMapProps } from '../../types'
 import { useLayout2 } from '../style/style-react'
-import { useFloors, useImage } from '../viewer/floors-react'
+import { useFloorImageUrl, useFloors } from '../viewer/floors-react'
 
 // XXX
 // XXX use blob
@@ -34,7 +34,7 @@ export function RenderFloorImage({
 }: Readonly<OsmRenderMapProps & { idx: number }>): ReactNode {
   const { fidxToOnAnimationEnd } = useFloors()
 
-  const url = useImage(idx)
+  const url = useFloorImageUrl(idx)
 
   return url === undefined ? (
     <text>

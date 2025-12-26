@@ -104,15 +104,8 @@ ${animation}
 
 ////
 
-function useFloorsImage(idx: number): { blob?: Blob; url?: string } {
-  return useFloorsContext((context) => ({
-    blob: context.images.get(idx),
-    url: context.urls.get(idx),
-  }))
-}
+export function useFloorImageUrl(idx: number): undefined | string {
+  const { urls } = useFloors()
 
-export function useImage(idx: number): undefined | string {
-  const { url } = useFloorsImage(idx)
-
-  return url
+  return urls.get(idx)
 }
