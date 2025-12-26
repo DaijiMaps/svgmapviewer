@@ -1,5 +1,7 @@
+export type _Value = null | number | string
+
 export type _Properties = {
-  readonly [x: string]: string | number | null
+  readonly [x: string]: _Value
 }
 
 export type _PointCoordinates = readonly [number, number]
