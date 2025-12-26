@@ -5,12 +5,10 @@ function uncomma(s: string): readonly string[] {
 }
 
 function splitTypes1(t: string): readonly string[] {
-  if (t.match(/</)) {
-    const re = /<([^<>]*)>/g
-
+  const re = /<([^<>]*)>/g
+  if (t.match(re)) {
     const all = t.matchAll(re)
     const aaa = Array.from(all).map((m) => uncomma(m[1]))
-
     const rest = t.replaceAll(re, '')
     const bbb = splitTypes(rest)
     return [...aaa, ...bbb].flat()

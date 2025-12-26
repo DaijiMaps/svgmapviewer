@@ -13,6 +13,8 @@ else
   pkgdir=$( cd $( dirname $0 ); cd ..; pwd )
 fi
 
+. ${pkgdir}/scripts/run-common.sh
+
 ####
 
 tools="$pkgdir"/scripts
@@ -21,5 +23,5 @@ ${tools}/pyqgis.sh ${tools}/readOsm.py "$@"
 
 (
   cd src/data
-  ${tools}/geojson2ts.py
+  $geojson2ts
 )
