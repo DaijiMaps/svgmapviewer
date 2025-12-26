@@ -13,8 +13,10 @@ export type FetchDone = {
 }
 export type Noop = { type: 'NOOP' }
 
+////
+
 export type Req = Init
 export type Res = InitDone | FetchDone
 
-export type Events = Req | FetchDone
+export type Events = Req
 export type Emits = Res | Fetch | Noop

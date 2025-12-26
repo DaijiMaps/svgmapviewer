@@ -10,7 +10,6 @@ const floorsMachine = setup({
   types: {
     context: {} as FloorsContext,
     events: {} as FloorsEvents,
-    // XXX emitted
   },
 }).createMachine({
   id: 'floors1',
@@ -27,6 +26,7 @@ const floorsMachine = setup({
         images: ({ context, event: { fidx, blob } }) =>
           new Map(context.images.set(fidx, blob)),
         urls: ({ context, event: { fidx, blob } }) =>
+          // XXX when to call URL.revokeObjectURL?
           new Map(context.urls.set(fidx, URL.createObjectURL(blob))),
       }),
     },
@@ -88,7 +88,6 @@ const worker: Worker = new Worker(
 
 worker.onmessage = (e: Readonly<MessageEvent<Res>>): void => {
   const ev = e.data
-  // XXX floorsActor.send()
   switch (ev.type) {
     case 'INIT.DONE': {
       break
@@ -107,11 +106,6 @@ worker.onerror = (ev) => {
 worker.onmessageerror = (ev) => {
   console.error('floors messageerror', ev)
 }
-
-// XXX
-// floorsActor.on(..., () => {
-//   worker.postMessage()
-// })
 
 // handlers
 

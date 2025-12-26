@@ -20,9 +20,6 @@ const floorsWorkerMachine = setup({
     cfg: undefined,
   },
   initial: 'Uninited',
-  on: {
-    'FETCH.DONE': {},
-  },
   states: {
     Uninited: {
       on: {
@@ -61,6 +58,7 @@ floorsWorkerActor.on('FETCH', ({ cfg }) =>
     fetch(f.href)
       .then((response) => {
         if (!response.ok) {
+          // XXX retry?
           throw new Error(`fetch error!`)
         }
         return response.blob()

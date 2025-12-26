@@ -51,6 +51,12 @@ export function useFloors(): FloorsContext & {
   }
 }
 
+export function useFloorImageUrl(idx: number): undefined | string {
+  const { urls } = useFloors()
+
+  return urls.get(idx)
+}
+
 function makeStyle(fidx: number, prevFidx: null | number): null | string {
   const floorsConfig = svgMapViewerConfig.floorsConfig
   if (floorsConfig === undefined) {
@@ -100,12 +106,4 @@ function makeStyle(fidx: number, prevFidx: null | number): null | string {
 ${style}
 ${animation}
 `
-}
-
-////
-
-export function useFloorImageUrl(idx: number): undefined | string {
-  const { urls } = useFloors()
-
-  return urls.get(idx)
 }
