@@ -1,13 +1,12 @@
 import { FileSystem } from '@effect/platform'
 import type { PlatformError } from '@effect/platform/Error'
 import { Doc } from '@effect/printer'
-import { Effect, Record } from 'effect'
+import { Effect, Order, Record } from 'effect'
 import { printGeoJSON } from './geojson/geojson-print'
 import { decodeGeoJSON } from './geojson/geojson-schema'
 import type { _GeoJSON } from './geojson/geojson-types'
 
 export function printGeoJsonAsTs(
-  filename: string,
   varname: string,
   typename: string,
   geojson: Readonly<_GeoJSON>
@@ -27,11 +26,10 @@ export function printGeoJsonAsTs(
 export function printAllTs(): Doc.Doc<never> {
   return Doc.vsep([
     Doc.vsep(
-      Record.toEntries(_names).map(([k, v]) =>
-        Doc.text(`import ${v} from './${k}'`)
-      )
+      Record.toEntries(_names)
+        .toSorted((a, b) => Order.string(a[1], b[1]))
+        .map(([k, v]) => Doc.text(`import ${v} from './${k}'`))
     ),
-    Doc.line,
     Doc.text(`export const mapData = {`),
     Doc.indent(
       Doc.vsep(Record.values(_names).map((v) => Doc.text(`${v},`))),
@@ -50,7 +48,7 @@ export const convName = (
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const jsonObj = JSON.parse(jsonStr)
     const geojson = decodeGeoJSON(jsonObj)
-    const doc = printGeoJsonAsTs(_type, _names[_type], _types[_type], geojson)
+    const doc = printGeoJsonAsTs(_names[_type], _types[_type], geojson)
     const ts = Doc.render(doc, { style: 'pretty' })
     yield* fs.writeFileString(`./${_type}.ts`, ts)
   })
