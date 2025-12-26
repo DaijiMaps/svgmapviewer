@@ -55,10 +55,8 @@ export function floorsWorkerSend(ev: Req): void {
   floorsWorkerActor.send(ev)
 }
 
-floorsWorkerActor.on('INIT.DONE', (ev) => {
-  postMessage(ev)
-})
-floorsWorkerActor.on('FETCH', ({ cfg }) => {
+floorsWorkerActor.on('INIT.DONE', (ev) => postMessage(ev))
+floorsWorkerActor.on('FETCH', ({ cfg }) =>
   cfg.floors.forEach((f, idx) => {
     fetch(f.href)
       .then((response) => {
@@ -68,7 +66,6 @@ floorsWorkerActor.on('FETCH', ({ cfg }) => {
         return response.blob()
       })
       .then((blob) => {
-        console.log(blob)
         blob
           .arrayBuffer()
           .then((buf) =>
@@ -80,4 +77,4 @@ floorsWorkerActor.on('FETCH', ({ cfg }) => {
       })
       .catch((e) => console.error(e))
   })
-})
+)

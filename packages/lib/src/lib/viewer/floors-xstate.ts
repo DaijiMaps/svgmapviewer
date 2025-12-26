@@ -78,7 +78,6 @@ export function floorsActorStart(): void {
 }
 
 export function useFloorsContext<T>(f: (ctx: Readonly<FloorsContext>) => T): T {
-  console.log('useFloorContext')
   return useSelector(floorsActor, (state) => f(state.context))
 }
 
@@ -150,11 +149,9 @@ worker.onmessage = (e: Readonly<MessageEvent<Res>>): void => {
   // XXX floorsActor.send()
   switch (ev.type) {
     case 'INIT.DONE': {
-      console.log(ev)
       break
     }
     case 'FETCH.DONE': {
-      console.log(ev)
       floorsActor.send({ type: 'IMAGE', fidx: ev.idx, blob: ev.blob })
       break
     }
