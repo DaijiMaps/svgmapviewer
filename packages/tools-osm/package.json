@@ -11,9 +11,10 @@
   },
   "type": "module",
   "scripts": {
+    "dev": "rslib build --watch",
     "build": "rslib build",
     "test": "rstest",
-    "test:watch": "rstest --watch"
+    "test:dev": "rstest --watch"
   },
   "devDependencies": {
     "@effect/cli": "^0.73.0",
