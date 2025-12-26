@@ -1,29 +1,23 @@
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { svgMapViewerConfig } from '../../../config'
 import { floor_switch_duration } from '../../css'
 import { notifyFloorLock, notifyFloorSelectDone } from '../../event-floor'
-import type {
-  FidxToOnAnimationEnd,
-  FidxToOnClick,
-  FloorsContext,
-} from './floors-types'
+import type { FidxToOnAnimationEnd, FidxToOnClick } from './floors-types'
 import { useFloorsContext } from './floors-xstate'
 
-export function useFloors(): FloorsContext & {
+export function useFloors(): {
+  fidx: number
+  prevFidx: null | number
   style: null | string
   fidxToOnAnimationEnd: FidxToOnAnimationEnd
   fidxToOnClick: FidxToOnClick
 } {
-  const { fidx, prevFidx, images, urls } = useFloorsContext(
-    ({ fidx, prevFidx, images, urls }) => ({
-      fidx,
-      prevFidx,
-      images,
-      urls,
-    })
-  )
+  const { fidx, prevFidx } = useFloorsContext(({ fidx, prevFidx }) => ({
+    fidx,
+    prevFidx,
+  }))
 
-  const style = makeStyle(fidx, prevFidx)
+  const style = useMemo(() => makeStyle(fidx, prevFidx), [fidx, prevFidx])
 
   // XXX receive only one (appearing) animationend event
   const fidxToOnAnimationEnd: FidxToOnAnimationEnd = useCallback(
@@ -43,8 +37,6 @@ export function useFloors(): FloorsContext & {
   return {
     fidx,
     prevFidx,
-    images,
-    urls,
     style,
     fidxToOnAnimationEnd,
     fidxToOnClick,
@@ -52,7 +44,7 @@ export function useFloors(): FloorsContext & {
 }
 
 export function useFloorImageUrl(idx: number): undefined | string {
-  const { urls } = useFloors()
+  const urls = useFloorsContext((context) => context.urls)
 
   return urls.get(idx)
 }

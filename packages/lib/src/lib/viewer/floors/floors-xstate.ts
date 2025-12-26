@@ -16,15 +16,15 @@ const floorsMachine = setup({
   context: {
     fidx: 0,
     prevFidx: null,
-    images: new Map(),
+    blobs: new Map(),
     urls: new Map(),
   },
   initial: 'Idle',
   on: {
     IMAGE: {
       actions: assign({
-        images: ({ context, event: { fidx, blob } }) =>
-          new Map(context.images.set(fidx, blob)),
+        blobs: ({ context, event: { fidx, blob } }) =>
+          new Map(context.blobs.set(fidx, blob)),
         urls: ({ context, event: { fidx, blob } }) =>
           // XXX when to call URL.revokeObjectURL?
           new Map(context.urls.set(fidx, URL.createObjectURL(blob))),

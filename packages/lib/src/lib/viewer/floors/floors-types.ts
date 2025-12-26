@@ -3,7 +3,7 @@ import type { Cb } from '../../cb'
 export interface FloorsContext {
   fidx: number
   prevFidx: null | number
-  images: Map<number, Blob>
+  blobs: Map<number, Blob>
   urls: Map<number, string>
 }
 
