@@ -19,32 +19,26 @@ export type _Coordinates =
   //| _PolygonCoordinates
   | _MultiPolygonCoordinates
 
-export type _PointGeometry = {
-  readonly type: 'Point'
-  readonly coordinates: _PointCoordinates
-}
-export type _MultiPointGeometry = {
-  readonly type: 'MultiPoint'
-  readonly coordinates: _MultiPointCoordinates
+type __Geometry<t, c> = {
+  readonly type: t
+  readonly coordinates: c
 }
 
-export type _LineStringGeometry = {
-  readonly type: 'LineString'
-  readonly coordinates: _LineCoordinates
-}
-export type _MultiLineStringGeometry = {
-  readonly type: 'MultiLineString'
-  readonly coordinates: _MultiLineCoordinates
-}
-
-export type _PolygonGeometry = {
-  readonly type: 'Polygon'
-  readonly coordinates: _PolygonCoordinates
-}
-export type _MultiPolygonGeometry = {
-  readonly type: 'MultiPolygon'
-  readonly coordinates: _MultiPolygonCoordinates
-}
+export type _PointGeometry = __Geometry<'Point', _PointCoordinates>
+export type _MultiPointGeometry = __Geometry<
+  'MultiPoint',
+  _MultiPointCoordinates
+>
+export type _LineStringGeometry = __Geometry<'LineString', _LineCoordinates>
+export type _MultiLineStringGeometry = __Geometry<
+  'MultiLineString',
+  _MultiLineCoordinates
+>
+export type _PolygonGeometry = __Geometry<'Polygon', _PolygonCoordinates>
+export type _MultiPolygonGeometry = __Geometry<
+  'MultiPolygon',
+  _MultiPolygonCoordinates
+>
 
 export type _Geometry =
   | _PointGeometry
@@ -54,18 +48,18 @@ export type _Geometry =
   | _PolygonGeometry
   | _MultiPolygonGeometry
 
-export type _FeatureBase<G = _Geometry> = {
+export type __Feature<G = _Geometry> = {
   readonly type: 'Feature'
   readonly properties: _Properties
   readonly geometry: G
 }
 
-export type _PointFeature = _FeatureBase<_PointGeometry>
-export type _MultiPointFeature = _FeatureBase<_MultiPointGeometry>
-export type _LineStringFeature = _FeatureBase<_LineStringGeometry>
-export type _MultiLineStringFeature = _FeatureBase<_MultiLineStringGeometry>
-export type _PolygonFeature = _FeatureBase<_PolygonGeometry>
-export type _MultiPolygonFeature = _FeatureBase<_MultiPolygonGeometry>
+export type _PointFeature = __Feature<_PointGeometry>
+export type _MultiPointFeature = __Feature<_MultiPointGeometry>
+export type _LineStringFeature = __Feature<_LineStringGeometry>
+export type _MultiLineStringFeature = __Feature<_MultiLineStringGeometry>
+export type _PolygonFeature = __Feature<_PolygonGeometry>
+export type _MultiPolygonFeature = __Feature<_MultiPolygonGeometry>
 
 export type _Feature =
   | _PointFeature
