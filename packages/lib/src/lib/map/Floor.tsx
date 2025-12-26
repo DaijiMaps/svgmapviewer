@@ -2,8 +2,7 @@
 import { Fragment, type ReactNode } from 'react'
 import { type OsmRenderMapProps } from '../../types'
 import { useLayout2 } from '../style/style-react'
-import { useFloors } from '../viewer/floors-react'
-import { useImage } from '../viewer/floors-xstate'
+import { useFloors, useImage } from '../viewer/floors-react'
 
 // XXX
 // XXX use blob

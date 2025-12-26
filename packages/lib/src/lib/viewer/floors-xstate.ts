@@ -1,7 +1,4 @@
 import { useSelector } from '@xstate/react'
-import { createAtom } from '@xstate/store'
-import { useAtom } from '@xstate/store/react'
-import { useEffect } from 'react'
 import { assign, createActor, setup } from 'xstate'
 import type { SvgMapViewerConfig } from '../../types'
 import { floorCbs } from '../event-floor'
@@ -77,60 +74,6 @@ export function floorsActorStart(): void {
 
 export function useFloorsContext<T>(f: (ctx: Readonly<FloorsContext>) => T): T {
   return useSelector(floorsActor, (state) => f(state.context))
-}
-
-export function useFloorsImage(idx: number): { blob?: Blob; count: number } {
-  return useSelector(floorsActor, (state) => ({
-    blob: state.context.images.get(idx),
-    count: state.context.nimages,
-  }))
-}
-
-////
-
-const imageUrlAtom = createAtom({ images: new Map<number, string>() })
-
-function useImageUrl(idx: number) {
-  return useAtom(imageUrlAtom, (s) => s.images.get(idx))
-}
-
-function createImageUrl(idx: number, blob?: Blob, url?: string) {
-  if (blob === undefined) {
-    return
-  }
-  if (url !== undefined) {
-    return
-  }
-  const objurl = URL.createObjectURL(blob)
-  imageUrlAtom.set(({ images }) => {
-    images.set(idx, objurl)
-    return { images: new Map(images) }
-  })
-}
-
-function destroyImageUrl(idx: number, url?: string) {
-  if (url !== undefined) {
-    URL.revokeObjectURL(url)
-    imageUrlAtom.set(({ images }) => {
-      images.delete(idx)
-      return { images: new Map(images) }
-    })
-  }
-}
-
-////
-
-export function useImage(idx: number): undefined | string {
-  const { blob } = useFloorsImage(idx)
-
-  const url = useImageUrl(idx)
-
-  useEffect(() => {
-    createImageUrl(idx, blob, url)
-    return () => destroyImageUrl(idx, url)
-  }, [blob, idx, url])
-
-  return url
 }
 
 // worker

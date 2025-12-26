@@ -1,4 +1,6 @@
-import { useCallback } from 'react'
+import { createAtom } from '@xstate/store'
+import { useAtom } from '@xstate/store/react'
+import { useCallback, useEffect } from 'react'
 import { svgMapViewerConfig } from '../../config'
 import { floor_switch_duration } from '../css'
 import { notifyFloorLock, notifyFloorSelectDone } from '../event-floor'
@@ -100,4 +102,60 @@ function makeStyle(fidx: number, prevFidx: null | number): null | string {
 ${style}
 ${animation}
 `
+}
+
+////
+
+function useFloorsImage(idx: number): { blob?: Blob; count: number } {
+  return useFloorsContext((context) => ({
+    blob: context.images.get(idx),
+    count: context.nimages,
+  }))
+}
+
+////
+
+const imageUrlAtom = createAtom({ images: new Map<number, string>() })
+
+function useImageUrl(idx: number) {
+  return useAtom(imageUrlAtom, (s) => s.images.get(idx))
+}
+
+function createImageUrl(idx: number, blob?: Blob, url?: string) {
+  if (blob === undefined) {
+    return
+  }
+  if (url !== undefined) {
+    return
+  }
+  const objurl = URL.createObjectURL(blob)
+  imageUrlAtom.set(({ images }) => {
+    images.set(idx, objurl)
+    return { images: new Map(images) }
+  })
+}
+
+function destroyImageUrl(idx: number, url?: string) {
+  if (url !== undefined) {
+    URL.revokeObjectURL(url)
+    imageUrlAtom.set(({ images }) => {
+      images.delete(idx)
+      return { images: new Map(images) }
+    })
+  }
+}
+
+////
+
+export function useImage(idx: number): undefined | string {
+  const { blob } = useFloorsImage(idx)
+
+  const url = useImageUrl(idx)
+
+  useEffect(() => {
+    createImageUrl(idx, blob, url)
+    return () => destroyImageUrl(idx, url)
+  }, [blob, idx, url])
+
+  return url
 }
