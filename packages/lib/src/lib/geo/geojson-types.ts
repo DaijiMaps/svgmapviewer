@@ -83,10 +83,13 @@ export interface CommonGeoJSON<P = object, G = object> {
 }
 
 export type PointGeoJSON<P = object> = CommonGeoJSON<P, PointGeometry>
-export type LineGeoJSON<P = object> = CommonGeoJSON<P, LineGeometry>
+export type LineStringGeoJSON<P = object> = CommonGeoJSON<P, LineGeometry>
 export type PolygonGeoJSON<P = object> = CommonGeoJSON<P, PolygonGeometry>
 export type MultiPointGeoJSON<P = object> = CommonGeoJSON<P, MultiPointGeometry>
-export type MultiLineGeoJSON<P = object> = CommonGeoJSON<P, MultiLineGeometry>
+export type MultiLineStringGeoJSON<P = object> = CommonGeoJSON<
+  P,
+  MultiLineGeometry
+>
 export type MultiPolygonGeoJSON<P = object> = CommonGeoJSON<
   P,
   MultiPolygonGeometry

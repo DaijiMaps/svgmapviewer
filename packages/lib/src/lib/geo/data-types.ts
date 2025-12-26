@@ -1,12 +1,12 @@
 import {
   emptyGeoJSON,
-  type LineGeoJSON,
+  type LineStringGeoJSON,
   type MultiPolygonGeoJSON,
   type PointGeoJSON,
 } from './geojson-types'
 import {
   type OsmLineFeature,
-  type OsmLineGeoJSON,
+  type OsmLineStringGeoJSON,
   type OsmMultiLineStringFeature,
   type OsmMultiLineStringGeoJSON,
   type OsmMultiPolygonFeature,
@@ -19,11 +19,11 @@ export interface OsmMapData {
   areas: MultiPolygonGeoJSON
   internals: MultiPolygonGeoJSON
   origin: PointGeoJSON
-  measures: LineGeoJSON<MeasureProperties>
-  viewbox: LineGeoJSON
+  measures: LineStringGeoJSON<MeasureProperties>
+  viewbox: LineStringGeoJSON
 
   points: OsmPointGeoJSON
-  lines: OsmLineGeoJSON
+  lines: OsmLineStringGeoJSON
   multilinestrings: OsmMultiLineStringGeoJSON
   multipolygons: OsmMultiPolygonGeoJSON
 }
@@ -32,11 +32,11 @@ export const emptyMapData: OsmMapData = {
   areas: emptyGeoJSON as MultiPolygonGeoJSON,
   internals: emptyGeoJSON as MultiPolygonGeoJSON,
   origin: emptyGeoJSON as PointGeoJSON,
-  measures: emptyGeoJSON as LineGeoJSON<MeasureProperties>,
-  viewbox: emptyGeoJSON as LineGeoJSON,
+  measures: emptyGeoJSON as LineStringGeoJSON<MeasureProperties>,
+  viewbox: emptyGeoJSON as LineStringGeoJSON,
 
   points: emptyGeoJSON as OsmPointGeoJSON,
-  lines: emptyGeoJSON as OsmLineGeoJSON,
+  lines: emptyGeoJSON as OsmLineStringGeoJSON,
   multilinestrings: emptyGeoJSON as OsmMultiLineStringGeoJSON,
   multipolygons: emptyGeoJSON as OsmMultiPolygonGeoJSON,
 }

@@ -1,6 +1,6 @@
-import { type LineGeoJSON } from 'svgmapviewer/geo'
+import { type LineStringGeoJSON } from 'svgmapviewer/geo'
 
-export const viewbox: LineGeoJSON = {
+export const viewbox: LineStringGeoJSON = {
   type: 'FeatureCollection',
   name: 'viewbox',
   crs: {

@@ -11,7 +11,7 @@ import {
 } from './data-types'
 import {
   type OsmLineFeature,
-  type OsmLineGeoJSON,
+  type OsmLineStringGeoJSON,
   type OsmMultiLineStringFeature,
   type OsmMultiLineStringGeoJSON,
   type OsmMultiPolygonFeature,
@@ -40,7 +40,7 @@ function pointMapFromGeoJSON(points: Readonly<OsmPointGeoJSON>): PointMap {
   )
 }
 
-function lineMapFromGeoJSON(lines: Readonly<OsmLineGeoJSON>): LineMap {
+function lineMapFromGeoJSON(lines: Readonly<OsmLineStringGeoJSON>): LineMap {
   return pipe(
     lines.features,
     readonlyArray.filterMap((f): Option<[number, OsmLineFeature]> => {

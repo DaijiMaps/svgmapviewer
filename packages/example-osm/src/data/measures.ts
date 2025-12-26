@@ -1,6 +1,9 @@
-import { type LineGeoJSON, type MeasureProperties } from 'svgmapviewer/geo'
+import {
+  type LineStringGeoJSON,
+  type MeasureProperties,
+} from 'svgmapviewer/geo'
 
-export const measures: LineGeoJSON<MeasureProperties> = {
+export const measures: LineStringGeoJSON<MeasureProperties> = {
   type: 'FeatureCollection',
   name: 'measures',
   crs: {

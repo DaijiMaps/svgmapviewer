@@ -1,9 +1,9 @@
 import { type ReadonlyRecord } from 'fp-ts/lib/ReadonlyRecord'
 import {
   type LineFeature,
-  type LineGeoJSON,
+  type LineStringGeoJSON,
   type MultiLineFeature,
-  type MultiLineGeoJSON,
+  type MultiLineStringGeoJSON,
   type MultiPolygonFeature,
   type MultiPolygonGeoJSON,
   type PointFeature,
@@ -110,9 +110,11 @@ export type OsmMultiLineStringFeatures = readonly OsmMultiLineStringFeature[]
 export type OsmMultiPolygonFeatures = readonly OsmMultiPolygonFeature[]
 
 export type OsmPointGeoJSON = Readonly<PointGeoJSON<OsmPointProperties>>
-export type OsmLineGeoJSON = Readonly<LineGeoJSON<OsmLineProperties>>
+export type OsmLineStringGeoJSON = Readonly<
+  LineStringGeoJSON<OsmLineProperties>
+>
 export type OsmMultiLineStringGeoJSON = Readonly<
-  MultiLineGeoJSON<OsmLineStringProperties>
+  MultiLineStringGeoJSON<OsmLineStringProperties>
 >
 export type OsmMultiPolygonGeoJSON = Readonly<
   MultiPolygonGeoJSON<OsmPolygonProperties>
@@ -132,6 +134,6 @@ export type OsmFeature =
 
 export type OsmGeoJSON =
   | OsmPointGeoJSON
-  | OsmLineGeoJSON
+  | OsmLineStringGeoJSON
   | OsmMultiLineStringGeoJSON
   | OsmMultiPolygonGeoJSON

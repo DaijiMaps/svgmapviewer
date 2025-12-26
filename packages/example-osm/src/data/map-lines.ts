@@ -1,6 +1,6 @@
-import { type OsmLineGeoJSON } from 'svgmapviewer/geo'
+import { type OsmLineStringGeoJSON } from 'svgmapviewer/geo'
 
-export const lines: OsmLineGeoJSON = {
+export const lines: OsmLineStringGeoJSON = {
   type: 'FeatureCollection',
   name: 'map-lines',
   crs: {

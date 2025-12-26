@@ -94,11 +94,11 @@ const _types = {
   areas: 'MultiPolygonGeoJSON',
   internals: 'MultiPolygonGeoJSON',
   origin: 'PointGeoJSON',
-  measures: 'LineGeoJSON<MeasureProperties>',
-  viewbox: 'LineGeoJSON',
+  measures: 'LineStringGeoJSON<MeasureProperties>',
+  viewbox: 'LineStringGeoJSON',
 
   'map-points': 'OsmPointGeoJSON',
-  'map-lines': 'OsmLineGeoJSON',
+  'map-lines': 'OsmLineStringGeoJSON',
   'map-multilinestrings': 'OsmMultiLineStringGeoJSON',
   'map-multipolygons': 'OsmMultiPolygonGeoJSON',
 }

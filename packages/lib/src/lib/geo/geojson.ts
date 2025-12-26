@@ -2,9 +2,9 @@ import { boxScale, type BoxBox } from '../box/prefixed'
 import { vSub, type V } from '../tuple'
 import { vecDiv, vecFromV, vecVec } from '../vec/prefixed'
 import { type MapCoord, type OsmMapData } from './data-types'
-import { type LineGeoJSON } from './geojson-types'
+import { type LineStringGeoJSON } from './geojson-types'
 
-function getViewBox(viewbox: Readonly<LineGeoJSON>): BoxBox {
+function getViewBox(viewbox: Readonly<LineStringGeoJSON>): BoxBox {
   const vb0 = viewbox.features[0].geometry.coordinates
   const [x, y] = vSub(vb0[1] as unknown as V, vb0[0] as unknown as V)
 
