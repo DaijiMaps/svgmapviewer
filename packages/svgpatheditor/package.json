@@ -26,7 +26,7 @@
     "@rsbuild/plugin-react": "^1.4.2",
     "@stylistic/eslint-plugin": "^5.6.1",
     "@trivago/prettier-plugin-sort-imports": "^6.0.0",
-    "@types/node": "^25.0.2",
+    "@types/node": ">=22",
     "@types/rbush": "^4.0.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
@@ -37,6 +37,9 @@
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
     "*": "prettier --write --cache --ignore-unknown"
+  },
+  "engines": {
+    "node": ">=22"
   },
   "packageManager": "pnpm@10.26.0"
 }
