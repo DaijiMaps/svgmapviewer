@@ -1,4 +1,3 @@
-// eslint-env worker
 import { assign, createActor, emit, setup } from 'xstate'
 import type { Context, Emits, Events, Req } from './floors-worker-types'
 
@@ -54,7 +53,7 @@ export function floorsWorkerSend(ev: Req): void {
 
 floorsWorkerActor.on('INIT.DONE', (ev) => postMessage(ev))
 floorsWorkerActor.on('FETCH', ({ cfg }) =>
-  cfg.floors.forEach((f, idx) => {
+  cfg.floors.forEach((f, fidx) => {
     fetch(f.href)
       .then((response) => {
         if (!response.ok) {
@@ -68,7 +67,7 @@ floorsWorkerActor.on('FETCH', ({ cfg }) =>
           .arrayBuffer()
           .then((buf) =>
             postMessage(
-              { type: 'FETCH.DONE', idx, blob, buf },
+              { type: 'FETCH.DONE', fidx, blob, buf },
               { transfer: [buf] }
             )
           )
