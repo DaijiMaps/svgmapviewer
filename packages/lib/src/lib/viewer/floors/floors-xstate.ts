@@ -112,7 +112,7 @@ worker.onmessageerror = (ev) => {
 export function floorsCbsStart(): void {
   globalCbs.init.add((cfg: Readonly<SvgMapViewerConfig>) => {
     if (cfg.floorsConfig) {
-      const fidx = cfg.floorsConfig.fidx
+      const fidx = cfg.floorsConfig.initialFidx
       floorsActor.send({ type: 'SELECT', fidx, force: true })
       worker.postMessage({ type: 'INIT', cfg: cfg.floorsConfig })
     }

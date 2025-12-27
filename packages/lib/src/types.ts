@@ -217,7 +217,7 @@ export interface Floor {
 
 export interface FloorsConfig {
   floors: readonly Floor[]
-  fidx: number
+  initialFidx: number
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>
