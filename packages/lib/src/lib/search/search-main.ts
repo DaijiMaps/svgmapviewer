@@ -4,10 +4,10 @@
 /* eslint-disable functional/no-return-void */
 import { svgMapViewerConfig } from '../../config'
 import { notifySearchRequestDone } from '../event-search'
-import { type SearchWorkerRes } from './search-worker-types'
+import { type SearchWorker, type SearchWorkerRes } from './search-worker-types'
 import { type SearchPos } from './types'
 
-const worker: Worker = new Worker(
+const worker: SearchWorker = new Worker(
   new URL('./search-worker.js', import.meta.url),
   {
     type: 'module',
