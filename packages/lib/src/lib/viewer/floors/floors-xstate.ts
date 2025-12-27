@@ -93,7 +93,8 @@ worker.onmessage = (e: Readonly<MessageEvent<Res>>): void => {
       break
     }
     case 'FETCH.DONE': {
-      floorsActor.send({ type: 'IMAGE', fidx: ev.idx, blob: ev.blob })
+      const { fidx, blob } = ev
+      floorsActor.send({ type: 'IMAGE', fidx, blob })
       break
     }
   }
