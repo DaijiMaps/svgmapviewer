@@ -7,5 +7,5 @@ export const floorsConfig: FloorsConfig = {
     { name: '1F', href: floor_1f },
     { name: '2F', href: floor_2f },
   ],
-  fidx: 0,
+  initialFidx: 0,
 }

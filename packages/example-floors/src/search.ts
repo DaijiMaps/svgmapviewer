@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { type Info, type POI, type SvgMapViewerConfigUser } from 'svgmapviewer'
-import { type SearchEntries, type SearchPos } from 'svgmapviewer/search'
+import { type SearchPos } from 'svgmapviewer/search'
 import { pois } from './data'
 import { RenderInfo as renderInfo } from './render'
 
@@ -10,7 +10,7 @@ function nameToString(name: Name): string {
   return (typeof name === 'string' ? [name] : name).join(' ')
 }
 
-const addresses: SearchEntries = pois.map((poi) => ({
+const addresses = pois.map((poi) => ({
   address: nameToString(poi.name),
   coord: poi.pos,
   fidx: poi.fidx,
@@ -19,7 +19,7 @@ const addressMap = new Map<string, POI>(
   pois.map((poi) => [nameToString(poi.name), poi])
 )
 
-function getSearchEntries(): SearchEntries {
+function getSearchEntries() {
   return addresses
 }
 
