@@ -24,7 +24,7 @@ export type Emits = Res | Fetch | Noop
 
 // eslint-disable-next-line functional/no-mixed-types
 export interface FloorsWorker extends Omit<
-  Window,
+  Worker,
   'postMessage' | 'onmessage'
 > {
   postMessage(message: Readonly<Req>): void
