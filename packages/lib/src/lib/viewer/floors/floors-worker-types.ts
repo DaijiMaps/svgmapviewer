@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-return-void */
 import type { FloorsConfig } from '../../../types'
 
 export type Context = { cfg?: FloorsConfig }
@@ -20,3 +21,27 @@ export type Res = InitDone | FetchDone
 
 export type Events = Req
 export type Emits = Res | Fetch | Noop
+
+// eslint-disable-next-line functional/no-mixed-types
+export interface FloorsWorker extends Omit<
+  Window,
+  'postMessage' | 'onmessage'
+> {
+  postMessage(message: Readonly<Req>): void
+  onmessage: null | ((ev: Readonly<MessageEvent<Res>>) => void)
+}
+
+// eslint-disable-next-line functional/no-mixed-types
+export interface FloorsWorkerContext extends Omit<
+  DedicatedWorkerGlobalScope,
+  'postMessage' | 'onmessage'
+> {
+  postMessage: {
+    (message: Readonly<Res>, transfer?: Readonly<Transferable[]>): void
+    (
+      message: Readonly<Res>,
+      options?: Readonly<StructuredSerializeOptions>
+    ): void
+  }
+  onmessage: ((event: Readonly<MessageEvent<Req>>) => void) | null
+}

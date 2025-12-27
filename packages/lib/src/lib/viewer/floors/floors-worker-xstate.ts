@@ -1,4 +1,5 @@
 import { assign, createActor, emit, setup } from 'xstate'
+import { ctx } from './floors-worker-context'
 import type { Context, Emits, Events, Req } from './floors-worker-types'
 
 const floorsWorkerMachine = setup({
@@ -51,7 +52,7 @@ export function floorsWorkerSend(ev: Req): void {
   floorsWorkerActor.send(ev)
 }
 
-floorsWorkerActor.on('INIT.DONE', (ev) => postMessage(ev))
+floorsWorkerActor.on('INIT.DONE', (ev) => ctx.postMessage(ev))
 floorsWorkerActor.on('FETCH', ({ cfg }) =>
   cfg.floors.forEach((f, fidx) => {
     fetch(f.href)
@@ -66,7 +67,7 @@ floorsWorkerActor.on('FETCH', ({ cfg }) =>
         blob
           .arrayBuffer()
           .then((buf) =>
-            postMessage(
+            ctx.postMessage(
               { type: 'FETCH.DONE', fidx, blob, buf },
               { transfer: [buf] }
             )

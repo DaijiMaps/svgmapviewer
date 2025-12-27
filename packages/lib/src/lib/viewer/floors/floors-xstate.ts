@@ -4,7 +4,7 @@ import type { SvgMapViewerConfig } from '../../../types'
 import { floorCbs } from '../../event-floor'
 import { globalCbs } from '../../event-global'
 import type { FloorsContext, FloorsEvents } from './floors-types'
-import type { Res } from './floors-worker-types'
+import type { FloorsWorker, Res } from './floors-worker-types'
 
 const floorsMachine = setup({
   types: {
@@ -79,12 +79,10 @@ export function useFloorsContext<T>(f: (ctx: Readonly<FloorsContext>) => T): T {
 
 // worker
 
-const worker: Worker = new Worker(
+const worker: FloorsWorker = new Worker(
   new URL('./floors-worker.js', import.meta.url),
-  {
-    type: 'module',
-  }
-)
+  { type: 'module' }
+) as unknown as FloorsWorker
 
 worker.onmessage = (e: Readonly<MessageEvent<Res>>): void => {
   const ev = e.data
