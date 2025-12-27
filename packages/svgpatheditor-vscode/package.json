@@ -45,7 +45,6 @@
     "onWebviewPanel:catCoding"
   ],
   "engines": {
-    "node": ">=22",
     "vscode": "^1.107.0"
   }
 }

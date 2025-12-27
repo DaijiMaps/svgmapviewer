@@ -45,8 +45,5 @@
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
     "*": "prettier --write --cache --ignore-unknown"
-  },
-  "engines": {
-    "node": ">=22"
   }
 }

@@ -29,8 +29,5 @@
     "*.{ts,tsx}": "eslint --fix",
     "*": "prettier --write --cache --ignore-unknown"
   },
-  "engines": {
-    "node": ">=22"
-  },
   "packageManager": "pnpm@10.26.0"
 }
