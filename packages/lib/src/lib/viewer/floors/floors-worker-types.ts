@@ -28,7 +28,7 @@ export interface FloorsWorker extends Omit<
   'postMessage' | 'onmessage'
 > {
   postMessage(message: Readonly<Req>): void
-  onmessage: null | ((ev: Readonly<MessageEvent<Res>>) => void)
+  onmessage: null | ((event: Readonly<MessageEvent<Res>>) => void)
 }
 
 // eslint-disable-next-line functional/no-mixed-types

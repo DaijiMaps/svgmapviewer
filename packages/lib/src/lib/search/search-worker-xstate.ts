@@ -1,6 +1,7 @@
 import { assign, createActor, emit, setup } from 'xstate'
 import type { SearchGeoReq } from '../../types'
 import { initAddresses, searchAddress } from './address'
+import { x } from './search-worker-context'
 import {
   type DoSearch,
   type SearchWorkerContext,
@@ -68,7 +69,7 @@ export function searchWorkerActorSend(e: SearchWorkerReq): void {
 searchWorkerActor.on('SEARCH', ({ ctx, greq }) => {
   if (ctx === null) {
     // XXX
-    postMessage({
+    x.postMessage({
       type: 'SEARCH.ERROR',
       error: 'ctx is null',
     })
@@ -77,13 +78,13 @@ searchWorkerActor.on('SEARCH', ({ ctx, greq }) => {
   const res = searchAddress(ctx, greq)
   if (res === null) {
     // XXX
-    postMessage({
+    x.postMessage({
       type: 'SEARCH.ERROR',
       error: 'address not found',
     })
     return
   }
-  postMessage({
+  x.postMessage({
     type: 'SEARCH.DONE',
     res,
   })
