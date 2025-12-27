@@ -41,6 +41,12 @@
         "typescript"
       ]
     },
-    "onlyBuiltDependencies": []
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "core-js",
+      "esbuild",
+      "msgpackr-extract",
+      "msw"
+    ]
   }
 }
