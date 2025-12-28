@@ -21,7 +21,7 @@
   "devDependencies": {
     "@rsbuild/core": "^1.6.15",
     "@rsbuild/plugin-react": "^1.4.2",
-    "@types/node": ">=22",
+    "@types/node": ">=22.x",
     "@typescript/native-preview": "7.0.0-dev.20251227.1",
     "typescript": "^5.9.3"
   },
