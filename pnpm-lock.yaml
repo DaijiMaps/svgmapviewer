@@ -5,6 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  "@types/node": ">=22.x"
   tmp: ^0.2.4
 
 importers:
@@ -105,7 +106,7 @@ importers:
         specifier: ^16.3.1
         version: 16.3.1(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       "@types/node":
-        specifier: ^24.2.1
+        specifier: ">=22.x"
         version: 24.2.1
       "@types/react":
         specifier: ^19.2.7
@@ -151,7 +152,7 @@ importers:
         specifier: ^16.3.1
         version: 16.3.1(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       "@types/node":
-        specifier: ^24.2.1
+        specifier: ">=22.x"
         version: 24.2.1
       "@types/react":
         specifier: ^19.2.7
@@ -190,7 +191,7 @@ importers:
         specifier: ^0.18.6
         version: 0.18.6(@microsoft/api-extractor@7.55.2(@types/node@25.0.3))(typescript@5.9.3)
       "@types/node":
-        specifier: ^25.0.3
+        specifier: ">=22.x"
         version: 25.0.3
       effect:
         specifier: ^3.19.13
@@ -227,7 +228,7 @@ importers:
         specifier: ^1.4.2
         version: 1.4.2(@rsbuild/core@1.6.15)
       "@types/node":
-        specifier: ^25.0.2
+        specifier: ">=22.x"
         version: 25.0.2
       "@types/react":
         specifier: ^19.2.7
@@ -261,7 +262,7 @@ importers:
         specifier: ^1.4.2
         version: 1.4.2(@rsbuild/core@1.6.15)
       "@types/node":
-        specifier: ^25.0.3
+        specifier: ">=22.x"
         version: 25.0.3
       "@typescript/native-preview":
         specifier: 7.0.0-dev.20251227.1
@@ -316,7 +317,7 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0(prettier@3.7.4)
       "@types/node":
-        specifier: ^24.2.1
+        specifier: ">=22.x"
         version: 24.2.1
       "@types/react":
         specifier: ^19.2.7
@@ -383,7 +384,7 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0(prettier@3.7.4)
       "@types/node":
-        specifier: ^25.0.2
+        specifier: ">=22.x"
         version: 25.0.3
       "@types/rbush":
         specifier: ^4.0.0
@@ -413,7 +414,7 @@ importers:
         specifier: ^10.0.10
         version: 10.0.10
       "@types/node":
-        specifier: 22.x
+        specifier: ">=22.x"
         version: 22.19.3
       "@types/vscode":
         specifier: ^1.107.0
@@ -455,7 +456,7 @@ importers:
         specifier: ^0.7.7
         version: 0.7.7(jsdom@26.1.0)
       "@types/node":
-        specifier: ^25.0.3
+        specifier: ">=22.x"
         version: 25.0.3
       effect:
         specifier: ^3.19.13
@@ -1368,7 +1369,7 @@ packages:
       }
     engines: { node: ">=18" }
     peerDependencies:
-      "@types/node": ">=18"
+      "@types/node": ">=22.x"
     peerDependenciesMeta:
       "@types/node":
         optional: true
@@ -1380,7 +1381,7 @@ packages:
       }
     engines: { node: ">=18" }
     peerDependencies:
-      "@types/node": ">=18"
+      "@types/node": ">=22.x"
     peerDependenciesMeta:
       "@types/node":
         optional: true
@@ -1392,7 +1393,7 @@ packages:
       }
     engines: { node: ">=18" }
     peerDependencies:
-      "@types/node": ">=18"
+      "@types/node": ">=22.x"
     peerDependenciesMeta:
       "@types/node":
         optional: true
@@ -1411,7 +1412,7 @@ packages:
       }
     engines: { node: ">=18" }
     peerDependencies:
-      "@types/node": ">=18"
+      "@types/node": ">=22.x"
     peerDependenciesMeta:
       "@types/node":
         optional: true
@@ -2641,7 +2642,7 @@ packages:
         integrity: sha512-ESpb2Tajlatgbmzzukg6zyAhH+sICqJR2CNXNhXcEbz6UGCQfrKCtkxOpJTftWc8RGouroHG0Nud1SJAszvpmA==,
       }
     peerDependencies:
-      "@types/node": "*"
+      "@types/node": ">=22.x"
     peerDependenciesMeta:
       "@types/node":
         optional: true
@@ -2652,7 +2653,7 @@ packages:
         integrity: sha512-Fm5XtS7+G8HLcJHCWpES5VmeMyjAKaWeyZU5qPzZC+22mPlJzAsOxymHiWIfuirtPckX3aptWws+K2d0BzniJA==,
       }
     peerDependencies:
-      "@types/node": "*"
+      "@types/node": ">=22.x"
     peerDependenciesMeta:
       "@types/node":
         optional: true
@@ -2669,7 +2670,7 @@ packages:
         integrity: sha512-6k5tpdB88G0K7QrH/3yfKO84HK9ggftfUZ51p7fePyCE7+RLLHkWZbID9OFWbXuna+eeCFE7AkKnRMHMxNbz7Q==,
       }
     peerDependencies:
-      "@types/node": "*"
+      "@types/node": ">=22.x"
     peerDependenciesMeta:
       "@types/node":
         optional: true
@@ -2806,12 +2807,6 @@ packages:
     resolution:
       {
         integrity: sha512-xPyYSz1cMPnJQhl0CLMH68j3gprKZaTjG3s5Vi+fDgx+uhG9NOXwbVt52eFS8ECyXhyKcjDLCBEqBExKuiZb7Q==,
-      }
-
-  "@types/node@12.20.55":
-    resolution:
-      {
-        integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==,
       }
 
   "@types/node@22.19.3":
@@ -6941,7 +6936,7 @@ packages:
     engines: { node: ^20.19.0 || >=22.12.0 }
     hasBin: true
     peerDependencies:
-      "@types/node": ^20.19.0 || >=22.12.0
+      "@types/node": ">=22.x"
       jiti: ">=1.21.0"
       less: ^4.0.0
       lightningcss: ^1.21.0
@@ -6986,7 +6981,7 @@ packages:
     peerDependencies:
       "@edge-runtime/vm": "*"
       "@opentelemetry/api": ^1.9.0
-      "@types/node": ^20.0.0 || ^22.0.0 || >=24.0.0
+      "@types/node": ">=22.x"
       "@vitest/browser-playwright": 4.0.16
       "@vitest/browser-preview": 4.0.16
       "@vitest/browser-webdriverio": 4.0.16
@@ -7935,7 +7930,7 @@ snapshots:
   "@manypkg/find-root@1.1.0":
     dependencies:
       "@babel/runtime": 7.28.4
-      "@types/node": 12.20.55
+      "@types/node": 25.0.3
       find-up: 4.1.0
       fs-extra: 8.1.0
 
@@ -8816,8 +8811,6 @@ snapshots:
   "@types/json-schema@7.0.15": {}
 
   "@types/mocha@10.0.10": {}
-
-  "@types/node@12.20.55": {}
 
   "@types/node@22.19.3":
     dependencies:
