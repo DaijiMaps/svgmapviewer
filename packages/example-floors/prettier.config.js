@@ -3,7 +3,7 @@ const config = {
   tabWidth: 2,
   semi: false,
   singleQuote: true,
-  plugins: ['@prettier/plugin-oxc', '@ianvs/prettier-plugin-sort-imports'],
+  plugins: ['@ianvs/prettier-plugin-sort-imports', '@prettier/plugin-oxc'],
 
   // @ianvs/prettier-plugin-sort-imports
   importOrderParserPlugins: ['typescript', 'jsx'],

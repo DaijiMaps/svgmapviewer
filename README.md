@@ -7,6 +7,8 @@
   <a href="https://github.com/DaijiMaps/svgmapviewer/blob/main/LICENSE"><img src="https://img.shields.io/github/license/DaijiMaps/svgmapviewer" alt="license" /></a>
 </p>
 
+[![Build](https://github.com/DaijiMaps/svgmapviewer/actions/workflows/build.yaml/badge.svg)](https://github.com/DaijiMaps/svgmapviewer/actions/workflows/build.yaml)
+
 ## Demos
 
 https://svgmapviewer2.pages.dev/
