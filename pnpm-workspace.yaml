@@ -9,5 +9,6 @@ packages:
   - ./packages/svgpatheditor-vscode
   - ./packages/tools-osm
 overrides:
+  "pnpm": ">=22.x"
   "tmp": "^0.2.4"
 onlyBuiltDependencies: []
