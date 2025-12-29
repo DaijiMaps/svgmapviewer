@@ -1,4 +1,4 @@
-import { test } from 'vitest'
+import { test } from '@rstest/core'
 import { trunc2 } from '../../src/lib/utils'
 
 const sizes = [2, 3, 4, 5, 6, 8]

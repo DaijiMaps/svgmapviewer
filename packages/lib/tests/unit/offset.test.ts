@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest'
+import { expect, test } from '@rstest/core'
 import { voffset } from '../../src/lib/text'
 import { trunc2 } from '../../src/lib/utils'
 

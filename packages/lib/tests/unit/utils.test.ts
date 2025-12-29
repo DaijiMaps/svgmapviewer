@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest'
+import { expect, test } from '@rstest/core'
 import { isNotNull, isNull } from '../../src/lib/utils'
 
 test('isNull', () => {
