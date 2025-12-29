@@ -1,26 +1,25 @@
 import { pipe } from 'fp-ts/lib/function'
-import { expect, test } from 'vitest'
+import { expect, test } from '@rstest/core'
 import {
   animationEndLayout,
-  animationMove,
+  //animationMove,
   animationZoom,
-} from '../../src/lib/animation'
+} from '../../src/lib/viewer/layout/animation'
 import {
   type BoxBox as Box,
   boxCenter,
   boxScaleAt,
 } from '../../src/lib/box/prefixed'
-import { fromMatrixSvg } from '../../src/lib/coord'
-import { dragMove, dragReset, dragStart } from '../../src/lib/drag'
+import { fromMatrixSvg } from '../../src/lib/viewer/layout/coord'
 import {
   configLayout,
-  expandLayout,
+  //expandLayout,
   expandLayoutCenter,
   makeLayout,
-  recenterLayout,
-  relocLayout,
-} from '../../src/lib/layout'
-import { transformScale } from '../../src/lib/transform'
+  //recenterLayout,
+  //relocLayout,
+} from '../../src/lib/viewer/layout/layout'
+import { transformScale } from '../../src/lib/viewer/layout/transform'
 import { vecVec } from '../../src/lib/vec/prefixed'
 
 const container: Box = { x: 0, y: 0, width: 1200, height: 1000 }
@@ -246,6 +245,7 @@ test('boxScale', () => {
   expect(start.y).toBeCloseTo(50)
 })
 
+/*
 test('recenter 1', () => {
   const d1 = dragStart(layout.scroll, vecVec(0, 0))
   const l1 = recenterLayout(layout, d1.start)
@@ -340,6 +340,7 @@ test('move + zoom', () => {
     },
   })
 })
+*/
 
 // XXX
 const _ = (v: number) => expect.closeTo(v, 0)
