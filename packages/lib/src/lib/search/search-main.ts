@@ -41,7 +41,8 @@ function handleSearchRes(res: Readonly<SearchPos>): void {
     notifySearchRequestDone(null)
   } else {
     const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(res.coord)
-    notifySearchRequestDone({ psvg, info })
+    const fidx = res.fidx
+    notifySearchRequestDone({ psvg, fidx, info })
   }
 }
 

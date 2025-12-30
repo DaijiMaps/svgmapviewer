@@ -27,6 +27,7 @@ import {
 const emptyDetail: UiDetailContent = {
   p: vecZero,
   psvg: vecZero,
+  fidx: 0,
   layout: emptyLayoutCoord,
   info: { title: '' },
 }
@@ -116,11 +117,12 @@ const uiMachine = setup({
             },
             DETAIL: {
               actions: assign({
-                detail: ({ event: { psvg, info, layout } }) => {
+                detail: ({ event: { psvg, fidx, info, layout } }) => {
                   const m = fromMatrixSvg(layout)
                   return {
                     psvg,
                     p: m.transformPoint(psvg),
+                    fidx,
                     info,
                     layout,
                   }

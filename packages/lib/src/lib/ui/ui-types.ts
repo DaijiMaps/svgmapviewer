@@ -28,7 +28,10 @@ export type UiModeEvent =
   | { type: 'CANCEL' }
   | { type: 'FLOOR' }
   | { type: 'MENU' }
-  | ({ type: 'DETAIL' } & Pick<UiDetailContent, 'psvg' | 'info' | 'layout'>)
+  | ({ type: 'DETAIL' } & Pick<
+      UiDetailContent,
+      'psvg' | 'fidx' | 'info' | 'layout'
+    >)
   | { type: 'HELP' }
 
 export type UiPartEvent =

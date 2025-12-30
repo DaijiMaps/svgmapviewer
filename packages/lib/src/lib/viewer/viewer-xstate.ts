@@ -262,9 +262,9 @@ const viewerMachine = setup({
               ? null
               : {
                   psvg: res.psvg,
+                  fidx: res.fidx,
                   info: res.info,
                   layout: l,
-                  fidx: context.fidx,
                 },
         }
       }
@@ -451,9 +451,6 @@ const viewerMachine = setup({
         },
         SWITCH: {
           actions: [
-            assign({
-              fidx: ({ event }) => event.fidx,
-            }),
             {
               type: 'emitSwitch',
               params: ({ event }) => event,

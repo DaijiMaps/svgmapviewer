@@ -43,8 +43,6 @@ export type ViewerContext = {
   homing: boolean
   animating: boolean // XXX
   rendered: boolean
-
-  fidx: number
 }
 
 //// external event (request)

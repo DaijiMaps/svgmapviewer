@@ -60,10 +60,11 @@ function filterFeature(
   }
   // 3. entry filter
   // XXX slow
+  // XXX fidx
   const matches = entries.filter((entry) => entry.filter(properties))
   return matches.length === 0
     ? null
-    : { address: id + '', coord: { x: centroid_x, y: centroid_y } }
+    : { address: id + '', fidx: 0, coord: { x: centroid_x, y: centroid_y } }
 }
 
 export function osmGetSearchEntries(
