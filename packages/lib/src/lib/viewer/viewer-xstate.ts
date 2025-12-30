@@ -81,7 +81,6 @@ const viewerMachine = setup({
     shouldRecenter: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'c',
     shouldRotate: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 't',
     shouldZoom: (_, { ev }: { ev: KeyboardEvent }) => keyToZoom(ev.key) !== 0,
-    isTouching: ({ context: { touching } }) => touching,
     isHoming: ({ context: { homing } }) => homing,
     isZoomWanted: ({ context: { want_animation } }) =>
       want_animation === 'zoom',
@@ -205,8 +204,6 @@ const viewerMachine = setup({
     setModeToLocked: assign({
       mode: viewerModeLocked,
     }),
-    startTouching: assign({ touching: true }),
-    endTouching: assign({ touching: false }),
     raiseTouching: raise({ type: 'TOUCHING' }),
     raiseTouchingDone: raise({ type: 'TOUCHING.DONE' }),
 
@@ -316,27 +313,16 @@ const viewerMachine = setup({
     want_animation: null,
     animation: null,
     mode: viewerModePanning,
-    touching: false,
     animating: false,
     rendered: false,
     fidx: 0,
   },
   on: {
     'TOUCH.LOCK': {
-      actions: [
-        'startTouching',
-        'raiseTouching',
-        'setModeToTouching',
-        'emitMode',
-      ],
+      actions: ['raiseTouching', 'setModeToTouching', 'emitMode'],
     },
     'TOUCH.UNLOCK': {
-      actions: [
-        'endTouching',
-        'raiseTouchingDone',
-        'setModeToPanning',
-        'emitMode',
-      ],
+      actions: ['raiseTouchingDone', 'setModeToPanning', 'emitMode'],
     },
     'SEARCH.LOCK': {
       // XXX failure?
