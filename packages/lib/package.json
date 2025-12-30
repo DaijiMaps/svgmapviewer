@@ -31,10 +31,8 @@
     "build": "tsgo -b && rslib build",
     "lint": "eslint . && oxlint --type-aware --type-check",
     "publish:jsr": "pnpm dlx jsr publish",
-    "test": "vitest --workspace=vitest.workspace.ts --project unit",
-    "test:unit": "vitest --workspace=vitest.workspace.ts --project unit",
-    "test:jsdom": "vitest --workspace=vitest.workspace.ts --project jsdom",
-    "test:browser": "vitest --workspace=vitest.workspace.ts --project browser"
+    "test": "rstest",
+    "test:dev": "rstest --watch"
   },
   "dependencies": {
     "@xstate/react": "^6.0.0",
