@@ -13,7 +13,6 @@ const berlin = {
 
 test('distance', () => {
   const d = haversineDistance(oslo, berlin)
-  console.log(d)
   // about 800km
   expect(d > 800000).toBe(true)
   expect(d < 900000).toBe(true)
