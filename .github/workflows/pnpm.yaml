@@ -1,15 +1,14 @@
 name: PNPM
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
     branches:
       - main
+    paths:
+      - "pnpm-lock.*.json"
 
 jobs:
   merge:
-    if: ${{ github.ref_name != 'main' && github.event.pull_request.merged }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
