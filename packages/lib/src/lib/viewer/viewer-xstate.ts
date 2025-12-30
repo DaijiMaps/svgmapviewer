@@ -66,6 +66,7 @@ import {
   type ViewerEvent,
   type ViewerMode,
 } from './viewer-types'
+import { currentFidxAtom } from './floors/floors-xstate'
 
 //// viewerMachine
 
@@ -237,7 +238,7 @@ const viewerMachine = setup({
         zoom,
       })
     ),
-    emitSearch: emit(({ context: { fidx, layout, cursor } }): ViewerEmitted => {
+    emitSearch: emit(({ context: { layout, cursor } }): ViewerEmitted => {
       const { scroll } = getCurrentScroll()
       const l = scrollLayout(layout, scroll)
       const m = fromMatrixSvg(l).inverse()
@@ -245,6 +246,7 @@ const viewerMachine = setup({
       const pgeo = svgMapViewerConfig.mapCoord.matrix
         .inverse()
         .transformPoint(psvg)
+      const fidx = currentFidxAtom.get()
       const req: SearchReq = { pgeo, fidx }
       return { type: 'SEARCH', req }
     }),
