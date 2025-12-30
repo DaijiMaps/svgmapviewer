@@ -39,13 +39,10 @@ export type ViewerContext = {
   animation: null | Animation
 
   mode: ViewerMode
-  touching: boolean
 
   homing: boolean
   animating: boolean // XXX
   rendered: boolean
-
-  fidx: number
 }
 
 //// external event (request)

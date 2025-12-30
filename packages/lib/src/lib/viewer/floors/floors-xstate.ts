@@ -5,6 +5,9 @@ import { floorCbs } from '../../event-floor'
 import { globalCbs } from '../../event-global'
 import type { FloorsContext, FloorsEvents } from './floors-types'
 import type { FloorsWorker, Res } from './floors-worker-types'
+import { createAtom } from '@xstate/store'
+
+export const currentFidxAtom = createAtom(0)
 
 const floorsMachine = setup({
   types: {
@@ -37,16 +40,22 @@ const floorsMachine = setup({
         SELECT: [
           {
             guard: ({ event }) => event.force ?? false,
-            actions: assign({
-              fidx: ({ event }) => event.fidx,
-            }),
+            actions: [
+              assign({
+                fidx: ({ event }) => event.fidx,
+              }),
+              ({ event }) => currentFidxAtom.set(event.fidx),
+            ],
           },
           {
             guard: ({ context, event }) => context.fidx !== event.fidx,
-            actions: assign({
-              fidx: ({ event }) => event.fidx,
-              prevFidx: ({ context }) => context.fidx,
-            }),
+            actions: [
+              assign({
+                fidx: ({ event }) => event.fidx,
+                prevFidx: ({ context }) => context.fidx,
+              }),
+              ({ event }) => currentFidxAtom.set(event.fidx),
+            ],
             target: 'Animating',
           },
         ],

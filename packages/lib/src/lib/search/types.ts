@@ -7,7 +7,7 @@ export type Idx = string
 export interface SearchPos {
   address: AddressString
   coord: VecVec
-  fidx?: number
+  fidx: number
 }
 
 ////

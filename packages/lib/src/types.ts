@@ -66,6 +66,7 @@ export interface SearchGeoReq {
 
 export interface SearchRes {
   psvg: Vec
+  fidx: number
   info: Readonly<Info>
 }
 
