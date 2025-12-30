@@ -491,24 +491,7 @@ const viewerMachine = setup({
           entry: 'emitGetScroll',
           on: {
             'SCROLL.GET.DONE': {
-              target: 'Waiting',
-            },
-          },
-        },
-        Waiting: {
-          on: {
-            'TOUCHING.DONE': {
               target: 'Done',
-            },
-            'ZOOM.ZOOM': {
-              actions: [
-                {
-                  type: 'zoomEvent',
-                  params: ({ event: { z, p } }) => ({ z, p }),
-                },
-                'wantZoom',
-              ],
-              target: '#Zooming',
             },
           },
         },
