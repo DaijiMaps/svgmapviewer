@@ -1,4 +1,4 @@
-import { test } from '@rstest/core'
+import { expect, test } from '@rstest/core'
 import { trunc2 } from '../../src/lib/utils'
 
 const sizes = [2, 3, 4, 5, 6, 8]
@@ -21,7 +21,9 @@ function getOpacities(
 }
 
 test('opacity', () => {
-  console.log(sizes)
-  const opacities = getOpacities(sizes, 1)
-  console.log(opacities)
+  const o = getOpacities(sizes, 1).map((o) => o.opacity)
+  expect(o[0]).toBeLessThan(1)
+  expect(o.slice(-1)[0]).toBeGreaterThan(0)
+  const o2 = o.sort((a, b) => (a < b ? 1 : -1))
+  expect(o).toEqual(o2)
 })
