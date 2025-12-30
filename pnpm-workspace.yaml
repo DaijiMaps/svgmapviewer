@@ -12,7 +12,3 @@ overrides:
   "@types/node": "24.x"
   "tmp": "^0.2.4"
 onlyBuiltDependencies: []
-gitBranchLockfile: true
-mergeGitBranchLockfilesBranchPattern:
-  - main
-  - develop
