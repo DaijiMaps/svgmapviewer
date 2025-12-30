@@ -3,7 +3,7 @@ name: Build
 on: [push]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -15,3 +15,4 @@ jobs:
           version: 10
           run_install: true
       - run: pnpm -r build
+      - run: pnpm test

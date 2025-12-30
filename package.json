@@ -2,7 +2,8 @@
   "type": "module",
   "scripts": {
     "prepare": "husky",
-    "prettier": "pnpx prettier -w ."
+    "prettier": "pnpx prettier -w .",
+    "test": "./scripts/test.sh"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
