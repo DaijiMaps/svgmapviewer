@@ -56,12 +56,9 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@typescript/native-preview": "7.0.0-dev.20251230.1",
-    "@vitest/browser": "^4.0.16",
-    "@vitest/browser-playwright": "^4.0.16",
     "playwright": "^1.57.0",
     "prettier": "^3.7.4",
-    "typescript": "^5.9.2",
-    "vitest": "^4.0.16"
+    "typescript": "^5.9.2"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
