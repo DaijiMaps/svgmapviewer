@@ -317,7 +317,6 @@ const viewerMachine = setup({
     mode: viewerModePanning,
     animating: false,
     rendered: false,
-    fidx: 0,
   },
   on: {
     'TOUCH.LOCK': {
@@ -794,6 +793,7 @@ export let clickeventmask: boolean = false
 export let scrolleventmask: boolean = false
 export let wheeleventmask: boolean = false
 
+// 'panning' | 'touching' | 'locked'
 function reflectMode(mode: ViewerMode): void {
   clickeventmask = mode === 'locked'
   scrolleventmask = mode !== 'panning'
