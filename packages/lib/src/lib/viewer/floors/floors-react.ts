@@ -77,6 +77,10 @@ function makeStyle(fidx: number, prevFidx: null | number): null | string {
   will-change: opacity;
   animation: xxx-appearing ${floor_switch_duration} linear;
 }
+`
+  return `
+${style}
+${animation}
 @keyframes xxx-disappearing {
   from {
     opacity: 1;
@@ -93,9 +97,5 @@ function makeStyle(fidx: number, prevFidx: null | number): null | string {
     opacity: 1;
   }
 }
-`
-  return `
-${style}
-${animation}
 `
 }
