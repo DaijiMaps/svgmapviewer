@@ -56,31 +56,15 @@ function makeStyle(fidx: number, prevFidx: null | number): null | string {
   }
   const style = floorsConfig.floors
     .map((_, idx) =>
-      idx === fidx || idx === prevFidx
-        ? ``
-        : `
-.fidx-${idx} {
-  visibility: hidden;
-}
-`
+      idx == fidx
+        ? appearing(idx)
+        : idx === prevFidx
+          ? disappearing(idx)
+          : hidden(idx)
     )
     .join('')
-  const animation =
-    prevFidx === null
-      ? ``
-      : `
-.fidx-${prevFidx} {
-  will-change: opacity;
-  animation: xxx-disappearing ${floor_switch_duration} linear;
-}
-.fidx-${fidx} {
-  will-change: opacity;
-  animation: xxx-appearing ${floor_switch_duration} linear;
-}
-`
   return `
 ${style}
-${animation}
 @keyframes xxx-disappearing {
   from {
     opacity: 1;
@@ -96,6 +80,32 @@ ${animation}
   to {
     opacity: 1;
   }
+}
+`
+}
+
+function hidden(idx: number) {
+  return `
+.fidx-${idx} {
+  visibility: hidden;
+}
+  `
+}
+
+function disappearing(idx: number) {
+  return `
+.fidx-${idx} {
+  will-change: opacity;
+  animation: xxx-disappearing ${floor_switch_duration} linear;
+}
+`
+}
+
+function appearing(idx: number) {
+  return `
+.fidx-${idx} {
+  will-change: opacity;
+  animation: xxx-appearing ${floor_switch_duration} linear;
 }
 `
 }
