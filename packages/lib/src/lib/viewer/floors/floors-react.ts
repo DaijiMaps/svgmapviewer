@@ -55,33 +55,20 @@ function makeStyle(fidx: number, prevFidx: null | number): null | string {
     return null
   }
   const style = floorsConfig.floors
-    .map((_, idx) =>
-      idx == fidx
-        ? appearing(idx)
-        : idx === prevFidx
-          ? disappearing(idx)
-          : hidden(idx)
-    )
+    .map((_, idx) => idxToStyle(fidx, prevFidx, idx))
     .join('')
   return `
 ${style}
-@keyframes xxx-disappearing {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-@keyframes xxx-appearing {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+${animation}
 `
+}
+
+function idxToStyle(fidx: number, prevFidx: null | number, idx: number) {
+  return idx == fidx
+    ? appearing(idx)
+    : idx === prevFidx
+      ? disappearing(idx)
+      : hidden(idx)
 }
 
 function hidden(idx: number) {
@@ -109,3 +96,22 @@ function appearing(idx: number) {
 }
 `
 }
+
+const animation = `
+@keyframes xxx-disappearing {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes xxx-appearing {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+`
