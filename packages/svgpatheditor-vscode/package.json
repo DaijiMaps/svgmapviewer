@@ -19,7 +19,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@rslib/core": "^0.19.0",
+    "@rslib/core": "^0.19.1",
     "@types/mocha": "^10.0.10",
     "@types/node": "24.x",
     "@types/vscode": "^1.107.0",
