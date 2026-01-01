@@ -35,16 +35,14 @@ export function useFloors(): UseFloorsReturn {
 
   // XXX receive only one (appearing) animationend event
   const fidxToOnAnimationEnd: FidxToOnAnimationEnd = useCallback(
-    (idx: number) =>
-      idx === fidx ? () => notifyFloorSelectDone(idx) : undefined,
+    (idx: number) => () =>
+      idx !== fidx ? undefined : notifyFloorSelectDone(idx),
     [fidx]
   )
 
   const fidxToOnClick: FidxToOnClick = useCallback(
-    (idx: number) =>
-      prevFidx !== null || idx === fidx
-        ? undefined
-        : () => notifyFloorLock(idx),
+    (idx: number) => () =>
+      prevFidx !== null || idx === fidx ? undefined : notifyFloorLock(idx),
     [fidx, prevFidx]
   )
 
