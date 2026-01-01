@@ -38,8 +38,6 @@ export type ViewerContext = {
   want_animation: WantAnimation
   animation: null | Animation
 
-  mode: ViewerMode
-
   homing: boolean
   animating: boolean // XXX
   rendered: boolean
@@ -134,7 +132,6 @@ export type ZoomStartEmitted = {
   z: Dir
 }
 export type ZoomEndEmitted = { type: 'ZOOM.END'; layout: Layout; zoom: number }
-export type ModeEmitted = { type: 'MODE'; mode: ViewerMode }
 
 export type SyncAnimationEmitted = {
   type: 'SYNC.ANIMATION'
@@ -160,7 +157,6 @@ export type ViewerEmitted =
   | LayoutEmitted
   | ZoomStartEmitted
   | ZoomEndEmitted
-  | ModeEmitted
   | SwitchRequest
   | SwitchDoneRequest
   | SyncAnimationEmitted

@@ -66,6 +66,10 @@ import {
   type ViewerMode,
 } from './viewer-types'
 import { currentFidxAtom } from './floors/floors-xstate'
+import { createAtom } from '@xstate/store'
+
+export const viewerMode = createAtom<ViewerMode>('panning')
+viewerMode.subscribe((mode) => notifyStyleMode(mode))
 
 //// viewerMachine
 
@@ -185,19 +189,10 @@ const viewerMachine = setup({
     //
     // mode
     //
-    setModeToPanning: assign({
-      mode: viewerModePanning,
-      // XXX resetCursor
-      cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
-    }),
-    setModeToTouching: assign({
-      mode: viewerModeTouching,
-    }),
-    setModeToLocked: assign({
-      mode: viewerModeLocked,
-    }),
+    setModeToPanning: () => viewerMode.set(viewerModePanning),
+    setModeToTouching: () => viewerMode.set(viewerModeTouching),
+    setModeToLocked: () => viewerMode.set(viewerModeLocked),
     raiseTouching: raise({ type: 'TOUCHING' }),
-    raiseTouchingDone: raise({ type: 'TOUCHING.DONE' }),
 
     startAnimating: assign({ animating: () => true }),
     stopAnimating: assign({ animating: () => false }),
@@ -275,9 +270,6 @@ const viewerMachine = setup({
         ),
       homing: () => false,
     }),
-    emitMode: emit(
-      ({ context: { mode } }): ViewerEmitted => ({ type: 'MODE', mode })
-    ),
     emitLock: emit({ type: 'LOCK', ok: true }),
     setRendered: assign({ rendered: true }),
     emitSwitch: emit(
@@ -305,23 +297,22 @@ const viewerMachine = setup({
     homing: false,
     want_animation: null,
     animation: null,
-    mode: viewerModePanning,
     animating: false,
     rendered: false,
   },
   on: {
     'TOUCH.LOCK': {
-      actions: ['raiseTouching', 'setModeToTouching', 'emitMode'],
+      actions: ['raiseTouching', 'setModeToTouching'],
     },
     'TOUCH.UNLOCK': {
-      actions: ['raiseTouchingDone', 'setModeToPanning', 'emitMode'],
+      actions: ['setModeToPanning'],
     },
     'SEARCH.LOCK': {
       // XXX failure?
-      actions: ['emitLock', 'setModeToLocked', 'emitMode'],
+      actions: ['emitLock', 'setModeToLocked'],
     },
     'SEARCH.UNLOCK': {
-      actions: ['setModeToPanning', 'emitMode', 'raiseSearchDone'],
+      actions: ['setModeToPanning', 'raiseSearchDone'],
     },
   },
   states: {
@@ -721,7 +712,6 @@ viewerActor.on('ZOOM.END', (end) => notifyStyleZoomEnd(end))
 viewerActor.on('LAYOUT', ({ layout }) =>
   notifyStyleZoomEnd({ layout, zoom: 1 })
 )
-viewerActor.on('MODE', ({ mode }) => notifyStyleMode(mode))
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloorSelect(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloorUnlock())
