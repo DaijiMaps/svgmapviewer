@@ -3,7 +3,7 @@ import { Fragment, type ReactNode } from 'react'
 import { type OsmRenderMapProps } from '../../types'
 import type { BoxBox } from '../box/prefixed'
 import { useLayout2 } from '../style/style-react'
-import { useFloorImageUrl, useFloors } from '../viewer/floors/floors-react'
+import { useFloors } from '../viewer/floors/floors-react'
 
 export function RenderFloors({
   floors,
@@ -30,9 +30,9 @@ function RenderFloorImage({
   origViewBox,
   idx,
 }: Readonly<{ origViewBox: BoxBox; idx: number }>): ReactNode {
-  const { fidxToOnAnimationEnd } = useFloors()
+  const { fidxToOnAnimationEnd, urls } = useFloors()
 
-  const url = useFloorImageUrl(idx)
+  const url = urls.get(idx)
 
   // XXX better "loading" display?
   return url === undefined ? (
