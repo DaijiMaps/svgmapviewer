@@ -367,12 +367,11 @@ const viewerMachine = setup({
           target: 'Searching',
         },
         SWITCH: {
-          actions: [
-            {
-              type: 'emitSwitch',
-              params: ({ event }) => event,
-            },
-          ],
+          // switch only when viewer is idle!
+          actions: {
+            type: 'emitSwitch',
+            params: ({ event }) => event,
+          },
           target: 'Switching',
         },
         ROTATE: {
