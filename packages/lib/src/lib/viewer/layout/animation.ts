@@ -1,9 +1,14 @@
 import { pipe } from 'fp-ts/function'
 import { svgMapViewerConfig } from '../../../config'
-import type { Dir } from '../../../types'
+import type { AnimationMatrix, Dir } from '../../../types'
 import { boxCenter, boxScaleAt } from '../../box/prefixed'
 import { type VecVec as Vec } from '../../vec/prefixed'
-import { type Animation } from './animation-types'
+import {
+  type Animation,
+  type AnimationMove,
+  type AnimationRotate,
+  type AnimationZoom,
+} from './animation-types'
 import { fromMatrixSvg } from './coord'
 import { relocLayout, rotateLayout, zoomLayout, type Layout } from './layout'
 import { transformScale } from './transform'
@@ -73,22 +78,66 @@ export function animationRotate(
   }
 }
 
+function animationMoveDone(
+  layout: Layout,
+  move: null | Readonly<AnimationMove>
+): Layout {
+  return move === null ? layout : relocLayout(layout, move.move)
+}
+
+function animationZoomDone(
+  layout: Layout,
+  zoom: null | Readonly<AnimationZoom>
+): Layout {
+  return zoom === null ? layout : zoomLayout(layout, zoom.svg, zoom.svgScale)
+}
+
+function animationRotateDone(
+  layout: Layout,
+  rotate: null | Readonly<AnimationRotate>
+): Layout {
+  return rotate === null ? layout : rotateLayout(layout, rotate.deg)
+}
+
 export function animationEndLayout(
   layout: Layout,
   animation: Animation
 ): Layout {
   return pipe(
     layout,
-    (l) => (animation.move === null ? l : relocLayout(l, animation.move.move)),
-    (l) =>
-      animation.zoom === null
-        ? l
-        : zoomLayout(l, animation.zoom.svg, animation.zoom.svgScale),
-    (l) =>
-      animation.rotate === null ? l : rotateLayout(l, animation.rotate.deg)
+    (l) => animationMoveDone(l, animation.move),
+    (l) => animationZoomDone(l, animation.zoom),
+    (l) => animationRotateDone(l, animation.rotate)
   )
 }
 
 function zoomToScale(z: Dir): number {
   return Math.pow(svgMapViewerConfig.zoomFactor, z)
+}
+
+////
+
+export function animationStyle(a: null | Readonly<AnimationMatrix>): string {
+  const style = a === null ? '' : css(a)
+  return style
+}
+
+function css({ matrix: q, origin: o }: Readonly<AnimationMatrix>): string {
+  const p = new DOMMatrixReadOnly()
+  return `
+#viewer {
+  will-change: transform;
+  animation: container-zoom 500ms ease;
+}
+@keyframes container-zoom {
+  from {
+    transform-origin: ${o === null ? `left top` : `${o.x}px ${o.y}px`};
+    transform: ${p.toString()} translate3d(0px, 0px, 0px);
+  }
+  to {
+    transform-origin: ${o === null ? `left top` : `${o.x}px ${o.y}px`};
+    transform: ${q.toString()} translate3d(0px, 0px, 0px);
+  }
+}
+`
 }
