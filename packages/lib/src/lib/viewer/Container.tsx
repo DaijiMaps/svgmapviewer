@@ -2,13 +2,12 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 import { useRef, type PropsWithChildren, type ReactNode } from 'react'
-import { type AnimationMatrix } from '../../types'
 import {
   position_absolute_left_0_top_0,
   width_100vw_height_100svh,
 } from '../css'
 import { notifyStyleAnimationEnd } from '../event-style'
-import { useAnimation, useLayoutContent } from '../style/style-react'
+import { useAnimationStyle, useLayoutContent } from '../style/style-react'
 import { useFloors } from './floors/floors-react'
 import {
   touchSendTouchEnd,
@@ -79,29 +78,8 @@ function ContentStyle(): ReactNode {
 }
 
 function AnimationStyle(): ReactNode {
-  const a = useAnimation()
-  const style = a === null ? '' : css(a)
+  const style = useAnimationStyle()
   return <style>{style}</style>
-}
-
-function css({ matrix: q, origin: o }: Readonly<AnimationMatrix>): string {
-  const p = new DOMMatrixReadOnly()
-  return `
-#viewer {
-  will-change: transform;
-  animation: container-zoom 500ms ease;
-}
-@keyframes container-zoom {
-  from {
-    transform-origin: ${o === null ? `left top` : `${o.x}px ${o.y}px`};
-    transform: ${p.toString()} translate3d(0px, 0px, 0px);
-  }
-  to {
-    transform-origin: ${o === null ? `left top` : `${o.x}px ${o.y}px`};
-    transform: ${q.toString()} translate3d(0px, 0px, 0px);
-  }
-}
-`
 }
 
 function FloorsStyle(): ReactNode {

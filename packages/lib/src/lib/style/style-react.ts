@@ -1,4 +1,4 @@
-import { type AnimationMatrix, type Range } from '../../types'
+import { type Range } from '../../types'
 import { boxToViewBox2, type BoxBox } from '../box/prefixed'
 import { type DistanceRadius } from '../distance-types'
 import { trunc2 } from '../utils'
@@ -30,7 +30,7 @@ export function useLayoutScroll(): BoxBox {
 export function useMode(): string {
   return useStyleContext((ctx) => ctx.mode)
 }
-export function useAnimation(): null | AnimationMatrix {
+export function useAnimationStyle(): null | string {
   return useStyleContext((ctx) => ctx.animation)
 }
 export function useGeoPoint(): VecVec {
