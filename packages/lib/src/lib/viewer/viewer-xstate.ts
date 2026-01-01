@@ -679,11 +679,9 @@ viewerActor.on('LAYOUT', ({ layout }) =>
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloorSelect(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloorUnlock())
-viewerActor.on('SYNC.ANIMATION', ({ animation }) => {
-  const matrix =
-    animation?.move?.q ?? animation?.zoom?.q ?? animation?.rotate?.q ?? null
-  const origin =
-    animation?.move?.o ?? animation?.zoom?.o ?? animation?.rotate?.o ?? null
+viewerActor.on('SYNC.ANIMATION', ({ animation: a }) => {
+  const matrix = a?.move?.q ?? a?.zoom?.q ?? a?.rotate?.q ?? null
+  const origin = a?.move?.o ?? a?.zoom?.o ?? a?.rotate?.o ?? null
   if (matrix !== null) {
     notifyStyleAnimation({ matrix, origin })
   }
