@@ -372,13 +372,10 @@ const viewerMachine = setup({
           actions: ['zoomHome', 'wantZoom'],
           target: 'Zooming',
         },
-        CLICK: {
-          actions: [
-            {
-              type: 'cursor',
-              params: ({ event }) => ({ ev: event.ev }),
-            },
-          ],
+        SEARCH: {
+          actions: assign({
+            cursor: ({ event: { pos } }) => pos,
+          }),
           target: 'Searching',
         },
         SWITCH: {

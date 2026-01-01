@@ -59,6 +59,7 @@ export type ScrollSyncsyncDoneRequest = {
   scroll: BoxBox
 }
 export type ZoomRequest = { type: 'ZOOM.ZOOM'; z: Dir; p: null | VecVec }
+export type SearchRequest = { type: 'SEARCH'; pos: Vec }
 export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
 export type ViewerRequest =
   | ResizeRequest
@@ -71,6 +72,7 @@ export type ViewerRequest =
   | ScrollGetDoneRequest
   | ScrollSyncsyncDoneRequest
   | ZoomRequest
+  | SearchRequest
   | SearchEnd
 
 //// internal message (raise)
@@ -79,17 +81,13 @@ export type ViewerMessage = { type: 'SEARCH.DONE' }
 
 //// UI event
 
-export type UIEventClick = {
-  type: 'CLICK'
-  ev: React.MouseEvent<HTMLDivElement>
-}
 export type UIEventScroll = { type: 'SCROLL'; ev: Event | React.UIEvent }
 export type UIEventAnimationEnd = {
   type: 'ANIMATION.END'
   ev: React.AnimationEvent<HTMLDivElement>
 }
 
-export type ReactUIEvent = UIEventAnimationEnd | UIEventClick | UIEventScroll
+export type ReactUIEvent = UIEventAnimationEnd | UIEventScroll
 
 export type UIEvent = ReactUIEvent
 
