@@ -13,10 +13,13 @@ import { scrollCbs } from '../event-scroll'
 import { styleCbs } from '../event-style'
 import { vecZero } from '../vec/prefixed'
 import { fromSvgToScroll } from '../viewer/layout/coord'
-import { emptyLayout } from '../viewer/layout/layout'
+import { emptyLayout, type Layout } from '../viewer/layout/layout'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { type ViewerMode } from '../viewer/viewer-types'
 import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
+import { createAtom } from '@xstate/store'
+
+export const currentLayout = createAtom<Layout>(emptyLayout)
 
 const styleMachine = setup({
   types: {
@@ -95,6 +98,7 @@ const styleMachine = setup({
           rendered: ({ event }) => event.rendered,
           layout: ({ event }) => event.layout,
         }),
+        ({ event }) => currentLayout.set(event.layout),
         'updateSvgMatrix',
         'updateGeoMatrix',
         'updateDistanceRadius',
