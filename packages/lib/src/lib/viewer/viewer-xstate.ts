@@ -223,7 +223,7 @@ const viewerMachine = setup({
         zoom,
       })
     ),
-    emitSearch: emit(({ context: { layout, cursor } }): ViewerEmitted => {
+    emitSearchStart: emit(({ context: { layout, cursor } }): ViewerEmitted => {
       const { scroll } = getCurrentScroll()
       const l = scrollLayout(layout, scroll)
       const m = fromMatrixSvg(l).inverse()
@@ -233,7 +233,7 @@ const viewerMachine = setup({
         .transformPoint(psvg)
       const fidx = currentFidxAtom.get()
       const req: SearchReq = { pgeo, fidx }
-      return { type: 'SEARCH', req }
+      return { type: 'SEARCH.START', req }
     }),
     raiseSearchDone: raise({ type: 'SEARCH.DONE' }),
     raiseSearchEndDone: emit(
@@ -415,7 +415,7 @@ const viewerMachine = setup({
       states: {
         Starting: {
           always: {
-            actions: 'emitSearch',
+            actions: 'emitSearchStart',
             target: 'WaitingForSearchEnd',
           },
         },
@@ -662,7 +662,7 @@ export function viewerSend(ev: ViewerEvent): void {
 
 ////
 
-viewerActor.on('SEARCH', ({ req }) => notifySearchStart(req))
+viewerActor.on('SEARCH.START', ({ req }) => notifySearchStart(req))
 viewerActor.on('SEARCH.END.DONE', ({ res }) => {
   if (res === null) {
     viewerActor.send({ type: 'SEARCH.DONE' })

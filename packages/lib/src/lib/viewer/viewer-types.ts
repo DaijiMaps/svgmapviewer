@@ -107,7 +107,7 @@ export type ViewerEvent = ViewerRequest | ViewerMessage | UIEvent
 
 //// emitted
 
-export type SearchEmitted = { type: 'SEARCH'; req: SearchReq }
+export type SearchEmitted = { type: 'SEARCH.START'; req: SearchReq }
 export type SearchEndDoneEmitted = {
   type: 'SEARCH.END.DONE'
   res: null | SearchData
