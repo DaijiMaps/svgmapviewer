@@ -9,3 +9,12 @@ export interface ActionCbs {
   position: Set<Cb>
   fullscreen: Set<Cb>
 }
+
+export type ViewerActionType =
+  | 'ZOOM.IN'
+  | 'ZOOM.OUT'
+  | 'RESET'
+  | 'RECENTER'
+  | 'ROTATE'
+
+export type ViewerAction = { type: ViewerActionType }

@@ -6,6 +6,7 @@ import { searchActorStart } from './lib/search/search-xstate'
 import { styleActorStart } from './lib/style/style-xstate'
 import { uiActorStart } from './lib/ui/ui-xstate'
 import { floorsActorStart } from './lib/viewer/floors/floors-xstate'
+import { keyboardActorStart } from './lib/viewer/input/keyboard-xstate'
 import { resizeActorStart } from './lib/viewer/layout/resize-xstate'
 import { scrollActorStart } from './lib/viewer/scroll/scroll-xstate'
 import { touchActorStart } from './lib/viewer/touch/touch-xstate'
@@ -16,6 +17,7 @@ export function startAllActors(): void {
   // for module dependency
   // (order doesn't matter)
   floorsActorStart()
+  keyboardActorStart()
   positionActorStart()
   resizeActorStart()
   scrollActorStart()
