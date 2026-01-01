@@ -7,9 +7,9 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
 import { touching } from './lib/viewer/touch/touch-xstate'
-import { keyDown, keyUp } from './lib/viewer/viewer-react'
 import { wheeleventmask } from './lib/viewer/viewer-xstate'
 import { type SvgMapViewerConfig } from './types'
+import { keyboardSend } from './lib/viewer/input/keyboard-xstate'
 
 export function root(config: Readonly<SvgMapViewerConfig>): void {
   const e = document.getElementById(config.root)
@@ -68,8 +68,8 @@ export function root(config: Readonly<SvgMapViewerConfig>): void {
   */
 
   document.title = config.title
-  document.body.onkeydown = keyDown
-  document.body.onkeyup = keyUp
+  document.body.onkeydown = (ev) => keyboardSend({ type: 'DOWN', key: ev.key })
+  document.body.onkeyup = (ev) => keyboardSend({ type: 'UP', key: ev.key })
 
   createRoot(e).render(
     <StrictMode>
