@@ -1,6 +1,11 @@
 import { useCallback, useMemo } from 'react'
 import { svgMapViewerConfig } from '../../../config'
-import { floor_switch_duration } from '../../css'
+import {
+  FLOOR_APPEARING,
+  floor_appearing_animation,
+  FLOOR_DISAPPEARING,
+  floor_switch_duration,
+} from '../../css'
 import { notifyFloorLock, notifyFloorSelectDone } from '../../event-floor'
 import type { FidxToOnAnimationEnd, FidxToOnClick } from './floors-types'
 import { useFloorsContext } from './floors-xstate'
@@ -11,6 +16,7 @@ export interface UseFloorsReturn {
   style: null | string
   fidxToOnAnimationEnd: FidxToOnAnimationEnd
   fidxToOnClick: FidxToOnClick
+  urls: Map<number, string>
 }
 
 export function useFloors(): UseFloorsReturn {
@@ -48,13 +54,8 @@ export function useFloors(): UseFloorsReturn {
     style,
     fidxToOnAnimationEnd,
     fidxToOnClick,
+    urls,
   }
-}
-
-export function useFloorImageUrl(idx: number): undefined | string {
-  const urls = useFloorsContext((context) => context.urls)
-
-  return urls.get(idx)
 }
 
 function makeStyle(
@@ -71,7 +72,7 @@ function makeStyle(
     .join('')
   return `
 ${style}
-${animation}
+${floor_appearing_animation}
 `
 }
 
@@ -81,10 +82,8 @@ function idxToStyle(
   loading: boolean,
   idx: number
 ) {
-  return idx == fidx
-    ? loading
-      ? hidden(idx)
-      : appearing(idx)
+  return idx == fidx && !loading
+    ? appearing(idx)
     : idx === prevFidx
       ? disappearing(idx)
       : hidden(idx)
@@ -102,7 +101,7 @@ function disappearing(idx: number) {
   return `
 .fidx-${idx} {
   will-change: opacity;
-  animation: xxx-disappearing ${floor_switch_duration} linear;
+  animation: ${FLOOR_DISAPPEARING} ${floor_switch_duration} linear;
 }
 `
 }
@@ -111,26 +110,7 @@ function appearing(idx: number) {
   return `
 .fidx-${idx} {
   will-change: opacity;
-  animation: xxx-appearing ${floor_switch_duration} linear;
+  animation: ${FLOOR_APPEARING} ${floor_switch_duration} linear;
 }
 `
 }
-
-const animation = `
-@keyframes xxx-disappearing {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-@keyframes xxx-appearing {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-`

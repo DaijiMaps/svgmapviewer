@@ -116,3 +116,27 @@ export const ZOOM_DURATION_DETAIL = 400
 export const ZOOM_DURATION_HEADER = 300
 
 export const floor_switch_duration = '250ms'
+
+//// floor animation
+
+export const FLOOR_DISAPPEARING = `xxx-disappearing`
+export const FLOOR_APPEARING = `xxx-appearing`
+
+export const floor_appearing_animation = `
+@keyframes xxx-disappearing {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes xxx-appearing {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+`
