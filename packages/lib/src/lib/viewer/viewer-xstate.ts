@@ -301,7 +301,7 @@ const viewerMachine = setup({
   states: {
     Resizing: {
       initial: 'WaitingForResizeRequest',
-      onDone: 'Appearing',
+      onDone: 'Panning',
       states: {
         WaitingForResizeRequest: {
           on: {
@@ -347,18 +347,18 @@ const viewerMachine = setup({
           entry: 'emitSyncScrollSync',
           on: {
             'SCROLL.SYNCSYNC.DONE': {
+              target: 'Appearing',
+            },
+          },
+        },
+        Appearing: {
+          on: {
+            'ANIMATION.END': {
               target: 'Done',
             },
           },
         },
         Done: { type: 'final' },
-      },
-    },
-    Appearing: {
-      on: {
-        'ANIMATION.END': {
-          target: 'Panning',
-        },
       },
     },
     Panning: {
