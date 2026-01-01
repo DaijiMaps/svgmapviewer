@@ -9,6 +9,7 @@ import {
   type ResizeEmitted,
   type ResizeEvent,
 } from './resize-types'
+import { currentLayout } from '../../style/style-xstate'
 
 const resizeMachine = setup({
   types: {
@@ -35,11 +36,11 @@ const resizeMachine = setup({
         // - if different, call cb
         RESIZE: {
           //actions: () => console.log('RESIZE'),
-          target: 'Busy',
+          target: 'Syncing',
         },
       },
     },
-    Busy: {
+    Syncing: {
       // XXX wait until window is stabilized
       // XXX and getBodySize() returns valid values
       after: {
@@ -66,14 +67,14 @@ const resizeMachine = setup({
               prev.width === next.width &&
               // height change ratio < 0.2
               Math.abs(1 - next.height / prev.height) < 0.2,
-            actions: () => console.log('resize: ignoring height-only change'),
+            actions: ({ context }) =>
+              console.log('resize: ignoring height-only change', context),
             target: 'Idle',
           },
           {
             guard: ({ context }) => !boxEq(context.prev, context.next),
             actions: [
               assign({
-                prev: ({ context }) => context.next,
                 waited: 0,
               }),
               emit(({ context }) => ({
@@ -89,7 +90,7 @@ const resizeMachine = setup({
                 first: false,
               }),
             ],
-            target: 'Idle',
+            target: 'Checking',
           },
           {
             target: 'Waiting',
@@ -104,7 +105,32 @@ const resizeMachine = setup({
             waited: ({ context }) => context.waited + 500,
           }),
         ],
-        target: 'Busy',
+        target: 'Syncing',
+      },
+    },
+    Checking: {
+      after: {
+        1000: {
+          actions: raise({ type: 'EXPIRED' }),
+        },
+      },
+      on: {
+        EXPIRED: [
+          {
+            guard: ({ context: { next } }) => {
+              const current = currentLayout.get().container
+              return boxEq(next, current)
+            },
+            // OK
+            actions: assign({
+              prev: ({ context: { next } }) => next,
+            }),
+            target: 'Idle',
+          },
+          {
+            target: 'Syncing',
+          },
+        ],
       },
     },
     Aborting: {
