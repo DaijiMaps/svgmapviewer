@@ -7,9 +7,6 @@ export function sendClick(ev: React.MouseEvent<HTMLDivElement>): void {
   }
   viewerSendEvent({ type: 'CLICK', ev })
 }
-export function sendWheel(ev: React.WheelEvent<HTMLDivElement>): void {
-  viewerSendEvent({ type: 'WHEEL', ev })
-}
 export function sendScroll(ev: React.UIEvent<HTMLDivElement, Event>): void {
   if (ev !== null) {
     notifyScrollEventTick(ev)

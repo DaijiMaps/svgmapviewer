@@ -83,21 +83,13 @@ export type UIEventClick = {
   type: 'CLICK'
   ev: React.MouseEvent<HTMLDivElement>
 }
-export type UIEventWheel = {
-  type: 'WHEEL'
-  ev: React.WheelEvent<HTMLDivElement>
-}
 export type UIEventScroll = { type: 'SCROLL'; ev: Event | React.UIEvent }
 export type UIEventAnimationEnd = {
   type: 'ANIMATION.END'
   ev: React.AnimationEvent<HTMLDivElement>
 }
 
-export type ReactUIEvent =
-  | UIEventAnimationEnd
-  | UIEventClick
-  | UIEventScroll
-  | UIEventWheel
+export type ReactUIEvent = UIEventAnimationEnd | UIEventClick | UIEventScroll
 
 export type UIEvent = ReactUIEvent
 
