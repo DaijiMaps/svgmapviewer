@@ -5,7 +5,6 @@ import { boxCenter, boxScaleAt } from '../../box/prefixed'
 import { type VecVec as Vec } from '../../vec/prefixed'
 import {
   type Animation,
-  type AnimationMove,
   type AnimationRotate,
   type AnimationZoom,
 } from './animation-types'
@@ -17,17 +16,14 @@ export function animationZoom(layout: Layout, z: Dir, o: Vec): Animation {
   const osvg = fromMatrixSvg(layout).inverse().transformPoint(o)
   const s = 1 / zoomToScale(z)
   const q = new DOMMatrixReadOnly().scale(1 / s, 1 / s)
-  const zoom = {
+  const zoom: AnimationZoom = {
+    type: 'Zoom',
     svg: boxScaleAt(layout.svg, s, osvg.x, osvg.y),
     svgScale: transformScale(layout.svgScale, s),
     q,
     o,
   }
-  return {
-    move: null,
-    zoom,
-    rotate: null,
-  }
+  return zoom
 }
 
 export function animationHome(layout: Layout, nextLayout: Layout): Animation {
@@ -44,18 +40,15 @@ export function animationHome(layout: Layout, nextLayout: Layout): Animation {
     .scale(1 / s)
     .translate(-o.x, -o.y)
 
-  const zoom = {
+  const zoom: AnimationZoom = {
+    type: 'Zoom',
     svg: nextLayout.svg,
     svgScale: nextLayout.svgScale,
     q,
     o: null,
   }
 
-  return {
-    move: null,
-    zoom,
-    rotate: null,
-  }
+  return zoom
 }
 
 export function animationRotate(
@@ -65,38 +58,41 @@ export function animationRotate(
 ): Animation {
   const q = new DOMMatrixReadOnly().rotate(deg)
 
-  const rotate = {
+  const rotate: AnimationRotate = {
+    type: 'Rotate',
     deg,
     q,
     o,
   }
 
-  return {
-    move: null,
-    zoom: null,
-    rotate,
-  }
+  return rotate
 }
 
 function animationMoveDone(
   layout: Layout,
-  move: null | Readonly<AnimationMove>
+  move: null | Readonly<Animation>
 ): Layout {
-  return move === null ? layout : relocLayout(layout, move.move)
+  return move === null || move.type !== 'Move'
+    ? layout
+    : relocLayout(layout, move.move)
 }
 
 function animationZoomDone(
   layout: Layout,
-  zoom: null | Readonly<AnimationZoom>
+  zoom: null | Readonly<Animation>
 ): Layout {
-  return zoom === null ? layout : zoomLayout(layout, zoom.svg, zoom.svgScale)
+  return zoom === null || zoom.type !== 'Zoom'
+    ? layout
+    : zoomLayout(layout, zoom.svg, zoom.svgScale)
 }
 
 function animationRotateDone(
   layout: Layout,
-  rotate: null | Readonly<AnimationRotate>
+  rotate: null | Readonly<Animation>
 ): Layout {
-  return rotate === null ? layout : rotateLayout(layout, rotate.deg)
+  return rotate === null || rotate.type !== 'Rotate'
+    ? layout
+    : rotateLayout(layout, rotate.deg)
 }
 
 export function animationEndLayout(
@@ -105,9 +101,9 @@ export function animationEndLayout(
 ): Layout {
   return pipe(
     layout,
-    (l) => animationMoveDone(l, animation.move),
-    (l) => animationZoomDone(l, animation.zoom),
-    (l) => animationRotateDone(l, animation.rotate)
+    (l) => animationMoveDone(l, animation),
+    (l) => animationZoomDone(l, animation),
+    (l) => animationRotateDone(l, animation)
   )
 }
 
