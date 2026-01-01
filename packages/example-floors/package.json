@@ -20,12 +20,14 @@
     "svgmapviewer-app-floors": "workspace:*"
   },
   "devDependencies": {
+    "@playwright/test": "^1.57.0",
     "@rsbuild/core": "^1.7.1",
     "@rsbuild/plugin-react": "^1.4.2",
     "@types/node": "24.x",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@typescript/native-preview": "7.0.0-dev.20251231.1",
+    "playwright": "^1.57.0",
     "typescript": "^5.9.3"
   },
   "lint-staged": {
