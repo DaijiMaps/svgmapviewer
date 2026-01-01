@@ -1,6 +1,10 @@
-import { createActor, emit, setup } from 'xstate'
+import { assign, createActor, emit, setup } from 'xstate'
 import { keyToZoom } from './key'
-import { type KeyboardEmits, type KeyboardEvents } from './keyboard-types'
+import {
+  type KeyboardEmits as Emits,
+  type KeyboardEvents as Events,
+  type KeyboardContext as Context,
+} from './keyboard-types'
 import {
   notifyActionRecenter,
   notifyActionReset,
@@ -9,11 +13,13 @@ import {
   notifyActionZoomOut,
 } from '../../event-action'
 import type { Dir } from '../../../types'
+import { modClr, modSet } from './mod'
 
 const keyboardMachine = setup({
   types: {
-    events: {} as KeyboardEvents,
-    emitted: {} as KeyboardEmits,
+    context: {} as Context,
+    events: {} as Events,
+    emitted: {} as Emits,
   },
   guards: {
     shouldReset: ({ event: { key } }) => key === 'r',
@@ -28,14 +34,29 @@ const keyboardMachine = setup({
     zoom: emit((_, { z }: { z: Dir }) => ({
       type: z > 0 ? 'ZOOM.IN' : z < 0 ? 'ZOOM.OUT' : 'NOP',
     })),
+    handleDown: assign({
+      mod: ({ context, event }) => modSet(context.mod, event.key),
+    }),
+    handleUp: assign({
+      mod: ({ context, event }) => modClr(context.mod, event.key),
+    }),
   },
 }).createMachine({
   id: 'keyboard1',
+  context: {
+    mod: {
+      shift: false,
+      alt: false,
+      control: false,
+    },
+  },
   initial: 'Idle',
   states: {
     Idle: {
       on: {
-        DOWN: {},
+        DOWN: {
+          actions: 'handleDown',
+        },
         UP: [
           {
             guard: 'shouldReset',
@@ -58,6 +79,9 @@ const keyboardMachine = setup({
               }),
             },
           },
+          {
+            actions: 'handleUp',
+          },
         ],
       },
     },
@@ -70,7 +94,7 @@ export function keyboardActorStart(): void {
   keyboardActor.start()
 }
 
-export function keyboardSend(ev: KeyboardEvents): void {
+export function keyboardSend(ev: Events): void {
   keyboardActor.send(ev)
 }
 
