@@ -192,7 +192,6 @@ const viewerMachine = setup({
     setModeToPanning: () => viewerMode.set(viewerModePanning),
     setModeToTouching: () => viewerMode.set(viewerModeTouching),
     setModeToLocked: () => viewerMode.set(viewerModeLocked),
-    raiseTouching: raise({ type: 'TOUCHING' }),
 
     startAnimating: assign({ animating: () => true }),
     stopAnimating: assign({ animating: () => false }),
@@ -301,12 +300,6 @@ const viewerMachine = setup({
     rendered: false,
   },
   on: {
-    'TOUCH.LOCK': {
-      actions: ['raiseTouching', 'setModeToTouching'],
-    },
-    'TOUCH.UNLOCK': {
-      actions: ['setModeToPanning'],
-    },
     'SEARCH.LOCK': {
       // XXX failure?
       actions: ['emitLock', 'setModeToLocked'],
@@ -424,24 +417,6 @@ const viewerMachine = setup({
           ],
           target: 'Zooming',
         },
-        TOUCHING: {
-          target: 'Touching',
-        },
-      },
-    },
-    Touching: {
-      initial: 'Stopping',
-      onDone: 'Panning',
-      states: {
-        Stopping: {
-          entry: 'emitGetScroll',
-          on: {
-            'SCROLL.GET.DONE': {
-              target: 'Done',
-            },
-          },
-        },
-        Done: { type: 'final' },
       },
     },
     Searching: {
@@ -809,8 +784,9 @@ export function viewerCbsStart(): void {
   actionCbs.zoomOut.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null }))
   actionCbs.zoomIn.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null }))
 
-  touchCbs.multiStart.add(() => viewerSend({ type: 'TOUCH.LOCK' }))
-  touchCbs.multiEnd.add(() => viewerSend({ type: 'TOUCH.UNLOCK' }))
+  touchCbs.multiStart.add(() => notifyScrollGet())
+  touchCbs.multiStart.add(() => viewerMode.set('touching'))
+  touchCbs.multiEnd.add(() => viewerMode.set('panning'))
   touchCbs.zoom.add(({ z, p }: Zoom) =>
     viewerSend({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })
   )

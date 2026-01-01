@@ -58,8 +58,6 @@ export type ScrollSyncsyncDoneRequest = {
   type: 'SCROLL.SYNCSYNC.DONE'
   scroll: BoxBox
 }
-export type TouchLockRequest = { type: 'TOUCH.LOCK' }
-export type TouchUnlockRequest = { type: 'TOUCH.UNLOCK' }
 export type ZoomRequest = { type: 'ZOOM.ZOOM'; z: Dir; p: null | VecVec }
 export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
 export type Searchlock = { type: 'SEARCH.LOCK'; psvg: Vec }
@@ -74,8 +72,6 @@ export type ViewerRequest =
   | RenderedRequest
   | ScrollGetDoneRequest
   | ScrollSyncsyncDoneRequest
-  | TouchLockRequest
-  | TouchUnlockRequest
   | ZoomRequest
   | SearchEnd
   | Searchlock
@@ -83,10 +79,7 @@ export type ViewerRequest =
 
 //// internal message (raise)
 
-export type ViewerMessage =
-  | { type: 'TOUCHING' }
-  | { type: 'TOUCHING.DONE' }
-  | { type: 'SEARCH.DONE' }
+export type ViewerMessage = { type: 'SEARCH.DONE' }
 
 //// UI event
 
