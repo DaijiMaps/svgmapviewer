@@ -38,8 +38,6 @@ export type ViewerContext = {
   want_animation: WantAnimation
   animation: null | Animation
 
-  mode: ViewerMode
-
   homing: boolean
   animating: boolean // XXX
   rendered: boolean
@@ -60,12 +58,9 @@ export type ScrollSyncsyncDoneRequest = {
   type: 'SCROLL.SYNCSYNC.DONE'
   scroll: BoxBox
 }
-export type TouchLockRequest = { type: 'TOUCH.LOCK' }
-export type TouchUnlockRequest = { type: 'TOUCH.UNLOCK' }
 export type ZoomRequest = { type: 'ZOOM.ZOOM'; z: Dir; p: null | VecVec }
+export type SearchRequest = { type: 'SEARCH'; pos: Vec }
 export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
-export type Searchlock = { type: 'SEARCH.LOCK'; psvg: Vec }
-export type SearchUnlock = { type: 'SEARCH.UNLOCK' }
 export type ViewerRequest =
   | ResizeRequest
   | LayoutResetRequest
@@ -76,41 +71,23 @@ export type ViewerRequest =
   | RenderedRequest
   | ScrollGetDoneRequest
   | ScrollSyncsyncDoneRequest
-  | TouchLockRequest
-  | TouchUnlockRequest
   | ZoomRequest
+  | SearchRequest
   | SearchEnd
-  | Searchlock
-  | SearchUnlock
 
 //// internal message (raise)
 
-export type ViewerMessage =
-  | { type: 'TOUCHING' }
-  | { type: 'TOUCHING.DONE' }
-  | { type: 'SEARCH.DONE' }
+export type ViewerMessage = { type: 'SEARCH.DONE' }
 
 //// UI event
 
-export type UIEventClick = {
-  type: 'CLICK'
-  ev: React.MouseEvent<HTMLDivElement>
-}
-export type UIEventWheel = {
-  type: 'WHEEL'
-  ev: React.WheelEvent<HTMLDivElement>
-}
 export type UIEventScroll = { type: 'SCROLL'; ev: Event | React.UIEvent }
 export type UIEventAnimationEnd = {
   type: 'ANIMATION.END'
   ev: React.AnimationEvent<HTMLDivElement>
 }
 
-export type ReactUIEvent =
-  | UIEventAnimationEnd
-  | UIEventClick
-  | UIEventScroll
-  | UIEventWheel
+export type ReactUIEvent = UIEventAnimationEnd | UIEventScroll
 
 export type UIEvent = ReactUIEvent
 
@@ -120,12 +97,11 @@ export type ViewerEvent = ViewerRequest | ViewerMessage | UIEvent
 
 //// emitted
 
-export type SearchEmitted = { type: 'SEARCH'; req: SearchReq }
+export type SearchEmitted = { type: 'SEARCH.START'; req: SearchReq }
 export type SearchEndDoneEmitted = {
   type: 'SEARCH.END.DONE'
   res: null | SearchData
 }
-export type LockEmitted = { type: 'LOCK'; ok: boolean }
 export type LayoutEmitted = { type: 'LAYOUT'; layout: Layout }
 export type ZoomStartEmitted = {
   type: 'ZOOM.START'
@@ -134,7 +110,6 @@ export type ZoomStartEmitted = {
   z: Dir
 }
 export type ZoomEndEmitted = { type: 'ZOOM.END'; layout: Layout; zoom: number }
-export type ModeEmitted = { type: 'MODE'; mode: ViewerMode }
 
 export type SyncAnimationEmitted = {
   type: 'SYNC.ANIMATION'
@@ -156,11 +131,9 @@ export type ScrollGetEmitted = { type: 'SCROLL.GET' }
 export type ViewerEmitted =
   | SearchEmitted
   | SearchEndDoneEmitted
-  | LockEmitted
   | LayoutEmitted
   | ZoomStartEmitted
   | ZoomEndEmitted
-  | ModeEmitted
   | SwitchRequest
   | SwitchDoneRequest
   | SyncAnimationEmitted

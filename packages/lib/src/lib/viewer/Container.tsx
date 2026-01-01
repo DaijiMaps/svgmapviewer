@@ -15,12 +15,7 @@ import {
   touchSendTouchMove,
   touchSendTouchStart,
 } from './touch/touch-xstate'
-import {
-  sendAnimationEnd,
-  sendClick,
-  sendScroll,
-  sendWheel,
-} from './viewer-react'
+import { sendAnimationEnd, sendClick, sendScroll } from './viewer-react'
 import { sendContextMenu } from './input/input'
 
 export function Container(props: Readonly<PropsWithChildren>): ReactNode {
@@ -37,7 +32,6 @@ export function Container(props: Readonly<PropsWithChildren>): ReactNode {
       onClick={sendClick}
       onContextMenu={sendContextMenu}
       onScroll={sendScroll}
-      onWheel={sendWheel}
       onAnimationEnd={(ev) => {
         sendAnimationEnd(ev)
         notifyStyleAnimationEnd()

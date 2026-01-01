@@ -32,7 +32,7 @@ import {
 } from '../event-style'
 import { touchCbs } from '../event-touch'
 import { notifyUiOpen, notifyUiOpenDone, uiCbs } from '../event-ui'
-import { vecVec, type VecVec as Vec } from '../vec/prefixed'
+import { type VecVec as Vec } from '../vec/prefixed'
 import {
   animationEndLayout,
   animationHome,
@@ -66,6 +66,10 @@ import {
   type ViewerMode,
 } from './viewer-types'
 import { currentFidxAtom } from './floors/floors-xstate'
+import { createAtom } from '@xstate/store'
+
+export const viewerMode = createAtom<ViewerMode>('panning')
+viewerMode.subscribe((mode) => notifyStyleMode(mode))
 
 //// viewerMachine
 
@@ -170,34 +174,12 @@ const viewerMachine = setup({
     resetCursor: assign({
       cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
     }),
-    cursor: assign({
-      cursor: (
-        //{ context: { mode, cursor } },
-        _,
-        {
-          ev,
-        }: {
-          ev: MouseEvent | React.MouseEvent | PointerEvent | React.PointerEvent
-        }
-      ): Vec => vecVec(ev.pageX, ev.pageY),
-    }),
-
     //
     // mode
     //
-    setModeToPanning: assign({
-      mode: viewerModePanning,
-      // XXX resetCursor
-      cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
-    }),
-    setModeToTouching: assign({
-      mode: viewerModeTouching,
-    }),
-    setModeToLocked: assign({
-      mode: viewerModeLocked,
-    }),
-    raiseTouching: raise({ type: 'TOUCHING' }),
-    raiseTouchingDone: raise({ type: 'TOUCHING.DONE' }),
+    setModeToPanning: () => viewerMode.set(viewerModePanning),
+    setModeToTouching: () => viewerMode.set(viewerModeTouching),
+    setModeToLocked: () => viewerMode.set(viewerModeLocked),
 
     startAnimating: assign({ animating: () => true }),
     stopAnimating: assign({ animating: () => false }),
@@ -229,7 +211,7 @@ const viewerMachine = setup({
         zoom,
       })
     ),
-    emitSearch: emit(({ context: { layout, cursor } }): ViewerEmitted => {
+    emitSearchStart: emit(({ context: { layout, cursor } }): ViewerEmitted => {
       const { scroll } = getCurrentScroll()
       const l = scrollLayout(layout, scroll)
       const m = fromMatrixSvg(l).inverse()
@@ -239,7 +221,7 @@ const viewerMachine = setup({
         .transformPoint(psvg)
       const fidx = currentFidxAtom.get()
       const req: SearchReq = { pgeo, fidx }
-      return { type: 'SEARCH', req }
+      return { type: 'SEARCH.START', req }
     }),
     raiseSearchDone: raise({ type: 'SEARCH.DONE' }),
     raiseSearchEndDone: emit(
@@ -275,10 +257,6 @@ const viewerMachine = setup({
         ),
       homing: () => false,
     }),
-    emitMode: emit(
-      ({ context: { mode } }): ViewerEmitted => ({ type: 'MODE', mode })
-    ),
-    emitLock: emit({ type: 'LOCK', ok: true }),
     setRendered: assign({ rendered: true }),
     emitSwitch: emit(
       (_, { fidx }: SwitchRequest): ViewerEmitted => ({
@@ -305,29 +283,13 @@ const viewerMachine = setup({
     homing: false,
     want_animation: null,
     animation: null,
-    mode: viewerModePanning,
     animating: false,
     rendered: false,
-  },
-  on: {
-    'TOUCH.LOCK': {
-      actions: ['raiseTouching', 'setModeToTouching', 'emitMode'],
-    },
-    'TOUCH.UNLOCK': {
-      actions: ['raiseTouchingDone', 'setModeToPanning', 'emitMode'],
-    },
-    'SEARCH.LOCK': {
-      // XXX failure?
-      actions: ['emitLock', 'setModeToLocked', 'emitMode'],
-    },
-    'SEARCH.UNLOCK': {
-      actions: ['setModeToPanning', 'emitMode', 'raiseSearchDone'],
-    },
   },
   states: {
     Resizing: {
       initial: 'WaitingForResizeRequest',
-      onDone: 'Appearing',
+      onDone: 'Idle',
       states: {
         WaitingForResizeRequest: {
           on: {
@@ -373,6 +335,13 @@ const viewerMachine = setup({
           entry: 'emitSyncScrollSync',
           on: {
             'SCROLL.SYNCSYNC.DONE': {
+              target: 'Appearing',
+            },
+          },
+        },
+        Appearing: {
+          on: {
+            'ANIMATION.END': {
               target: 'Done',
             },
           },
@@ -380,14 +349,7 @@ const viewerMachine = setup({
         Done: { type: 'final' },
       },
     },
-    Appearing: {
-      on: {
-        'ANIMATION.END': {
-          target: 'Panning',
-        },
-      },
-    },
-    Panning: {
+    Idle: {
       on: {
         // XXX force layout (resize)
         RESIZE: {
@@ -398,13 +360,10 @@ const viewerMachine = setup({
           actions: ['zoomHome', 'wantZoom'],
           target: 'Zooming',
         },
-        CLICK: {
-          actions: [
-            {
-              type: 'cursor',
-              params: ({ event }) => ({ ev: event.ev }),
-            },
-          ],
+        SEARCH: {
+          actions: assign({
+            cursor: ({ event: { pos } }) => pos,
+          }),
           target: 'Searching',
         },
         SWITCH: {
@@ -417,7 +376,7 @@ const viewerMachine = setup({
           target: 'Switching',
         },
         ROTATE: {
-          actions: 'wantRotate',
+          actions: ['resetCursor', 'wantRotate'],
           target: 'Zooming',
         },
         RECENTER: {
@@ -433,33 +392,15 @@ const viewerMachine = setup({
           ],
           target: 'Zooming',
         },
-        TOUCHING: {
-          target: 'Touching',
-        },
-      },
-    },
-    Touching: {
-      initial: 'Stopping',
-      onDone: 'Panning',
-      states: {
-        Stopping: {
-          entry: 'emitGetScroll',
-          on: {
-            'SCROLL.GET.DONE': {
-              target: 'Done',
-            },
-          },
-        },
-        Done: { type: 'final' },
       },
     },
     Searching: {
       initial: 'Starting',
-      onDone: 'Panning', // XXX do `Recentering' conditionally?
+      onDone: 'Idle', // XXX do `Recentering' conditionally?
       states: {
         Starting: {
           always: {
-            actions: 'emitSearch',
+            actions: 'emitSearchStart',
             target: 'WaitingForSearchEnd',
           },
         },
@@ -486,7 +427,7 @@ const viewerMachine = setup({
     },
     Switching: {
       initial: 'Animating',
-      onDone: 'Panning',
+      onDone: 'Idle',
       states: {
         Animating: {
           on: {
@@ -510,7 +451,7 @@ const viewerMachine = setup({
     // - reflect prev scroll -> current scroll diff to svg
     Recentering: {
       initial: 'Stopping',
-      onDone: 'Panning',
+      onDone: 'Idle',
       states: {
         Stopping: {
           entry: 'emitGetScroll',
@@ -554,7 +495,7 @@ const viewerMachine = setup({
     Zooming: {
       id: 'Zooming',
       initial: 'Stopping',
-      onDone: 'Panning',
+      onDone: 'Idle',
       states: {
         // XXX
         // XXX stop scroll before really start zooming
@@ -706,30 +647,26 @@ export function viewerSend(ev: ViewerEvent): void {
 
 ////
 
-viewerActor.on('SEARCH', ({ req }) => notifySearchStart(req))
+viewerActor.on('SEARCH.START', ({ req }) => notifySearchStart(req))
 viewerActor.on('SEARCH.END.DONE', ({ res }) => {
   if (res === null) {
-    viewerActor.send({ type: 'SEARCH.UNLOCK' })
+    viewerActor.send({ type: 'SEARCH.DONE' })
   } else {
     notifySearchEndDone(res)
     notifyUiOpen(res.psvg)
   }
 })
-viewerActor.on('LOCK', ({ ok }) => notifyUiOpenDone(ok))
 viewerActor.on('ZOOM.START', (args) => notifyStyleZoomStart(args))
 viewerActor.on('ZOOM.END', (end) => notifyStyleZoomEnd(end))
 viewerActor.on('LAYOUT', ({ layout }) =>
   notifyStyleZoomEnd({ layout, zoom: 1 })
 )
-viewerActor.on('MODE', ({ mode }) => notifyStyleMode(mode))
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloorSelect(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloorUnlock())
-viewerActor.on('SYNC.ANIMATION', ({ animation }) => {
-  const matrix =
-    animation?.move?.q ?? animation?.zoom?.q ?? animation?.rotate?.q ?? null
-  const origin =
-    animation?.move?.o ?? animation?.zoom?.o ?? animation?.rotate?.o ?? null
+viewerActor.on('SYNC.ANIMATION', ({ animation: a }) => {
+  const matrix = a?.move?.q ?? a?.zoom?.q ?? a?.rotate?.q ?? null
+  const origin = a?.move?.o ?? a?.zoom?.o ?? a?.rotate?.o ?? null
   if (matrix !== null) {
     notifyStyleAnimation({ matrix, origin })
   }
@@ -788,8 +725,10 @@ export function viewerCbsStart(): void {
   searchCbs.end.add((res: Readonly<null | SearchRes>) =>
     viewerActor.send({ type: 'SEARCH.END', res })
   )
-  uiCbs.open.add((psvg: Vec) => viewerActor.send({ type: 'SEARCH.LOCK', psvg }))
-  uiCbs.closeDone.add(() => viewerActor.send({ type: 'SEARCH.UNLOCK' }))
+  uiCbs.open.add(() => viewerMode.set(viewerModeLocked))
+  uiCbs.open.add(() => notifyUiOpenDone(true))
+  uiCbs.closeDone.add(() => viewerActor.send({ type: 'SEARCH.DONE' }))
+  uiCbs.closeDone.add(() => viewerMode.set(viewerModePanning))
 
   scrollCbs.getDone.add((scroll: Readonly<null | BoxBox>) => {
     if (scroll !== null) {
@@ -819,8 +758,9 @@ export function viewerCbsStart(): void {
   actionCbs.zoomOut.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null }))
   actionCbs.zoomIn.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null }))
 
-  touchCbs.multiStart.add(() => viewerSend({ type: 'TOUCH.LOCK' }))
-  touchCbs.multiEnd.add(() => viewerSend({ type: 'TOUCH.UNLOCK' }))
+  touchCbs.multiStart.add(() => notifyScrollGet())
+  touchCbs.multiStart.add(() => viewerMode.set('touching'))
+  touchCbs.multiEnd.add(() => viewerMode.set('panning'))
   touchCbs.zoom.add(({ z, p }: Zoom) =>
     viewerSend({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })
   )
