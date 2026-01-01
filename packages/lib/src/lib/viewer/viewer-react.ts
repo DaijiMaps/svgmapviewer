@@ -1,5 +1,6 @@
 import { notifyScrollEventTick } from '../event-scroll'
-import { clickeventmask, viewerSend, viewerSendEvent } from './viewer-xstate'
+import { clickeventmask, viewerSendEvent } from './viewer-xstate'
+import { keyboardSend } from './input/keyboard-xstate'
 
 export function sendClick(ev: React.MouseEvent<HTMLDivElement>): void {
   if (clickeventmask) {
@@ -28,8 +29,8 @@ export function sendAnimationEnd(
 }
 
 export function keyDown(ev: KeyboardEvent): void {
-  viewerSend({ type: 'KEY.DOWN', ev })
+  keyboardSend({ type: 'DOWN', key: ev.key })
 }
 export function keyUp(ev: KeyboardEvent): void {
-  viewerSend({ type: 'KEY.UP', ev })
+  keyboardSend({ type: 'UP', key: ev.key })
 }

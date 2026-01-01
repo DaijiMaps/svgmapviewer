@@ -1,18 +1,19 @@
 import { createActor, emit, setup } from 'xstate'
 import { keyToZoom } from '../key'
-import { type ViewerAction } from '../../event-action-types'
-
-type DOWN = { type: 'DOWN'; key: string }
-type UP = { type: 'UP'; key: string }
-
-type Events = DOWN | UP
-
-type Emits = ViewerAction
+import { type KeyboardEmits, type KeyboardEvents } from './keyboard-types'
+import {
+  notifyActionRecenter,
+  notifyActionReset,
+  notifyActionRotate,
+  notifyActionZoomIn,
+  notifyActionZoomOut,
+} from '../../event-action'
+import type { Dir } from '../../../types'
 
 const keyboardMachine = setup({
   types: {
-    events: {} as Events,
-    emitted: {} as Emits,
+    events: {} as KeyboardEvents,
+    emitted: {} as KeyboardEmits,
   },
   guards: {
     shouldReset: ({ event: { key } }) => key === 'r',
@@ -24,8 +25,9 @@ const keyboardMachine = setup({
     reset: emit({ type: 'RESET' }),
     recenter: emit({ type: 'RECENTER' }),
     rotate: emit({ type: 'ROTATE' }),
-    zoomIn: emit({ type: 'ZOOM.IN' }),
-    zoomOut: emit({ type: 'ZOOM.OUT' }),
+    zoom: emit((_, { z }: { z: Dir }) => ({
+      type: z > 0 ? 'ZOOM.IN' : z < 0 ? 'ZOOM.OUT' : 'NOP',
+    })),
   },
 }).createMachine({
   id: 'keyboard1',
@@ -37,15 +39,24 @@ const keyboardMachine = setup({
         UP: [
           {
             guard: 'shouldReset',
+            actions: 'reset',
           },
           {
             guard: 'shouldRecenter',
+            actions: 'recenter',
           },
           {
             guard: 'shouldRotate',
+            actions: 'rotate',
           },
           {
             guard: 'shouldZoom',
+            actions: {
+              type: 'zoom',
+              params: ({ event: { key } }): { z: Dir } => ({
+                z: keyToZoom(key),
+              }),
+            },
           },
         ],
       },
@@ -59,12 +70,12 @@ export function keyboardActorStart(): void {
   keyboardActor.start()
 }
 
-export function keyboardSend(ev: Events): void {
+export function keyboardSend(ev: KeyboardEvents): void {
   keyboardActor.send(ev)
 }
 
-keyboardActor.on('RESET', () => {})
-keyboardActor.on('RECENTER', () => {})
-keyboardActor.on('ROTATE', () => {})
-keyboardActor.on('ZOOM.IN', () => {})
-keyboardActor.on('ZOOM.OUT', () => {})
+keyboardActor.on('RESET', notifyActionReset)
+keyboardActor.on('RECENTER', notifyActionRecenter)
+keyboardActor.on('ROTATE', notifyActionRotate)
+keyboardActor.on('ZOOM.IN', notifyActionZoomIn)
+keyboardActor.on('ZOOM.OUT', notifyActionZoomOut)
