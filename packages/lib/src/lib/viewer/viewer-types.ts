@@ -61,7 +61,6 @@ export type ScrollSyncsyncDoneRequest = {
 export type ZoomRequest = { type: 'ZOOM.ZOOM'; z: Dir; p: null | VecVec }
 export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
 export type Searchlock = { type: 'SEARCH.LOCK'; psvg: Vec }
-export type SearchUnlock = { type: 'SEARCH.UNLOCK' }
 export type ViewerRequest =
   | ResizeRequest
   | LayoutResetRequest
@@ -75,7 +74,6 @@ export type ViewerRequest =
   | ZoomRequest
   | SearchEnd
   | Searchlock
-  | SearchUnlock
 
 //// internal message (raise)
 

@@ -298,11 +298,6 @@ const viewerMachine = setup({
     animating: false,
     rendered: false,
   },
-  on: {
-    'SEARCH.UNLOCK': {
-      actions: ['raiseSearchDone'],
-    },
-  },
   states: {
     Resizing: {
       initial: 'WaitingForResizeRequest',
@@ -670,7 +665,7 @@ export function viewerSend(ev: ViewerEvent): void {
 viewerActor.on('SEARCH', ({ req }) => notifySearchStart(req))
 viewerActor.on('SEARCH.END.DONE', ({ res }) => {
   if (res === null) {
-    viewerActor.send({ type: 'SEARCH.UNLOCK' })
+    viewerActor.send({ type: 'SEARCH.DONE' })
   } else {
     notifySearchEndDone(res)
     notifyUiOpen(res.psvg)
@@ -750,7 +745,7 @@ export function viewerCbsStart(): void {
   )
   uiCbs.open.add(() => viewerMode.set(viewerModeLocked))
   uiCbs.open.add(() => notifyUiOpenDone(true))
-  uiCbs.closeDone.add(() => viewerActor.send({ type: 'SEARCH.UNLOCK' }))
+  uiCbs.closeDone.add(() => viewerActor.send({ type: 'SEARCH.DONE' }))
   uiCbs.closeDone.add(() => viewerMode.set(viewerModePanning))
 
   scrollCbs.getDone.add((scroll: Readonly<null | BoxBox>) => {
