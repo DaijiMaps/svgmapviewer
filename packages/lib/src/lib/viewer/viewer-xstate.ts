@@ -32,7 +32,7 @@ import {
 } from '../event-style'
 import { touchCbs } from '../event-touch'
 import { notifyUiOpen, notifyUiOpenDone, uiCbs } from '../event-ui'
-import { vecVec, type VecVec as Vec } from '../vec/prefixed'
+import { type VecVec as Vec } from '../vec/prefixed'
 import {
   animationEndLayout,
   animationHome,
@@ -174,18 +174,6 @@ const viewerMachine = setup({
     resetCursor: assign({
       cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
     }),
-    cursor: assign({
-      cursor: (
-        //{ context: { mode, cursor } },
-        _,
-        {
-          ev,
-        }: {
-          ev: MouseEvent | React.MouseEvent | PointerEvent | React.PointerEvent
-        }
-      ): Vec => vecVec(ev.pageX, ev.pageY),
-    }),
-
     //
     // mode
     //
