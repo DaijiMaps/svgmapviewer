@@ -269,7 +269,6 @@ const viewerMachine = setup({
         ),
       homing: () => false,
     }),
-    emitLock: emit({ type: 'LOCK', ok: true }),
     setRendered: assign({ rendered: true }),
     emitSwitch: emit(
       (_, { fidx }: SwitchRequest): ViewerEmitted => ({
@@ -300,12 +299,8 @@ const viewerMachine = setup({
     rendered: false,
   },
   on: {
-    'SEARCH.LOCK': {
-      // XXX failure?
-      actions: ['emitLock', 'setModeToLocked'],
-    },
     'SEARCH.UNLOCK': {
-      actions: ['setModeToPanning', 'raiseSearchDone'],
+      actions: ['raiseSearchDone'],
     },
   },
   states: {
@@ -753,8 +748,10 @@ export function viewerCbsStart(): void {
   searchCbs.end.add((res: Readonly<null | SearchRes>) =>
     viewerActor.send({ type: 'SEARCH.END', res })
   )
-  uiCbs.open.add((psvg: Vec) => viewerActor.send({ type: 'SEARCH.LOCK', psvg }))
+  uiCbs.open.add(() => viewerMode.set(viewerModeLocked))
+  uiCbs.open.add(() => notifyUiOpenDone(true))
   uiCbs.closeDone.add(() => viewerActor.send({ type: 'SEARCH.UNLOCK' }))
+  uiCbs.closeDone.add(() => viewerMode.set(viewerModePanning))
 
   scrollCbs.getDone.add((scroll: Readonly<null | BoxBox>) => {
     if (scroll !== null) {
