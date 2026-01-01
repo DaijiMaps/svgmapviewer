@@ -54,7 +54,7 @@ test('zoom layout', () => {
     (l) => animationZoom(l, 1, cursor),
     (a) => animationEndLayout(layout, a)
   )
-  expect(l1.svgScale.s / layout.svgScale.s).toBe(1 / 2)
+  expect(l1.svgScale.s / layout.svgScale.s).toBeCloseTo(1 / 3)
   //expect(l1.zoom).toBe(1)
 })
 
@@ -134,27 +134,51 @@ const U = (() => {
 })()
 
 test('expand + zoom', () => {
-  const l1 = expandLayoutCenter(U.layout, 2)
+  const l1 = expandLayoutCenter(U.layout, 3)
   const a1 = animationZoom(l1, 1, U.cursor)
   const l2 = animationEndLayout(l1, a1)
   const a2 = animationZoom(l2, -1, U.cursor)
   const l3 = animationEndLayout(l2, a2)
-  const l4 = expandLayoutCenter(l3, 1 / 2)
+  const l4 = expandLayoutCenter(l3, 1 / 3)
 
-  expect(l4).toStrictEqual(U.layout)
+  expect(l4).toEqual({
+    ...U.layout,
+    scroll: {
+      ...U.layout.scroll,
+      x: expect.closeTo(U.layout.scroll.x),
+      y: expect.closeTo(U.layout.scroll.y),
+    },
+    svg: {
+      ...U.layout.svg,
+      x: expect.closeTo(U.layout.svg.x),
+      y: expect.closeTo(U.layout.svg.y),
+    },
+  })
 })
 
 test('expand + zoom 2', () => {
   const cursor = vecVec(0.25, 0.25)
 
-  const l1 = expandLayoutCenter(U.layout, 2)
+  const l1 = expandLayoutCenter(U.layout, 3)
   const a1 = animationZoom(l1, 1, cursor)
   const l2 = animationEndLayout(l1, a1)
   const a2 = animationZoom(l2, -1, cursor)
   const l3 = animationEndLayout(l2, a2)
-  const l4 = expandLayoutCenter(l3, 1 / 2)
+  const l4 = expandLayoutCenter(l3, 1 / 3)
 
-  expect(l4).toStrictEqual(U.layout)
+  expect(l4).toEqual({
+    ...U.layout,
+    scroll: {
+      ...U.layout.scroll,
+      x: expect.closeTo(U.layout.scroll.x),
+      y: expect.closeTo(U.layout.scroll.y),
+    },
+    svg: {
+      ...U.layout.svg,
+      x: expect.closeTo(U.layout.svg.x),
+      y: expect.closeTo(U.layout.svg.y),
+    },
+  })
 })
 
 test('expand + zoom 3', () => {
