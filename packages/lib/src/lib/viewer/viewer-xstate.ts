@@ -391,7 +391,7 @@ const viewerMachine = setup({
           target: 'Switching',
         },
         ROTATE: {
-          actions: 'wantRotate',
+          actions: ['resetCursor', 'wantRotate'],
           target: 'Zooming',
         },
         RECENTER: {
