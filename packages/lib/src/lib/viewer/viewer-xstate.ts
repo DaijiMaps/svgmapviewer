@@ -33,7 +33,6 @@ import {
 import { touchCbs } from '../event-touch'
 import { notifyUiOpen, notifyUiOpenDone, uiCbs } from '../event-ui'
 import { vecVec, type VecVec as Vec } from '../vec/prefixed'
-import { keyToZoom } from './key'
 import {
   animationEndLayout,
   animationHome,
@@ -77,11 +76,6 @@ const viewerMachine = setup({
     emitted: ViewerEmitted
   },
   guards: {
-    // key
-    shouldReset: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'r',
-    shouldRecenter: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 'c',
-    shouldRotate: (_, { ev }: { ev: KeyboardEvent }) => ev.key === 't',
-    shouldZoom: (_, { ev }: { ev: KeyboardEvent }) => keyToZoom(ev.key) !== 0,
     isHoming: ({ context: { homing } }) => homing,
     isZoomWanted: ({ context: { want_animation } }) =>
       want_animation === 'zoom',
@@ -112,9 +106,6 @@ const viewerMachine = setup({
     //
     // move + zoom
     //
-    zoomKey: assign({
-      z: (_, { ev }: { ev: KeyboardEvent }): Dir | 0 => keyToZoom(ev.key),
-    }),
     zoomHome: assign({
       z: (): null | Dir => null,
       zoom: () => 1,
@@ -407,38 +398,6 @@ const viewerMachine = setup({
           actions: ['zoomHome', 'wantZoom'],
           target: 'Zooming',
         },
-        'KEY.UP': [
-          {
-            guard: {
-              type: 'shouldZoom',
-              params: ({ event }) => ({ ev: event.ev }),
-            },
-            actions: [
-              {
-                type: 'zoomKey',
-                params: ({ event }) => ({ ev: event.ev }),
-              },
-              'wantZoom',
-            ],
-            target: 'Zooming',
-          },
-          {
-            guard: {
-              type: 'shouldReset',
-              params: ({ event }) => ({ ev: event.ev }),
-            },
-            actions: ['zoomHome', 'wantZoom'],
-            target: 'Zooming',
-          },
-          {
-            guard: {
-              type: 'shouldRotate',
-              params: ({ event }) => ({ ev: event.ev }),
-            },
-            actions: 'wantRotate',
-            target: 'Zooming',
-          },
-        ],
         CLICK: {
           actions: [
             {
@@ -456,9 +415,6 @@ const viewerMachine = setup({
             },
           ],
           target: 'Switching',
-        },
-        CONTEXTMENU: {
-          target: 'Recentering',
         },
         ROTATE: {
           actions: 'wantRotate',
