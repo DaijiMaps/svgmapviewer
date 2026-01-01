@@ -1,10 +1,10 @@
-import { pipe } from 'fp-ts/function'
 import { svgMapViewerConfig } from '../../../config'
 import type { AnimationMatrix, Dir } from '../../../types'
 import { boxCenter, boxScaleAt } from '../../box/prefixed'
 import { type VecVec as Vec } from '../../vec/prefixed'
 import {
   type Animation,
+  type AnimationMove,
   type AnimationRotate,
   type AnimationZoom,
 } from './animation-types'
@@ -70,41 +70,31 @@ export function animationRotate(
 
 function animationMoveDone(
   layout: Layout,
-  move: null | Readonly<Animation>
+  move: Readonly<AnimationMove>
 ): Layout {
-  return move === null || move.type !== 'Move'
-    ? layout
-    : relocLayout(layout, move.move)
+  return relocLayout(layout, move.move)
 }
 
 function animationZoomDone(
   layout: Layout,
-  zoom: null | Readonly<Animation>
+  zoom: Readonly<AnimationZoom>
 ): Layout {
-  return zoom === null || zoom.type !== 'Zoom'
-    ? layout
-    : zoomLayout(layout, zoom.svg, zoom.svgScale)
+  return zoomLayout(layout, zoom.svg, zoom.svgScale)
 }
 
 function animationRotateDone(
   layout: Layout,
-  rotate: null | Readonly<Animation>
+  rotate: Readonly<AnimationRotate>
 ): Layout {
-  return rotate === null || rotate.type !== 'Rotate'
-    ? layout
-    : rotateLayout(layout, rotate.deg)
+  return rotateLayout(layout, rotate.deg)
 }
 
-export function animationEndLayout(
-  layout: Layout,
-  animation: Animation
-): Layout {
-  return pipe(
-    layout,
-    (l) => animationMoveDone(l, animation),
-    (l) => animationZoomDone(l, animation),
-    (l) => animationRotateDone(l, animation)
-  )
+export function animationEndLayout(layout: Layout, a: Animation): Layout {
+  return a.type === 'Move'
+    ? animationMoveDone(layout, a)
+    : a.type === 'Zoom'
+      ? animationZoomDone(layout, a)
+      : animationRotateDone(layout, a)
 }
 
 function zoomToScale(z: Dir): number {
