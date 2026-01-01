@@ -301,7 +301,7 @@ const viewerMachine = setup({
   states: {
     Resizing: {
       initial: 'WaitingForResizeRequest',
-      onDone: 'Panning',
+      onDone: 'Idle',
       states: {
         WaitingForResizeRequest: {
           on: {
@@ -361,7 +361,7 @@ const viewerMachine = setup({
         Done: { type: 'final' },
       },
     },
-    Panning: {
+    Idle: {
       on: {
         // XXX force layout (resize)
         RESIZE: {
@@ -411,7 +411,7 @@ const viewerMachine = setup({
     },
     Searching: {
       initial: 'Starting',
-      onDone: 'Panning', // XXX do `Recentering' conditionally?
+      onDone: 'Idle', // XXX do `Recentering' conditionally?
       states: {
         Starting: {
           always: {
@@ -442,7 +442,7 @@ const viewerMachine = setup({
     },
     Switching: {
       initial: 'Animating',
-      onDone: 'Panning',
+      onDone: 'Idle',
       states: {
         Animating: {
           on: {
@@ -466,7 +466,7 @@ const viewerMachine = setup({
     // - reflect prev scroll -> current scroll diff to svg
     Recentering: {
       initial: 'Stopping',
-      onDone: 'Panning',
+      onDone: 'Idle',
       states: {
         Stopping: {
           entry: 'emitGetScroll',
@@ -510,7 +510,7 @@ const viewerMachine = setup({
     Zooming: {
       id: 'Zooming',
       initial: 'Stopping',
-      onDone: 'Panning',
+      onDone: 'Idle',
       states: {
         // XXX
         // XXX stop scroll before really start zooming
