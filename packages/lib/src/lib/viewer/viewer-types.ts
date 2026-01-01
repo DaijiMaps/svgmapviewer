@@ -100,8 +100,6 @@ export type UIEventContextMenu = {
   type: 'CONTEXTMENU'
   ev: React.MouseEvent<HTMLDivElement>
 }
-export type UIEventKeyDown = { type: 'KEY.DOWN'; ev: KeyboardEvent }
-export type UIEventKeyUp = { type: 'KEY.UP'; ev: KeyboardEvent }
 export type UIEventWheel = {
   type: 'WHEEL'
   ev: React.WheelEvent<HTMLDivElement>
@@ -119,9 +117,7 @@ export type ReactUIEvent =
   | UIEventScroll
   | UIEventWheel
 
-export type RawUIEvent = UIEventKeyDown | UIEventKeyUp
-
-export type UIEvent = RawUIEvent | ReactUIEvent
+export type UIEvent = ReactUIEvent
 
 //// all event
 
