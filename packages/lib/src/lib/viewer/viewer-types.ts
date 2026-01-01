@@ -60,7 +60,6 @@ export type ScrollSyncsyncDoneRequest = {
 }
 export type ZoomRequest = { type: 'ZOOM.ZOOM'; z: Dir; p: null | VecVec }
 export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
-export type Searchlock = { type: 'SEARCH.LOCK'; psvg: Vec }
 export type ViewerRequest =
   | ResizeRequest
   | LayoutResetRequest
@@ -73,7 +72,6 @@ export type ViewerRequest =
   | ScrollSyncsyncDoneRequest
   | ZoomRequest
   | SearchEnd
-  | Searchlock
 
 //// internal message (raise)
 
@@ -114,7 +112,6 @@ export type SearchEndDoneEmitted = {
   type: 'SEARCH.END.DONE'
   res: null | SearchData
 }
-export type LockEmitted = { type: 'LOCK'; ok: boolean }
 export type LayoutEmitted = { type: 'LAYOUT'; layout: Layout }
 export type ZoomStartEmitted = {
   type: 'ZOOM.START'
@@ -144,7 +141,6 @@ export type ScrollGetEmitted = { type: 'SCROLL.GET' }
 export type ViewerEmitted =
   | SearchEmitted
   | SearchEndDoneEmitted
-  | LockEmitted
   | LayoutEmitted
   | ZoomStartEmitted
   | ZoomEndEmitted

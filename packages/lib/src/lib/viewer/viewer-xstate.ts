@@ -671,7 +671,6 @@ viewerActor.on('SEARCH.END.DONE', ({ res }) => {
     notifyUiOpen(res.psvg)
   }
 })
-viewerActor.on('LOCK', ({ ok }) => notifyUiOpenDone(ok))
 viewerActor.on('ZOOM.START', (args) => notifyStyleZoomStart(args))
 viewerActor.on('ZOOM.END', (end) => notifyStyleZoomEnd(end))
 viewerActor.on('LAYOUT', ({ layout }) =>
