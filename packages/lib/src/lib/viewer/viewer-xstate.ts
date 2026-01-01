@@ -416,9 +416,6 @@ const viewerMachine = setup({
           ],
           target: 'Switching',
         },
-        CONTEXTMENU: {
-          target: 'Recentering',
-        },
         ROTATE: {
           actions: 'wantRotate',
           target: 'Zooming',

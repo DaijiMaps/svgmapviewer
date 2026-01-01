@@ -18,10 +18,10 @@ import {
 import {
   sendAnimationEnd,
   sendClick,
-  sendContextMenu,
   sendScroll,
   sendWheel,
 } from './viewer-react'
+import { sendContextMenu } from './input/input'
 
 export function Container(props: Readonly<PropsWithChildren>): ReactNode {
   const ref = useRef<HTMLDivElement>(null)

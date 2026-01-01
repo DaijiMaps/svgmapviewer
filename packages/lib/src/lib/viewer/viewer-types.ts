@@ -96,10 +96,6 @@ export type UIEventClick = {
   type: 'CLICK'
   ev: React.MouseEvent<HTMLDivElement>
 }
-export type UIEventContextMenu = {
-  type: 'CONTEXTMENU'
-  ev: React.MouseEvent<HTMLDivElement>
-}
 export type UIEventWheel = {
   type: 'WHEEL'
   ev: React.WheelEvent<HTMLDivElement>
@@ -113,7 +109,6 @@ export type UIEventAnimationEnd = {
 export type ReactUIEvent =
   | UIEventAnimationEnd
   | UIEventClick
-  | UIEventContextMenu
   | UIEventScroll
   | UIEventWheel
 

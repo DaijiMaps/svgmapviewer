@@ -1,5 +1,5 @@
 import { createActor, emit, setup } from 'xstate'
-import { keyToZoom } from '../key'
+import { keyToZoom } from './key'
 import { type KeyboardEmits, type KeyboardEvents } from './keyboard-types'
 import {
   notifyActionRecenter,
