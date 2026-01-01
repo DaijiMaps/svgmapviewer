@@ -4,26 +4,25 @@ import { type VecVec as Vec } from '../../vec/prefixed'
 import { type Scale } from './transform'
 
 export type AnimationMove = Readonly<{
-  move: Vec
+  type: 'Move'
   q: DOMMatrixReadOnly
   o: Vec
+  move: Vec
 }>
 
 export type AnimationZoom = Readonly<{
-  svg: Box
-  svgScale: Scale
+  type: 'Zoom'
   q: DOMMatrixReadOnly
   o: null | Vec
+  svg: Box
+  svgScale: Scale
 }>
 
 export type AnimationRotate = Readonly<{
-  deg: number
+  type: 'Rotate'
   q: DOMMatrixReadOnly
   o: Vec
+  deg: number
 }>
 
-export type Animation = Readonly<{
-  move: null | AnimationMove
-  zoom: null | AnimationZoom
-  rotate: null | AnimationRotate
-}>
+export type Animation = AnimationMove | AnimationZoom | AnimationRotate

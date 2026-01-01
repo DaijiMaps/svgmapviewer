@@ -29,3 +29,5 @@ tmp
 *.tsbuildinfo
 
 __pycache__
+
+*.zip

@@ -367,12 +367,11 @@ const viewerMachine = setup({
           target: 'Searching',
         },
         SWITCH: {
-          actions: [
-            {
-              type: 'emitSwitch',
-              params: ({ event }) => event,
-            },
-          ],
+          // switch only when viewer is idle!
+          actions: {
+            type: 'emitSwitch',
+            params: ({ event }) => event,
+          },
           target: 'Switching',
         },
         ROTATE: {
@@ -665,8 +664,8 @@ viewerActor.on('LAYOUT', ({ layout }) =>
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloorSelect(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloorUnlock())
 viewerActor.on('SYNC.ANIMATION', ({ animation: a }) => {
-  const matrix = a?.move?.q ?? a?.zoom?.q ?? a?.rotate?.q ?? null
-  const origin = a?.move?.o ?? a?.zoom?.o ?? a?.rotate?.o ?? null
+  const matrix = a?.q ?? null
+  const origin = a?.o ?? null
   if (matrix !== null) {
     notifyStyleAnimation({ matrix, origin })
   }

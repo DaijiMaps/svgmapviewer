@@ -18,6 +18,7 @@ import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { type ViewerMode } from '../viewer/viewer-types'
 import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
 import { createAtom } from '@xstate/store'
+import { animationStyle } from '../viewer/layout/animation'
 
 export const currentLayout = createAtom<Layout>(emptyLayout)
 
@@ -146,7 +147,7 @@ const styleMachine = setup({
       on: {
         'STYLE.ANIMATION': {
           actions: assign({
-            animation: ({ event: { animation } }) => animation,
+            animation: ({ event: { animation } }) => animationStyle(animation),
             animating: true,
           }),
           target: 'Animating',
