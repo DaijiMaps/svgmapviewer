@@ -1,7 +1,7 @@
 import { pipe } from 'fp-ts/lib/function'
 import { expect, test } from '@rstest/core'
 import {
-  animationEndLayout,
+  animationDone,
   //animationMove,
   animationZoom,
 } from '../../src/lib/viewer/layout/animation'
@@ -46,13 +46,13 @@ test('zoom layout', () => {
   const l0 = pipe(
     layout,
     (l) => animationZoom(l, 0, cursor),
-    (a) => animationEndLayout(layout, a)
+    (a) => animationDone(layout, a)
   )
   expect(l0.svgScale.s).toBe(layout.svgScale.s)
   const l1 = pipe(
     layout,
     (l) => animationZoom(l, 1, cursor),
-    (a) => animationEndLayout(layout, a)
+    (a) => animationDone(layout, a)
   )
   expect(l1.svgScale.s / layout.svgScale.s).toBeCloseTo(1 / 3)
   //expect(l1.zoom).toBe(1)
@@ -136,9 +136,9 @@ const U = (() => {
 test('expand + zoom', () => {
   const l1 = expandLayoutCenter(U.layout, 3)
   const a1 = animationZoom(l1, 1, U.cursor)
-  const l2 = animationEndLayout(l1, a1)
+  const l2 = animationDone(l1, a1)
   const a2 = animationZoom(l2, -1, U.cursor)
-  const l3 = animationEndLayout(l2, a2)
+  const l3 = animationDone(l2, a2)
   const l4 = expandLayoutCenter(l3, 1 / 3)
 
   expect(l4).toEqual({
@@ -161,9 +161,9 @@ test('expand + zoom 2', () => {
 
   const l1 = expandLayoutCenter(U.layout, 3)
   const a1 = animationZoom(l1, 1, cursor)
-  const l2 = animationEndLayout(l1, a1)
+  const l2 = animationDone(l1, a1)
   const a2 = animationZoom(l2, -1, cursor)
-  const l3 = animationEndLayout(l2, a2)
+  const l3 = animationDone(l2, a2)
   const l4 = expandLayoutCenter(l3, 1 / 3)
 
   expect(l4).toEqual({
@@ -195,7 +195,7 @@ test('expand + zoom 3', () => {
       d,
     }),
     ({ l, a, d }) => ({
-      l: animationEndLayout(l, a),
+      l: animationDone(l, a),
       a,
       d,
     }),
@@ -205,7 +205,7 @@ test('expand + zoom 3', () => {
       d,
     }),
     ({ l, a, d }) => ({
-      l: animationEndLayout(l, a),
+      l: animationDone(l, a),
       a,
       d,
     }),
@@ -346,12 +346,12 @@ test('move + zoom', () => {
   const d2 = dragMove(d1, vecVec(0, 0))
   const l2 = recenterLayout(layout, d2.start)
   const a1 = animationZoom(l2, 1, cursor)
-  const l3 = animationEndLayout(l2, a1)
+  const l3 = animationDone(l2, a1)
   const a2 = animationZoom(l3, -1, cursor)
-  const l4 = animationEndLayout(l3, a2)
+  const l4 = animationDone(l3, a2)
   const d5 = dragStart(l4.scroll, cursor)
   const a6 = animationMove(l4, d5, vecVec(-1, 0))
-  const l5 = animationEndLayout(l4, a6)
+  const l5 = animationDone(l4, a6)
   const l6 = relocLayout(l5, d5.move)
   const l7 = recenterLayout(l6, d5.start)
 

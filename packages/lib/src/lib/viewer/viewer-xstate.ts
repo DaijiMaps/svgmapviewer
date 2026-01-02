@@ -34,7 +34,7 @@ import { touchCbs } from '../event-touch'
 import { notifyUiOpen, notifyUiOpenDone, uiCbs } from '../event-ui'
 import { type VecVec as Vec } from '../vec/prefixed'
 import {
-  animationEndLayout,
+  animationDone,
   animationHome,
   animationRotate,
   animationZoom,
@@ -135,7 +135,7 @@ const viewerMachine = setup({
     updateZoom: assign({
       prevLayout: ({ context: { layout } }): null | Layout => layout,
       layout: ({ context: { layout, animation } }): Layout =>
-        animation === null ? layout : animationEndLayout(layout, animation),
+        animation === null ? layout : animationDone(layout, animation),
     }),
     endZoom: assign({
       prevLayout: null,

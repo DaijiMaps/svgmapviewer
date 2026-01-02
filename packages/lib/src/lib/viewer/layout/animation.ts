@@ -12,6 +12,15 @@ import { fromMatrixSvg } from './coord'
 import { relocLayout, rotateLayout, zoomLayout, type Layout } from './layout'
 import { transformScale } from './transform'
 
+function animationMoveDone(
+  layout: Layout,
+  move: Readonly<AnimationMove>
+): Layout {
+  return relocLayout(layout, move.move)
+}
+
+////
+
 export function animationZoom(layout: Layout, z: Dir, o: Vec): Animation {
   const osvg = fromMatrixSvg(layout).inverse().transformPoint(o)
   const s = 1 / zoomToScale(z)
@@ -51,6 +60,15 @@ export function animationHome(layout: Layout, nextLayout: Layout): Animation {
   return zoom
 }
 
+function animationZoomDone(
+  layout: Layout,
+  zoom: Readonly<AnimationZoom>
+): Layout {
+  return zoomLayout(layout, zoom.svg, zoom.svgScale)
+}
+
+////
+
 export function animationRotate(
   _layout: Layout,
   deg: number,
@@ -68,20 +86,6 @@ export function animationRotate(
   return rotate
 }
 
-function animationMoveDone(
-  layout: Layout,
-  move: Readonly<AnimationMove>
-): Layout {
-  return relocLayout(layout, move.move)
-}
-
-function animationZoomDone(
-  layout: Layout,
-  zoom: Readonly<AnimationZoom>
-): Layout {
-  return zoomLayout(layout, zoom.svg, zoom.svgScale)
-}
-
 function animationRotateDone(
   layout: Layout,
   rotate: Readonly<AnimationRotate>
@@ -89,7 +93,9 @@ function animationRotateDone(
   return rotateLayout(layout, rotate.deg)
 }
 
-export function animationEndLayout(layout: Layout, a: Animation): Layout {
+////
+
+export function animationDone(layout: Layout, a: Animation): Layout {
   return a.type === 'Move'
     ? animationMoveDone(layout, a)
     : a.type === 'Zoom'
