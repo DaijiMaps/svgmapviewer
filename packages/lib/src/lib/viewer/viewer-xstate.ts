@@ -272,7 +272,7 @@ const viewerMachine = setup({
   },
 }).createMachine({
   id: 'viewer',
-  initial: 'Resizing',
+  initial: 'WaitingForResizeRequest',
   context: {
     origLayout: emptyLayout,
     layout: emptyLayout,
@@ -287,20 +287,21 @@ const viewerMachine = setup({
     rendered: false,
   },
   states: {
+    WaitingForResizeRequest: {
+      on: {
+        RESIZE: {
+          actions: { type: 'resizeLayout', params: ({ event }) => event },
+          target: 'Resizing',
+        },
+      },
+    },
     Resizing: {
-      initial: 'WaitingForResizeRequest',
+      //initial: 'WaitingForWindowStabilized',
+      initial: 'WaitingForMapRendered',
       onDone: 'Idle',
       states: {
-        WaitingForResizeRequest: {
-          on: {
-            RESIZE: {
-              actions: { type: 'resizeLayout', params: ({ event }) => event },
-              target: 'WaitingForMapRendered',
-            },
-          },
-        },
+        /*
         WaitingForWindowStabilized: {
-          id: 'Resizing-WaitingForWindowStabilized',
           after: {
             500: {
               // XXX forced resize means that app is already running
@@ -310,6 +311,7 @@ const viewerMachine = setup({
             },
           },
         },
+        */
         WaitingForMapRendered: {
           after: { 250: { target: 'WaitingForMapRendered', reenter: true } },
           always: {
@@ -354,7 +356,7 @@ const viewerMachine = setup({
         // XXX force layout (resize)
         RESIZE: {
           actions: [{ type: 'resizeLayout', params: ({ event }) => event }],
-          target: '#Resizing-WaitingForWindowStabilized',
+          target: 'Resizing',
         },
         'LAYOUT.RESET': {
           actions: ['zoomHome', 'wantZoom'],
