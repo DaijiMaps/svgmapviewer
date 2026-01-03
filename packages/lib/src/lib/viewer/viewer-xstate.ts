@@ -296,22 +296,9 @@ const viewerMachine = setup({
       },
     },
     Resizing: {
-      //initial: 'WaitingForWindowStabilized',
       initial: 'WaitingForMapRendered',
       onDone: 'Idle',
       states: {
-        /*
-        WaitingForWindowStabilized: {
-          after: {
-            500: {
-              // XXX forced resize means that app is already running
-              // XXX which means MapHtml is already rendered
-              // XXX but for safety
-              target: 'WaitingForMapRendered',
-            },
-          },
-        },
-        */
         WaitingForMapRendered: {
           after: { 250: { target: 'WaitingForMapRendered', reenter: true } },
           always: {
@@ -353,7 +340,6 @@ const viewerMachine = setup({
     },
     Idle: {
       on: {
-        // XXX force layout (resize)
         RESIZE: {
           actions: [{ type: 'resizeLayout', params: ({ event }) => event }],
           target: 'Resizing',
@@ -715,9 +701,7 @@ export function viewerSendEvent(
 ////
 
 export function viewerCbsStart(): void {
-  floorCbs.lock.add(function (fidx: number): void {
-    viewerSend({ type: 'SWITCH', fidx })
-  })
+  floorCbs.lock.add((fidx: number) => viewerSend({ type: 'SWITCH', fidx }))
   floorCbs.selectDone.add(() => viewerSend({ type: 'SWITCH.DONE' }))
 
   searchCbs.end.add((res: Readonly<null | SearchRes>) =>
@@ -725,7 +709,7 @@ export function viewerCbsStart(): void {
   )
   uiCbs.open.add(() => viewerMode.set(viewerModeLocked))
   uiCbs.open.add(() => notifyUiOpenDone(true))
-  uiCbs.closeDone.add(() => viewerActor.send({ type: 'SEARCH.DONE' }))
+  uiCbs.closeDone.add(() => viewerSend({ type: 'SEARCH.DONE' }))
   uiCbs.closeDone.add(() => viewerMode.set(viewerModePanning))
 
   scrollCbs.getDone.add((scroll: Readonly<null | BoxBox>) => {
