@@ -358,7 +358,7 @@ const viewerMachine = setup({
           actions: [{ type: 'resizeLayout', params: ({ event }) => event }],
           target: 'Resizing',
         },
-        'LAYOUT.RESET': {
+        LAYOUT: {
           actions: ['zoomHome', 'wantZoom'],
           target: 'Zooming',
         },
@@ -383,7 +383,7 @@ const viewerMachine = setup({
         RECENTER: {
           target: 'Recentering',
         },
-        'ZOOM.ZOOM': {
+        ZOOM: {
           actions: [
             {
               type: 'zoomEvent',
@@ -412,11 +412,11 @@ const viewerMachine = setup({
                 type: 'raiseSearchEndDone',
                 params: ({ event }) => event,
               },
-              target: 'WaitingForSearchUnlock',
+              target: 'WaitingForSearchDone',
             },
           },
         },
-        WaitingForSearchUnlock: {
+        WaitingForSearchDone: {
           on: {
             'SEARCH.DONE': {
               target: 'Done',
@@ -659,9 +659,6 @@ viewerActor.on('SEARCH.END.DONE', ({ res }) => {
 })
 viewerActor.on('ZOOM.START', (args) => notifyStyleZoomStart(args))
 viewerActor.on('ZOOM.END', (end) => notifyStyleZoomEnd(end))
-viewerActor.on('LAYOUT', ({ layout }) =>
-  notifyStyleZoomEnd({ layout, zoom: 1 })
-)
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloorSelect(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloorUnlock())
@@ -753,17 +750,17 @@ export function viewerCbsStart(): void {
     wheeleventmask = false
   })
 
-  actionCbs.reset.add(() => viewerSend({ type: 'LAYOUT.RESET' }))
+  actionCbs.reset.add(() => viewerSend({ type: 'LAYOUT' }))
   actionCbs.recenter.add(() => viewerSend({ type: 'RECENTER' }))
   actionCbs.rotate.add(() => viewerSend({ type: 'ROTATE' }))
-  actionCbs.zoomOut.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null }))
-  actionCbs.zoomIn.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null }))
+  actionCbs.zoomOut.add(() => viewerSend({ type: 'ZOOM', z: -1, p: null }))
+  actionCbs.zoomIn.add(() => viewerSend({ type: 'ZOOM', z: 1, p: null }))
 
   touchCbs.multiStart.add(() => notifyScrollGet())
   touchCbs.multiStart.add(() => viewerMode.set('touching'))
   touchCbs.multiEnd.add(() => viewerMode.set('panning'))
   touchCbs.zoom.add(({ z, p }: Zoom) =>
-    viewerSend({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })
+    viewerSend({ type: 'ZOOM', z: z > 0 ? 1 : -1, p })
   )
 
   globalCbs.rendered.add(() => viewerSend({ type: 'RENDERED' }))

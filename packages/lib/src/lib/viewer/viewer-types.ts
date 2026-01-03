@@ -46,7 +46,7 @@ export type ViewerContext = {
 //// external event (request)
 
 export type ResizeRequest = { type: 'RESIZE'; layout: Layout; force: boolean }
-export type LayoutResetRequest = { type: 'LAYOUT.RESET' }
+export type LayoutResetRequest = { type: 'LAYOUT' }
 export type SwitchRequest = { type: 'SWITCH'; fidx: number }
 export type SwitchDoneRequest = { type: 'SWITCH.DONE' }
 export type RotateRequest = { type: 'ROTATE' }
@@ -58,7 +58,7 @@ export type ScrollSyncsyncDoneRequest = {
   type: 'SCROLL.SYNCSYNC.DONE'
   scroll: BoxBox
 }
-export type ZoomRequest = { type: 'ZOOM.ZOOM'; z: Dir; p: null | VecVec }
+export type ZoomRequest = { type: 'ZOOM'; z: Dir; p: null | VecVec }
 export type SearchRequest = { type: 'SEARCH'; pos: Vec }
 export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
 export type ViewerRequest =
@@ -102,7 +102,6 @@ export type SearchEndDoneEmitted = {
   type: 'SEARCH.END.DONE'
   res: null | SearchData
 }
-export type LayoutEmitted = { type: 'LAYOUT'; layout: Layout }
 export type ZoomStartEmitted = {
   type: 'ZOOM.START'
   layout: Layout
@@ -131,7 +130,6 @@ export type ScrollGetEmitted = { type: 'SCROLL.GET' }
 export type ViewerEmitted =
   | SearchEmitted
   | SearchEndDoneEmitted
-  | LayoutEmitted
   | ZoomStartEmitted
   | ZoomEndEmitted
   | SwitchRequest
