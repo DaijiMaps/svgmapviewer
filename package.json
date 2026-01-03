@@ -3,7 +3,7 @@
   "scripts": {
     "prepare": "husky",
     "prettier": "pnpx prettier -w .",
-    "test": "./scripts/test.sh"
+    "test": "pnpm -r test"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",

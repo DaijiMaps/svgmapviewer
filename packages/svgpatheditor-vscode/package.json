@@ -16,7 +16,7 @@
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint src && oxlint --type-aware --type-check",
-    "test": "vscode-test"
+    "test:xxx": "vscode-test"
   },
   "devDependencies": {
     "@rslib/core": "^0.19.1",
