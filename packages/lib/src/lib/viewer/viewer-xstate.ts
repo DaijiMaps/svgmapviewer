@@ -358,10 +358,6 @@ const viewerMachine = setup({
           actions: [{ type: 'resizeLayout', params: ({ event }) => event }],
           target: 'Resizing',
         },
-        LAYOUT: {
-          actions: ['zoomHome', 'wantZoom'],
-          target: 'Zooming',
-        },
         SEARCH: {
           actions: assign({
             cursor: ({ event: { pos } }) => pos,
@@ -375,6 +371,10 @@ const viewerMachine = setup({
             params: ({ event }) => event,
           },
           target: 'Switching',
+        },
+        HOME: {
+          actions: ['zoomHome', 'wantZoom'],
+          target: 'Zooming',
         },
         ROTATE: {
           actions: ['resetCursor', 'wantRotate'],
@@ -750,7 +750,7 @@ export function viewerCbsStart(): void {
     wheeleventmask = false
   })
 
-  actionCbs.reset.add(() => viewerSend({ type: 'LAYOUT' }))
+  actionCbs.reset.add(() => viewerSend({ type: 'HOME' }))
   actionCbs.recenter.add(() => viewerSend({ type: 'RECENTER' }))
   actionCbs.rotate.add(() => viewerSend({ type: 'ROTATE' }))
   actionCbs.zoomOut.add(() => viewerSend({ type: 'ZOOM', z: -1, p: null }))
