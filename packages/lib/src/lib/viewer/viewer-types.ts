@@ -26,7 +26,6 @@ export const viewerModeTouching: ViewerModeTouching = 'touching'
 export const viewerModeLocked: ViewerModeLocked = 'locked'
 
 type WantAnimation =
-  | null
   | { type: 'zoom'; z: -1 | 1; p: Vec }
   | { type: 'home' }
   | { type: 'rotate'; deg: number; p: Vec }
@@ -38,9 +37,8 @@ export type ViewerContext = {
   layout: Layout
   prevLayout: null | Layout
   cursor: Vec
-  z: null | Dir
   zoom: number
-  wantAnimation: WantAnimation
+  wantAnimation: null | WantAnimation
   animation: null | Animation
 
   rendered: boolean

@@ -134,9 +134,10 @@ const viewerMachine = setup({
       prevLayout: null,
       //wantAnimation: null,
       animation: null,
-      z: null,
-      zoom: ({ context: { z, zoom } }) =>
-        z === null ? zoom : zoom * Math.pow(2, z),
+      zoom: ({ context: { zoom, wantAnimation } }) =>
+        wantAnimation === null || wantAnimation.type !== 'zoom'
+          ? zoom
+          : zoom * Math.pow(2, wantAnimation.z),
     }),
     /*
     endRotate: assign({
@@ -187,11 +188,14 @@ const viewerMachine = setup({
       },
     }),
     emitZoomStart: emit(
-      ({ context: { layout, zoom, z } }): ViewerEmitted => ({
+      ({ context: { layout, zoom, wantAnimation } }): ViewerEmitted => ({
         type: 'ZOOM.START',
         layout,
         zoom,
-        z: z === null ? 0 : z,
+        z:
+          wantAnimation === null || wantAnimation.type !== 'zoom'
+            ? 0
+            : wantAnimation.z,
       })
     ),
     emitZoomEnd: emit(
