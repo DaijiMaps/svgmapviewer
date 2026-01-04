@@ -1,5 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
+
 import { svgMapViewerConfig } from '../../config'
 import { background_white_opaque, floor_switch_duration } from '../css'
 import { useFloors } from '../viewer/floors/floors-react'

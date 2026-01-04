@@ -2,6 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
+
 import { svgMapViewerConfig } from '../../config'
 import {
   flex_column_center_center,

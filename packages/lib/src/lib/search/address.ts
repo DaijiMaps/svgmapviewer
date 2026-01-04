@@ -3,7 +3,9 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-loop-statements */
 import Flatbush from 'flatbush'
+
 import type { SearchGeoReq } from '../../types'
+
 import {
   type FlatbushIndexes,
   type SearchContext,

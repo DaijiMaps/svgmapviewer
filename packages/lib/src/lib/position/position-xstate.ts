@@ -8,6 +8,7 @@ import {
   type DoneActorEvent,
   type ErrorActorEvent,
 } from 'xstate'
+
 import { actionCbs } from '../event-action'
 import { getGeolocationPosition } from './api'
 

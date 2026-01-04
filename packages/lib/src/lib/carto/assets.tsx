@@ -1,5 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode } from 'react'
+
 import { symbolRenderMap, type Kind } from './symbols/index'
 
 export function RenderMapAssetsDefault(): ReactNode {

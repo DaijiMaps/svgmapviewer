@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+
 import type { OsmLineFeature, OsmMultiPolygonFeature } from '../geo/osm-types'
 import type { Line, MultiPolygon } from '../geo/path-types'
 import type { MapPathOps } from './types'

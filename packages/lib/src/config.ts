@@ -3,6 +3,7 @@
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/no-return-void */
 import { createElement, type ReactNode } from 'react'
+
 import { emptyMapData } from './lib/geo/data-types'
 import {
   type Info,

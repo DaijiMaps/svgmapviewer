@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react'
+
 import type { Kind } from '..'
 
 export function Elevator(props: Readonly<{ id: Kind }>): ReactNode {

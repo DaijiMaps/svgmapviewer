@@ -1,5 +1,6 @@
-import { svgMapViewerConfig } from '../../../config'
 import type { AnimationMatrix, Dir } from '../../../types'
+
+import { svgMapViewerConfig } from '../../../config'
 import { boxCenter, boxScaleAt } from '../../box/prefixed'
 import { type VecVec as Vec } from '../../vec/prefixed'
 import {

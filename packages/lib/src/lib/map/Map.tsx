@@ -1,5 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
+
 import { type OsmRenderMapProps } from '../../types'
 import { RenderMapCommon } from '../carto'
 import { isShadowRootRendered } from '../dom'

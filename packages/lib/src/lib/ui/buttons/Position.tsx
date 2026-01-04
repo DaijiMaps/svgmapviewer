@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
 import type { ReactNode } from 'react'
+
 import { svgMapViewerConfig } from '../../../config'
 import { notifyActionPosition } from '../../event-action'
 

@@ -1,5 +1,6 @@
 /* eslint-disable functional/no-mixed-types */
 import { type ReactNode } from 'react'
+
 import { type BoxBox } from './lib/box/prefixed'
 import { type OsmCartoConfig } from './lib/carto'
 import {

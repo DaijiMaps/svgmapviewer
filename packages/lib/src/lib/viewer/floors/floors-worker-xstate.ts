@@ -1,6 +1,8 @@
 import { assign, createActor, emit, setup } from 'xstate'
-import { ctx } from './floors-worker-context'
+
 import type { Context, Emits, Events, Req } from './floors-worker-types'
+
+import { ctx } from './floors-worker-context'
 
 const floorsWorkerMachine = setup({
   types: {

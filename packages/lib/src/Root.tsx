@@ -5,11 +5,12 @@
 /* eslint-disable functional/no-throw-statements */
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+
 import App from './App'
+import { keyboardSend } from './lib/viewer/input/keyboard-xstate'
 import { touching } from './lib/viewer/touch/touch-xstate'
 import { wheeleventmask } from './lib/viewer/viewer-xstate'
 import { type SvgMapViewerConfig } from './types'
-import { keyboardSend } from './lib/viewer/input/keyboard-xstate'
 
 export function root(config: Readonly<SvgMapViewerConfig>): void {
   const e = document.getElementById(config.root)

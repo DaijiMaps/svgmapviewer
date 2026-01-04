@@ -7,9 +7,10 @@ import type {
   ZoomEndInfo,
   ZoomInfo,
 } from '../types'
-import { notifyCbs, notifyCbs0 } from './cb'
 import type { StyleCbs } from './event-style-types'
 import type { ViewerMode } from './viewer/viewer-types'
+
+import { notifyCbs, notifyCbs0 } from './cb'
 
 export const styleCbs: StyleCbs = {
   resize: new Set(),

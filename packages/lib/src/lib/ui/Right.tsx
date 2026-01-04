@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
+
 import {
   background_white_opaque,
   flex_column_center_center,

@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { Fragment, useMemo, type ReactNode } from 'react'
+
 import { type OsmRenderMapProps, type POI } from '../../types'
 import { boxToViewBox2 } from '../box/prefixed'
 import { useShadowRoot } from '../dom'

@@ -1,10 +1,7 @@
 import { assign, createActor, emit, setup } from 'xstate'
-import { keyToZoom } from './key'
-import {
-  type KeyboardEmits as Emits,
-  type KeyboardEvents as Events,
-  type KeyboardContext as Context,
-} from './keyboard-types'
+
+import type { Dir } from '../../../types'
+
 import {
   notifyActionRecenter,
   notifyActionReset,
@@ -12,7 +9,12 @@ import {
   notifyActionZoomIn,
   notifyActionZoomOut,
 } from '../../event-action'
-import type { Dir } from '../../../types'
+import { keyToZoom } from './key'
+import {
+  type KeyboardEmits as Emits,
+  type KeyboardEvents as Events,
+  type KeyboardContext as Context,
+} from './keyboard-types'
 import { modClr, modSet } from './mod'
 
 const keyboardMachine = setup({

@@ -3,8 +3,9 @@
 /* eslint-disable functional/no-return-void */
 import type { Scroll } from '../types'
 import type { BoxBox } from './box/prefixed'
-import { notifyCbs, notifyCbs0 } from './cb'
 import type { ScrollCbs } from './event-scroll-types'
+
+import { notifyCbs, notifyCbs0 } from './cb'
 
 export const scrollCbs: ScrollCbs = {
   eventTick: new Set(),

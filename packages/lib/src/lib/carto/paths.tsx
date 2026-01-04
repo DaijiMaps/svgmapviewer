@@ -1,4 +1,5 @@
 import { Fragment, type ReactNode } from 'react'
+
 import { type OsmDataConfig, type OsmRenderMapProps } from '../../types'
 import { lineOps } from './paths-line'
 import { multiPolygonOps } from './paths-multipolygon'

@@ -1,6 +1,7 @@
-import { shadowRootMap } from '../dom'
 import type { OpenClose } from './openclose'
 import type { UiDetailContent } from './ui-types'
+
+import { shadowRootMap } from '../dom'
 import { useUiContext } from './ui-xstate'
 
 export const UI_ROOT_ID = 'ui'

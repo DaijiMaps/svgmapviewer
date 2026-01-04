@@ -1,8 +1,9 @@
+import type { OsmProperties } from './osm-types'
+import type { OsmSearchEntry } from './search-types'
+
 import { type OsmSearchProps } from '../../types'
 import { type SearchPos } from '../search/types'
-import type { OsmProperties } from './osm-types'
 import { getOsmId } from './search'
-import type { OsmSearchEntry } from './search-types'
 
 function pointAddresses(
   props: Readonly<OsmSearchProps>,

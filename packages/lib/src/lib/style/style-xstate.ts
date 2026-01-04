@@ -1,5 +1,9 @@
 import { useSelector } from '@xstate/react'
+import { createAtom } from '@xstate/store'
 import { assign, createActor, raise, setup } from 'xstate'
+
+import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
+
 import { svgMapViewerConfig } from '../../config'
 import {
   type AnimationMatrix,
@@ -12,13 +16,11 @@ import { findRadius } from '../distance'
 import { scrollCbs } from '../event-scroll'
 import { styleCbs } from '../event-style'
 import { vecZero } from '../vec/prefixed'
+import { animationStyle } from '../viewer/layout/animation'
 import { fromSvgToScroll } from '../viewer/layout/coord'
 import { emptyLayout, type Layout } from '../viewer/layout/layout'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { type ViewerMode } from '../viewer/viewer-types'
-import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
-import { createAtom } from '@xstate/store'
-import { animationStyle } from '../viewer/layout/animation'
 
 export const currentLayout = createAtom<Layout>(emptyLayout)
 

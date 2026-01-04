@@ -1,6 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
 import type { ReactNode } from 'react'
+
 import { notifyActionZoomOut } from '../../event-action'
 
 export function ZoomOut(): ReactNode {

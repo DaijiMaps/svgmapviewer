@@ -1,4 +1,5 @@
 import { expect, test } from '@rstest/core'
+
 import { type V } from '../tuple'
 import { apply } from './apply'
 import { type Matrix } from './main'

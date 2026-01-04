@@ -1,5 +1,6 @@
-import { pipe } from 'fp-ts/function'
 import { expect, test } from '@rstest/core'
+import { pipe } from 'fp-ts/function'
+
 import { vec } from './index'
 import { scaleF } from './scale'
 

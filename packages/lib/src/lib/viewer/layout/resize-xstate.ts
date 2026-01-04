@@ -1,7 +1,9 @@
 import { assign, createActor, emit, raise, setup } from 'xstate'
+
 import { svgMapViewerConfig } from '../../../config'
 import { boxEq, boxUnit } from '../../box/prefixed'
 import { notifyStyleResize } from '../../event-style'
+import { currentLayout } from '../../style/style-xstate'
 import { getBodySize } from '../../utils'
 import { resizeLayout } from './layout'
 import {
@@ -9,7 +11,6 @@ import {
   type ResizeEmitted,
   type ResizeEvent,
 } from './resize-types'
-import { currentLayout } from '../../style/style-xstate'
 
 const resizeMachine = setup({
   types: {

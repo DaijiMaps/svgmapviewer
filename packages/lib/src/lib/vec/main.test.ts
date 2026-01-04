@@ -1,4 +1,5 @@
 import { expect, test } from '@rstest/core'
+
 import { vecAdd, vecInterpolate, vecScale } from './prefixed'
 
 test('vecAdd', () => {

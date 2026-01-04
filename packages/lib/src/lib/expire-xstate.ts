@@ -1,4 +1,5 @@
 import { assign, createActor, emit, setup } from 'xstate'
+
 import type { Cb } from './cb'
 
 type Events = { type: 'TICK' }

@@ -1,6 +1,7 @@
 import { option, readonlyArray } from 'fp-ts'
 import { pipe } from 'fp-ts/function'
 import { type Option } from 'fp-ts/lib/Option'
+
 import {
   type LineMap,
   type MultiLineStringMap,

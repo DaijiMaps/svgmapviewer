@@ -1,4 +1,5 @@
 import { assign, createActor, emit, fromPromise, setup } from 'xstate'
+
 import { type BoxBox } from '../../box/prefixed'
 import {
   notifyScrollEventExpire,
