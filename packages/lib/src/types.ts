@@ -54,8 +54,8 @@ export interface Info {
   title: string
 }
 
-export interface SearchReq {
-  pgeo: Vec
+export interface SearchSvgReq {
+  psvg: Vec
   fidx: number
 }
 

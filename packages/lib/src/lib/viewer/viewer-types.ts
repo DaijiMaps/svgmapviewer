@@ -1,7 +1,7 @@
 import {
   type Dir,
   type SearchData,
-  type SearchReq,
+  type SearchSvgReq,
   type SearchRes,
 } from '../../types'
 import { type BoxBox } from '../box/prefixed'
@@ -97,7 +97,7 @@ export type ViewerEvent = ViewerRequest | ViewerMessage | UIEvent
 
 //// emitted
 
-export type SearchEmitted = { type: 'SEARCH.START'; req: SearchReq }
+export type SearchEmitted = { type: 'SEARCH.START'; req: SearchSvgReq }
 export type SearchEndDoneEmitted = {
   type: 'SEARCH.END.DONE'
   res: null | SearchData

@@ -3,7 +3,7 @@ import { svgMapViewerConfig } from '../../config'
 import {
   type Dir,
   type ResizeInfo,
-  type SearchReq,
+  type SearchSvgReq,
   type SearchRes,
   type Zoom,
 } from '../../types'
@@ -216,11 +216,8 @@ const viewerMachine = setup({
       const l = scrollLayout(layout, scroll)
       const m = fromMatrixSvg(l).inverse()
       const psvg = m.transformPoint(cursor)
-      const pgeo = svgMapViewerConfig.mapCoord.matrix
-        .inverse()
-        .transformPoint(psvg)
       const fidx = currentFidxAtom.get()
-      const req: SearchReq = { pgeo, fidx }
+      const req: SearchSvgReq = { psvg, fidx }
       return { type: 'SEARCH.START', req }
     }),
     raiseSearchDone: raise({ type: 'SEARCH.DONE' }),

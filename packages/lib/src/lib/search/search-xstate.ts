@@ -1,6 +1,7 @@
 import { createActor, emit, setup } from 'xstate'
 import {
-  type SearchReq,
+  type SearchGeoReq,
+  type SearchSvgReq,
   type SearchRes,
   type SvgMapViewerConfig,
 } from '../../types'
@@ -12,14 +13,15 @@ import {
 } from '../event-search'
 import { searchWorker } from './search-main'
 import type { SearchWorkerReq } from './search-worker-types'
+import { svgMapViewerConfig } from '../../config'
 
 export type SearchEvent =
-  | { type: 'SEARCH'; req: SearchReq }
+  | { type: 'SEARCH'; req: SearchSvgReq }
   | { type: 'SEARCH.DONE'; res: SearchRes }
   | { type: 'SEARCH.CANCEL' }
 
 export type SearchEmitted =
-  | { type: 'SEARCH'; req: SearchReq }
+  | { type: 'SEARCH'; req: SearchSvgReq }
   | { type: 'SEARCH.DONE'; res: SearchRes }
   | { type: 'SEARCH.CANCEL' }
 
@@ -83,11 +85,18 @@ export function searchCbsStart(): void {
       searchWorker.postMessage(req)
     }
   })
-  searchCbs.start.add(function (req: Readonly<SearchReq>): void {
+  searchCbs.start.add(function (req: Readonly<SearchSvgReq>): void {
     searchActor.send({ type: 'SEARCH', req })
   })
-  searchCbs.request.add(({ pgeo, fidx }: Readonly<SearchReq>) => {
-    const req: SearchWorkerReq = { type: 'SEARCH', greq: { pgeo, fidx } }
+  searchCbs.request.add(({ psvg, fidx }: Readonly<SearchSvgReq>) => {
+    const pgeo = svgMapViewerConfig.mapCoord.matrix
+      .inverse()
+      .transformPoint(psvg)
+    const greq: SearchGeoReq = {
+      pgeo,
+      fidx,
+    }
+    const req: SearchWorkerReq = { type: 'SEARCH', greq }
     searchWorker.postMessage(req)
   })
   searchCbs.requestDone.add(function (res: Readonly<null | SearchRes>): void {
