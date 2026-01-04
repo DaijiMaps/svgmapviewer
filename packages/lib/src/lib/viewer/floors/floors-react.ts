@@ -1,4 +1,7 @@
 import { useCallback, useMemo } from 'react'
+
+import type { FidxToOnAnimationEnd, FidxToOnClick } from './floors-types'
+
 import { svgMapViewerConfig } from '../../../config'
 import {
   FLOOR_APPEARING,
@@ -7,7 +10,6 @@ import {
   floor_switch_duration,
 } from '../../css'
 import { notifyFloorLock, notifyFloorSelectDone } from '../../event-floor'
-import type { FidxToOnAnimationEnd, FidxToOnClick } from './floors-types'
 import { useFloorsContext } from './floors-xstate'
 
 export interface UseFloorsReturn {

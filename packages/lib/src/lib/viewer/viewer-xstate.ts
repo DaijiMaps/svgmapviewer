@@ -1,4 +1,6 @@
+import { createAtom } from '@xstate/store'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
+
 import { svgMapViewerConfig } from '../../config'
 import {
   type ResizeInfo,
@@ -64,7 +66,6 @@ import {
   type ViewerEvent,
   type ViewerMode,
 } from './viewer-types'
-import { createAtom } from '@xstate/store'
 
 export const viewerMode = createAtom<ViewerMode>('panning')
 viewerMode.subscribe((mode) => notifyStyleMode(mode))

@@ -1,4 +1,8 @@
 import { createActor, emit, setup } from 'xstate'
+
+import type { SearchWorkerReq } from './search-worker-types'
+
+import { svgMapViewerConfig } from '../../config'
 import {
   type SearchGeoReq,
   type SearchSvgReq,
@@ -11,10 +15,8 @@ import {
   notifySearchRequest,
   searchCbs,
 } from '../event-search'
-import { searchWorker } from './search-main'
-import type { SearchWorkerReq } from './search-worker-types'
-import { svgMapViewerConfig } from '../../config'
 import { currentFidxAtom } from '../viewer/floors/floors-xstate'
+import { searchWorker } from './search-main'
 
 export type SearchEvent =
   | { type: 'SEARCH'; req: SearchSvgReq }

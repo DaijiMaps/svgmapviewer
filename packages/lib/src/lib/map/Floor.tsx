@@ -1,10 +1,12 @@
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode } from 'react'
-import { type OsmRenderMapProps } from '../../types'
+
 import type { BoxBox } from '../box/prefixed'
+import type { Cb } from '../cb'
+
+import { type OsmRenderMapProps } from '../../types'
 import { useLayout2 } from '../style/style-react'
 import { useFloors } from '../viewer/floors/floors-react'
-import type { Cb } from '../cb'
 
 export function RenderFloors({
   floors,

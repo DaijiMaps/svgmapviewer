@@ -1,4 +1,5 @@
 import type { Dir } from '../../../types'
+
 import { type Vec } from '../../vec'
 
 export function keyToDir(key: string): Vec {

@@ -1,12 +1,15 @@
 import type { ReactNode } from 'react'
+
 import { Fragment } from 'react/jsx-runtime'
+
+import type { OsmMultiPolygonFeatures } from '../geo/osm-types'
+import type { MultiPolygonPaths, PathOps } from './path-types'
+import type { MapMultiPolygonPathOps } from './types'
+
 import { undefinedIfNull } from '../../utils'
 import { getOsmId, multiPolygonToPathD } from '../geo'
-import type { OsmMultiPolygonFeatures } from '../geo/osm-types'
 import { getPathsByData, renderPath } from './path-common'
-import type { MultiPolygonPaths, PathOps } from './path-types'
 import { propertiesToTags, propertiesToWidth } from './properties'
-import type { MapMultiPolygonPathOps } from './types'
 
 type MultiPolygonOps = PathOps<MapMultiPolygonPathOps>
 

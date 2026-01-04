@@ -1,4 +1,5 @@
 import { number, ord as ord_, type ordering } from 'fp-ts'
+
 import { type Vec } from './types'
 
 export function compare(a: Vec, b: Vec): ordering.Ordering {

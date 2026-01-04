@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
+
 import { svgMapViewerConfig } from '../../config'
 import {
   pointer_events_none,

@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
+
 import { type OsmRenderMapProps } from '../../types'
 import { useShadowRoot } from '../dom'
 import { useLayout } from '../style/style-react'

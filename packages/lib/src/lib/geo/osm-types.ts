@@ -1,4 +1,5 @@
 import { type ReadonlyRecord } from 'fp-ts/lib/ReadonlyRecord'
+
 import {
   type LineFeature,
   type LineStringGeoJSON,

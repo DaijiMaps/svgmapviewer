@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react'
+
 import { type OsmRenderMapProps } from '../../types'
 import { RenderMapObjects } from './objects'
 import { RenderMapPaths } from './paths'

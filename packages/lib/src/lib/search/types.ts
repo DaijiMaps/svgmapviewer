@@ -1,4 +1,5 @@
 import type Flatbush from 'flatbush'
+
 import { type VecVec } from '../vec/prefixed'
 
 export type AddressString = string

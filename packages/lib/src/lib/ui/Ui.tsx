@@ -1,6 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 import { type ReactNode } from 'react'
+
 import { isShadowRootRendered, useShadowRoot } from '../dom'
 import { DetailBalloon } from './DetailBalloon'
 import { Footer } from './Footer'

@@ -7,6 +7,7 @@ import { number, option, readonlyArray } from 'fp-ts'
 import { pipe } from 'fp-ts/function'
 import { none, some } from 'fp-ts/lib/Option'
 import { useMemo } from 'react'
+
 import { type POI, type Range, type SvgMapViewerConfig } from '../../types'
 import { globalCbs } from '../event-global'
 import { useLayoutSvgScaleS, useSvgRange } from '../style/style-react'

@@ -1,11 +1,13 @@
 import { useSelector } from '@xstate/react'
+import { createAtom } from '@xstate/store'
 import { assign, createActor, setup } from 'xstate'
+
 import type { SvgMapViewerConfig } from '../../../types'
-import { floorCbs } from '../../event-floor'
-import { globalCbs } from '../../event-global'
 import type { FloorsContext, FloorsEvents } from './floors-types'
 import type { FloorsWorker, Res } from './floors-worker-types'
-import { createAtom } from '@xstate/store'
+
+import { floorCbs } from '../../event-floor'
+import { globalCbs } from '../../event-global'
 
 export const currentFidxAtom = createAtom(0)
 

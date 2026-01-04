@@ -1,4 +1,5 @@
 import { expect, test } from '@rstest/core'
+
 import { scaleAt } from '../matrix/scale'
 import {
   boxScaleAt,

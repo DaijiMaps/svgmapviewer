@@ -1,5 +1,7 @@
 import { assign, createActor, emit, setup } from 'xstate'
+
 import type { SearchGeoReq } from '../../types'
+
 import { initAddresses, searchAddress } from './address'
 import { x } from './search-worker-context'
 import {

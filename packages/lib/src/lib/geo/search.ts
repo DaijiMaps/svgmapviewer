@@ -1,8 +1,9 @@
 import type { Info } from '../../types'
 import type { SearchPos } from '../search'
+import type { OsmSearchEntry } from './search-types'
+
 import { type OsmMapMap } from './data-types'
 import { type OsmFeature, type OsmProperties } from './osm-types'
-import type { OsmSearchEntry } from './search-types'
 
 export function findFeature(
   id: undefined | number,

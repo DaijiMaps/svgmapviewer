@@ -1,5 +1,6 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, emit, not, raise, setup } from 'xstate'
+
 import { type SearchData } from '../../types'
 import { searchCbs } from '../event-search'
 import { notifyUiCloseDone, uiCbs } from '../event-ui'

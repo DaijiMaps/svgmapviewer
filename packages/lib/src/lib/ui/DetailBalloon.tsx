@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
+
 import { RenderMapAssetsDefault } from '../carto/assets'
 import { useShadowRoot } from '../dom'
 import { Balloon, DetailBalloonStyle } from './Balloon'

@@ -1,9 +1,10 @@
+import type { UiCbs } from './event-ui-types'
+import type { VecVec } from './vec/prefixed'
+
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { notifyCbs, notifyCbs0 } from './cb'
-import type { UiCbs } from './event-ui-types'
-import type { VecVec } from './vec/prefixed'
 
 export const uiCbs: UiCbs = {
   open: new Set(),
