@@ -105,7 +105,7 @@ export type SearchEndDoneEmitted = {
 }
 export type ZoomStartEmitted = {
   type: 'ZOOM.START'
-} & Omit<ZoomInfo, 'z'>
+} & ZoomInfo
 export type ZoomEndEmitted = { type: 'ZOOM.END'; layout: Layout; zoom: number }
 
 export type SyncAnimationEmitted = {

@@ -96,10 +96,9 @@ export interface AnimationMatrix {
 export interface ZoomInfo {
   layout: Readonly<LayoutCoord>
   zoom: number
-  z: Z
 }
 
-export type ZoomEndInfo = Omit<ZoomInfo, 'z'>
+export type ZoomEndInfo = ZoomInfo
 
 export interface Zoom {
   z: Z

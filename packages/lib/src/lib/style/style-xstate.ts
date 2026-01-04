@@ -201,7 +201,7 @@ export function styleCbsStart(): void {
     // XXX update name range after scroll is updated
     requestAnimationFrame(() => handleExpire())
   })
-  styleCbs.zoomStart.add(function (zoom: Readonly<Omit<ZoomInfo, 'z'>>) {
+  styleCbs.zoomStart.add(function (zoom: Readonly<ZoomInfo>) {
     styleSend({ type: 'STYLE.ZOOM', ...zoom })
   })
   styleCbs.zoomEnd.add(function (end: Readonly<ZoomEndInfo>) {

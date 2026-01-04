@@ -29,9 +29,7 @@ export function notifyStyleLayout(resize: Readonly<ResizeInfo>): void {
   notifyCbs(styleCbs.layout, resize)
 }
 
-export function notifyStyleZoomStart(
-  zoom: Readonly<Omit<ZoomInfo, 'z'>>
-): void {
+export function notifyStyleZoomStart(zoom: Readonly<ZoomInfo>): void {
   notifyCbs(styleCbs.zoomStart, zoom)
 }
 
