@@ -3,9 +3,10 @@ import {
   type SearchData,
   type SearchSvgReq,
   type SearchRes,
+  type Zoom,
 } from '../../types'
 import { type BoxBox } from '../box/prefixed'
-import { type VecVec as Vec, type VecVec } from '../vec/prefixed'
+import { type VecVec as Vec } from '../vec/prefixed'
 import { type Animation } from './layout/animation-types'
 import { type Layout } from './layout/layout'
 
@@ -24,7 +25,10 @@ export const viewerModePanning: ViewerModePanning = 'panning'
 export const viewerModeTouching: ViewerModeTouching = 'touching'
 export const viewerModeLocked: ViewerModeLocked = 'locked'
 
-type WantAnimation = null | 'zoom' | 'rotate'
+type AnimationReq =
+  | { type: 'zoom'; z: -1 | 1; p: Vec }
+  | { type: 'home' }
+  | { type: 'rotate'; deg: number; p: Vec }
 
 //// context
 
@@ -33,12 +37,10 @@ export type ViewerContext = {
   layout: Layout
   prevLayout: null | Layout
   cursor: Vec
-  z: null | Dir
   zoom: number
-  want_animation: WantAnimation
+  animationReq: null | AnimationReq
   animation: null | Animation
 
-  homing: boolean
   rendered: boolean
 }
 
@@ -57,7 +59,7 @@ export type ScrollSyncsyncDoneRequest = {
   type: 'SCROLL.SYNCSYNC.DONE'
   scroll: BoxBox
 }
-export type ZoomRequest = { type: 'ZOOM'; z: Dir; p: null | VecVec }
+export type ZoomRequest = { type: 'ZOOM' } & Zoom
 export type SearchRequest = { type: 'SEARCH'; pos: Vec }
 export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
 export type ViewerRequest =
