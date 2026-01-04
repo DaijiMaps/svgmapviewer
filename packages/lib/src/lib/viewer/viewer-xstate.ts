@@ -119,12 +119,6 @@ const viewerMachine = setup({
               : //animationReq.type === 'rotate'
                 animationRotate(layout, 90, animationReq.p),
     }),
-    /*
-    startRotate: assign({
-      animation: ({ context: { layout, cursor } }): null | Animation =>
-        animationRotate(layout, 90, cursor),
-    }),
-    */
     updateLayoutFromZoom: assign({
       prevLayout: ({ context: { layout } }): null | Layout => layout,
       layout: ({ context: { layout, animation } }): Layout =>
@@ -139,13 +133,6 @@ const viewerMachine = setup({
           ? zoom
           : zoom * Math.pow(2, animationReq.z),
     }),
-    /*
-    endRotate: assign({
-      prevLayout: null,
-      animationReq: null,
-      animation: null,
-    }),
-    */
     emitSyncAnimation: emit(
       ({ context: { animation } }): ViewerEmitted => ({
         type: 'SYNC.ANIMATION',
