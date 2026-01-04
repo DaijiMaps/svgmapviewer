@@ -14,6 +14,7 @@ import {
 import { searchWorker } from './search-main'
 import type { SearchWorkerReq } from './search-worker-types'
 import { svgMapViewerConfig } from '../../config'
+import { currentFidxAtom } from '../viewer/floors/floors-xstate'
 
 export type SearchEvent =
   | { type: 'SEARCH'; req: SearchSvgReq }
@@ -88,10 +89,11 @@ export function searchCbsStart(): void {
   searchCbs.start.add(function (req: Readonly<SearchSvgReq>): void {
     searchActor.send({ type: 'SEARCH', req })
   })
-  searchCbs.request.add(({ psvg, fidx }: Readonly<SearchSvgReq>) => {
+  searchCbs.request.add(({ psvg }: Readonly<SearchSvgReq>) => {
     const pgeo = svgMapViewerConfig.mapCoord.matrix
       .inverse()
       .transformPoint(psvg)
+    const fidx = currentFidxAtom.get()
     const greq: SearchGeoReq = {
       pgeo,
       fidx,

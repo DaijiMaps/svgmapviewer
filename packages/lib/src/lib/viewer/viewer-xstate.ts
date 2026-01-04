@@ -64,7 +64,6 @@ import {
   type ViewerEvent,
   type ViewerMode,
 } from './viewer-types'
-import { currentFidxAtom } from './floors/floors-xstate'
 import { createAtom } from '@xstate/store'
 
 export const viewerMode = createAtom<ViewerMode>('panning')
@@ -197,8 +196,7 @@ const viewerMachine = setup({
       const l = scrollLayout(layout, scroll)
       const m = fromMatrixSvg(l).inverse()
       const psvg = m.transformPoint(cursor)
-      const fidx = currentFidxAtom.get()
-      const req: SearchSvgReq = { psvg, fidx }
+      const req: SearchSvgReq = { psvg }
       return { type: 'SEARCH.START', req }
     }),
     raiseSearchDone: raise({ type: 'SEARCH.DONE' }),
@@ -525,7 +523,6 @@ const viewerMachine = setup({
             {
               guard: 'isHoming',
               actions: [
-                assign({ animationReq: null }),
                 'endHoming',
                 'emitSyncLayout',
                 // fast sync - sync scroll NOT after resize
@@ -534,12 +531,12 @@ const viewerMachine = setup({
               target: 'Done',
             },
             {
-              actions: assign({ animationReq: null }),
               target: 'Done',
             },
           ],
         },
         Done: {
+          entry: assign({ animationReq: null }),
           type: 'final',
         },
       },
