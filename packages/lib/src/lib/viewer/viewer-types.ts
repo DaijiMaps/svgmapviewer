@@ -25,7 +25,11 @@ export const viewerModePanning: ViewerModePanning = 'panning'
 export const viewerModeTouching: ViewerModeTouching = 'touching'
 export const viewerModeLocked: ViewerModeLocked = 'locked'
 
-type WantAnimation = null | { type: 'zoom' } | { type: 'rotate' }
+type WantAnimation =
+  | null
+  | { type: 'zoom'; z: -1 | 1; p: Vec }
+  | { type: 'home' }
+  | { type: 'rotate'; deg: number; p: Vec }
 
 //// context
 
@@ -39,7 +43,6 @@ export type ViewerContext = {
   wantAnimation: WantAnimation
   animation: null | Animation
 
-  homing: boolean
   rendered: boolean
 }
 

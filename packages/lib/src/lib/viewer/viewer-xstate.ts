@@ -1,7 +1,6 @@
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 import { svgMapViewerConfig } from '../../config'
 import {
-  type Dir,
   type ResizeInfo,
   type SearchSvgReq,
   type SearchRes,
@@ -80,7 +79,8 @@ const viewerMachine = setup({
     emitted: ViewerEmitted
   },
   guards: {
-    isHoming: ({ context: { homing } }) => homing,
+    isHoming: ({ context: { wantAnimation } }) =>
+      wantAnimation !== null && wantAnimation.type === 'home',
     isContainerRendered: () => document.querySelector('.container') !== null,
     isMapRendered: () => svgMapViewerConfig.isMapRendered(),
     isUiRendered: () => svgMapViewerConfig.isUiRendered(),
@@ -106,28 +106,18 @@ const viewerMachine = setup({
     //
     // move + zoom
     //
-    zoomHome: assign({
-      z: (): null | Dir => null,
-      zoom: () => 1,
-      homing: () => true,
-    }),
-    zoomEvent: assign({
-      z: (_, { z }: Zoom): Dir => z,
-      cursor: ({ context: { cursor } }, { p }: Zoom): Vec =>
-        p === null ? cursor : p,
-    }),
     calcZoomAnimation: assign({
       animation: ({
-        context: { animation, wantAnimation, layout, cursor, z },
+        context: { animation, wantAnimation, layout },
       }): null | Animation =>
         wantAnimation === null
           ? animation
           : wantAnimation.type === 'zoom'
-            ? z === null
+            ? animationZoom(layout, wantAnimation.z, wantAnimation.p)
+            : wantAnimation.type === 'home'
               ? animationHome(layout, resetLayout(layout))
-              : animationZoom(layout, z, cursor)
-            : // wantAnimation.type === 'rotate'
-              animationRotate(layout, 90, cursor),
+              : //wantAnimation.type === 'rotate'
+                animationRotate(layout, 90, wantAnimation.p),
     }),
     /*
     startRotate: assign({
@@ -142,7 +132,7 @@ const viewerMachine = setup({
     }),
     endZoom: assign({
       prevLayout: null,
-      wantAnimation: null,
+      //wantAnimation: null,
       animation: null,
       z: null,
       zoom: ({ context: { z, zoom } }) =>
@@ -155,8 +145,6 @@ const viewerMachine = setup({
       animation: null,
     }),
     */
-    wantZoom: assign({ wantAnimation: { type: 'zoom' } }),
-    wantRotate: assign({ wantAnimation: { type: 'rotate' } }),
     emitSyncAnimation: emit(
       ({ context: { animation } }): ViewerEmitted => ({
         type: 'SYNC.ANIMATION',
@@ -254,7 +242,6 @@ const viewerMachine = setup({
           // XXX
           // XXX
         ),
-      homing: () => false,
     }),
     setRendered: assign({ rendered: true }),
     emitSwitch: emit(
@@ -354,27 +341,35 @@ const viewerMachine = setup({
             type: 'emitSwitch',
             params: ({ event }) => event,
           },
-          target: 'Switching',
+          zoomHometarget: 'Switching',
         },
         HOME: {
-          actions: ['zoomHome', 'wantZoom'],
+          actions: assign({
+            wantAnimation: { type: 'home' },
+          }),
           target: 'Zooming',
         },
         ROTATE: {
-          actions: ['resetCursor', 'wantRotate'],
+          actions: assign({
+            wantAnimation: ({ context }) => ({
+              type: 'rotate',
+              deg: 90,
+              p: boxCenter(context.layout.container),
+            }),
+          }),
           target: 'Zooming',
         },
         RECENTER: {
           target: 'Recentering',
         },
         ZOOM: {
-          actions: [
-            {
-              type: 'zoomEvent',
-              params: ({ event: { z, p } }) => ({ z, p }),
-            },
-            'wantZoom',
-          ],
+          actions: assign({
+            wantAnimation: ({ context, event: { z, p } }) => ({
+              type: 'zoom',
+              z: z === 0 ? 1 : z,
+              p: p ?? boxCenter(context.layout.container),
+            }),
+          }),
           target: 'Zooming',
         },
       },
@@ -539,6 +534,7 @@ const viewerMachine = setup({
             {
               guard: 'isHoming',
               actions: [
+                assign({ wantAnimation: null }),
                 'endHoming',
                 'emitSyncLayout',
                 // fast sync - sync scroll NOT after resize
@@ -547,6 +543,7 @@ const viewerMachine = setup({
               target: 'Done',
             },
             {
+              actions: assign({ wantAnimation: null }),
               target: 'Done',
             },
           ],
