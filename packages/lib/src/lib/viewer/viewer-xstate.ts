@@ -249,16 +249,14 @@ const viewerMachine = setup({
   id: 'viewer',
   initial: 'WaitingForResizeRequest',
   context: {
+    rendered: false,
     origLayout: emptyLayout,
     layout: emptyLayout,
     prevLayout: null,
     cursor: boxCenter(emptyLayout.container),
-    z: null,
     zoom: 1,
-    homing: false,
     animationReq: null,
     animation: null,
-    rendered: false,
   },
   states: {
     WaitingForResizeRequest: {

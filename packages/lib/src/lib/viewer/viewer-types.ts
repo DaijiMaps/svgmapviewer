@@ -33,6 +33,7 @@ type AnimationReq =
 //// context
 
 export type ViewerContext = {
+  rendered: boolean
   origLayout: Layout
   layout: Layout
   prevLayout: null | Layout
@@ -40,8 +41,6 @@ export type ViewerContext = {
   zoom: number
   animationReq: null | AnimationReq
   animation: null | Animation
-
-  rendered: boolean
 }
 
 //// external event (request)
