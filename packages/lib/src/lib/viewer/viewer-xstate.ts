@@ -122,7 +122,7 @@ const viewerMachine = setup({
         { p }: { z: Dir; p: null | Vec }
       ): Vec => (p === null ? cursor : p),
     }),
-    startZoom: assign({
+    calcZoomAnimation: assign({
       animation: ({
         context: { animation, want_animation, layout, cursor, z },
       }): null | Animation =>
@@ -140,7 +140,7 @@ const viewerMachine = setup({
         animationRotate(layout, 90, cursor),
     }),
     */
-    updateZoom: assign({
+    updateLayoutFromZoom: assign({
       prevLayout: ({ context: { layout } }): null | Layout => layout,
       layout: ({ context: { layout, animation } }): Layout =>
         animation === null ? layout : animationDone(layout, animation),
@@ -190,9 +190,6 @@ const viewerMachine = setup({
     setModeToPanning: () => viewerMode.set(viewerModePanning),
     setModeToTouching: () => viewerMode.set(viewerModeTouching),
     setModeToLocked: () => viewerMode.set(viewerModeLocked),
-
-    startAnimating: assign({ animating: () => true }),
-    stopAnimating: assign({ animating: () => false }),
 
     resizeLayout: assign({
       rendered: false,
@@ -290,7 +287,6 @@ const viewerMachine = setup({
     homing: false,
     want_animation: null,
     animation: null,
-    animating: false,
     rendered: false,
   },
   states: {
@@ -520,10 +516,9 @@ const viewerMachine = setup({
           always: {
             actions: [
               'updateLayoutFromScroll',
-              'startZoom',
-              'updateZoom',
+              'calcZoomAnimation',
+              'updateLayoutFromZoom',
               'emitZoomStart',
-              'startAnimating',
               'emitSyncAnimation',
             ],
             target: 'Ending',
@@ -538,7 +533,6 @@ const viewerMachine = setup({
                 // fast sync - sync scroll NOT after resize
                 'emitSyncScroll',
                 'emitZoomEnd',
-                'stopAnimating',
                 'emitSyncAnimation',
               ],
               target: 'Homing',
