@@ -7,7 +7,7 @@ import type {
 import type { Cb, Cb1 } from './cb'
 import type { ViewerMode } from './viewer/viewer-types'
 
-export type ZoomStartCb = Cb1<Readonly<ZoomInfo>>
+export type ZoomStartCb = Cb1<Readonly<Omit<ZoomInfo, 'z'>>>
 export type ZoomEndCb = Cb1<Readonly<ZoomEndInfo>>
 export type ResizeCb = Cb1<Readonly<ResizeInfo>>
 export type LayoutCb = Cb1<Readonly<ResizeInfo>>

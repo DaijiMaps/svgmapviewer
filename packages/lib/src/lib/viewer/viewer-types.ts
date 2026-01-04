@@ -1,9 +1,10 @@
 import {
-  type Dir,
   type SearchData,
   type SearchSvgReq,
   type SearchRes,
+  type Z,
   type Zoom,
+  type ZoomInfo,
 } from '../../types'
 import { type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec } from '../vec/prefixed'
@@ -26,7 +27,7 @@ export const viewerModeTouching: ViewerModeTouching = 'touching'
 export const viewerModeLocked: ViewerModeLocked = 'locked'
 
 type AnimationReq =
-  | { type: 'zoom'; z: -1 | 1; p: Vec }
+  | { type: 'zoom'; z: Z; p: Vec }
   | { type: 'home' }
   | { type: 'rotate'; deg: number; p: Vec }
 
@@ -104,10 +105,7 @@ export type SearchEndDoneEmitted = {
 }
 export type ZoomStartEmitted = {
   type: 'ZOOM.START'
-  layout: Layout
-  zoom: number
-  z: Dir
-}
+} & Omit<ZoomInfo, 'z'>
 export type ZoomEndEmitted = { type: 'ZOOM.END'; layout: Layout; zoom: number }
 
 export type SyncAnimationEmitted = {

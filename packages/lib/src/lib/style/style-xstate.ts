@@ -30,7 +30,6 @@ const styleMachine = setup({
   actions: {
     updateZoom: assign({
       zoom: (_, ev: ZoomEvent) => ev.zoom,
-      z: (_, ev: ZoomEvent) => ev.z,
     }),
     updateRotate: assign({}),
     updateSvgMatrix: assign({
@@ -76,7 +75,6 @@ const styleMachine = setup({
     animating: false,
     layout: emptyLayout,
     zoom: 1,
-    z: null,
     rotate: null,
     svgMatrix: new DOMMatrixReadOnly(),
     geoMatrix: new DOMMatrixReadOnly(),
@@ -203,11 +201,11 @@ export function styleCbsStart(): void {
     // XXX update name range after scroll is updated
     requestAnimationFrame(() => handleExpire())
   })
-  styleCbs.zoomStart.add(function (zoom: Readonly<ZoomInfo>) {
+  styleCbs.zoomStart.add(function (zoom: Readonly<Omit<ZoomInfo, 'z'>>) {
     styleSend({ type: 'STYLE.ZOOM', ...zoom })
   })
   styleCbs.zoomEnd.add(function (end: Readonly<ZoomEndInfo>) {
-    styleSend({ type: 'STYLE.ZOOM', zoom: end.zoom, z: null })
+    styleSend({ type: 'STYLE.ZOOM', zoom: end.zoom })
   })
   styleCbs.animation.add(function (animation: null | AnimationMatrix) {
     styleSend({ type: 'STYLE.ANIMATION', animation })
