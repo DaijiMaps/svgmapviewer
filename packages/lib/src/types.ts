@@ -56,7 +56,6 @@ export interface Info {
 
 export interface SearchSvgReq {
   psvg: Vec
-  fidx: number
 }
 
 export interface SearchGeoReq {
