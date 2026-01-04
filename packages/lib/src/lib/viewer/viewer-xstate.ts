@@ -322,7 +322,7 @@ const viewerMachine = setup({
             type: 'emitSwitch',
             params: ({ event }) => event,
           },
-          zoomHometarget: 'Switching',
+          target: 'Switching',
         },
         RECENTER: {
           target: 'Recentering',
