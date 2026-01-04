@@ -1,7 +1,7 @@
 import {
   type Dir,
   type SearchData,
-  type SearchReq,
+  type SearchSvgReq,
   type SearchRes,
 } from '../../types'
 import { type BoxBox } from '../box/prefixed'
@@ -46,9 +46,9 @@ export type ViewerContext = {
 //// external event (request)
 
 export type ResizeRequest = { type: 'RESIZE'; layout: Layout; force: boolean }
-export type LayoutResetRequest = { type: 'LAYOUT.RESET' }
 export type SwitchRequest = { type: 'SWITCH'; fidx: number }
 export type SwitchDoneRequest = { type: 'SWITCH.DONE' }
+export type HomeRequest = { type: 'HOME' }
 export type RotateRequest = { type: 'ROTATE' }
 export type RecenterRequest = { type: 'RECENTER' }
 export type RenderedRequest = { type: 'RENDERED' }
@@ -58,12 +58,12 @@ export type ScrollSyncsyncDoneRequest = {
   type: 'SCROLL.SYNCSYNC.DONE'
   scroll: BoxBox
 }
-export type ZoomRequest = { type: 'ZOOM.ZOOM'; z: Dir; p: null | VecVec }
+export type ZoomRequest = { type: 'ZOOM'; z: Dir; p: null | VecVec }
 export type SearchRequest = { type: 'SEARCH'; pos: Vec }
 export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
 export type ViewerRequest =
   | ResizeRequest
-  | LayoutResetRequest
+  | HomeRequest
   | SwitchRequest
   | SwitchDoneRequest
   | RotateRequest
@@ -97,12 +97,11 @@ export type ViewerEvent = ViewerRequest | ViewerMessage | UIEvent
 
 //// emitted
 
-export type SearchEmitted = { type: 'SEARCH.START'; req: SearchReq }
+export type SearchEmitted = { type: 'SEARCH.START'; req: SearchSvgReq }
 export type SearchEndDoneEmitted = {
   type: 'SEARCH.END.DONE'
   res: null | SearchData
 }
-export type LayoutEmitted = { type: 'LAYOUT'; layout: Layout }
 export type ZoomStartEmitted = {
   type: 'ZOOM.START'
   layout: Layout
@@ -131,7 +130,6 @@ export type ScrollGetEmitted = { type: 'SCROLL.GET' }
 export type ViewerEmitted =
   | SearchEmitted
   | SearchEndDoneEmitted
-  | LayoutEmitted
   | ZoomStartEmitted
   | ZoomEndEmitted
   | SwitchRequest

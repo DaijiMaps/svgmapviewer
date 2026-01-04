@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import type { SearchData, SearchReq, SearchRes } from '../types'
+import type { SearchData, SearchSvgReq, SearchRes } from '../types'
 import { notifyCbs } from './cb'
 import type { SearchCbs } from './event-search-types'
 
@@ -12,11 +12,11 @@ export const searchCbs: SearchCbs = {
   endDone: new Set(),
 }
 
-export function notifySearchStart(req: Readonly<SearchReq>): void {
+export function notifySearchStart(req: Readonly<SearchSvgReq>): void {
   notifyCbs(searchCbs.start, req)
 }
 
-export function notifySearchRequest(req: Readonly<SearchReq>): void {
+export function notifySearchRequest(req: Readonly<SearchSvgReq>): void {
   notifyCbs(searchCbs.request, req)
 }
 

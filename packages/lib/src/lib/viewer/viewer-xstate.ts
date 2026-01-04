@@ -3,7 +3,7 @@ import { svgMapViewerConfig } from '../../config'
 import {
   type Dir,
   type ResizeInfo,
-  type SearchReq,
+  type SearchSvgReq,
   type SearchRes,
   type Zoom,
 } from '../../types'
@@ -123,15 +123,23 @@ const viewerMachine = setup({
       ): Vec => (p === null ? cursor : p),
     }),
     startZoom: assign({
-      animation: ({ context: { layout, cursor, z } }): null | Animation =>
-        z === null
-          ? animationHome(layout, resetLayout(layout))
-          : animationZoom(layout, z, cursor),
+      animation: ({
+        context: { animation, want_animation, layout, cursor, z },
+      }): null | Animation =>
+        want_animation === 'zoom'
+          ? z === null
+            ? animationHome(layout, resetLayout(layout))
+            : animationZoom(layout, z, cursor)
+          : want_animation === 'rotate'
+            ? animationRotate(layout, 90, cursor)
+            : animation,
     }),
+    /*
     startRotate: assign({
       animation: ({ context: { layout, cursor } }): null | Animation =>
         animationRotate(layout, 90, cursor),
     }),
+    */
     updateZoom: assign({
       prevLayout: ({ context: { layout } }): null | Layout => layout,
       layout: ({ context: { layout, animation } }): Layout =>
@@ -145,11 +153,13 @@ const viewerMachine = setup({
       zoom: ({ context: { z, zoom } }) =>
         z === null ? zoom : zoom * Math.pow(2, z),
     }),
+    /*
     endRotate: assign({
       prevLayout: null,
       want_animation: null,
       animation: null,
     }),
+    */
     wantZoom: assign({ want_animation: 'zoom' }),
     wantRotate: assign({ want_animation: 'rotate' }),
     emitSyncAnimation: emit(
@@ -216,11 +226,8 @@ const viewerMachine = setup({
       const l = scrollLayout(layout, scroll)
       const m = fromMatrixSvg(l).inverse()
       const psvg = m.transformPoint(cursor)
-      const pgeo = svgMapViewerConfig.mapCoord.matrix
-        .inverse()
-        .transformPoint(psvg)
       const fidx = currentFidxAtom.get()
-      const req: SearchReq = { pgeo, fidx }
+      const req: SearchSvgReq = { psvg, fidx }
       return { type: 'SEARCH.START', req }
     }),
     raiseSearchDone: raise({ type: 'SEARCH.DONE' }),
@@ -296,22 +303,9 @@ const viewerMachine = setup({
       },
     },
     Resizing: {
-      //initial: 'WaitingForWindowStabilized',
       initial: 'WaitingForMapRendered',
       onDone: 'Idle',
       states: {
-        /*
-        WaitingForWindowStabilized: {
-          after: {
-            500: {
-              // XXX forced resize means that app is already running
-              // XXX which means MapHtml is already rendered
-              // XXX but for safety
-              target: 'WaitingForMapRendered',
-            },
-          },
-        },
-        */
         WaitingForMapRendered: {
           after: { 250: { target: 'WaitingForMapRendered', reenter: true } },
           always: {
@@ -353,14 +347,9 @@ const viewerMachine = setup({
     },
     Idle: {
       on: {
-        // XXX force layout (resize)
         RESIZE: {
           actions: [{ type: 'resizeLayout', params: ({ event }) => event }],
           target: 'Resizing',
-        },
-        'LAYOUT.RESET': {
-          actions: ['zoomHome', 'wantZoom'],
-          target: 'Zooming',
         },
         SEARCH: {
           actions: assign({
@@ -376,6 +365,10 @@ const viewerMachine = setup({
           },
           target: 'Switching',
         },
+        HOME: {
+          actions: ['zoomHome', 'wantZoom'],
+          target: 'Zooming',
+        },
         ROTATE: {
           actions: ['resetCursor', 'wantRotate'],
           target: 'Zooming',
@@ -383,7 +376,7 @@ const viewerMachine = setup({
         RECENTER: {
           target: 'Recentering',
         },
-        'ZOOM.ZOOM': {
+        ZOOM: {
           actions: [
             {
               type: 'zoomEvent',
@@ -412,11 +405,11 @@ const viewerMachine = setup({
                 type: 'raiseSearchEndDone',
                 params: ({ event }) => event,
               },
-              target: 'WaitingForSearchUnlock',
+              target: 'WaitingForSearchDone',
             },
           },
         },
-        WaitingForSearchUnlock: {
+        WaitingForSearchDone: {
           on: {
             'SEARCH.DONE': {
               target: 'Done',
@@ -524,92 +517,50 @@ const viewerMachine = setup({
           },
         },
         Starting: {
-          always: [
-            {
-              guard: 'isZoomWanted',
-              actions: [
-                'updateLayoutFromScroll',
-                'startZoom',
-                'updateZoom',
-                'emitZoomStart',
-              ],
-              target: 'Animating',
-            },
-            {
-              guard: 'isRotateWanted',
-              actions: [
-                'updateLayoutFromScroll',
-                'startRotate',
-                'updateZoom',
-                'emitZoomStart',
-              ],
-              target: 'Animating',
-            },
-          ],
+          always: {
+            actions: [
+              'updateLayoutFromScroll',
+              'startZoom',
+              'updateZoom',
+              'emitZoomStart',
+              'startAnimating',
+              'emitSyncAnimation',
+            ],
+            target: 'Ending',
+          },
         },
-        Animating: {
-          initial: 'Starting',
-          onDone: 'Done',
-          states: {
-            Starting: {
-              always: {
-                actions: ['startAnimating', 'emitSyncAnimation'],
-                target: 'Ending',
-              },
-            },
-            Ending: {
-              on: {
-                'ANIMATION.END': [
-                  {
-                    guard: 'isZoomWanted',
-                    actions: [
-                      'endZoom',
-                      'emitSyncLayout',
-                      // fast sync - sync scroll NOT after resize
-                      'emitSyncScroll',
-                      'emitZoomEnd',
-                      'stopAnimating',
-                      'emitSyncAnimation',
-                    ],
-                    target: 'Homing',
-                  },
-                  {
-                    guard: 'isRotateWanted',
-                    actions: [
-                      'endRotate',
-                      'emitSyncLayout',
-                      // fast sync - sync scroll NOT after resize
-                      'emitSyncScroll',
-                      'emitZoomEnd',
-                      'stopAnimating',
-                      'emitSyncAnimation',
-                    ],
-                    target: 'Homing',
-                  },
-                ],
-              },
-            },
-            Homing: {
-              always: [
-                {
-                  guard: 'isHoming',
-                  actions: [
-                    'endHoming',
-                    'emitSyncLayout',
-                    // fast sync - sync scroll NOT after resize
-                    'emitSyncScroll',
-                  ],
-                  target: 'Done',
-                },
-                {
-                  target: 'Done',
-                },
+        Ending: {
+          on: {
+            'ANIMATION.END': {
+              actions: [
+                'endZoom',
+                'emitSyncLayout',
+                // fast sync - sync scroll NOT after resize
+                'emitSyncScroll',
+                'emitZoomEnd',
+                'stopAnimating',
+                'emitSyncAnimation',
               ],
-            },
-            Done: {
-              type: 'final',
+              target: 'Homing',
             },
           },
+        },
+        Homing: {
+          always: [
+            {
+              guard: 'isHoming',
+              actions: [
+                'endHoming',
+                'emitSyncLayout',
+                // fast sync - sync scroll NOT after resize
+                'emitSyncScroll',
+              ],
+              target: 'Done',
+            },
+            {
+              target: 'Done',
+            },
+          ],
         },
         Done: {
           type: 'final',
@@ -659,9 +610,6 @@ viewerActor.on('SEARCH.END.DONE', ({ res }) => {
 })
 viewerActor.on('ZOOM.START', (args) => notifyStyleZoomStart(args))
 viewerActor.on('ZOOM.END', (end) => notifyStyleZoomEnd(end))
-viewerActor.on('LAYOUT', ({ layout }) =>
-  notifyStyleZoomEnd({ layout, zoom: 1 })
-)
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloorSelect(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloorUnlock())
@@ -718,9 +666,7 @@ export function viewerSendEvent(
 ////
 
 export function viewerCbsStart(): void {
-  floorCbs.lock.add(function (fidx: number): void {
-    viewerSend({ type: 'SWITCH', fidx })
-  })
+  floorCbs.lock.add((fidx: number) => viewerSend({ type: 'SWITCH', fidx }))
   floorCbs.selectDone.add(() => viewerSend({ type: 'SWITCH.DONE' }))
 
   searchCbs.end.add((res: Readonly<null | SearchRes>) =>
@@ -728,7 +674,7 @@ export function viewerCbsStart(): void {
   )
   uiCbs.open.add(() => viewerMode.set(viewerModeLocked))
   uiCbs.open.add(() => notifyUiOpenDone(true))
-  uiCbs.closeDone.add(() => viewerActor.send({ type: 'SEARCH.DONE' }))
+  uiCbs.closeDone.add(() => viewerSend({ type: 'SEARCH.DONE' }))
   uiCbs.closeDone.add(() => viewerMode.set(viewerModePanning))
 
   scrollCbs.getDone.add((scroll: Readonly<null | BoxBox>) => {
@@ -753,17 +699,17 @@ export function viewerCbsStart(): void {
     wheeleventmask = false
   })
 
-  actionCbs.reset.add(() => viewerSend({ type: 'LAYOUT.RESET' }))
+  actionCbs.reset.add(() => viewerSend({ type: 'HOME' }))
   actionCbs.recenter.add(() => viewerSend({ type: 'RECENTER' }))
   actionCbs.rotate.add(() => viewerSend({ type: 'ROTATE' }))
-  actionCbs.zoomOut.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: -1, p: null }))
-  actionCbs.zoomIn.add(() => viewerSend({ type: 'ZOOM.ZOOM', z: 1, p: null }))
+  actionCbs.zoomOut.add(() => viewerSend({ type: 'ZOOM', z: -1, p: null }))
+  actionCbs.zoomIn.add(() => viewerSend({ type: 'ZOOM', z: 1, p: null }))
 
   touchCbs.multiStart.add(() => notifyScrollGet())
   touchCbs.multiStart.add(() => viewerMode.set('touching'))
   touchCbs.multiEnd.add(() => viewerMode.set('panning'))
   touchCbs.zoom.add(({ z, p }: Zoom) =>
-    viewerSend({ type: 'ZOOM.ZOOM', z: z > 0 ? 1 : -1, p })
+    viewerSend({ type: 'ZOOM', z: z > 0 ? 1 : -1, p })
   )
 
   globalCbs.rendered.add(() => viewerSend({ type: 'RENDERED' }))
