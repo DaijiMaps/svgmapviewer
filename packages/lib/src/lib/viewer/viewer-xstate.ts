@@ -172,14 +172,10 @@ const viewerMachine = setup({
       },
     }),
     emitZoomStart: emit(
-      ({ context: { layout, zoom, animationReq } }): ViewerEmitted => ({
+      ({ context: { layout, zoom } }): ViewerEmitted => ({
         type: 'ZOOM.START',
         layout,
         zoom,
-        z:
-          animationReq === null || animationReq.type !== 'zoom'
-            ? 0
-            : animationReq.z,
       })
     ),
     emitZoomEnd: emit(
@@ -328,6 +324,19 @@ const viewerMachine = setup({
           },
           zoomHometarget: 'Switching',
         },
+        RECENTER: {
+          target: 'Recentering',
+        },
+        ZOOM: {
+          actions: assign({
+            animationReq: ({ context, event: { z, p } }) => ({
+              type: 'zoom',
+              z,
+              p: p ?? boxCenter(context.layout.container),
+            }),
+          }),
+          target: 'Zooming',
+        },
         HOME: {
           actions: assign({
             animationReq: { type: 'home' },
@@ -340,19 +349,6 @@ const viewerMachine = setup({
               type: 'rotate',
               deg: 90,
               p: boxCenter(context.layout.container),
-            }),
-          }),
-          target: 'Zooming',
-        },
-        RECENTER: {
-          target: 'Recentering',
-        },
-        ZOOM: {
-          actions: assign({
-            animationReq: ({ context, event: { z, p } }) => ({
-              type: 'zoom',
-              z: z === 0 ? 1 : z,
-              p: p ?? boxCenter(context.layout.container),
             }),
           }),
           target: 'Zooming',

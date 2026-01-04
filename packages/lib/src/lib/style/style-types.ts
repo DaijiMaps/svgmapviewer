@@ -1,7 +1,6 @@
 import {
   type AnimationMatrix,
   type CurrentScroll,
-  type Dir,
   type Range,
 } from '../../types'
 import { type DistanceRadius } from '../distance-types'
@@ -13,7 +12,7 @@ export type LayoutEvent = {
   layout: Layout
   rendered: boolean
 }
-export type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number; z: null | Dir }
+export type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number }
 export type ScrollEvent = { type: 'STYLE.SCROLL'; currentScroll: CurrentScroll } // p == pscroll
 export type ModeEvent = { type: 'STYLE.MODE'; mode: string }
 export type AnimationEvent = {
@@ -38,7 +37,6 @@ export interface StyleContext {
   animating: boolean
   layout: Layout
   zoom: number
-  z: null | Dir
   rotate: null | number
   svgMatrix: DOMMatrixReadOnly
   geoMatrix: DOMMatrixReadOnly

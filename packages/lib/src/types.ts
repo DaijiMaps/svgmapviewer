@@ -20,6 +20,8 @@ import { type Layout, type LayoutCoord } from './lib/viewer/layout/layout-types'
 
 //// layout
 
+export type Z = -1 | 1
+
 export type Dir = -1 | 0 | 1
 
 export type Scroll = null | BoxBox
@@ -94,13 +96,12 @@ export interface AnimationMatrix {
 export interface ZoomInfo {
   layout: Readonly<LayoutCoord>
   zoom: number
-  z: Dir
 }
 
-export type ZoomEndInfo = Omit<ZoomInfo, 'z'>
+export type ZoomEndInfo = ZoomInfo
 
 export interface Zoom {
-  z: Dir
+  z: Z
   p: null | Vec
 }
 
