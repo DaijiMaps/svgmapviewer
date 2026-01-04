@@ -39,7 +39,6 @@ export type ViewerContext = {
   animation: null | Animation
 
   homing: boolean
-  animating: boolean // XXX
   rendered: boolean
 }
 
