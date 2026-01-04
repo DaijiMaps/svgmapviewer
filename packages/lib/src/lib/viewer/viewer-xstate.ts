@@ -509,50 +509,40 @@ const viewerMachine = setup({
             // XXX
             // XXX
             50: {
-              target: 'Starting1',
+              target: 'Starting',
             },
             // XXX
             // XXX
             // XXX
           },
         },
-        Starting1: {
-          entry: 'updateLayoutFromScroll',
-          always: {
-            actions: 'startZoom',
-            target: 'Starting2',
-          },
-        },
-        Starting2: {
+        Starting: {
           always: {
             actions: [
+              'updateLayoutFromScroll',
+              'startZoom',
               'updateZoom',
               'emitZoomStart',
               'startAnimating',
               'emitSyncAnimation',
             ],
-            target: 'Ending1',
+            target: 'Ending',
           },
         },
-        Ending1: {
+        Ending: {
           on: {
             'ANIMATION.END': {
-              actions: 'endZoom',
-              target: 'Ending2',
+              actions: [
+                'endZoom',
+                'emitSyncLayout',
+                // fast sync - sync scroll NOT after resize
+                'emitSyncScroll',
+                'emitZoomEnd',
+                'stopAnimating',
+                'emitSyncAnimation',
+              ],
+              target: 'Homing',
             },
-          },
-        },
-        Ending2: {
-          always: {
-            actions: [
-              'emitSyncLayout',
-              // fast sync - sync scroll NOT after resize
-              'emitSyncScroll',
-              'emitZoomEnd',
-              'stopAnimating',
-              'emitSyncAnimation',
-            ],
-            target: 'Homing',
           },
         },
         Homing: {
