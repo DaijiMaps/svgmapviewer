@@ -525,7 +525,6 @@ const viewerMachine = setup({
             {
               guard: 'isHoming',
               actions: [
-                assign({ animationReq: null }),
                 'endHoming',
                 'emitSyncLayout',
                 // fast sync - sync scroll NOT after resize
@@ -534,12 +533,12 @@ const viewerMachine = setup({
               target: 'Done',
             },
             {
-              actions: assign({ animationReq: null }),
               target: 'Done',
             },
           ],
         },
         Done: {
+          entry: assign({ animationReq: null }),
           type: 'final',
         },
       },
