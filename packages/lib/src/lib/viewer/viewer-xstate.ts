@@ -106,11 +106,9 @@ const viewerMachine = setup({
     // move + zoom
     //
     calcZoomAnimation: assign({
-      animation: ({
-        context: { animation, animationReq, layout },
-      }): null | Animation =>
+      animation: ({ context: { animationReq, layout } }): null | Animation =>
         animationReq === null
-          ? animation
+          ? null
           : animationReq.type === 'zoom'
             ? animationZoom(layout, animationReq.z, animationReq.p)
             : animationReq.type === 'home'
