@@ -81,10 +81,9 @@ const viewerMachine = setup({
   },
   guards: {
     isHoming: ({ context: { homing } }) => homing,
-    isZoomWanted: ({ context: { want_animation } }) =>
-      want_animation === 'zoom',
-    isRotateWanted: ({ context: { want_animation } }) =>
-      want_animation === 'rotate',
+    isZoomWanted: ({ context: { wantAnimation } }) => wantAnimation === 'zoom',
+    isRotateWanted: ({ context: { wantAnimation } }) =>
+      wantAnimation === 'rotate',
     isContainerRendered: () => document.querySelector('.container') !== null,
     isMapRendered: () => svgMapViewerConfig.isMapRendered(),
     isUiRendered: () => svgMapViewerConfig.isUiRendered(),
@@ -116,21 +115,19 @@ const viewerMachine = setup({
       homing: () => true,
     }),
     zoomEvent: assign({
-      z: (_, { z }: { z: Dir; p: null | Vec }): Dir => z,
-      cursor: (
-        { context: { cursor } },
-        { p }: { z: Dir; p: null | Vec }
-      ): Vec => (p === null ? cursor : p),
+      z: (_, { z }: Zoom): Dir => z,
+      cursor: ({ context: { cursor } }, { p }: Zoom): Vec =>
+        p === null ? cursor : p,
     }),
     calcZoomAnimation: assign({
       animation: ({
-        context: { animation, want_animation, layout, cursor, z },
+        context: { animation, wantAnimation, layout, cursor, z },
       }): null | Animation =>
-        want_animation === 'zoom'
+        wantAnimation === 'zoom'
           ? z === null
             ? animationHome(layout, resetLayout(layout))
             : animationZoom(layout, z, cursor)
-          : want_animation === 'rotate'
+          : wantAnimation === 'rotate'
             ? animationRotate(layout, 90, cursor)
             : animation,
     }),
@@ -147,7 +144,7 @@ const viewerMachine = setup({
     }),
     endZoom: assign({
       prevLayout: null,
-      want_animation: null,
+      wantAnimation: null,
       animation: null,
       z: null,
       zoom: ({ context: { z, zoom } }) =>
@@ -156,12 +153,12 @@ const viewerMachine = setup({
     /*
     endRotate: assign({
       prevLayout: null,
-      want_animation: null,
+      wantAnimation: null,
       animation: null,
     }),
     */
-    wantZoom: assign({ want_animation: 'zoom' }),
-    wantRotate: assign({ want_animation: 'rotate' }),
+    wantZoom: assign({ wantAnimation: 'zoom' }),
+    wantRotate: assign({ wantAnimation: 'rotate' }),
     emitSyncAnimation: emit(
       ({ context: { animation } }): ViewerEmitted => ({
         type: 'SYNC.ANIMATION',
@@ -285,7 +282,7 @@ const viewerMachine = setup({
     z: null,
     zoom: 1,
     homing: false,
-    want_animation: null,
+    wantAnimation: null,
     animation: null,
     rendered: false,
   },
