@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
-import { useRef, type PropsWithChildren, type ReactNode } from 'react'
+import { type PropsWithChildren, type ReactNode } from 'react'
 import {
   position_absolute_left_0_top_0,
   width_100vw_height_100svh,
@@ -18,11 +18,8 @@ import { sendAnimationEnd, sendClick, sendScroll } from './viewer-react'
 import { sendContextMenu } from './input/input'
 
 export function Container(props: Readonly<PropsWithChildren>): ReactNode {
-  const ref = useRef<HTMLDivElement>(null)
-
   return (
     <div
-      ref={ref}
       id="viewer"
       className="container"
       onTouchStart={touchSendTouchStart}
@@ -37,15 +34,13 @@ export function Container(props: Readonly<PropsWithChildren>): ReactNode {
       }}
     >
       {props.children}
-      <style>{style}</style>
-      <ContentStyle />
-      <AnimationStyle />
-      <FloorsStyle />
+      <ContainerStyle />
     </div>
   )
 }
 
-const style: string = `
+function ContainerStyle(): ReactNode {
+  const style: string = `
 .container {
   ${position_absolute_left_0_top_0}
   ${width_100vw_height_100svh}
@@ -61,10 +56,19 @@ const style: string = `
 }
 `
 
+  return (
+    <>
+      <style>{style}</style>
+      <ContentStyle />
+      <AnimationStyle />
+      <FloorsStyle />
+    </>
+  )
+}
+
 function ContentStyle(): ReactNode {
   const content = useLayoutContent()
 
-  // XXX rotate
   const style = `
 .content {
   ${position_absolute_left_0_top_0}
