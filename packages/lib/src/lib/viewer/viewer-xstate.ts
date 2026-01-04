@@ -106,11 +106,9 @@ const viewerMachine = setup({
     // move + zoom
     //
     calcZoomAnimation: assign({
-      animation: ({
-        context: { animation, animationReq, layout },
-      }): null | Animation =>
+      animation: ({ context: { animationReq, layout } }): null | Animation =>
         animationReq === null
-          ? animation
+          ? null
           : animationReq.type === 'zoom'
             ? animationZoom(layout, animationReq.z, animationReq.p)
             : animationReq.type === 'home'
@@ -249,16 +247,14 @@ const viewerMachine = setup({
   id: 'viewer',
   initial: 'WaitingForResizeRequest',
   context: {
+    rendered: false,
     origLayout: emptyLayout,
     layout: emptyLayout,
     prevLayout: null,
     cursor: boxCenter(emptyLayout.container),
-    z: null,
     zoom: 1,
-    homing: false,
     animationReq: null,
     animation: null,
-    rendered: false,
   },
   states: {
     WaitingForResizeRequest: {
