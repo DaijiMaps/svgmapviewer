@@ -123,15 +123,23 @@ const viewerMachine = setup({
       ): Vec => (p === null ? cursor : p),
     }),
     startZoom: assign({
-      animation: ({ context: { layout, cursor, z } }): null | Animation =>
-        z === null
-          ? animationHome(layout, resetLayout(layout))
-          : animationZoom(layout, z, cursor),
+      animation: ({
+        context: { animation, want_animation, layout, cursor, z },
+      }): null | Animation =>
+        want_animation === 'zoom'
+          ? z === null
+            ? animationHome(layout, resetLayout(layout))
+            : animationZoom(layout, z, cursor)
+          : want_animation === 'rotate'
+            ? animationRotate(layout, 90, cursor)
+            : animation,
     }),
+    /*
     startRotate: assign({
       animation: ({ context: { layout, cursor } }): null | Animation =>
         animationRotate(layout, 90, cursor),
     }),
+    */
     updateZoom: assign({
       prevLayout: ({ context: { layout } }): null | Layout => layout,
       layout: ({ context: { layout, animation } }): Layout =>
@@ -145,11 +153,13 @@ const viewerMachine = setup({
       zoom: ({ context: { z, zoom } }) =>
         z === null ? zoom : zoom * Math.pow(2, z),
     }),
+    /*
     endRotate: assign({
       prevLayout: null,
       want_animation: null,
       animation: null,
     }),
+    */
     wantZoom: assign({ want_animation: 'zoom' }),
     wantRotate: assign({ want_animation: 'rotate' }),
     emitSyncAnimation: emit(
@@ -508,18 +518,10 @@ const viewerMachine = setup({
         },
         Starting1: {
           entry: 'updateLayoutFromScroll',
-          always: [
-            {
-              guard: 'isZoomWanted',
-              actions: 'startZoom',
-              target: 'Starting2',
-            },
-            {
-              guard: 'isRotateWanted',
-              actions: 'startRotate',
-              target: 'Starting2',
-            },
-          ],
+          always: {
+            actions: 'startZoom',
+            target: 'Starting2',
+          },
         },
         Starting2: {
           always: {
@@ -534,18 +536,10 @@ const viewerMachine = setup({
         },
         Ending1: {
           on: {
-            'ANIMATION.END': [
-              {
-                guard: 'isZoomWanted',
-                actions: 'endZoom',
-                target: 'Ending2',
-              },
-              {
-                guard: 'isRotateWanted',
-                actions: 'endRotate',
-                target: 'Ending2',
-              },
-            ],
+            'ANIMATION.END': {
+              actions: 'endZoom',
+              target: 'Ending2',
+            },
           },
         },
         Ending2: {
