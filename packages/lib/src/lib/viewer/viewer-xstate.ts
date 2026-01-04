@@ -499,100 +499,84 @@ const viewerMachine = setup({
             // XXX
             // XXX
             50: {
-              target: 'Starting',
+              target: 'Starting1',
             },
             // XXX
             // XXX
             // XXX
           },
         },
-        Starting: {
+        Starting1: {
+          entry: 'updateLayoutFromScroll',
           always: [
             {
               guard: 'isZoomWanted',
-              actions: [
-                'updateLayoutFromScroll',
-                'startZoom',
-                'updateZoom',
-                'emitZoomStart',
-              ],
-              target: 'Animating',
+              actions: 'startZoom',
+              target: 'Starting2',
             },
             {
               guard: 'isRotateWanted',
-              actions: [
-                'updateLayoutFromScroll',
-                'startRotate',
-                'updateZoom',
-                'emitZoomStart',
-              ],
-              target: 'Animating',
+              actions: 'startRotate',
+              target: 'Starting2',
             },
           ],
         },
-        Animating: {
-          initial: 'Starting',
-          onDone: 'Done',
-          states: {
-            Starting: {
-              always: {
-                actions: ['startAnimating', 'emitSyncAnimation'],
-                target: 'Ending',
-              },
-            },
-            Ending: {
-              on: {
-                'ANIMATION.END': [
-                  {
-                    guard: 'isZoomWanted',
-                    actions: [
-                      'endZoom',
-                      'emitSyncLayout',
-                      // fast sync - sync scroll NOT after resize
-                      'emitSyncScroll',
-                      'emitZoomEnd',
-                      'stopAnimating',
-                      'emitSyncAnimation',
-                    ],
-                    target: 'Homing',
-                  },
-                  {
-                    guard: 'isRotateWanted',
-                    actions: [
-                      'endRotate',
-                      'emitSyncLayout',
-                      // fast sync - sync scroll NOT after resize
-                      'emitSyncScroll',
-                      'emitZoomEnd',
-                      'stopAnimating',
-                      'emitSyncAnimation',
-                    ],
-                    target: 'Homing',
-                  },
-                ],
-              },
-            },
-            Homing: {
-              always: [
-                {
-                  guard: 'isHoming',
-                  actions: [
-                    'endHoming',
-                    'emitSyncLayout',
-                    // fast sync - sync scroll NOT after resize
-                    'emitSyncScroll',
-                  ],
-                  target: 'Done',
-                },
-                {
-                  target: 'Done',
-                },
-              ],
-            },
-            Done: {
-              type: 'final',
-            },
+        Starting2: {
+          always: {
+            actions: [
+              'updateZoom',
+              'emitZoomStart',
+              'startAnimating',
+              'emitSyncAnimation',
+            ],
+            target: 'Ending1',
           },
+        },
+        Ending1: {
+          on: {
+            'ANIMATION.END': [
+              {
+                guard: 'isZoomWanted',
+                actions: 'endZoom',
+                target: 'Ending2',
+              },
+              {
+                guard: 'isRotateWanted',
+                actions: 'endRotate',
+                target: 'Ending2',
+              },
+            ],
+          },
+        },
+        Ending2: {
+          always: {
+            actions: [
+              'emitSyncLayout',
+              // fast sync - sync scroll NOT after resize
+              'emitSyncScroll',
+              'emitZoomEnd',
+              'stopAnimating',
+              'emitSyncAnimation',
+            ],
+            target: 'Homing',
+          },
+        },
+        Homing: {
+          always: [
+            {
+              guard: 'isHoming',
+              actions: [
+                'endHoming',
+                'emitSyncLayout',
+                // fast sync - sync scroll NOT after resize
+                'emitSyncScroll',
+              ],
+              target: 'Done',
+            },
+            {
+              target: 'Done',
+            },
+          ],
         },
         Done: {
           type: 'final',
