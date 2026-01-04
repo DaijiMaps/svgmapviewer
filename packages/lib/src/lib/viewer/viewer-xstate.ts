@@ -81,9 +81,6 @@ const viewerMachine = setup({
   },
   guards: {
     isHoming: ({ context: { homing } }) => homing,
-    isZoomWanted: ({ context: { wantAnimation } }) => wantAnimation === 'zoom',
-    isRotateWanted: ({ context: { wantAnimation } }) =>
-      wantAnimation === 'rotate',
     isContainerRendered: () => document.querySelector('.container') !== null,
     isMapRendered: () => svgMapViewerConfig.isMapRendered(),
     isUiRendered: () => svgMapViewerConfig.isUiRendered(),
@@ -123,13 +120,14 @@ const viewerMachine = setup({
       animation: ({
         context: { animation, wantAnimation, layout, cursor, z },
       }): null | Animation =>
-        wantAnimation === 'zoom'
-          ? z === null
-            ? animationHome(layout, resetLayout(layout))
-            : animationZoom(layout, z, cursor)
-          : wantAnimation === 'rotate'
-            ? animationRotate(layout, 90, cursor)
-            : animation,
+        wantAnimation === null
+          ? animation
+          : wantAnimation.type === 'zoom'
+            ? z === null
+              ? animationHome(layout, resetLayout(layout))
+              : animationZoom(layout, z, cursor)
+            : // wantAnimation.type === 'rotate'
+              animationRotate(layout, 90, cursor),
     }),
     /*
     startRotate: assign({
@@ -157,8 +155,8 @@ const viewerMachine = setup({
       animation: null,
     }),
     */
-    wantZoom: assign({ wantAnimation: 'zoom' }),
-    wantRotate: assign({ wantAnimation: 'rotate' }),
+    wantZoom: assign({ wantAnimation: { type: 'zoom' } }),
+    wantRotate: assign({ wantAnimation: { type: 'rotate' } }),
     emitSyncAnimation: emit(
       ({ context: { animation } }): ViewerEmitted => ({
         type: 'SYNC.ANIMATION',

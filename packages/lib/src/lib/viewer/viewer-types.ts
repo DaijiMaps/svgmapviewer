@@ -25,7 +25,7 @@ export const viewerModePanning: ViewerModePanning = 'panning'
 export const viewerModeTouching: ViewerModeTouching = 'touching'
 export const viewerModeLocked: ViewerModeLocked = 'locked'
 
-type WantAnimation = null | 'zoom' | 'rotate'
+type WantAnimation = null | { type: 'zoom' } | { type: 'rotate' }
 
 //// context
 
