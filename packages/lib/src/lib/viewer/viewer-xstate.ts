@@ -34,19 +34,13 @@ import {
 import { touchCbs } from '../event-touch'
 import { notifyUiOpen, notifyUiOpenDone, uiCbs } from '../event-ui'
 import { type VecVec as Vec } from '../vec/prefixed'
-import {
-  animationDone,
-  animationHome,
-  animationRotate,
-  animationZoom,
-} from './layout/animation'
+import { animationDone, calcAnimation } from './layout/animation'
 import { type Animation } from './layout/animation-types'
 import { fromMatrixSvg } from './layout/coord'
 import {
   emptyLayout,
   expandLayoutCenter,
   layoutToDeg,
-  resetLayout,
   rotateLayout,
   scrollLayout,
   type Layout,
@@ -108,14 +102,7 @@ const viewerMachine = setup({
     //
     calcZoomAnimation: assign({
       animation: ({ context: { animationReq, layout } }): null | Animation =>
-        animationReq === null
-          ? null
-          : animationReq.type === 'zoom'
-            ? animationZoom(layout, animationReq.z, animationReq.p)
-            : animationReq.type === 'home'
-              ? animationHome(layout, resetLayout(layout))
-              : //animationReq.type === 'rotate'
-                animationRotate(layout, 90, animationReq.p),
+        calcAnimation(animationReq, layout),
     }),
     updateLayoutFromZoom: assign({
       prevLayout: ({ context: { layout } }): null | Layout => layout,

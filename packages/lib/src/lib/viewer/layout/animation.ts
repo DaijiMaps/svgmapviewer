@@ -6,12 +6,33 @@ import { type VecVec as Vec } from '../../vec/prefixed'
 import {
   type Animation,
   type AnimationMove,
+  type AnimationReq,
   type AnimationRotate,
   type AnimationZoom,
 } from './animation-types'
 import { fromMatrixSvg } from './coord'
-import { relocLayout, rotateLayout, zoomLayout, type Layout } from './layout'
+import {
+  relocLayout,
+  resetLayout,
+  rotateLayout,
+  zoomLayout,
+  type Layout,
+} from './layout'
 import { transformScale } from './transform'
+
+export function calcAnimation(
+  req: null | AnimationReq,
+  layout: Layout
+): null | Animation {
+  return req === null
+    ? null
+    : req.type === 'zoom'
+      ? animationZoom(layout, req.z, req.p)
+      : req.type === 'home'
+        ? animationHome(layout, resetLayout(layout))
+        : //animationReq.type === 'rotate'
+          animationRotate(layout, 90, req.p)
+}
 
 function animationMoveDone(
   layout: Layout,
