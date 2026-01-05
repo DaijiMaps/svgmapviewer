@@ -2,13 +2,13 @@
 /* eslint-disable functional/no-return-void */
 import type { ReactNode } from 'react'
 
-import { notifyActionRecenter } from '../../event-action'
+import { notifyAction } from '../../event-action'
 
 export function Recenter(): ReactNode {
   return (
     <div
       className={'button-item recenter'}
-      onClick={() => notifyActionRecenter()}
+      onClick={() => notifyAction.recenter()}
     >
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={d} />

@@ -3,7 +3,7 @@ import { assign, createActor, emit, not, raise, setup } from 'xstate'
 
 import { type SearchData } from '../../types'
 import { searchCbs } from '../event-search'
-import { notifyUiCloseDone, uiCbs } from '../event-ui'
+import { notifyUi, uiCbs } from '../event-ui'
 import { vecZero } from '../vec/prefixed'
 import { emptyLayoutCoord, fromMatrixSvg } from '../viewer/layout/coord'
 import {
@@ -265,7 +265,7 @@ export function useUiContext(): UiContext {
   return useSelector(uiActor, (ui) => ui.context)
 }
 
-uiActor.on('CLOSE.DONE', notifyUiCloseDone)
+uiActor.on('CLOSE.DONE', notifyUi.closeDone)
 
 ////
 

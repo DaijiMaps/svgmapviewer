@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
-/* eslint-disable functional/no-expression-statements */
+
 import type { Zoom } from '../types'
 import type { TouchCbs } from './event-touch-types'
 
@@ -12,14 +12,8 @@ export const touchCbs: TouchCbs = {
   zoom: new Set(),
 }
 
-export function notifyTouchMultiStart(): void {
-  notifyCbs0(touchCbs.multiStart)
-}
-
-export function notifyTouchMultiEnd(): void {
-  notifyCbs0(touchCbs.multiEnd)
-}
-
-export function notifyTouchZoom(args: Readonly<Zoom>): void {
-  notifyCbs(touchCbs.zoom, args)
+export const notifyTouch = {
+  multiStart: (): void => notifyCbs0(touchCbs.multiStart),
+  multiEnd: (): void => notifyCbs0(touchCbs.multiEnd),
+  zoom: (args: Readonly<Zoom>): void => notifyCbs(touchCbs.zoom, args),
 }

@@ -1,5 +1,5 @@
 /* eslint-disable functional/functional-parameters */
-/* eslint-disable functional/no-expression-statements */
+
 /* eslint-disable functional/no-return-void */
 import type {
   AnimationMatrix,
@@ -22,32 +22,17 @@ export const styleCbs: StyleCbs = {
   mode: new Set(),
 }
 
-export function notifyStyleResize(resize: Readonly<ResizeInfo>): void {
-  notifyCbs(styleCbs.resize, resize)
-}
-
-export function notifyStyleLayout(resize: Readonly<ResizeInfo>): void {
-  notifyCbs(styleCbs.layout, resize)
-}
-
-export function notifyStyleZoomStart(zoom: Readonly<ZoomInfo>): void {
-  notifyCbs(styleCbs.zoomStart, zoom)
-}
-
-export function notifyStyleZoomEnd(end: Readonly<ZoomEndInfo>): void {
-  notifyCbs(styleCbs.zoomEnd, end)
-}
-
-export function notifyStyleAnimation(
-  a: Readonly<null | AnimationMatrix>
-): void {
-  notifyCbs(styleCbs.animation, a)
-}
-
-export function notifyStyleAnimationEnd(): void {
-  notifyCbs0(styleCbs.animationEnd)
-}
-
-export function notifyStyleMode(mode: ViewerMode): void {
-  notifyCbs(styleCbs.mode, mode)
+export const notifyStyle = {
+  resize: (resize: Readonly<ResizeInfo>): void =>
+    notifyCbs(styleCbs.resize, resize),
+  layout: (resize: Readonly<ResizeInfo>): void =>
+    notifyCbs(styleCbs.layout, resize),
+  zoomStart: (zoom: Readonly<ZoomInfo>): void =>
+    notifyCbs(styleCbs.zoomStart, zoom),
+  zoomEnd: (end: Readonly<ZoomEndInfo>): void =>
+    notifyCbs(styleCbs.zoomEnd, end),
+  animation: (a: Readonly<null | AnimationMatrix>): void =>
+    notifyCbs(styleCbs.animation, a),
+  animationEnd: (): void => notifyCbs0(styleCbs.animationEnd),
+  mode: (mode: ViewerMode): void => notifyCbs(styleCbs.mode, mode),
 }

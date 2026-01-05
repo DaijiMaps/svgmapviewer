@@ -10,29 +10,13 @@ import {
 } from '../../types'
 import { boxCenter, type BoxBox } from '../box/prefixed'
 import { actionCbs } from '../event-action'
-import { floorCbs, notifyFloorSelect, notifyFloorUnlock } from '../event-floor'
+import { floorCbs, notifyFloor } from '../event-floor'
 import { globalCbs } from '../event-global'
-import {
-  notifyScrollGet,
-  notifyScrollSync,
-  notifyScrollSyncSync,
-  scrollCbs,
-} from '../event-scroll'
-import {
-  notifySearchEndDone,
-  notifySearchStart,
-  searchCbs,
-} from '../event-search'
-import {
-  notifyStyleAnimation,
-  notifyStyleLayout,
-  notifyStyleMode,
-  notifyStyleZoomEnd,
-  notifyStyleZoomStart,
-  styleCbs,
-} from '../event-style'
+import { notifyScroll, scrollCbs } from '../event-scroll'
+import { notifySearch, searchCbs } from '../event-search'
+import { notifyStyle, styleCbs } from '../event-style'
 import { touchCbs } from '../event-touch'
-import { notifyUiOpen, notifyUiOpenDone, uiCbs } from '../event-ui'
+import { notifyUi, uiCbs } from '../event-ui'
 import { type VecVec as Vec } from '../vec/prefixed'
 import {
   animationDone,
@@ -52,8 +36,6 @@ import {
 import { getCurrentScroll } from './scroll/scroll'
 import {
   EXPAND_PANNING,
-  viewerModeLocked,
-  viewerModePanning,
   type ReactUIEvent,
   type ResizeRequest,
   type SearchEnd,
@@ -65,7 +47,7 @@ import {
 } from './viewer-types'
 
 export const viewerMode = createAtom<ViewerMode>('panning')
-viewerMode.subscribe((mode) => notifyStyleMode(mode))
+viewerMode.subscribe((mode) => notifyStyle.mode(mode))
 
 //// viewerMachine
 
@@ -188,15 +170,7 @@ const viewerMachine = setup({
         const layout = scrollLayout(context.layout, scroll)
         return {
           type: 'SEARCH.END.DONE',
-          res:
-            res === null
-              ? null
-              : {
-                  psvg: res.psvg,
-                  fidx: res.fidx,
-                  info: res.info,
-                  layout,
-                },
+          res: res === null ? null : { ...res, layout },
         }
       }
     ),
@@ -204,16 +178,9 @@ const viewerMachine = setup({
     // switch
     //
     emitSwitch: emit(
-      (_, { fidx }: SwitchRequest): ViewerEmitted => ({
-        type: 'SWITCH',
-        fidx,
-      })
+      (_, { fidx }: SwitchRequest): ViewerEmitted => ({ type: 'SWITCH', fidx })
     ),
-    emitSwitchDone: emit(
-      (): ViewerEmitted => ({
-        type: 'SWITCH.DONE',
-      })
-    ),
+    emitSwitchDone: emit((): ViewerEmitted => ({ type: 'SWITCH.DONE' })),
   },
 }).createMachine({
   id: 'viewer',
@@ -542,33 +509,33 @@ export function viewerSend(ev: ViewerEvent): void {
 
 ////
 
-viewerActor.on('SEARCH.START', ({ req }) => notifySearchStart(req))
+viewerActor.on('SEARCH.START', ({ req }) => notifySearch.start(req))
 viewerActor.on('SEARCH.END.DONE', ({ res }) => {
   if (res === null) {
     viewerActor.send({ type: 'SEARCH.DONE' })
   } else {
-    notifySearchEndDone(res)
-    notifyUiOpen(res.psvg)
+    notifySearch.endDone(res)
+    notifyUi.open(res.psvg)
   }
 })
-viewerActor.on('ZOOM.START', (args) => notifyStyleZoomStart(args))
-viewerActor.on('ZOOM.END', (end) => notifyStyleZoomEnd(end))
+viewerActor.on('ZOOM.START', (args) => notifyStyle.zoomStart(args))
+viewerActor.on('ZOOM.END', (end) => notifyStyle.zoomEnd(end))
 
-viewerActor.on('SWITCH', ({ fidx }) => notifyFloorSelect(fidx))
-viewerActor.on('SWITCH.DONE', () => notifyFloorUnlock())
+viewerActor.on('SWITCH', ({ fidx }) => notifyFloor.select(fidx))
+viewerActor.on('SWITCH.DONE', () => notifyFloor.unlock())
 viewerActor.on('SYNC.ANIMATION', ({ animation: a }) => {
   const matrix = a?.q ?? null
   const origin = a?.o ?? null
   if (matrix !== null) {
-    notifyStyleAnimation({ matrix, origin })
+    notifyStyle.animation({ matrix, origin })
   }
 })
 viewerActor.on('SYNC.LAYOUT', ({ layout, force }) =>
-  notifyStyleLayout({ layout, force })
+  notifyStyle.layout({ layout, force })
 )
-viewerActor.on('SCROLL.SYNC', ({ pos }) => notifyScrollSync(pos))
-viewerActor.on('SCROLL.SYNCSYNC', ({ pos }) => notifyScrollSyncSync(pos))
-viewerActor.on('SCROLL.GET', () => notifyScrollGet())
+viewerActor.on('SCROLL.SYNC', ({ pos }) => notifyScroll.sync(pos))
+viewerActor.on('SCROLL.SYNCSYNC', ({ pos }) => notifyScroll.syncSync(pos))
+viewerActor.on('SCROLL.GET', () => notifyScroll.get())
 
 ////
 
@@ -615,10 +582,10 @@ export function viewerCbsStart(): void {
   searchCbs.end.add((res: Readonly<null | SearchRes>) =>
     viewerActor.send({ type: 'SEARCH.END', res })
   )
-  uiCbs.open.add(() => viewerMode.set(viewerModeLocked))
-  uiCbs.open.add(() => notifyUiOpenDone(true))
+  uiCbs.open.add(() => viewerMode.set('locked'))
+  uiCbs.open.add(() => notifyUi.openDone(true))
   uiCbs.closeDone.add(() => viewerSend({ type: 'SEARCH.DONE' }))
-  uiCbs.closeDone.add(() => viewerMode.set(viewerModePanning))
+  uiCbs.closeDone.add(() => viewerMode.set('panning'))
 
   scrollCbs.getDone.add((scroll: Readonly<null | BoxBox>) => {
     if (scroll !== null) {
@@ -648,7 +615,7 @@ export function viewerCbsStart(): void {
   actionCbs.zoomOut.add(() => viewerSend({ type: 'ZOOM', z: -1, p: null }))
   actionCbs.zoomIn.add(() => viewerSend({ type: 'ZOOM', z: 1, p: null }))
 
-  touchCbs.multiStart.add(() => notifyScrollGet())
+  touchCbs.multiStart.add(() => notifyScroll.get())
   touchCbs.multiStart.add(() => viewerMode.set('touching'))
   touchCbs.multiEnd.add(() => viewerMode.set('panning'))
   touchCbs.zoom.add(({ z, p }: Zoom) =>

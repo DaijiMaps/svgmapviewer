@@ -11,10 +11,11 @@ export const globalCbs: GlobalCbs = {
   rendered: new Set(),
 }
 
-export function notifyInit(cfg: Readonly<SvgMapViewerConfig>): void {
-  notifyCbs(globalCbs.init, cfg)
-}
-
-export function notifyRendered(): void {
-  notifyCbs0(globalCbs.rendered)
+export const notifyGlobal = {
+  init: function (cfg: Readonly<SvgMapViewerConfig>): void {
+    notifyCbs(globalCbs.init, cfg)
+  },
+  rendered: function (): void {
+    notifyCbs0(globalCbs.rendered)
+  },
 }

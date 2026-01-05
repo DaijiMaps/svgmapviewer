@@ -1,5 +1,5 @@
 /* eslint-disable functional/functional-parameters */
-/* eslint-disable functional/no-expression-statements */
+
 /* eslint-disable functional/no-return-void */
 import type { Scroll } from '../types'
 import type { BoxBox } from './box/prefixed'
@@ -17,32 +17,15 @@ export const scrollCbs: ScrollCbs = {
   syncSyncDone: new Set(),
 }
 
-export function notifyScrollEventTick(
-  ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
-): void {
-  notifyCbs(scrollCbs.eventTick, ev)
-}
-
-export function notifyScrollEventExpire(): void {
-  notifyCbs0(scrollCbs.eventExpire)
-}
-
-export function notifyScrollGet(): void {
-  notifyCbs0(scrollCbs.get)
-}
-
-export function notifyScrollGetDone(scroll: Readonly<Scroll>): void {
-  notifyCbs(scrollCbs.getDone, scroll)
-}
-
-export function notifyScrollSync(pos: Readonly<BoxBox>): void {
-  notifyCbs(scrollCbs.sync, pos)
-}
-
-export function notifyScrollSyncSync(pos: Readonly<BoxBox>): void {
-  notifyCbs(scrollCbs.syncSync, pos)
-}
-
-export function notifyScrollSyncSyncDone(scroll: Readonly<Scroll>): void {
-  notifyCbs(scrollCbs.syncSyncDone, scroll)
+export const notifyScroll = {
+  eventTick: (ev: Readonly<React.UIEvent<HTMLDivElement, Event>>): void =>
+    notifyCbs(scrollCbs.eventTick, ev),
+  eventExpire: (): void => notifyCbs0(scrollCbs.eventExpire),
+  get: (): void => notifyCbs0(scrollCbs.get),
+  getDone: (scroll: Readonly<Scroll>): void =>
+    notifyCbs(scrollCbs.getDone, scroll),
+  sync: (pos: Readonly<BoxBox>): void => notifyCbs(scrollCbs.sync, pos),
+  syncSync: (pos: Readonly<BoxBox>): void => notifyCbs(scrollCbs.syncSync, pos),
+  syncSyncDone: (scroll: Readonly<Scroll>): void =>
+    notifyCbs(scrollCbs.syncSyncDone, scroll),
 }

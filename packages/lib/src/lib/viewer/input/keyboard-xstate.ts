@@ -2,13 +2,7 @@ import { assign, createActor, emit, setup } from 'xstate'
 
 import type { Dir } from '../../../types'
 
-import {
-  notifyActionRecenter,
-  notifyActionReset,
-  notifyActionRotate,
-  notifyActionZoomIn,
-  notifyActionZoomOut,
-} from '../../event-action'
+import { notifyAction } from '../../event-action'
 import { keyToZoom } from './key'
 import {
   type KeyboardEmits as Emits,
@@ -100,8 +94,8 @@ export function keyboardSend(ev: Events): void {
   keyboardActor.send(ev)
 }
 
-keyboardActor.on('RESET', notifyActionReset)
-keyboardActor.on('RECENTER', notifyActionRecenter)
-keyboardActor.on('ROTATE', notifyActionRotate)
-keyboardActor.on('ZOOM.IN', notifyActionZoomIn)
-keyboardActor.on('ZOOM.OUT', notifyActionZoomOut)
+keyboardActor.on('RESET', notifyAction.reset)
+keyboardActor.on('RECENTER', notifyAction.recenter)
+keyboardActor.on('ROTATE', notifyAction.rotate)
+keyboardActor.on('ZOOM.IN', notifyAction.zoomIn)
+keyboardActor.on('ZOOM.OUT', notifyAction.zoomOut)

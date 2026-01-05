@@ -2,11 +2,7 @@ import { useSelector } from '@xstate/react'
 import { assign, createActor, emit, raise, setup } from 'xstate'
 
 import { actionCbs } from '../../event-action'
-import {
-  notifyTouchMultiEnd,
-  notifyTouchMultiStart,
-  notifyTouchZoom,
-} from '../../event-touch'
+import { notifyTouch } from '../../event-touch'
 import {
   handleTouchEnd,
   handleTouchMove,
@@ -214,9 +210,9 @@ export let touching: boolean = false
 touchActor.on('MULTI', ({ touches }) => {
   if (touches.vecs.size === 2) {
     touching = true
-    notifyTouchMultiStart()
+    notifyTouch.multiStart()
   } else {
-    notifyTouchMultiEnd()
+    notifyTouch.multiEnd()
     touching = false
   }
 })
@@ -224,7 +220,7 @@ touchActor.on('ZOOM', ({ touches }) => {
   const p = touches.cursor
   const z = touches.z
   if (p !== null && z !== null) {
-    notifyTouchZoom({ z: z > 0 ? 1 : -1, p })
+    notifyTouch.zoom({ z: z > 0 ? 1 : -1, p })
   }
 })
 

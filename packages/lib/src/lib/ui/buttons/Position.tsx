@@ -3,7 +3,7 @@
 import type { ReactNode } from 'react'
 
 import { svgMapViewerConfig } from '../../../config'
-import { notifyActionPosition } from '../../event-action'
+import { notifyAction } from '../../event-action'
 
 export function Position(): ReactNode {
   return svgMapViewerConfig.mapCoord.matrix.isIdentity ? (
@@ -11,7 +11,7 @@ export function Position(): ReactNode {
   ) : (
     <div
       className={'button-item position'}
-      onClick={() => notifyActionPosition()}
+      onClick={() => notifyAction.position()}
     >
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={d} />
