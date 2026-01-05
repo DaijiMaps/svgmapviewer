@@ -7,7 +7,7 @@ import {
   position_absolute_left_0_top_0,
   width_100vw_height_100svh,
 } from '../css'
-import { notifyStyleAnimationEnd } from '../event-style'
+import { notifyStyle } from '../event-style'
 import { useAnimationStyle, useLayoutContent } from '../style/style-react'
 import { useFloors } from './floors/floors-react'
 import { sendContextMenu } from './input/input'
@@ -31,7 +31,7 @@ export function Container(props: Readonly<PropsWithChildren>): ReactNode {
       onScroll={sendScroll}
       onAnimationEnd={(ev) => {
         sendAnimationEnd(ev)
-        notifyStyleAnimationEnd()
+        notifyStyle.animationEnd()
       }}
     >
       {props.children}

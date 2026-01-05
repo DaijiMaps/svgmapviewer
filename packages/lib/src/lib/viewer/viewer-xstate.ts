@@ -14,14 +14,7 @@ import { floorCbs, notifyFloor } from '../event-floor'
 import { globalCbs } from '../event-global'
 import { notifyScroll, scrollCbs } from '../event-scroll'
 import { notifySearch, searchCbs } from '../event-search'
-import {
-  notifyStyleAnimation,
-  notifyStyleLayout,
-  notifyStyleMode,
-  notifyStyleZoomEnd,
-  notifyStyleZoomStart,
-  styleCbs,
-} from '../event-style'
+import { notifyStyle, styleCbs } from '../event-style'
 import { touchCbs } from '../event-touch'
 import { notifyUiOpen, notifyUiOpenDone, uiCbs } from '../event-ui'
 import { type VecVec as Vec } from '../vec/prefixed'
@@ -54,7 +47,7 @@ import {
 } from './viewer-types'
 
 export const viewerMode = createAtom<ViewerMode>('panning')
-viewerMode.subscribe((mode) => notifyStyleMode(mode))
+viewerMode.subscribe((mode) => notifyStyle.mode(mode))
 
 //// viewerMachine
 
@@ -525,8 +518,8 @@ viewerActor.on('SEARCH.END.DONE', ({ res }) => {
     notifyUiOpen(res.psvg)
   }
 })
-viewerActor.on('ZOOM.START', (args) => notifyStyleZoomStart(args))
-viewerActor.on('ZOOM.END', (end) => notifyStyleZoomEnd(end))
+viewerActor.on('ZOOM.START', (args) => notifyStyle.zoomStart(args))
+viewerActor.on('ZOOM.END', (end) => notifyStyle.zoomEnd(end))
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloor.select(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloor.unlock())
@@ -534,11 +527,11 @@ viewerActor.on('SYNC.ANIMATION', ({ animation: a }) => {
   const matrix = a?.q ?? null
   const origin = a?.o ?? null
   if (matrix !== null) {
-    notifyStyleAnimation({ matrix, origin })
+    notifyStyle.animation({ matrix, origin })
   }
 })
 viewerActor.on('SYNC.LAYOUT', ({ layout, force }) =>
-  notifyStyleLayout({ layout, force })
+  notifyStyle.layout({ layout, force })
 )
 viewerActor.on('SCROLL.SYNC', ({ pos }) => notifyScroll.sync(pos))
 viewerActor.on('SCROLL.SYNCSYNC', ({ pos }) => notifyScroll.syncSync(pos))
