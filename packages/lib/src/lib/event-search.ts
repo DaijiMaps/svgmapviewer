@@ -13,6 +13,17 @@ export const searchCbs: SearchCbs = {
   endDone: new Set(),
 }
 
+export const notifySearch = {
+  start: (req: Readonly<SearchSvgReq>): void => notifyCbs(searchCbs.start, req),
+  request: (req: Readonly<SearchSvgReq>): void =>
+    notifyCbs(searchCbs.request, req),
+  requestDone: (res: Readonly<null | SearchRes>): void =>
+    notifyCbs(searchCbs.requestDone, res),
+  end: (res: Readonly<null | SearchRes>): void => notifyCbs(searchCbs.end, res),
+  endDone: (data: Readonly<SearchData>): void =>
+    notifyCbs(searchCbs.endDone, data),
+}
+
 export function notifySearchStart(req: Readonly<SearchSvgReq>): void {
   notifyCbs(searchCbs.start, req)
 }

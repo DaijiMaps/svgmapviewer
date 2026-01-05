@@ -10,11 +10,7 @@ import {
   type SvgMapViewerConfig,
 } from '../../types'
 import { globalCbs } from '../event-global'
-import {
-  notifySearchEnd,
-  notifySearchRequest,
-  searchCbs,
-} from '../event-search'
+import { notifySearch, searchCbs } from '../event-search'
 import { currentFidxAtom } from '../viewer/floors/floors-xstate'
 import { searchWorker } from './search-main'
 
@@ -74,9 +70,9 @@ export function searchActorStart(): void {
   searchActor.start()
 }
 
-searchActor.on('SEARCH', ({ req }) => notifySearchRequest(req))
-searchActor.on('SEARCH.DONE', ({ res }) => notifySearchEnd(res))
-searchActor.on('SEARCH.CANCEL', () => notifySearchEnd(null))
+searchActor.on('SEARCH', ({ req }) => notifySearch.request(req))
+searchActor.on('SEARCH.DONE', ({ res }) => notifySearch.end(res))
+searchActor.on('SEARCH.CANCEL', () => notifySearch.end(null))
 
 ////
 

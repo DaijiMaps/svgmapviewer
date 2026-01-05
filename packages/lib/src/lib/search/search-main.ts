@@ -3,7 +3,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { svgMapViewerConfig } from '../../config'
-import { notifySearchRequestDone } from '../event-search'
+import { notifySearch } from '../event-search'
 import { type SearchWorker, type SearchWorkerRes } from './search-worker-types'
 import { type SearchPos } from './types'
 
@@ -25,7 +25,7 @@ worker.onmessage = (e: Readonly<MessageEvent<SearchWorkerRes>>) => {
       break
     case 'SEARCH.ERROR':
       console.log('search error!', ev.error)
-      notifySearchRequestDone(null)
+      notifySearch.requestDone(null)
       break
   }
 }
@@ -38,11 +38,11 @@ function handleSearchRes(res: Readonly<SearchPos>): void {
   )
   if (info === null) {
     console.log('info not found!', res)
-    notifySearchRequestDone(null)
+    notifySearch.requestDone(null)
   } else {
     const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(res.coord)
     const fidx = res.fidx
-    notifySearchRequestDone({ psvg, fidx, info })
+    notifySearch.requestDone({ psvg, fidx, info })
   }
 }
 

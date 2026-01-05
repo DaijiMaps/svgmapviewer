@@ -13,11 +13,7 @@ import { actionCbs } from '../event-action'
 import { floorCbs, notifyFloor } from '../event-floor'
 import { globalCbs } from '../event-global'
 import { notifyScroll, scrollCbs } from '../event-scroll'
-import {
-  notifySearchEndDone,
-  notifySearchStart,
-  searchCbs,
-} from '../event-search'
+import { notifySearch, searchCbs } from '../event-search'
 import {
   notifyStyleAnimation,
   notifyStyleLayout,
@@ -520,12 +516,12 @@ export function viewerSend(ev: ViewerEvent): void {
 
 ////
 
-viewerActor.on('SEARCH.START', ({ req }) => notifySearchStart(req))
+viewerActor.on('SEARCH.START', ({ req }) => notifySearch.start(req))
 viewerActor.on('SEARCH.END.DONE', ({ res }) => {
   if (res === null) {
     viewerActor.send({ type: 'SEARCH.DONE' })
   } else {
-    notifySearchEndDone(res)
+    notifySearch.endDone(res)
     notifyUiOpen(res.psvg)
   }
 })
