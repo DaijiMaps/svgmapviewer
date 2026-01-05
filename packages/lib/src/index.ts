@@ -1,23 +1,4 @@
 import { svgMapViewerConfig } from './config'
-import {
-  notifySearchEnd,
-  notifySearchEndDone,
-  notifySearchRequest,
-  notifySearchRequestDone,
-  notifySearchStart,
-} from './lib/event-search'
-import {
-  notifyStyleLayout,
-  notifyStyleResize,
-  notifyStyleZoomEnd,
-  notifyStyleZoomStart,
-} from './lib/event-style'
-import {
-  notifyUiClose,
-  notifyUiCloseDone,
-  notifyUiOpen,
-  notifyUiOpenDone,
-} from './lib/event-ui'
 import { Like } from './lib/like/Like'
 import { useLayout, useLayout2 } from './lib/style/style-react'
 import { useFloors } from './lib/viewer/floors/floors-react'
@@ -48,22 +29,6 @@ import {
 // svgmapviewer
 
 export { svgMapViewerConfig }
-
-export {
-  notifyStyleLayout,
-  notifyStyleResize,
-  notifySearchRequest,
-  notifySearchRequestDone,
-  notifySearchEnd,
-  notifySearchEndDone,
-  notifySearchStart,
-  notifyUiClose,
-  notifyUiCloseDone,
-  notifyUiOpen,
-  notifyUiOpenDone,
-  notifyStyleZoomEnd,
-  notifyStyleZoomStart,
-}
 
 // types
 
