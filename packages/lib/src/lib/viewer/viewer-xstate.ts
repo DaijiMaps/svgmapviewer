@@ -188,15 +188,7 @@ const viewerMachine = setup({
         const layout = scrollLayout(context.layout, scroll)
         return {
           type: 'SEARCH.END.DONE',
-          res:
-            res === null
-              ? null
-              : {
-                  psvg: res.psvg,
-                  fidx: res.fidx,
-                  info: res.info,
-                  layout,
-                },
+          res: res === null ? null : { ...res, layout },
         }
       }
     ),
@@ -204,16 +196,9 @@ const viewerMachine = setup({
     // switch
     //
     emitSwitch: emit(
-      (_, { fidx }: SwitchRequest): ViewerEmitted => ({
-        type: 'SWITCH',
-        fidx,
-      })
+      (_, { fidx }: SwitchRequest): ViewerEmitted => ({ type: 'SWITCH', fidx })
     ),
-    emitSwitchDone: emit(
-      (): ViewerEmitted => ({
-        type: 'SWITCH.DONE',
-      })
-    ),
+    emitSwitchDone: emit((): ViewerEmitted => ({ type: 'SWITCH.DONE' })),
   },
 }).createMachine({
   id: 'viewer',
