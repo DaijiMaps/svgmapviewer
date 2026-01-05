@@ -12,12 +12,7 @@ import { boxCenter, type BoxBox } from '../box/prefixed'
 import { actionCbs } from '../event-action'
 import { floorCbs, notifyFloor } from '../event-floor'
 import { globalCbs } from '../event-global'
-import {
-  notifyScrollGet,
-  notifyScrollSync,
-  notifyScrollSyncSync,
-  scrollCbs,
-} from '../event-scroll'
+import { notifyScroll, scrollCbs } from '../event-scroll'
 import {
   notifySearchEndDone,
   notifySearchStart,
@@ -549,9 +544,9 @@ viewerActor.on('SYNC.ANIMATION', ({ animation: a }) => {
 viewerActor.on('SYNC.LAYOUT', ({ layout, force }) =>
   notifyStyleLayout({ layout, force })
 )
-viewerActor.on('SCROLL.SYNC', ({ pos }) => notifyScrollSync(pos))
-viewerActor.on('SCROLL.SYNCSYNC', ({ pos }) => notifyScrollSyncSync(pos))
-viewerActor.on('SCROLL.GET', () => notifyScrollGet())
+viewerActor.on('SCROLL.SYNC', ({ pos }) => notifyScroll.sync(pos))
+viewerActor.on('SCROLL.SYNCSYNC', ({ pos }) => notifyScroll.syncSync(pos))
+viewerActor.on('SCROLL.GET', () => notifyScroll.get())
 
 ////
 
@@ -631,7 +626,7 @@ export function viewerCbsStart(): void {
   actionCbs.zoomOut.add(() => viewerSend({ type: 'ZOOM', z: -1, p: null }))
   actionCbs.zoomIn.add(() => viewerSend({ type: 'ZOOM', z: 1, p: null }))
 
-  touchCbs.multiStart.add(() => notifyScrollGet())
+  touchCbs.multiStart.add(() => notifyScroll.get())
   touchCbs.multiStart.add(() => viewerMode.set('touching'))
   touchCbs.multiEnd.add(() => viewerMode.set('panning'))
   touchCbs.zoom.add(({ z, p }: Zoom) =>

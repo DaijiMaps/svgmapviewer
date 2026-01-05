@@ -1,12 +1,7 @@
 import { assign, createActor, emit, fromPromise, setup } from 'xstate'
 
 import { type BoxBox } from '../../box/prefixed'
-import {
-  notifyScrollEventExpire,
-  notifyScrollGetDone,
-  notifyScrollSyncSyncDone,
-  scrollCbs,
-} from '../../event-scroll'
+import { notifyScroll, scrollCbs } from '../../event-scroll'
 import { makeExpire, type Expire } from '../../expire-xstate'
 import { getScroll, setCurrentScroll, syncScroll } from './scroll'
 import {
@@ -119,12 +114,12 @@ export function scrollSend(ev: ScrollEvent): void {
   scrollActor.send(ev)
 }
 
-scrollActor.on('SCROLL.GET.DONE', ({ scroll }) => notifyScrollGetDone(scroll))
+scrollActor.on('SCROLL.GET.DONE', ({ scroll }) => notifyScroll.getDone(scroll))
 scrollActor.on('SCROLL.SYNCSYNC.DONE', ({ scroll }) =>
-  notifyScrollSyncSyncDone(scroll)
+  notifyScroll.syncSyncDone(scroll)
 )
 
-const expire: Expire = makeExpire(500, notifyScrollEventExpire)
+const expire: Expire = makeExpire(500, notifyScroll.eventExpire)
 
 export function scrollCbsStart(): void {
   scrollCbs.eventTick.add(setCurrentScroll)
