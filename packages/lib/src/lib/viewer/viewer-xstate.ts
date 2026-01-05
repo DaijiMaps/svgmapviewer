@@ -16,7 +16,7 @@ import { notifyScroll, scrollCbs } from '../event-scroll'
 import { notifySearch, searchCbs } from '../event-search'
 import { notifyStyle, styleCbs } from '../event-style'
 import { touchCbs } from '../event-touch'
-import { notifyUiOpen, notifyUiOpenDone, uiCbs } from '../event-ui'
+import { notifyUi, uiCbs } from '../event-ui'
 import { type VecVec as Vec } from '../vec/prefixed'
 import {
   animationDone,
@@ -515,7 +515,7 @@ viewerActor.on('SEARCH.END.DONE', ({ res }) => {
     viewerActor.send({ type: 'SEARCH.DONE' })
   } else {
     notifySearch.endDone(res)
-    notifyUiOpen(res.psvg)
+    notifyUi.open(res.psvg)
   }
 })
 viewerActor.on('ZOOM.START', (args) => notifyStyle.zoomStart(args))
@@ -583,7 +583,7 @@ export function viewerCbsStart(): void {
     viewerActor.send({ type: 'SEARCH.END', res })
   )
   uiCbs.open.add(() => viewerMode.set('locked'))
-  uiCbs.open.add(() => notifyUiOpenDone(true))
+  uiCbs.open.add(() => notifyUi.openDone(true))
   uiCbs.closeDone.add(() => viewerSend({ type: 'SEARCH.DONE' }))
   uiCbs.closeDone.add(() => viewerMode.set('panning'))
 

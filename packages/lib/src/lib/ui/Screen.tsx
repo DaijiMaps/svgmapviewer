@@ -12,7 +12,7 @@ import {
   ZOOM_DURATION_DETAIL,
 } from '../css'
 import { useShadowRoot } from '../dom'
-import { notifyUiClose } from '../event-ui'
+import { notifyUi } from '../event-ui'
 import { useAnimating } from '../style/style-react'
 import { useOnWheel } from '../wheel'
 import { useOpenCloseDetail } from './ui-react'
@@ -30,7 +30,7 @@ function ScreenRoot(): ReactNode {
     <div
       ref={ref}
       className="ui-content screen"
-      onClick={() => notifyUiClose()}
+      onClick={() => notifyUi.close()}
     >
       <style>
         {style}
