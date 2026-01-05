@@ -14,7 +14,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
-import { notifyActionReset } from '../event-action'
+import { notifyAction } from '../event-action'
 import { FloorName } from './Floor'
 import { useOpenCloseHeader } from './ui-react'
 import { uiSend } from './ui-xstate'
@@ -33,7 +33,7 @@ function HeaderRoot(): ReactNode {
       className="ui-content header"
       onAnimationEnd={() => uiSend({ type: 'HEADER.ANIMATION.END' })}
     >
-      <h1 className="title" onClick={() => notifyActionReset()}>
+      <h1 className="title" onClick={() => notifyAction.reset()}>
         {config.title}
       </h1>
       <FloorName />

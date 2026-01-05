@@ -2,11 +2,14 @@
 /* eslint-disable functional/no-return-void */
 import type { ReactNode } from 'react'
 
-import { notifyActionZoomIn } from '../../event-action'
+import { notifyAction } from '../../event-action'
 
 export function ZoomIn(): ReactNode {
   return (
-    <div className={'button-item zoom-in'} onClick={() => notifyActionZoomIn()}>
+    <div
+      className={'button-item zoom-in'}
+      onClick={() => notifyAction.zoomIn()}
+    >
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={d} />
       </svg>
