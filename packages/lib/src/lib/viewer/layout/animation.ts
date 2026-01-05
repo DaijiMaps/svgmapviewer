@@ -34,6 +34,12 @@ export function calcAnimation(
           animationRotate(layout, 90, req.p)
 }
 
+export function calcAnimationZoom(req: null | AnimationReq): number {
+  return req === null || req.type !== 'zoom' ? 1 : Math.pow(2, req.z)
+}
+
+////
+
 function animationMoveDone(
   layout: Layout,
   move: Readonly<AnimationMove>
@@ -117,12 +123,14 @@ function animationRotateDone(
 
 ////
 
-export function animationDone(layout: Layout, a: Animation): Layout {
-  return a.type === 'Move'
-    ? animationMoveDone(layout, a)
-    : a.type === 'Zoom'
-      ? animationZoomDone(layout, a)
-      : animationRotateDone(layout, a)
+export function animationDone(layout: Layout, a: null | Animation): Layout {
+  return a === null
+    ? layout
+    : a.type === 'Move'
+      ? animationMoveDone(layout, a)
+      : a.type === 'Zoom'
+        ? animationZoomDone(layout, a)
+        : animationRotateDone(layout, a)
 }
 
 function zoomToScale(z: Dir): number {
