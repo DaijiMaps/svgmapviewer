@@ -1,6 +1,5 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
-
 import type { Zoom } from '../types'
 import type { TouchCbs } from './event-touch-types'
 

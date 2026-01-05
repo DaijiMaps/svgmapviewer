@@ -1,9 +1,8 @@
+/* eslint-disable functional/functional-parameters */
+/* eslint-disable functional/no-return-void */
 import type { UiCbs } from './event-ui-types'
 import type { VecVec } from './vec/prefixed'
 
-/* eslint-disable functional/functional-parameters */
-
-/* eslint-disable functional/no-return-void */
 import { notifyCbs, notifyCbs0 } from './cb'
 
 export const uiCbs: UiCbs = {

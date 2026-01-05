@@ -1,8 +1,7 @@
+/* eslint-disable functional/functional-parameters */
+/* eslint-disable functional/no-return-void */
 import type { ActionCbs } from './event-action-types'
 
-/* eslint-disable functional/functional-parameters */
-
-/* eslint-disable functional/no-return-void */
 import { notifyCbs0 } from './cb'
 
 export const actionCbs: ActionCbs = {
