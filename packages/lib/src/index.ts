@@ -1,5 +1,4 @@
 import { svgMapViewerConfig } from './config'
-import { notifyFloorSelectDone } from './lib/event-floor'
 import {
   notifySearchEnd,
   notifySearchEndDone,
@@ -51,7 +50,6 @@ import {
 export { svgMapViewerConfig }
 
 export {
-  notifyFloorSelectDone,
   notifyStyleLayout,
   notifyStyleResize,
   notifySearchRequest,

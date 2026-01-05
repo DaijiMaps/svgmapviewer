@@ -10,7 +10,7 @@ import {
 } from '../../types'
 import { boxCenter, type BoxBox } from '../box/prefixed'
 import { actionCbs } from '../event-action'
-import { floorCbs, notifyFloorSelect, notifyFloorUnlock } from '../event-floor'
+import { floorCbs, notifyFloor } from '../event-floor'
 import { globalCbs } from '../event-global'
 import {
   notifyScrollGet,
@@ -537,8 +537,8 @@ viewerActor.on('SEARCH.END.DONE', ({ res }) => {
 viewerActor.on('ZOOM.START', (args) => notifyStyleZoomStart(args))
 viewerActor.on('ZOOM.END', (end) => notifyStyleZoomEnd(end))
 
-viewerActor.on('SWITCH', ({ fidx }) => notifyFloorSelect(fidx))
-viewerActor.on('SWITCH.DONE', () => notifyFloorUnlock())
+viewerActor.on('SWITCH', ({ fidx }) => notifyFloor.select(fidx))
+viewerActor.on('SWITCH.DONE', () => notifyFloor.unlock())
 viewerActor.on('SYNC.ANIMATION', ({ animation: a }) => {
   const matrix = a?.q ?? null
   const origin = a?.o ?? null
