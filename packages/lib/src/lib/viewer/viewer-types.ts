@@ -27,8 +27,8 @@ export type ViewerMode =
 export type ViewerContext = {
   rendered: boolean
   origLayout: Layout
-  layout: Layout
   prevLayout: null | Layout
+  layout: Layout
   cursor: Vec
   zoom: number
   rotate: number

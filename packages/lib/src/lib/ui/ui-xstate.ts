@@ -273,6 +273,7 @@ export function uiCbsStart(): void {
   searchCbs.endDone.add((data: Readonly<SearchData>) =>
     uiActor.send({ type: 'DETAIL', ...data })
   )
+  uiCbs.open.add(() => notifyUi.openDone(true))
   uiCbs.openDone.add((ok: boolean) =>
     uiActor.send({ type: ok ? 'OPEN' : 'CANCEL' })
   )

@@ -1,8 +1,7 @@
+/* eslint-disable functional/functional-parameters */
+/* eslint-disable functional/no-return-void */
 import type { FloorCbs } from './event-floor-types'
 
-/* eslint-disable functional/functional-parameters */
-
-/* eslint-disable functional/no-return-void */
 import { notifyCbs, notifyCbs0 } from './cb'
 
 export const floorCbs: FloorCbs = {

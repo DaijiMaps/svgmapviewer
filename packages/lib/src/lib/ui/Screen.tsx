@@ -1,6 +1,6 @@
-/* eslint-disable functional/no-return-void */
-/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
+/* eslint-disable functional/no-expression-statements */
+/* eslint-disable functional/no-return-void */
 import { type ReactNode } from 'react'
 
 import {

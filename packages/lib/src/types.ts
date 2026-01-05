@@ -28,65 +28,65 @@ export type Dir = -1 | 0 | 1
 export type Scroll = null | BoxBox
 
 export interface CurrentScroll {
-  scroll: BoxBox
-  client: Size
-  timeStamp: number
+  readonly scroll: BoxBox
+  readonly client: Size
+  readonly timeStamp: number
 }
 
 export interface HV {
-  h: Dir // -1 | 0 | 1 = left, none, right
-  v: Dir // -1 | 0 | 1 = top, none, bottom
-  th: number // angle (radian)
+  readonly h: Dir // -1 | 0 | 1 = left, none, right
+  readonly v: Dir // -1 | 0 | 1 = top, none, bottom
+  readonly th: number // angle (radian)
 }
 
 export interface Size {
-  width: number
-  height: number
+  readonly width: number
+  readonly height: number
 }
 
 export interface POI {
-  id: null | number
-  name: string | readonly string[]
-  pos: Vec
-  size: number
-  area?: number
-  fidx?: number
+  readonly id: null | number
+  readonly name: string | readonly string[]
+  readonly pos: Vec
+  readonly size: number
+  readonly area?: number
+  readonly fidx?: number
 }
 
 export interface Info {
-  title: string
+  readonly title: string
 }
 
 export interface SearchSvgReq {
-  psvg: Vec
+  readonly psvg: Vec
 }
 
 export interface SearchGeoReq {
-  pgeo: Vec
-  fidx: number
+  readonly pgeo: Vec
+  readonly fidx: number
 }
 
 export interface SearchRes {
-  psvg: Vec
-  fidx: number
-  info: Readonly<Info>
+  readonly psvg: Vec
+  readonly fidx: number
+  readonly info: Readonly<Info>
 }
 
 export interface SearchData {
-  psvg: Vec
-  info: Readonly<Info>
-  layout: Readonly<LayoutCoord>
-  fidx: number
+  readonly psvg: Vec
+  readonly info: Readonly<Info>
+  readonly layout: Readonly<LayoutCoord>
+  readonly fidx: number
 }
 
 export interface LonLat {
-  lon: string
-  lat: string
+  readonly lon: string
+  readonly lat: string
 }
 
 export interface Range {
-  start: Vec
-  end: Vec
+  readonly start: Vec
+  readonly end: Vec
 }
 
 export interface AnimationMatrix {
@@ -95,34 +95,34 @@ export interface AnimationMatrix {
 }
 
 export interface ZoomInfo {
-  layout: Readonly<LayoutCoord>
-  zoom: number
+  readonly layout: Readonly<LayoutCoord>
+  readonly zoom: number
 }
 
 export type ZoomEndInfo = ZoomInfo
 
 export interface Zoom {
-  z: Z
-  p: null | Vec
+  readonly z: Z
+  readonly p: null | Vec
 }
 
 export interface ResizeInfo {
-  layout: Readonly<Layout>
-  force: boolean
+  readonly layout: Readonly<Layout>
+  readonly force: boolean
 }
 
 export interface FloorImage {
-  fidx: number
-  url: string
-  buf?: ArrayBuffer // Blob.create
+  readonly fidx: number
+  readonly url: string
+  readonly buf?: ArrayBuffer // Blob.create
 }
 
 ////
 
 export interface OsmSearchProps {
-  mapData: Readonly<OsmMapData>
-  osmSearchEntries: readonly Readonly<OsmSearchEntry>[]
-  cartoConfig?: Readonly<OsmCartoConfig>
+  readonly mapData: Readonly<OsmMapData>
+  readonly osmSearchEntries: readonly Readonly<OsmSearchEntry>[]
+  readonly cartoConfig?: Readonly<OsmCartoConfig>
 }
 
 ////
@@ -130,10 +130,10 @@ export interface OsmSearchProps {
 export type RenderAssets = () => ReactNode
 
 export interface OsmRenderMapProps {
-  data: Readonly<OsmDataConfig>
-  render: Readonly<OsmRenderConfig>
-  carto?: Readonly<OsmCartoConfig>
-  floors?: Readonly<FloorsConfig>
+  readonly data: Readonly<OsmDataConfig>
+  readonly render: Readonly<OsmRenderConfig>
+  readonly carto?: Readonly<OsmCartoConfig>
+  readonly floors?: Readonly<FloorsConfig>
 }
 
 export type OsmRenderMap = (props: Readonly<OsmRenderMapProps>) => ReactNode
