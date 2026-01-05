@@ -69,6 +69,7 @@ const viewerMachine = setup({
     //
     // scroll
     //
+    emitGetScroll: emit((): ViewerEmitted => ({ type: 'SCROLL.GET' })),
     emitSyncScroll: emit(
       ({ context: { layout } }): ViewerEmitted => ({
         type: 'SCROLL.SYNC',
@@ -81,7 +82,6 @@ const viewerMachine = setup({
         pos: layout.scroll,
       })
     ),
-    emitGetScroll: emit((): ViewerEmitted => ({ type: 'SCROLL.GET' })),
     //
     // move + zoom
     //
@@ -103,7 +103,7 @@ const viewerMachine = setup({
       rotate: ({ context: { rotate, animationReq } }) =>
         rotate + calcAnimationRotate(animationReq),
     }),
-    endHoming: assign({
+    endHome: assign({
       cursor: ({ context: { origLayout } }) => boxCenter(origLayout.container),
       layout: ({ context: { origLayout, rotate } }) =>
         rotateLayout(expandLayoutCenter(origLayout, EXPAND_PANNING), rotate),
@@ -188,8 +188,8 @@ const viewerMachine = setup({
   context: {
     rendered: false,
     origLayout: emptyLayout,
-    layout: emptyLayout,
     prevLayout: null,
+    layout: emptyLayout,
     cursor: boxCenter(emptyLayout.container),
     zoom: 1,
     rotate: 0,
@@ -459,7 +459,7 @@ const viewerMachine = setup({
             {
               guard: 'isHoming',
               actions: [
-                'endHoming',
+                'endHome',
                 'emitSyncLayout',
                 // fast sync - sync scroll NOT after resize
                 'emitSyncScroll',
@@ -582,8 +582,8 @@ export function viewerCbsStart(): void {
   searchCbs.end.add((res: Readonly<null | SearchRes>) =>
     viewerActor.send({ type: 'SEARCH.END', res })
   )
+
   uiCbs.open.add(() => viewerMode.set('locked'))
-  uiCbs.open.add(() => notifyUi.openDone(true))
   uiCbs.closeDone.add(() => viewerSend({ type: 'SEARCH.DONE' }))
   uiCbs.closeDone.add(() => viewerMode.set('panning'))
 
