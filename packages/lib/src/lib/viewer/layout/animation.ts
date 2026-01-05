@@ -38,6 +38,10 @@ export function calcAnimationZoom(req: null | AnimationReq): number {
   return req === null || req.type !== 'zoom' ? 1 : Math.pow(2, req.z)
 }
 
+export function calcAnimationRotate(req: null | AnimationReq): number {
+  return req === null || req.type !== 'rotate' ? 0 : req.deg
+}
+
 ////
 
 function animationMoveDone(

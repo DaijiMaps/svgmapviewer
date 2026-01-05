@@ -37,6 +37,7 @@ import { type VecVec as Vec } from '../vec/prefixed'
 import {
   animationDone,
   calcAnimation,
+  calcAnimationRotate,
   calcAnimationZoom,
 } from './layout/animation'
 import { type Animation } from './layout/animation-types'
@@ -44,7 +45,6 @@ import { fromMatrixSvg } from './layout/coord'
 import {
   emptyLayout,
   expandLayoutCenter,
-  layoutToDeg,
   rotateLayout,
   scrollLayout,
   type Layout,
@@ -118,20 +118,13 @@ const viewerMachine = setup({
       animation: null,
       zoom: ({ context: { zoom, animationReq } }) =>
         zoom * calcAnimationZoom(animationReq),
+      rotate: ({ context: { rotate, animationReq } }) =>
+        rotate + calcAnimationRotate(animationReq),
     }),
     endHoming: assign({
-      cursor: ({ context }) => boxCenter(context.origLayout.container),
-      layout: ({ context }) =>
-        rotateLayout(
-          expandLayoutCenter(context.origLayout, EXPAND_PANNING),
-          // XXX
-          // XXX
-          // XXX
-          layoutToDeg(context.layout)
-          // XXX
-          // XXX
-          // XXX
-        ),
+      cursor: ({ context: { origLayout } }) => boxCenter(origLayout.container),
+      layout: ({ context: { origLayout, rotate } }) =>
+        rotateLayout(expandLayoutCenter(origLayout, EXPAND_PANNING), rotate),
     }),
     emitSyncAnimation: emit(
       ({ context: { animation } }): ViewerEmitted => ({
@@ -232,6 +225,7 @@ const viewerMachine = setup({
     prevLayout: null,
     cursor: boxCenter(emptyLayout.container),
     zoom: 1,
+    rotate: 0,
     animationReq: null,
     animation: null,
   },

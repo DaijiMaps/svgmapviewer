@@ -34,6 +34,7 @@ export type ViewerContext = {
   prevLayout: null | Layout
   cursor: Vec
   zoom: number
+  rotate: number
   animationReq: null | AnimationReq
   animation: null | Animation
 }
