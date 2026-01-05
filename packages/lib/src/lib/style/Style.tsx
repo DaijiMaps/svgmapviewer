@@ -6,7 +6,7 @@ import { StrictMode, useEffect, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import { timing_opening } from '../css'
-import { notifyRendered } from '../event-global'
+import { notifyGlobal } from '../event-global'
 import { trunc2 } from '../utils'
 import {
   useAppearing,
@@ -36,7 +36,7 @@ function RootStyle(): ReactNode {
   const rendered = useRendered()
 
   useEffect(() => {
-    requestAnimationFrame(notifyRendered)
+    requestAnimationFrame(notifyGlobal.rendered)
   }, [rendered])
 
   const shown = useShown()

@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-return-void */
 import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
 import { type BoxBox } from './lib/box/prefixed'
-import { notifyInit } from './lib/event-global'
+import { notifyGlobal } from './lib/event-global'
 import { styleRoot } from './lib/style/Style'
 import { isUiRendered } from './lib/ui/Ui'
 import { isContainerRendered } from './lib/viewer/Container'
@@ -49,7 +49,7 @@ export function svgmapviewer(
 
   const config = updateConfig(configUser)
 
-  notifyInit(config)
+  notifyGlobal.init(config)
 
   root(config)
   styleRoot()
