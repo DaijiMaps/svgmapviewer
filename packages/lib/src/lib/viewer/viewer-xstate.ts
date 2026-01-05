@@ -195,10 +195,10 @@ const viewerMachine = setup({
       return { type: 'SEARCH.START', req }
     }),
     raiseSearchDone: raise({ type: 'SEARCH.DONE' }),
-    raiseSearchEndDone: emit(
+    emitSearchEndDone: emit(
       ({ context }, { res }: SearchEnd): ViewerEmitted => {
         const { scroll } = getCurrentScroll()
-        const l = scrollLayout(context.layout, scroll)
+        const layout = scrollLayout(context.layout, scroll)
         return {
           type: 'SEARCH.END.DONE',
           res:
@@ -208,7 +208,7 @@ const viewerMachine = setup({
                   psvg: res.psvg,
                   fidx: res.fidx,
                   info: res.info,
-                  layout: l,
+                  layout,
                 },
         }
       }
@@ -370,7 +370,7 @@ const viewerMachine = setup({
           on: {
             'SEARCH.END': {
               actions: {
-                type: 'raiseSearchEndDone',
+                type: 'emitSearchEndDone',
                 params: ({ event }) => event,
               },
               target: 'WaitingForSearchDone',
