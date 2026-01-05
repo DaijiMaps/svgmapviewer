@@ -21,9 +21,6 @@ export type ViewerMode =
   | ViewerModePanning
   | ViewerModeTouching
   | ViewerModeLocked
-export const viewerModePanning: ViewerModePanning = 'panning'
-export const viewerModeTouching: ViewerModeTouching = 'touching'
-export const viewerModeLocked: ViewerModeLocked = 'locked'
 
 //// context
 

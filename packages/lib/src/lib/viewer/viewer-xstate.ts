@@ -52,8 +52,6 @@ import {
 import { getCurrentScroll } from './scroll/scroll'
 import {
   EXPAND_PANNING,
-  viewerModeLocked,
-  viewerModePanning,
   type ReactUIEvent,
   type ResizeRequest,
   type SearchEnd,
@@ -600,10 +598,10 @@ export function viewerCbsStart(): void {
   searchCbs.end.add((res: Readonly<null | SearchRes>) =>
     viewerActor.send({ type: 'SEARCH.END', res })
   )
-  uiCbs.open.add(() => viewerMode.set(viewerModeLocked))
+  uiCbs.open.add(() => viewerMode.set('locked'))
   uiCbs.open.add(() => notifyUiOpenDone(true))
   uiCbs.closeDone.add(() => viewerSend({ type: 'SEARCH.DONE' }))
-  uiCbs.closeDone.add(() => viewerMode.set(viewerModePanning))
+  uiCbs.closeDone.add(() => viewerMode.set('panning'))
 
   scrollCbs.getDone.add((scroll: Readonly<null | BoxBox>) => {
     if (scroll !== null) {
