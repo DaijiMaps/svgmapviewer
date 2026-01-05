@@ -2,13 +2,12 @@ import {
   type SearchData,
   type SearchSvgReq,
   type SearchRes,
-  type Z,
   type Zoom,
   type ZoomInfo,
 } from '../../types'
 import { type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec } from '../vec/prefixed'
-import { type Animation } from './layout/animation-types'
+import { type Animation, type AnimationReq } from './layout/animation-types'
 import { type Layout } from './layout/layout'
 
 export const EXPAND_PANNING = 9
@@ -26,11 +25,6 @@ export const viewerModePanning: ViewerModePanning = 'panning'
 export const viewerModeTouching: ViewerModeTouching = 'touching'
 export const viewerModeLocked: ViewerModeLocked = 'locked'
 
-type AnimationReq =
-  | { type: 'zoom'; z: Z; p: Vec }
-  | { type: 'home' }
-  | { type: 'rotate'; deg: number; p: Vec }
-
 //// context
 
 export type ViewerContext = {
@@ -40,6 +34,7 @@ export type ViewerContext = {
   prevLayout: null | Layout
   cursor: Vec
   zoom: number
+  rotate: number
   animationReq: null | AnimationReq
   animation: null | Animation
 }
