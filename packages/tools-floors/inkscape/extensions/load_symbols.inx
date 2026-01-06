@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+    <name>Load Symbols</name>
+    <id>daijimaps.load_symbols</id>
+    <label>Load symbols under Assets.</label>
+    <effect needs-live-preview="false">
+        <object-type>all</object-type>
+        <effects-menu>
+            <submenu name="Daiji Maps">
+                <submenu name="Assets" />
+            </submenu>
+        </effects-menu>
+    </effect>
+    <script>
+        <command location="inx" interpreter="python">load_symbols.py</command>
+    </script>
+</inkscape-extension>

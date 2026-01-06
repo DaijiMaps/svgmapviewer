@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+    <name>Un-resolve shops</name>
+    <id>daijimaps.unresolve_shops</id>
+    <label>Un-resolve shop names to addresses.</label>
+    <param name="tab" type="notebook">
+        <page name="Options" gui-text="Options">
+            <param name="floor" type="string" gui-text="Target floor (regular expression)">.</param>
+        </page>
+    </param>
+    <effect needs-live-preview="false">
+        <object-type>all</object-type>
+        <effects-menu>
+            <submenu name="Daiji Maps">
+                <submenu name="Addressess">
+                    <submenu name="Resolve" />
+                </submenu>
+            </submenu>
+        </effects-menu>
+    </effect>
+    <script>
+        <command location="inx" interpreter="python">unresolve_shops.py</command>
+    </script>
+</inkscape-extension>
