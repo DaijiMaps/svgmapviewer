@@ -70,6 +70,12 @@ export function searchActorStart(): void {
   searchActor.start()
 }
 
+export function searchSendRequestDone(res: Readonly<null | SearchRes>): void {
+  searchActor.send(
+    res === null ? { type: 'SEARCH.CANCEL' } : { type: 'SEARCH.DONE', res }
+  )
+}
+
 searchActor.on('SEARCH', ({ req }) => notifySearch.request(req))
 searchActor.on('SEARCH.DONE', ({ res }) => notifySearch.end(res))
 searchActor.on('SEARCH.CANCEL', () => notifySearch.end(null))
@@ -98,10 +104,5 @@ export function searchCbsStart(): void {
     }
     const req: SearchWorkerReq = { type: 'SEARCH', greq }
     searchWorker.postMessage(req)
-  })
-  searchCbs.requestDone.add(function (res: Readonly<null | SearchRes>): void {
-    searchActor.send(
-      res === null ? { type: 'SEARCH.CANCEL' } : { type: 'SEARCH.DONE', res }
-    )
   })
 }
