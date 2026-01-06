@@ -17,13 +17,11 @@ import { searchWorker } from './search-main'
 export type SearchEvent =
   | { type: 'INIT.DONE' }
   | { type: 'SEARCH'; req: SearchSvgReq }
-  | { type: 'SEARCH.DONE'; res: SearchRes }
-  | { type: 'SEARCH.CANCEL' }
+  | { type: 'SEARCH.DONE'; res: null | SearchRes }
 
 export type SearchEmitted =
   | { type: 'SEARCH'; req: SearchSvgReq }
-  | { type: 'SEARCH.DONE'; res: SearchRes }
-  | { type: 'SEARCH.CANCEL' }
+  | { type: 'SEARCH.DONE'; res: null | SearchRes }
 
 const searchMachine = setup({
   types: {} as {
@@ -58,10 +56,6 @@ const searchMachine = setup({
           actions: emit(({ event }) => event),
           target: 'Done',
         },
-        'SEARCH.CANCEL': {
-          actions: emit(({ event }) => event),
-          target: 'Done',
-        },
       },
     },
     Done: {
@@ -93,7 +87,6 @@ searchActor.on('SEARCH', ({ req: { psvg } }) => {
   searchWorker.postMessage(req)
 })
 searchActor.on('SEARCH.DONE', ({ res }) => notifySearch.end(res))
-searchActor.on('SEARCH.CANCEL', () => notifySearch.end(null))
 
 ////
 

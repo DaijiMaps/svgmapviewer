@@ -25,7 +25,7 @@ worker.onmessage = (e: Readonly<MessageEvent<SearchWorkerRes>>) => {
       break
     case 'SEARCH.ERROR':
       console.log('search error!', ev.error)
-      searchSend({ type: 'SEARCH.CANCEL' })
+      searchSend({ type: 'SEARCH.DONE', res: null })
       break
   }
 }
@@ -38,7 +38,7 @@ function handleSearchRes(res: Readonly<SearchPos>): void {
   )
   if (info === null) {
     console.log('info not found!', res)
-    searchSend({ type: 'SEARCH.CANCEL' })
+    searchSend({ type: 'SEARCH.DONE', res: null })
   } else {
     const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(res.coord)
     const fidx = res.fidx
