@@ -9,8 +9,6 @@ export type SearchEndDoneCb = Cb1<Readonly<SearchData>>
 
 export interface SearchCbs {
   start: Set<SearchStartCb>
-  request: Set<SearchCb>
-  requestDone: Set<SearchDoneCb>
   end: Set<SearchEndCb>
   endDone: Set<SearchEndDoneCb>
 }

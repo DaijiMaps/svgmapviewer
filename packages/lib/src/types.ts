@@ -161,7 +161,7 @@ export type RenderInfo = (props: Readonly<RenderInfoProps>) => ReactNode
 ////
 
 export interface SvgMapViewerConfig
-  extends OsmDataConfig, OsmRenderConfig, OsmSearchConfig, FloorsRenderConfig {
+  extends OsmDataConfig, OsmRenderConfig, OsmSearchConfig {
   root: string
   href: string
   width: number
@@ -173,6 +173,7 @@ export interface SvgMapViewerConfig
   subtitle: string
   copyright: string
   zoomFactor: number
+  floorsConfig?: FloorsConfig
   uiConfig?: UiConfig
   isContainerRendered: () => boolean
   isUiRendered: () => boolean
@@ -206,10 +207,6 @@ export interface OsmSearchConfig {
   getSearchEntries: OsmGetSearchEntries
   getSearchInfo: OsmGetSearchInfo
   renderInfo: RenderInfo
-}
-
-export interface FloorsRenderConfig {
-  floorsConfig?: FloorsConfig
 }
 
 export interface Floor {

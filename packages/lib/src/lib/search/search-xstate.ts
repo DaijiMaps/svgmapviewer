@@ -13,16 +13,16 @@ import { globalCbs } from '../event-global'
 import { notifySearch, searchCbs } from '../event-search'
 import { currentFidxAtom } from '../viewer/floors/floors-xstate'
 import { searchWorker } from './search-main'
+import type { SearchPos } from './types'
 
 export type SearchEvent =
+  | { type: 'INIT.DONE' }
   | { type: 'SEARCH'; req: SearchSvgReq }
-  | { type: 'SEARCH.DONE'; res: SearchRes }
-  | { type: 'SEARCH.CANCEL' }
+  | { type: 'SEARCH.DONE'; res: null | SearchRes }
 
 export type SearchEmitted =
   | { type: 'SEARCH'; req: SearchSvgReq }
-  | { type: 'SEARCH.DONE'; res: SearchRes }
-  | { type: 'SEARCH.CANCEL' }
+  | { type: 'SEARCH.DONE'; res: null | SearchRes }
 
 const searchMachine = setup({
   types: {} as {
@@ -34,8 +34,15 @@ const searchMachine = setup({
 }).createMachine({
   id: 'search',
   context: {},
-  initial: 'Idle',
+  initial: 'Uninited',
   states: {
+    Uninited: {
+      on: {
+        'INIT.DONE': {
+          target: 'Idle',
+        },
+      },
+    },
     Idle: {
       on: {
         SEARCH: {
@@ -47,10 +54,6 @@ const searchMachine = setup({
     Searching: {
       on: {
         'SEARCH.DONE': {
-          actions: emit(({ event }) => event),
-          target: 'Done',
-        },
-        'SEARCH.CANCEL': {
           actions: emit(({ event }) => event),
           target: 'Done',
         },
@@ -70,9 +73,39 @@ export function searchActorStart(): void {
   searchActor.start()
 }
 
-searchActor.on('SEARCH', ({ req }) => notifySearch.request(req))
+export function searchSend(ev: SearchEvent): void {
+  searchActor.send(ev)
+}
+
+searchActor.on('SEARCH', ({ req: { psvg } }) => {
+  const pgeo = svgMapViewerConfig.mapCoord.matrix.inverse().transformPoint(psvg)
+  const fidx = currentFidxAtom.get()
+  const greq: SearchGeoReq = {
+    pgeo,
+    fidx,
+  }
+  const req: SearchWorkerReq = { type: 'SEARCH', greq }
+  searchWorker.postMessage(req)
+})
 searchActor.on('SEARCH.DONE', ({ res }) => notifySearch.end(res))
-searchActor.on('SEARCH.CANCEL', () => notifySearch.end(null))
+
+////
+
+export function handleSearchRes(res: Readonly<SearchPos>): void {
+  const info = svgMapViewerConfig.getSearchInfo(
+    res,
+    svgMapViewerConfig.mapMap,
+    svgMapViewerConfig.osmSearchEntries
+  )
+  if (info === null) {
+    console.log('info not found!', res)
+    searchSend({ type: 'SEARCH.DONE', res: null })
+  } else {
+    const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(res.coord)
+    const fidx = res.fidx
+    searchSend({ type: 'SEARCH.DONE', res: { psvg, fidx, info } })
+  }
+}
 
 ////
 
@@ -86,22 +119,5 @@ export function searchCbsStart(): void {
   })
   searchCbs.start.add(function (req: Readonly<SearchSvgReq>): void {
     searchActor.send({ type: 'SEARCH', req })
-  })
-  searchCbs.request.add(({ psvg }: Readonly<SearchSvgReq>) => {
-    const pgeo = svgMapViewerConfig.mapCoord.matrix
-      .inverse()
-      .transformPoint(psvg)
-    const fidx = currentFidxAtom.get()
-    const greq: SearchGeoReq = {
-      pgeo,
-      fidx,
-    }
-    const req: SearchWorkerReq = { type: 'SEARCH', greq }
-    searchWorker.postMessage(req)
-  })
-  searchCbs.requestDone.add(function (res: Readonly<null | SearchRes>): void {
-    searchActor.send(
-      res === null ? { type: 'SEARCH.CANCEL' } : { type: 'SEARCH.DONE', res }
-    )
   })
 }
