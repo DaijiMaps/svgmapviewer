@@ -55,7 +55,7 @@
     "@types/node": "24.x",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260104.1",
+    "@typescript/native-preview": "7.0.0-dev.20260105.1",
     "happy-dom": "^20.0.11",
     "playwright": "^1.57.0",
     "prettier": "^3.7.4",
