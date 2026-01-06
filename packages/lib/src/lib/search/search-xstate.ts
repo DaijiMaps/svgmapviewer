@@ -82,7 +82,16 @@ export function searchSend(ev: SearchEvent): void {
   searchActor.send(ev)
 }
 
-searchActor.on('SEARCH', ({ req }) => notifySearch.request(req))
+searchActor.on('SEARCH', ({ req: { psvg } }) => {
+  const pgeo = svgMapViewerConfig.mapCoord.matrix.inverse().transformPoint(psvg)
+  const fidx = currentFidxAtom.get()
+  const greq: SearchGeoReq = {
+    pgeo,
+    fidx,
+  }
+  const req: SearchWorkerReq = { type: 'SEARCH', greq }
+  searchWorker.postMessage(req)
+})
 searchActor.on('SEARCH.DONE', ({ res }) => notifySearch.end(res))
 searchActor.on('SEARCH.CANCEL', () => notifySearch.end(null))
 
@@ -98,17 +107,5 @@ export function searchCbsStart(): void {
   })
   searchCbs.start.add(function (req: Readonly<SearchSvgReq>): void {
     searchActor.send({ type: 'SEARCH', req })
-  })
-  searchCbs.request.add(({ psvg }: Readonly<SearchSvgReq>) => {
-    const pgeo = svgMapViewerConfig.mapCoord.matrix
-      .inverse()
-      .transformPoint(psvg)
-    const fidx = currentFidxAtom.get()
-    const greq: SearchGeoReq = {
-      pgeo,
-      fidx,
-    }
-    const req: SearchWorkerReq = { type: 'SEARCH', greq }
-    searchWorker.postMessage(req)
   })
 }
