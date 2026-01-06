@@ -76,7 +76,7 @@ export function searchActorStart(): void {
   searchActor.start()
 }
 
-export function searchSend(ev: SearchEvent): void {
+function searchSend(ev: SearchEvent): void {
   searchActor.send(ev)
 }
 
@@ -125,7 +125,7 @@ worker.onmessageerror = (ev) => {
   console.error('search messageerror', ev)
 }
 
-export function handleSearchRes(res: Readonly<SearchPos>): void {
+function handleSearchRes(res: Readonly<SearchPos>): void {
   const info = svgMapViewerConfig.getSearchInfo(
     res,
     svgMapViewerConfig.mapMap,
