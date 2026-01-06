@@ -9,9 +9,10 @@ svgmapviewer({
   origViewBox: {
     x: 0,
     y: 0,
-    width: 200,
+    width: 220,
     height: 300,
   },
+  zoomFactor: 2,
   floorsConfig,
 
   ...searchConfig,
