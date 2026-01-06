@@ -13,6 +13,7 @@ import { globalCbs } from '../event-global'
 import { notifySearch, searchCbs } from '../event-search'
 import { currentFidxAtom } from '../viewer/floors/floors-xstate'
 import { searchWorker } from './search-main'
+import type { SearchPos } from './types'
 
 export type SearchEvent =
   | { type: 'INIT.DONE' }
@@ -87,6 +88,24 @@ searchActor.on('SEARCH', ({ req: { psvg } }) => {
   searchWorker.postMessage(req)
 })
 searchActor.on('SEARCH.DONE', ({ res }) => notifySearch.end(res))
+
+////
+
+export function handleSearchRes(res: Readonly<SearchPos>): void {
+  const info = svgMapViewerConfig.getSearchInfo(
+    res,
+    svgMapViewerConfig.mapMap,
+    svgMapViewerConfig.osmSearchEntries
+  )
+  if (info === null) {
+    console.log('info not found!', res)
+    searchSend({ type: 'SEARCH.DONE', res: null })
+  } else {
+    const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(res.coord)
+    const fidx = res.fidx
+    searchSend({ type: 'SEARCH.DONE', res: { psvg, fidx, info } })
+  }
+}
 
 ////
 

@@ -2,10 +2,8 @@
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import { svgMapViewerConfig } from '../../config'
 import { type SearchWorker, type SearchWorkerRes } from './search-worker-types'
-import { type SearchPos } from './types'
-import { searchSend } from './search-xstate'
+import { handleSearchRes, searchSend } from './search-xstate'
 
 const worker: SearchWorker = new Worker(
   new URL('./search-worker.js', import.meta.url),
@@ -27,22 +25,6 @@ worker.onmessage = (e: Readonly<MessageEvent<SearchWorkerRes>>) => {
       console.log('search error!', ev.error)
       searchSend({ type: 'SEARCH.DONE', res: null })
       break
-  }
-}
-
-function handleSearchRes(res: Readonly<SearchPos>): void {
-  const info = svgMapViewerConfig.getSearchInfo(
-    res,
-    svgMapViewerConfig.mapMap,
-    svgMapViewerConfig.osmSearchEntries
-  )
-  if (info === null) {
-    console.log('info not found!', res)
-    searchSend({ type: 'SEARCH.DONE', res: null })
-  } else {
-    const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(res.coord)
-    const fidx = res.fidx
-    searchSend({ type: 'SEARCH.DONE', res: { psvg, fidx, info } })
   }
 }
 
