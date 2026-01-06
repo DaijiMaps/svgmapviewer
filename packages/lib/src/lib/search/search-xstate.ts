@@ -1,6 +1,10 @@
 import { createActor, emit, setup } from 'xstate'
 
-import type { SearchWorkerReq } from './search-worker-types'
+import type {
+  SearchWorker,
+  SearchWorkerReq,
+  SearchWorkerRes,
+} from './search-worker-types'
 
 import { svgMapViewerConfig } from '../../config'
 import {
@@ -12,7 +16,6 @@ import {
 import { globalCbs } from '../event-global'
 import { notifySearch, searchCbs } from '../event-search'
 import { currentFidxAtom } from '../viewer/floors/floors-xstate'
-import { searchWorker } from './search-main'
 import type { SearchPos } from './types'
 
 export type SearchEvent =
@@ -85,11 +88,42 @@ searchActor.on('SEARCH', ({ req: { psvg } }) => {
     fidx,
   }
   const req: SearchWorkerReq = { type: 'SEARCH', greq }
-  searchWorker.postMessage(req)
+  worker.postMessage(req)
 })
 searchActor.on('SEARCH.DONE', ({ res }) => notifySearch.end(res))
 
 ////
+
+const worker: SearchWorker = new Worker(
+  new URL('./search-worker.js', import.meta.url),
+  {
+    type: 'module',
+  }
+)
+
+worker.onmessage = (e: Readonly<MessageEvent<SearchWorkerRes>>) => {
+  const ev = e.data
+  switch (ev.type) {
+    case 'INIT.DONE':
+      searchSend({ type: 'INIT.DONE' })
+      break
+    case 'SEARCH.DONE':
+      handleSearchRes(ev.res)
+      break
+    case 'SEARCH.ERROR':
+      console.log('search error!', ev.error)
+      searchSend({ type: 'SEARCH.DONE', res: null })
+      break
+  }
+}
+
+worker.onerror = (ev) => {
+  console.error('search error', ev)
+}
+
+worker.onmessageerror = (ev) => {
+  console.error('search messageerror', ev)
+}
 
 export function handleSearchRes(res: Readonly<SearchPos>): void {
   const info = svgMapViewerConfig.getSearchInfo(
@@ -114,7 +148,7 @@ export function searchCbsStart(): void {
     if (cfg.getSearchEntries) {
       const entries = cfg.getSearchEntries(cfg)
       const req: SearchWorkerReq = { type: 'INIT', entries }
-      searchWorker.postMessage(req)
+      worker.postMessage(req)
     }
   })
   searchCbs.start.add(function (req: Readonly<SearchSvgReq>): void {
