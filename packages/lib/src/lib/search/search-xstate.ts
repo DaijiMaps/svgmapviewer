@@ -15,6 +15,7 @@ import { currentFidxAtom } from '../viewer/floors/floors-xstate'
 import { searchWorker } from './search-main'
 
 export type SearchEvent =
+  | { type: 'INIT.DONE' }
   | { type: 'SEARCH'; req: SearchSvgReq }
   | { type: 'SEARCH.DONE'; res: SearchRes }
   | { type: 'SEARCH.CANCEL' }
@@ -34,8 +35,15 @@ const searchMachine = setup({
 }).createMachine({
   id: 'search',
   context: {},
-  initial: 'Idle',
+  initial: 'Uninited',
   states: {
+    Uninited: {
+      on: {
+        'INIT.DONE': {
+          target: 'Idle',
+        },
+      },
+    },
     Idle: {
       on: {
         SEARCH: {
@@ -70,10 +78,8 @@ export function searchActorStart(): void {
   searchActor.start()
 }
 
-export function searchSendRequestDone(res: Readonly<null | SearchRes>): void {
-  searchActor.send(
-    res === null ? { type: 'SEARCH.CANCEL' } : { type: 'SEARCH.DONE', res }
-  )
+export function searchSend(ev: SearchEvent): void {
+  searchActor.send(ev)
 }
 
 searchActor.on('SEARCH', ({ req }) => notifySearch.request(req))

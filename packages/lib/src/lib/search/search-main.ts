@@ -5,7 +5,7 @@
 import { svgMapViewerConfig } from '../../config'
 import { type SearchWorker, type SearchWorkerRes } from './search-worker-types'
 import { type SearchPos } from './types'
-import { searchSendRequestDone } from './search-xstate'
+import { searchSend } from './search-xstate'
 
 const worker: SearchWorker = new Worker(
   new URL('./search-worker.js', import.meta.url),
@@ -18,14 +18,14 @@ worker.onmessage = (e: Readonly<MessageEvent<SearchWorkerRes>>) => {
   const ev = e.data
   switch (ev.type) {
     case 'INIT.DONE':
-      // XXX
+      searchSend({ type: 'INIT.DONE' })
       break
     case 'SEARCH.DONE':
       handleSearchRes(ev.res)
       break
     case 'SEARCH.ERROR':
       console.log('search error!', ev.error)
-      searchSendRequestDone(null)
+      searchSend({ type: 'SEARCH.CANCEL' })
       break
   }
 }
@@ -38,11 +38,11 @@ function handleSearchRes(res: Readonly<SearchPos>): void {
   )
   if (info === null) {
     console.log('info not found!', res)
-    searchSendRequestDone(null)
+    searchSend({ type: 'SEARCH.CANCEL' })
   } else {
     const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(res.coord)
     const fidx = res.fidx
-    searchSendRequestDone({ psvg, fidx, info })
+    searchSend({ type: 'SEARCH.DONE', res: { psvg, fidx, info } })
   }
 }
 
