@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="500"
+   width="750"
    height="200"
-   viewBox="0 0 500 200"
+   viewBox="0 0 750 200"
    version="1.1"
    id="svg1"
    inkscape:version="1.4.3 (1:1.4.3+202512261035+0d15f75042)"
@@ -24,15 +24,15 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      showgrid="true"
-     inkscape:zoom="2.818"
-     inkscape:cx="250"
+     inkscape:zoom="1.8786667"
+     inkscape:cx="375"
      inkscape:cy="100.07097"
      inkscape:window-width="2560"
      inkscape:window-height="1363"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g53">
+     inkscape:current-layer="layer1">
     <inkscape:grid
        id="grid1"
        units="px"
@@ -98,7 +98,7 @@
     <rect
        style="fill:#bdb76b;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
        id="rect1"
-       width="500"
+       width="750"
        height="200"
        x="0"
        y="0" />
@@ -106,7 +106,7 @@
   <g
      inkscape:groupmode="layer"
      id="layer2"
-     inkscape:label="Objects">
+     inkscape:label="Part">
     <g
        id="g54"
        style="display:inline"
@@ -211,8 +211,30 @@
          style="display:inline"
          inkscape:label="Point">
         <g
+           id="g55"
+           inkscape:label="O"
+           style="display:inline">
+          <text
+             xml:space="preserve"
+             style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+             x="100"
+             y="145"
+             id="text55"><tspan
+               sodipodi:role="line"
+               id="tspan55"
+               x="100"
+               y="145">P</tspan></text>
+          <circle
+             style="fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+             id="circle55"
+             cx="100"
+             cy="150"
+             r="1" />
+        </g>
+        <g
            id="g49"
-           inkscape:label="P">
+           inkscape:label="P"
+           transform="translate(0,-50)">
           <text
              xml:space="preserve"
              style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
@@ -222,7 +244,7 @@
                sodipodi:role="line"
                id="tspan9"
                x="100"
-               y="145">P</tspan></text>
+               y="145">O</tspan></text>
           <circle
              style="fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
              id="path9"
@@ -292,6 +314,11 @@
         </g>
       </g>
     </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Direction">
     <g
        id="g47"
        style="display:inline"
@@ -324,7 +351,7 @@
          inkscape:label="h=1,v=1">
         <path
            style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-           d="m 435,135 v 50 h -50 v -50 h 20 l -30,-20 40,20 z"
+           d="m 435,135 v 50 h -50 v -50 h 20 l -20,-10 30,10 z"
            id="path19"
            sodipodi:nodetypes="cccccccc" />
         <text
@@ -370,7 +397,7 @@
          inkscape:label="h=-1,v=1">
         <path
            style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-           d="m 265,135 v 50 h 50 v -50 h -20 l 30,-20 -40,20 z"
+           d="m 265,135 v 50 h 50 v -50 h -20 l 20,-10 -30,10 z"
            id="path23"
            sodipodi:nodetypes="cccccccc" />
         <text
@@ -416,7 +443,7 @@
          inkscape:label="h=-1,v=-1">
         <path
            style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-           d="M 265,65 V 15 h 50 v 50 h -20 l 30,20 -40,-20 z"
+           d="M 265,65 V 15 h 50 v 50 h -20 l 20,10 -30,-10 z"
            id="path24"
            sodipodi:nodetypes="cccccccc" />
         <text
@@ -462,7 +489,7 @@
          inkscape:label="h=1,v=-1">
         <path
            style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-           d="M 435,65 V 15 h -50 v 50 h 20 l -30,20 40,-20 z"
+           d="M 435,65 V 15 h -50 v 50 h 20 l -20,10 30,-10 z"
            id="path22"
            sodipodi:nodetypes="cccccccc" />
         <text
@@ -480,6 +507,65 @@
              y="51.25"
              id="tspan39">v=-1</tspan></text>
       </g>
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Orientation">
+    <g
+       id="g60"
+       inkscape:label="Portrait">
+      <rect
+         style="fill:#808080;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         id="rect58"
+         width="75"
+         height="100"
+         x="525"
+         y="50" />
+      <path
+         style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         d="m 570,75 v 35 H 535 V 75 h 15 l -15,-10 20,10 z"
+         id="path55"
+         sodipodi:nodetypes="cccccccc" />
+      <text
+         xml:space="preserve"
+         style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         x="562.5"
+         y="165"
+         id="text61"><tspan
+           sodipodi:role="line"
+           id="tspan61"
+           x="562.5"
+           y="165">portrait</tspan></text>
+    </g>
+    <g
+       id="g61"
+       inkscape:label="Landscape"
+       transform="translate(0,12.5)">
+      <rect
+         style="fill:#808080;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         id="rect59"
+         width="100"
+         height="75"
+         x="625"
+         y="50" />
+      <path
+         style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         d="m 650,60 h 35 V 95 H 650 V 80 l -10,-20 10,15 z"
+         id="path59"
+         sodipodi:nodetypes="cccccccc" />
+      <text
+         xml:space="preserve"
+         style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         x="675"
+         y="165"
+         id="text62"
+         transform="translate(0,-12.5)"><tspan
+           sodipodi:role="line"
+           id="tspan62"
+           x="675"
+           y="165">landscape</tspan></text>
     </g>
   </g>
 </svg>
