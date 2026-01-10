@@ -1,45 +1,31 @@
 /* eslint-disable functional/functional-parameters */
-import { type Info, type POI, type SvgMapViewerConfigUser } from 'svgmapviewer'
+import { type Info, type SvgMapViewerConfigUser } from 'svgmapviewer'
 import { type SearchPos } from 'svgmapviewer/search'
 
-import { pois } from './data/pois'
+import { addresses } from './address'
+import { addressStringNameMap } from './names'
 import { RenderInfo as renderInfo } from './render'
 
-type Name = POI['name']
-
-// XXX
-// XXX
-// XXX
-function nameToString(name: Name): string {
-  return (typeof name === 'string' ? [name] : name).join(' ')
-}
-// XXX
-// XXX
-// XXX
-
-const addresses = pois.map((poi) => ({
-  address: nameToString(poi.name),
-  pos: {
-    coord: poi.coord,
-    fidx: poi.fidx ?? 0,
-  },
-}))
-const addressMap = new Map<string, POI>(
-  pois.map((poi) => [nameToString(poi.name), poi])
-)
-
 function getSearchEntries() {
-  return addresses
+  return addresses.map(([address, { pos, fidx }]) => ({
+    address,
+    coord: pos,
+    fidx: fidx ?? 0,
+  }))
 }
 
-function getSearchInfo(coord: Readonly<SearchPos>): null | Info {
-  const poi = addressMap.get(coord.address)
-  if (poi === undefined) {
+function getSearchInfo(pos: Readonly<SearchPos>): null | Info {
+  const names = addressStringNameMap.get(pos.address)
+  if (names === undefined || names.size < 1) {
     return null
   }
+  const name = Array.from(names)[0]
   return {
-    title: coord.address,
-    x: poi.x,
+    title: name,
+    x: {
+      tag: 'shop',
+      kind: { tag: 'restaurant' },
+    },
   }
 }
 
