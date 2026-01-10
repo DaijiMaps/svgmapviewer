@@ -49,14 +49,14 @@
   "devDependencies": {
     "@rsbuild/plugin-react": "^1.4.2",
     "@rslib/core": "^0.19.1",
-    "@rstest/core": "^0.7.8",
+    "@rstest/core": "^0.7.9",
     "@testing-library/react": "^16.3.1",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/node": "24.x",
-    "@types/react": "^19.2.7",
+    "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260107.1",
-    "happy-dom": "^20.0.11",
+    "@typescript/native-preview": "7.0.0-dev.20260109.1",
+    "happy-dom": "^20.1.0",
     "playwright": "^1.57.0",
     "prettier": "^3.7.4",
     "typescript": "^5.9.2"
