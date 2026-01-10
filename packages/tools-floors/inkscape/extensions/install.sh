@@ -1,9 +1,9 @@
 DIR_MACOS="${HOME}/Library/Application Support/org.inkscape.Inkscape/config/inkscape/extensions"
 DIR_LINUX="${HOME}/.config/inkscape/extensions"
 
-if [ -d ${DIR_MACOS} ]; then
-  DIR=${DIR_MACOS}
-elif [ -d ${DIR_LINUX} ]; then
+if [ -d "${DIR_MACOS}" ]; then
+  DIR="${DIR_MACOS}"
+elif [ -d "${DIR_LINUX}" ]; then
   DIR="${DIR_LINUX}"
 fi
 
