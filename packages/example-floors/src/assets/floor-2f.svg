@@ -191,57 +191,56 @@
   </defs>
   <g
      id="layer2"
-     style="display:inline"
-     transform="translate(-40,-50)">
+     style="display:inline;opacity:1">
     <g
        id="g7"
        style="display:inline">
       <path
          style="display:inline;fill:none;stroke-width:0.1"
-         d="m 40,50 h 160 v 100 h 50 l 10,200 H 100 V 300 H 50 Z"
+         d="m 0,0 h 160 v 100 h 50 l 10,200 H 60 V 250 H 10 Z"
          id="path12" />
       <path
          style="display:inline;fill:#ffffff;stroke-width:0.1"
-         d="m 50,50 h 150 v 100 h 50 V 300 H 50 Z"
+         d="m 10,0 h 150 v 100 h 50 V 250 H 10 Z"
          id="path1-5" />
     </g>
     <g
        id="g2-6">
       <path
          style="fill:#bdb76b;stroke-width:0.1"
-         d="M 50,50 H 80.000001 L 80,100 H 50 Z"
+         d="M 10,0 H 40 V 50 H 10 Z"
          id="path2-2" />
       <path
          style="fill:#bdb76b;stroke-width:0.1"
-         d="m 50,100 h 30 v 50 H 50 Z"
+         d="m 10,50 h 30 v 50 H 10 Z"
          id="path3-9" />
       <path
          style="fill:#bdb76b;stroke-width:0.1"
-         d="m 50,160 h 30 v 40 H 50 Z"
+         d="m 10,110 h 30 v 40 H 10 Z"
          id="path4-1" />
       <path
          style="fill:#bdb76b;stroke-width:0.1"
-         d="m 110,50 h 90 v 100 h -90 z"
+         d="m 70,0 h 90 V 100 H 70 Z"
          id="path5-2" />
       <path
          style="fill:#cd853f;stroke-width:0.1"
-         d="M 50,200 H 80.000001 L 80,290 H 50 Z"
+         d="m 10,150 h 30 v 90 H 10 Z"
          id="path6-7" />
       <path
          style="fill:#deb887;stroke-width:0.1"
-         d="m 200,240 h 50 v 40 h -50 z"
+         d="m 160,190 h 50 v 40 h -50 z"
          id="path8-0" />
       <path
          style="fill:#ffe680;stroke-width:0.1"
-         d="M 180,170 V 270 H 110 V 170 Z"
+         d="M 140,120 V 220 H 70 V 120 Z"
          id="path9-9" />
       <path
          style="fill:#deb887;stroke-width:0.1"
-         d="m 200,200 h 50 v 40 h -50 z"
+         d="m 160,150 h 50 v 40 h -50 z"
          id="path10-3" />
       <path
          style="fill:#deb887;stroke-width:0.1"
-         d="m 200,150 h 50 v 30 h -50 z"
+         d="m 160,100 h 50 v 30 h -50 z"
          id="path7-6" />
     </g>
     <g
@@ -251,27 +250,27 @@
          xlink:href="#AigaSymbols.svg:Escalator_Inv"
          style="fill:#000000;stroke:#000000"
          id="use1-0"
-         transform="matrix(0.25,0,0,0.25,140,280)" />
+         transform="matrix(0.25,0,0,0.25,101,231)" />
       <use
          xlink:href="#AigaSymbols.svg:Stairs_Inv"
          style="fill:#000000;stroke:#000000"
          id="use1-6-6"
-         transform="matrix(0.25,0,0,0.25,55,190)" />
+         transform="matrix(0.25,0,0,0.25,11,101)" />
       <use
          xlink:href="#AigaSymbols.svg:Toilets_Inv"
          style="fill:#000000;stroke:#000000"
          id="use1-5-6"
-         transform="matrix(0.25,0,0,0.25,55,280)" />
+         transform="matrix(0.25,0,0,0.25,11,231)" />
       <use
          xlink:href="#AigaSymbols.svg:Elevator_Inv"
          style="fill:#000000;stroke:#000000"
          id="use1-2"
-         transform="matrix(0.25,0,0,0.25,230,280)" />
+         transform="matrix(0.25,0,0,0.25,191,231)" />
       <use
          xlink:href="#AigaSymbols.svg:Elevator_Inv"
          style="fill:#000000;stroke:#000000"
          id="use5"
-         transform="matrix(0.25,0,0,0.25,180,55)" />
+         transform="matrix(0.25,0,0,0.25,141,1)" />
     </g>
     <g
        id="g5"
@@ -279,113 +278,113 @@
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#bdb76b;stroke:#ff0000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="63.770905"
-         y="250"
+         x="24.999998"
+         y="195"
          id="text3"><tspan
            id="tspan3"
            style="font-size:6.35px;fill:#000000;stroke:none;stroke-width:1.05833"
-           x="63.770905"
-           y="250">100円ショップ</tspan></text>
+           x="25"
+           y="195">100円ショップ</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="63.520824"
-         y="80"
+         x="25"
+         y="25"
          id="text6"><tspan
            id="tspan6"
            style="stroke-width:1.05833"
-           x="63.520824"
-           y="80">文房具</tspan></text>
+           x="25"
+           y="25">文房具</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="63.770905"
-         y="130"
+         x="25"
+         y="75"
          id="text7"><tspan
            id="tspan7"
            style="stroke-width:1.05833"
-           x="63.770905"
-           y="130">マッサージ</tspan></text>
+           x="25"
+           y="75">マッサージ</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="65.021317"
-         y="180"
+         x="25"
+         y="130"
          id="text8"><tspan
            id="tspan8"
            style="stroke-width:1.05833"
-           x="65.021317"
-           y="180">チケット販売</tspan></text>
+           x="25"
+           y="130">チケット販売</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:11.2889px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:10"
-         x="150"
-         y="109.99999"
+         x="110"
+         y="55"
          id="text4"><tspan
            id="tspan4"
            style="stroke-width:10"
-           x="150"
-           y="109.99999">書店</tspan></text>
+           x="110"
+           y="55">書店</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:11.2889px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#ffaaaa;stroke:none;stroke-width:10"
-         x="146.63817"
-         y="216.36803"
+         x="105"
+         y="160"
          id="text5"><tspan
            id="tspan5"
            style="fill:#000000;stroke-width:10"
-           x="146.63817"
-           y="216.36803">ゲームセンター</tspan></text>
+           x="105"
+           y="160">ゲームセンター</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="64.550446"
-         y="105.04189"
+         x="25"
+         y="50"
          id="text9"><tspan
            id="tspan9"
            style="stroke-width:1.05833"
-           x="64.550446"
-           y="105.04189">スマホ修理</tspan></text>
+           x="25"
+           y="50">スマホ修理</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="224.55045"
-         y="169.52376"
+         x="185"
+         y="115"
          id="text10"><tspan
            id="tspan10"
            style="stroke-width:1.05833"
-           x="224.55045"
-           y="169.52376">メガネ</tspan></text>
+           x="185"
+           y="115">メガネ</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="224.55045"
-         y="215.0419"
+         x="185"
+         y="165"
          id="text11"><tspan
            id="tspan11"
            style="stroke-width:1.05833"
-           x="224.55045"
-           y="215.0419">時計</tspan></text>
+           x="185"
+           y="165">時計</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="225"
-         y="240"
+         x="185"
+         y="190"
          id="text12"><tspan
            id="tspan12"
            style="stroke-width:1.05833"
-           x="225"
-           y="240">アクセサリ</tspan></text>
+           x="185"
+           y="190">アクセサリ</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="224.55045"
-         y="265.0419"
+         x="185"
+         y="215"
          id="text13"><tspan
            id="tspan13"
            style="stroke-width:1.05833"
-           x="224.55045"
-           y="265.0419">音楽</tspan></text>
+           x="185"
+           y="215">音楽</tspan></text>
     </g>
   </g>
 </svg>
