@@ -4,6 +4,7 @@ import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from '../css'
 import {
   vecVec as vec,
   vecAdd,
+  vecScale,
   vecSub,
   type VecVec as Vec,
 } from '../vec/prefixed'
@@ -96,24 +97,30 @@ export function layoutLeg(
   const lw = bw / 20
   const hlw = lw / 2
 
-  const p = vec(-hbw * hv.h, -hbh * hv.v)
+  function flip({ x, y }: Vec): Vec {
+    return { x: x * hv.h, y: y * hv.v }
+  }
 
-  const q =
-    hv.h === 0 || hv.v === 0
-      ? vec(-(hbw + ll) * hv.h, -(hbh + ll) * hv.v)
-      : vec(
-          -(hbw + ll * Math.cos(hv.th)) * hv.h,
-          -(hbh + ll * Math.sin(hv.th)) * hv.v
-        )
+  const landscape = hv.th < Math.PI / 4
+  const horizontal = hv.v === 0
+  const vertical = hv.h === 0
+  const angled = !(horizontal || vertical)
 
-  const [da, db]: [Vec, Vec] =
-    hv.h === 0
-      ? [vec(-hlw, 0), vec(hlw, 0)] // vertical leg
-      : hv.v === 0
-        ? [vec(0, -hlw), vec(0, hlw)] // horizontal leg
-        : hv.th < Math.PI / 4
-          ? [vec(0, 0), vec(0, lw * hv.v)] // angled (landscape)
-          : [vec(0, 0), vec(lw * hv.h, 0)] // angled (portrait)
+  const p = flip(vec(-hbw, -hbh))
+
+  const dqx = landscape ? ll : 0 // ll * Math.cos(hv.th)
+  const dqy = landscape ? 0 : ll // ll * Math.sin(hv.th)
+  const q = flip(
+    !angled ? vec(-(hbw + ll), -(hbh + ll)) : vec(-(hbw + dqx), -(hbh + dqy))
+  )
+
+  const [da, db]: [Vec, Vec] = vertical
+    ? [vec(-hlw, 0), vec(hlw, 0)] // vertical leg
+    : horizontal
+      ? [vec(0, -hlw), vec(0, hlw)] // horizontal leg
+      : landscape
+        ? [vec(0, 0), flip(vec(0, lw))] // angled (landscape)
+        : [vec(0, 0), flip(vec(lw, 0))] // angled (portrait)
   const a = vecAdd(p, da)
   const b = vecAdd(p, db)
 
@@ -177,17 +184,13 @@ export function balloonPaths(
 export function balloonStyle(
   { open, animating }: OpenClose,
   Q: Vec,
-  hv: Readonly<HV>,
+  _hv: Readonly<HV>,
   size: Readonly<BalloonSize>,
   leg: Readonly<LegLayout>
 ): string {
-  const { bw, bh, width, height } = size
+  const { width, height } = size
 
-  const pq = vecSub(leg.q, leg.p)
-  const dP = vec(
-    (bw / 2 + Math.abs(pq.x)) * hv.h,
-    (bh / 2 + Math.abs(pq.y)) * hv.v
-  )
+  const dP = vecScale(leg.q, -1)
 
   if (!animating) {
     const sb = 1
