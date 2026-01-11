@@ -26,7 +26,7 @@ class AddressTree(inkex.EffectExtension):
 
     _layer_name = None
 
-    _locs_json = None
+    #_locs_json = None
     _addresses_json = None
     _coords_json = None
     _resolved_names_json = None
@@ -67,6 +67,7 @@ class AddressTree(inkex.EffectExtension):
         pass
 
     def _collect_addresses(self, node):
+        self.msg(f"=== _collect_addresses@AddressTree")
         self._addresses = {}
         self._points = {}
 
@@ -91,6 +92,7 @@ class AddressTree(inkex.EffectExtension):
         pass
 
     def _find_layers(self):
+        self.msg(f"=== _find_layers")
         floor_pattern = self.options.floor
 
         res = [
@@ -99,6 +101,7 @@ class AddressTree(inkex.EffectExtension):
                 if not (node.label and (self._find_layers_opts['skip_ignoring'] and self._ignoring(node)))
                 if (floor_pattern is None or re.match(floor_pattern, node.label) is not None)
         ]
+        self.msg(f"=== _find_layers: {res}")
         return res
 
     def _find_assets(self):
@@ -119,6 +122,7 @@ class AddressTree(inkex.EffectExtension):
         return super().add_arguments(pars)
 
     def effect(self):
+        self.msg(f"==== AddressTree: start")
         if self.svg.selection:
             for node in self.svg.selection.values():
                 self._collect_addresses(node)
@@ -131,15 +135,15 @@ class AddressTree(inkex.EffectExtension):
                 # XXX set .json paths
                 # input
                 #self._locs_json = os.path.join(self.svg_path(), "build", f"locs_{self._layer_name}.json")
-                self._locs_json = os.path.join(self.svg_path(), "build", f"locs.json")
+                #self._locs_json = os.path.join(self.svg_path(), f"locs.json")
 
                 # output
-                self._addresses_json = os.path.join(self.svg_path(), "build", f"addresses_{self._layer_name}.json")
+                self._addresses_json = os.path.join(self.svg_path(), f"addresses/{self._layer_name}.json")
                 #self._coords_json = os.path.join(self.svg_path(), "build", f"coords_{self._layer_name}.json")
-                self._coords_json = os.path.join("/tmp", f"coords_{self._layer_name}.json")
+                self._coords_json = os.path.join(self.svg_path(), f"coords/{self._layer_name}.json")
                 #self._resolved_names_json = os.path.join(self.svg_path(), f"build/resolved_names_{self._layer_name}.json")
-                self._resolved_names_json = os.path.join("/tmp", f"resolved_names_{self._layer_name}.json")
-                self._facilities_json = os.path.join(self.svg_path(), "build", f"facilities.json")
+                self._resolved_names_json = os.path.join(self.svg_path(), f"resolved_names/{self._layer_name}.json")
+                self._facilities_json = os.path.join(self.svg_path(), f"facilities.json")
 
                 # XXX reset all data per layer
                 self._pre_collect_addresses(layer)
@@ -149,23 +153,31 @@ class AddressTree(inkex.EffectExtension):
                 self._process_addresses(layer)
                 self._post_process_addresses(layer)
             self._post_layers()
+        self.msg(f"==== AddressTree: end")
 
 
 class SaveAddresses(AddressTree):
     def _prefix_fixup(self, prefix):
+        self.msg(f"=== _prefix_fixup@SaveAddresses")
         # XXX
-        return re.sub(r'-Content-', '-', prefix)
+        res = re.sub(r'-Content-', '-', prefix)
+        self.msg(f"=== _prefix_fixup@SaveAddresses: {res}")
+        return res
 
     def _build_prefix(self, parents):
+        self.msg(f"=== _build_prefix@SaveAddresses")
         plabels = [p.label for p in parents]
         # all parents MUST have a label!
         if None in plabels:
             return None
         prefix = "-".join(plabels)
         sep = "-" if prefix != "" else ""
-        return self._prefix_fixup(f"{self._global_prefix}{prefix}{sep}")
+        res = self._prefix_fixup(f"{self._global_prefix}{prefix}{sep}")
+        self.msg(f"=== _build_prefix@SaveAddresses: {res}")
+        return res
 
     def _save_address(self, a, px, py, bb, href):
+        self.msg(f"=== _save_address@SaveAddresses")
         p = (px, py)
         self._addresses[a] = (p, bb, href)
         self._all_addresses[a] = (p, bb, href)
@@ -177,10 +189,11 @@ class SaveAddresses(AddressTree):
         self._all_points[p].append(a)
 
     def _save_addresses(self, node, prefix, label):
+        self.msg(f"=== _save_addresses@SaveAddresses")
         for child in list(node):
             # leaves MUST be <use> and define transform!
             a = f"{prefix}{label}-{child.label}"
-            bb: inkex.BoundingBox = child.bounding_box()
+            bb: inkex.BoundingBox = child.shape_box()
             c = None
             (px, py) = (None, None)
             if isinstance(child, inkex.Use) and child.transform:
@@ -199,15 +212,18 @@ class SaveAddresses(AddressTree):
                 self._save_address(a, px, py, bb, child.href)
 
     def _visitor_node_branch_save_address(self, node, parents):
+        self.msg(f"=== _visitor_node_branch_save_address@SaveAddresses")
         if node.label:
             prefix = self._build_prefix(parents)
             if prefix is not None:
                 self._save_addresses(node, prefix, node.label)
 
     def _visitor_node_branch(self, node, parents):
+        self.msg(f"=== _visitor_node_branch@SaveAddresses")
         self._visitor_node_branch_save_address(node, parents)
 
     def _sort_children_by_label(self, node):
+        self.msg(f"=== _sort_children_by_label@SaveAddresses")
         children = {}
         for a in list(node):
             if a.label:
@@ -223,7 +239,13 @@ class SaveAddresses(AddressTree):
                 node.append(a)
 
     def _post_collect_addresses(self, node):
-        with open(self._addresses_json, 'w') as f:
+        self.msg(f"=== _post_collect_addresses@SaveAddresses")
+        d = os.path.dirname(self._addresses_json)
+        try:
+            os.stat(d)
+        except:
+            os.mkdir(d)
+        with open(self._addresses_json, 'w', encoding="utf-8") as f:
             j = {}
             for k, ((x, y), bb, href) in self._addresses.items():
                 j[k] = {
@@ -231,10 +253,13 @@ class SaveAddresses(AddressTree):
                     'y': round(y, 3),
                     'w': round(bb.width, 3),
                 }
-            json.dump(j, f)
-        return super()._post_collect_addresses(node)
+            json.dump(j, f, indent=2)
+        res = super()._post_collect_addresses(node)
+        self.msg(f"=== _post_collect_addresses@SaveAddresses: {res}")
+        return res
 
     def _collect_links(self):
+        self.msg(f"=== _collect_links@SaveAddresses")
         n = 1
         for p in self._all_points:
             if len(p) == 1:
@@ -258,21 +283,28 @@ class SaveAddresses(AddressTree):
             n = n + 1
 
     def _save_links(self):
-        with open(self._facilities_json, 'w') as f:
+        self.msg(f"=== _save_links@SaveAddresses")
+        d = os.dirname(self._facilities_json)
+        try:
+            os.stat(d)
+        except:
+            os.mkdir(d)
+        with open(self._facilities_json, 'w', encoding="utf-8") as f:
             j = {
                 'biLinks': self._links
             }
-            json.dump(j, f)
+            json.dump(j, f, indent=2)
 
 
 class SaveAddressesWithLocs(SaveAddresses):
     # shop name => locs
-    _locs = {}
+    #_locs = {}
 
     def _pre_process_addresses(self, layer):
+        self.msg(f"=== _pre_process_addresses@SaveAddressesWithLocs")
         super()._pre_process_addresses(layer)
-        with open(self._locs_json) as f:
-            self._locs = json.load(f)
+        #with open(self._locs_json, "r", encoding="utf-8") as f:
+        #    self._locs = json.load(f)
 
 
 class GenerateAddresses(SaveAddressesWithLocs):
@@ -287,7 +319,9 @@ class GenerateAddresses(SaveAddressesWithLocs):
         pass
 
     def _generate_addresses(self, layer):
+        self.msg(f"=== GenerateAddresses: _generate_addresses")
         if len(self._addresses.items()) == 0:
+            self.msg(f"_generate_addresses: no items found!")
             return
 
         aparent = inkex.Group()
@@ -301,5 +335,6 @@ class GenerateAddresses(SaveAddressesWithLocs):
         self._cleanup_addresses(layer)
 
     def _process_addresses(self, layer):
+        self.msg(f"=== GenerateAddresses: _process_addresses")
         super()._process_addresses(layer)
         self._generate_addresses(layer)

@@ -55,7 +55,7 @@ class LoadPatterns(inkex.EffectExtension):
 
     def _parse_patterns_csv(self):
         self._patterns_csv = os.path.join(self.svg_path(), f"patterns.csv")
-        with open(self._patterns_csv, "r") as fh:
+        with open(self._patterns_csv, "r", encoding="utf-8") as fh:
             reader = csv.DictReader(fh)
             values = [line for line in reader]
             for v in values:

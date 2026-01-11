@@ -22,7 +22,7 @@ class SortSymbols(inkex.EffectExtension):
                 return False
             if not re.match("^[A-Z].*$", label):
                 return False
-            size = child.bounding_box().size
+            size = child.shape_box().size
             max_width = max(max_width, size.x)
             max_height = max(max_height, size.y)
         children = sorted(list(node), key = lambda e: e.label)

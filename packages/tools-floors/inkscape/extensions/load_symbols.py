@@ -109,7 +109,7 @@ class LoadSymbols(inkex.EffectExtension):
 
     def _parse_symbols_csv(self):
         self._symbols_csv = os.path.join(self.svg_path(), f"symbols.csv")
-        with open(self._symbols_csv, "r") as fh:
+        with open(self._symbols_csv, "r", encoding="utf-8") as fh:
             reader = csv.DictReader(fh)
             header = next(reader)
             values = [line for line in reader]

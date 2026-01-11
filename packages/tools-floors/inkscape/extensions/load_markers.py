@@ -58,7 +58,7 @@ class LoadMarkers(inkex.EffectExtension):
 
     def _parse_markers_csv(self):
         self._markers_csv = os.path.join(self.svg_path(), f"markers.csv")
-        with open(self._markers_csv, "r") as fh:
+        with open(self._markers_csv, "r", encoding="utf-8") as fh:
             reader = csv.DictReader(fh)
             values = [line for line in reader]
             for v in values:

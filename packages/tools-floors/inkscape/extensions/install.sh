@@ -1,4 +1,4 @@
-DIR=$( inkscape --user-data-directory )
+DIR=$( inkscape --user-data-directory )/extensions
 
 #rm "${DIR}"/*.inx "${DIR}"/*.py
 cp -p *.inx *.py "${DIR}"
@@ -9,6 +9,6 @@ daijimaps
 
 for subdir in ${subdirs}; do
   mkdir -p "${DIR}/${subdir}"
-  rm "${DIR}/${subdir}/"*.py
+  #rm "${DIR}/${subdir}/"*.py
   cp -p ${subdir}/*.py "${DIR}/${subdir}"
 done

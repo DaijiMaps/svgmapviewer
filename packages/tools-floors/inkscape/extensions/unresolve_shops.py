@@ -11,54 +11,41 @@ import daijimaps
 class UnresolveShops(daijimaps.SaveAddressesWithLocs):
     _names = {}
 
-    def _readd_shop(self, node, name, x, y, bb):
-        if name in self._locs:
-            locs = self._locs[name]
-            child = daijimaps.put_shop(None, x, y, bb, None, locs)
-            node.append(child)
-            return True
-        else:
-            return False
+    def _readd_shop_name(self, node, name, x, y):
+        child = daijimaps.draw_shop_name(name, x, y)
+        node.append(child)
 
     def _fixup_unresolved_names(self, node):
-        xshop1 = self.svg.getElementById("XShop1")
-        if xshop1 is None:
-            return
-        bb = xshop1.bounding_box()
         for child in list(node):
-            shop = daijimaps.read_shop(child)
+            shop = daijimaps.read_shop_name(child)
             if shop:
                 # resolved shops must be abslute
-                (address, name, (tx, ty), (ax, ay), scale) = shop
-                if (ax == 0 and ay == 0) or (ax == None and ay == None):
+                (_, name, (x, y)) = shop
+                if (x == 0 and y == 0):
                     self.msg(f"resolved shop must be absolute: {shop}")
                 else:
-                    if self._readd_shop(node, name, ax, ay, bb):
-                        node.remove(child)
+                    self._readd_shop_name(node, name, x, y)
+                    node.remove(child)
 
     def _load_names(self, node):
         self._names = {}
         for child in list(node):
             self.msg(f"unresolve: loading (Names): {child.label}")
-            shop = daijimaps.read_shop(child)
+            shop = daijimaps.read_shop_name(child)
             if shop:
                 # resolved shops must be abslute
-                (address, name, (tx, ty), (ax, ay), scale) = shop
+                (address, name, (x, y)) = shop
                 if name not in self._names:
                     self._names[name] = []
-                self._names[name].append({ 'x': ax, 'y': ay })
+                self._names[name].append({ 'x': x, 'y': y })
                 node.remove(child)
             else:
                 self.msg(f"unresolve: loading (Names): {child.label}: failed")
 
     def _load_unresolved_names(self, node):
-        xshop1 = self.svg.getElementById("XShop1")
-        if xshop1 is None:
-            return
-        bb = xshop1.bounding_box()
         for name, xys in self._names.items():
             for xy in xys:
-                self._readd_shop(node, name, xy['x'], xy['y'], bb)
+                self._readd_shop_name(node, name, xy['x'], xy['y'])
 
     def _find_group(self, layer, label):
         for child in list(layer):

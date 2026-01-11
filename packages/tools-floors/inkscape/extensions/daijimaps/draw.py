@@ -137,6 +137,26 @@ def draw_shop2(k, x, y, scale, href: inkex.BaseElement, locs):
     return g
 
 
+def draw_shop_name(text, x = 0, y = 0):
+    t = inkex.TextElement()
+    t.label = text
+    t.update(**{
+        "x": x,
+        "y": y,
+        "font-size": 1,
+    })
+    ts = inkex.Tspan()
+    ts.text = text
+    ts.update(**{
+        "x": x,
+        "y": y,
+        "font-size": 1,
+        "text-anchor": "middle",
+    })
+    t.append(ts)
+    return t
+
+
 def read_shop(node: inkex.BaseElement):
     if (not isinstance(node, inkex.Group)):
         return None
@@ -164,6 +184,20 @@ def read_shop(node: inkex.BaseElement):
     #locs = {}
     #locs["text"] = name
     return (address, name, (tx, ty), (ax, ay), scale)
+
+
+def read_shop_name(node: inkex.BaseElement):
+    if (not isinstance(node, inkex.TextElement)):
+        return None
+    name_and_address = node.label.split(" @ ")
+    name = name_and_address[0]
+    if len(name_and_address) == 1:
+        address = None
+    else:
+        address = name_and_address[1]
+    (x, y) = (node.x, node.y) if isinstance(node, inkex.TextElement) else (0, 0)
+    (tx, ty) = (node.transform.e, node.transform.f) if node.transform else (0, 0)
+    return (address, name, (x + tx, y + ty))
 
 
 def shop_to_relative(node: inkex.BaseElement):

@@ -4,6 +4,7 @@
 import inkex
 import inkex.command
 import json
+import os
 import daijimaps
 
 
@@ -14,19 +15,20 @@ class ResolveShops(daijimaps.SaveAddressesWithLocs):
     def _load_names(self, node):
         res = {}
         for child in list(node):
-            shop = daijimaps.read_shop(child)
+            shop = daijimaps.read_shop_name(child)
             if shop:
-                (address, name, txy, axy, scale) = shop
+                (address, name, txy) = shop
                 res[address] = name
         return res
 
     def _load_unresolved_names(self, node):
         res = {}
         for child in list(node):
-            shop = daijimaps.read_shop(child)
+            shop = daijimaps.read_shop_name(child)
+            self.msg(f"_load_unresolved_names {shop}")
             if shop:
                 # unresolved shops must be relative
-                (address, name, (tx, ty), (ax, ay), scale) = shop
+                (address, name, (tx, ty)) = shop
                 if tx != None and ty != None:
                     if name not in res:
                         res[name] = [{ 'x': tx, 'y': ty }]
@@ -38,7 +40,8 @@ class ResolveShops(daijimaps.SaveAddressesWithLocs):
         # XXX
         # XXX
         # XXX
-        exe = '/Users/uebayasi/Documents/Sources/DaijiMaps/cli/dist/misc-resolve-addresses.js'
+        #exe = '/Users/uebayasi/Documents/Sources/DaijiMaps/cli/dist/misc-resolve-addresses.js'
+        exe = '/tmp/resolve-addresses'
         # XXX
         # XXX
         # XXX
@@ -49,7 +52,7 @@ class ResolveShops(daijimaps.SaveAddressesWithLocs):
     def _resolve_names(self, names, unresolved_names):
         self._exec_resolve()
 
-        with open(self._resolved_names_json) as f:
+        with open(self._resolved_names_json, "r", encoding="utf-8") as f:
             j = json.load(f)
             self._resolved_addresses = j
 
@@ -60,28 +63,27 @@ class ResolveShops(daijimaps.SaveAddressesWithLocs):
             else:
                 for a in addresses:
                     ((px, py), bb, href) = self._addresses[a]
-                    if name in self._locs:
-                        locs = self._locs[name]
-                        g = daijimaps.draw_shop(a, px, py, bb, href, locs)
-                        names.append(g)
-                        for child in list(unresolved_names):
-                            if child.label == name:
-                                unresolved_names.remove(child)
-                    else:
-                        self.msg(f"locs not found for {name}")
+                    t = daijimaps.draw_shop_name(f"{name} @ {a}", px, py)
+                    names.append(t)
+                    for child in list(unresolved_names):
+                        if child.label == name:
+                            unresolved_names.remove(child)
 
     def _find_group(self, layer, label):
         for child in list(layer):
+            self.msg(f"_find_group: {child.label}")
             if not isinstance(child, inkex.Group):
                 continue
             if child.label is None or child.label != label:
                 continue
+            self.msg(f"_find_group: found: {child.label}")
             return child
         return None
 
     def _process_addresses(self, layer):
         self.msg(f"=== resolve: start")
         names = self._find_group(layer, '(Names)')
+        self.msg(f"_process_addresses: names {names}")
         if names is not None:
             j = self._load_names(names)
             self._names = j
@@ -92,11 +94,18 @@ class ResolveShops(daijimaps.SaveAddressesWithLocs):
             self._names = {}
 
         unresolved_names = self._find_group(layer, '(Unresolved Names)')
+        self.msg(f"_process_addresses: unresolved_names {unresolved_names}")
         if unresolved_names is None:
             unresolved_names = {}
         j = self._load_unresolved_names(unresolved_names)
-        with open(self._coords_json, 'w') as f:
-            json.dump(j, f)
+        self.msg(f"saving coords json: {j}")
+        d = os.path.dirname(self._coords_json)
+        try:
+            os.stat(d)
+        except:
+            os.mkdir(d)
+        with open(self._coords_json, 'w', encoding="utf-8") as f:
+            json.dump(j, f, indent=2, ensure_ascii=False)
 
         if names is not None and unresolved_names is not None:
             self._resolve_names(names, unresolved_names)
