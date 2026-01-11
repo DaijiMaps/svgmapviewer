@@ -25,7 +25,7 @@
      inkscape:document-units="px"
      showgrid="true"
      inkscape:zoom="1.8786667"
-     inkscape:cx="375"
+     inkscape:cx="395.7594"
      inkscape:cy="100.07097"
      inkscape:window-width="2560"
      inkscape:window-height="1363"
@@ -107,206 +107,201 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Part">
+    <path
+       id="rect4"
+       style="fill:#ffffff;stroke:none;stroke-width:4.23332;stroke-linecap:round;stroke-linejoin:round"
+       d="M 175,50 H 75 V 90 L 50,50 75,110 v 40 h 100 z"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:label="Shape" />
     <g
-       id="g54"
+       id="g52"
        style="display:inline"
-       inkscape:label="Left">
-      <path
-         id="rect4"
-         style="fill:#ffffff;stroke:none;stroke-width:4.23332;stroke-linecap:round;stroke-linejoin:round"
-         d="M 175 50 L 75 50 L 75 90 L 50 50 L 75 110 L 75 150 L 175 150 z"
-         sodipodi:nodetypes="cccccccc"
-         inkscape:label="Shape" />
+       inkscape:label="Length">
       <g
-         id="g52"
-         style="display:inline"
-         inkscape:label="Length">
-        <g
-           id="g6"
-           inkscape:label="bw">
-          <path
-             style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;marker-start:url(#ArrowWide);marker-end:url(#marker6)"
-             d="M 75 165 L 175 165"
-             id="path5" />
-          <text
-             xml:space="preserve"
-             style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ffffff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         id="g6"
+         inkscape:label="bw">
+        <path
+           style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;marker-start:url(#ArrowWide);marker-end:url(#marker6)"
+           d="M 75,165 H 175"
+           id="path5" />
+        <text
+           xml:space="preserve"
+           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ffffff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           x="125"
+           y="168.75"
+           id="text6"><tspan
+             sodipodi:role="line"
+             id="tspan6"
              x="125"
              y="168.75"
-             id="text6"><tspan
-               sodipodi:role="line"
-               id="tspan6"
-               x="125"
-               y="168.75"
-               style="font-size:10px;fill:#000000;stroke:none">bw</tspan></text>
-        </g>
-        <g
-           id="g7"
-           inkscape:label="bh">
-          <path
-             style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;marker-start:url(#ArrowWide);marker-end:url(#marker6)"
-             d="M 190 50 L 190 150"
-             id="path7"
-             sodipodi:nodetypes="cc" />
-          <text
-             xml:space="preserve"
-             style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ffffff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-             x="190"
-             y="103.75"
-             id="text7"><tspan
-               sodipodi:role="line"
-               id="tspan7"
-               x="190"
-               y="103.75"
-               style="font-size:10px;fill:#000000;stroke:none">bh</tspan></text>
-        </g>
-        <g
-           id="g14"
-           inkscape:label="lh">
-          <path
-             style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;marker-start:url(#ArrowWide);marker-end:url(#marker6)"
-             d="M 50 35 L 75 35"
-             id="path13"
-             sodipodi:nodetypes="cc" />
-          <text
-             xml:space="preserve"
-             style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ffffff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-             x="62.13"
-             y="38.8"
-             id="text14"><tspan
-               sodipodi:role="line"
-               id="tspan14"
-               x="62.13"
-               y="38.8"
-               style="font-size:10px;fill:#000000;stroke:none">lh</tspan></text>
-        </g>
-        <g
-           id="g15"
-           inkscape:label="lw"
-           style="display:inline">
-          <path
-             style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;marker-start:url(#ArrowWide);marker-end:url(#marker6)"
-             d="m 89.65 90 L 89.65 110"
-             id="path14"
-             sodipodi:nodetypes="cc" />
-          <text
-             xml:space="preserve"
-             style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ffffff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-             x="89.63"
-             y="103.75"
-             id="text15"><tspan
-               sodipodi:role="line"
-               id="tspan15"
-               x="89.63"
-               y="103.75"
-               style="font-size:10px;fill:#000000;stroke:none">lw</tspan></text>
-        </g>
+             style="font-size:10px;fill:#000000;stroke:none">bw</tspan></text>
       </g>
       <g
-         id="g53"
-         style="display:inline"
-         inkscape:label="Point">
-        <g
-           id="g55"
-           inkscape:label="P"
-           style="display:inline">
-          <text
-             xml:space="preserve"
-             style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-             x="69.77"
-             y="103.57"
-             id="text55"><tspan
-               sodipodi:role="line"
-               id="tspan55"
-               x="69.77"
-               y="103.57">P</tspan></text>
-          <circle
-             style="fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-             id="circle55"
-             cx="75"
-             cy="100"
-             r="1" />
-        </g>
-        <g
-           id="g49"
-           inkscape:label="O">
-          <text
-             xml:space="preserve"
-             style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         id="g7"
+         inkscape:label="bh">
+        <path
+           style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;marker-start:url(#ArrowWide);marker-end:url(#marker6)"
+           d="M 190,50 V 150"
+           id="path7"
+           sodipodi:nodetypes="cc" />
+        <text
+           xml:space="preserve"
+           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ffffff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           x="190"
+           y="103.75"
+           id="text7"><tspan
+             sodipodi:role="line"
+             id="tspan7"
+             x="190"
+             y="103.75"
+             style="font-size:10px;fill:#000000;stroke:none">bh</tspan></text>
+      </g>
+      <g
+         id="g14"
+         inkscape:label="lh">
+        <path
+           style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;marker-start:url(#ArrowWide);marker-end:url(#marker6)"
+           d="M 50,35 H 75"
+           id="path13"
+           sodipodi:nodetypes="cc" />
+        <text
+           xml:space="preserve"
+           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ffffff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           x="62.130001"
+           y="38.799999"
+           id="text14"><tspan
+             sodipodi:role="line"
+             id="tspan14"
+             x="62.130001"
+             y="38.799999"
+             style="font-size:10px;fill:#000000;stroke:none">lh</tspan></text>
+      </g>
+      <g
+         id="g15"
+         inkscape:label="lw"
+         style="display:inline">
+        <path
+           style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;marker-start:url(#ArrowWide);marker-end:url(#marker6)"
+           d="m 89.65,90 v 20"
+           id="path14"
+           sodipodi:nodetypes="cc" />
+        <text
+           xml:space="preserve"
+           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ffffff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           x="89.629997"
+           y="103.75"
+           id="text15"><tspan
+             sodipodi:role="line"
+             id="tspan15"
+             x="89.629997"
+             y="103.75"
+             style="font-size:10px;fill:#000000;stroke:none">lw</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g53"
+       style="display:inline"
+       inkscape:label="Point">
+      <g
+         id="g55"
+         inkscape:label="P"
+         style="display:inline">
+        <text
+           xml:space="preserve"
+           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           x="69.769997"
+           y="103.57"
+           id="text55"><tspan
+             sodipodi:role="line"
+             id="tspan55"
+             x="69.769997"
+             y="103.57">P</tspan></text>
+        <circle
+           style="fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           id="circle55"
+           cx="75"
+           cy="100"
+           r="1" />
+      </g>
+      <g
+         id="g49"
+         inkscape:label="O">
+        <text
+           xml:space="preserve"
+           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           x="130"
+           y="108.575"
+           id="text9"><tspan
+             sodipodi:role="line"
+             id="tspan9"
              x="130"
-             y="108.575"
-             id="text9"><tspan
-               sodipodi:role="line"
-               id="tspan9"
-               x="130"
-               y="108.575">O</tspan></text>
-          <circle
-             style="fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-             id="path9"
-             cx="125"
-             cy="100"
-             r="1" />
-        </g>
-        <g
-           id="g51"
-           inkscape:label="Q">
-          <text
-             xml:space="preserve"
-             style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+             y="108.575">O</tspan></text>
+        <circle
+           style="fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           id="path9"
+           cx="125"
+           cy="100"
+           r="1" />
+      </g>
+      <g
+         id="g51"
+         inkscape:label="Q">
+        <text
+           xml:space="preserve"
+           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           x="45"
+           y="57.775002"
+           id="text8"><tspan
+             sodipodi:role="line"
+             id="tspan8"
              x="45"
-             y="57.775"
-             id="text8"><tspan
-               sodipodi:role="line"
-               id="tspan8"
-               x="45"
-               y="57.775">Q</tspan></text>
-          <circle
-             style="fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-             id="circle11"
-             cx="50"
-             cy="50"
-             r="1" />
-        </g>
-        <g
-           id="g50"
-           inkscape:label="A">
-          <circle
-             style="fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-             id="circle9"
-             cx="75"
-             cy="110"
-             r="1" />
-          <text
-             xml:space="preserve"
-             style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-             x="80.005"
-             y="118.585"
-             id="text12"><tspan
-               sodipodi:role="line"
-               id="tspan12"
-               x="80.005"
-               y="118.585">A</tspan></text>
-        </g>
-        <g
-           id="g48"
-           inkscape:label="B">
-          <circle
-             style="fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-             id="circle10"
-             cx="75"
-             cy="90"
-             r="1" />
-          <text
-             xml:space="preserve"
-             style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-             x="79.785"
-             y="88.57"
-             id="text13"><tspan
-               sodipodi:role="line"
-               id="tspan13"
-               x="79.785"
-               y="88.57">B</tspan></text>
-        </g>
+             y="57.775002">Q</tspan></text>
+        <circle
+           style="fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           id="circle11"
+           cx="50"
+           cy="50"
+           r="1" />
+      </g>
+      <g
+         id="g50"
+         inkscape:label="A">
+        <circle
+           style="fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           id="circle9"
+           cx="75"
+           cy="110"
+           r="1" />
+        <text
+           xml:space="preserve"
+           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           x="80.004997"
+           y="118.585"
+           id="text12"><tspan
+             sodipodi:role="line"
+             id="tspan12"
+             x="80.004997"
+             y="118.585">A</tspan></text>
+      </g>
+      <g
+         id="g48"
+         inkscape:label="B">
+        <circle
+           style="fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           id="circle10"
+           cx="75"
+           cy="90"
+           r="1" />
+        <text
+           xml:space="preserve"
+           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           x="79.785004"
+           y="88.57"
+           id="text13"><tspan
+             sodipodi:role="line"
+             id="tspan13"
+             x="79.785004"
+             y="88.57">B</tspan></text>
       </g>
     </g>
   </g>
@@ -315,193 +310,188 @@
      id="layer3"
      inkscape:label="Direction">
     <g
-       id="g47"
-       style="display:inline"
-       inkscape:label="Right">
-      <g
-         id="g39"
-         inkscape:label="h=1,v=0">
-        <path
-           style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-           d="m 400 100 l 20 -5 L 420 75 L 470 75 L 470 125 L 420 125 L 420 105 z"
-           id="path15"
-           sodipodi:nodetypes="cccccccc" />
-        <text
-           xml:space="preserve"
-           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       id="g39"
+       inkscape:label="h=1,v=0">
+      <path
+         style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         d="m 400,100 20,-5 V 75 h 50 v 50 h -50 v -20 z"
+         id="path15"
+         sodipodi:nodetypes="cccccccc" />
+      <text
+         xml:space="preserve"
+         style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         x="445.245"
+         y="96.25"
+         id="text24"><tspan
+           sodipodi:role="line"
+           id="tspan24"
            x="445.245"
-           y="96.25"
-           id="text24"><tspan
-             sodipodi:role="line"
-             id="tspan24"
-             x="445.245"
-             y="96.25">h=1</tspan><tspan
-             sodipodi:role="line"
-             x="445.245"
-             y="111.25"
-             id="tspan25">v=0</tspan></text>
-      </g>
-      <g
-         id="g40"
-         inkscape:label="h=1,v=1">
-        <path
-           style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-           d="m 395 135 L 445 135 L 445 185 L 395 185 L 395 165 l -10 -30 l 10 20 z"
-           id="path19"
-           sodipodi:nodetypes="cccccccc" />
-        <text
-           xml:space="preserve"
-           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           y="96.25">h=1</tspan><tspan
+           sodipodi:role="line"
+           x="445.245"
+           y="111.25"
+           id="tspan25">v=0</tspan></text>
+    </g>
+    <g
+       id="g40"
+       inkscape:label="h=1,v=1">
+      <path
+         style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         d="m 395,135 h 50 v 50 h -50 v -20 l -10,-30 10,20 z"
+         id="path19"
+         sodipodi:nodetypes="cccccccc" />
+      <text
+         xml:space="preserve"
+         style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         x="420.81"
+         y="156.29999"
+         id="text27"><tspan
+           sodipodi:role="line"
+           id="tspan26"
            x="420.81"
-           y="156.29999"
-           id="text27"><tspan
-             sodipodi:role="line"
-             id="tspan26"
-             x="420.81"
-             y="156.29999">h=1</tspan><tspan
-             sodipodi:role="line"
-             x="420.81"
-             y="171.29999"
-             id="tspan27">v=1</tspan></text>
-      </g>
-      <g
-         id="g41"
-         inkscape:label="h=0,v=1">
-        <path
-           style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-           d="m 350 125 l 5 20 L 375 145 L 375 195 L 325 195 L 325 145 L 345 145 z"
-           id="path16"
-           sodipodi:nodetypes="cccccccc" />
-        <text
-           xml:space="preserve"
-           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           y="156.29999">h=1</tspan><tspan
+           sodipodi:role="line"
+           x="420.81"
+           y="171.29999"
+           id="tspan27">v=1</tspan></text>
+    </g>
+    <g
+       id="g41"
+       inkscape:label="h=0,v=1">
+      <path
+         style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         d="m 350,125 5,20 h 20 v 50 h -50 v -50 h 20 z"
+         id="path16"
+         sodipodi:nodetypes="cccccccc" />
+      <text
+         xml:space="preserve"
+         style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         x="350.245"
+         y="166.25"
+         id="text29"><tspan
+           sodipodi:role="line"
+           id="tspan28"
            x="350.245"
-           y="166.25"
-           id="text29"><tspan
-             sodipodi:role="line"
-             id="tspan28"
-             x="350.245"
-             y="166.25">h=0</tspan><tspan
-             sodipodi:role="line"
-             x="350.245"
-             y="181.25"
-             id="tspan29">v=1</tspan></text>
-      </g>
-      <g
-         id="g42"
-         inkscape:label="h=-1,v=1">
-        <path
-           style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-           d="m 305 185 L 255 185 L 255 135 L 305 135 L 305 155 l 10 -20 l -10 30 z"
-           id="path23"
-           sodipodi:nodetypes="cccccccc" />
-        <text
-           xml:space="preserve"
-           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           y="166.25">h=0</tspan><tspan
+           sodipodi:role="line"
+           x="350.245"
+           y="181.25"
+           id="tspan29">v=1</tspan></text>
+    </g>
+    <g
+       id="g42"
+       inkscape:label="h=-1,v=1">
+      <path
+         style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         d="m 305,185 h -50 v -50 h 50 v 20 l 10,-20 -10,30 z"
+         id="path23"
+         sodipodi:nodetypes="cccccccc" />
+      <text
+         xml:space="preserve"
+         style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         x="280.66"
+         y="156.29999"
+         id="text31"><tspan
+           sodipodi:role="line"
+           id="tspan30"
            x="280.66"
-           y="156.29999"
-           id="text31"><tspan
-             sodipodi:role="line"
-             id="tspan30"
-             x="280.66"
-             y="156.29999">h=-1</tspan><tspan
-             sodipodi:role="line"
-             x="280.66"
-             y="171.29999"
-             id="tspan31">v=1</tspan></text>
-      </g>
-      <g
-         id="g43"
-         inkscape:label="h=-1,v=0">
-        <path
-           style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-           d="m 300 100 l -20 5 L 280 125 L 230 125 L 230 75 L 280 75 L 280 95 z"
-           id="path17"
-           sodipodi:nodetypes="cccccccc" />
-        <text
-           xml:space="preserve"
-           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           y="156.29999">h=-1</tspan><tspan
+           sodipodi:role="line"
+           x="280.66"
+           y="171.29999"
+           id="tspan31">v=1</tspan></text>
+    </g>
+    <g
+       id="g43"
+       inkscape:label="h=-1,v=0">
+      <path
+         style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         d="m 300,100 -20,5 v 20 H 230 V 75 h 50 v 20 z"
+         id="path17"
+         sodipodi:nodetypes="cccccccc" />
+      <text
+         xml:space="preserve"
+         style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         x="255.245"
+         y="96.25"
+         id="text33"><tspan
+           sodipodi:role="line"
+           id="tspan32"
            x="255.245"
-           y="96.25"
-           id="text33"><tspan
-             sodipodi:role="line"
-             id="tspan32"
-             x="255.245"
-             y="96.25">h=-1</tspan><tspan
-             sodipodi:role="line"
-             x="255.245"
-             y="111.25"
-             id="tspan33">v=0</tspan></text>
-      </g>
-      <g
-         id="g44"
-         inkscape:label="h=-1,v=-1">
-        <path
-           style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-           d="m 305 15 L 255 15 L 255 65 L 305 65 L 305 45 l 10 20 l -10 -30 z"
-           id="path24"
-           sodipodi:nodetypes="cccccccc" />
-        <text
-           xml:space="preserve"
-           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           y="96.25">h=-1</tspan><tspan
+           sodipodi:role="line"
+           x="255.245"
+           y="111.25"
+           id="tspan33">v=0</tspan></text>
+    </g>
+    <g
+       id="g44"
+       inkscape:label="h=-1,v=-1">
+      <path
+         style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         d="m 305,15 h -50 v 50 h 50 V 45 l 10,20 -10,-30 z"
+         id="path24"
+         sodipodi:nodetypes="cccccccc" />
+      <text
+         xml:space="preserve"
+         style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         x="280.81"
+         y="36.299992"
+         id="text35"><tspan
+           sodipodi:role="line"
+           id="tspan34"
            x="280.81"
-           y="36.299992"
-           id="text35"><tspan
-             sodipodi:role="line"
-             id="tspan34"
-             x="280.81"
-             y="36.299992">h=-1</tspan><tspan
-             sodipodi:role="line"
-             x="280.81"
-             y="51.299992"
-             id="tspan35">v=-1</tspan></text>
-      </g>
-      <g
-         id="g45"
-         inkscape:label="h=0,v=-1">
-        <path
-           style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-           d="M 350 75 L 345 55 L 325 55 L 325 5 L 375 5 L 375 55 L 355 55 z"
-           id="path18"
-           sodipodi:nodetypes="cccccccc" />
-        <text
-           xml:space="preserve"
-           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           y="36.299992">h=-1</tspan><tspan
+           sodipodi:role="line"
+           x="280.81"
+           y="51.299992"
+           id="tspan35">v=-1</tspan></text>
+    </g>
+    <g
+       id="g45"
+       inkscape:label="h=0,v=-1">
+      <path
+         style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         d="M 350,75 345,55 H 325 V 5 h 50 v 50 h -20 z"
+         id="path18"
+         sodipodi:nodetypes="cccccccc" />
+      <text
+         xml:space="preserve"
+         style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         x="350.245"
+         y="26.25"
+         id="text37"><tspan
+           sodipodi:role="line"
+           id="tspan36"
            x="350.245"
-           y="26.25"
-           id="text37"><tspan
-             sodipodi:role="line"
-             id="tspan36"
-             x="350.245"
-             y="26.25">h=0</tspan><tspan
-             sodipodi:role="line"
-             x="350.245"
-             y="41.25"
-             id="tspan37">v=-1</tspan></text>
-      </g>
-      <g
-         id="g46"
-         inkscape:label="h=1,v=-1">
-        <path
-           style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-           d="m 395 15 L 445 15 L 445 65 L 395 65 L 395 45 l -10 20 l 10 -30 z"
-           id="path22"
-           sodipodi:nodetypes="cccccccc" />
-        <text
-           xml:space="preserve"
-           style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           y="26.25">h=0</tspan><tspan
+           sodipodi:role="line"
+           x="350.245"
+           y="41.25"
+           id="tspan37">v=-1</tspan></text>
+    </g>
+    <g
+       id="g46"
+       inkscape:label="h=1,v=-1">
+      <path
+         style="fill:#ffffff;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         d="m 395,15 h 50 V 65 H 395 V 45 l -10,20 10,-30 z"
+         id="path22"
+         sodipodi:nodetypes="cccccccc" />
+      <text
+         xml:space="preserve"
+         style="font-size:10px;line-height:1.5;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         x="421.08499"
+         y="36.299992"
+         id="text39"><tspan
+           sodipodi:role="line"
+           id="tspan38"
            x="421.08499"
-           y="36.299992"
-           id="text39"><tspan
-             sodipodi:role="line"
-             id="tspan38"
-             x="421.08499"
-             y="36.299992">h=1</tspan><tspan
-             sodipodi:role="line"
-             x="421.08499"
-             y="51.299992"
-             id="tspan39">v=-1</tspan></text>
-      </g>
+           y="36.299992">h=1</tspan><tspan
+           sodipodi:role="line"
+           x="421.08499"
+           y="51.299992"
+           id="tspan39">v=-1</tspan></text>
     </g>
   </g>
   <g
