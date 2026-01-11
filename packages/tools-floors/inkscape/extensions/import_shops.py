@@ -25,10 +25,6 @@ class ImportShops(daijimaps.GenerateAddresses):
         return None
     
 
-    def _draw_shops(self, aparent, k, x, y, bb, href, locs):
-        g = daijimaps.draw_shop(k, x, y, bb, href, locs)
-        aparent.append(g)
-
     def _draw_shop_names(self, aparent, text):
         g = daijimaps.draw_shop_name(text)
         aparent.append(g)

@@ -296,18 +296,7 @@ class SaveAddresses(AddressTree):
             json.dump(j, f, indent=2)
 
 
-class SaveAddressesWithLocs(SaveAddresses):
-    # shop name => locs
-    #_locs = {}
-
-    def _pre_process_addresses(self, layer):
-        self.msg(f"=== _pre_process_addresses@SaveAddressesWithLocs")
-        super()._pre_process_addresses(layer)
-        #with open(self._locs_json, "r", encoding="utf-8") as f:
-        #    self._locs = json.load(f)
-
-
-class GenerateAddresses(SaveAddressesWithLocs):
+class GenerateAddresses(SaveAddresses):
     _group_label = "(Addresses)"
 
     def _cleanup_addresses(self, layer):

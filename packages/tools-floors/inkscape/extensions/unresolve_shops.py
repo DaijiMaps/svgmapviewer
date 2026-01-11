@@ -8,7 +8,7 @@ import daijimaps
 
 
 
-class UnresolveShops(daijimaps.SaveAddressesWithLocs):
+class UnresolveShops(daijimaps.SaveAddresses):
     _names = {}
 
     def _readd_shop_name(self, node, name, x, y):

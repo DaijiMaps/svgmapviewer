@@ -9,7 +9,7 @@ import daijimaps
 
 
 
-class ResolveShops(daijimaps.SaveAddressesWithLocs):
+class ResolveShops(daijimaps.SaveAddresses):
     _names = {}
 
     def _load_names(self, node):
