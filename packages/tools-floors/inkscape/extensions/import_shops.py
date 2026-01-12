@@ -18,7 +18,7 @@ class ImportShops(daijimaps.GenerateAddresses):
         return p
 
     def _draw_shop_names(self, aparent, text):
-        g = daijimaps.draw_shop_name(text)
+        g = daijimaps.draw_name(text)
         aparent.append(g)
 
     def _generate_addresses(self, layer):

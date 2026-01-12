@@ -12,12 +12,12 @@ class UnresolveShops(daijimaps.SaveAddresses):
     _names = {}
 
     def _readd_shop_name(self, node, name, x, y):
-        child = daijimaps.draw_shop_name(name, x, y)
+        child = daijimaps.draw_name(name, x, y)
         node.append(child)
 
     def _fixup_unresolved_names(self, node):
         for child in list(node):
-            shop = daijimaps.read_shop_name(child)
+            shop = daijimaps.read_name(child)
             if shop:
                 # resolved shops must be abslute
                 (_, name, (x, y)) = shop
@@ -31,7 +31,7 @@ class UnresolveShops(daijimaps.SaveAddresses):
         self._names = {}
         for child in list(node):
             self.msg(f"unresolve: loading (Names): {child.label}")
-            shop = daijimaps.read_shop_name(child)
+            shop = daijimaps.read_name(child)
             if shop:
                 # resolved shops must be abslute
                 (address, name, (x, y)) = shop

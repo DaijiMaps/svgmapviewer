@@ -15,7 +15,7 @@ class ResolveShops(daijimaps.SaveAddresses):
     def _load_names(self, node):
         res = {}
         for child in list(node):
-            shop = daijimaps.read_shop_name(child)
+            shop = daijimaps.read_name(child)
             if shop:
                 (address, name, txy) = shop
                 res[address] = name
@@ -24,7 +24,7 @@ class ResolveShops(daijimaps.SaveAddresses):
     def _load_unresolved_names(self, node):
         res = {}
         for child in list(node):
-            shop = daijimaps.read_shop_name(child)
+            shop = daijimaps.read_name(child)
             self.msg(f"_load_unresolved_names {shop}")
             if shop:
                 # unresolved shops must be relative
@@ -64,7 +64,7 @@ class ResolveShops(daijimaps.SaveAddresses):
             else:
                 for a in addresses:
                     ((px, py), bb, href) = self._addresses[a]
-                    t = daijimaps.draw_shop_name(f"{name} @ {a}", px, py)
+                    t = daijimaps.draw_name(f"{name} @ {a}", px, py)
                     names.append(t)
                     for child in list(unresolved_names):
                         if child.label == name:
