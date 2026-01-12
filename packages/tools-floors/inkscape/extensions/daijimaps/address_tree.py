@@ -38,6 +38,33 @@ class AddressTree(inkex.EffectExtension):
         'skip_ignoring': True
     }
 
+    def _get_path(self, prefix, suffix):
+        assert isinstance(self._layer_name, str)
+        ps = [
+            f"floors/{self._layer_name}/{prefix}.{suffix}",
+            f"floors/{prefix}/{self._layer_name}.{suffix}",
+
+            f"floors/{self._layer_name}-{prefix}.{suffix}",
+            f"floors/{prefix}-{self._layer_name}.{suffix}",
+
+            f"{self._layer_name}/{prefix}.{suffix}",
+            f"{prefix}/{self._layer_name}.{suffix}",
+
+            f"{self._layer_name}-{prefix}.{suffix}",
+            f"{prefix}-{self._layer_name}.{suffix}",
+        ]
+        for p in ps:
+            svg_path = self.svg_path()
+            assert isinstance(svg_path, str)
+            path = os.path.join(svg_path, p)
+            self.msg(f"_get_path: {path}")
+            if os.access(path, os.R_OK):
+                self.msg(f"_get_path: found: {path}")
+                return path
+        self.msg(f"_get_path: not found: {prefix}, {suffix}")
+        return None
+
+
     def _ignoring(self, node):
         return re.match(self._ignore_pattern, node.label) is not None
 
@@ -184,7 +211,7 @@ class SaveAddresses(AddressTree):
         return res
 
     def _save_address(self, a, px, py, bb, href):
-        self.msg(f"=== _save_address@SaveAddresses")
+        self.msg(f"=== _save_address@SaveAddresses: {a} @ {px},{py}")
         p = (px, py)
         self._addresses[a] = (p, bb, href)
         self._all_addresses[a] = (p, bb, href)
@@ -203,14 +230,17 @@ class SaveAddresses(AddressTree):
             bb: inkex.BoundingBox = child.shape_box()
             c = None
             (px, py) = (None, None)
-            if isinstance(child, inkex.Use) and child.transform:
-                (px, py) = (child.transform.e, child.transform.f)
+            (tx, ty) = (child.transform.e, child.transform.f) if child.transform else (0, 0)
+            if isinstance(child, inkex.Use):
+                x = child.get("x") or 0
+                y = child.get("y") or 0
+                (px, py) = (float(tx) + float(x), float(ty) + float(y))
             elif isinstance(child, inkex.Circle):
                 c = child.center
             elif isinstance(child, inkex.Ellipse):
                 c = child.center
             if c != None:
-                (px, py) = (c.x, c.y)
+                (px, py) = (float(tx) + float(c.x), float(ty) + float(c.y))
                 l = (bb.width + bb.height) * 0.5
                 w = min(bb.width, l)
                 dx = (w * 0.8 - bb.width) * 0.5
@@ -256,11 +286,23 @@ class SaveAddresses(AddressTree):
         with open(self._addresses_json, 'w', encoding="utf-8") as f:
             j = {}
             for k, ((x, y), bb, href) in self._addresses.items():
+                # XXX
+                # XXX prefer 1 to 1.0
+                # XXX
+                r3x = round(x, 3)
+                r3y = round(y, 3)
+                r3w = round(bb.width, 3)
+                rx = round(r3x)
+                ry = round(r3y)
+                rw = round(r3w)
                 j[k] = {
-                    'x': round(x, 3),
-                    'y': round(y, 3),
-                    'w': round(bb.width, 3),
+                    'x': r3x if r3x != rx else rx,
+                    'y': r3y if r3y != ry else ry,
+                    'w': r3w if r3w != rw else rw,
                 }
+                # XXX
+                # XXX
+                # XXX
             json.dump(j, f, indent=2)
         res = super()._post_collect_addresses(node)
         self.msg(f"=== _post_collect_addresses@SaveAddresses: {res}")

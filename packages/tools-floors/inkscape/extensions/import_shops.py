@@ -12,20 +12,10 @@ class ImportShops(daijimaps.GenerateAddresses):
     _group_label = "(Unresolved Names)"
     
     def _get_shops_txt(self):
-        ps = [
-            f"shops/{self._layer_name}.txt",
-            f"shops_{self._layer_name}.txt",
-        ]
-        for p in ps:
-            svg_path = self.svg_path()
-            assert isinstance(svg_path, str)
-            path = os.path.join(svg_path, p)
-            self.msg(f"_get_shops_txt: {path}")
-            if os.access(path, os.R_OK):
-                self.msg(f"_get_shops_txt: found: {path}")
-                return path
-        return None
-    
+        p = self._get_path('names', 'txt')
+        if p is None:
+            p = self._get_path('shops', 'txt')
+        return p
 
     def _draw_shop_names(self, aparent, text):
         g = daijimaps.draw_shop_name(text)
@@ -36,16 +26,6 @@ class ImportShops(daijimaps.GenerateAddresses):
         aparent = inkex.Group()
         aparent.label = self._group_label
 
-        xshop1 = self.svg.getElementById("XShop1")
-        if xshop1 is None:
-            self.msg("_generate_addresses: XShop1 not found!")
-            return
-        bb = xshop1.shape_box()
-        for child in xshop1:
-            self.msg(f"_generate_addresses: child shape?: {isinstance(child, inkex.ShapeElement)}")
-            self.msg(f"_generate_addresses: child visible?: {child.is_visible()}")
-        self.msg(f"_generate_addresses: XShop1={xshop1}; bb={bb}")
-
         path = self._get_shops_txt()
         if (path is None):
             self.msg(f"shops.txt not found!")
@@ -53,7 +33,6 @@ class ImportShops(daijimaps.GenerateAddresses):
         with open(path, "r", encoding="utf-8") as fh:
             texts = [
                 text for text in [line.strip() for line in fh.readlines()]
-                    #if text in self._locs
             ]
             for text in texts:
                 self._draw_shop_names(aparent, text)

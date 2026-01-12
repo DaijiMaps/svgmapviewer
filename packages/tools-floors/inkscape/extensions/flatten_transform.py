@@ -16,11 +16,11 @@ def _is_translate_only(t: inkex.Transform):
     return is_unit and _is_translate(t)
 
 def _translate_x_y(node, t, ax = "x", ay = "y"):
-    x = float(node.attrib[ax])
-    y = float(node.attrib[ay])
-    node.attrib[ax] = f"%g" % (x + t.e)
-    node.attrib[ay] = f"%g" % (y + t.f)
-    node.set('transform', None)
+    x = node.get(ax) or 0
+    y = node.get(ay) or 0
+    node.set(ax, f"%.3g" % (float(x) + t.e))
+    node.set(ay, f"%.3g" % (float(y) + t.f))
+    del node.attrib['transform']
 
 def _translate_cx_cy(node, t):
     _translate_x_y(node, t, "cx", "cy")
