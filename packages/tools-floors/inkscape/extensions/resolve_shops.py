@@ -2,121 +2,57 @@
 # coding=utf-8
 
 import inkex
-import inkex.command
 import json
 import os
+import sys
 import daijimaps
 
 
 
-class ResolveShops(daijimaps.SaveAddresses):
-    _names = {}
+class ResolveShops(daijimaps.ResolveNames):
+    def _draw_resolved_names(self, names_group: inkex.Group, unresolved_names_group: inkex.Group) -> None:
+        self.msg(f"drawing result {self._tmp_resolved_names}")
+        for name, astrs in self._tmp_resolved_names.items():
+            for astr in astrs:
+                label = f"{name} @ {astr}"
+                for child in names_group:
+                    if child.label == label:
+                        names_group.remove(child)
+                ((x, y), _bb, _href) = self._addresses[astr]
+                t = daijimaps.draw_name(label, x, y)
+                names_group.append(t)
+                for child in list(unresolved_names_group):
+                    if child.label == name:
+                        unresolved_names_group.remove(child)
 
-    def _load_names(self, node):
-        res = {}
-        for child in list(node):
-            shop = daijimaps.read_name(child)
-            if shop:
-                (address, name, txy) = shop
-                res[address] = name
-        return res
-
-    def _load_unresolved_names(self, node):
-        res = {}
-        for child in list(node):
-            shop = daijimaps.read_name(child)
-            self.msg(f"_load_unresolved_names {shop}")
-            if shop:
-                # unresolved shops must be relative
-                (address, name, (tx, ty)) = shop
-                if tx != None and ty != None:
-                    if name not in res:
-                        res[name] = [{ 'x': tx, 'y': ty }]
-                    else:
-                        res[name].append({ 'x': tx, 'y': ty })
-        return res
-
-    def _exec_resolve(self):
-        # XXX
-        # XXX
-        # XXX
-        #exe = '/Users/uebayasi/Documents/Sources/DaijiMaps/cli/dist/misc-resolve-addresses.js'
-        exe = '/tmp/resolve-addresses'
-        # XXX
-        # XXX
-        # XXX
-
-        return inkex.command.call(
-            exe, self._addresses_json, self._coords_json, self._resolved_names_json)
-
-    def _resolve_names(self, names, unresolved_names):
-        self._exec_resolve()
-
-        assert self._resolved_names_json is not None, f"resolved_names.json path is unspecified"
-        with open(self._resolved_names_json, "r", encoding="utf-8") as f:
-            j = json.load(f)
-            self._resolved_addresses = j
-
-        for name, addresses in self._resolved_addresses.items():
-            if name in self._names:
-                # used!
-                self.msg(f"{name} is placed near address {a} but the address already used by {self._names[a]}, skipping")
-            else:
-                for a in addresses:
-                    ((px, py), bb, href) = self._addresses[a]
-                    t = daijimaps.draw_name(f"{name} @ {a}", px, py)
-                    names.append(t)
-                    for child in list(unresolved_names):
-                        if child.label == name:
-                            unresolved_names.remove(child)
-
-    def _find_group(self, layer, label):
-        for child in list(layer):
-            self.msg(f"_find_group: {child.label}")
-            if not isinstance(child, inkex.Group):
-                continue
-            if child.label is None or child.label != label:
-                continue
-            self.msg(f"_find_group: found: {child.label}")
-            return child
-        return None
-
-    def _process_addresses(self, layer):
+    def _process_addresses(self, layer) -> None:
         self.msg(f"=== resolve: start")
-        names = self._find_group(layer, '(Names)')
-        self.msg(f"_process_addresses: names {names}")
-        if names is not None:
-            j = self._load_names(names)
-            self._names = j
-        else:
-            names = inkex.Group()
-            names.label = '(Names)'
-            layer.append(names)
-            self._names = {}
 
-        unresolved_names = self._find_group(layer, '(Unresolved Names)')
-        self.msg(f"_process_addresses: unresolved_names {unresolved_names}")
-        if unresolved_names is None:
-            unresolved_names = {}
-        j = self._load_unresolved_names(unresolved_names)
-        self.msg(f"saving coords json: {j}")
+        names_group = self._prepare_names_group(layer)
+        unresolved_names_group = self._prepare_unresolved_names_group(layer)
 
-        assert self._coords_json is not None, f"_coords_json path is unspecified"
-        d = os.path.dirname(self._coords_json)
-        try:
-            os.stat(d)
-        except:
-            os.mkdir(d)
-        with open(self._coords_json, 'w', encoding="utf-8") as f:
-            json.dump(j, f, indent=2, ensure_ascii=False)
+        if names_group is None:
+            self.msg(f"(Names) group does not exist!")
+            return
+        if unresolved_names_group is None:
+            self.msg(f"(Unresolved Names) group does not exist!")
+            return
+        
+        self._save_tmp_unresolved_names()
+        self._exec_resolve()
+        self._load_tmp_resolved_names()
+        self._draw_resolved_names(names_group, unresolved_names_group)
+        self._sort_children_by_label(names_group)
+        
+        self._read_resolved_names(names_group)
+        self._save_resolved_names()
+        self._read_unresolved_names(unresolved_names_group)
+        self._save_unresolved_names()
 
-        if names is not None and unresolved_names is not None:
-            self._resolve_names(names, unresolved_names)
-            self._sort_children_by_label(names)
         self.msg(f"=== resolve: end")
 
     # XXX
-    def _post_layers(self):
+    def _post_layers(self) -> None:
         if self.options.floor != '.':
             # avoid incomplete links
             self.msg(f"=== resolve facility links: skip")

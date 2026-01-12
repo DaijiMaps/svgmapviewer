@@ -6,13 +6,13 @@ from inkex.paths import (Move)
 
 
 
-def preferInt(n):
+def preferInt(n: float) -> float | int:
     r = round(n)
     return r if r == n else n
 
 
 
-def draw_name(text, x = 0, y = 0):
+def draw_name(text, x: float = 0, y: float = 0) -> inkex.TextElement:
     t = inkex.TextElement()
     t.label = text
     t.update(**{
@@ -33,7 +33,11 @@ def draw_name(text, x = 0, y = 0):
     return t
 
 
-def read_name(node: inkex.BaseElement):
+type XY = tuple[float, float]
+type Name = tuple[None | str, str, XY]
+
+
+def read_name(node: inkex.BaseElement) -> None | Name:
     if (not isinstance(node, inkex.TextElement)):
         return None
     assert isinstance(node.label, str)

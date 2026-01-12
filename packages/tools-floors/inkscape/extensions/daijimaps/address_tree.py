@@ -3,17 +3,44 @@
 
 from argparse import ArgumentParser
 import inkex
+import inkex.command
 import json
 import re
 import os
-from typing import Union
+from typing import Union, TypedDict
 from lxml import etree
-from .visit_parents import (_visit_parents, CONT, SKIP)
+from .visit_parents import (_visit_parents, CONT, SKIP, Visit)
+from .name import read_name, draw_name
+
+
+
+type Url = str
+
+type AddressPosEntry = tuple[XY, inkex.BoundingBox, Url]
+type AddressPos = dict[AddressString, AddressPosEntry]
+
+type AddressString = str
+type NameString = str
+type XY = tuple[float, float]
+
+type Address = tuple[AddressString | None, XY]
+type Addresses = list[Address]
+type NameAddresses = dict[NameString, Addresses]
+
+type Name = tuple[AddressString, XY]
+type Names = list[Name]
+type AddressNames = dict[AddressString, Names]
+
+class Vector(TypedDict):
+    x: float
+    y: float
+type TmpNameCoords = dict[NameString, list[Vector]]
+type TmpNameAddress = dict[NameString, list[AddressString]]
 
 
 class AddressTree(inkex.EffectExtension):
-    _addresses = {}
-    _all_addresses = {}
+    _addresses: AddressPos = {}
+    _all_addresses: AddressPos = {}
     _points = {}
     _all_points = {}
     _links = {}
@@ -30,15 +57,20 @@ class AddressTree(inkex.EffectExtension):
 
     #_locs_json = None
     _addresses_json = None
-    _coords_json = None
+    _unresolved_names_json = None
     _resolved_names_json = None
+
+    # XXX resolve-addresses input/output
+    _tmp_unresolved_names_json = None
+    _tmp_resolved_names_json = None
+
     _facilities_json = None
 
     _find_layers_opts = {
         'skip_ignoring': True
     }
 
-    def _get_path(self, prefix, suffix):
+    def _get_path(self, prefix, suffix) -> str | None:
         assert isinstance(self._layer_name, str)
         ps = [
             f"floors/{self._layer_name}/{prefix}.{suffix}",
@@ -74,7 +106,7 @@ class AddressTree(inkex.EffectExtension):
     def _visitor_node_leaf(self, node, parents):
         pass
 
-    def _visitor(self, node, parents):
+    def _visitor(self, node, parents) -> Visit:
         if not isinstance(node, inkex.Group):
             return SKIP
         if node.label and self._ignoring(node):
@@ -173,10 +205,12 @@ class AddressTree(inkex.EffectExtension):
                 p = self.svg_path()
                 assert isinstance(p, str)
                 self._addresses_json = os.path.join(p, f"addresses/{self._layer_name}.json")
-                #self._coords_json = os.path.join(self.svg_path(), "build", f"coords_{self._layer_name}.json")
-                self._coords_json = os.path.join(p, f"coords/{self._layer_name}.json")
-                #self._resolved_names_json = os.path.join(self.svg_path(), f"build/resolved_names_{self._layer_name}.json")
+                self._unresolved_names_json = os.path.join(p, f"unresolved_names/{self._layer_name}.json")
                 self._resolved_names_json = os.path.join(p, f"resolved_names/{self._layer_name}.json")
+                #self._tmp_unresolved_names_json = os.path.join(self.svg_path(), "build", f"coords_{self._layer_name}.json")
+                self._tmp_unresolved_names_json = os.path.join("/tmp", f"tmp_unresolved_names_{self._layer_name}.json")
+                #self._tmp_resolved_names_json = os.path.join(self.svg_path(), f"build/resolved_names_{self._layer_name}.json")
+                self._tmp_resolved_names_json = os.path.join("/tmp", f"tmp_resolved_names_{self._layer_name}.json")
                 self._facilities_json = os.path.join(p, f"facilities.json")
 
                 # XXX reset all data per layer
@@ -308,7 +342,7 @@ class SaveAddresses(AddressTree):
         self.msg(f"=== _post_collect_addresses@SaveAddresses: {res}")
         return res
 
-    def _collect_links(self):
+    def _collect_links(self) -> None:
         self.msg(f"=== _collect_links@SaveAddresses")
         n = 1
         for p in self._all_points:
@@ -332,7 +366,7 @@ class SaveAddresses(AddressTree):
             self._links[str(n)] = xxs
             n = n + 1
 
-    def _save_links(self):
+    def _save_links(self) -> None:
         self.msg(f"=== _save_links@SaveAddresses")
         assert isinstance(self._facilities_json, str)
         d = os.path.dirname(self._facilities_json)
@@ -350,15 +384,15 @@ class SaveAddresses(AddressTree):
 class GenerateAddresses(SaveAddresses):
     _group_label = "(Addresses)"
 
-    def _cleanup_addresses(self, layer):
+    def _cleanup_addresses(self, layer) -> None:
         for child in list(layer):
             if child.label == self._group_label:
                 child.delete()
 
-    def _generate_addresses_address(self, aparent, k, x, y, bb, href):
+    def _generate_addresses_address(self, aparent, k, x, y, bb, href) -> None:
         pass
 
-    def _generate_addresses(self, layer):
+    def _generate_addresses(self, layer) -> None:
         self.msg(f"=== GenerateAddresses: _generate_addresses")
         if len(self._addresses.items()) == 0:
             self.msg(f"_generate_addresses: no items found!")
@@ -370,11 +404,149 @@ class GenerateAddresses(SaveAddresses):
             self._generate_addresses_address(aparent, k, x, y, bb, href)
         layer.append(aparent)
 
-    def _pre_process_addresses(self, layer):
+    def _pre_process_addresses(self, layer) -> None:
         super()._pre_process_addresses(layer)
         self._cleanup_addresses(layer)
 
-    def _process_addresses(self, layer):
+    def _process_addresses(self, layer) -> None:
         self.msg(f"=== GenerateAddresses: _process_addresses")
         super()._process_addresses(layer)
         self._generate_addresses(layer)
+
+
+class ResolveNames(SaveAddresses):
+    _resolved_names: NameAddresses = {}
+    _resolved_addresses: AddressNames = {}
+    _unresolved_names: NameAddresses = {}
+    _unresolved_addresses: AddressNames = {}
+    _tmp_unresolved_name_coords: TmpNameCoords = {}
+    _tmp_resolved_names: TmpNameAddress = {}
+
+    def _exec_resolve(self) -> str:
+        exe = '%s/../resolve-addresses' % os.path.dirname(__file__)
+        return inkex.command.call(
+            exe, self._addresses_json, self._tmp_unresolved_names_json, self._tmp_resolved_names_json)
+
+    def _remove_children(self, node) -> None:
+        for child in list(node):
+            node.remove(child)
+
+    def _read_names(self, node: inkex.Group) -> tuple[NameAddresses, AddressNames]:
+        name_addresses: NameAddresses = {}
+        address_names: AddressNames = {}
+        for child in list(node):
+            shop = read_name(child)
+            if not shop:
+                self.msg(f"loading (Names): {child.label}: failed")
+                continue
+            (address, name, xy) = shop
+            # name -> (address, xy)
+            # address can be None
+            if name not in name_addresses:
+                name_addresses[name] = []
+            name_addresses[name].append((address, xy))
+            # address -> (name, xy)
+            # address must not be None
+            if address is None:
+                self.msg(f"skipping a resolved name without address: {name}")
+                continue
+            if address not in address_names:
+                address_names[address] = []
+            address_names[address].append((name, xy))
+
+        return (name_addresses, address_names)
+
+    def _read_resolved_names(self, node: inkex.Group) -> AddressNames:
+        (name_addresses, address_names) = self._read_names(node)
+        self._resolved_names = name_addresses
+        self._resolved_addresses = address_names
+        return address_names
+
+    def _read_unresolved_names(self, node: inkex.Group) -> NameAddresses:
+        (name_addresses, address_names) = self._read_names(node)
+        self._unresolved_names = name_addresses
+        self._unresolved_addresses = address_names
+        return name_addresses
+
+    def _load_tmp_resolved_names(self) -> None:
+        assert self._tmp_resolved_names_json is not None, f"tmp resolved_names.json path is unspecified"
+        with open(self._tmp_resolved_names_json, "r", encoding="utf-8") as f:
+            # XXX
+            # XXX
+            # XXX
+            # XXX validate
+            self._tmp_resolved_names = json.load(f)
+            # XXX
+            # XXX
+            # XXX
+
+    def _save_resolved_names(self) -> None:
+        self.msg(f"saving resolved names json: {self._resolved_names}")
+        assert self._resolved_names_json is not None, f"_resolved_names_json path is unspecified"
+        d = os.path.dirname(self._resolved_names_json)
+        try:
+            os.stat(d)
+        except:
+            os.makedirs(d)
+        with open(self._resolved_names_json, 'w', encoding="utf-8") as f:
+            json.dump(self._resolved_names, f, indent=2, ensure_ascii=False)
+
+    def _save_unresolved_names(self) -> None:
+        self.msg(f"saving unresolved names json: {self._unresolved_names}")
+        assert self._unresolved_names_json is not None, f"_unresolved_names_json path is unspecified"
+        d = os.path.dirname(self._unresolved_names_json)
+        try:
+            os.stat(d)
+        except:
+            os.makedirs(d)
+        with open(self._unresolved_names_json, 'w', encoding="utf-8") as f:
+            json.dump(self._unresolved_names, f, indent=2, ensure_ascii=False)
+
+    def _save_tmp_unresolved_names(self) -> None:
+        self.msg(f"saving tmp unresolved names json: {self._unresolved_names}")
+        assert self._tmp_unresolved_names_json is not None, f"_tmp_unresolved_names_json path is unspecified"
+        
+        self._tmp_unresolved_name_coords = {}
+        for name in self._unresolved_names:
+            def xy2v(axy: tuple[AddressString | None, XY]) -> Vector:
+                (a, (x, y)) = axy
+                return { 'x': x, 'y': y }
+            xys = list(map(xy2v, self._unresolved_names[name]))
+            self._tmp_unresolved_name_coords[name] = xys
+        
+        d = os.path.dirname(self._tmp_unresolved_names_json)
+        try:
+            os.stat(d)
+        except:
+            os.makedirs(d)
+        with open(self._tmp_unresolved_names_json, 'w', encoding="utf-8") as f:
+            json.dump(self._tmp_unresolved_name_coords, f, indent=2, ensure_ascii=False)
+
+    def _find_group(self, layer, label) -> inkex.Group | None:
+        for child in list(layer):
+            self.msg(f"_find_group: {child.label}")
+            if not isinstance(child, inkex.Group):
+                continue
+            if child.label is None or child.label != label:
+                continue
+            self.msg(f"_find_group: found: {child.label}")
+            return child
+        return None
+
+    def _prepare_names_group(self, layer) -> inkex.Group | None:
+        names_group = self._find_group(layer, '(Names)')
+        self.msg(f"_process_addresses: names {names_group}")
+        if names_group is not None:
+            self._read_resolved_names(names_group)
+        else:
+            self._resolved_names = {}
+        return names_group
+
+    def _prepare_unresolved_names_group(self, layer) -> inkex.Group | None:
+        unresolved_names_group = self._find_group(layer, '(Unresolved Names)')
+        self.msg(f"_process_addresses: unresolved_names {unresolved_names_group}")
+        if unresolved_names_group is not None:
+            self._read_unresolved_names(unresolved_names_group)
+        else:
+            self._unresolved_names = {}
+        return unresolved_names_group
