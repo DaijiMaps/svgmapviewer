@@ -16,6 +16,7 @@ class LoadSymbols(inkex.EffectExtension):
     _symbols_csv = None
 
     def _find_group(self, group):
+        assert isinstance(self._symbols, inkex.Group)
         for node in list(self._symbols):
             if node.label == group:
                 return node
@@ -23,6 +24,7 @@ class LoadSymbols(inkex.EffectExtension):
 
     def _install_symbol(self, v, node):
         g = self._find_group(v['group'])
+        assert isinstance(self._symbols, inkex.Group)
         if g is None:
             g = inkex.Group()
             g.label = v['group'] # '(Facilities)'
@@ -80,16 +82,20 @@ class LoadSymbols(inkex.EffectExtension):
             elif isinstance(e, etree._Comment):
                 self.msg(f"deleting comment: {e}")
                 p = e.getparent()
-                p.remove(e)
+                if p:
+                    p.remove(e)
 
     def _fixup_symbol(self, node):
         self._fixup_symbol_ids(node)
         self._fixup_symbol_titles(node)
 
     def _load_symbol(self, v):
-        file = os.path.join(self.svg_path(), v['file'])
+        svg_path = self.svg_path()
+        assert isinstance(svg_path, str)
+        file = os.path.join(svg_path, v['file'])
         f = inkex.load_svg(file)
         r = f.getroot()
+        assert isinstance(r, inkex.SvgDocumentElement)
         node = r.getElementById(v['id'])
         self._fixup_symbol(node)
         return node
@@ -108,7 +114,9 @@ class LoadSymbols(inkex.EffectExtension):
         return True
 
     def _parse_symbols_csv(self):
-        self._symbols_csv = os.path.join(self.svg_path(), f"symbols.csv")
+        svg_path = self.svg_path()
+        assert isinstance(svg_path, str)
+        self._symbols_csv = os.path.join(svg_path, f"symbols.csv")
         with open(self._symbols_csv, "r", encoding="utf-8") as fh:
             reader = csv.DictReader(fh)
             header = next(reader)
@@ -117,14 +125,17 @@ class LoadSymbols(inkex.EffectExtension):
                 self._handle_entry(v)
 
     def _find_assets_symbols(self):
+        assert isinstance(self._assets, inkex.Group)
         for child in list(self._assets):
             if isinstance(child, inkex.Group) and child.label == '(Symbols)':
                 self._symbols = child
 
     def _find_assets(self):
+        assert isinstance(self.document, etree._ElementTree)
         res = [
             node for node in self.document.getroot()
                 if isinstance(node, inkex.Group)
+                if isinstance(node.label, str)
                 if re.match('^[(]Assets[)]$', node.label) is not None
         ]
         if len(res) != 1:

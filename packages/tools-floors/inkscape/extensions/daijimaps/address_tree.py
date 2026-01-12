@@ -6,6 +6,8 @@ import inkex
 import json
 import re
 import os
+from typing import Union
+from lxml import etree
 from .visit_parents import (_visit_parents, CONT, SKIP)
 
 
@@ -95,21 +97,24 @@ class AddressTree(inkex.EffectExtension):
         self.msg(f"=== _find_layers")
         floor_pattern = self.options.floor
 
+        assert isinstance(self.document, etree._ElementTree)
+        assert isinstance(floor_pattern, Union[None, str])
         res = [
             node for node in self.document.getroot()
                 if isinstance(node, inkex.Group)
                 if not (node.label and (self._find_layers_opts['skip_ignoring'] and self._ignoring(node)))
-                if (floor_pattern is None or re.match(floor_pattern, node.label) is not None)
+                if (floor_pattern is None or not isinstance(node.label, str) or re.match(floor_pattern, node.label) is not None)
         ]
         self.msg(f"=== _find_layers: {res}")
         return res
 
     def _find_assets(self):
+        assert isinstance(self.document, etree._ElementTree), f""
         res = [
             node for node in self.document.getroot()
                 if isinstance(node, inkex.Group)
                 if not (node.label and self._ignoring(node))
-                if re.match('^(Assets)$', node.label) is not None
+                if isinstance(node.label, str) and re.match('^(Assets)$', node.label) is not None
         ]
         if len(res) != 1:
             return None
@@ -138,12 +143,14 @@ class AddressTree(inkex.EffectExtension):
                 #self._locs_json = os.path.join(self.svg_path(), f"locs.json")
 
                 # output
-                self._addresses_json = os.path.join(self.svg_path(), f"addresses/{self._layer_name}.json")
+                p = self.svg_path()
+                assert isinstance(p, str)
+                self._addresses_json = os.path.join(p, f"addresses/{self._layer_name}.json")
                 #self._coords_json = os.path.join(self.svg_path(), "build", f"coords_{self._layer_name}.json")
-                self._coords_json = os.path.join(self.svg_path(), f"coords/{self._layer_name}.json")
+                self._coords_json = os.path.join(p, f"coords/{self._layer_name}.json")
                 #self._resolved_names_json = os.path.join(self.svg_path(), f"build/resolved_names_{self._layer_name}.json")
-                self._resolved_names_json = os.path.join(self.svg_path(), f"resolved_names/{self._layer_name}.json")
-                self._facilities_json = os.path.join(self.svg_path(), f"facilities.json")
+                self._resolved_names_json = os.path.join(p, f"resolved_names/{self._layer_name}.json")
+                self._facilities_json = os.path.join(p, f"facilities.json")
 
                 # XXX reset all data per layer
                 self._pre_collect_addresses(layer)
@@ -240,6 +247,7 @@ class SaveAddresses(AddressTree):
 
     def _post_collect_addresses(self, node):
         self.msg(f"=== _post_collect_addresses@SaveAddresses")
+        assert isinstance(self._addresses_json, str)
         d = os.path.dirname(self._addresses_json)
         try:
             os.stat(d)
@@ -284,7 +292,8 @@ class SaveAddresses(AddressTree):
 
     def _save_links(self):
         self.msg(f"=== _save_links@SaveAddresses")
-        d = os.dirname(self._facilities_json)
+        assert isinstance(self._facilities_json, str)
+        d = os.path.dirname(self._facilities_json)
         try:
             os.stat(d)
         except:

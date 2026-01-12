@@ -17,7 +17,9 @@ class ImportShops(daijimaps.GenerateAddresses):
             f"shops_{self._layer_name}.txt",
         ]
         for p in ps:
-            path = os.path.join(self.svg_path(), p)
+            svg_path = self.svg_path()
+            assert isinstance(svg_path, str)
+            path = os.path.join(svg_path, p)
             self.msg(f"_get_shops_txt: {path}")
             if os.access(path, os.R_OK):
                 self.msg(f"_get_shops_txt: found: {path}")

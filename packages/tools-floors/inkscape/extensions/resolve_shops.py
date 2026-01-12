@@ -52,6 +52,7 @@ class ResolveShops(daijimaps.SaveAddresses):
     def _resolve_names(self, names, unresolved_names):
         self._exec_resolve()
 
+        assert self._resolved_names_json is not None, f"resolved_names.json path is unspecified"
         with open(self._resolved_names_json, "r", encoding="utf-8") as f:
             j = json.load(f)
             self._resolved_addresses = j
@@ -99,6 +100,8 @@ class ResolveShops(daijimaps.SaveAddresses):
             unresolved_names = {}
         j = self._load_unresolved_names(unresolved_names)
         self.msg(f"saving coords json: {j}")
+
+        assert self._coords_json is not None, f"_coords_json path is unspecified"
         d = os.path.dirname(self._coords_json)
         try:
             os.stat(d)

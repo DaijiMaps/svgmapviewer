@@ -59,7 +59,7 @@ class FixSymbolLinks(daijimaps.AddressTree):
                     # good - nothing to do
                     continue
                 # fixup
-                self.msg(f"fixup use: {kind}: {kind.label}")
+                self.msg(f"fixup use: {facility}: {kind}")
                 x = self._make_use(kind, child)
                 facility.remove(child)
                 facility.append(x)

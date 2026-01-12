@@ -161,7 +161,8 @@ class TidyTree(daijimaps.AddressTree):
             return
         self.msg(f"removing marker: {node.label}:{xid}")
         p = node.getparent()
-        p.remove(node)
+        if p:
+            p.remove(node)
 
     def _process_addresses(self, layer):
         super()._process_addresses(layer)

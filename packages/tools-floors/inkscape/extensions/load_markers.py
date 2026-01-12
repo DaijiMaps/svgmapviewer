@@ -17,6 +17,7 @@ class LoadMarkers(inkex.EffectExtension):
     _markers_csv = None
 
     def _find_group(self, group):
+        assert isinstance(self._markers, inkex.Group)
         for node in list(self._markers):
             if node.label == group:
                 return node
@@ -27,6 +28,7 @@ class LoadMarkers(inkex.EffectExtension):
         g.label = v['name'] # 'Triangle'
         g.append(node)
         prev = None
+        assert isinstance(self._markers, inkex.Group)
         for node in list(self._markers):
             if node.label == v['name']:
                 prev = node
@@ -37,9 +39,12 @@ class LoadMarkers(inkex.EffectExtension):
         return True
 
     def _load_marker(self, v):
-        file = os.path.join(self.svg_path(), v['file'])
+        svg_path = self.svg_path()
+        assert isinstance(svg_path, str)
+        file = os.path.join(svg_path, v['file'])
         f = inkex.load_svg(file)
         r = f.getroot()
+        assert isinstance(r, inkex.SvgDocumentElement)
         node = r.getElementById(v['id'])
         return copy.deepcopy(node)
 
@@ -57,7 +62,9 @@ class LoadMarkers(inkex.EffectExtension):
         return True
 
     def _parse_markers_csv(self):
-        self._markers_csv = os.path.join(self.svg_path(), f"markers.csv")
+        svg_path = self.svg_path()
+        assert isinstance(svg_path, str)
+        self._markers_csv = os.path.join(svg_path, f"markers.csv")
         with open(self._markers_csv, "r", encoding="utf-8") as fh:
             reader = csv.DictReader(fh)
             values = [line for line in reader]
@@ -65,14 +72,17 @@ class LoadMarkers(inkex.EffectExtension):
                 self._handle_entry(v)
 
     def _find_assets_markers(self):
+        assert isinstance(self._assets, inkex.Group)
         for child in list(self._assets):
             if isinstance(child, inkex.Group) and child.label == '(Markers)':
                 self._markers = child
 
     def _find_assets(self):
+        assert isinstance(self.document, inkex.SvgDocumentElement)
         res = [
             node for node in self.document.getroot()
                 if isinstance(node, inkex.Group)
+                if isinstance(node.label, str)
                 if re.match('^[(]Assets[)]$', node.label) is not None
         ]
         if len(res) != 1:

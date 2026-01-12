@@ -67,6 +67,10 @@ class SymbolLoad(inkex.EffectExtension):
             self.msg(f"Group must exactly contain <use> and <g>!")
             return False
         
+        if not orig.href:
+            self.msg(f"no href found")
+            return False
+
         href = f"#{orig.href.get_id()}"
 
         if href != f"#{name}":

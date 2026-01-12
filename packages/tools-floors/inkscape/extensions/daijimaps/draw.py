@@ -52,6 +52,7 @@ def draw_shop_name(text, x = 0, y = 0):
 def read_shop_name(node: inkex.BaseElement):
     if (not isinstance(node, inkex.TextElement)):
         return None
+    assert isinstance(node.label, str)
     name_and_address = node.label.split(" @ ")
     name = name_and_address[0]
     if len(name_and_address) == 1:
@@ -61,29 +62,6 @@ def read_shop_name(node: inkex.BaseElement):
     (x, y) = (node.x, node.y) if isinstance(node, inkex.TextElement) else (0, 0)
     (tx, ty) = (node.transform.e, node.transform.f) if node.transform else (0, 0)
     return (address, name, (x + tx, y + ty))
-
-
-def shop_to_relative(node: inkex.BaseElement):
-    x = None
-    y = None
-    for child in list(node):
-        if isinstance(child, inkex.TextElement):
-            x = child.x
-            y = child.y
-    if None in [x, y]:
-        return None
-    node.transform = inkex.Transform(f"translate({x}, {y})")
-    for child in list(node):
-        if isinstance(child, inkex.TextElement):
-            child.x = 0
-            child.y = 0
-            for ts in list(child):
-                ts.x = ts.x - x
-                ts.y = ts.y - y
-        elif isinstance(child, inkex.PathElement):
-            scale = float(child.get("stroke-width")) / 2
-        else:
-            return None
 
 
 def draw_address(k: str, x: float, y: float, bb: inkex.BoundingBox, href: inkex.BaseElement):
