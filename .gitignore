@@ -13,6 +13,7 @@ dist-ssr
 dist-types
 tmp
 *.local
+*.egg-info
 
 # Editor directories and files
 .vscode/*
