@@ -5,14 +5,16 @@ import inkex
 import inkex.command
 
 from .address_tree import (
-    AddressNames,
-    NameAddresses,
-    TmpNameAddress,
-    TmpNameCoords,
     a2v,
 )
 from .name import read_name
 from .save_addresses import SaveAddresses
+from .types import (
+    AddressNames,
+    NameAddresses,
+    TmpNameAddress,
+    TmpNameCoords,
+)
 
 
 class ResolveNames(SaveAddresses):
