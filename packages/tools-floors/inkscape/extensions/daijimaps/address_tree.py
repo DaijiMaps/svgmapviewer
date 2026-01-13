@@ -7,15 +7,15 @@ import re
 import os
 from lxml import etree
 from .visit_parents import _visit_parents, CONT, SKIP, Visit, Tree, Parents
-from .types import AddressPos
+from .types import AddressPos, Links, PosAddress
 
 
 class AddressTree(inkex.EffectExtension):
     _addresses: AddressPos = {}
     _all_addresses: AddressPos = {}
-    _points = {}
-    _all_points = {}
-    _links = {}
+    _points: PosAddress = {}
+    _all_points: PosAddress = {}
+    _links: Links = {}
 
     # XXX address <g> id
     # XXX (A)ddress
@@ -56,9 +56,9 @@ class AddressTree(inkex.EffectExtension):
             f"{self._layer_name}-{prefix}.{suffix}",
             f"{prefix}-{self._layer_name}.{suffix}",
         ]
+        svg_path = self.svg_path()
+        assert isinstance(svg_path, str)
         for p in ps:
-            svg_path = self.svg_path()
-            assert isinstance(svg_path, str)
             path = os.path.join(svg_path, p)
             self.msg(f"_get_path: {path}")
             if os.access(path, os.R_OK):

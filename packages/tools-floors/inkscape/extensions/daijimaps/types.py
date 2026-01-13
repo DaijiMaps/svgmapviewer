@@ -6,6 +6,7 @@ type Url = str
 
 type AddressPosEntry = tuple[XY, inkex.BoundingBox, Url]
 type AddressPos = dict[AddressString, AddressPosEntry]
+type PosAddress = dict[XY, list[AddressString]]
 
 type AddressString = str
 type NameString = str
@@ -34,11 +35,12 @@ type TmpNameAddress = dict[
 
 # XXX
 type LinkID = str
+type Links = dict[LinkID, list[AddressString]]
 
 
 # XXX
 class FacilitiesJson(TypedDict):
-    biLinks: dict[LinkID, list[AddressString]]
+    biLinks: Links
 
 
 #
@@ -59,6 +61,7 @@ __all__ = [
     FacilitiesJson,
     FloorsAddressesJson,
     FloorsNamesJson,
+    Links,
     Name,
     NameAddresses,
     NameString,

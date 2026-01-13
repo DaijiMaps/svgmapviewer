@@ -6,7 +6,7 @@ import inkex
 
 from .address_tree import AddressTree
 from .common import xy2v
-from .types import FacilitiesJson, TmpAddressCoords
+from .types import AddressString, FacilitiesJson, TmpAddressCoords
 from .visit_parents import Tree, Parents
 
 
@@ -30,45 +30,45 @@ class SaveAddresses(AddressTree):
         self.msg(f"=== _build_prefix@SaveAddresses: {res}")
         return res
 
-    def _save_address(self, a, px, py, bb, href) -> None:
-        self.msg(f"=== _save_address@SaveAddresses: {a} @ {px},{py}")
+    def _save_address2(self, astr: AddressString, px, py, bb, href) -> None:
+        self.msg(f"=== _save_address@SaveAddresses: {astr} @ {px},{py}")
         p = (px, py)
-        self._addresses[a] = (p, bb, href)
-        self._all_addresses[a] = (p, bb, href)
+        self._addresses[astr] = (p, bb, href)
+        self._all_addresses[astr] = (p, bb, href)
         if p not in self._points:
             self._points[p] = []
-        self._points[p].append(a)
+        self._points[p].append(astr)
         if p not in self._all_points:
             self._all_points[p] = []
-        self._all_points[p].append(a)
+        self._all_points[p].append(astr)
 
-    def _save_addresses(self, node, prefix, label) -> None:
+    def _save_address1(self, node, prefix: str, label: str) -> None:
+        astr = f"{prefix}{label}-{node.label}"
+        bb: inkex.BoundingBox = node.shape_box()
+        c = None
+        (px, py) = (None, None)
+        (tx, ty) = (node.transform.e, node.transform.f) if node.transform else (0, 0)
+        if isinstance(node, inkex.Use):
+            x = node.get("x") or 0
+            y = node.get("y") or 0
+            (px, py) = (float(tx) + float(x), float(ty) + float(y))
+        elif isinstance(node, inkex.Circle):
+            c = node.center
+        elif isinstance(node, inkex.Ellipse):
+            c = node.center
+        if c is not None:
+            (px, py) = (float(tx) + float(c.x), float(ty) + float(c.y))
+            hwh = (bb.width + bb.height) * 0.5
+            w = min(bb.width, hwh)
+            dx = (w * 0.8 - bb.width) * 0.5
+            bb = bb.resize(dx, 0)
+        if px is not None and py is not None:
+            self._save_address2(astr, px, py, bb, node.href)
+
+    def _save_addresses(self, node: inkex.Group, prefix: str, label: str) -> None:
         self.msg("=== _save_addresses@SaveAddresses")
         for child in list(node):
-            # leaves MUST be <use> and define transform!
-            a = f"{prefix}{label}-{child.label}"
-            bb: inkex.BoundingBox = child.shape_box()
-            c = None
-            (px, py) = (None, None)
-            (tx, ty) = (
-                (child.transform.e, child.transform.f) if child.transform else (0, 0)
-            )
-            if isinstance(child, inkex.Use):
-                x = child.get("x") or 0
-                y = child.get("y") or 0
-                (px, py) = (float(tx) + float(x), float(ty) + float(y))
-            elif isinstance(child, inkex.Circle):
-                c = child.center
-            elif isinstance(child, inkex.Ellipse):
-                c = child.center
-            if c is not None:
-                (px, py) = (float(tx) + float(c.x), float(ty) + float(c.y))
-                hwh = (bb.width + bb.height) * 0.5
-                w = min(bb.width, hwh)
-                dx = (w * 0.8 - bb.width) * 0.5
-                bb = bb.resize(dx, 0)
-            if px is not None and py is not None:
-                self._save_address(a, px, py, bb, child.href)
+            self._save_address1(child, prefix, label)
 
     def _visitor_node_branch_save_address(self, node: Tree, parents: Parents) -> None:
         self.msg("=== _visitor_node_branch_save_address@SaveAddresses")
@@ -117,12 +117,16 @@ class SaveAddresses(AddressTree):
         for p in self._all_points:
             if len(p) == 1:
                 continue
-            xs = [a for a in self._all_points[p] if re.match("^.*-Facilities-.*$", a)]
+            xs: list[AddressString] = [
+                a for a in self._all_points[p] if re.match("^.*-Facilities-.*$", a)
+            ]
             if len(xs) <= 1:
                 continue
             # XXX check kind (e.g. Elevator, Stairs)
             # XXX don't hardcode
-            xxs = [x for x in xs if re.match("^.*(Elevator|Stairs).*$", x)]
+            xxs: list[AddressString] = [
+                x for x in xs if re.match("^.*(Elevator|Stairs).*$", x)
+            ]
             if len(xxs) <= 1:
                 continue
             self.msg(f"links: {p}: {self._all_points[p]}")

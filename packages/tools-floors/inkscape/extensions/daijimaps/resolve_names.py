@@ -127,9 +127,9 @@ class ResolveNames(SaveAddresses):
 
     def _save_floors_addresses(self) -> None:
         j: FloorsAddressesJson = {}
-        for a in self._addresses:
-            ((x, y), _bb, _url) = self._addresses[a]
-            j[a] = xy2v(x, y)
+        for astr in self._addresses:
+            ((x, y), _bb, _url) = self._addresses[astr]
+            j[astr] = xy2v(x, y)
         assert self._floors_addresses_json is not None, (
             "floors addresses json path is unspecified"
         )
@@ -142,8 +142,8 @@ class ResolveNames(SaveAddresses):
         j: FloorsNamesJson = {}
         for name in self._resolved_names:
             aa = self._resolved_names[name]
-            xs = [x for x in list(map(a2astr, aa)) if x is not None]
-            j[name] = xs
+            xs = list(map(a2astr, aa))
+            j[name] = [x for x in xs if x is not None]
 
         assert self._floors_names_json is not None, (
             "floors names json path is unspecified"
