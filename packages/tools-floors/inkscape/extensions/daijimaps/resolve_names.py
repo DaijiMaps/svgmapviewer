@@ -93,10 +93,7 @@ class ResolveNames(SaveAddresses):
             "_resolved_names_json path is unspecified"
         )
         d = os.path.dirname(self._resolved_names_json)
-        try:
-            os.stat(d)
-        except:
-            os.makedirs(d)
+        os.makedirs(d, exist_ok=True)
         with open(self._resolved_names_json, "w", encoding="utf-8") as f:
             json.dump(self._resolved_names, f, indent=2, ensure_ascii=False)
 
@@ -106,10 +103,7 @@ class ResolveNames(SaveAddresses):
             "_unresolved_names_json path is unspecified"
         )
         d = os.path.dirname(self._unresolved_names_json)
-        try:
-            os.stat(d)
-        except:
-            os.makedirs(d)
+        os.makedirs(d, exist_ok=True)
         with open(self._unresolved_names_json, "w", encoding="utf-8") as f:
             json.dump(self._unresolved_names, f, indent=2, ensure_ascii=False)
 
@@ -125,10 +119,7 @@ class ResolveNames(SaveAddresses):
             self._tmp_unresolved_name_coords[name] = xys
 
         d = os.path.dirname(self._tmp_unresolved_names_json)
-        try:
-            os.stat(d)
-        except:
-            os.makedirs(d)
+        os.makedirs(d, exist_ok=True)
         with open(self._tmp_unresolved_names_json, "w", encoding="utf-8") as f:
             json.dump(self._tmp_unresolved_name_coords, f, indent=2, ensure_ascii=False)
 

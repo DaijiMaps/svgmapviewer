@@ -99,10 +99,7 @@ class SaveAddresses(AddressTree):
         self.msg("=== _post_collect_addresses@SaveAddresses")
         assert isinstance(self._addresses_json, str)
         d = os.path.dirname(self._addresses_json)
-        try:
-            os.stat(d)
-        except:
-            os.mkdir(d)
+        os.makedirs(d, exist_ok=True)
         with open(self._addresses_json, "w", encoding="utf-8") as f:
             j: TmpAddressCoords = {}
             for astr, ((x, y), _bb, _href) in self._addresses.items():
@@ -134,10 +131,7 @@ class SaveAddresses(AddressTree):
         self.msg("=== _save_links@SaveAddresses")
         assert isinstance(self._facilities_json, str)
         d = os.path.dirname(self._facilities_json)
-        try:
-            os.stat(d)
-        except:
-            os.mkdir(d)
+        os.makedirs(d, exist_ok=True)
         with open(self._facilities_json, "w", encoding="utf-8") as f:
             j: FacilitiesJson = {"biLinks": self._links}
             json.dump(j, f, indent=2)
