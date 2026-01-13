@@ -6,7 +6,6 @@ import inkex
 from daijimaps import renumber_group
 
 
-
 class RenumberGroup(inkex.EffectExtension):
     def effect(self):
         if self.svg.selection:

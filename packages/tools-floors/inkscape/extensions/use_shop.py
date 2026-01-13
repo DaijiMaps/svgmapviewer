@@ -22,6 +22,5 @@ class UseShop(inkex.EffectExtension):
                 self._change_use_href(node, self.options.href)
 
 
-
 if __name__ == "__main__":
     UseShop().run()

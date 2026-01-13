@@ -6,14 +6,13 @@ import re
 import daijimaps
 
 
-
 class RenumberTree(daijimaps.AddressTree):
     def _is_anonymous(self, node):
         # - no label
         # - or label NOT starting with [A-Z]
         if node.label is None:
             return True
-        return re.match('^[A-Z]', node.label) is None
+        return re.match("^[A-Z]", node.label) is None
 
     def _check_children(self, node):
         # All children should be anonymous (renumber-able)

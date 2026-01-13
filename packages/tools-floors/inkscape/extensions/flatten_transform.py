@@ -5,12 +5,10 @@ import math
 
 import inkex
 
-from daijimaps.visit_parents import (_visit_parents, CONT, SKIP)
-
-
 
 def _is_translate(t: inkex.Transform):
     return not (math.isclose(t.e, 0) and math.isclose(t.f, 0))
+
 
 def _is_translate_only(t: inkex.Transform):
     p = [t.a, t.b, t.c, t.d]
@@ -18,12 +16,14 @@ def _is_translate_only(t: inkex.Transform):
     is_unit = all(map(math.isclose, p, q))
     return is_unit and _is_translate(t)
 
-def _translate_x_y(node, t, ax = "x", ay = "y"):
+
+def _translate_x_y(node, t, ax="x", ay="y"):
     x = node.get(ax) or 0
     y = node.get(ay) or 0
-    node.set(ax, f"%.3g" % (float(x) + t.e))
-    node.set(ay, f"%.3g" % (float(y) + t.f))
-    del node.attrib['transform']
+    node.set(ax, f"{float(x) + t.e:%.3g}")
+    node.set(ay, f"{float(y) + t.f:%.3g}")
+    del node.attrib["transform"]
+
 
 def _translate_cx_cy(node, t):
     _translate_x_y(node, t, "cx", "cy")

@@ -5,9 +5,7 @@ import inkex
 import re
 
 
-
 PER_ROW = 20
-
 
 
 class SortSymbols(inkex.EffectExtension):
@@ -28,7 +26,7 @@ class SortSymbols(inkex.EffectExtension):
             size = bb.size
             max_width = max(max_width, size.x)
             max_height = max(max_height, size.y)
-        children = sorted(list(node), key = lambda e: e.label if e.label else '')
+        children = sorted(list(node), key=lambda e: e.label if e.label else "")
         for child in children:
             node.remove(child)
         for i, child in enumerate(children):
