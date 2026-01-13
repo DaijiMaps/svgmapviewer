@@ -4,7 +4,8 @@ import re
 
 import inkex
 
-from .address_tree import AddressTree, xy2v
+from .address_tree import AddressTree
+from .common import xy2v
 from .types import FacilitiesJson, TmpAddressCoords
 from .visit_parents import Tree, Parents
 

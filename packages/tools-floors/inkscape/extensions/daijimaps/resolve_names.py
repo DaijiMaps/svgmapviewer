@@ -4,9 +4,7 @@ import os
 import inkex
 import inkex.command
 
-from .address_tree import (
-    a2v,
-)
+from .common import a2v
 from .name import read_name
 from .save_addresses import SaveAddresses
 from .types import (

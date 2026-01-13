@@ -8,27 +8,7 @@ import os
 from typing import Union
 from lxml import etree
 from .visit_parents import _visit_parents, CONT, SKIP, Visit, Tree, Parents
-from .types import Address, AddressPos, V
-
-
-# XXX prefer 1 to 1.0
-def unround(n: float) -> float:
-    f = round(n, 3)
-    i = round(f)
-    return f if f != i else i
-
-
-def xy2v(x, y) -> V:
-    return {
-        "x": unround(x),
-        "y": unround(y),
-        #'w': r3w if r3w != rw else rw,
-    }
-
-
-def a2v(axy: Address) -> V:
-    (_a, (x, y)) = axy
-    return xy2v(x, y)
+from .types import AddressPos
 
 
 class AddressTree(inkex.EffectExtension):
@@ -232,6 +212,5 @@ class AddressTree(inkex.EffectExtension):
 
 
 __all__ = [
-    # .address_tree
     AddressTree,
 ]  # type: ignore

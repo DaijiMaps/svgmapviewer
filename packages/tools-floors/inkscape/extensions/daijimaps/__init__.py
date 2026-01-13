@@ -1,13 +1,4 @@
-from .address_tree import (
-    Address,
-    AddressNames,
-    AddressTree,
-    Addresses,
-    Name,
-    NameAddresses,
-    Names,
-    XY,
-)
+from .address_tree import AddressTree
 
 from .generate_addresses import GenerateAddresses
 
@@ -19,17 +10,20 @@ from .resolve_names import ResolveNames
 
 from .save_addresses import SaveAddresses
 
-
-__all__ = [
-    # .address_tree
+from .types import (
     Address,
     AddressNames,
-    AddressTree,
     Addresses,
     Name,
     NameAddresses,
     Names,
     XY,
+)
+
+
+__all__ = [
+    # .address_tree
+    AddressTree,
     # .generate_addresses
     GenerateAddresses,
     # .name
@@ -42,4 +36,12 @@ __all__ = [
     ResolveNames,
     # .save_addresses
     SaveAddresses,
+    # .types
+    Address,
+    AddressNames,
+    Addresses,
+    Name,
+    NameAddresses,
+    Names,
+    XY,
 ]  # type: ignore
