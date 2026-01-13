@@ -2,10 +2,12 @@
 # coding=utf-8
 
 import csv
-import inkex
-from lxml import etree
 import os
 import re
+
+from lxml import etree
+
+import inkex
 
 
 

@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
-import inkex
 import json
 import os
 import sys
+
+import inkex
+
 import daijimaps
 
 

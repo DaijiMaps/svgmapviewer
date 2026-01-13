@@ -2,6 +2,7 @@
 # coding=utf-8
 
 import inkex
+
 from daijimaps import renumber_group
 
 

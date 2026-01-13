@@ -2,8 +2,11 @@
 # coding=utf-8
 
 import math
+
 import inkex
+
 from daijimaps.visit_parents import (_visit_parents, CONT, SKIP)
+
 
 
 def _is_translate(t: inkex.Transform):

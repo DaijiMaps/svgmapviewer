@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
-import daijimaps
 import re
+
+import daijimaps
+
 
 
 class RenumberTree(daijimaps.AddressTree):
