@@ -9,7 +9,7 @@ import re
 import os
 from typing import Union, TypedDict
 from lxml import etree
-from .visit_parents import (_visit_parents, CONT, SKIP, Visit)
+from .visit_parents import (_visit_parents, CONT, SKIP, Visit, Tree, Parents, Visitor)
 from .name import read_name, draw_name
 
 
@@ -31,12 +31,35 @@ type Name = tuple[AddressString, XY]
 type Names = list[Name]
 type AddressNames = dict[AddressString, Names]
 
-class Vector(TypedDict):
+class V(TypedDict):
     x: float
     y: float
-type TmpNameCoords = dict[NameString, list[Vector]]
-type TmpNameAddress = dict[NameString, list[AddressString]]
+type TmpAddressCoords = dict[AddressString, V] # addresses.json
+type TmpNameCoords = dict[NameString, list[V]] # tmp_unresolved_addresses.json
+type TmpNameAddress = dict[NameString, list[AddressString]] # tmp_resolved_addresses.json
 
+# XXX
+class FacilitiesJson(TypedDict):
+    biLinks: dict[str, list[AddressString]]
+
+
+# XXX prefer 1 to 1.0
+def unround(n: float) -> float:
+    f = round(n, 3)
+    i = round(f)
+    return f if f != i else i
+
+def xy2v(x, y) -> V:
+    return {
+        'x': unround(x),
+        'y': unround(y),
+        #'w': r3w if r3w != rw else rw,
+    }
+
+def a2v(axy: Address) -> V:
+    (_a, (x, y)) = axy
+    return xy2v(x, y)
+    
 
 class AddressTree(inkex.EffectExtension):
     _addresses: AddressPos = {}
@@ -100,13 +123,13 @@ class AddressTree(inkex.EffectExtension):
     def _ignoring(self, node):
         return re.match(self._ignore_pattern, node.label) is not None
 
-    def _visitor_node_branch(self, node, parents):
+    def _visitor_node_branch(self, node: Tree, parents: Parents) -> None:
         pass
 
-    def _visitor_node_leaf(self, node, parents):
+    def _visitor_node_leaf(self, node: Tree, parents: Parents) -> None:
         pass
 
-    def _visitor(self, node, parents) -> Visit:
+    def _visitor(self, node: Tree, parents: Parents) -> Visit:
         if not isinstance(node, inkex.Group):
             return SKIP
         if node.label and self._ignoring(node):
@@ -152,7 +175,7 @@ class AddressTree(inkex.EffectExtension):
     def _post_layers(self):
         pass
 
-    def _find_layers(self):
+    def _find_layers(self) -> list[inkex.Group]:
         self.msg(f"=== _find_layers")
         floor_pattern = self.options.floor
 
@@ -167,7 +190,7 @@ class AddressTree(inkex.EffectExtension):
         self.msg(f"=== _find_layers: {res}")
         return res
 
-    def _find_assets(self):
+    def _find_assets(self) -> inkex.Group | None:
         assert isinstance(self.document, etree._ElementTree), f""
         res = [
             node for node in self.document.getroot()
@@ -225,16 +248,16 @@ class AddressTree(inkex.EffectExtension):
 
 
 class SaveAddresses(AddressTree):
-    def _prefix_fixup(self, prefix):
+    def _prefix_fixup(self, prefix: str) -> str:
         self.msg(f"=== _prefix_fixup@SaveAddresses")
         # XXX
         res = re.sub(r'-Content-', '-', prefix)
         self.msg(f"=== _prefix_fixup@SaveAddresses: {res}")
         return res
 
-    def _build_prefix(self, parents):
+    def _build_prefix(self, parents: list[inkex.Group]) -> str | None:
         self.msg(f"=== _build_prefix@SaveAddresses")
-        plabels = [p.label for p in parents]
+        plabels = [p.label for p in parents if isinstance(p.label, str)]
         # all parents MUST have a label!
         if None in plabels:
             return None
@@ -244,7 +267,7 @@ class SaveAddresses(AddressTree):
         self.msg(f"=== _build_prefix@SaveAddresses: {res}")
         return res
 
-    def _save_address(self, a, px, py, bb, href):
+    def _save_address(self, a, px, py, bb, href) -> None:
         self.msg(f"=== _save_address@SaveAddresses: {a} @ {px},{py}")
         p = (px, py)
         self._addresses[a] = (p, bb, href)
@@ -256,7 +279,7 @@ class SaveAddresses(AddressTree):
             self._all_points[p] = []
         self._all_points[p].append(a)
 
-    def _save_addresses(self, node, prefix, label):
+    def _save_addresses(self, node, prefix, label) -> None:
         self.msg(f"=== _save_addresses@SaveAddresses")
         for child in list(node):
             # leaves MUST be <use> and define transform!
@@ -282,20 +305,20 @@ class SaveAddresses(AddressTree):
             if px != None and py != None:
                 self._save_address(a, px, py, bb, child.href)
 
-    def _visitor_node_branch_save_address(self, node, parents):
+    def _visitor_node_branch_save_address(self, node: Tree, parents: Parents) -> None:
         self.msg(f"=== _visitor_node_branch_save_address@SaveAddresses")
         if node.label:
             prefix = self._build_prefix(parents)
             if prefix is not None:
                 self._save_addresses(node, prefix, node.label)
 
-    def _visitor_node_branch(self, node, parents):
+    def _visitor_node_branch(self, node: Tree, parents: Parents) -> None:
         self.msg(f"=== _visitor_node_branch@SaveAddresses")
         self._visitor_node_branch_save_address(node, parents)
 
-    def _sort_children_by_label(self, node):
+    def _sort_children_by_label(self, node: inkex.Group) -> None:
         self.msg(f"=== _sort_children_by_label@SaveAddresses")
-        children = {}
+        children: dict[str, list[inkex.BaseElement]] = {}
         for a in list(node):
             if a.label:
                 node.remove(a)
@@ -318,25 +341,9 @@ class SaveAddresses(AddressTree):
         except:
             os.mkdir(d)
         with open(self._addresses_json, 'w', encoding="utf-8") as f:
-            j = {}
-            for k, ((x, y), bb, href) in self._addresses.items():
-                # XXX
-                # XXX prefer 1 to 1.0
-                # XXX
-                r3x = round(x, 3)
-                r3y = round(y, 3)
-                r3w = round(bb.width, 3)
-                rx = round(r3x)
-                ry = round(r3y)
-                rw = round(r3w)
-                j[k] = {
-                    'x': r3x if r3x != rx else rx,
-                    'y': r3y if r3y != ry else ry,
-                    'w': r3w if r3w != rw else rw,
-                }
-                # XXX
-                # XXX
-                # XXX
+            j: TmpAddressCoords = {}
+            for astr, ((x, y), _bb, _href) in self._addresses.items():
+                j[astr] = xy2v(x, y)
             json.dump(j, f, indent=2)
         res = super()._post_collect_addresses(node)
         self.msg(f"=== _post_collect_addresses@SaveAddresses: {res}")
@@ -375,7 +382,7 @@ class SaveAddresses(AddressTree):
         except:
             os.mkdir(d)
         with open(self._facilities_json, 'w', encoding="utf-8") as f:
-            j = {
+            j: FacilitiesJson = {
                 'biLinks': self._links
             }
             json.dump(j, f, indent=2)
@@ -508,10 +515,7 @@ class ResolveNames(SaveAddresses):
         
         self._tmp_unresolved_name_coords = {}
         for name in self._unresolved_names:
-            def xy2v(axy: tuple[AddressString | None, XY]) -> Vector:
-                (a, (x, y)) = axy
-                return { 'x': x, 'y': y }
-            xys = list(map(xy2v, self._unresolved_names[name]))
+            xys = list(map(a2v, self._unresolved_names[name]))
             self._tmp_unresolved_name_coords[name] = xys
         
         d = os.path.dirname(self._tmp_unresolved_names_json)
