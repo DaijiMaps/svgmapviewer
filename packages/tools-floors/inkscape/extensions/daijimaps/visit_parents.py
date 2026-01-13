@@ -1,11 +1,6 @@
 import typing
 from typing import Callable
-from lxml import etree
 import inkex
-
-CONT = 0
-SKIP = 1
-EXIT = 2
 
 
 type Cont = typing.Literal[0]
@@ -18,9 +13,14 @@ type Parents = list[inkex.Group]
 type Visitor = Callable[[Tree, Parents], Visit]
 
 
+CONT = 0
+SKIP = 1
+EXIT = 2
+
+
 def _visit_parents_inner(tree: Tree, parents: Parents, visitor: Visitor) -> None:
     res = visitor(tree, parents)
-    if (res == SKIP):
+    if res == SKIP:
         return
     parents.append(tree)
     for child in list(tree):
@@ -30,3 +30,6 @@ def _visit_parents_inner(tree: Tree, parents: Parents, visitor: Visitor) -> None
 
 def _visit_parents(tree: Tree, visitor: Visitor) -> None:
     _visit_parents_inner(tree, [], visitor)
+
+
+__all__ = [Parents, Tree, Visit, Visitor, CONT, SKIP, EXIT, _visit_parents]  # type: ignore

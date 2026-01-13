@@ -1,15 +1,6 @@
-from argparse import ArgumentParser
-import json
-import os
-import re
-from typing import Union, TypedDict
-
 import inkex
 
-from .address_tree import AddressTree, FacilitiesJson, TmpAddressCoords, xy2v
 from .save_addresses import SaveAddresses
-from .visit_parents import (_visit_parents, CONT, SKIP, Visit, Tree, Parents, Visitor)
-
 
 
 class GenerateAddresses(SaveAddresses):
@@ -24,9 +15,9 @@ class GenerateAddresses(SaveAddresses):
         pass
 
     def _generate_addresses(self, layer) -> None:
-        self.msg(f"=== GenerateAddresses: _generate_addresses")
+        self.msg("=== GenerateAddresses: _generate_addresses")
         if len(self._addresses.items()) == 0:
-            self.msg(f"_generate_addresses: no items found!")
+            self.msg("_generate_addresses: no items found!")
             return
 
         aparent = inkex.Group()
@@ -40,6 +31,9 @@ class GenerateAddresses(SaveAddresses):
         self._cleanup_addresses(layer)
 
     def _process_addresses(self, layer) -> None:
-        self.msg(f"=== GenerateAddresses: _process_addresses")
+        self.msg("=== GenerateAddresses: _process_addresses")
         super()._process_addresses(layer)
         self._generate_addresses(layer)
+
+
+__all__ = [GenerateAddresses]  # type: ignore

@@ -3,15 +3,11 @@
 
 from argparse import ArgumentParser
 import inkex
-import inkex.command
-import json
 import re
 import os
 from typing import Union, TypedDict
 from lxml import etree
-from .visit_parents import (_visit_parents, CONT, SKIP, Visit, Tree, Parents, Visitor)
-from .name import read_name, draw_name
-
+from .visit_parents import _visit_parents, CONT, SKIP, Visit, Tree, Parents
 
 
 type Url = str
@@ -31,12 +27,18 @@ type Name = tuple[AddressString, XY]
 type Names = list[Name]
 type AddressNames = dict[AddressString, Names]
 
+
 class V(TypedDict):
     x: float
     y: float
-type TmpAddressCoords = dict[AddressString, V] # addresses.json
-type TmpNameCoords = dict[NameString, list[V]] # tmp_unresolved_addresses.json
-type TmpNameAddress = dict[NameString, list[AddressString]] # tmp_resolved_addresses.json
+
+
+type TmpAddressCoords = dict[AddressString, V]  # addresses.json
+type TmpNameCoords = dict[NameString, list[V]]  # tmp_unresolved_addresses.json
+type TmpNameAddress = dict[
+    NameString, list[AddressString]
+]  # tmp_resolved_addresses.json
+
 
 # XXX
 class FacilitiesJson(TypedDict):
@@ -49,17 +51,19 @@ def unround(n: float) -> float:
     i = round(f)
     return f if f != i else i
 
+
 def xy2v(x, y) -> V:
     return {
-        'x': unround(x),
-        'y': unround(y),
+        "x": unround(x),
+        "y": unround(y),
         #'w': r3w if r3w != rw else rw,
     }
+
 
 def a2v(axy: Address) -> V:
     (_a, (x, y)) = axy
     return xy2v(x, y)
-    
+
 
 class AddressTree(inkex.EffectExtension):
     _addresses: AddressPos = {}
@@ -71,14 +75,14 @@ class AddressTree(inkex.EffectExtension):
     # XXX address <g> id
     # XXX (A)ddress
     # e.g. `A1F-Shops-1-1`
-    _global_prefix = 'A'
+    _global_prefix = "A"
 
     # e.g. `(Contents)`
-    _ignore_pattern = '^[(].*[)]$'
+    _ignore_pattern = "^[(].*[)]$"
 
     _layer_name = None
 
-    #_locs_json = None
+    # _locs_json = None
     _addresses_json = None
     _unresolved_names_json = None
     _resolved_names_json = None
@@ -89,22 +93,17 @@ class AddressTree(inkex.EffectExtension):
 
     _facilities_json = None
 
-    _find_layers_opts = {
-        'skip_ignoring': True
-    }
+    _find_layers_opts = {"skip_ignoring": True}
 
     def _get_path(self, prefix, suffix) -> str | None:
         assert isinstance(self._layer_name, str)
         ps = [
             f"floors/{self._layer_name}/{prefix}.{suffix}",
             f"floors/{prefix}/{self._layer_name}.{suffix}",
-
             f"floors/{self._layer_name}-{prefix}.{suffix}",
             f"floors/{prefix}-{self._layer_name}.{suffix}",
-
             f"{self._layer_name}/{prefix}.{suffix}",
             f"{prefix}/{self._layer_name}.{suffix}",
-
             f"{self._layer_name}-{prefix}.{suffix}",
             f"{prefix}-{self._layer_name}.{suffix}",
         ]
@@ -118,7 +117,6 @@ class AddressTree(inkex.EffectExtension):
                 return path
         self.msg(f"_get_path: not found: {prefix}, {suffix}")
         return None
-
 
     def _ignoring(self, node):
         return re.match(self._ignore_pattern, node.label) is not None
@@ -151,7 +149,7 @@ class AddressTree(inkex.EffectExtension):
         pass
 
     def _collect_addresses(self, node):
-        self.msg(f"=== _collect_addresses@AddressTree")
+        self.msg("=== _collect_addresses@AddressTree")
         self._addresses = {}
         self._points = {}
 
@@ -176,27 +174,37 @@ class AddressTree(inkex.EffectExtension):
         pass
 
     def _find_layers(self) -> list[inkex.Group]:
-        self.msg(f"=== _find_layers")
+        self.msg("=== _find_layers")
         floor_pattern = self.options.floor
 
         assert isinstance(self.document, etree._ElementTree)
         assert isinstance(floor_pattern, Union[None, str])
         res = [
-            node for node in self.document.getroot()
-                if isinstance(node, inkex.Group)
-                if not (node.label and (self._find_layers_opts['skip_ignoring'] and self._ignoring(node)))
-                if (floor_pattern is None or not isinstance(node.label, str) or re.match(floor_pattern, node.label) is not None)
+            node
+            for node in self.document.getroot()
+            if isinstance(node, inkex.Group)
+            if not (
+                node.label
+                and (self._find_layers_opts["skip_ignoring"] and self._ignoring(node))
+            )
+            if (
+                floor_pattern is None
+                or not isinstance(node.label, str)
+                or re.match(floor_pattern, node.label) is not None
+            )
         ]
         self.msg(f"=== _find_layers: {res}")
         return res
 
     def _find_assets(self) -> inkex.Group | None:
-        assert isinstance(self.document, etree._ElementTree), f""
+        assert isinstance(self.document, etree._ElementTree), ""
         res = [
-            node for node in self.document.getroot()
-                if isinstance(node, inkex.Group)
-                if not (node.label and self._ignoring(node))
-                if isinstance(node.label, str) and re.match('^(Assets)$', node.label) is not None
+            node
+            for node in self.document.getroot()
+            if isinstance(node, inkex.Group)
+            if not (node.label and self._ignoring(node))
+            if isinstance(node.label, str)
+            and re.match("^(Assets)$", node.label) is not None
         ]
         if len(res) != 1:
             return None
@@ -209,7 +217,7 @@ class AddressTree(inkex.EffectExtension):
         return super().add_arguments(pars)
 
     def effect(self):
-        self.msg(f"==== AddressTree: start")
+        self.msg("==== AddressTree: start")
         if self.svg.selection:
             for node in self.svg.selection.values():
                 self._collect_addresses(node)
@@ -221,20 +229,30 @@ class AddressTree(inkex.EffectExtension):
 
                 # XXX set .json paths
                 # input
-                #self._locs_json = os.path.join(self.svg_path(), "build", f"locs_{self._layer_name}.json")
-                #self._locs_json = os.path.join(self.svg_path(), f"locs.json")
+                # self._locs_json = os.path.join(self.svg_path(), "build", f"locs_{self._layer_name}.json")
+                # self._locs_json = os.path.join(self.svg_path(), f"locs.json")
 
                 # output
                 p = self.svg_path()
                 assert isinstance(p, str)
-                self._addresses_json = os.path.join(p, f"addresses/{self._layer_name}.json")
-                self._unresolved_names_json = os.path.join(p, f"unresolved_names/{self._layer_name}.json")
-                self._resolved_names_json = os.path.join(p, f"resolved_names/{self._layer_name}.json")
-                #self._tmp_unresolved_names_json = os.path.join(self.svg_path(), "build", f"coords_{self._layer_name}.json")
-                self._tmp_unresolved_names_json = os.path.join("/tmp", f"tmp_unresolved_names_{self._layer_name}.json")
-                #self._tmp_resolved_names_json = os.path.join(self.svg_path(), f"build/resolved_names_{self._layer_name}.json")
-                self._tmp_resolved_names_json = os.path.join("/tmp", f"tmp_resolved_names_{self._layer_name}.json")
-                self._facilities_json = os.path.join(p, f"facilities.json")
+                self._addresses_json = os.path.join(
+                    p, f"addresses/{self._layer_name}.json"
+                )
+                self._unresolved_names_json = os.path.join(
+                    p, f"unresolved_names/{self._layer_name}.json"
+                )
+                self._resolved_names_json = os.path.join(
+                    p, f"resolved_names/{self._layer_name}.json"
+                )
+                # self._tmp_unresolved_names_json = os.path.join(self.svg_path(), "build", f"coords_{self._layer_name}.json")
+                self._tmp_unresolved_names_json = os.path.join(
+                    "/tmp", f"tmp_unresolved_names_{self._layer_name}.json"
+                )
+                # self._tmp_resolved_names_json = os.path.join(self.svg_path(), f"build/resolved_names_{self._layer_name}.json")
+                self._tmp_resolved_names_json = os.path.join(
+                    "/tmp", f"tmp_resolved_names_{self._layer_name}.json"
+                )
+                self._facilities_json = os.path.join(p, "facilities.json")
 
                 # XXX reset all data per layer
                 self._pre_collect_addresses(layer)
@@ -244,4 +262,17 @@ class AddressTree(inkex.EffectExtension):
                 self._process_addresses(layer)
                 self._post_process_addresses(layer)
             self._post_layers()
-        self.msg(f"==== AddressTree: end")
+        self.msg("==== AddressTree: end")
+
+
+__all__ = [
+    # .address_tree
+    Address,
+    AddressNames,
+    AddressTree,
+    Addresses,
+    Name,
+    NameAddresses,
+    Names,
+    XY,
+]  # type: ignore

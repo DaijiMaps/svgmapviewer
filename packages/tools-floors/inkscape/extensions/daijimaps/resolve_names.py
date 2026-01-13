@@ -1,26 +1,18 @@
-from argparse import ArgumentParser
 import json
 import os
-import re
-from typing import Union, TypedDict
 
 import inkex
 import inkex.command
 
 from .address_tree import (
     AddressNames,
-    AddressTree,
-    FacilitiesJson,
     NameAddresses,
-    TmpAddressCoords,
     TmpNameAddress,
     TmpNameCoords,
     a2v,
-    xy2v,
 )
-from .name import draw_name, read_name
+from .name import read_name
 from .save_addresses import SaveAddresses
-from .visit_parents import _visit_parents, CONT, SKIP, Visit, Tree, Parents, Visitor
 
 
 class ResolveNames(SaveAddresses):
@@ -83,7 +75,7 @@ class ResolveNames(SaveAddresses):
 
     def _load_tmp_resolved_names(self) -> None:
         assert self._tmp_resolved_names_json is not None, (
-            f"tmp resolved_names.json path is unspecified"
+            "tmp resolved_names.json path is unspecified"
         )
         with open(self._tmp_resolved_names_json, "r", encoding="utf-8") as f:
             # XXX
@@ -98,7 +90,7 @@ class ResolveNames(SaveAddresses):
     def _save_resolved_names(self) -> None:
         self.msg(f"saving resolved names json: {self._resolved_names}")
         assert self._resolved_names_json is not None, (
-            f"_resolved_names_json path is unspecified"
+            "_resolved_names_json path is unspecified"
         )
         d = os.path.dirname(self._resolved_names_json)
         try:
@@ -111,7 +103,7 @@ class ResolveNames(SaveAddresses):
     def _save_unresolved_names(self) -> None:
         self.msg(f"saving unresolved names json: {self._unresolved_names}")
         assert self._unresolved_names_json is not None, (
-            f"_unresolved_names_json path is unspecified"
+            "_unresolved_names_json path is unspecified"
         )
         d = os.path.dirname(self._unresolved_names_json)
         try:
@@ -124,7 +116,7 @@ class ResolveNames(SaveAddresses):
     def _save_tmp_unresolved_names(self) -> None:
         self.msg(f"saving tmp unresolved names json: {self._unresolved_names}")
         assert self._tmp_unresolved_names_json is not None, (
-            f"_tmp_unresolved_names_json path is unspecified"
+            "_tmp_unresolved_names_json path is unspecified"
         )
 
         self._tmp_unresolved_name_coords = {}
@@ -168,3 +160,6 @@ class ResolveNames(SaveAddresses):
         else:
             self._unresolved_names = {}
         return unresolved_names_group
+
+
+__all__ = [ResolveNames]  # type: ignore

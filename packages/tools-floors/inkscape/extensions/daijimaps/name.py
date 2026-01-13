@@ -2,8 +2,6 @@
 # coding=utf-8
 
 import inkex
-from inkex.paths import (Move)
-
 
 
 def preferInt(n: float) -> float | int:
@@ -11,24 +9,27 @@ def preferInt(n: float) -> float | int:
     return r if r == n else n
 
 
-
 def draw_name(text, x: float = 0, y: float = 0) -> inkex.TextElement:
     t = inkex.TextElement()
     t.label = text
-    t.update(**{
-        "x": preferInt(x),
-        "y": preferInt(y),
-        "font-size": 2,
-        "text-anchor": "middle",
-    })
+    t.update(
+        **{
+            "x": preferInt(x),
+            "y": preferInt(y),
+            "font-size": 2,
+            "text-anchor": "middle",
+        }
+    )
     ts = inkex.Tspan()
     ts.text = text
-    ts.update(**{
-        "x": preferInt(x),
-        "y": preferInt(y),
-        "font-size": 2,
-        "text-anchor": "middle",
-    })
+    ts.update(
+        **{
+            "x": preferInt(x),
+            "y": preferInt(y),
+            "font-size": 2,
+            "text-anchor": "middle",
+        }
+    )
     t.append(ts)
     return t
 
@@ -38,7 +39,7 @@ type Name = tuple[None | str, str, XY]
 
 
 def read_name(node: inkex.BaseElement) -> None | Name:
-    if (not isinstance(node, inkex.TextElement)):
+    if not isinstance(node, inkex.TextElement):
         return None
     assert isinstance(node.label, str)
     name_and_address = node.label.split(" @ ")
@@ -50,3 +51,6 @@ def read_name(node: inkex.BaseElement) -> None | Name:
     (x, y) = (node.x, node.y) if isinstance(node, inkex.TextElement) else (0, 0)
     (tx, ty) = (node.transform.e, node.transform.f) if node.transform else (0, 0)
     return (address, name, (x + tx, y + ty))
+
+
+__all__ = [draw_name, read_name]  # type: ignore

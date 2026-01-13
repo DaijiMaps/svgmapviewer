@@ -1,26 +1,23 @@
-from argparse import ArgumentParser
 import json
 import os
 import re
-from typing import Union, TypedDict
 
 import inkex
 
 from .address_tree import AddressTree, FacilitiesJson, TmpAddressCoords, xy2v
-from .visit_parents import (_visit_parents, CONT, SKIP, Visit, Tree, Parents, Visitor)
-
+from .visit_parents import Tree, Parents
 
 
 class SaveAddresses(AddressTree):
     def _prefix_fixup(self, prefix: str) -> str:
-        self.msg(f"=== _prefix_fixup@SaveAddresses")
+        self.msg("=== _prefix_fixup@SaveAddresses")
         # XXX
-        res = re.sub(r'-Content-', '-', prefix)
+        res = re.sub(r"-Content-", "-", prefix)
         self.msg(f"=== _prefix_fixup@SaveAddresses: {res}")
         return res
 
     def _build_prefix(self, parents: list[inkex.Group]) -> str | None:
-        self.msg(f"=== _build_prefix@SaveAddresses")
+        self.msg("=== _build_prefix@SaveAddresses")
         plabels = [p.label for p in parents if isinstance(p.label, str)]
         # all parents MUST have a label!
         if None in plabels:
@@ -44,14 +41,16 @@ class SaveAddresses(AddressTree):
         self._all_points[p].append(a)
 
     def _save_addresses(self, node, prefix, label) -> None:
-        self.msg(f"=== _save_addresses@SaveAddresses")
+        self.msg("=== _save_addresses@SaveAddresses")
         for child in list(node):
             # leaves MUST be <use> and define transform!
             a = f"{prefix}{label}-{child.label}"
             bb: inkex.BoundingBox = child.shape_box()
             c = None
             (px, py) = (None, None)
-            (tx, ty) = (child.transform.e, child.transform.f) if child.transform else (0, 0)
+            (tx, ty) = (
+                (child.transform.e, child.transform.f) if child.transform else (0, 0)
+            )
             if isinstance(child, inkex.Use):
                 x = child.get("x") or 0
                 y = child.get("y") or 0
@@ -60,28 +59,28 @@ class SaveAddresses(AddressTree):
                 c = child.center
             elif isinstance(child, inkex.Ellipse):
                 c = child.center
-            if c != None:
+            if c is not None:
                 (px, py) = (float(tx) + float(c.x), float(ty) + float(c.y))
-                l = (bb.width + bb.height) * 0.5
-                w = min(bb.width, l)
+                hwh = (bb.width + bb.height) * 0.5
+                w = min(bb.width, hwh)
                 dx = (w * 0.8 - bb.width) * 0.5
                 bb = bb.resize(dx, 0)
-            if px != None and py != None:
+            if px is not None and py is not None:
                 self._save_address(a, px, py, bb, child.href)
 
     def _visitor_node_branch_save_address(self, node: Tree, parents: Parents) -> None:
-        self.msg(f"=== _visitor_node_branch_save_address@SaveAddresses")
+        self.msg("=== _visitor_node_branch_save_address@SaveAddresses")
         if node.label:
             prefix = self._build_prefix(parents)
             if prefix is not None:
                 self._save_addresses(node, prefix, node.label)
 
     def _visitor_node_branch(self, node: Tree, parents: Parents) -> None:
-        self.msg(f"=== _visitor_node_branch@SaveAddresses")
+        self.msg("=== _visitor_node_branch@SaveAddresses")
         self._visitor_node_branch_save_address(node, parents)
 
     def _sort_children_by_label(self, node: inkex.Group) -> None:
-        self.msg(f"=== _sort_children_by_label@SaveAddresses")
+        self.msg("=== _sort_children_by_label@SaveAddresses")
         children: dict[str, list[inkex.BaseElement]] = {}
         for a in list(node):
             if a.label:
@@ -91,20 +90,20 @@ class SaveAddresses(AddressTree):
                     children[a.label] = []
                 children[a.label].append(a)
         # assume alphabetical order
-        labels = sorted(children.keys(), key = lambda label: str.lower(label))
+        labels = sorted(children.keys(), key=lambda label: str.lower(label))
         for label in labels:
             for a in children[label]:
                 node.append(a)
 
     def _post_collect_addresses(self, node):
-        self.msg(f"=== _post_collect_addresses@SaveAddresses")
+        self.msg("=== _post_collect_addresses@SaveAddresses")
         assert isinstance(self._addresses_json, str)
         d = os.path.dirname(self._addresses_json)
         try:
             os.stat(d)
         except:
             os.mkdir(d)
-        with open(self._addresses_json, 'w', encoding="utf-8") as f:
+        with open(self._addresses_json, "w", encoding="utf-8") as f:
             j: TmpAddressCoords = {}
             for astr, ((x, y), _bb, _href) in self._addresses.items():
                 j[astr] = xy2v(x, y)
@@ -114,23 +113,17 @@ class SaveAddresses(AddressTree):
         return res
 
     def _collect_links(self) -> None:
-        self.msg(f"=== _collect_links@SaveAddresses")
+        self.msg("=== _collect_links@SaveAddresses")
         n = 1
         for p in self._all_points:
             if len(p) == 1:
                 continue
-            xs = [
-                a for a in self._all_points[p]
-                    if re.match('^.*-Facilities-.*$', a)
-            ]
+            xs = [a for a in self._all_points[p] if re.match("^.*-Facilities-.*$", a)]
             if len(xs) <= 1:
                 continue
             # XXX check kind (e.g. Elevator, Stairs)
             # XXX don't hardcode
-            xxs = [
-                x for x in xs
-                    if re.match('^.*(Elevator|Stairs).*$', x)
-            ]
+            xxs = [x for x in xs if re.match("^.*(Elevator|Stairs).*$", x)]
             if len(xxs) <= 1:
                 continue
             self.msg(f"links: {p}: {self._all_points[p]}")
@@ -138,15 +131,16 @@ class SaveAddresses(AddressTree):
             n = n + 1
 
     def _save_links(self) -> None:
-        self.msg(f"=== _save_links@SaveAddresses")
+        self.msg("=== _save_links@SaveAddresses")
         assert isinstance(self._facilities_json, str)
         d = os.path.dirname(self._facilities_json)
         try:
             os.stat(d)
         except:
             os.mkdir(d)
-        with open(self._facilities_json, 'w', encoding="utf-8") as f:
-            j: FacilitiesJson = {
-                'biLinks': self._links
-            }
+        with open(self._facilities_json, "w", encoding="utf-8") as f:
+            j: FacilitiesJson = {"biLinks": self._links}
             json.dump(j, f, indent=2)
+
+
+__all__ = [SaveAddresses]  # type: ignore
