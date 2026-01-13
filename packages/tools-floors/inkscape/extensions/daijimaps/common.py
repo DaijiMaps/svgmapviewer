@@ -1,4 +1,4 @@
-from .types import Address, V
+from .types import Address, AddressString, V
 
 
 # XXX prefer 1 to 1.0
@@ -16,9 +16,14 @@ def xy2v(x, y) -> V:
     }
 
 
+def a2astr(axy: Address) -> AddressString | None:
+    (astr, _xy) = axy
+    return astr
+
+
 def a2v(axy: Address) -> V:
     (_a, (x, y)) = axy
     return xy2v(x, y)
 
 
-__all__ = [a2v, xy2v]  # type: ignore
+__all__ = [a2astr, a2v, xy2v]  # type: ignore

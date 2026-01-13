@@ -48,6 +48,9 @@ class ResolveShops(daijimaps.ResolveNames):
         self._read_unresolved_names(unresolved_names_group)
         self._save_unresolved_names()
 
+        self._save_floors_addresses()
+        self._save_floors_names()
+
         self.msg("=== resolve: end")
 
     # XXX

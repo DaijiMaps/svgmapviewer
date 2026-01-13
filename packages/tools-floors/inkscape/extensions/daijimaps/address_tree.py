@@ -5,7 +5,6 @@ from argparse import ArgumentParser
 import inkex
 import re
 import os
-from typing import Union
 from lxml import etree
 from .visit_parents import _visit_parents, CONT, SKIP, Visit, Tree, Parents
 from .types import AddressPos
@@ -36,6 +35,10 @@ class AddressTree(inkex.EffectExtension):
     # XXX resolve-addresses input/output
     _tmp_unresolved_names_json = None
     _tmp_resolved_names_json = None
+
+    # XXX resolve-addresses input/output
+    _floors_addresses_json: str | None = None
+    _floors_names_json: str | None = None
 
     _facilities_json = None
 
@@ -124,7 +127,7 @@ class AddressTree(inkex.EffectExtension):
         floor_pattern = self.options.floor
 
         assert isinstance(self.document, etree._ElementTree)
-        assert isinstance(floor_pattern, Union[None, str])
+        assert isinstance(floor_pattern, str | None)
         res = [
             node
             for node in self.document.getroot()
@@ -199,6 +202,12 @@ class AddressTree(inkex.EffectExtension):
                     "/tmp", f"tmp_resolved_names_{self._layer_name}.json"
                 )
                 self._facilities_json = os.path.join(p, "facilities.json")
+                self._floors_addresses_json = os.path.join(
+                    p, f"floors-addresses-{self._layer_name}.json"
+                )
+                self._floors_names_json = os.path.join(
+                    p, f"floors-names-{self._layer_name}.json"
+                )
 
                 # XXX reset all data per layer
                 self._pre_collect_addresses(layer)

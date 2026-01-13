@@ -33,8 +33,19 @@ type TmpNameAddress = dict[
 
 
 # XXX
+type LinkID = str
+
+
+# XXX
 class FacilitiesJson(TypedDict):
-    biLinks: dict[str, list[AddressString]]
+    biLinks: dict[LinkID, list[AddressString]]
+
+
+#
+# JSON for svgmapviewer floors
+#
+type FloorsAddressesJson = dict[AddressString, V]  # floors-1F-addresses.json
+type FloorsNamesJson = dict[NameString, list[AddressString]]  # floors-1F-names.json
 
 
 __all__ = [
@@ -46,6 +57,8 @@ __all__ = [
     AddressString,
     Addresses,
     FacilitiesJson,
+    FloorsAddressesJson,
+    FloorsNamesJson,
     Name,
     NameAddresses,
     NameString,

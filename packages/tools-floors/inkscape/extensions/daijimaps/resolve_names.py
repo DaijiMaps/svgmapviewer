@@ -4,11 +4,13 @@ import os
 import inkex
 import inkex.command
 
-from .common import a2v
+from .common import a2astr, a2v, xy2v
 from .name import read_name
 from .save_addresses import SaveAddresses
 from .types import (
     AddressNames,
+    FloorsAddressesJson,
+    FloorsNamesJson,
     NameAddresses,
     TmpNameAddress,
     TmpNameCoords,
@@ -122,6 +124,34 @@ class ResolveNames(SaveAddresses):
         os.makedirs(d, exist_ok=True)
         with open(self._tmp_unresolved_names_json, "w", encoding="utf-8") as f:
             json.dump(self._tmp_unresolved_name_coords, f, indent=2, ensure_ascii=False)
+
+    def _save_floors_addresses(self) -> None:
+        j: FloorsAddressesJson = {}
+        for a in self._addresses:
+            ((x, y), _bb, _url) = self._addresses[a]
+            j[a] = xy2v(x, y)
+        assert self._floors_addresses_json is not None, (
+            "floors addresses json path is unspecified"
+        )
+        d = os.path.dirname(self._floors_addresses_json)
+        os.makedirs(d, exist_ok=True)
+        with open(self._floors_addresses_json, "w", encoding="utf-8") as f:
+            json.dump(j, f, indent=2, ensure_ascii=False)
+
+    def _save_floors_names(self) -> None:
+        j: FloorsNamesJson = {}
+        for name in self._resolved_names:
+            aa = self._resolved_names[name]
+            xs = [x for x in list(map(a2astr, aa)) if x is not None]
+            j[name] = xs
+
+        assert self._floors_names_json is not None, (
+            "floors names json path is unspecified"
+        )
+        d = os.path.dirname(self._floors_names_json)
+        os.makedirs(d, exist_ok=True)
+        with open(self._floors_names_json, "w", encoding="utf-8") as f:
+            json.dump(j, f, indent=2, ensure_ascii=False)
 
     def _find_group(self, layer, label) -> inkex.Group | None:
         for child in list(layer):
