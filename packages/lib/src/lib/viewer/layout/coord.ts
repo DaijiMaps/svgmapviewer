@@ -1,4 +1,4 @@
-import { boxCopy, boxUnit, type BoxBox } from '../../box/prefixed'
+import { boxUnit, type BoxBox } from '../../box/prefixed'
 import { vecScale } from '../../vec/prefixed'
 import {
   type ContainerLayoutConfig,
@@ -30,12 +30,12 @@ export function makeCoord({
   svg,
 }: ContainerLayoutConfig & SvgLayoutConfig): LayoutCoord {
   return {
-    container: boxCopy(container),
-    scroll: boxCopy(container),
+    container: container,
+    scroll: container,
     content: new DOMMatrixReadOnly(),
     svgOffset,
     svgScale,
-    svg: boxCopy(svg),
+    svg,
   }
 }
 
@@ -64,8 +64,7 @@ export function fromSvgToScroll({
   svgScale,
   svg,
 }: Readonly<ContentLayoutCoord & SvgLayoutCoord>): DOMMatrixReadOnly {
-  return new DOMMatrixReadOnly()
-    .multiply(content)
+  return content
     .translate(-svgOffset.x, -svgOffset.y)
     .scale(1 / svgScale.s, 1 / svgScale.s)
     .translate(-svg.x, -svg.y)
