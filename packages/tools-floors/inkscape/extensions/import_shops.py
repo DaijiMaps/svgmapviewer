@@ -40,7 +40,7 @@ class ImportShops(daijimaps.GenerateAddresses):
         self.msg("=== import shops: _post_process_addresses")
         for addresses in list(layer):
             if addresses.label == self._group_label:
-                self._sort_children_by_label(addresses)
+                self._sort_children(addresses)
         return super()._post_process_addresses(layer)
 
 

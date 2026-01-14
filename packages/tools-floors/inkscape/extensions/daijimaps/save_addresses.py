@@ -81,8 +81,8 @@ class SaveAddresses(AddressTree):
         self.msg("=== _visitor_node_branch@SaveAddresses")
         self._visitor_node_branch_save_address(node, parents)
 
-    def _sort_children_by_label(self, node: inkex.Group) -> None:
-        self.msg("=== _sort_children_by_label@SaveAddresses")
+    def _sort_children(self, node: inkex.Group) -> None:
+        self.msg("=== _sort_children@SaveAddresses")
         children: dict[str, list[inkex.BaseElement]] = {}
         for a in list(node):
             if a.label:

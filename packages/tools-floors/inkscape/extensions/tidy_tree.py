@@ -92,7 +92,7 @@ class TidyTree(daijimaps.AddressTree):
         if repeat_path.repeat_path(node):
             self.msg(f"expanding repeat path for {node.label}")
 
-    def _sort_children_by_label(self, node):
+    def _sort_children(self, node):
         children = {}
         for a in list(node):
             if a.label:
@@ -148,7 +148,7 @@ class TidyTree(daijimaps.AddressTree):
                     # XXX
                     return
             if changed:
-                self._sort_children_by_label(kind)
+                self._sort_children(kind)
 
     def _fixup_marker(self, node):
         if not isinstance(node, inkex.Marker):

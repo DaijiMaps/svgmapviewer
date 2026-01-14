@@ -13,9 +13,11 @@ from .save_addresses import SaveAddresses
 from .types import (
     Address,
     AddressNames,
+    AddressString,
     Addresses,
     Name,
     NameAddresses,
+    NameString,
     Names,
     XY,
 )
@@ -39,9 +41,11 @@ __all__ = [
     # .types
     Address,
     AddressNames,
+    AddressString,
     Addresses,
     Name,
     NameAddresses,
+    NameString,
     Names,
     XY,
 ]  # type: ignore
