@@ -3,7 +3,6 @@ import { pipe } from 'fp-ts/function'
 //import { type ReadonlyDeep } from 'type-fest'
 import {
   boxCenter,
-  boxCopy,
   boxMove,
   boxMoveTo,
   boxScaleAt,
@@ -14,10 +13,14 @@ import {
   vecAdd,
   vecScale,
   vecSub,
-  vecVec,
   type VecVec as Vec,
 } from '../../vec/prefixed'
-import { emptyLayoutCoord, fromMatrixSvg, fromScroll, makeCoord } from './coord'
+import {
+  emptyLayoutCoord,
+  fromMatrixSvg,
+  fromDOMScroll,
+  makeCoord,
+} from './coord'
 import { fit } from './fit'
 import {
   type Layout,
@@ -88,8 +91,7 @@ export function resetLayout({ config, content }: Layout): Layout {
   return l
 }
 
-function toDeg({ a, b, c, d }: DOMMatrixReadOnly): number {
-  const m = new DOMMatrixReadOnly([a, b, c, d, 0, 0])
+function toDeg(m: DOMMatrixReadOnly): number {
   const v = m.transformPoint({ x: 1, y: 0 })
   const deg = (Math.atan2(v.y, v.x) / Math.PI) * 180
   return deg
@@ -172,19 +174,19 @@ export function zoomLayout(
 ): Layout {
   return {
     ...layout,
-    svg: boxCopy(svg),
+    svg,
     svgScale,
   }
 }
 
+// always rotate at scroll's center
 export function rotateLayout(layout: Layout, deg: number): Layout {
   const ox = layout.scroll.width / 2
   const oy = layout.scroll.height / 2
-  const rotate = new DOMMatrixReadOnly()
+  const content = layout.content
     .translate(ox, oy)
     .rotate(deg)
     .translate(-ox, -oy)
-  const content = rotate.multiply(layout.content)
   return {
     ...layout,
     content,
@@ -194,7 +196,7 @@ export function rotateLayout(layout: Layout, deg: number): Layout {
 export function recenterLayout(layout: Layout, start: Vec): Layout {
   const m = layout.content.inverse()
 
-  const o = vecVec(layout.scroll.width / 2, layout.scroll.height / 2)
+  const o = boxCenter(layout.scroll) // vecVec(layout.scroll.width / 2, layout.scroll.height / 2)
   const d = vecSub(layout.scroll, start)
   const p = vecAdd(o, d)
 
@@ -211,12 +213,15 @@ export function recenterLayout(layout: Layout, start: Vec): Layout {
   }
 }
 
-export function scrollLayout(layout: Layout, scroll: BoxBox): Layout {
-  const move = vecSub(fromScroll(scroll), layout.scroll)
+// reflect DOM scroll value and recenter
+export function scrollLayout(layout: Layout, domscroll: BoxBox): Layout {
+  const start: Vec = layout.scroll
+  const stop: Vec = fromDOMScroll(domscroll)
+  const move = vecSub(stop, start)
   return pipe(
     layout,
     (l) => moveLayout(l, move),
-    (l) => recenterLayout(l, boxCopy(layout.scroll))
+    (l) => recenterLayout(l, start)
   )
 }
 
