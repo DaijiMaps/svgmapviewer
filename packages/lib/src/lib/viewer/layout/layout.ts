@@ -126,7 +126,9 @@ export function expandLayout(layout: Layout, s: number, cursor: Vec): Layout {
 
   const scroll = boxScaleAt(layout.scroll, [sx, sy], cursor.x, cursor.y)
   const scroll_ = dommatrixreadonlyTranslateOnly(
-    dommatrixreadonlyScaleAt(layout.scroll_, sx, sy, cursor.x, cursor.y)
+    dommatrixreadonlyScaleAt(sx, sy, cursor.x, cursor.y).multiply(
+      layout.scroll_
+    )
   )
 
   const svgOffset = vecScale(layout.svgOffset, [sx, sy])
@@ -138,7 +140,7 @@ export function expandLayout(layout: Layout, s: number, cursor: Vec): Layout {
 
   const svg = boxScaleAt(layout.svg, [sx, sy], o.x, o.y)
   const svg_ = dommatrixreadonlyTranslateOnly(
-    dommatrixreadonlyScaleAt(layout.svg_, sx, sy, o.x, o.y)
+    dommatrixreadonlyScaleAt(sx, sy, o.x, o.y).multiply(layout.svg_)
   )
 
   return {
@@ -171,7 +173,7 @@ export function moveLayout(layout: Layout, move: Vec): Layout {
     ...layout,
     scroll: boxMove(layout.scroll, move),
     scroll_: dommatrixreadonlyTranslateOnly(
-      dommatrixreadonlyTranslate(layout.scroll_, move.x, move.y)
+      dommatrixreadonlyTranslate(move.x, move.y).multiply(layout.scroll_)
     ),
   }
 }
@@ -194,7 +196,9 @@ export function zoomLayout(
 export function rotateLayout(layout: Layout, deg: number): Layout {
   const ox = layout.scroll.width / 2
   const oy = layout.scroll.height / 2
-  const content = dommatrixreadonlyRotateAt(layout.content, deg, ox, oy)
+  const content = dommatrixreadonlyRotateAt(deg, ox, oy).multiply(
+    layout.content
+  )
 
   return {
     ...layout,

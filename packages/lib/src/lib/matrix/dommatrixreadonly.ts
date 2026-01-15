@@ -55,34 +55,27 @@ export function dommatrixreadonlyMakeTranslateOnly(
 }
 
 export function dommatrixreadonlyScaleAt(
-  m: DOMMatrixReadOnly,
   sx: number,
   sy: number,
   x: number,
   y: number
 ): DOMMatrixReadOnly {
-  return new DOMMatrixReadOnly().scale(sx, sy, 1, x, y, 0).multiply(m)
+  return new DOMMatrixReadOnly().scale(sx, sy, 1, x, y, 0)
 }
 
 export function dommatrixreadonlyRotateAt(
-  m: DOMMatrixReadOnly,
   deg: number,
   x: number,
   y: number
 ): DOMMatrixReadOnly {
-  return new DOMMatrixReadOnly()
-    .translate(x, y)
-    .rotate(deg)
-    .translate(-x, -y)
-    .multiply(m)
+  return new DOMMatrixReadOnly().translate(x, y).rotate(deg).translate(-x, -y)
 }
 
 export function dommatrixreadonlyTranslate(
-  m: DOMMatrixReadOnly,
   x: number,
   y: number
 ): DOMMatrixReadOnly {
-  return new DOMMatrixReadOnly().translate(x, y).multiply(m)
+  return new DOMMatrixReadOnly().translate(x, y)
 }
 
 export function dommatrixreadonlyTranslateOnly(

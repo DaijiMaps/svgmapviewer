@@ -19,6 +19,10 @@ import {
   type Layout,
 } from './layout'
 import { transformScale } from './transform'
+import {
+  dommatrixreadonlyMakeTranslateOnly,
+  dommatrixreadonlyScaleAt,
+} from '../../matrix/dommatrixreadonly'
 
 export function calcAnimation(
   req: null | AnimationReq,
@@ -76,10 +80,9 @@ export function animationHome(layout: Layout, nextLayout: Layout): Animation {
 
   const c = boxCenter(layout.container)
 
-  const q = new DOMMatrixReadOnly()
-    .translate(c.x, c.y)
-    .scale(1 / s)
-    .translate(-o.x, -o.y)
+  const q = dommatrixreadonlyMakeTranslateOnly(c.x - o.x, c.y - o.y).multiply(
+    dommatrixreadonlyScaleAt(1 / s, 1 / s, o.x, o.y)
+  )
 
   const zoom: AnimationZoom = {
     type: 'Zoom',
