@@ -13,6 +13,7 @@ export interface ContainerLayoutCoord {
 export interface ScrollLayoutCoord {
   // scroll (C) -> container (C)
   readonly scroll: BoxBox
+  readonly scroll_: DOMMatrixReadOnly
 }
 
 export interface ContentLayoutCoord {
@@ -23,12 +24,15 @@ export interface ContentLayoutCoord {
 export interface SvgLayoutCoord {
   // svg (C) -> svg viewbox (C)
   readonly svgOffset: Move
+  readonly svgOffset_: DOMMatrixReadOnly
 
   // svg viewbox ratio (C -> S)
   readonly svgScale: Scale
+  readonly svgScale_: DOMMatrixReadOnly
 
   // svg viewbox (S) -> svg origin (S)
   readonly svg: BoxBox
+  readonly svg_: DOMMatrixReadOnly
 }
 
 export type LayoutCoord = ContainerLayoutCoord &

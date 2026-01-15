@@ -30,6 +30,15 @@ import {
   type SvgLayoutCoord,
 } from './layout-types'
 import { type Scale } from './transform'
+import {
+  dommatrixreadonlyRotateAt,
+  dommatrixreadonlyScaleTranslateOnly,
+  dommatrixreadonlyScaleAt,
+  dommatrixreadonlyTranslateOnly,
+  dommatrixreadonlyMakeTranslateOnly,
+  dommatrixreadonlyMakeScaleOnly,
+  dommatrixreadonlyTranslate,
+} from '../../matrix/dommatrixreadonly'
 
 //// LayoutConfig
 //// Layout
@@ -69,43 +78,20 @@ export function configLayout(
 }
 
 export function makeLayout(config: LayoutConfig): Layout {
-  const coord = makeCoord(config)
-
-  const layout = {
+  return {
     config,
-    ...coord,
+    ...makeCoord(config),
   }
-
-  return layout
 }
 
 // reset (recenter) but keep rotate
 export function resetLayout({ config, content }: Layout): Layout {
-  const coord = makeCoord(config)
-  const deg = toDeg(content)
-  const layout = {
+  return {
     config,
-    ...coord,
+    ...makeCoord(config),
+    content, // preserve rotate
   }
-  const l = rotateLayout(layout, deg)
-  return l
 }
-
-function toDeg(m: DOMMatrixReadOnly): number {
-  const v = m.transformPoint({ x: 1, y: 0 })
-  const deg = (Math.atan2(v.y, v.x) / Math.PI) * 180
-  return deg
-}
-
-// XXX
-// XXX
-// XXX
-export function layoutToDeg(layout: Layout): number {
-  return toDeg(layout.content)
-}
-// XXX
-// XXX
-// XXX
 
 export function resizeLayout(
   origViewBox: BoxBox,
@@ -120,8 +106,7 @@ export function resizeLayout(
   // XXX
   // XXX
   //const { fontSize } = getComputedStyle(document.body)
-  const layout = makeLayout(configLayout(fontSize, origViewBox, size))
-  return layout
+  return makeLayout(configLayout(fontSize, origViewBox, size))
 }
 
 //// expandLayoutCenter
@@ -139,11 +124,31 @@ export function expandLayout(layout: Layout, s: number, cursor: Vec): Layout {
   const sx = ratio < 1 ? s / ratio : s
   const sy = ratio < 1 ? s : s * ratio
 
+  const scroll = boxScaleAt(layout.scroll, [sx, sy], cursor.x, cursor.y)
+  const scroll_ = dommatrixreadonlyTranslateOnly(
+    dommatrixreadonlyScaleAt(layout.scroll_, sx, sy, cursor.x, cursor.y)
+  )
+
+  const svgOffset = vecScale(layout.svgOffset, [sx, sy])
+  const svgOffset_ = dommatrixreadonlyScaleTranslateOnly(
+    layout.svgOffset_,
+    sx,
+    sy
+  )
+
+  const svg = boxScaleAt(layout.svg, [sx, sy], o.x, o.y)
+  const svg_ = dommatrixreadonlyTranslateOnly(
+    dommatrixreadonlyScaleAt(layout.svg_, sx, sy, o.x, o.y)
+  )
+
   return {
     ...layout,
-    scroll: boxScaleAt(layout.scroll, [sx, sy], cursor.x, cursor.y),
-    svgOffset: vecScale(layout.svgOffset, [sx, sy]),
-    svg: boxScaleAt(layout.svg, [sx, sy], o.x, o.y),
+    scroll,
+    scroll_,
+    svgOffset,
+    svgOffset_,
+    svg,
+    svg_,
   }
 }
 
@@ -157,6 +162,7 @@ export function relocLayout(layout: Layout, dest: Vec): Layout {
   return {
     ...layout,
     scroll: boxMoveTo(layout.scroll, dest),
+    scroll_: dommatrixreadonlyMakeTranslateOnly(dest.x, dest.y),
   }
 }
 
@@ -164,6 +170,9 @@ export function moveLayout(layout: Layout, move: Vec): Layout {
   return {
     ...layout,
     scroll: boxMove(layout.scroll, move),
+    scroll_: dommatrixreadonlyTranslateOnly(
+      dommatrixreadonlyTranslate(layout.scroll_, move.x, move.y)
+    ),
   }
 }
 
@@ -175,7 +184,9 @@ export function zoomLayout(
   return {
     ...layout,
     svg,
+    svg_: dommatrixreadonlyMakeTranslateOnly(svg.x, svg.y),
     svgScale,
+    svgScale_: dommatrixreadonlyMakeScaleOnly(svgScale.s, svgScale.s),
   }
 }
 
@@ -183,10 +194,8 @@ export function zoomLayout(
 export function rotateLayout(layout: Layout, deg: number): Layout {
   const ox = layout.scroll.width / 2
   const oy = layout.scroll.height / 2
-  const content = layout.content
-    .translate(ox, oy)
-    .rotate(deg)
-    .translate(-ox, -oy)
+  const content = dommatrixreadonlyRotateAt(layout.content, deg, ox, oy)
+
   return {
     ...layout,
     content,
@@ -194,6 +203,9 @@ export function rotateLayout(layout: Layout, deg: number): Layout {
 }
 
 export function recenterLayout(layout: Layout, start: Vec): Layout {
+  const scroll = boxMoveTo(layout.scroll, start)
+  const scroll_ = dommatrixreadonlyMakeTranslateOnly(start.x, start.y)
+
   const m = layout.content.inverse()
 
   const o = boxCenter(layout.scroll) // vecVec(layout.scroll.width / 2, layout.scroll.height / 2)
@@ -206,10 +218,18 @@ export function recenterLayout(layout: Layout, start: Vec): Layout {
 
   const dsvg = vecScale(dcontent, -layout.svgScale.s)
 
+  const svg = boxMove(layout.svg, dsvg)
+  const svg_ = dommatrixreadonlyTranslateOnly(layout.svg_).translate(
+    dsvg.x,
+    dsvg.y
+  )
+
   return {
     ...layout,
-    scroll: boxMoveTo(layout.scroll, start),
-    svg: boxMove(layout.svg, dsvg),
+    scroll,
+    scroll_,
+    svg,
+    svg_,
   }
 }
 

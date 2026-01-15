@@ -19,6 +19,7 @@ import {
   emptyLayout,
   //expandLayout,
   expandLayoutCenter,
+  type Layout,
   makeLayout,
   moveLayout,
   recenterLayout,
@@ -29,6 +30,10 @@ import {
 } from '../../src/lib/viewer/layout/layout'
 import { transformScale } from '../../src/lib/viewer/layout/transform'
 import { vecVec, type VecVec } from '../../src/lib/vec/prefixed'
+import {
+  type MatrixObject,
+  dommatrixreadonlyTranslateOnly,
+} from '../../src/lib/matrix/dommatrixreadonly'
 
 const container: Box = { x: 0, y: 0, width: 1200, height: 1000 }
 const origViewBox: Box = { x: 0, y: 0, width: 100, height: 100 }
@@ -68,19 +73,23 @@ test('zoom layout', () => {
 
 test('expand center', () => {
   const l1 = expandLayoutCenter(layout, 1)
-  expect(l1).toStrictEqual({
-    ...layout,
-    scroll: {
-      ...layout.scroll,
-      height: _(1200),
-      y: _(-100),
-    },
-    svg: {
-      ...layout.svg,
-      height: _(120),
-      y: _(-10),
-    },
-  })
+  expect(fixupLayout(l1)).toStrictEqual(
+    _layoutToString({
+      ...layout,
+      scroll: {
+        ...layout.scroll,
+        height: _(1200),
+        y: _(-100),
+      },
+      scroll_: new DOMMatrixReadOnly([1, 0, 0, 1, 0, -100]),
+      svg: {
+        ...layout.svg,
+        height: _(120),
+        y: _(-10),
+      },
+      svg_: new DOMMatrixReadOnly([1, 0, 0, 1.2, 0, -10]),
+    })
+  )
 })
 
 test('expand 2', () => {
@@ -106,24 +115,29 @@ test('expand 2', () => {
     height: 1440,
   })
   expect(l2.svg).toStrictEqual({
-    x: 0,
+    x: _(0),
     y: _(-22),
     width: 100,
     height: 144,
   })
-  expect(l2).toStrictEqual({
-    ...layout,
-    scroll: {
-      ...layout.scroll,
-      height: 1440,
-      y: -220,
-    },
-    svg: {
-      ...layout.svg,
-      height: _(144),
-      y: _(-22),
-    },
-  })
+  expect(fixupLayout(l2)).toStrictEqual(
+    _layoutToString({
+      ...layout,
+      scroll: {
+        ...layout.scroll,
+        height: 1440,
+        y: -220,
+      },
+      scroll_: new DOMMatrixReadOnly([1, 0, 0, 1, 0, -220]),
+      svg: {
+        ...layout.svg,
+        height: _(144),
+        x: _(0),
+        y: _(-22),
+      },
+      svg_: new DOMMatrixReadOnly([1, 0, 0, 1.44, 0, -22]),
+    })
+  )
 })
 
 const U = (() => {
@@ -143,25 +157,35 @@ const U = (() => {
 
 test('expand + zoom', () => {
   const l1 = expandLayoutCenter(U.layout, 3)
+  expect(l1.svg_.e).toEqual(l1.svg.x)
+  expect(l1.svg_.f).toEqual(l1.svg.y)
   const a1 = animationZoom(l1, 1, U.cursor)
+
   const l2 = animationDone(l1, a1)
   const a2 = animationZoom(l2, -1, U.cursor)
+
   const l3 = animationDone(l2, a2)
+
   const l4 = expandLayoutCenter(l3, 1 / 3)
 
-  expect(l4).toEqual({
-    ...U.layout,
-    scroll: {
-      ...U.layout.scroll,
-      x: expect.closeTo(U.layout.scroll.x),
-      y: expect.closeTo(U.layout.scroll.y),
-    },
-    svg: {
-      ...U.layout.svg,
-      x: expect.closeTo(U.layout.svg.x),
-      y: expect.closeTo(U.layout.svg.y),
-    },
-  })
+  expect(l4.svg_.e).toEqual(l4.svg.x)
+  expect(l4.svg_.f).toEqual(l4.svg.y)
+  expect(fixupLayout(l4)).toEqual(
+    _layoutToString({
+      ...U.layout,
+      scroll: {
+        ...U.layout.scroll,
+        x: expect.closeTo(U.layout.scroll.x),
+        y: expect.closeTo(U.layout.scroll.y),
+      },
+      svg: {
+        ...U.layout.svg,
+        x: expect.closeTo(U.layout.svg.x),
+        y: expect.closeTo(U.layout.svg.y),
+      },
+      svg_: new DOMMatrixReadOnly([1, 0, 0, 1, U.layout.svg.x, U.layout.svg.y]),
+    })
+  )
 })
 
 test('expand + zoom 2', () => {
@@ -174,19 +198,22 @@ test('expand + zoom 2', () => {
   const l3 = animationDone(l2, a2)
   const l4 = expandLayoutCenter(l3, 1 / 3)
 
-  expect(l4).toEqual({
-    ...U.layout,
-    scroll: {
-      ...U.layout.scroll,
-      x: expect.closeTo(U.layout.scroll.x),
-      y: expect.closeTo(U.layout.scroll.y),
-    },
-    svg: {
-      ...U.layout.svg,
-      x: expect.closeTo(U.layout.svg.x),
-      y: expect.closeTo(U.layout.svg.y),
-    },
-  })
+  expect(fixupLayout(l4)).toEqual(
+    _layoutToString({
+      ...U.layout,
+      scroll: {
+        ...U.layout.scroll,
+        x: expect.closeTo(U.layout.scroll.x),
+        y: expect.closeTo(U.layout.scroll.y),
+      },
+      svg: {
+        ...U.layout.svg,
+        x: expect.closeTo(U.layout.svg.x),
+        y: expect.closeTo(U.layout.svg.y),
+      },
+      svg_: new DOMMatrixReadOnly([1, 0, 0, 1, U.layout.svg.x, U.layout.svg.y]),
+    })
+  )
 })
 
 test('expand + zoom 3', () => {
@@ -223,21 +250,26 @@ test('expand + zoom 3', () => {
       d,
     })
   )
-  expect(layout).toStrictEqual({
-    ...res.l,
-    scroll: {
-      ...res.l.scroll,
-      height: 1000,
-      x: expect.closeTo(0, 5),
-      y: expect.closeTo(0, 5),
-    },
-    svg: {
-      ...res.l.svg,
-      height: 100,
-      x: expect.closeTo(0, 5),
-      y: expect.closeTo(0, 5),
-    },
-  })
+  expect(fixupLayout(layout)).toStrictEqual(
+    _layoutToString({
+      ...res.l,
+      scroll: {
+        ...res.l.scroll,
+        height: 1000,
+        x: expect.closeTo(0, 5),
+        y: expect.closeTo(0, 5),
+      },
+      scroll_: new DOMMatrixReadOnly([1, 0, 0, 1, 0, 0]),
+      svg: {
+        ...res.l.svg,
+        width: _(100),
+        height: _(100),
+        x: _(0),
+        y: _(0),
+      },
+      svg_: new DOMMatrixReadOnly(),
+    })
+  )
 })
 
 test('boxScale', () => {
@@ -248,27 +280,57 @@ test('boxScale', () => {
     layout.config.container.height / 2
   )
 
-  const opsvg = fromMatrixSvg(layout).inverse().transformPoint(o)
-
   expect(o.x).toBe(600)
+
+  const opsvg = fromMatrixSvg(layout).inverse().transformPoint(o)
 
   const o2 = fromMatrixSvg(layout).transformPoint(opsvg)
   expect(o2.x).closeTo(o.x, 5)
 
   const scroll = boxScaleAt(layout.scroll, s, o.x, o.y)
+  const scroll_ = dommatrixreadonlyTranslateOnly(
+    new DOMMatrixReadOnly().translate(o.x, o.y).scale(s).translate(-o.x, -o.y)
+  )
+  const svgOffset = transformScale(layout.svgOffset, s)
+  const svgOffset_ = new DOMMatrixReadOnly().translate(
+    layout.svgOffset_.e * s,
+    layout.svgOffset_.f * s
+  )
   const svg = boxScaleAt(layout.svg, s, opsvg.x, opsvg.y)
+  const svg_ = dommatrixreadonlyTranslateOnly(
+    new DOMMatrixReadOnly()
+      .translate(opsvg.x, opsvg.y)
+      .scale(s)
+      .translate(-opsvg.x, -opsvg.y)
+  )
 
+  expect(layout.scroll.x).toBe(0)
+  expect(layout.svgOffset.x).toBe(-100)
   expect(scroll.x).toBe(-600)
+  expect(svgOffset.x).toBe(-200)
+  expect(svgOffset_.e).toBe(-200)
   expect(svg.x).closeTo(-50, 5)
+  expect(svg_.e).closeTo(-50, 5)
 
   const coord = {
     ...layout,
     scroll,
-    svgOffset: transformScale(layout.svgOffset, s),
+    scroll_,
+    svgOffset,
+    svgOffset_,
     svg,
+    svg_,
   }
   //const coordMatrixOuter = toMatrixOuter(coord);
   const coordMatrixSvg = fromMatrixSvg(coord).inverse()
+  expect(mToObj(coordMatrixSvg)).toEqual({
+    a: 0.1,
+    b: 0,
+    c: 0,
+    d: 0.1,
+    e: _(-10),
+    f: _(0),
+  })
 
   const p = vecVec(600, 500)
   const start = coordMatrixSvg.transformPoint(p)
@@ -328,6 +390,71 @@ test('recenter 2', () => {
   expect(l2.scroll).toEqual(layout.scroll)
   expect(l2.svg).toEqual(svg2)
 })
+
+////
+
+function fixupLayout(layout: Layout): Omit<
+  Layout,
+  'content' | 'scroll_' | 'svgOffset_' | 'svgScale_' | 'svg_'
+> & {
+  content: MatrixObject
+  scroll_: MatrixObject
+  svgOffset_: MatrixObject
+  svgScale_: MatrixObject
+  svg_: MatrixObject
+} {
+  return {
+    ...layout,
+    content: mToObj(layout.content),
+    scroll_: mToObj(layout.scroll_),
+    svgOffset_: mToObj(layout.svgOffset_),
+    svgScale_: mToObj(layout.svgScale_),
+    svg_: mToObj(layout.svg_),
+  }
+}
+
+function _layoutToString(layout: Layout): Omit<
+  Layout,
+  'content' | 'scroll_' | 'svgOffset_' | 'svgScale_' | 'svg_'
+> & {
+  content: MatrixObject
+  scroll_: MatrixObject
+  svgOffset_: MatrixObject
+  svgScale_: MatrixObject
+  svg_: MatrixObject
+} {
+  return {
+    ...layout,
+    content: _mToObj(layout.content),
+    scroll_: _mToObj(layout.scroll_),
+    svgOffset_: _mToObj(layout.svgOffset_),
+    svgScale_: _mToObj(layout.svgScale_),
+    svg_: _mToObj(layout.svg_),
+  }
+}
+
+function mToObj(m: DOMMatrixReadOnly): MatrixObject {
+  return {
+    a: m.a,
+    b: m.b,
+    c: m.c,
+    d: m.d,
+    e: m.e,
+    f: m.f,
+  }
+}
+
+function _mToObj(m: DOMMatrixReadOnly) {
+  const { a, b, c, d, e, f } = mToObj(m)
+  return {
+    a: _(a),
+    b: _(b),
+    c: _(c),
+    d: _(d),
+    e: _(e),
+    f: _(f),
+  }
+}
 
 /*
 test('recenter 3', () => {
