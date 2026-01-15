@@ -18,7 +18,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    "types": ["@vitest/browser-playwright"]
+    "types": []
   },
   "include": ["*.config.ts", "*.config-*.ts"]
 }
