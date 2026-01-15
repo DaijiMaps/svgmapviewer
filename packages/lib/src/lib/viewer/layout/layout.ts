@@ -120,9 +120,10 @@ export function expandLayout(layout: Layout, s: number, cursor: Vec): Layout {
   const m = fromMatrixSvg(layout).inverse()
   const o = m.transformPoint(cursor)
 
+  // (expand to be squared) * (scale)
   const ratio = layout.container.width / layout.container.height
-  const sx = ratio < 1 ? s / ratio : s
-  const sy = ratio < 1 ? s : s * ratio
+  const sx = (ratio < 1 ? 1 / ratio : 1) * s
+  const sy = (ratio < 1 ? 1 : 1 * ratio) * s
 
   const scroll = boxScaleAt(layout.scroll, [sx, sy], cursor.x, cursor.y)
   const scroll_ = dommatrixreadonlyTranslateOnly(
@@ -194,9 +195,8 @@ export function zoomLayout(
 
 // always rotate at scroll's center
 export function rotateLayout(layout: Layout, deg: number): Layout {
-  const ox = layout.scroll.width / 2
-  const oy = layout.scroll.height / 2
-  const content = dommatrixreadonlyRotateAt(deg, ox, oy).multiply(
+  const o = boxCenter({ ...layout.scroll, x: 0, y: 0 })
+  const content = dommatrixreadonlyRotateAt(deg, o.x, o.y).multiply(
     layout.content
   )
 
