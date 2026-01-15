@@ -6,6 +6,9 @@ import {
   animationZoom,
 } from '../../src/lib/viewer/layout/animation'
 import {
+  boxBox,
+  boxMove,
+  boxUnit,
   type BoxBox as Box,
   boxCenter,
   boxScaleAt,
@@ -13,14 +16,19 @@ import {
 import { fromMatrixSvg } from '../../src/lib/viewer/layout/coord'
 import {
   configLayout,
+  emptyLayout,
   //expandLayout,
   expandLayoutCenter,
   makeLayout,
+  moveLayout,
+  recenterLayout,
+  relocLayout,
+  rotateLayout,
   //recenterLayout,
   //relocLayout,
 } from '../../src/lib/viewer/layout/layout'
 import { transformScale } from '../../src/lib/viewer/layout/transform'
-import { vecVec } from '../../src/lib/vec/prefixed'
+import { vecVec, type VecVec } from '../../src/lib/vec/prefixed'
 
 const container: Box = { x: 0, y: 0, width: 1200, height: 1000 }
 const origViewBox: Box = { x: 0, y: 0, width: 100, height: 100 }
@@ -269,23 +277,59 @@ test('boxScale', () => {
   expect(start.y).toBeCloseTo(50)
 })
 
-/*
+test('reloc', () => {
+  const o = vecVec(0, 0)
+  const d = vecVec(1, 1)
+  const l1 = relocLayout(emptyLayout, d)
+  expect(l1.scroll).toEqual(boxBox(1, 1, 1, 1))
+  const l2 = relocLayout(l1, o)
+  expect(l2.scroll).toEqual(boxUnit)
+})
+
+test('move', () => {
+  const p = vecVec(1, 1)
+  const q = vecVec(-1, -1)
+  const l1 = moveLayout(emptyLayout, p)
+  expect(l1.scroll).toEqual(boxBox(1, 1, 1, 1))
+  const l2 = moveLayout(l1, q)
+  expect(l2.scroll).toEqual(boxUnit)
+})
+
+test('rotate', () => {
+  const u = vecVec(1, 0)
+  const l0 = emptyLayout
+
+  const l1 = rotateLayout(l0, 90)
+  const m1 = fromMatrixSvg(l1)
+  const p1 = m1.transformPoint(u)
+  expect(p1.x).toBe(1)
+  expect(p1.y).toBe(1)
+
+  const l2 = rotateLayout(l1, -90)
+  const m2 = fromMatrixSvg(l2)
+  const p2 = m2.transformPoint(u)
+  expect(p2.x).toBe(1)
+  expect(p2.y).toBe(0)
+})
+
 test('recenter 1', () => {
-  const d1 = dragStart(layout.scroll, vecVec(0, 0))
-  const l1 = recenterLayout(layout, d1.start)
-  expect(l1).toStrictEqual(layout)
+  const d1 = vecVec(0, 0)
+  const l1 = recenterLayout(layout, d1)
+  expect(l1).toEqual(layout)
 })
 
 test('recenter 2', () => {
-  const l2 = pipe(
-    layout,
-    (l) => dragStart(l.scroll, cursor),
-    (d) => dragMove(d, vecVec(600, 500)),
-    (d) => recenterLayout(layout, d.start)
-  )
-  expect(l2).toStrictEqual(layout)
+  const start: VecVec = layout.scroll
+  const move = vecVec(100, 100)
+  const l1 = moveLayout(layout, move)
+  const l2 = recenterLayout(l1, start)
+  const svg1 = layout.svg
+  const svg2 = boxMove(svg1, vecVec(-10, -10))
+  expect(l2.scroll).toEqual(layout.scroll)
+  expect(l2.svg).toEqual(svg2)
 })
 
+/*
 test('recenter 3', () => {
   const l1 = expandLayout(layout, 2, cursor)
   const d1 = dragStart(l1.scroll, cursor)

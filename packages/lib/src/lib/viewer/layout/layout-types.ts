@@ -36,13 +36,23 @@ export type LayoutCoord = ContainerLayoutCoord &
   ContentLayoutCoord &
   SvgLayoutCoord
 
-export type LayoutConfig = Readonly<{
+export type FontLayoutConfig = Readonly<{
   readonly fontSize: number
+}>
+
+export type ContainerLayoutConfig = Readonly<{
   readonly container: BoxBox
+}>
+
+export type SvgLayoutConfig = Readonly<{
   readonly svgOffset: Move
   readonly svgScale: Scale
   readonly svg: BoxBox
 }>
+
+export type LayoutConfig = FontLayoutConfig &
+  ContainerLayoutConfig &
+  SvgLayoutConfig
 
 export type Layout = Readonly<
   LayoutCoord & {
