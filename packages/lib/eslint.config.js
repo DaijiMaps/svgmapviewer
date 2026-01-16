@@ -32,7 +32,7 @@ export default [
     rules: {
       ...reactHooks.configs.recommended.rules,
     },
-    ignores: ['tests/**/*.*', 'src/**/*.test.*'],
+    ignores: ['tests/**/*.*', 'src/**/*.test.*', 'src/**/*-fixtures.ts'],
     languageOptions: {
       parserOptions: {
         ecmaVersion: 2022,
@@ -46,6 +46,7 @@ export default [
     ignores: [
       'packages/app/src/**/*',
       '**/*.test.{js,ts}',
+      '**/*-fixtures.{js,ts}',
       '**/*-react.{js,ts}',
       '**/*-xstate.{js,ts}',
     ],

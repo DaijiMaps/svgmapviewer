@@ -20,7 +20,7 @@ export default defineConfig({
   source: {
     // bundleless
     entry: {
-      index: ['src/**/*.{ts,tsx}', '!src/**/*.test.*'],
+      index: ['src/**/*.{ts,tsx}', '!src/**/*.test.*', '!src/**/*-fixtures.ts'],
     },
     tsconfigPath: './tsconfig.app.json',
   },

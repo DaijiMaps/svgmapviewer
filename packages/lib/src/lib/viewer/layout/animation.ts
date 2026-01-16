@@ -20,8 +20,9 @@ import {
 } from './layout'
 import { transformScale } from './transform'
 import {
-  dommatrixreadonlyMakeTranslateOnly,
-  dommatrixreadonlyScaleAt,
+  dommatrixreadonly as matrix,
+  dommatrixreadonlyTranslateOnly as matrixTranslateOnly,
+  dommatrixreadonlyScaleAt as matrixScaleAt,
 } from '../../matrix/dommatrixreadonly'
 
 export function calcAnimation(
@@ -60,7 +61,7 @@ function animationMoveDone(
 export function animationZoom(layout: Layout, z: Dir, o: Vec): Animation {
   const osvg = fromMatrixSvg(layout).inverse().transformPoint(o)
   const s = 1 / zoomToScale(z)
-  const q = new DOMMatrixReadOnly().scale(1 / s, 1 / s)
+  const q = matrix().scale(1 / s, 1 / s)
   const zoom: AnimationZoom = {
     type: 'Zoom',
     svg: boxScaleAt(layout.svg, s, osvg.x, osvg.y),
@@ -72,7 +73,7 @@ export function animationZoom(layout: Layout, z: Dir, o: Vec): Animation {
 }
 
 export function animationHome(layout: Layout, nextLayout: Layout): Animation {
-  const osvg = boxCenter(nextLayout.config.svg)
+  const osvg = boxCenter(nextLayout.config.inner)
   const msvg = fromMatrixSvg(layout)
   const o = msvg.transformPoint(osvg)
 
@@ -80,8 +81,8 @@ export function animationHome(layout: Layout, nextLayout: Layout): Animation {
 
   const c = boxCenter(layout.container)
 
-  const q = dommatrixreadonlyMakeTranslateOnly(c.x - o.x, c.y - o.y).multiply(
-    dommatrixreadonlyScaleAt(1 / s, 1 / s, o.x, o.y)
+  const q = matrixTranslateOnly(c.x - o.x, c.y - o.y).multiply(
+    matrixScaleAt(1 / s, 1 / s, o.x, o.y)
   )
 
   const zoom: AnimationZoom = {
@@ -109,7 +110,7 @@ export function animationRotate(
   deg: number,
   o: Vec
 ): Animation {
-  const q = new DOMMatrixReadOnly().rotate(deg)
+  const q = matrix().rotate(deg)
 
   const rotate: AnimationRotate = {
     type: 'Rotate',
@@ -152,7 +153,7 @@ export function animationStyle(a: null | Readonly<AnimationMatrix>): string {
 }
 
 function css({ matrix: q, origin: o }: Readonly<AnimationMatrix>): string {
-  const p = new DOMMatrixReadOnly()
+  const p = matrix()
   return `
 #viewer {
   will-change: transform;

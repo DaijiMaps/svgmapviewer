@@ -3,51 +3,71 @@ import { vecScale } from '../../vec/prefixed'
 import {
   type ContainerLayoutConfig,
   type ContentLayoutCoord,
+  type FontLayoutConfig,
+  type LayoutConfig,
   type LayoutCoord,
   type ScrollLayoutCoord,
   type SvgLayoutConfig,
   type SvgLayoutCoord,
 } from './layout-types'
+import { dommatrixreadonly as matrix } from '../../matrix/dommatrixreadonly'
 
 //// LayoutCoord
 //// makeCoord
 //// fromMatrixOuter
 //// fromMatrixSvg
 
+export const emptyFontLayoutConfig: FontLayoutConfig = {
+  fontSize: 16,
+}
+
+export const emptyContainerLayoutConfig: ContainerLayoutConfig = {
+  container: boxUnit,
+}
+
+export const emptySvgLayoutConfig: SvgLayoutConfig = {
+  outer: boxUnit,
+  inner: boxUnit,
+  svgScale: { s: 1 },
+}
+
+export const emptyLayoutConfig: LayoutConfig = {
+  ...emptyFontLayoutConfig,
+  ...emptyContainerLayoutConfig,
+  ...emptySvgLayoutConfig,
+}
+
+////
+
 export const emptyLayoutCoord: Readonly<LayoutCoord> = {
   container: boxUnit,
   scroll: boxUnit,
-  scroll_: new DOMMatrixReadOnly(),
-  content: new DOMMatrixReadOnly(),
-  svgOffset: { x: 0, y: 0 },
-  svgOffset_: new DOMMatrixReadOnly(),
+  content: matrix(),
+  svgOffset: { x: -0, y: -0 },
   svgScale: { s: 1 },
-  svgScale_: new DOMMatrixReadOnly(),
   svg: boxUnit,
-  svg_: new DOMMatrixReadOnly(),
 }
+
+////
 
 export function makeCoord({
   container,
-  svgOffset,
+  outer,
   svgScale,
-  svg,
+  inner,
 }: ContainerLayoutConfig & SvgLayoutConfig): LayoutCoord {
-  const { x, y } = svgOffset
-  const { s } = svgScale
+  const { x, y } = outer
   return {
     container: container,
     scroll: container,
-    scroll_: new DOMMatrixReadOnly([1, 0, 0, 1, container.x, container.y]),
-    content: new DOMMatrixReadOnly(),
-    svgOffset,
-    svgOffset_: new DOMMatrixReadOnly([1, 0, 0, 1, x, y]),
+    content: matrix(),
+    svgOffset: { x: -x, y: -y },
     svgScale,
-    svgScale_: new DOMMatrixReadOnly([s, 0, 0, s, 0, 0]),
-    svg,
-    svg_: new DOMMatrixReadOnly([1, 0, 0, 1, svg.x, svg.y]),
+    svg: inner,
   }
 }
+
+////
 
 export function fromContentToScroll({
   content,
@@ -57,49 +77,50 @@ export function fromContentToScroll({
 
 // svg -> content
 export function fromSvgToContent({
-  svgOffset_,
-  svgScale_,
-  svg_,
+  svgOffset,
+  svgScale,
+  svg,
 }: Readonly<SvgLayoutCoord>): DOMMatrixReadOnly {
-  return svgOffset_
-    .inverse()
-    .multiply(svgScale_.inverse())
-    .multiply(svg_.inverse())
+  return matrix()
+    .translate(-svgOffset.x, -svgOffset.y)
+    .scale(1 / svgScale.s, 1 / svgScale.s)
+    .translate(-svg.x, -svg.y)
 }
 
 // svg -> scroll
 export function fromSvgToScroll({
   content,
-  svgOffset_,
-  svgScale_,
-  svg_,
+  svgOffset,
+  svgScale,
+  svg,
 }: Readonly<ContentLayoutCoord & SvgLayoutCoord>): DOMMatrixReadOnly {
   return content
-    .multiply(svgOffset_.inverse())
-    .multiply(svgScale_.inverse())
-    .multiply(svg_.inverse())
+    .translate(-svgOffset.x, -svgOffset.y)
+    .scale(1 / svgScale.s, 1 / svgScale.s)
+    .translate(-svg.x, -svg.y)
 }
 
 // scroll -> container
 export function fromMatrixOuter({
-  scroll_,
+  scroll,
 }: Readonly<ScrollLayoutCoord>): DOMMatrixReadOnly {
-  return scroll_
+  return matrix().translate(scroll.x, scroll.y)
 }
 
 // svg -> container
 export function fromMatrixSvg({
-  scroll_,
+  scroll,
   content,
-  svgOffset_,
-  svgScale_,
-  svg_,
+  svgOffset,
+  svgScale,
+  svg,
 }: Readonly<LayoutCoord>): DOMMatrixReadOnly {
-  return scroll_
+  return matrix()
+    .translate(scroll.x, scroll.y)
     .multiply(content)
-    .multiply(svgOffset_.inverse())
-    .multiply(svgScale_.inverse())
-    .multiply(svg_.inverse())
+    .translate(-svgOffset.x, -svgOffset.y)
+    .scale(1 / svgScale.s, 1 / svgScale.s)
+    .translate(-svg.x, -svg.y)
 }
 
 // inverse x/y
