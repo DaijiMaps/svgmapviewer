@@ -63,8 +63,8 @@ export const emptyLayout: Layout = {
 // == layout before expanded
 export function configLayout(
   fontSize: number,
-  svg: BoxBox,
-  container: BoxBox
+  container: BoxBox,
+  svg: BoxBox
 ): LayoutConfig {
   const [[x, y], s] = fit(container, svg)
 
@@ -106,7 +106,7 @@ export function resizeLayout(
   // XXX
   // XXX
   //const { fontSize } = getComputedStyle(document.body)
-  return makeLayout(configLayout(fontSize, origViewBox, size))
+  return makeLayout(configLayout(fontSize, size, origViewBox))
 }
 
 //// expandLayoutCenter
@@ -120,13 +120,16 @@ export function expandLayout(layout: Layout, s: number, cursor: Vec): Layout {
   const m = fromMatrixSvg(layout).inverse()
   const o = m.transformPoint(cursor)
 
+  // (expand to be squared) * (scale)
   const ratio = layout.container.width / layout.container.height
-  const sx = ratio < 1 ? s / ratio : s
-  const sy = ratio < 1 ? s : s * ratio
+  const sx = (ratio < 1 ? 1 / ratio : 1) * s
+  const sy = (ratio < 1 ? 1 : 1 * ratio) * s
 
   const scroll = boxScaleAt(layout.scroll, [sx, sy], cursor.x, cursor.y)
   const scroll_ = dommatrixreadonlyTranslateOnly(
-    dommatrixreadonlyScaleAt(layout.scroll_, sx, sy, cursor.x, cursor.y)
+    dommatrixreadonlyScaleAt(sx, sy, cursor.x, cursor.y).multiply(
+      layout.scroll_
+    )
   )
 
   const svgOffset = vecScale(layout.svgOffset, [sx, sy])
@@ -138,7 +141,7 @@ export function expandLayout(layout: Layout, s: number, cursor: Vec): Layout {
 
   const svg = boxScaleAt(layout.svg, [sx, sy], o.x, o.y)
   const svg_ = dommatrixreadonlyTranslateOnly(
-    dommatrixreadonlyScaleAt(layout.svg_, sx, sy, o.x, o.y)
+    dommatrixreadonlyScaleAt(sx, sy, o.x, o.y).multiply(layout.svg_)
   )
 
   return {
@@ -171,7 +174,7 @@ export function moveLayout(layout: Layout, move: Vec): Layout {
     ...layout,
     scroll: boxMove(layout.scroll, move),
     scroll_: dommatrixreadonlyTranslateOnly(
-      dommatrixreadonlyTranslate(layout.scroll_, move.x, move.y)
+      dommatrixreadonlyTranslate(move.x, move.y).multiply(layout.scroll_)
     ),
   }
 }
@@ -192,9 +195,10 @@ export function zoomLayout(
 
 // always rotate at scroll's center
 export function rotateLayout(layout: Layout, deg: number): Layout {
-  const ox = layout.scroll.width / 2
-  const oy = layout.scroll.height / 2
-  const content = dommatrixreadonlyRotateAt(layout.content, deg, ox, oy)
+  const o = boxCenter({ ...layout.scroll, x: 0, y: 0 })
+  const content = dommatrixreadonlyRotateAt(deg, o.x, o.y).multiply(
+    layout.content
+  )
 
   return {
     ...layout,

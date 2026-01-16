@@ -5,7 +5,7 @@ import { boxBox } from '../../box/prefixed'
 test('config', () => {
   const svg = boxBox(0, 0, 1, 1)
   const container = boxBox(0, 0, 1, 1)
-  const res: LayoutConfig = configLayout(16, svg, container)
+  const res: LayoutConfig = configLayout(16, container, svg)
   const exp: LayoutConfig = {
     fontSize: 16,
     container,
