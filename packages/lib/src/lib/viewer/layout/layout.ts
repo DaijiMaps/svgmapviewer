@@ -65,8 +65,12 @@ export function configLayout(
   fontSize: number,
   container: BoxBox,
   svg: BoxBox
+  // XXX svgContent?: BoxBox
 ): LayoutConfig {
-  const [[x, y], s] = fit(container, svg)
+  const {
+    outer: { x, y },
+    scale: s,
+  } = fit(container, svg)
 
   return {
     fontSize,

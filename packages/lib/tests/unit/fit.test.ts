@@ -1,24 +1,40 @@
 import { expect, test } from '@rstest/core'
-import { type BoxBox as Box } from '../../src/lib/box/prefixed'
+import { boxBox as box, type BoxBox as Box } from '../../src/lib/box/prefixed'
 import { fit } from '../../src/lib/viewer/layout/fit'
 
-export const bv: Box = { x: 0, y: 0, width: 200, height: 100 }
-export const ov: Box = { x: 0, y: 0, width: 10, height: 40 }
-export const bh: Box = { x: 0, y: 0, width: 100, height: 200 }
-export const oh: Box = { x: 0, y: 0, width: 40, height: 10 }
+type FitTest = Readonly<{
+  name: string
+  O: Box
+  I: Box
+  o: Box
+  i: Box
+  s: number
+}>
 
-test('fitV', () => {
-  const [[mx, my]] = fit(bv, ov)
-  expect(mx).toBe(87.5)
-  expect(my).toBe(0)
-  const w = bv.width - mx * 2
-  expect((w * ov.height) / ov.width).toBe(bv.height)
-})
+const fitTests: FitTest[] = [
+  {
+    name: 'fit vertical',
+    O: box(0, 0, 200, 100),
+    I: box(0, 0, 10, 40),
+    o: box(87.5, 0, 25, 100),
+    i: box(-35, 0, 80, 40),
+    s: 40 / 100,
+  },
+  {
+    name: 'fit horizontal',
+    O: box(0, 0, 100, 200),
+    I: box(0, 0, 40, 10),
+    o: box(0, 87.5, 100, 25),
+    i: box(0, -35, 40, 80),
+    s: 40 / 100,
+  },
+]
 
-test('fitH', () => {
-  const [[mx, my]] = fit(bh, oh)
-  expect(mx).toBe(0)
-  expect(my).toBe(87.5)
-  const h = bh.height - my * 2
-  expect((h * oh.width) / oh.height).toBe(bh.width)
+fitTests.forEach(({ name, O, I, o, i, s }) => {
+  test(name, () => {
+    const { outer, inner, scale } = fit(O, I)
+    expect(outer).toEqual(o)
+    expect(inner).toEqual(i)
+    expect(scale).toBe(s)
+  })
 })
