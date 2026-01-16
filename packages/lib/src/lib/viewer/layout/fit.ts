@@ -1,21 +1,36 @@
-import { type BoxBox } from '../../box/prefixed'
-import { type V } from '../../tuple'
+import { boxBox as box, type BoxBox as Box } from '../../box/prefixed'
+//import { vecVec as vec, type VecVec as Vec } from '../../vec/prefixed'
 
-function fitH(o: BoxBox, r: number): V {
-  return [0, (o.height - o.width / r) / 2]
+function fitV(viewBox: Box, r: number): Box {
+  const height = viewBox.height
+  const width = height * r
+  return box((viewBox.width - width) / 2, 0, width, height)
 }
 
-function fitV(o: BoxBox, r: number): V {
-  return [(o.width - o.height * r) / 2, 0]
+function fitH(viewBox: Box, rI: number): Box {
+  const width = viewBox.width
+  const height = width / rI
+  return box(0, (viewBox.height - height) / 2, width, height)
 }
 
-export function fit(
-  o: BoxBox,
-  i: BoxBox
-): readonly [readonly [x: number, y: number], s: number] {
-  const R = o.width / o.height
-  const r = i.width / i.height
-  const [x, y] = R > r ? fitV(o, r) : fitH(o, r)
-  const s = R > r ? i.height / o.height : i.width / o.width
-  return [[x, y], s]
+export type FitReturn = Readonly<{
+  outer: Box
+  inner: Box
+  scale: number
+}>
+
+export function fit(origOuter: Box, origInner: Box): FitReturn {
+  const rO = origOuter.width / origOuter.height
+  const rI = origInner.width / origInner.height
+
+  // outer is wider => inner fits vertically
+  const v = rO > rI
+
+  const outer = v ? fitV(origOuter, rI) : fitH(origOuter, rI)
+  const inner = v ? fitV(origInner, rO) : fitH(origInner, rO)
+  const scale = v
+    ? origInner.height / origOuter.height
+    : origInner.width / origOuter.width
+
+  return { outer, inner, scale }
 }
