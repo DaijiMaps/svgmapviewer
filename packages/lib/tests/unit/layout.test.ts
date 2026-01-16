@@ -38,7 +38,7 @@ import {
 const container: Box = { x: 0, y: 0, width: 1200, height: 1000 }
 const origViewBox: Box = { x: 0, y: 0, width: 100, height: 100 }
 
-const config = configLayout(16, origViewBox, container)
+const config = configLayout(16, container, origViewBox)
 const layout = makeLayout(config)
 const cursor = boxCenter(container)
 
@@ -143,7 +143,7 @@ test('expand 2', () => {
 const U = (() => {
   const container: Box = { x: 0, y: 0, width: 1, height: 1 }
   const origViewBox: Box = { x: 0, y: 0, width: 1, height: 1 }
-  const config = configLayout(16, origViewBox, container)
+  const config = configLayout(16, container, origViewBox)
   const layout = makeLayout(config)
   const cursor = boxCenter(container)
   return {

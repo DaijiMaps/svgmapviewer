@@ -63,8 +63,8 @@ export const emptyLayout: Layout = {
 // == layout before expanded
 export function configLayout(
   fontSize: number,
-  svg: BoxBox,
-  container: BoxBox
+  container: BoxBox,
+  svg: BoxBox
 ): LayoutConfig {
   const [[x, y], s] = fit(container, svg)
 
@@ -106,7 +106,7 @@ export function resizeLayout(
   // XXX
   // XXX
   //const { fontSize } = getComputedStyle(document.body)
-  return makeLayout(configLayout(fontSize, origViewBox, size))
+  return makeLayout(configLayout(fontSize, size, origViewBox))
 }
 
 //// expandLayoutCenter
