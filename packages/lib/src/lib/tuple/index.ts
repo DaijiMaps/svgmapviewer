@@ -1,8 +1,8 @@
-import { type B } from './b'
-import { type H } from './h'
-import { type L } from './l'
-import { type M } from './m'
-import {
+export { type B } from './b'
+export { type H } from './h'
+export { type L } from './l'
+export { type M } from './m'
+export {
   add as vAdd,
   div as vDiv,
   mul as vMul,
@@ -12,7 +12,3 @@ import {
   vec as vVec,
   type V,
 } from './v'
-
-export { type B, type H, type L, type M, type V }
-
-export { vAdd, vDiv, vMul, vSub, vUnvec, vV, vVec }

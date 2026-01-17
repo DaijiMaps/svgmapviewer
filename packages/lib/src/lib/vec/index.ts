@@ -1,50 +1,16 @@
-import { add, addF } from './add'
-import { angle, angleF } from './angle'
-import { copy } from './copy'
-import { dist, qdist } from './dist'
-import { div, divF } from './div'
-import { compare, ord } from './fp-ts'
-import { interpolate, interpolateF } from './interpolate'
-import { fromV, one, toV, vec, zero } from './main'
-import { map } from './map'
-import { midpoint } from './midpoint'
-import { min, minF } from './min'
-import { mul, mulF } from './mul'
-import { scale, scaleF } from './scale'
-import { sub, subF } from './sub'
-import { sum } from './sum'
-import { type Vec, type Vecs } from './types'
-
-export { type Vec, type Vecs }
-
-export {
-  add,
-  addF,
-  angle,
-  angleF,
-  compare,
-  copy,
-  dist,
-  div,
-  divF,
-  fromV,
-  interpolate,
-  interpolateF,
-  map,
-  midpoint,
-  min,
-  minF,
-  mul,
-  mulF,
-  one,
-  ord,
-  qdist,
-  scale,
-  scaleF,
-  sub,
-  subF,
-  sum,
-  toV,
-  vec,
-  zero,
-}
+export { add, addF } from './add'
+export { angle, angleF } from './angle'
+export { copy } from './copy'
+export { dist, qdist } from './dist'
+export { div, divF } from './div'
+export { compare, ord } from './fp-ts'
+export { interpolate, interpolateF } from './interpolate'
+export { fromV, one, toV, vec, zero } from './main'
+export { map } from './map'
+export { midpoint } from './midpoint'
+export { min, minF } from './min'
+export { mul, mulF } from './mul'
+export { scale, scaleF } from './scale'
+export { sub, subF } from './sub'
+export { sum } from './sum'
+export { type Vec, type Vecs } from './types'

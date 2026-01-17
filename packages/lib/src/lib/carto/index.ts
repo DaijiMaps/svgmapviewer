@@ -1,10 +1,16 @@
-import { RenderMapMarkers, RenderMarkers } from './markers'
-import { getMapNames } from './names'
-import { RenderMapObjects, RenderObjects } from './objects'
-import { RenderMapPaths } from './paths'
-import { RenderMapCommon } from './render'
-import { RenderMapSymbols, RenderUses } from './symbols'
-import {
+export { RenderMapMarkers, RenderMarkers } from './markers'
+
+export { getMapNames } from './names'
+
+export { RenderMapObjects, RenderObjects } from './objects'
+
+export { RenderMapPaths } from './paths'
+
+export { RenderMapCommon } from './render'
+
+export { RenderMapSymbols, RenderUses } from './symbols'
+
+export {
   type MapLinePathOps,
   type MapMultiPolygonPathOps,
   type OsmCartoConfig,
@@ -15,39 +21,3 @@ import {
   type RenderMapMarkersProps,
   type RenderMapSymbolsProps,
 } from './types'
-
-// XXX
-
-export { type OsmCartoConfig }
-
-//// paths
-
-export { type OsmMapPathOps, type MapLinePathOps, type MapMultiPolygonPathOps }
-
-export { RenderMapPaths }
-
-//// objects
-
-export { type OsmMapObjects }
-
-export { RenderMapObjects, RenderObjects }
-
-//// symbols
-
-export { type OsmMapSymbols, type RenderMapSymbolsProps }
-
-export { RenderMapSymbols, RenderUses }
-
-//// markers
-
-export { type OsmMapMarkers, type RenderMapMarkersProps }
-
-export { RenderMapMarkers, RenderMarkers }
-
-//// names
-
-export { getMapNames }
-
-//// common map render
-
-export { RenderMapCommon }
