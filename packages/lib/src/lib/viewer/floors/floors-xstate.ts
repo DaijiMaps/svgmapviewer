@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { createAtom } from '@xstate/store'
+import { createAtom, type Atom } from '@xstate/store'
 import { assign, createActor, setup } from 'xstate'
 
 import type { SvgMapViewerConfig } from '../../../types'
@@ -9,7 +9,7 @@ import type { FloorsWorker, Res } from './floors-worker-types'
 import { floorCbs } from '../../event-floor'
 import { globalCbs } from '../../event-global'
 
-export const currentFidxAtom = createAtom(0)
+export const currentFidxAtom: Atom<number> = createAtom<number>(0)
 
 const floorsMachine = setup({
   types: {
