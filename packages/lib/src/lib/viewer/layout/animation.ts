@@ -18,7 +18,6 @@ import {
   zoomLayout,
   type Layout,
 } from './layout'
-import { transformScale } from './transform'
 import {
   dommatrixreadonly as matrix,
   dommatrixreadonlyTranslateOnly as matrixTranslateOnly,
@@ -65,7 +64,7 @@ export function animationZoom(layout: Layout, z: Dir, o: Vec): Animation {
   const zoom: AnimationZoom = {
     type: 'Zoom',
     svg: boxScaleAt(layout.svg, s, osvg.x, osvg.y),
-    svgScale: transformScale(layout.svgScale, s),
+    svgScale: layout.svgScale * s,
     q,
     o,
   }
@@ -77,7 +76,7 @@ export function animationHome(layout: Layout, nextLayout: Layout): Animation {
   const msvg = fromMatrixSvg(layout)
   const o = msvg.transformPoint(osvg)
 
-  const s = nextLayout.svgScale.s / layout.svgScale.s
+  const s = nextLayout.svgScale / layout.svgScale
 
   const c = boxCenter(layout.container)
 

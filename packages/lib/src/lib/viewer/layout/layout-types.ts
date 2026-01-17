@@ -1,6 +1,6 @@
 //import { type ReadonlyDeep } from 'type-fest'
 import { type BoxBox } from '../../box/prefixed'
-import { type Move, type Scale } from './transform'
+import { type Move } from './transform'
 
 // C: client coord
 // S: svg coord
@@ -25,7 +25,7 @@ export interface SvgLayoutCoord {
   readonly svgOffset: Move
 
   // svg viewbox ratio (C -> S)
-  readonly svgScale: Scale
+  readonly svgScale: number
 
   // svg viewbox (S) -> svg origin (S)
   readonly svg: BoxBox
@@ -49,7 +49,7 @@ export type ContainerLayoutConfig = Readonly<{
 export type SvgLayoutConfig = Readonly<{
   readonly outer: BoxBox
   readonly inner: BoxBox
-  readonly svgScale: Scale
+  readonly svgScale: number
 }>
 
 export type LayoutConfig = FontLayoutConfig &
