@@ -1,4 +1,4 @@
-import { createAtom } from '@xstate/store'
+import { createAtom, type Atom } from '@xstate/store'
 import { and, assign, createActor, emit, setup } from 'xstate'
 
 import { svgMapViewerConfig } from '../../config'
@@ -46,8 +46,8 @@ import {
   type ViewerMode,
 } from './viewer-types'
 
-export const viewerMode = createAtom<ViewerMode>('panning')
-viewerMode.subscribe((mode) => notifyStyle.mode(mode))
+export const viewerMode: Atom<ViewerMode> = createAtom<ViewerMode>('panning')
+viewerMode.subscribe((mode: ViewerMode) => notifyStyle.mode(mode))
 
 //// viewerMachine
 
