@@ -1,6 +1,2 @@
-import { Like } from './Like'
-import { useLikes } from './main'
-
-export { Like }
-
-export { useLikes }
+export { Like } from './Like'
+export { useLikes } from './main'

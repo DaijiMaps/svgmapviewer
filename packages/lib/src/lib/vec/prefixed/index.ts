@@ -1,50 +1,25 @@
-import { add, addF } from '../add'
-import { angle, angleF } from '../angle'
-import { copy } from '../copy'
-import { dist, qdist } from '../dist'
-import { div, divF } from '../div'
-import { compare, ord } from '../fp-ts'
-import { interpolate, interpolateF } from '../interpolate'
-import { fromV, one, toV, vec, zero } from '../main'
-import { map } from '../map'
-import { midpoint } from '../midpoint'
-import { min, minF } from '../min'
-import { mul, mulF } from '../mul'
-import { scale, scaleF } from '../scale'
-import { sub, subF } from '../sub'
-import { sum } from '../sum'
-import { type Vec, type Vecs } from '../types'
-
-export { type Vec as VecVec, type Vecs as VecVecs }
-
+export { add as vecAdd, addF as vecAddF } from '../add'
+export { angle as vecAngle, angleF as vecAngleF } from '../angle'
+export { copy as vecCopy } from '../copy'
+export { dist as vecDist, qdist } from '../dist'
+export { div as vecDiv, divF as vecDivF } from '../div'
+export { compare as vecCompare, ord as vecOrd } from '../fp-ts'
 export {
-  add as vecAdd,
-  addF as vecAddF,
-  angle as vecAngle,
-  angleF as vecAngleF,
-  compare as vecCompare,
-  copy as vecCopy,
-  dist as vecDist,
-  div as vecDiv,
-  divF as vecDivF,
-  fromV as vecFromV,
   interpolate as vecInterpolate,
   interpolateF as vecInterpolateF,
-  map as vecMap,
-  midpoint as vecMidpoint,
-  min as vecMin,
-  minF as vecMinF,
-  mul as vecMul,
-  mulF as vecMulF,
+} from '../interpolate'
+export {
+  fromV as vecFromV,
   one as vecOne,
-  ord as vecOrd,
-  qdist as vecQdist,
-  scale as vecScale,
-  scaleF as vecScaleF,
-  sub as vecSub,
-  subF as vecSubF,
-  sum as vecSum,
   toV as vecToV,
   vec as vecVec,
   zero as vecZero,
-}
+} from '../main'
+export { map as vecMap } from '../map'
+export { midpoint as vecMidpoint } from '../midpoint'
+export { min as vecMin, minF as vecMinF } from '../min'
+export { mul as vecMul, mulF as vecMulF } from '../mul'
+export { scale as vecScale, scaleF as vecScaleF } from '../scale'
+export { sub as vecSub, subF as vecSubF } from '../sub'
+export { sum as vecSum } from '../sum'
+export { type Vec as VecVec, type Vecs as VecVecs } from '../types'

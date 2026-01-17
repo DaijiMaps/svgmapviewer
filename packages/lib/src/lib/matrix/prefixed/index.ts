@@ -1,25 +1,16 @@
-import { apply, applyF } from '../apply'
-import { copy, empty, matrix, prod, type Matrix } from '../main'
-import { multiply, multiplyF } from '../multiply'
-import { rotate } from '../rotate'
-import { scale, scaleAt } from '../scale'
-import { toString } from '../toString'
-import { translate } from '../translate'
-
-export { type Matrix as MatrixMatrix }
-
+export { apply as matrixApply, applyF as matrixApplyF } from '../apply'
 export {
-  apply as matrixApply,
-  applyF as matrixApplyF,
   copy as matrixCopy,
   empty as matrixEmpty,
   matrix as matrixMatrix,
+  prod as matrixProd,
+  type Matrix as MatrixMatrix,
+} from '../main'
+export {
   multiply as matrixMultiply,
   multiplyF as matrixMultiplyF,
-  prod as matrixProd,
-  rotate as matrixRotate,
-  scale as matrixScale,
-  scaleAt as matrixScaleAt,
-  toString as matrixToString,
-  translate as matrixTranslate,
-}
+} from '../multiply'
+export { rotate as matrixRotate } from '../rotate'
+export { scale as matrixScale, scaleAt as matrixScaleAt } from '../scale'
+export { toString as matrixToString } from '../toString'
+export { translate as matrixTranslate } from '../translate'
