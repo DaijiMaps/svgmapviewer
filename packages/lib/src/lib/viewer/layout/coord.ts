@@ -28,7 +28,7 @@ export const emptyContainerLayoutConfig: ContainerLayoutConfig = {
 export const emptySvgLayoutConfig: SvgLayoutConfig = {
   outer: boxUnit,
   inner: boxUnit,
-  svgScale: { s: 1 },
+  svgScale: 1,
 }
 
 export const emptyLayoutConfig: LayoutConfig = {
@@ -44,7 +44,7 @@ export const emptyLayoutCoord: Readonly<LayoutCoord> = {
   scroll: boxUnit,
   content: matrix(),
   svgOffset: { x: -0, y: -0 },
-  svgScale: { s: 1 },
+  svgScale: 1,
   svg: boxUnit,
 }
 
@@ -83,7 +83,7 @@ export function fromSvgToContent({
 }: Readonly<SvgLayoutCoord>): DOMMatrixReadOnly {
   return matrix()
     .translate(-svgOffset.x, -svgOffset.y)
-    .scale(1 / svgScale.s, 1 / svgScale.s)
+    .scale(1 / svgScale, 1 / svgScale)
     .translate(-svg.x, -svg.y)
 }
 
@@ -96,7 +96,7 @@ export function fromSvgToScroll({
 }: Readonly<ContentLayoutCoord & SvgLayoutCoord>): DOMMatrixReadOnly {
   return content
     .translate(-svgOffset.x, -svgOffset.y)
-    .scale(1 / svgScale.s, 1 / svgScale.s)
+    .scale(1 / svgScale, 1 / svgScale)
     .translate(-svg.x, -svg.y)
 }
 
@@ -119,7 +119,7 @@ export function fromMatrixSvg({
     .translate(scroll.x, scroll.y)
     .multiply(content)
     .translate(-svgOffset.x, -svgOffset.y)
-    .scale(1 / svgScale.s, 1 / svgScale.s)
+    .scale(1 / svgScale, 1 / svgScale)
     .translate(-svg.x, -svg.y)
 }
 

@@ -9,9 +9,7 @@ const layout: Layout = {
     width: 300,
     height: 500,
   },
-  svgScale: {
-    s: 0.1,
-  },
+  svgScale: 0.1,
 }
 
 test('findDiv', () => {

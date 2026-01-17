@@ -6,7 +6,7 @@ export function findRadius({
   container,
   svgScale,
 }: Readonly<Layout>): DistanceRadius {
-  const l = (Math.max(container.width, container.height) / 2) * svgScale.s
+  const l = (Math.max(container.width, container.height) / 2) * svgScale
   const c = Math.round(Math.log10(l))
   // 12345 -> 12.345
   // ll >= 10 && ll < 100
@@ -19,7 +19,7 @@ export function findRadius({
   const svg = u * Math.pow(10, c - 1)
   return {
     svg,
-    client: svg / svgScale.s,
+    client: svg / svgScale,
   }
 }
 

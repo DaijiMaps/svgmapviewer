@@ -30,7 +30,6 @@ import {
   type ScrollLayoutCoord,
   type SvgLayoutCoord,
 } from './layout-types'
-import { type Scale } from './transform'
 import { dommatrixreadonlyRotateAt } from '../../matrix/dommatrixreadonly'
 
 //// LayoutConfig
@@ -41,7 +40,7 @@ export const emptyLayoutConfig: Readonly<LayoutConfig> = {
   container: boxUnit,
   outer: boxUnit,
   inner: boxUnit,
-  svgScale: { s: 1 },
+  svgScale: 1,
 }
 
 export const emptyLayout: Layout = {
@@ -68,7 +67,7 @@ export function configLayout(
     container,
     outer: outer,
     inner: svgContent ?? svg,
-    svgScale: { s },
+    svgScale: s,
   }
 }
 
@@ -174,7 +173,7 @@ export function moveLayout(layout: Layout, move: Vec): Layout {
 export function zoomLayout(
   layout: Layout,
   svg: BoxBox,
-  svgScale: Scale
+  svgScale: number
 ): Layout {
   return {
     ...layout,
@@ -209,7 +208,7 @@ export function recenterLayout(layout: Layout, start: Vec): Layout {
   const p1 = m.transformPoint(p)
   const dcontent = vecSub(p1, o1)
 
-  const dsvg = vecScale(dcontent, -layout.svgScale.s)
+  const dsvg = vecScale(dcontent, -layout.svgScale)
 
   const svg = boxMove(layout.svg, dsvg)
 

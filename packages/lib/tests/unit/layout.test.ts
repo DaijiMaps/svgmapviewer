@@ -28,8 +28,11 @@ import {
   //recenterLayout,
   //relocLayout,
 } from '../../src/lib/viewer/layout/layout'
-import { transformScale } from '../../src/lib/viewer/layout/transform'
-import { vecVec as vec, type VecVec as Vec } from '../../src/lib/vec/prefixed'
+import {
+  vecVec as vec,
+  vecScale,
+  type VecVec as Vec,
+} from '../../src/lib/vec/prefixed'
 import {
   _box,
   _fixupLayout,
@@ -55,7 +58,7 @@ test('layout config', () => {
 
 test('make layout', () => {
   expect(layout.config).toEqual(config)
-  expect(layout.svgScale.s).toBe(0.1)
+  expect(layout.svgScale).toBe(0.1)
 })
 
 test('zoom layout', () => {
@@ -70,9 +73,9 @@ test('zoom layout', () => {
     (a) => animationDone(layout, a)
   )
 
-  expect(layout.svgScale.s).toBe(0.1)
-  expect(l0.svgScale.s).toBe(layout.svgScale.s)
-  expect(l1.svgScale.s / layout.svgScale.s).toBeCloseTo(1 / 3)
+  expect(layout.svgScale).toBe(0.1)
+  expect(l0.svgScale).toBe(layout.svgScale)
+  expect(l1.svgScale / layout.svgScale).toBeCloseTo(1 / 3)
   //expect(l1.zoom).toBe(1)
 })
 
@@ -160,7 +163,7 @@ test('boxScale', () => {
   const opsvg = fromMatrixSvg(layout).inverse().transformPoint(o)
   const o2 = fromMatrixSvg(layout).transformPoint(opsvg)
   const scroll = boxScaleAt(layout.scroll, s, o.x, o.y)
-  const svgOffset = transformScale(layout.svgOffset, s)
+  const svgOffset = vecScale(layout.svgOffset, s)
   const svg = boxScaleAt(layout.svg, s, opsvg.x, opsvg.y)
 
   expect(o.x).toBe(600)

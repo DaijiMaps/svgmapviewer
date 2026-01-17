@@ -5,7 +5,6 @@ import {
   fromMatrixSvg,
   makeCoord,
 } from '../../src/lib/viewer/layout/coord'
-import {} from '../../src/lib/viewer/layout/transform'
 import { boxBox, boxUnit } from '../../src/lib/box/prefixed'
 import { vecVec } from '../../src/lib/vec/prefixed'
 import {
@@ -24,7 +23,7 @@ test('empty', () => {
   expect(c.scroll).toEqual(boxUnit)
   expect(c.content).toEqual(matrix())
   expect(c.svgOffset).toEqual(vecVec(-0, -0))
-  expect(c.svgScale).toEqual({ s: 1 })
+  expect(c.svgScale).toEqual(1)
   expect(c.svg).toEqual(boxUnit)
 })
 
@@ -38,14 +37,14 @@ test('make 1', () => {
     ...emptyLayoutConfig,
     container: boxBox(1, 2, 3, 4),
     outer: boxBox(5, 6, 0, 0),
-    svgScale: { s: 7 },
+    svgScale: 7,
     inner: boxBox(8, 9, 10, 11),
   })
   expect(c.container).toEqual(boxBox(1, 2, 3, 4))
   expect(c.scroll).toEqual(boxBox(1, 2, 3, 4))
   expect(c.content).toEqual(matrix())
   expect(c.svgOffset).toEqual(vecVec(-5, -6))
-  expect(c.svgScale).toEqual({ s: 7 })
+  expect(c.svgScale).toEqual(7)
   expect(c.svg).toEqual(boxBox(8, 9, 10, 11))
 })
 
@@ -62,7 +61,7 @@ test('matrix 1', () => {
     ...emptyLayoutConfig,
     container: boxBox(0, 0, 1, 1),
     outer: boxBox(0, 0, 0, 0),
-    svgScale: { s: 1 },
+    svgScale: 1,
     inner: boxBox(1, 1, 1, 1),
   }
   const c: LayoutConfig = { ...d, fontSize: 16 }
@@ -77,7 +76,7 @@ test('matrix 2', () => {
     ...emptyLayoutConfig,
     container: boxBox(0, 0, 1, 1),
     outer: boxBox(0, 0, 0, 0),
-    svgScale: { s: 2 },
+    svgScale: 2,
     inner: boxBox(0, 0, 2, 2),
   }
   const c: LayoutConfig = { ...d, fontSize: 16 }

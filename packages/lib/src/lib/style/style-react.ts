@@ -46,7 +46,7 @@ export function useLayoutConfig(): LayoutConfig {
   return useStyleContext((ctx) => ctx.layout.config)
 }
 export function useLayoutSvgScaleS(): number {
-  return useStyleContext((ctx) => ctx.layout.svgScale.s)
+  return useStyleContext((ctx) => ctx.layout.svgScale)
 }
 export function useLayoutContent(): DOMMatrixReadOnly {
   return useStyleContext((ctx) => ctx.layout.content)
