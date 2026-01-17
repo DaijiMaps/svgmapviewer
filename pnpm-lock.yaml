@@ -13,7 +13,7 @@ importers:
     devDependencies:
       '@changesets/cli':
         specifier: ^2.29.8
-        version: 2.29.8(@types/node@24.10.8)
+        version: 2.29.8(@types/node@24.10.9)
       '@eslint/js':
         specifier: ^9.39.2
         version: 9.39.2
@@ -70,10 +70,10 @@ importers:
         version: 0.24.0
       oxlint:
         specifier: ^1.39.0
-        version: 1.39.0(oxlint-tsgolint@0.11.0)
+        version: 1.39.0(oxlint-tsgolint@0.11.1)
       oxlint-tsgolint:
-        specifier: ^0.11.0
-        version: 0.11.0
+        specifier: ^0.11.1
+        version: 0.11.1
       playwright:
         specifier: ^1.57.0
         version: 1.57.0
@@ -107,7 +107,7 @@ importers:
         version: 1.4.3(@rsbuild/core@1.7.2)
       '@rslib/core':
         specifier: ^0.19.2
-        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260115.1)(typescript@5.9.3)
+        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3)
       '@testing-library/react':
         specifier: ^16.3.1
         version: 16.3.1(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -121,11 +121,11 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260115.1
-        version: 7.0.0-dev.20260115.1
+        specifier: 7.0.0-dev.20260117.1
+        version: 7.0.0-dev.20260117.1
       '@vitest/browser':
         specifier: ^4.0.17
-        version: 4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))(vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.0)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2))
+        version: 4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))(vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2))
       playwright:
         specifier: ^1.57.0
         version: 1.57.0
@@ -134,7 +134,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^4.0.17
-        version: 4.0.17(@types/node@24.10.4)(happy-dom@20.3.0)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2)
+        version: 4.0.17(@types/node@24.10.4)(happy-dom@20.3.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2)
 
   packages/app-osm:
     dependencies:
@@ -153,7 +153,7 @@ importers:
         version: 1.4.3(@rsbuild/core@1.7.2)
       '@rslib/core':
         specifier: ^0.19.2
-        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260115.1)(typescript@5.9.3)
+        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3)
       '@testing-library/react':
         specifier: ^16.3.1
         version: 16.3.1(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -167,11 +167,11 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260115.1
-        version: 7.0.0-dev.20260115.1
+        specifier: 7.0.0-dev.20260117.1
+        version: 7.0.0-dev.20260117.1
       '@vitest/browser':
         specifier: ^4.0.17
-        version: 4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))(vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.0)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2))
+        version: 4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))(vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2))
       playwright:
         specifier: ^1.57.0
         version: 1.57.0
@@ -180,7 +180,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^4.0.17
-        version: 4.0.17(@types/node@24.10.4)(happy-dom@20.3.0)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2)
+        version: 4.0.17(@types/node@24.10.4)(happy-dom@20.3.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2)
 
   packages/create-floors:
     devDependencies:
@@ -195,7 +195,7 @@ importers:
         version: 0.104.0(@effect/cluster@0.56.0(@effect/platform@0.94.1(effect@3.19.14))(@effect/rpc@0.73.0(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(@effect/sql@0.49.0(@effect/experimental@0.58.0(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(@effect/workflow@0.16.0(@effect/experimental@0.58.0(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(@effect/platform@0.94.1(effect@3.19.14))(@effect/rpc@0.73.0(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(effect@3.19.14))(effect@3.19.14))(@effect/platform@0.94.1(effect@3.19.14))(@effect/rpc@0.73.0(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(@effect/sql@0.49.0(@effect/experimental@0.58.0(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(effect@3.19.14)
       '@rslib/core':
         specifier: ^0.19.2
-        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260115.1)(typescript@5.9.3)
+        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3)
       '@types/node':
         specifier: 24.x
         version: 24.10.4
@@ -203,8 +203,8 @@ importers:
         specifier: ^3.19.14
         version: 3.19.14
       tar:
-        specifier: ^7.5.2
-        version: 7.5.2
+        specifier: ^7.5.3
+        version: 7.5.3
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -246,8 +246,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260115.1
-        version: 7.0.0-dev.20260115.1
+        specifier: 7.0.0-dev.20260117.1
+        version: 7.0.0-dev.20260117.1
       playwright:
         specifier: ^1.57.0
         version: 1.57.0
@@ -277,8 +277,8 @@ importers:
         specifier: 24.x
         version: 24.10.4
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260115.1
-        version: 7.0.0-dev.20260115.1
+        specifier: 7.0.0-dev.20260117.1
+        version: 7.0.0-dev.20260117.1
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -287,10 +287,10 @@ importers:
     dependencies:
       '@xstate/react':
         specifier: ^6.0.0
-        version: 6.0.0(@types/react@19.2.8)(react@19.2.3)(xstate@5.25.0)
+        version: 6.0.0(@types/react@19.2.8)(react@19.2.3)(xstate@5.25.1)
       '@xstate/store':
-        specifier: ^3.14.1
-        version: 3.14.1(react@19.2.3)
+        specifier: ^3.15.0
+        version: 3.15.0(react@19.2.3)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -310,8 +310,8 @@ importers:
         specifier: ^5.4.1
         version: 5.4.1
       xstate:
-        specifier: ^5.25.0
-        version: 5.25.0
+        specifier: ^5.25.1
+        version: 5.25.1
       zod:
         specifier: ^4.3.5
         version: 4.3.5
@@ -321,10 +321,10 @@ importers:
         version: 1.4.3(@rsbuild/core@1.7.2)
       '@rslib/core':
         specifier: ^0.19.2
-        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260115.1)(typescript@5.9.2)
+        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.2)
       '@rstest/core':
         specifier: ^0.7.9
-        version: 0.7.9(happy-dom@20.3.0)(jsdom@26.1.0)
+        version: 0.7.9(happy-dom@20.3.1)(jsdom@26.1.0)
       '@testing-library/react':
         specifier: ^16.3.1
         version: 16.3.1(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -341,11 +341,11 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260115.1
-        version: 7.0.0-dev.20260115.1
+        specifier: 7.0.0-dev.20260117.1
+        version: 7.0.0-dev.20260117.1
       happy-dom:
-        specifier: ^20.3.0
-        version: 20.3.0
+        specifier: ^20.3.1
+        version: 20.3.1
       playwright:
         specifier: ^1.57.0
         version: 1.57.0
@@ -359,8 +359,8 @@ importers:
   packages/svgpatheditor:
     dependencies:
       '@xstate/store':
-        specifier: ^3.14.1
-        version: 3.14.1(react@19.2.3)
+        specifier: ^3.15.0
+        version: 3.15.0(react@19.2.3)
       effect:
         specifier: ^3.19.14
         version: 3.19.14
@@ -377,8 +377,8 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0(@types/react@19.2.8)
       xstate:
-        specifier: ^5.25.0
-        version: 5.25.0
+        specifier: ^5.25.1
+        version: 5.25.1
     devDependencies:
       '@rsbuild/core':
         specifier: ^1.7.2
@@ -405,11 +405,11 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260115.1
-        version: 7.0.0-dev.20260115.1
+        specifier: 7.0.0-dev.20260117.1
+        version: 7.0.0-dev.20260117.1
       '@xstate/react':
         specifier: ^6.0.0
-        version: 6.0.0(@types/react@19.2.8)(react@19.2.3)(xstate@5.25.0)
+        version: 6.0.0(@types/react@19.2.8)(react@19.2.3)(xstate@5.25.1)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -418,7 +418,7 @@ importers:
     devDependencies:
       '@rslib/core':
         specifier: ^0.19.2
-        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260115.1)(typescript@5.9.3)
+        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3)
       '@types/mocha':
         specifier: ^10.0.10
         version: 10.0.10
@@ -460,10 +460,10 @@ importers:
         version: 0.47.0(@effect/typeclass@0.38.0(effect@3.19.14))(effect@3.19.14)
       '@rslib/core':
         specifier: ^0.19.2
-        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260115.1)(typescript@5.9.3)
+        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3)
       '@rstest/core':
         specifier: ^0.7.9
-        version: 0.7.9(happy-dom@20.3.0)(jsdom@26.1.0)
+        version: 0.7.9(happy-dom@20.3.1)(jsdom@26.1.0)
       '@types/node':
         specifier: 24.x
         version: 24.10.4
@@ -1875,50 +1875,50 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@oxlint-tsgolint/darwin-arm64@0.11.0':
+  '@oxlint-tsgolint/darwin-arm64@0.11.1':
     resolution:
       {
-        integrity: sha512-F67T8dXgYIrgv6wpd52fKQFdmieSOHaxBkscgso64YdtEHrV3s52ASiZGNzw62TKihn9Ox9ek3PYx9XsxIJDUw==,
+        integrity: sha512-UJIOFeJZpFTJIGS+bMdFXcvjslvnXBEouMvzynfQD7RTazcFIRLbokYgEbhrN2P6B352Ut1TUtvR0CLAp/9QfA==,
       }
     cpu: [arm64]
     os: [darwin]
 
-  '@oxlint-tsgolint/darwin-x64@0.11.0':
+  '@oxlint-tsgolint/darwin-x64@0.11.1':
     resolution:
       {
-        integrity: sha512-z44LO7+3z2mtcBxA9T66yEy/otp/2r5ypbkx7EYlPwbEqBAIDRt/8hqQ9/BUC//1qE549P1cBU6NjhgeyuXjYQ==,
+        integrity: sha512-68O8YvexIm+ISZKl2vBFII1dMfLrteDyPcuCIecDuiBIj2tV0KYq13zpSCMz4dvJUWJW6RmOOGZKrkkvOAy6uQ==,
       }
     cpu: [x64]
     os: [darwin]
 
-  '@oxlint-tsgolint/linux-arm64@0.11.0':
+  '@oxlint-tsgolint/linux-arm64@0.11.1':
     resolution:
       {
-        integrity: sha512-IeIjmpPi2j2Dn1CRizGikysyLp9B0q3jqiAalv9ewRyb8hqQW5YeMlsswo8pHd0Hz3KyFfone0NkvBt77Ex2pg==,
+        integrity: sha512-hXBInrFxPNbPPbPQYozo8YpSsFFYdtHBWRUiLMxul71vTy1CdSA7H5Qq2KbrKomr/ASmhvIDVAQZxh9hIJNHMA==,
       }
     cpu: [arm64]
     os: [linux]
 
-  '@oxlint-tsgolint/linux-x64@0.11.0':
+  '@oxlint-tsgolint/linux-x64@0.11.1':
     resolution:
       {
-        integrity: sha512-fpYGYU2pXjaXYnKgWrihFXE8zJiTRjYKSHAaBaVI056oqKjKGEoU2BfFbddpBrKgz9TmSOX/NGftrJnyMn1wXQ==,
+        integrity: sha512-aMaGctlwrJhaIQPOdVJR+AGHZGPm4D1pJ457l0SqZt4dLXAhuUt2ene6cUUGF+864R7bDyFVGZqbZHODYpENyA==,
       }
     cpu: [x64]
     os: [linux]
 
-  '@oxlint-tsgolint/win32-arm64@0.11.0':
+  '@oxlint-tsgolint/win32-arm64@0.11.1':
     resolution:
       {
-        integrity: sha512-37nzks9eqBt7NYE6okquu51vaqMruF5voX475L16Y8asJVCGpO/2VSy3ulYAXhZ+5Kdc8ZgrljVViJOjfPEPaA==,
+        integrity: sha512-ipOs6kKo8fz5n5LSHvcbyZFmEpEIsh2m7+B03RW3jGjBEPMiXb4PfKNuxnusFYTtJM9WaR3bCVm5UxeJTA8r3w==,
       }
     cpu: [arm64]
     os: [win32]
 
-  '@oxlint-tsgolint/win32-x64@0.11.0':
+  '@oxlint-tsgolint/win32-x64@0.11.1':
     resolution:
       {
-        integrity: sha512-TsK4C61+mjmbkUJ3Q3E9Ev3VFbeI6prPEAm9FAOq8VsfUGEiIUBBjrZ8ysGoQXNiU3dCKpmu012ptVUZTk5/eg==,
+        integrity: sha512-m2apsAXg6qU3ulQG45W/qshyEpOjoL+uaQyXJG5dBoDoa66XPtCaSkBlKltD0EwGu0aoB8lM4I5I3OzQ6raNhw==,
       }
     cpu: [x64]
     os: [win32]
@@ -2848,10 +2848,10 @@ packages:
         integrity: sha512-vnDVpYPMzs4wunl27jHrfmwojOGKya0xyM3sH+UE5iv5uPS6vX7UIoh6m+vQc5LGBq52HBKPIn/zcSZVzeDEZg==,
       }
 
-  '@types/node@24.10.8':
+  '@types/node@24.10.9':
     resolution:
       {
-        integrity: sha512-r0bBaXu5Swb05doFYO2kTWHMovJnNVbCsII0fhesM8bNRlLhXIuckley4a2DaD+vOdmm5G+zGkQZAPZsF80+YQ==,
+        integrity: sha512-ne4A0IpG3+2ETuREInjPNhUGis1SFjv1d5asp8MzEAGtOZeTeHVDOYqOgqfhvseqg/iXty2hjBf1zAOb7RNiNw==,
       }
 
   '@types/rbush@4.0.0':
@@ -2993,66 +2993,66 @@ packages:
       }
     engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
 
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260115.1':
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260117.1':
     resolution:
       {
-        integrity: sha512-ICAIUBa9ecoHrKTIG9WgHBUMOpdGxwYarRW0x4PRHs34cKWz1VYy50Y+NG2Ivai2WC/T12QSWom0UBZDL1/Zkw==,
+        integrity: sha512-sf8/7keXq1auS7XI0vyAs3t/vgss4/EwACZmzSYtO75dug8TRmuSQDPHxx4R16VURijO/GQ3Bz6rA8VivREzsA==,
       }
     cpu: [arm64]
     os: [darwin]
 
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260115.1':
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260117.1':
     resolution:
       {
-        integrity: sha512-UtnRE4OPmlxAYE42HBtcqQH/TsDZcs/7ej6K11mCD9uzCLgxxAZveI+bW43VIyPLP9dZFmX/3Pvvv8arBBwGfw==,
+        integrity: sha512-3DhQdRUbDq7YduIaRYJtH5MXqCzOry+GT4DjkLPJ08vOGOFypZjgd6G+moEQHgitnefisC1PkNcL1baF4B7+og==,
       }
     cpu: [x64]
     os: [darwin]
 
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260115.1':
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260117.1':
     resolution:
       {
-        integrity: sha512-sAU6b0Tlz3QahPpuNA0HOibGKruHvbFCANuuns6aR4OYd+zNi+diBBvCTyLWu0Do3ABjpCphrj4hCvs2rWfoQQ==,
+        integrity: sha512-R9h8cX5C0yBtE8xnpAxZBSHWPiVW3d5o3mup0ei1n/8w98lwtMFLWURnPD8N4kRgql9L40IbRXW6jqWdjDUe4Q==,
       }
     cpu: [arm64]
     os: [linux]
 
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20260115.1':
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20260117.1':
     resolution:
       {
-        integrity: sha512-/divCKJhdfq1s7UG3EO2NYHHJl1EqcEIylD/pl/GbAMeKRomaKGTwwgshxv9/PoTp4AVHEKrziPDdN6sIOnFQQ==,
+        integrity: sha512-RKSKINs23agj0MJJ2Tzkhe/MuwhcPqRNRRfLmpVRjrNWI43Ta6a5+5Lah+7GYjt00wHUOhay94ZT3iHJkeHATg==,
       }
     cpu: [arm]
     os: [linux]
 
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20260115.1':
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20260117.1':
     resolution:
       {
-        integrity: sha512-KcjKJoUtqFh0VD2zGJJZ2PM+GLlK11bZFJvvdoJj/D9nf9WSRE4jWLGE+50gyy9boeaKVlZuRnTfxP6Rt3nnrw==,
+        integrity: sha512-KI5UprUMIVT4wehBcbGZQm0I3z1uls8fsOmCUzdEpmaLpVu8NbTahgJPVtMyS/nDUiN3At4Uj8ciL36kgbqRmQ==,
       }
     cpu: [x64]
     os: [linux]
 
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260115.1':
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260117.1':
     resolution:
       {
-        integrity: sha512-0TolySdSZ8w1adKNl4eEGht4lyAMJRTwwdsntbdcZ2sjDWVc4ikyu+GlYTYtkJM2M0w1Q7+iFMpWm6+M6hPHzg==,
+        integrity: sha512-dUJTLMD24TQ4XiyYAxxqKs6hPrq8wS9BiFt+ucjCuWXBGQLbnfiT4bgYz2a4yfbtyxVkG7mxV8udo+gRXtaWRQ==,
       }
     cpu: [arm64]
     os: [win32]
 
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20260115.1':
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20260117.1':
     resolution:
       {
-        integrity: sha512-yhntwcToKN6aL4rcuslb60toB1SLArpzCwNmK9jnnwJ4JexViOldBu1caZxFhVXL5eQrUCvxfipGEU30MQxhtw==,
+        integrity: sha512-SdKCAtNZee2TMdZ/bGjfKWX43qIAZhBwLlkPU1G0uxKqmDG1mVRbg/krxm5MnKOjFL00X/gozth6d3LmimonnA==,
       }
     cpu: [x64]
     os: [win32]
 
-  '@typescript/native-preview@7.0.0-dev.20260115.1':
+  '@typescript/native-preview@7.0.0-dev.20260117.1':
     resolution:
       {
-        integrity: sha512-wCW5A5Olb/Iyzr6azx1lrS42DEmkUvzLqrtL+0mzKDov4l3sdxKsO5q/m8Mdqcx9WBTY07e+WgHZ6IIfjSOWrQ==,
+        integrity: sha512-5peFvGyf+TOlU6KYMLzfPiPJdxYwG0O/oQN4Z+EzDOzrN8tbY/H58+QOQww4Lo8m4b7+4o/0r+zopD/sYR6uMw==,
       }
     hasBin: true
 
@@ -3141,10 +3141,10 @@ packages:
       xstate:
         optional: true
 
-  '@xstate/store@3.14.1':
+  '@xstate/store@3.15.0':
     resolution:
       {
-        integrity: sha512-LNl4XspU9Yp1bV9Igvbzz0pwDtm9ya9bSqbT9WB6nvLaP6Kie9d/FTlq3gLlKcbelaJDLTLBf5kKPfbiwkbAjA==,
+        integrity: sha512-1V4/5D55zvJz3inEbAH+pqrAy2xhb2d8OKC1fZcBwWmr51VpxTOCNgf9ma4fa/seUfpQPjRf9wxBSyfcTKtUbQ==,
       }
     peerDependencies:
       react: ^18.2.0 || ^19.0.0
@@ -3375,10 +3375,10 @@ packages:
         integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==,
       }
 
-  baseline-browser-mapping@2.9.14:
+  baseline-browser-mapping@2.9.15:
     resolution:
       {
-        integrity: sha512-B0xUquLkiGLgHhpPBqvl7GWegWBUNuujQ6kXd/r1U38ElPT6Ok8KZ8e+FpUGEc2ZoRQUzq/aUnaKFc/svWUGSg==,
+        integrity: sha512-kX8h7K2srmDyYnXRIppo4AH/wYgzWVCs+eKr3RusRSQ5PvRYoEFmR/I0PbdTjKFAoKqp5+kbxnNTFO9jOfSVJg==,
       }
     hasBin: true
 
@@ -4463,10 +4463,10 @@ packages:
       }
     engines: { node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0 }
 
-  happy-dom@20.3.0:
+  happy-dom@20.3.1:
     resolution:
       {
-        integrity: sha512-5qJbkqcvR8j/a4av5IWqqIWmEGf9dt6OhGMS6qxCgjSOBGzGa5XLoqg40OyD8XNzQ+g1g2zsXi10kjfpzYH55Q==,
+        integrity: sha512-tLvsizNno05Hij0PoB0QN/S8xf0YU2AGvO11/JlJDw5McA/gzyn0Ni1RwbTI1/zteUbOekJH0t6q8HFvjbxsGg==,
       }
     engines: { node: '>=20.0.0' }
 
@@ -5658,10 +5658,10 @@ packages:
     engines: { node: ^20.19.0 || >=22.12.0 }
     hasBin: true
 
-  oxlint-tsgolint@0.11.0:
+  oxlint-tsgolint@0.11.1:
     resolution:
       {
-        integrity: sha512-fGYb7z/cljC0Rjtbxh7mIe8vtF/M9TShLvniwc2rdcqNG3Z9g3nM01cr2kWRb1DZdbY4/kItvIsrV4uhaMifyQ==,
+        integrity: sha512-WulCp+0/6RvpM4zPv+dAXybf03QvRA8ATxaBlmj4XMIQqTs5jeq3cUTk48WCt4CpLwKhyyGZPHmjLl1KHQ/cvA==,
       }
     hasBin: true
 
@@ -6614,10 +6614,10 @@ packages:
       }
     engines: { node: '>=6' }
 
-  tar@7.5.2:
+  tar@7.5.3:
     resolution:
       {
-        integrity: sha512-7NyxrTE4Anh8km8iEy7o0QYPs+0JKBTj5ZaqHg6B39erLg0qYXN3BijtShwbsNSvQ+LN75+KV+C4QR/f6Gwnpg==,
+        integrity: sha512-ENg5JUHUm2rDD7IvKNFGzyElLXNjachNLp6RaGf4+JOgxXHkqA+gq81ZAMCUmtMtqBsoU62lcp6S27g1LCYGGQ==,
       }
     engines: { node: '>=18' }
 
@@ -7189,10 +7189,10 @@ packages:
         integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==,
       }
 
-  xstate@5.25.0:
+  xstate@5.25.1:
     resolution:
       {
-        integrity: sha512-yyWzfhVRoTHNLjLoMmdwZGagAYfmnzpm9gPjlX2MhJZsDojXGqRxODDOi4BsgGRKD46NZRAdcLp6CKOyvQS0Bw==,
+        integrity: sha512-oyvsNH5pF2qkHmiHEMdWqc3OjDtoZOH2MTAI35r01f/ZQWOD+VLOiYqo65UgQET0XMA5s9eRm8fnsIo+82biEw==,
       }
 
   y18n@5.0.8:
@@ -7477,7 +7477,7 @@ snapshots:
     dependencies:
       '@changesets/types': 6.1.0
 
-  '@changesets/cli@2.29.8(@types/node@24.10.8)':
+  '@changesets/cli@2.29.8(@types/node@24.10.9)':
     dependencies:
       '@changesets/apply-release-plan': 7.0.14
       '@changesets/assemble-release-plan': 6.0.9
@@ -7493,7 +7493,7 @@ snapshots:
       '@changesets/should-skip-package': 0.1.2
       '@changesets/types': 6.1.0
       '@changesets/write': 0.4.0
-      '@inquirer/external-editor': 1.0.3(@types/node@24.10.8)
+      '@inquirer/external-editor': 1.0.3(@types/node@24.10.9)
       '@manypkg/get-packages': 1.1.3
       ansi-colors: 4.1.3
       ci-info: 3.9.0
@@ -7902,12 +7902,12 @@ snapshots:
       '@types/node': 24.10.4
     optional: true
 
-  '@inquirer/external-editor@1.0.3(@types/node@24.10.8)':
+  '@inquirer/external-editor@1.0.3(@types/node@24.10.9)':
     dependencies:
       chardet: 2.1.1
       iconv-lite: 0.7.2
     optionalDependencies:
-      '@types/node': 24.10.8
+      '@types/node': 24.10.9
 
   '@inquirer/figures@1.0.15':
     optional: true
@@ -7962,7 +7962,7 @@ snapshots:
   '@manypkg/find-root@1.1.0':
     dependencies:
       '@babel/runtime': 7.28.6
-      '@types/node': 24.10.8
+      '@types/node': 24.10.9
       find-up: 4.1.0
       fs-extra: 8.1.0
 
@@ -8179,22 +8179,22 @@ snapshots:
   '@oxfmt/win32-x64@0.24.0':
     optional: true
 
-  '@oxlint-tsgolint/darwin-arm64@0.11.0':
+  '@oxlint-tsgolint/darwin-arm64@0.11.1':
     optional: true
 
-  '@oxlint-tsgolint/darwin-x64@0.11.0':
+  '@oxlint-tsgolint/darwin-x64@0.11.1':
     optional: true
 
-  '@oxlint-tsgolint/linux-arm64@0.11.0':
+  '@oxlint-tsgolint/linux-arm64@0.11.1':
     optional: true
 
-  '@oxlint-tsgolint/linux-x64@0.11.0':
+  '@oxlint-tsgolint/linux-x64@0.11.1':
     optional: true
 
-  '@oxlint-tsgolint/win32-arm64@0.11.0':
+  '@oxlint-tsgolint/win32-arm64@0.11.1':
     optional: true
 
-  '@oxlint-tsgolint/win32-x64@0.11.0':
+  '@oxlint-tsgolint/win32-x64@0.11.1':
     optional: true
 
   '@oxlint/darwin-arm64@1.39.0':
@@ -8395,20 +8395,20 @@ snapshots:
     transitivePeerDependencies:
       - webpack-hot-middleware
 
-  '@rslib/core@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260115.1)(typescript@5.9.2)':
+  '@rslib/core@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.2)':
     dependencies:
       '@rsbuild/core': 1.7.1
-      rsbuild-plugin-dts: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260115.1)(typescript@5.9.2)
+      rsbuild-plugin-dts: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.2)
     optionalDependencies:
       '@microsoft/api-extractor': 7.55.2(@types/node@24.10.4)
       typescript: 5.9.2
     transitivePeerDependencies:
       - '@typescript/native-preview'
 
-  '@rslib/core@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260115.1)(typescript@5.9.3)':
+  '@rslib/core@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3)':
     dependencies:
       '@rsbuild/core': 1.7.1
-      rsbuild-plugin-dts: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260115.1)(typescript@5.9.3)
+      rsbuild-plugin-dts: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3)
     optionalDependencies:
       '@microsoft/api-extractor': 7.55.2(@types/node@24.10.4)
       typescript: 5.9.3
@@ -8556,13 +8556,13 @@ snapshots:
       html-entities: 2.6.0
       react-refresh: 0.18.0
 
-  '@rstest/core@0.7.9(happy-dom@20.3.0)(jsdom@26.1.0)':
+  '@rstest/core@0.7.9(happy-dom@20.3.1)(jsdom@26.1.0)':
     dependencies:
       '@rsbuild/core': 1.7.1
       '@types/chai': 5.2.3
       tinypool: 1.1.1
     optionalDependencies:
-      happy-dom: 20.3.0
+      happy-dom: 20.3.1
       jsdom: 26.1.0
 
   '@rushstack/node-core-library@5.19.1(@types/node@24.10.4)':
@@ -8692,7 +8692,7 @@ snapshots:
     dependencies:
       undici-types: 7.16.0
 
-  '@types/node@24.10.8':
+  '@types/node@24.10.9':
     dependencies:
       undici-types: 7.16.0
 
@@ -8811,38 +8811,38 @@ snapshots:
       '@typescript-eslint/types': 8.53.0
       eslint-visitor-keys: 4.2.1
 
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260115.1':
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260117.1':
     optional: true
 
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260115.1':
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260117.1':
     optional: true
 
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260115.1':
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260117.1':
     optional: true
 
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20260115.1':
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20260117.1':
     optional: true
 
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20260115.1':
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20260117.1':
     optional: true
 
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260115.1':
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260117.1':
     optional: true
 
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20260115.1':
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20260117.1':
     optional: true
 
-  '@typescript/native-preview@7.0.0-dev.20260115.1':
+  '@typescript/native-preview@7.0.0-dev.20260117.1':
     optionalDependencies:
-      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20260115.1
-      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20260115.1
-      '@typescript/native-preview-linux-arm': 7.0.0-dev.20260115.1
-      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20260115.1
-      '@typescript/native-preview-linux-x64': 7.0.0-dev.20260115.1
-      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20260115.1
-      '@typescript/native-preview-win32-x64': 7.0.0-dev.20260115.1
+      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20260117.1
+      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20260117.1
+      '@typescript/native-preview-linux-arm': 7.0.0-dev.20260117.1
+      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20260117.1
+      '@typescript/native-preview-linux-x64': 7.0.0-dev.20260117.1
+      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20260117.1
+      '@typescript/native-preview-win32-x64': 7.0.0-dev.20260117.1
 
-  '@vitest/browser@4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))(vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.0)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2))':
+  '@vitest/browser@4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))(vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2))':
     dependencies:
       '@vitest/mocker': 4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))
       '@vitest/utils': 4.0.17
@@ -8851,7 +8851,7 @@ snapshots:
       pngjs: 7.0.0
       sirv: 3.0.2
       tinyrainbow: 3.0.3
-      vitest: 4.0.17(@types/node@24.10.4)(happy-dom@20.3.0)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2)
+      vitest: 4.0.17(@types/node@24.10.4)(happy-dom@20.3.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2)
       ws: 8.19.0
     transitivePeerDependencies:
       - bufferutil
@@ -8923,17 +8923,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@xstate/react@6.0.0(@types/react@19.2.8)(react@19.2.3)(xstate@5.25.0)':
+  '@xstate/react@6.0.0(@types/react@19.2.8)(react@19.2.3)(xstate@5.25.1)':
     dependencies:
       react: 19.2.3
       use-isomorphic-layout-effect: 1.2.1(@types/react@19.2.8)(react@19.2.3)
       use-sync-external-store: 1.6.0(react@19.2.3)
     optionalDependencies:
-      xstate: 5.25.0
+      xstate: 5.25.1
     transitivePeerDependencies:
       - '@types/react'
 
-  '@xstate/store@3.14.1(react@19.2.3)':
+  '@xstate/store@3.15.0(react@19.2.3)':
     optionalDependencies:
       react: 19.2.3
 
@@ -9080,7 +9080,7 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
-  baseline-browser-mapping@2.9.14: {}
+  baseline-browser-mapping@2.9.15: {}
 
   better-path-resolve@1.0.0:
     dependencies:
@@ -9105,7 +9105,7 @@ snapshots:
 
   browserslist@4.28.1:
     dependencies:
-      baseline-browser-mapping: 2.9.14
+      baseline-browser-mapping: 2.9.15
       caniuse-lite: 1.0.30001764
       electron-to-chromium: 1.5.267
       node-releases: 2.0.27
@@ -9826,7 +9826,7 @@ snapshots:
   graphql@16.12.0:
     optional: true
 
-  happy-dom@20.3.0:
+  happy-dom@20.3.1:
     dependencies:
       '@types/node': 24.10.4
       '@types/whatwg-mimetype': 3.0.2
@@ -10582,16 +10582,16 @@ snapshots:
       '@oxfmt/win32-arm64': 0.24.0
       '@oxfmt/win32-x64': 0.24.0
 
-  oxlint-tsgolint@0.11.0:
+  oxlint-tsgolint@0.11.1:
     optionalDependencies:
-      '@oxlint-tsgolint/darwin-arm64': 0.11.0
-      '@oxlint-tsgolint/darwin-x64': 0.11.0
-      '@oxlint-tsgolint/linux-arm64': 0.11.0
-      '@oxlint-tsgolint/linux-x64': 0.11.0
-      '@oxlint-tsgolint/win32-arm64': 0.11.0
-      '@oxlint-tsgolint/win32-x64': 0.11.0
+      '@oxlint-tsgolint/darwin-arm64': 0.11.1
+      '@oxlint-tsgolint/darwin-x64': 0.11.1
+      '@oxlint-tsgolint/linux-arm64': 0.11.1
+      '@oxlint-tsgolint/linux-x64': 0.11.1
+      '@oxlint-tsgolint/win32-arm64': 0.11.1
+      '@oxlint-tsgolint/win32-x64': 0.11.1
 
-  oxlint@1.39.0(oxlint-tsgolint@0.11.0):
+  oxlint@1.39.0(oxlint-tsgolint@0.11.1):
     optionalDependencies:
       '@oxlint/darwin-arm64': 1.39.0
       '@oxlint/darwin-x64': 1.39.0
@@ -10601,7 +10601,7 @@ snapshots:
       '@oxlint/linux-x64-musl': 1.39.0
       '@oxlint/win32-arm64': 1.39.0
       '@oxlint/win32-x64': 1.39.0
-      oxlint-tsgolint: 0.11.0
+      oxlint-tsgolint: 0.11.1
 
   p-filter@2.1.0:
     dependencies:
@@ -10879,22 +10879,22 @@ snapshots:
   rrweb-cssom@0.8.0:
     optional: true
 
-  rsbuild-plugin-dts@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260115.1)(typescript@5.9.2):
+  rsbuild-plugin-dts@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.2):
     dependencies:
       '@ast-grep/napi': 0.37.0
       '@rsbuild/core': 1.7.1
     optionalDependencies:
       '@microsoft/api-extractor': 7.55.2(@types/node@24.10.4)
-      '@typescript/native-preview': 7.0.0-dev.20260115.1
+      '@typescript/native-preview': 7.0.0-dev.20260117.1
       typescript: 5.9.2
 
-  rsbuild-plugin-dts@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260115.1)(typescript@5.9.3):
+  rsbuild-plugin-dts@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3):
     dependencies:
       '@ast-grep/napi': 0.37.0
       '@rsbuild/core': 1.7.1
     optionalDependencies:
       '@microsoft/api-extractor': 7.55.2(@types/node@24.10.4)
-      '@typescript/native-preview': 7.0.0-dev.20260115.1
+      '@typescript/native-preview': 7.0.0-dev.20260117.1
       typescript: 5.9.3
 
   run-parallel@1.2.0:
@@ -11151,15 +11151,15 @@ snapshots:
 
   svgmapviewer@0.1.0(@types/react@19.2.8):
     dependencies:
-      '@xstate/react': 6.0.0(@types/react@19.2.8)(react@19.2.3)(xstate@5.25.0)
-      '@xstate/store': 3.14.1(react@19.2.3)
+      '@xstate/react': 6.0.0(@types/react@19.2.8)(react@19.2.3)(xstate@5.25.1)
+      '@xstate/store': 3.15.0(react@19.2.3)
       clsx: 2.1.1
       flatbush: 4.5.0
       fp-ts: 2.16.11
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
       type-fest: 5.4.1
-      xstate: 5.25.0
+      xstate: 5.25.1
     transitivePeerDependencies:
       - '@types/react'
       - solid-js
@@ -11175,7 +11175,7 @@ snapshots:
 
   tapable@2.3.0: {}
 
-  tar@7.5.2:
+  tar@7.5.3:
     dependencies:
       '@isaacs/fs-minipass': 4.0.1
       chownr: 3.0.0
@@ -11387,7 +11387,7 @@ snapshots:
       lightningcss: 1.30.2
       yaml: 2.8.2
 
-  vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.0)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2):
+  vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2):
     dependencies:
       '@vitest/expect': 4.0.17
       '@vitest/mocker': 4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))
@@ -11411,7 +11411,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 24.10.4
-      happy-dom: 20.3.0
+      happy-dom: 20.3.1
       jsdom: 26.1.0
     transitivePeerDependencies:
       - jiti
@@ -11537,7 +11537,7 @@ snapshots:
   xmlchars@2.2.0:
     optional: true
 
-  xstate@5.25.0: {}
+  xstate@5.25.1: {}
 
   y18n@5.0.8: {}
 

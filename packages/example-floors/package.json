@@ -26,7 +26,7 @@
     "@types/node": "24.x",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260115.1",
+    "@typescript/native-preview": "7.0.0-dev.20260117.1",
     "playwright": "^1.57.0",
     "typescript": "^5.9.3"
   },

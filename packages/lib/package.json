@@ -36,14 +36,14 @@
   },
   "dependencies": {
     "@xstate/react": "^6.0.0",
-    "@xstate/store": "^3.14.1",
+    "@xstate/store": "^3.15.0",
     "clsx": "^2.1.1",
     "flatbush": "^4.5.0",
     "fp-ts": "^2.16.11",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "type-fest": "^5.4.1",
-    "xstate": "^5.25.0",
+    "xstate": "^5.25.1",
     "zod": "^4.3.5"
   },
   "devDependencies": {
@@ -55,8 +55,8 @@
     "@types/node": "24.x",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260115.1",
-    "happy-dom": "^20.3.0",
+    "@typescript/native-preview": "7.0.0-dev.20260117.1",
+    "happy-dom": "^20.3.1",
     "playwright": "^1.57.0",
     "prettier": "^3.8.0",
     "typescript": "^5.9.2"
