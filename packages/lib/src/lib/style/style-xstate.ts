@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { createAtom } from '@xstate/store'
+import { createAtom, type Atom } from '@xstate/store'
 import { assign, createActor, raise, setup } from 'xstate'
 
 import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
@@ -22,7 +22,7 @@ import { emptyLayout, type Layout } from '../viewer/layout/layout'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { type ViewerMode } from '../viewer/viewer-types'
 
-export const currentLayout = createAtom<Layout>(emptyLayout)
+export const currentLayout: Atom<Layout> = createAtom<Layout>(emptyLayout)
 
 const styleMachine = setup({
   types: {
