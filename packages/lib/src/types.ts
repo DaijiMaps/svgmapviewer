@@ -167,6 +167,7 @@ export interface SvgMapViewerConfig
   width: number
   height: number
   origViewBox: BoxBox // XXX
+  origBoundingBox?: BoxBox // XXX
   fontSize: number
   backgroundColor?: string
   title: string

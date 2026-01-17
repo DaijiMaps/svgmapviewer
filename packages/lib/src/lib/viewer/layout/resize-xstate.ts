@@ -81,9 +81,10 @@ const resizeMachine = setup({
               emit(({ context }) => ({
                 type: 'LAYOUT',
                 layout: resizeLayout(
-                  svgMapViewerConfig.origViewBox,
                   svgMapViewerConfig.fontSize,
-                  context.next
+                  context.next,
+                  svgMapViewerConfig.origViewBox,
+                  svgMapViewerConfig.origBoundingBox
                 ),
                 force: !context.first,
               })),

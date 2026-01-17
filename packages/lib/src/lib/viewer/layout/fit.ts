@@ -1,5 +1,4 @@
 import { boxBox as box, type BoxBox as Box } from '../../box/prefixed'
-//import { vecVec as vec, type VecVec as Vec } from '../../vec/prefixed'
 
 function fitV(viewBox: Box, r: number): Box {
   const height = viewBox.height
@@ -17,6 +16,9 @@ export type FitReturn = Readonly<{
   outer: Box
   inner: Box
   scale: number
+  rO: number
+  rI: number
+  v: boolean
 }>
 
 export function fit(origOuter: Box, origInner: Box): FitReturn {
@@ -32,5 +34,16 @@ export function fit(origOuter: Box, origInner: Box): FitReturn {
     ? origInner.height / origOuter.height
     : origInner.width / origOuter.width
 
-  return { outer, inner, scale }
+  return { outer, inner, scale, rO, rI, v }
+}
+
+export function fitSquare({ x, y, width, height }: Box): Box {
+  const l = Math.max(width, height)
+  const d = Math.abs(width - height) / 2
+  return {
+    x: width < height ? x - d : x,
+    y: width > height ? y - d : y,
+    width: l,
+    height: l,
+  }
 }

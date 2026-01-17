@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core'
 import { boxBox as box, type BoxBox as Box } from '../../src/lib/box/prefixed'
-import { fit } from '../../src/lib/viewer/layout/fit'
+import { fit, fitSquare } from '../../src/lib/viewer/layout/fit'
 
 type FitTest = Readonly<{
   name: string
@@ -36,5 +36,19 @@ fitTests.forEach(({ name, O, I, o, i, s }) => {
     expect(outer).toEqual(o)
     expect(inner).toEqual(i)
     expect(scale).toBe(s)
+  })
+})
+
+const fitSquareTests = [
+  {
+    a: box(0, 0, 1, 2),
+    b: box(-0.5, 0, 2, 2),
+  },
+]
+
+fitSquareTests.forEach(({ a, b }) => {
+  test('square', () => {
+    const res = fitSquare(a)
+    expect(res).toEqual(b)
   })
 })
