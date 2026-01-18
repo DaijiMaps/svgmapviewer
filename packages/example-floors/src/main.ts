@@ -1,5 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 import { svgmapviewer } from 'svgmapviewer-app-floors'
+
 import { floorsConfig } from './floors'
 import { searchConfig } from './search'
 

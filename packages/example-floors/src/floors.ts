@@ -1,4 +1,5 @@
 import { type FloorsConfig } from 'svgmapviewer'
+
 import floor_1f from './assets/floor-1f.svg'
 import floor_2f from './assets/floor-2f.svg'
 

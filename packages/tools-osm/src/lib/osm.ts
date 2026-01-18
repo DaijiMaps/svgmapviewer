@@ -1,4 +1,5 @@
 import { Array, Record } from 'effect'
+
 import type { _Properties, _Value } from './geojson/geojson-types'
 
 function expandVal(s: string): _Value {

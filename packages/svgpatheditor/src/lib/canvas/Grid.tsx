@@ -1,6 +1,7 @@
-import { Array } from 'effect'
 import type { ReactNode, RefObject } from 'react'
 import type { VecVec } from 'svgmapviewer/vec'
+
+import { Array } from 'effect'
 
 function makeSeq(length: number, unit: number): number[] {
   const l = length / 2

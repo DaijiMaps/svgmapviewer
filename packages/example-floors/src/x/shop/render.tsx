@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react'
 import { type Info } from 'svgmapviewer'
+
 import { RenderBook } from './book/render'
 import { RenderRestaurant } from './restaurant/render'
 import { type ShopKind } from './types'

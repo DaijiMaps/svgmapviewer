@@ -2,6 +2,11 @@ import type { AnimationMatrix, Dir } from '../../../types'
 
 import { svgMapViewerConfig } from '../../../config'
 import { boxCenter, boxScaleAt } from '../../box/prefixed'
+import {
+  dommatrixreadonly as matrix,
+  dommatrixreadonlyTranslateOnly as matrixTranslateOnly,
+  dommatrixreadonlyScaleAt as matrixScaleAt,
+} from '../../matrix/dommatrixreadonly'
 import { type VecVec as Vec } from '../../vec/prefixed'
 import {
   type Animation,
@@ -18,11 +23,6 @@ import {
   zoomLayout,
   type Layout,
 } from './layout'
-import {
-  dommatrixreadonly as matrix,
-  dommatrixreadonlyTranslateOnly as matrixTranslateOnly,
-  dommatrixreadonlyScaleAt as matrixScaleAt,
-} from '../../matrix/dommatrixreadonly'
 
 export function calcAnimation(
   req: null | AnimationReq,

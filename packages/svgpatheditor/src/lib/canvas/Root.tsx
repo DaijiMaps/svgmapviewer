@@ -1,7 +1,9 @@
+import type { VecVec } from 'svgmapviewer/vec'
+
 /* eslint-disable react-hooks/refs */
 import { useRef, type ReactNode } from 'react'
 import { boxToViewBox2 } from 'svgmapviewer/box'
-import type { VecVec } from 'svgmapviewer/vec'
+
 import { Grid } from './Grid'
 import { Points, pointsAdd, usePoints } from './Points'
 import { sizeToViewBox } from './utils'

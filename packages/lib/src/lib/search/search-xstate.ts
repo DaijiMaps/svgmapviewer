@@ -5,6 +5,7 @@ import type {
   SearchWorkerReq,
   SearchWorkerRes,
 } from './search-worker-types'
+import type { SearchPos } from './types'
 
 import { svgMapViewerConfig } from '../../config'
 import {
@@ -16,7 +17,6 @@ import {
 import { globalCbs } from '../event-global'
 import { notifySearch, searchCbs } from '../event-search'
 import { currentFidxAtom } from '../viewer/floors/floors-xstate'
-import type { SearchPos } from './types'
 
 export type SearchEvent =
   | { type: 'INIT.DONE' }

@@ -1,5 +1,4 @@
 import { pipe } from 'fp-ts/function'
-
 //import { type ReadonlyDeep } from 'type-fest'
 import {
   boxCenter,
@@ -10,6 +9,7 @@ import {
   boxUnit,
   type BoxBox,
 } from '../../box/prefixed'
+import { dommatrixreadonlyRotateAt } from '../../matrix/dommatrixreadonly'
 import {
   vecAdd,
   vecScale,
@@ -30,7 +30,6 @@ import {
   type ScrollLayoutCoord,
   type SvgLayoutCoord,
 } from './layout-types'
-import { dommatrixreadonlyRotateAt } from '../../matrix/dommatrixreadonly'
 
 //// LayoutConfig
 //// Layout

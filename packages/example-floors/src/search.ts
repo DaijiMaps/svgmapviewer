@@ -1,6 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 import { type Info, type POI, type SvgMapViewerConfigUser } from 'svgmapviewer'
 import { type SearchPos } from 'svgmapviewer/search'
+
 import { pois } from './data'
 import { RenderInfo as renderInfo } from './render'
 

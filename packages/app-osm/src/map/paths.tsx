@@ -1,5 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import { type OsmMapPathOps } from 'svgmapviewer/carto'
+
 import { area } from './paths/area'
 import { bridge } from './paths/bridge'
 import { building } from './paths/building'

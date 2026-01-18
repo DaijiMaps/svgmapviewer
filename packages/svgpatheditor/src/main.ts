@@ -2,6 +2,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
 import { createRoot } from 'react-dom/client'
+
 import { App, type AppProps } from './App'
 
 export function main(): void {

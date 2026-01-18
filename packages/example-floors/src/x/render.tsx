@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react'
 import { type Info } from 'svgmapviewer'
+
 import { RenderFacility } from './facility/render'
 import { RenderShop } from './shop/render'
 

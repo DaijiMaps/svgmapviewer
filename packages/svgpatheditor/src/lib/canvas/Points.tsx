@@ -1,10 +1,12 @@
+import type { ReactNode } from 'react'
+import type { VecVec } from 'svgmapviewer/vec'
+
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 import { createAtom } from '@xstate/store'
 import { useAtom } from '@xstate/store/react'
-import type { ReactNode } from 'react'
-import type { VecVec } from 'svgmapviewer/vec'
+
 import { makeID, type ID } from './ids'
 
 type PointMap = Map<ID, VecVec>

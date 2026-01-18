@@ -2,9 +2,9 @@
 import { expect } from '@rstest/core'
 
 import { type BoxBox as Box } from '../../box/prefixed'
-import { type Layout } from './layout'
-import { type MatrixObject } from '../../matrix/object'
 import { dommatrixreadonlyToObject as toObj } from '../../matrix/dommatrixreadonly'
+import { type MatrixObject } from '../../matrix/object'
+import { type Layout } from './layout'
 
 export function fixupLayout(layout: Layout): Omit<Layout, 'content'> & {
   content: MatrixObject

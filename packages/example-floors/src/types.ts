@@ -1,4 +1,5 @@
 import { type Info, type POI } from 'svgmapviewer'
+
 import { type XInfo } from './x/types'
 
 declare module 'svgmapviewer' {

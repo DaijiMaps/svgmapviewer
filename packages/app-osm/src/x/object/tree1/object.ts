@@ -1,4 +1,5 @@
 import type { OsmMapObjects } from 'svgmapviewer/carto'
+
 import { objectNames } from 'svgmapviewer/carto-objects'
 
 export const tree1: OsmMapObjects = {

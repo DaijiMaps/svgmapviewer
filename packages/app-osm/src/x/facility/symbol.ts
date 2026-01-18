@@ -1,4 +1,5 @@
 import type { OsmMapSymbols } from 'svgmapviewer/carto'
+
 import { bus_stop } from './bus_stop/symbol'
 import { elevator } from './elevator/symbol'
 import { escalator } from './escalator/symbol'

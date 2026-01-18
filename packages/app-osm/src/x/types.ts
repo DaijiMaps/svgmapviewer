@@ -1,4 +1,5 @@
 import type { Info } from 'svgmapviewer'
+
 import type { FacilityInfo } from './facility/types'
 import type { ShopInfo } from './shop/types'
 
