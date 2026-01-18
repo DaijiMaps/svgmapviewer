@@ -27,7 +27,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
-    "*": "prettier --write --cache --ignore-unknown"
+    "*": "oxfmt --write"
   },
   "packageManager": "pnpm@10.26.0"
 }
