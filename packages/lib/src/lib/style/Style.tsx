@@ -36,7 +36,7 @@ function RootStyle(): ReactNode {
   const rendered = useRendered()
 
   useEffect(() => {
-    requestAnimationFrame(notifyGlobal.rendered)
+    requestAnimationFrame(() => notifyGlobal.rendered())
   }, [rendered])
 
   const shown = useShown()

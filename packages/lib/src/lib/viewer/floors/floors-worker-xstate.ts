@@ -65,7 +65,7 @@ floorsWorkerActor.on('FETCH', ({ cfg }) =>
         }
         return response.blob()
       })
-      .then((blob) => {
+      .then((blob) =>
         blob
           .arrayBuffer()
           .then((buf) =>
@@ -74,7 +74,7 @@ floorsWorkerActor.on('FETCH', ({ cfg }) =>
               { transfer: [buf] }
             )
           )
-      })
+      )
       .catch((e) => console.error(e))
   })
 )
