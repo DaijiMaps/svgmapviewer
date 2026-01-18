@@ -8,6 +8,7 @@ import {
   isMapOsmDefaultRendered as isMapRendered,
   RenderMapOsmDefault as renderMap,
 } from 'svgmapviewer/map'
+
 import { RenderInfo as renderInfo } from './info'
 import { getMapMarkers } from './map/markers'
 import { getMapObjects } from './map/objects'

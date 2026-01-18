@@ -1,4 +1,5 @@
 import { type OsmSearchEntry } from 'svgmapviewer/geo'
+
 import { bus_stop } from './facility/bus_stop/info'
 import { elevator } from './facility/elevator/info'
 import { escalator } from './facility/escalator/info'

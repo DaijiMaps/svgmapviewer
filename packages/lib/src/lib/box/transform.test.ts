@@ -1,8 +1,9 @@
 import { expect, test } from '@rstest/core'
-import { box } from './main'
-import { toToransform } from './transform'
+
 import { dommatrixreadonlyToObject as toObj } from '../matrix/dommatrixreadonly'
 import { matrixObject } from '../matrix/object'
+import { box } from './main'
+import { toToransform } from './transform'
 
 test('toTransform', () => {
   const a = box(0, 0, 1, 1)

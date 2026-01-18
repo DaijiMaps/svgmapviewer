@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { ReactNode } from 'react'
+
 import { Canvas } from './lib/canvas/Root'
 
 export interface AppProps {

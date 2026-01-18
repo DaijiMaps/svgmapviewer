@@ -1,4 +1,5 @@
 import { expect, test } from '@rstest/core'
+
 import { splitTypes } from './print-utils'
 
 test('split types', () => {

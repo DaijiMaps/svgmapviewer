@@ -1,9 +1,11 @@
 import { Fragment, type ReactNode } from 'react'
 import { svgMapViewerConfig } from 'svgmapviewer'
 import { findProperties, type OsmProperties } from 'svgmapviewer/geo'
+
+import type { XInfo } from './types'
+
 import { RenderFacilityInfo } from './facility/render'
 import { RenderShopInfo } from './shop/render'
-import type { XInfo } from './types'
 
 export interface RenderXInfoProps {
   x: XInfo

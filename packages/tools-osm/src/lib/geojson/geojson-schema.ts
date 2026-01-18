@@ -1,5 +1,7 @@
-import { Schema } from 'effect'
 import type { ParseOptions } from 'effect/SchemaAST'
+
+import { Schema } from 'effect'
+
 import type { _Crs, _Features, _Properties } from './geojson-types'
 
 const PropertiesSchema = Schema.Record({

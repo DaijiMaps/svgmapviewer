@@ -1,8 +1,11 @@
 import type { ReactNode } from 'react'
+
 import { Like } from 'svgmapviewer'
 import { getPropertyValue, type OsmProperties } from 'svgmapviewer/geo'
-import { RenderProperties } from '../render'
+
 import type { ShopInfo } from './types'
+
+import { RenderProperties } from '../render'
 
 export function RenderShopInfo(
   props: Readonly<{

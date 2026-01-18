@@ -1,4 +1,5 @@
 import { expect, test } from '@rstest/core'
+
 import { splitOtherTags } from './osm'
 
 test('split other_tags', () => {

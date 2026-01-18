@@ -5,9 +5,9 @@ import { pipe } from 'fp-ts/function'
 import type { Box } from './types'
 
 import { apply, type Matrix } from '../matrix'
+import { vecDiv, vecSub, vecVec } from '../vec/prefixed'
 import { mapF } from './main'
 import { fromTlBr, tlBrFromB, tlBrToB, toTlBr } from './tlbr'
-import { vecDiv, vecSub, vecVec } from '../vec/prefixed'
 
 export function transform(b: Box, m: Matrix): Box {
   return pipe(

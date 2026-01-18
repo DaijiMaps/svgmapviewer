@@ -1,4 +1,5 @@
 import { boxUnit, type BoxBox } from '../../box/prefixed'
+import { dommatrixreadonly as matrix } from '../../matrix/dommatrixreadonly'
 import { vecScale } from '../../vec/prefixed'
 import {
   type ContainerLayoutConfig,
@@ -10,7 +11,6 @@ import {
   type SvgLayoutConfig,
   type SvgLayoutCoord,
 } from './layout-types'
-import { dommatrixreadonly as matrix } from '../../matrix/dommatrixreadonly'
 
 //// LayoutCoord
 //// makeCoord

@@ -1,5 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 import type { OsmMapObjects } from 'svgmapviewer/carto'
+
 import { bench } from '../x/object/bench/object'
 import { entrance } from '../x/object/entrance/object'
 import { guidepost } from '../x/object/guidepost/object'

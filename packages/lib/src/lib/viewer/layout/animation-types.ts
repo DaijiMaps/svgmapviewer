@@ -1,7 +1,8 @@
+import type { Z } from '../../../types'
+
 //import { type Readonly } from 'type-fest'
 import { type Box } from '../../box'
 import { type VecVec as Vec } from '../../vec/prefixed'
-import type { Z } from '../../../types'
 
 export type AnimationReq =
   | Readonly<{ readonly type: 'zoom'; readonly z: Z; readonly p: Vec }>

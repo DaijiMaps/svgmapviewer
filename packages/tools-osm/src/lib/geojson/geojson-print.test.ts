@@ -1,6 +1,7 @@
-import * as fs from 'node:fs'
 import { Doc } from '@effect/printer'
 import { expect, test } from '@rstest/core'
+import * as fs from 'node:fs'
+
 import {
   isTuple,
   printGeoJSON,

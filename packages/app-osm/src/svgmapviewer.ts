@@ -6,6 +6,7 @@ import {
   type SvgMapViewerConfigUser,
 } from 'svgmapviewer'
 import { calcScale, mapMapFromMapData, type OsmMapMap } from 'svgmapviewer/geo'
+
 import { renderConfig, searchConfig } from './main'
 
 // eslint-disable-next-line functional/no-return-void
