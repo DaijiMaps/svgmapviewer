@@ -107,7 +107,7 @@ importers:
         version: 1.4.3(@rsbuild/core@1.7.2)
       '@rslib/core':
         specifier: ^0.19.2
-        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3)
+        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260118.1)(typescript@5.9.3)
       '@testing-library/react':
         specifier: ^16.3.1
         version: 16.3.1(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -121,11 +121,11 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260117.1
-        version: 7.0.0-dev.20260117.1
+        specifier: 7.0.0-dev.20260118.1
+        version: 7.0.0-dev.20260118.1
       '@vitest/browser':
         specifier: ^4.0.17
-        version: 4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))(vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2))
+        version: 4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))(vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.3)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2))
       playwright:
         specifier: ^1.57.0
         version: 1.57.0
@@ -134,7 +134,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^4.0.17
-        version: 4.0.17(@types/node@24.10.4)(happy-dom@20.3.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2)
+        version: 4.0.17(@types/node@24.10.4)(happy-dom@20.3.3)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2)
 
   packages/app-osm:
     dependencies:
@@ -153,7 +153,7 @@ importers:
         version: 1.4.3(@rsbuild/core@1.7.2)
       '@rslib/core':
         specifier: ^0.19.2
-        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3)
+        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260118.1)(typescript@5.9.3)
       '@testing-library/react':
         specifier: ^16.3.1
         version: 16.3.1(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -167,11 +167,11 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260117.1
-        version: 7.0.0-dev.20260117.1
+        specifier: 7.0.0-dev.20260118.1
+        version: 7.0.0-dev.20260118.1
       '@vitest/browser':
         specifier: ^4.0.17
-        version: 4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))(vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2))
+        version: 4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))(vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.3)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2))
       playwright:
         specifier: ^1.57.0
         version: 1.57.0
@@ -180,7 +180,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^4.0.17
-        version: 4.0.17(@types/node@24.10.4)(happy-dom@20.3.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2)
+        version: 4.0.17(@types/node@24.10.4)(happy-dom@20.3.3)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2)
 
   packages/create-floors:
     devDependencies:
@@ -195,7 +195,7 @@ importers:
         version: 0.104.0(@effect/cluster@0.56.0(@effect/platform@0.94.1(effect@3.19.14))(@effect/rpc@0.73.0(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(@effect/sql@0.49.0(@effect/experimental@0.58.0(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(@effect/workflow@0.16.0(@effect/experimental@0.58.0(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(@effect/platform@0.94.1(effect@3.19.14))(@effect/rpc@0.73.0(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(effect@3.19.14))(effect@3.19.14))(@effect/platform@0.94.1(effect@3.19.14))(@effect/rpc@0.73.0(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(@effect/sql@0.49.0(@effect/experimental@0.58.0(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(@effect/platform@0.94.1(effect@3.19.14))(effect@3.19.14))(effect@3.19.14)
       '@rslib/core':
         specifier: ^0.19.2
-        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3)
+        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260118.1)(typescript@5.9.3)
       '@types/node':
         specifier: 24.x
         version: 24.10.4
@@ -246,8 +246,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260117.1
-        version: 7.0.0-dev.20260117.1
+        specifier: 7.0.0-dev.20260118.1
+        version: 7.0.0-dev.20260118.1
       playwright:
         specifier: ^1.57.0
         version: 1.57.0
@@ -277,8 +277,8 @@ importers:
         specifier: 24.x
         version: 24.10.4
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260117.1
-        version: 7.0.0-dev.20260117.1
+        specifier: 7.0.0-dev.20260118.1
+        version: 7.0.0-dev.20260118.1
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -321,10 +321,10 @@ importers:
         version: 1.4.3(@rsbuild/core@1.7.2)
       '@rslib/core':
         specifier: ^0.19.2
-        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.2)
+        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260118.1)(typescript@5.9.2)
       '@rstest/core':
         specifier: ^0.7.9
-        version: 0.7.9(happy-dom@20.3.1)(jsdom@26.1.0)
+        version: 0.7.9(happy-dom@20.3.3)(jsdom@26.1.0)
       '@testing-library/react':
         specifier: ^16.3.1
         version: 16.3.1(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -341,11 +341,11 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260117.1
-        version: 7.0.0-dev.20260117.1
+        specifier: 7.0.0-dev.20260118.1
+        version: 7.0.0-dev.20260118.1
       happy-dom:
-        specifier: ^20.3.1
-        version: 20.3.1
+        specifier: ^20.3.3
+        version: 20.3.3
       playwright:
         specifier: ^1.57.0
         version: 1.57.0
@@ -405,8 +405,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260117.1
-        version: 7.0.0-dev.20260117.1
+        specifier: 7.0.0-dev.20260118.1
+        version: 7.0.0-dev.20260118.1
       '@xstate/react':
         specifier: ^6.0.0
         version: 6.0.0(@types/react@19.2.8)(react@19.2.3)(xstate@5.25.1)
@@ -418,7 +418,7 @@ importers:
     devDependencies:
       '@rslib/core':
         specifier: ^0.19.2
-        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3)
+        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260118.1)(typescript@5.9.3)
       '@types/mocha':
         specifier: ^10.0.10
         version: 10.0.10
@@ -460,10 +460,10 @@ importers:
         version: 0.47.0(@effect/typeclass@0.38.0(effect@3.19.14))(effect@3.19.14)
       '@rslib/core':
         specifier: ^0.19.2
-        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3)
+        version: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260118.1)(typescript@5.9.3)
       '@rstest/core':
         specifier: ^0.7.9
-        version: 0.7.9(happy-dom@20.3.1)(jsdom@26.1.0)
+        version: 0.7.9(happy-dom@20.3.3)(jsdom@26.1.0)
       '@types/node':
         specifier: 24.x
         version: 24.10.4
@@ -2993,66 +2993,66 @@ packages:
       }
     engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
 
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260117.1':
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260118.1':
     resolution:
       {
-        integrity: sha512-sf8/7keXq1auS7XI0vyAs3t/vgss4/EwACZmzSYtO75dug8TRmuSQDPHxx4R16VURijO/GQ3Bz6rA8VivREzsA==,
+        integrity: sha512-Rr9xUWiT3g104hFgMoVbVSmqK1rQd7VhxwHgNNiPLkznGSc3zewIZ5uBCA93VV2BwC1/ksodwmA1ZYW7Ae2IIg==,
       }
     cpu: [arm64]
     os: [darwin]
 
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260117.1':
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260118.1':
     resolution:
       {
-        integrity: sha512-3DhQdRUbDq7YduIaRYJtH5MXqCzOry+GT4DjkLPJ08vOGOFypZjgd6G+moEQHgitnefisC1PkNcL1baF4B7+og==,
+        integrity: sha512-vtpp39vH6wbp/ONJigF6KM7v3TTu8BAZo7ntXPgpV0YQ5cpXlnh6gQaQyXDjzlZRl/jdr+DS/76easoXeRpsFA==,
       }
     cpu: [x64]
     os: [darwin]
 
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260117.1':
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260118.1':
     resolution:
       {
-        integrity: sha512-R9h8cX5C0yBtE8xnpAxZBSHWPiVW3d5o3mup0ei1n/8w98lwtMFLWURnPD8N4kRgql9L40IbRXW6jqWdjDUe4Q==,
+        integrity: sha512-w32ohkkaBbotPHQttMwzn2l3CO139aTSmIAbDJ1GdbzacDfu1eRHyDaqJ9FpXXF9rkmQxWPIxz8OjpFGoHejQw==,
       }
     cpu: [arm64]
     os: [linux]
 
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20260117.1':
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20260118.1':
     resolution:
       {
-        integrity: sha512-RKSKINs23agj0MJJ2Tzkhe/MuwhcPqRNRRfLmpVRjrNWI43Ta6a5+5Lah+7GYjt00wHUOhay94ZT3iHJkeHATg==,
+        integrity: sha512-JpYWxan5wwdZsiZJLWvDr/8gbIThnR1orOZ9Wb8Oc6cHFpYolwnXxAoCPLVnEcAfjnC6cY7WZvY5Dn0gSQ2Asw==,
       }
     cpu: [arm]
     os: [linux]
 
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20260117.1':
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20260118.1':
     resolution:
       {
-        integrity: sha512-KI5UprUMIVT4wehBcbGZQm0I3z1uls8fsOmCUzdEpmaLpVu8NbTahgJPVtMyS/nDUiN3At4Uj8ciL36kgbqRmQ==,
+        integrity: sha512-tJuaHEFnKB+V8dkMp9quOjcYs4sbNqwocFyStUN6D6khyYyYDKoKNI68APO4WM0WJ84zMWTyvBDms5uZojftEw==,
       }
     cpu: [x64]
     os: [linux]
 
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260117.1':
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260118.1':
     resolution:
       {
-        integrity: sha512-dUJTLMD24TQ4XiyYAxxqKs6hPrq8wS9BiFt+ucjCuWXBGQLbnfiT4bgYz2a4yfbtyxVkG7mxV8udo+gRXtaWRQ==,
+        integrity: sha512-MhLmNq0OYDRIcWui1g1XaY6tcN4GTzD2rABxwMIpdB+sOtl6YBicoSFk0fToZ+2OOUjjeGwlFzW/LDq540n3HQ==,
       }
     cpu: [arm64]
     os: [win32]
 
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20260117.1':
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20260118.1':
     resolution:
       {
-        integrity: sha512-SdKCAtNZee2TMdZ/bGjfKWX43qIAZhBwLlkPU1G0uxKqmDG1mVRbg/krxm5MnKOjFL00X/gozth6d3LmimonnA==,
+        integrity: sha512-NkXwyQHr/DKbp3BP8CzS4zhOIAY4CmUTYtadr5yyNsTJvuavBH9A4BKjqE/83ZRYB7O5O+n/2z1C5yl7IJp/qQ==,
       }
     cpu: [x64]
     os: [win32]
 
-  '@typescript/native-preview@7.0.0-dev.20260117.1':
+  '@typescript/native-preview@7.0.0-dev.20260118.1':
     resolution:
       {
-        integrity: sha512-5peFvGyf+TOlU6KYMLzfPiPJdxYwG0O/oQN4Z+EzDOzrN8tbY/H58+QOQww4Lo8m4b7+4o/0r+zopD/sYR6uMw==,
+        integrity: sha512-A+anwzt5RsbCWglYUCAgrolHO9iWLFl2NtRIwDU2IaIxTt0GsFcvaDe+IjswJGHknE0nJ7TS6DeAwjkDD/14og==,
       }
     hasBin: true
 
@@ -3477,10 +3477,10 @@ packages:
       }
     engines: { node: '>=10' }
 
-  caniuse-lite@1.0.30001764:
+  caniuse-lite@1.0.30001765:
     resolution:
       {
-        integrity: sha512-9JGuzl2M+vPL+pz70gtMF9sHdMFbY9FJaQBi186cHKH3pSzDvzoUJUPV6fqiKIMyXbud9ZLg4F3Yza1vJ1+93g==,
+        integrity: sha512-LWcNtSyZrakjECqmpP4qdg0MMGdN368D7X8XvvAqOcqMv0RxnlqVKZl2V6/mBR68oYMxOZPLw/gO7DuisMHUvQ==,
       }
 
   chai@6.2.2:
@@ -3848,6 +3848,13 @@ packages:
         integrity: sha512-rRqJg/6gd538VHvR3PSrdRBb/1Vy2YfzHqzvbhGIQpDRKIa4FgV/54b5Q1xYSxOOwKvjXweS26E0Q+nAMwp2pQ==,
       }
     engines: { node: '>=8.6' }
+
+  entities@4.5.0:
+    resolution:
+      {
+        integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==,
+      }
+    engines: { node: '>=0.12' }
 
   entities@6.0.1:
     resolution:
@@ -4463,10 +4470,10 @@ packages:
       }
     engines: { node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0 }
 
-  happy-dom@20.3.1:
+  happy-dom@20.3.3:
     resolution:
       {
-        integrity: sha512-tLvsizNno05Hij0PoB0QN/S8xf0YU2AGvO11/JlJDw5McA/gzyn0Ni1RwbTI1/zteUbOekJH0t6q8HFvjbxsGg==,
+        integrity: sha512-hM9gltmtQLfmWPqoPreUtRdP3nZCSzQEw7l/JC+up5CxquDykhYFKzIzoFFeVev3AGFEULNvsbE8fpZPgxUYEQ==,
       }
     engines: { node: '>=20.0.0' }
 
@@ -8395,20 +8402,20 @@ snapshots:
     transitivePeerDependencies:
       - webpack-hot-middleware
 
-  '@rslib/core@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.2)':
+  '@rslib/core@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260118.1)(typescript@5.9.2)':
     dependencies:
       '@rsbuild/core': 1.7.1
-      rsbuild-plugin-dts: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.2)
+      rsbuild-plugin-dts: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260118.1)(typescript@5.9.2)
     optionalDependencies:
       '@microsoft/api-extractor': 7.55.2(@types/node@24.10.4)
       typescript: 5.9.2
     transitivePeerDependencies:
       - '@typescript/native-preview'
 
-  '@rslib/core@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3)':
+  '@rslib/core@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260118.1)(typescript@5.9.3)':
     dependencies:
       '@rsbuild/core': 1.7.1
-      rsbuild-plugin-dts: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3)
+      rsbuild-plugin-dts: 0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260118.1)(typescript@5.9.3)
     optionalDependencies:
       '@microsoft/api-extractor': 7.55.2(@types/node@24.10.4)
       typescript: 5.9.3
@@ -8556,13 +8563,13 @@ snapshots:
       html-entities: 2.6.0
       react-refresh: 0.18.0
 
-  '@rstest/core@0.7.9(happy-dom@20.3.1)(jsdom@26.1.0)':
+  '@rstest/core@0.7.9(happy-dom@20.3.3)(jsdom@26.1.0)':
     dependencies:
       '@rsbuild/core': 1.7.1
       '@types/chai': 5.2.3
       tinypool: 1.1.1
     optionalDependencies:
-      happy-dom: 20.3.1
+      happy-dom: 20.3.3
       jsdom: 26.1.0
 
   '@rushstack/node-core-library@5.19.1(@types/node@24.10.4)':
@@ -8811,38 +8818,38 @@ snapshots:
       '@typescript-eslint/types': 8.53.0
       eslint-visitor-keys: 4.2.1
 
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260117.1':
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260118.1':
     optional: true
 
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260117.1':
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260118.1':
     optional: true
 
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260117.1':
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260118.1':
     optional: true
 
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20260117.1':
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20260118.1':
     optional: true
 
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20260117.1':
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20260118.1':
     optional: true
 
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260117.1':
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260118.1':
     optional: true
 
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20260117.1':
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20260118.1':
     optional: true
 
-  '@typescript/native-preview@7.0.0-dev.20260117.1':
+  '@typescript/native-preview@7.0.0-dev.20260118.1':
     optionalDependencies:
-      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20260117.1
-      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20260117.1
-      '@typescript/native-preview-linux-arm': 7.0.0-dev.20260117.1
-      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20260117.1
-      '@typescript/native-preview-linux-x64': 7.0.0-dev.20260117.1
-      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20260117.1
-      '@typescript/native-preview-win32-x64': 7.0.0-dev.20260117.1
+      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20260118.1
+      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20260118.1
+      '@typescript/native-preview-linux-arm': 7.0.0-dev.20260118.1
+      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20260118.1
+      '@typescript/native-preview-linux-x64': 7.0.0-dev.20260118.1
+      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20260118.1
+      '@typescript/native-preview-win32-x64': 7.0.0-dev.20260118.1
 
-  '@vitest/browser@4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))(vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2))':
+  '@vitest/browser@4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))(vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.3)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2))':
     dependencies:
       '@vitest/mocker': 4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))
       '@vitest/utils': 4.0.17
@@ -8851,7 +8858,7 @@ snapshots:
       pngjs: 7.0.0
       sirv: 3.0.2
       tinyrainbow: 3.0.3
-      vitest: 4.0.17(@types/node@24.10.4)(happy-dom@20.3.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2)
+      vitest: 4.0.17(@types/node@24.10.4)(happy-dom@20.3.3)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2)
       ws: 8.19.0
     transitivePeerDependencies:
       - bufferutil
@@ -9106,7 +9113,7 @@ snapshots:
   browserslist@4.28.1:
     dependencies:
       baseline-browser-mapping: 2.9.15
-      caniuse-lite: 1.0.30001764
+      caniuse-lite: 1.0.30001765
       electron-to-chromium: 1.5.267
       node-releases: 2.0.27
       update-browserslist-db: 1.2.3(browserslist@4.28.1)
@@ -9146,7 +9153,7 @@ snapshots:
 
   camelcase@6.3.0: {}
 
-  caniuse-lite@1.0.30001764: {}
+  caniuse-lite@1.0.30001765: {}
 
   chai@6.2.2: {}
 
@@ -9338,6 +9345,8 @@ snapshots:
     dependencies:
       ansi-colors: 4.1.3
       strip-ansi: 6.0.1
+
+  entities@4.5.0: {}
 
   entities@6.0.1:
     optional: true
@@ -9826,11 +9835,12 @@ snapshots:
   graphql@16.12.0:
     optional: true
 
-  happy-dom@20.3.1:
+  happy-dom@20.3.3:
     dependencies:
       '@types/node': 24.10.4
       '@types/whatwg-mimetype': 3.0.2
       '@types/ws': 8.18.1
+      entities: 4.5.0
       whatwg-mimetype: 3.0.0
       ws: 8.19.0
     transitivePeerDependencies:
@@ -10879,22 +10889,22 @@ snapshots:
   rrweb-cssom@0.8.0:
     optional: true
 
-  rsbuild-plugin-dts@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.2):
+  rsbuild-plugin-dts@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260118.1)(typescript@5.9.2):
     dependencies:
       '@ast-grep/napi': 0.37.0
       '@rsbuild/core': 1.7.1
     optionalDependencies:
       '@microsoft/api-extractor': 7.55.2(@types/node@24.10.4)
-      '@typescript/native-preview': 7.0.0-dev.20260117.1
+      '@typescript/native-preview': 7.0.0-dev.20260118.1
       typescript: 5.9.2
 
-  rsbuild-plugin-dts@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260117.1)(typescript@5.9.3):
+  rsbuild-plugin-dts@0.19.2(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.1)(@typescript/native-preview@7.0.0-dev.20260118.1)(typescript@5.9.3):
     dependencies:
       '@ast-grep/napi': 0.37.0
       '@rsbuild/core': 1.7.1
     optionalDependencies:
       '@microsoft/api-extractor': 7.55.2(@types/node@24.10.4)
-      '@typescript/native-preview': 7.0.0-dev.20260117.1
+      '@typescript/native-preview': 7.0.0-dev.20260118.1
       typescript: 5.9.3
 
   run-parallel@1.2.0:
@@ -11387,7 +11397,7 @@ snapshots:
       lightningcss: 1.30.2
       yaml: 2.8.2
 
-  vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2):
+  vitest@4.0.17(@types/node@24.10.4)(happy-dom@20.3.3)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(yaml@2.8.2):
     dependencies:
       '@vitest/expect': 4.0.17
       '@vitest/mocker': 4.0.17(msw@2.8.4(@types/node@24.10.4)(typescript@5.9.3))(vite@7.3.1(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))
@@ -11411,7 +11421,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 24.10.4
-      happy-dom: 20.3.1
+      happy-dom: 20.3.3
       jsdom: 26.1.0
     transitivePeerDependencies:
       - jiti
