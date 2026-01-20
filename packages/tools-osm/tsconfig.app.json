@@ -6,6 +6,8 @@
     "skipLibCheck": true,
     "useDefineForClassFields": true,
 
+    "rootDir": "./src",
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
