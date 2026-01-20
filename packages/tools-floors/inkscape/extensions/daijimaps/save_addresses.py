@@ -42,28 +42,28 @@ class SaveAddresses(AddressTree):
             self._all_points[p] = []
         self._all_points[p].append(astr)
 
-    def _save_address1(self, node, prefix: str, label: str) -> None:
+    def _save_address1(self, node: inkex.BaseElement, prefix: str, label: str) -> None:
         astr = f"{prefix}{label}-{node.label}"
         bb: inkex.BoundingBox = node.shape_box()
-        c = None
-        (px, py) = (None, None)
-        (tx, ty) = (node.transform.e, node.transform.f) if node.transform else (0, 0)
+        c: inkex.ImmutableVector2d | None = None
+        p: inkex.ImmutableVector2d | None = None
+        tx = node.composed_transform()
         if isinstance(node, inkex.Use):
-            x = node.get("x") or 0
-            y = node.get("y") or 0
-            (px, py) = (float(tx) + float(x), float(ty) + float(y))
+            x = float(node.get("x") or 0)
+            y = float(node.get("y") or 0)
+            c = inkex.ImmutableVector2d(x, y)
         elif isinstance(node, inkex.Circle):
             c = node.center
         elif isinstance(node, inkex.Ellipse):
             c = node.center
         if c is not None:
-            (px, py) = (float(tx) + float(c.x), float(ty) + float(c.y))
+            p = tx.apply_to_point(c)
             hwh = (bb.width + bb.height) * 0.5
             w = min(bb.width, hwh)
             dx = (w * 0.8 - bb.width) * 0.5
             bb = bb.resize(dx, 0)
-        if px is not None and py is not None:
-            self._save_address2(astr, px, py, bb, node.href)
+        if p is not None:
+            self._save_address2(astr, p.x, p.y, bb, node.href)
 
     def _save_addresses(self, node: inkex.Group, prefix: str, label: str) -> None:
         self.msg("=== _save_addresses@SaveAddresses")

@@ -48,9 +48,18 @@ def read_name(node: inkex.BaseElement) -> None | Name:
         address = None
     else:
         address = name_and_address[1]
-    (x, y) = (node.x, node.y) if isinstance(node, inkex.TextElement) else (0, 0)
-    (tx, ty) = (node.transform.e, node.transform.f) if node.transform else (0, 0)
-    return (address, name, (x + tx, y + ty))
+
+    # check "unmoved" node (x == 0 and y == 0 and transform is None)
+    (x, y) = (node.x, node.y)
+    tx = node.transform
+    p = (
+        inkex.Vector2d(0, 0)
+        if (x == 0 and y == 0 and tx is None)
+        else inkex.Vector2d(x, y)
+        if tx is None
+        else tx.apply_to_point(inkex.Vector2d(x, y))
+    )
+    return (address, name, (round(p.x), round(p.y)))
 
 
 __all__ = [draw_name, read_name]  # type: ignore
