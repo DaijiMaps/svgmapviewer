@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
-from lxml import etree
-
 import inkex
 
 
