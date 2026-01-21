@@ -35,7 +35,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
-    "*": "oxfmt --write"
+    "*": "prettier --write --cache --ignore-unknown"
   },
   "pnpm": {
     "updateConfig": {
