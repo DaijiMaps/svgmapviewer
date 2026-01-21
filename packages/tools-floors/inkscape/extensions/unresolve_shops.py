@@ -6,38 +6,6 @@ import inkex
 import daijimaps
 
 
-def move_name(
-    group: inkex.Group, node: inkex.BaseElement | None, name: str, x: float, y: float
-) -> None:
-    t = (
-        daijimaps.draw_name(name, x, y)
-        if node is None or not isinstance(node, inkex.TextElement)
-        else daijimaps.redraw_name(node, name, x, y)
-    )
-    group.append(t)
-
-
-def remove_children_by_label(group: inkex.Group, label: str) -> inkex.Group | None:
-    for child in group:
-        if child.label == label:
-            group.remove(child)
-            return child
-    return None
-
-
-def remove_move_name(
-    old_group: inkex.Group,
-    new_group: inkex.Group,
-    old_name: str,
-    new_name: str,
-    x: float,
-    y: float,
-) -> inkex.Group | None:
-    remove_children_by_label(new_group, new_name)
-    child = remove_children_by_label(old_group, old_name)
-    move_name(new_group, child, new_name, x, y)
-
-
 class UnresolveShops(daijimaps.ResolveNames):
     def _move_unresolved_name(
         self,
@@ -49,7 +17,7 @@ class UnresolveShops(daijimaps.ResolveNames):
         y: float,
     ) -> None:
         label = name if address is None else f"{name} @ {address}"
-        remove_move_name(names_group, unresolved_names_group, label, name, x, y)
+        daijimaps.move_name(names_group, unresolved_names_group, label, name, x, y)
 
     def _move_unresolved_names(
         self, names_group: inkex.Group, unresolved_names_group: inkex.Group

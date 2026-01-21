@@ -53,6 +53,32 @@ def redraw_name(
     return t
 
 
+def remove_children_by_label(group: inkex.Group, label: str) -> inkex.Group | None:
+    for child in group:
+        if child.label == label:
+            group.remove(child)
+            return child
+    return None
+
+
+def move_name(
+    old_group: inkex.Group,
+    new_group: inkex.Group,
+    old_name: str,
+    new_name: str,
+    x: float,
+    y: float,
+) -> inkex.Group | None:
+    remove_children_by_label(new_group, new_name)
+    child = remove_children_by_label(old_group, old_name)
+    t = (
+        draw_name(new_name, x, y)
+        if child is None or not isinstance(child, inkex.TextElement)
+        else redraw_name(child, new_name, x, y)
+    )
+    new_group.append(t)
+
+
 type XY = tuple[float, float]
 type Name = tuple[None | str, str, XY]
 
@@ -81,4 +107,4 @@ def read_name(node: inkex.BaseElement) -> None | Name:
     return (address, name, (round(p.x), round(p.y)))
 
 
-__all__ = [draw_name, read_name, redraw_name]  # type: ignore
+__all__ = [draw_name, move_name, read_name, redraw_name]  # type: ignore
