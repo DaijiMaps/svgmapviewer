@@ -55,6 +55,7 @@ function MapSvgMarkersSvg(): ReactNode {
   return (
     <svg
       id={MAP_SVG_MARKERS_CONTENT_ID}
+      className="content-svg"
       viewBox={boxToViewBox2(svg)}
       width={trunc2(scroll.width)}
       height={trunc2(scroll.height)}
