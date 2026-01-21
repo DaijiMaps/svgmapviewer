@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
+from lxml import etree
+
 import inkex
 
 
@@ -14,23 +16,42 @@ def draw_name(text, x: float = 0, y: float = 0) -> inkex.TextElement:
     t.label = text
     t.update(
         **{
-            "x": preferInt(x),
-            "y": preferInt(y),
-            "font-size": 2,
+            "x": round(x),
+            "y": round(y),
+            "font-size": "2px",
             "text-anchor": "middle",
         }
     )
     ts = inkex.Tspan()
     ts.text = text
-    ts.update(
+    t.append(ts)
+    return t
+
+
+def redraw_name(
+    t: inkex.TextElement, text, x: float = 0, y: float = 0
+) -> inkex.TextElement:
+    t.label = text
+    t.update(
         **{
-            "x": preferInt(x),
-            "y": preferInt(y),
-            "font-size": 2,
+            "x": round(x),
+            "y": round(y),
+            "font-size": "2px",
             "text-anchor": "middle",
         }
     )
-    t.append(ts)
+    first = None
+    for ts in t:
+        if first is None:
+            first = ts
+        else:
+            t.remove(ts)
+    if first is not None:
+        first.text = text
+    else:
+        ts = inkex.Tspan()
+        ts.text = text
+        t.append(ts)
     return t
 
 
@@ -62,4 +83,4 @@ def read_name(node: inkex.BaseElement) -> None | Name:
     return (address, name, (round(p.x), round(p.y)))
 
 
-__all__ = [draw_name, read_name]  # type: ignore
+__all__ = [draw_name, read_name, redraw_name]  # type: ignore

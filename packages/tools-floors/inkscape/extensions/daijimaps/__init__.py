@@ -2,7 +2,7 @@ from .address_tree import AddressTree
 
 from .generate_addresses import GenerateAddresses
 
-from .name import draw_name, read_name, preferInt
+from .name import draw_name, preferInt, read_name, redraw_name
 
 from .renumber import renumber_group
 
@@ -30,8 +30,9 @@ __all__ = [
     GenerateAddresses,
     # .name
     draw_name,
-    read_name,
     preferInt,
+    read_name,
+    redraw_name,
     # .renumber
     renumber_group,
     # .resolve_names
