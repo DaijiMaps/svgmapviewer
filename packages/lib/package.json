@@ -23,6 +23,7 @@
     "./map": "./dist/lib/map/index.js",
     "./map-floors": "./dist/lib/map/floors/index.js",
     "./matrix": "./dist/lib/matrix/prefixed/index.js",
+    "./namemap": "./dist/lib/namemap/index.js",
     "./search": "./dist/lib/search/index.js",
     "./tuple": "./dist/lib/tuple/index.js",
     "./vec": "./dist/lib/vec/prefixed/index.js"
