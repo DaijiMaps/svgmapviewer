@@ -46,6 +46,7 @@ function MapSvgPathsSvg(): ReactNode {
   return (
     <svg
       id={MAP_SVG_PATHS_CONTENT_ID}
+      className="content-svg"
       viewBox={boxToViewBox2(svg)}
       width={trunc2(scroll.width)}
       height={trunc2(scroll.height)}

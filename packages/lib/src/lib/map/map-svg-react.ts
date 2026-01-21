@@ -10,3 +10,5 @@ export const MAP_SVG_LABELS_ROOT_ID = 'map-svg-labels'
 export const MAP_SVG_LABELS_CONTENT_ID = 'map-svg-labels-content'
 export const MAP_HTML_ROOT_ID = 'map-html'
 export const MAP_HTML_CONTENT_ID = 'map-html-content'
+
+export const MAP_SVG_FLOORS = 'map-svg-floors'

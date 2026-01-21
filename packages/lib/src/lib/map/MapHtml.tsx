@@ -19,7 +19,7 @@ export function MapHtml(props: Readonly<OsmRenderMapProps>): ReactNode {
 function MapHtmlRoot(props: Readonly<OsmRenderMapProps>): ReactNode {
   return (
     <>
-      <div id={MAP_HTML_CONTENT_ID}>
+      <div id={MAP_HTML_CONTENT_ID} className="content-html">
         <MapHtmlPointNames {...props} stroke={true} />
         <MapHtmlPointNames {...props} />
       </div>

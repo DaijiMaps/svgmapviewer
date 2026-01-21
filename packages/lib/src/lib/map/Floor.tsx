@@ -7,6 +7,7 @@ import type { Cb } from '../cb'
 import { type OsmRenderMapProps } from '../../types'
 import { useLayout2 } from '../style/style-react'
 import { useFloors } from '../viewer/floors/floors-react'
+import { MAP_SVG_FLOORS } from './map-svg-react'
 
 export function RenderFloors({
   floors,
@@ -20,7 +21,13 @@ export function RenderFloors({
     <></>
   ) : (
     <div className="content">
-      <svg viewBox={viewBox} width={width} height={height}>
+      <svg
+        id={`${MAP_SVG_FLOORS}`}
+        className="content-svg"
+        viewBox={viewBox}
+        width={width}
+        height={height}
+      >
         {floors.floors.map((_floor, idx) => (
           <Fragment key={idx}>
             <RenderFloorImage
