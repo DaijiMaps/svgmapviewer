@@ -65,7 +65,10 @@ function filterFeature(
   const matches = entries.filter((entry) => entry.filter(properties))
   return matches.length === 0
     ? null
-    : { address: id + '', fidx: 0, coord: { x: centroid_x, y: centroid_y } }
+    : {
+        address: id + '',
+        pos: { fidx: 0, coord: { x: centroid_x, y: centroid_y } },
+      }
 }
 
 export function osmGetSearchEntries(

@@ -16,7 +16,7 @@ export function initAddresses(entries: Readonly<SearchPos[]>): SearchContext {
   const fb: Flatbush = new Flatbush(entries.length)
   const idxs: FlatbushIndexes = {}
   for (const e of entries) {
-    const { x, y } = e.coord
+    const { x, y } = e.pos.coord
     const idx = fb.add(x, y)
     idxs[idx] = e
   }
@@ -42,7 +42,7 @@ export function searchAddress(
 ): SearchPos | null {
   const filter = (idx: number) => {
     const e = idxs[idx]
-    return e.fidx === undefined || e.fidx === fidx
+    return e.pos.fidx === undefined || e.pos.fidx === fidx
   }
   const ns = fb.neighbors(pgeo.x, pgeo.y, 1, MAX_DISTANCE, filter)
   if (ns.length === 0) {

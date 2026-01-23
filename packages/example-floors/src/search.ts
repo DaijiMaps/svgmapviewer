@@ -19,8 +19,10 @@ function nameToString(name: Name): string {
 
 const addresses = pois.map((poi) => ({
   address: nameToString(poi.name),
-  coord: poi.coord,
-  fidx: poi.fidx ?? 0,
+  pos: {
+    coord: poi.coord,
+    fidx: poi.fidx ?? 0,
+  },
 }))
 const addressMap = new Map<string, POI>(
   pois.map((poi) => [nameToString(poi.name), poi])

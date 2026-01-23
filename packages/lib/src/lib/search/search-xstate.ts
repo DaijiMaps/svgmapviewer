@@ -135,8 +135,10 @@ function handleSearchRes(res: Readonly<SearchPos>): void {
     console.log('info not found!', res)
     searchSend({ type: 'SEARCH.DONE', res: null })
   } else {
-    const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(res.coord)
-    const fidx = res.fidx
+    const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(
+      res.pos.coord
+    )
+    const fidx = res.pos.fidx
     searchSend({ type: 'SEARCH.DONE', res: { psvg, fidx, info } })
   }
 }
