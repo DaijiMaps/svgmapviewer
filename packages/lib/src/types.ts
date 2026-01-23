@@ -153,7 +153,7 @@ export type OsmGetSearchInfo = (
 ) => null | Info
 
 export interface RenderInfoProps {
-  info: Info
+  readonly info: Info
 }
 
 export type RenderInfo = (props: Readonly<RenderInfoProps>) => ReactNode
@@ -185,39 +185,39 @@ export interface UiConfig {
 }
 
 export interface OsmDataConfig {
-  origViewBox: BoxBox // XXX
-  mapData: OsmMapData
-  mapMap: OsmMapMap
-  mapCoord: MapCoord
+  readonly origViewBox: BoxBox // XXX
+  readonly mapData: OsmMapData
+  readonly mapMap: OsmMapMap
+  readonly mapCoord: MapCoord
 }
 
 export interface OsmRenderConfig {
-  renderMap: OsmRenderMap
-  isMapRendered: () => boolean
-  getMapNames: OsmGetMapNames
-  getMapPaths: () => readonly Readonly<OsmMapPathOps>[]
-  getMapObjects: () => readonly Readonly<OsmMapObjects>[]
-  getMapSymbols: () => readonly Readonly<OsmMapSymbols>[]
-  getMapMarkers: () => readonly Readonly<OsmMapMarkers>[]
-  mapSvgStyle: string
-  cartoConfig?: OsmCartoConfig
+  readonly renderMap: OsmRenderMap
+  readonly isMapRendered: () => boolean
+  readonly getMapNames: OsmGetMapNames
+  readonly getMapPaths: () => readonly Readonly<OsmMapPathOps>[]
+  readonly getMapObjects: () => readonly Readonly<OsmMapObjects>[]
+  readonly getMapSymbols: () => readonly Readonly<OsmMapSymbols>[]
+  readonly getMapMarkers: () => readonly Readonly<OsmMapMarkers>[]
+  readonly mapSvgStyle: string
+  readonly cartoConfig?: OsmCartoConfig
 }
 
 export interface OsmSearchConfig {
-  osmSearchEntries: readonly Readonly<OsmSearchEntry>[] // XXX
-  getSearchEntries: OsmGetSearchEntries
-  getSearchInfo: OsmGetSearchInfo
-  renderInfo: RenderInfo
+  readonly osmSearchEntries: readonly Readonly<OsmSearchEntry>[] // XXX
+  readonly getSearchEntries: OsmGetSearchEntries
+  readonly getSearchInfo: OsmGetSearchInfo
+  readonly renderInfo: RenderInfo
 }
 
 export interface Floor {
-  name: string
-  href: string
+  readonly name: string
+  readonly href: string
 }
 
 export interface FloorsConfig {
-  floors: readonly Floor[]
-  initialFidx: number
+  readonly floors: readonly Floor[]
+  readonly initialFidx: number
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>

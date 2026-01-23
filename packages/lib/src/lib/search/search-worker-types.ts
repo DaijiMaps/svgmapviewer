@@ -4,21 +4,21 @@ import type { SearchGeoReq } from '../../types'
 import { type SearchContext, type SearchPos } from './types'
 
 export type SearchWorkerReq =
-  | { type: 'INIT'; entries: readonly SearchPos[] }
-  | { type: 'SEARCH'; greq: SearchGeoReq }
+  | { type: 'INIT'; readonly entries: readonly SearchPos[] }
+  | { type: 'SEARCH'; readonly greq: SearchGeoReq }
 export type SearchWorkerRes =
   | { type: 'INIT.DONE' }
-  | { type: 'SEARCH.DONE'; res: SearchPos }
-  | { type: 'SEARCH.ERROR'; error: string }
+  | { type: 'SEARCH.DONE'; readonly res: SearchPos }
+  | { type: 'SEARCH.ERROR'; readonly error: string }
 
 export type DoSearch = {
-  type: 'SEARCH'
-  ctx: null | SearchContext
-  greq: Readonly<SearchGeoReq>
+  readonly type: 'SEARCH'
+  readonly ctx: null | SearchContext
+  readonly greq: Readonly<SearchGeoReq>
 }
 
 export interface SearchWorkerContext {
-  ctx: null | SearchContext
+  readonly ctx: null | SearchContext
 }
 
 // eslint-disable-next-line functional/no-mixed-types
@@ -26,7 +26,7 @@ export interface SearchWorker extends Omit<
   Worker,
   'postMessage' | 'onmessage'
 > {
-  postMessage(message: Readonly<SearchWorkerReq>): void
+  postMessage: (message: Readonly<SearchWorkerReq>) => void
   onmessage: null | ((event: Readonly<MessageEvent<SearchWorkerRes>>) => void)
 }
 

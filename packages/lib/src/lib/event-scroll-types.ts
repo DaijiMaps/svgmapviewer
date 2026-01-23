@@ -10,11 +10,11 @@ export type ScrollEventCb = (
 export type ScrollPosCb = (pos: Readonly<BoxBox>) => void
 
 export interface ScrollCbs {
-  eventTick: Set<ScrollEventCb>
-  eventExpire: Set<Cb>
-  get: Set<Cb>
-  getDone: Set<ScrollCb>
-  sync: Set<ScrollPosCb>
-  syncSync: Set<ScrollPosCb>
-  syncSyncDone: Set<ScrollCb>
+  readonly eventTick: Set<ScrollEventCb>
+  readonly eventExpire: Set<Cb>
+  readonly get: Set<Cb>
+  readonly getDone: Set<ScrollCb>
+  readonly sync: Set<ScrollPosCb>
+  readonly syncSync: Set<ScrollPosCb>
+  readonly syncSyncDone: Set<ScrollCb>
 }
