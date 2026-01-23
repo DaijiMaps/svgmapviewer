@@ -15,6 +15,7 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
+    "./address": "./dist/lib/address/index.js",
     "./box": "./dist/lib/box/prefixed/index.js",
     "./carto": "./dist/lib/carto/index.js",
     "./carto-objects": "./dist/lib/carto/objects/index.js",
@@ -23,7 +24,6 @@
     "./map": "./dist/lib/map/index.js",
     "./map-floors": "./dist/lib/map/floors/index.js",
     "./matrix": "./dist/lib/matrix/prefixed/index.js",
-    "./namemap": "./dist/lib/namemap/index.js",
     "./search": "./dist/lib/search/index.js",
     "./tuple": "./dist/lib/tuple/index.js",
     "./vec": "./dist/lib/vec/prefixed/index.js"

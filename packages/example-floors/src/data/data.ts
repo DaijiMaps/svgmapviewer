@@ -1,4 +1,4 @@
-import { type POI } from './types.ts'
+import { type POI } from '../types.ts'
 
 export const pois: POI[] = [
   {
