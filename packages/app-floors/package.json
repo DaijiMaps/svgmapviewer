@@ -32,11 +32,11 @@
     "@types/node": "24.x",
     "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260120.1",
-    "@vitest/browser": "^4.0.17",
+    "@typescript/native-preview": "7.0.0-dev.20260122.4",
+    "@vitest/browser": "^4.0.18",
     "playwright": "^1.57.0",
     "typescript": "^5.9.2",
-    "vitest": "^4.0.17"
+    "vitest": "^4.0.18"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
