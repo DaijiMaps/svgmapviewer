@@ -48,14 +48,14 @@ export function useNames(): Readonly<Names> {
   }, [mapNames])
 
   const areaNames = useMemo(() => {
-    return mapNames.flatMap(({ id, name, pos, area }) => {
+    return mapNames.flatMap(({ id, name, coord, area }) => {
       return id === undefined || area === undefined
         ? []
         : [
             {
               id,
               name,
-              pos,
+              coord,
               area,
               size: Math.sqrt(area),
             },
@@ -138,7 +138,7 @@ function namesToRange(
 ): NameRangeMap {
   const xs = pipe(
     names,
-    readonlyArray.filterMap(({ id, pos }) => {
+    readonlyArray.filterMap(({ id, coord }) => {
       if (id === null) {
         return none
       }
@@ -150,7 +150,7 @@ function namesToRange(
       if (small === undefined) {
         return none
       }
-      const inout = inRange(pos, geoRange)
+      const inout = inRange(coord, geoRange)
       return some({
         id,
         inout,

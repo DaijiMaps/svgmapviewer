@@ -1,6 +1,6 @@
 export type Vec = Readonly<{
-  x: number
-  y: number
+  readonly x: number
+  readonly y: number
 }>
 
 export type Vecs = Readonly<Vec[]>

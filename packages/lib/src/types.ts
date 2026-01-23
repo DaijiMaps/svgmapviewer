@@ -47,7 +47,7 @@ export interface Size {
 export interface POI {
   readonly id: null | number
   readonly name: string | readonly string[]
-  readonly pos: Vec
+  readonly coord: Vec
   readonly size: number
   readonly area?: number
   readonly fidx?: number

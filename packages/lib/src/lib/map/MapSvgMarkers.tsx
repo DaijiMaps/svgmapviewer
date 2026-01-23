@@ -96,10 +96,10 @@ function MapSvgMarkersUses(props: Readonly<OsmRenderMapProps>): ReactNode {
   return (
     <g>
       {pointNames
-        .map((p) => ({ ...p, pos: m.transformPoint(p.pos) }))
-        .map(({ pos }, idx) => (
+        .map((p) => ({ ...p, pos: m.transformPoint(p.coord) }))
+        .map(({ coord }, idx) => (
           <Fragment key={idx}>
-            <MapSvgMarkersUse pos={pos} />
+            <MapSvgMarkersUse coord={coord} />
           </Fragment>
         ))}
     </g>
@@ -108,16 +108,18 @@ function MapSvgMarkersUses(props: Readonly<OsmRenderMapProps>): ReactNode {
 
 function MapSvgMarkersUse(
   props: Readonly<{
-    pos: VecVec
+    coord: VecVec
   }>
 ): ReactNode {
-  const { pos } = props
+  const {
+    coord: { x, y },
+  } = props
 
   return (
     <use
       href="#point-name-marker"
       style={{
-        transform: `translate(${trunc2(pos.x)}px, ${trunc2(pos.y)}px)`,
+        transform: `translate(${trunc2(x)}px, ${trunc2(y)}px)`,
       }}
     />
   )

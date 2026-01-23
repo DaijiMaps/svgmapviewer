@@ -4,17 +4,17 @@ import type z from 'zod'
 export type ID = number | string
 
 export interface LikesContext {
-  ids: Set<ID>
+  readonly ids: Set<ID>
 }
 
 export interface LikesExternalContext {
-  ids: ID[]
+  readonly ids: ID[]
 }
 
 export interface LikesReturn {
-  like: (id: ID) => void
-  unlike: (id: ID) => void
-  isLiked: (id: ID) => boolean
+  readonly like: (id: ID) => void
+  readonly unlike: (id: ID) => void
+  readonly isLiked: (id: ID) => boolean
 }
 
 export type Decode = (

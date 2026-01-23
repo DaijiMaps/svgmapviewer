@@ -7,15 +7,16 @@ export {
   type AddressesJson,
   type AddressesJsons,
   type Addrs,
+  type Coord,
   type FlatEntries,
   type FlatEntry,
+  type FloorIdx,
   type Name,
   type NameEntry,
   type NameMap,
   type Names,
   type NamesJson,
   type Pos,
-  type PosFidx,
 } from './types'
 
 export {

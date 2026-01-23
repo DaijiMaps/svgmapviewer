@@ -4,7 +4,7 @@ export function addressesJsonToAddresses(
   json: AddressesJson,
   fidx: number
 ): readonly Address[] {
-  return Object.entries(json).map(([astr, pos]) => [astr, { pos, fidx }])
+  return Object.entries(json).map(([astr, coord]) => [astr, { coord, fidx }])
 }
 
 export function addressesJsonsToAddresses(
