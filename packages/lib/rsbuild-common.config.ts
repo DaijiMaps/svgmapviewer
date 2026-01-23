@@ -3,6 +3,7 @@ import path from 'node:path'
 const dir = (subdir: string): string => path.resolve(__dirname, subdir)
 
 export const alias = {
+  'svgmapviewer/address': dir('./src/lib/address/index.ts'),
   'svgmapviewer/box': dir('./src/lib/box/prefixed/index.ts'),
   'svgmapviewer/carto-objects': dir('./src/lib/carto/objects/index.ts'),
   'svgmapviewer/carto-symbols': dir('./src/lib/carto/symbols/index.ts'),
@@ -12,7 +13,6 @@ export const alias = {
   'svgmapviewer/map-floors': dir('./src/lib/map/floors/index.ts'),
   'svgmapviewer/map': dir('./src/lib/map/index.ts'),
   'svgmapviewer/matrix': dir('./src/lib/matrix/prefixed/index.ts'),
-  'svgmapviewer/namemap': dir('./src/lib/namemap/index.ts'),
   'svgmapviewer/search': dir('./src/lib/search/index.ts'),
   'svgmapviewer/tuple': dir('./src/lib/tuple/index.ts'),
   'svgmapviewer/vec': dir('./src/lib/vec/prefixed/index.ts'),

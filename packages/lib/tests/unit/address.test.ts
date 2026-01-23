@@ -6,7 +6,7 @@ import {
   namesToREntries,
   type NameMap,
   type Names,
-} from '../../src/lib/namemap'
+} from '../../src/lib/address'
 
 /*
 type Addr = string
