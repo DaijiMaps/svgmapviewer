@@ -23,8 +23,7 @@ function getSearchInfo(pos: Readonly<SearchPos>): null | Info {
   return {
     title: name,
     x: {
-      tag: 'shop',
-      kind: { tag: 'restaurant' },
+      tag: 'unknown',
     },
   }
 }
