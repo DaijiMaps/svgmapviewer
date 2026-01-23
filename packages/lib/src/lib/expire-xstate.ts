@@ -2,9 +2,9 @@ import { assign, createActor, emit, setup } from 'xstate'
 
 import type { Cb } from './cb'
 
-type Events = { type: 'TICK' }
-type Emitted = { type: 'EXPIRE' }
-type Context = { ticked: boolean }
+type Events = { readonly type: 'TICK' }
+type Emitted = { readonly type: 'EXPIRE' }
+type Context = { readonly ticked: boolean }
 
 const expireMachine = setup({
   types: {

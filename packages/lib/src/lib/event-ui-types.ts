@@ -7,8 +7,8 @@ export type UiCloseCb = Cb
 export type UiCloseDoneCb = Cb
 
 export interface UiCbs {
-  open: Set<UiOpenCb>
-  openDone: Set<UiOpenDoneCb>
-  close: Set<UiCloseCb>
-  closeDone: Set<UiCloseDoneCb>
+  readonly open: Set<UiOpenCb>
+  readonly openDone: Set<UiOpenDoneCb>
+  readonly close: Set<UiCloseCb>
+  readonly closeDone: Set<UiCloseDoneCb>
 }

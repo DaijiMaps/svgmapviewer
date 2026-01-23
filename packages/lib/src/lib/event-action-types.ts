@@ -1,13 +1,13 @@
 import type { Cb } from './cb'
 
 export interface ActionCbs {
-  zoomIn: Set<Cb>
-  zoomOut: Set<Cb>
-  reset: Set<Cb>
-  recenter: Set<Cb>
-  rotate: Set<Cb>
-  position: Set<Cb>
-  fullscreen: Set<Cb>
+  readonly zoomIn: Set<Cb>
+  readonly zoomOut: Set<Cb>
+  readonly reset: Set<Cb>
+  readonly recenter: Set<Cb>
+  readonly rotate: Set<Cb>
+  readonly position: Set<Cb>
+  readonly fullscreen: Set<Cb>
 }
 
 export type ViewerActionType =
@@ -17,4 +17,4 @@ export type ViewerActionType =
   | 'RECENTER'
   | 'ROTATE'
 
-export type ViewerAction = { type: ViewerActionType }
+export type ViewerAction = { readonly type: ViewerActionType }

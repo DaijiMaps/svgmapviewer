@@ -5,8 +5,8 @@ import { type Addr, type Pos } from '../address'
 export type Idx = string
 
 export interface SearchPos {
-  address: Addr
-  pos: Pos
+  readonly address: Addr
+  readonly pos: Pos
 }
 
 ////
@@ -14,6 +14,6 @@ export interface SearchPos {
 export type FlatbushIndexes = Record<Idx, SearchPos>
 
 export interface SearchContext {
-  fb: Flatbush
-  idxs: FlatbushIndexes
+  readonly fb: Flatbush
+  readonly idxs: FlatbushIndexes
 }

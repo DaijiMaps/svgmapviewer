@@ -15,11 +15,11 @@ export type AnimationCb = Cb1<Readonly<null | AnimationMatrix>>
 export type ModeCb = Cb1<ViewerMode>
 
 export interface StyleCbs {
-  resize: Set<ResizeCb>
-  layout: Set<LayoutCb>
-  zoomStart: Set<ZoomStartCb>
-  zoomEnd: Set<ZoomEndCb>
-  animation: Set<AnimationCb>
-  animationEnd: Set<Cb>
-  mode: Set<ModeCb>
+  readonly resize: Set<ResizeCb>
+  readonly layout: Set<LayoutCb>
+  readonly zoomStart: Set<ZoomStartCb>
+  readonly zoomEnd: Set<ZoomEndCb>
+  readonly animation: Set<AnimationCb>
+  readonly animationEnd: Set<Cb>
+  readonly mode: Set<ModeCb>
 }
