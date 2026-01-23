@@ -3,16 +3,13 @@ import { svgmapviewer } from 'svgmapviewer-app-floors'
 
 import { floorsConfig } from './floors'
 import { searchConfig } from './search'
+import { origBoundingBox, origViewBox } from './viewbox'
 
 svgmapviewer({
   root: 'root',
   title: 'Floor Map Test',
-  origViewBox: {
-    x: 0,
-    y: 0,
-    width: 220,
-    height: 300,
-  },
+  origViewBox,
+  origBoundingBox,
   zoomFactor: 2,
   floorsConfig,
 
