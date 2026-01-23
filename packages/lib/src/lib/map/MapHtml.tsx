@@ -66,7 +66,7 @@ function MapHtmlPointNames(
   return (
     <>
       {pointNames
-        .map((p) => ({ ...p, pos: m.transformPoint(p.pos) }))
+        .map((p) => ({ ...p, coord: m.transformPoint(p.coord) }))
         .map((poi, idx) => (
           <div
             key={idx}
@@ -74,7 +74,7 @@ function MapHtmlPointNames(
               position: 'absolute',
               left: 0,
               top: 0,
-              transform: `translate(${poi.pos.x}px, ${poi.pos.y}px) scale(0.025) translate(-50%, -50%)`,
+              transform: `translate(${poi.coord.x}px, ${poi.coord.y}px) scale(0.025) translate(-50%, -50%)`,
               transformOrigin: 'left top',
             }}
           >

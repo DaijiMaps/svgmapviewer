@@ -15,7 +15,7 @@ function pointNames(
       return []
     }
     const centroid: V = [properties.centroid_x, properties.centroid_y]
-    const pos = vVec(centroid)
+    const coord = vVec(centroid)
     const name = filterName(properties, skip, split)
     return name.length === 0
       ? []
@@ -23,7 +23,7 @@ function pointNames(
           {
             id: id === null ? null : id,
             name: name,
-            pos,
+            coord,
             size: 0,
             area: undefined,
           },
@@ -42,7 +42,7 @@ function lineNames(
       return []
     }
     const centroid: V = [properties.centroid_x, properties.centroid_y]
-    const pos = vVec(centroid)
+    const coord = vVec(centroid)
     const name = filterName(properties, skip, split)
     return name.length === 0
       ? []
@@ -50,7 +50,7 @@ function lineNames(
           {
             id: id === null ? null : id,
             name: name,
-            pos,
+            coord,
             size: 0,
             area: undefined,
           },
@@ -69,7 +69,7 @@ function polygonNames(
       return []
     }
     const centroid: V = [properties.centroid_x, properties.centroid_y]
-    const pos = vVec(centroid)
+    const coord = vVec(centroid)
     const area = undefinedIfNull(properties?.area)
     const name = filterName(properties, skip, split)
     return name.length === 0
@@ -78,7 +78,7 @@ function polygonNames(
           {
             id: id === null ? null : id,
             name: name,
-            pos,
+            coord,
             size: 0,
             area,
           },

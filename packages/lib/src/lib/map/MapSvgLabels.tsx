@@ -59,8 +59,8 @@ function MapSvgLabelsUses(props: Readonly<OsmRenderMapProps>): ReactNode {
     <g id="map-svg-labels1">
       <g>
         {pointNames
-          .map((p) => ({ ...p, pos: m.transformPoint(p.pos) }))
-          .map(({ id, pos: { x, y }, size }, idx) => (
+          .map((p) => ({ ...p, coord: m.transformPoint(p.coord) }))
+          .map(({ id, coord: { x, y }, size }, idx) => (
             <use
               key={idx}
               href={`#name-${id}`}
@@ -72,8 +72,8 @@ function MapSvgLabelsUses(props: Readonly<OsmRenderMapProps>): ReactNode {
       </g>
       <g>
         {areaNames
-          .map((p) => ({ ...p, pos: m.transformPoint(p.pos) }))
-          .map(({ id, pos: { x, y }, size }, idx) => (
+          .map((p) => ({ ...p, coord: m.transformPoint(p.coord) }))
+          .map(({ id, coord: { x, y }, size }, idx) => (
             <use
               key={idx}
               id={`use-${id}`}
