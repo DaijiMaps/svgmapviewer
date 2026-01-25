@@ -46,6 +46,7 @@ function ContainerStyle(): ReactNode {
   ${position_absolute_left_0_top_0}
   ${width_100vw_height_100svh}
 
+  scrollbar-behavior: smooth;
   scrollbar-width: none;
 
   overflow: scroll;
