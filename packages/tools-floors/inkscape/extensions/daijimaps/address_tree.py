@@ -166,7 +166,12 @@ class AddressTree(inkex.EffectExtension):
             "floorsAddresses": j(p, f"floors-addresses-{ln}.json"),
             "floorsNames": j(p, f"floors-names-{ln}.json"),
         }
-        self._paths = {"facilities": j(p, "facilities.json")}
+        self._paths = {
+            "bbox": j(p, "bbox.json"),
+            "facilities": j(p, "facilities.json"),
+            "origin": j(p, "origin.json"),
+            "viewbox": j(p, "viewbox.json"),
+        }
 
     def _handle_layer(self, layer: inkex.Group, layer_name: str) -> None:
         # XXX set .json paths

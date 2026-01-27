@@ -26,7 +26,15 @@ class V(TypedDict):
     y: float
 
 
-type TmpAddressCoords = dict[AddressString, V]  # addresses.json
+class Box(TypedDict):
+    x: float
+    y: float
+    width: float
+    height: float
+
+
+type AddressCoords = dict[AddressString, V]  # addresses.json
+
 type TmpNameCoords = dict[NameString, list[V]]  # tmp_unresolved_addresses.json
 type TmpNameAddress = dict[
     NameString, list[AddressString]
@@ -55,6 +63,9 @@ type FloorsNamesJson = dict[NameString, list[AddressString]]  # floors-1F-names.
 #
 class JsonGlobalPaths(TypedDict):
     facilities: str
+    origin: str
+    viewbox: str
+    bbox: str
 
 
 #
@@ -78,6 +89,7 @@ __all__ = [
     AddressPosEntry,
     AddressString,
     Addresses,
+    Box,
     FacilitiesJson,
     JsonGlobalPaths,
     JsonLayerPaths,
@@ -88,7 +100,7 @@ __all__ = [
     NameAddresses,
     NameString,
     Names,
-    TmpAddressCoords,
+    AddressCoords,
     TmpNameCoords,
     TmpNameAddress,
     Url,

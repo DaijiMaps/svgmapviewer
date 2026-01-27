@@ -1,12 +1,13 @@
 import json
 import os
 import re
+from typing import Any, TypeGuard, Optional, TypedDict
 
 import inkex
 
 from .address_tree import AddressTree
 from .common import xy2v
-from .types import AddressString, FacilitiesJson, TmpAddressCoords
+from .types import AddressString, FacilitiesJson, AddressCoords, V, Box
 from .visit_parents import Tree, Parents
 
 
@@ -48,13 +49,13 @@ class SaveAddresses(AddressTree):
         c: inkex.ImmutableVector2d | None = None
         p: inkex.ImmutableVector2d | None = None
         tx = node.composed_transform()
-        if isinstance(node, inkex.Use):
+        if isUse(node):
             x = float(node.get("x") or 0)
             y = float(node.get("y") or 0)
             c = inkex.ImmutableVector2d(x, y)
-        elif isinstance(node, inkex.Circle):
+        elif isCircle(node):
             c = node.center
-        elif isinstance(node, inkex.Ellipse):
+        elif isEllipse(node):
             c = node.center
         if c is not None and bb is not None:
             p = tx.apply_to_point(c)
@@ -99,20 +100,90 @@ class SaveAddresses(AddressTree):
             for a in children[label]:
                 node.append(a)
 
+    def _get_addresses_coords(self) -> AddressCoords:
+        j: AddressCoords = {}
+        for astr, ((x, y), _bb, _href) in self._addresses.items():
+            j[astr] = xy2v(x, y)
+        return j
+
+    def _get_origin(self) -> V | None:
+        origins: list[inkex.BaseElement] = self.svg.xpath(
+            '//*[@*[name()="inkscape:label"]="(Assets)"]/*[@*[name()="inkscape:label"]="(Origin)"]'
+        )
+        if len(origins) != 1:
+            self.msg("_get_origin: not found!")
+            return None
+        origin: inkex.BaseElement = list(origins)[0]
+        if not isCircle(origin):
+            self.msg("_get_origin: not circle!")
+            return None
+        c: inkex.ImmutableVector2d = origin.center
+        j: V = {
+            "x": c.x,
+            "y": c.y,
+        }
+        return j
+
+    def _get_viewbox(self, name="(ViewBox)") -> Box | None:
+        viewboxes: Any = self.svg.xpath(
+            f'//*[@*[name()="inkscape:label"]="(Assets)"]/*[@*[name()="inkscape:label"]="{name}"]'
+        )
+        if not isinstance(viewboxes, list) or len(viewboxes) != 1:
+            self.msg(f"_get_viewbox: not found! (name={name})")
+            return None
+        viewbox = list(viewboxes)[0]
+        if not isRectangle(viewbox):
+            self.msg(f"_get_viewbox: not rectangle! (name={name})")
+            return None
+        j: Box = {
+            "x": viewbox.left,
+            "y": viewbox.top,
+            "width": viewbox.width,
+            "height": viewbox.height,
+        }
+        return j
+
+    def _get_bbox(self):
+        return self._get_viewbox(name="(BoundingBox)")
+
+    def _save_addresses_coords(self, node):
+        j: AddressCoords = self._get_addresses_coords()
+        p = self._layerPaths["addresses"]
+        makedirsAndDump(p, j)
+
+    def _save_origin(self):
+        j: V | None = self._get_origin()
+        if j is None:
+            return
+        p = self._paths["origin"]
+        makedirsAndDump(p, dict(j))
+
+    def _save_viewbox(self):
+        j: Box | None = self._get_viewbox()
+        if j is None:
+            return
+        p = self._paths["viewbox"]
+        makedirsAndDump(p, dict(j))
+
+    def _save_bbox(self):
+        j: Box | None = self._get_bbox()
+        if j is None:
+            return
+        p = self._paths["bbox"]
+        makedirsAndDump(p, dict(j))
+
     def _post_collect_addresses(self, node):
         self.msg("=== _post_collect_addresses@SaveAddresses")
-        p = self._layerPaths["addresses"]
-        assert isinstance(p, str)
-        d = os.path.dirname(p)
-        os.makedirs(d, exist_ok=True)
-        with open(p, "w", encoding="utf-8") as f:
-            j: TmpAddressCoords = {}
-            for astr, ((x, y), _bb, _href) in self._addresses.items():
-                j[astr] = xy2v(x, y)
-            json.dump(j, f, indent=2)
-        res = super()._post_collect_addresses(node)
-        self.msg(f"=== _post_collect_addresses@SaveAddresses: {res}")
-        return res
+
+        self._save_addresses_coords(node)
+        self._save_origin()
+        self._save_viewbox()
+        self._save_bbox()
+
+        super()._post_collect_addresses(node)
+        # XXX save viewbox.json
+        # XXX save bbox.json
+        self.msg("=== _post_collect_addresses@SaveAddresses")
 
     def _collect_links(self) -> None:
         self.msg("=== _collect_links@SaveAddresses")
@@ -138,12 +209,37 @@ class SaveAddresses(AddressTree):
 
     def _save_links(self) -> None:
         self.msg("=== _save_links@SaveAddresses")
-        assert isinstance(self._facilities_json, str)
-        d = os.path.dirname(self._facilities_json)
+        j: FacilitiesJson = {"biLinks": self._links}
+
+        p = self._facilities_json
+        assert isinstance(p, str)
+        d = os.path.dirname(p)
         os.makedirs(d, exist_ok=True)
-        with open(self._facilities_json, "w", encoding="utf-8") as f:
-            j: FacilitiesJson = {"biLinks": self._links}
+        with open(p, "w", encoding="utf-8") as f:
             json.dump(j, f, indent=2)
+
+
+def makedirsAndDump(p: str, j: dict) -> None:
+    d = os.path.dirname(p)
+    os.makedirs(d, exist_ok=True)
+    with open(p, mode="w", encoding="utf-8") as f:
+        json.dump(j, f, indent=2, ensure_ascii=False)
+
+
+def isRectangle(x: Any) -> TypeGuard[inkex.Rectangle]:
+    return isinstance(x, inkex.Rectangle)
+
+
+def isCircle(x: Any) -> TypeGuard[inkex.Circle]:
+    return isinstance(x, inkex.Circle)
+
+
+def isEllipse(x: Any) -> TypeGuard[inkex.Ellipse]:
+    return isinstance(x, inkex.Ellipse)
+
+
+def isUse(x: Any) -> TypeGuard[inkex.Use]:
+    return isinstance(x, inkex.Use)
 
 
 __all__ = [SaveAddresses]
