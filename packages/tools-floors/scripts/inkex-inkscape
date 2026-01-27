@@ -1,5 +1,5 @@
 #!/bin/sh
 
-dir=$( inkscape --system-data-directory )/extensions
+. $( dirname "$0" )/inkex-setup
 
-env PYTHONPATH="${dir}" uv run inkscape "$@"
+env PYTHONPATH="${extensions}" uv run inkscape "$@"
