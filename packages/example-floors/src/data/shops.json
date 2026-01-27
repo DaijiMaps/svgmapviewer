@@ -1,0 +1,77 @@
+{
+  "フードコート": {
+    "kind": "restaurant"
+  },
+  "ドラッグストア": {
+    "kind": "shop"
+  },
+  "食料品": {
+    "kind": "food"
+  },
+  "スイーツ": {
+    "kind": "cafe"
+  },
+  "カフェ": {
+    "kind": "cafe"
+  },
+  "婦人服": {
+    "kind": "restaurant"
+  },
+  "靴": {
+    "kind": "shop"
+  },
+  "紳士服": {
+    "kind": "shop"
+  },
+  "ラーメン": {
+    "kind": "restaurant"
+  },
+  "寿司": {
+    "kind": "restaurant"
+  },
+  "パスタ": {
+    "kind": "restaurant"
+  },
+  "クレープ": {
+    "kind": "cafe"
+  },
+  "パン": {
+    "kind": "food"
+  },
+  "ハンバーガー": {
+    "kind": "cafe"
+  },
+  "100円ショップ": {
+    "kind": "shop"
+  },
+  "文房具": {
+    "kind": "shop"
+  },
+  "マッサージ": {
+    "kind": "service"
+  },
+  "チケット販売": {
+    "kind": "service"
+  },
+  "書店": {
+    "kind": "shop"
+  },
+  "ゲームセンター": {
+    "kind": "service"
+  },
+  "スマホ修理": {
+    "kind": "service"
+  },
+  "メガネ": {
+    "kind": "shop"
+  },
+  "時計": {
+    "kind": "shop"
+  },
+  "アクセサリ": {
+    "kind": "shop"
+  },
+  "音楽": {
+    "kind": "shop"
+  }
+}

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
-import daijimaps
 import re
+
+import daijimaps
 
 
 class RenumberTree(daijimaps.AddressTree):
@@ -11,7 +12,7 @@ class RenumberTree(daijimaps.AddressTree):
         # - or label NOT starting with [A-Z]
         if node.label is None:
             return True
-        return re.match('^[A-Z]', node.label) is None
+        return re.match("^[A-Z]", node.label) is None
 
     def _check_children(self, node):
         # All children should be anonymous (renumber-able)

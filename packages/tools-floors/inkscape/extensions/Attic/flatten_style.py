@@ -4,10 +4,7 @@
 import inkex
 
 
-
-group_styles = {
-    "display"
-}
+group_styles = {"display"}
 
 
 class FlattenStyle(inkex.EffectExtension):

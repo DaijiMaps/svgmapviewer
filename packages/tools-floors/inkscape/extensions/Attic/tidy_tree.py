@@ -7,12 +7,9 @@ import daijimaps
 import repeat_path
 
 
-
 attrib_styles = inkex.all_properties.keys()
 
-group_styles = {
-    "display"
-}
+group_styles = {"display"}
 
 invalid_styles = {
     "line-height",
@@ -23,7 +20,7 @@ invalid_styles = {
 class TidyTree(daijimaps.AddressTree):
     _find_layers_opts = {
         # include '(Assets)'
-        'skip_ignoring': False
+        "skip_ignoring": False
     }
 
     def _fixup_style(self, node):
@@ -52,35 +49,35 @@ class TidyTree(daijimaps.AddressTree):
                 if a in attrib_styles:
                     self.msg(f"del {a} from node {node.label}")
                     del node.attrib[a]
-        
+
         for a in node.attrib:
             if a in invalid_styles:
                 self.msg(f"del {a} from node {node.label}")
                 del node.attrib[a]
 
     def _fixup_path(self, node):
-        #pass
-        #has_stroke = True
-        #has_stroke_width = False
+        # pass
+        # has_stroke = True
+        # has_stroke_width = False
         has_marker_start = False
         has_marker_end = False
         if not isinstance(node, inkex.PathElement):
             return
         for a in node.attrib:
-            #if a == "stroke" and node.attrib["stroke"] == "none":
+            # if a == "stroke" and node.attrib["stroke"] == "none":
             #    has_stroke = False
-            #if a == "stroke-width":
+            # if a == "stroke-width":
             #    has_stroke_width = True
             if a == "marker-start":
                 has_marker_start = True
             if a == "marker-end":
                 has_marker_end = True
-        #for k, v in node.style.items():
+        # for k, v in node.style.items():
         #    if k == "stroke" and node.style["stroke"] == "none":
         #        has_stroke = False
         #    if k == "stroke-width":
         #        has_stroke_width = True
-        #if has_stroke and not has_stroke_width:
+        # if has_stroke and not has_stroke_width:
         #    self.msg(f"fixing stroke-width for {node.label}")
         #    node.attrib["stroke-width"] = "1"
         if has_marker_start:
@@ -95,7 +92,7 @@ class TidyTree(daijimaps.AddressTree):
         if repeat_path.repeat_path(node):
             self.msg(f"expanding repeat path for {node.label}")
 
-    def _sort_children_by_label(self, node):
+    def _sort_children(self, node):
         children = {}
         for a in list(node):
             if a.label:
@@ -105,7 +102,7 @@ class TidyTree(daijimaps.AddressTree):
                     children[a.label] = []
                 children[a.label].append(a)
         # assume alphabetical order
-        labels = sorted(children.keys(), key = lambda label: str.lower(label))
+        labels = sorted(children.keys(), key=lambda label: str.lower(label))
         for label in labels:
             for a in children[label]:
                 node.append(a)
@@ -113,7 +110,7 @@ class TidyTree(daijimaps.AddressTree):
     def _fixup_facilities_use(self, kind, child):
         if child.href.get("id") == f"X{kind.label}":
             return 0
-        self.msg(f"fixing facilities (use)")
+        self.msg("fixing facilities (use)")
         child.href = f"X{kind.label}"
         return 1
 
@@ -123,9 +120,9 @@ class TidyTree(daijimaps.AddressTree):
             c = child.center
         elif isinstance(child, inkex.Ellipse):
             c = child.center
-        if c == None:
+        if c is None:
             return -1
-        self.msg(f"fixing facilities")
+        self.msg("fixing facilities")
         x = inkex.Use()
         x.label = child.label
         x.href = f"X{kind.label}"
@@ -151,7 +148,7 @@ class TidyTree(daijimaps.AddressTree):
                     # XXX
                     return
             if changed:
-                self._sort_children_by_label(kind)
+                self._sort_children(kind)
 
     def _fixup_marker(self, node):
         if not isinstance(node, inkex.Marker):
@@ -161,19 +158,21 @@ class TidyTree(daijimaps.AddressTree):
             return
         self.msg(f"removing marker: {node.label}:{xid}")
         p = node.getparent()
-        p.remove(node)
+        if p:
+            p.remove(node)
 
     def _process_addresses(self, layer):
         super()._process_addresses(layer)
-        self.msg(f"=== fixup start")
+        self.msg("=== fixup start")
         for e in layer.descendants():
             self._fixup_facilities(e)
             self._fixup_style(e)
             # XXX group style attribs have purposes & are actually used
-            #self._fixup_attrib(e)
+            # self._fixup_attrib(e)
             self._fixup_path(e)
             self._fixup_marker(e)
-        self.msg(f"=== fixup done")
+        self.msg("=== fixup done")
+
 
 if __name__ == "__main__":
     TidyTree().run()

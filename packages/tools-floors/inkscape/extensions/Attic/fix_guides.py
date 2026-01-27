@@ -4,17 +4,17 @@
 import inkex
 
 
-
 class FixGuides(inkex.EffectExtension):
     def _show_guide(self, guide):
         self.msg(
-            f"guide:" +
-            f" id={guide.get('id')}" +
-            f" position={guide.raw_position}" +
-            f" orientation={guide.orientation}")
+            "guide:"
+            + f" id={guide.get('id')}"
+            + f" position={guide.raw_position}"
+            + f" orientation={guide.orientation}"
+        )
 
     def _do_guide(self, guide):
-        #self._show_guide(guide)
+        # self._show_guide(guide)
         p = guide.raw_position
         h = self.svg.viewbox_height
         x = p[0]

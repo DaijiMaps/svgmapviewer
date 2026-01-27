@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
-from argparse import ArgumentParser
 import inkex
-
 
 
 def repeat_path_path(p: inkex.Path):
@@ -34,9 +32,9 @@ def repeat_path_path(p: inkex.Path):
 def repeat_path(node: inkex.PathElement):
     p = node.get_path().to_absolute()
     pp = repeat_path_path(p)
-    if pp == None:
-        #self.msg(f"n points: {len(xs)}")
-        #self.msg(f"# of points must be 4!")
+    if pp is None:
+        # self.msg(f"n points: {len(xs)}")
+        # self.msg(f"# of points must be 4!")
         return False
     else:
         node.set_path(pp)
@@ -46,16 +44,14 @@ def repeat_path(node: inkex.PathElement):
 class RepeatPath(inkex.EffectExtension):
     def _repeat_path(self, node):
         if not isinstance(node, inkex.PathElement):
-            #self.msg(f"not a path element!")
+            # self.msg(f"not a path element!")
             return False
         repeat_path(node)
-
 
     def effect(self):
         if self.svg.selection:
             for node in self.svg.selection.values():
                 self._repeat_path(node)
-
 
 
 if __name__ == "__main__":

@@ -1,0 +1,9 @@
+[project]
+name = "svgmapviewer-tools-floors"
+version = "0.1.0"
+requires-python = ">=3.12"
+
+dependencies = [
+  "lxml-stubs>=0.5.1",
+  "types-lxml>=2026.1.1",
+]

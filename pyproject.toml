@@ -1,0 +1,2 @@
+[tool.uv.sources]
+svgmapviewer-tools-floors = { path = "packages/tools-floors" }
