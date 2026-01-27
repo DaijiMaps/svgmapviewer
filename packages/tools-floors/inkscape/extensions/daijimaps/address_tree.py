@@ -104,31 +104,31 @@ class AddressTree(inkex.EffectExtension):
 
         _visit_parents(node, self._visitor)
 
-    def _post_collect_addresses(self, node):
+    def _post_collect_addresses(self, node: inkex.Group) -> None:
         pass
 
-    def _pre_process_addresses(self, node):
+    def _pre_process_addresses(self, node: inkex.Group) -> None:
         pass
 
-    def _process_addresses(self, node):
+    def _process_addresses(self, node: inkex.Group) -> None:
         pass
 
-    def _post_process_addresses(self, node):
+    def _post_process_addresses(self, node: inkex.Group) -> None:
         pass
 
-    def _pre_layers(self):
+    def _pre_layers(self) -> None:
         pass
 
-    def _post_layers(self):
+    def _post_layers(self) -> None:
         pass
 
     def _find_layers(self) -> list[inkex.Group]:
         self.msg("=== _find_layers")
-        floor_pattern = self.options.floor
+        floor_pattern: str = self.options.floor
 
         assert isinstance(self.document, etree._ElementTree)
         assert isinstance(floor_pattern, str | None)
-        res = [
+        res: list[inkex.Group] = [
             node
             for node in self.document.getroot()
             if isinstance(node, inkex.Group)
@@ -147,7 +147,7 @@ class AddressTree(inkex.EffectExtension):
 
     def _find_assets(self) -> inkex.Group | None:
         assert isinstance(self.document, etree._ElementTree), ""
-        res = [
+        res: list[inkex.Group] = [
             node
             for node in self.document.getroot()
             if isinstance(node, inkex.Group)
@@ -165,7 +165,7 @@ class AddressTree(inkex.EffectExtension):
         pars.add_argument("--floor", type=str, default=".")
         return super().add_arguments(pars)
 
-    def effect(self):
+    def effect(self) -> None:
         self.msg("==== AddressTree: start")
         if self.svg.selection:
             for node in self.svg.selection.values():

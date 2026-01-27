@@ -35,13 +35,12 @@ class ImportShops(daijimaps.GenerateAddresses):
 
         layer.append(aparent)
 
-    def _post_process_addresses(self, layer):
-        super()._post_process_addresses(layer)
+    def _post_process_addresses(self, node) -> None:
+        super()._post_process_addresses(node)
         self.msg("=== import shops: _post_process_addresses")
-        for addresses in list(layer):
+        for addresses in list(node):
             if addresses.label == self._group_label:
                 self._sort_children(addresses)
-        return super()._post_process_addresses(layer)
 
 
 if __name__ == "__main__":
