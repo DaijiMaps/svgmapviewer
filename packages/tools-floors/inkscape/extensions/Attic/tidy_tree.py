@@ -161,10 +161,10 @@ class TidyTree(daijimaps.AddressTree):
         if p:
             p.remove(node)
 
-    def _process_addresses(self, layer):
-        super()._process_addresses(layer)
+    def _process_addresses(self, node):
+        super()._process_addresses(node)
         self.msg("=== fixup start")
-        for e in layer.descendants():
+        for e in node.descendants():
             self._fixup_facilities(e)
             self._fixup_style(e)
             # XXX group style attribs have purposes & are actually used

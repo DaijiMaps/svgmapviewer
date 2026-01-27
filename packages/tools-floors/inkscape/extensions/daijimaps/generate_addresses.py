@@ -36,4 +36,4 @@ class GenerateAddresses(SaveAddresses):
         self._generate_addresses(node)
 
 
-__all__ = [GenerateAddresses]  # type: ignore
+__all__ = [GenerateAddresses]

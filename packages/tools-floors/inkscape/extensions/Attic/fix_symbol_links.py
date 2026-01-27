@@ -29,7 +29,7 @@ class FixSymbolLinks(daijimaps.AddressTree):
                         return True
         return False
 
-    def _find_group(self, layer, label):
+    def _find_group(self, layer, label) -> inkex.Group | None:
         for child in list(layer):
             if not isinstance(child, inkex.Group):
                 continue
@@ -38,14 +38,16 @@ class FixSymbolLinks(daijimaps.AddressTree):
             return child
         return None
 
-    def _process_addresses(self, layer):
-        content = self._find_group(layer, "Content")
+    def _process_addresses(self, node):
+        content: inkex.Group | None = self._find_group(node, "Content")
         if content is None:
             return False
-        facilities = self._find_group(content, "Facilities")
+        facilities: inkex.Group | None = self._find_group(content, "Facilities")
         if facilities is None:
             return False
         for facility in list(facilities):
+            if not isinstance(facility, inkex.Group):
+                continue
             # e.g. kind == Toilets
             kind = facility.label
             if kind is None:
