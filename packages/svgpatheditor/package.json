@@ -16,21 +16,21 @@
     "@xstate/store": "^3.15.0",
     "effect": "^3.19.15",
     "rbush": "^4.0.1",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "svgmapviewer": "^0.1.0",
-    "xstate": "^5.25.1"
+    "xstate": "^5.26.0"
   },
   "devDependencies": {
     "@rsbuild/core": "^1.7.2",
     "@rsbuild/plugin-react": "^1.4.3",
-    "@stylistic/eslint-plugin": "^5.7.0",
+    "@stylistic/eslint-plugin": "^5.7.1",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/node": "24.x",
     "@types/rbush": "^4.0.0",
     "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260122.4",
+    "@typescript/native-preview": "7.0.0-dev.20260126.1",
     "@xstate/react": "^6.0.0",
     "typescript": "^5.9.3"
   },
