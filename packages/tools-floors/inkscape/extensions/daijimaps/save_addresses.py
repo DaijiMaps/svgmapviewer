@@ -287,4 +287,27 @@ def isGroup(x: Any) -> TypeGuard[inkex.Group]:
     return isinstance(x, inkex.Group)
 
 
+def makedirsAndDump(p: str, j: dict) -> None:
+    d = os.path.dirname(p)
+    os.makedirs(d, exist_ok=True)
+    with open(p, mode="w", encoding="utf-8") as f:
+        json.dump(j, f, indent=2, ensure_ascii=False)
+
+
+def isRectangle(x: Any) -> TypeGuard[inkex.Rectangle]:
+    return isinstance(x, inkex.Rectangle)
+
+
+def isCircle(x: Any) -> TypeGuard[inkex.Circle]:
+    return isinstance(x, inkex.Circle)
+
+
+def isEllipse(x: Any) -> TypeGuard[inkex.Ellipse]:
+    return isinstance(x, inkex.Ellipse)
+
+
+def isUse(x: Any) -> TypeGuard[inkex.Use]:
+    return isinstance(x, inkex.Use)
+
+
 __all__ = [SaveAddresses]
