@@ -1,2 +1,5 @@
 #!/bin/sh
-env PYTHONPATH=/usr/share/inkscape/extensions uv run inkscape "$@"
+
+dir=$( inkscape --system-data-directory )/extensions
+
+env PYTHONPATH="${dir}" uv run inkscape "$@"
