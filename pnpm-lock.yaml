@@ -444,52 +444,6 @@ importers:
         specifier: ^8.54.0
         version: 8.54.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
 
-<<<<<<< HEAD
-=======
-  packages/tools-floors-devtools:
-    dependencies:
-      '@xstate/store':
-        specifier: ^3.14.1
-        version: 3.15.0(react@19.2.4)(solid-js@1.9.10)
-      solid-js:
-        specifier: ^1.9.10
-        version: 1.9.10
-    devDependencies:
-      '@rsbuild/core':
-        specifier: ^1.7.2
-        version: 1.7.2
-      '@rsbuild/plugin-babel':
-        specifier: ^1.0.6
-        version: 1.0.6(@rsbuild/core@1.7.2)
-      '@rsbuild/plugin-solid':
-        specifier: ^1.0.6
-        version: 1.0.6(@babel/core@7.28.5)(@rsbuild/core@1.7.2)(solid-js@1.9.10)
-      '@rsdoctor/rspack-plugin':
-        specifier: ^1.4.0
-        version: 1.4.0(@rsbuild/core@1.7.2)(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-      '@rslib/core':
-        specifier: ^0.19.1
-        version: 0.19.1(@microsoft/api-extractor@7.55.2(@types/node@24.10.9))(@typescript/native-preview@7.0.0-dev.20260111.1)(typescript@5.9.3)
-      '@rspack/core':
-        specifier: ^1.7.1
-        version: 1.7.1(@swc/helpers@0.5.18)
-      '@rstest/core':
-        specifier: ^0.7.9
-        version: 0.7.9(happy-dom@20.3.9)(jsdom@27.4.0)
-      '@solidjs/start':
-        specifier: ^1.2.1
-        version: 1.2.1(solid-js@1.9.10)(vinxi@0.5.10(@types/node@24.10.9)(db0@0.3.4)(ioredis@5.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.2))(vite@7.3.0(@types/node@24.10.9)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.2))
-      '@types/chrome':
-        specifier: ^0.1.33
-        version: 0.1.33
-      '@typescript/native-preview':
-        specifier: 7.0.0-dev.20260111.1
-        version: 7.0.0-dev.20260111.1
-      chrome-types:
-        specifier: ^0.1.409
-        version: 0.1.409
-
->>>>>>> a79f36de (python project + uv)
   packages/tools-osm:
     devDependencies:
       '@effect/cli':
@@ -2928,21 +2882,11 @@ packages:
       typescript: '>=4.8.4 <6.0.0'
 
   '@typescript-eslint/visitor-keys@8.54.0':
-<<<<<<< HEAD
     resolution:
       {
         integrity: sha512-VFlhGSl4opC0bprJiItPQ1RfUhGDIBokcPwaFH4yiBCaNPeld/9VeXbiPO1cLyorQi1G1vL+ecBk1x8o1axORA==,
       }
     engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
-=======
-    resolution: {integrity: sha512-VFlhGSl4opC0bprJiItPQ1RfUhGDIBokcPwaFH4yiBCaNPeld/9VeXbiPO1cLyorQi1G1vL+ecBk1x8o1axORA==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260111.1':
-    resolution: {integrity: sha512-+MjmGzP03XiJFvgJTwHBWomv+XUeV2D0WymF0sh0ozZmU04i1zSnpuemdR7Va8uHnQT/f/nBuavWHL7z1G8Viw==}
-    cpu: [arm64]
-    os: [darwin]
->>>>>>> a79f36de (python project + uv)
 
   '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260126.1':
     resolution:
@@ -2952,14 +2896,6 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
-<<<<<<< HEAD
-=======
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260111.1':
-    resolution: {integrity: sha512-3fwrUI9JeYFpBZ9JkI4oyE1bfhsFzfDEfLyeZ+e3FoxZJSjuuFMV76rHYpr+25ircI48hvQOX2MYODQ18rRV9g==}
-    cpu: [x64]
-    os: [darwin]
-
->>>>>>> a79f36de (python project + uv)
   '@typescript/native-preview-darwin-x64@7.0.0-dev.20260126.1':
     resolution:
       {
@@ -2968,14 +2904,6 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-<<<<<<< HEAD
-=======
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260111.1':
-    resolution: {integrity: sha512-8JCbQvP3UCC0QTVt/HA/Rm0mBmbnQobUouVPJEzSsGqb8KDtNzjwgVTh5Wd5mpnw+h1GXyFNfbtwJi3H6FOEPA==}
-    cpu: [arm64]
-    os: [linux]
-
->>>>>>> a79f36de (python project + uv)
   '@typescript/native-preview-linux-arm64@7.0.0-dev.20260126.1':
     resolution:
       {
@@ -2984,14 +2912,6 @@ packages:
     cpu: [arm64]
     os: [linux]
 
-<<<<<<< HEAD
-=======
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20260111.1':
-    resolution: {integrity: sha512-TVQHKwS5sFgYdeoXTnLHIJ+ERmLKjxLOKrm4jv6jz8zYEf59mTGvk5goRGVZc0NPeRr0WVauRs1zY5/T3vKc5g==}
-    cpu: [arm]
-    os: [linux]
-
->>>>>>> a79f36de (python project + uv)
   '@typescript/native-preview-linux-arm@7.0.0-dev.20260126.1':
     resolution:
       {
@@ -3000,14 +2920,6 @@ packages:
     cpu: [arm]
     os: [linux]
 
-<<<<<<< HEAD
-=======
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20260111.1':
-    resolution: {integrity: sha512-iXUeMndINuTG01NFFCr7uuNQUZyOTjCHCHoVNv3OgtEABo5/U/yf6CpsNFUc77PGscnW3wN19Bc99PWEHAig0Q==}
-    cpu: [x64]
-    os: [linux]
-
->>>>>>> a79f36de (python project + uv)
   '@typescript/native-preview-linux-x64@7.0.0-dev.20260126.1':
     resolution:
       {
@@ -3016,14 +2928,6 @@ packages:
     cpu: [x64]
     os: [linux]
 
-<<<<<<< HEAD
-=======
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260111.1':
-    resolution: {integrity: sha512-0pH8HX62jqb61zOXa4c0Vg3A/sqoY7gdDX/ulCWeZU06WvjtXsbJyej0ylelVSR2NqTDKJpVSD3cwK1W+I6Bww==}
-    cpu: [arm64]
-    os: [win32]
-
->>>>>>> a79f36de (python project + uv)
   '@typescript/native-preview-win32-arm64@7.0.0-dev.20260126.1':
     resolution:
       {
@@ -3032,14 +2936,6 @@ packages:
     cpu: [arm64]
     os: [win32]
 
-<<<<<<< HEAD
-=======
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20260111.1':
-    resolution: {integrity: sha512-kMbLO9yEVHSBmtaK2FUDJifXS3KPMusigjb/92W4RRnO53SMS7zTcbe8TYci4qf19k18Zw/I3xv63OsTAYDBVQ==}
-    cpu: [x64]
-    os: [win32]
-
->>>>>>> a79f36de (python project + uv)
   '@typescript/native-preview-win32-x64@7.0.0-dev.20260126.1':
     resolution:
       {
@@ -3048,13 +2944,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-<<<<<<< HEAD
-=======
-  '@typescript/native-preview@7.0.0-dev.20260111.1':
-    resolution: {integrity: sha512-nfSxvmTUZSSIyaO1qCP0iyy59UnEu24wXqq6xG5qpAN3HKh6UKfB1XJowzmHsO8k3MOO41QbLwvzWk6MA65HvA==}
-    hasBin: true
-
->>>>>>> a79f36de (python project + uv)
   '@typescript/native-preview@7.0.0-dev.20260126.1':
     resolution:
       {
@@ -8386,127 +8275,6 @@ snapshots:
     transitivePeerDependencies:
       - webpack-hot-middleware
 
-<<<<<<< HEAD
-=======
-  '@rsbuild/plugin-solid@1.0.6(@babel/core@7.28.5)(@rsbuild/core@1.7.2)(solid-js@1.9.10)':
-    dependencies:
-      '@rsbuild/core': 1.7.2
-      '@rsbuild/plugin-babel': 1.0.6(@rsbuild/core@1.7.2)
-      babel-preset-solid: 1.9.10(@babel/core@7.28.5)(solid-js@1.9.10)
-      solid-refresh: 0.6.3(solid-js@1.9.10)
-    transitivePeerDependencies:
-      - '@babel/core'
-      - solid-js
-      - supports-color
-
-  '@rsdoctor/client@1.4.0': {}
-
-  '@rsdoctor/core@1.4.0(@rsbuild/core@1.7.2)(@rspack/core@1.7.1(@swc/helpers@0.5.18))':
-    dependencies:
-      '@rsbuild/plugin-check-syntax': 1.5.0(@rsbuild/core@1.7.2)
-      '@rsdoctor/graph': 1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-      '@rsdoctor/sdk': 1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-      '@rsdoctor/types': 1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-      '@rsdoctor/utils': 1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-      browserslist-load-config: 1.0.1
-      enhanced-resolve: 5.12.0
-      es-toolkit: 1.43.0
-      filesize: 10.1.6
-      fs-extra: 11.3.3
-      semver: 7.7.3
-      source-map: 0.7.6
-    transitivePeerDependencies:
-      - '@rsbuild/core'
-      - '@rspack/core'
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-      - webpack
-
-  '@rsdoctor/graph@1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))':
-    dependencies:
-      '@rsdoctor/types': 1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-      '@rsdoctor/utils': 1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-      es-toolkit: 1.43.0
-      path-browserify: 1.0.1
-      source-map: 0.7.6
-    transitivePeerDependencies:
-      - '@rspack/core'
-      - webpack
-
-  '@rsdoctor/rspack-plugin@1.4.0(@rsbuild/core@1.7.2)(@rspack/core@1.7.1(@swc/helpers@0.5.18))':
-    dependencies:
-      '@rsdoctor/core': 1.4.0(@rsbuild/core@1.7.2)(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-      '@rsdoctor/graph': 1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-      '@rsdoctor/sdk': 1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-      '@rsdoctor/types': 1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-      '@rsdoctor/utils': 1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-    optionalDependencies:
-      '@rspack/core': 1.7.1(@swc/helpers@0.5.18)
-    transitivePeerDependencies:
-      - '@rsbuild/core'
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-      - webpack
-
-  '@rsdoctor/sdk@1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))':
-    dependencies:
-      '@rsdoctor/client': 1.4.0
-      '@rsdoctor/graph': 1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-      '@rsdoctor/types': 1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-      '@rsdoctor/utils': 1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-      safer-buffer: 2.1.2
-      socket.io: 4.8.1
-      tapable: 2.2.3
-    transitivePeerDependencies:
-      - '@rspack/core'
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-      - webpack
-
-  '@rsdoctor/types@1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))':
-    dependencies:
-      '@types/connect': 3.4.38
-      '@types/estree': 1.0.5
-      '@types/tapable': 2.2.7
-      source-map: 0.7.6
-    optionalDependencies:
-      '@rspack/core': 1.7.1(@swc/helpers@0.5.18)
-
-  '@rsdoctor/utils@1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))':
-    dependencies:
-      '@babel/code-frame': 7.26.2
-      '@rsdoctor/types': 1.4.0(@rspack/core@1.7.1(@swc/helpers@0.5.18))
-      '@types/estree': 1.0.5
-      acorn: 8.15.0
-      acorn-import-attributes: 1.9.5(acorn@8.15.0)
-      acorn-walk: 8.3.4
-      deep-eql: 4.1.4
-      envinfo: 7.21.0
-      fs-extra: 11.3.3
-      get-port: 5.1.1
-      json-stream-stringify: 3.0.1
-      lines-and-columns: 2.0.4
-      picocolors: 1.1.1
-      rslog: 1.3.2
-      strip-ansi: 6.0.1
-    transitivePeerDependencies:
-      - '@rspack/core'
-      - webpack
-
-  '@rslib/core@0.19.1(@microsoft/api-extractor@7.55.2(@types/node@24.10.9))(@typescript/native-preview@7.0.0-dev.20260111.1)(typescript@5.9.3)':
-    dependencies:
-      '@rsbuild/core': 1.7.2
-      rsbuild-plugin-dts: 0.19.1(@microsoft/api-extractor@7.55.2(@types/node@24.10.9))(@rsbuild/core@1.7.2)(@typescript/native-preview@7.0.0-dev.20260111.1)(typescript@5.9.3)
-    optionalDependencies:
-      '@microsoft/api-extractor': 7.55.2(@types/node@24.10.9)
-      typescript: 5.9.3
-    transitivePeerDependencies:
-      - '@typescript/native-preview'
-
->>>>>>> a79f36de (python project + uv)
   '@rslib/core@0.19.3(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@typescript/native-preview@7.0.0-dev.20260126.1)(typescript@5.9.2)':
     dependencies:
       '@rsbuild/core': 1.7.2
@@ -8870,7 +8638,6 @@ snapshots:
       '@typescript-eslint/types': 8.54.0
       eslint-visitor-keys: 4.2.1
 
-<<<<<<< HEAD
   '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260126.1':
     optional: true
 
@@ -8892,60 +8659,6 @@ snapshots:
   '@typescript/native-preview-win32-x64@7.0.0-dev.20260126.1':
     optional: true
 
-=======
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260111.1':
-    optional: true
-
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260126.1':
-    optional: true
-
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260111.1':
-    optional: true
-
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260126.1':
-    optional: true
-
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260111.1':
-    optional: true
-
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260126.1':
-    optional: true
-
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20260111.1':
-    optional: true
-
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20260126.1':
-    optional: true
-
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20260111.1':
-    optional: true
-
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20260126.1':
-    optional: true
-
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260111.1':
-    optional: true
-
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260126.1':
-    optional: true
-
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20260111.1':
-    optional: true
-
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20260126.1':
-    optional: true
-
-  '@typescript/native-preview@7.0.0-dev.20260111.1':
-    optionalDependencies:
-      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20260111.1
-      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20260111.1
-      '@typescript/native-preview-linux-arm': 7.0.0-dev.20260111.1
-      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20260111.1
-      '@typescript/native-preview-linux-x64': 7.0.0-dev.20260111.1
-      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20260111.1
-      '@typescript/native-preview-win32-x64': 7.0.0-dev.20260111.1
-
->>>>>>> a79f36de (python project + uv)
   '@typescript/native-preview@7.0.0-dev.20260126.1':
     optionalDependencies:
       '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20260126.1
@@ -10985,19 +10698,8 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.56.0
       fsevents: 2.3.3
 
-<<<<<<< HEAD
   rrweb-cssom@0.8.0:
     optional: true
-=======
-  rsbuild-plugin-dts@0.19.1(@microsoft/api-extractor@7.55.2(@types/node@24.10.9))(@rsbuild/core@1.7.2)(@typescript/native-preview@7.0.0-dev.20260111.1)(typescript@5.9.3):
-    dependencies:
-      '@ast-grep/napi': 0.37.0
-      '@rsbuild/core': 1.7.2
-    optionalDependencies:
-      '@microsoft/api-extractor': 7.55.2(@types/node@24.10.9)
-      '@typescript/native-preview': 7.0.0-dev.20260111.1
-      typescript: 5.9.3
->>>>>>> a79f36de (python project + uv)
 
   rsbuild-plugin-dts@0.19.3(@microsoft/api-extractor@7.55.2(@types/node@24.10.4))(@rsbuild/core@1.7.2)(@typescript/native-preview@7.0.0-dev.20260126.1)(typescript@5.9.2):
     dependencies:
