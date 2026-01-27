@@ -1,0 +1,2 @@
+#!/bin/sh
+env PYTHONPATH=/usr/share/inkscape/extensions uv run python "$@"
