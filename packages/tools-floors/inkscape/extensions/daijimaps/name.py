@@ -9,6 +9,38 @@ def preferInt(n: float) -> float | int:
     return r if r == n else n
 
 
+def draw_label(text, size: float, x: float = 0, y: float = 0) -> inkex.TextElement:
+    t = inkex.TextElement()
+    t.label = text
+    t.update(
+        **{
+            "font-family": "'Noto Sans'",
+            # "-inkscape-font-specification": "'Noto Sans Ultra-Light'",
+            "font-size": f"{size}",
+            "font-weight": "200",
+            "line-height": "1.5",
+            "text-anchor": "middle",
+            "text-align": "center",
+            "writing-mode": "lr-tb",
+            "direction": "ltr",
+            "fill": "#000000",
+            "stroke": "none",
+        }
+    )
+    txts = text.split(" ")  # XXX use re
+    for txt in txts:
+        ts = inkex.Tspan()
+        ts.text = txt
+        ts.update(
+            **{
+                "dy": 0,
+                "sodipodi:role": "line",
+            }
+        )
+        t.append(ts)
+    return t
+
+
 def draw_name(text, x: float = 0, y: float = 0) -> inkex.TextElement:
     t = inkex.TextElement()
     t.label = text
@@ -107,4 +139,4 @@ def read_name(node: inkex.BaseElement) -> None | Name:
     return (address, name, (round(p.x), round(p.y)))
 
 
-__all__ = [draw_name, move_name, read_name, redraw_name]  # type: ignore
+__all__ = [draw_label, draw_name, move_name, read_name, redraw_name]  # type: ignore

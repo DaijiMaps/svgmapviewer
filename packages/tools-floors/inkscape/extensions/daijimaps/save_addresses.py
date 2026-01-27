@@ -56,7 +56,7 @@ class SaveAddresses(AddressTree):
             c = node.center
         elif isinstance(node, inkex.Ellipse):
             c = node.center
-        if c is not None:
+        if c is not None and bb is not None:
             p = tx.apply_to_point(c)
             hwh = (bb.width + bb.height) * 0.5
             w = min(bb.width, hwh)
