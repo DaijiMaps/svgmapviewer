@@ -85,8 +85,13 @@ def redraw_name(
     return t
 
 
-def remove_children_by_label(group: inkex.Group, label: str) -> inkex.Group | None:
+def remove_children_by_label(
+    group: inkex.Group, label: str
+) -> inkex.TextElement | None:
     for child in group:
+        if not isinstance(child, inkex.TextElement):
+            # XXX msg
+            continue
         if child.label == label:
             group.remove(child)
             return child

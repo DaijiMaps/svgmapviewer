@@ -24,6 +24,8 @@ def _visit_parents_inner(tree: Tree, parents: Parents, visitor: Visitor) -> None
         return
     parents.append(tree)
     for child in list(tree):
+        if not isinstance(child, inkex.Group):
+            continue
         _visit_parents_inner(child, parents, visitor)
     parents.pop()
 

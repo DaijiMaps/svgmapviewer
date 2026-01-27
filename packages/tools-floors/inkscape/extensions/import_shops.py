@@ -9,22 +9,22 @@ import daijimaps
 class ImportShops(daijimaps.GenerateAddresses):
     _group_label = "(Unresolved Names)"
 
-    def _get_shops_txt(self):
-        p = self._get_path("names", "txt")
+    def _get_shops_txt(self, layer_name: str):
+        p = self._get_path(layer_name, "names", "txt")
         if p is None:
-            p = self._get_path("shops", "txt")
+            p = self._get_path(layer_name, "shops", "txt")
         return p
 
     def _draw_shop_names(self, aparent, text):
         g = daijimaps.draw_name(text)
         aparent.append(g)
 
-    def _generate_addresses(self, layer):
+    def _generate_addresses(self, layer, layer_name):
         self.msg("=== import shops: _generate_addresses")
         aparent = inkex.Group()
         aparent.label = self._group_label
 
-        path = self._get_shops_txt()
+        path = self._get_shops_txt(layer_name)
         if path is None:
             self.msg("shops.txt not found!")
             return

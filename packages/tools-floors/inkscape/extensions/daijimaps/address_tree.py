@@ -7,7 +7,7 @@ import re
 import os
 from lxml import etree
 from .visit_parents import _visit_parents, CONT, SKIP, Visit, Tree, Parents
-from .types import AddressPos, Links, PosAddress
+from .types import AddressPos, JsonGlobalPaths, JsonLayerPaths, Links, PosAddress
 
 
 class AddressTree(inkex.EffectExtension):
@@ -25,36 +25,26 @@ class AddressTree(inkex.EffectExtension):
     # e.g. `(Contents)`
     _ignore_pattern = "^[(].*[)]$"
 
-    _layer_name: str | None = None
+    # _layer_name: str | None = None
 
-    # _locs_json = None
-    _addresses_json: str | None = None
-    _unresolved_names_json: str | None = None
-    _resolved_names_json: str | None = None
-
-    # XXX resolve-addresses input/output
-    _tmp_unresolved_names_json: str | None = None
-    _tmp_resolved_names_json: str | None = None
-
-    # XXX resolve-addresses input/output
-    _floors_addresses_json: str | None = None
-    _floors_names_json: str | None = None
+    _layerPaths: JsonLayerPaths
+    _paths: JsonGlobalPaths
 
     _facilities_json: str | None = None
 
     _find_layers_opts = {"skip_ignoring": True}
 
-    def _get_path(self, prefix, suffix) -> str | None:
-        assert isinstance(self._layer_name, str)
+    def _get_path(self, layer_name: str, prefix: str, suffix: str) -> str | None:
+        assert isinstance(layer_name, str)
         ps = [
-            f"floors/{self._layer_name}/{prefix}.{suffix}",
-            f"floors/{prefix}/{self._layer_name}.{suffix}",
-            f"floors/{self._layer_name}-{prefix}.{suffix}",
-            f"floors/{prefix}-{self._layer_name}.{suffix}",
-            f"{self._layer_name}/{prefix}.{suffix}",
-            f"{prefix}/{self._layer_name}.{suffix}",
-            f"{self._layer_name}-{prefix}.{suffix}",
-            f"{prefix}-{self._layer_name}.{suffix}",
+            f"floors/{layer_name}/{prefix}.{suffix}",
+            f"floors/{prefix}/{layer_name}.{suffix}",
+            f"floors/{layer_name}-{prefix}.{suffix}",
+            f"floors/{prefix}-{layer_name}.{suffix}",
+            f"{layer_name}/{prefix}.{suffix}",
+            f"{prefix}/{layer_name}.{suffix}",
+            f"{layer_name}-{prefix}.{suffix}",
+            f"{prefix}-{layer_name}.{suffix}",
         ]
         svg_path: str = self.svg_path()
         assert isinstance(svg_path, str)
@@ -160,6 +150,39 @@ class AddressTree(inkex.EffectExtension):
         else:
             return res[0]
 
+    def _set_paths(self, layer_name: str):
+        p = self.svg_path()
+        assert isinstance(p, str)
+
+        j = os.path.join
+        ln = layer_name
+
+        self._layerPaths = {
+            "addresses": j(p, f"addresses/{ln}.json"),
+            "unresolvedNames": j(p, f"unresolved_names/{ln}.json"),
+            "resolvedNames": j(p, f"resolved_names/{ln}.json"),
+            "tmpUnresolvedNames": j("/tmp", f"tmp_unresolved_names_{ln}.json"),
+            "tmpResolvedNames": j("/tmp", f"tmp_resolved_names_{ln}.json"),
+            "floorsAddresses": j(p, f"floors-addresses-{ln}.json"),
+            "floorsNames": j(p, f"floors-names-{ln}.json"),
+        }
+        self._paths = {"facilities": j(p, "facilities.json")}
+
+    def _handle_layer(self, layer: inkex.Group, layer_name: str) -> None:
+        # XXX set .json paths
+        # input
+        # self._locs_json = os.path.join(self.svg_path(), "build", f"locs_{layer_name}.json")
+        # self._locs_json = os.path.join(self.svg_path(), f"locs.json")
+
+        self._set_paths(layer_name)
+
+        self._pre_collect_addresses(layer)
+        self._collect_addresses(layer)
+        self._post_collect_addresses(layer)
+        self._pre_process_addresses(layer)
+        self._process_addresses(layer)
+        self._post_process_addresses(layer)
+
     def add_arguments(self, pars: ArgumentParser) -> None:
         pars.add_argument("--tab", type=str, dest="tab")
         pars.add_argument("--floor", type=str, default=".")
@@ -167,56 +190,13 @@ class AddressTree(inkex.EffectExtension):
 
     def effect(self) -> None:
         self.msg("==== AddressTree: start")
-        if self.svg.selection:
-            for node in self.svg.selection.values():
-                self._collect_addresses(node)
-                self._process_addresses(node)
-        else:
-            self._pre_layers()
-            for layer in self._find_layers():
-                self._layer_name = layer.label
-
-                # XXX set .json paths
-                # input
-                # self._locs_json = os.path.join(self.svg_path(), "build", f"locs_{self._layer_name}.json")
-                # self._locs_json = os.path.join(self.svg_path(), f"locs.json")
-
-                # output
-                p = self.svg_path()
-                assert isinstance(p, str)
-                self._addresses_json = os.path.join(
-                    p, f"addresses/{self._layer_name}.json"
-                )
-                self._unresolved_names_json = os.path.join(
-                    p, f"unresolved_names/{self._layer_name}.json"
-                )
-                self._resolved_names_json = os.path.join(
-                    p, f"resolved_names/{self._layer_name}.json"
-                )
-                # self._tmp_unresolved_names_json = os.path.join(self.svg_path(), "build", f"coords_{self._layer_name}.json")
-                self._tmp_unresolved_names_json = os.path.join(
-                    "/tmp", f"tmp_unresolved_names_{self._layer_name}.json"
-                )
-                # self._tmp_resolved_names_json = os.path.join(self.svg_path(), f"build/resolved_names_{self._layer_name}.json")
-                self._tmp_resolved_names_json = os.path.join(
-                    "/tmp", f"tmp_resolved_names_{self._layer_name}.json"
-                )
-                self._facilities_json = os.path.join(p, "facilities.json")
-                self._floors_addresses_json = os.path.join(
-                    p, f"floors-addresses-{self._layer_name}.json"
-                )
-                self._floors_names_json = os.path.join(
-                    p, f"floors-names-{self._layer_name}.json"
-                )
-
-                # XXX reset all data per layer
-                self._pre_collect_addresses(layer)
-                self._collect_addresses(layer)
-                self._post_collect_addresses(layer)
-                self._pre_process_addresses(layer)
-                self._process_addresses(layer)
-                self._post_process_addresses(layer)
-            self._post_layers()
+        self._pre_layers()
+        for layer in self._find_layers():
+            layer_name = layer.label
+            if not isinstance(layer_name, str):
+                continue
+            self._handle_layer(layer, layer_name)
+        self._post_layers()
         self.msg("==== AddressTree: end")
 
 

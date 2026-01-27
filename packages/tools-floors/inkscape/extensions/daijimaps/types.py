@@ -50,6 +50,26 @@ type FloorsAddressesJson = dict[AddressString, V]  # floors-1F-addresses.json
 type FloorsNamesJson = dict[NameString, list[AddressString]]  # floors-1F-names.json
 
 
+#
+# File paths
+#
+class JsonGlobalPaths(TypedDict):
+    facilities: str
+
+
+#
+# Per-layer file paths
+#
+class JsonLayerPaths(TypedDict):
+    addresses: str
+    unresolvedNames: str
+    resolvedNames: str
+    tmpUnresolvedNames: str
+    tmpResolvedNames: str
+    floorsAddresses: str
+    floorsNames: str
+
+
 __all__ = [
     # .address_tree
     Address,
@@ -59,6 +79,8 @@ __all__ = [
     AddressString,
     Addresses,
     FacilitiesJson,
+    JsonGlobalPaths,
+    JsonLayerPaths,
     FloorsAddressesJson,
     FloorsNamesJson,
     Links,

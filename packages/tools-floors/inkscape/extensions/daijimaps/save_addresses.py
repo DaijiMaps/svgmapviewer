@@ -68,6 +68,8 @@ class SaveAddresses(AddressTree):
     def _save_addresses(self, node: inkex.Group, prefix: str, label: str) -> None:
         self.msg("=== _save_addresses@SaveAddresses")
         for child in list(node):
+            if not isinstance(child, inkex.BaseElement):
+                continue
             self._save_address1(child, prefix, label)
 
     def _visitor_node_branch_save_address(self, node: Tree, parents: Parents) -> None:
@@ -85,7 +87,7 @@ class SaveAddresses(AddressTree):
         self.msg("=== _sort_children@SaveAddresses")
         children: dict[str, list[inkex.BaseElement]] = {}
         for a in list(node):
-            if a.label:
+            if isinstance(a, inkex.Group) and a.label:
                 node.remove(a)
                 # a.label looks like: "Sov. @ A4F-Shops-1-3"
                 if a.label not in children:
@@ -99,10 +101,11 @@ class SaveAddresses(AddressTree):
 
     def _post_collect_addresses(self, node):
         self.msg("=== _post_collect_addresses@SaveAddresses")
-        assert isinstance(self._addresses_json, str)
-        d = os.path.dirname(self._addresses_json)
+        p = self._layerPaths["addresses"]
+        assert isinstance(p, str)
+        d = os.path.dirname(p)
         os.makedirs(d, exist_ok=True)
-        with open(self._addresses_json, "w", encoding="utf-8") as f:
+        with open(p, "w", encoding="utf-8") as f:
             j: TmpAddressCoords = {}
             for astr, ((x, y), _bb, _href) in self._addresses.items():
                 j[astr] = xy2v(x, y)
