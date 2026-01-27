@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="300mm"
-   height="400mm"
-   viewBox="0 0 300 400"
+   width="220mm"
+   height="300mm"
+   viewBox="0 0 220 300"
    version="1.1"
    id="svg1"
    inkscape:version="1.4.3 (1:1.4.3+202512261035+0d15f75042)"
@@ -25,22 +25,22 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="true"
-     inkscape:zoom="1.0579864"
-     inkscape:cx="535.45112"
-     inkscape:cy="823.262"
+     inkscape:zoom="2.640029"
+     inkscape:cx="556.62267"
+     inkscape:cy="985.59523"
      inkscape:window-width="2560"
      inkscape:window-height="1363"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g5">
+     inkscape:current-layer="g4">
     <inkscape:grid
        id="grid1"
        units="mm"
-       originx="0"
-       originy="0"
-       spacingx="10"
-       spacingy="10"
+       originx="-40.000001"
+       originy="-50.000001"
+       spacingx="5.0000001"
+       spacingy="5.0000001"
        empcolor="#0099e5"
        empopacity="0.30196078"
        color="#0099e5"
@@ -237,60 +237,60 @@
        id="g6">
       <path
          style="fill:none;stroke-width:0.1"
-         d="m 40,50 h 160 v 100 h 50 l 10,200 H 100 V 300 H 50 Z"
+         d="m 0,0 h 160 v 100 h 50 l 10,200 H 60 V 250 H 10 Z"
          id="path11"
          inkscape:label="frame"
          sodipodi:nodetypes="ccccccccc" />
       <path
          style="display:inline;fill:#ffffff;stroke-width:0.1"
-         d="m 50,50 h 150 v 100 h 50 V 350 H 100 V 300 H 50 Z"
+         d="m 10,0 h 150 v 100 h 50 V 300 H 60 V 250 H 10 Z"
          id="path1" />
     </g>
     <g
        id="g2">
       <path
          style="fill:#e5ff80;stroke-width:0.1"
-         d="M 50,50 H 80.000001 L 80,100 H 50 Z"
+         d="M 10,0 H 40 V 50 H 10 Z"
          id="path2"
          sodipodi:nodetypes="ccccc" />
       <path
          style="fill:#e5ff80;stroke-width:0.1"
-         d="M 50,100 H 80.000001 L 80,150 H 50 Z"
+         d="m 10,50 h 30 v 50 H 10 Z"
          id="path3"
          sodipodi:nodetypes="ccccc" />
       <path
          style="fill:#e5ff80;stroke-width:0.1"
-         d="m 50,160 h 30 v 40 H 50 Z"
+         d="m 10,110 h 30 v 40 H 10 Z"
          id="path4"
          sodipodi:nodetypes="ccccc" />
       <path
          style="fill:#e5ff80;stroke-width:0.1"
-         d="m 110,50 h 90 v 100 h 50 v 50 H 110 Z"
+         d="m 70,0 h 90 v 100 h 50 v 50 H 70 Z"
          id="path5"
          sodipodi:nodetypes="ccccccc" />
       <path
          style="fill:#87de87;stroke-width:0.1"
-         d="M 50,200 H 80.000001 L 80,290 H 50 Z"
+         d="m 10,150 h 30 v 90 H 10 Z"
          id="path6"
          sodipodi:nodetypes="ccccc" />
       <path
          style="fill:#80e5ff;stroke-width:0.1"
-         d="m 110,300 v 50 h 140 v -50 z"
+         d="m 70,250 v 50 h 140 v -50 z"
          id="path7"
          sodipodi:nodetypes="ccccc" />
       <path
          style="fill:#80e5ff;stroke-width:0.1"
-         d="m 200,250 h 50 v 30 h -50 z"
+         d="m 160,200 h 50 v 30 h -50 z"
          id="path8"
          sodipodi:nodetypes="ccccc" />
       <path
          style="fill:#80e5ff;stroke-width:0.1"
-         d="m 180,220 v 50 h -70 v -50 z"
+         d="m 140,170 v 50 H 70 v -50 z"
          id="path9"
          sodipodi:nodetypes="ccccc" />
       <path
          style="fill:#80e5ff;stroke-width:0.1"
-         d="m 200,220 h 50 v 30 h -50 z"
+         d="m 160,170 h 50 v 30 h -50 z"
          id="path10"
          sodipodi:nodetypes="ccccc" />
     </g>
@@ -301,203 +301,203 @@
          xlink:href="#AigaSymbols.svg:Escalator_Inv"
          style="fill:#000000;stroke:#000000"
          id="use1"
-         transform="matrix(0.25,0,0,0.25,140,280)" />
+         transform="matrix(0.25,0,0,0.25,100.99999,231)" />
       <use
          xlink:href="#AigaSymbols.svg:Stairs_Inv"
          style="fill:#000000;stroke:#000000"
          id="use1-6"
-         transform="matrix(0.25,0,0,0.25,55,190)" />
+         transform="matrix(0.25,0,0,0.25,10.999999,101)" />
       <use
          xlink:href="#AigaSymbols.svg:Toilets_Inv"
          style="fill:#000000;stroke:#000000"
          id="use1-5"
-         transform="matrix(0.25,0,0,0.25,55,280)" />
+         transform="matrix(0.25,0,0,0.25,10.999999,231)" />
       <use
          xlink:href="#AigaSymbols.svg:Elevator_Inv"
          style="fill:#000000;stroke:#000000"
          id="use2"
-         transform="matrix(0.25,0,0,0.25,180,55)" />
+         transform="matrix(0.25,0,0,0.25,140.99999,1.0000001)" />
       <use
          xlink:href="#AigaSymbols.svg:Information_Inv"
          style="fill:#000000;stroke:#000000"
          id="use1-29"
-         transform="matrix(0.25,0,0,0.25,180,190)" />
+         transform="matrix(0.25,0,0,0.25,140.99999,141)" />
       <use
          xlink:href="#AigaSymbols.svg:Elevator_Inv"
          style="display:inline;fill:#000000;stroke:#000000"
          id="use27"
-         transform="matrix(0.25,0,0,0.25,230,280)" />
+         transform="matrix(0.25,0,0,0.25,190.99999,231)" />
     </g>
     <g
-       id="g4"
-       transform="translate(1.1444092e-6,5.1322424)">
+       id="g4">
       <text
          xml:space="preserve"
          style="font-size:11.2889px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:10"
-         x="142.22983"
-         y="143.60535"
+         x="100.04516"
+         y="104.12609"
          id="text1"><tspan
            sodipodi:role="line"
            style="font-size:11.2889px;text-align:center;text-anchor:middle;fill:#000000;stroke:none;stroke-width:10"
-           x="142.22983"
-           y="143.60535"
+           x="100.04516"
+           y="104.12609"
            id="tspan2">フードコート</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:8.46667px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="180"
-         y="324.86777"
+         x="139.03481"
+         y="278.23849"
          id="text14"><tspan
            sodipodi:role="line"
            id="tspan14"
            style="font-size:8.46667px;stroke-width:1.05833"
-           x="180"
-           y="324.86777">ドラッグストア</tspan></text>
+           x="139.03481"
+           y="278.23849">ドラッグストア</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:8.46667px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="144.54738"
-         y="241.69867"
+         x="105.1651"
+         y="198.22157"
          id="text15"><tspan
            sodipodi:role="line"
            id="tspan15"
            style="stroke-width:1.05833"
-           x="144.54738"
-           y="241.69867">食料品</tspan></text>
+           x="105.1651"
+           y="198.22157">食料品</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:8.46667px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="224.99998"
-         y="244.86775"
+         x="185.10582"
+         y="196.28455"
          id="text16"><tspan
            sodipodi:role="line"
            id="tspan16"
            style="stroke-width:1.05833"
-           x="224.99998"
-           y="244.86775">スイーツ</tspan><tspan
+           x="185.10582"
+           y="196.28455">スイーツ</tspan><tspan
            sodipodi:role="line"
            style="stroke-width:1.05833"
-           x="224.99998"
-           y="258.3862"
+           x="185.10582"
+           y="209.80299"
            id="tspan17">デザート</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="65.00164"
-         y="239.8652"
+         x="25.139702"
+         y="192.41299"
          id="text18"><tspan
            sodipodi:role="line"
            id="tspan18"
            style="font-size:6.35px;stroke-width:1.05833"
-           x="65.00164"
-           y="239.8652">カフェ</tspan></text>
+           x="25.139702"
+           y="192.41299">カフェ</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="65.271393"
-         y="71.142761"
+         x="24.968248"
+         y="27.409822"
          id="text19"><tspan
            sodipodi:role="line"
            id="tspan19"
-           style="stroke-width:1.05833;font-size:6.35px"
-           x="65.271393"
-           y="71.142761">婦人服</tspan></text>
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="24.968248"
+           y="27.409822">婦人服</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="64.521149"
-         y="114.86775"
+         x="24.961895"
+         y="72.406647"
          id="text20"><tspan
            sodipodi:role="line"
            id="tspan20"
-           style="stroke-width:1.05833;font-size:6.35px"
-           x="64.521149"
-           y="114.86775">靴</tspan></text>
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="24.961895"
+           y="72.406647">靴</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="65.271393"
-         y="174.86775"
+         x="25.015871"
+         y="132.40665"
          id="text21"><tspan
            sodipodi:role="line"
            id="tspan21"
-           style="stroke-width:1.05833;font-size:6.35px"
-           x="65.271393"
-           y="174.86775">紳士服</tspan></text>
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="25.015871"
+           y="132.40665">紳士服</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="135.57021"
-         y="81.302414"
+         x="94.796799"
+         y="37.282825"
          id="text22"><tspan
            sodipodi:role="line"
            id="tspan22"
-           style="stroke-width:1.05833;font-size:6.35px"
-           x="135.57021"
-           y="81.302414">ラーメン</tspan></text>
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="94.796799"
+           y="37.282825">ラーメン</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="183.06001"
-         y="80.895958"
+         x="145.21907"
+         y="37.428879"
          id="text23"><tspan
            sodipodi:role="line"
            id="tspan23"
-           style="stroke-width:1.05833;font-size:6.35px"
-           x="183.06001"
-           y="80.895958">寿司</tspan></text>
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="145.21907"
+           y="37.428879">寿司</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="190"
-         y="114.86775"
+         x="150.20001"
+         y="72.444756"
          id="text24"><tspan
            sodipodi:role="line"
            id="tspan24"
-           style="stroke-width:1.05833;font-size:6.35px"
-           x="190"
-           y="114.86775">パスタ</tspan></text>
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="150.20001"
+           y="72.444756">パスタ</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="230"
-         y="184.86775"
+         x="189.73647"
+         y="142.49873"
          id="text25"><tspan
            sodipodi:role="line"
            id="tspan25"
-           style="stroke-width:1.05833;font-size:6.35px"
-           x="230"
-           y="184.86775">クレープ</tspan></text>
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="189.73647"
+           y="142.49873">クレープ</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
          x="130"
          y="187.68097"
-         id="text26"><tspan
+         id="text26"
+         transform="translate(-40,-44.8678)"><tspan
            sodipodi:role="line"
            id="tspan26"
-           style="stroke-width:1.05833;font-size:6.35px"
+           style="font-size:6.35px;stroke-width:1.05833"
            x="130"
            y="187.68097">パン</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="220"
-         y="158.11882"
+         x="180.0889"
+         y="117.49555"
          id="text27"><tspan
            sodipodi:role="line"
            id="tspan27"
-           style="stroke-width:1.05833;font-size:6.35px"
-           x="220"
-           y="158.11882">ハンバーガー</tspan></text>
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="180.0889"
+           y="117.49555">ハンバーガー</tspan></text>
     </g>
   </g>
   <g
      inkscape:label="2F"
      inkscape:groupmode="layer"
      id="layer2"
-     style="display:inline"
-     sodipodi:insensitive="true">
+     style="display:inline;opacity:1"
+     transform="translate(-39.999999,-50.000001)">
     <g
        id="g7"
        style="display:inline">
@@ -568,27 +568,27 @@
          xlink:href="#AigaSymbols.svg:Escalator_Inv"
          style="fill:#000000;stroke:#000000"
          id="use1-0"
-         transform="matrix(0.25,0,0,0.25,140,280)" />
+         transform="matrix(0.25,0,0,0.25,140.99999,281)" />
       <use
          xlink:href="#AigaSymbols.svg:Stairs_Inv"
          style="fill:#000000;stroke:#000000"
          id="use1-6-6"
-         transform="matrix(0.25,0,0,0.25,55,190)" />
+         transform="matrix(0.25,0,0,0.25,50.999998,151)" />
       <use
          xlink:href="#AigaSymbols.svg:Toilets_Inv"
          style="fill:#000000;stroke:#000000"
          id="use1-5-6"
-         transform="matrix(0.25,0,0,0.25,55,280)" />
+         transform="matrix(0.25,0,0,0.25,50.999998,281)" />
       <use
          xlink:href="#AigaSymbols.svg:Elevator_Inv"
          style="fill:#000000;stroke:#000000"
          id="use1-2"
-         transform="matrix(0.25,0,0,0.25,230,280)" />
+         transform="matrix(0.25,0,0,0.25,230.99999,281)" />
       <use
          xlink:href="#AigaSymbols.svg:Elevator_Inv"
          style="fill:#000000;stroke:#000000"
          id="use5"
-         transform="matrix(0.25,0,0,0.25,180,55)" />
+         transform="matrix(0.25,0,0,0.25,180.99999,51.000001)" />
     </g>
     <g
        id="g5"
@@ -596,124 +596,327 @@
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#bdb76b;stroke:#ff0000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="65"
-         y="250"
+         x="64.72377"
+         y="247.38126"
          id="text3"><tspan
            sodipodi:role="line"
            id="tspan3"
            style="font-size:6.35px;fill:#000000;stroke:none;stroke-width:1.05833"
-           x="65"
-           y="250">100円ショップ</tspan></text>
+           x="64.72377"
+           y="247.38126">100円ショップ</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="63.520824"
-         y="80"
+         x="65.019043"
+         y="77.393951"
          id="text6"><tspan
            sodipodi:role="line"
            id="tspan6"
            style="stroke-width:1.05833"
-           x="65"
-           y="80">文房具</tspan></text>
+           x="65.019043"
+           y="77.393951">文房具</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="65"
-         y="130"
+         x="64.853951"
+         y="127.28283"
          id="text7"><tspan
            sodipodi:role="line"
            id="tspan7"
            style="stroke-width:1.05833"
-           x="65"
-           y="130">マッサージ</tspan></text>
+           x="64.853951"
+           y="127.28283">マッサージ</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="65"
-         y="180"
+         x="64.895218"
+         y="182.40347"
          id="text8"><tspan
            sodipodi:role="line"
            id="tspan8"
            style="stroke-width:1.05833"
-           x="65"
-           y="180">チケット販売</tspan></text>
+           x="64.895218"
+           y="182.40347">チケット販売</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:11.2889px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:10"
-         x="150"
-         y="110"
+         x="149.96049"
+         y="109.28414"
          id="text4"><tspan
            sodipodi:role="line"
            id="tspan4"
            style="stroke-width:10"
-           x="150"
-           y="110">書店</tspan></text>
+           x="149.96049"
+           y="109.28414">書店</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:11.2889px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#ffaaaa;stroke:none;stroke-width:10"
-         x="145"
-         y="215"
+         x="145.28787"
+         y="214.35188"
          id="text5"><tspan
            sodipodi:role="line"
            id="tspan5"
            style="fill:#000000;stroke-width:10"
-           x="145"
-           y="215">ゲームセンター</tspan></text>
+           x="145.28787"
+           y="214.35188">ゲームセンター</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="65"
-         y="105"
+         x="64.787277"
+         y="102.41618"
          id="text9"><tspan
            sodipodi:role="line"
            id="tspan9"
            style="stroke-width:1.05833"
-           x="65"
-           y="105">スマホ修理</tspan></text>
+           x="64.787277"
+           y="102.41618">スマホ修理</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="225"
-         y="170"
+         x="224.873"
+         y="167.48285"
          id="text10"><tspan
            sodipodi:role="line"
            id="tspan10"
            style="stroke-width:1.05833"
-           x="225"
-           y="170">メガネ</tspan></text>
+           x="224.873"
+           y="167.48285">メガネ</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="225"
-         y="215"
+         x="224.85077"
+         y="217.41618"
          id="text11"><tspan
            sodipodi:role="line"
            id="tspan11"
            style="stroke-width:1.05833"
-           x="225"
-           y="215">時計</tspan></text>
+           x="224.85077"
+           y="217.41618">時計</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="225"
-         y="240"
+         x="225.31749"
+         y="242.41618"
          id="text12"><tspan
            sodipodi:role="line"
            id="tspan12"
            style="stroke-width:1.05833"
-           x="225"
-           y="240">アクセサリ</tspan></text>
+           x="225.31749"
+           y="242.41618">アクセサリ</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans';-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
-         x="225"
-         y="265"
+         x="224.93967"
+         y="267.41299"
          id="text13"><tspan
            sodipodi:role="line"
            id="tspan13"
            style="stroke-width:1.05833"
-           x="225"
-           y="265">音楽</tspan></text>
+           x="224.93967"
+           y="267.41299">音楽</tspan></text>
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Addresses"
+     style="display:inline">
+    <circle
+       style="display:inline;fill:none;stroke:#ff0000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       id="path13"
+       cx="0"
+       cy="0"
+       r="3"
+       inkscape:label="Origin" />
+    <g
+       id="g13"
+       inkscape:label="1F"
+       style="display:inline">
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-8"
+         transform="translate(94.999997,35)"
+         style="display:inline"
+         inkscape:label="1" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-0"
+         transform="translate(144.99999,35)"
+         style="display:inline"
+         inkscape:label="2" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-7"
+         transform="translate(149.99999,70.000001)"
+         style="display:inline"
+         inkscape:label="3" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use8"
+         transform="translate(179.99999,115)"
+         style="display:inline"
+         inkscape:label="4" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13"
+         transform="translate(189.99999,140)"
+         inkscape:label="5" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-22"
+         transform="translate(89.958724,140.30174)"
+         inkscape:label="7"
+         style="display:inline" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-2"
+         transform="translate(99.999996,100)"
+         inkscape:label="6" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-6"
+         transform="translate(184.99999,200)"
+         inkscape:label="8" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-1"
+         transform="translate(105,195)"
+         inkscape:label="9" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-4"
+         transform="translate(139.99999,275)"
+         inkscape:label="10" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-10"
+         transform="translate(24.999999,190)"
+         inkscape:label="11" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-61"
+         transform="translate(24.999999,130)"
+         inkscape:label="12" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-65"
+         transform="translate(24.999999,70.000001)"
+         inkscape:label="13" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-45"
+         transform="translate(24.999999,25)"
+         inkscape:label="14" />
+    </g>
+    <g
+       id="g14"
+       inkscape:label="2F"
+       style="display:inline">
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-44"
+         transform="translate(110,55)"
+         inkscape:label="1" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-68"
+         transform="translate(185,115)"
+         inkscape:label="2" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-49"
+         transform="translate(184.99999,165)"
+         inkscape:label="3" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-9"
+         transform="translate(184.99999,190)"
+         inkscape:label="4" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-95"
+         transform="translate(184.99999,215)"
+         inkscape:label="5" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-17"
+         transform="translate(105,160)"
+         inkscape:label="6" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-610"
+         transform="translate(24.999999,195)"
+         inkscape:label="7" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-490"
+         transform="translate(24.999999,130)"
+         inkscape:label="8" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-11"
+         transform="translate(24.999999,75.000001)"
+         inkscape:label="9" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-67"
+         transform="translate(24.999999,50)"
+         inkscape:label="10" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path13"
+         id="use13-3"
+         transform="translate(24.999999,25)"
+         inkscape:label="11" />
     </g>
   </g>
 </svg>
