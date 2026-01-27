@@ -32,4 +32,4 @@ def _visit_parents(tree: Tree, visitor: Visitor) -> None:
     _visit_parents_inner(tree, [], visitor)
 
 
-__all__ = [Parents, Tree, Visit, Visitor, CONT, SKIP, EXIT, _visit_parents]  # type: ignore
+__all__ = [Parents, Tree, Visit, Visitor, CONT, SKIP, EXIT, _visit_parents]

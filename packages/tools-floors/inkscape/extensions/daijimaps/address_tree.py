@@ -25,22 +25,22 @@ class AddressTree(inkex.EffectExtension):
     # e.g. `(Contents)`
     _ignore_pattern = "^[(].*[)]$"
 
-    _layer_name = None
+    _layer_name: str | None = None
 
     # _locs_json = None
-    _addresses_json = None
-    _unresolved_names_json = None
-    _resolved_names_json = None
+    _addresses_json: str | None = None
+    _unresolved_names_json: str | None = None
+    _resolved_names_json: str | None = None
 
     # XXX resolve-addresses input/output
-    _tmp_unresolved_names_json = None
-    _tmp_resolved_names_json = None
+    _tmp_unresolved_names_json: str | None = None
+    _tmp_resolved_names_json: str | None = None
 
     # XXX resolve-addresses input/output
     _floors_addresses_json: str | None = None
     _floors_names_json: str | None = None
 
-    _facilities_json = None
+    _facilities_json: str | None = None
 
     _find_layers_opts = {"skip_ignoring": True}
 
@@ -56,10 +56,10 @@ class AddressTree(inkex.EffectExtension):
             f"{self._layer_name}-{prefix}.{suffix}",
             f"{prefix}-{self._layer_name}.{suffix}",
         ]
-        svg_path = self.svg_path()
+        svg_path: str = self.svg_path()
         assert isinstance(svg_path, str)
         for p in ps:
-            path = os.path.join(svg_path, p)
+            path: str = os.path.join(svg_path, p)
             self.msg(f"_get_path: {path}")
             if os.access(path, os.R_OK):
                 self.msg(f"_get_path: found: {path}")
@@ -94,10 +94,10 @@ class AddressTree(inkex.EffectExtension):
             self._visitor_node_branch(node, parents)
             return CONT
 
-    def _pre_collect_addresses(self, node):
+    def _pre_collect_addresses(self, node) -> None:
         pass
 
-    def _collect_addresses(self, node):
+    def _collect_addresses(self, node) -> None:
         self.msg("=== _collect_addresses@AddressTree")
         self._addresses = {}
         self._points = {}
@@ -222,4 +222,4 @@ class AddressTree(inkex.EffectExtension):
 
 __all__ = [
     AddressTree,
-]  # type: ignore
+]

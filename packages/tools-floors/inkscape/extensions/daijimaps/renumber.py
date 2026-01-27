@@ -7,4 +7,4 @@ def renumber_group(node: inkex.BaseElement):
         child.label = idx + 1
 
 
-__all__ = [renumber_group]  # type: ignore
+__all__ = [renumber_group]

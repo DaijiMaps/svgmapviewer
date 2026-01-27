@@ -5,11 +5,11 @@ import inkex
 
 
 def preferInt(n: float) -> float | int:
-    r = round(n)
-    return r if r == n else n
+    r: float = round(n)
+    return r if r == n else int(n)
 
 
-def draw_label(text, size: float, x: float = 0, y: float = 0) -> inkex.TextElement:
+def draw_label(text: str, size: float, x: float = 0, y: float = 0) -> inkex.TextElement:
     t = inkex.TextElement()
     t.label = text
     t.update(
@@ -27,7 +27,7 @@ def draw_label(text, size: float, x: float = 0, y: float = 0) -> inkex.TextEleme
             "stroke": "none",
         }
     )
-    txts = text.split(" ")  # XXX use re
+    txts: list[str] = text.split()
     for txt in txts:
         ts = inkex.Tspan()
         ts.text = txt
@@ -41,7 +41,7 @@ def draw_label(text, size: float, x: float = 0, y: float = 0) -> inkex.TextEleme
     return t
 
 
-def draw_name(text, x: float = 0, y: float = 0) -> inkex.TextElement:
+def draw_name(text: str, x: float = 0, y: float = 0) -> inkex.TextElement:
     t = inkex.TextElement()
     t.label = text
     t.update(
@@ -59,7 +59,7 @@ def draw_name(text, x: float = 0, y: float = 0) -> inkex.TextElement:
 
 
 def redraw_name(
-    t: inkex.TextElement, text, x: float = 0, y: float = 0
+    t: inkex.TextElement, text: str, x: float = 0, y: float = 0
 ) -> inkex.TextElement:
     t.label = text
     t.update(
@@ -119,12 +119,12 @@ def read_name(node: inkex.BaseElement) -> None | Name:
     if not isinstance(node, inkex.TextElement):
         return None
     assert isinstance(node.label, str)
-    name_and_address = node.label.split(" @ ")
-    name = name_and_address[0]
+    name_and_address: list[str] = node.label.split(" @ ")
+    name: str = name_and_address[0]
     if len(name_and_address) == 1:
         address = None
     else:
-        address = name_and_address[1]
+        address: str = name_and_address[1]
 
     # check "unmoved" node (x == 0 and y == 0 and transform is None)
     (x, y) = (node.x, node.y)
@@ -139,4 +139,4 @@ def read_name(node: inkex.BaseElement) -> None | Name:
     return (address, name, (round(p.x), round(p.y)))
 
 
-__all__ = [draw_label, draw_name, move_name, read_name, redraw_name]  # type: ignore
+__all__ = [draw_label, draw_name, move_name, read_name, redraw_name]

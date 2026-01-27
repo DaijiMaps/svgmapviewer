@@ -5,8 +5,8 @@ from .types import Address, AddressString, V
 
 # XXX prefer 1 to 1.0
 def unround(n: float) -> float:
-    f = round(n, 3)
-    i = round(f)
+    f: float = round(n, ndigits=3)
+    i: float = round(f)
     return f if f != i else i
 
 
@@ -29,7 +29,7 @@ def a2v(axy: Address) -> V:
 
 
 def find_layer_file(dir: str, layer: str, prefix: str, suffix: str) -> str | None:
-    ps = [
+    ps: list[str] = [
         f"floors/{layer}/{prefix}.{suffix}",
         f"floors/{prefix}/{layer}.{suffix}",
         f"floors/{layer}-{prefix}.{suffix}",
@@ -40,10 +40,10 @@ def find_layer_file(dir: str, layer: str, prefix: str, suffix: str) -> str | Non
         f"{prefix}-{layer}.{suffix}",
     ]
     for p in ps:
-        path = os.path.join(dir, p)
-        if os.access(path, os.R_OK):
+        path: str = os.path.join(dir, p)
+        if os.access(path, mode=os.R_OK):
             return path
     return None
 
 
-__all__ = [a2astr, a2v, xy2v]  # type: ignore
+__all__ = [a2astr, a2v, xy2v]

@@ -51,4 +51,4 @@ __all__ = [
     NameString,
     Names,
     XY,
-]  # type: ignore
+]

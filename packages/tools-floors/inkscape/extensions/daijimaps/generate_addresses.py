@@ -26,14 +26,14 @@ class GenerateAddresses(SaveAddresses):
             self._generate_addresses_address(aparent, k, x, y, bb, href)
         layer.append(aparent)
 
-    def _pre_process_addresses(self, layer: inkex.Group) -> None:
-        super()._pre_process_addresses(layer)
-        self._cleanup_addresses(layer)
+    def _pre_process_addresses(self, node: inkex.Group) -> None:
+        super()._pre_process_addresses(node)
+        self._cleanup_addresses(node)
 
-    def _process_addresses(self, layer: inkex.Group) -> None:
+    def _process_addresses(self, node: inkex.Group) -> None:
         self.msg("=== GenerateAddresses: _process_addresses")
-        super()._process_addresses(layer)
-        self._generate_addresses(layer)
+        super()._process_addresses(node)
+        self._generate_addresses(node)
 
 
-__all__ = [GenerateAddresses]  # type: ignore
+__all__ = [GenerateAddresses]
