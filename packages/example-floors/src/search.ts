@@ -7,10 +7,9 @@ import { addressStringNameMap } from './names'
 import { RenderInfo as renderInfo } from './render'
 
 function getSearchEntries() {
-  return addresses.map(([address, { pos, fidx }]) => ({
+  return addresses.map(([address, pos]) => ({
     address,
-    coord: pos,
-    fidx: fidx ?? 0,
+    pos,
   }))
 }
 
