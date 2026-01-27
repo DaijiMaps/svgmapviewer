@@ -143,4 +143,4 @@ class SaveAddresses(AddressTree):
             json.dump(j, f, indent=2)
 
 
-__all__ = [SaveAddresses]  # type: ignore
+__all__ = [SaveAddresses]
