@@ -29,11 +29,11 @@ class ResolveShops(daijimaps.ResolveNames):
                 )
         self._sort_children(names_group)
 
-    def _process_addresses(self, layer) -> None:
+    def _process_addresses(self, node) -> None:
         self.msg("=== resolve: start")
 
-        names_group = self._prepare_names_group(layer)
-        unresolved_names_group = self._prepare_unresolved_names_group(layer)
+        names_group = self._prepare_names_group(node)
+        unresolved_names_group = self._prepare_unresolved_names_group(node)
 
         if names_group is None:
             self.msg("(Names) group does not exist!")

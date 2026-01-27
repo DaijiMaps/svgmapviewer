@@ -1,2 +1,2 @@
-[tool.uv.sources]
-svgmapviewer-tools-floors = { path = "packages/tools-floors" }
+[tool.uv.workspace]
+members = ["packages/tools-floors"]

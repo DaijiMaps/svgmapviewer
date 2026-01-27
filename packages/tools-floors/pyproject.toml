@@ -5,5 +5,4 @@ requires-python = ">=3.12"
 
 dependencies = [
   "lxml-stubs>=0.5.1",
-  "types-lxml>=2026.1.1",
 ]
