@@ -14,7 +14,7 @@ class GenerateAddresses(SaveAddresses):
     def _generate_addresses_address(self, aparent, k, x, y, bb, href) -> None:
         pass
 
-    def _generate_addresses(self, layer) -> None:
+    def _generate_addresses(self, layer, layer_name: str) -> None:
         self.msg("=== GenerateAddresses: _generate_addresses")
         if len(self._addresses.items()) == 0:
             self.msg("_generate_addresses: no items found!")
@@ -33,7 +33,9 @@ class GenerateAddresses(SaveAddresses):
     def _process_addresses(self, node: inkex.Group) -> None:
         self.msg("=== GenerateAddresses: _process_addresses")
         super()._process_addresses(node)
-        self._generate_addresses(node)
+        name = node.label
+        if isinstance(name, str):
+            self._generate_addresses(node, name)
 
 
 __all__ = [GenerateAddresses]

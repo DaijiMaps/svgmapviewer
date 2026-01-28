@@ -23,16 +23,16 @@ class ResolveNames(SaveAddresses):
     _resolved_addresses: AddressNames = {}
     _unresolved_names: NameAddresses = {}
     _unresolved_addresses: AddressNames = {}
-    _tmp_unresolved_name_coords: TmpNameCoords = {}
+    # _tmp_unresolved_name_coords: TmpNameCoords = {}
     _tmp_resolved_names: TmpNameAddress = {}
 
     def _exec_resolve(self) -> str:
         exe: str = "%s/../resolve-addresses" % os.path.dirname(__file__)
         return inkex.command.call(
             exe,
-            self._addresses_json,
-            self._tmp_unresolved_names_json,
-            self._tmp_resolved_names_json,
+            self._layerPaths["addresses"],
+            self._layerPaths["tmpUnresolvedNames"],
+            self._layerPaths["tmpResolvedNames"],
         )
 
     def _remove_children(self, node: inkex.Group) -> None:
@@ -43,6 +43,9 @@ class ResolveNames(SaveAddresses):
         name_addresses: NameAddresses = {}
         address_names: AddressNames = {}
         for child in list(node):
+            if not isinstance(child, inkex.TextElement):
+                # XXX msg
+                continue
             shop = read_name(child)
             if not shop:
                 self.msg(f"loading (Names): {child.label}: failed")
@@ -77,10 +80,9 @@ class ResolveNames(SaveAddresses):
         return name_addresses
 
     def _load_tmp_resolved_names(self) -> None:
-        assert self._tmp_resolved_names_json is not None, (
-            "tmp resolved_names.json path is unspecified"
-        )
-        with open(self._tmp_resolved_names_json, mode="r", encoding="utf-8") as f:
+        p = self._layerPaths["tmpResolvedNames"]
+        assert p is not None, "tmp resolved_names.json path is unspecified"
+        with open(p, mode="r", encoding="utf-8") as f:
             # XXX
             # XXX
             # XXX
@@ -90,76 +92,61 @@ class ResolveNames(SaveAddresses):
             # XXX
             # XXX
 
-    def _save_resolved_names(self) -> None:
-        self.msg(f"saving resolved names json: {self._resolved_names}")
-        assert self._resolved_names_json is not None, (
-            "_resolved_names_json path is unspecified"
-        )
-        d: str = os.path.dirname(self._resolved_names_json)
-        os.makedirs(d, exist_ok=True)
-        with open(self._resolved_names_json, "w", encoding="utf-8") as f:
-            json.dump(self._resolved_names, f, indent=2, ensure_ascii=False)
-
-    def _save_unresolved_names(self) -> None:
-        self.msg(f"saving unresolved names json: {self._unresolved_names}")
-        assert self._unresolved_names_json is not None, (
-            "_unresolved_names_json path is unspecified"
-        )
-        d = os.path.dirname(self._unresolved_names_json)
-        os.makedirs(d, exist_ok=True)
-        with open(self._unresolved_names_json, mode="w", encoding="utf-8") as f:
-            json.dump(self._unresolved_names, f, indent=2, ensure_ascii=False)
-
-    def _save_tmp_unresolved_names(self) -> None:
-        self.msg(f"saving tmp unresolved names json: {self._unresolved_names}")
-        assert self._tmp_unresolved_names_json is not None, (
-            "_tmp_unresolved_names_json path is unspecified"
-        )
-
-        self._tmp_unresolved_name_coords = {}
+    def _get_tmp_unresolved_names(self) -> TmpNameCoords:
+        j: TmpNameCoords = {}
         for name in self._unresolved_names:
             xys: list[V] = list(map(a2v, self._unresolved_names[name]))
-            self._tmp_unresolved_name_coords[name] = xys
+            j[name] = xys
+        return j
 
-        d = os.path.dirname(self._tmp_unresolved_names_json)
-        os.makedirs(d, exist_ok=True)
-        with open(self._tmp_unresolved_names_json, mode="w", encoding="utf-8") as f:
-            json.dump(self._tmp_unresolved_name_coords, f, indent=2, ensure_ascii=False)
-
-    def _save_floors_addresses(self) -> None:
+    def _get_floors_addresses(self) -> FloorsAddressesJson:
         j: FloorsAddressesJson = {}
         for astr in self._addresses:
             ((x, y), _bb, _url) = self._addresses[astr]
             j[astr] = xy2v(x, y)
-        assert self._floors_addresses_json is not None, (
-            "floors addresses json path is unspecified"
-        )
-        d = os.path.dirname(self._floors_addresses_json)
-        os.makedirs(d, exist_ok=True)
-        with open(self._floors_addresses_json, mode="w", encoding="utf-8") as f:
-            json.dump(j, f, indent=2, ensure_ascii=False)
+        return j
 
-    def _save_floors_names(self) -> None:
+    def _get_floors_names(self) -> FloorsNamesJson:
         j: FloorsNamesJson = {}
         for name in self._resolved_names:
             aa = self._resolved_names[name]
             xs: list[AddressString | None] = list(map(a2astr, aa))
             j[name] = [x for x in xs if x is not None]
+        return j
 
-        assert self._floors_names_json is not None, (
-            "floors names json path is unspecified"
-        )
-        d: str = os.path.dirname(self._floors_names_json)
-        os.makedirs(d, exist_ok=True)
-        with open(self._floors_names_json, mode="w", encoding="utf-8") as f:
-            json.dump(j, f, indent=2, ensure_ascii=False)
+    def _save_resolved_names(self) -> None:
+        j: NameAddresses = self._resolved_names
+        p = self._layerPaths["resolvedNames"]
+        makedirsAndDump(p, j)
+
+    def _save_unresolved_names(self) -> None:
+        j: NameAddresses = self._unresolved_names
+        p = self._layerPaths["unresolvedNames"]
+        makedirsAndDump(p, j)
+
+    def _save_tmp_unresolved_names(self) -> None:
+        j: TmpNameCoords = self._get_tmp_unresolved_names()
+        p = self._layerPaths["tmpUnresolvedNames"]
+        makedirsAndDump(p, j)
+
+    def _save_floors_addresses(self) -> None:
+        j: FloorsAddressesJson = self._get_floors_addresses()
+        p = self._layerPaths["floorsAddresses"]
+        makedirsAndDump(p, j)
+
+    def _save_floors_names(self) -> None:
+        j: FloorsNamesJson = self._get_floors_names()
+        p = self._layerPaths["floorsNames"]
+        makedirsAndDump(p, j)
 
     def _find_group(self, layer, label) -> inkex.Group | None:
         for child in list(layer):
             self.msg(f"_find_group: {child.label}")
             if not isinstance(child, inkex.Group):
+                # XXX msg
                 continue
             if child.label is None or child.label != label:
+                # XXX msg
                 continue
             self.msg(f"_find_group: found: {child.label}")
             return child
@@ -182,6 +169,13 @@ class ResolveNames(SaveAddresses):
         else:
             self._unresolved_names = {}
         return unresolved_names_group
+
+
+def makedirsAndDump(p: str, j: dict) -> None:
+    d = os.path.dirname(p)
+    os.makedirs(d, exist_ok=True)
+    with open(p, mode="w", encoding="utf-8") as f:
+        json.dump(j, f, indent=2, ensure_ascii=False)
 
 
 __all__ = [ResolveNames]

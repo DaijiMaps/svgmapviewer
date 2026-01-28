@@ -1,2 +1,5 @@
 #!/bin/sh
-env PYTHONPATH=/usr/share/inkscape/extensions uv run python "$@"
+
+. $( dirname "$0" )/inkex-setup
+
+env PYTHONPATH="${extensions}" uv run python "$@"

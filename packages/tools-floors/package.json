@@ -1,0 +1,14 @@
+{
+  "name": "svgmapviewer-tools-floors",
+  "version": "0.0.1",
+  "bin": {
+    "svgmapviewer-tools-floors-regen": "./scripts/regen.sh"
+  },
+  "type": "module",
+  "scripts": {},
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix",
+    "*": "oxfmt --write"
+  },
+  "packageManager": "pnpm@10.26.0"
+}

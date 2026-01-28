@@ -1,0 +1,52 @@
+#!/bin/sh
+
+################################################################################
+
+#
+# 1. sync dependencies
+#
+
+uv sync
+
+################################################################################
+
+#
+# 2. detect system inkscape directory for python extensions
+#
+
+export extensions=$( inkscape --system-data-directory )/extensions
+
+################################################################################
+
+#
+# 3. detect uv's site-packages
+#
+
+site_packages=$(
+  uv run python -c 'import sys; print(sys.path[-1])'
+)
+
+python=$( uv python find )
+venv=${python%/bin/python*}
+
+case "$site_packages" in
+  *${venv}*)
+    ;;
+  *)
+    printf >&2 "site-packages out of venv???\n\tsite-packages=${site_packages}\n\tvenv=${venv}\n"
+    exit 1
+    ;;
+esac
+
+################################################################################
+
+#
+# 4. link system's inkex directory under site-packages
+#
+
+(
+  cd "$site_packages"
+  if [ ! -r inkex/__init__.py ]; then
+    ln -sf "$extensions"/inkex .
+  fi
+)
