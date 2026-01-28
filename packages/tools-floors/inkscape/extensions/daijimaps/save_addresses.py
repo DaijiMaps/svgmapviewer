@@ -1,13 +1,13 @@
 import json
 import os
 import re
-from typing import Any, TypeGuard, Optional, TypedDict
+from typing import Any, TypeGuard
 
 import inkex
 
 from .address_tree import AddressTree
 from .common import xy2v
-from .types import AddressString, FacilitiesJson, AddressCoords, V, Box
+from .types import AddressCoords, AddressString, Box, FacilitiesJson, FloorsInfoJson, V
 from .visit_parents import Tree, Parents
 
 
@@ -107,13 +107,13 @@ class SaveAddresses(AddressTree):
         return j
 
     def _get_origin(self) -> V | None:
-        origins: list[inkex.BaseElement] = self.svg.xpath(
+        origins: Any = self.svg.xpath(
             '//*[@*[name()="inkscape:label"]="(Assets)"]/*[@*[name()="inkscape:label"]="(Origin)"]'
         )
-        if len(origins) != 1:
+        if not isinstance(origins, list) or len(origins) != 1:
             self.msg("_get_origin: not found!")
             return None
-        origin: inkex.BaseElement = list(origins)[0]
+        origin = list(origins)[0]
         if not isCircle(origin):
             self.msg("_get_origin: not circle!")
             return None
@@ -146,6 +146,45 @@ class SaveAddresses(AddressTree):
     def _get_bbox(self):
         return self._get_viewbox(name="(BoundingBox)")
 
+    def _get_floor(self, e: Any) -> tuple[str, FloorsInfoJson] | None:
+        if not isGroup(e):
+            self.msg(f"_get_floors: not group! ({e})")
+            return None
+        label = e.label
+        if label is None:
+            self.msg(f"_get_floors: no label! ({e})")
+            return None
+        # find 'Content'
+        subelems = e.xpath("./*[@*[name()='inkscape:label']='Content']")
+        if not isinstance(subelems, list) or len(subelems) != 1:
+            self.msg(f"_get_floors: not found! {subelems}")
+            return None
+        content = subelems[0]
+        if not isGroup(content):
+            self.msg(f"_get_floors: not group! ({content})")
+            return None
+        id = content.get_id()
+        return (
+            label,
+            {
+                "contentId": id,
+            },
+        )
+
+    def _get_floors(self) -> dict[str, FloorsInfoJson] | None:
+        elems: Any = self.svg.xpath("/*/*[@*[name()='inkscape:groupmode']='layer']")
+        if not isinstance(elems, list):
+            self.msg(f"_get_floors: not found! {elems}")
+            return None
+        layers: dict[str, FloorsInfoJson] = {}
+        for e in elems:
+            res = self._get_floor(e)
+            if res is None:
+                continue
+            (label, info) = res
+            layers[label] = info
+        return layers
+
     def _save_addresses_coords(self, node):
         j: AddressCoords = self._get_addresses_coords()
         p = self._layerPaths["addresses"]
@@ -172,6 +211,13 @@ class SaveAddresses(AddressTree):
         p = self._paths["bbox"]
         makedirsAndDump(p, dict(j))
 
+    def _save_floors(self):
+        j: dict[str, FloorsInfoJson] | None = self._get_floors()
+        if j is None:
+            return
+        p = self._paths["floors"]
+        makedirsAndDump(p, dict(j))
+
     def _post_collect_addresses(self, node):
         self.msg("=== _post_collect_addresses@SaveAddresses")
 
@@ -179,10 +225,8 @@ class SaveAddresses(AddressTree):
         self._save_origin()
         self._save_viewbox()
         self._save_bbox()
+        self._save_floors()
 
-        super()._post_collect_addresses(node)
-        # XXX save viewbox.json
-        # XXX save bbox.json
         self.msg("=== _post_collect_addresses@SaveAddresses")
 
     def _collect_links(self) -> None:
@@ -213,10 +257,7 @@ class SaveAddresses(AddressTree):
 
         p = self._facilities_json
         assert isinstance(p, str)
-        d = os.path.dirname(p)
-        os.makedirs(d, exist_ok=True)
-        with open(p, "w", encoding="utf-8") as f:
-            json.dump(j, f, indent=2)
+        makedirsAndDump(p, dict(j))
 
 
 def makedirsAndDump(p: str, j: dict) -> None:
@@ -240,6 +281,10 @@ def isEllipse(x: Any) -> TypeGuard[inkex.Ellipse]:
 
 def isUse(x: Any) -> TypeGuard[inkex.Use]:
     return isinstance(x, inkex.Use)
+
+
+def isGroup(x: Any) -> TypeGuard[inkex.Group]:
+    return isinstance(x, inkex.Group)
 
 
 __all__ = [SaveAddresses]

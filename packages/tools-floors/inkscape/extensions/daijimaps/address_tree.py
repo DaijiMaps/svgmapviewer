@@ -169,6 +169,7 @@ class AddressTree(inkex.EffectExtension):
         self._paths = {
             "bbox": j(p, "bbox.json"),
             "facilities": j(p, "facilities.json"),
+            "floors": j(p, "floors.json"),
             "origin": j(p, "origin.json"),
             "viewbox": j(p, "viewbox.json"),
         }
