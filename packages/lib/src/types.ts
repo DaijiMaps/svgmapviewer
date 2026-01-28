@@ -212,7 +212,7 @@ export interface OsmSearchConfig {
 
 export interface Floor {
   readonly name: string
-  readonly href: string
+  readonly href: string | URL
 }
 
 export interface FloorsConfig {
