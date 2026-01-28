@@ -255,7 +255,7 @@ class SaveAddresses(AddressTree):
         self.msg("=== _save_links@SaveAddresses")
         j: FacilitiesJson = {"biLinks": self._links}
 
-        p = self._facilities_json
+        p = self._paths["facilities"]
         assert isinstance(p, str)
         makedirsAndDump(p, dict(j))
 

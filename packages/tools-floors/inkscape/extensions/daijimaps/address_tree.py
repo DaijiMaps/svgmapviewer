@@ -25,12 +25,8 @@ class AddressTree(inkex.EffectExtension):
     # e.g. `(Contents)`
     _ignore_pattern = "^[(].*[)]$"
 
-    # _layer_name: str | None = None
-
     _layerPaths: JsonLayerPaths
     _paths: JsonGlobalPaths
-
-    _facilities_json: str | None = None
 
     _find_layers_opts = {"skip_ignoring": True}
 
