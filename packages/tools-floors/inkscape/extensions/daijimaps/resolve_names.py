@@ -152,8 +152,16 @@ class ResolveNames(SaveAddresses):
             return child
         return None
 
+    def _find_or_make_group(self, layer, label) -> inkex.Group:
+        group = self._find_group(layer, label)
+        if group is None:
+            group = inkex.Group()
+            group.label = label
+            layer.append(group)
+        return group
+
     def _prepare_names_group(self, layer) -> inkex.Group | None:
-        names_group = self._find_group(layer, "(Names)")
+        names_group = self._find_or_make_group(layer, "(Names)")
         self.msg(f"_process_addresses: names {names_group}")
         if names_group is not None:
             self._read_resolved_names(names_group)
@@ -162,7 +170,7 @@ class ResolveNames(SaveAddresses):
         return names_group
 
     def _prepare_unresolved_names_group(self, layer) -> inkex.Group | None:
-        unresolved_names_group = self._find_group(layer, "(Unresolved Names)")
+        unresolved_names_group = self._find_or_make_group(layer, "(Unresolved Names)")
         self.msg(f"_process_addresses: unresolved_names {unresolved_names_group}")
         if unresolved_names_group is not None:
             self._read_unresolved_names(unresolved_names_group)

@@ -1,12 +1,13 @@
 import json
 import os
 import re
-from typing import Any, TypeGuard
+from typing import Any
 
 import inkex
 
 from .address_tree import AddressTree
 from .common import xy2v
+from .guards import isCircle, isEllipse, isGroup, isRectangle, isUse
 from .types import AddressCoords, AddressString, Box, FacilitiesJson, FloorsInfoJson, V
 from .visit_parents import Tree, Parents
 
@@ -265,26 +266,6 @@ def makedirsAndDump(p: str, j: dict) -> None:
     os.makedirs(d, exist_ok=True)
     with open(p, mode="w", encoding="utf-8") as f:
         json.dump(j, f, indent=2, ensure_ascii=False)
-
-
-def isRectangle(x: Any) -> TypeGuard[inkex.Rectangle]:
-    return isinstance(x, inkex.Rectangle)
-
-
-def isCircle(x: Any) -> TypeGuard[inkex.Circle]:
-    return isinstance(x, inkex.Circle)
-
-
-def isEllipse(x: Any) -> TypeGuard[inkex.Ellipse]:
-    return isinstance(x, inkex.Ellipse)
-
-
-def isUse(x: Any) -> TypeGuard[inkex.Use]:
-    return isinstance(x, inkex.Use)
-
-
-def isGroup(x: Any) -> TypeGuard[inkex.Group]:
-    return isinstance(x, inkex.Group)
 
 
 __all__ = [SaveAddresses]
