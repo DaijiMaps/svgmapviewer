@@ -6,12 +6,10 @@ class FixupFloorSvg(inkex.EffectExtension):
         xs = self.svg.xpath('/*/*/*[@*[name()="inkscape:label"]="Content"]')
         if isinstance(xs, list) and len(xs) == 1:
             content = xs[0]
-            print(f"Content: {content}")
             if isinstance(content, inkex.Group):
                 # 1. delete display:none
                 floor = content.getparent()
                 if isinstance(floor, inkex.Group):
-                    print("del display")
                     del floor.style["display"]
 
                 # 2. remove Shops
