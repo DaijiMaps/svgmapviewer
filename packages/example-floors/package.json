@@ -17,7 +17,8 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "svgmapviewer": "workspace:*",
-    "svgmapviewer-app-floors": "workspace:*"
+    "svgmapviewer-app-floors": "workspace:*",
+    "svgmapviewer-tools-floors": "workspace:*"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.0",

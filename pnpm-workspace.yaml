@@ -7,6 +7,7 @@ packages:
   - ./packages/lib
   - ./packages/svgpatheditor
   - ./packages/svgpatheditor-vscode
+  - ./packages/tools-floors
   - ./packages/tools-osm
 overrides:
   '@types/node': '24.x'
