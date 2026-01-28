@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -vx
-
 pkgdir=
 if [ -n "$NODE_PATH" ]; then
   paths=$NODE_PATH
@@ -21,5 +19,15 @@ tools="$pkgdir"/scripts
 
 export UV_PROJECT="$pkgdir"
 
+. "$tools"/inkex-setup
+
+extensions="$pkgdir"/inkscape/extensions
+
 uv sync
 uv run python ${tools}/regen.py
+for f in ./src/assets/floor-*.svg; do
+  echo "fixup $f..."
+  cp $f $f.orig
+  uv run python "$extensions"/fixup_floor_svg.py $f.orig >$f.tmp
+  uv run inkscape -l $f.tmp -o $f
+done
