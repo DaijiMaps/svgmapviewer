@@ -30,7 +30,7 @@ def xdump(j, p):
         json.dump(j, f, indent=2, ensure_ascii=False)
 
 def split_floor_svg(floor: str, id: str) -> None:
-    subprocess.run(['inkscape', '-jl', '-i', id, '-o', f"{ASSETS_DIR}/floor-{floor}.svg", MAP_SVG])
+    subprocess.run(['inkscape', '-j', '-i', id, '-o', f"{ASSETS_DIR}/floor-{floor}.svg", MAP_SVG])
 
 def fixup_floor_svg(floor: str) -> None:
     # XXX
