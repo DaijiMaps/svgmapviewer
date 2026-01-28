@@ -10,7 +10,8 @@ class FixupFloorSvg(inkex.EffectExtension):
                 # 1. delete display:none
                 floor = content.getparent()
                 if isinstance(floor, inkex.Group):
-                    del floor.style["display"]
+                    if "display" in floor.style:
+                        del floor.style["display"]
 
                 # 2. remove Shops
                 for child in list(content):

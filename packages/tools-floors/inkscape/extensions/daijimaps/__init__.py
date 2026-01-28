@@ -2,6 +2,16 @@ from .address_tree import AddressTree
 
 from .generate_addresses import GenerateAddresses
 
+from .guards import (
+    isBaseElement,
+    isCircle,
+    isEllipse,
+    isGroup,
+    isRectangle,
+    isTextElement,
+    isUse,
+)
+
 from .name import draw_label, draw_name, move_name, preferInt, read_name, redraw_name
 
 from .renumber import renumber_group
@@ -28,6 +38,14 @@ __all__ = [
     AddressTree,
     # .generate_addresses
     GenerateAddresses,
+    # .guards
+    isBaseElement,
+    isCircle,
+    isEllipse,
+    isGroup,
+    isRectangle,
+    isTextElement,
+    isUse,
     # .name
     draw_label,
     draw_name,
