@@ -310,4 +310,8 @@ def isUse(x: Any) -> TypeGuard[inkex.Use]:
     return isinstance(x, inkex.Use)
 
 
+def isGroup(x: Any) -> TypeGuard[inkex.Group]:
+    return isinstance(x, inkex.Group)
+
+
 __all__ = [SaveAddresses]
