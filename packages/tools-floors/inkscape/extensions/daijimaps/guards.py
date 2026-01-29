@@ -27,6 +27,10 @@ def isTextElement(x: Any) -> TypeGuard[inkex.TextElement]:
     return isinstance(x, inkex.TextElement)
 
 
+def isTspan(x: Any) -> TypeGuard[inkex.Tspan]:
+    return isinstance(x, inkex.Tspan)
+
+
 def isUse(x: Any) -> TypeGuard[inkex.Use]:
     return isinstance(x, inkex.Use)
 
@@ -38,5 +42,6 @@ __all__ = [
     isGroup,
     isRectangle,
     isTextElement,
+    isTspan,
     isUse,
 ]
