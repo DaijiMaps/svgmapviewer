@@ -35,10 +35,6 @@ class ResolveNames(SaveAddresses):
             self._layerPaths["tmpResolvedNames"],
         )
 
-    def _remove_children(self, node: inkex.Group) -> None:
-        for child in list(node):
-            node.remove(child)
-
     def _read_names(self, node: inkex.Group) -> tuple[NameAddresses, AddressNames]:
         name_addresses: NameAddresses = {}
         address_names: AddressNames = {}
@@ -177,6 +173,11 @@ class ResolveNames(SaveAddresses):
         else:
             self._unresolved_names = {}
         return unresolved_names_group
+
+    def _resolve_names(self):
+        self._save_tmp_unresolved_names()
+        self._exec_resolve()
+        self._load_tmp_resolved_names()
 
 
 def makedirsAndDump(p: str, j: dict) -> None:
