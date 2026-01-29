@@ -43,9 +43,7 @@ class ResolveShops(daijimaps.ResolveNames):
             return
 
         # resolve names!
-        self._save_tmp_unresolved_names()
-        self._exec_resolve()
-        self._load_tmp_resolved_names()
+        self._resolve_names()
 
         self._move_resolved_names(names_group, unresolved_names_group)
 

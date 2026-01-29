@@ -63,6 +63,16 @@ class FloorsInfoJson(TypedDict):
     contentId: str
 
 
+class TspanInfoJson(TypedDict):
+    attrs: dict[str, str]
+    text: str
+
+
+class TextInfoJson(TypedDict):
+    attrs: dict[str, str]
+    children: list[TspanInfoJson]
+
+
 #
 # File paths
 #
@@ -108,8 +118,10 @@ __all__ = [
     NameString,
     Names,
     AddressCoords,
+    TextInfoJson,
     TmpNameCoords,
     TmpNameAddress,
+    TspanInfoJson,
     Url,
     XY,
     V,
