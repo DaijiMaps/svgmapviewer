@@ -213,11 +213,22 @@ export interface OsmSearchConfig {
 export interface Floor {
   readonly name: string
   readonly href: string | URL
+  readonly labels?: readonly LabelText[]
 }
 
 export interface FloorsConfig {
   readonly floors: readonly Floor[]
   readonly initialFidx: number
+}
+
+export interface LabelText {
+  attrs: Record<string, undefined | null | number | string>
+  children: readonly LabelTspan[]
+}
+
+export interface LabelTspan {
+  attrs: Record<string, undefined | null | number | string>
+  text: null | string
 }
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>
