@@ -4,6 +4,7 @@
   "bin": {
     "svgmapviewer-tools-floors-inkex-inkscape": "./scripts/inkex-inkscape",
     "svgmapviewer-tools-floors-inkex-python": "./scripts/inkex-python",
+    "svgmapviewer-tools-floors-labels": "./scripts/labels.sh",
     "svgmapviewer-tools-floors-regen": "./scripts/regen.sh"
   },
   "type": "module",
