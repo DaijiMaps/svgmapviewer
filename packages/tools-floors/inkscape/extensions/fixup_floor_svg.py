@@ -18,6 +18,11 @@ class FixupFloorSvg(inkex.EffectExtension):
                     if child.label == "Shops":
                         content.remove(child)
 
+                # 3. remove (Labels)
+                for child in list(content):
+                    if child.label == "(Labels)":
+                        content.remove(child)
+
 
 if __name__ == "__main__":
     FixupFloorSvg().run()
