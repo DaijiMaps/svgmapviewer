@@ -8,6 +8,8 @@ export {
   type Floor,
   type FloorsConfig,
   type Info,
+  type LabelText,
+  type LabelTspan,
   type OsmDataConfig,
   type OsmGetMapNames,
   type OsmGetSearchEntries,
