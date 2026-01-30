@@ -21,14 +21,8 @@ export UV_PROJECT="$pkgdir"
 
 . "$tools"/inkex-setup
 
-extensions="$pkgdir"/inkscape/extensions
+#extensions="$pkgdir"/inkscape/extensions
+extensions=$( inkscape --user-data-directory)/extensions
 
 uv sync
-uv run python ${tools}/regen.py
-for f in ./src/assets/floor-*.svg; do
-  echo "fixup $f..."
-  cp $f $f.orig
-  uv run python "$extensions"/fixup_floor_svg.py $f.orig >$f.tmp
-  uv run inkscape -l $f.tmp -o $f
-done
-"$tools"/labels.sh ./src/data/map.svg > ./src/data/floors-labels.json
+uv run python "$extensions"/extract_labels.py ./src/data/map.svg > ./src/data/floors-labels.json
