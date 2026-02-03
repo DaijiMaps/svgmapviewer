@@ -16,7 +16,7 @@
     "@effect/cli": "^0.73.1",
     "@effect/platform": "^0.94.2",
     "@effect/platform-node": "^0.104.1",
-    "@rslib/core": "^0.19.3",
+    "@rslib/core": "^0.19.4",
     "@types/node": "24.x",
     "effect": "^3.19.15",
     "tar": "^7.5.7",
