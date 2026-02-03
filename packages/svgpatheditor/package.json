@@ -23,14 +23,14 @@
   },
   "devDependencies": {
     "@rsbuild/core": "^1.7.2",
-    "@rsbuild/plugin-react": "^1.4.3",
+    "@rsbuild/plugin-react": "^1.4.5",
     "@stylistic/eslint-plugin": "^5.7.1",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/node": "24.x",
     "@types/rbush": "^4.0.0",
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260128.1",
+    "@typescript/native-preview": "7.0.0-dev.20260202.1",
     "@xstate/react": "^6.0.0",
     "typescript": "^5.9.3"
   },
