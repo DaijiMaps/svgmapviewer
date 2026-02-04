@@ -22,12 +22,12 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.58.1",
-    "@rsbuild/core": "^1.7.2",
+    "@rsbuild/core": "^1.7.3",
     "@rsbuild/plugin-react": "^1.4.5",
     "@types/node": "24.x",
-    "@types/react": "^19.2.10",
+    "@types/react": "^19.2.11",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260202.1",
+    "@typescript/native-preview": "7.0.0-dev.20260204.1",
     "playwright": "^1.58.1",
     "typescript": "^5.9.3"
   },
