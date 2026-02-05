@@ -22,7 +22,7 @@
     "@rsbuild/core": "^1.7.3",
     "@rsbuild/plugin-react": "^1.4.5",
     "@types/node": "24.x",
-    "@typescript/native-preview": "7.0.0-dev.20260204.1",
+    "@typescript/native-preview": "7.0.0-dev.20260205.1",
     "typescript": "^5.9.3"
   },
   "lint-staged": {
