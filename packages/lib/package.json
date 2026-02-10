@@ -43,7 +43,7 @@
     "fp-ts": "^2.16.11",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "type-fest": "^5.4.3",
+    "type-fest": "^5.4.4",
     "xstate": "^5.26.0",
     "zod": "^4.3.6"
   },
@@ -56,9 +56,9 @@
     "@types/node": "24.x",
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260205.1",
-    "happy-dom": "^20.5.0",
-    "playwright": "^1.58.1",
+    "@typescript/native-preview": "7.0.0-dev.20260210.1",
+    "happy-dom": "^20.6.0",
+    "playwright": "^1.58.2",
     "prettier": "^3.8.1",
     "typescript": "^5.9.2"
   },
