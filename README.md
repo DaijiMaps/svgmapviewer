@@ -1,4 +1,4 @@
-![logo](/logo-wide.svg)
+![logo](/logo-normal.svg)
 
 # svgmapviewer
 
