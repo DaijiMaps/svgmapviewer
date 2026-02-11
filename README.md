@@ -1,4 +1,4 @@
-![logo](/logo-normal.svg)
+<img src="./logo-normal.svg" width="50%" alt="svgmapviewer logo" />
 
 # svgmapviewer
 
