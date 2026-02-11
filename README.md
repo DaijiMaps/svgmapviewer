@@ -1,4 +1,6 @@
-<img src="./logo-normal.svg" width="50%" alt="svgmapviewer logo" />
+<div align="center">
+  <img src="./logo-normal.svg" width="50%" alt="svgmapviewer logo" />
+</div>
 
 # svgmapviewer
 
