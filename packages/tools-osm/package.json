@@ -22,7 +22,7 @@
     "@effect/platform-node": "^0.104.1",
     "@effect/printer": "^0.47.0",
     "@rslib/core": "^0.19.5",
-    "@rstest/core": "^0.8.3",
+    "@rstest/core": "^0.8.4",
     "@types/node": "24.x",
     "effect": "^3.19.16",
     "geojson-schema": "^1.0.5",

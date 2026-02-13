@@ -19,7 +19,7 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "svgmapviewer": "^0.1.0",
-    "xstate": "^5.26.0"
+    "xstate": "^5.28.0"
   },
   "devDependencies": {
     "@rsbuild/core": "^1.7.3",
@@ -28,9 +28,9 @@
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/node": "24.x",
     "@types/rbush": "^4.0.0",
-    "@types/react": "^19.2.13",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260210.1",
+    "@typescript/native-preview": "7.0.0-dev.20260212.1",
     "@xstate/react": "^6.0.0",
     "typescript": "^5.9.3"
   },
