@@ -170,8 +170,11 @@ export function balloonPaths(
 
   const { body, leg } = balloonPath(hv, bw, bh, lh)
 
-  const fg = `M0,0` + body + `M0,0` + leg
-  const bg = `M${d},${d}` + body + `M${d},${d}` + leg
+  function dToShape(d: number): string {
+    return `M${d},${d} ${body} M${d},${d} ${leg}`
+  }
+  const bg = dToShape(d)
+  const fg = dToShape(0)
 
   return {
     viewBox,

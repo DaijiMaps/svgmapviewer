@@ -33,7 +33,10 @@ const searchWorkerMachine = setup({
         INIT: {
           actions: [
             assign({
-              ctx: ({ event }) => initAddresses(event.entries),
+              ctx: ({ event }) =>
+                event.entries.length === 0
+                  ? null
+                  : initAddresses(event.entries),
             }),
             {
               type: 'initDone',
