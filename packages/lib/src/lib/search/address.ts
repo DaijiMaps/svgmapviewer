@@ -20,7 +20,6 @@ export function initAddresses(entries: Readonly<SearchPos[]>): SearchContext {
     const idx = fb.add(x, y)
     idxs[idx] = e
   }
-  fb.finish()
   return {
     fb,
     idxs,

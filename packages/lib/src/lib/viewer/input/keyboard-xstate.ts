@@ -3,6 +3,7 @@ import { assign, createActor, emit, setup } from 'xstate'
 import type { Dir } from '../../../types'
 
 import { notifyAction } from '../../event-action'
+import { notifyFloor } from '../../event-floor'
 import { keyToZoom } from './key'
 import {
   type KeyboardEmits as Emits,
@@ -22,6 +23,8 @@ const keyboardMachine = setup({
     shouldRecenter: ({ event: { key } }) => key === 'c',
     shouldRotate: ({ event: { key } }) => key === 't',
     shouldZoom: ({ event: { key } }) => keyToZoom(key) !== 0,
+    shouldFloorLevelUp: ({ event: { key } }) => key === 'u',
+    shouldFloorLevelDown: ({ event: { key } }) => key === 'd',
   },
   actions: {
     reset: emit({ type: 'RESET' }),
@@ -30,6 +33,8 @@ const keyboardMachine = setup({
     zoom: emit((_, { z }: { z: Dir }) => ({
       type: z > 0 ? 'ZOOM.IN' : z < 0 ? 'ZOOM.OUT' : 'NOP',
     })),
+    floorLevelUp: emit({ type: 'FLOOR.LEVEL.UP' }),
+    floorLevelDown: emit({ type: 'FLOOR.LEVEL.DOWN' }),
     handleDown: assign({
       mod: ({ context, event }) => modSet(context.mod, event.key),
     }),
@@ -76,6 +81,14 @@ const keyboardMachine = setup({
             },
           },
           {
+            guard: 'shouldFloorLevelUp',
+            actions: 'floorLevelUp',
+          },
+          {
+            guard: 'shouldFloorLevelDown',
+            actions: 'floorLevelDown',
+          },
+          {
             actions: 'handleUp',
           },
         ],
@@ -99,3 +112,5 @@ keyboardActor.on('RECENTER', notifyAction.recenter)
 keyboardActor.on('ROTATE', notifyAction.rotate)
 keyboardActor.on('ZOOM.IN', notifyAction.zoomIn)
 keyboardActor.on('ZOOM.OUT', notifyAction.zoomOut)
+keyboardActor.on('FLOOR.LEVEL.UP', notifyFloor.levelUp)
+keyboardActor.on('FLOOR.LEVEL.DOWN', notifyFloor.levelDown)

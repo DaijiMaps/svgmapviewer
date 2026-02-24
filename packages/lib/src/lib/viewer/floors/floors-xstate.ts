@@ -19,12 +19,13 @@ const floorsMachine = setup({
 }).createMachine({
   id: 'floors1',
   context: {
-    fidx: 0,
-    prevFidx: null,
+    nfloors: 0,
     blobs: new Map(),
     urls: new Map(),
+    fidx: 0,
+    prevFidx: null,
   },
-  initial: 'Idle',
+  initial: 'Uninited',
   on: {
     IMAGE: {
       actions: assign({
@@ -37,26 +38,59 @@ const floorsMachine = setup({
     },
   },
   states: {
+    Uninited: {
+      on: {
+        INIT: {
+          actions: [
+            assign({
+              nfloors: ({ event }) => event.nfloors,
+              fidx: ({ event }) => event.fidx,
+            }),
+            ({ event }) => currentFidxAtom.set(event.fidx),
+          ],
+          target: 'Idle',
+        },
+      },
+    },
     Idle: {
       on: {
-        SELECT: [
+        SELECT: {
+          guard: ({ context, event }) => context.fidx !== event.fidx,
+          actions: [
+            assign({
+              fidx: ({ event }) => event.fidx,
+              prevFidx: ({ context }) => context.fidx,
+            }),
+            ({ event }) => currentFidxAtom.set(event.fidx),
+          ],
+          target: 'Animating',
+        },
+        'LEVEL.UP': [
           {
-            guard: ({ event }) => event.force ?? false,
-            actions: [
-              assign({
-                fidx: ({ event }) => event.fidx,
-              }),
-              ({ event }) => currentFidxAtom.set(event.fidx),
-            ],
+            guard: ({ context }) => context.fidx === context.nfloors - 1,
           },
           {
-            guard: ({ context, event }) => context.fidx !== event.fidx,
             actions: [
+              ({ context }) => currentFidxAtom.set(context.fidx + 1),
               assign({
-                fidx: ({ event }) => event.fidx,
+                fidx: ({ context }) => context.fidx + 1,
                 prevFidx: ({ context }) => context.fidx,
               }),
-              ({ event }) => currentFidxAtom.set(event.fidx),
+            ],
+            target: 'Animating',
+          },
+        ],
+        'LEVEL.DOWN': [
+          {
+            guard: ({ context }) => context.fidx === 0,
+          },
+          {
+            actions: [
+              ({ context }) => currentFidxAtom.set(context.fidx - 1),
+              assign({
+                fidx: ({ context }) => context.fidx - 1,
+                prevFidx: ({ context }) => context.fidx,
+              }),
             ],
             target: 'Animating',
           },
@@ -122,14 +156,17 @@ worker.onmessageerror = (ev) => {
 export function floorsCbsStart(): void {
   globalCbs.init.add((cfg: Readonly<SvgMapViewerConfig>) => {
     if (cfg.floorsConfig) {
+      const nfloors = cfg.floorsConfig.floors.length
       const fidx = cfg.floorsConfig.initialFidx
-      floorsActor.send({ type: 'SELECT', fidx, force: true })
+      floorsActor.send({ type: 'INIT', nfloors, fidx })
       worker.postMessage({ type: 'INIT', cfg: cfg.floorsConfig })
     }
   })
   floorCbs.select.add((fidx: number) =>
     floorsActor.send({ type: 'SELECT', fidx })
   )
+  floorCbs.levelUp.add(() => floorsActor.send({ type: 'LEVEL.UP' }))
+  floorCbs.levelDown.add(() => floorsActor.send({ type: 'LEVEL.DOWN' }))
   floorCbs.selectDone.add((fidx: number) =>
     floorsActor.send({ type: 'SELECT.DONE', fidx })
   )

@@ -1,3 +1,5 @@
+import type { FloorAction } from '../../event-floor-types'
+
 import { type ViewerAction } from '../../event-action-types'
 import { type Mod } from './mod'
 
@@ -10,7 +12,7 @@ type Up = { type: 'UP'; key: string }
 
 type Events = Down | Up
 
-type Emits = ViewerAction | { type: 'NOP' }
+type Emits = ViewerAction | FloorAction | { type: 'NOP' }
 
 export type {
   Context as KeyboardContext,
