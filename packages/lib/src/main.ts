@@ -41,6 +41,15 @@ function updateConfig(
   return config
 }
 
+// eslint-disable-next-line functional/functional-parameters
+function greet(): void {
+  console.group()
+  console.log('Welcome to svgmapviewer!')
+  console.log('Version:', process.env.VERSION)
+  console.log('GitHub:', process.env.GITHUB)
+  console.groupEnd()
+}
+
 export function svgmapviewer(
   configUser: Readonly<SvgMapViewerConfigUser>
 ): void {
@@ -51,6 +60,7 @@ export function svgmapviewer(
 
   notifyGlobal.init(config)
 
+  greet()
   root(config)
   styleRoot()
 }

@@ -1,6 +1,8 @@
 import { pluginReact } from '@rsbuild/plugin-react'
 import { defineConfig } from '@rslib/core'
 
+import { define } from './rsbuild-common.config'
+
 export default defineConfig({
   plugins: [pluginReact()],
   lib: [
@@ -19,6 +21,7 @@ export default defineConfig({
   ],
   source: {
     // bundleless
+    define,
     entry: {
       index: ['src/**/*.{ts,tsx}', '!src/**/*.test.*', '!src/**/*-fixtures.ts'],
     },
