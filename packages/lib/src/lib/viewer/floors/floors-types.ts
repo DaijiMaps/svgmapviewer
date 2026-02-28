@@ -21,6 +21,8 @@ export type FloorsEvents =
   | Image
   | LevelUp
   | LevelDown
+export type Lock = { type: 'LOCK'; fidx: number }
+export type FloorsEmits = Lock
 
 export type FidxToOnAnimationEnd = (idx: number) => undefined | Cb
 export type FidxToOnClick = (idx: number) => undefined | Cb
