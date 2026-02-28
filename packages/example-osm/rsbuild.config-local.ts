@@ -1,24 +1,27 @@
-import { defineConfig } from '@rsbuild/core'
+import { defineConfig, mergeRsbuildConfig } from '@rsbuild/core'
 import { pluginReact } from '@rsbuild/plugin-react'
-import { alias as appFloorsAlias } from '../app-floors/rsbuild-common.config'
-import { alias as appOsmAlias } from '../app-osm/rsbuild-common.config'
-import { alias as libAlias } from '../lib/rsbuild-common.config'
 
-export default defineConfig({
-  plugins: [pluginReact()],
-  server: {
-    base: '',
-    port: 5173,
-  },
-  html: {
-    template: './index.html',
-  },
-  source: {
-    entry: {
-      index: './src/main.ts',
+import appFloorsConfig from '../app-floors/rsbuild-common.config'
+import appOsmConfig from '../app-osm/rsbuild-common.config'
+import libConfig from '../lib/rsbuild-common.config'
+
+export default mergeRsbuildConfig(
+  appFloorsConfig,
+  appOsmConfig,
+  libConfig,
+  defineConfig({
+    plugins: [pluginReact()],
+    server: {
+      base: '',
+      port: 5173,
     },
-  },
-  resolve: {
-    alias: { ...appFloorsAlias, ...appOsmAlias, ...libAlias },
-  },
-})
+    html: {
+      template: './index.html',
+    },
+    source: {
+      entry: {
+        index: './src/main.ts',
+      },
+    },
+  })
+)

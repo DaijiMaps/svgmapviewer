@@ -1,4 +1,7 @@
+import { defineConfig } from '@rsbuild/core'
 import path from 'node:path'
+
+import pkg from './package.json'
 
 const dir = (subdir: string): string => path.resolve(__dirname, subdir)
 
@@ -18,3 +21,17 @@ export const alias = {
   'svgmapviewer/vec': dir('./src/lib/vec/prefixed/index.ts'),
   svgmapviewer: dir('./src/index.ts'),
 }
+
+export const define = {
+  'process.env.VERSION': JSON.stringify(pkg.version),
+  'process.env.GITHUB': JSON.stringify(pkg.repository.url),
+}
+
+export default defineConfig({
+  source: {
+    define,
+  },
+  resolve: {
+    alias,
+  },
+})
