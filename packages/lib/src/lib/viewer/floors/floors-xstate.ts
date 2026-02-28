@@ -1,12 +1,12 @@
 import { useSelector } from '@xstate/react'
 import { createAtom, type Atom } from '@xstate/store'
-import { assign, createActor, setup } from 'xstate'
+import { assign, createActor, emit, setup } from 'xstate'
 
 import type { SvgMapViewerConfig } from '../../../types'
-import type { FloorsContext, FloorsEvents } from './floors-types'
+import type { FloorsContext, FloorsEmits, FloorsEvents } from './floors-types'
 import type { FloorsWorker, Res } from './floors-worker-types'
 
-import { floorCbs } from '../../event-floor'
+import { floorCbs, notifyFloor } from '../../event-floor'
 import { globalCbs } from '../../event-global'
 
 export const currentFidxAtom: Atom<number> = createAtom<number>(0)
@@ -15,6 +15,7 @@ const floorsMachine = setup({
   types: {
     context: {} as FloorsContext,
     events: {} as FloorsEvents,
+    emitted: {} as FloorsEmits,
   },
 }).createMachine({
   id: 'floors1',
@@ -70,14 +71,10 @@ const floorsMachine = setup({
             guard: ({ context }) => context.fidx === context.nfloors - 1,
           },
           {
-            actions: [
-              ({ context }) => currentFidxAtom.set(context.fidx + 1),
-              assign({
-                fidx: ({ context }) => context.fidx + 1,
-                prevFidx: ({ context }) => context.fidx,
-              }),
-            ],
-            target: 'Animating',
+            actions: emit(({ context }) => ({
+              type: 'LOCK',
+              fidx: context.fidx + 1,
+            })),
           },
         ],
         'LEVEL.DOWN': [
@@ -85,14 +82,10 @@ const floorsMachine = setup({
             guard: ({ context }) => context.fidx === 0,
           },
           {
-            actions: [
-              ({ context }) => currentFidxAtom.set(context.fidx - 1),
-              assign({
-                fidx: ({ context }) => context.fidx - 1,
-                prevFidx: ({ context }) => context.fidx,
-              }),
-            ],
-            target: 'Animating',
+            actions: emit(({ context }) => ({
+              type: 'LOCK',
+              fidx: context.fidx - 1,
+            })),
           },
         ],
       },
@@ -113,6 +106,8 @@ const floorsMachine = setup({
 })
 
 const floorsActor = createActor(floorsMachine)
+
+floorsActor.on('LOCK', ({ fidx }) => notifyFloor.lock(fidx))
 
 export function floorsActorStart(): void {
   floorsActor.start()
