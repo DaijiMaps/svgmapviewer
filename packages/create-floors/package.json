@@ -19,7 +19,7 @@
     "@rslib/core": "^0.19.6",
     "@types/node": "24.x",
     "effect": "^3.19.19",
-    "tar": "^7.5.9",
+    "tar": "^7.5.10",
     "typescript": "^5.9.3",
     "validate-npm-package-name": "^7.0.2"
   },
