@@ -33,7 +33,7 @@
     "@types/node": "24.x",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260228.1",
+    "@typescript/native-preview": "7.0.0-dev.20260306.1",
     "@vitest/browser": "^4.0.18",
     "playwright": "^1.58.2",
     "typescript": "^5.9.2",
