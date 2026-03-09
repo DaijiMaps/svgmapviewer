@@ -46,6 +46,7 @@ class SaveAddresses(AddressTree):
 
     def _save_address1(self, node: inkex.BaseElement, prefix: str, label: str) -> None:
         astr = f"{prefix}{label}-{node.label}"
+        self.msg(f"=== _save_address1: {astr}")
         bb: inkex.BoundingBox = node.shape_box()
         c: inkex.ImmutableVector2d | None = None
         p: inkex.ImmutableVector2d | None = None
@@ -71,6 +72,8 @@ class SaveAddresses(AddressTree):
         self.msg("=== _save_addresses@SaveAddresses")
         for child in list(node):
             if not isinstance(child, inkex.BaseElement):
+                continue
+            if label is None or child.label is None:
                 continue
             self._save_address1(child, prefix, label)
 

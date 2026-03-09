@@ -8,7 +8,7 @@ class GenerateAddresses(SaveAddresses):
 
     def _cleanup_addresses(self, layer) -> None:
         for child in list(layer):
-            if child.label == self._group_label:
+            if "label" in child and child.label == self._group_label:
                 child.delete()
 
     def _generate_addresses_address(self, aparent, k, x, y, bb, href) -> None:
