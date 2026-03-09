@@ -39,7 +39,7 @@ class ImportShops(daijimaps.GenerateAddresses):
         super()._post_process_addresses(node)
         self.msg("=== import shops: _post_process_addresses")
         for addresses in list(node):
-            if addresses.label == self._group_label:
+            if "label" in addresses and addresses.label == self._group_label:
                 self._sort_children(addresses)
 
 

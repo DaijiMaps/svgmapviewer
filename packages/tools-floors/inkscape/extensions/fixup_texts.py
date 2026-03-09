@@ -58,14 +58,25 @@ class FixupTexts(inkex.EffectExtension):
             elem.text = text
 
     def _fixupTextElement(self, elem: inkex.TextElement) -> None:
-        self.msg(f"fixing text (id={elem.get_id()})")
-        for child in list(elem):
+        self.msg(f"fixing text (id={elem.get_id()}, label={elem.label})")
+        xs = list(elem)
+        if xs == []:
+            t = elem.get_text()
+            if t is not None:
+                e = inkex.Tspan()
+                e.text = t
+                elem.append(e)
+        for child in xs:
+            self.msg(
+                f"fixing text (id={elem.get_id()}, label={elem.label}) child={child}"
+            )
             if not isTspan(child):
                 # XXX msg
                 self.msg("! not tspan!")
                 elem.remove(child)
                 continue
             self._fixupTspan(child)
+        elem.text = None
 
     def effect(self):
         xs = self.svg.xpath('//*[name()="text"]')

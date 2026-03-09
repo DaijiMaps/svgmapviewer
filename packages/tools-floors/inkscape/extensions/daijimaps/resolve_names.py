@@ -137,7 +137,8 @@ class ResolveNames(SaveAddresses):
 
     def _find_group(self, layer, label) -> inkex.Group | None:
         for child in list(layer):
-            self.msg(f"_find_group: {child.label}")
+            if "label" in child:
+                self.msg(f"_find_group: {child.label}")
             if not isinstance(child, inkex.Group):
                 # XXX msg
                 continue
