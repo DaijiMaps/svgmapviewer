@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+    <name>Fixup: Tree: Fixup tree</name>
+    <id>daijimaps.fixup_tree</id>
+    <label>Fixup: Tree: Fixup tree (group/layer).</label>
+    <effect needs-live-preview="false">
+        <object-type>all</object-type>
+        <effects-menu>
+          <submenu name="Daiji Maps"/>
+        </effects-menu>
+    </effect>
+    <script>
+        <command location="inx" interpreter="python">fixup_tree.py</command>
+    </script>
+</inkscape-extension>

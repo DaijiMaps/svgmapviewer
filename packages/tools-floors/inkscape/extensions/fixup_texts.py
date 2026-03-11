@@ -5,6 +5,10 @@ import inkex
 from daijimaps.guards import isTextElement, isTspan
 
 
+names_label_re = re.compile("^[(].*Names.*[)]$")
+labels_label_re = re.compile("^[(].*Names.*[)]$")
+
+
 # - fix nested tspans
 # - remove tspan's style
 # - remove tspan's dy
@@ -43,13 +47,16 @@ class FixupTexts(inkex.EffectExtension):
             self.msg(f"! unmerged tspan (res={res})")
             return res
 
-    def _fixupTspan(self, elem: inkex.Tspan) -> None:
+    def _fixupTspan(self, elem: inkex.Tspan, idx: int) -> None:
         text = self._collectTexts(elem)
         text = trim(text)
         self.msg(f"tspan: {text}")
         elem.style = None
-        if "dy" in elem.attrib:
-            del elem.attrib["dy"]
+        for a in ["x", "y", "dy"]:
+            if a in elem.attrib:
+                del elem.attrib[a]
+        elem.set("x", "0")
+        elem.set("y", f"{idx * 1.25}em")
         for child in list(elem):
             self.msg(f"! removing children (id={elem.get_id()})")
             elem.remove(child)
@@ -58,6 +65,11 @@ class FixupTexts(inkex.EffectExtension):
             elem.text = text
 
     def _fixupTextElement(self, elem: inkex.TextElement) -> None:
+        parent = elem.getparent()
+        plabel = parent.label
+        if plabel is None:
+            self.msg(f"skipping unknown text (id={elem.get_id()}, label={elem.label})")
+            return
         self.msg(f"fixing text (id={elem.get_id()}, label={elem.label})")
         xs = list(elem)
         if xs == []:
@@ -66,7 +78,7 @@ class FixupTexts(inkex.EffectExtension):
                 e = inkex.Tspan()
                 e.text = t
                 elem.append(e)
-        for child in xs:
+        for i, child in enumerate(xs):
             self.msg(
                 f"fixing text (id={elem.get_id()}, label={elem.label}) child={child}"
             )
@@ -75,7 +87,7 @@ class FixupTexts(inkex.EffectExtension):
                 self.msg("! not tspan!")
                 elem.remove(child)
                 continue
-            self._fixupTspan(child)
+            self._fixupTspan(child, i)
         elem.text = None
 
     def effect(self):

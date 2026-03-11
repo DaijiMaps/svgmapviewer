@@ -21,8 +21,8 @@ class ImportShops(daijimaps.GenerateAddresses):
 
     def _generate_addresses(self, layer, layer_name):
         self.msg("=== import shops: _generate_addresses")
-        aparent = inkex.Group()
-        aparent.label = self._group_label
+
+        aparent = self._find_or_make_group(layer, self._group_label)
 
         path = self._get_shops_txt(layer_name)
         if path is None:

@@ -11,6 +11,8 @@ from .types import AddressPos, JsonGlobalPaths, JsonLayerPaths, Links, PosAddres
 
 
 class AddressTree(inkex.EffectExtension):
+    _layers: list[inkex.Group] = []
+
     _addresses: AddressPos = {}
     _all_addresses: AddressPos = {}
     _points: PosAddress = {}
@@ -108,13 +110,35 @@ class AddressTree(inkex.EffectExtension):
     def _post_layers(self) -> None:
         pass
 
-    def _find_layers(self) -> list[inkex.Group]:
+    def _find_group(self, layer, label) -> inkex.Group | None:
+        for child in list(layer):
+            if "label" in child:
+                self.msg(f"_find_group: {child.label}")
+            if not isinstance(child, inkex.Group):
+                # XXX msg
+                continue
+            if child.label is None or child.label != label:
+                # XXX msg
+                continue
+            self.msg(f"_find_group: found: {child.label}")
+            return child
+        return None
+
+    def _find_or_make_group(self, layer, label) -> inkex.Layer:
+        group = self._find_group(layer, label)
+        if group is None:
+            group = inkex.Layer()
+            group.label = label
+            layer.append(group)
+        return group
+
+    def _find_layers(self) -> None:
         self.msg("=== _find_layers")
         floor_pattern: str = self.options.floor
 
         assert isinstance(self.document, etree._ElementTree)
         assert isinstance(floor_pattern, str | None)
-        res: list[inkex.Group] = [
+        self._layers: list[inkex.Group] = [
             node
             for node in self.document.getroot()
             if isinstance(node, inkex.Group)
@@ -128,8 +152,7 @@ class AddressTree(inkex.EffectExtension):
                 or re.match(floor_pattern, node.label) is not None
             )
         ]
-        self.msg(f"=== _find_layers: {res}")
-        return res
+        self.msg(f"=== _find_layers: {self._layers}")
 
     def _find_assets(self) -> inkex.Group | None:
         assert isinstance(self.document, etree._ElementTree), ""
@@ -192,8 +215,9 @@ class AddressTree(inkex.EffectExtension):
 
     def effect(self) -> None:
         self.msg("==== AddressTree: start")
+        self._find_layers()
         self._pre_layers()
-        for layer in self._find_layers():
+        for layer in self._layers:
             layer_name = layer.label
             if not isinstance(layer_name, str):
                 continue

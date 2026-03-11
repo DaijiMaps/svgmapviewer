@@ -7,12 +7,14 @@ import daijimaps
 
 
 class ImportLabels(daijimaps.GenerateAddresses):
-    _group_label = "(Labels)"
+    _group_label = "(Unresolved Labels)"
     _font_size = 5
 
     def _get_labels_txt(self, layer_name: str) -> str | None:
         p = self._get_path(layer_name=layer_name, prefix="labels", suffix="txt")
-        return p
+        if p is not None:
+            return p
+        return self._get_path(layer_name=layer_name, prefix="names", suffix="txt")
 
     def _draw_labels(self, aparent, text):
         g = daijimaps.draw_label(text, self._font_size)
@@ -20,8 +22,8 @@ class ImportLabels(daijimaps.GenerateAddresses):
 
     def _generate_addresses(self, layer, layer_name: str):
         self.msg("=== import labels: _generate_addresses")
-        aparent = inkex.Group()
-        aparent.label = self._group_label
+
+        aparent = self._find_or_make_group(layer, self._group_label)
 
         path = self._get_labels_txt(layer_name)
         if path is None:
