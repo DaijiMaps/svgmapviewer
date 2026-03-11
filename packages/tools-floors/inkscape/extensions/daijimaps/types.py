@@ -16,7 +16,7 @@ type Address = tuple[AddressString | None, XY]
 type Addresses = list[Address]
 type NameAddresses = dict[NameString, Addresses]
 
-type Name = tuple[AddressString, XY]
+type Name = tuple[NameString, XY]
 type Names = list[Name]
 type AddressNames = dict[AddressString, Names]
 

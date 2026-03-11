@@ -83,10 +83,11 @@ class ResolveNames(SaveAddresses):
             # XXX
             # XXX
             # XXX validate
-            self._tmp_resolved_names = json.load(f)
+            j = json.load(f)
             # XXX
             # XXX
             # XXX
+            self._tmp_resolved_names = j
 
     def _get_tmp_unresolved_names(self) -> TmpNameCoords:
         j: TmpNameCoords = {}
@@ -134,28 +135,6 @@ class ResolveNames(SaveAddresses):
         j: FloorsNamesJson = self._get_floors_names()
         p = self._layerPaths["floorsNames"]
         makedirsAndDump(p, j)
-
-    def _find_group(self, layer, label) -> inkex.Group | None:
-        for child in list(layer):
-            if "label" in child:
-                self.msg(f"_find_group: {child.label}")
-            if not isinstance(child, inkex.Group):
-                # XXX msg
-                continue
-            if child.label is None or child.label != label:
-                # XXX msg
-                continue
-            self.msg(f"_find_group: found: {child.label}")
-            return child
-        return None
-
-    def _find_or_make_group(self, layer, label) -> inkex.Group:
-        group = self._find_group(layer, label)
-        if group is None:
-            group = inkex.Group()
-            group.label = label
-            layer.append(group)
-        return group
 
     def _prepare_names_group(self, layer) -> inkex.Group | None:
         names_group = self._find_or_make_group(layer, "(Names)")

@@ -3,6 +3,8 @@
 
 import inkex
 
+from .types import AddressString, NameString, XY
+
 
 def preferInt(n: float) -> float | int:
     r: float = round(n)
@@ -116,11 +118,10 @@ def move_name(
     new_group.append(t)
 
 
-type XY = tuple[float, float]
-type Name = tuple[None | str, str, XY]
+type NameEntry = tuple[None | AddressString, NameString, XY]
 
 
-def read_name(node: inkex.BaseElement) -> None | Name:
+def read_name(node: inkex.BaseElement) -> None | NameEntry:
     if not isinstance(node, inkex.TextElement):
         return None
     assert isinstance(node.label, str)
@@ -144,4 +145,23 @@ def read_name(node: inkex.BaseElement) -> None | Name:
     return (address, name, (round(p.x), round(p.y)))
 
 
-__all__ = [draw_label, draw_name, move_name, read_name, redraw_name]
+def move_label(
+    old_group: inkex.Group,
+    new_group: inkex.Group,
+    old_name: str,
+    new_name: str,
+    x: None | float = None,
+    y: None | float = None,
+) -> inkex.Group | None:
+    remove_children_by_label(new_group, new_name)
+    child = remove_children_by_label(old_group, old_name)
+    if child is None:
+        return
+    child.label = new_name
+    child.transform = None
+    child.set("x", None)
+    child.set("y", None)
+    new_group.append(child)
+
+
+__all__ = [draw_label, draw_name, move_name, read_name, redraw_name, move_label]

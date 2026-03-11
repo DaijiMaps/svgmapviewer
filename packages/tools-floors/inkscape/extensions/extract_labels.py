@@ -40,7 +40,11 @@ class ExtractLabels(inkex.OutputExtension):
             './*[@*[name()="inkscape:label"]="Content"]/*[@*[name()="inkscape:label"]="(Labels)"]'
         )
         if not isinstance(xs, list) or len(xs) != 1:
-            return None
+            xs = layer.xpath(
+                './*[@*[name()="inkscape:label"]="(Labels)"]'
+            )
+            if not isinstance(xs, list) or len(xs) != 1:
+                return None
         x = xs[0]
         if not isGroup(x):
             return None
