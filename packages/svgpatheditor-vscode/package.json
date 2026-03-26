@@ -19,15 +19,15 @@
     "test:xxx": "vscode-test"
   },
   "devDependencies": {
-    "@rslib/core": "^0.19.6",
+    "@rslib/core": "^0.20.1",
     "@types/mocha": "^10.0.10",
     "@types/node": "24.x",
-    "@types/vscode": "^1.109.0",
+    "@types/vscode": "^1.110.0",
     "@vscode/test-cli": "^0.0.12",
     "@vscode/test-electron": "^2.5.2",
-    "eslint": "^10.0.2",
+    "eslint": "^10.1.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.56.1"
+    "typescript-eslint": "^8.57.2"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",

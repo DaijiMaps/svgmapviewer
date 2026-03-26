@@ -26,18 +26,18 @@
     "svgmapviewer": "workspace:*"
   },
   "devDependencies": {
-    "@rsbuild/core": "^1.7.3",
-    "@rsbuild/plugin-react": "^1.4.5",
-    "@rslib/core": "^0.19.6",
+    "@rsbuild/core": "^1.7.4",
+    "@rsbuild/plugin-react": "^1.4.6",
+    "@rslib/core": "^0.20.1",
     "@testing-library/react": "^16.3.2",
     "@types/node": "24.x",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260306.1",
-    "@vitest/browser": "^4.0.18",
+    "@typescript/native-preview": "7.0.0-dev.20260326.1",
+    "@vitest/browser": "^4.1.1",
     "playwright": "^1.58.2",
     "typescript": "^5.9.2",
-    "vitest": "^4.0.18"
+    "vitest": "^4.1.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",

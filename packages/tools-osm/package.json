@@ -17,14 +17,14 @@
     "test:dev": "rstest --watch"
   },
   "devDependencies": {
-    "@effect/cli": "^0.73.2",
-    "@effect/platform": "^0.94.5",
-    "@effect/platform-node": "^0.104.1",
-    "@effect/printer": "^0.47.0",
-    "@rslib/core": "^0.19.6",
-    "@rstest/core": "^0.9.0",
+    "@effect/cli": "^0.75.0",
+    "@effect/platform": "^0.96.0",
+    "@effect/platform-node": "^0.106.0",
+    "@effect/printer": "^0.49.0",
+    "@rslib/core": "^0.20.1",
+    "@rstest/core": "^0.9.5",
     "@types/node": "24.x",
-    "effect": "^3.19.19",
+    "effect": "^3.21.0",
     "geojson-schema": "^1.0.5",
     "typescript": "^5.9.3"
   },
