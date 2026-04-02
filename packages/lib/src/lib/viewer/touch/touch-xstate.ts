@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/react'
-import { assign, createActor, emit, raise, setup } from 'xstate'
+import { and, assign, createActor, emit, raise, setup } from 'xstate'
 
 import { actionCbs } from '../../event-action'
 import { notifyTouch } from '../../event-touch'
@@ -13,6 +13,7 @@ import {
   type TouchContext_,
   type TouchEmit_,
   type TouchEvent_,
+  type TouchTags_,
 } from './touch-types'
 
 const touchMachine = setup({
@@ -20,6 +21,7 @@ const touchMachine = setup({
     context: {} as TouchContext_,
     events: {} as TouchEvent_,
     emitted: {} as TouchEmit_,
+    tags: {} as TouchTags_,
   },
   guards: {
     isAllEnding: ({ context: { touches } }) => touches.vecs.size === 0,
@@ -27,6 +29,9 @@ const touchMachine = setup({
     isDoubleTouching: ({ context: { touches } }) => touches.vecs.size === 2,
     isManyTouching: ({ context: { touches } }) => touches.vecs.size > 2,
     isZooming: ({ context: { touches } }) => touches.z !== null,
+    isModeIdle: ({ context: { mode } }) => mode === 'idle',
+    isModePanning: ({ context: { mode } }) => mode === 'pan',
+    isModePinching: ({ context: { mode } }) => mode === 'pinch',
   },
   actions: {
     updateTouches: assign({
@@ -50,6 +55,13 @@ const touchMachine = setup({
     ),
     resetTouches: assign({
       touches: () => resetTouches(),
+      mode: 'idle',
+    }),
+    enterPan: assign({
+      mode: 'pan',
+    }),
+    enterPinch: assign({
+      mode: 'pinch',
     }),
     emitMulti: emit(
       ({ context: { touches } }): TouchEmit_ => ({
@@ -74,6 +86,7 @@ const touchMachine = setup({
       z: null,
       horizontal: null,
     },
+    mode: 'idle',
   },
   on: {
     'TOUCH.START': {
@@ -91,6 +104,7 @@ const touchMachine = setup({
   },
   states: {
     Idle: {
+      tags: 'none',
       entry: 'resetTouches',
       on: {
         STARTED: [
@@ -112,10 +126,12 @@ const touchMachine = setup({
       },
     },
     SingleTouching: {
+      tags: 'single',
       on: {
         STARTED: [
           {
-            guard: 'isDoubleTouching',
+            guard: and(['isModeIdle', 'isDoubleTouching']),
+            actions: 'enterPinch',
             target: 'DoubleTouching',
           },
           {
@@ -123,7 +139,10 @@ const touchMachine = setup({
             target: 'ManyTouching',
           },
         ],
-        //MOVED: {},
+        MOVED: {
+          guard: 'isModeIdle',
+          actions: 'enterPan',
+        },
         ENDED: [
           {
             guard: 'isAllEnding',
@@ -133,17 +152,18 @@ const touchMachine = setup({
       },
     },
     DoubleTouching: {
+      tags: 'double',
       entry: 'emitMulti',
       exit: 'emitMulti',
       on: {
         STARTED: [
           {
-            guard: 'isManyTouching',
+            guard: and(['isManyTouching']),
             target: 'ManyTouching',
           },
         ],
         MOVED: {
-          guard: 'isZooming',
+          guard: and(['isModePinching', 'isZooming']),
           actions: 'emitZoom',
         },
         ENDED: [
@@ -159,6 +179,7 @@ const touchMachine = setup({
       },
     },
     ManyTouching: {
+      tags: 'many',
       on: {
         //STARTED: [],
         //MOVED: {},
@@ -179,6 +200,7 @@ const touchMachine = setup({
       },
     },
     Canceling: {
+      tags: 'cancel',
       on: {
         //STARTED: [],
         //MOVED: {},
@@ -204,6 +226,29 @@ export function touchActorStart(): void {
 export function useTouchContext(): TouchContext_ {
   return useSelector(touchActor, (s) => s.context)
 }
+
+/*
+export function useTouchTags(): {
+  none: boolean
+  single: boolean
+  double: boolean
+  many: boolean
+  cancel: boolean
+} {
+  const none = useSelector(touchActor, (s) => s.hasTag('none'))
+  const single = useSelector(touchActor, (s) => s.hasTag('single'))
+  const double = useSelector(touchActor, (s) => s.hasTag('double'))
+  const many = useSelector(touchActor, (s) => s.hasTag('many'))
+  const cancel = useSelector(touchActor, (s) => s.hasTag('cancel'))
+  return {
+    none,
+    single,
+    double,
+    many,
+    cancel,
+  }
+}
+*/
 
 export let touching: boolean = false
 

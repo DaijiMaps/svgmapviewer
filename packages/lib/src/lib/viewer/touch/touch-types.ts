@@ -19,6 +19,14 @@ type TouchEmit_ =
   | { type: 'ZOOM'; touches: Touches }
 type TouchContext_ = {
   touches: Touches
+  mode: 'idle' | 'pan' | 'pinch'
 }
 
-export { type TouchContext_, type TouchEmit_, type TouchEvent_ }
+type TouchTags_ = 'none' | 'single' | 'double' | 'many' | 'cancel'
+
+export {
+  type TouchContext_,
+  type TouchEmit_,
+  type TouchEvent_,
+  type TouchTags_,
+}
