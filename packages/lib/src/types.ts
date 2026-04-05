@@ -90,7 +90,8 @@ export interface Range {
 }
 
 export interface AnimationMatrix {
-  readonly matrix: Readonly<DOMMatrixReadOnly>
+  readonly from: Readonly<DOMMatrixReadOnly>
+  readonly to: Readonly<DOMMatrixReadOnly>
   readonly origin: null | Vec
 }
 
