@@ -6,6 +6,7 @@ import {
   calcAnimationRotate,
   calcAnimationZoom,
 } from './layout/animation'
+import type { AnimationReq } from './layout/animation-types'
 import { fromMatrixSvg } from './layout/coord'
 import { expandLayoutCenter, rotateLayout, scrollLayout } from './layout/layout'
 import { getCurrentScroll } from './scroll/scroll'
@@ -13,9 +14,11 @@ import {
   EXPAND_PANNING,
   type ResizeRequest,
   type SearchEnd,
+  type SearchRequest,
   type SwitchRequest,
   type ViewerContext,
   type ViewerEmitted,
+  type ZoomRequest,
 } from './viewer-types'
 
 // resize
@@ -83,6 +86,43 @@ export function emitSyncSyncScroll({ layout }: ViewerContext): ViewerEmitted {
 
 // zoom and home
 
+export function prepareZoom(
+  context: ViewerContext,
+  { z, p }: Readonly<ZoomRequest>
+): ViewerContext {
+  const animationReq: AnimationReq = {
+    type: 'zoom',
+    z,
+    p: p ?? boxCenter(context.layout.container),
+  }
+  return {
+    ...context,
+    animationReq,
+  }
+}
+
+export function prepareHome(context: ViewerContext): ViewerContext {
+  const animationReq: AnimationReq = {
+    type: 'home',
+  }
+  return {
+    ...context,
+    animationReq,
+  }
+}
+
+export function prepareRotate(context: ViewerContext): ViewerContext {
+  const animationReq: AnimationReq = {
+    type: 'rotate',
+    deg: 90,
+    p: boxCenter(context.layout.container),
+  }
+  return {
+    ...context,
+    animationReq,
+  }
+}
+
 export function startZoom(context: ViewerContext): ViewerContext {
   const animation = calcAnimation(context.animationReq, context.layout)
   const prevLayout = context.layout
@@ -116,6 +156,13 @@ export function endHome(context: ViewerContext): ViewerContext {
   }
 }
 
+export function clearAnimation(context: ViewerContext): ViewerContext {
+  return {
+    ...context,
+    animationReq: null,
+  }
+}
+
 export function emitZoomStart({
   layout,
   zoom,
@@ -143,6 +190,17 @@ export function emitZoomEnd({
 }
 
 // search
+
+export function prepareSearch(
+  context: ViewerContext,
+  { pos }: Readonly<SearchRequest>
+): ViewerContext {
+  const cursor = pos
+  return {
+    ...context,
+    cursor,
+  }
+}
 
 export function searchStart(context: ViewerContext): ViewerEmitted {
   const { scroll } = getCurrentScroll()

@@ -14,6 +14,7 @@ import { touchCbs } from '../event-touch'
 import { notifyUi, uiCbs } from '../event-ui'
 import { emptyLayout } from './layout/layout'
 import {
+  clearAnimation,
   emitGetScroll,
   emitSwitch,
   emitSwitchDone,
@@ -24,6 +25,10 @@ import {
   emitZoomStart,
   endHome,
   endZoom,
+  prepareHome,
+  prepareRotate,
+  prepareSearch,
+  prepareZoom,
   resetCursor,
   resetScroll,
   resizeLayout,
@@ -73,32 +78,12 @@ const viewerMachine = setup({
     //
     // move + zoom
     //
-    prepareZoom: assign(({ context }, { z, p }: Readonly<ZoomRequest>) => {
-      return {
-        ...context,
-        animationReq: {
-          type: 'zoom',
-          z,
-          p: p ?? boxCenter(context.layout.container),
-        },
-      }
-    }),
-    prepareHome: assign(({ context }) => ({
-      ...context,
-      animationReq: { type: 'home' },
-    })),
-    prepareRotate: assign(({ context }) => ({
-      ...context,
-      animationReq: {
-        type: 'rotate',
-        deg: 90,
-        p: boxCenter(context.layout.container),
-      },
-    })),
-    clearAnimation: assign(({ context }) => ({
-      ...context,
-      animationReq: null,
-    })),
+    prepareZoom: assign(({ context }, params: ZoomRequest) =>
+      prepareZoom(context, params)
+    ),
+    prepareHome: assign(({ context }) => prepareHome(context)),
+    prepareRotate: assign(({ context }) => prepareRotate(context)),
+    clearAnimation: assign(({ context }) => clearAnimation(context)),
     startZoom: assign(({ context }) => startZoom(context)),
     endZoom: assign(({ context }) => endZoom(context)),
     endHome: assign(({ context }) => endHome(context)),
@@ -116,7 +101,9 @@ const viewerMachine = setup({
     //
     // search
     //
-    prepareSearch: assign({ cursor: (_, { pos }: SearchRequest) => pos }),
+    prepareSearch: assign(({ context }, params: SearchRequest) =>
+      prepareSearch(context, params)
+    ),
     emitSearchStart: emit(({ context }) => searchStart(context)),
     emitSearchEndDone: emit(({ context }, params: SearchEnd) =>
       searchEnd(context, params)
