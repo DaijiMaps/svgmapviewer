@@ -420,6 +420,7 @@ const viewerMachine = setup({
             // XXX
             // XXX
             50: {
+              actions: 'updateLayoutFromScroll',
               target: 'Starting',
             },
             // XXX
@@ -430,7 +431,6 @@ const viewerMachine = setup({
         Starting: {
           always: {
             actions: [
-              'updateLayoutFromScroll',
               'calcZoomAnimation',
               'updateLayoutFromZoom',
               'emitZoomStart',
