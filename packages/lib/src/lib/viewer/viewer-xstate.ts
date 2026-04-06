@@ -132,7 +132,7 @@ const viewerMachine = setup({
       layout: (_, { layout }: ResizeRequest) =>
         expandLayoutCenter(layout, EXPAND_PANNING),
     }),
-    updateLayoutFromScroll: assign({
+    resetScroll: assign({
       layout: ({ context }) => {
         const { scroll } = getCurrentScroll()
         return scrollLayout(context.layout, scroll)
@@ -374,7 +374,7 @@ const viewerMachine = setup({
         Layouting: {
           always: {
             actions: [
-              'updateLayoutFromScroll',
+              'resetScroll',
               'emitSyncLayout',
               // fast sync - sync scroll NOT after resize
               'emitSyncScroll',
@@ -412,7 +412,7 @@ const viewerMachine = setup({
             // XXX
             // XXX
             50: {
-              actions: 'updateLayoutFromScroll',
+              actions: 'resetScroll',
               target: 'Starting',
             },
             // XXX
