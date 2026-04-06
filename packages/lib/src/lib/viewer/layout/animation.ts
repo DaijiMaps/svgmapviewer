@@ -86,7 +86,7 @@ export function animationHome(layout: Layout, nextLayout: Layout): Animation {
     type: 'Zoom',
     svg: nextLayout.svg,
     svgScale: nextLayout.svgScale,
-    q: { from: matrix(), to, origin: o },
+    q: { from: matrix(), to, origin: null },
   }
 
   return zoom
