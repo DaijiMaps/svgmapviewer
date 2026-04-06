@@ -24,14 +24,12 @@ import {
   calcAnimationRotate,
   calcAnimationZoom,
 } from './layout/animation'
-import { type Animation } from './layout/animation-types'
 import { fromMatrixSvg } from './layout/coord'
 import {
   emptyLayout,
   expandLayoutCenter,
   rotateLayout,
   scrollLayout,
-  type Layout,
 } from './layout/layout'
 import { getCurrentScroll } from './scroll/scroll'
 import {
@@ -85,23 +83,21 @@ const viewerMachine = setup({
     //
     // move + zoom
     //
-    calcZoomAnimation: assign({
-      animation: ({ context: { animationReq, layout } }): null | Animation =>
-        calcAnimation(animationReq, layout),
+    startZoom: assign(({ context }) => {
+      const animation = calcAnimation(context.animationReq, context.layout)
+      const prevLayout = context.layout
+      const layout = animationDone(context.layout, animation)
+      return { ...context, animation, prevLayout, layout }
     }),
-    updateLayoutFromZoom: assign({
-      prevLayout: ({ context: { layout } }): null | Layout => layout,
-      layout: ({ context: { layout, animation } }): Layout =>
-        animationDone(layout, animation),
-    }),
-    endZoom: assign({
-      prevLayout: null,
-      //animationReq: null,
-      animation: null,
-      zoom: ({ context: { zoom, animationReq } }) =>
-        zoom * calcAnimationZoom(animationReq),
-      rotate: ({ context: { rotate, animationReq } }) =>
-        rotate + calcAnimationRotate(animationReq),
+    endZoom: assign(({ context }) => {
+      return {
+        ...context,
+        prevLayout: null,
+        //animationReq: null,
+        animation: null,
+        zoom: context.zoom * calcAnimationZoom(context.animationReq),
+        rotate: context.rotate + calcAnimationRotate(context.animationReq),
+      }
     }),
     endHome: assign({
       cursor: ({ context: { origLayout } }) => boxCenter(origLayout.container),
@@ -430,12 +426,7 @@ const viewerMachine = setup({
         },
         Starting: {
           always: {
-            actions: [
-              'calcZoomAnimation',
-              'updateLayoutFromZoom',
-              'emitZoomStart',
-              'emitSyncAnimation',
-            ],
+            actions: ['startZoom', 'emitZoomStart', 'emitSyncAnimation'],
             target: 'Ending',
           },
         },
