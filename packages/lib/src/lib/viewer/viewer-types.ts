@@ -4,6 +4,7 @@ import {
   type SearchRes,
   type Zoom,
   type ZoomInfo,
+  type AnimationMatrix,
 } from '../../types'
 import { type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec } from '../vec/prefixed'
@@ -97,8 +98,14 @@ export type SearchEndDoneEmitted = {
 }
 export type ZoomStartEmitted = {
   type: 'ZOOM.START'
+  q: null | AnimationMatrix
 } & ZoomInfo
-export type ZoomEndEmitted = { type: 'ZOOM.END'; layout: Layout; zoom: number }
+export type ZoomEndEmitted = {
+  type: 'ZOOM.END'
+  q: null | AnimationMatrix
+  layout: Layout
+  zoom: number
+}
 
 export type SyncAnimationEmitted = {
   type: 'SYNC.ANIMATION'

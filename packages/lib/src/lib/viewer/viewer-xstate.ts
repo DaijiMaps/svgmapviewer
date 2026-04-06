@@ -111,17 +111,19 @@ const viewerMachine = setup({
       })
     ),
     emitZoomStart: emit(
-      ({ context: { layout, zoom } }): ViewerEmitted => ({
+      ({ context: { layout, zoom, animation } }): ViewerEmitted => ({
         type: 'ZOOM.START',
         layout,
         zoom,
+        q: animation?.q ?? null,
       })
     ),
     emitZoomEnd: emit(
-      ({ context: { layout, zoom } }): ViewerEmitted => ({
+      ({ context: { layout, zoom, animation } }): ViewerEmitted => ({
         type: 'ZOOM.END',
         layout,
         zoom,
+        q: animation?.q ?? null,
       })
     ),
     //
@@ -514,12 +516,9 @@ viewerActor.on('ZOOM.END', (end) => notifyStyle.zoomEnd(end))
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloor.select(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloor.unlock())
-viewerActor.on('SYNC.ANIMATION', ({ animation: a }) => {
-  const from = a?.q.from ?? null
-  const to = a?.q.to ?? null
-  const origin = a?.q.origin ?? null
-  if (from !== null && to !== null) {
-    notifyStyle.animation({ from, to, origin })
+viewerActor.on('SYNC.ANIMATION', ({ animation }) => {
+  if (animation !== null) {
+    //notifyStyle.animation(animation.q)
   }
 })
 viewerActor.on('SYNC.LAYOUT', ({ layout, force }) =>

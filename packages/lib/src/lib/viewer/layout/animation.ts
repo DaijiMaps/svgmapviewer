@@ -142,6 +142,13 @@ function zoomToScale(z: Dir): number {
 
 ////
 
+export function animationToMatrix(a: Animation): AnimationMatrix {
+  const from = a.q.from
+  const to = a.q.to
+  const origin = a.q.origin
+  return { from, to, origin }
+}
+
 export function animationStyle(a: null | Readonly<AnimationMatrix>): string {
   const style = a === null ? '' : css(a.from, a.to, a.origin)
   return style

@@ -98,6 +98,7 @@ export interface AnimationMatrix {
 export interface ZoomInfo {
   readonly layout: Readonly<LayoutCoord>
   readonly zoom: number
+  readonly q: null | AnimationMatrix
 }
 
 export type ZoomEndInfo = ZoomInfo
