@@ -430,10 +430,10 @@ const viewerMachine = setup({
           on: {
             'ANIMATION.END': {
               actions: [
-                'endZoom',
                 'emitSyncLayout',
                 // fast sync - sync scroll NOT after resize
                 'emitSyncScroll',
+                'endZoom',
                 'emitZoomEnd',
               ],
               target: 'Homing',
