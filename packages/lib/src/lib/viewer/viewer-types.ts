@@ -107,10 +107,6 @@ export type ZoomEndEmitted = {
   zoom: number
 }
 
-export type SyncAnimationEmitted = {
-  type: 'SYNC.ANIMATION'
-  animation: null | Animation
-}
 export type SyncLayoutEmitted = {
   type: 'SYNC.LAYOUT'
   layout: Readonly<Layout>
@@ -131,7 +127,6 @@ export type ViewerEmitted =
   | ZoomEndEmitted
   | SwitchRequest
   | SwitchDoneRequest
-  | SyncAnimationEmitted
   | SyncLayoutEmitted
   | ScrollSyncEmitted
   | ScrollSyncSyncEmitted

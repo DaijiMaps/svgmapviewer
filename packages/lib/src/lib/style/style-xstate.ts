@@ -4,7 +4,6 @@ import { assign, createActor, raise, setup } from 'xstate'
 
 import { svgMapViewerConfig } from '../../config'
 import {
-  type AnimationMatrix,
   type CurrentScroll,
   type ResizeInfo,
   type ZoomEndInfo,
@@ -209,9 +208,6 @@ export function styleCbsStart(): void {
   styleCbs.zoomEnd.add(function (end: Readonly<ZoomEndInfo>) {
     styleSend({ type: 'STYLE.ZOOM', zoom: end.zoom })
     styleSend({ type: 'STYLE.ANIMATION', animation: end.q })
-  })
-  styleCbs.animation.add(function (animation: null | AnimationMatrix) {
-    styleSend({ type: 'STYLE.ANIMATION', animation })
   })
   styleCbs.animationEnd.add(function () {
     styleSend({ type: 'STYLE.ANIMATION.END' })

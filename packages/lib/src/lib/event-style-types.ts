@@ -19,7 +19,6 @@ export interface StyleCbs {
   readonly layout: Set<LayoutCb>
   readonly zoomStart: Set<ZoomStartCb>
   readonly zoomEnd: Set<ZoomEndCb>
-  readonly animation: Set<AnimationCb>
   readonly animationEnd: Set<Cb>
   readonly mode: Set<ModeCb>
 }

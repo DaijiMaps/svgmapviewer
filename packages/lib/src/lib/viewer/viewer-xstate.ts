@@ -104,12 +104,6 @@ const viewerMachine = setup({
       layout: ({ context: { origLayout, rotate } }) =>
         rotateLayout(expandLayoutCenter(origLayout, EXPAND_PANNING), rotate),
     }),
-    emitSyncAnimation: emit(
-      ({ context: { animation } }): ViewerEmitted => ({
-        type: 'SYNC.ANIMATION',
-        animation,
-      })
-    ),
     emitZoomStart: emit(
       ({ context: { layout, zoom, animation } }): ViewerEmitted => ({
         type: 'ZOOM.START',
@@ -428,7 +422,7 @@ const viewerMachine = setup({
         },
         Starting: {
           always: {
-            actions: ['startZoom', 'emitZoomStart', 'emitSyncAnimation'],
+            actions: ['startZoom', 'emitZoomStart'],
             target: 'Ending',
           },
         },
@@ -441,7 +435,6 @@ const viewerMachine = setup({
                 // fast sync - sync scroll NOT after resize
                 'emitSyncScroll',
                 'emitZoomEnd',
-                'emitSyncAnimation',
               ],
               target: 'Homing',
             },
@@ -516,11 +509,6 @@ viewerActor.on('ZOOM.END', (end) => notifyStyle.zoomEnd(end))
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloor.select(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloor.unlock())
-viewerActor.on('SYNC.ANIMATION', ({ animation }) => {
-  if (animation !== null) {
-    //notifyStyle.animation(animation.q)
-  }
-})
 viewerActor.on('SYNC.LAYOUT', ({ layout, force }) =>
   notifyStyle.layout({ layout, force })
 )
