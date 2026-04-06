@@ -12,11 +12,19 @@ import { notifySearch, searchCbs } from '../event-search'
 import { notifyStyle, styleCbs } from '../event-style'
 import { touchCbs } from '../event-touch'
 import { notifyUi, uiCbs } from '../event-ui'
-import { type VecVec as Vec } from '../vec/prefixed'
 import { emptyLayout } from './layout/layout'
 import {
+  emitGetScroll,
+  emitSwitch,
+  emitSwitchDone,
+  emitSyncLayout,
+  emitSyncScroll,
+  emitSyncSyncScroll,
+  emitZoomEnd,
+  emitZoomStart,
   endHome,
   endZoom,
+  resetCursor,
   resetScroll,
   resizeLayout,
   searchEnd,
@@ -27,11 +35,13 @@ import {
   type ReactUIEvent,
   type ResizeRequest,
   type SearchEnd,
+  type SearchRequest,
   type SwitchRequest,
   type ViewerContext,
   type ViewerEmitted,
   type ViewerEvent,
   type ViewerMode,
+  type ZoomRequest,
 } from './viewer-types'
 
 export const viewerMode: Atom<ViewerMode> = createAtom<ViewerMode>('panning')
@@ -57,73 +67,67 @@ const viewerMachine = setup({
     //
     // scroll
     //
-    emitGetScroll: emit((): ViewerEmitted => ({ type: 'SCROLL.GET' })),
-    emitSyncScroll: emit(
-      ({ context: { layout } }): ViewerEmitted => ({
-        type: 'SCROLL.SYNC',
-        pos: layout.scroll,
-      })
-    ),
-    emitSyncScrollSync: emit(
-      ({ context: { layout } }): ViewerEmitted => ({
-        type: 'SCROLL.SYNCSYNC',
-        pos: layout.scroll,
-      })
-    ),
+    emitGetScroll: emit(() => emitGetScroll()),
+    emitSyncScroll: emit(({ context }) => emitSyncScroll(context)),
+    emitSyncScrollSync: emit(({ context }) => emitSyncSyncScroll(context)),
     //
     // move + zoom
     //
+    prepareZoom: assign(({ context }, { z, p }: Readonly<ZoomRequest>) => {
+      return {
+        ...context,
+        animationReq: {
+          type: 'zoom',
+          z,
+          p: p ?? boxCenter(context.layout.container),
+        },
+      }
+    }),
+    prepareHome: assign(({ context }) => ({
+      ...context,
+      animationReq: { type: 'home' },
+    })),
+    prepareRotate: assign(({ context }) => ({
+      ...context,
+      animationReq: {
+        type: 'rotate',
+        deg: 90,
+        p: boxCenter(context.layout.container),
+      },
+    })),
+    clearAnimation: assign(({ context }) => ({
+      ...context,
+      animationReq: null,
+    })),
     startZoom: assign(({ context }) => startZoom(context)),
     endZoom: assign(({ context }) => endZoom(context)),
     endHome: assign(({ context }) => endHome(context)),
-    emitZoomStart: emit(
-      ({ context: { layout, zoom, animation } }): ViewerEmitted => ({
-        type: 'ZOOM.START',
-        layout,
-        zoom,
-        q: animation?.q ?? null,
-      })
-    ),
-    emitZoomEnd: emit(
-      ({ context: { layout, zoom, animation } }): ViewerEmitted => ({
-        type: 'ZOOM.END',
-        layout,
-        zoom,
-        q: animation?.q ?? null,
-      })
-    ),
+    emitZoomStart: emit(({ context }) => emitZoomStart(context)),
+    emitZoomEnd: emit(({ context }) => emitZoomEnd(context)),
     //
     // layout
     //
-    resetCursor: assign({
-      cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
-    }),
-    resizeLayout: assign(({ context }, { layout }: ResizeRequest) =>
-      resizeLayout(context, layout)
+    resetCursor: assign(({ context }) => resetCursor(context)),
+    resizeLayout: assign(({ context }, params: ResizeRequest) =>
+      resizeLayout(context, params)
     ),
     resetScroll: assign(({ context }) => resetScroll(context)),
-    emitSyncLayout: emit(
-      ({ context: { layout, rendered } }): ViewerEmitted => ({
-        type: 'SYNC.LAYOUT',
-        layout,
-        force: rendered,
-      })
-    ),
+    emitSyncLayout: emit(({ context }) => emitSyncLayout(context)),
     //
     // search
     //
+    prepareSearch: assign({ cursor: (_, { pos }: SearchRequest) => pos }),
     emitSearchStart: emit(({ context }) => searchStart(context)),
-    emitSearchEndDone: emit(
-      ({ context }, params: SearchEnd): ViewerEmitted =>
-        searchEnd(context, params)
+    emitSearchEndDone: emit(({ context }, params: SearchEnd) =>
+      searchEnd(context, params)
     ),
     //
     // switch
     //
-    emitSwitch: emit(
-      (_, { fidx }: SwitchRequest): ViewerEmitted => ({ type: 'SWITCH', fidx })
+    emitSwitch: emit(({ context }, params: SwitchRequest) =>
+      emitSwitch(context, params)
     ),
-    emitSwitchDone: emit((): ViewerEmitted => ({ type: 'SWITCH.DONE' })),
+    emitSwitchDone: emit(emitSwitchDone()),
   },
 }).createMachine({
   id: 'viewer',
@@ -198,9 +202,7 @@ const viewerMachine = setup({
           target: 'Resizing',
         },
         SEARCH: {
-          actions: assign({
-            cursor: ({ event: { pos } }) => pos,
-          }),
+          actions: { type: 'prepareSearch', params: ({ event }) => event },
           target: 'Searching',
         },
         SWITCH: {
@@ -215,29 +217,18 @@ const viewerMachine = setup({
           target: 'Recentering',
         },
         ZOOM: {
-          actions: assign({
-            animationReq: ({ context: { layout }, event: { z, p } }) => ({
-              type: 'zoom',
-              z,
-              p: p ?? boxCenter(layout.container),
-            }),
-          }),
+          actions: {
+            type: 'prepareZoom',
+            params: ({ event }) => event,
+          },
           target: 'Zooming',
         },
         HOME: {
-          actions: assign({
-            animationReq: { type: 'home' },
-          }),
+          actions: 'prepareHome',
           target: 'Zooming',
         },
         ROTATE: {
-          actions: assign({
-            animationReq: ({ context: { layout } }) => ({
-              type: 'rotate',
-              deg: 90,
-              p: boxCenter(layout.container),
-            }),
-          }),
+          actions: 'prepareRotate',
           target: 'Zooming',
         },
       },
@@ -280,9 +271,7 @@ const viewerMachine = setup({
         Animating: {
           on: {
             'SWITCH.DONE': {
-              actions: {
-                type: 'emitSwitchDone',
-              },
+              actions: 'emitSwitchDone',
               target: 'Done',
             },
           },
@@ -409,7 +398,7 @@ const viewerMachine = setup({
           ],
         },
         Done: {
-          entry: assign({ animationReq: null }),
+          entry: 'clearAnimation',
           type: 'final',
         },
       },

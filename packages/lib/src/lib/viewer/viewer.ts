@@ -7,25 +7,30 @@ import {
   calcAnimationZoom,
 } from './layout/animation'
 import { fromMatrixSvg } from './layout/coord'
-import {
-  expandLayoutCenter,
-  rotateLayout,
-  scrollLayout,
-  type Layout,
-} from './layout/layout'
+import { expandLayoutCenter, rotateLayout, scrollLayout } from './layout/layout'
 import { getCurrentScroll } from './scroll/scroll'
 import {
   EXPAND_PANNING,
+  type ResizeRequest,
   type SearchEnd,
+  type SwitchRequest,
   type ViewerContext,
   type ViewerEmitted,
 } from './viewer-types'
 
 // resize
 
+export function resetCursor(context: ViewerContext): ViewerContext {
+  const cursor = boxCenter(context.layout.container)
+  return {
+    ...context,
+    cursor,
+  }
+}
+
 export function resizeLayout(
   context: ViewerContext,
-  layout: Layout
+  { layout }: Readonly<ResizeRequest>
 ): ViewerContext {
   return {
     ...context,
@@ -35,12 +40,44 @@ export function resizeLayout(
   }
 }
 
+export function emitSyncLayout({
+  layout,
+  rendered,
+}: ViewerContext): ViewerEmitted {
+  return {
+    type: 'SYNC.LAYOUT',
+    layout: layout,
+    force: rendered,
+  }
+}
+
+// scroll
+
 export function resetScroll(context: ViewerContext): ViewerContext {
   const { scroll } = getCurrentScroll()
   const layout = scrollLayout(context.layout, scroll)
   return {
     ...context,
     layout,
+  }
+}
+
+// eslint-disable-next-line functional/functional-parameters
+export function emitGetScroll(): ViewerEmitted {
+  return { type: 'SCROLL.GET' }
+}
+
+export function emitSyncScroll({ layout }: ViewerContext): ViewerEmitted {
+  return {
+    type: 'SCROLL.SYNC',
+    pos: layout.scroll,
+  }
+}
+
+export function emitSyncSyncScroll({ layout }: ViewerContext): ViewerEmitted {
+  return {
+    type: 'SCROLL.SYNCSYNC',
+    pos: layout.scroll,
   }
 }
 
@@ -79,6 +116,32 @@ export function endHome(context: ViewerContext): ViewerContext {
   }
 }
 
+export function emitZoomStart({
+  layout,
+  zoom,
+  animation,
+}: ViewerContext): ViewerEmitted {
+  return {
+    type: 'ZOOM.START',
+    layout,
+    zoom,
+    q: animation?.q ?? null,
+  }
+}
+
+export function emitZoomEnd({
+  layout,
+  zoom,
+  animation,
+}: ViewerContext): ViewerEmitted {
+  return {
+    type: 'ZOOM.END',
+    layout,
+    zoom,
+    q: animation?.q ?? null,
+  }
+}
+
 // search
 
 export function searchStart(context: ViewerContext): ViewerEmitted {
@@ -101,4 +164,18 @@ export function searchEnd(
     type: 'SEARCH.END.DONE',
     res: res === null ? null : { ...res, layout },
   }
+}
+
+// switch
+
+export function emitSwitch(
+  _: ViewerContext,
+  { fidx }: Readonly<SwitchRequest>
+): ViewerEmitted {
+  return { type: 'SWITCH', fidx }
+}
+
+// eslint-disable-next-line functional/functional-parameters
+export function emitSwitchDone(): ViewerEmitted {
+  return { type: 'SWITCH.DONE' }
 }
