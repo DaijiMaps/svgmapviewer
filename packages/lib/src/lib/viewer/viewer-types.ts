@@ -26,15 +26,15 @@ export type ViewerMode =
 //// context
 
 export type ViewerContext = {
-  rendered: boolean
-  origLayout: Layout
-  prevLayout: null | Layout
-  layout: Layout
-  cursor: Vec
-  zoom: number
-  rotate: number
-  animationReq: null | AnimationReq
-  animation: null | Animation
+  readonly rendered: boolean
+  readonly origLayout: Layout
+  readonly prevLayout: null | Layout
+  readonly layout: Layout
+  readonly cursor: Vec
+  readonly zoom: number
+  readonly rotate: number
+  readonly animationReq: null | AnimationReq
+  readonly animation: null | Animation
 }
 
 //// external event (request)
