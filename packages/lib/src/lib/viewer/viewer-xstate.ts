@@ -13,17 +13,17 @@ import { notifyStyle, styleCbs } from '../event-style'
 import { touchCbs } from '../event-touch'
 import { notifyUi, uiCbs } from '../event-ui'
 import { type VecVec as Vec } from '../vec/prefixed'
-import { emptyLayout, expandLayoutCenter } from './layout/layout'
+import { emptyLayout } from './layout/layout'
 import {
   endHome,
   endZoom,
   resetScroll,
+  resizeLayout,
   searchEnd,
   searchStart,
   startZoom,
 } from './viewer'
 import {
-  EXPAND_PANNING,
   type ReactUIEvent,
   type ResizeRequest,
   type SearchEnd,
@@ -98,12 +98,9 @@ const viewerMachine = setup({
     resetCursor: assign({
       cursor: ({ context: { layout } }): Vec => boxCenter(layout.container),
     }),
-    resizeLayout: assign({
-      rendered: false,
-      origLayout: (_, { layout }: ResizeRequest) => layout,
-      layout: (_, { layout }: ResizeRequest) =>
-        expandLayoutCenter(layout, EXPAND_PANNING),
-    }),
+    resizeLayout: assign(({ context }, { layout }: ResizeRequest) =>
+      resizeLayout(context, layout)
+    ),
     resetScroll: assign(({ context }) => resetScroll(context)),
     emitSyncLayout: emit(
       ({ context: { layout, rendered } }): ViewerEmitted => ({

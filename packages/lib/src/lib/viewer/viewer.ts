@@ -7,7 +7,12 @@ import {
   calcAnimationZoom,
 } from './layout/animation'
 import { fromMatrixSvg } from './layout/coord'
-import { expandLayoutCenter, rotateLayout, scrollLayout } from './layout/layout'
+import {
+  expandLayoutCenter,
+  rotateLayout,
+  scrollLayout,
+  type Layout,
+} from './layout/layout'
 import { getCurrentScroll } from './scroll/scroll'
 import {
   EXPAND_PANNING,
@@ -18,12 +23,15 @@ import {
 
 // resize
 
-export function resizeLayout(context: ViewerContext): ViewerContext {
+export function resizeLayout(
+  context: ViewerContext,
+  layout: Layout
+): ViewerContext {
   return {
     ...context,
     rendered: false,
-    origLayout: context.layout,
-    layout: expandLayoutCenter(context.layout, EXPAND_PANNING),
+    origLayout: layout,
+    layout: expandLayoutCenter(layout, EXPAND_PANNING),
   }
 }
 
