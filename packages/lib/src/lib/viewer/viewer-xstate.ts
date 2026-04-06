@@ -2,12 +2,7 @@ import { createAtom, type Atom } from '@xstate/store'
 import { and, assign, createActor, emit, setup } from 'xstate'
 
 import { svgMapViewerConfig } from '../../config'
-import {
-  type ResizeInfo,
-  type SearchSvgReq,
-  type SearchRes,
-  type Zoom,
-} from '../../types'
+import { type ResizeInfo, type SearchRes, type Zoom } from '../../types'
 import { boxCenter, type BoxBox } from '../box/prefixed'
 import { actionCbs } from '../event-action'
 import { floorCbs, notifyFloor } from '../event-floor'
@@ -18,10 +13,15 @@ import { notifyStyle, styleCbs } from '../event-style'
 import { touchCbs } from '../event-touch'
 import { notifyUi, uiCbs } from '../event-ui'
 import { type VecVec as Vec } from '../vec/prefixed'
-import { fromMatrixSvg } from './layout/coord'
-import { emptyLayout, expandLayoutCenter, scrollLayout } from './layout/layout'
-import { getCurrentScroll } from './scroll/scroll'
-import { endHome, endZoom, resetScroll, startZoom } from './viewer'
+import { emptyLayout, expandLayoutCenter } from './layout/layout'
+import {
+  endHome,
+  endZoom,
+  resetScroll,
+  searchEnd,
+  searchStart,
+  startZoom,
+} from './viewer'
 import {
   EXPAND_PANNING,
   type ReactUIEvent,
@@ -115,23 +115,10 @@ const viewerMachine = setup({
     //
     // search
     //
-    emitSearchStart: emit(({ context: { layout, cursor } }): ViewerEmitted => {
-      const { scroll } = getCurrentScroll()
-      const l = scrollLayout(layout, scroll)
-      const m = fromMatrixSvg(l).inverse()
-      const psvg = m.transformPoint(cursor)
-      const req: SearchSvgReq = { psvg }
-      return { type: 'SEARCH.START', req }
-    }),
+    emitSearchStart: emit(({ context }) => searchStart(context)),
     emitSearchEndDone: emit(
-      ({ context }, { res }: SearchEnd): ViewerEmitted => {
-        const { scroll } = getCurrentScroll()
-        const layout = scrollLayout(context.layout, scroll)
-        return {
-          type: 'SEARCH.END.DONE',
-          res: res === null ? null : { ...res, layout },
-        }
-      }
+      ({ context }, params: SearchEnd): ViewerEmitted =>
+        searchEnd(context, params)
     ),
     //
     // switch
