@@ -18,20 +18,10 @@ import { notifyStyle, styleCbs } from '../event-style'
 import { touchCbs } from '../event-touch'
 import { notifyUi, uiCbs } from '../event-ui'
 import { type VecVec as Vec } from '../vec/prefixed'
-import {
-  animationDone,
-  calcAnimation,
-  calcAnimationRotate,
-  calcAnimationZoom,
-} from './layout/animation'
 import { fromMatrixSvg } from './layout/coord'
-import {
-  emptyLayout,
-  expandLayoutCenter,
-  rotateLayout,
-  scrollLayout,
-} from './layout/layout'
+import { emptyLayout, expandLayoutCenter, scrollLayout } from './layout/layout'
 import { getCurrentScroll } from './scroll/scroll'
+import { endHome, endZoom, resetScroll, startZoom } from './viewer'
 import {
   EXPAND_PANNING,
   type ReactUIEvent,
@@ -83,36 +73,9 @@ const viewerMachine = setup({
     //
     // move + zoom
     //
-    startZoom: assign(({ context }) => {
-      const animation = calcAnimation(context.animationReq, context.layout)
-      const prevLayout = context.layout
-      const layout = animationDone(context.layout, animation)
-      return { ...context, animation, prevLayout, layout }
-    }),
-    endZoom: assign(({ context }) => {
-      const zoom = context.zoom * calcAnimationZoom(context.animationReq)
-      const rotate = context.rotate + calcAnimationRotate(context.animationReq)
-      return {
-        ...context,
-        prevLayout: null,
-        //animationReq: null,
-        animation: null,
-        zoom,
-        rotate,
-      }
-    }),
-    endHome: assign(({ context }) => {
-      const cursor = boxCenter(context.origLayout.container)
-      const layout = rotateLayout(
-        expandLayoutCenter(context.origLayout, EXPAND_PANNING),
-        context.rotate
-      )
-      return {
-        ...context,
-        cursor,
-        layout,
-      }
-    }),
+    startZoom: assign(({ context }) => startZoom(context)),
+    endZoom: assign(({ context }) => endZoom(context)),
+    endHome: assign(({ context }) => endHome(context)),
     emitZoomStart: emit(
       ({ context: { layout, zoom, animation } }): ViewerEmitted => ({
         type: 'ZOOM.START',
@@ -141,12 +104,7 @@ const viewerMachine = setup({
       layout: (_, { layout }: ResizeRequest) =>
         expandLayoutCenter(layout, EXPAND_PANNING),
     }),
-    resetScroll: assign({
-      layout: ({ context }) => {
-        const { scroll } = getCurrentScroll()
-        return scrollLayout(context.layout, scroll)
-      },
-    }),
+    resetScroll: assign(({ context }) => resetScroll(context)),
     emitSyncLayout: emit(
       ({ context: { layout, rendered } }): ViewerEmitted => ({
         type: 'SYNC.LAYOUT',
@@ -373,6 +331,7 @@ const viewerMachine = setup({
             // XXX
             // XXX
             50: {
+              actions: 'resetScroll',
               target: 'Layouting',
             },
             // XXX
@@ -383,7 +342,6 @@ const viewerMachine = setup({
         Layouting: {
           always: {
             actions: [
-              'resetScroll',
               'emitSyncLayout',
               // fast sync - sync scroll NOT after resize
               'emitSyncScroll',
