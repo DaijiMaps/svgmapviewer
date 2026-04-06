@@ -90,19 +90,28 @@ const viewerMachine = setup({
       return { ...context, animation, prevLayout, layout }
     }),
     endZoom: assign(({ context }) => {
+      const zoom = context.zoom * calcAnimationZoom(context.animationReq)
+      const rotate = context.rotate + calcAnimationRotate(context.animationReq)
       return {
         ...context,
         prevLayout: null,
         //animationReq: null,
         animation: null,
-        zoom: context.zoom * calcAnimationZoom(context.animationReq),
-        rotate: context.rotate + calcAnimationRotate(context.animationReq),
+        zoom,
+        rotate,
       }
     }),
-    endHome: assign({
-      cursor: ({ context: { origLayout } }) => boxCenter(origLayout.container),
-      layout: ({ context: { origLayout, rotate } }) =>
-        rotateLayout(expandLayoutCenter(origLayout, EXPAND_PANNING), rotate),
+    endHome: assign(({ context }) => {
+      const cursor = boxCenter(context.origLayout.container)
+      const layout = rotateLayout(
+        expandLayoutCenter(context.origLayout, EXPAND_PANNING),
+        context.rotate
+      )
+      return {
+        ...context,
+        cursor,
+        layout,
+      }
     }),
     emitZoomStart: emit(
       ({ context: { layout, zoom, animation } }): ViewerEmitted => ({
@@ -430,11 +439,11 @@ const viewerMachine = setup({
           on: {
             'ANIMATION.END': {
               actions: [
+                'endZoom',
+                'emitZoomEnd',
                 'emitSyncLayout',
                 // fast sync - sync scroll NOT after resize
                 'emitSyncScroll',
-                'endZoom',
-                'emitZoomEnd',
               ],
               target: 'Homing',
             },
