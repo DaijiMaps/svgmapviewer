@@ -3,12 +3,7 @@ import { createAtom, type Atom } from '@xstate/store'
 import { assign, createActor, raise, setup } from 'xstate'
 
 import { svgMapViewerConfig } from '../../config'
-import {
-  type CurrentScroll,
-  type ResizeInfo,
-  type ZoomEndInfo,
-  type ZoomInfo,
-} from '../../types'
+import { type CurrentScroll, type ResizeInfo, type ZoomInfo } from '../../types'
 import { findRadius } from '../distance'
 import { scrollCbs } from '../event-scroll'
 import { styleCbs } from '../event-style'
@@ -205,7 +200,7 @@ export function styleCbsStart(): void {
     styleSend({ type: 'STYLE.ZOOM', ...zoom })
     styleSend({ type: 'STYLE.ANIMATION', animation: zoom.q })
   })
-  styleCbs.zoomEnd.add(function (end: Readonly<ZoomEndInfo>) {
+  styleCbs.zoomEnd.add(function (end: Readonly<ZoomInfo>) {
     styleSend({ type: 'STYLE.ZOOM', zoom: end.zoom })
     styleSend({ type: 'STYLE.ANIMATION', animation: end.q })
   })

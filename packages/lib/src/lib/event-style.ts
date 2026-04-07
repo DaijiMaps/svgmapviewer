@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
-import type { ResizeInfo, ZoomEndInfo, ZoomInfo } from '../types'
+import type { ResizeInfo, ZoomInfo } from '../types'
 import { notifyCbs, notifyCbs0 } from './cb'
 import type { StyleCbs } from './event-style-types'
 import type { ViewerMode } from './viewer/viewer-types'
@@ -21,8 +21,7 @@ export const notifyStyle = {
     notifyCbs(styleCbs.layout, resize),
   zoomStart: (zoom: Readonly<ZoomInfo>): void =>
     notifyCbs(styleCbs.zoomStart, zoom),
-  zoomEnd: (end: Readonly<ZoomEndInfo>): void =>
-    notifyCbs(styleCbs.zoomEnd, end),
+  zoomEnd: (end: Readonly<ZoomInfo>): void => notifyCbs(styleCbs.zoomEnd, end),
   animationEnd: (): void => notifyCbs0(styleCbs.animationEnd),
   mode: (mode: ViewerMode): void => notifyCbs(styleCbs.mode, mode),
 }

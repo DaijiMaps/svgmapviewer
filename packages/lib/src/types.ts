@@ -101,8 +101,6 @@ export interface ZoomInfo {
   readonly q: null | AnimationMatrix
 }
 
-export type ZoomEndInfo = ZoomInfo
-
 export interface Zoom {
   readonly z: Z
   readonly p: null | Vec
