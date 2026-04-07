@@ -90,16 +90,16 @@ export interface Range {
 }
 
 export interface AnimationMatrix {
-  readonly matrix: Readonly<DOMMatrixReadOnly>
+  readonly from: Readonly<DOMMatrixReadOnly>
+  readonly to: Readonly<DOMMatrixReadOnly>
   readonly origin: null | Vec
 }
 
 export interface ZoomInfo {
   readonly layout: Readonly<LayoutCoord>
   readonly zoom: number
+  readonly q: null | AnimationMatrix
 }
-
-export type ZoomEndInfo = ZoomInfo
 
 export interface Zoom {
   readonly z: Z

@@ -4,6 +4,7 @@ import {
   type SearchRes,
   type Zoom,
   type ZoomInfo,
+  type AnimationMatrix,
 } from '../../types'
 import { type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec } from '../vec/prefixed'
@@ -25,15 +26,15 @@ export type ViewerMode =
 //// context
 
 export type ViewerContext = {
-  rendered: boolean
-  origLayout: Layout
-  prevLayout: null | Layout
-  layout: Layout
-  cursor: Vec
-  zoom: number
-  rotate: number
-  animationReq: null | AnimationReq
-  animation: null | Animation
+  readonly rendered: boolean
+  readonly origLayout: Layout
+  readonly prevLayout: null | Layout
+  readonly layout: Layout
+  readonly cursor: Vec
+  readonly zoom: number
+  readonly rotate: number
+  readonly animationReq: null | AnimationReq
+  readonly animation: null | Animation
 }
 
 //// external event (request)
@@ -97,13 +98,15 @@ export type SearchEndDoneEmitted = {
 }
 export type ZoomStartEmitted = {
   type: 'ZOOM.START'
+  q: null | AnimationMatrix
 } & ZoomInfo
-export type ZoomEndEmitted = { type: 'ZOOM.END'; layout: Layout; zoom: number }
-
-export type SyncAnimationEmitted = {
-  type: 'SYNC.ANIMATION'
-  animation: null | Animation
+export type ZoomEndEmitted = {
+  type: 'ZOOM.END'
+  q: null | AnimationMatrix
+  layout: Layout
+  zoom: number
 }
+
 export type SyncLayoutEmitted = {
   type: 'SYNC.LAYOUT'
   layout: Readonly<Layout>
@@ -124,7 +127,6 @@ export type ViewerEmitted =
   | ZoomEndEmitted
   | SwitchRequest
   | SwitchDoneRequest
-  | SyncAnimationEmitted
   | SyncLayoutEmitted
   | ScrollSyncEmitted
   | ScrollSyncSyncEmitted

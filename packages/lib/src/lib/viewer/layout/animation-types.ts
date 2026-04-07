@@ -1,5 +1,4 @@
-import type { Z } from '../../../types'
-
+import type { AnimationMatrix, Z } from '../../../types'
 //import { type Readonly } from 'type-fest'
 import { type Box } from '../../box'
 import { type VecVec as Vec } from '../../vec/prefixed'
@@ -11,23 +10,20 @@ export type AnimationReq =
 
 export type AnimationMove = Readonly<{
   type: 'Move'
-  q: DOMMatrixReadOnly
-  o: Vec
+  q: AnimationMatrix
   move: Vec
 }>
 
 export type AnimationZoom = Readonly<{
   type: 'Zoom'
-  q: DOMMatrixReadOnly
-  o: null | Vec
+  q: AnimationMatrix
   svg: Box
   svgScale: number
 }>
 
 export type AnimationRotate = Readonly<{
   type: 'Rotate'
-  q: DOMMatrixReadOnly
-  o: Vec
+  q: AnimationMatrix
   deg: number
 }>
 

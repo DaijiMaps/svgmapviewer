@@ -1,6 +1,5 @@
-import type { AnimationMatrix, Dir } from '../../../types'
-
 import { svgMapViewerConfig } from '../../../config'
+import type { AnimationMatrix, Dir } from '../../../types'
 import { boxCenter, boxScaleAt } from '../../box/prefixed'
 import {
   dommatrixreadonly as matrix,
@@ -60,13 +59,12 @@ function animationMoveDone(
 export function animationZoom(layout: Layout, z: Dir, o: Vec): Animation {
   const osvg = fromMatrixSvg(layout).inverse().transformPoint(o)
   const s = 1 / zoomToScale(z)
-  const q = matrix().scale(1 / s, 1 / s)
+  const to = matrix().scale(1 / s, 1 / s)
   const zoom: AnimationZoom = {
     type: 'Zoom',
     svg: boxScaleAt(layout.svg, s, osvg.x, osvg.y),
     svgScale: layout.svgScale * s,
-    q,
-    o,
+    q: { from: matrix(), to, origin: o },
   }
   return zoom
 }
@@ -80,7 +78,7 @@ export function animationHome(layout: Layout, nextLayout: Layout): Animation {
 
   const c = boxCenter(layout.container)
 
-  const q = matrixTranslateOnly(c.x - o.x, c.y - o.y).multiply(
+  const to = matrixTranslateOnly(c.x - o.x, c.y - o.y).multiply(
     matrixScaleAt(1 / s, 1 / s, o.x, o.y)
   )
 
@@ -88,8 +86,7 @@ export function animationHome(layout: Layout, nextLayout: Layout): Animation {
     type: 'Zoom',
     svg: nextLayout.svg,
     svgScale: nextLayout.svgScale,
-    q,
-    o: null,
+    q: { from: matrix(), to, origin: null },
   }
 
   return zoom
@@ -109,13 +106,12 @@ export function animationRotate(
   deg: number,
   o: Vec
 ): Animation {
-  const q = matrix().rotate(deg)
+  const to = matrix().rotate(deg)
 
   const rotate: AnimationRotate = {
     type: 'Rotate',
     deg,
-    q,
-    o,
+    q: { from: matrix(), to, origin: o },
   }
 
   return rotate
@@ -146,13 +142,23 @@ function zoomToScale(z: Dir): number {
 
 ////
 
+export function animationToMatrix(a: Animation): AnimationMatrix {
+  const from = a.q.from
+  const to = a.q.to
+  const origin = a.q.origin
+  return { from, to, origin }
+}
+
 export function animationStyle(a: null | Readonly<AnimationMatrix>): string {
-  const style = a === null ? '' : css(a)
+  const style = a === null ? '' : css(a.from, a.to, a.origin)
   return style
 }
 
-function css({ matrix: q, origin: o }: Readonly<AnimationMatrix>): string {
-  const p = matrix()
+function css(
+  p: Readonly<DOMMatrixReadOnly>,
+  q: Readonly<DOMMatrixReadOnly>,
+  o: null | Vec
+): string {
   return `
 #viewer {
   will-change: transform;

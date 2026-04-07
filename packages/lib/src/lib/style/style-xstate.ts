@@ -2,16 +2,8 @@ import { useSelector } from '@xstate/react'
 import { createAtom, type Atom } from '@xstate/store'
 import { assign, createActor, raise, setup } from 'xstate'
 
-import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
-
 import { svgMapViewerConfig } from '../../config'
-import {
-  type AnimationMatrix,
-  type CurrentScroll,
-  type ResizeInfo,
-  type ZoomEndInfo,
-  type ZoomInfo,
-} from '../../types'
+import { type CurrentScroll, type ResizeInfo, type ZoomInfo } from '../../types'
 import { findRadius } from '../distance'
 import { scrollCbs } from '../event-scroll'
 import { styleCbs } from '../event-style'
@@ -21,6 +13,7 @@ import { fromSvgToScroll } from '../viewer/layout/coord'
 import { emptyLayout, type Layout } from '../viewer/layout/layout'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { type ViewerMode } from '../viewer/viewer-types'
+import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
 
 export const currentLayout: Atom<Layout> = createAtom<Layout>(emptyLayout)
 
@@ -205,12 +198,11 @@ export function styleCbsStart(): void {
   })
   styleCbs.zoomStart.add(function (zoom: Readonly<ZoomInfo>) {
     styleSend({ type: 'STYLE.ZOOM', ...zoom })
+    styleSend({ type: 'STYLE.ANIMATION', animation: zoom.q })
   })
-  styleCbs.zoomEnd.add(function (end: Readonly<ZoomEndInfo>) {
+  styleCbs.zoomEnd.add(function (end: Readonly<ZoomInfo>) {
     styleSend({ type: 'STYLE.ZOOM', zoom: end.zoom })
-  })
-  styleCbs.animation.add(function (animation: null | AnimationMatrix) {
-    styleSend({ type: 'STYLE.ANIMATION', animation })
+    styleSend({ type: 'STYLE.ANIMATION', animation: end.q })
   })
   styleCbs.animationEnd.add(function () {
     styleSend({ type: 'STYLE.ANIMATION.END' })

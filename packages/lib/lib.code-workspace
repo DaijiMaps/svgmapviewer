@@ -1,0 +1,22 @@
+{
+  "folders": [
+    {
+      "path": ".",
+    },
+    {
+      "path": "../app-floors",
+    },
+    {
+      "path": "../example-floors",
+    },
+    {
+      "path": "../app-osm",
+    },
+    {
+      "path": "../example-osm",
+    },
+  ],
+  "settings": {
+    "typescript.experimental.useTsgo": true,
+  },
+}
