@@ -25,7 +25,14 @@ function FooterRoot(): ReactNode {
 
   return (
     <div className="ui-content footer">
-      <p>{config.copyright}</p>
+      <p>
+        <a
+          href={document.location.href.replace(/[/]+$/, '') + `/info`}
+          target="_blank"
+        >
+          {config.copyright}
+        </a>
+      </p>
       <style>
         {style}
         <FooterStyle />
