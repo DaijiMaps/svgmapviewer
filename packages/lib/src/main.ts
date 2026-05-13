@@ -1,6 +1,8 @@
+/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
+import { infoRoot } from './Info'
 import { type BoxBox } from './lib/box/prefixed'
 import { notifyGlobal } from './lib/event-global'
 import { styleRoot } from './lib/style/Style'
@@ -60,7 +62,13 @@ export function svgmapviewer(
 
   notifyGlobal.init(config)
 
+  const url = new URL(document.location.href)
+  console.log('href', url.href)
   greet()
-  root(config)
-  styleRoot()
+  if (url.pathname.replaceAll(/[/]+/g, '/').match(/^\/info.*$/)) {
+    infoRoot(config)
+  } else {
+    root(config)
+    styleRoot()
+  }
 }
