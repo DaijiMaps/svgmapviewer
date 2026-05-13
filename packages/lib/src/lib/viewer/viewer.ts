@@ -23,7 +23,7 @@ import {
 
 // resize
 
-export function resetCursor(context: ViewerContext): ViewerContext {
+export function resetCursor(context: Readonly<ViewerContext>): ViewerContext {
   const cursor = boxCenter(context.layout.container)
   return {
     ...context,
@@ -32,7 +32,7 @@ export function resetCursor(context: ViewerContext): ViewerContext {
 }
 
 export function resizeLayout(
-  context: ViewerContext,
+  context: Readonly<ViewerContext>,
   { layout }: Readonly<ResizeRequest>
 ): ViewerContext {
   return {
@@ -46,7 +46,7 @@ export function resizeLayout(
 export function emitSyncLayout({
   layout,
   rendered,
-}: ViewerContext): ViewerEmitted {
+}: Readonly<ViewerContext>): ViewerEmitted {
   return {
     type: 'SYNC.LAYOUT',
     layout: layout,
@@ -56,7 +56,7 @@ export function emitSyncLayout({
 
 // scroll
 
-export function resetScroll(context: ViewerContext): ViewerContext {
+export function resetScroll(context: Readonly<ViewerContext>): ViewerContext {
   const { scroll } = getCurrentScroll()
   const layout = scrollLayout(context.layout, scroll)
   return {
@@ -70,14 +70,18 @@ export function emitGetScroll(): ViewerEmitted {
   return { type: 'SCROLL.GET' }
 }
 
-export function emitSyncScroll({ layout }: ViewerContext): ViewerEmitted {
+export function emitSyncScroll({
+  layout,
+}: Readonly<ViewerContext>): ViewerEmitted {
   return {
     type: 'SCROLL.SYNC',
     pos: layout.scroll,
   }
 }
 
-export function emitSyncSyncScroll({ layout }: ViewerContext): ViewerEmitted {
+export function emitSyncSyncScroll({
+  layout,
+}: Readonly<ViewerContext>): ViewerEmitted {
   return {
     type: 'SCROLL.SYNCSYNC',
     pos: layout.scroll,
@@ -87,7 +91,7 @@ export function emitSyncSyncScroll({ layout }: ViewerContext): ViewerEmitted {
 // zoom and home
 
 export function prepareZoom(
-  context: ViewerContext,
+  context: Readonly<ViewerContext>,
   { z, p }: Readonly<ZoomRequest>
 ): ViewerContext {
   const animationReq: AnimationReq = {
@@ -101,7 +105,7 @@ export function prepareZoom(
   }
 }
 
-export function prepareHome(context: ViewerContext): ViewerContext {
+export function prepareHome(context: Readonly<ViewerContext>): ViewerContext {
   const animationReq: AnimationReq = {
     type: 'home',
   }
@@ -111,7 +115,7 @@ export function prepareHome(context: ViewerContext): ViewerContext {
   }
 }
 
-export function prepareRotate(context: ViewerContext): ViewerContext {
+export function prepareRotate(context: Readonly<ViewerContext>): ViewerContext {
   const animationReq: AnimationReq = {
     type: 'rotate',
     deg: 90,
@@ -123,14 +127,14 @@ export function prepareRotate(context: ViewerContext): ViewerContext {
   }
 }
 
-export function startZoom(context: ViewerContext): ViewerContext {
+export function startZoom(context: Readonly<ViewerContext>): ViewerContext {
   const animation = calcAnimation(context.animationReq, context.layout)
   const prevLayout = context.layout
   const layout = animationDone(context.layout, animation)
   return { ...context, animation, prevLayout, layout }
 }
 
-export function endZoom(context: ViewerContext): ViewerContext {
+export function endZoom(context: Readonly<ViewerContext>): ViewerContext {
   const zoom = context.zoom * calcAnimationZoom(context.animationReq)
   const rotate = context.rotate + calcAnimationRotate(context.animationReq)
   return {
@@ -143,7 +147,7 @@ export function endZoom(context: ViewerContext): ViewerContext {
   }
 }
 
-export function endHome(context: ViewerContext): ViewerContext {
+export function endHome(context: Readonly<ViewerContext>): ViewerContext {
   const cursor = boxCenter(context.origLayout.container)
   const layout = rotateLayout(
     expandLayoutCenter(context.origLayout, EXPAND_PANNING),
@@ -156,7 +160,9 @@ export function endHome(context: ViewerContext): ViewerContext {
   }
 }
 
-export function clearAnimation(context: ViewerContext): ViewerContext {
+export function clearAnimation(
+  context: Readonly<ViewerContext>
+): ViewerContext {
   return {
     ...context,
     animationReq: null,
@@ -167,7 +173,7 @@ export function emitZoomStart({
   layout,
   zoom,
   animation,
-}: ViewerContext): ViewerEmitted {
+}: Readonly<ViewerContext>): ViewerEmitted {
   return {
     type: 'ZOOM.START',
     layout,
@@ -180,7 +186,7 @@ export function emitZoomEnd({
   layout,
   zoom,
   animation,
-}: ViewerContext): ViewerEmitted {
+}: Readonly<ViewerContext>): ViewerEmitted {
   return {
     type: 'ZOOM.END',
     layout,
@@ -192,7 +198,7 @@ export function emitZoomEnd({
 // search
 
 export function prepareSearch(
-  context: ViewerContext,
+  context: Readonly<ViewerContext>,
   { pos }: Readonly<SearchRequest>
 ): ViewerContext {
   const cursor = pos
@@ -202,7 +208,7 @@ export function prepareSearch(
   }
 }
 
-export function searchStart(context: ViewerContext): ViewerEmitted {
+export function searchStart(context: Readonly<ViewerContext>): ViewerEmitted {
   const { scroll } = getCurrentScroll()
   const l = scrollLayout(context.layout, scroll)
   const m = fromMatrixSvg(l).inverse()
@@ -212,7 +218,7 @@ export function searchStart(context: ViewerContext): ViewerEmitted {
 }
 
 export function searchEnd(
-  context: ViewerContext,
+  context: Readonly<ViewerContext>,
   params: Readonly<SearchEnd>
 ): ViewerEmitted {
   const { res } = params
@@ -227,7 +233,7 @@ export function searchEnd(
 // switch
 
 export function emitSwitch(
-  _: ViewerContext,
+  _: Readonly<ViewerContext>,
   { fidx }: Readonly<SwitchRequest>
 ): ViewerEmitted {
   return { type: 'SWITCH', fidx }
