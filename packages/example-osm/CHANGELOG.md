@@ -1,5 +1,13 @@
 # svgmapviewer-example-osm
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies
+  - svgmapviewer@0.3.0
+  - svgmapviewer-app-osm@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes
