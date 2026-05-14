@@ -37,6 +37,10 @@
     "*.{ts,tsx}": "eslint --fix",
     "*": "prettier --write --cache --ignore-unknown"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "npmjs.org"
+  },
   "pnpm": {
     "updateConfig": {
       "ignoreDependencies": [
