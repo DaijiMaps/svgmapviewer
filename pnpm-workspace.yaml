@@ -11,6 +11,12 @@ packages:
   - ./packages/tools-osm
 overrides:
   '@types/node': '24.x'
+  'Pygments': '>=2.20.0'
+  'lxml': '>=6.1.0'
+  'pytest': '>=9.0.3'
+  'requests': '>=2.33.0'
+  'urllib3': '>=2.7.0'
+  'vite': '>=7.3.2'
   'tmp': '^0.2.4'
 onlyBuiltDependencies: []
 allowBuilds:
