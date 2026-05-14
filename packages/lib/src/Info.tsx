@@ -1,5 +1,4 @@
 import { QRCodeSVG } from 'qrcode.react'
-
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-throw-statements */
@@ -49,5 +48,8 @@ h1 {
 }
 h2 {
   font-size: 2em;
+}
+a, a:link, a:visited, a:hover, a:active {
+  color: black;
 }
 `
