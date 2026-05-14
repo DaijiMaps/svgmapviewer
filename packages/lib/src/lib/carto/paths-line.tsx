@@ -1,13 +1,12 @@
 import { Fragment, type ReactNode } from 'react'
 
-import type { OsmLineFeatures } from '../geo/osm-types'
-import type { LinePath, LinePaths, PathOps } from './path-types'
-import type { MapLinePathOps } from './types'
-
 import { undefinedIfNull } from '../../utils'
 import { getOsmId, lineToPathD } from '../geo'
+import type { OsmLineFeatures } from '../geo/osm-types'
 import { getPathsByData, renderPath } from './path-common'
+import type { LinePath, LinePaths, PathOps } from './path-types'
 import { propertiesToTags, propertiesToWidth } from './properties'
+import type { MapLinePathOps } from './types'
 
 type LineOps = PathOps<MapLinePathOps>
 

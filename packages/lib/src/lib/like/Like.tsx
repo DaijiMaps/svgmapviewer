@@ -2,9 +2,8 @@
 /* eslint-disable functional/no-return-void */
 import { type ReactNode } from 'react'
 
-import type { ID } from './types'
-
 import { useLikes } from './main'
+import type { ID } from './types'
 
 export interface LikeProps {
   _id: ID // osm_id or osm_way_id

@@ -1,10 +1,6 @@
-import { pipe } from 'fp-ts/lib/function'
 import { expect, test } from '@rstest/core'
-import {
-  animationDone,
-  //animationMove,
-  animationZoom,
-} from '../../src/lib/viewer/layout/animation'
+import { pipe } from 'fp-ts/lib/function'
+
 import {
   boxBox as box,
   boxMove,
@@ -13,6 +9,16 @@ import {
   boxCenter,
   boxScaleAt,
 } from '../../src/lib/box/prefixed'
+import {
+  vecVec as vec,
+  vecScale,
+  type VecVec as Vec,
+} from '../../src/lib/vec/prefixed'
+import {
+  animationDone,
+  //animationMove,
+  animationZoom,
+} from '../../src/lib/viewer/layout/animation'
 import { fromMatrixSvg } from '../../src/lib/viewer/layout/coord'
 import {
   configLayout,
@@ -28,11 +34,6 @@ import {
   //recenterLayout,
   //relocLayout,
 } from '../../src/lib/viewer/layout/layout'
-import {
-  vecVec as vec,
-  vecScale,
-  type VecVec as Vec,
-} from '../../src/lib/vec/prefixed'
 import {
   _box,
   _fixupLayout,

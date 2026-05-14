@@ -1,6 +1,5 @@
 /* eslint-disable functional/no-return-void */
 import type { SearchGeoReq } from '../../types'
-
 import { type SearchContext, type SearchPos } from './types'
 
 export type SearchWorkerReq =

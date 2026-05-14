@@ -1,9 +1,8 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
 import type { Zoom } from '../types'
-import type { TouchCbs } from './event-touch-types'
-
 import { notifyCbs, notifyCbs0 } from './cb'
+import type { TouchCbs } from './event-touch-types'
 
 export const touchCbs: TouchCbs = {
   multiStart: new Set(),

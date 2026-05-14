@@ -1,8 +1,7 @@
 /* eslint-disable functional/no-return-void */
 import type { SearchData, SearchSvgReq, SearchRes } from '../types'
-import type { SearchCbs } from './event-search-types'
-
 import { notifyCbs } from './cb'
+import type { SearchCbs } from './event-search-types'
 
 export const searchCbs: SearchCbs = {
   start: new Set(),

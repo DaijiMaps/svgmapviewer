@@ -5,7 +5,6 @@
 import Flatbush from 'flatbush'
 
 import type { SearchGeoReq } from '../../types'
-
 import {
   type FlatbushIndexes,
   type SearchContext,

@@ -1,5 +1,4 @@
 import type { Scroll } from '../../../types'
-
 import { type BoxBox } from '../../box/prefixed'
 
 type ScrollGet = {

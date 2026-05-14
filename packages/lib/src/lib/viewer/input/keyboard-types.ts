@@ -1,6 +1,5 @@
-import type { FloorAction } from '../../event-floor-types'
-
 import { type ViewerAction } from '../../event-action-types'
+import type { FloorAction } from '../../event-floor-types'
 import { type Mod } from './mod'
 
 interface Context {

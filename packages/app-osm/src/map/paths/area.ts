@@ -1,8 +1,7 @@
-import type { MapMultiPolygonPathOps } from 'svgmapviewer/carto'
-import type { MultiPolygon } from 'svgmapviewer/geo'
-
 /* eslint-disable functional/functional-parameters */
 import { svgMapViewerConfig } from 'svgmapviewer'
+import type { MapMultiPolygonPathOps } from 'svgmapviewer/carto'
+import type { MultiPolygon } from 'svgmapviewer/geo'
 
 export const area: MapMultiPolygonPathOps = {
   type: 'multipolygon',

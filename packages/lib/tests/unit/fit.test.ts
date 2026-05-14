@@ -1,4 +1,5 @@
 import { expect, test } from '@rstest/core'
+
 import { boxBox as box, type BoxBox as Box } from '../../src/lib/box/prefixed'
 import { fit, fitSquare } from '../../src/lib/viewer/layout/fit'
 

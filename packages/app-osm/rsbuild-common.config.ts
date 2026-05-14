@@ -1,5 +1,6 @@
-import { defineConfig } from '@rsbuild/core'
 import path from 'node:path'
+
+import { defineConfig } from '@rsbuild/core'
 
 const dir = (subdir: string): string => path.resolve(__dirname, subdir)
 

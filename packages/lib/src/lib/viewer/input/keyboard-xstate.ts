@@ -1,7 +1,6 @@
 import { assign, createActor, emit, setup } from 'xstate'
 
 import type { Dir } from '../../../types'
-
 import { notifyAction } from '../../event-action'
 import { notifyFloor } from '../../event-floor'
 import { keyToZoom } from './key'

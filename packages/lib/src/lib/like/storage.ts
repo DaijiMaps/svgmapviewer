@@ -1,6 +1,5 @@
-import type { ID, LikesContext } from './types'
-
 import { decodeContext, encodeContext } from './schema'
+import type { ID, LikesContext } from './types'
 
 const emptyContext: LikesContext = {
   ids: new Set<ID>(),

@@ -1,7 +1,8 @@
 import { expect, test } from '@rstest/core'
+
 import { diag } from '../../src/lib/ui/diag'
-import { type Size } from '../../src/types'
 import { type Vec } from '../../src/lib/vec'
+import { type Size } from '../../src/types'
 
 test('diag', () => {
   const s: Size = { width: 4, height: 3 }

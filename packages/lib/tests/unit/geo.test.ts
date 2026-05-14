@@ -1,4 +1,5 @@
 import { expect, test } from '@rstest/core'
+
 import { haversineDistance } from '../../src/lib/geo/distance'
 
 const oslo = {

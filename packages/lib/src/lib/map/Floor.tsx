@@ -1,10 +1,9 @@
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode } from 'react'
 
-import type { Cb } from '../cb'
-
 import { type LabelText, type OsmRenderMapProps } from '../../types'
 import { boxToViewBox2, type BoxBox } from '../box/prefixed'
+import type { Cb } from '../cb'
 import { useLayout2 } from '../style/style-react'
 import { useFloors } from '../viewer/floors/floors-react'
 import { MAP_SVG_FLOORS } from './map-svg-react'

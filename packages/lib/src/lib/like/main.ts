@@ -4,9 +4,8 @@
 import { createStoreConfig } from '@xstate/store'
 import { useSelector, useStore } from '@xstate/store/react'
 
-import type { ID, LikesContext, LikesReturn } from './types'
-
 import { loadContext, saveContext } from './storage'
+import type { ID, LikesContext, LikesReturn } from './types'
 
 const LOCALSTORAGE_KEY = 'svgmapviewer:likes'
 

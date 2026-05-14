@@ -1,8 +1,7 @@
-import type { Box } from './types'
-
 import { type B, type V } from '../tuple'
 //import { type Size } from '../../types'
 import { type Vec } from '../vec'
+import type { Box } from './types'
 
 //// Box
 

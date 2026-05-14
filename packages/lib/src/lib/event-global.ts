@@ -2,9 +2,8 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import type { SvgMapViewerConfig } from '../types'
-import type { GlobalCbs } from './event-global-types'
-
 import { notifyCbs, notifyCbs0 } from './cb'
+import type { GlobalCbs } from './event-global-types'
 
 export const globalCbs: GlobalCbs = {
   init: new Set(),

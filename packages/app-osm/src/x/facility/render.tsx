@@ -1,9 +1,8 @@
 import type { ReactNode } from 'react'
 import type { OsmProperties } from 'svgmapviewer/geo'
 
-import type { FacilityInfo } from './types'
-
 import { RenderProperties } from '../render'
+import type { FacilityInfo } from './types'
 
 export function RenderFacilityInfo(
   props: Readonly<{

@@ -1,8 +1,7 @@
+import { notifyCbs0 } from './cb'
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
 import type { ActionCbs } from './event-action-types'
-
-import { notifyCbs0 } from './cb'
 
 export const actionCbs: ActionCbs = {
   zoomIn: new Set(),

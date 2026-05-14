@@ -1,13 +1,11 @@
-import type { PlatformError } from '@effect/platform/Error'
-
 import { FileSystem } from '@effect/platform'
+import type { PlatformError } from '@effect/platform/Error'
 import { Doc } from '@effect/printer'
 import { Effect, Order, Record } from 'effect'
 
-import type { _GeoJSON } from './geojson/geojson-types'
-
 import { printGeoJSON } from './geojson/geojson-print'
 import { decodeGeoJSON } from './geojson/geojson-schema'
+import type { _GeoJSON } from './geojson/geojson-types'
 import { splitTypes } from './print-utils'
 
 export function printGeoJsonAsTs(

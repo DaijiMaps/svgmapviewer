@@ -1,21 +1,22 @@
 import { expect, test } from '@rstest/core'
+
+import { boxBox, boxUnit } from '../../src/lib/box/prefixed'
+import {
+  dommatrixreadonlyToObject as matrixToObject,
+  dommatrixreadonly as matrix,
+} from '../../src/lib/matrix/dommatrixreadonly'
+import { matrixObject } from '../../src/lib/matrix/object'
+import { vecVec } from '../../src/lib/vec/prefixed'
 import {
   emptyLayoutConfig,
   emptyLayoutCoord,
   fromMatrixSvg,
   makeCoord,
 } from '../../src/lib/viewer/layout/coord'
-import { boxBox, boxUnit } from '../../src/lib/box/prefixed'
-import { vecVec } from '../../src/lib/vec/prefixed'
 import {
   type LayoutConfig,
   makeLayout,
 } from '../../src/lib/viewer/layout/layout'
-import { matrixObject } from '../../src/lib/matrix/object'
-import {
-  dommatrixreadonlyToObject as matrixToObject,
-  dommatrixreadonly as matrix,
-} from '../../src/lib/matrix/dommatrixreadonly'
 
 test('empty', () => {
   const c = emptyLayoutCoord

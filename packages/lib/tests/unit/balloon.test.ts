@@ -1,11 +1,12 @@
 import { expect, test } from '@rstest/core'
+
 import { layoutLeg } from '../../src/lib/ui/balloon-common'
-import { type HV } from '../../src/types'
 import {
   vecVec as v,
   vecAdd,
   type VecVec as V,
 } from '../../src/lib/vec/prefixed'
+import { type HV } from '../../src/types'
 
 type P1 = {
   hv: HV
