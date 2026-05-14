@@ -48,21 +48,24 @@ const style = `
   padding: 0.4em;
   font-size: xx-small;
   pointer-events: none;
-}
-
-h2,
-p {
-  ${user_select_none}
-  pointer-events: initial;
-}
-
-h2 {
-  font-size: x-small;
-  margin: 0;
-}
-
-p {
-  margin: 0.25em;
+  & > h2,
+  & > p {
+    ${user_select_none}
+    pointer-events: initial;
+  }
+  & > h2 {
+    font-size: x-small;
+    margin: 0;
+  }
+  & > p {
+    margin: 0.25em;
+    & > a {
+      color: black;
+      &:link, &:visited, &:hover, &:active {
+        color: black;
+      }
+    }
+  }
 }
 `
 
