@@ -42,5 +42,10 @@
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
     "*": "oxfmt --write"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/node": "^24"
+    }
   }
 }

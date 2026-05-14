@@ -32,5 +32,10 @@
     "*.{ts,tsx}": "eslint --fix",
     "*": "oxfmt --write"
   },
-  "packageManager": "pnpm@10.26.0"
+  "packageManager": "pnpm@10.26.0",
+  "pnpm": {
+    "overrides": {
+      "@types/node": "^24"
+    }
+  }
 }
