@@ -63,9 +63,9 @@ export function svgmapviewer(
   notifyGlobal.init(config)
 
   const url = new URL(document.location.href)
-  console.log('href', url.href)
+  const params = url.searchParams
   greet()
-  if (url.pathname.replaceAll(/[/]+/g, '/').match(/^\/info.*$/)) {
+  if (params.get('info')) {
     infoRoot(config)
   } else {
     root(config)
