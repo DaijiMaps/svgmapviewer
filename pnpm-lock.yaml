@@ -115,8 +115,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(@rsbuild/core@2.0.6)(@rspack/core@2.0.3(@swc/helpers@0.5.21))
       '@rslib/core':
-        specifier: ^0.21.4
-        version: 0.21.4(@typescript/native-preview@7.0.0-dev.20260513.1)(typescript@6.0.3)
+        specifier: ^0.21.5
+        version: 0.21.5(@typescript/native-preview@7.0.0-dev.20260513.1)(typescript@6.0.3)
       '@testing-library/react':
         specifier: ^16.3.2
         version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -206,8 +206,8 @@ importers:
         specifier: ^0.106.0
         version: 0.106.0(@effect/cluster@0.56.0(@effect/platform@0.96.1(effect@3.21.2))(@effect/rpc@0.73.0(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(@effect/sql@0.49.0(@effect/experimental@0.58.0(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(@effect/workflow@0.16.0(@effect/experimental@0.58.0(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(@effect/platform@0.96.1(effect@3.21.2))(@effect/rpc@0.73.0(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(effect@3.21.2))(effect@3.21.2))(@effect/platform@0.96.1(effect@3.21.2))(@effect/rpc@0.73.0(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(@effect/sql@0.49.0(@effect/experimental@0.58.0(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(effect@3.21.2)
       '@rslib/core':
-        specifier: ^0.21.4
-        version: 0.21.4(@typescript/native-preview@7.0.0-dev.20260513.1)(typescript@6.0.3)
+        specifier: ^0.21.5
+        version: 0.21.5(@typescript/native-preview@7.0.0-dev.20260513.1)(typescript@6.0.3)
       '@types/node':
         specifier: 24.x
         version: 24.12.4
@@ -341,8 +341,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(@rsbuild/core@2.0.6)(@rspack/core@2.0.3(@swc/helpers@0.5.21))
       '@rslib/core':
-        specifier: ^0.21.4
-        version: 0.21.4(@typescript/native-preview@7.0.0-dev.20260513.1)(typescript@6.0.3)
+        specifier: ^0.21.5
+        version: 0.21.5(@typescript/native-preview@7.0.0-dev.20260513.1)(typescript@6.0.3)
       '@rstest/core':
         specifier: ^0.9.10
         version: 0.9.10(happy-dom@20.9.0)
@@ -398,8 +398,8 @@ importers:
         specifier: ^0.49.0
         version: 0.49.0(@effect/typeclass@0.38.0(effect@3.21.2))(effect@3.21.2)
       '@rslib/core':
-        specifier: ^0.21.4
-        version: 0.21.4(@typescript/native-preview@7.0.0-dev.20260513.1)(typescript@6.0.3)
+        specifier: ^0.21.5
+        version: 0.21.5(@typescript/native-preview@7.0.0-dev.20260513.1)(typescript@6.0.3)
       '@rstest/core':
         specifier: ^0.9.10
         version: 0.9.10(happy-dom@20.9.0)
@@ -2397,22 +2397,6 @@ packages:
       '@rsbuild/core': ^2.0.0-0
     peerDependenciesMeta:
       '@rsbuild/core':
-        optional: true
-
-  '@rslib/core@0.21.4':
-    resolution:
-      {
-        integrity: sha512-lGQ3znngCmzYaIbPZcfEm4t+fGhSM4os1GKwXaLydUOB2mf3Q/MDffpEkuMtbzrW+PmAGJ8NIbjgipXd9mlcsg==,
-      }
-    engines: { node: ^20.19.0 || >=22.12.0 }
-    hasBin: true
-    peerDependencies:
-      '@microsoft/api-extractor': ^7
-      typescript: ^5 || ^6
-    peerDependenciesMeta:
-      '@microsoft/api-extractor':
-        optional: true
-      typescript:
         optional: true
 
   '@rslib/core@0.21.5':
@@ -5199,25 +5183,6 @@ packages:
     engines: { node: '>=18.0.0', npm: '>=8.0.0' }
     hasBin: true
 
-  rsbuild-plugin-dts@0.21.4:
-    resolution:
-      {
-        integrity: sha512-hqXzk3pQFcbviCZNECxIZsH8ygyf9F9n3UZWHpjcAZmYeH5wLPsGqa6CyXWh4+EDXkO++7iXTVuIuw2x2hGn/w==,
-      }
-    engines: { node: ^20.19.0 || >=22.12.0 }
-    peerDependencies:
-      '@microsoft/api-extractor': ^7
-      '@rsbuild/core': ^1.0.0 || ^2.0.0-0
-      '@typescript/native-preview': 7.x
-      typescript: ^5 || ^6
-    peerDependenciesMeta:
-      '@microsoft/api-extractor':
-        optional: true
-      '@typescript/native-preview':
-        optional: true
-      typescript:
-        optional: true
-
   rsbuild-plugin-dts@0.21.5:
     resolution:
       {
@@ -7013,17 +6978,6 @@ snapshots:
       '@rsbuild/core': 2.0.6
     transitivePeerDependencies:
       - '@rspack/core'
-
-  '@rslib/core@0.21.4(@typescript/native-preview@7.0.0-dev.20260513.1)(typescript@6.0.3)':
-    dependencies:
-      '@rsbuild/core': 2.0.6
-      rsbuild-plugin-dts: 0.21.4(@rsbuild/core@2.0.6)(@typescript/native-preview@7.0.0-dev.20260513.1)(typescript@6.0.3)
-    optionalDependencies:
-      typescript: 6.0.3
-    transitivePeerDependencies:
-      - '@module-federation/runtime-tools'
-      - '@typescript/native-preview'
-      - core-js
 
   '@rslib/core@0.21.5(@typescript/native-preview@7.0.0-dev.20260513.1)(typescript@6.0.3)':
     dependencies:
@@ -8869,14 +8823,6 @@ snapshots:
       '@rollup/rollup-win32-x64-gnu': 4.60.3
       '@rollup/rollup-win32-x64-msvc': 4.60.3
       fsevents: 2.3.3
-
-  rsbuild-plugin-dts@0.21.4(@rsbuild/core@2.0.6)(@typescript/native-preview@7.0.0-dev.20260513.1)(typescript@6.0.3):
-    dependencies:
-      '@ast-grep/napi': 0.37.0
-      '@rsbuild/core': 2.0.6
-    optionalDependencies:
-      '@typescript/native-preview': 7.0.0-dev.20260513.1
-      typescript: 6.0.3
 
   rsbuild-plugin-dts@0.21.5(@rsbuild/core@2.0.6)(@typescript/native-preview@7.0.0-dev.20260513.1)(typescript@6.0.3):
     dependencies:

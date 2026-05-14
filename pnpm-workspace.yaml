@@ -25,3 +25,8 @@ allowBuilds:
   esbuild: true
   msgpackr-extract: true
   msw: true
+minimumReleaseAgeExclude:
+  - 'vite'
+  - 'vitest'
+  - '@vitest/browser'
+  - '@vitest/mocker'
