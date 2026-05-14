@@ -13,15 +13,15 @@
     "build": "rslib build"
   },
   "devDependencies": {
-    "@effect/cli": "^0.75.0",
-    "@effect/platform": "^0.96.0",
+    "@effect/cli": "^0.75.1",
+    "@effect/platform": "^0.96.1",
     "@effect/platform-node": "^0.106.0",
-    "@rslib/core": "^0.20.1",
-    "@types/node": "24.x",
-    "effect": "^3.21.0",
-    "tar": "^7.5.13",
-    "typescript": "^5.9.3",
-    "validate-npm-package-name": "^7.0.2"
+    "@rslib/core": "^0.21.4",
+    "@types/node": "~25.7.0",
+    "effect": "^3.21.2",
+    "tar": "^7.5.15",
+    "typescript": "^6.0.3",
+    "validate-npm-package-name": "^8.0.0"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",

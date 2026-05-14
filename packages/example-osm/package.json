@@ -19,11 +19,11 @@
     "svgmapviewer-tools-osm": "workspace:*"
   },
   "devDependencies": {
-    "@rsbuild/core": "^1.7.4",
-    "@rsbuild/plugin-react": "^1.4.6",
-    "@types/node": "24.x",
-    "@typescript/native-preview": "7.0.0-dev.20260326.1",
-    "typescript": "^5.9.3"
+    "@rsbuild/core": "^2.0.6",
+    "@rsbuild/plugin-react": "^2.0.0",
+    "@types/node": "~25.7.0",
+    "@typescript/native-preview": "7.0.0-dev.20260512.1",
+    "typescript": "^6.0.3"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",

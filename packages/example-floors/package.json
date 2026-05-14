@@ -14,22 +14,22 @@
     "lint": "eslint . && oxlint --type-aware --type-check"
   },
   "dependencies": {
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
     "svgmapviewer": "workspace:*",
     "svgmapviewer-app-floors": "workspace:*",
     "svgmapviewer-tools-floors": "workspace:*"
   },
   "devDependencies": {
-    "@playwright/test": "^1.58.2",
-    "@rsbuild/core": "^1.7.4",
-    "@rsbuild/plugin-react": "^1.4.6",
-    "@types/node": "24.x",
+    "@playwright/test": "^1.60.0",
+    "@rsbuild/core": "^2.0.6",
+    "@rsbuild/plugin-react": "^2.0.0",
+    "@types/node": "~25.7.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260326.1",
-    "playwright": "^1.58.2",
-    "typescript": "^5.9.3"
+    "@typescript/native-preview": "7.0.0-dev.20260512.1",
+    "playwright": "^1.60.0",
+    "typescript": "^6.0.3"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
