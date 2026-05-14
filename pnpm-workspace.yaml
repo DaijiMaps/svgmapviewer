@@ -25,3 +25,5 @@ allowBuilds:
   esbuild: true
   msgpackr-extract: true
   msw: true
+minimumReleaseAgeExclude:
+  - vite@7.3.2
