@@ -130,17 +130,17 @@ const buttonStyle = `
   ${pointer_events_initial}
   cursor: default;
   ${background_white_opaque}
-}
-.button-item > svg {
-  display: block;
-  width: 1.25em;
-  height: 1.25em;
-  pointer-events: none;
-}
-.button-item > svg > path {
-  stroke: black;
-  stroke-width: 0.4;
-  fill: none;
+  & > svg {
+    display: block;
+    width: 1.25em;
+    height: 1.25em;
+    pointer-events: none;
+    & > path {
+      stroke: black;
+      stroke-width: 0.4;
+      fill: none;
+    }
+  }
 }
 
 .fullscreen {

@@ -23,8 +23,6 @@ export function Detail(
 ): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
-  const { _detail } = props
-
   useOnWheel(ref)
 
   useOpenCloseDetailStyle(ref)
@@ -38,8 +36,8 @@ export function Detail(
       onAnimationEnd={() => uiSend({ type: 'DETAIL.ANIMATION.END' })}
     >
       {cfg.renderInfo &&
-        !isDetailEmpty(_detail) &&
-        cfg.renderInfo({ info: _detail.info })}
+        !isDetailEmpty(props._detail) &&
+        cfg.renderInfo({ info: props._detail.info })}
       <style>{style}</style>
     </div>
   )
@@ -61,35 +59,29 @@ const style = `
   touch-action: pan-y;
   overscroll-behavior-x: none;
   overscroll-behavior-y: none;
-}
-
-.like {
-  pointer-events: initial;
-}
-
-.liked {
-  color: orange;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  ${user_select_none}
-  margin: 1.5em;
-  text-align: center;
-}
-
-p {
-  ${user_select_none}
-  margin: 0.5em;
-}
-
-a {
-  text-decoration: none;
-}
-
-table, tbody, th, tr, td {
+  .like {
+    pointer-events: initial;
+  }
+  .liked {
+    color: orange;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    ${user_select_none}
+    margin: 1.5em;
+    text-align: center;
+  }
+  p {
+    ${user_select_none}
+    margin: 0.5em;
+  }
+  a {
+    text-decoration: none;
+  }
+  table, tbody, th, tr, td {
+  }
 }
 
 #ui-svg-defs {

@@ -51,12 +51,12 @@ const floorsStyle = `
   pointer-events: initial;
   will-change: opacity;
   transition: opacity ${floor_switch_duration};
-}
-.floor-item.selected {
-  opacity: 1;
-}
-.floor-item.unselected {
-  opacity: 0.5;
+  &.selected {
+    opacity: 1;
+  }
+  &.unselected {
+    opacity: 0.5;
+  }
 }
 `
 
@@ -85,12 +85,12 @@ const floorNameStyle = `
   font-size: 4em;
   will-change: opacity;
   transition: opacity ${floor_switch_duration};
-}
-.floor-name.selected {
-  opacity: 1;
-}
-.floor-name.unselected {
-  opacity: 0;
+  &.selected {
+    opacity: 1;
+  }
+  &.unselected {
+    opacity: 0;
+  }
 }
 `
 

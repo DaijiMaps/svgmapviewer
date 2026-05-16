@@ -1,5 +1,5 @@
 /* eslint-disable functional/no-expression-statements */
-import { useRef, type PropsWithChildren, type ReactNode } from 'react'
+import { useMemo, useRef, type PropsWithChildren, type ReactNode } from 'react'
 
 import { type HV } from '../../types'
 import { boxToViewBox2 } from '../box/prefixed'
@@ -58,11 +58,16 @@ function BalloonSvg(
   props: Readonly<PropsWithChildren<BalloonProps>>
 ): ReactNode {
   const _hv = props._hv
-  if (_hv === null) {
-    return <svg />
-  }
+  return _hv === null ? <svg /> : <BalloonSvg1 {...props} hv={_hv} />
+}
 
-  const { viewBox, width, height, fg, bg } = balloonPaths(_hv, props._size)
+function BalloonSvg1(
+  props: Readonly<PropsWithChildren<BalloonProps> & { hv: HV }>
+) {
+  const { viewBox, width, height, fg, bg } = useMemo(
+    () => balloonPaths(props.hv, props._size),
+    [props._size, props.hv]
+  )
 
   return (
     <svg
@@ -73,7 +78,12 @@ function BalloonSvg(
     >
       <path className="bg" d={bg} />
       <path className="fg" d={fg} />
-      <style>{`
+      <style>{style1}</style>
+    </svg>
+  )
+}
+
+const style1 = `
 path.bg {
   fill: black;
   stroke: none;
@@ -84,7 +94,4 @@ path.fg {
   stroke: white;
   stroke-width: 1px;
 }
-`}</style>
-    </svg>
-  )
-}
+`

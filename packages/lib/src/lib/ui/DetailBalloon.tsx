@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+import { useMemo, type ReactNode } from 'react'
 
 import { RenderMapAssetsDefault } from '../carto/assets'
 import { useShadowRoot } from '../dom'
@@ -27,7 +27,7 @@ export function DetailBalloonRoot(): ReactNode {
 function BalloonDetailStyle() {
   const detail = useDetail()
 
-  const props = calcBalloonLayout(detail)
+  const props = useMemo(() => calcBalloonLayout(detail), [detail])
 
   return (
     <>
