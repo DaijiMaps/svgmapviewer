@@ -3,7 +3,7 @@
 /* eslint-disable functional/functional-parameters */
 import { useEffect, useRef, type ReactNode, type RefObject } from 'react'
 
-import { svgMapViewerConfig } from '../../config'
+import { svgMapViewerConfig as config } from '../../config'
 import {
   flex_column_center_center,
   position_absolute_left_0_bottom_0,
@@ -22,13 +22,10 @@ export function Footer(): ReactNode {
 }
 
 function FooterRoot(): ReactNode {
-  const ref = useRef<HTMLDivElement>(null)
-  const config = svgMapViewerConfig
-
-  useFooterStyle(ref)
+  const ref = useStyle()
 
   return (
-    <div className="ui-content footer" ref={ref}>
+    <div ref={ref} className="ui-content footer">
       <p>
         <a href={document.location.href + `?info=1`} target="_blank">
           {config.copyright}
@@ -121,9 +118,9 @@ const style = `
 }
 `
 
-export function useFooterStyle(
-  ref: Readonly<RefObject<HTMLDivElement | null>>
-): void {
+function useStyle(): Readonly<RefObject<HTMLDivElement | null>> {
+  const ref = useRef<HTMLDivElement>(null)
+
   const { open, animating } = useOpenCloseHeader()
 
   useEffect(() => {
@@ -132,32 +129,7 @@ export function useFooterStyle(
     ref.current.classList.add(!animating ? 'not-animating' : 'animating')
     ref.current.classList.remove(open ? 'closed' : `opened`)
     ref.current.classList.add(!open ? 'closed' : `opened`)
-    /*
-    const s = ref.current.style.setProperty.bind(ref.current.style)
-    if (!animating) {
-      const b = !open ? 0 : 1
-
-      s('--a', null)
-      s('--b', `${b}`)
-      s('--duration', null)
-      s('--timing', null)
-      s('will-change', null)
-      s('animation', null)
-      s('opacity', `var(--b)`)
-      s('transform', `translate(calc(50vw - 50%), 0%) scale(var(--b))`)
-    } else {
-      const [a, b] = !open ? [1, 0] : [0, 1]
-      const t = open ? timing_opening : timing_closing
-
-      s('--a', `${a}`)
-      s('--b', `${b}`)
-      s('--duration', `${ZOOM_DURATION_HEADER}ms`)
-      s('--timing', `${t}`)
-      s('will-change', `opacity, transform`)
-      s('animation', `xxx-footer var(--duration) var(--timing)`)
-      s('opacity', null)
-      s('transform', null)
-    }
-    */
   }, [animating, open, ref])
+
+  return ref
 }
