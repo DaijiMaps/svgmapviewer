@@ -243,25 +243,26 @@ export function balloonStyle(
   --q-y: ${Q.y}px;
   --dp-x: ${dP.x}px;
   --dp-y: ${dP.y}px;
-  --oa: ${oa};
-  --ob: ${ob};
-  --sa: ${sa};
-  --sb: ${sb};
-  --timing: ${t};
   --dxa: ${dxa};
   --dxb: ${dxb};
   --dya: ${dya};
   --dyb: ${dyb};
-  --pww: ${-width / 2}px;
-  --phh: ${-height / 2}px;
-  --duration: ${ZOOM_DURATION_DETAIL}ms;
   
   --qxa: calc(var(--q-x) + var(--dxa));
   --qya: calc(var(--q-y) + var(--dya));
   --qxb: calc(var(--q-x) + var(--dxb));
   --qyb: calc(var(--q-y) + var(--dyb));
+
+  --oa: ${oa};
+  --ob: ${ob};
+  --sa: ${sa};
+  --sb: ${sb};
+  --timing: ${t};
+  --duration: ${ZOOM_DURATION_DETAIL}ms;
   --tx1a: translate(var(--qxa), var(--qya));
   --tx1b: translate(var(--qxb), var(--qyb));
+  --pww: ${-width / 2}px;
+  --phh: ${-height / 2}px;
 
   transform-origin: 0 0;
   will-change: opacity, transform;
