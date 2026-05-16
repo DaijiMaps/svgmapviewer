@@ -1,6 +1,7 @@
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 
 import { svgMapViewerConfig as cfg } from '../../config'
 import {
@@ -17,9 +18,11 @@ import { isDetailEmpty, uiSend } from './ui-xstate'
 export function Detail(
   props: Readonly<{ _detail: UiDetailContent }>
 ): ReactNode {
+  const ref = useRef<HTMLDivElement>(null)
+
   const { _detail } = props
 
-  const ref = useOnWheel()
+  useOnWheel(ref)
 
   return (
     <div

@@ -39,3 +39,17 @@ export function useOpenCloseHeaderStyle(
 export function useOpenCloseDetail(): OpenClose {
   return useUiContext().m['detail']
 }
+
+export function useOpenCloseDetailStyle(
+  ref: Readonly<RefObject<HTMLDivElement | null>>
+): void {
+  const { open, animating } = useUiContext().m['detail']
+
+  useEffect(() => {
+    if (ref.current === null) return
+    ref.current.classList.remove(animating ? 'not-animating' : 'animating')
+    ref.current.classList.add(!animating ? 'not-animating' : 'animating')
+    ref.current.classList.remove(open ? 'closed' : `opened`)
+    ref.current.classList.add(!open ? 'closed' : `opened`)
+  }, [animating, open, ref])
+}

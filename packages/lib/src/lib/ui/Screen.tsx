@@ -1,7 +1,8 @@
+/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import { type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 
 import {
   position_absolute_left_0_top_0,
@@ -15,7 +16,7 @@ import { useShadowRoot } from '../dom'
 import { notifyUi } from '../event-ui'
 import { useAnimating } from '../style/style-react'
 import { useOnWheel } from '../wheel'
-import { useOpenCloseDetail } from './ui-react'
+import { useOpenCloseDetailStyle } from './ui-react'
 
 export function Screen(): ReactNode {
   useShadowRoot('screen', <ScreenRoot />, 'ui')
@@ -24,7 +25,24 @@ export function Screen(): ReactNode {
 }
 
 function ScreenRoot(): ReactNode {
-  const ref = useOnWheel()
+  const ref = useRef<HTMLDivElement>(null)
+
+  useOpenCloseDetailStyle(ref)
+
+  useOnWheel(ref)
+
+  const zooming = useAnimating()
+
+  useEffect(() => {
+    if (ref.current === null) return
+    if (zooming) {
+      ref.current.classList.add('zooming')
+      ref.current.classList.remove('not-zooming')
+    } else {
+      ref.current.classList.remove('zooming')
+      ref.current.classList.add('not-zooming')
+    }
+  }, [ref, zooming])
 
   return (
     <div
@@ -32,10 +50,7 @@ function ScreenRoot(): ReactNode {
       className="ui-content screen"
       onClick={() => notifyUi.close()}
     >
-      <style>
-        {style}
-        <ScreenStyle />
-      </style>
+      <style>{style}</style>
     </div>
   )
 }
@@ -92,6 +107,7 @@ const style = `
 }
 `
 
+/*
 export function ScreenStyle(): ReactNode {
   const { open, animating } = useOpenCloseDetail()
   const zooming = useAnimating()
@@ -135,3 +151,4 @@ export function ScreenStyle(): ReactNode {
     )
   }
 }
+*/
