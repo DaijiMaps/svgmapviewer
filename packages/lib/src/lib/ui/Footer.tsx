@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
@@ -65,8 +64,49 @@ const style = `
       }
     }
   }
-  will-change: none;
+  will-change: initial;
   transform-origin: 50% 100%;
+  
+  &.opened {
+    --opened: 1;
+  }
+  &.closed {
+    --closed: 1;
+  }
+  &.not-animating {
+    --animating: 0;
+    --a: initial;
+    &.opened {
+      --b: 1;
+    }
+    &.closed {
+      --b: 0;
+    }
+    --duration: initial;
+    --timing: initial;
+    will-change: initial;
+    animation: initial;
+    opacity: var(--b);
+    transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
+  }
+  &.animating {
+    --animating: 1;
+    &.opened {
+      --a: 0;
+      --b: 1;
+      --timing: ${timing_opening};
+    }
+    &.closed {
+      --a: 1;
+      --b: 0;
+      --timing: ${timing_closing};
+    }
+    --duration: ${ZOOM_DURATION_HEADER}ms;
+    will-change: opacity, transform;
+    animation: xxx-footer var(--duration) var(--timing);
+    opacity: initial;
+    transform: initial;
+  }
 }
 
 @keyframes xxx-footer {
@@ -88,17 +128,21 @@ export function useFooterStyle(
 
   useEffect(() => {
     if (ref.current === null) return
+    ref.current.classList.remove(animating ? 'not-animating' : 'animating')
+    ref.current.classList.add(!animating ? 'not-animating' : 'animating')
+    ref.current.classList.remove(open ? 'closed' : `opened`)
+    ref.current.classList.add(!open ? 'closed' : `opened`)
+    /*
     const s = ref.current.style.setProperty.bind(ref.current.style)
-    const r = ref.current.style.removeProperty.bind(ref.current.style)
     if (!animating) {
       const b = !open ? 0 : 1
 
-      r('--a')
+      s('--a', null)
       s('--b', `${b}`)
-      r('--duration')
-      r('--timing')
-      s('will-change', `none`)
-      s('animation', `none`)
+      s('--duration', null)
+      s('--timing', null)
+      s('will-change', null)
+      s('animation', null)
       s('opacity', `var(--b)`)
       s('transform', `translate(calc(50vw - 50%), 0%) scale(var(--b))`)
     } else {
@@ -111,6 +155,9 @@ export function useFooterStyle(
       s('--timing', `${t}`)
       s('will-change', `opacity, transform`)
       s('animation', `xxx-footer var(--duration) var(--timing)`)
+      s('opacity', null)
+      s('transform', null)
     }
+    */
   }, [animating, open, ref])
 }
