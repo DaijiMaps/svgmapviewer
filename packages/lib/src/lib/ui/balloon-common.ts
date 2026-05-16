@@ -1,3 +1,8 @@
+/* eslint-disable functional/immutable-data */
+/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/no-expression-statements */
+import { useEffect, type RefObject } from 'react'
+
 import { type HV, type Size } from '../../types'
 import { boxBox, type BoxBox } from '../box/prefixed'
 import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from '../css'
@@ -14,7 +19,8 @@ import {
 } from '../vec/prefixed'
 import { type BalloonProps } from './Balloon'
 import { diag } from './diag'
-import { openCloseIsVisible, type OpenClose } from './openclose'
+import { openCloseIsVisible } from './openclose'
+import { useOpenCloseDetail } from './ui-react'
 import { type UiDetailContent } from './ui-types'
 
 const BW = 50
@@ -188,6 +194,7 @@ export function balloonPaths(
   }
 }
 
+/*
 export function balloonStyle(
   { open, animating }: OpenClose,
   Q: null | V,
@@ -244,4 +251,63 @@ export function balloonStyle(
 }
 `
   }
+}
+*/
+
+export function useDetailStyle(
+  ref: Readonly<RefObject<HTMLDivElement | null>>,
+  Q: null | V,
+  _hv: null | Readonly<HV>,
+  size: Readonly<BalloonSize>,
+  leg: Readonly<LegLayout>
+): void {
+  const { open, animating } = useOpenCloseDetail()
+
+  useEffect(() => {
+    if (ref.current === null) return
+    if (
+      Q === null ||
+      _hv === null ||
+      !openCloseIsVisible({ open, animating })
+    ) {
+      ref.current.style.visibility = 'hidden'
+      return
+    }
+    const { width, height } = size
+    const dP = scale(leg.q, -1)
+    const x = ref.current.style.setProperty.bind(ref.current.style)
+    if (!animating) {
+      const s = ab(0, 1)
+      const tx1 = vecAdd(Q, dP)
+
+      x('visibility', null)
+      x('--s-b', `${s.b}`)
+      x('--tx1-x', `${tx1.x}px`)
+      x('--tx1-y', `${tx1.y}px`)
+      x('--pww', `${-width / 2}px`)
+      x('--pwh', `${-height / 2}px`)
+      return
+    } else {
+      const o = open ? ab(0, 1) : ab(1, 0)
+      const s = open ? ab(0, 1) : ab(1, 0)
+      const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
+      const t = open ? timing_opening : timing_closing
+      const tx1 = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
+
+      x('visibility', null)
+      x('--o-a', `${o.a}`)
+      x('--o-b', `${o.b}`)
+      x('--s-a', `${s.a}`)
+      x('--s-b', `${s.b}`)
+      x('--timing', `${t}`)
+      x('--duration', `${ZOOM_DURATION_DETAIL}ms`)
+      x('--tx1-a-x', `${tx1.a.x}px`)
+      x('--tx1-a-y', `${tx1.a.y}px`)
+      x('--tx1-b-x', `${tx1.b.x}px`)
+      x('--tx1-b-y', `${tx1.b.y}px`)
+      x('--pww', `${-width / 2}px`)
+      x('--phh', `${-height / 2}px`)
+      return
+    }
+  }, [Q, _hv, animating, leg.q, open, ref, size])
 }

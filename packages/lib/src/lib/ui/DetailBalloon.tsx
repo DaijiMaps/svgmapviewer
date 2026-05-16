@@ -4,10 +4,10 @@ import { type ReactNode } from 'react'
 
 import { RenderMapAssetsDefault } from '../carto/assets'
 import { useShadowRoot } from '../dom'
-import { Balloon, type BalloonProps } from './Balloon'
-import { balloonStyle, calcBalloonLayout } from './balloon-common'
+import { Balloon } from './Balloon'
+import { calcBalloonLayout } from './balloon-common'
 import { Detail } from './Detail'
-import { useDetail, useOpenCloseDetail } from './ui-react'
+import { useDetail } from './ui-react'
 
 export function DetailBalloon(): ReactNode {
   useShadowRoot('detail', <DetailBalloonRoot />, 'ui')
@@ -32,9 +32,8 @@ function BalloonDetailStyle() {
   return (
     <>
       <Balloon {...props} />
-      <Detail _detail={detail} />
+      <Detail {...props} _detail={detail} />
       <style>{style}</style>
-      <Style {...props} />
     </>
   )
 }
@@ -94,8 +93,10 @@ function Assets() {
   )
 }
 
+/*
 function Style({ _p, _hv, _size, _leg }: Readonly<BalloonProps>): ReactNode {
   const detail = useOpenCloseDetail()
 
   return <style>{balloonStyle(detail, _p, _hv, _size, _leg)}</style>
 }
+*/

@@ -11,6 +11,7 @@ import {
 import { type VecVec } from '../vec/prefixed'
 import {
   balloonPaths,
+  useDetailStyle,
   type BalloonSize,
   type LegLayout,
 } from './balloon-common'
@@ -31,6 +32,8 @@ export function Balloon(
   const ref = useRef<HTMLDivElement>(null)
 
   useOpenCloseDetailStyle(ref)
+
+  useDetailStyle(ref, props._p, props._hv, props._size, props._leg)
 
   return (
     <div ref={ref} className="balloon">
