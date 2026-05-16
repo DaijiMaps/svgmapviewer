@@ -5,9 +5,6 @@ import { type OpenClose } from './openclose'
 
 export type UiPart = 'header' | 'detail'
 
-export type UiHeaderPart = 'header' | 'footer' | 'left' | 'right' | 'measure'
-export type UiDetailPart = 'detail'
-
 export type OpenCloseMap = Record<UiPart, OpenClose>
 
 export type UiDetailContent = SearchRes & {
