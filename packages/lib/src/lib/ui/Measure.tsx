@@ -5,9 +5,6 @@ import {
   position_absolute_left_0_bottom_0,
   position_absolute_left_0_top_0,
   position_absolute_right_0_bottom_0,
-  timing_closing,
-  timing_opening,
-  ZOOM_DURATION_HEADER,
 } from '../css'
 import {
   useDistanceRadius,
@@ -15,7 +12,6 @@ import {
   useLayoutContainer,
 } from '../style/style-react'
 import { trunc7 } from '../utils'
-import { useOpenCloseHeader } from './ui-react'
 
 export function Measure(): ReactNode {
   return (
@@ -158,43 +154,6 @@ function ringPath({
     /([.]\d)\d*/g,
     '$1'
   )
-}
-
-export function GuidesAnimationStyle(): ReactNode {
-  const { open, animating } = useOpenCloseHeader()
-
-  // balloon is not open => guide is shown (== opacity: 1)
-  const [oa, ob] = !open ? [1, 0] : [0, 1]
-  const t = open ? timing_opening : timing_closing
-
-  const style = !animating
-    ? `
-.guides {
-  --ob: ${ob};
-  opacity: var(--ob);
-  will-change: opacity;
-}
-`
-    : `
-.guides {
-  --timing: ${t};
-  --duration: ${ZOOM_DURATION_HEADER}ms;
-  --oa: ${oa};
-  --ob: ${ob};
-  animation: xxx-measure var(--duration) var(--timing);
-  will-change: opacity;
-}
-
-@keyframes xxx-measure {
-  from {
-    opacity: var(--oa);
-  }
-  to {
-    opacity: var(--ob);
-  }
-}
-`
-  return <>{style}</>
 }
 
 export function CoordinateStyle(): ReactNode {
