@@ -73,3 +73,10 @@ export function trunc2(n: number): number {
 export function trunc7(n: number): number {
   return Math.round(n * 10000000) / 10000000
 }
+
+////
+
+export type AB<T> = { a: T; b: T }
+export function ab<T>(a: T, b: T): AB<T> {
+  return { a, b }
+}

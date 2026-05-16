@@ -1,6 +1,7 @@
 import { type HV, type Size } from '../../types'
 import { boxBox, type BoxBox } from '../box/prefixed'
 import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from '../css'
+import { ab } from '../utils'
 import {
   vecVec as v,
   vecAdd as add,
@@ -8,6 +9,8 @@ import {
   vecMul as mul,
   vecSub as sub,
   type VecVec as V,
+  vecZero,
+  vecAdd,
 } from '../vec/prefixed'
 import { type BalloonProps } from './Balloon'
 import { diag } from './diag'
@@ -203,46 +206,38 @@ export function balloonStyle(
   const dP = scale(leg.q, -1)
 
   if (!animating) {
-    const sb = 1
+    const s = ab(0, 1)
+    const tx1 = vecAdd(Q, dP)
 
     return `
 .detail,
 .balloon {
-  --sb: ${sb};
-  --tx1: translate(${Q.x + dP.x}px, ${Q.y + dP.y}px);
   --pww: ${-width / 2}px;
   --phh: ${-height / 2}px;
 }
 
 .detail {
   transform-origin: 0 0;
-  transform: var(--tx1) scale(var(--sb)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+  transform: translate(${tx1.x}px, ${tx1.y}px) scale(${s.b}) translate(-50%, -50%) translate3d(0px, 0px, 0px);
 }
 
 .balloon {
   transform-origin: 0 0;
-  transform: var(--tx1) scale(var(--sb)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
+  transform: translate(${tx1.x}px, ${tx1.y}px) scale(${s.b}) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
 }
 `
   } else {
-    const [oa, ob] = open ? [0, 1] : [1, 0]
-    const [sa, sb] = open ? [0, 1] : [1, 0]
-    const dPxy = [dP.x, dP.y]
-    const [dxa, dya] = open ? [0, 0] : dPxy
-    const [dxb, dyb] = open ? dPxy : [0, 0]
+    const o = open ? ab(0, 1) : ab(1, 0)
+    const s = open ? ab(0, 1) : ab(1, 0)
+    const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
     const t = open ? timing_opening : timing_closing
+    const tx1 = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
 
     return `
 .detail,
 .balloon {
-  --oa: ${oa};
-  --ob: ${ob};
-  --sa: ${sa};
-  --sb: ${sb};
   --timing: ${t};
   --duration: ${ZOOM_DURATION_DETAIL}ms;
-  --tx1a: translate(${Q.x + dxa}px, ${Q.y + dya}px);
-  --tx1b: translate(${Q.x + dxb}px, ${Q.y + dyb}px);
   --pww: ${-width / 2}px;
   --phh: ${-height / 2}px;
   transform-origin: 0 0;
@@ -259,23 +254,23 @@ export function balloonStyle(
 
 @keyframes xxx-detail {
   from {
-    opacity: var(--oa);
-    transform: var(--tx1a) scale(var(--sa)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+    opacity: ${o.a};
+    transform: translate(${tx1.a.x}px, ${tx1.a.y}px) scale(${s.a}) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: var(--ob);
-    transform: var(--tx1b) scale(var(--sb)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+    opacity: ${o.b};
+    transform: translate(${tx1.b.x}px, ${tx1.b.y}px) scale(${s.b}) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
 }
 
 @keyframes xxx-balloon {
   from {
-    opacity: var(--oa);
-    transform: var(--tx1a) scale(var(--sa)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
+    opacity: ${o.a};
+    transform: translate(${tx1.a.x}px, ${tx1.a.y}px) scale(${s.a}) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: var(--ob);
-    transform: var(--tx1b) scale(var(--sb)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
+    opacity: ${o.b};
+    transform: translate(${tx1.b.x}px, ${tx1.b.y}px) scale(${s.b}) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
   }
 }
 `
