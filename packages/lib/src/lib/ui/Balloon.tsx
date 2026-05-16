@@ -1,4 +1,5 @@
-import { type PropsWithChildren, type ReactNode } from 'react'
+/* eslint-disable functional/no-expression-statements */
+import { useRef, type PropsWithChildren, type ReactNode } from 'react'
 
 import { type HV } from '../../types'
 import { boxToViewBox2 } from '../box/prefixed'
@@ -13,6 +14,7 @@ import {
   type BalloonSize,
   type LegLayout,
 } from './balloon-common'
+import { useOpenCloseDetailStyle } from './ui-react'
 
 export interface BalloonProps {
   _p: null | VecVec
@@ -26,8 +28,12 @@ export interface BalloonProps {
 export function Balloon(
   props: Readonly<PropsWithChildren<BalloonProps>>
 ): ReactNode {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useOpenCloseDetailStyle(ref)
+
   return (
-    <div className="balloon">
+    <div ref={ref} className="balloon">
       <BalloonSvg {...props} />
       {props.children}
       <style>{style}</style>

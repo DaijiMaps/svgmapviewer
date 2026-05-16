@@ -12,6 +12,7 @@ import {
   Z_INDEX_DETAIL,
 } from '../css'
 import { useOnWheel } from '../wheel'
+import { useOpenCloseDetailStyle } from './ui-react'
 import { type UiDetailContent } from './ui-types'
 import { isDetailEmpty, uiSend } from './ui-xstate'
 
@@ -23,6 +24,8 @@ export function Detail(
   const { _detail } = props
 
   useOnWheel(ref)
+
+  useOpenCloseDetailStyle(ref)
 
   return (
     <div
