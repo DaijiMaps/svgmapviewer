@@ -1,6 +1,7 @@
+/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode, type RefObject } from 'react'
 
 import {
   background_white_opaque,
@@ -29,8 +30,10 @@ export function Right(): ReactNode {
 }
 
 function RightRoot(): ReactNode {
+  const ref = useStyle()
+
   return (
-    <div className="ui-content right bottom">
+    <div ref={ref} className="ui-content right bottom">
       <Buttons />
       <style>{style}</style>
     </div>
@@ -46,14 +49,54 @@ const style = `
   ${pointer_events_none}
 
   transform-origin: 100% 50%;
-}
 
-.right {
   top: initial;
   bottom: 0;
   align-items: end;
 
-  transform-origin: 100% 100%;
+  transform-origin: 100% 50%;
+  &.bottom {
+    transform-origin: 100% 100%;
+  }
+  
+  &.not-animating {
+    &.opened {
+      --b: 1;
+    }
+    &.closed {
+      --b: 0;
+    }
+    opacity: var(--b);
+    /*
+    transform: scale(var(--b));
+    will-change: initial;
+    */
+  }
+  &.animating {
+    &.opened {
+      --a: 0;
+      --b: 1;
+      --timing: ${timing_opening};
+    }
+    &.closed {
+      --a: 1;
+      --b: 0;
+      --timing: ${timing_closing};
+    }
+    animation: xxx-right 300ms var(--timing);
+    will-change: opacity, transform;
+  }
+}
+
+@keyframes xxx-right {
+  from {
+    opacity: var(--a);
+    transform: scale(var(--a)) translate3d(0px, 0px, 0px);
+  }
+  to {
+    opacity: var(--b);
+    transform: scale(var(--b)) translate3d(0px, 0px, 0px);
+  }
 }
 `
 
@@ -67,10 +110,7 @@ function Buttons(): ReactNode {
       <Rotate />
       <ZoomOut />
       <ZoomIn />
-      <style>
-        {buttonStyle}
-        <RightStyle />
-      </style>
+      <style>{buttonStyle}</style>
     </div>
   )
 }
@@ -107,57 +147,18 @@ const buttonStyle = `
 }
 `
 
-export function RightStyle(): ReactNode {
+function useStyle(): Readonly<RefObject<HTMLDivElement | null>> {
+  const ref = useRef<HTMLDivElement>(null)
+
   const { open, animating } = useOpenCloseHeader()
 
-  if (!animating) {
-    const b = !open ? 0 : 1
+  useEffect(() => {
+    if (ref.current === null) return
+    ref.current.classList.remove(animating ? 'not-animating' : 'animating')
+    ref.current.classList.add(!animating ? 'not-animating' : 'animating')
+    ref.current.classList.remove(open ? 'closed' : `opened`)
+    ref.current.classList.add(!open ? 'closed' : `opened`)
+  }, [animating, open, ref])
 
-    return (
-      <>{`
-.right {
-  --b: ${b};
-  transform-origin: 100% 50%;
-  opacity: var(--b);
-  /*
-  transform: scale(var(--b));
-  */
-  will-change: opacity, transform;
-}
-.bottom {
-  transform-origin: 100% 100%;
-}
-`}</>
-    )
-  } else {
-    const [a, b] = !open ? [1, 0] : [0, 1]
-    const t = open ? timing_opening : timing_closing
-
-    return (
-      <>{`
-.right {
-  --timing: ${t};
-  --a: ${a};
-  --b: ${b};
-  transform-origin: 100% 50%;
-  animation: xxx-right 300ms var(--timing);
-  will-change: opacity, transform;
-}
-.bottom {
-  transform-origin: 100% 100%;
-}
-
-@keyframes xxx-right {
-  from {
-    opacity: var(--a);
-    transform: scale(var(--a)) translate3d(0px, 0px, 0px);
-  }
-  to {
-    opacity: var(--b);
-    transform: scale(var(--b)) translate3d(0px, 0px, 0px);
-  }
-}
-`}</>
-    )
-  }
+  return ref
 }
