@@ -92,11 +92,3 @@ function Assets() {
     </svg>
   )
 }
-
-/*
-function Style({ _p, _hv, _size, _leg }: Readonly<BalloonProps>): ReactNode {
-  const detail = useOpenCloseDetail()
-
-  return <style>{balloonStyle(detail, _p, _hv, _size, _leg)}</style>
-}
-*/
