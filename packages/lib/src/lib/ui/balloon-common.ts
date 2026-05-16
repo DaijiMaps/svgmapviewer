@@ -217,7 +217,7 @@ export function useDetailStyle(
     const dP = scale(leg.q, -1)
     x('visibility', null)
     x('--pww', `${-width / 2}px`)
-    x('--pwh', `${-height / 2}px`)
+    x('--phh', `${-height / 2}px`)
     if (!animating) {
       const s = ab(0, 1)
       const tx1 = vecAdd(Q, dP)
