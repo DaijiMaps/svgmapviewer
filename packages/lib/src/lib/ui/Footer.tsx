@@ -12,7 +12,8 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
-import { useOpenCloseHeader } from './ui-react'
+import type { OpenClose } from './openclose'
+import { uiRegisterHeaderCb } from './ui-react'
 
 export function Footer(): ReactNode {
   useShadowRoot('footer', <FooterRoot />, 'ui')
@@ -24,16 +25,16 @@ function FooterRoot(): ReactNode {
   const config = svgMapViewerConfig
 
   return (
-    <div className="ui-content footer">
+    <div
+      className="ui-content footer"
+      ref={uiRegisterHeaderCb('footer', openCloseFooterRef)}
+    >
       <p>
         <a href={document.location.href + `?info=1`} target="_blank">
           {config.copyright}
         </a>
       </p>
-      <style>
-        {style}
-        <FooterStyle />
-      </style>
+      <style>{style}</style>
     </div>
   )
 }
@@ -63,53 +64,61 @@ const style = `
       }
     }
   }
-}
-`
-
-export function FooterStyle(): ReactNode {
-  const { open, animating } = useOpenCloseHeader()
-
-  if (!animating) {
-    const b = !open ? 0 : 1
-
-    return (
-      <>{`
-.footer {
-  --b: ${b};
-  transform-origin: 50% 100%;
-  opacity: var(--b);
-  transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
   will-change: opacity, transform;
-}
-`}</>
-    )
-  } else {
-    const [a, b] = !open ? [1, 0] : [0, 1]
-    const t = open ? timing_opening : timing_closing
-
-    return (
-      <>{`
-.footer {
-  --duration: ${ZOOM_DURATION_HEADER}ms;
-  --timing: ${t};
-  --a: ${a};
-  --b: ${b};
   transform-origin: 50% 100%;
-  animation: xxx-footer var(--duration) var(--timing);
-  will-change: opacity, transform;
+  transform: translate(calc(50vw - 50%), 0%) scale(1);
 }
 
 @keyframes xxx-footer {
   from {
-    opacity: var(--a);
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--a)) translate3d(0px, 0px, 0px);
+    opacity: var(--footer-a);
+    transform: translate(calc(50vw - 50%), 0%) scale(var(--footer-a)) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: var(--b);
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--b)) translate3d(0px, 0px, 0px);
+    opacity: var(--footer-b);
+    transform: translate(calc(50vw - 50%), 0%) scale(var(--footer-b)) translate3d(0px, 0px, 0px);
   }
 }
-`}</>
-    )
+`
+
+function openCloseFooter(
+  // eslint-disable-next-line functional/prefer-immutable-types
+  node: HTMLDivElement,
+  { open, animating }: Readonly<OpenClose>
+  // eslint-disable-next-line functional/no-return-void
+): void {
+  const s = node.style.setProperty
+  const r = node.style.removeProperty
+  // eslint-disable-next-line functional/no-conditional-statements
+  if (!animating) {
+    const b = !open ? 0 : 1
+    r('--footer-a')
+    s('--footer-b', `${b}`)
+    r('--footer-duration')
+    r('--footer-timing')
+    s('opacity', `var(--footer-b)`)
+    s('transform', `translate(calc(50vw - 50%), 0%) scale(var(--footer-b))`)
+    r('animation')
+    // eslint-disable-next-line functional/no-conditional-statements
+  } else {
+    const [a, b] = !open ? [1, 0] : [0, 1]
+    const t = open ? timing_opening : timing_closing
+    s('--footer-a', `${a}`)
+    s('--footer-b', `${b}`)
+    s('--footer-duration', `${ZOOM_DURATION_HEADER}ms`)
+    s('--footer-timing', `${t}`)
+    r('opacity')
+    r('transform')
+    s('animation', `xxx-footer var(--footer-duration) var(--footer-timing)`)
+  }
+}
+
+export function openCloseFooterRef(
+  // eslint-disable-next-line functional/prefer-immutable-types
+  node: HTMLDivElement
+) {
+  // eslint-disable-next-line functional/no-return-void
+  return function (oc: OpenClose): void {
+    return openCloseFooter(node, oc)
   }
 }

@@ -40,7 +40,7 @@ export function infoRoot(config: Readonly<SvgMapViewerConfig>): void {
 
 const style = `
 :root {
-  font-family: 'sans-serif';
+  font-family: sans-serif;
   text-align: center;
 }
 h1 {

@@ -15,7 +15,7 @@ import {
   openCloseReset,
   type OpenCloseOp,
 } from './openclose'
-import { resetDetailScroll } from './ui-react'
+import { resetDetailScroll, uiOpenCloseCb } from './ui-react'
 import {
   type OpenCloseMap,
   type UiContext,
@@ -47,6 +47,7 @@ function doOpenCloseMap(op: OpenCloseOp) {
     const a = m[part]
     const b = op(a)
     m[part] = b === null ? a : b
+    if (b !== null) uiOpenCloseCb(part, b)
     return m
   }
 }
