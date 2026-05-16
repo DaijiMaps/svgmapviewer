@@ -1,8 +1,9 @@
+/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode, type RefObject } from 'react'
 
-import { svgMapViewerConfig } from '../../config'
+import { svgMapViewerConfig as config } from '../../config'
 import {
   flex_column_center_center,
   position_absolute_left_0_bottom_0,
@@ -21,19 +22,16 @@ export function Footer(): ReactNode {
 }
 
 function FooterRoot(): ReactNode {
-  const config = svgMapViewerConfig
+  const ref = useStyle()
 
   return (
-    <div className="ui-content footer">
+    <div ref={ref} className="ui-content footer">
       <p>
         <a href={document.location.href + `?info=1`} target="_blank">
           {config.copyright}
         </a>
       </p>
-      <style>
-        {style}
-        <FooterStyle />
-      </style>
+      <style>{style}</style>
     </div>
   )
 }
@@ -63,40 +61,49 @@ const style = `
       }
     }
   }
-}
-`
-
-export function FooterStyle(): ReactNode {
-  const { open, animating } = useOpenCloseHeader()
-
-  if (!animating) {
-    const b = !open ? 0 : 1
-
-    return (
-      <>{`
-.footer {
-  --b: ${b};
+  will-change: initial;
   transform-origin: 50% 100%;
-  opacity: var(--b);
-  transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
-  will-change: opacity, transform;
-}
-`}</>
-    )
-  } else {
-    const [a, b] = !open ? [1, 0] : [0, 1]
-    const t = open ? timing_opening : timing_closing
-
-    return (
-      <>{`
-.footer {
-  --duration: ${ZOOM_DURATION_HEADER}ms;
-  --timing: ${t};
-  --a: ${a};
-  --b: ${b};
-  transform-origin: 50% 100%;
-  animation: xxx-footer var(--duration) var(--timing);
-  will-change: opacity, transform;
+  
+  &.opened {
+    --opened: 1;
+  }
+  &.closed {
+    --closed: 1;
+  }
+  &.not-animating {
+    --animating: 0;
+    --a: initial;
+    &.opened {
+      --b: 1;
+    }
+    &.closed {
+      --b: 0;
+    }
+    --duration: initial;
+    --timing: initial;
+    will-change: initial;
+    animation: initial;
+    opacity: var(--b);
+    transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
+  }
+  &.animating {
+    --animating: 1;
+    &.opened {
+      --a: 0;
+      --b: 1;
+      --timing: ${timing_opening};
+    }
+    &.closed {
+      --a: 1;
+      --b: 0;
+      --timing: ${timing_closing};
+    }
+    --duration: ${ZOOM_DURATION_HEADER}ms;
+    will-change: opacity, transform;
+    animation: xxx-footer var(--duration) var(--timing);
+    opacity: initial;
+    transform: initial;
+  }
 }
 
 @keyframes xxx-footer {
@@ -109,7 +116,20 @@ export function FooterStyle(): ReactNode {
     transform: translate(calc(50vw - 50%), 0%) scale(var(--b)) translate3d(0px, 0px, 0px);
   }
 }
-`}</>
-    )
-  }
+`
+
+function useStyle(): Readonly<RefObject<HTMLDivElement | null>> {
+  const ref = useRef<HTMLDivElement>(null)
+
+  const { open, animating } = useOpenCloseHeader()
+
+  useEffect(() => {
+    if (ref.current === null) return
+    ref.current.classList.remove(animating ? 'not-animating' : 'animating')
+    ref.current.classList.add(!animating ? 'not-animating' : 'animating')
+    ref.current.classList.remove(open ? 'closed' : `opened`)
+    ref.current.classList.add(!open ? 'closed' : `opened`)
+  }, [animating, open, ref])
+
+  return ref
 }

@@ -1,6 +1,7 @@
+/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode, type RefObject } from 'react'
 
 import {
   flex_row_center_center,
@@ -21,13 +22,12 @@ export function Left(): ReactNode {
 }
 
 function LeftRoot(): ReactNode {
+  const ref = useStyle()
+
   return (
-    <div className="ui-content left bottom">
+    <div ref={ref} className="ui-content left bottom">
       <Floors />
-      <style>
-        {style}
-        <LeftStyle />
-      </style>
+      <style>{style}</style>
     </div>
   )
 }
@@ -39,45 +39,37 @@ const style = `
   padding: 0.4em;
   font-size: smaller;
   ${pointer_events_none}
-}
-
-.left {
   top: initial;
   align-items: end;
-}
-`
-
-export function LeftStyle(): ReactNode {
-  const { open, animating } = useOpenCloseHeader()
-
-  if (!animating) {
-    const b = !open ? 0 : 1
-
-    return (
-      <>{`
-.left {
-  --b: ${b};
-  transform-origin: 0% 50%;
-  opacity: var(--b);
-  transform: translate(0%, calc(50vh - 50%)) scale(var(--b));
-  will-change: opacity, transform;
-}
-`}</>
-    )
-  } else {
-    const [a, b] = !open ? [1, 0] : [0, 1]
-    const t = open ? timing_opening : timing_closing
-
-    return (
-      <>{`
-.left {
-  --timing: ${t};
-  --duration: ${ZOOM_DURATION_HEADER}ms;
-  --a: ${a};
-  --b: ${b};
-  transform-origin: 0% 50%;
-  animation: xxx-left var(--duration) var(--timing);
-  will-change: opacity, transform;
+  
+  &.not-animating {
+    &.opened {
+      --b: 1;
+    }
+    &.closed {
+      --b: 0;
+    }
+    transform-origin: 0% 50%;
+    opacity: var(--b);
+    transform: translate(0%, calc(50vh - 50%)) scale(var(--b));
+    will-change: opacity, transform;
+  }
+  &.animating {
+    &.opened {
+      --a: 0;
+      --b: 1;
+      --timing: ${timing_opening};
+    }
+    &.closed {
+      --a: 1;
+      --b: 0;
+      --timing: ${timing_closing};
+    }
+    --duration: ${ZOOM_DURATION_HEADER}ms;
+    transform-origin: 0% 50%;
+    animation: xxx-left var(--duration) var(--timing);
+    will-change: opacity, transform;
+  }
 }
 
 @keyframes xxx-left {
@@ -90,7 +82,20 @@ export function LeftStyle(): ReactNode {
     transform: translate(0%, calc(50vh - 50%)) scale(var(--b)) translate3d(0px, 0px, 0px);
   }
 }
-`}</>
-    )
-  }
+`
+
+function useStyle(): Readonly<RefObject<HTMLDivElement | null>> {
+  const ref = useRef<HTMLDivElement>(null)
+
+  const { open, animating } = useOpenCloseHeader()
+
+  useEffect(() => {
+    if (ref.current === null) return
+    ref.current.classList.remove(animating ? 'not-animating' : 'animating')
+    ref.current.classList.add(!animating ? 'not-animating' : 'animating')
+    ref.current.classList.remove(open ? 'closed' : `opened`)
+    ref.current.classList.add(!open ? 'closed' : `opened`)
+  }, [animating, open, ref])
+
+  return ref
 }
