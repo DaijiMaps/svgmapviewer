@@ -1,4 +1,3 @@
-/* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 import { useEffect, type RefObject } from 'react'
@@ -205,27 +204,27 @@ export function useDetailStyle(
 
   useEffect(() => {
     if (ref.current === null) return
+    const x = ref.current.style.setProperty.bind(ref.current.style)
     if (
       Q === null ||
       _hv === null ||
       !openCloseIsVisible({ open, animating })
     ) {
-      ref.current.style.visibility = 'hidden'
+      x('visibility', 'hidden')
       return
     }
     const { width, height } = size
     const dP = scale(leg.q, -1)
-    const x = ref.current.style.setProperty.bind(ref.current.style)
+    x('visibility', null)
+    x('--pww', `${-width / 2}px`)
+    x('--pwh', `${-height / 2}px`)
     if (!animating) {
       const s = ab(0, 1)
       const tx1 = vecAdd(Q, dP)
 
-      x('visibility', null)
       x('--s-b', `${s.b}`)
       x('--tx1-x', `${tx1.x}px`)
       x('--tx1-y', `${tx1.y}px`)
-      x('--pww', `${-width / 2}px`)
-      x('--pwh', `${-height / 2}px`)
       return
     } else {
       const o = open ? ab(0, 1) : ab(1, 0)
@@ -234,7 +233,6 @@ export function useDetailStyle(
       const t = open ? timing_opening : timing_closing
       const tx1 = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
 
-      x('visibility', null)
       x('--o-a', `${o.a}`)
       x('--o-b', `${o.b}`)
       x('--s-a', `${s.a}`)
@@ -245,8 +243,6 @@ export function useDetailStyle(
       x('--tx1-a-y', `${tx1.a.y}px`)
       x('--tx1-b-x', `${tx1.b.x}px`)
       x('--tx1-b-y', `${tx1.b.y}px`)
-      x('--pww', `${-width / 2}px`)
-      x('--phh', `${-height / 2}px`)
       return
     }
   }, [Q, _hv, animating, leg.q, open, ref, size])
