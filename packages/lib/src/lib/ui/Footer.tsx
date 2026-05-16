@@ -1,6 +1,8 @@
+/* eslint-disable functional/no-conditional-statements */
+/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode, type RefObject } from 'react'
 
 import { svgMapViewerConfig } from '../../config'
 import {
@@ -21,19 +23,19 @@ export function Footer(): ReactNode {
 }
 
 function FooterRoot(): ReactNode {
+  const ref = useRef<HTMLDivElement>(null)
   const config = svgMapViewerConfig
 
+  useFooterStyle(ref)
+
   return (
-    <div className="ui-content footer">
+    <div className="ui-content footer" ref={ref}>
       <p>
         <a href={document.location.href + `?info=1`} target="_blank">
           {config.copyright}
         </a>
       </p>
-      <style>
-        {style}
-        <FooterStyle />
-      </style>
+      <style>{style}</style>
     </div>
   )
 }
@@ -63,40 +65,8 @@ const style = `
       }
     }
   }
-}
-`
-
-export function FooterStyle(): ReactNode {
-  const { open, animating } = useOpenCloseHeader()
-
-  if (!animating) {
-    const b = !open ? 0 : 1
-
-    return (
-      <>{`
-.footer {
-  --b: ${b};
+  will-change: none;
   transform-origin: 50% 100%;
-  opacity: var(--b);
-  transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
-  will-change: opacity, transform;
-}
-`}</>
-    )
-  } else {
-    const [a, b] = !open ? [1, 0] : [0, 1]
-    const t = open ? timing_opening : timing_closing
-
-    return (
-      <>{`
-.footer {
-  --duration: ${ZOOM_DURATION_HEADER}ms;
-  --timing: ${t};
-  --a: ${a};
-  --b: ${b};
-  transform-origin: 50% 100%;
-  animation: xxx-footer var(--duration) var(--timing);
-  will-change: opacity, transform;
 }
 
 @keyframes xxx-footer {
@@ -109,7 +79,38 @@ export function FooterStyle(): ReactNode {
     transform: translate(calc(50vw - 50%), 0%) scale(var(--b)) translate3d(0px, 0px, 0px);
   }
 }
-`}</>
-    )
-  }
+`
+
+export function useFooterStyle(
+  ref: Readonly<RefObject<HTMLDivElement | null>>
+): void {
+  const { open, animating } = useOpenCloseHeader()
+
+  useEffect(() => {
+    if (ref.current === null) return
+    const s = ref.current.style.setProperty.bind(ref.current.style)
+    const r = ref.current.style.removeProperty.bind(ref.current.style)
+    if (!animating) {
+      const b = !open ? 0 : 1
+
+      r('--a')
+      s('--b', `${b}`)
+      r('--duration')
+      r('--timing')
+      s('will-change', `none`)
+      s('animation', `none`)
+      s('opacity', `var(--b)`)
+      s('transform', `translate(calc(50vw - 50%), 0%) scale(var(--b))`)
+    } else {
+      const [a, b] = !open ? [1, 0] : [0, 1]
+      const t = open ? timing_opening : timing_closing
+
+      s('--a', `${a}`)
+      s('--b', `${b}`)
+      s('--duration', `${ZOOM_DURATION_HEADER}ms`)
+      s('--timing', `${t}`)
+      s('will-change', `opacity, transform`)
+      s('animation', `xxx-footer var(--duration) var(--timing)`)
+    }
+  }, [animating, open, ref])
 }
