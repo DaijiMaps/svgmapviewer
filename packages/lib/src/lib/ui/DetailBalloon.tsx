@@ -7,7 +7,6 @@ import { useShadowRoot } from '../dom'
 import { Balloon, type BalloonProps } from './Balloon'
 import { balloonStyle, calcBalloonLayout } from './balloon-common'
 import { Detail } from './Detail'
-import { openCloseIsVisible } from './openclose'
 import { useDetail, useOpenCloseDetail } from './ui-react'
 
 export function DetailBalloon(): ReactNode {
@@ -52,10 +51,5 @@ function Assets() {
 function Style({ _p, _hv, _size, _leg }: Readonly<BalloonProps>): ReactNode {
   const detail = useOpenCloseDetail()
 
-  const style =
-    _p === null || _hv === null || !openCloseIsVisible(detail)
-      ? `.balloon, .detail { visibility: hidden; }`
-      : balloonStyle(detail, _p, _hv, _size, _leg)
-
-  return <style>{style}</style>
+  return <style>{balloonStyle(detail, _p, _hv, _size, _leg)}</style>
 }

@@ -11,7 +11,7 @@ import {
 } from '../vec/prefixed'
 import { type BalloonProps } from './Balloon'
 import { diag } from './diag'
-import { type OpenClose } from './openclose'
+import { openCloseIsVisible, type OpenClose } from './openclose'
 import { type UiDetailContent } from './ui-types'
 
 const BW = 50
@@ -187,11 +187,17 @@ export function balloonPaths(
 
 export function balloonStyle(
   { open, animating }: OpenClose,
-  Q: V,
-  _hv: Readonly<HV>,
+  Q: null | V,
+  _hv: null | Readonly<HV>,
   size: Readonly<BalloonSize>,
   leg: Readonly<LegLayout>
 ): string {
+  if (Q === null || _hv === null || !openCloseIsVisible({ open, animating }))
+    return `
+.balloon, .detail {
+  visibility: hidden;
+}`
+
   const { width, height } = size
 
   const dP = scale(leg.q, -1)
