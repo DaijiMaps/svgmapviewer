@@ -49,6 +49,46 @@ const style = `
   pointer-events: initial;
   z-index: ${Z_INDEX_SHADOW};
   will-change: opacity;
+
+  &.not-animating {
+    &.opened {
+    }
+    &.closed {
+      &.not-zooming {
+        display: none;
+      }
+      &.zooming {
+        display: initial;
+        opacity: 0;
+      }
+    }
+    opacity: 0.3;
+    will-change: opacity;
+  }
+  &.animating {
+    &.opened {
+      --a: 0;
+      --b: 0.3;
+      --timing: ${timing_opening};
+    }
+    &.closed {
+      --a: 0.3;
+      --b: 0;
+      --timing: ${timing_closing};
+    }
+    --duration: ${ZOOM_DURATION_DETAIL}ms;
+    will-change: opacity;
+    animation: xxx-screen var(--duration) var(--timing);
+  }
+}
+
+@keyframes xxx-screen {
+  from {
+    opacity: var(--a);
+  }
+  to {
+    opacity: var(--b);
+  }
 }
 `
 
@@ -89,15 +129,6 @@ export function ScreenStyle(): ReactNode {
   --b: ${b};
   will-change: opacity;
   animation: xxx-screen var(--duration) var(--timing);
-}
-
-@keyframes xxx-screen {
-  from {
-    opacity: var(--a);
-  }
-  to {
-    opacity: var(--b);
-  }
 }
 `}
       </>
