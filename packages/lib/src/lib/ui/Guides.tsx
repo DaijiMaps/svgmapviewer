@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 
 import { svgMapViewerConfig } from '../../config'
 import {
@@ -24,8 +24,11 @@ export function Guides(): ReactNode {
 }
 
 function GuidesRoot(): ReactNode {
-  const ref = useOpenCloseHeaderStyle()
+  const ref = useRef<HTMLDivElement>(null)
+
   const showGuides = svgMapViewerConfig.uiConfig?.showGuides ?? true
+
+  useOpenCloseHeaderStyle(ref)
 
   return !showGuides || svgMapViewerConfig.mapCoord.matrix.isIdentity ? (
     <></>

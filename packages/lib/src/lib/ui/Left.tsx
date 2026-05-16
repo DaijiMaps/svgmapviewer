@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 
 import {
   flex_row_center_center,
@@ -21,7 +21,9 @@ export function Left(): ReactNode {
 }
 
 function LeftRoot(): ReactNode {
-  const ref = useOpenCloseHeaderStyle()
+  const ref = useRef<HTMLDivElement>(null)
+
+  useOpenCloseHeaderStyle(ref)
 
   return (
     <div ref={ref} className="ui-content left bottom">
