@@ -210,18 +210,18 @@ export function balloonStyle(
     const tx1 = vecAdd(Q, dP)
 
     return `
-.detail,
-.balloon {
+.detail.not-animating,
+.balloon.not-animating {
   --pww: ${-width / 2}px;
   --phh: ${-height / 2}px;
 }
 
-.detail {
+.detail.not-animating {
   transform-origin: 0 0;
   transform: translate(${tx1.x}px, ${tx1.y}px) scale(${s.b}) translate(-50%, -50%) translate3d(0px, 0px, 0px);
 }
 
-.balloon {
+.balloon.not-animating {
   transform-origin: 0 0;
   transform: translate(${tx1.x}px, ${tx1.y}px) scale(${s.b}) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
 }
@@ -234,43 +234,51 @@ export function balloonStyle(
     const tx1 = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
 
     return `
-.detail,
-.balloon {
+.detail.animating,
+.balloon.animating {
+  --o-a: ${o.a};
+  --o-b: ${o.b};
+  --s-a: ${s.a};
+  --s-b: ${s.b};
   --timing: ${t};
   --duration: ${ZOOM_DURATION_DETAIL}ms;
+  --tx1-a-x: ${tx1.a.x}px;
+  --tx1-a-y: ${tx1.a.y}px;
+  --tx1-b-x: ${tx1.b.x}px;
+  --tx1-b-y: ${tx1.b.y}px;
   --pww: ${-width / 2}px;
   --phh: ${-height / 2}px;
   transform-origin: 0 0;
   will-change: opacity, transform;
 }
 
-.detail {
+.detail.animating {
   animation: xxx-detail var(--duration) var(--timing);
 }
 
-.balloon {
+.balloon.animating {
   animation: xxx-balloon var(--duration) var(--timing);
 }
 
 @keyframes xxx-detail {
   from {
-    opacity: ${o.a};
-    transform: translate(${tx1.a.x}px, ${tx1.a.y}px) scale(${s.a}) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+    opacity: var(--o-a);
+    transform: translate(var(--tx1-a-x), var(--tx1-a-y)) scale(var(--s-a)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: ${o.b};
-    transform: translate(${tx1.b.x}px, ${tx1.b.y}px) scale(${s.b}) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+    opacity: var(--o-b);
+    transform: translate(var(--tx1-b-x), var(--tx1-b-y)) scale(var(--s-b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
 }
 
 @keyframes xxx-balloon {
   from {
-    opacity: ${o.a};
-    transform: translate(${tx1.a.x}px, ${tx1.a.y}px) scale(${s.a}) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
+    opacity: var(--o-a);
+    transform: translate(var(--tx1-a-x), var(--tx1-a-y)) scale(var(--s-a)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: ${o.b};
-    transform: translate(${tx1.b.x}px, ${tx1.b.y}px) scale(${s.b}) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
+    opacity: var(--o-b);
+    transform: translate(var(--tx1-b-x), var(--tx1-b-y)) scale(var(--s-b)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
   }
 }
 `

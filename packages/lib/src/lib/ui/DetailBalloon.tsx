@@ -33,10 +33,14 @@ function BalloonDetailStyle() {
     <>
       <Balloon {...props} />
       <Detail _detail={detail} />
+      <style>{style}</style>
       <Style {...props} />
     </>
   )
 }
+
+const style = `
+`
 
 function Assets() {
   return (
