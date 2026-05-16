@@ -198,25 +198,14 @@ export function balloonStyle(
 
   if (!animating) {
     const sb = 1
-    const dxb = 'var(--dp-x)'
-    const dyb = 'var(--dp-y)'
 
     return `
 .detail,
 .balloon {
-  --q-x: ${Q.x}px;
-  --q-y: ${Q.y}px;
   --sb: ${sb};
-  --dp-x: ${dP.x}px;
-  --dp-y: ${dP.y}px;
-  --dxb: ${dxb};
-  --dyb: ${dyb};
+  --tx1: translate(${Q.x + dP.x}px, ${Q.y + dP.y}px);
   --pww: ${-width / 2}px;
   --phh: ${-height / 2}px;
-  
-  --qxb: calc(var(--q-x) + var(--dxb));
-  --qyb: calc(var(--q-y) + var(--dyb));
-  --tx1: translate(var(--qxb), var(--qyb));
 }
 
 .detail {
@@ -232,38 +221,24 @@ export function balloonStyle(
   } else {
     const [oa, ob] = open ? [0, 1] : [1, 0]
     const [sa, sb] = open ? [0, 1] : [1, 0]
-    const [dxa, dya] = open ? ['0px', '0px'] : ['var(--dp-x)', 'var(--dp-y)']
-    const [dxb, dyb] = open ? ['var(--dp-x)', 'var(--dp-y)'] : ['0px', '0px']
+    const dPxy = [dP.x, dP.y]
+    const [dxa, dya] = open ? [0, 0] : dPxy
+    const [dxb, dyb] = open ? dPxy : [0, 0]
     const t = open ? timing_opening : timing_closing
 
     return `
 .detail,
 .balloon {
-  --q-x: ${Q.x}px;
-  --q-y: ${Q.y}px;
-  --dp-x: ${dP.x}px;
-  --dp-y: ${dP.y}px;
-  --dxa: ${dxa};
-  --dxb: ${dxb};
-  --dya: ${dya};
-  --dyb: ${dyb};
-  
-  --qxa: calc(var(--q-x) + var(--dxa));
-  --qya: calc(var(--q-y) + var(--dya));
-  --qxb: calc(var(--q-x) + var(--dxb));
-  --qyb: calc(var(--q-y) + var(--dyb));
-
   --oa: ${oa};
   --ob: ${ob};
   --sa: ${sa};
   --sb: ${sb};
   --timing: ${t};
   --duration: ${ZOOM_DURATION_DETAIL}ms;
-  --tx1a: translate(var(--qxa), var(--qya));
-  --tx1b: translate(var(--qxb), var(--qyb));
+  --tx1a: translate(${Q.x + dxa}px, ${Q.y + dya}px);
+  --tx1b: translate(${Q.x + dxb}px, ${Q.y + dyb}px);
   --pww: ${-width / 2}px;
   --phh: ${-height / 2}px;
-
   transform-origin: 0 0;
   will-change: opacity, transform;
 }
