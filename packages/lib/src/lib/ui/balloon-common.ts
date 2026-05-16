@@ -194,66 +194,6 @@ export function balloonPaths(
   }
 }
 
-/*
-export function balloonStyle(
-  { open, animating }: OpenClose,
-  Q: null | V,
-  _hv: null | Readonly<HV>,
-  size: Readonly<BalloonSize>,
-  leg: Readonly<LegLayout>
-): string {
-  if (Q === null || _hv === null || !openCloseIsVisible({ open, animating }))
-    return `
-.balloon, .detail {
-  visibility: hidden;
-}`
-
-  const { width, height } = size
-
-  const dP = scale(leg.q, -1)
-
-  if (!animating) {
-    const s = ab(0, 1)
-    const tx1 = vecAdd(Q, dP)
-
-    return `
-.detail.not-animating,
-.balloon.not-animating {
-  --s-b: ${s.b};
-  --tx1-x: ${tx1.x}px;
-  --tx1-y: ${tx1.y}px;
-  --pww: ${-width / 2}px;
-  --phh: ${-height / 2}px;
-}
-`
-  } else {
-    const o = open ? ab(0, 1) : ab(1, 0)
-    const s = open ? ab(0, 1) : ab(1, 0)
-    const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
-    const t = open ? timing_opening : timing_closing
-    const tx1 = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
-
-    return `
-.detail.animating,
-.balloon.animating {
-  --o-a: ${o.a};
-  --o-b: ${o.b};
-  --s-a: ${s.a};
-  --s-b: ${s.b};
-  --timing: ${t};
-  --duration: ${ZOOM_DURATION_DETAIL}ms;
-  --tx1-a-x: ${tx1.a.x}px;
-  --tx1-a-y: ${tx1.a.y}px;
-  --tx1-b-x: ${tx1.b.x}px;
-  --tx1-b-y: ${tx1.b.y}px;
-  --pww: ${-width / 2}px;
-  --phh: ${-height / 2}px;
-}
-`
-  }
-}
-*/
-
 export function useDetailStyle(
   ref: Readonly<RefObject<HTMLDivElement | null>>,
   Q: null | V,
