@@ -1,6 +1,11 @@
+/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/no-expression-statements */
+import { useEffect, type RefObject } from 'react'
+
 import { type HV, type Size } from '../../types'
 import { boxBox, type BoxBox } from '../box/prefixed'
 import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from '../css'
+import { ab } from '../utils'
 import {
   vecVec as v,
   vecAdd as add,
@@ -8,10 +13,13 @@ import {
   vecMul as mul,
   vecSub as sub,
   type VecVec as V,
+  vecZero,
+  vecAdd,
 } from '../vec/prefixed'
 import { type BalloonProps } from './Balloon'
 import { diag } from './diag'
-import { type OpenClose } from './openclose'
+import { openCloseIsVisible } from './openclose'
+import { useOpenCloseDetail } from './ui-react'
 import { type UiDetailContent } from './ui-types'
 
 const BW = 50
@@ -185,117 +193,57 @@ export function balloonPaths(
   }
 }
 
-export function balloonStyle(
-  { open, animating }: OpenClose,
-  Q: V,
-  _hv: Readonly<HV>,
+export function useDetailStyle(
+  ref: Readonly<RefObject<HTMLDivElement | null>>,
+  Q: null | V,
+  _hv: null | Readonly<HV>,
   size: Readonly<BalloonSize>,
   leg: Readonly<LegLayout>
-): string {
-  const { width, height } = size
+): void {
+  const { open, animating } = useOpenCloseDetail()
 
-  const dP = scale(leg.q, -1)
+  useEffect(() => {
+    if (ref.current === null) return
+    const x = ref.current.style.setProperty.bind(ref.current.style)
+    if (
+      Q === null ||
+      _hv === null ||
+      !openCloseIsVisible({ open, animating })
+    ) {
+      x('visibility', 'hidden')
+      return
+    }
+    const { width, height } = size
+    const dP = scale(leg.q, -1)
+    x('visibility', null)
+    x('--pww', `${-width / 2}px`)
+    x('--phh', `${-height / 2}px`)
+    if (!animating) {
+      const s = ab(0, 1)
+      const tx1 = vecAdd(Q, dP)
 
-  if (!animating) {
-    const sb = 1
-    const dxb = 'var(--dp-x)'
-    const dyb = 'var(--dp-y)'
+      x('--s-b', `${s.b}`)
+      x('--tx1-x', `${tx1.x}px`)
+      x('--tx1-y', `${tx1.y}px`)
+      return
+    } else {
+      const o = open ? ab(0, 1) : ab(1, 0)
+      const s = open ? ab(0, 1) : ab(1, 0)
+      const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
+      const t = open ? timing_opening : timing_closing
+      const tx1 = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
 
-    return `
-.detail,
-.balloon {
-  --q-x: ${Q.x}px;
-  --q-y: ${Q.y}px;
-  --sb: ${sb};
-  --dp-x: ${dP.x}px;
-  --dp-y: ${dP.y}px;
-  --dxb: ${dxb};
-  --dyb: ${dyb};
-  --pww: ${-width / 2}px;
-  --phh: ${-height / 2}px;
-  
-  --qxb: calc(var(--q-x) + var(--dxb));
-  --qyb: calc(var(--q-y) + var(--dyb));
-  --tx1: translate(var(--qxb), var(--qyb));
-}
-
-.detail {
-  transform-origin: 0 0;
-  transform: var(--tx1) scale(var(--sb)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
-}
-
-.balloon {
-  transform-origin: 0 0;
-  transform: var(--tx1) scale(var(--sb)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
-}
-`
-  } else {
-    const [oa, ob] = open ? [0, 1] : [1, 0]
-    const [sa, sb] = open ? [0, 1] : [1, 0]
-    const [dxa, dya] = open ? ['0px', '0px'] : ['var(--dp-x)', 'var(--dp-y)']
-    const [dxb, dyb] = open ? ['var(--dp-x)', 'var(--dp-y)'] : ['0px', '0px']
-    const t = open ? timing_opening : timing_closing
-
-    return `
-.detail,
-.balloon {
-  --q-x: ${Q.x}px;
-  --q-y: ${Q.y}px;
-  --dp-x: ${dP.x}px;
-  --dp-y: ${dP.y}px;
-  --oa: ${oa};
-  --ob: ${ob};
-  --sa: ${sa};
-  --sb: ${sb};
-  --timing: ${t};
-  --dxa: ${dxa};
-  --dxb: ${dxb};
-  --dya: ${dya};
-  --dyb: ${dyb};
-  --pww: ${-width / 2}px;
-  --phh: ${-height / 2}px;
-  --duration: ${ZOOM_DURATION_DETAIL}ms;
-  
-  --qxa: calc(var(--q-x) + var(--dxa));
-  --qya: calc(var(--q-y) + var(--dya));
-  --qxb: calc(var(--q-x) + var(--dxb));
-  --qyb: calc(var(--q-y) + var(--dyb));
-  --tx1a: translate(var(--qxa), var(--qya));
-  --tx1b: translate(var(--qxb), var(--qyb));
-
-  transform-origin: 0 0;
-  will-change: opacity, transform;
-}
-
-.detail {
-  animation: xxx-detail var(--duration) var(--timing);
-}
-
-.balloon {
-  animation: xxx-balloon var(--duration) var(--timing);
-}
-
-@keyframes xxx-detail {
-  from {
-    opacity: var(--oa);
-    transform: var(--tx1a) scale(var(--sa)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
-  }
-  to {
-    opacity: var(--ob);
-    transform: var(--tx1b) scale(var(--sb)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
-  }
-}
-
-@keyframes xxx-balloon {
-  from {
-    opacity: var(--oa);
-    transform: var(--tx1a) scale(var(--sa)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
-  }
-  to {
-    opacity: var(--ob);
-    transform: var(--tx1b) scale(var(--sb)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
-  }
-}
-`
-  }
+      x('--o-a', `${o.a}`)
+      x('--o-b', `${o.b}`)
+      x('--s-a', `${s.a}`)
+      x('--s-b', `${s.b}`)
+      x('--timing', `${t}`)
+      x('--duration', `${ZOOM_DURATION_DETAIL}ms`)
+      x('--tx1-a-x', `${tx1.a.x}px`)
+      x('--tx1-a-y', `${tx1.a.y}px`)
+      x('--tx1-b-x', `${tx1.b.x}px`)
+      x('--tx1-b-y', `${tx1.b.y}px`)
+      return
+    }
+  }, [Q, _hv, animating, leg.q, open, ref, size])
 }

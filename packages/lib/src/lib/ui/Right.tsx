@@ -1,7 +1,6 @@
-/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { useEffect, useRef, type ReactNode, type RefObject } from 'react'
+import { useRef, type ReactNode } from 'react'
 
 import {
   background_white_opaque,
@@ -21,7 +20,7 @@ import { Recenter } from './buttons/Recenter'
 import { Rotate } from './buttons/Rotate'
 import { ZoomIn } from './buttons/ZoomIn'
 import { ZoomOut } from './buttons/ZoomOut'
-import { useOpenCloseHeader } from './ui-react'
+import { useOpenCloseHeaderStyle } from './ui-react'
 
 export function Right(): ReactNode {
   useShadowRoot('right', <RightRoot />, 'ui')
@@ -30,7 +29,9 @@ export function Right(): ReactNode {
 }
 
 function RightRoot(): ReactNode {
-  const ref = useStyle()
+  const ref = useRef<HTMLDivElement>(null)
+
+  useOpenCloseHeaderStyle(ref)
 
   return (
     <div ref={ref} className="ui-content right bottom">
@@ -129,36 +130,20 @@ const buttonStyle = `
   ${pointer_events_initial}
   cursor: default;
   ${background_white_opaque}
-}
-.button-item > svg {
-  display: block;
-  width: 1.25em;
-  height: 1.25em;
-  pointer-events: none;
-}
-.button-item > svg > path {
-  stroke: black;
-  stroke-width: 0.4;
-  fill: none;
+  & > svg {
+    display: block;
+    width: 1.25em;
+    height: 1.25em;
+    pointer-events: none;
+    & > path {
+      stroke: black;
+      stroke-width: 0.4;
+      fill: none;
+    }
+  }
 }
 
 .fullscreen {
   display: none;
 }
 `
-
-function useStyle(): Readonly<RefObject<HTMLDivElement | null>> {
-  const ref = useRef<HTMLDivElement>(null)
-
-  const { open, animating } = useOpenCloseHeader()
-
-  useEffect(() => {
-    if (ref.current === null) return
-    ref.current.classList.remove(animating ? 'not-animating' : 'animating')
-    ref.current.classList.add(!animating ? 'not-animating' : 'animating')
-    ref.current.classList.remove(open ? 'closed' : `opened`)
-    ref.current.classList.add(!open ? 'closed' : `opened`)
-  }, [animating, open, ref])
-
-  return ref
-}

@@ -1,4 +1,5 @@
-import { type PropsWithChildren, type ReactNode } from 'react'
+/* eslint-disable functional/no-expression-statements */
+import { useMemo, useRef, type PropsWithChildren, type ReactNode } from 'react'
 
 import { type HV } from '../../types'
 import { boxToViewBox2 } from '../box/prefixed'
@@ -10,12 +11,11 @@ import {
 import { type VecVec } from '../vec/prefixed'
 import {
   balloonPaths,
-  balloonStyle,
+  useDetailStyle,
   type BalloonSize,
   type LegLayout,
 } from './balloon-common'
-import { openCloseIsVisible } from './openclose'
-import { useOpenCloseDetail } from './ui-react'
+import { useOpenCloseDetailStyle } from './ui-react'
 
 export interface BalloonProps {
   _p: null | VecVec
@@ -29,8 +29,14 @@ export interface BalloonProps {
 export function Balloon(
   props: Readonly<PropsWithChildren<BalloonProps>>
 ): ReactNode {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useOpenCloseDetailStyle(ref)
+
+  useDetailStyle(ref, props._p, props._hv, props._size, props._leg)
+
   return (
-    <div className="balloon">
+    <div ref={ref} className="balloon">
       <BalloonSvg {...props} />
       {props.children}
       <style>{style}</style>
@@ -52,11 +58,16 @@ function BalloonSvg(
   props: Readonly<PropsWithChildren<BalloonProps>>
 ): ReactNode {
   const _hv = props._hv
-  if (_hv === null) {
-    return <svg />
-  }
+  return _hv === null ? <svg /> : <BalloonSvg1 {...props} hv={_hv} />
+}
 
-  const { viewBox, width, height, fg, bg } = balloonPaths(_hv, props._size)
+function BalloonSvg1(
+  props: Readonly<PropsWithChildren<BalloonProps> & { hv: HV }>
+) {
+  const { viewBox, width, height, fg, bg } = useMemo(
+    () => balloonPaths(props.hv, props._size),
+    [props._size, props.hv]
+  )
 
   return (
     <svg
@@ -67,7 +78,12 @@ function BalloonSvg(
     >
       <path className="bg" d={bg} />
       <path className="fg" d={fg} />
-      <style>{`
+      <style>{style1}</style>
+    </svg>
+  )
+}
+
+const style1 = `
 path.bg {
   fill: black;
   stroke: none;
@@ -78,23 +94,4 @@ path.fg {
   stroke: white;
   stroke-width: 1px;
 }
-`}</style>
-    </svg>
-  )
-}
-
-export function DetailBalloonStyle({
-  _p,
-  _hv,
-  _size,
-  _leg,
-}: Readonly<BalloonProps>): ReactNode {
-  const detail = useOpenCloseDetail()
-
-  const style =
-    _p === null || _hv === null || !openCloseIsVisible(detail)
-      ? `.balloon, .detail { visibility: hidden; }`
-      : balloonStyle(detail, _p, _hv, _size, _leg)
-
-  return <style>{style}</style>
-}
+`

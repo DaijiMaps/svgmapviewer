@@ -1,6 +1,7 @@
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 
 import { svgMapViewerConfig as cfg } from '../../config'
 import {
@@ -11,15 +12,22 @@ import {
   Z_INDEX_DETAIL,
 } from '../css'
 import { useOnWheel } from '../wheel'
+import type { BalloonProps } from './Balloon'
+import { useDetailStyle } from './balloon-common'
+import { useOpenCloseDetailStyle } from './ui-react'
 import { type UiDetailContent } from './ui-types'
 import { isDetailEmpty, uiSend } from './ui-xstate'
 
 export function Detail(
-  props: Readonly<{ _detail: UiDetailContent }>
+  props: Readonly<{ _detail: UiDetailContent } & BalloonProps>
 ): ReactNode {
-  const { _detail } = props
+  const ref = useRef<HTMLDivElement>(null)
 
-  const ref = useOnWheel()
+  useOnWheel(ref)
+
+  useOpenCloseDetailStyle(ref)
+
+  useDetailStyle(ref, props._p, props._hv, props._size, props._leg)
 
   return (
     <div
@@ -28,8 +36,8 @@ export function Detail(
       onAnimationEnd={() => uiSend({ type: 'DETAIL.ANIMATION.END' })}
     >
       {cfg.renderInfo &&
-        !isDetailEmpty(_detail) &&
-        cfg.renderInfo({ info: _detail.info })}
+        !isDetailEmpty(props._detail) &&
+        cfg.renderInfo({ info: props._detail.info })}
       <style>{style}</style>
     </div>
   )
@@ -51,35 +59,29 @@ const style = `
   touch-action: pan-y;
   overscroll-behavior-x: none;
   overscroll-behavior-y: none;
-}
-
-.like {
-  pointer-events: initial;
-}
-
-.liked {
-  color: orange;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  ${user_select_none}
-  margin: 1.5em;
-  text-align: center;
-}
-
-p {
-  ${user_select_none}
-  margin: 0.5em;
-}
-
-a {
-  text-decoration: none;
-}
-
-table, tbody, th, tr, td {
+  .like {
+    pointer-events: initial;
+  }
+  .liked {
+    color: orange;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    ${user_select_none}
+    margin: 1.5em;
+    text-align: center;
+  }
+  p {
+    ${user_select_none}
+    margin: 0.5em;
+  }
+  a {
+    text-decoration: none;
+  }
+  table, tbody, th, tr, td {
+  }
 }
 
 #ui-svg-defs {

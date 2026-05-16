@@ -1,7 +1,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { useEffect, useRef, type ReactNode, type RefObject } from 'react'
+import { useRef, type ReactNode } from 'react'
 
 import { svgMapViewerConfig as config } from '../../config'
 import {
@@ -16,7 +16,7 @@ import {
 import { useShadowRoot } from '../dom'
 import { notifyAction } from '../event-action'
 import { FloorName } from './Floor'
-import { useOpenCloseHeader } from './ui-react'
+import { useOpenCloseHeaderStyle } from './ui-react'
 import { uiSend } from './ui-xstate'
 
 export function Header(): ReactNode {
@@ -26,7 +26,9 @@ export function Header(): ReactNode {
 }
 
 function HeaderRoot(): ReactNode {
-  const ref = useStyle()
+  const ref = useRef<HTMLDivElement>(null)
+
+  useOpenCloseHeaderStyle(ref)
 
   return (
     <div
@@ -106,19 +108,3 @@ const style = `
   }
 }
 `
-
-function useStyle(): Readonly<RefObject<HTMLDivElement | null>> {
-  const ref = useRef<HTMLDivElement>(null)
-
-  const { open, animating } = useOpenCloseHeader()
-
-  useEffect(() => {
-    if (ref.current === null) return
-    ref.current.classList.remove(animating ? 'not-animating' : 'animating')
-    ref.current.classList.add(!animating ? 'not-animating' : 'animating')
-    ref.current.classList.remove(open ? 'closed' : `opened`)
-    ref.current.classList.add(!open ? 'closed' : `opened`)
-  }, [animating, open, ref])
-
-  return ref
-}

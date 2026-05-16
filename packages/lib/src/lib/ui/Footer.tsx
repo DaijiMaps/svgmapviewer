@@ -1,7 +1,6 @@
-/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { useEffect, useRef, type ReactNode, type RefObject } from 'react'
+import { useRef, type ReactNode } from 'react'
 
 import { svgMapViewerConfig as config } from '../../config'
 import {
@@ -13,7 +12,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
-import { useOpenCloseHeader } from './ui-react'
+import { useOpenCloseHeaderStyle } from './ui-react'
 
 export function Footer(): ReactNode {
   useShadowRoot('footer', <FooterRoot />, 'ui')
@@ -22,7 +21,9 @@ export function Footer(): ReactNode {
 }
 
 function FooterRoot(): ReactNode {
-  const ref = useStyle()
+  const ref = useRef<HTMLDivElement>(null)
+
+  useOpenCloseHeaderStyle(ref)
 
   return (
     <div ref={ref} className="ui-content footer">
@@ -117,19 +118,3 @@ const style = `
   }
 }
 `
-
-function useStyle(): Readonly<RefObject<HTMLDivElement | null>> {
-  const ref = useRef<HTMLDivElement>(null)
-
-  const { open, animating } = useOpenCloseHeader()
-
-  useEffect(() => {
-    if (ref.current === null) return
-    ref.current.classList.remove(animating ? 'not-animating' : 'animating')
-    ref.current.classList.add(!animating ? 'not-animating' : 'animating')
-    ref.current.classList.remove(open ? 'closed' : `opened`)
-    ref.current.classList.add(!open ? 'closed' : `opened`)
-  }, [animating, open, ref])
-
-  return ref
-}
