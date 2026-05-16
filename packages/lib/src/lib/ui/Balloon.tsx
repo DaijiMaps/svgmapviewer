@@ -10,12 +10,9 @@ import {
 import { type VecVec } from '../vec/prefixed'
 import {
   balloonPaths,
-  balloonStyle,
   type BalloonSize,
   type LegLayout,
 } from './balloon-common'
-import { openCloseIsVisible } from './openclose'
-import { useOpenCloseDetail } from './ui-react'
 
 export interface BalloonProps {
   _p: null | VecVec
@@ -81,20 +78,4 @@ path.fg {
 `}</style>
     </svg>
   )
-}
-
-export function DetailBalloonStyle({
-  _p,
-  _hv,
-  _size,
-  _leg,
-}: Readonly<BalloonProps>): ReactNode {
-  const detail = useOpenCloseDetail()
-
-  const style =
-    _p === null || _hv === null || !openCloseIsVisible(detail)
-      ? `.balloon, .detail { visibility: hidden; }`
-      : balloonStyle(detail, _p, _hv, _size, _leg)
-
-  return <style>{style}</style>
 }
