@@ -1,3 +1,5 @@
+import { useEffect, useRef, type RefObject } from 'react'
+
 import { shadowRootMap } from '../dom'
 import type { OpenClose } from './openclose'
 import type { UiDetailContent } from './ui-types'
@@ -20,8 +22,22 @@ export function useDetail(): UiDetailContent {
   return useUiContext().detail
 }
 
-export function useOpenCloseHeader(): OpenClose {
-  return useUiContext().m['header']
+export function useOpenCloseHeaderStyle(): Readonly<
+  RefObject<HTMLDivElement | null>
+> {
+  const ref = useRef<HTMLDivElement>(null)
+
+  const { open, animating } = useUiContext().m['header']
+
+  useEffect(() => {
+    if (ref.current === null) return
+    ref.current.classList.remove(animating ? 'not-animating' : 'animating')
+    ref.current.classList.add(!animating ? 'not-animating' : 'animating')
+    ref.current.classList.remove(open ? 'closed' : `opened`)
+    ref.current.classList.add(!open ? 'closed' : `opened`)
+  }, [animating, open, ref])
+
+  return ref
 }
 
 export function useOpenCloseDetail(): OpenClose {
