@@ -1,8 +1,7 @@
-/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import { useEffect, useRef, type ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 
 import {
   position_absolute_left_0_top_0,
@@ -14,36 +13,20 @@ import {
 } from '../css'
 import { useShadowRoot } from '../dom'
 import { notifyUi } from '../event-ui'
-import { useAnimating } from '../style/style-react'
+import { useZoomingStyle } from '../style/style-react'
 import { useOnWheel } from '../wheel'
 import { useOpenCloseDetailStyle } from './ui-react'
 
 export function Screen(): ReactNode {
   useShadowRoot('screen', <ScreenRoot />, 'ui')
-
   return <div id="screen" />
 }
 
 function ScreenRoot(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
-
   useOpenCloseDetailStyle(ref)
-
+  useZoomingStyle(ref)
   useOnWheel(ref)
-
-  const zooming = useAnimating()
-
-  useEffect(() => {
-    if (ref.current === null) return
-    if (zooming) {
-      ref.current.classList.add('zooming')
-      ref.current.classList.remove('not-zooming')
-    } else {
-      ref.current.classList.remove('zooming')
-      ref.current.classList.add('not-zooming')
-    }
-  }, [ref, zooming])
-
   return (
     <div
       ref={ref}
@@ -64,7 +47,6 @@ const style = `
   pointer-events: initial;
   z-index: ${Z_INDEX_SHADOW};
   will-change: opacity;
-
   &.not-animating {
     &.opened {
     }
@@ -96,7 +78,6 @@ const style = `
     animation: xxx-screen var(--duration) var(--timing);
   }
 }
-
 @keyframes xxx-screen {
   from {
     opacity: var(--a);

@@ -22,34 +22,34 @@ export function useDetail(): UiDetailContent {
   return useUiContext().detail
 }
 
+export function useOpenCloseDetail(): OpenClose {
+  return useUiContext().m['detail']
+}
+
 export function useOpenCloseHeaderStyle(
   ref: Readonly<RefObject<HTMLDivElement | null>>
 ): void {
-  const { open, animating } = useUiContext().m['header']
-
-  useEffect(() => {
-    if (ref.current === null) return
-    ref.current.classList.remove(animating ? 'not-animating' : 'animating')
-    ref.current.classList.add(!animating ? 'not-animating' : 'animating')
-    ref.current.classList.remove(open ? 'closed' : `opened`)
-    ref.current.classList.add(!open ? 'closed' : `opened`)
-  }, [animating, open, ref])
-}
-
-export function useOpenCloseDetail(): OpenClose {
-  return useUiContext().m['detail']
+  const oc = useUiContext().m['header']
+  useOpenCloseStyle(ref, oc)
 }
 
 export function useOpenCloseDetailStyle(
   ref: Readonly<RefObject<HTMLDivElement | null>>
 ): void {
-  const { open, animating } = useUiContext().m['detail']
+  const oc = useUiContext().m['detail']
+  useOpenCloseStyle(ref, oc)
+}
 
+function useOpenCloseStyle(
+  ref: Readonly<RefObject<HTMLDivElement | null>>,
+  { open, animating }: OpenClose
+): void {
   useEffect(() => {
     if (ref.current === null) return
-    ref.current.classList.remove(animating ? 'not-animating' : 'animating')
-    ref.current.classList.add(!animating ? 'not-animating' : 'animating')
-    ref.current.classList.remove(open ? 'closed' : `opened`)
-    ref.current.classList.add(!open ? 'closed' : `opened`)
+    const e = ref.current
+    e.classList.remove(animating ? 'not-animating' : 'animating')
+    e.classList.add(!animating ? 'not-animating' : 'animating')
+    e.classList.remove(open ? 'closed' : `opened`)
+    e.classList.add(!open ? 'closed' : `opened`)
   }, [animating, open, ref])
 }

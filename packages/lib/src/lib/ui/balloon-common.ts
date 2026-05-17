@@ -193,6 +193,62 @@ export function balloonPaths(
   }
 }
 
+export const detailStyleString: string = `
+.not-animating {
+  &.detail {
+    transform-origin: 0 0;
+    transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+  }
+  &.balloon {
+    transform-origin: 0 0;
+    transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
+  }
+}
+
+.animating {
+  &.detail,
+  &.balloon {
+    --duration: ${ZOOM_DURATION_DETAIL}ms;
+    transform-origin: 0 0;
+    will-change: opacity, transform;
+  }
+  &.detail {
+    animation: xxx-detail var(--duration) var(--timing);
+  }
+  &.balloon {
+    animation: xxx-balloon var(--duration) var(--timing);
+  }
+  &.opened {
+    --timing: ${timing_opening};
+  }
+  &.closed {
+    --timing: ${timing_closing};
+  }
+}
+
+@keyframes xxx-detail {
+  from {
+    opacity: var(--a);
+    transform: translate(var(--tx-a-x), var(--tx-a-y)) scale(var(--a)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+  }
+  to {
+    opacity: var(--b);
+    transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+  }
+}
+
+@keyframes xxx-balloon {
+  from {
+    opacity: var(--a);
+    transform: translate(var(--tx-a-x), var(--tx-a-y)) scale(var(--a)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
+  }
+  to {
+    opacity: var(--b);
+    transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
+  }
+}
+`
+
 export function useDetailStyle(
   ref: Readonly<RefObject<HTMLDivElement | null>>,
   Q: null | V,
@@ -204,7 +260,9 @@ export function useDetailStyle(
 
   useEffect(() => {
     if (ref.current === null) return
-    const x = ref.current.style.setProperty.bind(ref.current.style)
+    const e = ref.current
+    const x = (k: string, v: null | number | string) =>
+      e.style.setProperty(k, v === null ? null : String(v))
     if (
       Q === null ||
       _hv === null ||
@@ -219,30 +277,30 @@ export function useDetailStyle(
     x('--pww', `${-width / 2}px`)
     x('--phh', `${-height / 2}px`)
     if (!animating) {
-      const s = ab(0, 1)
-      const tx1 = vecAdd(Q, dP)
+      const { b } = ab(0, 1)
+      const tx = vecAdd(Q, dP)
 
-      x('--s-b', `${s.b}`)
-      x('--tx1-x', `${tx1.x}px`)
-      x('--tx1-y', `${tx1.y}px`)
+      x('--a', null)
+      x('--b', b)
+      x('--timing', null)
+      x('--tx-a-x', null)
+      x('--tx-a-y', null)
+      x('--tx-b-x', `${tx.x}px`)
+      x('--tx-b-y', `${tx.y}px`)
       return
     } else {
-      const o = open ? ab(0, 1) : ab(1, 0)
-      const s = open ? ab(0, 1) : ab(1, 0)
-      const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
+      const { a, b } = open ? ab(0, 1) : ab(1, 0)
       const t = open ? timing_opening : timing_closing
-      const tx1 = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
+      const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
+      const tx = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
 
-      x('--o-a', `${o.a}`)
-      x('--o-b', `${o.b}`)
-      x('--s-a', `${s.a}`)
-      x('--s-b', `${s.b}`)
+      x('--a', a)
+      x('--b', b)
       x('--timing', `${t}`)
-      x('--duration', `${ZOOM_DURATION_DETAIL}ms`)
-      x('--tx1-a-x', `${tx1.a.x}px`)
-      x('--tx1-a-y', `${tx1.a.y}px`)
-      x('--tx1-b-x', `${tx1.b.x}px`)
-      x('--tx1-b-y', `${tx1.b.y}px`)
+      x('--tx-a-x', `${tx.a.x}px`)
+      x('--tx-a-y', `${tx.a.y}px`)
+      x('--tx-b-x', `${tx.b.x}px`)
+      x('--tx-b-y', `${tx.b.y}px`)
       return
     }
   }, [Q, _hv, animating, leg.q, open, ref, size])
