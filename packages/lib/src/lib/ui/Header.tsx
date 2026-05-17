@@ -75,7 +75,7 @@ const style = `
     &.closed {
       --b: 0;
     }
-    will-change: none;
+    will-change: initial;
     animation: none;
     transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
     opacity: var(--b);
