@@ -1,6 +1,6 @@
 //// boxTransform
 
-import { pipe } from 'fp-ts/function'
+import { pipe } from 'effect'
 
 import { apply, type Matrix } from '../matrix'
 import { vecDiv, vecSub, vecVec } from '../vec/prefixed'
