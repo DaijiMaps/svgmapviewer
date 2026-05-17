@@ -1,3 +1,5 @@
+import { useEffect, type RefObject } from 'react'
+
 import { type Range } from '../../types'
 import { boxToViewBox2, type BoxBox } from '../box/prefixed'
 import { type DistanceRadius } from '../distance-types'
@@ -69,4 +71,19 @@ export function useLayout2(): {
     width: trunc2(scroll.width),
     height: trunc2(scroll.height),
   }
+}
+
+export function useZoomingStyle(ref: RefObject<HTMLDivElement | null>): void {
+  const zooming = useAnimating()
+
+  useEffect(() => {
+    if (ref.current === null) return
+    if (zooming) {
+      ref.current.classList.add('zooming')
+      ref.current.classList.remove('not-zooming')
+    } else {
+      ref.current.classList.remove('zooming')
+      ref.current.classList.add('not-zooming')
+    }
+  }, [ref, zooming])
 }
