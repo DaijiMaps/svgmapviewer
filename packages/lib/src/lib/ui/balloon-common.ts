@@ -197,11 +197,11 @@ export const detailStyleString: string = `
 .not-animating {
   &.detail {
     transform-origin: 0 0;
-    transform: translate(var(--tx1-b-x), var(--tx1-b-y)) scale(var(--b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+    transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
   &.balloon {
     transform-origin: 0 0;
-    transform: translate(var(--tx1-b-x), var(--tx1-b-y)) scale(var(--b)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
+    transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
   }
 }
 
@@ -229,22 +229,22 @@ export const detailStyleString: string = `
 @keyframes xxx-detail {
   from {
     opacity: var(--a);
-    transform: translate(var(--tx1-a-x), var(--tx1-a-y)) scale(var(--a)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+    transform: translate(var(--tx-a-x), var(--tx-a-y)) scale(var(--a)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
   to {
     opacity: var(--b);
-    transform: translate(var(--tx1-b-x), var(--tx1-b-y)) scale(var(--b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+    transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
 }
 
 @keyframes xxx-balloon {
   from {
     opacity: var(--a);
-    transform: translate(var(--tx1-a-x), var(--tx1-a-y)) scale(var(--a)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
+    transform: translate(var(--tx-a-x), var(--tx-a-y)) scale(var(--a)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
   }
   to {
     opacity: var(--b);
-    transform: translate(var(--tx1-b-x), var(--tx1-b-y)) scale(var(--b)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
+    transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
   }
 }
 `
@@ -278,29 +278,29 @@ export function useDetailStyle(
     x('--phh', `${-height / 2}px`)
     if (!animating) {
       const { b } = ab(0, 1)
-      const tx1 = vecAdd(Q, dP)
+      const tx = vecAdd(Q, dP)
 
       x('--a', null)
       x('--b', b)
       x('--timing', null)
-      x('--tx1-a-x', null)
-      x('--tx1-a-y', null)
-      x('--tx1-b-x', `${tx1.x}px`)
-      x('--tx1-b-y', `${tx1.y}px`)
+      x('--tx-a-x', null)
+      x('--tx-a-y', null)
+      x('--tx-b-x', `${tx.x}px`)
+      x('--tx-b-y', `${tx.y}px`)
       return
     } else {
       const { a, b } = open ? ab(0, 1) : ab(1, 0)
       const t = open ? timing_opening : timing_closing
       const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
-      const tx1 = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
+      const tx = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
 
       x('--a', a)
       x('--b', b)
       x('--timing', `${t}`)
-      x('--tx1-a-x', `${tx1.a.x}px`)
-      x('--tx1-a-y', `${tx1.a.y}px`)
-      x('--tx1-b-x', `${tx1.b.x}px`)
-      x('--tx1-b-y', `${tx1.b.y}px`)
+      x('--tx-a-x', `${tx.a.x}px`)
+      x('--tx-a-y', `${tx.a.y}px`)
+      x('--tx-b-x', `${tx.b.x}px`)
+      x('--tx-b-y', `${tx.b.y}px`)
       return
     }
   }, [Q, _hv, animating, leg.q, open, ref, size])
