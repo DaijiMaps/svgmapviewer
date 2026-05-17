@@ -1,10 +1,4 @@
-import {
-  number as Number,
-  option as Option,
-  readonlyArray as ReadonlyArray,
-  readonlyMap as ReadonlyMap,
-} from 'fp-ts'
-import { pipe } from 'fp-ts/function'
+import { Array, Number, Option, pipe, Result, type Order } from 'effect'
 import { type Touch } from 'react'
 
 import type { Dir } from '../../../types'
@@ -14,18 +8,8 @@ import {
   vecAngle,
   vecDist,
   vecMidpoint,
-  vecOrd,
   type VecVec as Vec,
 } from '../../vec/prefixed'
-
-const vecsOrd = ReadonlyArray.getOrd<Vec>(vecOrd)
-
-const vecsWitherable = ReadonlyMap.getWitherable(Number.Ord)
-const vecsFilterableWithIndex = ReadonlyMap.getFilterableWithIndex<number>()
-const vecsMonoid = ReadonlyMap.getMonoid(
-  Number.Eq,
-  ReadonlyArray.getSemigroup<Vec>()
-)
 
 export type VecsEntry = Readonly<[number, readonly Vec[]]>
 export type VecsEntries = Readonly<readonly VecsEntry[]>
@@ -39,6 +23,37 @@ export type Touches = Readonly<{
   z: null | Dir
   horizontal: null | boolean
 }>
+
+const vecOrder: Order.Order<Vec> = (a, b) =>
+  Number.Order(a.x, b.x) || Number.Order(a.y, b.y)
+
+function vecsOrderAt(
+  a: readonly Vec[],
+  b: readonly Vec[],
+  i: number
+): 0 | 1 | -1 {
+  const n = Math.min(a.length, b.length)
+  const av = a[i]
+  const bv = b[i]
+  if (i >= n || isUndefined(av) || isUndefined(bv)) {
+    return Number.Order(a.length, b.length)
+  }
+  const o = vecOrder(av, bv)
+  return o === 0 ? vecsOrderAt(a, b, i + 1) : o
+}
+
+const vecsOrder: Order.Order<readonly Vec[]> = (a, b) => vecsOrderAt(a, b, 0)
+
+function concatVecs(a: Vecs, b: Vecs): Vecs {
+  return pipe(
+    [...a.entries(), ...b.entries()],
+    Array.reduce(new Map<number, readonly Vec[]>(), (acc, [id, vs]) => {
+      const prev = Option.fromUndefinedOr(acc.get(id))
+      const next = Option.isSome(prev) ? [...prev.value, ...vs] : vs
+      return new Map(acc).set(id, next)
+    })
+  )
+}
 
 function calcZoom([d0, d1, d2, d3]: Readonly<readonly number[]>): null | Dir {
   return isUndefined(d0) ||
@@ -65,10 +80,11 @@ function updateDists(
 
 export function vecsToPoints(vecs: Vecs): Readonly<readonly Vec[]> {
   return pipe(
-    vecs,
-    ReadonlyMap.values(vecsOrd),
-    ReadonlyArray.filterMap((vs) =>
-      vs.length === 0 ? Option.none : Option.some(vs[0])
+    vecs.values(),
+    Array.fromIterable,
+    Array.sort(vecsOrder),
+    Array.filterMap((vs) =>
+      vs.length === 0 ? Result.failVoid : Result.succeed(vs[0])
     )
   )
 }
@@ -82,8 +98,8 @@ function changesToEntries(
 ): VecsEntries {
   return pipe(
     ev.changedTouches,
-    Array.from,
-    ReadonlyArray.map<Touch, [number, readonly Vec[]]>((t) => [
+    (touches) => Array.Array.from<Touch>(touches),
+    Array.map((t: Readonly<Touch>): [number, readonly Vec[]] => [
       t.identifier,
       [{ x: t.clientX, y: t.clientY }],
     ])
@@ -98,7 +114,7 @@ export function handleTouchStart(
   touches: Touches,
   ev: Readonly<TouchEvent | React.TouchEvent>
 ): Touches {
-  const vecs: Vecs = vecsMonoid.concat(touches.vecs, changesToVecs(ev))
+  const vecs = concatVecs(touches.vecs, changesToVecs(ev))
   const points = vecsToPoints(vecs)
   const cursor = pointsToCursor(points)
 
@@ -114,11 +130,16 @@ export function handleTouchMove(
   limit: number
 ): Touches {
   const changes = changesToVecs(ev)
-  const vecs = vecsWitherable.mapWithIndex(touches.vecs, (id, ovs) =>
+  const vecs: Vecs = new Map(
     pipe(
-      changes.get(id),
-      Option.fromNullable,
-      Option.fold(() => ovs, ReadonlyArray.concat(ovs))
+      touches.vecs.entries(),
+      Array.fromIterable,
+      Array.map(([id, ovs]) => [
+        id,
+        ((vs) => (Option.isSome(vs) ? [...vs.value, ...ovs] : ovs))(
+          Option.fromUndefinedOr(changes.get(id))
+        ),
+      ])
     )
   )
   const points = vecsToPoints(vecs)
@@ -144,11 +165,15 @@ export function handleTouchEnd(
   ev: Readonly<TouchEvent | React.TouchEvent>
 ): Touches {
   const changes = changesToVecs(ev)
-  const vecs: Vecs = vecsFilterableWithIndex.filterMapWithIndex(
-    touches.vecs,
-    (k: number, v: Readonly<Vec[]>) =>
-      // IDs in TouchEnd changedTouches => disappearing IDs
-      changes.has(k) ? Option.none : Option.some(v)
+  const vecs: Vecs = new Map(
+    pipe(
+      touches.vecs.entries(),
+      Array.fromIterable,
+      Array.filterMap(([k, v]) =>
+        // IDs in TouchEnd changedTouches => disappearing IDs
+        changes.has(k) ? Result.failVoid : Result.succeed([k, v] as const)
+      )
+    )
   )
   const points = vecsToPoints(vecs)
   const cursor = pointsToCursor(points)
@@ -175,16 +200,18 @@ export function resetTouches(): Touches {
 }
 
 export function discardTouches(touches: Touches): Touches {
-  const vecs = ReadonlyMap.map<Readonly<Vec[]>, Readonly<Vec[]>>((ovs) =>
+  const vecs: Vecs = new Map(
     pipe(
-      ovs[0],
-      Option.fromNullable,
-      Option.fold(
-        () => [],
-        (v) => [v]
-      )
+      touches.vecs.entries(),
+      Array.fromIterable,
+      Array.map(([id, ovs]) => [
+        id,
+        ((v) => (Option.isSome(v) ? [v.value] : []))(
+          Option.fromUndefinedOr(ovs[0])
+        ),
+      ])
     )
-  )(touches.vecs)
+  )
   return { ...touches, vecs, dists: [], z: null }
 }
 
