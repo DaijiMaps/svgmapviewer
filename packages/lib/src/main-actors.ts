@@ -4,6 +4,7 @@
 import { positionActorStart } from './lib/position/position-xstate'
 import { searchActorStart } from './lib/search/search-xstate'
 import { styleActorStart } from './lib/style/style-xstate'
+import { themeStart } from './lib/theme'
 import { uiActorStart } from './lib/ui/ui-xstate'
 import { floorsActorStart } from './lib/viewer/floors/floors-xstate'
 import { keyboardActorStart } from './lib/viewer/input/keyboard-xstate'
@@ -23,6 +24,7 @@ export function startAllActors(): void {
   scrollActorStart()
   searchActorStart()
   styleActorStart()
+  themeStart()
   touchActorStart()
   uiActorStart()
   viewerActorStart()
