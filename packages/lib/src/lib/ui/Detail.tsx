@@ -59,28 +59,28 @@ const style = `
   touch-action: pan-y;
   overscroll-behavior-x: none;
   overscroll-behavior-y: none;
-  .like {
+  &.like {
     pointer-events: initial;
   }
-  .liked {
+  &.liked {
     color: orange;
   }
-  h1,
-  h2,
-  h3,
-  h4 {
+  & h1,
+  & h2,
+  & h3,
+  & h4 {
     ${user_select_none}
     margin: 1.5em;
     text-align: center;
   }
-  p {
+  & p {
     ${user_select_none}
     margin: 0.5em;
   }
-  a {
+  & a {
     text-decoration: none;
   }
-  table, tbody, th, tr, td {
+  & table, & tbody, & th, & tr, & td {
   }
 }
 

@@ -52,14 +52,14 @@ const style = `
   padding: 0.5em;
   font-size: smaller;
   pointer-events: none;
-  h1,
-  h2,
-  p {
+  & h1,
+  & h2,
+  & p {
     ${user_select_none}
     ${pointer_events_initial}
   }
-  h1,
-  h2 {
+  & h1,
+  & h2 {
     margin: 0.25em;
     font-weight: 100;
     cursor: default;
@@ -75,7 +75,7 @@ const style = `
     &.closed {
       --b: 0;
     }
-    will-change: none;
+    will-change: initial;
     animation: none;
     transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
     opacity: var(--b);
