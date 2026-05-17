@@ -44,11 +44,12 @@ const style = `
   ${width_100vw_height_100svh}
   background-color: none;
   cursor: default;
-  pointer-events: initial;
+  pointer-events: none;
   z-index: ${Z_INDEX_SHADOW};
   will-change: opacity;
   &.not-animating {
     &.opened {
+      pointer-events: initial;
     }
     &.closed {
       &.not-zooming {

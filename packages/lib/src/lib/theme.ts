@@ -11,19 +11,28 @@ import { uiCbs } from './event-ui'
 import { parseRgbString, rgbShadow, rgbToString, toRgbString } from './rgb'
 
 export const getBackgroundColor = (): string =>
-  config.cartoConfig?.backgroundColor ?? config.backgroundColor ?? 'darkgray'
+  toRgbString(
+    config.cartoConfig?.backgroundColor ?? config.backgroundColor ?? 'darkgray'
+  )
 
-const metaTheme =
-  document.querySelector('meta[name="theme-color"]') ||
-  Object.assign(document.createElement('meta'), {
-    name: 'theme-color',
-    content: getBackgroundColor(),
-  })
-if (!metaTheme.parentNode) document.head.appendChild(metaTheme)
+const metaThemeCache = new Map<string, Element>()
+const getMetaTheme = () => {
+  const cached = metaThemeCache.get('color')
+  if (cached) return cached
+  const metaTheme =
+    document.querySelector('meta[name="theme-color"]') ||
+    Object.assign(document.createElement('meta'), {
+      name: 'theme-color',
+      content: getBackgroundColor(),
+    })
+  if (!metaTheme.parentNode) document.head.appendChild(metaTheme)
+  metaThemeCache.set('color', metaTheme)
+  return metaTheme
+}
 
 const colorCache = new Map<string, string>()
 const getColor = () => {
-  const p: string = toRgbString(getBackgroundColor())
+  const p: string = getBackgroundColor()
   const q = colorCache.get(p)
   if (q) return { p, q }
   const q2 = rgbToString(rgbShadow(parseRgbString(p)))
@@ -32,9 +41,9 @@ const getColor = () => {
 }
 
 function transitionTheme(open: boolean) {
+  const metaTheme = getMetaTheme()
   const themeProxy = {
-    color:
-      metaTheme.getAttribute('content') || toRgbString(getBackgroundColor()),
+    color: metaTheme.getAttribute('content') || getBackgroundColor(),
   }
   const { p, q } = getColor()
   const color = open ? q : p
