@@ -1,6 +1,4 @@
-import { option, readonlyArray } from 'fp-ts'
-import { pipe } from 'fp-ts/function'
-import { type Option } from 'fp-ts/lib/Option'
+import { Array, pipe, Result } from 'effect'
 
 import {
   type LineMap,
@@ -11,13 +9,9 @@ import {
   type PointMap,
 } from './data-types'
 import {
-  type OsmLineFeature,
   type OsmLineStringGeoJSON,
-  type OsmMultiLineStringFeature,
   type OsmMultiLineStringGeoJSON,
-  type OsmMultiPolygonFeature,
   type OsmMultiPolygonGeoJSON,
-  type OsmPointFeature,
   type OsmPointGeoJSON,
 } from './osm-types'
 
@@ -33,9 +27,11 @@ export function mapMapFromMapData(mapData: Readonly<OsmMapData>): OsmMapMap {
 function pointMapFromGeoJSON(points: Readonly<OsmPointGeoJSON>): PointMap {
   return pipe(
     points.features,
-    readonlyArray.filterMap((f): Option<[number, OsmPointFeature]> => {
+    Array.filterMap((f) => {
       const osm_id = f.properties.osm_id
-      return osm_id === null ? option.none : option.some([Number(osm_id), f])
+      return osm_id === null
+        ? Result.failVoid
+        : Result.succeed([Number(osm_id), f] as const)
     }),
     (xs) => new Map(xs)
   )
@@ -44,9 +40,11 @@ function pointMapFromGeoJSON(points: Readonly<OsmPointGeoJSON>): PointMap {
 function lineMapFromGeoJSON(lines: Readonly<OsmLineStringGeoJSON>): LineMap {
   return pipe(
     lines.features,
-    readonlyArray.filterMap((f): Option<[number, OsmLineFeature]> => {
+    Array.filterMap((f) => {
       const osm_id = f.properties.osm_id
-      return osm_id === null ? option.none : option.some([Number(osm_id), f])
+      return osm_id === null
+        ? Result.failVoid
+        : Result.succeed([Number(osm_id), f] as const)
     }),
     (xs) => new Map(xs)
   )
@@ -57,12 +55,12 @@ function multiLineStringMapFromGeoJSON(
 ): MultiLineStringMap {
   return pipe(
     multilinestrings.features,
-    readonlyArray.filterMap(
-      (f): Option<[number, OsmMultiLineStringFeature]> => {
-        const osm_id = f.properties.osm_id
-        return osm_id === null ? option.none : option.some([Number(osm_id), f])
-      }
-    ),
+    Array.filterMap((f) => {
+      const osm_id = f.properties.osm_id
+      return osm_id === null
+        ? Result.failVoid
+        : Result.succeed([Number(osm_id), f] as const)
+    }),
     (xs) => new Map(xs)
   )
 }
@@ -72,12 +70,14 @@ function multiPolygonMapFromGeoJSON(
 ): MultiPolygonMap {
   return pipe(
     multipolygons.features,
-    readonlyArray.filterMap((f): Option<[number, OsmMultiPolygonFeature]> => {
+    Array.filterMap((f) => {
       const osm_id = f.properties.osm_id
       const osm_way_id = f.properties.osm_way_id
       const id =
         osm_id !== null ? osm_id : osm_way_id !== null ? osm_way_id : null
-      return id === null ? option.none : option.some([Number(id), f])
+      return id === null
+        ? Result.failVoid
+        : Result.succeed([Number(id), f] as const)
     }),
     (xs) => new Map(xs)
   )

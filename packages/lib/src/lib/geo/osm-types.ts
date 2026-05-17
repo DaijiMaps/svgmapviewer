@@ -1,4 +1,4 @@
-import { type ReadonlyRecord } from 'fp-ts/lib/ReadonlyRecord'
+import type { Record } from 'effect'
 
 import {
   type LineFeature,
@@ -67,14 +67,14 @@ export type OsmPolygonPropertiesKey =
   | 'other_tags'
 
 export type OsmPointProperties = Readonly<
-  ReadonlyRecord<OsmPointPropertiesKey, null | string> & {
+  Record<OsmPointPropertiesKey, null | string> & {
     readonly centroid_x: null | number
     readonly centroid_y: null | number
     readonly area?: null
   }
 >
 export type OsmLineProperties = Readonly<
-  ReadonlyRecord<OsmLinePropertiesKey, null | string> & {
+  Record<OsmLinePropertiesKey, null | string> & {
     readonly centroid_x: null | number
     readonly centroid_y: null | number
     readonly area?: null
@@ -82,14 +82,14 @@ export type OsmLineProperties = Readonly<
   }
 >
 export type OsmLineStringProperties = Readonly<
-  ReadonlyRecord<OsmLineStringPropertiesKey, null | string> & {
+  Record<OsmLineStringPropertiesKey, null | string> & {
     readonly centroid_x: null | number
     readonly centroid_y: null | number
     readonly area?: null
   }
 >
 export type OsmPolygonProperties = Readonly<
-  ReadonlyRecord<OsmPolygonPropertiesKey, null | string> & {
+  Record<OsmPolygonPropertiesKey, null | string> & {
     readonly centroid_x: null | number
     readonly centroid_y: null | number
     readonly area: null | number
