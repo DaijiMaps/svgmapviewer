@@ -13,13 +13,20 @@ import { parseRgbString, rgbShadow, rgbToString, toRgbString } from './rgb'
 export const getBackgroundColor = (): string =>
   config.cartoConfig?.backgroundColor ?? config.backgroundColor ?? 'darkgray'
 
-const metaTheme =
-  document.querySelector('meta[name="theme-color"]') ||
-  Object.assign(document.createElement('meta'), {
-    name: 'theme-color',
-    content: getBackgroundColor(),
-  })
-if (!metaTheme.parentNode) document.head.appendChild(metaTheme)
+const metaThemeCache = new Map<string, Element>()
+const getMetaTheme = () => {
+  const cached = metaThemeCache.get('color')
+  if (cached) return cached
+  const metaTheme =
+    document.querySelector('meta[name="theme-color"]') ||
+    Object.assign(document.createElement('meta'), {
+      name: 'theme-color',
+      content: getBackgroundColor(),
+    })
+  if (!metaTheme.parentNode) document.head.appendChild(metaTheme)
+  metaThemeCache.set('color', metaTheme)
+  return metaTheme
+}
 
 const colorCache = new Map<string, string>()
 const getColor = () => {
@@ -32,6 +39,7 @@ const getColor = () => {
 }
 
 function transitionTheme(open: boolean) {
+  const metaTheme = getMetaTheme()
   const themeProxy = {
     color:
       metaTheme.getAttribute('content') || toRgbString(getBackgroundColor()),
