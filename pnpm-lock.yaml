@@ -315,9 +315,6 @@ importers:
       flatbush:
         specifier: ^4.5.1
         version: 4.5.1
-      fp-ts:
-        specifier: ^2.16.11
-        version: 2.16.11
       qrcode.react:
         specifier: ^4.2.0
         version: 4.2.0(react@19.2.6)
@@ -3881,12 +3878,6 @@ packages:
         integrity: sha512-dKx12eRCVIzqCxFGplyFKJMPvLEWgmNtUrpTiJIR5u97zEhRG8ySrtboPHZXx7daLxQVrl643cTzbab2tkQjxg==,
       }
     engines: { node: '>= 0.4' }
-
-  fp-ts@2.16.11:
-    resolution:
-      {
-        integrity: sha512-LaI+KaX2NFkfn1ZGHoKCmcfv7yrZsC3b8NtWsTVQeHkq4F27vI5igUuO53sxqDEa2gNQMHFPmpojDw/1zmUK7w==,
-      }
 
   fs-extra@7.0.1:
     resolution:
@@ -8052,8 +8043,6 @@ snapshots:
   for-each@0.3.5:
     dependencies:
       is-callable: 1.2.7
-
-  fp-ts@2.16.11: {}
 
   fs-extra@7.0.1:
     dependencies:
