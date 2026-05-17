@@ -193,21 +193,22 @@ export function balloonPaths(
   }
 }
 
-export const detailStyleString = `
+export const detailStyleString: string = `
 .not-animating {
   &.detail {
     transform-origin: 0 0;
-    transform: translate(var(--tx1-x), var(--tx1-y)) scale(var(--s-b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+    transform: translate(var(--tx1-b-x), var(--tx1-b-y)) scale(var(--s-b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
   &.balloon {
     transform-origin: 0 0;
-    transform: translate(var(--tx1-x), var(--tx1-y)) scale(var(--s-b)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
+    transform: translate(var(--tx1-b-x), var(--tx1-b-y)) scale(var(--s-b)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
   }
 }
 
 .animating {
   &.detail,
   &.balloon {
+    --duration: ${ZOOM_DURATION_DETAIL}ms;
     transform-origin: 0 0;
     will-change: opacity, transform;
   }
@@ -216,6 +217,12 @@ export const detailStyleString = `
   }
   &.balloon {
     animation: xxx-balloon var(--duration) var(--timing);
+  }
+  &.opened {
+    --timing: ${timing_opening};
+  }
+  &.closed {
+    --timing: ${timing_closing};
   }
 }
 
@@ -271,15 +278,21 @@ export function useDetailStyle(
       const s = ab(0, 1)
       const tx1 = vecAdd(Q, dP)
 
+      x('--o-a', null)
+      x('--o-b', null)
+      x('--s-a', null)
       x('--s-b', `${s.b}`)
-      x('--tx1-x', `${tx1.x}px`)
-      x('--tx1-y', `${tx1.y}px`)
+      x('--timing', null)
+      x('--tx1-a-x', null)
+      x('--tx1-a-y', null)
+      x('--tx1-b-x', `${tx1.x}px`)
+      x('--tx1-b-y', `${tx1.y}px`)
       return
     } else {
       const o = open ? ab(0, 1) : ab(1, 0)
       const s = open ? ab(0, 1) : ab(1, 0)
-      const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
       const t = open ? timing_opening : timing_closing
+      const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
       const tx1 = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
 
       x('--o-a', `${o.a}`)
@@ -287,7 +300,6 @@ export function useDetailStyle(
       x('--s-a', `${s.a}`)
       x('--s-b', `${s.b}`)
       x('--timing', `${t}`)
-      x('--duration', `${ZOOM_DURATION_DETAIL}ms`)
       x('--tx1-a-x', `${tx1.a.x}px`)
       x('--tx1-a-y', `${tx1.a.y}px`)
       x('--tx1-b-x', `${tx1.b.x}px`)
