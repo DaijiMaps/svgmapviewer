@@ -3,9 +3,7 @@
 /* eslint-disable functional/functional-parameters */
 import { createStore } from '@xstate/store'
 import { useSelector } from '@xstate/store/react'
-import { number, option, readonlyArray } from 'fp-ts'
-import { pipe } from 'fp-ts/function'
-import { none, some } from 'fp-ts/lib/Option'
+import { Array, pipe, Result, Number } from 'effect'
 import { useMemo } from 'react'
 
 import { type POI, type Range, type SvgMapViewerConfig } from '../../types'
@@ -74,17 +72,17 @@ export function useNames(): Readonly<Names> {
 function getSizes(names: readonly POI[]): Pick<Names, 'sizeMap' | 'sizes'> {
   const xs: readonly [number, number][] = pipe(
     names,
-    readonlyArray.filterMap(({ id, size }) =>
-      id === null ? option.none : option.some({ id, size })
+    Array.filterMap(({ id, size }) =>
+      id === null ? Result.failVoid : Result.succeed({ id, size })
     ),
-    readonlyArray.map(({ id, size }) => [id, Math.round(Math.log2(size))])
+    Array.map(({ id, size }) => [id, Math.round(Math.log2(size))])
   )
   const sizeMap = new Map<number, number>(xs)
   const sizes = pipe(
     sizeMap.values(),
-    (xs) => Array.from(xs),
-    readonlyArray.sort(number.Ord),
-    readonlyArray.uniq(number.Eq)
+    (xs) => Array.fromIterable(xs),
+    Array.sort(Number.Order),
+    Array.dedupe
   )
   return { sizeMap, sizes }
 }
@@ -105,7 +103,7 @@ export function useNameRanges(): Ranges {
 
   const smallMap = pipe(
     sizes,
-    readonlyArray.map<number, [number, boolean]>((sz) => {
+    Array.map((sz) => {
       // XXX
       // XXX
       // XXX
@@ -113,7 +111,7 @@ export function useNameRanges(): Ranges {
       // XXX
       // XXX
       // XXX
-      return [sz, scale < s]
+      return [sz, scale < s] as const
     }),
     (xs) => new Map(xs)
   )
@@ -138,20 +136,20 @@ function namesToRange(
 ): NameRangeMap {
   const xs = pipe(
     names,
-    readonlyArray.filterMap(({ id, coord }) => {
+    Array.filterMap(({ id, coord }) => {
       if (id === null) {
-        return none
+        return Result.failVoid
       }
       const sz = sizeMap.get(id)
       if (sz === undefined) {
-        return none
+        return Result.failVoid
       }
       const small = smallMap.get(sz)
       if (small === undefined) {
-        return none
+        return Result.failVoid
       }
       const inout = inRange(coord, geoRange)
-      return some({
+      return Result.succeed({
         id,
         inout,
         small,
@@ -160,15 +158,15 @@ function namesToRange(
   )
   const insides = pipe(
     xs,
-    readonlyArray.filterMap(({ id, inout, small }) =>
-      inout && !small ? some(id) : none
+    Array.filterMap(({ id, inout, small }) =>
+      inout && !small ? Result.succeed(id) : Result.failVoid
     ),
     (xs) => new Set(xs)
   )
   const outsides = pipe(
     xs,
-    readonlyArray.filterMap(({ id, inout, small }) =>
-      !(inout && !small) ? some(id) : none
+    Array.filterMap(({ id, inout, small }) =>
+      !(inout && !small) ? Result.succeed(id) : Result.failVoid
     ),
     (xs) => new Set(xs)
   )

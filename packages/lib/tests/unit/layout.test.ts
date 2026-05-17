@@ -1,5 +1,5 @@
 import { expect, test } from '@rstest/core'
-import { pipe } from 'fp-ts/lib/function'
+import { pipe } from 'effect'
 
 import {
   boxBox as box,

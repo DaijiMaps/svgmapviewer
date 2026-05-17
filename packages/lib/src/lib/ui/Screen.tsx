@@ -42,7 +42,7 @@ const style = `
 .screen {
   ${position_absolute_left_0_top_0}
   ${width_100vw_height_100svh}
-  background-color: black;
+  background-color: none;
   cursor: default;
   pointer-events: initial;
   z-index: ${Z_INDEX_SHADOW};

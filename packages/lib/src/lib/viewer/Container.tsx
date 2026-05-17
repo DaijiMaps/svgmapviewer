@@ -1,14 +1,22 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
-import { type PropsWithChildren, type ReactNode } from 'react'
+import { useRef, type PropsWithChildren, type ReactNode } from 'react'
 
 import {
   position_absolute_left_0_top_0,
+  timing_closing,
+  timing_opening,
   width_100vw_height_100svh,
+  ZOOM_DURATION_DETAIL,
 } from '../css'
 import { notifyStyle } from '../event-style'
-import { useAnimationStyle, useLayoutContent } from '../style/style-react'
+import {
+  useAnimationStyle,
+  useLayoutContent,
+  useZoomingStyle,
+} from '../style/style-react'
+import { useOpenCloseDetailStyle } from '../ui/ui-react'
 import { useFloors } from './floors/floors-react'
 import { sendContextMenu } from './input/input'
 import {
@@ -19,8 +27,12 @@ import {
 import { sendAnimationEnd, sendClick, sendScroll } from './viewer-react'
 
 export function Container(props: Readonly<PropsWithChildren>): ReactNode {
+  const ref = useRef<HTMLDivElement>(null)
+  useOpenCloseDetailStyle(ref)
+  useZoomingStyle(ref)
   return (
     <div
+      ref={ref}
       id="viewer"
       className="container"
       onTouchStart={touchSendTouchStart}
@@ -55,6 +67,39 @@ function ContainerStyle(): ReactNode {
 
   will-change: scroll-position;
   contain: strict;
+
+  /*
+  &.not-animating {
+    &.opened {
+      opacity: 0.5;
+    }
+    &.closed {
+      opacity: 1;
+    }
+  }
+  &.animating {
+    &.opened {
+      --a: 1;
+      --b: 0.5;
+      --timing: ${timing_opening};
+    }
+    &.closed {
+      --a: 0.5;
+      --b: 1;
+      --timing: ${timing_closing};
+    }
+    --duration: ${ZOOM_DURATION_DETAIL}ms;
+    animation: xxx-container var(--duration) var(--timing);
+  }
+  */
+}
+@keyframes xxx-container {
+  from {
+    opacity: var(--a);
+  }
+  to {
+    opacity: var(--b);
+  }
 }
 `
 
