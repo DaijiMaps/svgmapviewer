@@ -3,7 +3,6 @@ export { angle as vecAngle, angleF as vecAngleF } from '../angle'
 export { copy as vecCopy } from '../copy'
 export { dist as vecDist, qdist } from '../dist'
 export { div as vecDiv, divF as vecDivF } from '../div'
-export { compare as vecCompare, ord as vecOrd } from '../fp-ts'
 export {
   interpolate as vecInterpolate,
   interpolateF as vecInterpolateF,
