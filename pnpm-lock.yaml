@@ -330,9 +330,6 @@ importers:
       xstate:
         specifier: ^5.31.1
         version: 5.31.1
-      zod:
-        specifier: ^4.4.3
-        version: 4.4.3
     devDependencies:
       '@rsbuild/core':
         specifier: ^2.0.6

@@ -1,4 +1,4 @@
-import type z from 'zod'
+import type { SchemaAST } from 'effect'
 
 /* eslint-disable functional/no-return-void */
 export type ID = number | string
@@ -8,7 +8,7 @@ export interface LikesContext {
 }
 
 export interface LikesExternalContext {
-  readonly ids: ID[]
+  readonly ids: readonly ID[]
 }
 
 export interface LikesReturn {
@@ -19,10 +19,10 @@ export interface LikesReturn {
 
 export type Decode = (
   jsonstr: string,
-  params?: z.core.ParseContext<z.core.$ZodIssue>
+  params?: SchemaAST.ParseOptions
 ) => Readonly<LikesContext>
 
 export type Encode = (
   context: Readonly<LikesContext>,
-  params?: z.core.ParseContext<z.core.$ZodIssue>
+  params?: SchemaAST.ParseOptions
 ) => string

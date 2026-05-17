@@ -1,4 +1,4 @@
-import z from 'zod'
+import { Schema } from 'effect'
 
 import { json } from '../json'
 import type {
@@ -10,32 +10,27 @@ import type {
 
 //// string -> LikesExternalContext
 
-const XIDSchema = z.union([z.number(), z.string()])
-const XIDSetSchema = z.array(XIDSchema)
-const XContextSchema = z.object({ ids: XIDSetSchema })
+const XIDSchema = Schema.Union([Schema.Number, Schema.String])
+const XIDSetSchema = Schema.Array(XIDSchema)
+const XContextSchema = Schema.Struct({ ids: XIDSetSchema })
 
 const parse = json(XContextSchema)
 
 //// LikesExternalContext -> LikesContext
 
-const IDSchema = z.union([z.number(), z.string()])
-const IDSetSchema = z.set(IDSchema)
-const ContextSchema = z.object({ ids: IDSetSchema })
-
-const conv = z.codec(XContextSchema, ContextSchema, {
-  decode: (x: Readonly<LikesExternalContext>) => ({
-    ids: new Set(x.ids),
-  }),
-  encode: (context: Readonly<LikesContext>) => ({
-    ids: Array.from(context.ids),
-  }),
+const decodeExternalContext = (
+  context: Readonly<LikesExternalContext>
+): LikesContext => ({
+  ids: new Set(context.ids),
 })
 
-//// string -> LikesContext
-
-const schema = z.pipe(parse, conv)
+const encodeExternalContext = (
+  context: Readonly<LikesContext>
+): LikesExternalContext => ({
+  ids: Array.from(context.ids),
+})
 
 export const decodeContext: Decode = (jsonstr, params) =>
-  schema.decode(jsonstr, params)
+  decodeExternalContext(Schema.decodeUnknownSync(parse)(jsonstr, params))
 export const encodeContext: Encode = (context, params) =>
-  schema.encode(context, params)
+  Schema.encodeSync(parse)(encodeExternalContext(context), params)
