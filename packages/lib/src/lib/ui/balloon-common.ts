@@ -260,7 +260,9 @@ export function useDetailStyle(
 
   useEffect(() => {
     if (ref.current === null) return
-    const x = ref.current.style.setProperty.bind(ref.current.style)
+    const e = ref.current
+    const x = (k: string, v: null | number | string) =>
+      e.style.setProperty(k, v === null ? null : String(v))
     if (
       Q === null ||
       _hv === null ||
@@ -281,7 +283,7 @@ export function useDetailStyle(
       x('--o-a', null)
       x('--o-b', null)
       x('--s-a', null)
-      x('--s-b', `${s.b}`)
+      x('--s-b', s.b)
       x('--timing', null)
       x('--tx1-a-x', null)
       x('--tx1-a-y', null)
@@ -295,10 +297,10 @@ export function useDetailStyle(
       const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
       const tx1 = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
 
-      x('--o-a', `${o.a}`)
-      x('--o-b', `${o.b}`)
-      x('--s-a', `${s.a}`)
-      x('--s-b', `${s.b}`)
+      x('--o-a', o.a)
+      x('--o-b', o.b)
+      x('--s-a', s.a)
+      x('--s-b', s.b)
       x('--timing', `${t}`)
       x('--tx1-a-x', `${tx1.a.x}px`)
       x('--tx1-a-y', `${tx1.a.y}px`)
