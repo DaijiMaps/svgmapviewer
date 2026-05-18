@@ -46,22 +46,20 @@ const style = `
   cursor: default;
   pointer-events: none;
   z-index: ${Z_INDEX_SHADOW};
-  will-change: opacity;
   &.not-animating {
     &.opened {
       pointer-events: initial;
+      opacity: 0.3;
     }
     &.closed {
+      opacity: 0;
       &.not-zooming {
         display: none;
       }
       &.zooming {
         display: initial;
-        opacity: 0;
       }
     }
-    opacity: 0.3;
-    will-change: opacity;
   }
   &.animating {
     &.opened {
