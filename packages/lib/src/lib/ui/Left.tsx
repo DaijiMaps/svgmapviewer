@@ -44,11 +44,11 @@ const style = `
   align-items: end;
   
   &.not-animating {
-    &.opened {
-      --b: 1;
-    }
     &.closed {
       --b: 0;
+    }
+    &.opened {
+      --b: 1;
     }
     transform-origin: 0% 50%;
     opacity: var(--b);
@@ -56,15 +56,15 @@ const style = `
     will-change: opacity, transform;
   }
   &.animating {
-    &.opened {
-      --a: 0;
-      --b: 1;
-      --timing: ${timing_opening};
-    }
     &.closed {
       --a: 1;
       --b: 0;
       --timing: ${timing_closing};
+    }
+    &.opened {
+      --a: 0;
+      --b: 1;
+      --timing: ${timing_opening};
     }
     --duration: ${ZOOM_DURATION_HEADER}ms;
     transform-origin: 0% 50%;
