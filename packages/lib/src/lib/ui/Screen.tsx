@@ -47,10 +47,6 @@ const style = `
   pointer-events: none;
   z-index: ${Z_INDEX_SHADOW};
   &.not-animating {
-    &.opened {
-      pointer-events: initial;
-      opacity: 0.3;
-    }
     &.closed {
       opacity: 0;
       &.not-zooming {
@@ -60,17 +56,21 @@ const style = `
         display: initial;
       }
     }
+    &.opened {
+      pointer-events: initial;
+      opacity: 0.3;
+    }
   }
   &.animating {
-    &.opened {
-      --a: 0;
-      --b: 0.3;
-      --timing: ${timing_opening};
-    }
     &.closed {
       --a: 0.3;
       --b: 0;
       --timing: ${timing_closing};
+    }
+    &.opened {
+      --a: 0;
+      --b: 0.3;
+      --timing: ${timing_opening};
     }
     --duration: ${ZOOM_DURATION_DETAIL}ms;
     will-change: opacity;
