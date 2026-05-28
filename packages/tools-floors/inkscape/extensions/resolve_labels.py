@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
 # coding=utf-8
+import math
 
 import inkex
 import inkex.command
 
 import daijimaps
 import daijimaps.resolve_labels
-
-
-PX_PER_MM = 3.779527559
+from daijimaps.unit import mm_from_px
 
 
 class ResolveLabels(daijimaps.resolve_labels.ResolveLabels):
     _bounding_boxes: dict[str, inkex.BoundingBox] = {}
+
+    def _reset(self) -> None:
+        super()._reset()
+        self._bounding_boxes = {}
 
     def _exec_query_all(self) -> str:
         return inkex.command.call(
@@ -60,6 +63,8 @@ class ResolveLabels(daijimaps.resolve_labels.ResolveLabels):
         self._sort_children(names_group)
 
     def _process_addresses(self, node) -> None:
+        self._reset()
+
         self.msg("=== resolve: start")
 
         self._load_bounding_boxes()
@@ -92,6 +97,10 @@ class ResolveLabels(daijimaps.resolve_labels.ResolveLabels):
                 self.msg(f"_unresolved_labels: {name} {text_element}: no bounding box")
                 continue
             c = bb.center
+            (w, h) = (
+                mm_from_px(bb.width),
+                mm_from_px(bb.height),
+            )
             if c is None:
                 self.msg(f"_unresolved_labels: {name} {text_element}: no center")
                 continue
@@ -101,19 +110,24 @@ class ResolveLabels(daijimaps.resolve_labels.ResolveLabels):
                 self.msg(f"_unresolved_labels: {name} {text_element}: no address")
                 continue
             (x, y) = xy
-            dcx = - c.x / PX_PER_MM  # XXX unit
-            dcy = - c.y / PX_PER_MM  # XXX unit
+            dcx = -mm_from_px(c.x)  # XXX unit
+            dcy = -mm_from_px(c.y)  # XXX unit
             self.msg(f"_unresolved_labels: {name}@{xy} -> {c} ({x + dcx}, {y + dcy})")
-            t = text_element.transform
+            # t = text_element.transform
+            s = text_element.get("data-s")
+            s = float(s) if s is not None else 1.0
+            s = math.sqrt(math.sqrt(s))
             t2 = (
-                #t.add_translate(dcx, dcy).add_translate(x, y)
-                #if t is not None
-                #else
-                inkex.Transform(f"translate({x},{y}) translate({dcx},{dcy})")
+                # t.add_translate(dcx, dcy).add_translate(x, y)
+                # if t is not None
+                # else
+                inkex.Transform(f"translate({x},{y}) scale({s}) translate({dcx},{dcy})")
             )
             text_element.transform = t2
-            text_element.set("data-x", str(x))
-            text_element.set("data-y", str(y))
+            text_element.set("data-x", str(round(x, 2)))
+            text_element.set("data-y", str(round(y, 2)))
+            text_element.set("data-w", str(round(w, 2)))
+            text_element.set("data-h", str(round(h, 2)))
 
             text_element.label = f"{name} @ {address}"
 

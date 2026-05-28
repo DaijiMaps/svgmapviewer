@@ -12,6 +12,19 @@ def preferInt(n: float) -> float | int:
 
 
 def draw_label(text: str, size: float, x: float = 0, y: float = 0) -> inkex.TextElement:
+    words: list[str] = text.split()
+    return draw_label2(text, words, size, x, y)
+
+
+def draw_label2(
+    text: str,
+    words: list[str],
+    size: float,
+    x: float = 0,
+    y: float = 0,
+    s: float = 1,
+    dy: float = 0,
+) -> inkex.TextElement:
     t = inkex.TextElement()
     t.label = text
     t.update(
@@ -20,17 +33,14 @@ def draw_label(text: str, size: float, x: float = 0, y: float = 0) -> inkex.Text
             # "-inkscape-font-specification": "'Noto Sans Ultra-Light'",
             "font-size": f"{size}",
             "font-weight": "200",
-            "line-height": "1.5",
             "text-anchor": "middle",
-            "text-align": "center",
-            "writing-mode": "lr-tb",
-            "direction": "ltr",
             "fill": "#000000",
             "stroke": "none",
+            "data-s": str(s),
+            "data-dy": str(dy),
         }
     )
-    txts: list[str] = text.split()
-    for txt in txts:
+    for txt in words:
         ts = inkex.Tspan()
         ts.text = txt
         ts.update(
@@ -164,4 +174,12 @@ def move_label(
     new_group.append(child)
 
 
-__all__ = [draw_label, draw_name, move_name, read_name, redraw_name, move_label]
+__all__ = [
+    draw_label,
+    draw_label2,
+    draw_name,
+    move_name,
+    read_name,
+    redraw_name,
+    move_label,
+]
