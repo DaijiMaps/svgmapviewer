@@ -1,14 +1,12 @@
 packages:
-  - ./packages/app-floors
-  - ./packages/app-osm
+  - ./packages/app-*
+  - ./packages/astro-*
   - ./packages/create-floors
-  - ./packages/example-floors
-  - ./packages/example-osm
+  - ./packages/example-*
   - ./packages/lib
   - ./packages/svgpatheditor
   - ./packages/svgpatheditor-vscode
-  - ./packages/tools-floors
-  - ./packages/tools-osm
+  - ./packages/tools-*
 overrides:
   '@types/node': '24.x'
   'Pygments': '>=2.20.0'
