@@ -6,14 +6,14 @@ import { addresses } from './address'
 import { addressStringNameMap } from './names'
 import { RenderInfo as renderInfo } from './render'
 
-function getSearchEntries() {
+async function getSearchEntries() {
   return addresses.map(([address, pos]) => ({
     address,
     pos,
   }))
 }
 
-function getSearchInfo(pos: Readonly<SearchPos>): null | Info {
+async function getSearchInfo(pos: Readonly<SearchPos>): Promise<null | Info> {
   const names = addressStringNameMap.get(pos.address)
   if (names === undefined || names.size < 1) {
     return null
