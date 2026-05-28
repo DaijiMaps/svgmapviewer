@@ -8,6 +8,9 @@ import daijimaps.resolve_labels
 
 
 class UnresolveLabels(daijimaps.resolve_labels.ResolveLabels):
+    def _reset(self) -> None:
+        super()._reset()
+
     def _move_resolved_label(
         self,
         labels_group: inkex.Group,
@@ -29,6 +32,8 @@ class UnresolveLabels(daijimaps.resolve_labels.ResolveLabels):
         self._sort_children(unresolved_labels_group)
 
     def _process_addresses(self, node: inkex.Group) -> None:
+        self._reset()
+
         self.msg("=== unresolve: start")
 
         unresolved_labels_group = self._prepare_unresolved_labels_group(node)

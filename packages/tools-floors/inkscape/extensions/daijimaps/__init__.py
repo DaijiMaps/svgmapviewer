@@ -12,7 +12,15 @@ from .guards import (
     isUse,
 )
 
-from .name import draw_label, draw_name, move_name, preferInt, read_name, redraw_name
+from .name import (
+    draw_label,
+    draw_label2,
+    draw_name,
+    move_name,
+    preferInt,
+    read_name,
+    redraw_name,
+)
 
 from .renumber import renumber_group
 
@@ -48,6 +56,7 @@ __all__ = [
     isUse,
     # .name
     draw_label,
+    draw_label2,
     draw_name,
     move_name,
     preferInt,

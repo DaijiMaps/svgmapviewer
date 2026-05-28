@@ -6,6 +6,7 @@
     <param name="tab" type="notebook">
         <page name="Options" gui-text="Options">
             <param name="floor" type="string" gui-text="Target floor (regular expression)">.</param>
+            <param name="font_size" type="float" gui-text="Font size">5</param>
         </page>
     </param>
     <effect needs-live-preview="false">

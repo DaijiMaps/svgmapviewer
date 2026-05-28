@@ -13,6 +13,9 @@ from .visit_parents import Tree, Parents
 
 
 class SaveAddresses(AddressTree):
+    def _reset(self) -> None:
+        super()._reset()
+
     def _prefix_fixup(self, prefix: str) -> str:
         self.msg("=== _prefix_fixup@SaveAddresses")
         # XXX
