@@ -1,5 +1,5 @@
 {
-  "name": "my-astro-app",
+  "name": "svgmapviewer-astro-example-floors",
   "version": "0.0.1",
   "type": "module",
   "scripts": {
@@ -9,8 +9,18 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/react": "^5.0.6",
     "astro": "^6.3.8",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "svgmapviewer": "workspace:*",
+    "svgmapviewer-app-floors": "workspace:*",
+    "svgmapviewer-tools-floors": "workspace:*",
     "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",

@@ -36,7 +36,7 @@ export default [
     languageOptions: {
       parserOptions: {
         ecmaVersion: 2022,
-        project: ['tsconfig.app.json'],
+        project: ['tsconfig.json'],
         sourceType: 'module',
       },
     },
