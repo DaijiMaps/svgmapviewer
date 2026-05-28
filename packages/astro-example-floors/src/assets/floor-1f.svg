@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="220mm"
+   height="300mm"
+   viewBox="0 0 220 300"
+   version="1.1"
+   id="svg1"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <symbol
+       id="AigaSymbols.svg:Escalator_Inv">
+      <title
+         id="title47">Escalator</title>
+      <rect
+         x="0.5"
+         y="0.5"
+         width="71"
+         height="71"
+         ry="6"
+         style="stroke:#ffffff"
+         id="rect47" />
+      <path
+         d="m 55,28 c -1,0 -2,0 -3,1 L 27,54 c -2,2 -4,3 -6,3 h -9 a 6,6 0 1 1 0,-12 h 5 c 1,0 2,0 3,-1 L 45,19 c 2,-2 4,-3 6,-3 h 9 a 6,6 0 1 1 0,12 z"
+         style="fill:none;stroke:#ffffff;stroke-width:4"
+         id="path48" />
+      <path
+         d="m 27,35 9,-9 v -3 a 4.5,4.5 0 0 0 -9,0 z"
+         style="fill:#ffffff;stroke:none"
+         id="path49" />
+      <circle
+         cx="31.5"
+         cy="13.5"
+         r="4.5"
+         style="fill:#ffffff;stroke:none"
+         id="circle49" />
+    </symbol>
+    <symbol
+       id="AigaSymbols.svg:Stairs_Inv">
+      <title
+         id="title62">Stairs</title>
+      <rect
+         x="0.5"
+         y="0.5"
+         width="71"
+         height="71"
+         ry="6"
+         style="stroke:#ffffff"
+         id="rect62" />
+      <path
+         d="m 9,56.5 h 12 v -10 h 10 v -10 h 10 v -10 h 10 v -10 h 12"
+         style="fill:none;stroke:#ffffff;stroke-width:5"
+         id="path63" />
+    </symbol>
+    <symbol
+       id="AigaSymbols.svg:Elevator_Inv">
+      <title
+         id="title75">Elevator</title>
+      <rect
+         x="0.5"
+         y="0.5"
+         width="71"
+         height="71"
+         ry="6"
+         style="stroke:#ffffff"
+         id="rect75" />
+      <g
+         style="fill:none;stroke:#ffffff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round"
+         id="g76">
+        <!-- Arrow up -->
+        <path
+           d="M 26.5,23.5 V 6.5 M 20,14 26.5,6.5 33,14"
+           id="path75" />
+        <!-- Arrow down -->
+        <path
+           d="m 45.5,6.5 v 17 M 39,16 45.5,23.5 52,16"
+           id="path76" />
+      </g>
+      <rect
+         x="17"
+         y="28"
+         width="38"
+         height="38"
+         ry="5"
+         style="fill:#ffffff;stroke:none"
+         id="rect76" />
+      <rect
+         x="22"
+         y="33"
+         width="28"
+         height="28"
+         style="stroke:none"
+         id="rect77" />
+      <g
+         id="person2"
+         style="fill:#ffffff;stroke:none">
+        <circle
+           cx="27.5"
+           cy="38.75"
+           r="1.75"
+           id="circle77" />
+        <path
+           d="m 24.5,41 a 1,1 0 0 0 -1,1 v 7 a 1,1 0 0 0 1,1 h 0.25 v 8.5 a 1.25,1.25 0 1 0 2.5,0 V 50 h 0.5 v 8.5 a 1.25,1.25 0 1 0 2.5,0 V 50 h 0.25 a 1,1 0 0 0 1,-1 v -7 a 1,1 0 0 0 -1,-1 z"
+           id="path77" />
+      </g>
+      <use
+         x="8.5"
+         xlink:href="#person2"
+         id="use77" />
+      <use
+         x="17"
+         xlink:href="#person2"
+         id="use78" />
+    </symbol>
+    <symbol
+       id="AigaSymbols.svg:Toilets_Inv">
+      <title
+         id="title83">Toilets</title>
+      <rect
+         x="0.5"
+         y="0.5"
+         width="71"
+         height="71"
+         ry="6"
+         style="stroke:#ffffff"
+         id="rect83" />
+      <g
+         style="fill:#ffffff;stroke:none"
+         id="g85">
+        <!-- Divider -->
+        <rect
+           x="33.5"
+           y="12"
+           width="5"
+           height="48"
+           id="rect84" />
+        <!-- Woman -->
+        <circle
+           cx="19.5"
+           cy="15"
+           r="4"
+           id="circle84" />
+        <path
+           d="m 19,44.5 v 14 a 2,2 0 0 1 -4,0 v -14 H 10 L 15.5,26 h -1 l -3,10.5 A 1.821,1.821 0 0 1 8,35.5 l 3.5,-12 A 5.7,4.6 0 0 1 17,20 h 5 a 5.7,4.6 0 0 1 5.5,3.5 l 3.5,12 a 1.821,1.821 0 0 1 -3.5,1 L 24.5,26 h -1 L 29,44.5 h -5 v 14 a 2,2 0 0 1 -4,0 v -14 z"
+           id="path84" />
+        <!-- Man -->
+        <circle
+           cx="52.5"
+           cy="15"
+           r="4"
+           id="circle85" />
+        <path
+           d="m 43,25 v 13 a 1.75,1.75 0 0 0 3.5,0 V 26.5 h 1 v 31.75 a 2.25,2.25 0 0 0 4.5,0 V 39.5 h 1 v 18.75 a 2.25,2.25 0 0 0 4.5,0 V 26.5 h 1 V 38 A 1.75,1.75 0 0 0 62,38 V 25 a 5,5 0 0 0 -5,-5 h -9 a 5,5 0 0 0 -5,5 z"
+           id="path85" />
+      </g>
+    </symbol>
+    <symbol
+       id="AigaSymbols.svg:Information_Inv">
+      <title
+         id="title126">Information</title>
+      <rect
+         x="0.5"
+         y="0.5"
+         width="71"
+         height="71"
+         ry="6"
+         style="stroke:#ffffff"
+         id="rect127" />
+      <circle
+         cx="36"
+         cy="36"
+         r="24"
+         style="fill:none;stroke:#ffffff;stroke-width:6"
+         id="circle127" />
+      <path
+         d="m 27,32 c 0,-5 1,-11 9,-11 4,0 8,3 8,7 0,4 -2,6 -4,7 -2,1 -4,2 -4,5 0,3 0,6 0,6"
+         style="fill:none;stroke:#ffffff;stroke-width:6"
+         id="path127" />
+      <rect
+         x="33"
+         y="48"
+         width="6"
+         height="6"
+         style="fill:#ffffff;stroke:none"
+         id="rect128" />
+    </symbol>
+  </defs>
+  <g
+     id="layer1"
+     style="display:inline">
+    <g
+       id="g6">
+      <path
+         style="fill:none;stroke-width:0.1"
+         d="m 0,0 h 160 v 100 h 50 l 10,200 H 60 V 250 H 10 Z"
+         id="path11" />
+      <path
+         style="display:inline;fill:#ffffff;stroke-width:0.1"
+         d="m 10,0 h 150 v 100 h 50 V 300 H 60 V 250 H 10 Z"
+         id="path1" />
+    </g>
+    <g
+       id="g2">
+      <path
+         style="fill:#e5ff80;stroke-width:0.1"
+         d="M 10,0 H 40 V 50 H 10 Z"
+         id="path2" />
+      <path
+         style="fill:#e5ff80;stroke-width:0.1"
+         d="m 10,50 h 30 v 50 H 10 Z"
+         id="path3" />
+      <path
+         style="fill:#e5ff80;stroke-width:0.1"
+         d="m 10,110 h 30 v 40 H 10 Z"
+         id="path4" />
+      <path
+         style="fill:#e5ff80;stroke-width:0.1"
+         d="m 70,0 h 90 v 100 h 50 v 50 H 70 Z"
+         id="path5" />
+      <path
+         style="fill:#87de87;stroke-width:0.1"
+         d="m 10,150 h 30 v 90 H 10 Z"
+         id="path6" />
+      <path
+         style="fill:#80e5ff;stroke-width:0.1"
+         d="m 70,250 v 50 h 140 v -50 z"
+         id="path7" />
+      <path
+         style="fill:#80e5ff;stroke-width:0.1"
+         d="m 160,200 h 50 v 30 h -50 z"
+         id="path8" />
+      <path
+         style="fill:#80e5ff;stroke-width:0.1"
+         d="m 140,170 v 50 H 70 v -50 z"
+         id="path9" />
+      <path
+         style="fill:#80e5ff;stroke-width:0.1"
+         d="m 160,170 h 50 v 30 h -50 z"
+         id="path10" />
+    </g>
+    <g
+       id="g1"
+       style="display:inline">
+      <use
+         xlink:href="#AigaSymbols.svg:Escalator_Inv"
+         style="fill:#000000;stroke:#000000"
+         id="use1"
+         transform="matrix(0.25,0,0,0.25,101,231)" />
+      <use
+         xlink:href="#AigaSymbols.svg:Stairs_Inv"
+         style="fill:#000000;stroke:#000000"
+         id="use1-6"
+         transform="matrix(0.25,0,0,0.25,11,101)" />
+      <use
+         xlink:href="#AigaSymbols.svg:Toilets_Inv"
+         style="fill:#000000;stroke:#000000"
+         id="use1-5"
+         transform="matrix(0.25,0,0,0.25,11,231)" />
+      <use
+         xlink:href="#AigaSymbols.svg:Elevator_Inv"
+         style="fill:#000000;stroke:#000000"
+         id="use2"
+         transform="matrix(0.25,0,0,0.25,141,1)" />
+      <use
+         xlink:href="#AigaSymbols.svg:Information_Inv"
+         style="fill:#000000;stroke:#000000"
+         id="use1-29"
+         transform="matrix(0.25,0,0,0.25,141,141)" />
+      <use
+         xlink:href="#AigaSymbols.svg:Elevator_Inv"
+         style="display:inline;fill:#000000;stroke:#000000"
+         id="use27"
+         transform="matrix(0.25,0,0,0.25,191,231)" />
+    </g>
+    <g
+       id="g4">
+      <text
+         xml:space="preserve"
+         style="font-size:11.2889px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:10"
+         x="100"
+         y="100"
+         id="text1"><tspan
+           style="font-size:11.2889px;text-align:center;text-anchor:middle;fill:#000000;stroke:none;stroke-width:10"
+           x="100"
+           y="100"
+           id="tspan2">フードコート</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:8.46667px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;display:inline;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
+         x="140"
+         y="275"
+         id="text14"><tspan
+           id="tspan14"
+           style="font-size:8.46667px;stroke-width:1.05833"
+           x="140"
+           y="275">ドラッグストア</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:8.46667px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
+         x="105"
+         y="195"
+         id="text15"><tspan
+           id="tspan15"
+           style="stroke-width:1.05833"
+           x="105"
+           y="195">食料品</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:8.46667px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
+         x="185"
+         y="200"
+         id="text16"><tspan
+           id="tspan16"
+           style="stroke-width:1.05833"
+           x="185"
+           y="200">スイーツ</tspan><tspan
+           style="stroke-width:1.05833"
+           x="185"
+           y="213.51845"
+           id="tspan17">デザート</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
+         x="25"
+         y="190"
+         id="text18"><tspan
+           id="tspan18"
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="25"
+           y="190">カフェ</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
+         x="25"
+         y="25"
+         id="text19"><tspan
+           id="tspan19"
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="25"
+           y="25">婦人服</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
+         x="25"
+         y="70"
+         id="text20"><tspan
+           id="tspan20"
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="25"
+           y="70">靴</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
+         x="25"
+         y="130"
+         id="text21"><tspan
+           id="tspan21"
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="25"
+           y="130">紳士服</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
+         x="95"
+         y="35"
+         id="text22"><tspan
+           id="tspan22"
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="95"
+           y="35">ラーメン</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
+         x="145"
+         y="35"
+         id="text23"><tspan
+           id="tspan23"
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="145"
+           y="35">寿司</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
+         x="150"
+         y="70"
+         id="text24"><tspan
+           id="tspan24"
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="150"
+           y="70">パスタ</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
+         x="190"
+         y="140"
+         id="text25"><tspan
+           id="tspan25"
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="190"
+           y="140">クレープ</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
+         x="90"
+         y="140"
+         id="text26"><tspan
+           id="tspan26"
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="90"
+           y="140">パン</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;line-height:1.5;font-family:'Ubuntu Sans',sans-serif;-inkscape-font-specification:'Ubuntu Sans';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;stroke:none;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
+         x="180"
+         y="115"
+         id="text27"><tspan
+           id="tspan27"
+           style="font-size:6.35px;stroke-width:1.05833"
+           x="180"
+           y="115">ハンバーガー</tspan></text>
+    </g>
+  </g>
+</svg>
