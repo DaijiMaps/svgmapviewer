@@ -70,23 +70,23 @@ function ContainerStyle(): ReactNode {
 
   /*
   &.not-animating {
-    &.opened {
-      opacity: 0.5;
-    }
     &.closed {
       opacity: 1;
     }
+    &.opened {
+      opacity: 0.5;
+    }
   }
   &.animating {
-    &.opened {
-      --a: 1;
-      --b: 0.5;
-      --timing: ${timing_opening};
-    }
     &.closed {
       --a: 0.5;
       --b: 1;
       --timing: ${timing_closing};
+    }
+    &.opened {
+      --a: 1;
+      --b: 0.5;
+      --timing: ${timing_opening};
     }
     --duration: ${ZOOM_DURATION_DETAIL}ms;
     animation: xxx-container var(--duration) var(--timing);

@@ -46,33 +46,31 @@ const style = `
   cursor: default;
   pointer-events: none;
   z-index: ${Z_INDEX_SHADOW};
-  will-change: opacity;
   &.not-animating {
-    &.opened {
-      pointer-events: initial;
-    }
     &.closed {
+      opacity: 0;
       &.not-zooming {
         display: none;
       }
       &.zooming {
         display: initial;
-        opacity: 0;
       }
     }
-    opacity: 0.3;
-    will-change: opacity;
+    &.opened {
+      pointer-events: initial;
+      opacity: 0.3;
+    }
   }
   &.animating {
-    &.opened {
-      --a: 0;
-      --b: 0.3;
-      --timing: ${timing_opening};
-    }
     &.closed {
       --a: 0.3;
       --b: 0;
       --timing: ${timing_closing};
+    }
+    &.opened {
+      --a: 0;
+      --b: 0.3;
+      --timing: ${timing_opening};
     }
     --duration: ${ZOOM_DURATION_DETAIL}ms;
     will-change: opacity;

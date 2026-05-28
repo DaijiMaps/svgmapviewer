@@ -65,20 +65,20 @@ const style = `
   will-change: initial;
   transform-origin: 50% 100%;
   
-  &.opened {
-    --opened: 1;
-  }
   &.closed {
     --closed: 1;
+  }
+  &.opened {
+    --opened: 1;
   }
   &.not-animating {
     --animating: 0;
     --a: initial;
-    &.opened {
-      --b: 1;
-    }
     &.closed {
       --b: 0;
+    }
+    &.opened {
+      --b: 1;
     }
     --duration: initial;
     --timing: initial;
@@ -89,15 +89,15 @@ const style = `
   }
   &.animating {
     --animating: 1;
-    &.opened {
-      --a: 0;
-      --b: 1;
-      --timing: ${timing_opening};
-    }
     &.closed {
       --a: 1;
       --b: 0;
       --timing: ${timing_closing};
+    }
+    &.opened {
+      --a: 0;
+      --b: 1;
+      --timing: ${timing_opening};
     }
     --duration: ${ZOOM_DURATION_HEADER}ms;
     will-change: opacity, transform;

@@ -144,13 +144,13 @@ export type OsmGetMapNames = (
 
 export type OsmGetSearchEntries = (
   props: Readonly<OsmSearchProps>
-) => readonly SearchPos[]
+) => readonly SearchPos[] | Promise<readonly SearchPos[]>
 
 export type OsmGetSearchInfo = (
   res: Readonly<SearchPos>,
   mapMap?: Readonly<OsmMapMap>,
   entries?: readonly Readonly<OsmSearchEntry>[]
-) => null | Info
+) => null | Info | Promise<null | Info>
 
 export interface RenderInfoProps {
   readonly info: Info

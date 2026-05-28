@@ -69,11 +69,11 @@ const style = `
   transform-origin: 50% 0%;
   
   &.not-animating {
-    &.opened {
-      --b: 1;
-    }
     &.closed {
       --b: 0;
+    }
+    &.opened {
+      --b: 1;
     }
     will-change: initial;
     animation: none;
@@ -81,15 +81,15 @@ const style = `
     opacity: var(--b);
   }
   &.animating {
-    &.opened {
-      --a: 0;
-      --b: 1;
-      --timing: ${timing_opening};
-    }
     &.closed {
       --a: 1;
       --b: 0;
       --timing: ${timing_closing};
+    }
+    &.opened {
+      --a: 0;
+      --b: 1;
+      --timing: ${timing_opening};
     }
     --duration: ${ZOOM_DURATION_HEADER}ms;
     will-change: opacity, transform;

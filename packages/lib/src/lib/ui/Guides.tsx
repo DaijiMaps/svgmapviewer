@@ -53,25 +53,25 @@ const style = `
   z-index: ${Z_INDEX_GUIDES};
   
   &.not-animating {
-    &.opened {
-      --ob: 1;
-    }
     &.closed {
       --ob: 0;
+    }
+    &.opened {
+      --ob: 1;
     }
     opacity: var(--ob);
     will-change: opacity;
   }
   &.animating {
-    &.opened {
-      --oa: 0;
-      --ob: 1;
-      --timing: ${timing_opening};
-    }
     &.closed {
       --oa: 1;
       --ob: 0;
       --timing: ${timing_closing};
+    }
+    &.opened {
+      --oa: 0;
+      --ob: 1;
+      --timing: ${timing_opening};
     }
     --duration: ${ZOOM_DURATION_HEADER}ms;
     animation: xxx-measure var(--duration) var(--timing);

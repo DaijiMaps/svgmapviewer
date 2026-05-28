@@ -61,11 +61,11 @@ const style = `
   }
   
   &.not-animating {
-    &.opened {
-      --b: 1;
-    }
     &.closed {
       --b: 0;
+    }
+    &.opened {
+      --b: 1;
     }
     opacity: var(--b);
     /*
@@ -74,15 +74,15 @@ const style = `
     */
   }
   &.animating {
-    &.opened {
-      --a: 0;
-      --b: 1;
-      --timing: ${timing_opening};
-    }
     &.closed {
       --a: 1;
       --b: 0;
       --timing: ${timing_closing};
+    }
+    &.opened {
+      --a: 0;
+      --b: 1;
+      --timing: ${timing_opening};
     }
     animation: xxx-right 300ms var(--timing);
     will-change: opacity, transform;

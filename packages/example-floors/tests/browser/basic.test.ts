@@ -5,6 +5,6 @@ test('title', async ({ page }) => {
 
   await expect(page).toHaveTitle(/Floor Map Test/)
 
-  await page.getByText(/1F/)
-  await page.getByText(/2F/)
+  page.getByText(/1F/)
+  page.getByText(/2F/)
 })

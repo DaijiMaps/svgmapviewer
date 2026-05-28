@@ -218,11 +218,11 @@ export const detailStyleString: string = `
   &.balloon {
     animation: xxx-balloon var(--duration) var(--timing);
   }
-  &.opened {
-    --timing: ${timing_opening};
-  }
   &.closed {
     --timing: ${timing_closing};
+  }
+  &.opened {
+    --timing: ${timing_opening};
   }
 }
 

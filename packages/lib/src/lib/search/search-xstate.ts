@@ -100,19 +100,18 @@ const worker: SearchWorker = new Worker(
   }
 )
 
-worker.onmessage = (e: Readonly<MessageEvent<SearchWorkerRes>>) => {
+worker.onmessage = async (
+  e: Readonly<MessageEvent<SearchWorkerRes>>
+): Promise<void> => {
   const ev = e.data
   switch (ev.type) {
     case 'INIT.DONE':
-      searchSend({ type: 'INIT.DONE' })
-      break
+      return searchSend({ type: 'INIT.DONE' })
     case 'SEARCH.DONE':
-      handleSearchRes(ev.res)
-      break
+      return handleSearchRes(ev.res).catch((e) => console.log(`SEARCH.DONE`, e))
     case 'SEARCH.ERROR':
       console.log('search error!', ev.error)
-      searchSend({ type: 'SEARCH.DONE', res: null })
-      break
+      return searchSend({ type: 'SEARCH.DONE', res: null })
   }
 }
 
@@ -124,22 +123,25 @@ worker.onmessageerror = (ev) => {
   console.error('search messageerror', ev)
 }
 
-function handleSearchRes(res: Readonly<SearchPos>): void {
-  const info = svgMapViewerConfig.getSearchInfo(
-    res,
-    svgMapViewerConfig.mapMap,
-    svgMapViewerConfig.osmSearchEntries
-  )
-  if (info === null) {
-    console.log('info not found!', res)
-    searchSend({ type: 'SEARCH.DONE', res: null })
-  } else {
-    const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(
-      res.pos.coord
+function handleSearchRes(res: Readonly<SearchPos>): Promise<void> {
+  return Promise.resolve(
+    svgMapViewerConfig.getSearchInfo(
+      res,
+      svgMapViewerConfig.mapMap,
+      svgMapViewerConfig.osmSearchEntries
     )
-    const fidx = res.pos.fidx
-    searchSend({ type: 'SEARCH.DONE', res: { psvg, fidx, info } })
-  }
+  ).then((info) => {
+    if (info === null) {
+      console.log('info not found!', res)
+      return searchSend({ type: 'SEARCH.DONE', res: null })
+    } else {
+      const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(
+        res.pos.coord
+      )
+      const fidx = res.pos.fidx
+      return searchSend({ type: 'SEARCH.DONE', res: { psvg, fidx, info } })
+    }
+  })
 }
 
 ////
@@ -147,9 +149,10 @@ function handleSearchRes(res: Readonly<SearchPos>): void {
 export function searchCbsStart(): void {
   globalCbs.init.add((cfg: Readonly<SvgMapViewerConfig>) => {
     if (cfg.getSearchEntries) {
-      const entries = cfg.getSearchEntries(cfg)
-      const req: SearchWorkerReq = { type: 'INIT', entries }
-      worker.postMessage(req)
+      return Promise.resolve(cfg.getSearchEntries(cfg)).then((entries) => {
+        const req: SearchWorkerReq = { type: 'INIT', entries }
+        worker.postMessage(req)
+      })
     }
   })
   searchCbs.start.add(function (req: Readonly<SearchSvgReq>): void {
