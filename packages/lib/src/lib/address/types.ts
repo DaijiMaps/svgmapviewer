@@ -22,11 +22,14 @@ export type FlatEntries = readonly FlatEntry[]
 
 export type Coord = VecVec
 export type FloorIdx = number
-export type Pos = Readonly<{ readonly coord: Coord; readonly fidx: FloorIdx }>
+export type FloorPos = Readonly<{
+  readonly coord: Coord
+  readonly fidx: FloorIdx
+}>
 
 export type AddressesJson = Record<Addr, Coord>
 export type AddressesJsons = readonly AddressesJson[]
 
-export type Address = readonly [string, Pos]
+export type Address = readonly [string, FloorPos]
 export type Addresses = readonly Address[]
-export type AddressMap = Map<Addr, Pos>
+export type AddressMap = Map<Addr, FloorPos>
