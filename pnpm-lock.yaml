@@ -227,6 +227,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.15)
+      '@typescript/native-preview':
+        specifier: 7.0.0-dev.20260513.1
+        version: 7.0.0-dev.20260513.1
 
   packages/create-floors:
     devDependencies:
