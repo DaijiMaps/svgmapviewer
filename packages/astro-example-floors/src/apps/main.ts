@@ -7,9 +7,7 @@ import { floorsConfig } from './floors'
 import { searchConfig } from './search'
 import { origBoundingBox, origViewBox } from './viewbox'
 
-export function main(_props: Readonly<SvgMapViewerConfigUser>) {
-  console.log('main', _props)
-
+export function main(props: Readonly<SvgMapViewerConfigUser>) {
   svgmapviewer({
     root: 'root',
     title: 'Floor Map Test',
@@ -19,6 +17,8 @@ export function main(_props: Readonly<SvgMapViewerConfigUser>) {
     floorsConfig,
 
     ...searchConfig,
+
+    ...props,
   })
 }
 

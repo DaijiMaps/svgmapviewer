@@ -1,0 +1,4 @@
+# yaml-language-server: $schema=../../schema/svgMapViewerConfigUser.schema.json
+root: root
+title: Floor Map Test 2
+#zoomFactor: 4
