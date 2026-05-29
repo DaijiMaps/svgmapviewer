@@ -17,6 +17,8 @@ export {
   type Names,
   type NamesJson,
   type FloorPos,
+  type SearchAddress,
+  type SearchName,
 } from './types'
 
 export {

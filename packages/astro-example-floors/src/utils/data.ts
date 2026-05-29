@@ -1,13 +1,13 @@
 import { getCollection, getEntry } from 'astro:content'
-import type { Address, NameEntry } from 'svgmapviewer/address'
+import type { SearchAddress, SearchName } from 'svgmapviewer/address'
 
-const searchAddresses: readonly Address[] = await getCollection(
+const searchAddresses: readonly SearchAddress[] = await getCollection(
   'addresses'
-).then((xs) => {
-  return xs.map(({ id, data }) => [id, data] as const)
-})
+).then((xs) => xs.map(({ id, data }) => ({ address: id, floorPos: data })))
 
-const searchNames: readonly NameEntry[] = []
+const searchNames: readonly SearchName[] = await getCollection('names').then(
+  (xs) => xs.map(({ id, data }) => ({ name: id, addresses: data }))
+)
 
 const tmpConfig = await getEntry('svgMapViewerConfig', 'default')
 
