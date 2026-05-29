@@ -160,6 +160,8 @@ export type RenderInfo = (props: Readonly<RenderInfoProps>) => ReactNode
 
 ////
 
+// SvgMapViewerConfig
+
 export interface SvgMapViewerConfig
   extends OsmDataConfig, OsmRenderConfig, OsmSearchConfig {
   root: string
@@ -180,9 +182,15 @@ export interface SvgMapViewerConfig
   isUiRendered: () => boolean
 }
 
+// UiConfig
+
 export interface UiConfig {
   showGuides: boolean
 }
+
+// OsmDataConfig
+// OsmRenderConfig
+// OsmSearchConfig
 
 export interface OsmDataConfig {
   readonly origViewBox: BoxBox // XXX
@@ -210,6 +218,11 @@ export interface OsmSearchConfig {
   readonly renderInfo: RenderInfo
 }
 
+// Floor
+// FloorsConfig
+// LabelText
+// LabelTspan
+
 export interface Floor {
   readonly name: string
   readonly href: string | URL
@@ -230,5 +243,7 @@ export interface LabelTspan {
   attrs: Record<string, undefined | null | number | string>
   text: null | string
 }
+
+// SvgMapViewerConfigUser
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>
