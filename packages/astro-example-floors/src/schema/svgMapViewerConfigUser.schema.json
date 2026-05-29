@@ -72,7 +72,96 @@
     },
     "floorsConfig": {
       "type": "object",
-      "properties": {},
+      "properties": {
+        "initialFidx": {
+          "type": "number"
+        },
+        "floors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "href": {
+                "type": "string"
+              },
+              "labels": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "attrs": {
+                      "type": "object",
+                      "propertyNames": {
+                        "type": "string"
+                      },
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      }
+                    },
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "attrs": {
+                            "type": "object",
+                            "propertyNames": {
+                              "type": "string"
+                            },
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            }
+                          },
+                          "text": {
+                            "anyOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          }
+                        },
+                        "required": ["attrs", "text"],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": ["attrs", "children"],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": ["name", "href"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["initialFidx", "floors"],
       "additionalProperties": false
     },
     "uiConfig": {

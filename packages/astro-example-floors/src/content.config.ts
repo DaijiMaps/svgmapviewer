@@ -3,31 +3,26 @@ import { defineCollection } from 'astro:content'
 import { z } from 'zod'
 
 import {
-  nameSchema,
+  addressesSchema,
+  floorsSchema,
+  namesSchema,
   poiSchema,
-  posSchema,
-  svgMapViewerConfigSchema,
+  svgMapViewerConfigUserSchema,
 } from './utils/schema'
 
 const floors = defineCollection({
   loader: file('./src/data/floors.json'),
-  schema: z.object({
-    name: nameSchema,
-    // XXX labels
-  }),
+  schema: floorsSchema,
 })
 
 const addresses = defineCollection({
   loader: file('./src/data/addresses.json'),
-  schema: z.object({
-    coord: posSchema,
-    fidx: z.number(),
-  }),
+  schema: addressesSchema,
 })
 
 const names = defineCollection({
   loader: file('./src/data/names.json'),
-  schema: z.array(z.string()),
+  schema: namesSchema,
 })
 
 const pois = defineCollection({
@@ -38,9 +33,9 @@ const pois = defineCollection({
 const svgMapViewerConfig = defineCollection({
   loader: glob({
     base: './src/data/svgMapViewerConfig',
-    pattern: '**/*.json',
+    pattern: '**/*.{json,yaml}',
   }),
-  schema: svgMapViewerConfigSchema,
+  schema: svgMapViewerConfigUserSchema,
 })
 
 export const collections = {

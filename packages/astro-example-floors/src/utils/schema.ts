@@ -14,6 +14,18 @@ export const boxSchema = z.object({
 
 export const nameSchema = z.union([z.string(), z.array(z.string())])
 
+export const namesSchema = z.array(z.string())
+
+export const floorsSchema = z.object({
+  name: nameSchema,
+  // XXX labels
+})
+
+export const addressesSchema = z.object({
+  coord: posSchema,
+  fidx: z.number(),
+})
+
 export const poiShopSchema = z.object({
   tag: z.literal('shop'),
 })
@@ -88,18 +100,12 @@ export const osmSearchConfigSchema = z.object({
 // floorsConfigSchema
 
 const labelTspanSchema = z.object({
-  attrs: z.record(
-    z.string(),
-    z.union([z.undefined(), z.null(), z.number(), z.string()])
-  ),
+  attrs: z.record(z.string(), z.union([z.null(), z.number(), z.string()])),
   text: z.union([z.null(), z.string()]),
 })
 
 const labelTextSchema = z.object({
-  attrs: z.record(
-    z.string(),
-    z.union([z.undefined(), z.null(), z.number(), z.string()])
-  ),
+  attrs: z.record(z.string(), z.union([z.null(), z.number(), z.string()])),
   children: z.array(labelTspanSchema),
 })
 
@@ -109,7 +115,10 @@ export const floorSchema = z.object({
   labels: z.array(labelTextSchema).optional(),
 })
 
-export const floorsConfigSchema = z.object({})
+export const floorsConfigSchema = z.object({
+  initialFidx: z.number(),
+  floors: z.array(floorSchema),
+})
 
 // svgMapViewerConfigSchema
 
