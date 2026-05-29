@@ -33,3 +33,15 @@ export type AddressesJsons = readonly AddressesJson[]
 export type Address = readonly [string, FloorPos]
 export type Addresses = readonly Address[]
 export type AddressMap = Map<Addr, FloorPos>
+
+//// new types
+
+export type SearchAddress = {
+  address: Addr
+  floorPos: FloorPos
+}
+
+export type SearchName = {
+  name: Name
+  addresses: Addrs
+}

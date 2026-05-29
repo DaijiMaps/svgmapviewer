@@ -5,6 +5,15 @@ export const posSchema = z.object({
   y: z.number(),
 })
 
+//const addrSchema = z.string()
+//const addrsSchema = z.array(addrSchema)
+//const nameEntrySchema = z.tuple([z.string(), addrsSchema])
+const floorPosSchema = z.object({
+  coord: posSchema,
+  fidx: z.number(),
+})
+//const addressSchema = z.tuple([z.string(), floorPosSchema])
+
 export const boxSchema = z.object({
   x: z.number(),
   y: z.number(),
@@ -25,6 +34,10 @@ export const addressesSchema = z.object({
   coord: posSchema,
   fidx: z.number(),
 })
+
+// poiKindSchema
+// poixSchema
+// poiSchema
 
 export const poiShopSchema = z.object({
   tag: z.literal('shop'),
@@ -50,11 +63,24 @@ export const poiSchema = z.object({
   x: poixSchema,
 })
 
-//
-//
-//
-//
-//
+// searchAddressesSchema
+// searchNamesSchema
+
+const searchAddressSchema = z.object({
+  address: z.string(),
+  floorPos: floorPosSchema,
+})
+const searchNameSchema = z.object({
+  name: z.string(),
+  addresses: z.array(z.string()),
+})
+export const searchAddressesSchema = z.array(searchAddressSchema)
+export const searchNamesSchema = z.array(searchNameSchema)
+
+// osmMapDataSchema
+// osmMapMapSchema
+// mapCoordSchema
+// uiConfigSchema
 
 const osmMapDataSchema = z.object({})
 
@@ -135,6 +161,8 @@ export const svgMapViewerConfigSchema = z.object({
   subtitle: z.string(),
   copyright: z.string(),
   zoomFactor: z.number(),
+  searchAddresses: searchAddressesSchema.optional(),
+  searchNames: searchNamesSchema.optional(),
   floorsConfig: floorsConfigSchema.optional(),
   uiConfig: uiConfigSchema.optional(),
   //isContainerRendered: () => boolean
