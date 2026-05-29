@@ -6,11 +6,17 @@ import { addresses } from './address'
 import { addressStringNameMap } from './names'
 import { RenderInfo as renderInfo } from './render'
 
-async function getSearchEntries() {
-  return addresses.map(([address, pos]) => ({
-    address,
-    pos,
-  }))
+async function getSearchEntries(): Promise<readonly SearchPos[]> {
+  return addresses
+    .then((xs) =>
+      xs.map(([address, pos]) => ({
+        address,
+        pos,
+      }))
+    )
+    .catch((e) => {
+      throw new Error(`addresses`, e)
+    })
 }
 
 async function getSearchInfo(pos: Readonly<SearchPos>): Promise<null | Info> {
