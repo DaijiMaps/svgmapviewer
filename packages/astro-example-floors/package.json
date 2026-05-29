@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "regen": "node scripts/regen-schema.ts",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -20,7 +21,8 @@
   },
   "devDependencies": {
     "@types/react": "^19.2.15",
-    "@types/react-dom": "^19.2.3"
+    "@types/react-dom": "^19.2.3",
+    "@typescript/native-preview": "7.0.0-dev.20260513.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",

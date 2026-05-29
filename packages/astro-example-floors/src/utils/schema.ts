@@ -132,8 +132,4 @@ export const svgMapViewerConfigSchema = z.object({
   //isUiRendered: () => boolean
 })
 
-export const svgMapViewerConfigUserSchema = z.object({
-  //title: z.string().optional(),
-  //origViewBox: boxSchema.optional(),
-  //origBoundingBox: boxSchema.optional(),
-})
+export const svgMapViewerConfigUserSchema = svgMapViewerConfigSchema.partial()
