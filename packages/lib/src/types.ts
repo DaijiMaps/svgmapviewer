@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-mixed-types */
 import { type ReactNode } from 'react'
 
+import type { SearchAddress, SearchName } from './lib/address/types'
 import { type BoxBox } from './lib/box/prefixed'
 import { type OsmCartoConfig } from './lib/carto'
 import {
@@ -176,6 +177,8 @@ export interface SvgMapViewerConfig
   subtitle: string
   copyright: string
   zoomFactor: number
+  searchAddresses?: readonly SearchAddress[]
+  searchNames?: readonly SearchName[]
   floorsConfig?: FloorsConfig
   uiConfig?: UiConfig
   isContainerRendered: () => boolean
