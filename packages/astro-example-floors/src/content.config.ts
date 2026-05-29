@@ -36,7 +36,10 @@ const floors = defineCollection({
 
 const addresses = defineCollection({
   loader: file('./src/data/addresses.json'),
-  schema: posSchema,
+  schema: z.object({
+    coord: posSchema,
+    fidx: z.number(),
+  }),
 })
 
 const names = defineCollection({
