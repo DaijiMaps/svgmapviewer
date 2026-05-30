@@ -4,15 +4,17 @@ import { writeFileSync } from 'node:fs'
 
 import { z } from 'zod'
 
+import { infoSchema } from '../src/utils/info.ts'
 import {
   addressesSchema,
   floorsConfigSchema,
   addrsSchema,
-  infoSchema,
   svgMapViewerConfigUserSchema,
 } from '../src/utils/schema.ts'
 
-const toRecord = (s) => z.record(z.string(), s)
+type S = typeof addressesSchema | typeof addrsSchema | typeof infoSchema
+// eslint-disable-next-line functional/prefer-immutable-types
+const toRecord = (s: S) => z.record(z.string(), s)
 
 const types = [
   { name: 'floorsConfig', schema: floorsConfigSchema.loose() },

@@ -1,11 +1,11 @@
 import { file, glob } from 'astro/loaders'
 import { defineCollection } from 'astro:content'
 
+import { infoSchema } from './utils/info'
 import {
   addressSchema,
   addrsSchema,
   floorsConfigSchema,
-  infoSchema,
   svgMapViewerConfigUserSchema,
 } from './utils/schema'
 
