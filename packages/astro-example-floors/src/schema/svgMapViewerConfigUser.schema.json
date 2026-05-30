@@ -70,6 +70,61 @@
     "zoomFactor": {
       "type": "number"
     },
+    "searchAddresses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "floorPos": {
+            "type": "object",
+            "properties": {
+              "coord": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "required": ["x", "y"],
+                "additionalProperties": false
+              },
+              "fidx": {
+                "type": "number"
+              }
+            },
+            "required": ["coord", "fidx"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["address", "floorPos"],
+        "additionalProperties": false
+      }
+    },
+    "searchNames": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["name", "addresses"],
+        "additionalProperties": false
+      }
+    },
     "floorsConfig": {
       "type": "object",
       "properties": {
@@ -85,6 +140,9 @@
                 "type": "string"
               },
               "href": {
+                "type": "string"
+              },
+              "file": {
                 "type": "string"
               },
               "labels": {
@@ -156,7 +214,7 @@
                 }
               }
             },
-            "required": ["name", "href"],
+            "required": ["name"],
             "additionalProperties": false
           }
         }

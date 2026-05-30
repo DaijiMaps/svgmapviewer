@@ -1,37 +1,44 @@
-/* eslint-disable functional/no-throw-statements */
-/* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
-/* eslint-disable functional/no-conditional-statements */
+import { createAtom } from '@xstate/store'
+
 import { svgMapViewerConfig } from '../../config'
 import { type Info } from '../../types'
 import {
-  namesToNameMap,
+  //namesToNameMap,
   namesToRNameMap,
   type NameMap,
   type Names,
 } from '../address'
 import type { SearchPos } from './types'
 
-const nameAddressStringMapRef: Set<NameMap> = new Set()
-const addressStringNameMapRef: Set<NameMap> = new Set()
+//const nameMapAtom = createAtom<null | NameMap>(null)
+const addressMapAtom = createAtom<null | NameMap>(null)
+
+/*
+const getNameMap = (names: Names) => {
+  const tmp = nameMapAtom.get()
+  if (tmp !== null) return tmp
+  const v = namesToNameMap(names)
+  nameMapAtom.set(v)
+  return v
+}
+*/
+const getAddressMap = (names: Names) => {
+  const tmp = addressMapAtom.get()
+  if (tmp !== null) return tmp
+  const v = namesToRNameMap(names)
+  addressMapAtom.set(v)
+  return v
+}
 
 export const getSearchInfoCommon = (pos: Readonly<SearchPos>): null | Info => {
   const searchNames = svgMapViewerConfig.searchNames
   const getInfoByName = svgMapViewerConfig.getInfoByName
   if (searchNames === undefined || getInfoByName === undefined) return null
   const names = searchNames.map((e) => [e.name, e.addresses]) satisfies Names
-  if (nameAddressStringMapRef.size === 0) {
-    const v = namesToNameMap(names)
-    nameAddressStringMapRef.add(v)
-  }
-  if (addressStringNameMapRef.size === 0) {
-    const v = namesToRNameMap(names)
-    addressStringNameMapRef.add(v)
-  }
-  const ms = Array.from(addressStringNameMapRef)
-  if (ms.length !== 1) throw new Error(`getInfo`)
-  const m = ms[0]
-  const xs = m.get(pos.address)
+  //const nameMap = getNameMap(names)
+  const addressMap = getAddressMap(names)
+  const xs = addressMap.get(pos.address)
   if (xs === undefined || xs.size < 1) {
     return null
   }

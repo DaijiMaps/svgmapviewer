@@ -25,11 +25,6 @@ export const nameSchema = z.union([z.string(), z.array(z.string())])
 
 export const namesSchema = z.array(z.string())
 
-export const floorsSchema = z.object({
-  name: nameSchema,
-  // XXX labels
-})
-
 export const addressesSchema = z.object({
   coord: posSchema,
   fidx: z.number(),
@@ -137,9 +132,12 @@ const labelTextSchema = z.object({
 
 export const floorSchema = z.object({
   name: z.string(),
-  href: z.string(),
+  href: z.string().optional(),
+  file: z.string().optional(),
   labels: z.array(labelTextSchema).optional(),
 })
+
+export const floorsSchema = z.array(floorSchema)
 
 export const floorsConfigSchema = z.object({
   initialFidx: z.number(),
