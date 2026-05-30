@@ -136,14 +136,11 @@
           "info": {
             "type": "object",
             "properties": {
-              "tag": {
-                "type": "string"
-              },
               "title": {
                 "type": "string"
               }
             },
-            "required": ["tag", "title"],
+            "required": ["title"],
             "additionalProperties": false
           }
         },

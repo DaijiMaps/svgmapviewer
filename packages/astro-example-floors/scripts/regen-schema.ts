@@ -4,7 +4,7 @@ import { writeFileSync } from 'node:fs'
 
 import { z } from 'zod'
 
-import { infoSchema } from '../src/utils/info.ts'
+import { xinfoSchema } from '../src/utils/info.ts'
 import {
   addressesSchema,
   floorsConfigSchema,
@@ -20,7 +20,7 @@ const types = [
   { name: 'floorsConfig', schema: floorsConfigSchema.loose() },
   { name: 'addresses', schema: toRecord(addressesSchema) },
   { name: 'names', schema: toRecord(addrsSchema) },
-  { name: 'pois', schema: toRecord(infoSchema) },
+  { name: 'pois', schema: toRecord(xinfoSchema) },
   {
     name: 'svgMapViewerConfigUser',
     schema: svgMapViewerConfigUserSchema.loose(),

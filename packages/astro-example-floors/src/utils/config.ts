@@ -14,7 +14,7 @@ const searchNames: readonly SearchName[] = await getCollection('names').then(
 )
 
 const searchInfos = await getCollection('pois').then((xs) =>
-  xs.map(({ id, data }) => ({ name: id, info: data }))
+  xs.map(({ id, data }) => ({ name: id, info: { title: id, x: data } }))
 )
 
 export const config = {

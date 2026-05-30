@@ -1,7 +1,7 @@
 import { file, glob } from 'astro/loaders'
 import { defineCollection } from 'astro:content'
 
-import { infoSchema } from './utils/info'
+import { xinfoSchema } from './utils/info'
 import {
   addressSchema,
   addrsSchema,
@@ -29,7 +29,7 @@ const names = defineCollection({
 
 const pois = defineCollection({
   loader: file('./src/data/pois.yaml'),
-  schema: infoSchema,
+  schema: xinfoSchema,
 })
 
 const svgMapViewerConfig = defineCollection({

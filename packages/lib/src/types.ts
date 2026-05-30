@@ -55,7 +55,6 @@ export interface POI {
 }
 
 export interface Info {
-  readonly tag: string
   readonly title: string
 }
 

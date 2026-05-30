@@ -62,7 +62,6 @@ export const poiSchema = z.object({
 // searchNamesSchema
 
 export const baseInfoSchema = z.object({
-  tag: z.string(),
   title: z.string(),
 })
 

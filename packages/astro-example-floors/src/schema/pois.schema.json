@@ -12,26 +12,9 @@
           "tag": {
             "type": "string",
             "const": "shop.cafe"
-          },
-          "title": {
-            "type": "string"
           }
         },
-        "required": ["tag", "title"],
-        "additionalProperties": false
-      },
-      {
-        "type": "object",
-        "properties": {
-          "tag": {
-            "type": "string",
-            "const": "shop.misc"
-          },
-          "title": {
-            "type": "string"
-          }
-        },
-        "required": ["tag", "title"],
+        "required": ["tag"],
         "additionalProperties": false
       },
       {
@@ -40,54 +23,9 @@
           "tag": {
             "type": "string",
             "const": "shop.restaurant"
-          },
-          "title": {
-            "type": "string"
           }
         },
-        "required": ["tag", "title"],
-        "additionalProperties": false
-      },
-      {
-        "type": "object",
-        "properties": {
-          "tag": {
-            "type": "string",
-            "const": "facility.elevator"
-          },
-          "title": {
-            "type": "string"
-          }
-        },
-        "required": ["tag", "title"],
-        "additionalProperties": false
-      },
-      {
-        "type": "object",
-        "properties": {
-          "tag": {
-            "type": "string",
-            "const": "facility.escalator"
-          },
-          "title": {
-            "type": "string"
-          }
-        },
-        "required": ["tag", "title"],
-        "additionalProperties": false
-      },
-      {
-        "type": "object",
-        "properties": {
-          "tag": {
-            "type": "string",
-            "const": "facility.toilet"
-          },
-          "title": {
-            "type": "string"
-          }
-        },
-        "required": ["tag", "title"],
+        "required": ["tag"],
         "additionalProperties": false
       }
     ]
