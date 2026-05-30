@@ -2,6 +2,6 @@
 initialFidx: 0
 floors:
   - name: 1F
-    file: floor-1F.svg
+    href: /images/floor-1f.svg
   - name: 2F
-    file: floor-2F.svg
+    href: /images/floor-2f.svg
