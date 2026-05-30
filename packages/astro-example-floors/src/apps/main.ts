@@ -16,6 +16,12 @@ export function main(props: Readonly<SvgMapViewerConfigUser>) {
     floorsConfig,
 
     ...searchConfig,
+    getInfoByName: (name: string) => ({
+      title: name,
+      x: {
+        tag: 'unknown',
+      },
+    }),
   })
 }
 

@@ -1,9 +1,10 @@
-import { type Info, type SvgMapViewerConfigUser } from 'svgmapviewer'
-import { type SearchPos } from 'svgmapviewer/search'
+import { type SvgMapViewerConfigUser } from 'svgmapviewer'
+//import { type SearchPos } from 'svgmapviewer/search'
 
-import { addressStringNameMap } from './names'
+//import { addressStringNameMap } from './names'
 import { RenderInfo as renderInfo } from './render'
 
+/*
 async function getSearchInfo(pos: Readonly<SearchPos>): Promise<null | Info> {
   const names = addressStringNameMap.get(pos.address)
   if (names === undefined || names.size < 1) {
@@ -17,8 +18,9 @@ async function getSearchInfo(pos: Readonly<SearchPos>): Promise<null | Info> {
     },
   }
 }
+*/
 
 export const searchConfig: SvgMapViewerConfigUser = {
-  getSearchInfo,
+  //getSearchInfo,
   renderInfo,
 }
