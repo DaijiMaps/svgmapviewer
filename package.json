@@ -15,55 +15,30 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@playwright/test": "^1.60.0",
     "@prettier/plugin-oxc": "^0.1.4",
-    "@rslint/core": "^0.5.2",
+    "@rslint/core": "^0.5.3",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
-    "@typescript-eslint/parser": "^8.59.3",
-    "eslint": "^10.3.0",
+    "@typescript-eslint/parser": "^8.60.0",
+    "eslint": "^10.4.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-functional": "^9.0.4",
-    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-functional": "^9.0.5",
+    "eslint-plugin-prettier": "^5.5.6",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
     "husky": "^9.1.7",
-    "lint-staged": "^17.0.4",
-    "oxfmt": "^0.49.0",
-    "oxlint": "^1.64.0",
-    "oxlint-tsgolint": "^0.22.1",
+    "lint-staged": "^17.0.5",
+    "oxfmt": "^0.52.0",
+    "oxlint": "^1.67.0",
+    "oxlint-tsgolint": "^0.23.0",
     "playwright": "^1.60.0",
     "prettier": "^3.8.3",
     "prettier-plugin-organize-imports": "^4.3.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript-eslint": "^8.59.3"
+    "typescript-eslint": "^8.60.0"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
     "*": "prettier --write --cache --ignore-unknown"
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/node": "24.x",
-      "Pygments": ">=2.20.0",
-      "lxml": ">=6.1.0",
-      "pytest": ">=9.0.3",
-      "requests": ">=2.33.0",
-      "urllib3": ">=2.7.0",
-      "vite": ">=7.3.2",
-      "tmp": "^0.2.4"
-    },
-    "updateConfig": {
-      "ignoreDependencies": [
-        "@types/node",
-        "typescript"
-      ]
-    },
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "core-js",
-      "esbuild",
-      "msgpackr-extract",
-      "msw"
-    ]
   }
 }

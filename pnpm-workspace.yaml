@@ -7,8 +7,11 @@ packages:
   - ./packages/svgpatheditor
   - ./packages/svgpatheditor-vscode
   - ./packages/tools-*
+catalog:
+  '@types/node': '^24'
 overrides:
-  '@types/node': '24.x'
+  '@types/node': '^24'
+  '@xstate/store': '^3'
   'Pygments': '>=2.20.0'
   'lxml': '>=6.1.0'
   'pytest': '>=9.0.3'
