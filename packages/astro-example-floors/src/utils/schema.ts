@@ -61,6 +61,11 @@ export const poiSchema = z.object({
 // searchAddressesSchema
 // searchNamesSchema
 
+export const baseInfoSchema = z.object({
+  tag: z.string(),
+  title: z.string(),
+})
+
 const searchAddressSchema = z.object({
   address: z.string(),
   floorPos: floorPosSchema,
@@ -69,8 +74,13 @@ const searchNameSchema = z.object({
   name: z.string(),
   addresses: z.array(z.string()),
 })
+const searchInfoSchema = z.object({
+  name: z.string(),
+  info: baseInfoSchema,
+})
 export const searchAddressesSchema = z.array(searchAddressSchema)
 export const searchNamesSchema = z.array(searchNameSchema)
+export const searchInfosSchema = z.array(searchInfoSchema)
 
 // osmMapDataSchema
 // osmMapMapSchema
@@ -163,6 +173,7 @@ export const svgMapViewerConfigSchema = z.object({
   zoomFactor: z.number(),
   searchAddresses: searchAddressesSchema.optional(),
   searchNames: searchNamesSchema.optional(),
+  searchInfos: searchInfosSchema.optional(),
   floorsConfig: floorsConfigSchema.optional(),
   uiConfig: uiConfigSchema.optional(),
   //isContainerRendered: () => boolean

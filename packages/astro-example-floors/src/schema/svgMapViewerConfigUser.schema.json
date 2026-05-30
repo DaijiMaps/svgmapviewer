@@ -125,6 +125,32 @@
         "additionalProperties": false
       }
     },
+    "searchInfos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "info": {
+            "type": "object",
+            "properties": {
+              "tag": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": ["tag", "title"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["name", "info"],
+        "additionalProperties": false
+      }
+    },
     "floorsConfig": {
       "type": "object",
       "properties": {

@@ -1,22 +1,24 @@
 import { z } from 'zod'
 
+import { baseInfoSchema } from './schema'
+
 export const infoSchema = z.discriminatedUnion('tag', [
-  z.object({
+  baseInfoSchema.extend({
     tag: z.literal('shop.cafe'),
   }),
-  z.object({
+  baseInfoSchema.extend({
     tag: z.literal('shop.misc'),
   }),
-  z.object({
+  baseInfoSchema.extend({
     tag: z.literal('shop.restaurant'),
   }),
-  z.object({
+  baseInfoSchema.extend({
     tag: z.literal('facility.elevator'),
   }),
-  z.object({
+  baseInfoSchema.extend({
     tag: z.literal('facility.escalator'),
   }),
-  z.object({
+  baseInfoSchema.extend({
     tag: z.literal('facility.toilet'),
   }),
 ])
