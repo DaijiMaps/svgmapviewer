@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^5.0.6",
-    "astro": "^6.3.8",
+    "astro": "^6.4.2",
     "effect": "4.0.0-beta.74",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
@@ -23,7 +23,7 @@
   "devDependencies": {
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260513.1"
+    "@typescript/native-preview": "7.0.0-dev.20260527.2"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
