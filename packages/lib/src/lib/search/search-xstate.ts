@@ -148,6 +148,13 @@ function handleSearchRes(res: Readonly<SearchPos>): Promise<void> {
 
 export function searchCbsStart(): void {
   globalCbs.init.add((cfg: Readonly<SvgMapViewerConfig>) => {
+    if (cfg.searchAddresses) {
+      return Promise.resolve(cfg.searchAddresses).then((xs) => {
+        const entries = xs.map((x) => ({ ...x, pos: x.floorPos }))
+        const req: SearchWorkerReq = { type: 'INIT', entries }
+        worker.postMessage(req)
+      })
+    }
     if (cfg.getSearchEntries) {
       return Promise.resolve(cfg.getSearchEntries(cfg)).then((entries) => {
         const req: SearchWorkerReq = { type: 'INIT', entries }
