@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@xstate/react": "^6.1.0",
-    "@xstate/store": "^4.0.0",
+    "@xstate/store": "^3.17.5",
     "animejs": "^4.4.1",
     "clsx": "^2.1.1",
     "effect": "4.0.0-beta.66",

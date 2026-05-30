@@ -6,6 +6,7 @@ settings:
 
 overrides:
   '@types/node': ^24
+  '@xstate/store': ^3
   Pygments: '>=2.20.0'
   lxml: '>=6.1.0'
   pytest: '>=9.0.3'
@@ -344,8 +345,8 @@ importers:
         specifier: ^6.1.0
         version: 6.1.0(@types/react@19.2.15)(react@19.2.6)(xstate@5.32.0)
       '@xstate/store':
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^3
+        version: 3.17.5(react@19.2.6)
       animejs:
         specifier: ^4.4.1
         version: 4.4.1
@@ -3421,11 +3422,19 @@ packages:
       xstate:
         optional: true
 
-  '@xstate/store@4.0.0':
+  '@xstate/store@3.17.5':
     resolution:
       {
-        integrity: sha512-uhsEuaG04t71GjkJubwfFr8ylxRmwe6y/un2/sbU699aA2ddfVizmj4ex7K4DB81pysL8CvKRjAQUMb6Eb6nng==,
+        integrity: sha512-ITajQVRAMa1pgmgM0OdRFYQ6OQ8GK4ynh391p13GKtZnELXn9Hgs9pr4mqO1Z95HH9INcmczmWi5xk3O18GBWg==,
       }
+    peerDependencies:
+      react: ^18.2.0 || ^19.0.0
+      solid-js: ^1.7.6
+    peerDependenciesMeta:
+      react:
+        optional: true
+      solid-js:
+        optional: true
 
   acorn-jsx@5.3.2:
     resolution:
@@ -9515,7 +9524,9 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@xstate/store@4.0.0': {}
+  '@xstate/store@3.17.5(react@19.2.6)':
+    optionalDependencies:
+      react: 19.2.6
 
   acorn-jsx@5.3.2(acorn@8.16.0):
     dependencies:
