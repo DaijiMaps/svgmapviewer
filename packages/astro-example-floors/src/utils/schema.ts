@@ -5,8 +5,8 @@ export const posSchema = z.object({
   y: z.number(),
 })
 
-//const addrSchema = z.string()
-//const addrsSchema = z.array(addrSchema)
+const addrSchema = z.string()
+export const addrsSchema = z.array(addrSchema)
 //const nameEntrySchema = z.tuple([z.string(), addrsSchema])
 const floorPosSchema = z.object({
   coord: posSchema,
@@ -21,14 +21,16 @@ export const boxSchema = z.object({
   height: z.number(),
 })
 
-export const nameSchema = z.union([z.string(), z.array(z.string())])
+export const nameSchema = z.string() // z.union([z.string(), z.array(z.string())])
 
-export const namesSchema = z.array(z.string())
+export const namesSchema = z.record(z.string(), nameSchema)
 
-export const addressesSchema = z.object({
+export const addressSchema = z.object({
   coord: posSchema,
   fidx: z.number(),
 })
+
+export const addressesSchema = addressSchema // z.record(z.string(), addressSchema)
 
 // poiKindSchema
 // poixSchema
