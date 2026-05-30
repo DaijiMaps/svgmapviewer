@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-mixed-types */
 import { type ReactNode } from 'react'
 
+import type { SearchAddress, SearchName } from './lib/address/types'
 import { type BoxBox } from './lib/box/prefixed'
 import { type OsmCartoConfig } from './lib/carto'
 import {
@@ -160,6 +161,8 @@ export type RenderInfo = (props: Readonly<RenderInfoProps>) => ReactNode
 
 ////
 
+// SvgMapViewerConfig
+
 export interface SvgMapViewerConfig
   extends OsmDataConfig, OsmRenderConfig, OsmSearchConfig {
   root: string
@@ -174,15 +177,23 @@ export interface SvgMapViewerConfig
   subtitle: string
   copyright: string
   zoomFactor: number
+  searchAddresses?: readonly SearchAddress[]
+  searchNames?: readonly SearchName[]
   floorsConfig?: FloorsConfig
   uiConfig?: UiConfig
   isContainerRendered: () => boolean
   isUiRendered: () => boolean
 }
 
+// UiConfig
+
 export interface UiConfig {
   showGuides: boolean
 }
+
+// OsmDataConfig
+// OsmRenderConfig
+// OsmSearchConfig
 
 export interface OsmDataConfig {
   readonly origViewBox: BoxBox // XXX
@@ -207,8 +218,14 @@ export interface OsmSearchConfig {
   readonly osmSearchEntries: readonly Readonly<OsmSearchEntry>[] // XXX
   readonly getSearchEntries: OsmGetSearchEntries
   readonly getSearchInfo: OsmGetSearchInfo
+  readonly getInfoByName?: (name: string) => Info
   readonly renderInfo: RenderInfo
 }
+
+// Floor
+// FloorsConfig
+// LabelText
+// LabelTspan
 
 export interface Floor {
   readonly name: string
@@ -230,5 +247,7 @@ export interface LabelTspan {
   attrs: Record<string, undefined | null | number | string>
   text: null | string
 }
+
+// SvgMapViewerConfigUser
 
 export type SvgMapViewerConfigUser = Partial<SvgMapViewerConfig>

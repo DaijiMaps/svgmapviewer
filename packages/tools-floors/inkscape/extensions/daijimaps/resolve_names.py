@@ -26,6 +26,15 @@ class ResolveNames(SaveAddresses):
     # _tmp_unresolved_name_coords: TmpNameCoords = {}
     _tmp_resolved_names: TmpNameAddress = {}
 
+    def _reset(self) -> None:
+        super()._reset()
+        self._resolved_names = {}
+        self._resolved_addresses = {}
+        self._unresolved_names = {}
+        self._unresolved_addresses = {}
+        # self._tmp_unresolved_name_coords = {}
+        self._tmp_resolved_names = {}
+
     def _exec_resolve(self) -> str:
         exe: str = "%s/../resolve-addresses" % os.path.dirname(__file__)
         return inkex.command.call(

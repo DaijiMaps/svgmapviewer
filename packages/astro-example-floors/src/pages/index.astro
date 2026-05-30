@@ -1,0 +1,10 @@
+---
+import { SvgMapViewer } from '../components/SvgMapViewer.tsx';
+import Layout from '../layouts/Layout.astro';
+
+import { config } from '../utils/data';
+---
+
+<Layout>
+	<SvgMapViewer client:load {...config} />
+</Layout>

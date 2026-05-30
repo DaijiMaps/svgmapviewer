@@ -32,6 +32,13 @@ class AddressTree(inkex.EffectExtension):
 
     _find_layers_opts = {"skip_ignoring": True}
 
+    def _reset(self) -> None:
+        self._addresses = {}
+        self._all_addresses = {}
+        self._points = {}
+        self._all_points = {}
+        self._links = {}
+
     def _get_path(self, layer_name: str, prefix: str, suffix: str) -> str | None:
         assert isinstance(layer_name, str)
         ps = [

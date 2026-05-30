@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "propertyNames": {
+    "type": "string"
+  },
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "coord": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          }
+        },
+        "required": ["x", "y"],
+        "additionalProperties": false
+      },
+      "fidx": {
+        "type": "number"
+      }
+    },
+    "required": ["coord", "fidx"],
+    "additionalProperties": false
+  }
+}

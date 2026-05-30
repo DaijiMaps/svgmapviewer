@@ -3,11 +3,6 @@ import inkex.command
 
 from .resolve_names import ResolveNames
 
-# from .save_addresses import SaveAddresses
-from .types import (
-    AddressNames,
-)
-
 
 class ResolveLabels(ResolveNames):
     # - read (Names)
@@ -17,8 +12,10 @@ class ResolveLabels(ResolveNames):
     _unresolved_labels: dict[str, inkex.TextElement] = {}
     _resolved_labels: dict[str, inkex.TextElement] = {}
 
-    unresolved_labels: AddressNames = {}
-    resolved_labels: AddressNames = {}
+    def _reset(self) -> None:
+        super()._reset()
+        self._unresolved_labels = {}
+        self._resolved_labels = {}
 
     def _resolve_labels(self) -> None:
         self.msg("=== resolve labels: start")

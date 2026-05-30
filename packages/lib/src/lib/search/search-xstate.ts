@@ -10,6 +10,7 @@ import {
 import { globalCbs } from '../event-global'
 import { notifySearch, searchCbs } from '../event-search'
 import { currentFidxAtom } from '../viewer/floors/floors-xstate'
+import { getSearchInfoCommon } from './info'
 import type {
   SearchWorker,
   SearchWorkerReq,
@@ -124,13 +125,16 @@ worker.onmessageerror = (ev) => {
 }
 
 function handleSearchRes(res: Readonly<SearchPos>): Promise<void> {
-  return Promise.resolve(
-    svgMapViewerConfig.getSearchInfo(
-      res,
-      svgMapViewerConfig.mapMap,
-      svgMapViewerConfig.osmSearchEntries
-    )
-  ).then((info) => {
+  const info = Promise.resolve(getSearchInfoCommon(res)).then((tmp) =>
+    tmp !== null
+      ? tmp
+      : svgMapViewerConfig.getSearchInfo(
+          res,
+          svgMapViewerConfig.mapMap,
+          svgMapViewerConfig.osmSearchEntries
+        )
+  )
+  return info.then((info) => {
     if (info === null) {
       console.log('info not found!', res)
       return searchSend({ type: 'SEARCH.DONE', res: null })
@@ -148,6 +152,13 @@ function handleSearchRes(res: Readonly<SearchPos>): Promise<void> {
 
 export function searchCbsStart(): void {
   globalCbs.init.add((cfg: Readonly<SvgMapViewerConfig>) => {
+    if (cfg.searchAddresses) {
+      return Promise.resolve(cfg.searchAddresses).then((xs) => {
+        const entries = xs.map((x) => ({ ...x, pos: x.floorPos }))
+        const req: SearchWorkerReq = { type: 'INIT', entries }
+        worker.postMessage(req)
+      })
+    }
     if (cfg.getSearchEntries) {
       return Promise.resolve(cfg.getSearchEntries(cfg)).then((entries) => {
         const req: SearchWorkerReq = { type: 'INIT', entries }
