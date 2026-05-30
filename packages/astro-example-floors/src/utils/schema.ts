@@ -36,29 +36,48 @@ export const addressesSchema = addressSchema // z.record(z.string(), addressSche
 // poixSchema
 // poiSchema
 
-export const poiShopSchema = z.object({
-  tag: z.literal('shop'),
-})
-
-export const poiFacilitySchema = z.object({
-  tag: z.literal('facility'),
-})
-
-export const poiKindSchema = z.union([poiShopSchema, poiFacilitySchema])
+export const poiTagSchema = z.union([
+  z.literal('shop.cafe'),
+  z.literal('shop.misc'),
+  z.literal('shop.restaurant'),
+  z.literal('facility.elevator'),
+  z.literal('facility.escalator'),
+  z.literal('facility.toilet'),
+])
 
 export const poixSchema = z.object({
-  tag: z.string(),
-  kind: poiKindSchema,
+  tag: poiTagSchema,
 })
 
 export const poiSchema = z.object({
-  id: z.string(),
-  name: nameSchema,
-  coord: posSchema,
+  id: z.string().optional(),
+  name: nameSchema.optional(),
+  coord: posSchema.optional(),
+  fidx: z.number().optional(),
   size: z.number(),
-  fidx: z.number(),
   x: poixSchema,
 })
+
+export const infoSchema = z.discriminatedUnion('tag', [
+  z.object({
+    tag: z.literal('shop.cafe'),
+  }),
+  z.object({
+    tag: z.literal('shop.misc'),
+  }),
+  z.object({
+    tag: z.literal('shop.restaurant'),
+  }),
+  z.object({
+    tag: z.literal('facility.elevator'),
+  }),
+  z.object({
+    tag: z.literal('facility.escalator'),
+  }),
+  z.object({
+    tag: z.literal('facility.toilet'),
+  }),
+])
 
 // searchAddressesSchema
 // searchNamesSchema

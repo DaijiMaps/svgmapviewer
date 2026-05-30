@@ -214,7 +214,7 @@
                 }
               }
             },
-            "required": ["name"],
+            "required": ["name", "href"],
             "additionalProperties": false
           }
         }
@@ -224,7 +224,12 @@
     },
     "uiConfig": {
       "type": "object",
-      "properties": {},
+      "properties": {
+        "showGuides": {
+          "type": "boolean"
+        }
+      },
+      "required": ["showGuides"],
       "additionalProperties": false
     }
   },

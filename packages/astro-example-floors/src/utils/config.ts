@@ -13,11 +13,14 @@ const searchNames: readonly SearchName[] = await getCollection('names').then(
   (xs) => xs.map(({ id, data }) => ({ name: id, addresses: data }))
 )
 
-// XXX pois
+const pois = await getCollection('pois').then((xs) =>
+  xs.map(({ id, data }) => ({ name: id, info: data }))
+)
 
 export const config = {
   ...(tmpConfig === undefined ? {} : tmpConfig.data),
   floorsConfig: tmpFloors === undefined ? undefined : tmpFloors.data,
   searchAddresses,
   searchNames,
+  pois,
 }

@@ -5,7 +5,7 @@ import {
   addressSchema,
   addrsSchema,
   floorsConfigSchema,
-  poiSchema,
+  infoSchema,
   svgMapViewerConfigUserSchema,
 } from './utils/schema'
 
@@ -28,8 +28,8 @@ const names = defineCollection({
 })
 
 const pois = defineCollection({
-  loader: file('./src/data/pois.json'),
-  schema: poiSchema,
+  loader: file('./src/data/pois.yaml'),
+  schema: infoSchema,
 })
 
 const svgMapViewerConfig = defineCollection({

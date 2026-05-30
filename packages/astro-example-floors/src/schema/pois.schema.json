@@ -1,12 +1,77 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
-  "properties": {
-    "tag": {
-      "type": "string",
-      "const": "shop"
-    }
+  "propertyNames": {
+    "type": "string"
   },
-  "required": ["tag"],
-  "additionalProperties": {}
+  "additionalProperties": {
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string",
+            "const": "shop.cafe"
+          }
+        },
+        "required": ["tag"],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string",
+            "const": "shop.misc"
+          }
+        },
+        "required": ["tag"],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string",
+            "const": "shop.restaurant"
+          }
+        },
+        "required": ["tag"],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string",
+            "const": "facility.elevator"
+          }
+        },
+        "required": ["tag"],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string",
+            "const": "facility.escalator"
+          }
+        },
+        "required": ["tag"],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string",
+            "const": "facility.toilet"
+          }
+        },
+        "required": ["tag"],
+        "additionalProperties": false
+      }
+    ]
+  }
 }
