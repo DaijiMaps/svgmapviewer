@@ -1,6 +1,8 @@
 import { getCollection, getEntry } from 'astro:content'
 import type { SearchAddress, SearchName } from 'svgmapviewer/address'
 
+const tmpConfig = await getEntry('svgMapViewerConfig', 'default')
+
 const tmpFloors = await getEntry('floors', 'default')
 
 const searchAddresses: readonly SearchAddress[] = await getCollection(
@@ -12,8 +14,6 @@ const searchNames: readonly SearchName[] = await getCollection('names').then(
 )
 
 // XXX pois
-
-const tmpConfig = await getEntry('svgMapViewerConfig', 'default')
 
 export const config = {
   ...(tmpConfig === undefined ? {} : tmpConfig.data),
