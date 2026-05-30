@@ -1,7 +1,7 @@
 import { file, glob } from 'astro/loaders'
 import { defineCollection } from 'astro:content'
 
-import { xinfoSchema } from './utils/info'
+import { xinfoSchema } from './app/schema'
 import {
   addressSchema,
   addrsSchema,

@@ -1,6 +1,6 @@
 import { type Info, type POI } from 'svgmapviewer'
 
-import type { CafeInfo, RestaurantInfo } from '../utils/info'
+import type { CafeInfo, RestaurantInfo } from './schema'
 
 type XInfo = CafeInfo | RestaurantInfo
 
