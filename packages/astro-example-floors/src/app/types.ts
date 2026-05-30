@@ -1,16 +1,6 @@
 import { type Info, type POI } from 'svgmapviewer'
 
-//import { type XInfo } from './x/types'
-
-interface CafeInfo {
-  tag: 'shop.cafe'
-  category?: string
-}
-
-interface RestaurantInfo {
-  tag: 'shop.restaurant'
-  nseats?: number
-}
+import type { CafeInfo, RestaurantInfo } from '../utils/info'
 
 type XInfo = CafeInfo | RestaurantInfo
 

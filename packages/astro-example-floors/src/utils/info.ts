@@ -1,24 +1,17 @@
 import { z } from 'zod'
 
+const cafeInfo = z.object({
+  tag: z.literal('shop.cafe'),
+})
+
+const restaurantInfo = z.object({
+  tag: z.literal('shop.restaurant'),
+})
+
 export const xinfoSchema = z.discriminatedUnion('tag', [
-  z.object({
-    tag: z.literal('shop.cafe'),
-  }),
-  z.object({
-    tag: z.literal('shop.restaurant'),
-  }),
-  /*
-  z.object({
-    tag: z.literal('shop.misc'),
-  }),
-  z.object({
-    tag: z.literal('facility.elevator'),
-  }),
-  z.object({
-    tag: z.literal('facility.escalator'),
-  }),
-  z.object({
-    tag: z.literal('facility.toilet'),
-  }),
-  */
+  cafeInfo,
+  restaurantInfo,
 ])
+
+export type CafeInfo = z.Infer<typeof cafeInfo>
+export type RestaurantInfo = z.Infer<typeof restaurantInfo>
