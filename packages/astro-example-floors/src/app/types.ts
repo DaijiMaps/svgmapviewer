@@ -1,13 +1,13 @@
 import { type Info, type POI } from 'svgmapviewer'
 
-import { type XInfo } from './x/types'
+//import { type XInfo } from './x/types'
 
 declare module 'svgmapviewer' {
   interface Info {
-    x: XInfo
+    x?: string
   }
   interface POI {
-    x: XInfo
+    x?: string
   }
 }
 

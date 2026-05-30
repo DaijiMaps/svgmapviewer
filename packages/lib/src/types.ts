@@ -220,7 +220,7 @@ export interface OsmSearchConfig {
   readonly osmSearchEntries: readonly Readonly<OsmSearchEntry>[] // XXX
   readonly getSearchEntries: OsmGetSearchEntries
   readonly getSearchInfo: OsmGetSearchInfo
-  readonly getInfoByName?: (name: string) => Info
+  readonly getInfoByName?: (name: string) => Info | null
   readonly renderInfo: RenderInfo
 }
 

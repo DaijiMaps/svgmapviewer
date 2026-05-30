@@ -19,6 +19,7 @@ export {
   type FloorPos,
   type SearchAddress,
   type SearchName,
+  type SearchInfo,
 } from './types'
 
 export {

@@ -30,7 +30,7 @@ const emptyDetail: UiDetailContent = {
   psvg: vecZero,
   fidx: 0,
   layout: emptyLayoutCoord,
-  info: { title: '' },
+  info: { title: '', tag: 'xxx' },
 }
 
 export function isDetailEmpty(detail: UiDetailContent): boolean {

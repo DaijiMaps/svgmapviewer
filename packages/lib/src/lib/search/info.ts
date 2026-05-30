@@ -54,6 +54,6 @@ export const getSearchInfoCommon = (pos: Readonly<SearchPos>): null | Info => {
     return null
   }
   const x = Array.from(xs)[0]
-  const res: Info = getInfoByName(x)
-  return res satisfies Info
+  const res: Info | null = getInfoByName(x)
+  return res
 }
