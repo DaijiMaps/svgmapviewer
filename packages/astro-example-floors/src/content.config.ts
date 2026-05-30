@@ -2,30 +2,33 @@ import { file, glob } from 'astro/loaders'
 import { defineCollection } from 'astro:content'
 
 import {
-  addressesSchema,
+  addressSchema,
+  addrsSchema,
   floorsConfigSchema,
-  namesSchema,
   poiSchema,
   svgMapViewerConfigUserSchema,
 } from './utils/schema'
 
 const floors = defineCollection({
-  loader: file('./src/data/floors.{json,yaml}'),
+  loader: glob({
+    base: './src/data/floors',
+    pattern: '**/*.{json,yaml}',
+  }),
   schema: floorsConfigSchema,
 })
 
 const addresses = defineCollection({
-  loader: file('./src/data/addresses.{json,yaml}'),
-  schema: addressesSchema,
+  loader: file('./src/data/addresses.yaml'),
+  schema: addressSchema,
 })
 
 const names = defineCollection({
-  loader: file('./src/data/names.{json,yaml}'),
-  schema: namesSchema,
+  loader: file('./src/data/names.yaml'),
+  schema: addrsSchema,
 })
 
 const pois = defineCollection({
-  loader: file('./src/data/pois.{json,yaml}'),
+  loader: file('./src/data/pois.json'),
   schema: poiSchema,
 })
 

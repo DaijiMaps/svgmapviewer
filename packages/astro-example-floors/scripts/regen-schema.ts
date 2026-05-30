@@ -12,7 +12,7 @@ import {
 
 const types = [
   { name: 'floorsConfig', schema: floorsConfigSchema.loose() },
-  { name: 'addresses', schema: addressesSchema.loose() },
+  { name: 'addresses', schema: addressesSchema },
   { name: 'names', schema: namesSchema },
   { name: 'pois', schema: poiShopSchema.loose() },
   {

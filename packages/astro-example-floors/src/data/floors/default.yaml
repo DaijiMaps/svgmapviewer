@@ -1,0 +1,7 @@
+# yaml-language-server: $schema=../../schema/floorsConfig.schema.json
+initialFidx: 0
+floors:
+  - name: 1F
+    file: floor-1F.svg
+  - name: 2F
+    file: floor-2F.svg
