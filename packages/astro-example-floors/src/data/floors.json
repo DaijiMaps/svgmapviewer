@@ -1,8 +1,14 @@
 {
-  "1F": {
-    "name": "1F"
-  },
-  "2F": {
-    "name": "2F"
-  }
+  "$schema": "../schema/floorsConfig.schema.json",
+  "initialFidx": 0,
+  "floors": [
+    {
+      "name": "1F",
+      "file": "floor-1F.svg"
+    },
+    {
+      "name": "2F",
+      "file": "floor-2F.svg"
+    }
+  ]
 }

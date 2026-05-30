@@ -4,14 +4,14 @@ import { writeFileSync } from 'node:fs'
 
 import {
   addressesSchema,
-  floorsSchema,
+  floorsConfigSchema,
   namesSchema,
   poiShopSchema,
   svgMapViewerConfigUserSchema,
 } from '../src/utils/schema.ts'
 
 const types = [
-  { name: 'floors', schema: floorsSchema.loose() },
+  { name: 'floorsConfig', schema: floorsConfigSchema.loose() },
   { name: 'addresses', schema: addressesSchema.loose() },
   { name: 'names', schema: namesSchema },
   { name: 'pois', schema: poiShopSchema.loose() },
