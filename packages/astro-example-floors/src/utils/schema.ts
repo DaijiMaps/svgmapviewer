@@ -85,7 +85,9 @@ const osmMapMapSchema = z.object({})
 
 const mapCoordSchema = z.object({})
 
-export const uiConfigSchema = z.object({})
+export const uiConfigSchema = z.object({
+  showGuides: z.boolean(),
+})
 
 // osmDataConfigSchema
 // osmRenderConfigSchema
@@ -134,7 +136,7 @@ const labelTextSchema = z.object({
 
 export const floorSchema = z.object({
   name: z.string(),
-  href: z.string().optional(),
+  href: z.string(),
   file: z.string().optional(),
   labels: z.array(labelTextSchema).optional(),
 })
