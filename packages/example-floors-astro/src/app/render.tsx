@@ -11,6 +11,18 @@ function renderShopCafe(
       <p>{props.title}</p>
       <p>カフェ</p>
       {props.x.nseats && <p>座席数: {props.x.nseats}</p>}
+      <style>
+        {`
+.detail {
+  color: white;
+  background-color: #202020;
+}
+path.fg {
+  fill: #202020;
+  stroke: #202020;
+}
+`}
+      </style>
     </>
   )
 }

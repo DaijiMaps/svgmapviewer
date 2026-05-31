@@ -2,7 +2,7 @@
   "name": "svgmapviewer-astro-floors",
   "version": "0.0.1",
   "files": [
-    "./src/schema/*.schema.json"
+    "./src"
   ],
   "type": "module",
   "exports": {

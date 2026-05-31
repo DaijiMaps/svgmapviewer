@@ -59,6 +59,7 @@ const style = `
   touch-action: pan-y;
   overscroll-behavior-x: none;
   overscroll-behavior-y: none;
+  scrollbar-width: none;
   &.like {
     pointer-events: initial;
   }
