@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=../schema/pois.schema.json
+# yaml-language-server: $schema=../utils/schema/pois.schema.json
 フードコート:
   tag: shop.restaurant
   nseats: 50
