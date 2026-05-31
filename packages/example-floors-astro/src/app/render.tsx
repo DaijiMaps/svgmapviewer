@@ -3,19 +3,7 @@ import { type Info } from 'svgmapviewer'
 
 import type { Renderer, RendererMap, XTag } from './types'
 
-function RenderInfoShopRestaurant(
-  props: Parameters<RendererMap['shop.restaurant']>[0]
-): ReactNode {
-  return (
-    <>
-      <p>{props.title}</p>
-      <p>レストラン</p>
-      <p>メニュー</p>
-    </>
-  )
-}
-
-function RenderInfoShopCafe(
+function renderShopCafe(
   props: Parameters<RendererMap['shop.cafe']>[0]
 ): ReactNode {
   return (
@@ -23,13 +11,38 @@ function RenderInfoShopCafe(
       <p>{props.title}</p>
       <p>カフェ</p>
       <p>メニュー</p>
+      {props.x.nseats && <p>座席数: {props.x.nseats}</p>}
+    </>
+  )
+}
+
+function renderShopMisc(
+  props: Parameters<RendererMap['shop.misc']>[0]
+): ReactNode {
+  return (
+    <>
+      <p>{props.title}</p>
+    </>
+  )
+}
+
+function renderShopRestaurant(
+  props: Parameters<RendererMap['shop.restaurant']>[0]
+): ReactNode {
+  return (
+    <>
+      <p>{props.title}</p>
+      <p>レストラン</p>
+      <p>メニュー</p>
+      {props.x.nseats && <p>座席数: {props.x.nseats}</p>}
     </>
   )
 }
 
 const renderers = {
-  'shop.restaurant': RenderInfoShopRestaurant,
-  'shop.cafe': RenderInfoShopCafe,
+  'shop.cafe': renderShopCafe,
+  'shop.misc': renderShopMisc,
+  'shop.restaurant': renderShopRestaurant,
 } satisfies RendererMap
 
 export function RenderInfo(props: Readonly<{ info: Info }>): ReactNode {

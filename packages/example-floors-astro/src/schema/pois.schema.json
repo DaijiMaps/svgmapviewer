@@ -12,6 +12,23 @@
           "tag": {
             "type": "string",
             "const": "shop.cafe"
+          },
+          "nseats": {
+            "type": "number"
+          }
+        },
+        "required": ["tag", "nseats"],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string",
+            "const": "shop.restaurant"
+          },
+          "nseats": {
+            "type": "number"
           }
         },
         "required": ["tag"],
@@ -22,7 +39,10 @@
         "properties": {
           "tag": {
             "type": "string",
-            "const": "shop.restaurant"
+            "const": "shop.misc"
+          },
+          "nseats": {
+            "type": "number"
           }
         },
         "required": ["tag"],

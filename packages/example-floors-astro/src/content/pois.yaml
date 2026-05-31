@@ -1,5 +1,6 @@
 # yaml-language-server: $schema=../schema/pois.schema.json
 フードコート:
   tag: shop.restaurant
+  nseats: 50
 書店:
-  tag: shop.cafe
+  tag: shop.misc
