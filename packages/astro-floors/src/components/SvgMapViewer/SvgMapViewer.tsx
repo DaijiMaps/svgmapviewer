@@ -5,7 +5,7 @@ import type { SvgMapViewerConfigUser } from 'svgmapviewer'
 
 export function SvgMapViewer(props: Readonly<SvgMapViewerConfigUser>) {
   useEffect(() => {
-    import('../app/main').then((appMain) => appMain.main(props))
+    import('./main').then((appMain) => appMain.main(props))
   }, [props])
 
   return (
