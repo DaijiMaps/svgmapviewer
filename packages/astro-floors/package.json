@@ -1,6 +1,9 @@
 {
   "name": "svgmapviewer-astro-floors",
   "version": "0.0.1",
+  "files": [
+    "./src/schema/*.schema.json"
+  ],
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
@@ -31,7 +34,8 @@
     "tsx": "^4.22.3"
   },
   "peerDependencies": {
-    "astro": "^6"
+    "astro": "^6",
+    "svgmapviewer": "workspace:*"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",

@@ -340,15 +340,9 @@ importers:
       svgmapviewer:
         specifier: workspace:*
         version: link:../lib
-      svgmapviewer-app-floors:
-        specifier: workspace:*
-        version: link:../app-floors
       svgmapviewer-astro-floors:
         specifier: workspace:*
         version: link:../astro-floors
-      svgmapviewer-tools-floors:
-        specifier: workspace:*
-        version: link:../tools-floors
       zod:
         specifier: ^4.4.3
         version: 4.4.3

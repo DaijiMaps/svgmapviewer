@@ -17,9 +17,7 @@
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "svgmapviewer": "workspace:*",
-    "svgmapviewer-app-floors": "workspace:*",
     "svgmapviewer-astro-floors": "workspace:*",
-    "svgmapviewer-tools-floors": "workspace:*",
     "zod": "^4.4.3"
   },
   "devDependencies": {
