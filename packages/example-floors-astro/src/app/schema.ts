@@ -15,3 +15,4 @@ export const xinfoSchema = z.discriminatedUnion('tag', [
 
 export type CafeInfo = z.Infer<typeof cafeInfo>
 export type RestaurantInfo = z.Infer<typeof restaurantInfo>
+export type XInfo = z.Infer<typeof xinfoSchema>
