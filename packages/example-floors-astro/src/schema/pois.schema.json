@@ -17,7 +17,7 @@
             "type": "number"
           }
         },
-        "required": ["tag", "nseats"],
+        "required": ["tag"],
         "additionalProperties": false
       },
       {
@@ -25,10 +25,10 @@
         "properties": {
           "tag": {
             "type": "string",
-            "const": "shop.restaurant"
+            "const": "shop.misc"
           },
-          "nseats": {
-            "type": "number"
+          "message": {
+            "type": "string"
           }
         },
         "required": ["tag"],
@@ -39,7 +39,7 @@
         "properties": {
           "tag": {
             "type": "string",
-            "const": "shop.misc"
+            "const": "shop.restaurant"
           },
           "nseats": {
             "type": "number"

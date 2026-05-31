@@ -2,12 +2,12 @@ import { z } from 'zod'
 
 const cafeInfo = z.object({
   tag: z.literal('shop.cafe'),
-  nseats: z.number(),
+  nseats: z.number().optional(),
 })
 
 const miscInfo = z.object({
   tag: z.literal('shop.misc'),
-  nseats: z.number().optional(),
+  message: z.string().optional(),
 })
 
 const restaurantInfo = z.object({
