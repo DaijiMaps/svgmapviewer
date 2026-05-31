@@ -1,7 +1,7 @@
 import { file } from 'astro/loaders'
 import { defineCollection } from 'astro:content'
 
-import { collections as commonCollections } from '../node_modules/svgmapviewer-astro-floors/src/content.config'
+import { collections as collectionsCommon } from '../node_modules/svgmapviewer-astro-floors/src/content.config'
 import { xinfoSchema } from './components/SvgMapViewer/schema'
 
 const pois = defineCollection({
@@ -10,6 +10,6 @@ const pois = defineCollection({
 })
 
 export const collections = {
-  ...commonCollections,
+  ...collectionsCommon,
   pois,
 }
