@@ -1,25 +1,42 @@
-import { getCollection, getEntry } from 'astro:content'
-import type { SearchAddress, SearchName } from 'svgmapviewer/address'
+import {
+  getCollection as c,
+  getEntry as e,
+  type CollectionEntry,
+} from 'astro:content'
+import type {
+  SearchAddress,
+  SearchInfo,
+  SearchName,
+} from 'svgmapviewer/address'
 
-const tmpConfig = await getEntry('svgMapViewerConfig', 'default')
+const toAddress = (
+  x: Readonly<CollectionEntry<'addresses'>>
+): SearchAddress => ({
+  address: x.id,
+  floorPos: x.data,
+})
 
-const tmpFloors = await getEntry('floors', 'default')
+const toName = (x: Readonly<CollectionEntry<'names'>>): SearchName => ({
+  name: x.id,
+  addresses: x.data,
+})
 
-const searchAddresses: readonly SearchAddress[] = await getCollection(
-  'addresses'
-).then((xs) => xs.map(({ id, data }) => ({ address: id, floorPos: data })))
+const toInfo = (x: Readonly<CollectionEntry<'pois'>>): SearchInfo => ({
+  name: x.id,
+  info: { title: x.id, x: x.data },
+})
 
-const searchNames: readonly SearchName[] = await getCollection('names').then(
-  (xs) => xs.map(({ id, data }) => ({ name: id, addresses: data }))
-)
+////
 
-const searchInfos = await getCollection('pois').then((xs) =>
-  xs.map(({ id, data }) => ({ name: id, info: { title: id, x: data } }))
-)
+const tmpConfig = await e('svgMapViewerConfig', 'default')
+const tmpFloors = await e('floors', 'default')
+const searchAddresses = await c('addresses').then((a) => a.map(toAddress))
+const searchNames = await c('names').then((a) => a.map(toName))
+const searchInfos = await c('pois').then((a) => a.map(toInfo))
 
 export const config = {
-  ...(tmpConfig === undefined ? {} : tmpConfig.data),
-  floorsConfig: tmpFloors === undefined ? undefined : tmpFloors.data,
+  ...tmpConfig?.data,
+  floorsConfig: tmpFloors?.data,
   searchAddresses,
   searchNames,
   searchInfos,
