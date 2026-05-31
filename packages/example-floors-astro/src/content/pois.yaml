@@ -1,0 +1,53 @@
+# yaml-language-server: $schema=../schema/pois.schema.json
+フードコート:
+  tag: shop.restaurant
+  nseats: 50
+ドラッグストア:
+  tag: shop.misc
+  message: 新装開店！
+食料品:
+  tag: shop.misc
+スイーツ デザート:
+  tag: shop.cafe
+カフェ:
+  tag: shop.cafe
+婦人服:
+  tag: shop.misc
+靴:
+  tag: shop.misc
+紳士服:
+  tag: shop.misc
+ラーメン:
+  tag: shop.restaurant
+寿司:
+  tag: shop.restaurant
+パスタ:
+  tag: shop.restaurant
+クレープ:
+  tag: shop.cafe
+パン:
+  tag: shop.misc
+ハンバーガー:
+  tag: shop.cafe
+100円ショップ:
+  tag: shop.misc
+文房具:
+  tag: shop.misc
+マッサージ:
+  tag: shop.misc
+チケット販売:
+  tag: shop.misc
+書店:
+  tag: shop.misc
+ゲームセンター:
+  tag: shop.misc
+スマホ修理:
+  tag: shop.misc
+メガネ:
+  tag: shop.misc
+時計:
+  tag: shop.misc
+アクセサリ:
+  tag: shop.misc
+音楽:
+  tag: shop.misc

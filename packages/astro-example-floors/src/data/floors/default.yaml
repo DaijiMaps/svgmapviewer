@@ -1,7 +1,0 @@
-# yaml-language-server: $schema=../../schema/floorsConfig.schema.json
-initialFidx: 0
-floors:
-  - name: 1F
-    href: /images/floor-1f.svg
-  - name: 2F
-    href: /images/floor-2f.svg
