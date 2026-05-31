@@ -8,6 +8,7 @@ import {
   namesToRNameMap,
   type NameMap,
   type Names,
+  type SearchInfo,
   type SearchName,
 } from '../address'
 import type { SearchPos } from './types'
@@ -42,9 +43,40 @@ const getAddressMap = (names: Names) => {
   return v
 }
 
+const infoMapAtom = createAtom<null | Map<string, Info>>(null)
+
+const getInfoMap = (infos: readonly SearchInfo[]) => {
+  const tmp = infoMapAtom.get()
+  if (tmp !== null) return tmp
+  const m = new Map(infos.map((si) => [si.name, si.info] as const))
+  infoMapAtom.set(m)
+  return m
+}
+
+export const makeGetInfoByName =
+  (searchInfos: typeof cfg.searchInfos) =>
+  (name: string): Info | null => {
+    const m = getInfoMap(searchInfos ?? [])
+    return m.get(name) || null
+  }
+
+type GetInfoByName = NonNullable<typeof cfg.getInfoByName>
+
+const getInfoByNameAtom = createAtom<null | GetInfoByName>(null)
+
+// eslint-disable-next-line functional/functional-parameters
+const getGetInfoByName = () => {
+  if (cfg.getInfoByName) return cfg.getInfoByName
+  const tmp = getInfoByNameAtom.get()
+  if (tmp !== null) return tmp
+  const f = makeGetInfoByName(cfg.searchInfos ?? [])
+  getInfoByNameAtom.set(f)
+  return f
+}
+
 export const getSearchInfoCommon = (pos: Readonly<SearchPos>): null | Info => {
   const searchNames = cfg.searchNames
-  const getInfoByName = cfg.getInfoByName
+  const getInfoByName = getGetInfoByName()
   if (searchNames === undefined || getInfoByName === undefined) return null
   const names = getNames(searchNames)
   //const nameMap = getNameMap(names)
@@ -54,6 +86,6 @@ export const getSearchInfoCommon = (pos: Readonly<SearchPos>): null | Info => {
     return null
   }
   const x = Array.from(xs)[0]
-  const res: Info = getInfoByName(x)
-  return res satisfies Info
+  const res: Info | null = getInfoByName(x)
+  return res
 }

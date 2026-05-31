@@ -125,6 +125,29 @@
         "additionalProperties": false
       }
     },
+    "searchInfos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "info": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": ["title"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["name", "info"],
+        "additionalProperties": false
+      }
+    },
     "floorsConfig": {
       "type": "object",
       "properties": {
@@ -214,7 +237,7 @@
                 }
               }
             },
-            "required": ["name"],
+            "required": ["name", "href"],
             "additionalProperties": false
           }
         }
@@ -224,7 +247,12 @@
     },
     "uiConfig": {
       "type": "object",
-      "properties": {},
+      "properties": {
+        "showGuides": {
+          "type": "boolean"
+        }
+      },
+      "required": ["showGuides"],
       "additionalProperties": false
     }
   },

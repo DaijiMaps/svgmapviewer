@@ -36,32 +36,34 @@ export const addressesSchema = addressSchema // z.record(z.string(), addressSche
 // poixSchema
 // poiSchema
 
-export const poiShopSchema = z.object({
-  tag: z.literal('shop'),
-})
-
-export const poiFacilitySchema = z.object({
-  tag: z.literal('facility'),
-})
-
-export const poiKindSchema = z.union([poiShopSchema, poiFacilitySchema])
+export const poiTagSchema = z.union([
+  z.literal('shop.cafe'),
+  z.literal('shop.misc'),
+  z.literal('shop.restaurant'),
+  z.literal('facility.elevator'),
+  z.literal('facility.escalator'),
+  z.literal('facility.toilet'),
+])
 
 export const poixSchema = z.object({
-  tag: z.string(),
-  kind: poiKindSchema,
+  tag: poiTagSchema,
 })
 
 export const poiSchema = z.object({
-  id: z.string(),
-  name: nameSchema,
-  coord: posSchema,
+  id: z.string().optional(),
+  name: nameSchema.optional(),
+  coord: posSchema.optional(),
+  fidx: z.number().optional(),
   size: z.number(),
-  fidx: z.number(),
   x: poixSchema,
 })
 
 // searchAddressesSchema
 // searchNamesSchema
+
+export const baseInfoSchema = z.object({
+  title: z.string(),
+})
 
 const searchAddressSchema = z.object({
   address: z.string(),
@@ -71,8 +73,13 @@ const searchNameSchema = z.object({
   name: z.string(),
   addresses: z.array(z.string()),
 })
+const searchInfoSchema = z.object({
+  name: z.string(),
+  info: baseInfoSchema,
+})
 export const searchAddressesSchema = z.array(searchAddressSchema)
 export const searchNamesSchema = z.array(searchNameSchema)
+export const searchInfosSchema = z.array(searchInfoSchema)
 
 // osmMapDataSchema
 // osmMapMapSchema
@@ -85,7 +92,9 @@ const osmMapMapSchema = z.object({})
 
 const mapCoordSchema = z.object({})
 
-export const uiConfigSchema = z.object({})
+export const uiConfigSchema = z.object({
+  showGuides: z.boolean(),
+})
 
 // osmDataConfigSchema
 // osmRenderConfigSchema
@@ -134,7 +143,7 @@ const labelTextSchema = z.object({
 
 export const floorSchema = z.object({
   name: z.string(),
-  href: z.string().optional(),
+  href: z.string(),
   file: z.string().optional(),
   labels: z.array(labelTextSchema).optional(),
 })
@@ -163,6 +172,7 @@ export const svgMapViewerConfigSchema = z.object({
   zoomFactor: z.number(),
   searchAddresses: searchAddressesSchema.optional(),
   searchNames: searchNamesSchema.optional(),
+  searchInfos: searchInfosSchema.optional(),
   floorsConfig: floorsConfigSchema.optional(),
   uiConfig: uiConfigSchema.optional(),
   //isContainerRendered: () => boolean

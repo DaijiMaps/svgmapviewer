@@ -1,3 +1,4 @@
+import type { Info } from '../../types'
 import { type VecVec } from '../vec/prefixed'
 
 //// names json
@@ -44,4 +45,9 @@ export type SearchAddress = {
 export type SearchName = {
   name: Name
   addresses: Addrs
+}
+
+export type SearchInfo = {
+  name: Name
+  info: Info
 }

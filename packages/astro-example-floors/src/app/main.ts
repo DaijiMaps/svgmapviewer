@@ -8,15 +8,6 @@ import { RenderInfo as renderInfo } from './render'
 export function main(props: Readonly<SvgMapViewerConfigUser>) {
   svgmapviewer({
     ...props,
-
-    getInfoByName: (name: string) => ({
-      title: name,
-      x: {
-        tag: 'unknown',
-      },
-    }),
     renderInfo,
   })
 }
-
-//main()
