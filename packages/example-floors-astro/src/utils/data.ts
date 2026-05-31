@@ -3,6 +3,7 @@ import {
   getEntry as e,
   type CollectionEntry,
 } from 'astro:content'
+import type { SvgMapViewerConfigUser } from 'svgmapviewer'
 import type {
   SearchAddress,
   SearchInfo,
@@ -34,7 +35,7 @@ const searchAddresses = await c('addresses').then((a) => a.map(toAddress))
 const searchNames = await c('names').then((a) => a.map(toName))
 const searchInfos = await c('pois').then((a) => a.map(toInfo))
 
-export const config = {
+export const svgMapViewerConfigUser: SvgMapViewerConfigUser = {
   ...tmpConfig?.data,
   floorsConfig: tmpFloors?.data,
   searchAddresses,
