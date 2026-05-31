@@ -201,7 +201,7 @@ importers:
         specifier: ^5.0.6
         version: 5.0.6(@types/node@24.12.4)(@types/react-dom@19.2.3(@types/react@19.2.15))(@types/react@19.2.15)(esbuild@0.27.7)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tsx@4.22.3)(yaml@2.9.0)
       '@xstate/store':
-        specifier: ^3.17.5
+        specifier: ^3
         version: 3.17.5(react@19.2.6)
       astro:
         specifier: ^6.4.2
