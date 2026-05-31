@@ -1,10 +1,10 @@
 ---
-import { SvgMapViewer } from '../components/SvgMapViewer.tsx';
+import { Main } from '../components/Main'
 import Layout from '../layouts/Layout.astro';
 
 import { config } from '../utils/config';
 ---
 
 <Layout>
-	<SvgMapViewer client:load {...config} />
+	<Main client:only="react" {...config} />
 </Layout>
