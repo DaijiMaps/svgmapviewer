@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=../../node_modules/svgmapviewer-astro-floors/src/schema/addresses.schema.json
+# yaml-language-server: $schema=../../node_modules/svgmapviewer-astro-floors/src/utils/schema/addresses.schema.json
 1F-1:
   coord:
     x: 95

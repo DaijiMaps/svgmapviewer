@@ -27,7 +27,7 @@ const types = [
 
 types.forEach((t) => {
   writeFileSync(
-    `src/schema/${t.name}.schema.json`,
+    `src/utils/schema/${t.name}.schema.json`,
     JSON.stringify(t.schema.toJSONSchema(), null, 2)
   )
 })
