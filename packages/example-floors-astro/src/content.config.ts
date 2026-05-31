@@ -11,30 +11,30 @@ import {
 
 const floors = defineCollection({
   loader: glob({
-    base: './src/data/floors',
+    base: './src/content/floors',
     pattern: '**/*.{json,yaml}',
   }),
   schema: floorsConfigSchema,
 })
 
 const addresses = defineCollection({
-  loader: file('./src/data/addresses.yaml'),
+  loader: file('./src/content/addresses.yaml'),
   schema: addressSchema,
 })
 
 const names = defineCollection({
-  loader: file('./src/data/names.yaml'),
+  loader: file('./src/content/names.yaml'),
   schema: addrsSchema,
 })
 
 const pois = defineCollection({
-  loader: file('./src/data/pois.yaml'),
+  loader: file('./src/content/pois.yaml'),
   schema: xinfoSchema,
 })
 
 const svgMapViewerConfig = defineCollection({
   loader: glob({
-    base: './src/data/svgMapViewerConfig',
+    base: './src/content/svgMapViewerConfig',
     pattern: '**/*.{json,yaml}',
   }),
   schema: svgMapViewerConfigUserSchema,
