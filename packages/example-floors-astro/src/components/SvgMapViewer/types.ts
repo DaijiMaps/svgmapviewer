@@ -12,9 +12,12 @@ declare module 'svgmapviewer' {
 export { type Info }
 
 export type XTag = XInfo['tag']
-export type Renderer<K> = (
-  props: Readonly<{ title: string; x: Extract<XInfo, { tag: K }> }>
-) => ReactNode
+export type XProps<K> = Readonly<
+  Exclude<Info, 'x'> & {
+    x: Extract<XInfo, { tag: K }>
+  }
+>
+export type Renderer<K> = (props: XProps<K>) => ReactNode
 export type RendererMap = {
   readonly [K in XTag]: Renderer<K>
 }
