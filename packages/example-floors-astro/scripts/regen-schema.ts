@@ -4,7 +4,7 @@ import { writeFileSync } from 'node:fs'
 
 import { z } from 'zod'
 
-import { xinfoSchema } from '../src/utils/schema.ts'
+import { xinfoSchema } from '../src/schema.ts'
 
 type S = typeof xinfoSchema
 // eslint-disable-next-line functional/prefer-immutable-types
