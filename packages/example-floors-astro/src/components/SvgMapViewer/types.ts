@@ -5,7 +5,7 @@ import { type XInfo } from './schema'
 
 declare module 'svgmapviewer' {
   interface Info {
-    x: XInfo
+    readonly x: XInfo
   }
 }
 
@@ -14,7 +14,7 @@ export { type Info }
 export type XTag = XInfo['tag']
 export type XProps<K> = Readonly<
   Exclude<Info, 'x'> & {
-    x: Extract<XInfo, { tag: K }>
+    readonly x: Extract<XInfo, { readonly tag: K }>
   }
 >
 export type Renderer<K> = (props: XProps<K>) => ReactNode
