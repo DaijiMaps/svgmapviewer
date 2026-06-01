@@ -1,12 +1,12 @@
 import type { ReactNode } from 'react'
 import { type Info } from 'svgmapviewer'
-
 import type {
   TaggedProps,
   TaggedRenderer,
   TaggedRendererMap,
   TaggedTag,
-} from '../../utils/tag'
+} from 'svgmapviewer-astro-floors'
+
 import { type XInfo } from './schema'
 
 declare module 'svgmapviewer' {
