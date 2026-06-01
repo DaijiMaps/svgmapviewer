@@ -1,6 +1,5 @@
-import { Args, Command } from '@effect/cli'
-import { FileSystem, Path } from '@effect/platform'
-import { Effect } from 'effect'
+import { Effect, FileSystem, Path } from 'effect'
+import { Argument, Command } from 'effect/unstable/cli'
 
 import { GitHub } from './GitHub'
 import { validatePackageName } from './Npm'
@@ -23,13 +22,12 @@ function createTemplate(config: Readonly<TemplateConfig>) {
   })
 }
 
-const projectName = Args.directory({
-  name: 'project-name',
-  exists: 'no',
+const projectName = Argument.directory('project-name', {
+  mustExist: false,
 }).pipe(
-  Args.withDescription('folder name created for generated npm app'),
-  Args.mapEffect(validatePackageName),
-  Args.mapEffect((projectName) =>
+  Argument.withDescription('folder name created for generated npm app'),
+  Argument.mapEffect(validatePackageName),
+  Argument.mapEffect((projectName) =>
     Effect.map(Path.Path, (path) => path.resolve(projectName))
   )
 )
@@ -42,7 +40,6 @@ const command = Command.make('create-svgmapviewer-floors-app', options).pipe(
   Command.withHandler(createTemplate)
 )
 
-export const cli = Command.run(command, {
-  name: 'Create svgmapviewer Floors App',
-  version: 'v0.0.1',
+export const cli = Command.runWith(command, {
+  version: 'v0.0.2',
 })

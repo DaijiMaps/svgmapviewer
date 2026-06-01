@@ -8,7 +8,7 @@ packages:
   - ./packages/svgpatheditor-vscode
   - ./packages/tools-*
 catalog:
-  '@types/node': '^24'
+  '@types/node': '^25.9.1'
 overrides:
   '@types/node': '^24'
   '@xstate/store': '^3'

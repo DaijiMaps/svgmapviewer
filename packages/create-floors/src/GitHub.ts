@@ -1,53 +1,76 @@
-import { HelpDoc, ValidationError } from '@effect/cli'
-import { HttpClient, HttpClientResponse } from '@effect/platform'
 import { NodeSink } from '@effect/platform-node'
-import { Effect, Stream } from 'effect'
+import { Context, Effect, Layer, Schema, Stream } from 'effect'
+/* eslint-disable functional/functional-parameters */
+/* eslint-disable functional/no-class-inheritance */
+/* eslint-disable functional/no-classes */
+import { HttpClient, HttpClientResponse } from 'effect/unstable/http'
+import { type HttpClientError } from 'effect/unstable/http/HttpClientError'
 import * as Tar from 'tar'
 
 const CODELOAD_URL = 'https://codeload.github.com'
 const DEFAULT_BRANCH = 'main'
 
-// eslint-disable-next-line functional/no-classes, functional/no-class-inheritance
-export class GitHub extends Effect.Service<GitHub>()('app/GitHub', {
-  accessors: true,
-  effect: Effect.gen(function* () {
-    const httpClient = yield* HttpClient.HttpClient
+interface GitHubService {
+  download: (
+    username: string,
+    repository: string,
+    options?: Readonly<{
+      branch?: string
+      cwd?: string
+    }>
+  ) => Effect.Effect<void, HttpClientError | DownloadError>
+}
 
-    const client = httpClient.pipe(HttpClient.filterStatusOk)
+class DownloadError extends Schema.TaggedErrorClass<DownloadError>()(
+  'DownloadError',
+  { cause: Schema.String }
+) {}
 
-    const download = (
-      username: string,
-      repository: string,
-      options?: Readonly<{
-        branch?: string
-        cwd?: string
-      }>
-    ) =>
-      client
-        .get(
-          `${CODELOAD_URL}/${username}/${repository}/tar.gz/${options?.branch ?? DEFAULT_BRANCH}`
-        )
-        .pipe(
-          HttpClientResponse.stream,
-          Stream.run(
-            NodeSink.fromWritable(
-              () =>
-                Tar.extract({
-                  cwd: options?.cwd,
-                  strip: 1,
-                }),
-              () =>
-                ValidationError.invalidValue(
-                  HelpDoc.p(`Failed to download tar.gz`)
-                )
+export class GitHub extends Context.Service<GitHub, GitHubService>()(
+  'app/GitHub',
+  {
+    //accessors: true,
+    make: Effect.gen(function* () {
+      const httpClient = yield* HttpClient.HttpClient
+
+      const client = httpClient.pipe(HttpClient.filterStatusOk)
+
+      const download = (
+        username: string,
+        repository: string,
+        options?: Readonly<{
+          branch?: string
+          cwd?: string
+        }>
+      ): Effect.Effect<void, DownloadError> =>
+        client
+          .get(
+            `${CODELOAD_URL}/${username}/${repository}/tar.gz/${options?.branch ?? DEFAULT_BRANCH}`
+          )
+          .pipe(
+            HttpClientResponse.stream,
+            Stream.run(
+              NodeSink.fromWritable({
+                evaluate: () =>
+                  Tar.extract({
+                    cwd: options?.cwd,
+                    strip: 1,
+                  }),
+                onError: () => new Error(),
+              })
+            ),
+            Effect.mapError(
+              () => new DownloadError({ cause: 'tar extract failed' })
             )
           )
-        )
 
-    return {
-      download,
-    } as const
-  }),
-}) {}
+      return {
+        download,
+      }
+    }),
+  }
+) {
+  static readonly layer = Layer.effect(this, this.make)
+}
 
-export const GitHubLive = GitHub.Default
+export const GitHubLive = GitHub.layer
