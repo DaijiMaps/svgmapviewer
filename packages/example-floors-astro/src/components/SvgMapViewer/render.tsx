@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react'
 
-import { makeRenderInfo } from './react'
-import type { XProps, XRendererMap } from './types'
+import { makeRenderInfo } from '../../utils/react'
+import type { XProps, XRendererMap } from '../../utils/types'
 
 function renderShopCafe(props: XProps<'shop.cafe'>): ReactNode {
   return (
