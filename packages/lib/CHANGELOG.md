@@ -1,5 +1,11 @@
 # svgmapviewer
 
+## 0.4.0
+
+### Minor Changes
+
+- 89aaaa8: experimental astro support
+
 ## 0.3.0
 
 ### Minor Changes
