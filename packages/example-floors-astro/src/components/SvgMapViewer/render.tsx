@@ -1,9 +1,9 @@
 import { type ReactNode } from 'react'
-import { type Info } from 'svgmapviewer'
 
-import type { XProps, XRenderer, XRendererMap, XTag } from './types'
+import { makeRenderInfo } from '../../utils/react'
+import type { XProps, XRendererMap } from '../../utils/types'
 
-function renderShopCafe(props: XProps<'shop.cafe'>): ReactNode {
+function RenderShopCafe(props: XProps<'shop.cafe'>): ReactNode {
   return (
     <>
       <p>{props.title}</p>
@@ -25,7 +25,7 @@ path.fg {
   )
 }
 
-function renderShopMisc(props: XProps<'shop.misc'>): ReactNode {
+function RenderShopMisc(props: XProps<'shop.misc'>): ReactNode {
   return (
     <>
       <p>{props.title}</p>
@@ -34,7 +34,7 @@ function renderShopMisc(props: XProps<'shop.misc'>): ReactNode {
   )
 }
 
-function renderShopRestaurant(props: XProps<'shop.restaurant'>): ReactNode {
+function RenderShopRestaurant(props: XProps<'shop.restaurant'>): ReactNode {
   return (
     <>
       <p>{props.title}</p>
@@ -45,13 +45,9 @@ function renderShopRestaurant(props: XProps<'shop.restaurant'>): ReactNode {
 }
 
 const renderers = {
-  'shop.cafe': renderShopCafe,
-  'shop.misc': renderShopMisc,
-  'shop.restaurant': renderShopRestaurant,
+  'shop.cafe': RenderShopCafe,
+  'shop.misc': RenderShopMisc,
+  'shop.restaurant': RenderShopRestaurant,
 } satisfies XRendererMap
 
-export function RenderInfo(props: Readonly<{ info: Info }>): ReactNode {
-  const getRenderer = <K extends XTag>(tag: K) => renderers[tag] as XRenderer<K>
-  const render = getRenderer(props.info.x.tag)
-  return render({ title: props.info.title, x: props.info.x })
-}
+export const RenderInfo = makeRenderInfo(renderers)

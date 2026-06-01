@@ -4,7 +4,7 @@ import { writeFileSync } from 'node:fs'
 
 import { z } from 'zod'
 
-import { xinfoSchema } from '../src/components/SvgMapViewer/schema.ts'
+import { xinfoSchema } from '../src/schema.ts'
 
 type S = typeof xinfoSchema
 // eslint-disable-next-line functional/prefer-immutable-types
@@ -14,7 +14,7 @@ const types = [{ name: 'pois', schema: toRecord(xinfoSchema) }]
 
 types.forEach((t) => {
   writeFileSync(
-    `src/utils/schema/${t.name}.schema.json`,
+    `src/${t.name}.schema.json`,
     JSON.stringify(t.schema.toJSONSchema(), null, 2)
   )
 })

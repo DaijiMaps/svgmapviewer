@@ -139,7 +139,52 @@ declare module 'astro:content' {
     ? import('astro/zod').infer<L['schema']>
     : any
 
-  type DataEntryMap = {}
+  type DataEntryMap = {
+    addresses: Record<
+      string,
+      {
+        id: string
+        body?: string
+        collection: 'addresses'
+        data: InferEntrySchema<'addresses'>
+        rendered?: RenderedContent
+        filePath?: string
+      }
+    >
+    floors: Record<
+      string,
+      {
+        id: string
+        body?: string
+        collection: 'floors'
+        data: InferEntrySchema<'floors'>
+        rendered?: RenderedContent
+        filePath?: string
+      }
+    >
+    names: Record<
+      string,
+      {
+        id: string
+        body?: string
+        collection: 'names'
+        data: InferEntrySchema<'names'>
+        rendered?: RenderedContent
+        filePath?: string
+      }
+    >
+    svgMapViewerConfig: Record<
+      string,
+      {
+        id: string
+        body?: string
+        collection: 'svgMapViewerConfig'
+        data: InferEntrySchema<'svgMapViewerConfig'>
+        rendered?: RenderedContent
+        filePath?: string
+      }
+    >
+  }
 
   type ExtractLoaderTypes<T> = T extends import('astro/loaders').LiveLoader<
     infer TData,
@@ -175,6 +220,6 @@ declare module 'astro:content' {
   type LiveLoaderErrorType<C extends keyof LiveContentConfig['collections']> =
     ExtractErrorType<LiveContentConfig['collections'][C]['loader']>
 
-  export type ContentConfig = never
+  export type ContentConfig = typeof import('../src/content.config.js')
   export type LiveContentConfig = never
 }

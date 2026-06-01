@@ -7,7 +7,7 @@ import type {
   TaggedTag,
 } from 'svgmapviewer-astro-floors'
 
-import { type XInfo } from './schema'
+import { type XInfo } from '../schema'
 
 declare module 'svgmapviewer' {
   interface Info {

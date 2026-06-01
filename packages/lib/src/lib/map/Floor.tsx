@@ -120,12 +120,17 @@ export function isFloorsRendered(): boolean {
 const namespace_re = /^[{].*$/
 // style attrib is written into <style/>
 const style_re = /^style$/
+// used in Inkscape but not really valid SVG
+const non_svg_re = /(?:text-align)|(?:line-height)/
 
 function fromAttrs(
   attrs: Record<string, undefined | null | number | string>
 ): Record<string, undefined | null | number | string> {
   const entries = Object.entries(attrs)
-    .filter(([k]) => !k.match(namespace_re) && !k.match(style_re))
+    .filter(
+      ([k]) =>
+        !k.match(namespace_re) && !k.match(style_re) && !k.match(non_svg_re)
+    )
     .map(([k, v]) => [convAttrName(k), v])
   return Object.fromEntries(entries)
 }
