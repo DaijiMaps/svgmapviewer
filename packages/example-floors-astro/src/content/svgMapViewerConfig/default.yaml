@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=../../../node_modules/svgmapviewer-astro-floors/src/utils/schema/svgMapViewerConfigUser.schema.json
+# yaml-language-server: $schema=../../../node_modules/svgmapviewer-astro-floors/src/svgMapViewerConfigUser.schema.json
 root: root
 title: Floor Map Test
 zoomFactor: 2

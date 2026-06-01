@@ -14,7 +14,7 @@ const types = [{ name: 'pois', schema: toRecord(xinfoSchema) }]
 
 types.forEach((t) => {
   writeFileSync(
-    `src/utils/schema/${t.name}.schema.json`,
+    `src/${t.name}.schema.json`,
     JSON.stringify(t.schema.toJSONSchema(), null, 2)
   )
 })

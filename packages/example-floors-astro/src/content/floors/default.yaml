@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=../../../node_modules/svgmapviewer-astro-floors/src/utils/schema/floorsConfig.schema.json
+# yaml-language-server: $schema=../../../node_modules/svgmapviewer-astro-floors/src/floorsConfig.schema.json
 initialFidx: 0
 floors:
   - name: 1F

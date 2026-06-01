@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=../../node_modules/svgmapviewer-astro-floors/src/utils/schema/names.schema.json
+# yaml-language-server: $schema=../../node_modules/svgmapviewer-astro-floors/src/names.schema.json
 フードコート:
   - 1F-6
 ドラッグストア:
