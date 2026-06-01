@@ -1,11 +1,9 @@
 import { type ReactNode } from 'react'
 import { type Info } from 'svgmapviewer'
 
-import type { Renderer, RendererMap, XTag } from './types'
+import type { XProps, XRenderer, XRendererMap, XTag } from './types'
 
-function renderShopCafe(
-  props: Parameters<RendererMap['shop.cafe']>[0]
-): ReactNode {
+function renderShopCafe(props: XProps<'shop.cafe'>): ReactNode {
   return (
     <>
       <p>{props.title}</p>
@@ -27,9 +25,7 @@ path.fg {
   )
 }
 
-function renderShopMisc(
-  props: Parameters<RendererMap['shop.misc']>[0]
-): ReactNode {
+function renderShopMisc(props: XProps<'shop.misc'>): ReactNode {
   return (
     <>
       <p>{props.title}</p>
@@ -38,9 +34,7 @@ function renderShopMisc(
   )
 }
 
-function renderShopRestaurant(
-  props: Parameters<RendererMap['shop.restaurant']>[0]
-): ReactNode {
+function renderShopRestaurant(props: XProps<'shop.restaurant'>): ReactNode {
   return (
     <>
       <p>{props.title}</p>
@@ -54,11 +48,10 @@ const renderers = {
   'shop.cafe': renderShopCafe,
   'shop.misc': renderShopMisc,
   'shop.restaurant': renderShopRestaurant,
-} satisfies RendererMap
+} satisfies XRendererMap
 
 export function RenderInfo(props: Readonly<{ info: Info }>): ReactNode {
-  const getRenderer = <K extends XTag>(tag: XTag) =>
-    renderers[tag] as Renderer<K>
+  const getRenderer = <K extends XTag>(tag: K) => renderers[tag] as XRenderer<K>
   const render = getRenderer(props.info.x.tag)
   return render({ title: props.info.title, x: props.info.x })
 }
