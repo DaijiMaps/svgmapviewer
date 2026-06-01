@@ -6,7 +6,7 @@ import {
   addrsSchema,
   floorsConfigSchema,
   svgMapViewerConfigUserSchema,
-} from './utils/schema'
+} from './schema'
 
 const floors = defineCollection({
   loader: glob({
