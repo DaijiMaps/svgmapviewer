@@ -3,7 +3,7 @@ import { type ReactNode } from 'react'
 import { makeRenderInfo } from '../../utils/react'
 import type { XProps, XRendererMap } from '../../utils/types'
 
-function renderShopCafe(props: XProps<'shop.cafe'>): ReactNode {
+function RenderShopCafe(props: XProps<'shop.cafe'>): ReactNode {
   return (
     <>
       <p>{props.title}</p>
@@ -25,7 +25,7 @@ path.fg {
   )
 }
 
-function renderShopMisc(props: XProps<'shop.misc'>): ReactNode {
+function RenderShopMisc(props: XProps<'shop.misc'>): ReactNode {
   return (
     <>
       <p>{props.title}</p>
@@ -34,7 +34,7 @@ function renderShopMisc(props: XProps<'shop.misc'>): ReactNode {
   )
 }
 
-function renderShopRestaurant(props: XProps<'shop.restaurant'>): ReactNode {
+function RenderShopRestaurant(props: XProps<'shop.restaurant'>): ReactNode {
   return (
     <>
       <p>{props.title}</p>
@@ -45,9 +45,9 @@ function renderShopRestaurant(props: XProps<'shop.restaurant'>): ReactNode {
 }
 
 const renderers = {
-  'shop.cafe': renderShopCafe,
-  'shop.misc': renderShopMisc,
-  'shop.restaurant': renderShopRestaurant,
+  'shop.cafe': RenderShopCafe,
+  'shop.misc': RenderShopMisc,
+  'shop.restaurant': RenderShopRestaurant,
 } satisfies XRendererMap
 
 export const RenderInfo = makeRenderInfo(renderers)
