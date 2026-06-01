@@ -1,6 +1,6 @@
 {
   "name": "svgmapviewer-tools-osm",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "bin": {
     "svgmapviewer-tools-osm-copy": "./scripts/copy.sh",
     "svgmapviewer-tools-osm-extractAreas": "./scripts/extractAreas.sh",

@@ -1,5 +1,11 @@
 # svgmapviewer
 
+## 0.4.1
+
+### Patch Changes
+
+- minor fixes
+
 ## 0.4.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "svgmapviewer-tools-floors",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "bin": {
     "svgmapviewer-tools-floors-inkex-inkscape": "./scripts/inkex-inkscape",
     "svgmapviewer-tools-floors-inkex-python": "./scripts/inkex-python",
