@@ -9,7 +9,7 @@ import {
   floorsConfigSchema,
   addrsSchema,
   svgMapViewerConfigUserSchema,
-} from '../src/utils/schema.ts'
+} from '../src/schema.ts'
 
 type S = typeof addressesSchema | typeof addrsSchema
 // eslint-disable-next-line functional/prefer-immutable-types
