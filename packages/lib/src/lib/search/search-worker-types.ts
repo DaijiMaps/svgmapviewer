@@ -1,13 +1,14 @@
 /* eslint-disable functional/no-return-void */
 import type { SearchGeoReq } from '../../types'
-import { type SearchContext, type SearchPos } from './types'
+import type { SearchAddress } from '../address'
+import { type SearchContext } from './types'
 
 export type SearchWorkerReq =
-  | { type: 'INIT'; readonly entries: readonly SearchPos[] }
+  | { type: 'INIT'; readonly entries: readonly SearchAddress[] }
   | { type: 'SEARCH'; readonly greq: SearchGeoReq }
 export type SearchWorkerRes =
   | { type: 'INIT.DONE' }
-  | { type: 'SEARCH.DONE'; readonly res: SearchPos }
+  | { type: 'SEARCH.DONE'; readonly res: SearchAddress }
   | { type: 'SEARCH.ERROR'; readonly error: string }
 
 export type DoSearch = {

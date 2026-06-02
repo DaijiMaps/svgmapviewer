@@ -5,17 +5,16 @@
 import Flatbush from 'flatbush'
 
 import type { SearchGeoReq } from '../../types'
-import {
-  type FlatbushIndexes,
-  type SearchContext,
-  type SearchPos,
-} from './types'
+import type { SearchAddress } from '../address'
+import { type FlatbushIndexes, type SearchContext } from './types'
 
-export function initAddresses(entries: Readonly<SearchPos[]>): SearchContext {
+export function initAddresses(
+  entries: Readonly<SearchAddress[]>
+): SearchContext {
   const fb: Flatbush = new Flatbush(entries.length)
   const idxs: FlatbushIndexes = {}
   for (const e of entries) {
-    const { x, y } = e.pos.coord
+    const { x, y } = e.floorPos.coord
     const idx = fb.add(x, y)
     idxs[idx] = e
   }
@@ -38,10 +37,10 @@ const MAX_DISTANCE = 100
 export function searchAddress(
   { fb, idxs }: SearchContext,
   { pgeo, fidx }: Readonly<SearchGeoReq>
-): SearchPos | null {
+): SearchAddress | null {
   const filter = (idx: number) => {
     const e = idxs[idx]
-    return e.pos.fidx === undefined || e.pos.fidx === fidx
+    return e.floorPos.fidx === undefined || e.floorPos.fidx === fidx
   }
   const ns = fb.neighbors(pgeo.x, pgeo.y, 1, MAX_DISTANCE, filter)
   if (ns.length === 0) {

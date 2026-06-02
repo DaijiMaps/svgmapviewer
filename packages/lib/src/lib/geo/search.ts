@@ -1,5 +1,5 @@
 import type { Info } from '../../types'
-import type { SearchPos } from '../search'
+import type { SearchAddress } from '../address'
 import { type OsmMapMap } from './data-types'
 import { type OsmFeature, type OsmProperties } from './osm-types'
 import type { OsmSearchEntry } from './search-types'
@@ -57,7 +57,7 @@ export function getPropertyValue(
 }
 
 export function osmGetSearchInfo(
-  res: Readonly<SearchPos>,
+  res: Readonly<SearchAddress>,
   mapMap?: Readonly<OsmMapMap>,
   entries?: readonly OsmSearchEntry[]
 ): null | Info {

@@ -8,10 +8,10 @@ import {
   namesToRNameMap,
   type NameMap,
   type Names,
+  type SearchAddress,
   type SearchInfo,
   type SearchName,
 } from '../address'
-import type { SearchPos } from './types'
 
 const namesAtom = createAtom<null | Names>(null)
 
@@ -74,7 +74,9 @@ const getGetInfoByName = () => {
   return f
 }
 
-export const getSearchInfoCommon = (pos: Readonly<SearchPos>): null | Info => {
+export const getSearchInfoCommon = (
+  pos: Readonly<SearchAddress>
+): null | Info => {
   const searchNames = cfg.searchNames
   const getInfoByName = getGetInfoByName()
   if (searchNames === undefined || getInfoByName === undefined) return null

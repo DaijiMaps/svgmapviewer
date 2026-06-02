@@ -1,20 +1,20 @@
 /* eslint-disable functional/functional-parameters */
 import { type Info, type SvgMapViewerConfigUser } from 'svgmapviewer'
-import { type SearchPos } from 'svgmapviewer/search'
+import type { SearchAddress } from 'svgmapviewer/address'
 
 import { addresses } from './address'
 import { addressStringNameMap } from './names'
 import { RenderInfo as renderInfo } from './render'
 
-async function getSearchEntries() {
-  return addresses.map(([address, pos]) => ({
+async function getSearchEntries(): Promise<readonly SearchAddress[]> {
+  return addresses.map(([address, floorPos]) => ({
     address,
-    pos,
+    floorPos,
   }))
 }
 
-async function getSearchInfo(pos: Readonly<SearchPos>): Promise<null | Info> {
-  const names = addressStringNameMap.get(pos.address)
+async function getSearchInfo(a: Readonly<SearchAddress>): Promise<null | Info> {
+  const names = addressStringNameMap.get(a.address)
   if (names === undefined || names.size < 1) {
     return null
   }

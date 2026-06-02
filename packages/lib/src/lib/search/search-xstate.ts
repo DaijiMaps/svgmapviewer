@@ -7,6 +7,7 @@ import {
   type SearchRes,
   type SvgMapViewerConfig,
 } from '../../types'
+import type { SearchAddress } from '../address'
 import { globalCbs } from '../event-global'
 import { notifySearch, searchCbs } from '../event-search'
 import { currentFidxAtom } from '../viewer/floors/floors-xstate'
@@ -16,7 +17,6 @@ import type {
   SearchWorkerReq,
   SearchWorkerRes,
 } from './search-worker-types'
-import type { SearchPos } from './types'
 
 export type SearchEvent =
   | { type: 'INIT.DONE' }
@@ -124,7 +124,7 @@ worker.onmessageerror = (ev) => {
   console.error('search messageerror', ev)
 }
 
-function handleSearchRes(res: Readonly<SearchPos>): Promise<void> {
+function handleSearchRes(res: Readonly<SearchAddress>): Promise<void> {
   const info = Promise.resolve(getSearchInfoCommon(res)).then((tmp) =>
     tmp !== null
       ? tmp
@@ -140,9 +140,9 @@ function handleSearchRes(res: Readonly<SearchPos>): Promise<void> {
       return searchSend({ type: 'SEARCH.DONE', res: null })
     } else {
       const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(
-        res.pos.coord
+        res.floorPos.coord
       )
-      const fidx = res.pos.fidx
+      const fidx = res.floorPos.fidx
       return searchSend({ type: 'SEARCH.DONE', res: { psvg, fidx, info } })
     }
   })

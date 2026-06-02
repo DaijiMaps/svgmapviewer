@@ -1,5 +1,5 @@
 import { type OsmSearchProps } from '../../types'
-import { type SearchPos } from '../search/types'
+import type { SearchAddress } from '../address'
 import type { OsmProperties } from './osm-types'
 import { getOsmId } from './search'
 import type { OsmSearchEntry } from './search-types'
@@ -7,7 +7,7 @@ import type { OsmSearchEntry } from './search-types'
 function pointAddresses(
   props: Readonly<OsmSearchProps>,
   skip?: Readonly<RegExp>
-): readonly SearchPos[] {
+): readonly SearchAddress[] {
   return props.mapData.points.features
     .map(({ properties }) =>
       filterFeature(properties, props.osmSearchEntries, skip)
@@ -19,7 +19,7 @@ function pointAddresses(
 function lineAddresses(
   props: Readonly<OsmSearchProps>,
   skip?: Readonly<RegExp>
-): readonly SearchPos[] {
+): readonly SearchAddress[] {
   return props.mapData.lines.features
     .map(({ properties }) =>
       filterFeature(properties, props.osmSearchEntries, skip)
@@ -31,7 +31,7 @@ function lineAddresses(
 function polygonAddresses(
   props: Readonly<OsmSearchProps>,
   skip?: Readonly<RegExp>
-): readonly SearchPos[] {
+): readonly SearchAddress[] {
   return props.mapData.multipolygons.features
     .map(({ properties }) =>
       filterFeature(properties, props.osmSearchEntries, skip)
@@ -43,7 +43,7 @@ function filterFeature(
   properties: OsmProperties,
   entries: readonly OsmSearchEntry[],
   skip?: Readonly<RegExp>
-): null | SearchPos {
+): null | SearchAddress {
   const id = getOsmId(properties)
   if (id === null) {
     return null
@@ -66,13 +66,13 @@ function filterFeature(
     ? null
     : {
         address: id + '',
-        pos: { fidx: 0, coord: { x: centroid_x, y: centroid_y } },
+        floorPos: { fidx: 0, coord: { x: centroid_x, y: centroid_y } },
       }
 }
 
 export function osmGetSearchEntries(
   props: Readonly<OsmSearchProps>
-): SearchPos[] {
+): SearchAddress[] {
   const skip = props.cartoConfig?.skipNamePattern
   return [
     ...pointAddresses(props, skip),

@@ -1,17 +1,12 @@
 import type Flatbush from 'flatbush'
 
-import { type Addr, type FloorPos } from '../address'
+import { type SearchAddress } from '../address'
 
 export type Idx = string
 
-export interface SearchPos {
-  readonly address: Addr
-  readonly pos: FloorPos
-}
-
 ////
 
-export type FlatbushIndexes = Record<Idx, SearchPos>
+export type FlatbushIndexes = Record<Idx, SearchAddress>
 
 export interface SearchContext {
   readonly fb: Flatbush
