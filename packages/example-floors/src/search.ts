@@ -4,7 +4,7 @@ import type { SearchAddress } from 'svgmapviewer/address'
 
 import { addresses } from './address'
 import { addressStringNameMap } from './names'
-import { RenderInfo as renderInfo } from './render'
+import { RenderInfo } from './render'
 
 async function getSearchEntries(): Promise<readonly SearchAddress[]> {
   return addresses.map(([address, floorPos]) => ({
@@ -30,5 +30,5 @@ async function getSearchInfo(a: Readonly<SearchAddress>): Promise<null | Info> {
 export const searchConfig: SvgMapViewerConfigUser = {
   getSearchEntries,
   getSearchInfo,
-  renderInfo,
+  RenderInfo,
 }

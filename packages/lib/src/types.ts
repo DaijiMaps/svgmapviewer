@@ -219,7 +219,7 @@ export interface OsmSearchConfig {
   readonly getSearchEntries: OsmGetSearchEntries
   readonly getSearchInfo: OsmGetSearchInfo
   readonly getInfoByName?: (name: string) => Info | null
-  readonly renderInfo: RenderInfo
+  readonly RenderInfo: RenderInfo
 }
 
 // Floor

@@ -9,7 +9,7 @@ import {
   RenderMapOsmDefault as renderMap,
 } from 'svgmapviewer/map'
 
-import { RenderInfo as renderInfo } from './info'
+import { RenderInfo } from './info'
 import { getMapMarkers } from './map/markers'
 import { getMapObjects } from './map/objects'
 import { getMapPaths } from './map/paths'
@@ -32,5 +32,5 @@ export const searchConfig: OsmSearchConfig = {
   osmSearchEntries,
   getSearchEntries, // XXX
   getSearchInfo, // XXX
-  renderInfo,
+  RenderInfo,
 }

@@ -35,9 +35,9 @@ export function Detail(
       className="detail"
       onAnimationEnd={() => uiSend({ type: 'DETAIL.ANIMATION.END' })}
     >
-      {cfg.renderInfo &&
-        !isDetailEmpty(props._detail) &&
-        cfg.renderInfo({ info: props._detail.info })}
+      {cfg.RenderInfo && !isDetailEmpty(props._detail) && (
+        <cfg.RenderInfo info={props._detail.info} />
+      )}
       <style>{style}</style>
     </div>
   )

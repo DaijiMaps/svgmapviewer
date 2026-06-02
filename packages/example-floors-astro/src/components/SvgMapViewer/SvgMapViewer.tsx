@@ -7,5 +7,5 @@ import { infoRenderers } from './render'
 const RenderInfo = makeRenderInfo(infoRenderers)
 
 export function SvgMapViewer(config: Readonly<SvgMapViewerConfigUser>) {
-  return <SvgMapViewerCommon {...config} renderInfo={RenderInfo} />
+  return <SvgMapViewerCommon {...config} RenderInfo={RenderInfo} />
 }

@@ -123,7 +123,7 @@ export const osmSearchConfigSchema = z.object({
   //readonly osmSearchEntries: readonly Readonly<OsmSearchEntry>[] // XXX
   //readonly getSearchEntries: OsmGetSearchEntries
   //readonly getSearchInfo: OsmGetSearchInfo
-  //readonly renderInfo: RenderInfo
+  //readonly RenderInfo: RenderInfo
 })
 
 // floorTspanSchema

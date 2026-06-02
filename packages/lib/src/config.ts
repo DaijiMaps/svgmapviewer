@@ -11,7 +11,7 @@ import {
   type SvgMapViewerConfigUser,
 } from './types'
 
-function renderInfoDefault(
+function RenderInfoDefault(
   props: Readonly<{ info: Readonly<Info> }>
 ): ReactNode {
   return createElement('p', {}, props.info.title)
@@ -62,7 +62,7 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   osmSearchEntries: [],
   getSearchEntries: () => [],
   getSearchInfo: () => null,
-  renderInfo: renderInfoDefault,
+  RenderInfo: RenderInfoDefault,
 }
 
 export function updateSvgMapViewerConfig(
