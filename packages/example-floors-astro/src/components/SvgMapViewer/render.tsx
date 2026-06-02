@@ -1,6 +1,5 @@
 import { type ReactNode } from 'react'
 
-import { makeRenderInfo } from '../../utils/react'
 import type { XProps, XRendererMap } from '../../utils/types'
 
 function RenderShopCafe(props: XProps<'shop.cafe'>): ReactNode {
@@ -44,10 +43,8 @@ function RenderShopRestaurant(props: XProps<'shop.restaurant'>): ReactNode {
   )
 }
 
-const renderers = {
+export const infoRenderers = {
   'shop.cafe': RenderShopCafe,
   'shop.misc': RenderShopMisc,
   'shop.restaurant': RenderShopRestaurant,
 } satisfies XRendererMap
-
-export const RenderInfo = makeRenderInfo(renderers)
