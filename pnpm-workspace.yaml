@@ -27,6 +27,7 @@ allowBuilds:
   msgpackr-extract: true
   msw: true
   sharp: true
+  workerd: true
 minimumReleaseAgeExclude:
   - 'vite'
   - 'vitest'
@@ -34,3 +35,5 @@ minimumReleaseAgeExclude:
   - '@vitest/mocker'
   - '@astrojs/internal-helpers@0.10.0'
   - '@astrojs/react@5.0.6'
+  - miniflare@4.20260529.0
+  - wrangler@4.96.0
