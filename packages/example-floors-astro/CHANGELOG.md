@@ -1,5 +1,16 @@
 # svgmapviewer-example-floors-astro
 
+## 0.3.0
+
+### Minor Changes
+
+- trim deps
+
+### Patch Changes
+
+- Updated dependencies
+  - svgmapviewer-astro-floors@0.3.0
+
 ## 0.2.1
 
 ### Patch Changes
