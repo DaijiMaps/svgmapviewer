@@ -1,0 +1,10 @@
+---
+import { svgMapViewerConfigUser } from '../utils/data'
+
+import { SvgMapViewer } from '../components/SvgMapViewer/SvgMapViewer'
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title={svgMapViewerConfigUser.title}>
+	<SvgMapViewer client:only="react" {...svgMapViewerConfigUser} />
+</Layout>

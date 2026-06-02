@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "propertyNames": {
+    "type": "string"
+  },
+  "additionalProperties": {
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string",
+            "const": "shop.cafe"
+          },
+          "nseats": {
+            "type": "number"
+          }
+        },
+        "required": ["tag"],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string",
+            "const": "shop.misc"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": ["tag"],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string",
+            "const": "shop.restaurant"
+          },
+          "nseats": {
+            "type": "number"
+          }
+        },
+        "required": ["tag"],
+        "additionalProperties": false
+      }
+    ]
+  }
+}

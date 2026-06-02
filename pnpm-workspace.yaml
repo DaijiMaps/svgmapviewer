@@ -6,6 +6,7 @@ packages:
   - ./packages/lib
   - ./packages/svgpatheditor
   - ./packages/svgpatheditor-vscode
+  - ./packages/template-*
   - ./packages/tools-*
 catalog:
   '@types/node': '^25.9.1'
