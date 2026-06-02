@@ -1,5 +1,13 @@
 # svgmapviewer-astro-floors
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies
+  - svgmapviewer@0.5.0
+  - svgmapviewer-app-floors@0.1.2
+
 ## 0.2.0
 
 ### Minor Changes
