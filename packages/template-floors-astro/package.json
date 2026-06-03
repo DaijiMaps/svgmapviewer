@@ -30,6 +30,10 @@
   "overrides": {
     "vite": "^7"
   },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix",
+    "*": "oxfmt --write"
+  },
   "engines": {
     "node": ">=22.12.0"
   }
