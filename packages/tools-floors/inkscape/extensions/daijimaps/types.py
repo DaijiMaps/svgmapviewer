@@ -2,28 +2,10 @@ import inkex
 from typing import TypedDict
 
 
-type Url = str
-
-type AddressPosEntry = tuple[XY, inkex.BoundingBox, Url]
-type AddressPos = dict[AddressString, AddressPosEntry]
-type PosAddress = dict[XY, list[AddressString]]
-
-type AddressString = str
-type NameString = str
-type XY = tuple[float, float]
-
-type Address = tuple[AddressString | None, XY]
-type Addresses = list[Address]
-type NameAddresses = dict[NameString, Addresses]
-
-type Name = tuple[NameString, XY]
-type Names = list[Name]
-type AddressNames = dict[AddressString, Names]
-
-
 class V(TypedDict):
     x: float
     y: float
+    area: float | None
 
 
 class Box(TypedDict):
@@ -31,6 +13,35 @@ class Box(TypedDict):
     y: float
     width: float
     height: float
+
+
+type Url = str
+
+type AddressPosEntry = tuple[XY, inkex.BoundingBox, Url]
+type AddressPosEntryV = tuple[V, inkex.BoundingBox, Url]
+type AddressPos = dict[AddressString, AddressPosEntry]
+type AddressPosV = dict[AddressString, AddressPosEntryV]
+type PosAddress = dict[XY, list[AddressString]]
+type PosAddressV = dict[V, list[AddressString]]
+type AddressArea = dict[AddressString, float]
+
+type AddressString = str
+type NameString = str
+type XY = tuple[float, float]
+
+type Address = tuple[AddressString | None, XY]
+type AddressV = tuple[AddressString | None, V]
+type Addresses = list[Address]
+type AddressesV = list[AddressV]
+type NameAddresses = dict[NameString, Addresses]
+type NameAddressesV = dict[NameString, AddressesV]
+
+type Name = tuple[NameString, XY]
+type NameV = tuple[NameString, V]
+type Names = list[Name]
+type NamesV = list[NameV]
+type AddressNames = dict[AddressString, Names]
+type AddressNamesV = dict[AddressString, NamesV]
 
 
 type AddressCoords = dict[AddressString, V]  # addresses.json
@@ -100,11 +111,17 @@ class JsonLayerPaths(TypedDict):
 __all__ = [
     # .address_tree
     Address,
+    AddressV,
+    AddressArea,
     AddressNames,
+    AddressNamesV,
     AddressPos,
     AddressPosEntry,
+    AddressPosEntryV,
+    AddressPosV,
     AddressString,
     Addresses,
+    AddressesV,
     Box,
     FacilitiesJson,
     FloorsInfoJson,
@@ -115,8 +132,11 @@ __all__ = [
     Links,
     Name,
     NameAddresses,
+    NameAddressesV,
     NameString,
+    NameV,
     Names,
+    NamesV,
     AddressCoords,
     TextInfoJson,
     TmpNameCoords,

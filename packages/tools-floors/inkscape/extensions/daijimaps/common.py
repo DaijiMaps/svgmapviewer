@@ -14,6 +14,7 @@ def xy2v(x, y) -> V:
     return {
         "x": unround(x),
         "y": unround(y),
+        "area": None,
         #'w': r3w if r3w != rw else rw,
     }
 

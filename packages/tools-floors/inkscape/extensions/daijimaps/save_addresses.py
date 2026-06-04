@@ -6,6 +6,7 @@ from typing import Any
 import inkex
 
 from .address_tree import AddressTree
+from .area import calc_area
 from .common import xy2v
 from .guards import isCircle, isEllipse, isGroup, isRectangle, isUse
 from .types import AddressCoords, AddressString, Box, FacilitiesJson, FloorsInfoJson, V
@@ -13,6 +14,11 @@ from .visit_parents import Tree, Parents
 
 
 class SaveAddresses(AddressTree):
+    def area(self) -> None | float:
+        # use
+        # circle / ellipse
+        return 0
+
     def _reset(self) -> None:
         super()._reset()
 
@@ -47,21 +53,29 @@ class SaveAddresses(AddressTree):
             self._all_points[p] = []
         self._all_points[p].append(astr)
 
+    def _save_address_area(self, astr: AddressString, a: float) -> None:
+        self._address_areas[astr] = a
+        self._all_address_areas[astr] = a
+
     def _save_address1(self, node: inkex.BaseElement, prefix: str, label: str) -> None:
         astr = f"{prefix}{label}-{node.label}"
         self.msg(f"=== _save_address1: {astr}")
         bb: inkex.BoundingBox = node.shape_box()
         c: inkex.ImmutableVector2d | None = None
         p: inkex.ImmutableVector2d | None = None
+        a = None
         tx = node.composed_transform()
         if isUse(node):
             x = float(node.get("x") or 0)
             y = float(node.get("y") or 0)
             c = inkex.ImmutableVector2d(x, y)
+            a = calc_area(node)
         elif isCircle(node):
             c = node.center
+            a = calc_area(node)
         elif isEllipse(node):
             c = node.center
+            a = calc_area(node)
         if c is not None and bb is not None:
             p = tx.apply_to_point(c)
             hwh = (bb.width + bb.height) * 0.5
@@ -70,6 +84,8 @@ class SaveAddresses(AddressTree):
             bb = bb.resize(dx, 0)
         if p is not None:
             self._save_address2(astr, p.x, p.y, bb, node.href)
+            if a is not None:
+                self._save_address_area(astr, a)
 
     def _save_addresses(self, node: inkex.Group, prefix: str, label: str) -> None:
         self.msg("=== _save_addresses@SaveAddresses")
@@ -110,7 +126,11 @@ class SaveAddresses(AddressTree):
     def _get_addresses_coords(self) -> AddressCoords:
         j: AddressCoords = {}
         for astr, ((x, y), _bb, _href) in self._addresses.items():
-            j[astr] = xy2v(x, y)
+            v = xy2v(x, y)
+            if astr in self._all_address_areas:
+                area = self._all_address_areas[astr]
+                v["area"] = round(area, 2)
+            j[astr] = v
         return j
 
     def _get_origin(self) -> V | None:
@@ -128,6 +148,7 @@ class SaveAddresses(AddressTree):
         j: V = {
             "x": c.x,
             "y": c.y,
+            "area": None,
         }
         return j
 

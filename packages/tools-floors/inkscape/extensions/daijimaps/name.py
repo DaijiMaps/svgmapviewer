@@ -29,6 +29,7 @@ def draw_label2(
     t.label = text
     t.update(
         **{
+            "transform": f"scale({str(s)}) translate(0, {str(-dy)})",
             "font-family": "'Noto Sans'",
             # "-inkscape-font-specification": "'Noto Sans Ultra-Light'",
             "font-size": f"{size}",
@@ -40,12 +41,12 @@ def draw_label2(
             "data-dy": str(dy),
         }
     )
-    for txt in words:
+    for idx, txt in enumerate(words):
         ts = inkex.Tspan()
         ts.text = txt
         ts.update(
             **{
-                "dy": 0,
+                "y": dy + (size * 1.25) * idx,
                 "sodipodi:role": "line",
             }
         )

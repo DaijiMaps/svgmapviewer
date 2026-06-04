@@ -106,6 +106,7 @@ class ResolveLabels(daijimaps.resolve_labels.ResolveLabels):
                 continue
             # XXX TODO Support multiple addresses for a name
             (address, xy) = addresses[0]
+            self.msg(f"!!!\nxy = {xy}\n!!!")
             if address is None:
                 self.msg(f"_unresolved_labels: {name} {text_element}: no address")
                 continue
