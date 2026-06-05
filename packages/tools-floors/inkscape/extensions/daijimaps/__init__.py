@@ -29,14 +29,14 @@ from .resolve_names import ResolveNames
 from .save_addresses import SaveAddresses
 
 from .types import (
-    Address,
-    AddressNames,
+    AddressV,
+    AddressNamesV,
     AddressString,
-    Addresses,
-    Name,
-    NameAddresses,
+    AddressesV,
+    NameV,
+    NameAddressesV,
     NameString,
-    Names,
+    NamesV,
     XY,
 )
 
@@ -69,13 +69,13 @@ __all__ = [
     # .save_addresses
     SaveAddresses,
     # .types
-    Address,
-    AddressNames,
+    AddressV,
+    AddressNamesV,
     AddressString,
-    Addresses,
-    Name,
-    NameAddresses,
+    AddressesV,
+    NameV,
+    NameAddressesV,
     NameString,
-    Names,
+    NamesV,
     XY,
 ]

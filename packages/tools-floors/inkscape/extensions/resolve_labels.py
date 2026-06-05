@@ -48,8 +48,10 @@ class ResolveLabels(daijimaps.resolve_labels.ResolveLabels):
         name: str,
     ) -> None:
         label = f"{name} @ {astr}"
-        ((x, y), _bb, _href) = self._addresses[astr]
-        daijimaps.move_name(unresolved_names_group, names_group, name, label, x, y)
+        (v, _bb, _href) = self._addresses[astr]
+        daijimaps.move_name(
+            unresolved_names_group, names_group, name, label, v["x"], v["y"]
+        )
 
     def _move_resolved_names(
         self, names_group: inkex.Group, unresolved_names_group: inkex.Group
@@ -88,8 +90,8 @@ class ResolveLabels(daijimaps.resolve_labels.ResolveLabels):
         # self.msg(f"_unresolved_labels: {self._unresolved_labels}")
 
         for name, text_element in self._unresolved_labels.items():
-            addresses = self._resolved_names.get(name)
-            if addresses is None:
+            name_addresses = self._resolved_names.get(name)
+            if name_addresses is None:
                 self.msg(f"_unresolved_labels: {name} {text_element}: no resolved name")
                 continue
             bb = self._bounding_boxes.get(text_element.get_id())
@@ -105,32 +107,52 @@ class ResolveLabels(daijimaps.resolve_labels.ResolveLabels):
                 self.msg(f"_unresolved_labels: {name} {text_element}: no center")
                 continue
             # XXX TODO Support multiple addresses for a name
-            (address, xy) = addresses[0]
-            self.msg(f"!!!\nxy = {xy}\n!!!")
-            if address is None:
+            (name_address, v) = name_addresses[0]
+            if name_address is None:
                 self.msg(f"_unresolved_labels: {name} {text_element}: no address")
                 continue
-            (x, y) = xy
+            area = (
+                None
+                if name_address not in self._address_areas
+                else self._address_areas[name_address]
+            )
+            self.msg(f"!!!\nv = {v}\narea = {area}\n!!!")
             dcx = -mm_from_px(c.x)  # XXX unit
             dcy = -mm_from_px(c.y)  # XXX unit
-            self.msg(f"_unresolved_labels: {name}@{xy} -> {c} ({x + dcx}, {y + dcy})")
+            self.msg(
+                f"_unresolved_labels: {name}@{v} -> {c} ({v['x'] + dcx}, {v['y'] + dcy})"
+            )
             # t = text_element.transform
             s = text_element.get("data-s")
             s = float(s) if s is not None else 1.0
             s = math.sqrt(math.sqrt(s))
+
+            # XXX
+            # XXX
+            # XXX
+            # XXX
+            # XXX
             t2 = (
                 # t.add_translate(dcx, dcy).add_translate(x, y)
                 # if t is not None
                 # else
-                inkex.Transform(f"translate({x},{y}) scale({s}) translate({dcx},{dcy})")
+                inkex.Transform(
+                    f"translate({v['x']},{v['y']}) scale({s}) translate({dcx},{dcy})"
+                )
             )
+            # XXX
+            # XXX
+            # XXX
+            # XXX
+            # XXX
+
             text_element.transform = t2
-            text_element.set("data-x", str(round(x, 2)))
-            text_element.set("data-y", str(round(y, 2)))
+            text_element.set("data-x", str(round(v["x"], 2)))
+            text_element.set("data-y", str(round(v["y"], 2)))
             text_element.set("data-w", str(round(w, 2)))
             text_element.set("data-h", str(round(h, 2)))
 
-            text_element.label = f"{name} @ {address}"
+            text_element.label = f"{name} @ {name_address}"
 
             parent = text_element.getparent()
             if parent is not None:

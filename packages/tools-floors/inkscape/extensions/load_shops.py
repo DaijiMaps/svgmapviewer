@@ -17,8 +17,10 @@ class LoadShops(daijimaps.ResolveNames):
         name: str,
     ) -> None:
         label = f"{name} @ {astr}"
-        ((x, y), _bb, _href) = self._addresses[astr]
-        daijimaps.move_name(unresolved_names_group, names_group, name, label, x, y)
+        (v, _bb, _href) = self._addresses[astr]
+        daijimaps.move_name(
+            unresolved_names_group, names_group, name, label, v["x"], v["y"]
+        )
 
     def _move_resolved_names(
         self, names_group: inkex.Group, unresolved_names_group: inkex.Group

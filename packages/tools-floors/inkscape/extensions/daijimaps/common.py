@@ -1,6 +1,6 @@
 import os
 
-from .types import Address, AddressString, V
+from .types import AddressV, AddressString, V
 
 
 # XXX prefer 1 to 1.0
@@ -19,14 +19,14 @@ def xy2v(x, y) -> V:
     }
 
 
-def a2astr(axy: Address) -> AddressString | None:
+def a2astr(axy: AddressV) -> AddressString | None:
     (astr, _xy) = axy
     return astr
 
 
-def a2v(axy: Address) -> V:
-    (_a, (x, y)) = axy
-    return xy2v(x, y)
+def a2v(axy: AddressV) -> V:
+    (_a, v) = axy
+    return v
 
 
 def find_layer_file(dir: str, layer: str, prefix: str, suffix: str) -> str | None:

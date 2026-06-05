@@ -66,7 +66,9 @@ class FixupTexts(inkex.EffectExtension):
 
     def _fixupTextElement(self, elem: inkex.TextElement) -> None:
         parent = elem.getparent()
-        plabel = parent.label
+        if parent is None:
+            return
+        plabel = None if not hasattr(parent, "label") else parent.label
         if plabel is None:
             self.msg(f"skipping unknown text (id={elem.get_id()}, label={elem.label})")
             return

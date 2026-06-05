@@ -9,7 +9,7 @@ from lxml import etree
 from .visit_parents import _visit_parents, CONT, SKIP, Visit, Tree, Parents
 from .types import (
     AddressArea,
-    AddressPos,
+    AddressPosV,
     JsonGlobalPaths,
     JsonLayerPaths,
     Links,
@@ -20,12 +20,12 @@ from .types import (
 class AddressTree(inkex.EffectExtension):
     _layers: list[inkex.Group] = []
 
-    _addresses: AddressPos = {}
-    _all_addresses: AddressPos = {}
-    _points: PosAddress = {}
-    _all_points: PosAddress = {}
+    _addresses: AddressPosV = {}
+    _all_addresses: AddressPosV = {}
     _address_areas: AddressArea = {}
     _all_address_areas: AddressArea = {}
+    _points: PosAddress = {}
+    _all_points: PosAddress = {}
     _links: Links = {}
 
     # XXX address <g> id

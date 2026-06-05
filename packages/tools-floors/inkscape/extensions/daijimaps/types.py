@@ -17,30 +17,32 @@ class Box(TypedDict):
 
 type Url = str
 
-type AddressPosEntry = tuple[XY, inkex.BoundingBox, Url]
+# type AddressPosEntry = tuple[XY, inkex.BoundingBox, Url]
 type AddressPosEntryV = tuple[V, inkex.BoundingBox, Url]
-type AddressPos = dict[AddressString, AddressPosEntry]
+# type AddressPos = dict[AddressString, AddressPosEntry]
 type AddressPosV = dict[AddressString, AddressPosEntryV]
-type PosAddress = dict[XY, list[AddressString]]
-type PosAddressV = dict[V, list[AddressString]]
 type AddressArea = dict[AddressString, float]
+
+# XXX XY for hashing
+type XY = tuple[float, float]
+type PosAddress = dict[XY, list[AddressString]]
+# type PosAddressV = dict[V, list[AddressString]]
 
 type AddressString = str
 type NameString = str
-type XY = tuple[float, float]
 
-type Address = tuple[AddressString | None, XY]
+# type Address = tuple[AddressString | None, XY]
 type AddressV = tuple[AddressString | None, V]
-type Addresses = list[Address]
+# type Addresses = list[Address]
 type AddressesV = list[AddressV]
-type NameAddresses = dict[NameString, Addresses]
+# type NameAddresses = dict[NameString, Addresses]
 type NameAddressesV = dict[NameString, AddressesV]
 
-type Name = tuple[NameString, XY]
+# type Name = tuple[NameString, XY]
 type NameV = tuple[NameString, V]
-type Names = list[Name]
+# type Names = list[Name]
 type NamesV = list[NameV]
-type AddressNames = dict[AddressString, Names]
+# type AddressNames = dict[AddressString, Names]
 type AddressNamesV = dict[AddressString, NamesV]
 
 
@@ -110,17 +112,17 @@ class JsonLayerPaths(TypedDict):
 
 __all__ = [
     # .address_tree
-    Address,
+    # Address,
     AddressV,
     AddressArea,
-    AddressNames,
+    # AddressNames,
     AddressNamesV,
-    AddressPos,
-    AddressPosEntry,
+    # AddressPos,
+    # AddressPosEntry,
     AddressPosEntryV,
     AddressPosV,
     AddressString,
-    Addresses,
+    # Addresses,
     AddressesV,
     Box,
     FacilitiesJson,
@@ -130,12 +132,12 @@ __all__ = [
     FloorsAddressesJson,
     FloorsNamesJson,
     Links,
-    Name,
-    NameAddresses,
+    # Name,
+    # NameAddresses,
     NameAddressesV,
     NameString,
     NameV,
-    Names,
+    # Names,
     NamesV,
     AddressCoords,
     TextInfoJson,

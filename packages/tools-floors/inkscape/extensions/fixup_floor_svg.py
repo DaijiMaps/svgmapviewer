@@ -15,12 +15,12 @@ class FixupFloorSvg(inkex.EffectExtension):
 
                 # 2. remove Shops
                 for child in list(content):
-                    if child.label == "Shops":
+                    if hasattr(child, "label") and child.label == "Shops":
                         content.remove(child)
 
                 # 3. remove (Labels)
                 for child in list(content):
-                    if child.label == "(Labels)":
+                    if hasattr(child, "label") and child.label == "(Labels)":
                         content.remove(child)
 
 
