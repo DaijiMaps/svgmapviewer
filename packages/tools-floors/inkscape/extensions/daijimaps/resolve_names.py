@@ -108,8 +108,14 @@ class ResolveNames(SaveAddresses):
     def _get_floors_addresses(self) -> FloorsAddressesJson:
         j: FloorsAddressesJson = {}
         for astr in self._addresses:
-            ((x, y), _bb, _url) = self._addresses[astr]
-            j[astr] = xy2v(x, y)
+            (v, _bb, _url) = self._addresses[astr]
+            p = None if astr not in self._address_areas else self._address_areas[astr]
+            if p is not None:
+                v["area"] = p["area"]
+                v["rx"] = p["rx"]
+                v["ry"] = p["ry"]
+                v["rotate"] = p["rotate"]
+            j[astr] = v
         return j
 
     def _get_floors_names(self) -> FloorsNamesJson:

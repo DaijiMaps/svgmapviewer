@@ -1,4 +1,5 @@
 import json
+import math
 import os
 import re
 from typing import Any
@@ -11,6 +12,7 @@ from .common import xy2v
 from .guards import isCircle, isEllipse, isGroup, isRectangle, isUse
 from .types import (
     AddressCoords,
+    AddressProps,
     AddressString,
     Box,
     FacilitiesJson,
@@ -55,6 +57,9 @@ class SaveAddresses(AddressTree):
             "x": px,
             "y": py,
             "area": None,
+            "rx": None,
+            "ry": None,
+            "rotate": None,
         }
         self._addresses[astr] = (p, bb, href)
         self._all_addresses[astr] = (p, bb, href)
@@ -67,39 +72,49 @@ class SaveAddresses(AddressTree):
             self._all_points[xy] = []
         self._all_points[xy].append(astr)
 
-    def _save_address_area(self, astr: AddressString, a: float) -> None:
-        self._address_areas[astr] = a
-        self._all_address_areas[astr] = a
+    def _save_address_area(
+        self, astr: AddressString, a: float, rx: float, ry: float
+    ) -> None:
+        p: AddressProps = {
+            "area": a,
+            "rx": float(rx),
+            "ry": float(ry),
+            "rotate": None,
+        }
+        self._address_areas[astr] = p
+        self._all_address_areas[astr] = p
 
     def _save_address1(self, node: inkex.BaseElement, prefix: str, label: str) -> None:
         astr = f"{prefix}{label}-{node.label}"
         bb: inkex.BoundingBox = node.shape_box()
         c: inkex.ImmutableVector2d | None = None
         p: inkex.ImmutableVector2d | None = None
-        a = None
+        a: float | None = None
+        rx: float | None = None
+        ry: float | None = None
         tx = node.composed_transform()
         if isUse(node):
             x = float(node.get("x") or 0)
             y = float(node.get("y") or 0)
             c = inkex.ImmutableVector2d(x, y)
-            a = calc_area(node)
+            (a, rx, ry) = calc_area(node)
         elif isCircle(node):
             c = node.center
-            a = calc_area(node)
+            (a, rx, ry) = calc_area(node)
         elif isEllipse(node):
             c = node.center
-            a = calc_area(node)
+            (a, rx, ry) = calc_area(node)
         if c is not None and bb is not None:
             p = tx.apply_to_point(c)
             hwh = (bb.width + bb.height) * 0.5
             w = min(bb.width, hwh)
             dx = (w * 0.8 - bb.width) * 0.5
             bb = bb.resize(dx, 0)
-        self.msg(f"=== _save_address1: {astr} p={p} a={a}")
+        self.msg(f"=== _save_address1: {astr} p={p} a={a} rx={rx} ry={ry}")
         if p is not None:
             self._save_address2(astr, p.x, p.y, bb, node.href)
-            if a is not None:
-                self._save_address_area(astr, a)
+            if a is not None and rx is not None and ry is not None:
+                self._save_address_area(astr, a, rx, ry)
 
     def _save_addresses(self, node: inkex.Group, prefix: str, label: str) -> None:
         self.msg("=== _save_addresses@SaveAddresses")
@@ -141,8 +156,17 @@ class SaveAddresses(AddressTree):
         j: AddressCoords = {}
         for astr, (v, _bb, _href) in self._addresses.items():
             if astr in self._all_address_areas:
-                area = self._all_address_areas[astr]
-                v["area"] = round(area, 2)
+                p = self._all_address_areas[astr]
+                area = p["area"]
+                rx: float | None = p["rx"]
+                ry: float | None = p["ry"]
+                if area is not None:
+                    v["area"] = round(area, 2)
+                if rx is not None:
+                    v["rx"] = round(rx, 2)
+                if ry is not None:
+                    v["ry"] = round(ry, 2)
+                v["rotate"] = None
             j[astr] = v
         return j
 
@@ -162,6 +186,9 @@ class SaveAddresses(AddressTree):
             "x": c.x,
             "y": c.y,
             "area": None,
+            "rx": None,
+            "ry": None,
+            "rotate": None,
         }
         return j
 

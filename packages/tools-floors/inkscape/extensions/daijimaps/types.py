@@ -6,6 +6,9 @@ class V(TypedDict):
     x: float
     y: float
     area: float | None
+    rx: float | None
+    ry: float | None
+    rotate: float | None
 
 
 class Box(TypedDict):
@@ -15,13 +18,21 @@ class Box(TypedDict):
     height: float
 
 
+class AddressProps(TypedDict):
+    area: float | None
+    rx: float | None
+    ry: float | None
+    rotate: float | None
+
+
 type Url = str
+
 
 # type AddressPosEntry = tuple[XY, inkex.BoundingBox, Url]
 type AddressPosEntryV = tuple[V, inkex.BoundingBox, Url]
 # type AddressPos = dict[AddressString, AddressPosEntry]
 type AddressPosV = dict[AddressString, AddressPosEntryV]
-type AddressArea = dict[AddressString, float]
+type AddressArea = dict[AddressString, AddressProps]
 
 # XXX XY for hashing
 type XY = tuple[float, float]
@@ -121,6 +132,7 @@ __all__ = [
     # AddressPosEntry,
     AddressPosEntryV,
     AddressPosV,
+    AddressProps,
     AddressString,
     # Addresses,
     AddressesV,

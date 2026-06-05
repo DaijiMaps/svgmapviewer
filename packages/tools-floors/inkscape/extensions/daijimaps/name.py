@@ -164,6 +164,9 @@ def read_name(node: inkex.BaseElement) -> None | NameEntry:
         # XXX
         # XXX
         "area": None,
+        "rx": None,
+        "ry": None,
+        "rotate": None,
         # XXX
         # XXX
         # XXX
