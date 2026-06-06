@@ -15,6 +15,7 @@ from .guards import (
 from .name import (
     draw_label,
     draw_label2,
+    draw_label3,
     draw_name,
     move_name,
     preferInt,
@@ -57,6 +58,7 @@ __all__ = [
     # .name
     draw_label,
     draw_label2,
+    draw_label3,
     draw_name,
     move_name,
     preferInt,

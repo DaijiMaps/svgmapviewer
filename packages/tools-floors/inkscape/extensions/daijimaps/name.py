@@ -3,7 +3,7 @@
 
 import inkex
 
-from .types import AddressString, NameString, V
+from .types import AddressString, NameString, TextInfoJson, V
 
 
 def preferInt(n: float) -> float | int:
@@ -51,6 +51,20 @@ def draw_label2(
             }
         )
         t.append(ts)
+    return t
+
+
+def draw_label3(info: TextInfoJson) -> inkex.TextElement:
+    labels: list[str] = []
+    t = inkex.TextElement()
+    t.update(**info["attrs"])
+    for tspan in info["children"]:
+        ts = inkex.Tspan()
+        ts.text = tspan["text"]
+        ts.update(**tspan["attrs"])
+        t.append(ts)
+        labels.append(tspan["text"])
+    t.label = " ".join(labels)
     return t
 
 
@@ -196,6 +210,7 @@ def move_label(
 __all__ = [
     draw_label,
     draw_label2,
+    draw_label3,
     draw_name,
     move_name,
     read_name,

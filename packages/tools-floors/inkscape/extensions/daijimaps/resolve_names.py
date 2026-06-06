@@ -111,10 +111,17 @@ class ResolveNames(SaveAddresses):
             (v, _bb, _url) = self._addresses[astr]
             p = None if astr not in self._address_areas else self._address_areas[astr]
             if p is not None:
-                v["area"] = p["area"]
-                v["rx"] = p["rx"]
-                v["ry"] = p["ry"]
-                v["rotate"] = p["rotate"]
+                area = p["area"]
+                rx = p["rx"]
+                ry = p["ry"]
+                rotate = p["rotate"]
+                if area is not None:
+                    v["area"] = round(area, 2)
+                if rx is not None:
+                    v["rx"] = round(rx, 2)
+                if ry is not None:
+                    v["ry"] = round(ry, 2)
+                v["rotate"] = rotate
             j[astr] = v
         return j
 
