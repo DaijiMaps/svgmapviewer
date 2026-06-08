@@ -9,6 +9,7 @@ import typing
 
 LAYER_DEFAULT = 'Main'
 LINE_HEIGHT = 1.25
+LONG_ARATIO_THRESHOLD = 4
 FONT_FAMILY="'Noto Sans', sans-serif"
 FONT_SIZE = 16
 FONT_WEIGHT = 200
@@ -145,9 +146,7 @@ def calc_transform(point: FloorAddress, name: str) -> (str, bool):
     ry = point['ry']
 
     aratio = rx / ry if rx > ry else ry / rx
-    long = aratio > 4
-    ##if long:
-    ##    print(f"long: point={point} params={params}")
+    long = aratio > LONG_ARATIO_THRESHOLD
 
     params = name_to_params[name] if not long else name_to_params_nowrap[name]
     src = params['area']
