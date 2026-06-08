@@ -59,12 +59,14 @@ addresses: dict[str, FloorAddress] = {}
 names: dict[str, list[str]] = {}
 address_to_names: dict[str, list[str]] = {}
 name_to_params: dict[str, LabelParams] = {}
+name_to_params_nowrap: dict[str, LabelParams] = {}
 
 texts: list[LabelText] = []
 
 
 layer = 'B1F'
 labels_json = f"labels-{layer}.json"
+labels_nowrap_json = f"labels-nowrap-{layer}.json"
 floors_addresses_json = f"floors-addresses-{layer}.json"
 floors_names_json = f"floors-names-{layer}.json"
 floors_labels_json = f"floors-labels-{layer}.json"
@@ -74,6 +76,7 @@ def prepare():
     global address_to_names
     global addresses
     global name_to_params
+    global name_to_params_nowrap
     global names
     global params
 
@@ -83,6 +86,13 @@ def prepare():
         for param in params:
             name = param['name']
             name_to_params[name] = param
+
+    with open(labels_nowrap_json, "r", encoding="utf-8") as fh:
+        #global params
+        params = json.load(fh)
+        for param in params:
+            name = param['name']
+            name_to_params_nowrap[name] = param
 
     with open(floors_addresses_json, "r", encoding="utf-8") as fh:
         #global addresses
@@ -94,6 +104,73 @@ def prepare():
         for name, astrs in names.items():
             for astr in astrs:
                 address_to_names.setdefault(astr, []).append(name)
+
+
+def make_label_text(words: list[str], transform: str) -> LabelText:
+    tspans: list[LabelTspan] = []
+    for idx, word in enumerate(words):
+        tspan: LabelTspan = {
+            'attrs': {
+                'x': '0',
+                'y': f"{line_height * idx}em",
+            },
+            'text': word,
+        }
+        tspans.append(tspan)
+    text: LabelText = {
+        'attrs': {
+            'font-family': f"{font_family}",
+            'font-weight': f"{font_weight}",
+            'font-size': f"{font_size}px",
+            'text-anchor': 'middle',
+            'transform': transform,
+        },
+        'children': tspans,
+    }
+    return text
+
+
+def make_label_text_long(words: list[str], transform: str) -> LabelText:
+    name = ' '.join(words)
+    print(f"long: {name}", file=sys.stderr)
+    return make_label_text([name], transform)
+
+
+def calc_transform(point: FloorAddress, name: str) -> (str, bool):
+    dst = point['area']
+    #print(f"{name}: params.area={src} point.area={dst} s={round(s, 2)}")
+    x = point['x']
+    y = point['y']
+    rx = point['rx']
+    ry = point['ry']
+
+    aratio = rx / ry if rx > ry else ry / rx
+    long = aratio > 4
+    ##if long:
+    ##    print(f"long: point={point} params={params}")
+
+    params = name_to_params[name] if not long else name_to_params_nowrap[name]
+    src = params['area']
+    s = params['s']
+    dy = params['dy']
+
+    rotate = 0 if ry / rx < 1.01 else 90
+
+    scale2 = dst * area_ratio / src
+    scale = round(math.sqrt(scale2), 4)
+
+    return (f"translate({x}, {y}) rotate({rotate}) scale({scale}) scale({s}) translate(0, {-dy})", long)
+
+
+def proc_name(point: FloorAddress, name: str):
+    global texts
+
+    (transform, long) = calc_transform(point, name)
+    words = name.strip().split(' ')
+
+    text = make_label_text(words, transform) if not long else make_label_text_long(words, transform)
+    texts.append(text)
+
 
 def proc() -> None:
     global texts
@@ -109,48 +186,7 @@ def proc() -> None:
         # XXX
         # XXX
         # XXX
-        params = name_to_params[name]
-        src = params['area']
-        dst = point['area']
-
-        #print(f"{name}: params.area={src} point.area={dst} s={round(s, 2)}")
-        x = point['x']
-        y = point['y']
-        rx = point['rx']
-        ry = point['ry']
-        s = params['s']
-        dy = params['dy']
-        rotate = 0 if ry / rx < 1.01 else 90
-
-        scale2 = dst * area_ratio / src
-        scale = round(math.sqrt(scale2), 4)
-
-        transform = f"translate({x}, {y}) rotate({rotate}) scale({scale}) scale({s}) translate(0, {-dy})"
-        #print(f"{name}: transform={transform}")
-        words = name.strip().split(' ')
-
-        # XXX
-        tspans: list[LabelTspan] = []
-        for idx, word in enumerate(words):
-            tspan: LabelTspan = {
-                'attrs': {
-                    'x': '0',
-                    'y': f"{line_height * idx}em",
-                },
-                'text': word,
-            }
-            tspans.append(tspan)
-        text: LabelText = {
-            'attrs': {
-                'font-family': f"{font_family}",
-                'font-weight': f"{font_weight}",
-                'font-size': f"{font_size}px",
-                'text-anchor': 'middle',
-                'transform': transform,
-            },
-            'children': tspans,
-        }
-        texts.append(text)
+        proc_name(point, name)
 
 
 def main() -> None:

@@ -21,6 +21,8 @@ LINE_HEIGHT = 1.25
 
 TEXT_ID_LINE_RE = re.compile('text[0-9]+,') # inkscape -S output
 TEXT_ID_RE = re.compile('text([0-9]+)')
+TSPAN_ID_LINE_RE = re.compile('tspan[0-9]+,') # inkscape -S output
+TSPAN_ID_RE = re.compile('tspan([0-9]+)')
 
 
 ####
@@ -30,6 +32,7 @@ font_size = FONT_SIZE
 line_height = LINE_HEIGHT
 output_json = False
 use_prefix = False
+no_wrap = False
 
 
 ####
@@ -137,8 +140,8 @@ def get_name(idx) -> None | str:
     return name
 
 
-def get_num_spans(idx) -> None | list[str]:
-    numbered_name = idx_to_numbered_name[idx]
+def get_num_spans(numbered_name: str) -> None | list[str]:
+    #numbered_name = idx_to_numbered_name[idx]
     numbered_words = numbered_name.split(' ')
     #if len(numbered_words) < 2:
     #    None
@@ -146,7 +149,11 @@ def get_num_spans(idx) -> None | list[str]:
     words = numbered_words[1:] if use_prefix else numbered_words
     name = ' '.join(words)
     spans = words if name not in name_to_spans else name_to_spans[name]
-    return heads + spans
+    res = heads + spans
+    if no_wrap:
+        res = [' '.join(res)]
+        print('res', res, file=sys.stderr)
+    return res
 
 
 def write_svg_header(fh: typing.TextIO) -> None:
@@ -161,17 +168,22 @@ def write_svg_header(fh: typing.TextIO) -> None:
 def write_svg_footer(fh: typing.TextIO) -> None:
     fh.write('</svg>\n')
 
+word_to_idx = {}
+word_idx_to_boundingboxes: dict[int, BB] = {}
 
 def make_tmp_svg() -> None:
     with open(f"/tmp/gen-labels-names.svg", "w", encoding="utf-8") as fh:
         write_svg_header(fh)
-        for idx in idx_to_numbered_name:
-            spans = get_num_spans(idx)
+        word_idx = 0
+        for idx, numbered_name in idx_to_numbered_name.items():
+            spans = get_num_spans(numbered_name)
             if (spans is None):
                 continue
             fh.write(f"<text id='text{idx}' text-anchor='middle'>\n")
             for i, word in enumerate(spans):
-                fh.write(f"<tspan x='0' y='{LINE_HEIGHT * i}em'>{word}</tspan>\n")
+                fh.write(f"<tspan id='tspan{word_idx}' x='0' y='{LINE_HEIGHT * i}em'>{word}</tspan>\n")
+                word_to_idx[word] = word_idx
+                word_idx = word_idx + 1
             fh.write('</text>\n')
         write_svg_footer(fh)
 
@@ -185,10 +197,13 @@ def get_bboxes() -> None:
         bb = (float(x), float(y), float(w), float(h))
         boundingboxes[id] = bb
         m = TEXT_ID_RE.match(id)
-        if m is None:
-            continue
-        idx = int(m[1])
-        idx_to_boundingboxes[idx] = bb
+        if m is not None:
+            idx = int(m[1])
+            idx_to_boundingboxes[idx] = bb
+        m = TSPAN_ID_RE.match(id)
+        if m is not None:
+            word_idx = int(m[1])
+            word_idx_to_boundingboxes[word_idx] = bb
 
 
 def calc_params() -> None:
@@ -199,9 +214,24 @@ def calc_params() -> None:
     for idx in idx_to_boundingboxes:
         numbered_name = idx_to_numbered_name[idx]
         (x, y, w, h) = idx_to_boundingboxes[idx]
-
         a = w * h
         r = w / h
+
+        spans = get_num_spans(numbered_name)
+        if (spans is None):
+            continue
+        total_sa: float = 0
+        for word in spans:
+            word_idx = word_to_idx[word]
+            (sx, sy, sw, sh) = word_idx_to_boundingboxes[word_idx]
+            sa = sw * sh
+            #print(f"{word}: sa = {sa}", file=sys.stderr)
+            total_sa = total_sa + sa
+            #sr = sw / sh
+
+        #print(f"{numbered_name}: a = {a}; sa = {total_sa}", file=sys.stderr)
+        if total_sa != 0:
+            a = total_sa
 
         #if a > circle_area:
         #    pass # print(f"bb too big: numbered_name={numbered_name} a={a}")
@@ -223,8 +253,8 @@ def calc_params() -> None:
 def write_scaled_names_svg() -> None:
     with open(f"/tmp/scaled-names.svg", "w", encoding="utf-8") as fh:
         write_svg_header(fh)
-        for idx in idx_to_numbered_name:
-            spans = get_num_spans(idx)
+        for idx, numbered_name in idx_to_numbered_name.items():
+            spans = get_num_spans(numbered_name)
             s = math.sqrt(idx_to_scale[idx])
             dy = idx_to_dy[idx]
             fh.write(f"<text id='text{idx}' text-anchor='middle' transform='scale({s}) translate(0, {round(-dy, 2)})'>\n")
@@ -250,6 +280,13 @@ def write_scaled_names_txt() -> None:
         name = get_name(idx)
         pat = name_to_pat[name] if name in name_to_pat else ''
         s = math.sqrt(idx_to_scale[idx])
+        # XXX
+        # XXX
+        # XXX
+        s = math.sqrt(s)
+        # XXX
+        # XXX
+        # XXX
         dy = idx_to_dy[idx]
         area = idx_to_area[idx]
         l: Label = {
@@ -289,6 +326,7 @@ def main() -> None:
     global output_json
     global line_height
     global use_prefix
+    global no_wrap
 
     p = argparse.ArgumentParser()
     p.add_argument('names_txt', type=str, help='names-XXX.txt')
@@ -296,6 +334,7 @@ def main() -> None:
     p.add_argument('-j', '--json', action='store_true')
     p.add_argument('-l', '--line-height', type=float)
     p.add_argument('-p', '--prefix', action='store_true')
+    p.add_argument('-w', '--no-wrap', action='store_true')
     args = p.parse_args()
 
     if args.font_size is not None:
@@ -306,6 +345,9 @@ def main() -> None:
         use_prefix = args.prefix
     if args.line_height is not None:
         line_height = line_height
+    if args.no_wrap is not None:
+        print('no_wrap!', file=sys.stderr)
+        no_wrap = args.no_wrap
 
     # 5em circle
     global circle_area
