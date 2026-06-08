@@ -9,7 +9,7 @@ import { useFloors } from '../viewer/floors/floors-react'
 import { MAP_SVG_FLOORS } from './map-svg-react'
 
 export function RenderFloors({
-  floors,
+  floors, // FloorsConfig
   data: { origViewBox },
 }: Readonly<OsmRenderMapProps>): ReactNode {
   const { viewBox, width, height } = useLayout2()
@@ -38,14 +38,20 @@ export function RenderFloors({
                 idx={idx}
                 url={urls.get(idx)}
                 onAnimationEnd={fidxToOnAnimationEnd(idx)}
-                labels={_floor.labels}
+                labels={
+                  _floor.labels ??
+                  floors.labelsMap?.get(_floor.name.toLowerCase())
+                }
               />
               <RenderFloorLabels
                 origViewBox={origViewBox}
                 idx={idx}
                 url={urls.get(idx)}
                 onAnimationEnd={fidxToOnAnimationEnd(idx)}
-                labels={_floor.labels}
+                labels={
+                  _floor.labels ??
+                  floors.labelsMap?.get(_floor.name.toLowerCase())
+                }
               />
             </g>
           </Fragment>

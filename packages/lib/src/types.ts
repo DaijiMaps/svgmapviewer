@@ -234,18 +234,19 @@ export interface Floor {
 }
 
 export interface FloorsConfig {
-  readonly floors: readonly Floor[]
   readonly initialFidx: number
+  readonly floors: readonly Floor[]
+  readonly labelsMap?: Map<string, readonly LabelText[]> // "1F" => [...]
 }
 
 export interface LabelText {
-  attrs: Record<string, undefined | null | number | string>
-  children: readonly LabelTspan[]
+  readonly attrs: Record<string, undefined | null | number | string>
+  readonly children: readonly LabelTspan[]
 }
 
 export interface LabelTspan {
-  attrs: Record<string, undefined | null | number | string>
-  text: null | string
+  readonly attrs: Record<string, undefined | null | number | string>
+  readonly text: null | string
 }
 
 // SvgMapViewerConfigUser
