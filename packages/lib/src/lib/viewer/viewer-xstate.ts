@@ -12,6 +12,7 @@ import { notifySearch, searchCbs } from '../event-search'
 import { notifyStyle, styleCbs } from '../event-style'
 import { touchCbs } from '../event-touch'
 import { notifyUi, uiCbs } from '../event-ui'
+import { setZooming } from './layout/animation'
 import { emptyLayout } from './layout/layout'
 import {
   clearAnimation,
@@ -51,12 +52,6 @@ import {
 
 export const viewerMode: Atom<ViewerMode> = createAtom<ViewerMode>('panning')
 viewerMode.subscribe((mode: ViewerMode) => notifyStyle.mode(mode))
-
-export const viewerZooming: Atom<boolean> = createAtom<boolean>(false)
-
-function updateZooming(zooming: boolean): void {
-  viewerZooming.set(() => zooming)
-}
 
 //// viewerMachine
 
@@ -122,8 +117,8 @@ const viewerMachine = setup({
     ),
     emitSwitchDone: emit(emitSwitchDone()),
 
-    enterZooming: () => updateZooming(true),
-    exitZooming: () => updateZooming(false),
+    enterZooming: () => setZooming(true),
+    exitZooming: () => setZooming(false),
   },
 }).createMachine({
   id: 'viewer',
@@ -388,12 +383,25 @@ const viewerMachine = setup({
                 // fast sync - sync scroll NOT after resize
                 'emitSyncScroll',
               ],
-              target: 'Done',
+              target: 'Rendering2',
             },
             {
-              target: 'Done',
+              target: 'Rendering2',
             },
           ],
+        },
+        Rendering2: {
+          after: {
+            // XXX
+            // XXX
+            // XXX
+            50: {
+              target: 'Done',
+            },
+            // XXX
+            // XXX
+            // XXX
+          },
         },
         Done: {
           entry: 'clearAnimation',

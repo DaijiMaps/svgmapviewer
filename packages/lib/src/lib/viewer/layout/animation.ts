@@ -1,3 +1,4 @@
+import { createAtom, type Atom } from '@xstate/store'
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
@@ -144,6 +145,16 @@ export function animationDone(layout: Layout, a: null | Animation): Layout {
 function zoomToScale(z: Dir): number {
   return Math.pow(svgMapViewerConfig.zoomFactor, z)
 }
+
+////
+
+export const zoomingAtom: Atom<boolean> = createAtom<boolean>(false)
+
+// eslint-disable-next-line functional/functional-parameters
+export const getZooming = (): boolean => zoomingAtom.get()
+
+export const setZooming = (zooming: boolean): void =>
+  zoomingAtom.set(() => zooming)
 
 ////
 
