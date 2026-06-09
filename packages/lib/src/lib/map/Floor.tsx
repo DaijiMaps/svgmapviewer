@@ -24,7 +24,7 @@ export function RenderFloors({
   floors, // FloorsConfig
   ...rest
 }: Readonly<OsmRenderMapProps>): ReactNode {
-  const { viewBox, width, height } = useLayout2()
+  const { viewBox } = useLayout2()
 
   const ctx = useFloors()
 
@@ -32,13 +32,7 @@ export function RenderFloors({
     <></>
   ) : (
     <div className="content">
-      <svg
-        id={`${MAP_SVG_FLOORS}`}
-        className="content-svg"
-        viewBox={viewBox}
-        width={width}
-        height={height}
-      >
+      <svg id={`${MAP_SVG_FLOORS}`} className="content-svg" viewBox={viewBox}>
         {floors.floors.map((floor, idx) => (
           <Fragment key={idx}>
             <RenderFloor
@@ -53,6 +47,12 @@ export function RenderFloors({
         ))}
       </svg>
       <style>{floor_appearing_animation}</style>
+      <style>{`
+svg.content-svg {
+  width: var(--layout-scroll-width);
+  height: var(--layout-scroll-height);
+}
+`}</style>
     </div>
   )
 }

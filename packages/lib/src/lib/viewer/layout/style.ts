@@ -2,6 +2,7 @@
 /* eslint-disable functional/no-return-void */
 import type { RefObject } from 'react'
 
+import { trunc2 } from '../../utils'
 import type { Layout } from './layout-types'
 
 export const layoutRefs: Map<
@@ -15,5 +16,7 @@ export function updateLayoutRefs(layout: Readonly<Layout>): void {
     if (!e) return
     const s = e.style.setProperty.bind(e.style)
     s(`--layout-content-matrix`, layout.content.toString())
+    s(`--layout-scroll-width`, `${trunc2(layout.scroll.width)}px`)
+    s(`--layout-scroll-height`, `${trunc2(layout.scroll.height)}px`)
   })
 }

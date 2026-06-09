@@ -7,11 +7,9 @@ import { createRoot } from 'react-dom/client'
 
 import { timing_opening } from '../css'
 import { notifyGlobal } from '../event-global'
-import { trunc2 } from '../utils'
 import {
   useAppearing,
   useLayoutConfig,
-  useLayoutScroll,
   useLayoutSvgScaleS,
   useRendered,
   useShown,
@@ -50,28 +48,12 @@ function RootStyle(): ReactNode {
   will-change: opacity;
   animation: xxx-appearing 2s ${timing_opening};
 }
-@keyframes xxx-appearing {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-`
-  const scroll = useLayoutScroll()
-  const scroll_style = `
-.content {
-  width: ${trunc2(scroll.width)}px;
-  height: ${trunc2(scroll.height)}px;
-}
 `
 
   return (
     <style>
       {shown_style}
       {appearing_style}
-      {scroll_style}
     </style>
   )
 }
