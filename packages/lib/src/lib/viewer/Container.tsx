@@ -1,3 +1,4 @@
+/* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
@@ -15,10 +16,11 @@ import {
   width_100vw_height_100svh,
 } from '../css'
 import { notifyStyle } from '../event-style'
-import { useAnimationStyle, useLayoutContent } from '../style/style-react'
+import { useLayoutContent } from '../style/style-react'
 import { useOpenCloseDetailStyle } from '../ui/ui-react'
 import { useFloors } from './floors/floors-react'
 import { sendContextMenu } from './input/input'
+import { animationRefs } from './layout/animation'
 import {
   touchSendTouchEnd,
   touchSendTouchMove,
@@ -49,6 +51,12 @@ export function Container(props: Readonly<PropsWithChildren>): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
   useOpenCloseDetailStyle(ref)
   useHandleTouchMove(ref)
+  useEffect(() => {
+    animationRefs.set('container', ref)
+    return () => {
+      animationRefs.delete('container')
+    }
+  }, [])
   return (
     <div
       ref={ref}
@@ -86,6 +94,11 @@ function ContainerStyle(): ReactNode {
 
   will-change: scroll-position;
   contain: strict;
+
+  &.zooming {
+    will-change: transform;
+    animation: container-zoom 500ms ease;
+  }
 }
 @keyframes xxx-container {
   from {
@@ -95,13 +108,22 @@ function ContainerStyle(): ReactNode {
     opacity: var(--b);
   }
 }
+@keyframes container-zoom {
+  from {
+    transform-origin: var(--zoom-transform-origin-p);
+    transform: var(--zoom-transform-p);
+  }
+  to {
+    transform-origin: var(--zoom-transform-origin-q);
+    transform: var(--zoom-transform-q);
+  }
+}
 `
 
   return (
     <>
       <style>{style}</style>
       <ContentStyle />
-      <AnimationStyle />
       <FloorsStyle />
     </>
   )
@@ -119,11 +141,6 @@ function ContentStyle(): ReactNode {
   pointer-events: none;
 }
 `
-  return <style>{style}</style>
-}
-
-function AnimationStyle(): ReactNode {
-  const style = useAnimationStyle()
   return <style>{style}</style>
 }
 

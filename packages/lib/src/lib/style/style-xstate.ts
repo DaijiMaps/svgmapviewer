@@ -8,7 +8,7 @@ import { findRadius } from '../distance'
 import { scrollCbs } from '../event-scroll'
 import { styleCbs } from '../event-style'
 import { vecZero } from '../vec/prefixed'
-import { animationStyle } from '../viewer/layout/animation'
+import { updateAnimationRefs } from '../viewer/layout/animation'
 import { fromSvgToScroll } from '../viewer/layout/coord'
 import { emptyLayout, type Layout } from '../viewer/layout/layout'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
@@ -131,7 +131,10 @@ const styleMachine = setup({
     Appearing: {
       on: {
         'STYLE.ANIMATION.END': {
-          actions: assign({ appearing: false, shown: true }),
+          actions: [
+            () => updateAnimationRefs(null),
+            assign({ appearing: false, shown: true }),
+          ],
           target: 'Idle',
         },
       },
@@ -139,10 +142,12 @@ const styleMachine = setup({
     Idle: {
       on: {
         'STYLE.ANIMATION': {
-          actions: assign({
-            animation: ({ event: { animation } }) => animationStyle(animation),
-            animating: true,
-          }),
+          actions: [
+            ({ event: { animation } }) => updateAnimationRefs(animation),
+            assign({
+              animating: true,
+            }),
+          ],
           target: 'Animating',
         },
         'LAYOUT.DONE': {
@@ -155,10 +160,13 @@ const styleMachine = setup({
     Animating: {
       on: {
         'STYLE.ANIMATION.END': {
-          actions: assign({
-            animation: null,
-            animating: false,
-          }),
+          actions: [
+            () => updateAnimationRefs(null),
+            assign({
+              animation: null,
+              animating: false,
+            }),
+          ],
           target: 'Idle',
         },
       },
