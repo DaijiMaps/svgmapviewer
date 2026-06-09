@@ -3,9 +3,11 @@
 import { useEffect } from 'react'
 import type { SvgMapViewerConfigUser } from 'svgmapviewer'
 
+import { main } from './main'
+
 export function SvgMapViewer(props: Readonly<SvgMapViewerConfigUser>) {
   useEffect(() => {
-    import('./main').then((appMain) => appMain.main(props))
+    main(props)
   }, [props])
 
   return (

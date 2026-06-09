@@ -127,7 +127,12 @@ export const floorsSchema = z.array(floorSchema)
 export const floorsConfigSchema = z.object({
   initialFidx: z.number(),
   floors: z.array(floorSchema),
+  //labelsMap: z.map(z.string(), z.array(labelTextSchema)).optional(),
 })
+
+// labelsSchema
+
+export const labelsSchema = z.array(labelTextSchema)
 
 // svgMapViewerConfigSchema
 
