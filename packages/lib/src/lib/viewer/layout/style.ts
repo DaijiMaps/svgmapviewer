@@ -15,5 +15,7 @@ export function updateLayoutRefs(layout: Readonly<Layout>): void {
     if (!e) return
     const s = e.style.setProperty.bind(e.style)
     s(`--layout-content-matrix`, layout.content.toString())
+    s(`--layout-scroll-width`, `${layout.scroll.width}px`)
+    s(`--layout-scroll-height`, `${layout.scroll.height}px`)
   })
 }

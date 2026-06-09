@@ -105,6 +105,8 @@ const style: string = `
     transform: var(--layout-content-matrix) translate3d(0, 0, 0);
     transform-origin: left top;
     pointer-events: none;
+    width: var(--layout-scroll-width);
+    height: var(--layout-scroll-height);
   }
 }
 @keyframes xxx-container {
@@ -123,6 +125,14 @@ const style: string = `
   to {
     transform-origin: var(--zoom-transform-origin-q);
     transform: var(--zoom-transform-q);
+  }
+}
+@keyframes xxx-appearing {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 `

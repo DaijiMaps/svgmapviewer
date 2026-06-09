@@ -26,9 +26,6 @@ export function useLayout(): Layout {
 export function useLayoutContainer(): BoxBox {
   return useStyleContext((ctx) => ctx.layout.container)
 }
-export function useLayoutScroll(): BoxBox {
-  return useStyleContext((ctx) => ctx.layout.scroll)
-}
 export function useMode(): string {
   return useStyleContext((ctx) => ctx.mode)
 }
