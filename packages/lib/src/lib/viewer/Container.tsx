@@ -18,7 +18,6 @@ import {
 import { notifyStyle } from '../event-style'
 import { useLayoutContent } from '../style/style-react'
 import { useOpenCloseDetailStyle } from '../ui/ui-react'
-import { useFloors } from './floors/floors-react'
 import { sendContextMenu } from './input/input'
 import { animationRefs } from './layout/animation'
 import {
@@ -124,7 +123,6 @@ function ContainerStyle(): ReactNode {
     <>
       <style>{style}</style>
       <ContentStyle />
-      <FloorsStyle />
     </>
   )
 }
@@ -144,10 +142,12 @@ function ContentStyle(): ReactNode {
   return <style>{style}</style>
 }
 
+/*
 function FloorsStyle(): ReactNode {
   const { style } = useFloors()
   return style === null ? <></> : <style>{style}</style>
 }
+*/
 
 export function isContainerRendered(): boolean {
   return document.querySelector('.container') !== null

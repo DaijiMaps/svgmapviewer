@@ -1,20 +1,32 @@
-/* eslint-disable functional/functional-parameters */
-import { Fragment, type ReactNode } from 'react'
+/* eslint-disable functional/no-return-void */
 
-import { type LabelText, type OsmRenderMapProps } from '../../types'
+/* eslint-disable functional/functional-parameters */
+import { Fragment, useCallback, type ReactNode } from 'react'
+
+import {
+  type Floor,
+  type LabelsMap,
+  type LabelText,
+  type OsmRenderMapProps,
+} from '../../types'
 import { boxToViewBox2, type BoxBox } from '../box/prefixed'
 import type { Cb } from '../cb'
+import { floor_appearing_animation } from '../css'
 import { useLayout2 } from '../style/style-react'
-import { useFloors } from '../viewer/floors/floors-react'
+import {
+  registerFloorRef,
+  useFloors,
+  type UseFloorsReturn,
+} from '../viewer/floors/floors-react'
 import { MAP_SVG_FLOORS } from './map-svg-react'
 
 export function RenderFloors({
   floors, // FloorsConfig
-  data: { origViewBox },
+  ...rest
 }: Readonly<OsmRenderMapProps>): ReactNode {
   const { viewBox, width, height } = useLayout2()
 
-  const { fidxToOnAnimationEnd, urls } = useFloors()
+  const ctx = useFloors()
 
   return floors === undefined ? (
     <></>
@@ -27,37 +39,63 @@ export function RenderFloors({
         width={width}
         height={height}
       >
-        {floors.floors.map((_floor, idx) => (
+        {floors.floors.map((floor, idx) => (
           <Fragment key={idx}>
-            <g
-              className={`floor fidx-${idx}`}
-              onAnimationEnd={fidxToOnAnimationEnd(idx)}
-            >
-              <RenderFloorImage
-                origViewBox={origViewBox}
-                idx={idx}
-                url={urls.get(idx)}
-                onAnimationEnd={fidxToOnAnimationEnd(idx)}
-                labels={
-                  _floor.labels ??
-                  floors.labelsMap?.get(_floor.name.toLowerCase())
-                }
-              />
-              <RenderFloorLabels
-                origViewBox={origViewBox}
-                idx={idx}
-                url={urls.get(idx)}
-                onAnimationEnd={fidxToOnAnimationEnd(idx)}
-                labels={
-                  _floor.labels ??
-                  floors.labelsMap?.get(_floor.name.toLowerCase())
-                }
-              />
-            </g>
+            <RenderFloor
+              floors={floors}
+              {...rest}
+              ctx={ctx}
+              floor={floor}
+              idx={idx}
+              labelsMap={floors.labelsMap}
+            />
           </Fragment>
         ))}
       </svg>
+      <style>{floor_appearing_animation}</style>
     </div>
+  )
+}
+
+function RenderFloor({
+  data: { origViewBox },
+  ctx: { fidxToOnAnimationEnd, urls },
+  floor,
+  idx,
+  labelsMap,
+}: Readonly<
+  OsmRenderMapProps & { ctx: UseFloorsReturn } & {
+    floor: Floor
+    idx: number
+    labelsMap: LabelsMap | undefined
+  }
+>): ReactNode {
+  // stable callback
+  const register = useCallback(
+    (e: Readonly<SVGGElement | null>) => registerFloorRef(e, idx),
+    [idx]
+  )
+  return (
+    <g
+      ref={/* stable callback */ register}
+      className={`floor fidx-${idx}`}
+      onAnimationEnd={fidxToOnAnimationEnd(idx)}
+    >
+      <RenderFloorImage
+        origViewBox={origViewBox}
+        idx={idx}
+        url={urls.get(idx)}
+        onAnimationEnd={fidxToOnAnimationEnd(idx)}
+        labels={floor.labels ?? labelsMap?.get(floor.name.toLowerCase())}
+      />
+      <RenderFloorLabels
+        origViewBox={origViewBox}
+        idx={idx}
+        url={urls.get(idx)}
+        onAnimationEnd={fidxToOnAnimationEnd(idx)}
+        labels={floor.labels ?? labelsMap?.get(floor.name.toLowerCase())}
+      />
+    </g>
   )
 }
 

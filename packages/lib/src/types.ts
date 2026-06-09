@@ -233,10 +233,12 @@ export interface Floor {
   readonly labels?: readonly LabelText[]
 }
 
+export type LabelsMap = Map<string, readonly LabelText[]>
+
 export interface FloorsConfig {
   readonly initialFidx: number
   readonly floors: readonly Floor[]
-  readonly labelsMap?: Map<string, readonly LabelText[]> // "1F" => [...]
+  readonly labelsMap?: LabelsMap
 }
 
 export interface LabelText {
