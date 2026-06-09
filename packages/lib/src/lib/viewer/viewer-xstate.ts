@@ -52,6 +52,12 @@ import {
 export const viewerMode: Atom<ViewerMode> = createAtom<ViewerMode>('panning')
 viewerMode.subscribe((mode: ViewerMode) => notifyStyle.mode(mode))
 
+export const viewerZooming: Atom<boolean> = createAtom<boolean>(false)
+
+function updateZooming(zooming: boolean): void {
+  viewerZooming.set(() => zooming)
+}
+
 //// viewerMachine
 
 const viewerMachine = setup({
@@ -115,6 +121,9 @@ const viewerMachine = setup({
       emitSwitch(context, params)
     ),
     emitSwitchDone: emit(emitSwitchDone()),
+
+    enterZooming: () => updateZooming(true),
+    exitZooming: () => updateZooming(false),
   },
 }).createMachine({
   id: 'viewer',
@@ -320,6 +329,8 @@ const viewerMachine = setup({
       id: 'Zooming',
       initial: 'Stopping',
       onDone: 'Idle',
+      entry: 'enterZooming',
+      exit: 'exitZooming',
       states: {
         // XXX
         // XXX stop scroll before really start zooming
