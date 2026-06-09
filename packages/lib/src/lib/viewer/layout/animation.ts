@@ -147,15 +147,6 @@ function zoomToScale(z: Dir): number {
 
 ////
 
-/*
-export function animationToMatrix(a: Animation): AnimationMatrix {
-  const from = a.q.from
-  const to = a.q.to
-  const origin = a.q.origin
-  return { from, to, origin }
-}
-*/
-
 export const animationRefs: Map<
   string,
   RefObject<HTMLDivElement | null>
@@ -181,27 +172,3 @@ export function updateAnimationRefs(a: null | Readonly<AnimationMatrix>): void {
     }
   })
 }
-
-/*
-export function animationStyle(a: null | Readonly<AnimationMatrix>): string {
-  const style = a === null ? '' : css(a.from, a.to, a.origin)
-  return style
-}
-
-function css(
-  p: Readonly<DOMMatrixReadOnly>,
-  q: Readonly<DOMMatrixReadOnly>,
-  o: null | Vec
-): string {
-  return `
-.container {
-  will-change: transform;
-  animation: container-zoom 500ms ease;
-  --zoom-transform-origin-p: ${o === null ? `left top` : `${o.x}px ${o.y}px`};
-  --zoom-transform-origin-q: ${o === null ? `left top` : `${o.x}px ${o.y}px`};
-  --zoom-transform-p: ${p.toString()} translate3d(0px, 0px, 0px);
-  --zoom-transform-q: ${q.toString()} translate3d(0px, 0px, 0px);
-}
-`
-}
-*/
