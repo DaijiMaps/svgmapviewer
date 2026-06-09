@@ -68,6 +68,10 @@ function ContainerStyle(): ReactNode {
   will-change: scroll-position;
   contain: strict;
 
+  &.animating {
+    pointer-events: none;
+  }
+
   /*
   &.not-animating {
     &.closed {
