@@ -83,7 +83,6 @@ const styleMachine = setup({
       end: vecZero,
     },
     mode: 'panning',
-    animation: null,
   },
   on: {
     'STYLE.LAYOUT': {
@@ -163,7 +162,6 @@ const styleMachine = setup({
           actions: [
             () => updateAnimationRefs(null),
             assign({
-              animation: null,
               animating: false,
             }),
           ],

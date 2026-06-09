@@ -32,9 +32,6 @@ export function useLayoutScroll(): BoxBox {
 export function useMode(): string {
   return useStyleContext((ctx) => ctx.mode)
 }
-export function useAnimationStyle(): null | string {
-  return useStyleContext((ctx) => ctx.animation)
-}
 export function useGeoPoint(): VecVec {
   return useStyleContext((ctx) => ctx.geoPoint)
 }
