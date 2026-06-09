@@ -71,7 +71,6 @@ const styleMachine = setup({
     animating: false,
     layout: emptyLayout,
     zoom: 1,
-    rotate: null,
     svgMatrix: new DOMMatrixReadOnly(),
     geoMatrix: new DOMMatrixReadOnly(),
     geoPoint: vecZero,

@@ -37,7 +37,6 @@ export interface StyleContext {
   animating: boolean
   layout: Layout
   zoom: number
-  rotate: null | number
   svgMatrix: DOMMatrixReadOnly
   geoMatrix: DOMMatrixReadOnly
   geoPoint: VecVec

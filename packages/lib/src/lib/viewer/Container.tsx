@@ -46,10 +46,7 @@ function useHandleTouchMove(
   }, [ref])
 }
 
-export function Container(props: Readonly<PropsWithChildren>): ReactNode {
-  const ref = useRef<HTMLDivElement>(null)
-  useOpenCloseDetailStyle(ref)
-  useHandleTouchMove(ref)
+function useStyleRefs(ref: Readonly<RefObject<HTMLDivElement | null>>): void {
   useEffect(() => {
     animationRefs.set('container', ref)
     layoutRefs.set('container', ref)
@@ -57,7 +54,14 @@ export function Container(props: Readonly<PropsWithChildren>): ReactNode {
       layoutRefs.delete('container')
       animationRefs.delete('container')
     }
-  }, [])
+  }, [ref])
+}
+
+export function Container(props: Readonly<PropsWithChildren>): ReactNode {
+  const ref = useRef<HTMLDivElement>(null)
+  useOpenCloseDetailStyle(ref)
+  useHandleTouchMove(ref)
+  useStyleRefs(ref)
   return (
     <div
       ref={ref}

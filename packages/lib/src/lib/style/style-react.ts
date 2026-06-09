@@ -46,9 +46,6 @@ export function useLayoutSvgScaleS(): number {
 export function useZoom(): number {
   return useStyleContext((ctx) => ctx.zoom)
 }
-export function useRotate(): null | number {
-  return useStyleContext((ctx) => ctx.rotate)
-}
 export function useLayout2(): {
   viewBox: string
 } {
