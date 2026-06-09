@@ -1,5 +1,4 @@
 /* eslint-disable functional/immutable-data */
-/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
@@ -18,32 +17,15 @@ import {
 import { notifyStyle } from '../event-style'
 import { useOpenCloseDetailStyle } from '../ui/ui-react'
 import { sendContextMenu } from './input/input'
-import { animationRefs, getZooming } from './layout/animation'
+import { animationRefs } from './layout/animation'
 import { layoutRefs } from './layout/style'
+import { useTouchMoveZoomingLock } from './touch/event'
 import {
   touchSendTouchEnd,
   touchSendTouchMove,
   touchSendTouchStart,
 } from './touch/touch-xstate'
 import { sendAnimationEnd, sendClick, sendScroll } from './viewer-react'
-
-function handleTouchMove(ev: Readonly<TouchEvent>) {
-  if (getZooming()) {
-    ev.preventDefault()
-  }
-}
-
-function useHandleTouchMove(
-  ref: Readonly<RefObject<HTMLDivElement | null>>
-): void {
-  useEffect(() => {
-    const e = ref.current
-    if (e) e.addEventListener('touchmove', handleTouchMove)
-    return () => {
-      if (e) e.removeEventListener('touchmove', handleTouchMove)
-    }
-  }, [ref])
-}
 
 function useStyleRefs(ref: Readonly<RefObject<HTMLDivElement | null>>): void {
   useEffect(() => {
@@ -59,7 +41,7 @@ function useStyleRefs(ref: Readonly<RefObject<HTMLDivElement | null>>): void {
 export function Container(props: Readonly<PropsWithChildren>): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
   useOpenCloseDetailStyle(ref)
-  useHandleTouchMove(ref)
+  useTouchMoveZoomingLock(ref)
   useStyleRefs(ref)
   return (
     <div
