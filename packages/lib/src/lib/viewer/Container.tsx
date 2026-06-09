@@ -142,13 +142,6 @@ function ContentStyle(): ReactNode {
   return <style>{style}</style>
 }
 
-/*
-function FloorsStyle(): ReactNode {
-  const { style } = useFloors()
-  return style === null ? <></> : <style>{style}</style>
-}
-*/
-
 export function isContainerRendered(): boolean {
   return document.querySelector('.container') !== null
 }
