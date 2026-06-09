@@ -3,7 +3,6 @@ import { useEffect, type RefObject } from 'react'
 import { type Range } from '../../types'
 import { boxToViewBox2, type BoxBox } from '../box/prefixed'
 import { type DistanceRadius } from '../distance-types'
-import { trunc2 } from '../utils'
 import { type VecVec } from '../vec/prefixed'
 import { type Layout, type LayoutConfig } from '../viewer/layout/layout'
 import { useStyleContext } from './style-xstate'
@@ -52,15 +51,11 @@ export function useRotate(): null | number {
 }
 export function useLayout2(): {
   viewBox: string
-  width: number
-  height: number
 } {
-  const { scroll, svg } = useLayout()
+  const { svg } = useLayout()
 
   return {
     viewBox: boxToViewBox2(svg),
-    width: trunc2(scroll.width),
-    height: trunc2(scroll.height),
   }
 }
 
