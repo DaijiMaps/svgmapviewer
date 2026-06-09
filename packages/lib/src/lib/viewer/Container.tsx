@@ -1,3 +1,4 @@
+/* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
@@ -15,10 +16,10 @@ import {
   width_100vw_height_100svh,
 } from '../css'
 import { notifyStyle } from '../event-style'
-import { useAnimationStyle, useLayoutContent } from '../style/style-react'
 import { useOpenCloseDetailStyle } from '../ui/ui-react'
-import { useFloors } from './floors/floors-react'
 import { sendContextMenu } from './input/input'
+import { animationRefs } from './layout/animation'
+import { layoutRefs } from './layout/style'
 import {
   touchSendTouchEnd,
   touchSendTouchMove,
@@ -49,6 +50,14 @@ export function Container(props: Readonly<PropsWithChildren>): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
   useOpenCloseDetailStyle(ref)
   useHandleTouchMove(ref)
+  useEffect(() => {
+    animationRefs.set('container', ref)
+    layoutRefs.set('container', ref)
+    return () => {
+      layoutRefs.delete('container')
+      animationRefs.delete('container')
+    }
+  }, [])
   return (
     <div
       ref={ref}
@@ -66,13 +75,12 @@ export function Container(props: Readonly<PropsWithChildren>): ReactNode {
       }}
     >
       {props.children}
-      <ContainerStyle />
+      <style>{style}</style>
     </div>
   )
 }
 
-function ContainerStyle(): ReactNode {
-  const style: string = `
+const style: string = `
 .container {
   ${position_absolute_left_0_top_0}
   ${width_100vw_height_100svh}
@@ -86,6 +94,18 @@ function ContainerStyle(): ReactNode {
 
   will-change: scroll-position;
   contain: strict;
+
+  &.zooming {
+    will-change: transform;
+    animation: container-zoom 500ms ease;
+  }
+  & > .content {
+    ${position_absolute_left_0_top_0}
+    contain: strict;
+    transform: var(--layout-content-matrix) translate3d(0, 0, 0);
+    transform-origin: left top;
+    pointer-events: none;
+  }
 }
 @keyframes xxx-container {
   from {
@@ -95,42 +115,17 @@ function ContainerStyle(): ReactNode {
     opacity: var(--b);
   }
 }
-`
-
-  return (
-    <>
-      <style>{style}</style>
-      <ContentStyle />
-      <AnimationStyle />
-      <FloorsStyle />
-    </>
-  )
-}
-
-function ContentStyle(): ReactNode {
-  const content = useLayoutContent()
-
-  const style = `
-.content {
-  ${position_absolute_left_0_top_0}
-  contain: strict;
-  transform: ${content.toString()} translate3d(0, 0, 0);
-  transform-origin: left top;
-  pointer-events: none;
+@keyframes container-zoom {
+  from {
+    transform-origin: var(--zoom-transform-origin-p);
+    transform: var(--zoom-transform-p);
+  }
+  to {
+    transform-origin: var(--zoom-transform-origin-q);
+    transform: var(--zoom-transform-q);
+  }
 }
 `
-  return <style>{style}</style>
-}
-
-function AnimationStyle(): ReactNode {
-  const style = useAnimationStyle()
-  return <style>{style}</style>
-}
-
-function FloorsStyle(): ReactNode {
-  const { style } = useFloors()
-  return style === null ? <></> : <style>{style}</style>
-}
 
 export function isContainerRendered(): boolean {
   return document.querySelector('.container') !== null

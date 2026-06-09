@@ -8,9 +8,10 @@ import { findRadius } from '../distance'
 import { scrollCbs } from '../event-scroll'
 import { styleCbs } from '../event-style'
 import { vecZero } from '../vec/prefixed'
-import { animationStyle } from '../viewer/layout/animation'
+import { updateAnimationRefs } from '../viewer/layout/animation'
 import { fromSvgToScroll } from '../viewer/layout/coord'
 import { emptyLayout, type Layout } from '../viewer/layout/layout'
+import { updateLayoutRefs } from '../viewer/layout/style'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { type ViewerMode } from '../viewer/viewer-types'
 import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
@@ -83,7 +84,6 @@ const styleMachine = setup({
       end: vecZero,
     },
     mode: 'panning',
-    animation: null,
   },
   on: {
     'STYLE.LAYOUT': {
@@ -97,6 +97,7 @@ const styleMachine = setup({
         'updateGeoMatrix',
         'updateDistanceRadius',
         raise(({ event: { rendered } }) => ({ type: 'LAYOUT.DONE', rendered })),
+        ({ context }) => updateLayoutRefs(context.layout),
       ],
     },
     'STYLE.ZOOM': {
@@ -131,7 +132,10 @@ const styleMachine = setup({
     Appearing: {
       on: {
         'STYLE.ANIMATION.END': {
-          actions: assign({ appearing: false, shown: true }),
+          actions: [
+            () => updateAnimationRefs(null),
+            assign({ appearing: false, shown: true }),
+          ],
           target: 'Idle',
         },
       },
@@ -139,10 +143,12 @@ const styleMachine = setup({
     Idle: {
       on: {
         'STYLE.ANIMATION': {
-          actions: assign({
-            animation: ({ event: { animation } }) => animationStyle(animation),
-            animating: true,
-          }),
+          actions: [
+            ({ event: { animation } }) => updateAnimationRefs(animation),
+            assign({
+              animating: true,
+            }),
+          ],
           target: 'Animating',
         },
         'LAYOUT.DONE': {
@@ -155,10 +161,12 @@ const styleMachine = setup({
     Animating: {
       on: {
         'STYLE.ANIMATION.END': {
-          actions: assign({
-            animation: null,
-            animating: false,
-          }),
+          actions: [
+            () => updateAnimationRefs(null),
+            assign({
+              animating: false,
+            }),
+          ],
           target: 'Idle',
         },
       },

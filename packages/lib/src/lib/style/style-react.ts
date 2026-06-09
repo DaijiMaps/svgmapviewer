@@ -32,9 +32,6 @@ export function useLayoutScroll(): BoxBox {
 export function useMode(): string {
   return useStyleContext((ctx) => ctx.mode)
 }
-export function useAnimationStyle(): null | string {
-  return useStyleContext((ctx) => ctx.animation)
-}
 export function useGeoPoint(): VecVec {
   return useStyleContext((ctx) => ctx.geoPoint)
 }
@@ -49,9 +46,6 @@ export function useLayoutConfig(): LayoutConfig {
 }
 export function useLayoutSvgScaleS(): number {
   return useStyleContext((ctx) => ctx.layout.svgScale)
-}
-export function useLayoutContent(): DOMMatrixReadOnly {
-  return useStyleContext((ctx) => ctx.layout.content)
 }
 export function useZoom(): number {
   return useStyleContext((ctx) => ctx.zoom)

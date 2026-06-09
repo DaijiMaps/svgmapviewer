@@ -44,5 +44,4 @@ export interface StyleContext {
   distanceRadius: DistanceRadius
   geoRange: Range
   mode: string
-  animation: null | string
 }

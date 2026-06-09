@@ -1,9 +1,7 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect } from 'react'
 
-import { svgMapViewerConfig } from '../../../config'
 import {
   FLOOR_APPEARING,
-  floor_appearing_animation,
   FLOOR_DISAPPEARING,
   floor_switch_duration,
 } from '../../css'
@@ -14,11 +12,43 @@ import { useFloorsContext } from './floors-xstate'
 export interface UseFloorsReturn {
   fidx: number
   prevFidx: null | number
-  style: null | string
   fidxToOnAnimationEnd: FidxToOnAnimationEnd
   fidxToOnClick: FidxToOnClick
   urls: Map<number, string>
 }
+
+export const floorRefs: Map<number, SVGGElement> = new Map()
+
+export function registerFloorRef(e: SVGGElement | null, idx: number): void {
+  if (e) floorRefs.set(idx, e)
+  else floorRefs.delete(idx)
+}
+
+export function updateFloorRefs(
+  fidx: number,
+  prevFidx: number | null,
+  urls: Map<number, string>
+): void {
+  Array.from(floorRefs, ([idx, e]) => {
+    const loading = urls.get(fidx) === undefined
+    const s = e.style.setProperty.bind(e.style)
+    if (idx == fidx && !loading) {
+      s(`will-change`, `opacity`)
+      s(`animation`, `${FLOOR_APPEARING} ${floor_switch_duration} linear`)
+      s(`visibility`, null)
+    } else if (idx === prevFidx) {
+      s(`will-change`, `opacity`)
+      s(`animation`, `${FLOOR_DISAPPEARING} ${floor_switch_duration} linear`)
+      s(`visibility`, null)
+    } else {
+      s(`will-change`, null)
+      s(`animation`, null)
+      s(`visibility`, `hidden`)
+    }
+  })
+}
+
+////
 
 export function useFloors(): UseFloorsReturn {
   const { fidx, prevFidx, urls } = useFloorsContext(
@@ -27,11 +57,6 @@ export function useFloors(): UseFloorsReturn {
       prevFidx,
       urls,
     })
-  )
-
-  const style = useMemo(
-    () => makeStyle(fidx, prevFidx, urls.get(fidx) === undefined),
-    [fidx, prevFidx, urls]
   )
 
   // XXX receive only one (appearing) animationend event
@@ -47,69 +72,15 @@ export function useFloors(): UseFloorsReturn {
     [fidx, prevFidx]
   )
 
+  useEffect(() => {
+    updateFloorRefs(fidx, prevFidx, urls)
+  }, [fidx, prevFidx, urls])
+
   return {
     fidx,
     prevFidx,
-    style,
     fidxToOnAnimationEnd,
     fidxToOnClick,
     urls,
   }
-}
-
-function makeStyle(
-  fidx: number,
-  prevFidx: null | number,
-  loading: boolean
-): null | string {
-  const floorsConfig = svgMapViewerConfig.floorsConfig
-  if (floorsConfig === undefined) {
-    return null
-  }
-  const style = floorsConfig.floors
-    .map((_, idx) => idxToStyle(fidx, prevFidx, loading, idx))
-    .join('')
-  return `
-${style}
-${floor_appearing_animation}
-`
-}
-
-function idxToStyle(
-  fidx: number,
-  prevFidx: null | number,
-  loading: boolean,
-  idx: number
-) {
-  return idx == fidx && !loading
-    ? appearing(idx)
-    : idx === prevFidx
-      ? disappearing(idx)
-      : hidden(idx)
-}
-
-function hidden(idx: number) {
-  return `
-.fidx-${idx} {
-  visibility: hidden;
-}
-  `
-}
-
-function disappearing(idx: number) {
-  return `
-.fidx-${idx} {
-  will-change: opacity;
-  animation: ${FLOOR_DISAPPEARING} ${floor_switch_duration} linear;
-}
-`
-}
-
-function appearing(idx: number) {
-  return `
-.fidx-${idx} {
-  will-change: opacity;
-  animation: ${FLOOR_APPEARING} ${floor_switch_duration} linear;
-}
-`
 }

@@ -1,3 +1,8 @@
+/* eslint-disable functional/no-conditional-statements */
+/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/no-expression-statements */
+import type { RefObject } from 'react'
+
 import { svgMapViewerConfig } from '../../../config'
 import type { AnimationMatrix, Dir } from '../../../types'
 import { boxCenter, boxScaleAt } from '../../box/prefixed'
@@ -142,37 +147,28 @@ function zoomToScale(z: Dir): number {
 
 ////
 
-export function animationToMatrix(a: Animation): AnimationMatrix {
-  const from = a.q.from
-  const to = a.q.to
-  const origin = a.q.origin
-  return { from, to, origin }
-}
+export const animationRefs: Map<
+  string,
+  RefObject<HTMLDivElement | null>
+> = new Map()
 
-export function animationStyle(a: null | Readonly<AnimationMatrix>): string {
-  const style = a === null ? '' : css(a.from, a.to, a.origin)
-  return style
-}
-
-function css(
-  p: Readonly<DOMMatrixReadOnly>,
-  q: Readonly<DOMMatrixReadOnly>,
-  o: null | Vec
-): string {
-  return `
-#viewer {
-  will-change: transform;
-  animation: container-zoom 500ms ease;
-}
-@keyframes container-zoom {
-  from {
-    transform-origin: ${o === null ? `left top` : `${o.x}px ${o.y}px`};
-    transform: ${p.toString()} translate3d(0px, 0px, 0px);
-  }
-  to {
-    transform-origin: ${o === null ? `left top` : `${o.x}px ${o.y}px`};
-    transform: ${q.toString()} translate3d(0px, 0px, 0px);
-  }
-}
-`
+export function updateAnimationRefs(a: null | Readonly<AnimationMatrix>): void {
+  const p = a?.from.toString()
+  const q = a?.to.toString()
+  const o =
+    a?.origin === null ? `left top` : `${a?.origin.x}px ${a?.origin.y}px`
+  Array.from(animationRefs, ([, ref]) => {
+    const e = ref.current
+    if (!e) return
+    if (a === null) {
+      e.classList.remove('zooming')
+    } else {
+      e.classList.add('zooming')
+      const s = e.style.setProperty.bind(e.style)
+      s(`--zoom-transform-origin-p`, o)
+      s(`--zoom-transform-origin-q`, o)
+      s(`--zoom-transform-p`, `${p} translate3d(0px, 0px, 0px)`)
+      s(`--zoom-transform-q`, `${q} translate3d(0px, 0px, 0px)`)
+    }
+  })
 }
