@@ -16,10 +16,10 @@ import {
   width_100vw_height_100svh,
 } from '../css'
 import { notifyStyle } from '../event-style'
-import { useLayoutContent } from '../style/style-react'
 import { useOpenCloseDetailStyle } from '../ui/ui-react'
 import { sendContextMenu } from './input/input'
 import { animationRefs } from './layout/animation'
+import { layoutRefs } from './layout/style'
 import {
   touchSendTouchEnd,
   touchSendTouchMove,
@@ -52,7 +52,9 @@ export function Container(props: Readonly<PropsWithChildren>): ReactNode {
   useHandleTouchMove(ref)
   useEffect(() => {
     animationRefs.set('container', ref)
+    layoutRefs.set('container', ref)
     return () => {
+      layoutRefs.delete('container')
       animationRefs.delete('container')
     }
   }, [])
@@ -98,6 +100,13 @@ function ContainerStyle(): ReactNode {
     will-change: transform;
     animation: container-zoom 500ms ease;
   }
+  &.content {
+    ${position_absolute_left_0_top_0}
+    contain: strict;
+    transform: var(--layout-content-matrix) translate3d(0, 0, 0);
+    transform-origin: left top;
+    pointer-events: none;
+  }
 }
 @keyframes xxx-container {
   from {
@@ -122,24 +131,8 @@ function ContainerStyle(): ReactNode {
   return (
     <>
       <style>{style}</style>
-      <ContentStyle />
     </>
   )
-}
-
-function ContentStyle(): ReactNode {
-  const content = useLayoutContent()
-
-  const style = `
-.content {
-  ${position_absolute_left_0_top_0}
-  contain: strict;
-  transform: ${content.toString()} translate3d(0, 0, 0);
-  transform-origin: left top;
-  pointer-events: none;
-}
-`
-  return <style>{style}</style>
 }
 
 export function isContainerRendered(): boolean {
