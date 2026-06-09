@@ -75,13 +75,12 @@ export function Container(props: Readonly<PropsWithChildren>): ReactNode {
       }}
     >
       {props.children}
-      <ContainerStyle />
+      <style>{style}</style>
     </div>
   )
 }
 
-function ContainerStyle(): ReactNode {
-  const style: string = `
+const style: string = `
 .container {
   ${position_absolute_left_0_top_0}
   ${width_100vw_height_100svh}
@@ -100,7 +99,7 @@ function ContainerStyle(): ReactNode {
     will-change: transform;
     animation: container-zoom 500ms ease;
   }
-  &.content {
+  & > .content {
     ${position_absolute_left_0_top_0}
     contain: strict;
     transform: var(--layout-content-matrix) translate3d(0, 0, 0);
@@ -127,13 +126,6 @@ function ContainerStyle(): ReactNode {
   }
 }
 `
-
-  return (
-    <>
-      <style>{style}</style>
-    </>
-  )
-}
 
 export function isContainerRendered(): boolean {
   return document.querySelector('.container') !== null

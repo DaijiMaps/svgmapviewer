@@ -47,9 +47,6 @@ export function useLayoutConfig(): LayoutConfig {
 export function useLayoutSvgScaleS(): number {
   return useStyleContext((ctx) => ctx.layout.svgScale)
 }
-export function useLayoutContent(): DOMMatrixReadOnly {
-  return useStyleContext((ctx) => ctx.layout.content)
-}
 export function useZoom(): number {
   return useStyleContext((ctx) => ctx.zoom)
 }
