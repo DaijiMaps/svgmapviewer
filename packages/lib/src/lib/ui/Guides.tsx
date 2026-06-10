@@ -15,7 +15,7 @@ import {
 } from '../css'
 import { useShadowRoot } from '../dom'
 import { Measure, MeasureCoordinate, MeasureDistance } from './Measure'
-import { useOpenCloseHeaderStyle } from './ui-react'
+import { useHeaderStyleRef } from './ui-react'
 
 export function Guides(): ReactNode {
   useShadowRoot('guides', <GuidesRoot />, 'ui')
@@ -29,7 +29,7 @@ const showing =
 function GuidesRoot(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
-  useOpenCloseHeaderStyle(ref)
+  useHeaderStyleRef(ref, 'guides')
 
   return !showing ? (
     <></>

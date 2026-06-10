@@ -13,7 +13,6 @@ export type UiDetailContent = SearchRes & {
 }
 
 export interface UiContext {
-  all: OpenClose
   canceling: boolean
   detail: UiDetailContent
   m: OpenCloseMap
@@ -33,6 +32,7 @@ export type UiModeEvent =
       'psvg' | 'fidx' | 'info' | 'layout'
     >)
   | { type: 'HELP' }
+  | { type: 'RENDERED' }
 
 export type UiPartEvent =
   | { type: 'HEADER.ANIMATION.END' }

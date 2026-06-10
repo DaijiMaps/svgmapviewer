@@ -16,7 +16,7 @@ import { notifyUi } from '../event-ui'
 import { useZoomingStyle } from '../style/style-react'
 import { useTouchMoveZoomingLock } from '../viewer/touch/event'
 import { useOnWheel } from '../wheel'
-import { useOpenCloseDetailStyle } from './ui-react'
+import { useDetailStyleRef } from './ui-react'
 
 export function Screen(): ReactNode {
   useShadowRoot('screen', <ScreenRoot />, 'ui')
@@ -25,7 +25,7 @@ export function Screen(): ReactNode {
 
 function ScreenRoot(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
-  useOpenCloseDetailStyle(ref)
+  useDetailStyleRef(ref, 'screen')
   useZoomingStyle(ref)
   useTouchMoveZoomingLock(ref)
   useOnWheel(ref)

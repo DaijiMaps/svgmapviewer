@@ -10,7 +10,7 @@ import {
 } from '../css'
 import { notifyStyle } from '../event-style'
 import { useAppearingStyleRef } from '../style/appearing'
-import { useOpenCloseDetailStyle } from '../ui/ui-react'
+import { useDetailStyleRef } from '../ui/ui-react'
 import { sendContextMenu } from './input/input'
 import { useAnimationStyleRef } from './layout/animation'
 import { useLayoutStyleRef } from './layout/style'
@@ -24,7 +24,7 @@ import { sendAnimationEnd, sendClick, sendScroll } from './viewer-react'
 
 export function Container(props: Readonly<PropsWithChildren>): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
-  useOpenCloseDetailStyle(ref)
+  useDetailStyleRef(ref, 'container')
   useTouchMoveZoomingLock(ref)
   useAnimationStyleRef(ref, 'container')
   useLayoutStyleRef(ref, 'container')

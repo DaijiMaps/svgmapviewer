@@ -15,7 +15,7 @@ import {
   type BalloonSize,
   type LegLayout,
 } from './balloon-common'
-import { useOpenCloseDetailStyle } from './ui-react'
+import { useDetailStyleRef } from './ui-react'
 
 export interface BalloonProps {
   _p: null | VecVec
@@ -31,7 +31,7 @@ export function Balloon(
 ): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
-  useOpenCloseDetailStyle(ref)
+  useDetailStyleRef(ref, 'balloon')
 
   useDetailStyle(ref, props._p, props._hv, props._size, props._leg)
 

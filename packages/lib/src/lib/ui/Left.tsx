@@ -12,7 +12,7 @@ import {
 } from '../css'
 import { useShadowRoot } from '../dom'
 import { Floors } from './Floor'
-import { useOpenCloseHeaderStyle } from './ui-react'
+import { useHeaderStyleRef } from './ui-react'
 
 export function Left(): ReactNode {
   useShadowRoot('left', <LeftRoot />, 'ui')
@@ -23,7 +23,7 @@ export function Left(): ReactNode {
 function LeftRoot(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
-  useOpenCloseHeaderStyle(ref)
+  useHeaderStyleRef(ref, 'left')
 
   return (
     <div ref={ref} className="ui-content left bottom">

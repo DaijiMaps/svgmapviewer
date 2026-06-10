@@ -15,7 +15,11 @@ import {
   openCloseReset,
   type OpenCloseOp,
 } from './openclose'
-import { resetDetailScroll } from './ui-react'
+import {
+  resetDetailScroll,
+  updateDetailStyleRefs,
+  updateHeaderStyleRefs,
+} from './ui-react'
 import {
   type OpenCloseMap,
   type UiContext,
@@ -89,6 +93,10 @@ const uiMachine = setup({
       m: ({ context: { m } }, { part }: { part: UiPart }) =>
         handleOpenCloseMap(m, part),
     }),
+    updateHeaderStyle: ({ context }) =>
+      updateHeaderStyleRefs(context.m['header']),
+    updateDetailStyle: ({ context }) =>
+      updateDetailStyleRefs(context.m['detail']),
   },
 }).createMachine({
   type: 'parallel',
@@ -104,6 +112,11 @@ const uiMachine = setup({
     },
     animationEnded: { header: true, detail: true },
   }),
+  on: {
+    RENDERED: {
+      actions: ['updateHeaderStyle', 'updateDetailStyle'],
+    },
+  },
   states: {
     Ui: {
       initial: 'Idle',
@@ -148,7 +161,6 @@ const uiMachine = setup({
                   { guard: not('animationEnded') },
                   {
                     actions: assign({
-                      all: { open: true, animating: true },
                       animationEnded: { header: false, detail: false },
                     }),
                     target: 'Opening',
@@ -163,17 +175,14 @@ const uiMachine = setup({
               entry: [
                 { type: 'close', params: { part: 'header' } },
                 { type: 'open', params: { part: 'detail' } },
+                'updateHeaderStyle',
+                'updateDetailStyle',
               ],
               on: {
                 DONE: [
                   { guard: 'isHeaderVisible' },
                   { guard: not('isDetailVisible') },
-                  {
-                    actions: assign({
-                      all: { open: true, animating: false },
-                    }),
-                    target: 'Opened',
-                  },
+                  { target: 'Opened' },
                 ],
               },
             },
@@ -183,7 +192,6 @@ const uiMachine = setup({
                   { guard: not('animationEnded') },
                   {
                     actions: assign({
-                      all: { open: false, animating: true },
                       animationEnded: { header: false, detail: false },
                     }),
                     target: 'Closing',
@@ -196,18 +204,15 @@ const uiMachine = setup({
                 'startCancel',
                 { type: 'open', params: { part: 'header' } },
                 { type: 'close', params: { part: 'detail' } },
+                'updateHeaderStyle',
+                'updateDetailStyle',
               ],
               exit: 'endCancel',
               on: {
                 DONE: [
                   { guard: not('isHeaderVisible') },
                   { guard: 'isDetailVisible' },
-                  {
-                    actions: assign({
-                      all: { open: false, animating: false },
-                    }),
-                    target: 'Closed',
-                  },
+                  { target: 'Closed' },
                 ],
               },
             },
@@ -225,6 +230,7 @@ const uiMachine = setup({
         'HEADER.ANIMATION.END': {
           actions: [
             { type: 'handle', params: { part: 'header' } },
+            'updateHeaderStyle',
             assign({
               animationEnded: ({ context }) => ({
                 ...context.animationEnded,
@@ -237,6 +243,7 @@ const uiMachine = setup({
         'DETAIL.ANIMATION.END': {
           actions: [
             { type: 'handle', params: { part: 'detail' } },
+            'updateDetailStyle',
             assign({
               animationEnded: ({ context }) => ({
                 ...context.animationEnded,
