@@ -70,6 +70,10 @@ export function trunc2(n: number): number {
   return Math.round(n * 100) / 100
 }
 
+export function trunc3(n: number): number {
+  return Math.round(n * 1000) / 1000
+}
+
 export function trunc7(n: number): number {
   return Math.round(n * 10000000) / 10000000
 }

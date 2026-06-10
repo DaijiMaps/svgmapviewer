@@ -6,7 +6,7 @@ import { type RefObject } from 'react'
 import { type HV, type Size } from '../../types'
 import { boxBox, type BoxBox } from '../box/prefixed'
 import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from '../css'
-import { ab } from '../utils'
+import { ab, trunc3 } from '../utils'
 import {
   vecVec as v,
   vecAdd as add,
@@ -147,10 +147,10 @@ function balloonPath(
   const hb = v(bw / 2, bh / 2)
 
   const body = `
-m${-hb.x},${-hb.y}
-h${bw}
-v${bh}
-h${-bw}
+m${trunc3(-hb.x)},${trunc3(-hb.y)}
+h${trunc3(bw)}
+v${trunc3(bh)}
+h${trunc3(-bw)}
 z
 `
 
@@ -159,10 +159,10 @@ z
   const qb = sub(b, q)
   const bp = sub(p, b)
   const leg = `
-m${a.x},${a.y}
-l${aq.x},${aq.y}
-l${qb.x},${qb.y}
-l${bp.x},${bp.y}
+m${trunc3(a.x)},${trunc3(a.y)}
+l${trunc3(aq.x)},${trunc3(aq.y)}
+l${trunc3(qb.x)},${trunc3(qb.y)}
+l${trunc3(bp.x)},${trunc3(bp.y)}
 z
 `
 
@@ -180,7 +180,7 @@ export function balloonPaths(
   const { body, leg } = balloonPath(hv, bw, bh, lh)
 
   function dToShape(d: number): string {
-    return `M${d},${d} ${body} M${d},${d} ${leg}`
+    return `M${trunc3(d)},${trunc3(d)} ${body} M${trunc3(d)},${trunc3(d)} ${leg}`
   }
   const bg = dToShape(d)
   const fg = dToShape(0)
@@ -267,8 +267,8 @@ function updateBalloonStyle(
   const { width, height } = size
   const dP = scale(leg.q, -1)
   x('visibility', null)
-  x('--pww', `${-width / 2}px`)
-  x('--phh', `${-height / 2}px`)
+  x('--pww', `${trunc3(-width / 2)}px`)
+  x('--phh', `${trunc3(-height / 2)}px`)
   if (!animating) {
     const { b } = ab(0, 1)
     const tx = vecAdd(Q, dP)
@@ -278,8 +278,8 @@ function updateBalloonStyle(
     x('--timing', null)
     x('--tx-a-x', null)
     x('--tx-a-y', null)
-    x('--tx-b-x', `${tx.x}px`)
-    x('--tx-b-y', `${tx.y}px`)
+    x('--tx-b-x', `${trunc3(tx.x)}px`)
+    x('--tx-b-y', `${trunc3(tx.y)}px`)
   } else {
     const { a, b } = open ? ab(0, 1) : ab(1, 0)
     const t = open ? timing_opening : timing_closing
@@ -289,10 +289,10 @@ function updateBalloonStyle(
     x('--a', a)
     x('--b', b)
     x('--timing', `${t}`)
-    x('--tx-a-x', `${tx.a.x}px`)
-    x('--tx-a-y', `${tx.a.y}px`)
-    x('--tx-b-x', `${tx.b.x}px`)
-    x('--tx-b-y', `${tx.b.y}px`)
+    x('--tx-a-x', `${trunc3(tx.a.x)}px`)
+    x('--tx-a-y', `${trunc3(tx.a.y)}px`)
+    x('--tx-b-x', `${trunc3(tx.b.x)}px`)
+    x('--tx-b-y', `${trunc3(tx.b.y)}px`)
   }
 }
 
