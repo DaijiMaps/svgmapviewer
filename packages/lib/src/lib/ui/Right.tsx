@@ -20,7 +20,7 @@ import { Recenter } from './buttons/Recenter'
 import { Rotate } from './buttons/Rotate'
 import { ZoomIn } from './buttons/ZoomIn'
 import { ZoomOut } from './buttons/ZoomOut'
-import { useOpenCloseHeaderStyle } from './ui-react'
+import { useHeaderStyleRef } from './ui-react'
 
 export function Right(): ReactNode {
   useShadowRoot('right', <RightRoot />, 'ui')
@@ -31,7 +31,7 @@ export function Right(): ReactNode {
 function RightRoot(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
-  useOpenCloseHeaderStyle(ref)
+  useHeaderStyleRef(ref, 'right')
 
   return (
     <div ref={ref} className="ui-content right bottom">

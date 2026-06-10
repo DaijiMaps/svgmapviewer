@@ -12,7 +12,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
-import { useOpenCloseHeaderStyle } from './ui-react'
+import { useHeaderStyleRef } from './ui-react'
 
 export function Footer(): ReactNode {
   useShadowRoot('footer', <FooterRoot />, 'ui')
@@ -23,7 +23,7 @@ export function Footer(): ReactNode {
 function FooterRoot(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
-  useOpenCloseHeaderStyle(ref)
+  useHeaderStyleRef(ref, 'footer')
 
   return (
     <div ref={ref} className="ui-content footer">

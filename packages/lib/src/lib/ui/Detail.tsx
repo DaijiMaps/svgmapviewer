@@ -12,22 +12,20 @@ import {
   Z_INDEX_DETAIL,
 } from '../css'
 import { useOnWheel } from '../wheel'
-import type { BalloonProps } from './Balloon'
-import { useDetailStyle } from './balloon-common'
-import { useOpenCloseDetailStyle } from './ui-react'
+import { useBalloonStyleRef } from './balloon-common'
+import { useDetailStyleRef } from './ui-react'
 import { type UiDetailContent } from './ui-types'
 import { isDetailEmpty, uiSend } from './ui-xstate'
 
 export function Detail(
-  props: Readonly<{ _detail: UiDetailContent } & BalloonProps>
+  props: Readonly<{ _detail: UiDetailContent }>
 ): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
   useOnWheel(ref)
 
-  useOpenCloseDetailStyle(ref)
-
-  useDetailStyle(ref, props._p, props._hv, props._size, props._leg)
+  useDetailStyleRef(ref, 'detail')
+  useBalloonStyleRef(ref, 'detail')
 
   return (
     <div

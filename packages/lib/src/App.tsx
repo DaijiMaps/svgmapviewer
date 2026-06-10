@@ -81,6 +81,11 @@ a:link {
 ${likeStyle}
 `
 
+// XXX
+// XXX
+// XXX
+// XXX
+// XXX
 function useInitialRendering() {
   const rendered = useRendered()
 
@@ -88,5 +93,10 @@ function useInitialRendering() {
     requestAnimationFrame(() => notifyGlobal.rendered())
   }, [rendered])
 }
+// XXX
+// XXX
+// XXX
+// XXX
+// XXX
 
 export default App

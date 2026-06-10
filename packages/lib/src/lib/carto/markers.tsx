@@ -1,5 +1,5 @@
 /* eslint-disable functional/no-expression-statements */
-import { useRef, type ReactNode } from 'react'
+import { useMemo, useRef, type ReactNode } from 'react'
 
 import { type OsmRenderMapProps } from '../../types'
 import { useMapStyleRef } from '../map/style'
@@ -16,7 +16,7 @@ export function RenderMapMarkers(
 
   useMapStyleRef(ref, 'map-markers')
 
-  const sz = 25 / props.fontSize
+  const sz = useMemo(() => 25 / props.fontSize, [props.fontSize])
 
   return (
     <defs ref={ref} className="map-markers">

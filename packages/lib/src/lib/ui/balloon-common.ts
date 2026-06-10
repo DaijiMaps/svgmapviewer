@@ -1,11 +1,12 @@
+/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
-import { useEffect, type RefObject } from 'react'
+import { type RefObject } from 'react'
 
 import { type HV, type Size } from '../../types'
 import { boxBox, type BoxBox } from '../box/prefixed'
 import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from '../css'
-import { ab } from '../utils'
+import { ab, trunc3 } from '../utils'
 import {
   vecVec as v,
   vecAdd as add,
@@ -18,8 +19,8 @@ import {
 } from '../vec/prefixed'
 import { type BalloonProps } from './Balloon'
 import { diag } from './diag'
-import { openCloseIsVisible } from './openclose'
-import { useOpenCloseDetail } from './ui-react'
+import { openCloseIsVisible, type OpenClose } from './openclose'
+import { useCommonStyleRef } from './ui-react'
 import { type UiDetailContent } from './ui-types'
 
 const BW = 50
@@ -146,10 +147,10 @@ function balloonPath(
   const hb = v(bw / 2, bh / 2)
 
   const body = `
-m${-hb.x},${-hb.y}
-h${bw}
-v${bh}
-h${-bw}
+m${trunc3(-hb.x)},${trunc3(-hb.y)}
+h${trunc3(bw)}
+v${trunc3(bh)}
+h${trunc3(-bw)}
 z
 `
 
@@ -158,10 +159,10 @@ z
   const qb = sub(b, q)
   const bp = sub(p, b)
   const leg = `
-m${a.x},${a.y}
-l${aq.x},${aq.y}
-l${qb.x},${qb.y}
-l${bp.x},${bp.y}
+m${trunc3(a.x)},${trunc3(a.y)}
+l${trunc3(aq.x)},${trunc3(aq.y)}
+l${trunc3(qb.x)},${trunc3(qb.y)}
+l${trunc3(bp.x)},${trunc3(bp.y)}
 z
 `
 
@@ -179,7 +180,7 @@ export function balloonPaths(
   const { body, leg } = balloonPath(hv, bw, bh, lh)
 
   function dToShape(d: number): string {
-    return `M${d},${d} ${body} M${d},${d} ${leg}`
+    return `M${trunc3(d)},${trunc3(d)} ${body} M${trunc3(d)},${trunc3(d)} ${leg}`
   }
   const bg = dToShape(d)
   const fg = dToShape(0)
@@ -249,59 +250,69 @@ export const detailStyleString: string = `
 }
 `
 
-export function useDetailStyle(
-  ref: Readonly<RefObject<HTMLDivElement | null>>,
+function updateBalloonStyle(
+  e: Readonly<HTMLDivElement>,
   Q: null | V,
   _hv: null | Readonly<HV>,
   size: Readonly<BalloonSize>,
-  leg: Readonly<LegLayout>
+  leg: Readonly<LegLayout>,
+  { open, animating }: OpenClose
 ): void {
-  const { open, animating } = useOpenCloseDetail()
+  const x = (k: string, v: null | number | string) =>
+    e.style.setProperty(k, v === null ? null : String(v))
+  if (Q === null || _hv === null || !openCloseIsVisible({ open, animating })) {
+    x('visibility', 'hidden')
+    return
+  }
+  const { width, height } = size
+  const dP = scale(leg.q, -1)
+  x('visibility', null)
+  x('--pww', `${trunc3(-width / 2)}px`)
+  x('--phh', `${trunc3(-height / 2)}px`)
+  if (!animating) {
+    const { b } = ab(0, 1)
+    const tx = vecAdd(Q, dP)
 
-  useEffect(() => {
-    if (ref.current === null) return
-    const e = ref.current
-    const x = (k: string, v: null | number | string) =>
-      e.style.setProperty(k, v === null ? null : String(v))
-    if (
-      Q === null ||
-      _hv === null ||
-      !openCloseIsVisible({ open, animating })
-    ) {
-      x('visibility', 'hidden')
-      return
-    }
-    const { width, height } = size
-    const dP = scale(leg.q, -1)
-    x('visibility', null)
-    x('--pww', `${-width / 2}px`)
-    x('--phh', `${-height / 2}px`)
-    if (!animating) {
-      const { b } = ab(0, 1)
-      const tx = vecAdd(Q, dP)
+    x('--a', null)
+    x('--b', b)
+    x('--timing', null)
+    x('--tx-a-x', null)
+    x('--tx-a-y', null)
+    x('--tx-b-x', `${trunc3(tx.x)}px`)
+    x('--tx-b-y', `${trunc3(tx.y)}px`)
+  } else {
+    const { a, b } = open ? ab(0, 1) : ab(1, 0)
+    const t = open ? timing_opening : timing_closing
+    const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
+    const tx = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
 
-      x('--a', null)
-      x('--b', b)
-      x('--timing', null)
-      x('--tx-a-x', null)
-      x('--tx-a-y', null)
-      x('--tx-b-x', `${tx.x}px`)
-      x('--tx-b-y', `${tx.y}px`)
-      return
-    } else {
-      const { a, b } = open ? ab(0, 1) : ab(1, 0)
-      const t = open ? timing_opening : timing_closing
-      const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
-      const tx = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
+    x('--a', a)
+    x('--b', b)
+    x('--timing', `${t}`)
+    x('--tx-a-x', `${trunc3(tx.a.x)}px`)
+    x('--tx-a-y', `${trunc3(tx.a.y)}px`)
+    x('--tx-b-x', `${trunc3(tx.b.x)}px`)
+    x('--tx-b-y', `${trunc3(tx.b.y)}px`)
+  }
+}
 
-      x('--a', a)
-      x('--b', b)
-      x('--timing', `${t}`)
-      x('--tx-a-x', `${tx.a.x}px`)
-      x('--tx-a-y', `${tx.a.y}px`)
-      x('--tx-b-x', `${tx.b.x}px`)
-      x('--tx-b-y', `${tx.b.y}px`)
-      return
-    }
-  }, [Q, _hv, animating, leg.q, open, ref, size])
+////
+
+const balloonStyleRefs: Map<string, HTMLDivElement> = new Map()
+
+export function useBalloonStyleRef(
+  ref: Readonly<RefObject<HTMLDivElement | null>>,
+  name: string
+): void {
+  useCommonStyleRef(balloonStyleRefs, ref, name)
+}
+
+export function updateBalloonStyleRefs(
+  detail: Readonly<UiDetailContent>,
+  oc: OpenClose
+): void {
+  const { _p, _hv, _size, _leg } = calcBalloonLayout(detail)
+  Array.from(balloonStyleRefs, ([, e]) => {
+    updateBalloonStyle(e, _p, _hv, _size, _leg, oc)
+  })
 }
