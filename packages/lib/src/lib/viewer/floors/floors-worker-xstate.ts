@@ -54,7 +54,15 @@ export function floorsWorkerSend(ev: Req): void {
 floorsWorkerActor.on('INIT.DONE', (ev) => ctx.postMessage(ev))
 floorsWorkerActor.on('FETCH', ({ cfg, base }) =>
   cfg.floors.forEach((f, fidx) => {
-    fetch((base ?? '') + f.href)
+    // XXX
+    // XXX
+    // XXX
+    // XXX de-duplicate slashes
+    const url = ((base ?? '') + f.href).replace(/\/+/g, '/')
+    // XXX
+    // XXX
+    // XXX
+    fetch(url)
       .then((response) => {
         if (!response.ok) {
           // XXX retry?
