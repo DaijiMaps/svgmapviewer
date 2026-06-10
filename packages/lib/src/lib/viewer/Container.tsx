@@ -1,24 +1,19 @@
-/* eslint-disable functional/immutable-data */
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
-import {
-  useEffect,
-  useRef,
-  type PropsWithChildren,
-  type ReactNode,
-  type RefObject,
-} from 'react'
+import { useRef, type PropsWithChildren, type ReactNode } from 'react'
 
 import {
   position_absolute_left_0_top_0,
+  timing_opening,
   width_100vw_height_100svh,
 } from '../css'
 import { notifyStyle } from '../event-style'
+import { useAppearingStyleRef } from '../style/appearing'
 import { useOpenCloseDetailStyle } from '../ui/ui-react'
 import { sendContextMenu } from './input/input'
-import { animationRefs } from './layout/animation'
-import { layoutRefs } from './layout/style'
+import { useAnimationStyleRef } from './layout/animation'
+import { useLayoutStyleRef } from './layout/style'
 import { useTouchMoveZoomingLock } from './touch/event'
 import {
   touchSendTouchEnd,
@@ -27,22 +22,13 @@ import {
 } from './touch/touch-xstate'
 import { sendAnimationEnd, sendClick, sendScroll } from './viewer-react'
 
-function useStyleRefs(ref: Readonly<RefObject<HTMLDivElement | null>>): void {
-  useEffect(() => {
-    animationRefs.set('container', ref)
-    layoutRefs.set('container', ref)
-    return () => {
-      layoutRefs.delete('container')
-      animationRefs.delete('container')
-    }
-  }, [ref])
-}
-
 export function Container(props: Readonly<PropsWithChildren>): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
   useOpenCloseDetailStyle(ref)
   useTouchMoveZoomingLock(ref)
-  useStyleRefs(ref)
+  useAnimationStyleRef(ref, 'container')
+  useLayoutStyleRef(ref, 'container')
+  useAppearingStyleRef(ref, 'container')
   return (
     <div
       ref={ref}
@@ -92,6 +78,17 @@ const style: string = `
     pointer-events: none;
     width: var(--layout-scroll-width);
     height: var(--layout-scroll-height);
+  }
+  &.not-shown {
+    opacity: 0;
+  }
+  &.shown {
+  }
+  &.not-appearing {
+  }
+  &.appearing {
+    will-change: opacity;
+    animation: xxx-appearing 2s ${timing_opening};
   }
 }
 @keyframes xxx-container {

@@ -5,7 +5,6 @@ import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
 import { infoRoot } from './Info'
 import { type BoxBox } from './lib/box/prefixed'
 import { notifyGlobal } from './lib/event-global'
-import { styleRoot } from './lib/style/Style'
 import { isUiRendered } from './lib/ui/Ui'
 import { isContainerRendered } from './lib/viewer/Container'
 import { startAllActors } from './main-actors'
@@ -69,6 +68,5 @@ export function svgmapviewer(
     infoRoot(config)
   } else {
     root(config)
-    styleRoot()
   }
 }

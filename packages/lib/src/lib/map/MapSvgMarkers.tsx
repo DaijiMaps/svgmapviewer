@@ -6,7 +6,6 @@ import { type OsmRenderMapProps } from '../../types'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapMarkers } from '../carto'
 import { useShadowRoot } from '../dom'
-import { SvgSymbolStyle } from '../style/Style'
 import {
   useLayout,
   useLayoutConfig,
@@ -80,9 +79,6 @@ function MapSvgMarkersDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
       />
       <g id="map-svg-markers1">
         <MapSvgMarkersUses {...props} />
-        <style>
-          <SvgSymbolStyle />
-        </style>
         <use href="#position" />
       </g>
     </svg>

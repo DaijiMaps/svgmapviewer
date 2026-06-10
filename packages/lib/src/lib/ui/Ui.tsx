@@ -1,8 +1,9 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
-import { type ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 
 import { isShadowRootRendered, useShadowRoot } from '../dom'
+import { appearing_style, useAppearingStyleRef } from '../style/appearing'
 import { DetailBalloon } from './DetailBalloon'
 import { Footer } from './Footer'
 import { Guides } from './Guides'
@@ -19,8 +20,10 @@ export function Ui(): ReactNode {
 }
 
 function UiContent(): ReactNode {
+  const ref = useRef<HTMLDivElement>(null)
+  useAppearingStyleRef(ref, 'ui')
   return (
-    <div className="ui">
+    <div ref={ref} className="ui">
       <Screen />
       <Header />
       <Footer />
@@ -28,6 +31,7 @@ function UiContent(): ReactNode {
       <Right />
       <Guides />
       <DetailBalloon />
+      <style>{appearing_style}</style>
     </div>
   )
 }

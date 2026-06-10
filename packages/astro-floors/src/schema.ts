@@ -32,32 +32,6 @@ export const addressSchema = z.object({
 
 export const addressesSchema = addressSchema // z.record(z.string(), addressSchema)
 
-// poiKindSchema
-// poixSchema
-// poiSchema
-
-export const poiTagSchema = z.union([
-  z.literal('shop.cafe'),
-  z.literal('shop.misc'),
-  z.literal('shop.restaurant'),
-  z.literal('facility.elevator'),
-  z.literal('facility.escalator'),
-  z.literal('facility.toilet'),
-])
-
-export const poixSchema = z.object({
-  tag: poiTagSchema,
-})
-
-export const poiSchema = z.object({
-  id: z.string().optional(),
-  name: nameSchema.optional(),
-  coord: posSchema.optional(),
-  fidx: z.number().optional(),
-  size: z.number(),
-  x: poixSchema,
-})
-
 // searchAddressesSchema
 // searchNamesSchema
 

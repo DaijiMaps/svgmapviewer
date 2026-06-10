@@ -7,13 +7,15 @@ import { type CurrentScroll, type ResizeInfo, type ZoomInfo } from '../../types'
 import { findRadius } from '../distance'
 import { scrollCbs } from '../event-scroll'
 import { styleCbs } from '../event-style'
+import { updateMapStyleRefs } from '../map/style'
 import { vecZero } from '../vec/prefixed'
-import { updateAnimationRefs } from '../viewer/layout/animation'
+import { updateAnimationStyleRefs } from '../viewer/layout/animation'
 import { fromSvgToScroll } from '../viewer/layout/coord'
 import { emptyLayout, type Layout } from '../viewer/layout/layout'
-import { updateLayoutRefs } from '../viewer/layout/style'
+import { updateLayoutStyleRefs } from '../viewer/layout/style'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { type ViewerMode } from '../viewer/viewer-types'
+import { updateAppearingStyleRefs } from './appearing'
 import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
 
 export const currentLayout: Atom<Layout> = createAtom<Layout>(emptyLayout)
@@ -96,14 +98,17 @@ const styleMachine = setup({
         'updateGeoMatrix',
         'updateDistanceRadius',
         raise(({ event: { rendered } }) => ({ type: 'LAYOUT.DONE', rendered })),
-        ({ context }) => updateLayoutRefs(context.layout),
+        ({ context }) => updateLayoutStyleRefs(context.layout),
+        ({ context }) => updateMapStyleRefs(context.layout, context.zoom),
       ],
     },
     'STYLE.ZOOM': {
-      actions: {
-        type: 'updateZoom',
-        params: ({ event }) => event,
-      },
+      actions: [
+        {
+          type: 'updateZoom',
+          params: ({ event }) => event,
+        },
+      ],
     },
     'STYLE.SCROLL': {
       actions: {
@@ -118,12 +123,19 @@ const styleMachine = setup({
     },
   },
   initial: 'WaitingForLayout',
+  entry: ({ context }) =>
+    updateAppearingStyleRefs(context.shown, context.appearing),
   states: {
     WaitingForLayout: {
       on: {
         'LAYOUT.DONE': {
           guard: ({ event }) => event.rendered,
-          actions: assign({ appearing: true }),
+          actions: [
+            assign({ appearing: true }),
+            ({ context }) =>
+              updateAppearingStyleRefs(context.shown, context.appearing),
+            //() => requestAnimationFrame(() => notifyGlobal.rendered()),
+          ],
           target: 'Appearing',
         },
       },
@@ -132,8 +144,10 @@ const styleMachine = setup({
       on: {
         'STYLE.ANIMATION.END': {
           actions: [
-            () => updateAnimationRefs(null),
             assign({ appearing: false, shown: true }),
+            () => updateAnimationStyleRefs(null),
+            ({ context }) =>
+              updateAppearingStyleRefs(context.shown, context.appearing),
           ],
           target: 'Idle',
         },
@@ -143,7 +157,7 @@ const styleMachine = setup({
       on: {
         'STYLE.ANIMATION': {
           actions: [
-            ({ event: { animation } }) => updateAnimationRefs(animation),
+            ({ event: { animation } }) => updateAnimationStyleRefs(animation),
             assign({
               animating: true,
             }),
@@ -161,7 +175,7 @@ const styleMachine = setup({
       on: {
         'STYLE.ANIMATION.END': {
           actions: [
-            () => updateAnimationRefs(null),
+            () => updateAnimationStyleRefs(null),
             assign({
               animating: false,
             }),
