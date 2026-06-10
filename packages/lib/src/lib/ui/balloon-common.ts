@@ -1,7 +1,7 @@
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
-import { useEffect, type RefObject } from 'react'
+import { type RefObject } from 'react'
 
 import { type HV, type Size } from '../../types'
 import { boxBox, type BoxBox } from '../box/prefixed'
@@ -20,7 +20,7 @@ import {
 import { type BalloonProps } from './Balloon'
 import { diag } from './diag'
 import { openCloseIsVisible, type OpenClose } from './openclose'
-import { useCommonStyleRef, useOpenCloseDetail } from './ui-react'
+import { useCommonStyleRef } from './ui-react'
 import { type UiDetailContent } from './ui-types'
 
 const BW = 50
@@ -250,23 +250,7 @@ export const detailStyleString: string = `
 }
 `
 
-export function useDetailStyle(
-  ref: Readonly<RefObject<HTMLDivElement | null>>,
-  Q: null | V,
-  _hv: null | Readonly<HV>,
-  size: Readonly<BalloonSize>,
-  leg: Readonly<LegLayout>
-): void {
-  const oc = useOpenCloseDetail()
-
-  useEffect(() => {
-    if (ref.current === null) return
-    const e = ref.current
-    updateDetailStyle(e, Q, _hv, size, leg, oc)
-  }, [Q, _hv, leg, oc, ref, size])
-}
-
-function updateDetailStyle(
+function updateBalloonStyle(
   e: Readonly<HTMLDivElement>,
   Q: null | V,
   _hv: null | Readonly<HV>,
@@ -329,6 +313,6 @@ export function updateBalloonStyleRefs(
 ): void {
   const { _p, _hv, _size, _leg } = calcBalloonLayout(detail)
   Array.from(balloonStyleRefs, ([, e]) => {
-    updateDetailStyle(e, _p, _hv, _size, _leg, oc)
+    updateBalloonStyle(e, _p, _hv, _size, _leg, oc)
   })
 }

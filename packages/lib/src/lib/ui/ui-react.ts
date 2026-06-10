@@ -2,24 +2,12 @@ import { useEffect, type RefObject } from 'react'
 
 import { shadowRootMap } from '../dom'
 import type { OpenClose } from './openclose'
-import type { UiDetailContent } from './ui-types'
-import { useUiContext } from './ui-xstate'
 
 export const UI_ROOT_ID = 'ui'
 
 // XXX
 export function resetDetailScroll(): void {
   shadowRootMap.get('detail')?.querySelector('.detail')?.scroll(0, 0)
-}
-
-////
-
-export function useDetail(): UiDetailContent {
-  return useUiContext().detail
-}
-
-export function useOpenCloseDetail(): OpenClose {
-  return useUiContext().m['detail']
 }
 
 ////

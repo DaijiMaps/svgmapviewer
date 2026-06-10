@@ -1,13 +1,13 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { useMemo, type ReactNode } from 'react'
+import { type ReactNode } from 'react'
 
 import { RenderMapAssetsDefault } from '../carto/assets'
 import { useShadowRoot } from '../dom'
 import { Balloon } from './Balloon'
-import { calcBalloonLayout, detailStyleString } from './balloon-common'
+import { detailStyleString } from './balloon-common'
 import { Detail } from './Detail'
-import { useDetail } from './ui-react'
+import { useUiContext } from './ui-xstate'
 
 export function DetailBalloon(): ReactNode {
   useShadowRoot('detail', <DetailBalloonRoot />, 'ui')
@@ -25,14 +25,12 @@ export function DetailBalloonRoot(): ReactNode {
 }
 
 function BalloonDetailStyle() {
-  const detail = useDetail()
-
-  const props = useMemo(() => calcBalloonLayout(detail), [detail])
+  const ui = useUiContext()
 
   return (
     <>
-      <Balloon {...props} />
-      <Detail {...props} _detail={detail} />
+      <Balloon _detail={ui.detail} />
+      <Detail _detail={ui.detail} />
       <style>{detailStyleString}</style>
     </>
   )

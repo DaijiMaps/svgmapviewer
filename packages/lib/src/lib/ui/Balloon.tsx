@@ -11,11 +11,13 @@ import {
 import { type VecVec } from '../vec/prefixed'
 import {
   balloonPaths,
+  calcBalloonLayout,
   useBalloonStyleRef,
   type BalloonSize,
   type LegLayout,
 } from './balloon-common'
 import { useDetailStyleRef } from './ui-react'
+import type { UiDetailContent } from './ui-types'
 
 export interface BalloonProps {
   _p: null | VecVec
@@ -27,7 +29,7 @@ export interface BalloonProps {
 }
 
 export function Balloon(
-  props: Readonly<PropsWithChildren<BalloonProps>>
+  props: Readonly<PropsWithChildren<{ _detail: UiDetailContent }>>
 ): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -54,10 +56,11 @@ const style = `
 `
 
 function BalloonSvg(
-  props: Readonly<PropsWithChildren<BalloonProps>>
+  props: Readonly<PropsWithChildren<{ _detail: UiDetailContent }>>
 ): ReactNode {
-  const _hv = props._hv
-  return _hv === null ? <svg /> : <BalloonSvg1 {...props} hv={_hv} />
+  const x = useMemo(() => calcBalloonLayout(props._detail), [props._detail])
+  const _hv = x._hv
+  return _hv === null ? <svg /> : <BalloonSvg1 {...x} hv={_hv} />
 }
 
 function BalloonSvg1(
