@@ -8,10 +8,10 @@ import { findRadius } from '../distance'
 import { scrollCbs } from '../event-scroll'
 import { styleCbs } from '../event-style'
 import { vecZero } from '../vec/prefixed'
-import { updateAnimationRefs } from '../viewer/layout/animation'
+import { updateAnimationStyleRefs } from '../viewer/layout/animation'
 import { fromSvgToScroll } from '../viewer/layout/coord'
 import { emptyLayout, type Layout } from '../viewer/layout/layout'
-import { updateLayoutRefs } from '../viewer/layout/style'
+import { updateLayoutStyleRefs } from '../viewer/layout/style'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { type ViewerMode } from '../viewer/viewer-types'
 import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
@@ -96,7 +96,7 @@ const styleMachine = setup({
         'updateGeoMatrix',
         'updateDistanceRadius',
         raise(({ event: { rendered } }) => ({ type: 'LAYOUT.DONE', rendered })),
-        ({ context }) => updateLayoutRefs(context.layout),
+        ({ context }) => updateLayoutStyleRefs(context.layout),
       ],
     },
     'STYLE.ZOOM': {
@@ -132,7 +132,7 @@ const styleMachine = setup({
       on: {
         'STYLE.ANIMATION.END': {
           actions: [
-            () => updateAnimationRefs(null),
+            () => updateAnimationStyleRefs(null),
             assign({ appearing: false, shown: true }),
           ],
           target: 'Idle',
@@ -143,7 +143,7 @@ const styleMachine = setup({
       on: {
         'STYLE.ANIMATION': {
           actions: [
-            ({ event: { animation } }) => updateAnimationRefs(animation),
+            ({ event: { animation } }) => updateAnimationStyleRefs(animation),
             assign({
               animating: true,
             }),
@@ -161,7 +161,7 @@ const styleMachine = setup({
       on: {
         'STYLE.ANIMATION.END': {
           actions: [
-            () => updateAnimationRefs(null),
+            () => updateAnimationStyleRefs(null),
             assign({
               animating: false,
             }),

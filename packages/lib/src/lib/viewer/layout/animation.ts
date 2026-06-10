@@ -1,8 +1,10 @@
+/* eslint-disable functional/functional-parameters */
+/* eslint-disable functional/immutable-data */
 import { createAtom, type Atom } from '@xstate/store'
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
-import type { RefObject } from 'react'
+import { useEffect, type RefObject } from 'react'
 
 import { svgMapViewerConfig } from '../../../config'
 import type { AnimationMatrix, Dir } from '../../../types'
@@ -150,7 +152,6 @@ function zoomToScale(z: Dir): number {
 
 export const zoomingAtom: Atom<boolean> = createAtom<boolean>(false)
 
-// eslint-disable-next-line functional/functional-parameters
 export const getZooming = (): boolean => zoomingAtom.get()
 
 export const setZooming = (zooming: boolean): void =>
@@ -158,19 +159,28 @@ export const setZooming = (zooming: boolean): void =>
 
 ////
 
-export const animationRefs: Map<
-  string,
-  RefObject<HTMLDivElement | null>
-> = new Map()
+const animationStyleRefs: Map<string, HTMLDivElement> = new Map()
 
-export function updateAnimationRefs(a: null | Readonly<AnimationMatrix>): void {
+export function useAnimationStyleRef(
+  ref: Readonly<RefObject<HTMLDivElement | null>>
+): void {
+  useEffect(() => {
+    const e = ref.current
+    if (e) animationStyleRefs.set('map-symbols', e)
+    return () => {
+      if (e) animationStyleRefs.delete('map-symbols')
+    }
+  }, [ref])
+}
+
+export function updateAnimationStyleRefs(
+  a: null | Readonly<AnimationMatrix>
+): void {
   const p = a?.from.toString()
   const q = a?.to.toString()
   const o =
     a?.origin === null ? `left top` : `${a?.origin.x}px ${a?.origin.y}px`
-  Array.from(animationRefs, ([, ref]) => {
-    const e = ref.current
-    if (!e) return
+  Array.from(animationStyleRefs, ([, e]) => {
     if (a === null) {
       e.classList.remove('zooming')
     } else {

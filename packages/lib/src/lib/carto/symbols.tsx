@@ -1,7 +1,9 @@
-import { type ReactNode } from 'react'
+/* eslint-disable functional/no-expression-statements */
+import { useRef, type ReactNode } from 'react'
 import { Fragment } from 'react/jsx-runtime'
 
 import { type OsmRenderMapProps } from '../../types'
+import { useMapStyleRef } from '../map/style'
 import { type V } from '../tuple'
 import { entryToVs } from './point'
 import { type RenderMapSymbolsProps } from './types'
@@ -9,8 +11,12 @@ import { type RenderMapSymbolsProps } from './types'
 export function RenderMapSymbols(
   props: Readonly<OsmRenderMapProps & RenderMapSymbolsProps>
 ): ReactNode {
+  const ref = useRef<SVGGElement>(null)
+
+  useMapStyleRef(ref)
+
   return (
-    <g className="map-symbols">
+    <g ref={ref} className="map-symbols">
       {props.mapSymbols.map((entry, i) => {
         return (
           <Fragment key={i}>
@@ -29,6 +35,11 @@ export function RenderMapSymbols(
   )
 }
 
+// XXX
+// XXX
+// XXX use ref registry
+// XXX
+// XXX
 export function RenderUses(
   props: Readonly<{ name: string; href: string; vs: V[]; m: DOMMatrixReadOnly }>
 ): ReactNode {
