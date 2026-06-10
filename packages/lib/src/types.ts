@@ -166,6 +166,7 @@ export interface SvgMapViewerConfig
   extends OsmDataConfig, OsmRenderConfig, OsmSearchConfig {
   root: string
   href: string
+  base?: string
   width: number
   height: number
   origViewBox: BoxBox // XXX
