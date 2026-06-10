@@ -6,6 +6,7 @@
 import { useEffect, type RefObject } from 'react'
 
 import { trunc2 } from '../../utils'
+import { fromSvgToContent } from './coord'
 import type { Layout } from './layout-types'
 
 const layoutStyleRefs: Map<string, HTMLDivElement> = new Map()
@@ -24,10 +25,12 @@ export function useLayoutStyleRef(
 }
 
 export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
+  const svgToContent = fromSvgToContent(layout)
   Array.from(layoutStyleRefs, ([, e]) => {
     const s = e.style.setProperty.bind(e.style)
     s(`--layout-content-matrix`, layout.content.toString())
     s(`--layout-scroll-width`, `${trunc2(layout.scroll.width)}px`)
     s(`--layout-scroll-height`, `${trunc2(layout.scroll.height)}px`)
+    s(`--layout-svg-to-content-matrix`, svgToContent.toString())
   })
 }

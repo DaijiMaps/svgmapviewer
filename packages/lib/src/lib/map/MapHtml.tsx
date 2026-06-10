@@ -1,12 +1,10 @@
 /* eslint-disable functional/no-expression-statements */
-/* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+
+import { useRef, type ReactNode } from 'react'
 
 import { type OsmRenderMapProps } from '../../types'
 import { useShadowRoot } from '../dom'
-import { useLayout } from '../style/style-react'
-import { trunc2 } from '../utils'
-import { fromSvgToContent } from '../viewer/layout/coord'
+import { useLayoutStyleRef } from '../viewer/layout/style'
 import { MAP_HTML_CONTENT_ID, MAP_HTML_ROOT_ID } from './map-svg-react'
 import { useNames } from './names'
 
@@ -17,30 +15,27 @@ export function MapHtml(props: Readonly<OsmRenderMapProps>): ReactNode {
 }
 
 function MapHtmlRoot(props: Readonly<OsmRenderMapProps>): ReactNode {
+  const ref = useRef(null)
+  useLayoutStyleRef(ref, 'map-html')
   return (
     <>
-      <div id={MAP_HTML_CONTENT_ID} className="content-html">
+      <div ref={ref} id={MAP_HTML_CONTENT_ID} className="content-html">
         <MapHtmlPointNames {...props} stroke={true} />
         <MapHtmlPointNames {...props} />
       </div>
-      <MapHtmlStyle />
+      <style>{style}</style>
     </>
   )
 }
 
-function MapHtmlStyle(): ReactNode {
-  const layout = useLayout()
-  const { scroll } = layout
-  const m = fromSvgToContent(layout)
-
-  const style = `
+const style = `
 #map-html-content {
   position: absolute;
   left: 0;
   top: 0;
-  width: ${trunc2(scroll.width)}px;
-  height: ${trunc2(scroll.height)}px;
-  transform: ${m.toString()};
+  width: var(--layout-scroll-width);
+  height: var(--layout-scroll-height);
+  transform: var(--layout-svg-to-content-matrix);
   transform-origin: left top;
 }
 
@@ -49,9 +44,6 @@ function MapHtmlStyle(): ReactNode {
   -webkit-text-stroke: 3px white;
 }
 `
-
-  return <style>{style}</style>
-}
 
 function MapHtmlPointNames(
   props: Readonly<
