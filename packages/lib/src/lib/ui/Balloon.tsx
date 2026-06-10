@@ -59,22 +59,24 @@ function BalloonSvg(
   props: Readonly<PropsWithChildren<{ _detail: UiDetailContent }>>
 ): ReactNode {
   const x = useMemo(() => calcBalloonLayout(props._detail), [props._detail])
-  const _hv = x._hv
-  return _hv === null ? <svg /> : <BalloonSvg1 {...x} hv={_hv} />
-}
-
-function BalloonSvg1(
-  props: Readonly<PropsWithChildren<BalloonProps> & { hv: HV }>
-) {
   const { viewBox, width, height, fg, bg } = useMemo(
-    () => balloonPaths(props.hv, props._size),
-    [props._size, props.hv]
+    () =>
+      x._hv === null
+        ? {
+            viewBox: undefined,
+            width: undefined,
+            height: undefined,
+            fg: undefined,
+            bg: undefined,
+          }
+        : balloonPaths(x._hv, x._size),
+    [x._size, x._hv]
   )
 
   return (
     <svg
       className="balloon-svg"
-      viewBox={boxToViewBox2(viewBox)}
+      viewBox={viewBox && boxToViewBox2(viewBox)}
       width={width}
       height={height}
     >

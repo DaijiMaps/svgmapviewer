@@ -7,7 +7,7 @@ import { useShadowRoot } from '../dom'
 import { Balloon } from './Balloon'
 import { detailStyleString } from './balloon-common'
 import { Detail } from './Detail'
-import { useUiContext } from './ui-xstate'
+import { useDetail } from './ui-xstate'
 
 export function DetailBalloon(): ReactNode {
   useShadowRoot('detail', <DetailBalloonRoot />, 'ui')
@@ -25,12 +25,12 @@ export function DetailBalloonRoot(): ReactNode {
 }
 
 function BalloonDetailStyle() {
-  const ui = useUiContext()
+  const detail = useDetail()
 
   return (
     <>
-      <Balloon _detail={ui.detail} />
-      <Detail _detail={ui.detail} />
+      <Balloon _detail={detail} />
+      <Detail _detail={detail} />
       <style>{detailStyleString}</style>
     </>
   )

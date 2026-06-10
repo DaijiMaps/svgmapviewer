@@ -274,8 +274,8 @@ export function uiActorStart(): void {
 export function uiSend(ev: UiEvent): void {
   uiActor.send(ev)
 }
-export function useUiContext(): UiContext {
-  return useSelector(uiActor, (ui) => ui.context)
+export function useDetail(): UiDetailContent {
+  return useSelector(uiActor, (ui) => ui.context.detail)
 }
 
 uiActor.on('CLOSE.DONE', notifyUi.closeDone)
