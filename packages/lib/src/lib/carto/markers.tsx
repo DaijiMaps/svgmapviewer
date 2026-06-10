@@ -1,6 +1,8 @@
-import { type ReactNode } from 'react'
+/* eslint-disable functional/no-expression-statements */
+import { useRef, type ReactNode } from 'react'
 
 import { type OsmRenderMapProps } from '../../types'
+import { useMapStyleRef } from '../map/style'
 import { usePosition } from '../position'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'
@@ -10,10 +12,14 @@ import { type MapMarker, type RenderMapMarkersProps } from './types'
 export function RenderMapMarkers(
   props: Readonly<OsmRenderMapProps & RenderMapMarkersProps>
 ): ReactNode {
+  const ref = useRef<SVGGElement>(null)
+
+  useMapStyleRef(ref, 'map-markers')
+
   const sz = 25 / props.fontSize
 
   return (
-    <defs className="map-markers">
+    <defs ref={ref} className="map-markers">
       {props.mapMarkers.map((entry, i) => (
         <g key={i}>
           <RenderUses

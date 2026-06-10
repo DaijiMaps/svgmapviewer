@@ -7,18 +7,19 @@ import { useEffect, type RefObject } from 'react'
 
 import type { Layout } from '../viewer/layout/layout'
 
-const mapStyleRefs: Map<string, RefObject<SVGGElement | null>> = new Map()
+const mapStyleRefs: Map<string, SVGGElement> = new Map()
 
 export function useMapStyleRef(
-  ref: Readonly<RefObject<SVGGElement | null>>
+  ref: Readonly<RefObject<SVGGElement | null>>,
+  name: string
 ): void {
   useEffect(() => {
     const e = ref.current
-    if (e) mapStyleRefs.set('map-symbols', ref)
+    if (e) mapStyleRefs.set(name, e)
     return () => {
-      if (e) mapStyleRefs.delete('map-symbols')
+      if (e) mapStyleRefs.delete(name)
     }
-  }, [ref])
+  }, [name, ref])
 }
 
 export function updateMapStyleRefs(
@@ -30,10 +31,8 @@ export function updateMapStyleRefs(
     // display symbol slightly larger as zoom goes higher
     (0.5 + 0.5 * Math.log2(Math.max(1, zoom))) *
     layout.svgScale
-  Array.from(mapStyleRefs, ([, ref]) => {
-    const e = ref.current
-    if (!e) return
+  Array.from(mapStyleRefs, ([, e]) => {
     const s = e.style.setProperty.bind(e.style)
-    s(`--map-symbol-syze`, `${sz}`)
+    s(`--map-symbol-size`, `${sz / 72}`)
   })
 }

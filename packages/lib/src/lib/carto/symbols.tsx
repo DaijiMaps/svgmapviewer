@@ -13,7 +13,7 @@ export function RenderMapSymbols(
 ): ReactNode {
   const ref = useRef<SVGGElement>(null)
 
-  useMapStyleRef(ref)
+  useMapStyleRef(ref, 'map-symbols')
 
   return (
     <g ref={ref} className="map-symbols">
@@ -35,11 +35,6 @@ export function RenderMapSymbols(
   )
 }
 
-// XXX
-// XXX
-// XXX use ref registry
-// XXX
-// XXX
 export function RenderUses(
   props: Readonly<{ name: string; href: string; vs: V[]; m: DOMMatrixReadOnly }>
 ): ReactNode {

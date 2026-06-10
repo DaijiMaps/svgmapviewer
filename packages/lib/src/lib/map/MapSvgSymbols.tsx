@@ -7,7 +7,6 @@ import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapSymbols } from '../carto'
 import { RenderMapAssetsDefault } from '../carto/assets'
 import { useShadowRoot } from '../dom'
-import { SvgSymbolStyle } from '../style/Style'
 import { useLayout } from '../style/style-react'
 import { trunc2 } from '../utils'
 import {
@@ -72,9 +71,6 @@ function MapSvgSymbolsDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
           m={props.data.mapCoord.matrix}
           mapSymbols={props.render.getMapSymbols()}
         />
-        <style>
-          <SvgSymbolStyle />
-        </style>
       </g>
     </svg>
   )

@@ -7,14 +7,7 @@ import { createRoot } from 'react-dom/client'
 
 import { timing_opening } from '../css'
 import { notifyGlobal } from '../event-global'
-import {
-  useAppearing,
-  useLayoutConfig,
-  useLayoutSvgScaleS,
-  useRendered,
-  useShown,
-  useZoom,
-} from './style-react'
+import { useAppearing, useRendered, useShown } from './style-react'
 
 export function styleRoot(): void {
   const e = document.getElementById('style-root')
@@ -56,25 +49,4 @@ function RootStyle(): ReactNode {
       {appearing_style}
     </style>
   )
-}
-
-export function SvgSymbolStyle(): ReactNode {
-  const config = useLayoutConfig()
-  const s = useLayoutSvgScaleS()
-  const zoom = useZoom()
-  const sz =
-    config.fontSize *
-    // display symbol slightly larger as zoom goes higher
-    (0.5 + 0.5 * Math.log2(Math.max(1, zoom))) *
-    s
-
-  const style = `
-use,
-.map-symbols,
-.map-markers {
-  --map-symbol-size: ${sz / 72};
-}
-`
-
-  return <>{style}</>
 }

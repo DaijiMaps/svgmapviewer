@@ -7,6 +7,7 @@ import { type CurrentScroll, type ResizeInfo, type ZoomInfo } from '../../types'
 import { findRadius } from '../distance'
 import { scrollCbs } from '../event-scroll'
 import { styleCbs } from '../event-style'
+import { updateMapStyleRefs } from '../map/style'
 import { vecZero } from '../vec/prefixed'
 import { updateAnimationStyleRefs } from '../viewer/layout/animation'
 import { fromSvgToScroll } from '../viewer/layout/coord'
@@ -97,13 +98,16 @@ const styleMachine = setup({
         'updateDistanceRadius',
         raise(({ event: { rendered } }) => ({ type: 'LAYOUT.DONE', rendered })),
         ({ context }) => updateLayoutStyleRefs(context.layout),
+        ({ context }) => updateMapStyleRefs(context.layout, context.zoom),
       ],
     },
     'STYLE.ZOOM': {
-      actions: {
-        type: 'updateZoom',
-        params: ({ event }) => event,
-      },
+      actions: [
+        {
+          type: 'updateZoom',
+          params: ({ event }) => event,
+        },
+      ],
     },
     'STYLE.SCROLL': {
       actions: {
