@@ -10,6 +10,9 @@
       "path": "../example-floors",
     },
     {
+      "path": "../example-floors-astro",
+    },
+    {
       "path": "../app-osm",
     },
     {
@@ -17,6 +20,6 @@
     },
   ],
   "settings": {
-    "typescript.experimental.useTsgo": true,
+    "js/ts.experimental.useTsgo": true,
   },
 }

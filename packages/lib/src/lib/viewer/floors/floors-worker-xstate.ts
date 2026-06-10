@@ -11,8 +11,8 @@ const floorsWorkerMachine = setup({
   },
   actions: {
     fetch: emit(
-      ({ context: { cfg } }): Emits =>
-        cfg === undefined ? { type: 'NOOP' } : { type: 'FETCH', cfg }
+      ({ context: { cfg, base } }): Emits =>
+        cfg === undefined ? { type: 'NOOP' } : { type: 'FETCH', cfg, base }
     ),
   },
 }).createMachine({
@@ -27,9 +27,7 @@ const floorsWorkerMachine = setup({
         INIT: {
           actions: [
             emit({ type: 'INIT.DONE' }),
-            assign({
-              cfg: ({ event: { cfg } }) => cfg,
-            }),
+            assign(({ event: { cfg, base } }) => ({ cfg, base })),
           ],
           target: 'LoadingFirst',
         },
@@ -54,9 +52,9 @@ export function floorsWorkerSend(ev: Req): void {
 }
 
 floorsWorkerActor.on('INIT.DONE', (ev) => ctx.postMessage(ev))
-floorsWorkerActor.on('FETCH', ({ cfg }) =>
+floorsWorkerActor.on('FETCH', ({ cfg, base }) =>
   cfg.floors.forEach((f, fidx) => {
-    fetch(f.href)
+    fetch((base ?? '') + f.href)
       .then((response) => {
         if (!response.ok) {
           // XXX retry?

@@ -153,7 +153,11 @@ export function floorsCbsStart(): void {
       const nfloors = cfg.floorsConfig.floors.length
       const fidx = cfg.floorsConfig.initialFidx
       floorsActor.send({ type: 'INIT', nfloors, fidx })
-      worker.postMessage({ type: 'INIT', cfg: cfg.floorsConfig })
+      worker.postMessage({
+        type: 'INIT',
+        cfg: cfg.floorsConfig,
+        base: cfg.base,
+      })
     }
   })
   floorCbs.select.add((fidx: number) =>

@@ -6,5 +6,6 @@ import { svgmapviewer } from 'svgmapviewer-app-floors'
 export function main(props: Readonly<SvgMapViewerConfigUser>) {
   svgmapviewer({
     ...props,
+    base: import.meta.env.BASE_URL,
   })
 }
