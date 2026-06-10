@@ -1,7 +1,12 @@
 /* eslint-disable functional/no-return-void */
 
 /* eslint-disable functional/functional-parameters */
-import { Fragment, useCallback, type ReactNode } from 'react'
+import {
+  Fragment,
+  useCallback,
+  type PropsWithChildren,
+  type ReactNode,
+} from 'react'
 
 import {
   type Floor,
@@ -20,32 +25,12 @@ import {
 } from '../viewer/floors/floors-react'
 import { MAP_SVG_FLOORS } from './map-svg-react'
 
-export function RenderFloors({
-  floors, // FloorsConfig
-  ...rest
-}: Readonly<OsmRenderMapProps>): ReactNode {
-  const { viewBox } = useLayout2()
-
-  const ctx = useFloors()
-
-  return floors === undefined ? (
-    <></>
-  ) : (
+export function RenderFloors(props: Readonly<OsmRenderMapProps>): ReactNode {
+  return (
     <div className="content">
-      <svg id={`${MAP_SVG_FLOORS}`} className="content-svg" viewBox={viewBox}>
-        {floors.floors.map((floor, idx) => (
-          <Fragment key={idx}>
-            <RenderFloor
-              floors={floors}
-              {...rest}
-              ctx={ctx}
-              floor={floor}
-              idx={idx}
-              labelsMap={floors.labelsMap}
-            />
-          </Fragment>
-        ))}
-      </svg>
+      <RenderFloorsSvg>
+        <RenderFloorsContent {...props} />
+      </RenderFloorsSvg>
       <style>{floor_appearing_animation}</style>
       <style>{`
 svg.content-svg {
@@ -54,6 +39,41 @@ svg.content-svg {
 }
 `}</style>
     </div>
+  )
+}
+
+function RenderFloorsSvg(props: Readonly<PropsWithChildren>): ReactNode {
+  const { viewBox } = useLayout2()
+
+  // only this part is re-rendered after zoom (viewbox change)
+  return (
+    <svg id={MAP_SVG_FLOORS} className="content-svg" viewBox={viewBox}>
+      {props.children}
+    </svg>
+  )
+}
+
+function RenderFloorsContent({
+  floors, // FloorsConfig
+  ...rest
+}: Readonly<OsmRenderMapProps>): ReactNode {
+  const ctx = useFloors()
+
+  return (
+    <>
+      {(floors?.floors ?? []).map((floor, idx) => (
+        <Fragment key={idx}>
+          <RenderFloor
+            floors={floors}
+            {...rest}
+            ctx={ctx}
+            floor={floor}
+            idx={idx}
+            labelsMap={floors?.labelsMap}
+          />
+        </Fragment>
+      ))}
+    </>
   )
 }
 
