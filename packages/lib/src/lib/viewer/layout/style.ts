@@ -11,15 +11,16 @@ import type { Layout } from './layout-types'
 const layoutStyleRefs: Map<string, HTMLDivElement> = new Map()
 
 export function useLayoutStyleRef(
-  ref: Readonly<RefObject<HTMLDivElement | null>>
+  ref: Readonly<RefObject<HTMLDivElement | null>>,
+  name: string
 ): void {
   useEffect(() => {
     const e = ref.current
-    if (e) layoutStyleRefs.set('map-symbols', e)
+    if (e) layoutStyleRefs.set(name, e)
     return () => {
-      if (e) layoutStyleRefs.delete('map-symbols')
+      if (e) layoutStyleRefs.delete(name)
     }
-  }, [ref])
+  }, [name, ref])
 }
 
 export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {

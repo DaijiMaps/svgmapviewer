@@ -162,15 +162,16 @@ export const setZooming = (zooming: boolean): void =>
 const animationStyleRefs: Map<string, HTMLDivElement> = new Map()
 
 export function useAnimationStyleRef(
-  ref: Readonly<RefObject<HTMLDivElement | null>>
+  ref: Readonly<RefObject<HTMLDivElement | null>>,
+  name: string
 ): void {
   useEffect(() => {
     const e = ref.current
-    if (e) animationStyleRefs.set('map-symbols', e)
+    if (e) animationStyleRefs.set(name, e)
     return () => {
-      if (e) animationStyleRefs.delete('map-symbols')
+      if (e) animationStyleRefs.delete(name)
     }
-  }, [ref])
+  }, [name, ref])
 }
 
 export function updateAnimationStyleRefs(

@@ -5,9 +5,11 @@ import { useRef, type PropsWithChildren, type ReactNode } from 'react'
 
 import {
   position_absolute_left_0_top_0,
+  timing_opening,
   width_100vw_height_100svh,
 } from '../css'
 import { notifyStyle } from '../event-style'
+import { useAppearingStyleRef } from '../style/appearing'
 import { useOpenCloseDetailStyle } from '../ui/ui-react'
 import { sendContextMenu } from './input/input'
 import { useAnimationStyleRef } from './layout/animation'
@@ -24,8 +26,9 @@ export function Container(props: Readonly<PropsWithChildren>): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
   useOpenCloseDetailStyle(ref)
   useTouchMoveZoomingLock(ref)
-  useAnimationStyleRef(ref)
-  useLayoutStyleRef(ref)
+  useAnimationStyleRef(ref, 'container')
+  useLayoutStyleRef(ref, 'container')
+  useAppearingStyleRef(ref, 'container')
   return (
     <div
       ref={ref}
@@ -75,6 +78,17 @@ const style: string = `
     pointer-events: none;
     width: var(--layout-scroll-width);
     height: var(--layout-scroll-height);
+  }
+  &.not-shown {
+    opacity: 0;
+  }
+  &.shown {
+  }
+  &.not-appearing {
+  }
+  &.appearing {
+    will-change: opacity;
+    animation: xxx-appearing 2s ${timing_opening};
   }
 }
 @keyframes xxx-container {

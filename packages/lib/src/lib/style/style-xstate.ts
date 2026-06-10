@@ -15,6 +15,7 @@ import { emptyLayout, type Layout } from '../viewer/layout/layout'
 import { updateLayoutStyleRefs } from '../viewer/layout/style'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { type ViewerMode } from '../viewer/viewer-types'
+import { updateAppearingStyleRefs } from './appearing'
 import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
 
 export const currentLayout: Atom<Layout> = createAtom<Layout>(emptyLayout)
@@ -122,12 +123,19 @@ const styleMachine = setup({
     },
   },
   initial: 'WaitingForLayout',
+  entry: ({ context }) =>
+    updateAppearingStyleRefs(context.shown, context.appearing),
   states: {
     WaitingForLayout: {
       on: {
         'LAYOUT.DONE': {
           guard: ({ event }) => event.rendered,
-          actions: assign({ appearing: true }),
+          actions: [
+            assign({ appearing: true }),
+            ({ context }) =>
+              updateAppearingStyleRefs(context.shown, context.appearing),
+            //() => requestAnimationFrame(() => notifyGlobal.rendered()),
+          ],
           target: 'Appearing',
         },
       },
@@ -136,8 +144,10 @@ const styleMachine = setup({
       on: {
         'STYLE.ANIMATION.END': {
           actions: [
-            () => updateAnimationStyleRefs(null),
             assign({ appearing: false, shown: true }),
+            () => updateAnimationStyleRefs(null),
+            ({ context }) =>
+              updateAppearingStyleRefs(context.shown, context.appearing),
           ],
           target: 'Idle',
         },
