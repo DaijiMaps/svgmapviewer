@@ -22,36 +22,6 @@ export function useOpenCloseDetail(): OpenClose {
   return useUiContext().m['detail']
 }
 
-/*
-export function useOpenCloseHeaderStyle(
-  ref: Readonly<RefObject<HTMLDivElement | null>>
-): void {
-  const oc = useUiContext().m['header']
-  useOpenCloseStyle(ref, oc)
-}
-
-export function useOpenCloseDetailStyle(
-  ref: Readonly<RefObject<HTMLDivElement | null>>
-): void {
-  const oc = useUiContext().m['detail']
-  useOpenCloseStyle(ref, oc)
-}
-
-function useOpenCloseStyle(
-  ref: Readonly<RefObject<HTMLDivElement | null>>,
-  { open, animating }: OpenClose
-): void {
-  useEffect(() => {
-    if (ref.current === null) return
-    const e = ref.current
-    e.classList.remove(animating ? 'not-animating' : 'animating')
-    e.classList.add(!animating ? 'not-animating' : 'animating')
-    e.classList.remove(open ? 'closed' : `opened`)
-    e.classList.add(!open ? 'closed' : `opened`)
-  }, [animating, open, ref])
-}
-*/
-
 ////
 
 const headerStyleRefs: Map<string, HTMLDivElement> = new Map()

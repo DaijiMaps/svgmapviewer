@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 import { useEffect, type RefObject } from 'react'
@@ -18,8 +19,8 @@ import {
 } from '../vec/prefixed'
 import { type BalloonProps } from './Balloon'
 import { diag } from './diag'
-import { openCloseIsVisible } from './openclose'
-import { useOpenCloseDetail } from './ui-react'
+import { openCloseIsVisible, type OpenClose } from './openclose'
+import { useCommonStyleRef, useOpenCloseDetail } from './ui-react'
 import { type UiDetailContent } from './ui-types'
 
 const BW = 50
@@ -256,52 +257,78 @@ export function useDetailStyle(
   size: Readonly<BalloonSize>,
   leg: Readonly<LegLayout>
 ): void {
-  const { open, animating } = useOpenCloseDetail()
+  const oc = useOpenCloseDetail()
 
   useEffect(() => {
     if (ref.current === null) return
     const e = ref.current
-    const x = (k: string, v: null | number | string) =>
-      e.style.setProperty(k, v === null ? null : String(v))
-    if (
-      Q === null ||
-      _hv === null ||
-      !openCloseIsVisible({ open, animating })
-    ) {
-      x('visibility', 'hidden')
-      return
-    }
-    const { width, height } = size
-    const dP = scale(leg.q, -1)
-    x('visibility', null)
-    x('--pww', `${-width / 2}px`)
-    x('--phh', `${-height / 2}px`)
-    if (!animating) {
-      const { b } = ab(0, 1)
-      const tx = vecAdd(Q, dP)
+    updateDetailStyle(e, Q, _hv, size, leg, oc)
+  }, [Q, _hv, leg, oc, ref, size])
+}
 
-      x('--a', null)
-      x('--b', b)
-      x('--timing', null)
-      x('--tx-a-x', null)
-      x('--tx-a-y', null)
-      x('--tx-b-x', `${tx.x}px`)
-      x('--tx-b-y', `${tx.y}px`)
-      return
-    } else {
-      const { a, b } = open ? ab(0, 1) : ab(1, 0)
-      const t = open ? timing_opening : timing_closing
-      const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
-      const tx = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
+function updateDetailStyle(
+  e: Readonly<HTMLDivElement>,
+  Q: null | V,
+  _hv: null | Readonly<HV>,
+  size: Readonly<BalloonSize>,
+  leg: Readonly<LegLayout>,
+  { open, animating }: OpenClose
+): void {
+  const x = (k: string, v: null | number | string) =>
+    e.style.setProperty(k, v === null ? null : String(v))
+  if (Q === null || _hv === null || !openCloseIsVisible({ open, animating })) {
+    x('visibility', 'hidden')
+    return
+  }
+  const { width, height } = size
+  const dP = scale(leg.q, -1)
+  x('visibility', null)
+  x('--pww', `${-width / 2}px`)
+  x('--phh', `${-height / 2}px`)
+  if (!animating) {
+    const { b } = ab(0, 1)
+    const tx = vecAdd(Q, dP)
 
-      x('--a', a)
-      x('--b', b)
-      x('--timing', `${t}`)
-      x('--tx-a-x', `${tx.a.x}px`)
-      x('--tx-a-y', `${tx.a.y}px`)
-      x('--tx-b-x', `${tx.b.x}px`)
-      x('--tx-b-y', `${tx.b.y}px`)
-      return
-    }
-  }, [Q, _hv, animating, leg.q, open, ref, size])
+    x('--a', null)
+    x('--b', b)
+    x('--timing', null)
+    x('--tx-a-x', null)
+    x('--tx-a-y', null)
+    x('--tx-b-x', `${tx.x}px`)
+    x('--tx-b-y', `${tx.y}px`)
+  } else {
+    const { a, b } = open ? ab(0, 1) : ab(1, 0)
+    const t = open ? timing_opening : timing_closing
+    const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
+    const tx = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
+
+    x('--a', a)
+    x('--b', b)
+    x('--timing', `${t}`)
+    x('--tx-a-x', `${tx.a.x}px`)
+    x('--tx-a-y', `${tx.a.y}px`)
+    x('--tx-b-x', `${tx.b.x}px`)
+    x('--tx-b-y', `${tx.b.y}px`)
+  }
+}
+
+////
+
+const balloonStyleRefs: Map<string, HTMLDivElement> = new Map()
+
+export function useBalloonStyleRef(
+  ref: Readonly<RefObject<HTMLDivElement | null>>,
+  name: string
+): void {
+  useCommonStyleRef(balloonStyleRefs, ref, name)
+}
+
+export function updateBalloonStyleRefs(
+  detail: Readonly<UiDetailContent>,
+  oc: OpenClose
+): void {
+  const { _p, _hv, _size, _leg } = calcBalloonLayout(detail)
+  Array.from(balloonStyleRefs, ([, e]) => {
+    updateDetailStyle(e, _p, _hv, _size, _leg, oc)
+  })
 }

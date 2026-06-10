@@ -13,7 +13,7 @@ import {
 } from '../css'
 import { useOnWheel } from '../wheel'
 import type { BalloonProps } from './Balloon'
-import { useDetailStyle } from './balloon-common'
+import { useBalloonStyleRef } from './balloon-common'
 import { useDetailStyleRef } from './ui-react'
 import { type UiDetailContent } from './ui-types'
 import { isDetailEmpty, uiSend } from './ui-xstate'
@@ -26,8 +26,7 @@ export function Detail(
   useOnWheel(ref)
 
   useDetailStyleRef(ref, 'detail')
-
-  useDetailStyle(ref, props._p, props._hv, props._size, props._leg)
+  useBalloonStyleRef(ref, 'detail')
 
   return (
     <div

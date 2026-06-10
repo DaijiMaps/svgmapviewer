@@ -6,6 +6,7 @@ import { searchCbs } from '../event-search'
 import { notifyUi, uiCbs } from '../event-ui'
 import { vecZero } from '../vec/prefixed'
 import { emptyLayoutCoord, fromMatrixSvg } from '../viewer/layout/coord'
+import { updateBalloonStyleRefs } from './balloon-common'
 import {
   openCloseClose,
   openCloseClosed,
@@ -97,6 +98,8 @@ const uiMachine = setup({
       updateHeaderStyleRefs(context.m['header']),
     updateDetailStyle: ({ context }) =>
       updateDetailStyleRefs(context.m['detail']),
+    updateBalloonStyle: ({ context }) =>
+      updateBalloonStyleRefs(context.detail, context.m['detail']),
   },
 }).createMachine({
   type: 'parallel',
@@ -114,7 +117,7 @@ const uiMachine = setup({
   }),
   on: {
     RENDERED: {
-      actions: ['updateHeaderStyle', 'updateDetailStyle'],
+      actions: ['updateHeaderStyle', 'updateDetailStyle', 'updateBalloonStyle'],
     },
   },
   states: {
@@ -177,6 +180,7 @@ const uiMachine = setup({
                 { type: 'open', params: { part: 'detail' } },
                 'updateHeaderStyle',
                 'updateDetailStyle',
+                'updateBalloonStyle',
               ],
               on: {
                 DONE: [
@@ -206,6 +210,7 @@ const uiMachine = setup({
                 { type: 'close', params: { part: 'detail' } },
                 'updateHeaderStyle',
                 'updateDetailStyle',
+                'updateBalloonStyle',
               ],
               exit: 'endCancel',
               on: {
@@ -244,6 +249,7 @@ const uiMachine = setup({
           actions: [
             { type: 'handle', params: { part: 'detail' } },
             'updateDetailStyle',
+            'updateBalloonStyle',
             assign({
               animationEnded: ({ context }) => ({
                 ...context.animationEnded,
