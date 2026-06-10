@@ -1,5 +1,7 @@
+/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 
 import { svgMapViewerConfig } from './config'
 import {
@@ -9,7 +11,9 @@ import {
   touch_action_none,
   width_100vw_height_100svh,
 } from './lib/css'
+import { notifyGlobal } from './lib/event-global'
 import { likeStyle } from './lib/like/Like'
+import { useRendered } from './lib/style/style-react'
 import { Ui } from './lib/ui/Ui'
 import { Container } from './lib/viewer/Container'
 import { type OsmRenderMapProps } from './types'
@@ -26,6 +30,8 @@ function App(): ReactNode {
     carto: svgMapViewerConfig.cartoConfig,
     floors: svgMapViewerConfig.floorsConfig,
   }
+
+  useInitialRendering()
 
   return (
     <>
@@ -74,5 +80,13 @@ a:link {
 
 ${likeStyle}
 `
+
+function useInitialRendering() {
+  const rendered = useRendered()
+
+  useEffect(() => {
+    requestAnimationFrame(() => notifyGlobal.rendered())
+  }, [rendered])
+}
 
 export default App
