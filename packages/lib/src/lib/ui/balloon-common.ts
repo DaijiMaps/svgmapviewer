@@ -6,6 +6,7 @@ import { type RefObject } from 'react'
 import { type HV, type Size } from '../../types'
 import { boxBox, type BoxBox } from '../box/prefixed'
 import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from '../css'
+import { useStyleRef } from '../style/ref'
 import { ab, trunc3, type AB } from '../utils'
 import {
   vecVec as v,
@@ -20,7 +21,6 @@ import {
 import { type BalloonProps } from './Balloon'
 import { diag } from './diag'
 import { openCloseIsVisible, type OpenClose } from './openclose'
-import { useCommonStyleRef } from './ui-react'
 import { type UiDetailContent } from './ui-types'
 
 const BW = 50
@@ -319,7 +319,7 @@ export function useBalloonStyleRef(
   ref: Readonly<RefObject<HTMLDivElement | null>>,
   name: string
 ): void {
-  useCommonStyleRef(balloonStyleRefs, ref, name)
+  useStyleRef(balloonStyleRefs, ref, name)
 }
 
 export function updateBalloonStyleRefs(
