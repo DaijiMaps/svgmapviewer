@@ -107,7 +107,7 @@ def prepare():
                 address_to_names.setdefault(astr, []).append(name)
 
 
-def make_label_text(words: list[str], transform: str) -> LabelText:
+def make_label_text(words: list[str], x: float, y: float, rotate: float, scale2: float, scale1: float, dy: float) -> LabelText:
     tspans: list[LabelTspan] = []
     for idx, word in enumerate(words):
         tspan: LabelTspan = {
@@ -124,20 +124,25 @@ def make_label_text(words: list[str], transform: str) -> LabelText:
             'font-weight': f"{font_weight}",
             'font-size': f"{font_size}px",
             'text-anchor': 'middle',
-            'transform': transform,
+            'x': x,
+            'y': y,
+            'rotate': rotate,
+            'scale2': scale2,
+            'scale1': scale1,
+            'dy': dy,
         },
         'children': tspans,
     }
     return text
 
 
-def make_label_text_long(words: list[str], transform: str) -> LabelText:
+def make_label_text_long(words: list[str], x: float, y: float, rotate: float, scale2: float, scale1: float, dy: float) -> LabelText:
     name = ' '.join(words)
     print(f"long: {name}", file=sys.stderr)
-    return make_label_text([name], transform)
+    return make_label_text([name], x, y, rotate, scale2, scale1, dy)
 
 
-def calc_transform(point: FloorAddress, name: str) -> (str, bool):
+def calc_transform(point: FloorAddress, name: str) -> (float, float, float, float, float, float, bool):
     dst = point['area']
     #print(f"{name}: params.area={src} point.area={dst} s={round(s, 2)}")
     x = point['x']
@@ -158,16 +163,17 @@ def calc_transform(point: FloorAddress, name: str) -> (str, bool):
     scale2 = dst * area_ratio / src
     scale = round(math.sqrt(scale2), 4)
 
-    return (f"translate({x}, {y}) rotate({rotate}) scale({scale}) scale({s}) translate(0, {-dy})", long)
+    #return (f"translate({x}, {y}) rotate({rotate}) scale({scale}) scale({s}) translate(0, {-dy})", long)
+    return (x, y, rotate, scale, s, dy, long)
 
 
 def proc_name(point: FloorAddress, name: str):
     global texts
 
-    (transform, long) = calc_transform(point, name)
+    (x, y, rotate, scale2, scale1, dy, long) = calc_transform(point, name)
     words = name.strip().split(' ')
 
-    text = make_label_text(words, transform) if not long else make_label_text_long(words, transform)
+    text = make_label_text(words, x, y, rotate, scale2, scale1, dy) if not long else make_label_text_long(words, x, y, rotate, scale2, scale1, dy)
     texts.append(text)
 
 
