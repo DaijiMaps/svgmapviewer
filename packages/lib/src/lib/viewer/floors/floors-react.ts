@@ -17,9 +17,12 @@ export interface UseFloorsReturn {
   urls: Map<number, string>
 }
 
-export const floorRefs: Map<number, SVGGElement> = new Map()
+export const floorRefs: Map<number, SVGGElement | HTMLDivElement> = new Map()
 
-export function registerFloorRef(e: SVGGElement | null, idx: number): void {
+export function registerFloorRef(
+  e: SVGGElement | HTMLDivElement | null,
+  idx: number
+): void {
   if (e) floorRefs.set(idx, e)
   else floorRefs.delete(idx)
 }

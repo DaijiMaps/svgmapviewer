@@ -14,7 +14,7 @@ import {
   type LabelText,
   type OsmRenderMapProps,
 } from '../../types'
-import { boxToViewBox2, type BoxBox } from '../box/prefixed'
+import { type BoxBox } from '../box/prefixed'
 import type { Cb } from '../cb'
 import { floor_appearing_animation } from '../css'
 import { useLayout2 } from '../style/style-react'
@@ -27,22 +27,46 @@ import { MAP_SVG_FLOORS } from './map-svg-react'
 
 export function RenderFloors(props: Readonly<OsmRenderMapProps>): ReactNode {
   return (
-    <div className="content">
-      <RenderFloorsSvg>
-        <RenderFloorsContent {...props} />
-      </RenderFloorsSvg>
-      <style>{floor_appearing_animation}</style>
+    <>
+      <RenderFloorsSvg {...props} />
+      <RenderFloorsHtml {...props} />
+    </>
+  )
+}
+
+function RenderFloorsSvg({
+  floors,
+  ...rest
+}: Readonly<OsmRenderMapProps>): ReactNode {
+  const ctx = useFloors()
+  return (
+    <div className="content map-floors-svg">
+      <RenderFloorsSvgSvg>
+        {(floors?.floors ?? []).map((floor, idx) => (
+          <Fragment key={idx}>
+            <RenderFloor
+              floors={floors}
+              {...rest}
+              ctx={ctx}
+              floor={floor}
+              idx={idx}
+              labelsMap={floors?.labelsMap}
+            />
+          </Fragment>
+        ))}
+      </RenderFloorsSvgSvg>
       <style>{`
 svg.content-svg {
   width: var(--layout-scroll-width);
   height: var(--layout-scroll-height);
 }
+${floor_appearing_animation}
 `}</style>
     </div>
   )
 }
 
-function RenderFloorsSvg(props: Readonly<PropsWithChildren>): ReactNode {
+function RenderFloorsSvgSvg(props: Readonly<PropsWithChildren>): ReactNode {
   const { viewBox } = useLayout2()
 
   // only this part is re-rendered after zoom (viewbox change)
@@ -53,29 +77,43 @@ function RenderFloorsSvg(props: Readonly<PropsWithChildren>): ReactNode {
   )
 }
 
-function RenderFloorsContent({
-  floors, // FloorsConfig
+function RenderFloorsHtml({
+  floors,
   ...rest
 }: Readonly<OsmRenderMapProps>): ReactNode {
   const ctx = useFloors()
-
   return (
-    <>
-      {(floors?.floors ?? []).map((floor, idx) => (
-        <Fragment key={idx}>
-          <RenderFloor
-            floors={floors}
-            {...rest}
-            ctx={ctx}
-            floor={floor}
-            idx={idx}
-            labelsMap={floors?.labelsMap}
-          />
-        </Fragment>
-      ))}
-    </>
+    <div className="content">
+      <div className="map-floors-html">
+        {(floors?.floors ?? []).map((floor, idx) => (
+          <Fragment key={idx}>
+            <RenderFloorHtml
+              floors={floors}
+              {...rest}
+              ctx={ctx}
+              floor={floor}
+              idx={idx}
+              labelsMap={floors?.labelsMap}
+            />
+          </Fragment>
+        ))}
+      </div>
+      <style>{htmlStyle}</style>
+    </div>
   )
 }
+
+const htmlStyle = `
+.map-floors-html {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--layout-scroll-width);
+  height: var(--layout-scroll-height);
+  transform: var(--layout-svg-to-content-matrix) !important;
+  transform-origin: left top !important;
+}
+`
 
 function RenderFloor({
   data: { origViewBox },
@@ -108,6 +146,7 @@ function RenderFloor({
         onAnimationEnd={fidxToOnAnimationEnd(idx)}
         labels={floor.labels ?? labelsMap?.get(floor.name.toLowerCase())}
       />
+      {/*
       <RenderFloorLabels
         origViewBox={origViewBox}
         idx={idx}
@@ -115,7 +154,43 @@ function RenderFloor({
         onAnimationEnd={fidxToOnAnimationEnd(idx)}
         labels={floor.labels ?? labelsMap?.get(floor.name.toLowerCase())}
       />
+      */}
     </g>
+  )
+}
+
+function useRegisterFloorHtml(idx: number) {
+  const register = useCallback(
+    (e: Readonly<HTMLDivElement | null>) => registerFloorRef(e, idx),
+    [idx]
+  )
+  return register
+}
+
+function RenderFloorHtml({
+  data: { origViewBox },
+  ctx: { urls },
+  floor,
+  idx,
+  labelsMap,
+}: Readonly<
+  OsmRenderMapProps & { ctx: UseFloorsReturn } & {
+    floor: Floor
+    idx: number
+    labelsMap: LabelsMap | undefined
+  }
+>): ReactNode {
+  // stable callback
+  const register = useRegisterFloorHtml(idx)
+  return (
+    <div ref={/* stable callback */ register} className={`floor fidx-${idx}`}>
+      <RenderFloorHtmlLabels
+        origViewBox={origViewBox}
+        idx={idx}
+        url={urls.get(idx)}
+        labels={floor.labels ?? labelsMap?.get(floor.name.toLowerCase())}
+      />
+    </div>
   )
 }
 
@@ -140,6 +215,7 @@ function RenderFloorImage({ origViewBox, url }: Props): ReactNode {
   )
 }
 
+/*
 function RenderFloorLabels({ origViewBox, url, labels }: Props): ReactNode {
   return labels === undefined ? (
     <></>
@@ -174,6 +250,55 @@ text, tspan {
     </svg>
   )
 }
+*/
+
+function RenderFloorHtmlLabels({ labels }: Props): ReactNode {
+  return (
+    <div className="labels">
+      {(labels ?? []).map((_text, idx) => {
+        return (
+          <div
+            key={idx}
+            className="label"
+            style={{
+              transform: `
+translate(${_text.attrs?.['x'] || 0}px,${_text.attrs?.['y'] || 0}px)
+rotate(${_text.attrs?.['rotate'] || 0}deg)
+scale(${_text.attrs?.['scale2'] || 0})
+scale(${_text.attrs?.['scale1'] || 0})
+translate(-50%, -50%)
+`,
+            }}
+          >
+            {'id' in _text.attrs && 'style' in _text.attrs && (
+              <style>{`#${_text.attrs['id']} { ${_text.attrs['style']}; }`}</style>
+            )}
+            {_text.children &&
+              _text.children.map((_tspan, idx2) => (
+                <p key={idx2} {...fromAttrs(_tspan.attrs)}>
+                  {_tspan.text ?? ''}
+                </p>
+              ))}
+          </div>
+        )
+      })}
+      <style>{htmlLabelsStyle}</style>
+    </div>
+  )
+}
+
+const htmlLabelsStyle = `
+div.label {
+  position: absolute;
+  transform-origin: left top;
+  text-align: center;
+  font-family: 'Noto Sans JP', 'Noto Sans', 'sans-serif' !important;
+  font-weight: 200 !important;
+  & > p {
+    margin: 0;
+  }
+}
+`
 
 // XXX check if all urls are loaded?
 export function isFloorsRendered(): boolean {
