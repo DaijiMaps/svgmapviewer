@@ -50,9 +50,9 @@ class ImportLabels(daijimaps.GenerateAddresses):
                         continue
                     (numbered_name, pat, s, dy) = entries
                     num_words = numbered_name.split(" ")
-                    if len(num_words) < 2:
-                        self.msg(f"invalid numbered name: {numbered_name}")
-                        continue
+                    #if len(num_words) < 2:
+                    #    self.msg(f"invalid numbered name: {numbered_name}")
+                    #    continue
                     num = num_words[0]
                     pat_words = (
                         num_words if len(pat) == 0 else f"{num}///{pat}".split("///")

@@ -1,0 +1,40 @@
+{
+  "name": "svgmapviewer-template-floors-astro",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "regen": "tsx scripts/regen-schema.ts",
+    "preview": "astro preview",
+    "astro": "astro",
+    "generate-types": "wrangler types"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^13.6.0",
+    "@astrojs/react": "^5.0.6",
+    "astro": "^6.4.2",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "svgmapviewer": "workspace:*",
+    "svgmapviewer-astro-floors": "workspace:*",
+    "wrangler": "^4.96.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "@typescript/native-preview": "7.0.0-dev.20260527.2",
+    "tsx": "^4.22.3"
+  },
+  "overrides": {
+    "vite": "^7"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix",
+    "*": "oxfmt --write"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

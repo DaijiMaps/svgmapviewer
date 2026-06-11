@@ -1,0 +1,5 @@
+# yaml-language-server: $schema=../../../node_modules/svgmapviewer-astro-floors/src/floorsConfig.schema.json
+initialFidx: 0
+floors:
+  - name: Main
+    href: /images/floor-Main.svg

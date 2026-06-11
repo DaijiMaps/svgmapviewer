@@ -15,6 +15,7 @@ from .guards import (
 from .name import (
     draw_label,
     draw_label2,
+    draw_label3,
     draw_name,
     move_name,
     preferInt,
@@ -29,14 +30,14 @@ from .resolve_names import ResolveNames
 from .save_addresses import SaveAddresses
 
 from .types import (
-    Address,
-    AddressNames,
+    AddressV,
+    AddressNamesV,
     AddressString,
-    Addresses,
-    Name,
-    NameAddresses,
+    AddressesV,
+    NameV,
+    NameAddressesV,
     NameString,
-    Names,
+    NamesV,
     XY,
 )
 
@@ -57,6 +58,7 @@ __all__ = [
     # .name
     draw_label,
     draw_label2,
+    draw_label3,
     draw_name,
     move_name,
     preferInt,
@@ -69,13 +71,13 @@ __all__ = [
     # .save_addresses
     SaveAddresses,
     # .types
-    Address,
-    AddressNames,
+    AddressV,
+    AddressNamesV,
     AddressString,
-    Addresses,
-    Name,
-    NameAddresses,
+    AddressesV,
+    NameV,
+    NameAddressesV,
     NameString,
-    Names,
+    NamesV,
     XY,
 ]

@@ -1,0 +1,13 @@
+# Label
+
+- Use ellipse to define address-with-area
+  - Save cx/cy/rx/ry/rotate in JSON
+- gen-labels.py
+  - Save "area"
+- Resolve labels
+  - Calc translate
+  - Adjust area
+  - Font
+- Genrate floors-labels-*.json in host
+  - Load floors-labels from Inkscape
+  - Pass floors-labels-*.json to svgmapviewer via Floors.labels

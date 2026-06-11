@@ -7,14 +7,23 @@ import re
 import os
 from lxml import etree
 from .visit_parents import _visit_parents, CONT, SKIP, Visit, Tree, Parents
-from .types import AddressPos, JsonGlobalPaths, JsonLayerPaths, Links, PosAddress
+from .types import (
+    AddressArea,
+    AddressPosV,
+    JsonGlobalPaths,
+    JsonLayerPaths,
+    Links,
+    PosAddress,
+)
 
 
 class AddressTree(inkex.EffectExtension):
     _layers: list[inkex.Group] = []
 
-    _addresses: AddressPos = {}
-    _all_addresses: AddressPos = {}
+    _addresses: AddressPosV = {}
+    _all_addresses: AddressPosV = {}
+    _address_areas: AddressArea = {}
+    _all_address_areas: AddressArea = {}
     _points: PosAddress = {}
     _all_points: PosAddress = {}
     _links: Links = {}
@@ -131,7 +140,7 @@ class AddressTree(inkex.EffectExtension):
             return child
         return None
 
-    def _find_or_make_group(self, layer, label) -> inkex.Layer:
+    def _find_or_make_group(self, layer, label) -> inkex.Group:
         group = self._find_group(layer, label)
         if group is None:
             group = inkex.Layer()

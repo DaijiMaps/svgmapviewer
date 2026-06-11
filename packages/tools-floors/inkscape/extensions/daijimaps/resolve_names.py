@@ -8,21 +8,21 @@ from .common import a2astr, a2v, xy2v, V
 from .name import read_name
 from .save_addresses import SaveAddresses
 from .types import (
-    AddressNames,
+    AddressNamesV,
     AddressString,
     FloorsAddressesJson,
     FloorsNamesJson,
-    NameAddresses,
+    NameAddressesV,
     TmpNameAddress,
     TmpNameCoords,
 )
 
 
 class ResolveNames(SaveAddresses):
-    _resolved_names: NameAddresses = {}
-    _resolved_addresses: AddressNames = {}
-    _unresolved_names: NameAddresses = {}
-    _unresolved_addresses: AddressNames = {}
+    _resolved_names: NameAddressesV = {}
+    _resolved_addresses: AddressNamesV = {}
+    _unresolved_names: NameAddressesV = {}
+    _unresolved_addresses: AddressNamesV = {}
     # _tmp_unresolved_name_coords: TmpNameCoords = {}
     _tmp_resolved_names: TmpNameAddress = {}
 
@@ -44,9 +44,9 @@ class ResolveNames(SaveAddresses):
             self._layerPaths["tmpResolvedNames"],
         )
 
-    def _read_names(self, node: inkex.Group) -> tuple[NameAddresses, AddressNames]:
-        name_addresses: NameAddresses = {}
-        address_names: AddressNames = {}
+    def _read_names(self, node: inkex.Group) -> tuple[NameAddressesV, AddressNamesV]:
+        name_addresses: NameAddressesV = {}
+        address_names: AddressNamesV = {}
         for child in list(node):
             if not isinstance(child, inkex.TextElement):
                 # XXX msg
@@ -55,12 +55,12 @@ class ResolveNames(SaveAddresses):
             if not shop:
                 self.msg(f"loading (Names): {child.label}: failed")
                 continue
-            (address, name, xy) = shop
+            (address, name, v) = shop
             # name -> (address, xy)
             # address can be None
             if name not in name_addresses:
                 name_addresses[name] = []
-            name_addresses[name].append((address, xy))
+            name_addresses[name].append((address, v))
             # address -> (name, xy)
             # address must not be None
             if address is None:
@@ -68,17 +68,17 @@ class ResolveNames(SaveAddresses):
                 continue
             if address not in address_names:
                 address_names[address] = []
-            address_names[address].append((name, xy))
+            address_names[address].append((name, v))
 
         return (name_addresses, address_names)
 
-    def _read_resolved_names(self, node: inkex.Group) -> AddressNames:
+    def _read_resolved_names(self, node: inkex.Group) -> AddressNamesV:
         (name_addresses, address_names) = self._read_names(node)
         self._resolved_names = name_addresses
         self._resolved_addresses = address_names
         return address_names
 
-    def _read_unresolved_names(self, node: inkex.Group) -> NameAddresses:
+    def _read_unresolved_names(self, node: inkex.Group) -> NameAddressesV:
         (name_addresses, address_names) = self._read_names(node)
         self._unresolved_names = name_addresses
         self._unresolved_addresses = address_names
@@ -108,8 +108,21 @@ class ResolveNames(SaveAddresses):
     def _get_floors_addresses(self) -> FloorsAddressesJson:
         j: FloorsAddressesJson = {}
         for astr in self._addresses:
-            ((x, y), _bb, _url) = self._addresses[astr]
-            j[astr] = xy2v(x, y)
+            (v, _bb, _url) = self._addresses[astr]
+            p = None if astr not in self._address_areas else self._address_areas[astr]
+            if p is not None:
+                area = p["area"]
+                rx = p["rx"]
+                ry = p["ry"]
+                rotate = p["rotate"]
+                if area is not None:
+                    v["area"] = round(area, 2)
+                if rx is not None:
+                    v["rx"] = round(rx, 2)
+                if ry is not None:
+                    v["ry"] = round(ry, 2)
+                v["rotate"] = rotate
+            j[astr] = v
         return j
 
     def _get_floors_names(self) -> FloorsNamesJson:
@@ -121,12 +134,12 @@ class ResolveNames(SaveAddresses):
         return j
 
     def _save_resolved_names(self) -> None:
-        j: NameAddresses = self._resolved_names
+        j: NameAddressesV = self._resolved_names
         p = self._layerPaths["resolvedNames"]
         makedirsAndDump(p, j)
 
     def _save_unresolved_names(self) -> None:
-        j: NameAddresses = self._unresolved_names
+        j: NameAddressesV = self._unresolved_names
         p = self._layerPaths["unresolvedNames"]
         makedirsAndDump(p, j)
 

@@ -3,7 +3,7 @@
 
 import inkex
 
-from .types import AddressString, NameString, XY
+from .types import AddressString, NameString, TextInfoJson, V
 
 
 def preferInt(n: float) -> float | int:
@@ -29,6 +29,7 @@ def draw_label2(
     t.label = text
     t.update(
         **{
+            "transform": f"scale({str(s)}) translate(0, {str(-dy)})",
             "font-family": "'Noto Sans'",
             # "-inkscape-font-specification": "'Noto Sans Ultra-Light'",
             "font-size": f"{size}",
@@ -40,16 +41,30 @@ def draw_label2(
             "data-dy": str(dy),
         }
     )
-    for txt in words:
+    for idx, txt in enumerate(words):
         ts = inkex.Tspan()
         ts.text = txt
         ts.update(
             **{
-                "dy": 0,
+                "y": dy + (size * 1.25) * idx,
                 "sodipodi:role": "line",
             }
         )
         t.append(ts)
+    return t
+
+
+def draw_label3(info: TextInfoJson) -> inkex.TextElement:
+    labels: list[str] = []
+    t = inkex.TextElement()
+    t.update(**info["attrs"])
+    for tspan in info["children"]:
+        ts = inkex.Tspan()
+        ts.text = tspan["text"]
+        ts.update(**tspan["attrs"])
+        t.append(ts)
+        labels.append(tspan["text"])
+    t.label = " ".join(labels)
     return t
 
 
@@ -128,7 +143,8 @@ def move_name(
     new_group.append(t)
 
 
-type NameEntry = tuple[None | AddressString, NameString, XY]
+# type NameEntry = tuple[None | AddressString, NameString, XY]
+type NameEntry = tuple[None | AddressString, NameString, V]
 
 
 def read_name(node: inkex.BaseElement) -> None | NameEntry:
@@ -142,6 +158,9 @@ def read_name(node: inkex.BaseElement) -> None | NameEntry:
     else:
         address: str = name_and_address[1]
 
+    dy = None if hasattr(node, "data-dy") else node.get("data-dy")
+    s = None if hasattr(node, "data-s") else node.get("data-s")
+
     # check "unmoved" node (x == 0 and y == 0 and transform is None)
     (x, y) = (node.x, node.y)
     tx = node.transform
@@ -152,7 +171,21 @@ def read_name(node: inkex.BaseElement) -> None | NameEntry:
         if tx is None
         else tx.apply_to_point(inkex.Vector2d(x, y))
     )
-    return (address, name, (round(p.x), round(p.y)))
+    v: V = {
+        "x": round(p.x),
+        "y": round(p.y),
+        # XXX
+        # XXX
+        # XXX
+        "area": None,
+        "rx": None,
+        "ry": None,
+        "rotate": None,
+        # XXX
+        # XXX
+        # XXX
+    }
+    return (address, name, v)
 
 
 def move_label(
@@ -177,6 +210,7 @@ def move_label(
 __all__ = [
     draw_label,
     draw_label2,
+    draw_label3,
     draw_name,
     move_name,
     read_name,

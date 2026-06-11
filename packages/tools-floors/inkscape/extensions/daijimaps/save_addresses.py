@@ -1,4 +1,5 @@
 import json
+import math
 import os
 import re
 from typing import Any
@@ -6,13 +7,28 @@ from typing import Any
 import inkex
 
 from .address_tree import AddressTree
+from .area import calc_area
 from .common import xy2v
 from .guards import isCircle, isEllipse, isGroup, isRectangle, isUse
-from .types import AddressCoords, AddressString, Box, FacilitiesJson, FloorsInfoJson, V
+from .types import (
+    AddressCoords,
+    AddressProps,
+    AddressString,
+    Box,
+    FacilitiesJson,
+    FloorsInfoJson,
+    V,
+    XY,
+)
 from .visit_parents import Tree, Parents
 
 
 class SaveAddresses(AddressTree):
+    def area(self) -> None | float:
+        # use
+        # circle / ellipse
+        return 0
+
     def _reset(self) -> None:
         super()._reset()
 
@@ -37,39 +53,68 @@ class SaveAddresses(AddressTree):
 
     def _save_address2(self, astr: AddressString, px, py, bb, href) -> None:
         self.msg(f"=== _save_address@SaveAddresses: {astr} @ {px},{py}")
-        p = (px, py)
+        p: V = {
+            "x": px,
+            "y": py,
+            "area": None,
+            "rx": None,
+            "ry": None,
+            "rotate": None,
+        }
         self._addresses[astr] = (p, bb, href)
         self._all_addresses[astr] = (p, bb, href)
-        if p not in self._points:
-            self._points[p] = []
-        self._points[p].append(astr)
-        if p not in self._all_points:
-            self._all_points[p] = []
-        self._all_points[p].append(astr)
+
+        xy: XY = (px, py)
+        if xy not in self._points:
+            self._points[xy] = []
+        self._points[xy].append(astr)
+        if xy not in self._all_points:
+            self._all_points[xy] = []
+        self._all_points[xy].append(astr)
+
+    def _save_address_area(
+        self, astr: AddressString, a: float, rx: float, ry: float
+    ) -> None:
+        p: AddressProps = {
+            "area": a,
+            "rx": float(rx),
+            "ry": float(ry),
+            "rotate": None,
+        }
+        self._address_areas[astr] = p
+        self._all_address_areas[astr] = p
 
     def _save_address1(self, node: inkex.BaseElement, prefix: str, label: str) -> None:
         astr = f"{prefix}{label}-{node.label}"
-        self.msg(f"=== _save_address1: {astr}")
         bb: inkex.BoundingBox = node.shape_box()
         c: inkex.ImmutableVector2d | None = None
         p: inkex.ImmutableVector2d | None = None
+        a: float | None = None
+        rx: float | None = None
+        ry: float | None = None
         tx = node.composed_transform()
         if isUse(node):
             x = float(node.get("x") or 0)
             y = float(node.get("y") or 0)
             c = inkex.ImmutableVector2d(x, y)
+            (a, rx, ry) = calc_area(node)
         elif isCircle(node):
             c = node.center
+            (a, rx, ry) = calc_area(node)
         elif isEllipse(node):
             c = node.center
+            (a, rx, ry) = calc_area(node)
         if c is not None and bb is not None:
             p = tx.apply_to_point(c)
             hwh = (bb.width + bb.height) * 0.5
             w = min(bb.width, hwh)
             dx = (w * 0.8 - bb.width) * 0.5
             bb = bb.resize(dx, 0)
+        self.msg(f"=== _save_address1: {astr} p={p} a={a} rx={rx} ry={ry}")
         if p is not None:
             self._save_address2(astr, p.x, p.y, bb, node.href)
+            if a is not None and rx is not None and ry is not None:
+                self._save_address_area(astr, a, rx, ry)
 
     def _save_addresses(self, node: inkex.Group, prefix: str, label: str) -> None:
         self.msg("=== _save_addresses@SaveAddresses")
@@ -109,8 +154,20 @@ class SaveAddresses(AddressTree):
 
     def _get_addresses_coords(self) -> AddressCoords:
         j: AddressCoords = {}
-        for astr, ((x, y), _bb, _href) in self._addresses.items():
-            j[astr] = xy2v(x, y)
+        for astr, (v, _bb, _href) in self._addresses.items():
+            if astr in self._all_address_areas:
+                p = self._all_address_areas[astr]
+                area = p["area"]
+                rx: float | None = p["rx"]
+                ry: float | None = p["ry"]
+                if area is not None:
+                    v["area"] = round(area, 2)
+                if rx is not None:
+                    v["rx"] = round(rx, 2)
+                if ry is not None:
+                    v["ry"] = round(ry, 2)
+                v["rotate"] = None
+            j[astr] = v
         return j
 
     def _get_origin(self) -> V | None:
@@ -128,6 +185,10 @@ class SaveAddresses(AddressTree):
         j: V = {
             "x": c.x,
             "y": c.y,
+            "area": None,
+            "rx": None,
+            "ry": None,
+            "rotate": None,
         }
         return j
 
@@ -239,11 +300,11 @@ class SaveAddresses(AddressTree):
     def _collect_links(self) -> None:
         self.msg("=== _collect_links@SaveAddresses")
         n = 1
-        for p in self._all_points:
-            if len(p) == 1:
+        for xy in self._all_points:
+            if len(xy) == 1:
                 continue
             xs: list[AddressString] = [
-                a for a in self._all_points[p] if re.match("^.*-Facilities-.*$", a)
+                a for a in self._all_points[xy] if re.match("^.*-Facilities-.*$", a)
             ]
             if len(xs) <= 1:
                 continue
@@ -254,7 +315,7 @@ class SaveAddresses(AddressTree):
             ]
             if len(xxs) <= 1:
                 continue
-            self.msg(f"links: {p}: {self._all_points[p]}")
+            self.msg(f"links: {xy}: {self._all_points[xy]}")
             self._links[str(n)] = xxs
             n = n + 1
 

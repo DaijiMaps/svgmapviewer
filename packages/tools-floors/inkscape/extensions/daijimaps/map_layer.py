@@ -1,4 +1,5 @@
 import inkex
+from typing import cast
 
 
 def fixup_tree_layer(group: inkex.Group) -> None:
@@ -41,7 +42,7 @@ def group_to_layer(group: inkex.Group) -> inkex.Layer:
     group_mode = group.get("inkscape:groupmode", None)
     if group_mode != "layer":
         group.set("inkscape:groupmode", "layer")
-    return group
+    return cast(inkex.Layer, group)
 
 
 __all__: list[str] = ["fixup_tree_layer", "fixup_tree_layer_content"]

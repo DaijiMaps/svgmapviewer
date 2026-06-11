@@ -23,9 +23,9 @@ class UnresolveShops(daijimaps.ResolveNames):
         self, names_group: inkex.Group, unresolved_names_group: inkex.Group
     ) -> None:
         for name, addresses in self._resolved_names.items():
-            for address, (x, y) in addresses:
+            for address, v in addresses:
                 self._move_unresolved_name(
-                    names_group, unresolved_names_group, name, address, x, y
+                    names_group, unresolved_names_group, name, address, v["x"], v["y"]
                 )
         self._sort_children(unresolved_names_group)
 
