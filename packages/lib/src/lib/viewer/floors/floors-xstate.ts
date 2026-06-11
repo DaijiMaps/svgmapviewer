@@ -7,7 +7,7 @@ import { floorCbs, notifyFloor } from '../../event-floor'
 import { globalCbs } from '../../event-global'
 import type { FloorsContext, FloorsEmits, FloorsEvents } from './floors-types'
 import type { FloorsWorker, Res } from './floors-worker-types'
-import { updateFloorRefsAtLoad, updateFloorRefsAtSwitch } from './style'
+import { updateFloorRefsLoad, updateFloorRefsSwitch } from './style'
 
 export const currentFidxAtom: Atom<number> = createAtom<number>(0)
 
@@ -19,7 +19,7 @@ const floorsMachine = setup({
   },
   actions: {
     updateRefsAtSwitch: ({ context: { fidx, prevFidx } }) => {
-      updateFloorRefsAtSwitch(fidx, prevFidx)
+      updateFloorRefsSwitch(fidx, prevFidx)
     },
   },
 }).createMachine({
@@ -63,7 +63,7 @@ const floorsMachine = setup({
       on: {
         IMAGE: {
           guard: ({ context, event }) => context.fidx === event.fidx,
-          actions: ({ event: { fidx } }) => updateFloorRefsAtLoad(fidx),
+          actions: ({ event: { fidx } }) => updateFloorRefsLoad(fidx),
           target: 'Animating',
         },
       },

@@ -19,7 +19,7 @@ export function registerFloorRef(
   else floorRefs.delete(name)
 }
 
-export function updateFloorRefsAtLoad(fidx: number): void {
+export function updateFloorRefsLoad(fidx: number): void {
   const re = new RegExp(`^.*-${fidx}$`)
   Array.from(floorRefs, ([name, e]) => {
     const s = e.style.setProperty.bind(e.style)
@@ -31,7 +31,7 @@ export function updateFloorRefsAtLoad(fidx: number): void {
   })
 }
 
-export function updateFloorRefsAtSwitch(
+export function updateFloorRefsSwitch(
   fidx: number,
   prevFidx: number | null
 ): void {
