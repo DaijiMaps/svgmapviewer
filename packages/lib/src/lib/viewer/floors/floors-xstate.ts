@@ -5,6 +5,7 @@ import { assign, createActor, emit, setup } from 'xstate'
 import type { SvgMapViewerConfig } from '../../../types'
 import { floorCbs, notifyFloor } from '../../event-floor'
 import { globalCbs } from '../../event-global'
+import { updateFloorRefsAtLoad, updateFloorRefsAtSwitch } from './floors-react'
 import type { FloorsContext, FloorsEmits, FloorsEvents } from './floors-types'
 import type { FloorsWorker, Res } from './floors-worker-types'
 
@@ -15,6 +16,11 @@ const floorsMachine = setup({
     context: {} as FloorsContext,
     events: {} as FloorsEvents,
     emitted: {} as FloorsEmits,
+  },
+  actions: {
+    updateRefsAtSwitch: ({ context: { fidx, prevFidx } }) => {
+      updateFloorRefsAtSwitch(fidx, prevFidx)
+    },
   },
 }).createMachine({
   id: 'floors1',
@@ -47,8 +53,18 @@ const floorsMachine = setup({
               fidx: ({ event }) => event.fidx,
             }),
             ({ event }) => currentFidxAtom.set(event.fidx),
+            'updateRefsAtSwitch',
           ],
           target: 'Idle',
+        },
+      },
+    },
+    Loading: {
+      on: {
+        IMAGE: {
+          guard: ({ context, event }) => context.fidx === event.fidx,
+          actions: ({ event: { fidx } }) => updateFloorRefsAtLoad(fidx),
+          target: 'Animating',
         },
       },
     },
@@ -62,6 +78,7 @@ const floorsMachine = setup({
               prevFidx: ({ context }) => context.fidx,
             }),
             ({ event }) => currentFidxAtom.set(event.fidx),
+            'updateRefsAtSwitch',
           ],
           target: 'Animating',
         },
@@ -94,9 +111,12 @@ const floorsMachine = setup({
         // XXX receive one DONE event
         // XXX (receiving two without race is difficult/complex)
         'SELECT.DONE': {
-          actions: assign({
-            prevFidx: null,
-          }),
+          actions: [
+            assign({
+              prevFidx: null,
+            }),
+            'updateRefsAtSwitch',
+          ],
           target: 'Idle',
         },
       },

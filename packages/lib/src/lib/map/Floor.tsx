@@ -128,11 +128,7 @@ function RenderFloor({
     labelsMap: LabelsMap | undefined
   }
 >): ReactNode {
-  // stable callback
-  const register = useCallback(
-    (e: Readonly<SVGGElement | null>) => registerFloorRef(e, idx),
-    [idx]
-  )
+  const register = useRegisterFloor('svg', idx)
   return (
     <g
       ref={/* stable callback */ register}
@@ -159,14 +155,6 @@ function RenderFloor({
   )
 }
 
-function useRegisterFloorHtml(idx: number) {
-  const register = useCallback(
-    (e: Readonly<HTMLDivElement | null>) => registerFloorRef(e, idx),
-    [idx]
-  )
-  return register
-}
-
 function RenderFloorHtml({
   data: { origViewBox },
   ctx: { urls },
@@ -181,7 +169,7 @@ function RenderFloorHtml({
   }
 >): ReactNode {
   // stable callback
-  const register = useRegisterFloorHtml(idx)
+  const register = useRegisterFloor('html', idx)
   return (
     <div ref={/* stable callback */ register} className={`floor fidx-${idx}`}>
       <RenderFloorHtmlLabels
@@ -192,6 +180,15 @@ function RenderFloorHtml({
       />
     </div>
   )
+}
+
+function useRegisterFloor(prefix: string, idx: number) {
+  const register = useCallback(
+    (e: Readonly<SVGGElement | HTMLDivElement | null>) =>
+      registerFloorRef(e, `${prefix}-${idx}`),
+    [idx, prefix]
+  )
+  return register
 }
 
 type Props = Readonly<{
