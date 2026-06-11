@@ -1,6 +1,7 @@
 import { useEffect, type RefObject } from 'react'
 
 import { shadowRootMap } from '../dom'
+import { tag, tag2 } from '../style/tag'
 import type { OpenClose } from './openclose'
 
 export const UI_ROOT_ID = 'ui'
@@ -56,9 +57,7 @@ export function updateCommonStyleRefs(
   { open, animating }: OpenClose
 ): void {
   Array.from(refMap, ([, e]) => {
-    e.classList.remove(open ? 'closed' : `opened`)
-    e.classList.add(!open ? 'closed' : `opened`)
-    e.classList.remove(animating ? 'not-animating' : 'animating')
-    e.classList.add(!animating ? 'not-animating' : 'animating')
+    tag2(e, 'opened', 'closed', open)
+    tag(e, 'animating', animating)
   })
 }

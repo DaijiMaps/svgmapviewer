@@ -6,6 +6,7 @@
 import { useEffect, type RefObject } from 'react'
 
 import { timing_opening } from '../css'
+import { tag } from './tag'
 
 const appearingStyleRefs: Map<string, HTMLDivElement> = new Map()
 
@@ -27,20 +28,8 @@ export function updateAppearingStyleRefs(
   appearing: boolean
 ): void {
   Array.from(appearingStyleRefs, ([, e]) => {
-    if (shown) {
-      e.classList.add('shown')
-      e.classList.remove('not-shown')
-    } else {
-      e.classList.remove('shown')
-      e.classList.add('not-shown')
-    }
-    if (appearing) {
-      e.classList.add('appearing')
-      e.classList.remove('not-appearing')
-    } else {
-      e.classList.remove('appearing')
-      e.classList.add('not-appearing')
-    }
+    tag(e, 'shown', shown)
+    tag(e, 'appearing', appearing)
   })
 }
 
