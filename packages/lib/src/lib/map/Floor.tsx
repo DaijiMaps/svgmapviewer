@@ -18,11 +18,8 @@ import { type BoxBox } from '../box/prefixed'
 import type { Cb } from '../cb'
 import { floor_appearing_animation } from '../css'
 import { useLayout2 } from '../style/style-react'
-import {
-  registerFloorRef,
-  useFloors,
-  type UseFloorsReturn,
-} from '../viewer/floors/floors-react'
+import { useFloors, type UseFloorsReturn } from '../viewer/floors/floors-react'
+import { registerFloorRef } from '../viewer/floors/style'
 import { MAP_SVG_FLOORS } from './map-svg-react'
 
 export function RenderFloors(props: Readonly<OsmRenderMapProps>): ReactNode {

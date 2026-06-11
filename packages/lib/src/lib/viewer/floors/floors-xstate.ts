@@ -5,9 +5,9 @@ import { assign, createActor, emit, setup } from 'xstate'
 import type { SvgMapViewerConfig } from '../../../types'
 import { floorCbs, notifyFloor } from '../../event-floor'
 import { globalCbs } from '../../event-global'
-import { updateFloorRefsAtLoad, updateFloorRefsAtSwitch } from './floors-react'
 import type { FloorsContext, FloorsEmits, FloorsEvents } from './floors-types'
 import type { FloorsWorker, Res } from './floors-worker-types'
+import { updateFloorRefsAtLoad, updateFloorRefsAtSwitch } from './style'
 
 export const currentFidxAtom: Atom<number> = createAtom<number>(0)
 
