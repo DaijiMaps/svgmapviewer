@@ -17,7 +17,7 @@ import {
   type OpenCloseOp,
 } from './openclose'
 import {
-  resetDetailScroll,
+  updateScrollStyleRefs,
   updateDetailStyleRefs,
   updateHeaderStyleRefs,
 } from './ui-react'
@@ -96,10 +96,12 @@ const uiMachine = setup({
     }),
     updateHeaderStyle: ({ context }) =>
       updateHeaderStyleRefs(context.m['header']),
-    updateDetailStyle: ({ context }) =>
-      updateDetailStyleRefs(context.m['detail']),
     updateBalloonStyle: ({ context }) =>
       updateBalloonStyleRefs(context.detail, context.m['detail']),
+    updateDetailStyle: ({ context }) =>
+      updateDetailStyleRefs(context.m['detail']),
+    updateDetailScrollStyle: ({ context }) =>
+      updateScrollStyleRefs(context.m['detail']),
   },
 }).createMachine({
   type: 'parallel',
@@ -179,8 +181,9 @@ const uiMachine = setup({
                 { type: 'close', params: { part: 'header' } },
                 { type: 'open', params: { part: 'detail' } },
                 'updateHeaderStyle',
-                'updateDetailStyle',
                 'updateBalloonStyle',
+                'updateDetailStyle',
+                'updateDetailScrollStyle',
               ],
               on: {
                 DONE: [
@@ -209,8 +212,9 @@ const uiMachine = setup({
                 { type: 'open', params: { part: 'header' } },
                 { type: 'close', params: { part: 'detail' } },
                 'updateHeaderStyle',
-                'updateDetailStyle',
                 'updateBalloonStyle',
+                'updateDetailStyle',
+                'updateDetailScrollStyle',
               ],
               exit: 'endCancel',
               on: {
@@ -248,8 +252,9 @@ const uiMachine = setup({
         'DETAIL.ANIMATION.END': {
           actions: [
             { type: 'handle', params: { part: 'detail' } },
-            'updateDetailStyle',
             'updateBalloonStyle',
+            'updateDetailStyle',
+            'updateDetailScrollStyle',
             assign({
               animationEnded: ({ context }) => ({
                 ...context.animationEnded,
@@ -291,9 +296,4 @@ export function uiCbsStart(): void {
     uiActor.send({ type: ok ? 'OPEN' : 'CANCEL' })
   )
   uiCbs.close.add(() => uiActor.send({ type: 'CANCEL' }))
-  uiCbs.closeDone.add(() => {
-    requestAnimationFrame(
-      () => resetDetailScroll() // XXX
-    )
-  })
 }
