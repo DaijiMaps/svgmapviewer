@@ -6,7 +6,7 @@ import { type RefObject } from 'react'
 import { type HV, type Size } from '../../types'
 import { boxBox, type BoxBox } from '../box/prefixed'
 import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from '../css'
-import { ab, trunc3 } from '../utils'
+import { ab, trunc3, type AB } from '../utils'
 import {
   vecVec as v,
   vecAdd as add,
@@ -138,6 +138,8 @@ export function layoutLeg(
   return { p, q, a, b }
 }
 
+const xy3 = ({ x, y }: V) => `${trunc3(x)}, ${trunc3(y)}`
+
 function balloonPath(
   hv: Readonly<HV>,
   bw: number,
@@ -159,10 +161,10 @@ z
   const qb = sub(b, q)
   const bp = sub(p, b)
   const leg = `
-m${trunc3(a.x)},${trunc3(a.y)}
-l${trunc3(aq.x)},${trunc3(aq.y)}
-l${trunc3(qb.x)},${trunc3(qb.y)}
-l${trunc3(bp.x)},${trunc3(bp.y)}
+m${xy3(a)}
+l${xy3(aq)}
+l${xy3(qb)}
+l${xy3(bp)}
 z
 `
 
@@ -250,6 +252,37 @@ export const detailStyleString: string = `
 }
 `
 
+type BalloonStyle = {
+  a: 0 | 1 | null
+  b: 0 | 1 | null
+  timing: string | null
+  txa: V | null
+  txb: V | null
+}
+
+function calcStyle(
+  open: boolean,
+  animating: boolean,
+  Q: V,
+  q: V
+): BalloonStyle {
+  const dP = scale(q, -1)
+  if (!animating) {
+    const a = null
+    const { b }: AB<0 | 1> = ab(0, 1)
+    const timing = null
+    const txa = null
+    const txb = vecAdd(Q, dP)
+    return { a, b, timing, txa, txb }
+  } else {
+    const { a, b }: AB<0 | 1> = open ? ab(0, 1) : ab(1, 0)
+    const timing = open ? timing_opening : timing_closing
+    const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
+    const { a: txa, b: txb } = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
+    return { a, b, timing, txa, txb }
+  }
+}
+
 function updateBalloonStyle(
   e: Readonly<HTMLDivElement>,
   Q: null | V,
@@ -262,37 +295,19 @@ function updateBalloonStyle(
     e.style.setProperty(k, v === null ? null : String(v))
   if (Q === null || _hv === null || !openCloseIsVisible({ open, animating })) {
     x('visibility', 'hidden')
-    return
-  }
-  const { width, height } = size
-  const dP = scale(leg.q, -1)
-  x('visibility', null)
-  x('--pww', `${trunc3(-width / 2)}px`)
-  x('--phh', `${trunc3(-height / 2)}px`)
-  if (!animating) {
-    const { b } = ab(0, 1)
-    const tx = vecAdd(Q, dP)
-
-    x('--a', null)
-    x('--b', b)
-    x('--timing', null)
-    x('--tx-a-x', null)
-    x('--tx-a-y', null)
-    x('--tx-b-x', `${trunc3(tx.x)}px`)
-    x('--tx-b-y', `${trunc3(tx.y)}px`)
   } else {
-    const { a, b } = open ? ab(0, 1) : ab(1, 0)
-    const t = open ? timing_opening : timing_closing
-    const d = open ? ab(vecZero, dP) : ab(dP, vecZero)
-    const tx = ab(vecAdd(Q, d.a), vecAdd(Q, d.b))
-
+    const { width, height } = size
+    const { a, b, timing, txa, txb } = calcStyle(open, animating, Q, leg.q)
+    x('visibility', null)
+    x('--pww', `${trunc3(-width / 2)}px`)
+    x('--phh', `${trunc3(-height / 2)}px`)
     x('--a', a)
     x('--b', b)
-    x('--timing', `${t}`)
-    x('--tx-a-x', `${trunc3(tx.a.x)}px`)
-    x('--tx-a-y', `${trunc3(tx.a.y)}px`)
-    x('--tx-b-x', `${trunc3(tx.b.x)}px`)
-    x('--tx-b-y', `${trunc3(tx.b.y)}px`)
+    x('--timing', timing)
+    x('--tx-a-x', txa && `${trunc3(txa.x)}px`)
+    x('--tx-a-y', txa && `${trunc3(txa.y)}px`)
+    x('--tx-b-x', txb && `${trunc3(txb.x)}px`)
+    x('--tx-b-y', txb && `${trunc3(txb.y)}px`)
   }
 }
 
