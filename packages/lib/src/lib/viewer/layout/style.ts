@@ -24,6 +24,10 @@ export function useLayoutStyleRef(
   }, [name, ref])
 }
 
+function matrixTrunc2(m: DOMMatrixReadOnly): DOMMatrixReadOnly {
+  return new DOMMatrixReadOnly([m.a, m.b, m.c, m.d, trunc2(m.e), trunc2(m.f)])
+}
+
 export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
   const svgToContent = fromSvgToContent(layout)
   Array.from(layoutStyleRefs, ([, e]) => {
@@ -31,6 +35,6 @@ export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
     s(`--layout-content-matrix`, layout.content.toString())
     s(`--layout-scroll-width`, `${trunc2(layout.scroll.width)}px`)
     s(`--layout-scroll-height`, `${trunc2(layout.scroll.height)}px`)
-    s(`--layout-svg-to-content-matrix`, svgToContent.toString())
+    s(`--layout-svg-to-content-matrix`, matrixTrunc2(svgToContent).toString())
   })
 }
