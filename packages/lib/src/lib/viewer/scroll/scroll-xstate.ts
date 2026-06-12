@@ -3,12 +3,13 @@ import { assign, createActor, emit, fromPromise, setup } from 'xstate'
 import { type BoxBox } from '../../box/prefixed'
 import { notifyScroll, scrollCbs } from '../../event-scroll'
 import { makeExpire, type Expire } from '../../expire-xstate'
-import { getScroll, setCurrentScroll, syncScroll } from './scroll'
+import { setCurrentScroll } from './scroll'
 import {
   type ScrollContext,
   type ScrollEmitted,
   type ScrollEvent,
 } from './scroll-types'
+import { getScrollRefs1, updateScrollRefs, updateScrollRefs1 } from './style'
 
 const scrollMachine = setup({
   types: {} as {
@@ -17,15 +18,21 @@ const scrollMachine = setup({
     context: ScrollContext
   },
   actions: {
-    getScroll: assign({ scroll: () => getScroll() }),
-    syncScroll: (_, { pos }: { pos: BoxBox }) => syncScroll(pos),
+    getScroll: assign({
+      scroll: ({ context }) => {
+        const b = getScrollRefs1('container')
+        return b ?? context.scroll
+      },
+    }),
+    syncScroll: (_, { pos }: { pos: BoxBox }) => updateScrollRefs(pos),
   },
   actors: {
     syncScrollLogic: fromPromise<boolean, null | BoxBox>(async ({ input }) => {
       if (input === null) {
         throw new Error('input is null')
       }
-      const ok = syncScroll(input)
+      //const ok = syncScroll(input)
+      const ok = updateScrollRefs1(input, 'container')
       if (!ok) {
         throw new Error('syncScroll failed')
       }
