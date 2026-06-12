@@ -2,7 +2,9 @@
 /* eslint-disable functional/no-return-void */
 import { type RefObject } from 'react'
 
+import type { AnimationMatrix } from '../../../types'
 import { useStyleRef } from '../../style/ref'
+import { tag } from '../../style/tag'
 import { trunc2 } from '../../utils'
 import { fromSvgToContent } from './coord'
 import type { Layout } from './layout-types'
@@ -28,5 +30,34 @@ export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
     s(`--layout-scroll-width`, `${trunc2(layout.scroll.width)}px`)
     s(`--layout-scroll-height`, `${trunc2(layout.scroll.height)}px`)
     s(`--layout-svg-to-content-matrix`, matrixTrunc2(svgToContent).toString())
+  })
+}
+
+////
+
+const animationStyleRefs: Map<string, HTMLDivElement> = new Map()
+
+export function useAnimationStyleRef(
+  ref: Readonly<RefObject<HTMLDivElement | null>>,
+  name: string
+): void {
+  useStyleRef(animationStyleRefs, ref, name)
+}
+
+export function updateAnimationStyleRefs(
+  a: Readonly<null | AnimationMatrix>
+): void {
+  const p = a?.from.toString()
+  const q = a?.to.toString()
+  const o =
+    a?.origin === null ? `left top` : `${a?.origin.x}px ${a?.origin.y}px`
+  Array.from(animationStyleRefs, ([, e]) => {
+    const s = e.style.setProperty.bind(e.style)
+    tag(e, 'zooming', a !== null)
+    if (a === null) return
+    s(`--zoom-transform-origin-p`, o)
+    s(`--zoom-transform-origin-q`, o)
+    s(`--zoom-transform-p`, `${p} translate3d(0px, 0px, 0px)`)
+    s(`--zoom-transform-q`, `${q} translate3d(0px, 0px, 0px)`)
   })
 }

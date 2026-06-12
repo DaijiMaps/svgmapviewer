@@ -13,7 +13,7 @@ import {
 } from '../css'
 import { useShadowRoot } from '../dom'
 import { notifyUi } from '../event-ui'
-import { useAnimationStyleRef } from '../viewer/layout/animation'
+import { useAnimationStyleRef } from '../viewer/layout/style'
 import { useTouchMoveZoomingLock } from '../viewer/touch/event'
 import { useOnWheel } from '../wheel'
 import { useDetailStyleRef } from './style'
