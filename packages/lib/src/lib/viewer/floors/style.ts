@@ -27,29 +27,55 @@ export function useFloorRef(
   }, [name, ref])
 }
 
-export function updateFloorRefsInit(): void {
-  Array.from(floorRefs, ([, e]) => {
-    const s = e.style.setProperty.bind(e.style)
+function initStyle(e: Readonly<SVGGElement | HTMLDivElement>): void {
+  const s = e.style.setProperty.bind(e.style)
+  s(`will-change`, null)
+  s(`animation`, null)
+  s(`visibility`, 'hidden')
+}
+
+function loadStyle(
+  e: Readonly<SVGGElement | HTMLDivElement>,
+  appearing: boolean
+): void {
+  const s = e.style.setProperty.bind(e.style)
+  if (appearing) {
+    s(`will-change`, `opacity`)
+    s(`animation`, `${FLOOR_APPEARING} ${floor_switch_duration} linear`)
+    s(`visibility`, null)
+  } else {
     s(`will-change`, null)
     s(`animation`, null)
     s(`visibility`, 'hidden')
-  })
+  }
+}
+
+function switchStyle(
+  e: Readonly<SVGGElement | HTMLDivElement>,
+  animating: boolean,
+  appearing: boolean
+): void {
+  const s = e.style.setProperty.bind(e.style)
+  if (!animating) {
+    const visibility = appearing ? null : 'hidden'
+    s(`will-change`, null)
+    s(`animation`, null)
+    s(`visibility`, visibility)
+  } else {
+    const animation = `${appearing ? FLOOR_APPEARING : FLOOR_DISAPPEARING} ${floor_switch_duration} linear`
+    s(`will-change`, `opacity`)
+    s(`animation`, animation)
+    s(`visibility`, null)
+  }
+}
+
+export function updateFloorRefsInit(): void {
+  Array.from(floorRefs, ([, e]) => initStyle(e))
 }
 
 export function updateFloorRefsLoad(fidx: number): void {
   const re = new RegExp(`^.*-${fidx}$`)
-  Array.from(floorRefs, ([name, e]) => {
-    const s = e.style.setProperty.bind(e.style)
-    if (re.test(name)) {
-      s(`will-change`, `opacity`)
-      s(`animation`, `${FLOOR_APPEARING} ${floor_switch_duration} linear`)
-      s(`visibility`, null)
-    } else {
-      s(`will-change`, null)
-      s(`animation`, null)
-      s(`visibility`, 'hidden')
-    }
-  })
+  Array.from(floorRefs, ([name, e]) => loadStyle(e, re.test(name)))
 }
 
 export function updateFloorRefsSwitch(
@@ -57,18 +83,7 @@ export function updateFloorRefsSwitch(
   prevFidx: number | null
 ): void {
   const re = new RegExp(`^.*-${fidx}$`)
-  Array.from(floorRefs, ([name, e]) => {
-    const s = e.style.setProperty.bind(e.style)
-    if (prevFidx === null) {
-      const visibility = re.test(name) ? null : 'hidden'
-      s(`will-change`, null)
-      s(`animation`, null)
-      s(`visibility`, visibility)
-    } else {
-      const animation = `${re.test(name) ? FLOOR_APPEARING : FLOOR_DISAPPEARING} ${floor_switch_duration} linear`
-      s(`will-change`, `opacity`)
-      s(`animation`, animation)
-      s(`visibility`, null)
-    }
-  })
+  Array.from(floorRefs, ([name, e]) =>
+    switchStyle(e, prevFidx !== null, re.test(name))
+  )
 }
