@@ -1,16 +1,16 @@
 /* eslint-disable functional/functional-parameters */
-/* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-conditional-statements */
 
-import { useEffect, type RefObject } from 'react'
+import { type RefObject } from 'react'
 
 import {
   FLOOR_APPEARING,
   FLOOR_DISAPPEARING,
   floor_switch_duration,
 } from '../../css'
+import { useStyleRef } from '../../style/ref'
 
 export const floorRefs: Map<string, SVGGElement | HTMLDivElement> = new Map()
 
@@ -18,13 +18,7 @@ export function useFloorRef(
   ref: Readonly<RefObject<SVGGElement | HTMLDivElement | null>>,
   name: string
 ): void {
-  useEffect(() => {
-    const e = ref.current
-    if (e) floorRefs.set(name, e)
-    return () => {
-      if (e) floorRefs.delete(name)
-    }
-  }, [name, ref])
+  useStyleRef(floorRefs, ref, name)
 }
 
 function initStyle(e: Readonly<SVGGElement | HTMLDivElement>): void {

@@ -1,10 +1,8 @@
 /* eslint-disable functional/functional-parameters */
-/* eslint-disable functional/immutable-data */
-import { createAtom, type Atom } from '@xstate/store'
-/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
-import { useEffect, type RefObject } from 'react'
+import { createAtom, type Atom } from '@xstate/store'
+import { type RefObject } from 'react'
 
 import { svgMapViewerConfig } from '../../../config'
 import type { AnimationMatrix, Dir } from '../../../types'
@@ -14,6 +12,7 @@ import {
   dommatrixreadonlyTranslateOnly as matrixTranslateOnly,
   dommatrixreadonlyScaleAt as matrixScaleAt,
 } from '../../matrix/dommatrixreadonly'
+import { useStyleRef } from '../../style/ref'
 import { tag } from '../../style/tag'
 import { type VecVec as Vec } from '../../vec/prefixed'
 import {
@@ -166,13 +165,7 @@ export function useAnimationStyleRef(
   ref: Readonly<RefObject<HTMLDivElement | null>>,
   name: string
 ): void {
-  useEffect(() => {
-    const e = ref.current
-    if (e) animationStyleRefs.set(name, e)
-    return () => {
-      if (e) animationStyleRefs.delete(name)
-    }
-  }, [name, ref])
+  useStyleRef(animationStyleRefs, ref, name)
 }
 
 export function updateAnimationStyleRefs(
