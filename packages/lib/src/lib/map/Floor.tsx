@@ -304,7 +304,7 @@ const style_re = /^style$/
 const non_svg_re = /(?:text-align)|(?:line-height)/
 
 function fromAttrs(
-  attrs: Record<string, undefined | null | number | string>
+  attrs: Readonly<Record<string, undefined | null | number | string>>
 ): Record<string, undefined | null | number | string> {
   const entries = Object.entries(attrs)
     .filter(
