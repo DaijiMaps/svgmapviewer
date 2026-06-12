@@ -14,5 +14,6 @@ jobs:
         with:
           version: 11
           run_install: true
-      - run: pnpm -r build --sequential
+      - run: pnpm --filter '!*astro*' build
+      - run: pnpm --filter '*astro*' --sequential build
       - run: pnpm test
