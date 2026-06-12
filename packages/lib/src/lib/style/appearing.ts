@@ -1,11 +1,9 @@
-/* eslint-disable functional/immutable-data */
-/* eslint-disable functional/no-conditional-statements */
-/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import { useEffect, type RefObject } from 'react'
+import { type RefObject } from 'react'
 
 import { timing_opening } from '../css'
+import { useStyleRef } from './ref'
 import { tag } from './tag'
 
 const appearingStyleRefs: Map<string, HTMLDivElement> = new Map()
@@ -14,13 +12,7 @@ export function useAppearingStyleRef(
   ref: Readonly<RefObject<HTMLDivElement | null>>,
   name: string
 ): void {
-  useEffect(() => {
-    const e = ref.current
-    if (e) appearingStyleRefs.set(name, e)
-    return () => {
-      if (e) appearingStyleRefs.delete(name)
-    }
-  }, [name, ref])
+  useStyleRef(appearingStyleRefs, ref, name)
 }
 
 export function updateAppearingStyleRefs(

@@ -1,10 +1,8 @@
-/* eslint-disable functional/immutable-data */
-/* eslint-disable functional/no-conditional-statements */
-/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import { useEffect, type RefObject } from 'react'
+import { type RefObject } from 'react'
 
+import { useStyleRef } from '../style/ref'
 import type { Layout } from '../viewer/layout/layout'
 
 const mapStyleRefs: Map<string, SVGGElement> = new Map()
@@ -13,13 +11,7 @@ export function useMapStyleRef(
   ref: Readonly<RefObject<SVGGElement | null>>,
   name: string
 ): void {
-  useEffect(() => {
-    const e = ref.current
-    if (e) mapStyleRefs.set(name, e)
-    return () => {
-      if (e) mapStyleRefs.delete(name)
-    }
-  }, [name, ref])
+  useStyleRef(mapStyleRefs, ref, name)
 }
 
 export function updateMapStyleRefs(

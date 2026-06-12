@@ -1,20 +1,16 @@
 /* eslint-disable functional/functional-parameters */
-/* eslint-disable functional/immutable-data */
-import { createAtom, type Atom } from '@xstate/store'
-/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-return-void */
-/* eslint-disable functional/no-expression-statements */
-import { useEffect, type RefObject } from 'react'
+
+import { createAtom, type Atom } from '@xstate/store'
 
 import { svgMapViewerConfig } from '../../../config'
-import type { AnimationMatrix, Dir } from '../../../types'
+import type { Dir } from '../../../types'
 import { boxCenter, boxScaleAt } from '../../box/prefixed'
 import {
   dommatrixreadonly as matrix,
   dommatrixreadonlyTranslateOnly as matrixTranslateOnly,
   dommatrixreadonlyScaleAt as matrixScaleAt,
 } from '../../matrix/dommatrixreadonly'
-import { tag } from '../../style/tag'
 import { type VecVec as Vec } from '../../vec/prefixed'
 import {
   type Animation,
@@ -157,38 +153,3 @@ export const getZooming = (): boolean => zoomingAtom.get()
 
 export const setZooming = (zooming: boolean): void =>
   zoomingAtom.set(() => zooming)
-
-////
-
-const animationStyleRefs: Map<string, HTMLDivElement> = new Map()
-
-export function useAnimationStyleRef(
-  ref: Readonly<RefObject<HTMLDivElement | null>>,
-  name: string
-): void {
-  useEffect(() => {
-    const e = ref.current
-    if (e) animationStyleRefs.set(name, e)
-    return () => {
-      if (e) animationStyleRefs.delete(name)
-    }
-  }, [name, ref])
-}
-
-export function updateAnimationStyleRefs(
-  a: null | Readonly<AnimationMatrix>
-): void {
-  const p = a?.from.toString()
-  const q = a?.to.toString()
-  const o =
-    a?.origin === null ? `left top` : `${a?.origin.x}px ${a?.origin.y}px`
-  Array.from(animationStyleRefs, ([, e]) => {
-    const s = e.style.setProperty.bind(e.style)
-    tag(e, 'zooming', a !== null)
-    if (a === null) return
-    s(`--zoom-transform-origin-p`, o)
-    s(`--zoom-transform-origin-q`, o)
-    s(`--zoom-transform-p`, `${p} translate3d(0px, 0px, 0px)`)
-    s(`--zoom-transform-q`, `${q} translate3d(0px, 0px, 0px)`)
-  })
-}
