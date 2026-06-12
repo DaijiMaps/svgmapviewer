@@ -1,7 +1,10 @@
+/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-conditional-statements */
+
+import { useEffect, type RefObject } from 'react'
 
 import {
   FLOOR_APPEARING,
@@ -11,12 +14,26 @@ import {
 
 export const floorRefs: Map<string, SVGGElement | HTMLDivElement> = new Map()
 
-export function registerFloorRef(
-  e: Readonly<SVGGElement | HTMLDivElement | null>,
+export function useFloorRef(
+  ref: Readonly<RefObject<SVGGElement | HTMLDivElement | null>>,
   name: string
 ): void {
-  if (e) floorRefs.set(name, e)
-  else floorRefs.delete(name)
+  useEffect(() => {
+    const e = ref.current
+    if (e) floorRefs.set(name, e)
+    return () => {
+      if (e) floorRefs.delete(name)
+    }
+  }, [name, ref])
+}
+
+export function updateFloorRefsInit(): void {
+  Array.from(floorRefs, ([, e]) => {
+    const s = e.style.setProperty.bind(e.style)
+    s(`will-change`, null)
+    s(`animation`, null)
+    s(`visibility`, 'hidden')
+  })
 }
 
 export function updateFloorRefsLoad(fidx: number): void {
@@ -27,6 +44,10 @@ export function updateFloorRefsLoad(fidx: number): void {
       s(`will-change`, `opacity`)
       s(`animation`, `${FLOOR_APPEARING} ${floor_switch_duration} linear`)
       s(`visibility`, null)
+    } else {
+      s(`will-change`, null)
+      s(`animation`, null)
+      s(`visibility`, 'hidden')
     }
   })
 }

@@ -42,7 +42,10 @@ const style = `
   ${pointer_events_none}
   top: initial;
   align-items: end;
-  
+  transform-origin: 0% 50%;
+  transform: translate(0%, calc(50vh - 50%)) scale(var(--b));
+  opacity: var(--b);
+  --b: 1;
   &.not-animating {
     &.closed {
       --b: 0;
@@ -50,10 +53,6 @@ const style = `
     &.opened {
       --b: 1;
     }
-    transform-origin: 0% 50%;
-    opacity: var(--b);
-    transform: translate(0%, calc(50vh - 50%)) scale(var(--b));
-    will-change: opacity, transform;
   }
   &.animating {
     &.closed {
@@ -67,7 +66,6 @@ const style = `
       --timing: ${timing_opening};
     }
     --duration: ${ZOOM_DURATION_HEADER}ms;
-    transform-origin: 0% 50%;
     animation: xxx-left var(--duration) var(--timing);
     will-change: opacity, transform;
   }
