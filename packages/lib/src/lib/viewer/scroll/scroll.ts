@@ -11,22 +11,6 @@ import { boxUnit, type BoxBox } from '../../box/prefixed'
 // XXX make this async
 // XXX call this from scroll-xstate as invoke (Promise)
 // XXX return status
-/*
-export function syncScroll(b: BoxBox): boolean {
-  if (b === null) {
-    return true
-  }
-
-  const e = document.querySelector('.container')
-
-  if (e === null || !(e instanceof HTMLDivElement)) {
-    return false
-  }
-
-  return syncScroll1(e, b)
-}
-*/
-
 // eslint-disable-next-line functional/prefer-immutable-types
 export function syncScroll1(e: HTMLDivElement, b: BoxBox): boolean {
   // XXX
@@ -91,29 +75,6 @@ export function syncScroll1(e: HTMLDivElement, b: BoxBox): boolean {
   return true
 }
 
-/*
-export function getScroll(): Scroll {
-  const e = document.querySelector('.container')
-
-  if (e !== null) {
-    const x = e.scrollLeft
-    const y = e.scrollTop
-    const width = e.scrollWidth
-    const height = e.scrollHeight
-
-    // forcibly stop scroll
-    // XXX assigning a different value once
-    // XXX because assigning the current value is ignored
-    // XXX (does NOT stop scroll)
-    e.scrollLeft = Number(x) + 1
-    e.scrollLeft = Number(x)
-
-    return boxBox(x, y, width, height)
-  }
-  return null
-}
-*/
-
 ////
 
 export const currentScrollAtom: Atom<CurrentScroll> = createAtom({
@@ -126,21 +87,22 @@ export function setCurrentScroll(
   ev: Readonly<React.UIEvent<HTMLDivElement, Event>>
 ): void {
   const e: null | HTMLDivElement = ev.currentTarget
-  if (e !== null) {
-    currentScrollAtom.set({
-      scroll: {
-        x: e.scrollLeft,
-        y: e.scrollTop,
-        width: e.scrollWidth,
-        height: e.scrollHeight,
-      },
-      client: {
-        width: e.clientWidth,
-        height: e.clientHeight,
-      },
-      timeStamp: ev.timeStamp,
-    })
+  if (e === null) {
+    return
   }
+  currentScrollAtom.set({
+    scroll: {
+      x: e.scrollLeft,
+      y: e.scrollTop,
+      width: e.scrollWidth,
+      height: e.scrollHeight,
+    },
+    client: {
+      width: e.clientWidth,
+      height: e.clientHeight,
+    },
+    timeStamp: ev.timeStamp,
+  })
 }
 
 export function getCurrentScroll(): CurrentScroll {

@@ -9,7 +9,7 @@ import {
   type ScrollEmitted,
   type ScrollEvent,
 } from './scroll-types'
-import { getScrollRefs1, updateScrollRefs, updateScrollRefs1 } from './style'
+import { getScrollRefs1, updateScrollRefs1 } from './style'
 
 const scrollMachine = setup({
   types: {} as {
@@ -24,7 +24,8 @@ const scrollMachine = setup({
         return b ?? context.scroll
       },
     }),
-    syncScroll: (_, { pos }: { pos: BoxBox }) => updateScrollRefs(pos),
+    syncScroll: (_, { pos }: { pos: BoxBox }) =>
+      updateScrollRefs1(pos, 'container'),
   },
   actors: {
     syncScrollLogic: fromPromise<boolean, null | BoxBox>(async ({ input }) => {
