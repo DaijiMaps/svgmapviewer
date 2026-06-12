@@ -24,11 +24,17 @@ export interface UiContext {
   }
 }
 
+// XXX
+// XXX
+// XXX
 type UiModeEventDetailArgs = Pick<
   UiDetailContent,
   'psvg' | 'fidx' | 'info' | 'layout'
 >
 export type UiModeEventDetail = { type: 'DETAIL' } & UiModeEventDetailArgs
+// XXX
+// XXX
+// XXX
 
 export type UiModeEvent =
   | { type: 'OPEN' }

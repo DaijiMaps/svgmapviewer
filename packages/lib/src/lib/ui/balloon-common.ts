@@ -13,11 +13,12 @@ import {
   type VecVec as V,
   vecZero,
   vecAdd,
+  type VecVec,
 } from '../vec/prefixed'
+import type { LayoutCoord } from '../viewer/layout/layout'
 import { type BalloonProps } from './Balloon'
 import { diag } from './diag'
 import { openCloseIsVisible, type OpenClose } from './openclose'
-import { type UiDetailContent } from './ui-types'
 
 const BW = 50
 const BH = 50
@@ -53,12 +54,10 @@ export interface LegLayout {
 ////
 
 export function calcBalloonLayout(
-  detail: Readonly<UiDetailContent>
+  layout: Readonly<LayoutCoord>,
+  p: VecVec
 ): BalloonProps {
-  const _p = detail.p
-  const layout = detail.layout
-
-  const _hv = diag(detail.layout.container, _p)
+  const _hv = diag(layout.container, p)
 
   const _W = layout.container.width
   const _H = layout.container.height
@@ -67,7 +66,7 @@ export function calcBalloonLayout(
 
   const _leg = layoutLeg(_hv, _size.bw, _size.bh, _size.lh)
 
-  return { _p, _hv, _W, _H, _size, _leg }
+  return { _p: p, _hv, _W, _H, _size, _leg }
 }
 
 export function calcBalloonSize(_W: number, _H: number): BalloonSize {

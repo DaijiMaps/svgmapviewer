@@ -100,17 +100,13 @@ const uiMachine = setup({
     updateDetail: assign({
       detail: (_, { psvg, fidx, info, layout }: UiModeEventDetail) => {
         const m = fromMatrixSvg(layout)
-        return {
-          psvg,
-          p: m.transformPoint(psvg),
-          fidx,
-          info,
-          layout,
-        }
+        const p = m.transformPoint(psvg)
+        return { psvg, p, fidx, info, layout }
       },
     }),
     updateBalloon: assign({
-      balloon: ({ context: { detail } }) => calcBalloonLayout(detail),
+      balloon: ({ context: { detail } }) =>
+        calcBalloonLayout(detail.layout, detail.p),
     }),
     updateHeaderStyle: ({ context }) =>
       updateHeaderStyleRefs(context.m['header']),
