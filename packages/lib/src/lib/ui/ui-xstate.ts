@@ -5,7 +5,6 @@ import { type SearchData } from '../../types'
 import { searchCbs } from '../event-search'
 import { notifyUi, uiCbs } from '../event-ui'
 import { fromMatrixSvg } from '../viewer/layout/coord'
-import type { BalloonProps } from './Balloon'
 import {
   calcBalloonLayout,
   calcBalloonPaths,
@@ -280,9 +279,6 @@ export function uiSend(ev: UiEvent): void {
 }
 export function useDetail(): UiDetailContent | undefined {
   return useSelector(uiActor, (ui) => ui.context.detail)
-}
-export function useBalloon(): BalloonProps | undefined {
-  return useSelector(uiActor, (ui) => ui.context.balloon)
 }
 export function useBalloonPaths(): BalloonPaths | undefined {
   return useSelector(uiActor, (ui) => ui.context.balloonPaths)
