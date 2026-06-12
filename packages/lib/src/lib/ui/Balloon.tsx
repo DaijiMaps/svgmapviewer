@@ -15,7 +15,7 @@ import {
   type LegLayout,
 } from './balloon-common'
 import { useBalloonStyleRef, useDetailStyleRef } from './style'
-import type { UiDetailContent } from './ui-types'
+import { useBalloon } from './ui-xstate'
 
 export interface BalloonProps {
   _p: null | VecVec
@@ -27,18 +27,18 @@ export interface BalloonProps {
 }
 
 export function Balloon(
-  props: Readonly<
-    PropsWithChildren<{ _detail: UiDetailContent; _balloon?: BalloonProps }>
-  >
+  props: Readonly<PropsWithChildren<{ _balloon?: BalloonProps }>>
 ): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
   useDetailStyleRef(ref, 'balloon')
   useBalloonStyleRef(ref, 'balloon')
 
+  const balloon = useBalloon()
+
   return (
     <div ref={ref} className="balloon">
-      {props._balloon && <BalloonSvg _balloon={props._balloon} />}
+      {balloon && <BalloonSvg _balloon={balloon} />}
       {props.children}
       <style>{style}</style>
     </div>

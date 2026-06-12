@@ -12,15 +12,11 @@ import {
   Z_INDEX_DETAIL,
 } from '../css'
 import { useOnWheel } from '../wheel'
-import type { BalloonProps } from './Balloon'
 import { useBalloonStyleRef } from './style'
 import { useScrollStyleRef, useDetailStyleRef } from './style'
-import { type UiDetailContent } from './ui-types'
-import { isDetailEmpty, uiSend } from './ui-xstate'
+import { isDetailEmpty, uiSend, useDetail } from './ui-xstate'
 
-export function Detail(
-  props: Readonly<{ _detail: UiDetailContent; _balloon?: BalloonProps }>
-): ReactNode {
+export function Detail(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
   useOnWheel(ref)
@@ -29,14 +25,16 @@ export function Detail(
   useDetailStyleRef(ref, 'detail')
   useScrollStyleRef(ref, 'detail')
 
+  const detail = useDetail()
+
   return (
     <div
       ref={ref}
       className="detail"
       onAnimationEnd={() => uiSend({ type: 'DETAIL.ANIMATION.END' })}
     >
-      {cfg.RenderInfo && !isDetailEmpty(props._detail) && (
-        <cfg.RenderInfo info={props._detail.info} />
+      {cfg.RenderInfo && !isDetailEmpty(detail) && (
+        <cfg.RenderInfo info={detail.info} />
       )}
       <style>{style}</style>
     </div>
