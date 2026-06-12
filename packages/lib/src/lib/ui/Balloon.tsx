@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
-import { useRef, type ReactNode } from 'react'
+import { useRef, type PropsWithChildren, type ReactNode } from 'react'
 
 import { boxToViewBox2 } from '../box/prefixed'
 import {
@@ -22,7 +22,13 @@ export function Balloon(): ReactNode {
 
   return (
     <div ref={ref} className="balloon">
-      {balloonPaths && <BalloonSvg {...balloonPaths} />}
+      {balloonPaths && (
+        <BalloonSvg {...balloonPaths}>
+          <path className="bg" d={balloonPaths.bg} />
+          <path className="fg" d={balloonPaths.fg} />
+          <style>{style1}</style>
+        </BalloonSvg>
+      )}
       <style>{style}</style>
     </div>
   )
@@ -42,9 +48,8 @@ function BalloonSvg({
   viewBox,
   width,
   height,
-  fg,
-  bg,
-}: Readonly<BalloonPaths>): ReactNode {
+  children,
+}: Readonly<PropsWithChildren<BalloonPaths>>): ReactNode {
   return (
     <svg
       className="balloon-svg"
@@ -52,9 +57,7 @@ function BalloonSvg({
       width={width}
       height={height}
     >
-      <path className="bg" d={bg} />
-      <path className="fg" d={fg} />
-      <style>{style1}</style>
+      {children}
     </svg>
   )
 }
