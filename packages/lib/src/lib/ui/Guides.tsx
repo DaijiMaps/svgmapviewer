@@ -15,7 +15,7 @@ import {
 } from '../css'
 import { useShadowRoot } from '../dom'
 import { Measure, MeasureCoordinate, MeasureDistance } from './Measure'
-import { useHeaderStyleRef } from './ui-react'
+import { useHeaderStyleRef } from './style'
 
 export function Guides(): ReactNode {
   useShadowRoot('guides', <GuidesRoot />, 'ui')
