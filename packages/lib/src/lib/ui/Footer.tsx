@@ -12,7 +12,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
-import { useHeaderStyleRef } from './ui-react'
+import { useHeaderStyleRef } from './style'
 
 export function Footer(): ReactNode {
   useShadowRoot('footer', <FooterRoot />, 'ui')

@@ -16,7 +16,7 @@ import { notifyUi } from '../event-ui'
 import { useAnimationStyleRef } from '../viewer/layout/animation'
 import { useTouchMoveZoomingLock } from '../viewer/touch/event'
 import { useOnWheel } from '../wheel'
-import { useDetailStyleRef } from './ui-react'
+import { useDetailStyleRef } from './style'
 
 export function Screen(): ReactNode {
   useShadowRoot('screen', <ScreenRoot />, 'ui')

@@ -16,7 +16,7 @@ import {
   type BalloonSize,
   type LegLayout,
 } from './balloon-common'
-import { useDetailStyleRef } from './ui-react'
+import { useDetailStyleRef } from './style'
 import type { UiDetailContent } from './ui-types'
 
 export interface BalloonProps {

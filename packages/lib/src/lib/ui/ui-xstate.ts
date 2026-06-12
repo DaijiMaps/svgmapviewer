@@ -20,7 +20,7 @@ import {
   updateScrollStyleRefs,
   updateDetailStyleRefs,
   updateHeaderStyleRefs,
-} from './ui-react'
+} from './style'
 import {
   type OpenCloseMap,
   type UiContext,

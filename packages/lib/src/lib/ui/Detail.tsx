@@ -13,7 +13,7 @@ import {
 } from '../css'
 import { useOnWheel } from '../wheel'
 import { useBalloonStyleRef } from './balloon-common'
-import { useScrollStyleRef, useDetailStyleRef } from './ui-react'
+import { useScrollStyleRef, useDetailStyleRef } from './style'
 import { type UiDetailContent } from './ui-types'
 import { isDetailEmpty, uiSend } from './ui-xstate'
 

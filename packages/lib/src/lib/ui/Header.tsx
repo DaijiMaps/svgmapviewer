@@ -16,7 +16,7 @@ import {
 import { useShadowRoot } from '../dom'
 import { notifyAction } from '../event-action'
 import { FloorName } from './Floor'
-import { useHeaderStyleRef } from './ui-react'
+import { useHeaderStyleRef } from './style'
 import { uiSend } from './ui-xstate'
 
 export function Header(): ReactNode {
