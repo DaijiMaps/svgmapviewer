@@ -13,7 +13,7 @@ import {
 } from '../css'
 import { useOnWheel } from '../wheel'
 import { useBalloonStyleRef } from './style'
-import { useScrollStyleRef, useDetailStyleRef } from './style'
+import { useDetailScrollStyleRefs, useDetailStyleRef } from './style'
 import { uiSend, useDetail } from './ui-xstate'
 
 export function Detail(): ReactNode {
@@ -23,7 +23,7 @@ export function Detail(): ReactNode {
 
   useBalloonStyleRef(ref, 'detail')
   useDetailStyleRef(ref, 'detail')
-  useScrollStyleRef(ref, 'detail')
+  useDetailScrollStyleRefs(ref, 'detail')
 
   const detail = useDetail()
 
