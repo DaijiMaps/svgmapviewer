@@ -10,7 +10,7 @@
   "type": "module",
   "scripts": {},
   "devDependencies": {
-    "html-react-parser": "^6.1.2"
+    "html-react-parser": "^6.1.3"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",

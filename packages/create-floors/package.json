@@ -15,12 +15,12 @@
   "dependencies": {
     "@effect/platform-node": "4.0.0-beta.74",
     "effect": "4.0.0-beta.74",
-    "tar": "^7.5.15",
+    "tar": "^7.5.16",
     "validate-npm-package-name": "^8.0.0"
   },
   "devDependencies": {
     "@rslib/core": "^0.22.0",
-    "@types/node": "catalog:",
+    "@types/node": "^24.13.2",
     "@typescript/native-preview": "7.0.0-dev.20260527.2"
   },
   "lint-staged": {
