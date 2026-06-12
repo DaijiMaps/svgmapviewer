@@ -15,7 +15,7 @@ export type UiDetailContent = SearchRes & {
 
 export interface UiContext {
   canceling: boolean
-  detail: UiDetailContent
+  detail?: UiDetailContent
   balloon?: BalloonProps
   m: OpenCloseMap
   animationEnded: {

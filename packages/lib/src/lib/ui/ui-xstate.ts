@@ -4,8 +4,7 @@ import { assign, createActor, emit, not, raise, setup } from 'xstate'
 import { type SearchData } from '../../types'
 import { searchCbs } from '../event-search'
 import { notifyUi, uiCbs } from '../event-ui'
-import { vecZero } from '../vec/prefixed'
-import { emptyLayoutCoord, fromMatrixSvg } from '../viewer/layout/coord'
+import { fromMatrixSvg } from '../viewer/layout/coord'
 import type { BalloonProps } from './Balloon'
 import { calcBalloonLayout } from './balloon-common'
 import {
@@ -32,23 +31,6 @@ import {
   type UiModeEventDetail,
   type UiPart,
 } from './ui-types'
-
-const emptyDetail: UiDetailContent = {
-  p: vecZero,
-  psvg: vecZero,
-  fidx: 0,
-  layout: emptyLayoutCoord,
-  info: { title: '' },
-}
-
-export function isDetailEmpty(detail: UiDetailContent): boolean {
-  const values = Object.values(detail.info)
-  return (
-    values.length === 1 && typeof values[0] === 'string' && values[0] === ''
-  )
-}
-
-////
 
 function doOpenCloseMap(op: OpenCloseOp) {
   return function (m: OpenCloseMap, part: UiPart) {
@@ -106,7 +88,7 @@ const uiMachine = setup({
     }),
     updateBalloon: assign({
       balloon: ({ context: { detail } }) =>
-        calcBalloonLayout(detail.layout, detail.p),
+        detail && calcBalloonLayout(detail.layout, detail.p),
     }),
     updateHeaderStyle: ({ context }) =>
       updateHeaderStyleRefs(context.m['header']),
@@ -125,7 +107,6 @@ const uiMachine = setup({
     ...input,
     all: { open: false, animating: false },
     canceling: false,
-    detail: emptyDetail,
     m: {
       header: openCloseReset(true),
       detail: openCloseReset(false),
@@ -286,7 +267,7 @@ export function uiActorStart(): void {
 export function uiSend(ev: UiEvent): void {
   uiActor.send(ev)
 }
-export function useDetail(): UiDetailContent {
+export function useDetail(): UiDetailContent | undefined {
   return useSelector(uiActor, (ui) => ui.context.detail)
 }
 export function useBalloon(): BalloonProps | undefined {
