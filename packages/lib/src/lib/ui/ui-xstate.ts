@@ -28,7 +28,6 @@ import {
   type UiDetailContent,
   type UiEmitted,
   type UiEvent,
-  type UiModeEventDetail,
   type UiPart,
 } from './ui-types'
 
@@ -80,15 +79,13 @@ const uiMachine = setup({
         handleOpenCloseMap(m, part),
     }),
     updateDetail: assign({
-      detail: (_, { psvg, fidx, info, layout }: UiModeEventDetail) => {
-        const m = fromMatrixSvg(layout)
-        const p = m.transformPoint(psvg)
-        return { psvg, p, fidx, info, layout }
-      },
+      detail: (_, detail: UiDetailContent) => detail,
+      p: (_, { psvg, layout }: UiDetailContent) =>
+        fromMatrixSvg(layout).transformPoint(psvg),
     }),
     updateBalloon: assign({
-      balloon: ({ context: { detail } }) =>
-        detail && calcBalloonLayout(detail.layout, detail.p),
+      balloon: ({ context: { detail, p } }) =>
+        detail && p && calcBalloonLayout(detail.layout, p),
     }),
     updateHeaderStyle: ({ context }) =>
       updateHeaderStyleRefs(context.m['header']),
@@ -132,7 +129,11 @@ const uiMachine = setup({
             },
             DETAIL: {
               actions: [
-                { type: 'updateDetail', params: ({ event }) => event },
+                {
+                  type: 'updateDetail',
+                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                  params: ({ event: { type, ...detail } }) => detail,
+                },
                 'updateBalloon',
               ],
               target: 'Detail',
