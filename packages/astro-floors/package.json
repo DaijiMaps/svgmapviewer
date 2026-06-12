@@ -16,20 +16,20 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^5.0.6",
-    "astro": "^6.4.2",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
+    "@astrojs/react": "^5.0.7",
+    "astro": "^6.4.6",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "svgmapviewer": "workspace:*",
     "svgmapviewer-app-floors": "workspace:*",
     "svgmapviewer-tools-floors": "workspace:*",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@types/react": "^19.2.15",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@typescript/native-preview": "7.0.0-dev.20260527.2",
-    "tsx": "^4.22.3"
+    "tsx": "^4.22.4"
   },
   "peerDependencies": {
     "astro": "^6",

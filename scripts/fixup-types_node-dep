@@ -1,0 +1,15 @@
+#!/bin/sh
+
+dirs='
+packages/app-floors
+packages/app-osm
+packages/create-floors
+packages/example-floors
+packages/example-osm
+packages/lib
+packages/tools-osm
+'
+
+for dir in $dirs; do
+  ( cd $dir && pnpm pkg set 'devDependencies["@types/node"]=catalog:' )
+done

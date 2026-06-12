@@ -19,8 +19,8 @@
     "svgmapviewer-tools-osm": "workspace:*"
   },
   "devDependencies": {
-    "@rsbuild/core": "^2.0.8",
-    "@rsbuild/plugin-react": "^2.0.0",
+    "@rsbuild/core": "^2.0.11",
+    "@rsbuild/plugin-react": "^2.0.1",
     "@types/node": "catalog:",
     "@typescript/native-preview": "7.0.0-dev.20260527.2",
     "typescript": "^6.0.3"
