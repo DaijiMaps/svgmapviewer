@@ -22,9 +22,10 @@ const floorsMachine = setup({
     emitted: {} as FloorsEmits,
   },
   actions: {
-    updateRefsAtSwitch: ({ context: { fidx, prevFidx } }) => {
-      updateFloorRefsSwitch(fidx, prevFidx)
-    },
+    updateInit: () => updateFloorRefsInit(),
+    updateLoad: ({ context: { fidx } }) => updateFloorRefsLoad(fidx),
+    updateSwitch: ({ context: { fidx, prevFidx } }) =>
+      updateFloorRefsSwitch(fidx, prevFidx),
   },
 }).createMachine({
   id: 'floors1',
@@ -36,19 +37,6 @@ const floorsMachine = setup({
     prevFidx: -1,
   },
   initial: 'Uninited',
-  /*
-  on: {
-    IMAGE: {
-      actions: assign({
-        blobs: ({ context, event: { fidx, blob } }) =>
-          new Map(context.blobs.set(fidx, blob)),
-        urls: ({ context, event: { fidx, blob } }) =>
-          // XXX when to call URL.revokeObjectURL?
-          new Map(context.urls.set(fidx, URL.createObjectURL(blob))),
-      }),
-    },
-  },
-  */
   states: {
     Uninited: {
       on: {
@@ -59,7 +47,7 @@ const floorsMachine = setup({
               fidx: ({ event }) => event.fidx,
             }),
             ({ event }) => currentFidxAtom.set(event.fidx),
-            () => updateFloorRefsInit(),
+            'updateInit',
           ],
           target: 'Loading',
         },
@@ -83,7 +71,7 @@ const floorsMachine = setup({
       always: [
         {
           guard: ({ context }) => context.nfloors === context.blobs.size,
-          actions: ({ context: { fidx } }) => updateFloorRefsLoad(fidx),
+          actions: 'updateLoad',
           target: 'Animating',
         },
         'Loading',
@@ -99,7 +87,7 @@ const floorsMachine = setup({
               prevFidx: ({ context }) => context.fidx,
             }),
             ({ event }) => currentFidxAtom.set(event.fidx),
-            'updateRefsAtSwitch',
+            'updateSwitch',
           ],
           target: 'Animating',
         },
@@ -136,7 +124,7 @@ const floorsMachine = setup({
             assign({
               prevFidx: null,
             }),
-            'updateRefsAtSwitch',
+            'updateSwitch',
           ],
           target: 'Idle',
         },
