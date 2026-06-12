@@ -55,9 +55,9 @@ export function updateAnimationStyleRefs(
     const s = e.style.setProperty.bind(e.style)
     tag(e, 'zooming', a !== null)
     if (a === null) return
-    s(`--zoom-transform-origin-p`, o)
-    s(`--zoom-transform-origin-q`, o)
-    s(`--zoom-transform-p`, `${p} translate3d(0px, 0px, 0px)`)
-    s(`--zoom-transform-q`, `${q} translate3d(0px, 0px, 0px)`)
+    s(`--zoom-origin-p`, o)
+    s(`--zoom-origin-q`, o)
+    s(`--zoom-p`, `${p} translate3d(0px, 0px, 0px)`)
+    s(`--zoom-q`, `${q} translate3d(0px, 0px, 0px)`)
   })
 }

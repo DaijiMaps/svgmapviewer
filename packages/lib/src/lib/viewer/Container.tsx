@@ -101,12 +101,12 @@ const style: string = `
 }
 @keyframes container-zoom {
   from {
-    transform-origin: var(--zoom-transform-origin-p);
-    transform: var(--zoom-transform-p);
+    transform-origin: var(--zoom-origin-p);
+    transform: var(--zoom-p);
   }
   to {
-    transform-origin: var(--zoom-transform-origin-q);
-    transform: var(--zoom-transform-q);
+    transform-origin: var(--zoom-origin-q);
+    transform: var(--zoom-q);
   }
 }
 @keyframes xxx-appearing {
