@@ -1,6 +1,7 @@
 import { type SearchRes } from '../../types'
 import { type VecVec } from '../vec/prefixed'
 import { type LayoutCoord } from '../viewer/layout/coord'
+import type { BalloonProps } from './Balloon'
 import { type OpenClose } from './openclose'
 
 export type UiPart = 'header' | 'detail'
@@ -15,6 +16,7 @@ export type UiDetailContent = SearchRes & {
 export interface UiContext {
   canceling: boolean
   detail: UiDetailContent
+  balloon?: BalloonProps
   m: OpenCloseMap
   animationEnded: {
     header: boolean
@@ -22,15 +24,18 @@ export interface UiContext {
   }
 }
 
+type UiModeEventDetailArgs = Pick<
+  UiDetailContent,
+  'psvg' | 'fidx' | 'info' | 'layout'
+>
+export type UiModeEventDetail = { type: 'DETAIL' } & UiModeEventDetailArgs
+
 export type UiModeEvent =
   | { type: 'OPEN' }
   | { type: 'CANCEL' }
   | { type: 'FLOOR' }
   | { type: 'MENU' }
-  | ({ type: 'DETAIL' } & Pick<
-      UiDetailContent,
-      'psvg' | 'fidx' | 'info' | 'layout'
-    >)
+  | UiModeEventDetail
   | { type: 'HELP' }
   | { type: 'RENDERED' }
 

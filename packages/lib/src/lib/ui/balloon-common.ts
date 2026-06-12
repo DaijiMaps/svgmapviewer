@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 import { type HV, type Size } from '../../types'
@@ -280,30 +279,66 @@ function calcStyle(
   }
 }
 
-export function updateBalloonStyle(
-  e: Readonly<HTMLDivElement>,
+type StyleParam = Readonly<{
+  readonly visibility: string | null
+  readonly pww: string | null
+  readonly phh: string | null
+  readonly a: 0 | 1 | null
+  readonly b: 0 | 1 | null
+  readonly timing: string | null
+  readonly txax: string | null
+  readonly txay: string | null
+  readonly txbx: string | null
+  readonly txby: string | null
+}>
+
+export function calcParam(
   Q: null | V,
   _hv: null | Readonly<HV>,
   size: Readonly<BalloonSize>,
   leg: Readonly<LegLayout>,
   { open, animating }: OpenClose
-): void {
-  const x = (k: string, v: null | number | string) =>
-    e.style.setProperty(k, v === null ? null : String(v))
+): StyleParam {
   if (Q === null || _hv === null || !openCloseIsVisible({ open, animating })) {
-    x('visibility', 'hidden')
+    const visibility = 'hidden'
+    const pww = null
+    const phh = null
+    const a = null
+    const b = null
+    const timing = null
+    const txax = null
+    const txay = null
+    const txbx = null
+    const txby = null
+    return { visibility, a, b, timing, pww, phh, txax, txay, txbx, txby }
   } else {
     const { width, height } = size
     const { a, b, timing, txa, txb } = calcStyle(open, animating, Q, leg.q)
-    x('visibility', null)
-    x('--pww', `${trunc3(-width / 2)}px`)
-    x('--phh', `${trunc3(-height / 2)}px`)
-    x('--a', a)
-    x('--b', b)
-    x('--timing', timing)
-    x('--tx-a-x', txa && `${trunc3(txa.x)}px`)
-    x('--tx-a-y', txa && `${trunc3(txa.y)}px`)
-    x('--tx-b-x', txb && `${trunc3(txb.x)}px`)
-    x('--tx-b-y', txb && `${trunc3(txb.y)}px`)
+    const visibility = null
+    const pww = `${trunc3(-width / 2)}px`
+    const phh = `${trunc3(-height / 2)}px`
+    const txax = txa && `${trunc3(txa.x)}px`
+    const txay = txa && `${trunc3(txa.y)}px`
+    const txbx = txb && `${trunc3(txb.x)}px`
+    const txby = txb && `${trunc3(txb.y)}px`
+    return { visibility, a, b, timing, pww, phh, txax, txay, txbx, txby }
   }
+}
+
+export function updateBalloonStyle(
+  e: Readonly<HTMLDivElement>,
+  { visibility, a, b, timing, pww, phh, txax, txay, txbx, txby }: StyleParam
+): void {
+  const x = (k: string, v: null | number | string) =>
+    e.style.setProperty(k, v === null ? null : String(v))
+  x('visibility', visibility)
+  x('--pww', pww)
+  x('--phh', phh)
+  x('--a', a)
+  x('--b', b)
+  x('--timing', timing)
+  x('--tx-a-x', txax)
+  x('--tx-a-y', txay)
+  x('--tx-b-x', txbx)
+  x('--tx-b-y', txby)
 }

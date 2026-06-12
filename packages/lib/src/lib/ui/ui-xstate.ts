@@ -6,6 +6,8 @@ import { searchCbs } from '../event-search'
 import { notifyUi, uiCbs } from '../event-ui'
 import { vecZero } from '../vec/prefixed'
 import { emptyLayoutCoord, fromMatrixSvg } from '../viewer/layout/coord'
+import type { BalloonProps } from './Balloon'
+import { calcBalloonLayout } from './balloon-common'
 import {
   openCloseClose,
   openCloseClosed,
@@ -27,6 +29,7 @@ import {
   type UiDetailContent,
   type UiEmitted,
   type UiEvent,
+  type UiModeEventDetail,
   type UiPart,
 } from './ui-types'
 
@@ -94,10 +97,26 @@ const uiMachine = setup({
       m: ({ context: { m } }, { part }: { part: UiPart }) =>
         handleOpenCloseMap(m, part),
     }),
+    updateDetail: assign({
+      detail: (_, { psvg, fidx, info, layout }: UiModeEventDetail) => {
+        const m = fromMatrixSvg(layout)
+        return {
+          psvg,
+          p: m.transformPoint(psvg),
+          fidx,
+          info,
+          layout,
+        }
+      },
+    }),
+    updateBalloon: assign({
+      balloon: ({ context: { detail } }) => calcBalloonLayout(detail),
+    }),
     updateHeaderStyle: ({ context }) =>
       updateHeaderStyleRefs(context.m['header']),
     updateBalloonStyle: ({ context }) =>
-      updateBalloonStyleRefs(context.detail, context.m['detail']),
+      context.balloon &&
+      updateBalloonStyleRefs(context.balloon, context.m['detail']),
     updateDetailStyle: ({ context }) =>
       updateDetailStyleRefs(context.m['detail']),
     updateDetailScrollStyle: ({ context }) =>
@@ -135,18 +154,10 @@ const uiMachine = setup({
               target: 'Menu',
             },
             DETAIL: {
-              actions: assign({
-                detail: ({ event: { psvg, fidx, info, layout } }) => {
-                  const m = fromMatrixSvg(layout)
-                  return {
-                    psvg,
-                    p: m.transformPoint(psvg),
-                    fidx,
-                    info,
-                    layout,
-                  }
-                },
-              }),
+              actions: [
+                { type: 'updateDetail', params: ({ event }) => event },
+                'updateBalloon',
+              ],
               target: 'Detail',
             },
             HELP: {
@@ -281,6 +292,9 @@ export function uiSend(ev: UiEvent): void {
 }
 export function useDetail(): UiDetailContent {
   return useSelector(uiActor, (ui) => ui.context.detail)
+}
+export function useBalloon(): BalloonProps | undefined {
+  return useSelector(uiActor, (ui) => ui.context.balloon)
 }
 
 uiActor.on('CLOSE.DONE', notifyUi.closeDone)
