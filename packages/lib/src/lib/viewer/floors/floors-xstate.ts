@@ -5,9 +5,13 @@ import { assign, createActor, emit, setup } from 'xstate'
 import type { SvgMapViewerConfig } from '../../../types'
 import { floorCbs, notifyFloor } from '../../event-floor'
 import { globalCbs } from '../../event-global'
-import { updateFloorRefsAtLoad, updateFloorRefsAtSwitch } from './floors-react'
 import type { FloorsContext, FloorsEmits, FloorsEvents } from './floors-types'
 import type { FloorsWorker, Res } from './floors-worker-types'
+import {
+  updateFloorRefsInit,
+  updateFloorRefsLoad,
+  updateFloorRefsSwitch,
+} from './style'
 
 export const currentFidxAtom: Atom<number> = createAtom<number>(0)
 
@@ -19,7 +23,7 @@ const floorsMachine = setup({
   },
   actions: {
     updateRefsAtSwitch: ({ context: { fidx, prevFidx } }) => {
-      updateFloorRefsAtSwitch(fidx, prevFidx)
+      updateFloorRefsSwitch(fidx, prevFidx)
     },
   },
 }).createMachine({
@@ -29,9 +33,10 @@ const floorsMachine = setup({
     blobs: new Map(),
     urls: new Map(),
     fidx: 0,
-    prevFidx: null,
+    prevFidx: -1,
   },
   initial: 'Uninited',
+  /*
   on: {
     IMAGE: {
       actions: assign({
@@ -43,6 +48,7 @@ const floorsMachine = setup({
       }),
     },
   },
+  */
   states: {
     Uninited: {
       on: {
@@ -53,20 +59,35 @@ const floorsMachine = setup({
               fidx: ({ event }) => event.fidx,
             }),
             ({ event }) => currentFidxAtom.set(event.fidx),
-            'updateRefsAtSwitch',
+            () => updateFloorRefsInit(),
           ],
-          target: 'Idle',
+          target: 'Loading',
         },
       },
     },
     Loading: {
       on: {
         IMAGE: {
-          guard: ({ context, event }) => context.fidx === event.fidx,
-          actions: ({ event: { fidx } }) => updateFloorRefsAtLoad(fidx),
-          target: 'Animating',
+          actions: assign({
+            blobs: ({ context, event: { fidx, blob } }) =>
+              new Map(context.blobs.set(fidx, blob)),
+            urls: ({ context, event: { fidx, blob } }) =>
+              // XXX when to call URL.revokeObjectURL?
+              new Map(context.urls.set(fidx, URL.createObjectURL(blob))),
+          }),
+          target: 'Loaded',
         },
       },
+    },
+    Loaded: {
+      always: [
+        {
+          guard: ({ context }) => context.nfloors === context.blobs.size,
+          actions: ({ context: { fidx } }) => updateFloorRefsLoad(fidx),
+          target: 'Animating',
+        },
+        'Loading',
+      ],
     },
     Idle: {
       on: {

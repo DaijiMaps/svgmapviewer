@@ -1,12 +1,6 @@
-/* eslint-disable functional/no-return-void */
-
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import {
-  Fragment,
-  useCallback,
-  type PropsWithChildren,
-  type ReactNode,
-} from 'react'
+import { Fragment, useRef, type PropsWithChildren, type ReactNode } from 'react'
 
 import {
   type Floor,
@@ -18,11 +12,8 @@ import { type BoxBox } from '../box/prefixed'
 import type { Cb } from '../cb'
 import { floor_appearing_animation } from '../css'
 import { useLayout2 } from '../style/style-react'
-import {
-  registerFloorRef,
-  useFloors,
-  type UseFloorsReturn,
-} from '../viewer/floors/floors-react'
+import { useFloors, type UseFloorsReturn } from '../viewer/floors/floors-react'
+import { useFloorRef } from '../viewer/floors/style'
 import { MAP_SVG_FLOORS } from './map-svg-react'
 
 export function RenderFloors(props: Readonly<OsmRenderMapProps>): ReactNode {
@@ -128,10 +119,11 @@ function RenderFloor({
     labelsMap: LabelsMap | undefined
   }
 >): ReactNode {
-  const register = useRegisterFloor('svg', idx)
+  const ref = useRef(null)
+  useFloorRef(ref, `svg-${idx}`)
   return (
     <g
-      ref={/* stable callback */ register}
+      ref={ref}
       className={`floor fidx-${idx}`}
       onAnimationEnd={fidxToOnAnimationEnd(idx)}
     >
@@ -168,10 +160,10 @@ function RenderFloorHtml({
     labelsMap: LabelsMap | undefined
   }
 >): ReactNode {
-  // stable callback
-  const register = useRegisterFloor('html', idx)
+  const ref = useRef(null)
+  useFloorRef(ref, `html-${idx}`)
   return (
-    <div ref={/* stable callback */ register} className={`floor fidx-${idx}`}>
+    <div ref={ref} className={`floor fidx-${idx}`}>
       <RenderFloorHtmlLabels
         origViewBox={origViewBox}
         idx={idx}
@@ -182,6 +174,7 @@ function RenderFloorHtml({
   )
 }
 
+/*
 function useRegisterFloor(prefix: string, idx: number) {
   const register = useCallback(
     (e: Readonly<SVGGElement | HTMLDivElement | null>) =>
@@ -190,6 +183,7 @@ function useRegisterFloor(prefix: string, idx: number) {
   )
   return register
 }
+*/
 
 type Props = Readonly<{
   origViewBox: BoxBox
