@@ -1,45 +1,34 @@
+/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
-import { useMemo, useRef, type PropsWithChildren, type ReactNode } from 'react'
+import { useRef, type PropsWithChildren, type ReactNode } from 'react'
 
-import { type HV } from '../../types'
 import { boxToViewBox2 } from '../box/prefixed'
 import {
   pointer_events_none,
   position_absolute_left_0_top_0,
   Z_INDEX_BALLOON,
 } from '../css'
-import { type VecVec } from '../vec/prefixed'
-import {
-  balloonPaths,
-  type BalloonSize,
-  type LegLayout,
-} from './balloon-common'
+import { type BalloonPaths } from './balloon-common'
 import { useBalloonStyleRef, useDetailStyleRef } from './style'
-import { useBalloon } from './ui-xstate'
+import { useBalloonPaths } from './ui-xstate'
 
-export interface BalloonProps {
-  _p: null | VecVec
-  _hv: null | HV
-  _W: number
-  _H: number
-  _size: BalloonSize
-  _leg: LegLayout
-}
-
-export function Balloon(
-  props: Readonly<PropsWithChildren<{ _balloon?: BalloonProps }>>
-): ReactNode {
+export function Balloon(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
   useDetailStyleRef(ref, 'balloon')
   useBalloonStyleRef(ref, 'balloon')
 
-  const balloon = useBalloon()
+  const balloonPaths = useBalloonPaths()
 
   return (
     <div ref={ref} className="balloon">
-      {balloon && <BalloonSvg _balloon={balloon} />}
-      {props.children}
+      {balloonPaths && (
+        <BalloonSvg {...balloonPaths}>
+          <path className="bg" d={balloonPaths.bg} />
+          <path className="fg" d={balloonPaths.fg} />
+          <style>{style1}</style>
+        </BalloonSvg>
+      )}
       <style>{style}</style>
     </div>
   )
@@ -56,22 +45,11 @@ const style = `
 `
 
 function BalloonSvg({
-  _balloon: x,
-}: Readonly<PropsWithChildren<{ _balloon: BalloonProps }>>): ReactNode {
-  const { viewBox, width, height, fg, bg } = useMemo(
-    () =>
-      x._hv === null
-        ? {
-            viewBox: undefined,
-            width: undefined,
-            height: undefined,
-            fg: undefined,
-            bg: undefined,
-          }
-        : balloonPaths(x._hv, x._size),
-    [x._size, x._hv]
-  )
-
+  viewBox,
+  width,
+  height,
+  children,
+}: Readonly<PropsWithChildren<BalloonPaths>>): ReactNode {
   return (
     <svg
       className="balloon-svg"
@@ -79,9 +57,7 @@ function BalloonSvg({
       width={width}
       height={height}
     >
-      <path className="bg" d={bg} />
-      <path className="fg" d={fg} />
-      <style>{style1}</style>
+      {children}
     </svg>
   )
 }

@@ -16,9 +16,17 @@ import {
   type VecVec,
 } from '../vec/prefixed'
 import type { LayoutCoord } from '../viewer/layout/layout'
-import { type BalloonProps } from './Balloon'
 import { diag } from './diag'
 import { openCloseIsVisible, type OpenClose } from './openclose'
+
+export interface BalloonProps {
+  _p: null | VecVec
+  _hv: null | HV
+  _W: number
+  _H: number
+  _size: BalloonSize
+  _leg: LegLayout
+}
 
 const BW = 50
 const BH = 50
@@ -166,7 +174,7 @@ z
   return { body, leg }
 }
 
-export function balloonPaths(
+export function calcBalloonPaths(
   hv: Readonly<HV>,
   size: Readonly<BalloonSize>
 ): BalloonPaths {
@@ -278,7 +286,7 @@ function calcStyle(
   }
 }
 
-type StyleParam = Readonly<{
+type BalloonStyleParams = Readonly<{
   readonly visibility: string | null
   readonly pww: string | null
   readonly phh: string | null
@@ -291,13 +299,13 @@ type StyleParam = Readonly<{
   readonly txby: string | null
 }>
 
-export function calcParam(
+export function calcBalloonStyleParams(
   Q: null | V,
   _hv: null | Readonly<HV>,
   size: Readonly<BalloonSize>,
   leg: Readonly<LegLayout>,
   { open, animating }: OpenClose
-): StyleParam {
+): BalloonStyleParams {
   if (Q === null || _hv === null || !openCloseIsVisible({ open, animating })) {
     const visibility = 'hidden'
     const pww = null
@@ -326,7 +334,18 @@ export function calcParam(
 
 export function updateBalloonStyle(
   e: Readonly<HTMLDivElement>,
-  { visibility, a, b, timing, pww, phh, txax, txay, txbx, txby }: StyleParam
+  {
+    visibility,
+    a,
+    b,
+    timing,
+    pww,
+    phh,
+    txax,
+    txay,
+    txbx,
+    txby,
+  }: BalloonStyleParams
 ): void {
   const x = (k: string, v: null | number | string) =>
     e.style.setProperty(k, v === null ? null : String(v))

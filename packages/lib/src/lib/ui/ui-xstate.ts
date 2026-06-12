@@ -5,8 +5,11 @@ import { type SearchData } from '../../types'
 import { searchCbs } from '../event-search'
 import { notifyUi, uiCbs } from '../event-ui'
 import { fromMatrixSvg } from '../viewer/layout/coord'
-import type { BalloonProps } from './Balloon'
-import { calcBalloonLayout } from './balloon-common'
+import {
+  calcBalloonLayout,
+  calcBalloonPaths,
+  type BalloonPaths,
+} from './balloon-common'
 import {
   openCloseClose,
   openCloseClosed,
@@ -87,6 +90,11 @@ const uiMachine = setup({
       balloon: ({ context: { detail, p } }) =>
         detail && p && calcBalloonLayout(detail.layout, p),
     }),
+    updateBalloonPaths: assign({
+      balloonPaths: ({ context: { balloon } }) =>
+        (balloon?._hv && calcBalloonPaths(balloon._hv, balloon._size)) ||
+        undefined,
+    }),
     updateHeaderStyle: ({ context }) =>
       updateHeaderStyleRefs(context.m['header']),
     updateBalloonStyle: ({ context }) =>
@@ -135,6 +143,7 @@ const uiMachine = setup({
                   params: ({ event: { type, ...detail } }) => detail,
                 },
                 'updateBalloon',
+                'updateBalloonPaths',
               ],
               target: 'Detail',
             },
@@ -271,8 +280,8 @@ export function uiSend(ev: UiEvent): void {
 export function useDetail(): UiDetailContent | undefined {
   return useSelector(uiActor, (ui) => ui.context.detail)
 }
-export function useBalloon(): BalloonProps | undefined {
-  return useSelector(uiActor, (ui) => ui.context.balloon)
+export function useBalloonPaths(): BalloonPaths | undefined {
+  return useSelector(uiActor, (ui) => ui.context.balloonPaths)
 }
 
 uiActor.on('CLOSE.DONE', notifyUi.closeDone)
