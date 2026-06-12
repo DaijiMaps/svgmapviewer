@@ -9,14 +9,14 @@ export type UiPart = 'header' | 'detail'
 export type OpenCloseMap = Record<UiPart, OpenClose>
 
 export type UiDetailContent = SearchRes & {
-  p: VecVec
   layout: LayoutCoord
 }
 
 export interface UiContext {
   canceling: boolean
-  detail: UiDetailContent
+  detail?: UiDetailContent
   balloon?: BalloonProps
+  p?: VecVec
   m: OpenCloseMap
   animationEnded: {
     header: boolean
@@ -24,24 +24,12 @@ export interface UiContext {
   }
 }
 
-// XXX
-// XXX
-// XXX
-type UiModeEventDetailArgs = Pick<
-  UiDetailContent,
-  'psvg' | 'fidx' | 'info' | 'layout'
->
-export type UiModeEventDetail = { type: 'DETAIL' } & UiModeEventDetailArgs
-// XXX
-// XXX
-// XXX
-
 export type UiModeEvent =
   | { type: 'OPEN' }
   | { type: 'CANCEL' }
   | { type: 'FLOOR' }
   | { type: 'MENU' }
-  | UiModeEventDetail
+  | ({ type: 'DETAIL' } & UiDetailContent)
   | { type: 'HELP' }
   | { type: 'RENDERED' }
 

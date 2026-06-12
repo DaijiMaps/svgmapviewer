@@ -14,7 +14,7 @@ import {
 import { useOnWheel } from '../wheel'
 import { useBalloonStyleRef } from './style'
 import { useScrollStyleRef, useDetailStyleRef } from './style'
-import { isDetailEmpty, uiSend, useDetail } from './ui-xstate'
+import { uiSend, useDetail } from './ui-xstate'
 
 export function Detail(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
@@ -33,9 +33,7 @@ export function Detail(): ReactNode {
       className="detail"
       onAnimationEnd={() => uiSend({ type: 'DETAIL.ANIMATION.END' })}
     >
-      {cfg.RenderInfo && !isDetailEmpty(detail) && (
-        <cfg.RenderInfo info={detail.info} />
-      )}
+      {cfg.RenderInfo && detail && <cfg.RenderInfo info={detail.info} />}
       <style>{style}</style>
     </div>
   )

@@ -4,8 +4,7 @@ import { assign, createActor, emit, not, raise, setup } from 'xstate'
 import { type SearchData } from '../../types'
 import { searchCbs } from '../event-search'
 import { notifyUi, uiCbs } from '../event-ui'
-import { vecZero } from '../vec/prefixed'
-import { emptyLayoutCoord, fromMatrixSvg } from '../viewer/layout/coord'
+import { fromMatrixSvg } from '../viewer/layout/coord'
 import type { BalloonProps } from './Balloon'
 import { calcBalloonLayout } from './balloon-common'
 import {
@@ -29,26 +28,8 @@ import {
   type UiDetailContent,
   type UiEmitted,
   type UiEvent,
-  type UiModeEventDetail,
   type UiPart,
 } from './ui-types'
-
-const emptyDetail: UiDetailContent = {
-  p: vecZero,
-  psvg: vecZero,
-  fidx: 0,
-  layout: emptyLayoutCoord,
-  info: { title: '' },
-}
-
-export function isDetailEmpty(detail: UiDetailContent): boolean {
-  const values = Object.values(detail.info)
-  return (
-    values.length === 1 && typeof values[0] === 'string' && values[0] === ''
-  )
-}
-
-////
 
 function doOpenCloseMap(op: OpenCloseOp) {
   return function (m: OpenCloseMap, part: UiPart) {
@@ -98,15 +79,13 @@ const uiMachine = setup({
         handleOpenCloseMap(m, part),
     }),
     updateDetail: assign({
-      detail: (_, { psvg, fidx, info, layout }: UiModeEventDetail) => {
-        const m = fromMatrixSvg(layout)
-        const p = m.transformPoint(psvg)
-        return { psvg, p, fidx, info, layout }
-      },
+      detail: (_, detail: UiDetailContent) => detail,
+      p: (_, { psvg, layout }: UiDetailContent) =>
+        fromMatrixSvg(layout).transformPoint(psvg),
     }),
     updateBalloon: assign({
-      balloon: ({ context: { detail } }) =>
-        calcBalloonLayout(detail.layout, detail.p),
+      balloon: ({ context: { detail, p } }) =>
+        detail && p && calcBalloonLayout(detail.layout, p),
     }),
     updateHeaderStyle: ({ context }) =>
       updateHeaderStyleRefs(context.m['header']),
@@ -125,7 +104,6 @@ const uiMachine = setup({
     ...input,
     all: { open: false, animating: false },
     canceling: false,
-    detail: emptyDetail,
     m: {
       header: openCloseReset(true),
       detail: openCloseReset(false),
@@ -151,7 +129,11 @@ const uiMachine = setup({
             },
             DETAIL: {
               actions: [
-                { type: 'updateDetail', params: ({ event }) => event },
+                {
+                  type: 'updateDetail',
+                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                  params: ({ event: { type, ...detail } }) => detail,
+                },
                 'updateBalloon',
               ],
               target: 'Detail',
@@ -286,7 +268,7 @@ export function uiActorStart(): void {
 export function uiSend(ev: UiEvent): void {
   uiActor.send(ev)
 }
-export function useDetail(): UiDetailContent {
+export function useDetail(): UiDetailContent | undefined {
   return useSelector(uiActor, (ui) => ui.context.detail)
 }
 export function useBalloon(): BalloonProps | undefined {
