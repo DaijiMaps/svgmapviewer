@@ -11,13 +11,11 @@ import {
 import { type VecVec } from '../vec/prefixed'
 import {
   balloonPaths,
-  calcBalloonLayout,
-  useBalloonStyleRef,
   type BalloonSize,
   type LegLayout,
 } from './balloon-common'
-import { useDetailStyleRef } from './ui-react'
-import type { UiDetailContent } from './ui-types'
+import { useBalloonStyleRef, useDetailStyleRef } from './style'
+import { useBalloon } from './ui-xstate'
 
 export interface BalloonProps {
   _p: null | VecVec
@@ -29,16 +27,18 @@ export interface BalloonProps {
 }
 
 export function Balloon(
-  props: Readonly<PropsWithChildren<{ _detail: UiDetailContent }>>
+  props: Readonly<PropsWithChildren<{ _balloon?: BalloonProps }>>
 ): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
   useDetailStyleRef(ref, 'balloon')
   useBalloonStyleRef(ref, 'balloon')
 
+  const balloon = useBalloon()
+
   return (
     <div ref={ref} className="balloon">
-      <BalloonSvg {...props} />
+      {balloon && <BalloonSvg _balloon={balloon} />}
       {props.children}
       <style>{style}</style>
     </div>
@@ -55,10 +55,9 @@ const style = `
 }
 `
 
-function BalloonSvg(
-  props: Readonly<PropsWithChildren<{ _detail: UiDetailContent }>>
-): ReactNode {
-  const x = useMemo(() => calcBalloonLayout(props._detail), [props._detail])
+function BalloonSvg({
+  _balloon: x,
+}: Readonly<PropsWithChildren<{ _balloon: BalloonProps }>>): ReactNode {
   const { viewBox, width, height, fg, bg } = useMemo(
     () =>
       x._hv === null

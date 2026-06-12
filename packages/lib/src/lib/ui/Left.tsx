@@ -12,7 +12,7 @@ import {
 } from '../css'
 import { useShadowRoot } from '../dom'
 import { Floors } from './Floor'
-import { useHeaderStyleRef } from './ui-react'
+import { useHeaderStyleRef } from './style'
 
 export function Left(): ReactNode {
   useShadowRoot('left', <LeftRoot />, 'ui')

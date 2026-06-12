@@ -20,7 +20,7 @@ import { Recenter } from './buttons/Recenter'
 import { Rotate } from './buttons/Rotate'
 import { ZoomIn } from './buttons/ZoomIn'
 import { ZoomOut } from './buttons/ZoomOut'
-import { useHeaderStyleRef } from './ui-react'
+import { useHeaderStyleRef } from './style'
 
 export function Right(): ReactNode {
   useShadowRoot('right', <RightRoot />, 'ui')

@@ -10,7 +10,7 @@ import {
 } from '../css'
 import { notifyStyle } from '../event-style'
 import { useAppearingStyleRef } from '../style/appearing'
-import { useDetailStyleRef } from '../ui/ui-react'
+import { useDetailStyleRef } from '../ui/style'
 import { sendContextMenu } from './input/input'
 import { useAnimationStyleRef } from './layout/animation'
 import { useLayoutStyleRef } from './layout/style'
