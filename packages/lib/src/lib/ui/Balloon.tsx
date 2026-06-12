@@ -1,3 +1,4 @@
+/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 import { useMemo, useRef, type PropsWithChildren, type ReactNode } from 'react'
 
@@ -26,9 +27,7 @@ export interface BalloonProps {
   _leg: LegLayout
 }
 
-export function Balloon(
-  props: Readonly<PropsWithChildren<{ _balloon?: BalloonProps }>>
-): ReactNode {
+export function Balloon(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
   useDetailStyleRef(ref, 'balloon')
@@ -39,7 +38,6 @@ export function Balloon(
   return (
     <div ref={ref} className="balloon">
       {balloon && <BalloonSvg _balloon={balloon} />}
-      {props.children}
       <style>{style}</style>
     </div>
   )
