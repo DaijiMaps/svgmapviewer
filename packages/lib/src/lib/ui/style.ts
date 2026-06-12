@@ -5,7 +5,7 @@ import { type RefObject } from 'react'
 import { useStyleRef } from '../style/ref'
 import { tag, tag2 } from '../style/tag'
 import type { BalloonProps } from './Balloon'
-import { calcParam, updateBalloonStyle } from './balloon-common'
+import { calcBalloonStyleParams, updateBalloonStyle } from './balloon-common'
 import type { OpenClose } from './openclose'
 
 ////
@@ -60,7 +60,7 @@ export function updateBalloonStyleRefs(
   { _p, _hv, _size, _leg }: Readonly<BalloonProps>,
   oc: OpenClose
 ): void {
-  const param = calcParam(_p, _hv, _size, _leg, oc)
+  const param = calcBalloonStyleParams(_p, _hv, _size, _leg, oc)
   Array.from(balloonStyleRefs, ([, e]) => {
     updateBalloonStyle(e, param)
   })

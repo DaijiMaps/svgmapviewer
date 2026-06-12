@@ -166,7 +166,7 @@ z
   return { body, leg }
 }
 
-export function balloonPaths(
+export function calcBalloonPaths(
   hv: Readonly<HV>,
   size: Readonly<BalloonSize>
 ): BalloonPaths {
@@ -278,7 +278,7 @@ function calcStyle(
   }
 }
 
-type StyleParam = Readonly<{
+type BalloonStyleParams = Readonly<{
   readonly visibility: string | null
   readonly pww: string | null
   readonly phh: string | null
@@ -291,13 +291,13 @@ type StyleParam = Readonly<{
   readonly txby: string | null
 }>
 
-export function calcParam(
+export function calcBalloonStyleParams(
   Q: null | V,
   _hv: null | Readonly<HV>,
   size: Readonly<BalloonSize>,
   leg: Readonly<LegLayout>,
   { open, animating }: OpenClose
-): StyleParam {
+): BalloonStyleParams {
   if (Q === null || _hv === null || !openCloseIsVisible({ open, animating })) {
     const visibility = 'hidden'
     const pww = null
@@ -326,7 +326,18 @@ export function calcParam(
 
 export function updateBalloonStyle(
   e: Readonly<HTMLDivElement>,
-  { visibility, a, b, timing, pww, phh, txax, txay, txbx, txby }: StyleParam
+  {
+    visibility,
+    a,
+    b,
+    timing,
+    pww,
+    phh,
+    txax,
+    txay,
+    txbx,
+    txby,
+  }: BalloonStyleParams
 ): void {
   const x = (k: string, v: null | number | string) =>
     e.style.setProperty(k, v === null ? null : String(v))

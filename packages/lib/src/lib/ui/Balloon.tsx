@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
-import { useMemo, useRef, type PropsWithChildren, type ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 
 import { type HV } from '../../types'
 import { boxToViewBox2 } from '../box/prefixed'
@@ -11,12 +11,12 @@ import {
 } from '../css'
 import { type VecVec } from '../vec/prefixed'
 import {
-  balloonPaths,
+  type BalloonPaths,
   type BalloonSize,
   type LegLayout,
 } from './balloon-common'
 import { useBalloonStyleRef, useDetailStyleRef } from './style'
-import { useBalloon } from './ui-xstate'
+import { useBalloonPaths } from './ui-xstate'
 
 export interface BalloonProps {
   _p: null | VecVec
@@ -33,11 +33,11 @@ export function Balloon(): ReactNode {
   useDetailStyleRef(ref, 'balloon')
   useBalloonStyleRef(ref, 'balloon')
 
-  const balloon = useBalloon()
+  const balloonPaths = useBalloonPaths()
 
   return (
     <div ref={ref} className="balloon">
-      {balloon && <BalloonSvg _balloon={balloon} />}
+      {balloonPaths && <BalloonSvg {...balloonPaths} />}
       <style>{style}</style>
     </div>
   )
@@ -54,22 +54,12 @@ const style = `
 `
 
 function BalloonSvg({
-  _balloon: x,
-}: Readonly<PropsWithChildren<{ _balloon: BalloonProps }>>): ReactNode {
-  const { viewBox, width, height, fg, bg } = useMemo(
-    () =>
-      x._hv === null
-        ? {
-            viewBox: undefined,
-            width: undefined,
-            height: undefined,
-            fg: undefined,
-            bg: undefined,
-          }
-        : balloonPaths(x._hv, x._size),
-    [x._size, x._hv]
-  )
-
+  viewBox,
+  width,
+  height,
+  fg,
+  bg,
+}: Readonly<BalloonPaths>): ReactNode {
   return (
     <svg
       className="balloon-svg"
