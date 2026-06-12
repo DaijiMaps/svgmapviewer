@@ -12,7 +12,7 @@ import {
   Z_INDEX_DETAIL,
 } from '../css'
 import { useOnWheel } from '../wheel'
-import { useBalloonStyleRef } from './balloon-common'
+import { useBalloonStyleRef } from './style'
 import { useScrollStyleRef, useDetailStyleRef } from './style'
 import { type UiDetailContent } from './ui-types'
 import { isDetailEmpty, uiSend } from './ui-xstate'

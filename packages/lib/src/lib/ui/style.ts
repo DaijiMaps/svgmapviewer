@@ -4,7 +4,9 @@ import { type RefObject } from 'react'
 
 import { useStyleRef } from '../style/ref'
 import { tag, tag2 } from '../style/tag'
+import { calcBalloonLayout, updateBalloonStyle } from './balloon-common'
 import type { OpenClose } from './openclose'
+import type { UiDetailContent } from './ui-types'
 
 ////
 
@@ -40,6 +42,27 @@ function updateCommonStyleRefs(
   Array.from(refMap, ([, e]) => {
     tag2(e, 'opened', 'closed', open)
     tag(e, 'animating', animating)
+  })
+}
+
+////
+
+const balloonStyleRefs: Map<string, HTMLDivElement> = new Map()
+
+export function useBalloonStyleRef(
+  ref: Readonly<RefObject<HTMLDivElement | null>>,
+  name: string
+): void {
+  useStyleRef(balloonStyleRefs, ref, name)
+}
+
+export function updateBalloonStyleRefs(
+  detail: Readonly<UiDetailContent>,
+  oc: OpenClose
+): void {
+  const { _p, _hv, _size, _leg } = calcBalloonLayout(detail)
+  Array.from(balloonStyleRefs, ([, e]) => {
+    updateBalloonStyle(e, _p, _hv, _size, _leg, oc)
   })
 }
 

@@ -12,11 +12,10 @@ import { type VecVec } from '../vec/prefixed'
 import {
   balloonPaths,
   calcBalloonLayout,
-  useBalloonStyleRef,
   type BalloonSize,
   type LegLayout,
 } from './balloon-common'
-import { useDetailStyleRef } from './style'
+import { useBalloonStyleRef, useDetailStyleRef } from './style'
 import type { UiDetailContent } from './ui-types'
 
 export interface BalloonProps {

@@ -6,7 +6,6 @@ import { searchCbs } from '../event-search'
 import { notifyUi, uiCbs } from '../event-ui'
 import { vecZero } from '../vec/prefixed'
 import { emptyLayoutCoord, fromMatrixSvg } from '../viewer/layout/coord'
-import { updateBalloonStyleRefs } from './balloon-common'
 import {
   openCloseClose,
   openCloseClosed,
@@ -16,6 +15,7 @@ import {
   openCloseReset,
   type OpenCloseOp,
 } from './openclose'
+import { updateBalloonStyleRefs } from './style'
 import {
   updateScrollStyleRefs,
   updateDetailStyleRefs,

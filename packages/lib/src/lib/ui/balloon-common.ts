@@ -1,12 +1,9 @@
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
-import { type RefObject } from 'react'
-
 import { type HV, type Size } from '../../types'
 import { boxBox, type BoxBox } from '../box/prefixed'
 import { timing_closing, timing_opening, ZOOM_DURATION_DETAIL } from '../css'
-import { useStyleRef } from '../style/ref'
 import { ab, trunc3, type AB } from '../utils'
 import {
   vecVec as v,
@@ -283,7 +280,7 @@ function calcStyle(
   }
 }
 
-function updateBalloonStyle(
+export function updateBalloonStyle(
   e: Readonly<HTMLDivElement>,
   Q: null | V,
   _hv: null | Readonly<HV>,
@@ -309,25 +306,4 @@ function updateBalloonStyle(
     x('--tx-b-x', txb && `${trunc3(txb.x)}px`)
     x('--tx-b-y', txb && `${trunc3(txb.y)}px`)
   }
-}
-
-////
-
-const balloonStyleRefs: Map<string, HTMLDivElement> = new Map()
-
-export function useBalloonStyleRef(
-  ref: Readonly<RefObject<HTMLDivElement | null>>,
-  name: string
-): void {
-  useStyleRef(balloonStyleRefs, ref, name)
-}
-
-export function updateBalloonStyleRefs(
-  detail: Readonly<UiDetailContent>,
-  oc: OpenClose
-): void {
-  const { _p, _hv, _size, _leg } = calcBalloonLayout(detail)
-  Array.from(balloonStyleRefs, ([, e]) => {
-    updateBalloonStyle(e, _p, _hv, _size, _leg, oc)
-  })
 }
