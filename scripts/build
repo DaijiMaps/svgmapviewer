@@ -1,0 +1,3 @@
+#!/bin/sh
+pnpm --filter '!*astro*' build
+pnpm --filter '*astro*' --sequential build
