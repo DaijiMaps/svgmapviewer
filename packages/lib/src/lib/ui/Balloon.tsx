@@ -2,30 +2,15 @@
 /* eslint-disable functional/no-expression-statements */
 import { useRef, type ReactNode } from 'react'
 
-import { type HV } from '../../types'
 import { boxToViewBox2 } from '../box/prefixed'
 import {
   pointer_events_none,
   position_absolute_left_0_top_0,
   Z_INDEX_BALLOON,
 } from '../css'
-import { type VecVec } from '../vec/prefixed'
-import {
-  type BalloonPaths,
-  type BalloonSize,
-  type LegLayout,
-} from './balloon-common'
+import { type BalloonPaths } from './balloon-common'
 import { useBalloonStyleRef, useDetailStyleRef } from './style'
 import { useBalloonPaths } from './ui-xstate'
-
-export interface BalloonProps {
-  _p: null | VecVec
-  _hv: null | HV
-  _W: number
-  _H: number
-  _size: BalloonSize
-  _leg: LegLayout
-}
 
 export function Balloon(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)

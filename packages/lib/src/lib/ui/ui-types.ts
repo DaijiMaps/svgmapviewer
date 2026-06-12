@@ -1,8 +1,7 @@
 import { type SearchRes } from '../../types'
 import { type VecVec } from '../vec/prefixed'
 import { type LayoutCoord } from '../viewer/layout/coord'
-import type { BalloonProps } from './Balloon'
-import type { BalloonPaths } from './balloon-common'
+import type { BalloonPaths, BalloonProps } from './balloon-common'
 import { type OpenClose } from './openclose'
 
 export type UiPart = 'header' | 'detail'

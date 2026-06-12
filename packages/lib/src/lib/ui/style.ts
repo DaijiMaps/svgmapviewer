@@ -4,7 +4,7 @@ import { type RefObject } from 'react'
 
 import { useStyleRef } from '../style/ref'
 import { tag, tag2 } from '../style/tag'
-import type { BalloonProps } from './Balloon'
+import type { BalloonProps } from './balloon-common'
 import { calcBalloonStyleParams, updateBalloonStyle } from './balloon-common'
 import type { OpenClose } from './openclose'
 

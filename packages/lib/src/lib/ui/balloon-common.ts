@@ -16,9 +16,17 @@ import {
   type VecVec,
 } from '../vec/prefixed'
 import type { LayoutCoord } from '../viewer/layout/layout'
-import { type BalloonProps } from './Balloon'
 import { diag } from './diag'
 import { openCloseIsVisible, type OpenClose } from './openclose'
+
+export interface BalloonProps {
+  _p: null | VecVec
+  _hv: null | HV
+  _W: number
+  _H: number
+  _size: BalloonSize
+  _leg: LegLayout
+}
 
 const BW = 50
 const BH = 50
