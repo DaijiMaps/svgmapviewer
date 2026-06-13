@@ -26,10 +26,10 @@ function initStyle(
   e: Readonly<SVGGElement | HTMLDivElement>,
   _name: string
 ): void {
-  const s = e.style.setProperty.bind(e.style)
-  s(`will-change`, null)
-  s(`animation`, null)
-  s(`visibility`, 'hidden')
+  const p = e.style.setProperty.bind(e.style)
+  p(`will-change`, null)
+  p(`animation`, null)
+  p(`visibility`, 'hidden')
 }
 
 function loadStyle(
@@ -37,15 +37,15 @@ function loadStyle(
   appearing: boolean,
   _name: string
 ): void {
-  const s = e.style.setProperty.bind(e.style)
+  const p = e.style.setProperty.bind(e.style)
   if (appearing) {
-    s(`will-change`, `opacity`)
-    s(`animation`, `${FLOOR_APPEARING} ${floor_switch_duration} linear`)
-    s(`visibility`, null)
+    p(`will-change`, `opacity`)
+    p(`animation`, `${FLOOR_APPEARING} ${floor_switch_duration} linear`)
+    p(`visibility`, null)
   } else {
-    s(`will-change`, null)
-    s(`animation`, null)
-    s(`visibility`, 'hidden')
+    p(`will-change`, null)
+    p(`animation`, null)
+    p(`visibility`, 'hidden')
   }
 }
 
@@ -55,17 +55,17 @@ function switchStyle(
   appearing: boolean,
   _name: string
 ): void {
-  const s = e.style.setProperty.bind(e.style)
+  const p = e.style.setProperty.bind(e.style)
   if (!animating) {
     const visibility = appearing ? null : 'hidden'
-    s(`will-change`, null)
-    s(`animation`, null)
-    s(`visibility`, visibility)
+    p(`will-change`, null)
+    p(`animation`, null)
+    p(`visibility`, visibility)
   } else {
     const animation = `${appearing ? FLOOR_APPEARING : FLOOR_DISAPPEARING} ${floor_switch_duration} linear`
-    s(`will-change`, `opacity`)
-    s(`animation`, animation)
-    s(`visibility`, null)
+    p(`will-change`, `opacity`)
+    p(`animation`, animation)
+    p(`visibility`, null)
   }
 }
 

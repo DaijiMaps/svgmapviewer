@@ -24,7 +24,7 @@ export function updateMapStyleRefs(
     (0.5 + 0.5 * Math.log2(Math.max(1, zoom))) *
     layout.svgScale
   Array.from(mapStyleRefs, ([, e]) => {
-    const s = e.style.setProperty.bind(e.style)
-    s(`--map-symbol-size`, `${sz / 72}`)
+    const p = e.style.setProperty.bind(e.style)
+    p(`--map-symbol-size`, `${sz / 72}`)
   })
 }

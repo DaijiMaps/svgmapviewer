@@ -31,11 +31,11 @@ function matrixTrunc2(m: DOMMatrixReadOnly): DOMMatrixReadOnly {
 export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
   const svgToContent = fromSvgToContent(layout)
   Array.from(layoutStyleRefs, ([, e]) => {
-    const s = e.style.setProperty.bind(e.style)
-    s(`--layout-content-matrix`, layout.content.toString())
-    s(`--layout-scroll-width`, `${trunc2(layout.scroll.width)}px`)
-    s(`--layout-scroll-height`, `${trunc2(layout.scroll.height)}px`)
-    s(`--layout-svg-to-content-matrix`, matrixTrunc2(svgToContent).toString())
+    const p = e.style.setProperty.bind(e.style)
+    p(`--layout-content-matrix`, layout.content.toString())
+    p(`--layout-scroll-width`, `${trunc2(layout.scroll.width)}px`)
+    p(`--layout-scroll-height`, `${trunc2(layout.scroll.height)}px`)
+    p(`--layout-svg-to-content-matrix`, matrixTrunc2(svgToContent).toString())
   })
 }
 

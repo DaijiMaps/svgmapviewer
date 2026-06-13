@@ -347,16 +347,16 @@ export function updateBalloonStyle(
     txby,
   }: BalloonStyleParams
 ): void {
-  const x = (k: string, v: null | number | string) =>
+  const p = (k: string, v: null | number | string) =>
     e.style.setProperty(k, v === null ? null : String(v))
-  x('visibility', visibility)
-  x('--pww', pww)
-  x('--phh', phh)
-  x('--a', a)
-  x('--b', b)
-  x('--timing', timing)
-  x('--tx-a-x', txax)
-  x('--tx-a-y', txay)
-  x('--tx-b-x', txbx)
-  x('--tx-b-y', txby)
+  p('visibility', visibility)
+  p('--pww', pww)
+  p('--phh', phh)
+  p('--a', a)
+  p('--b', b)
+  p('--timing', timing)
+  p('--tx-a-x', txax)
+  p('--tx-a-y', txay)
+  p('--tx-b-x', txbx)
+  p('--tx-b-y', txby)
 }
