@@ -1,7 +1,7 @@
 import { type Address, type AddressesJson } from './types'
 
 export function addressesJsonToAddresses(
-  json: AddressesJson,
+  json: Readonly<AddressesJson>,
   fidx: number
 ): readonly Address[] {
   return Object.entries(json).map(([astr, coord]) => [astr, { coord, fidx }])

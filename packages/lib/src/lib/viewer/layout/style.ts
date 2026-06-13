@@ -35,29 +35,37 @@ export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
 
 ////
 
-const animationStyleRefs: Map<string, HTMLDivElement> = new Map()
+const zoomStyleRefs: Map<string, HTMLDivElement> = new Map()
 
-export function useAnimationStyleRef(
+export function useZoomStyleRef(
   ref: Readonly<RefObject<HTMLDivElement | null>>,
   name: string
 ): void {
-  useStyleRef(animationStyleRefs, ref, name)
+  useStyleRef(zoomStyleRefs, ref, name)
 }
 
-export function updateAnimationStyleRefs(
-  a: Readonly<null | AnimationMatrix>
+export function updateZoomStyleRefs(
+  a: Readonly<null | AnimationMatrix>,
+  zoom: number
 ): void {
-  const p = a?.from.toString()
-  const q = a?.to.toString()
+  const p = a?.from.toString() ?? null
+  const q = a?.to.toString() ?? null
+  const zp = a?.from.a ?? null
+  const zq = a?.to.a ?? null
   const o =
-    a?.origin === null ? `left top` : `${a?.origin.x}px ${a?.origin.y}px`
-  Array.from(animationStyleRefs, ([, e]) => {
+    a === null || a.origin === null
+      ? `left top`
+      : `${a.origin.x}px ${a?.origin.y}px`
+  Array.from(zoomStyleRefs, ([, e]) => {
     const s = e.style.setProperty.bind(e.style)
     tag(e, 'zooming', a !== null)
-    if (a === null) return
-    s(`--zoom-origin-p`, o)
-    s(`--zoom-origin-q`, o)
-    s(`--zoom-p`, `${p} translate3d(0px, 0px, 0px)`)
-    s(`--zoom-q`, `${q} translate3d(0px, 0px, 0px)`)
+    s(`--zoom-zoom`, zoom.toString())
+    s(`--zoom-origin`, o)
+    s(`--zoom-p`, p === null ? null : `${p} translate3d(0px, 0px, 0px)`)
+    s(`--zoom-q`, q === null ? null : `${q} translate3d(0px, 0px, 0px)`)
+    s(`--zoom-zp`, zp === null ? null : zp.toString())
+    s(`--zoom-zq`, zq === null ? null : zq.toString())
+    s(`--zoom-zp-inv`, zp === null ? null : (1 / zp).toString())
+    s(`--zoom-zq-inv`, zq === null ? null : (1 / zq).toString())
   })
 }

@@ -21,7 +21,7 @@ import {
 } from './openclose'
 import { updateBalloonStyleRefs } from './style'
 import {
-  updateScrollStyleRefs,
+  updateDetailScrollStyleRefs,
   updateDetailStyleRefs,
   updateHeaderStyleRefs,
 } from './style'
@@ -103,7 +103,7 @@ const uiMachine = setup({
     updateDetailStyle: ({ context }) =>
       updateDetailStyleRefs(context.m['detail']),
     updateDetailScrollStyle: ({ context }) =>
-      updateScrollStyleRefs(context.m['detail']),
+      updateDetailScrollStyleRefs(context.m['detail']),
   },
 }).createMachine({
   type: 'parallel',

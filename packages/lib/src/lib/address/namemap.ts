@@ -6,7 +6,7 @@ import {
   type FlatEntry,
 } from './types'
 
-export function namesJsonToNames(json: NamesJson): Names {
+export function namesJsonToNames(json: Readonly<NamesJson>): Names {
   return Object.entries(json)
 }
 

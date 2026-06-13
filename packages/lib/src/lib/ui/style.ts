@@ -68,18 +68,21 @@ export function updateBalloonStyleRefs(
 
 ////
 
-const scrollStyleRefs: Map<string, HTMLDivElement> = new Map()
+const detailScrollStyleRefs: Map<string, HTMLDivElement> = new Map()
 
-export function useScrollStyleRef(
+export function useDetailScrollStyleRefs(
   ref: Readonly<RefObject<HTMLDivElement | null>>,
   name: string
 ): void {
-  useStyleRef(scrollStyleRefs, ref, name)
+  useStyleRef(detailScrollStyleRefs, ref, name)
 }
 
-export function updateScrollStyleRefs({ open, animating }: OpenClose): void {
+export function updateDetailScrollStyleRefs({
+  open,
+  animating,
+}: OpenClose): void {
   if (open || animating) return
-  Array.from(scrollStyleRefs, ([, e]) => {
+  Array.from(detailScrollStyleRefs, ([, e]) => {
     e.scroll(0, 0)
   })
 }

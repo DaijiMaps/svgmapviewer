@@ -11,7 +11,7 @@ import { updateMapStyleRefs } from '../map/style'
 import { vecZero } from '../vec/prefixed'
 import { fromSvgToScroll } from '../viewer/layout/coord'
 import { emptyLayout, type Layout } from '../viewer/layout/layout'
-import { updateAnimationStyleRefs } from '../viewer/layout/style'
+import { updateZoomStyleRefs } from '../viewer/layout/style'
 import { updateLayoutStyleRefs } from '../viewer/layout/style'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { type ViewerMode } from '../viewer/viewer-types'
@@ -108,6 +108,7 @@ const styleMachine = setup({
           type: 'updateZoom',
           params: ({ event }) => event,
         },
+        ({ context: { zoom } }) => updateZoomStyleRefs(null, zoom),
       ],
     },
     'STYLE.SCROLL': {
@@ -145,7 +146,7 @@ const styleMachine = setup({
         'STYLE.ANIMATION.END': {
           actions: [
             assign({ appearing: false, shown: true }),
-            () => updateAnimationStyleRefs(null),
+            ({ context: { zoom } }) => updateZoomStyleRefs(null, zoom),
             ({ context }) =>
               updateAppearingStyleRefs(context.shown, context.appearing),
           ],
@@ -157,7 +158,8 @@ const styleMachine = setup({
       on: {
         'STYLE.ANIMATION': {
           actions: [
-            ({ event: { animation } }) => updateAnimationStyleRefs(animation),
+            ({ context: { zoom }, event: { animation } }) =>
+              updateZoomStyleRefs(animation, zoom),
             assign({
               animating: true,
             }),
@@ -175,7 +177,7 @@ const styleMachine = setup({
       on: {
         'STYLE.ANIMATION.END': {
           actions: [
-            () => updateAnimationStyleRefs(null),
+            ({ context: { zoom } }) => updateZoomStyleRefs(null, zoom),
             assign({
               animating: false,
             }),

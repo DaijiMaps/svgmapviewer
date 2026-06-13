@@ -1,20 +1,30 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { Fragment, useRef, type PropsWithChildren, type ReactNode } from 'react'
+import {
+  Fragment,
+  useRef,
+  type CSSProperties,
+  type PropsWithChildren,
+  type ReactNode,
+} from 'react'
 
 import {
   type Floor,
   type LabelsMap,
   type LabelText,
   type OsmRenderMapProps,
-} from '../../types'
-import { type BoxBox } from '../box/prefixed'
-import type { Cb } from '../cb'
-import { floor_appearing_animation } from '../css'
-import { useLayout2 } from '../style/style-react'
-import { useFloors, type UseFloorsReturn } from '../viewer/floors/floors-react'
-import { useFloorRef } from '../viewer/floors/style'
-import { MAP_SVG_FLOORS } from './map-svg-react'
+} from '../../../types'
+import { type BoxBox } from '../../box/prefixed'
+import type { Cb } from '../../cb'
+import { floor_appearing_animation } from '../../css'
+import { useLayout2 } from '../../style/style-react'
+import {
+  useFloors,
+  type UseFloorsReturn,
+} from '../../viewer/floors/floors-react'
+import { useFloorRef } from '../../viewer/floors/style'
+import { useZoomStyleRef } from '../../viewer/layout/style'
+import { MAP_SVG_FLOORS } from '../map-svg-react'
 
 export function RenderFloors(props: Readonly<OsmRenderMapProps>): ReactNode {
   return (
@@ -243,34 +253,16 @@ text, tspan {
 }
 */
 
-function RenderFloorHtmlLabels({ labels }: Props): ReactNode {
+function RenderFloorHtmlLabels({ idx: fidx, labels }: Props): ReactNode {
+  const ref = useRef(null)
+  useZoomStyleRef(ref, `labels-${fidx}`)
   return (
-    <div className="labels">
-      {(labels ?? []).map((_text, idx) => {
+    <div ref={ref} className="labels">
+      {labels?.map((_text, idx) => {
         return (
-          <div
-            key={idx}
-            className="label"
-            style={{
-              transform: `
-translate(${_text.attrs?.['x'] || 0}px,${_text.attrs?.['y'] || 0}px)
-rotate(${_text.attrs?.['rotate'] || 0}deg)
-scale(${_text.attrs?.['scale2'] || 0})
-scale(${_text.attrs?.['scale1'] || 0})
-translate(-50%, -50%)
-`,
-            }}
-          >
-            {'id' in _text.attrs && 'style' in _text.attrs && (
-              <style>{`#${_text.attrs['id']} { ${_text.attrs['style']}; }`}</style>
-            )}
-            {_text.children &&
-              _text.children.map((_tspan, idx2) => (
-                <p key={idx2} {...fromAttrs(_tspan.attrs)}>
-                  {_tspan.text ?? ''}
-                </p>
-              ))}
-          </div>
+          <Fragment key={idx}>
+            <RenderFloorHtmlLabel _text={_text} />
+          </Fragment>
         )
       })}
       <style>{htmlLabelsStyle}</style>
@@ -278,10 +270,48 @@ translate(-50%, -50%)
   )
 }
 
+type LabelProps = Readonly<{
+  _text: LabelText
+}>
+
+function RenderFloorHtmlLabel({ _text }: LabelProps): ReactNode {
+  return (
+    <div
+      className="label"
+      style={
+        {
+          '--x': (_text.attrs?.['x'] || 0) + 'px',
+          '--y': (_text.attrs?.['y'] || 0) + 'px',
+          '--rotate': (_text.attrs?.['rotate'] || 0) + 'deg',
+          '--scale2': (_text.attrs?.['scale2'] || 1) + '',
+          '--scale1': (_text.attrs?.['scale1'] || 1) + '',
+        } as CSSProperties
+      }
+    >
+      {_text.children?.map((_tspan, idx2) => (
+        <p key={idx2} {...fromAttrs(_tspan.attrs)}>
+          {_tspan.text ?? ''}
+        </p>
+      ))}
+    </div>
+  )
+}
+
 const htmlLabelsStyle = `
+@property --zoom {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+div.labels {
+  /* default */
+  --zoom: 1;
+  --zoom-zoom: 1;
+}
 div.label {
   position: absolute;
   transform-origin: left top;
+  transform: translate(var(--x), var(--y)) rotate(var(--rotate)) scale(var(--zoom)) scale(calc(1 / var(--zoom-zoom))) scale(var(--scale2)) scale(var(--scale1)) translate(-50%, -50%);
   text-align: center;
   font-family: 'Noto Sans JP', 'Noto Sans', 'sans-serif' !important;
   font-weight: 200 !important;
@@ -289,6 +319,19 @@ div.label {
     margin: 0;
   }
 }
+/*
+div.labels.zooming > div.label {
+  animation: xxx-label-scale 500ms ease;
+}
+@keyframes xxx-label-scale {
+  from {
+    --zoom: 1;
+  }
+  to {
+    --zoom: var(--zoom-zq-inv);
+  }
+}
+*/
 `
 
 // XXX check if all urls are loaded?
@@ -304,7 +347,7 @@ const style_re = /^style$/
 const non_svg_re = /(?:text-align)|(?:line-height)/
 
 function fromAttrs(
-  attrs: Record<string, undefined | null | number | string>
+  attrs: Readonly<Record<string, undefined | null | number | string>>
 ): Record<string, undefined | null | number | string> {
   const entries = Object.entries(attrs)
     .filter(

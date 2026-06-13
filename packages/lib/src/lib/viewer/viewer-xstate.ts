@@ -179,6 +179,7 @@ const viewerMachine = setup({
         Appearing: {
           on: {
             'ANIMATION.END': {
+              actions: 'emitZoomEnd',
               target: 'Done',
             },
           },
