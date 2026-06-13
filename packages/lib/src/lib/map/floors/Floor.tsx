@@ -144,15 +144,6 @@ function RenderFloor({
         onAnimationEnd={fidxToOnAnimationEnd(idx)}
         labels={floor.labels ?? labelsMap?.get(floor.name.toLowerCase())}
       />
-      {/*
-      <RenderFloorLabels
-        origViewBox={origViewBox}
-        idx={idx}
-        url={urls.get(idx)}
-        onAnimationEnd={fidxToOnAnimationEnd(idx)}
-        labels={floor.labels ?? labelsMap?.get(floor.name.toLowerCase())}
-      />
-      */}
     </g>
   )
 }
@@ -174,7 +165,7 @@ function RenderFloorHtml({
   useFloorRef(ref, `html-${idx}`)
   return (
     <div ref={ref} className={`floor fidx-${idx}`}>
-      <RenderFloorHtmlLabels
+      <RenderFloorLabels
         origViewBox={origViewBox}
         idx={idx}
         url={urls.get(idx)}
@@ -184,18 +175,7 @@ function RenderFloorHtml({
   )
 }
 
-/*
-function useRegisterFloor(prefix: string, idx: number) {
-  const register = useCallback(
-    (e: Readonly<SVGGElement | HTMLDivElement | null>) =>
-      registerFloorRef(e, `${prefix}-${idx}`),
-    [idx, prefix]
-  )
-  return register
-}
-*/
-
-type Props = Readonly<{
+type FloorProps = Readonly<{
   origViewBox: BoxBox
   idx: number
   url?: string
@@ -203,7 +183,7 @@ type Props = Readonly<{
   labels?: readonly LabelText[]
 }>
 
-function RenderFloorImage({ origViewBox, url }: Props): ReactNode {
+function RenderFloorImage({ origViewBox, url }: FloorProps): ReactNode {
   // XXX better "loading" display?
   return (
     <image
@@ -216,56 +196,17 @@ function RenderFloorImage({ origViewBox, url }: Props): ReactNode {
   )
 }
 
-/*
-function RenderFloorLabels({ origViewBox, url, labels }: Props): ReactNode {
-  return labels === undefined ? (
-    <></>
-  ) : (
-    <svg
-      href={url}
-      x={origViewBox.x}
-      y={origViewBox.y}
-      width={origViewBox.width}
-      height={origViewBox.height}
-      viewBox={boxToViewBox2(origViewBox)}
-    >
-      <style>{`
-text, tspan {
-  font-family: 'Noto Sans JP', 'Noto Sans', 'sans-serif' !important;
-  font-weight: 200 !important;
-}
-`}</style>
-      {labels.map((_text, idx) => (
-        <text key={idx} {...fromAttrs(_text.attrs)}>
-          {'id' in _text.attrs && 'style' in _text.attrs && (
-            <style>{`#${_text.attrs['id']} { ${_text.attrs['style']}; }`}</style>
-          )}
-          {_text.children &&
-            _text.children.map((_tspan, idx2) => (
-              <tspan key={idx2} {...fromAttrs(_tspan.attrs)}>
-                {_tspan.text ?? ''}
-              </tspan>
-            ))}
-        </text>
-      ))}
-    </svg>
-  )
-}
-*/
-
-function RenderFloorHtmlLabels({ idx: fidx, labels }: Props): ReactNode {
+function RenderFloorLabels({ idx: fidx, labels }: FloorProps): ReactNode {
   const ref = useRef(null)
   useZoomStyleRef(ref, `labels-${fidx}`)
   return (
     <div ref={ref} className="labels">
-      {labels?.map((_text, idx) => {
-        return (
-          <Fragment key={idx}>
-            <RenderFloorHtmlLabel _text={_text} />
-          </Fragment>
-        )
-      })}
-      <style>{htmlLabelsStyle}</style>
+      {labels?.map((_text, idx) => (
+        <Fragment key={idx}>
+          <RenderFloorLabel _text={_text} />
+        </Fragment>
+      ))}
+      <style>{labelsStyle}</style>
     </div>
   )
 }
@@ -274,7 +215,7 @@ type LabelProps = Readonly<{
   _text: LabelText
 }>
 
-function RenderFloorHtmlLabel({ _text }: LabelProps): ReactNode {
+function RenderFloorLabel({ _text }: LabelProps): ReactNode {
   return (
     <div
       className="label"
@@ -295,7 +236,7 @@ function RenderFloorHtmlLabel({ _text }: LabelProps): ReactNode {
   )
 }
 
-const htmlLabelsStyle = `
+const labelsStyle = `
 @property --zoom {
   syntax: '<number>';
   inherits: false;
