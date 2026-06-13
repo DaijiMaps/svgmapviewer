@@ -16,6 +16,7 @@ import { updateLayoutStyleRefs } from '../viewer/layout/style'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { type ViewerMode } from '../viewer/viewer-types'
 import { updateAppearingStyleRefs } from './appearing'
+import { startLoop } from './frame'
 import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
 
 export const currentLayout: Atom<Layout> = createAtom<Layout>(emptyLayout)
@@ -160,9 +161,8 @@ const styleMachine = setup({
           actions: [
             ({ context: { zoom }, event: { animation } }) =>
               updateZoomStyleRefs(animation, zoom),
-            assign({
-              animating: true,
-            }),
+            assign({ animating: true }),
+            () => startLoop('zoom', 500),
           ],
           target: 'Animating',
         },

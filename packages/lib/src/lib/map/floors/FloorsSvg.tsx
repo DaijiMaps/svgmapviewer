@@ -2,6 +2,7 @@
 import { Fragment, useRef, type PropsWithChildren, type ReactNode } from 'react'
 
 import { type OsmRenderMapProps } from '../../../types'
+import type { BoxBox } from '../../box/prefixed'
 import { floor_appearing_animation } from '../../css'
 import { useLayout2 } from '../../style/style-react'
 import {
@@ -14,7 +15,7 @@ import type { FloorProps } from './types'
 
 export function RenderFloorsSvg({
   floors,
-  ...rest
+  data: { origViewBox },
 }: Readonly<OsmRenderMapProps>): ReactNode {
   const ctx = useFloors()
   return (
@@ -22,7 +23,7 @@ export function RenderFloorsSvg({
       <RenderFloorsSvgSvg>
         {floors?.floors.map((_, fidx) => (
           <Fragment key={fidx}>
-            <RenderFloorSvg fidx={fidx} {...rest} ctx={ctx} />
+            <RenderFloorSvg fidx={fidx} origViewBox={origViewBox} ctx={ctx} />
           </Fragment>
         ))}
       </RenderFloorsSvgSvg>
@@ -52,11 +53,13 @@ function RenderFloorsSvgSvg(props: Readonly<PropsWithChildren>): ReactNode {
 
 function RenderFloorSvg({
   fidx,
-  data: { origViewBox },
+  origViewBox,
   ctx: { fidxToOnAnimationEnd, urls },
-}: Readonly<
-  { fidx: number } & OsmRenderMapProps & { ctx: UseFloorsReturn }
->): ReactNode {
+}: Readonly<{
+  fidx: number
+  origViewBox: BoxBox
+  ctx: UseFloorsReturn
+}>): ReactNode {
   const ref = useRef(null)
   useFloorRef(ref, `svg-${fidx}`)
   return (
@@ -66,10 +69,9 @@ function RenderFloorSvg({
       onAnimationEnd={fidxToOnAnimationEnd(fidx)}
     >
       <RenderFloorImage
-        origViewBox={origViewBox}
         fidx={fidx}
+        origViewBox={origViewBox}
         url={urls.get(fidx)}
-        onAnimationEnd={fidxToOnAnimationEnd(fidx)}
       />
     </g>
   )
@@ -79,11 +81,11 @@ function RenderFloorImage({ origViewBox, url }: FloorProps): ReactNode {
   // XXX better "loading" display?
   return (
     <image
-      href={url}
       x={origViewBox.x}
       y={origViewBox.y}
       width={origViewBox.width}
       height={origViewBox.height}
+      href={url}
     />
   )
 }

@@ -83,7 +83,7 @@ div.labels.zooming > div.label {
     --zoom: 1;
   }
   to {
-    --zoom: var(--zoom-zq-inv);
+    --zoom: var(--zoom-z-inv-b);
   }
 }
 */

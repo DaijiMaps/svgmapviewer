@@ -94,20 +94,12 @@ const style: string = `
     animation: xxx-appearing 2s ${timing_opening};
   }
 }
-@keyframes xxx-container {
-  from {
-    opacity: var(--a);
-  }
-  to {
-    opacity: var(--b);
-  }
-}
 @keyframes container-zoom {
   from {
-    transform: var(--zoom-p);
+    transform: var(--zoom-matrix-a);
   }
   to {
-    transform: var(--zoom-q);
+    transform: var(--zoom-matrix-b);
   }
 }
 @keyframes xxx-appearing {

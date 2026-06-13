@@ -45,27 +45,38 @@ export function useZoomStyleRef(
 }
 
 export function updateZoomStyleRefs(
-  a: Readonly<null | AnimationMatrix>,
+  animation: Readonly<null | AnimationMatrix>,
   zoom: number
 ): void {
-  const p = a?.from.toString() ?? null
-  const q = a?.to.toString() ?? null
-  const zp = a?.from.a ?? null
-  const zq = a?.to.a ?? null
+  const p = animation?.from.toString() ?? null
+  const q = animation?.to.toString() ?? null
+  const zp = animation?.from.a ?? null
+  const zq = animation?.to.a ?? null
   const o =
-    a === null || a.origin === null
+    animation === null || animation.origin === null
       ? `left top`
-      : `${a.origin.x}px ${a?.origin.y}px`
+      : `${animation.origin.x}px ${animation?.origin.y}px`
   Array.from(zoomStyleRefs, ([, e]) => {
     const s = e.style.setProperty.bind(e.style)
-    tag(e, 'zooming', a !== null)
+    tag(e, 'zooming', animation !== null)
     s(`--zoom-zoom`, zoom.toString())
     s(`--zoom-origin`, o)
-    s(`--zoom-p`, p === null ? null : `${p} translate3d(0px, 0px, 0px)`)
-    s(`--zoom-q`, q === null ? null : `${q} translate3d(0px, 0px, 0px)`)
-    s(`--zoom-zp`, zp === null ? null : zp.toString())
-    s(`--zoom-zq`, zq === null ? null : zq.toString())
-    s(`--zoom-zp-inv`, zp === null ? null : (1 / zp).toString())
-    s(`--zoom-zq-inv`, zq === null ? null : (1 / zq).toString())
+    s(`--zoom-matrix-a`, p === null ? null : `${p} translate3d(0px, 0px, 0px)`)
+    s(`--zoom-matrix-b`, q === null ? null : `${q} translate3d(0px, 0px, 0px)`)
+    s(`--zoom-z-a`, zp === null ? null : zp.toString())
+    s(`--zoom-z-b`, zq === null ? null : zq.toString())
+    s(`--zoom-z-inv-a`, zp === null ? null : (1 / zp).toString())
+    s(`--zoom-z-inv-b`, zq === null ? null : (1 / zq).toString())
   })
+  /*
+  if (animation !== null)
+    startLoop('zoom', 500, {
+      tickcb: () => {},
+      donecb: () => console.log('loop done!'),
+    })
+  */
 }
+
+// --zoom-matrix-t = <transform-function>
+// --zoom-z-t = <number>
+// --zoom = <number>
