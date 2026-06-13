@@ -48,8 +48,8 @@ export function updateZoomStyleRefs(
   animation: Readonly<null | AnimationMatrix>,
   zoom: number
 ): void {
-  const p = animation?.from.toString() ?? null
-  const q = animation?.to.toString() ?? null
+  const a = animation?.from ?? null
+  const b = animation?.to ?? null
   const zp = animation?.from.a ?? null
   const zq = animation?.to.a ?? null
   const o =
@@ -61,8 +61,12 @@ export function updateZoomStyleRefs(
     tag(e, 'zooming', animation !== null)
     s(`--zoom-zoom`, zoom.toString())
     s(`--zoom-origin`, o)
-    s(`--zoom-matrix-a`, p === null ? null : `${p} translate3d(0px, 0px, 0px)`)
-    s(`--zoom-matrix-b`, q === null ? null : `${q} translate3d(0px, 0px, 0px)`)
+    s(`--zoom-matrix-tx-a`, a === null ? null : `${a.e}px`)
+    s(`--zoom-matrix-tx-b`, b === null ? null : `${b.e}px`)
+    s(`--zoom-matrix-ty-a`, a === null ? null : `${a.f}px`)
+    s(`--zoom-matrix-ty-b`, b === null ? null : `${b.f}px`)
+    s(`--zoom-matrix-s-a`, a === null ? null : `${a.a}`)
+    s(`--zoom-matrix-s-b`, b === null ? null : `${b.a}`)
     s(`--zoom-z-a`, zp === null ? null : zp.toString())
     s(`--zoom-z-b`, zq === null ? null : zq.toString())
     s(`--zoom-z-inv-a`, zp === null ? null : (1 / zp).toString())
