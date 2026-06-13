@@ -102,35 +102,11 @@ const style: string = `
   inherits: true;
   initial-value: 0;
 }
-/*
-@property --zoom-tx-a {
-  syntax: '<length>';
-  inherits: false;
-  initial-value: 0;
-}
-@property --zoom-tx-b {
-  syntax: '<length>';
-  inherits: false;
-  initial-value: 0;
-}
-*/
 @property --zoom-ty {
   syntax: '<length>';
   inherits: true;
   initial-value: 0;
 }
-/*
-@property --zoom-ty-a {
-  syntax: '<length>';
-  inherits: false;
-  initial-value: 0;
-}
-@property --zoom-ty-b {
-  syntax: '<length>';
-  inherits: false;
-  initial-value: 0;
-}
-*/
 @property --zoom-s {
   syntax: '<number>';
   inherits: true;
@@ -141,18 +117,6 @@ const style: string = `
   inherits: true;
   initial-value: 1;
 }
-/*
-@property --zoom-s-a {
-  syntax: '<number>';
-  inherits: false;
-  initial-value: 1;
-}
-@property --zoom-s-b {
-  syntax: '<number>';
-  inherits: false;
-  initial-value: 1;
-}
-*/
 @property --zoom-z {
   syntax: '<number>';
   inherits: true;
@@ -162,18 +126,6 @@ const style: string = `
   syntax: '<number>';
   inherits: true;
   initial-value: 1;
-}
-@keyframes container-zoom {
-  from {
-    --zoom-tx: var(--zoom-tx-a);
-    --zoom-ty: var(--zoom-ty-a);
-    --zoom-s: var(--zoom-s-a);
-  }
-  to {
-    --zoom-tx: var(--zoom-tx-b);
-    --zoom-ty: var(--zoom-ty-b);
-    --zoom-s: var(--zoom-s-b);
-  }
 }
 @keyframes xxx-appearing {
   from {

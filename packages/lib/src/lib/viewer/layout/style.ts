@@ -54,12 +54,6 @@ export function updateZoomStyleRefs(
   animation: Readonly<null | AnimationMatrix>,
   zoom: number
 ): void {
-  /*
-  const a = animation?.from ?? null
-  const b = animation?.to ?? null
-  const za = a?.a ?? null
-  const zb = b?.a ?? null
-  */
   const o =
     animation === null || animation.origin === null
       ? `left top`
@@ -69,19 +63,6 @@ export function updateZoomStyleRefs(
     tag(e, 'zooming', animation !== null)
     p(`--zoom-origin`, o)
     p(`--zoom-zoom`, zoom.toString())
-    /*
-    p(`--zoom-zoom`, zoom.toString())
-    p(`--zoom-tx-a`, a === null ? null : `${a.e}px`)
-    p(`--zoom-tx-b`, b === null ? null : `${b.e}px`)
-    p(`--zoom-ty-a`, a === null ? null : `${a.f}px`)
-    p(`--zoom-ty-b`, b === null ? null : `${b.f}px`)
-    p(`--zoom-s-a`, za === null ? null : za.toString())
-    p(`--zoom-s-b`, zb === null ? null : zb.toString())
-    p(`--zoom-z-a`, za === null ? null : za.toString())
-    p(`--zoom-z-b`, zb === null ? null : zb.toString())
-    p(`--zoom-z-inv-a`, za === null ? null : (1 / za).toString())
-    p(`--zoom-z-inv-b`, zb === null ? null : (1 / zb).toString())
-    */
   })
   if (animation !== null)
     startLoop('zoom', 500, {
