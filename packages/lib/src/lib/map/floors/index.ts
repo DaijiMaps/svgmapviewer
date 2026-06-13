@@ -1,1 +1,1 @@
-export { isFloorsRendered, RenderFloors } from './Floor'
+export { isFloorsRendered, RenderFloors } from './Floors'
