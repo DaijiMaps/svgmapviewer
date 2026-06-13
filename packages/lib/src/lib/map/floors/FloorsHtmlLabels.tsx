@@ -63,21 +63,25 @@ div.labels {
 div.label {
   position: absolute;
   transform-origin: left top;
-  /*
-  transform: translate(var(--x), var(--y)) rotate(var(--rotate)) scale(var(--zoom)) scale(calc(1 / var(--zoom-zoom))) scale(var(--scale2)) scale(var(--scale1)) translate(-50%, -50%);
-  */
   transform: translate(var(--x), var(--y)) rotate(var(--rotate)) scale(var(--zoom)) scale(var(--scale2)) scale(var(--scale1)) translate(-50%, -50%);
   text-align: center;
   font-family: 'Noto Sans JP', 'Noto Sans', 'sans-serif' !important;
   font-weight: 200 !important;
+  &.zooming {
+    & > div.label {
+      /*
+      animation: xxx-label-scale 500ms ease;
+      */
+      /*
+      transform: translate(var(--x), var(--y)) rotate(var(--rotate)) scale(var(--zoom)) scale(var(--zoom-sinv)) scale(var(--scale2)) scale(var(--scale1)) translate(-50%, -50%) !important;
+      */
+    }
+  }
   & > p {
     margin: 0;
   }
 }
 /*
-div.labels.zooming > div.label {
-  animation: xxx-label-scale 500ms ease;
-}
 @keyframes xxx-label-scale {
   from {
     --zoom: 1;

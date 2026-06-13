@@ -78,7 +78,7 @@ export type ViewerMessage = { type: 'SEARCH.DONE' }
 export type UIEventScroll = { type: 'SCROLL'; ev: Event | React.UIEvent }
 export type UIEventAnimationEnd = {
   type: 'ANIMATION.END'
-  ev: React.AnimationEvent<HTMLDivElement>
+  ev?: React.AnimationEvent<HTMLDivElement>
 }
 
 export type ReactUIEvent = UIEventAnimationEnd | UIEventScroll

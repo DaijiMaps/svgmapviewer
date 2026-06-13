@@ -494,7 +494,7 @@ export function viewerSendEvent(
   if (options?.stopPropagation === false) {
     // skip
   } else {
-    event.ev.stopPropagation()
+    event.ev?.stopPropagation()
   }
   viewerSend(event)
 }

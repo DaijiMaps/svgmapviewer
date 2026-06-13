@@ -4,8 +4,8 @@
 /* eslint-disable functional/no-expression-statements */
 type Name = string
 type RequestID = number
-type TickCb<D = unknown> = (progress: number, cbdata?: D) => void
-type DoneCb<D = unknown> = (cbdata?: D) => void
+export type TickCb<D = unknown> = (progress: number, cbdata?: D) => void
+export type DoneCb<D = unknown> = (cbdata?: D) => void
 type Options<D = unknown> = Readonly<{
   tickcb?: TickCb<D>
   donecb?: DoneCb<D>

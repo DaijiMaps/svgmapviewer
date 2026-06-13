@@ -70,9 +70,11 @@ const style: string = `
 
   &.zooming {
     transform-origin: var(--zoom-origin);
-    transform: translate(var(--zoom-matrix-tx), var(--zoom-matrix-ty)) scale(var(--zoom-matrix-s)) translate3d(0px, 0px, 0px);
+    transform: translate(var(--zoom-tx), var(--zoom-ty)) scale(var(--zoom-s)) translate3d(0px, 0px, 0px);
     will-change: transform;
+    /*
     animation: container-zoom 500ms ease;
+    */
   }
   & > .content {
     ${position_absolute_left_0_top_0}
@@ -95,51 +97,62 @@ const style: string = `
     animation: xxx-appearing 2s ${timing_opening};
   }
 }
-@property --zoom-matrix-tx {
+@property --zoom-tx {
   syntax: '<length>';
   inherits: false;
   initial-value: 0;
 }
-@property --zoom-matrix-tx-a {
+/*
+@property --zoom-tx-a {
   syntax: '<length>';
   inherits: false;
   initial-value: 0;
 }
-@property --zoom-matrix-tx-b {
+@property --zoom-tx-b {
   syntax: '<length>';
   inherits: false;
   initial-value: 0;
 }
-@property --zoom-matrix-ty {
+*/
+@property --zoom-ty {
   syntax: '<length>';
   inherits: false;
   initial-value: 0;
 }
-@property --zoom-matrix-ty-a {
+/*
+@property --zoom-ty-a {
   syntax: '<length>';
   inherits: false;
   initial-value: 0;
 }
-@property --zoom-matrix-ty-b {
+@property --zoom-ty-b {
   syntax: '<length>';
   inherits: false;
   initial-value: 0;
 }
-@property --zoom-matrix-s {
+*/
+@property --zoom-s {
   syntax: '<number>';
   inherits: false;
   initial-value: 1;
 }
-@property --zoom-matrix-s-a {
+@property --zoom-sinv {
   syntax: '<number>';
   inherits: false;
   initial-value: 1;
 }
-@property --zoom-matrix-s-b {
+/*
+@property --zoom-s-a {
   syntax: '<number>';
   inherits: false;
   initial-value: 1;
 }
+@property --zoom-s-b {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+*/
 @property --zoom-z {
   syntax: '<number>';
   inherits: false;
@@ -152,14 +165,14 @@ const style: string = `
 }
 @keyframes container-zoom {
   from {
-    --zoom-matrix-tx: var(--zoom-matrix-tx-a);
-    --zoom-matrix-ty: var(--zoom-matrix-ty-a);
-    --zoom-matrix-s: var(--zoom-matrix-s-a);
+    --zoom-tx: var(--zoom-tx-a);
+    --zoom-ty: var(--zoom-ty-a);
+    --zoom-s: var(--zoom-s-a);
   }
   to {
-    --zoom-matrix-tx: var(--zoom-matrix-tx-b);
-    --zoom-matrix-ty: var(--zoom-matrix-ty-b);
-    --zoom-matrix-s: var(--zoom-matrix-s-b);
+    --zoom-tx: var(--zoom-tx-b);
+    --zoom-ty: var(--zoom-ty-b);
+    --zoom-s: var(--zoom-s-b);
   }
 }
 @keyframes xxx-appearing {
