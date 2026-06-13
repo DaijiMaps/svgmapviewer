@@ -51,8 +51,8 @@ export function useZoomStyleRef(
 }
 
 export function updateZoomStyleRefs(
-  animation: Readonly<null | AnimationMatrix>
-  //zoom: number
+  animation: Readonly<null | AnimationMatrix>,
+  zoom: number
 ): void {
   /*
   const a = animation?.from ?? null
@@ -65,21 +65,22 @@ export function updateZoomStyleRefs(
       ? `left top`
       : `${animation.origin.x}px ${animation?.origin.y}px`
   Array.from(zoomStyleRefs, ([, e]) => {
-    const s = e.style.setProperty.bind(e.style)
+    const p = e.style.setProperty.bind(e.style)
     tag(e, 'zooming', animation !== null)
-    s(`--zoom-origin`, o)
+    p(`--zoom-origin`, o)
+    p(`--zoom-zoom`, zoom.toString())
     /*
-    s(`--zoom-zoom`, zoom.toString())
-    s(`--zoom-tx-a`, a === null ? null : `${a.e}px`)
-    s(`--zoom-tx-b`, b === null ? null : `${b.e}px`)
-    s(`--zoom-ty-a`, a === null ? null : `${a.f}px`)
-    s(`--zoom-ty-b`, b === null ? null : `${b.f}px`)
-    s(`--zoom-s-a`, za === null ? null : za.toString())
-    s(`--zoom-s-b`, zb === null ? null : zb.toString())
-    s(`--zoom-z-a`, za === null ? null : za.toString())
-    s(`--zoom-z-b`, zb === null ? null : zb.toString())
-    s(`--zoom-z-inv-a`, za === null ? null : (1 / za).toString())
-    s(`--zoom-z-inv-b`, zb === null ? null : (1 / zb).toString())
+    p(`--zoom-zoom`, zoom.toString())
+    p(`--zoom-tx-a`, a === null ? null : `${a.e}px`)
+    p(`--zoom-tx-b`, b === null ? null : `${b.e}px`)
+    p(`--zoom-ty-a`, a === null ? null : `${a.f}px`)
+    p(`--zoom-ty-b`, b === null ? null : `${b.f}px`)
+    p(`--zoom-s-a`, za === null ? null : za.toString())
+    p(`--zoom-s-b`, zb === null ? null : zb.toString())
+    p(`--zoom-z-a`, za === null ? null : za.toString())
+    p(`--zoom-z-b`, zb === null ? null : zb.toString())
+    p(`--zoom-z-inv-a`, za === null ? null : (1 / za).toString())
+    p(`--zoom-z-inv-b`, zb === null ? null : (1 / zb).toString())
     */
   })
   if (animation !== null)
@@ -89,40 +90,49 @@ export function updateZoomStyleRefs(
         viewerSend({ type: 'ANIMATION.END' })
         notifyStyle.animationEnd()
       },
-      cbdata: animation,
+      cbdata: { animation, zoom },
     })
 }
 
-type Values = Readonly<{
+type ZoomData = Readonly<{
+  animation: Readonly<AnimationMatrix>
+  zoom: number
+}>
+
+type ZoomValues = Readonly<{
   readonly tx: number
   readonly ty: number
   readonly s: number
   readonly sinv: number
+  readonly z: number
+  readonly zinv: number
 }>
 
-export function getCurrentValues(
-  animation: Readonly<AnimationMatrix>,
+function getCurrentZoomValues(
+  { animation, zoom }: ZoomData,
   t: number
-): Values {
+): ZoomValues {
   const a = animation.from
   const b = animation.to
   const tx = lerp(a.e, b.e, easeCubic(t))
   const ty = lerp(a.f, b.f, easeCubic(t))
   const s = lerp(a.a, b.a, easeCubic(t))
-  return { tx, ty, s, sinv: 1 / s }
+  const za = zoom
+  const zb = zoom * s
+  const z = lerp(za, zb, easeCubic(t))
+  return { tx, ty, s, sinv: 1 / s, z, zinv: 1 / z }
 }
 
-export function tickZoomStyleRefs(
-  t: number,
-  animation?: Readonly<AnimationMatrix>
-): void {
-  if (!animation) return
-  const values = getCurrentValues(animation, t)
+function tickZoomStyleRefs(t: number, cbdata?: ZoomData): void {
+  if (!cbdata) return
+  const { tx, ty, s, sinv, z, zinv } = getCurrentZoomValues(cbdata, t)
   Array.from(zoomStyleRefs, ([, e]) => {
-    const s = e.style.setProperty.bind(e.style)
-    s(`--zoom-tx`, `${values.tx}px`)
-    s(`--zoom-ty`, `${values.ty}px`)
-    s(`--zoom-s`, `${values.s}`)
-    s(`--zoom-sinv`, `${1 / values.s}`)
+    const p = e.style.setProperty.bind(e.style)
+    p(`--zoom-tx`, `${tx}px`)
+    p(`--zoom-ty`, `${ty}px`)
+    p(`--zoom-s`, `${s}`)
+    p(`--zoom-s-inv`, `${sinv}`)
+    p(`--zoom-z`, `${z}`)
+    p(`--zoom-z-inv`, `${zinv}`)
   })
 }

@@ -99,7 +99,7 @@ const style: string = `
 }
 @property --zoom-tx {
   syntax: '<length>';
-  inherits: false;
+  inherits: true;
   initial-value: 0;
 }
 /*
@@ -116,7 +116,7 @@ const style: string = `
 */
 @property --zoom-ty {
   syntax: '<length>';
-  inherits: false;
+  inherits: true;
   initial-value: 0;
 }
 /*
@@ -133,12 +133,12 @@ const style: string = `
 */
 @property --zoom-s {
   syntax: '<number>';
-  inherits: false;
+  inherits: true;
   initial-value: 1;
 }
-@property --zoom-sinv {
+@property --zoom-s-inv {
   syntax: '<number>';
-  inherits: false;
+  inherits: true;
   initial-value: 1;
 }
 /*
@@ -155,12 +155,12 @@ const style: string = `
 */
 @property --zoom-z {
   syntax: '<number>';
-  inherits: false;
+  inherits: true;
   initial-value: 1;
 }
 @property --zoom-z-inv {
   syntax: '<number>';
-  inherits: false;
+  inherits: true;
   initial-value: 1;
 }
 @keyframes container-zoom {

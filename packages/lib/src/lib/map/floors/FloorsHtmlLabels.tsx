@@ -1,19 +1,11 @@
-/* eslint-disable functional/no-expression-statements */
-
-import { Fragment, useRef, type CSSProperties, type ReactNode } from 'react'
+import { Fragment, type CSSProperties, type ReactNode } from 'react'
 
 import { type LabelText } from '../../../types'
-import { useZoomStyleRef } from '../../viewer/layout/style'
 import type { FloorLabelsProps } from './types'
 
-export function RenderFloorLabels({
-  fidx,
-  labels,
-}: FloorLabelsProps): ReactNode {
-  const ref = useRef(null)
-  useZoomStyleRef(ref, `labels-${fidx}`)
+export function RenderFloorLabels({ labels }: FloorLabelsProps): ReactNode {
   return (
-    <div ref={ref} className="labels">
+    <div className="labels">
       {labels?.map((_text, idx) => (
         <Fragment key={idx}>
           <RenderFloorLabel _text={_text} />
@@ -63,7 +55,10 @@ div.labels {
 div.label {
   position: absolute;
   transform-origin: left top;
-  transform: translate(var(--x), var(--y)) rotate(var(--rotate)) scale(var(--zoom)) scale(var(--scale2)) scale(var(--scale1)) translate(-50%, -50%);
+  /*
+  transform: translate(var(--x), var(--y)) rotate(var(--rotate)) scale(var(--zoom-z-inv)) scale(var(--scale2)) scale(var(--scale1)) translate(-50%, -50%);
+  */
+  transform: translate(var(--x), var(--y)) rotate(var(--rotate)) scale(var(--scale2)) scale(var(--scale1)) translate(-50%, -50%);
   text-align: center;
   font-family: 'Noto Sans JP', 'Noto Sans', 'sans-serif' !important;
   font-weight: 200 !important;
@@ -71,9 +66,6 @@ div.label {
     & > div.label {
       /*
       animation: xxx-label-scale 500ms ease;
-      */
-      /*
-      transform: translate(var(--x), var(--y)) rotate(var(--rotate)) scale(var(--zoom)) scale(var(--zoom-sinv)) scale(var(--scale2)) scale(var(--scale1)) translate(-50%, -50%) !important;
       */
     }
   }

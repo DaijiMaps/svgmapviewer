@@ -109,7 +109,7 @@ const styleMachine = setup({
           type: 'updateZoom',
           params: ({ event }) => event,
         },
-        () => updateZoomStyleRefs(null),
+        ({ context: { zoom } }) => updateZoomStyleRefs(null, zoom),
       ],
     },
     'STYLE.SCROLL': {
@@ -147,7 +147,7 @@ const styleMachine = setup({
         'STYLE.ANIMATION.END': {
           actions: [
             assign({ appearing: false, shown: true }),
-            () => updateZoomStyleRefs(null),
+            ({ context: { zoom } }) => updateZoomStyleRefs(null, zoom),
             ({ context }) =>
               updateAppearingStyleRefs(context.shown, context.appearing),
           ],
@@ -159,7 +159,8 @@ const styleMachine = setup({
       on: {
         'STYLE.ANIMATION': {
           actions: [
-            ({ event: { animation } }) => updateZoomStyleRefs(animation),
+            ({ context: { zoom }, event: { animation } }) =>
+              updateZoomStyleRefs(animation, zoom),
             assign({ animating: true }),
             () => startLoop('zoom', 500),
           ],
@@ -176,7 +177,7 @@ const styleMachine = setup({
       on: {
         'STYLE.ANIMATION.END': {
           actions: [
-            () => updateZoomStyleRefs(null),
+            ({ context: { zoom } }) => updateZoomStyleRefs(null, zoom),
             assign({
               animating: false,
             }),
