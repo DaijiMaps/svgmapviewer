@@ -22,14 +22,14 @@ export function RenderFloorsHtml({
   return (
     <div className="content">
       <div className="map-floors-html">
-        {(floors?.floors ?? []).map((floor, idx) => (
-          <Fragment key={idx}>
+        {(floors?.floors ?? []).map((floor, fidx) => (
+          <Fragment key={fidx}>
             <RenderFloorHtml
               floors={floors}
               {...rest}
               ctx={ctx}
               floor={floor}
-              idx={idx}
+              fidx={fidx}
               labelsMap={floors?.labelsMap}
             />
           </Fragment>
@@ -53,26 +53,22 @@ const htmlStyle = `
 `
 
 function RenderFloorHtml({
-  data: { origViewBox },
-  ctx: { urls },
   floor,
-  idx,
+  fidx,
   labelsMap,
 }: Readonly<
   OsmRenderMapProps & { ctx: UseFloorsReturn } & {
     floor: Floor
-    idx: number
+    fidx: number
     labelsMap: LabelsMap | undefined
   }
 >): ReactNode {
   const ref = useRef(null)
-  useFloorRef(ref, `html-${idx}`)
+  useFloorRef(ref, `html-${fidx}`)
   return (
-    <div ref={ref} className={`floor fidx-${idx}`}>
+    <div ref={ref} className={`floor fidx-${fidx}`}>
       <RenderFloorLabels
-        origViewBox={origViewBox}
-        idx={idx}
-        url={urls.get(idx)}
+        fidx={fidx}
         labels={floor.labels ?? labelsMap?.get(floor.name.toLowerCase())}
       />
     </div>

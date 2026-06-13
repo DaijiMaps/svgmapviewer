@@ -24,14 +24,14 @@ export function RenderFloorsSvg({
   return (
     <div className="content map-floors-svg">
       <RenderFloorsSvgSvg>
-        {(floors?.floors ?? []).map((floor, idx) => (
-          <Fragment key={idx}>
+        {(floors?.floors ?? []).map((floor, fidx) => (
+          <Fragment key={fidx}>
             <RenderFloorSvg
               floors={floors}
               {...rest}
               ctx={ctx}
               floor={floor}
-              idx={idx}
+              fidx={fidx}
               labelsMap={floors?.labelsMap}
             />
           </Fragment>
@@ -63,28 +63,28 @@ function RenderFloorSvg({
   data: { origViewBox },
   ctx: { fidxToOnAnimationEnd, urls },
   floor,
-  idx,
+  fidx,
   labelsMap,
 }: Readonly<
   OsmRenderMapProps & { ctx: UseFloorsReturn } & {
     floor: Floor
-    idx: number
+    fidx: number
     labelsMap: LabelsMap | undefined
   }
 >): ReactNode {
   const ref = useRef(null)
-  useFloorRef(ref, `svg-${idx}`)
+  useFloorRef(ref, `svg-${fidx}`)
   return (
     <g
       ref={ref}
-      className={`floor fidx-${idx}`}
-      onAnimationEnd={fidxToOnAnimationEnd(idx)}
+      className={`floor fidx-${fidx}`}
+      onAnimationEnd={fidxToOnAnimationEnd(fidx)}
     >
       <RenderFloorImage
         origViewBox={origViewBox}
-        idx={idx}
-        url={urls.get(idx)}
-        onAnimationEnd={fidxToOnAnimationEnd(idx)}
+        fidx={fidx}
+        url={urls.get(fidx)}
+        onAnimationEnd={fidxToOnAnimationEnd(fidx)}
         labels={floor.labels ?? labelsMap?.get(floor.name.toLowerCase())}
       />
     </g>

@@ -4,12 +4,12 @@ import { Fragment, useRef, type CSSProperties, type ReactNode } from 'react'
 
 import { type LabelText } from '../../../types'
 import { useZoomStyleRef } from '../../viewer/layout/style'
-import type { FloorProps } from './types'
+import type { FloorLabelsProps } from './types'
 
 export function RenderFloorLabels({
-  idx: fidx,
+  fidx,
   labels,
-}: FloorProps): ReactNode {
+}: FloorLabelsProps): ReactNode {
   const ref = useRef(null)
   useZoomStyleRef(ref, `labels-${fidx}`)
   return (
