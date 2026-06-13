@@ -289,9 +289,7 @@ function RenderFloorHtmlLabel({ _text }: LabelProps): ReactNode {
       }
     >
       {_text.children?.map((_tspan, idx2) => (
-        <p key={idx2} {...fromAttrs(_tspan.attrs)}>
-          {_tspan.text ?? ''}
-        </p>
+        <p key={idx2}>{_tspan.text ?? ''}</p>
       ))}
     </div>
   )
@@ -311,7 +309,10 @@ div.labels {
 div.label {
   position: absolute;
   transform-origin: left top;
+  /*
   transform: translate(var(--x), var(--y)) rotate(var(--rotate)) scale(var(--zoom)) scale(calc(1 / var(--zoom-zoom))) scale(var(--scale2)) scale(var(--scale1)) translate(-50%, -50%);
+  */
+  transform: translate(var(--x), var(--y)) rotate(var(--rotate)) scale(var(--zoom)) scale(var(--scale2)) scale(var(--scale1)) translate(-50%, -50%);
   text-align: center;
   font-family: 'Noto Sans JP', 'Noto Sans', 'sans-serif' !important;
   font-weight: 200 !important;
@@ -337,39 +338,4 @@ div.labels.zooming > div.label {
 // XXX check if all urls are loaded?
 export function isFloorsRendered(): boolean {
   return true
-}
-
-// exclude namespace
-const namespace_re = /^[{].*$/
-// style attrib is written into <style/>
-const style_re = /^style$/
-// used in Inkscape but not really valid SVG
-const non_svg_re = /(?:text-align)|(?:line-height)/
-
-function fromAttrs(
-  attrs: Readonly<Record<string, undefined | null | number | string>>
-): Record<string, undefined | null | number | string> {
-  const entries = Object.entries(attrs)
-    .filter(
-      ([k]) =>
-        !k.match(namespace_re) && !k.match(style_re) && !k.match(non_svg_re)
-    )
-    .map(([k, v]) => [convAttrName(k), v])
-  return Object.fromEntries(entries)
-}
-
-function convAttrName(a: string): string {
-  return !a.match(/^.*-.*$/) || a.match(/^(aria|data)-.*$/) ? a : toJsx(a)
-}
-
-function toJsx(s: string): string {
-  return s
-    .split('-')
-    .map((s, idx) => (idx === 0 ? s : toCamel(s)))
-    .join('')
-}
-
-function toCamel(s: string): string {
-  const m = s.match(/^(.)(.*)$/)
-  return !m ? s : `${m[1].toUpperCase()}${m[2]}`
 }
