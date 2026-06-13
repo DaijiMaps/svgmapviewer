@@ -22,7 +22,7 @@ export function RenderFloorsHtml({
   return (
     <div className="content">
       <div className="map-floors-html">
-        {(floors?.floors ?? []).map((floor, fidx) => (
+        {floors?.floors.map((floor, fidx) => (
           <Fragment key={fidx}>
             <RenderFloorHtml
               floors={floors}

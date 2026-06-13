@@ -1,11 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 import { Fragment, useRef, type PropsWithChildren, type ReactNode } from 'react'
 
-import {
-  type Floor,
-  type LabelsMap,
-  type OsmRenderMapProps,
-} from '../../../types'
+import { type Floor, type OsmRenderMapProps } from '../../../types'
 import { floor_appearing_animation } from '../../css'
 import { useLayout2 } from '../../style/style-react'
 import {
@@ -24,7 +20,7 @@ export function RenderFloorsSvg({
   return (
     <div className="content map-floors-svg">
       <RenderFloorsSvgSvg>
-        {(floors?.floors ?? []).map((floor, fidx) => (
+        {floors?.floors.map((floor, fidx) => (
           <Fragment key={fidx}>
             <RenderFloorSvg
               floors={floors}
@@ -32,21 +28,22 @@ export function RenderFloorsSvg({
               ctx={ctx}
               floor={floor}
               fidx={fidx}
-              labelsMap={floors?.labelsMap}
             />
           </Fragment>
         ))}
       </RenderFloorsSvgSvg>
-      <style>{`
+      <style>{svgStyle}</style>
+    </div>
+  )
+}
+
+const svgStyle = `
 svg.content-svg {
   width: var(--layout-scroll-width);
   height: var(--layout-scroll-height);
 }
 ${floor_appearing_animation}
-`}</style>
-    </div>
-  )
-}
+`
 
 function RenderFloorsSvgSvg(props: Readonly<PropsWithChildren>): ReactNode {
   const { viewBox } = useLayout2()
@@ -62,14 +59,11 @@ function RenderFloorsSvgSvg(props: Readonly<PropsWithChildren>): ReactNode {
 function RenderFloorSvg({
   data: { origViewBox },
   ctx: { fidxToOnAnimationEnd, urls },
-  floor,
   fidx,
-  labelsMap,
 }: Readonly<
   OsmRenderMapProps & { ctx: UseFloorsReturn } & {
     floor: Floor
     fidx: number
-    labelsMap: LabelsMap | undefined
   }
 >): ReactNode {
   const ref = useRef(null)
@@ -85,7 +79,6 @@ function RenderFloorSvg({
         fidx={fidx}
         url={urls.get(fidx)}
         onAnimationEnd={fidxToOnAnimationEnd(fidx)}
-        labels={floor.labels ?? labelsMap?.get(floor.name.toLowerCase())}
       />
     </g>
   )

@@ -42,8 +42,8 @@ function RenderFloorLabel({ _text }: LabelProps): ReactNode {
         } as CSSProperties
       }
     >
-      {_text.children?.map((_tspan, idx2) => (
-        <p key={idx2}>{_tspan.text ?? ''}</p>
+      {_text.children?.map((_tspan, idx) => (
+        <p key={idx}>{_tspan.text ?? ''}</p>
       ))}
     </div>
   )
