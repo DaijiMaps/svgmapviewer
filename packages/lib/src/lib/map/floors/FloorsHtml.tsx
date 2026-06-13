@@ -7,29 +7,20 @@ import {
   type LabelsMap,
   type OsmRenderMapProps,
 } from '../../../types'
-import {
-  useFloors,
-  type UseFloorsReturn,
-} from '../../viewer/floors/floors-react'
 import { useFloorRef } from '../../viewer/floors/style'
 import { RenderFloorLabels } from './FloorsHtmlLabels'
 
 export function RenderFloorsHtml({
   floors,
-  ...rest
 }: Readonly<OsmRenderMapProps>): ReactNode {
-  const ctx = useFloors()
   return (
     <div className="content">
       <div className="map-floors-html">
         {floors?.floors.map((floor, fidx) => (
           <Fragment key={fidx}>
             <RenderFloorHtml
-              floors={floors}
-              {...rest}
-              ctx={ctx}
-              floor={floor}
               fidx={fidx}
+              floor={floor}
               labelsMap={floors?.labelsMap}
             />
           </Fragment>
@@ -53,16 +44,14 @@ const htmlStyle = `
 `
 
 function RenderFloorHtml({
-  floor,
   fidx,
+  floor,
   labelsMap,
-}: Readonly<
-  OsmRenderMapProps & { ctx: UseFloorsReturn } & {
-    floor: Floor
-    fidx: number
-    labelsMap: LabelsMap | undefined
-  }
->): ReactNode {
+}: Readonly<{
+  fidx: number
+  floor: Floor
+  labelsMap: LabelsMap | undefined
+}>): ReactNode {
   const ref = useRef(null)
   useFloorRef(ref, `html-${fidx}`)
   return (

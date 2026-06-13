@@ -1,7 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 import { Fragment, useRef, type PropsWithChildren, type ReactNode } from 'react'
 
-import { type Floor, type OsmRenderMapProps } from '../../../types'
+import { type OsmRenderMapProps } from '../../../types'
 import { floor_appearing_animation } from '../../css'
 import { useLayout2 } from '../../style/style-react'
 import {
@@ -20,15 +20,9 @@ export function RenderFloorsSvg({
   return (
     <div className="content map-floors-svg">
       <RenderFloorsSvgSvg>
-        {floors?.floors.map((floor, fidx) => (
+        {floors?.floors.map((_, fidx) => (
           <Fragment key={fidx}>
-            <RenderFloorSvg
-              floors={floors}
-              {...rest}
-              ctx={ctx}
-              floor={floor}
-              fidx={fidx}
-            />
+            <RenderFloorSvg fidx={fidx} {...rest} ctx={ctx} />
           </Fragment>
         ))}
       </RenderFloorsSvgSvg>
@@ -57,14 +51,11 @@ function RenderFloorsSvgSvg(props: Readonly<PropsWithChildren>): ReactNode {
 }
 
 function RenderFloorSvg({
+  fidx,
   data: { origViewBox },
   ctx: { fidxToOnAnimationEnd, urls },
-  fidx,
 }: Readonly<
-  OsmRenderMapProps & { ctx: UseFloorsReturn } & {
-    floor: Floor
-    fidx: number
-  }
+  { fidx: number } & OsmRenderMapProps & { ctx: UseFloorsReturn }
 >): ReactNode {
   const ref = useRef(null)
   useFloorRef(ref, `svg-${fidx}`)
