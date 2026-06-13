@@ -69,6 +69,7 @@ const style: string = `
   contain: strict;
 
   &.zooming {
+    transform-origin: var(--zoom-origin);
     will-change: transform;
     animation: container-zoom 500ms ease;
   }
@@ -103,11 +104,9 @@ const style: string = `
 }
 @keyframes container-zoom {
   from {
-    transform-origin: var(--zoom-origin-p);
     transform: var(--zoom-p);
   }
   to {
-    transform-origin: var(--zoom-origin-q);
     transform: var(--zoom-q);
   }
 }
