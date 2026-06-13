@@ -13,7 +13,7 @@ import {
 } from '../css'
 import { useShadowRoot } from '../dom'
 import { notifyUi } from '../event-ui'
-import { useAnimationStyleRef } from '../viewer/layout/style'
+import { useZoomStyleRef } from '../viewer/layout/style'
 import { useTouchMoveZoomingLock } from '../viewer/touch/event'
 import { useOnWheel } from '../wheel'
 import { useDetailStyleRef } from './style'
@@ -26,7 +26,7 @@ export function Screen(): ReactNode {
 function ScreenRoot(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
   useDetailStyleRef(ref, 'screen')
-  useAnimationStyleRef(ref, 'screen')
+  useZoomStyleRef(ref, 'screen')
   useTouchMoveZoomingLock(ref)
   useOnWheel(ref)
   return (

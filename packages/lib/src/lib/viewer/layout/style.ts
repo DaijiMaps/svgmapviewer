@@ -35,16 +35,16 @@ export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
 
 ////
 
-const animationStyleRefs: Map<string, HTMLDivElement> = new Map()
+const zoomStyleRefs: Map<string, HTMLDivElement> = new Map()
 
-export function useAnimationStyleRef(
+export function useZoomStyleRef(
   ref: Readonly<RefObject<HTMLDivElement | null>>,
   name: string
 ): void {
-  useStyleRef(animationStyleRefs, ref, name)
+  useStyleRef(zoomStyleRefs, ref, name)
 }
 
-export function updateAnimationStyleRefs(
+export function updateZoomStyleRefs(
   a: Readonly<null | AnimationMatrix>,
   zoom: number
 ): void {
@@ -56,7 +56,7 @@ export function updateAnimationStyleRefs(
     a === null || a.origin === null
       ? `left top`
       : `${a.origin.x}px ${a?.origin.y}px`
-  Array.from(animationStyleRefs, ([, e]) => {
+  Array.from(zoomStyleRefs, ([, e]) => {
     const s = e.style.setProperty.bind(e.style)
     tag(e, 'zooming', a !== null)
     s(`--zoom-zoom`, zoom.toString())

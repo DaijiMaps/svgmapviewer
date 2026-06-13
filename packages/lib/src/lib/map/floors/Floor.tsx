@@ -23,7 +23,7 @@ import {
   type UseFloorsReturn,
 } from '../../viewer/floors/floors-react'
 import { useFloorRef } from '../../viewer/floors/style'
-import { useAnimationStyleRef } from '../../viewer/layout/style'
+import { useZoomStyleRef } from '../../viewer/layout/style'
 import { MAP_SVG_FLOORS } from '../map-svg-react'
 
 export function RenderFloors(props: Readonly<OsmRenderMapProps>): ReactNode {
@@ -255,7 +255,7 @@ text, tspan {
 
 function RenderFloorHtmlLabels({ idx: fidx, labels }: Props): ReactNode {
   const ref = useRef(null)
-  useAnimationStyleRef(ref, `labels-${fidx}`)
+  useZoomStyleRef(ref, `labels-${fidx}`)
   return (
     <div ref={ref} className="labels">
       {labels?.map((_text, idx) => {
