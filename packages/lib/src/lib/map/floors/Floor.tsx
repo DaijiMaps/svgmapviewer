@@ -14,8 +14,6 @@ import {
   type LabelText,
   type OsmRenderMapProps,
 } from '../../../types'
-import { type BoxBox } from '../../box/prefixed'
-import type { Cb } from '../../cb'
 import { floor_appearing_animation } from '../../css'
 import { useLayout2 } from '../../style/style-react'
 import {
@@ -25,6 +23,7 @@ import {
 import { useFloorRef } from '../../viewer/floors/style'
 import { useZoomStyleRef } from '../../viewer/layout/style'
 import { MAP_SVG_FLOORS } from '../map-svg-react'
+import type { FloorProps } from './types'
 
 export function RenderFloors(props: Readonly<OsmRenderMapProps>): ReactNode {
   return (
@@ -174,14 +173,6 @@ function RenderFloorHtml({
     </div>
   )
 }
-
-type FloorProps = Readonly<{
-  origViewBox: BoxBox
-  idx: number
-  url?: string
-  onAnimationEnd?: Cb
-  labels?: readonly LabelText[]
-}>
 
 function RenderFloorImage({ origViewBox, url }: FloorProps): ReactNode {
   // XXX better "loading" display?
