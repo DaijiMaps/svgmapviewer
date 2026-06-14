@@ -1,16 +1,19 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { Fragment, type ReactNode } from 'react'
+import {
+  Fragment,
+  useMemo,
+  type PropsWithChildren,
+  type ReactNode,
+} from 'react'
 
 import { type OsmRenderMapProps } from '../../types'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapMarkers } from '../carto'
+import { RenderMarkerUses } from '../carto/markers'
+import { entryToVs } from '../carto/point'
 import { useShadowRoot } from '../dom'
-import {
-  useLayout,
-  useLayoutConfig,
-  useLayoutSvgScaleS,
-} from '../style/style-react'
+import { useLayout, useLayoutConfig } from '../style/style-react'
 import { trunc2 } from '../utils'
 import { type VecVec } from '../vec/prefixed'
 import {
@@ -31,7 +34,12 @@ export function MapSvgMarkersRoot(
   return (
     <>
       <MapSvgMarkersSvg />
-      <MapSvgMarkersDefs {...props} />
+      <MapSvgMarkersDefs {...props}>
+        <g id="map-svg-markers1">
+          <MapSvgMarkersUses />
+          <use href="#position" />
+        </g>
+      </MapSvgMarkersDefs>
       <style>{style}</style>
     </>
   )
@@ -64,9 +72,11 @@ function MapSvgMarkersSvg(): ReactNode {
   )
 }
 
-function MapSvgMarkersDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
+function MapSvgMarkersDefs(
+  props: Readonly<PropsWithChildren<OsmRenderMapProps>>
+): ReactNode {
   const { fontSize } = useLayoutConfig()
-  const s = useLayoutSvgScaleS()
+  const sz = useMemo(() => 25 / fontSize, [fontSize])
 
   return (
     <svg id="map-svg-markers-defs">
@@ -75,24 +85,31 @@ function MapSvgMarkersDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
         m={props.data.mapCoord.matrix}
         mapMarkers={props.render.getMapMarkers()}
         fontSize={fontSize}
-        s={s}
-      />
-      <g id="map-svg-markers1">
-        <MapSvgMarkersUses {...props} />
-        <use href="#position" />
-      </g>
+      >
+        {props.render.getMapMarkers().map((entry, i) => (
+          <g key={i}>
+            <RenderMarkerUses
+              m={props.data.mapCoord.matrix}
+              sz={sz}
+              name={entry.name}
+              href={entry.name} // XXX XXX XXX
+              vs={entryToVs(props.data.mapData, entry)}
+            />
+          </g>
+        ))}
+      </RenderMapMarkers>
+      {props.children}
     </svg>
   )
 }
 
-function MapSvgMarkersUses(props: Readonly<OsmRenderMapProps>): ReactNode {
+function MapSvgMarkersUses(): ReactNode {
   const { pointNames } = useNames()
-  const m = props.data.mapCoord.matrix
 
   return (
     <g>
       {pointNames
-        .map((p) => ({ ...p, pos: m.transformPoint(p.coord) }))
+        .map((p) => ({ ...p }))
         .map(({ coord }, idx) => (
           <Fragment key={idx}>
             <MapSvgMarkersUse coord={coord} />

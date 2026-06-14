@@ -1,16 +1,16 @@
 /* eslint-disable functional/no-expression-statements */
-import { useMemo, useRef, type ReactNode } from 'react'
+import { useMemo, useRef, type PropsWithChildren, type ReactNode } from 'react'
 
 import { type OsmRenderMapProps } from '../../types'
 import { useMapStyleRef } from '../map/style'
 import { usePosition } from '../position'
+import { useLayoutSvgScaleS } from '../style/style-react'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'
-import { entryToVs } from './point'
 import { type MapMarker, type RenderMapMarkersProps } from './types'
 
 export function RenderMapMarkers(
-  props: Readonly<OsmRenderMapProps & RenderMapMarkersProps>
+  props: Readonly<PropsWithChildren<OsmRenderMapProps & RenderMapMarkersProps>>
 ): ReactNode {
   const ref = useRef<SVGGElement>(null)
 
@@ -20,17 +20,7 @@ export function RenderMapMarkers(
 
   return (
     <defs ref={ref} className="map-markers">
-      {props.mapMarkers.map((entry, i) => (
-        <g key={i}>
-          <RenderUses
-            m={props.m}
-            sz={sz}
-            name={entry.name}
-            href={entry.name} // XXX XXX XXX
-            vs={entryToVs(props.data.mapData, entry)}
-          />
-        </g>
-      ))}
+      {props.children}
       <RenderCircle sz={sz} />
       <RenderPosition sz={sz} />
       <style>
@@ -40,7 +30,7 @@ export function RenderMapMarkers(
   )
 }
 
-function RenderUses(
+export function RenderMarkerUses(
   props: Readonly<{
     m: DOMMatrixReadOnly
     sz: number
@@ -159,12 +149,12 @@ export function RenderPositionStyle(
   props: Readonly<
     OsmRenderMapProps & {
       fontSize: number
-      s: number
     }
   >
 ): ReactNode {
   const position = usePosition()
-  const sz = props.s * props.fontSize * 0.9
+  const s = useLayoutSvgScaleS()
+  const sz = s * props.fontSize * 0.9
 
   if (position === null) {
     return (
