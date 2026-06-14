@@ -4,7 +4,7 @@ import { useMemo, useRef, type PropsWithChildren, type ReactNode } from 'react'
 import { type OsmRenderMapProps } from '../../types'
 import { useMapStyleRef } from '../map/style'
 import { usePosition } from '../position'
-import { useLayoutSvgScaleS } from '../style/style-react'
+//import { useLayoutSvgScaleS } from '../style/style-react'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'
 import { type MapMarker, type RenderMapMarkersProps } from './types'
@@ -153,8 +153,8 @@ export function RenderPositionStyle(
   >
 ): ReactNode {
   const position = usePosition()
-  const s = useLayoutSvgScaleS()
-  const sz = s * props.fontSize * 0.9
+  //const s = useLayoutSvgScaleS()
+  //const sz = s * props.fontSize * 0.9
 
   if (position === null) {
     return (
@@ -174,7 +174,7 @@ export function RenderPositionStyle(
     <>{`
 #position {
   display: initial !important;
-  transform: translate(${x}px, ${y}px) scale(${sz});
+  transform: translate(${x}px, ${y}px) scale(calc(var(--layout-svgscale) * var(--layout-fontsize) * 0.9));
 }
 `}</>
   )

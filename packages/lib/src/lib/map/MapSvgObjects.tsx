@@ -6,8 +6,7 @@ import { type OsmRenderMapProps } from '../../types'
 import { boxToViewBox2 } from '../box/prefixed'
 import { RenderMapObjects } from '../carto'
 import { useShadowRoot } from '../dom'
-import { useLayout } from '../style/style-react'
-import { trunc2 } from '../utils'
+import { useLayoutSvg } from '../style/style-react'
 import {
   MAP_SVG_OBJECTS_CONTENT_ID,
   MAP_SVG_OBJECTS_ROOT_ID,
@@ -43,20 +42,26 @@ const style = `
 `
 
 function MapSvgObjectsSvg(): ReactNode {
-  const { scroll, svg } = useLayout()
+  const svg = useLayoutSvg()
 
   return (
     <svg
       id={MAP_SVG_OBJECTS_CONTENT_ID}
       className="content-svg"
       viewBox={boxToViewBox2(svg)}
-      width={trunc2(scroll.width)}
-      height={trunc2(scroll.height)}
     >
       <use href="#map-svg-objects1" />
+      <style>{style1}</style>
     </svg>
   )
 }
+
+const style1 = `
+#${MAP_SVG_OBJECTS_CONTENT_ID} {
+  width: var(--layout-scroll-width);
+  height: var(--layout-scroll-height);
+}
+`
 
 function MapSvgObjectsDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
   return (

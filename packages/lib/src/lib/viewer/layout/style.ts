@@ -38,6 +38,8 @@ export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
     p(`--layout-scroll-width`, `${trunc2(layout.scroll.width)}px`)
     p(`--layout-scroll-height`, `${trunc2(layout.scroll.height)}px`)
     p(`--layout-svg-to-content-matrix`, matrixTrunc2(svgToContent).toString())
+    p(`--layout-svgscale`, `${trunc2(layout.svgScale)}`)
+    p(`--layout-fontsize`, `${trunc2(layout.config.fontSize)}`)
   })
 }
 

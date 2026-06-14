@@ -3,6 +3,7 @@
 import {
   Fragment,
   useMemo,
+  useRef,
   type PropsWithChildren,
   type ReactNode,
 } from 'react'
@@ -13,9 +14,10 @@ import { RenderMapMarkers } from '../carto'
 import { RenderMarkerUses } from '../carto/markers'
 import { entryToVs } from '../carto/point'
 import { useShadowRoot } from '../dom'
-import { useLayout, useLayoutConfig } from '../style/style-react'
+import { useLayoutConfig, useLayoutSvg } from '../style/style-react'
 import { trunc2 } from '../utils'
 import { type VecVec } from '../vec/prefixed'
+import { useLayoutStyleRef } from '../viewer/layout/style'
 import {
   MAP_SVG_MARKERS_CONTENT_ID,
   MAP_SVG_MARKERS_ROOT_ID,
@@ -57,29 +59,37 @@ const style = `
 `
 
 function MapSvgMarkersSvg(): ReactNode {
-  const { scroll, svg } = useLayout()
+  const svg = useLayoutSvg()
 
   return (
     <svg
       id={MAP_SVG_MARKERS_CONTENT_ID}
       className="content-svg"
       viewBox={boxToViewBox2(svg)}
-      width={trunc2(scroll.width)}
-      height={trunc2(scroll.height)}
     >
       <use href="#map-svg-markers1" />
+      <style>{style1}</style>
     </svg>
   )
 }
 
+const style1 = `
+#${MAP_SVG_MARKERS_CONTENT_ID} {
+  width: var(--layout-scroll-width);
+  height: var(--layout-scroll-height);
+}`
+
 function MapSvgMarkersDefs(
   props: Readonly<PropsWithChildren<OsmRenderMapProps>>
 ): ReactNode {
+  const ref = useRef(null)
   const { fontSize } = useLayoutConfig()
   const sz = useMemo(() => 25 / fontSize, [fontSize])
 
+  useLayoutStyleRef(ref, 'map-svg-markers')
+
   return (
-    <svg id="map-svg-markers-defs">
+    <svg ref={ref} id="map-svg-markers-defs">
       <RenderMapMarkers
         {...props}
         m={props.data.mapCoord.matrix}
