@@ -1,5 +1,5 @@
 import { Fragment, type ReactNode } from 'react'
-import { svgMapViewerConfig } from 'svgmapviewer'
+import { useConfig } from 'svgmapviewer'
 import { findProperties, type OsmProperties } from 'svgmapviewer/geo'
 
 import { RenderFacilityInfo } from './facility/render'
@@ -11,7 +11,8 @@ export interface RenderXInfoProps {
 }
 
 export function RenderXInfo(props: Readonly<RenderXInfoProps>): ReactNode {
-  const mapMap = svgMapViewerConfig.mapMap
+  const cfg = useConfig()
+  const mapMap = cfg.mapMap
   const id = Number(props.x.address)
   const properties = 'address' in props.x ? findProperties(id, mapMap) : null
   if (properties === null) {

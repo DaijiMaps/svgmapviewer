@@ -3,7 +3,7 @@
 /* eslint-disable functional/functional-parameters */
 import { useEffect, useRef, type ReactNode } from 'react'
 
-import { svgMapViewerConfig as config } from '../../config'
+import { useConfig } from '../../config'
 import {
   flex_column_center_center,
   pointer_events_initial,
@@ -40,6 +40,8 @@ function HeaderRoot(): ReactNode {
 
   useHeaderStyleRef(ref, 'header')
 
+  const cfg = useConfig()
+
   return (
     <div
       ref={ref}
@@ -47,7 +49,7 @@ function HeaderRoot(): ReactNode {
       onAnimationEnd={() => uiSend({ type: 'HEADER.ANIMATION.END' })}
     >
       <h1 className="title" onClick={() => notifyAction.reset()}>
-        {config.title}
+        {cfg.title}
       </h1>
       <FloorName />
       <style>{style}</style>
@@ -76,9 +78,13 @@ const style = `
     text-align: center;
     font-size: large;
   }
+}
+.header {
+  opacity: var(--header-scale);
   transform-origin: 50% 0%;
-  
+  transform: translate(calc(50vw - 50%), 0%) scale(var(--header-scale)) translate3d(0px, 0px, 0px);
   &.not-animating {
+    --header-scale: var(--b);
     &.closed {
       --b: 0;
     }
@@ -87,8 +93,6 @@ const style = `
     }
     will-change: initial;
     animation: none;
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
-    opacity: var(--b);
   }
   &.animating {
     &.closed {
@@ -106,15 +110,12 @@ const style = `
     animation: xxx-header var(--duration) var(--timing);
   }
 }
-
 @keyframes xxx-header {
   from {
-    opacity: var(--a);
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--a)) translate3d(0px, 0px, 0px);
+    --header-scale: var(--a);
   }
   to {
-    opacity: var(--b);
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--b)) translate3d(0px, 0px, 0px);
+    --header-scale: var(--b);
   }
 }
 `

@@ -1,8 +1,8 @@
 /* eslint-disable functional/no-expression-statements */
 import { createAtom } from '@xstate/store'
 
-import { svgMapViewerConfig as cfg } from '../../config'
-import { type Info } from '../../types'
+import { getConfig } from '../../config'
+import { type Info, type SvgMapViewerConfig } from '../../types'
 import {
   //namesToNameMap,
   namesToRNameMap,
@@ -54,18 +54,19 @@ const getInfoMap = (infos: readonly SearchInfo[]) => {
 }
 
 export const makeGetInfoByName =
-  (searchInfos: typeof cfg.searchInfos) =>
+  (searchInfos: SvgMapViewerConfig['searchInfos']) =>
   (name: string): Info | null => {
     const m = getInfoMap(searchInfos ?? [])
     return m.get(name) || null
   }
 
-type GetInfoByName = NonNullable<typeof cfg.getInfoByName>
+type GetInfoByName = NonNullable<SvgMapViewerConfig['getInfoByName']>
 
 const getInfoByNameAtom = createAtom<null | GetInfoByName>(null)
 
 // eslint-disable-next-line functional/functional-parameters
 const getGetInfoByName = () => {
+  const cfg = getConfig()
   if (cfg.getInfoByName) return cfg.getInfoByName
   const tmp = getInfoByNameAtom.get()
   if (tmp !== null) return tmp
@@ -77,6 +78,7 @@ const getGetInfoByName = () => {
 export const getSearchInfoCommon = (
   pos: Readonly<SearchAddress>
 ): null | Info => {
+  const cfg = getConfig()
   const searchNames = cfg.searchNames
   const getInfoByName = getGetInfoByName()
   if (searchNames === undefined || getInfoByName === undefined) return null

@@ -97,36 +97,7 @@ const style: string = `
     animation: xxx-appearing 2s ${timing_opening};
   }
 }
-@property --zoom-tx {
-  syntax: '<length>';
-  inherits: true;
-  initial-value: 0;
-}
-@property --zoom-ty {
-  syntax: '<length>';
-  inherits: true;
-  initial-value: 0;
-}
-@property --zoom-s {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
-}
-@property --zoom-s-inv {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
-}
-@property --zoom-z {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
-}
-@property --zoom-z-inv {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
-}
+
 @keyframes xxx-appearing {
   from {
     opacity: 0;

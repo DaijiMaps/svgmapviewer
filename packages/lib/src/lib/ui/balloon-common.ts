@@ -199,29 +199,34 @@ export function calcBalloonPaths(
   }
 }
 
-export const detailStyleString: string = `
-.not-animating {
-  &.detail {
-    transform-origin: 0 0;
-    transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
-  }
-  &.balloon {
-    transform-origin: 0 0;
-    transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
-  }
+export const balloonStyleString: string = `
+.balloon,
+.detail {
+  opacity: var(--balloon-opacity);
+  transform-origin: 0 0;
 }
-
+.balloon {
+  transform: translate(var(--balloon-translate-x), var(--balloon-translate-y)) scale(var(--balloon-scale)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
+}
+.detail {
+  transform: translate(var(--balloon-translate-x), var(--balloon-translate-y)) scale(var(--balloon-scale)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+}
+.not-animating {
+  --balloon-opacity: var(--b);
+  --balloon-translate-x: var(--tx-b-x);
+  --balloon-translate-y: var(--tx-b-y);
+  --balloon-scale: var(--b);
+}
 .animating {
-  &.detail,
-  &.balloon {
+  &.balloon,
+  &.detail {
     --duration: ${ZOOM_DURATION_DETAIL}ms;
-    transform-origin: 0 0;
     will-change: opacity, transform;
   }
-  &.detail {
-    animation: xxx-detail var(--duration) var(--timing);
-  }
   &.balloon {
+    animation: xxx-balloon var(--duration) var(--timing);
+  }
+  &.detail {
     animation: xxx-balloon var(--duration) var(--timing);
   }
   &.closed {
@@ -231,26 +236,18 @@ export const detailStyleString: string = `
     --timing: ${timing_opening};
   }
 }
-
-@keyframes xxx-detail {
-  from {
-    opacity: var(--a);
-    transform: translate(var(--tx-a-x), var(--tx-a-y)) scale(var(--a)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
-  }
-  to {
-    opacity: var(--b);
-    transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
-  }
-}
-
 @keyframes xxx-balloon {
   from {
-    opacity: var(--a);
-    transform: translate(var(--tx-a-x), var(--tx-a-y)) scale(var(--a)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
+    --balloon-opacity: var(--a);
+    --balloon-translate-x: var(--tx-a-x);
+    --balloon-translate-y: var(--tx-a-y);
+    --balloon-scale: var(--a);
   }
   to {
-    opacity: var(--b);
-    transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
+    --balloon-opacity: var(--b);
+    --balloon-translate-x: var(--tx-b-x);
+    --balloon-translate-y: var(--tx-b-y);
+    --balloon-scale: var(--b);
   }
 }
 `
@@ -347,13 +344,12 @@ export function updateBalloonStyle(
     txby,
   }: BalloonStyleParams
 ): void {
-  const p = (k: string, v: null | number | string) =>
-    e.style.setProperty(k, v === null ? null : String(v))
+  const p = e.style.setProperty.bind(e.style)
   p('visibility', visibility)
   p('--pww', pww)
   p('--phh', phh)
-  p('--a', a)
-  p('--b', b)
+  p('--a', a === null ? null : a.toString())
+  p('--b', b === null ? null : b.toString())
   p('--timing', timing)
   p('--tx-a-x', txax)
   p('--tx-a-y', txay)

@@ -2,7 +2,7 @@
 /* eslint-disable functional/functional-parameters */
 import { useRef, type ReactNode } from 'react'
 
-import { svgMapViewerConfig as config } from '../../config'
+import { useConfig } from '../../config'
 import {
   flex_column_center_center,
   position_absolute_left_0_bottom_0,
@@ -25,11 +25,13 @@ function FooterRoot(): ReactNode {
 
   useHeaderStyleRef(ref, 'footer')
 
+  const cfg = useConfig()
+
   return (
     <div ref={ref} className="ui-content footer">
       <p>
         <a href={document.location.href + `?info=1`} target="_blank">
-          {config.copyright}
+          {cfg.copyright}
         </a>
       </p>
       <style>{style}</style>
@@ -62,33 +64,23 @@ const style = `
       }
     }
   }
-  will-change: initial;
+}
+.footer {
+  opacity: var(--footer-scale);
   transform-origin: 50% 100%;
-  
-  &.closed {
-    --closed: 1;
-  }
-  &.opened {
-    --opened: 1;
-  }
+  transform: translate(calc(50vw - 50%), 0%) scale(var(--footer-scale));
   &.not-animating {
-    --animating: 0;
-    --a: initial;
+    --footer-scale: var(--b);
     &.closed {
       --b: 0;
     }
     &.opened {
       --b: 1;
     }
-    --duration: initial;
-    --timing: initial;
     will-change: initial;
     animation: initial;
-    opacity: var(--b);
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
   }
   &.animating {
-    --animating: 1;
     &.closed {
       --a: 1;
       --b: 0;
@@ -102,19 +94,14 @@ const style = `
     --duration: ${ZOOM_DURATION_HEADER}ms;
     will-change: opacity, transform;
     animation: xxx-footer var(--duration) var(--timing);
-    opacity: initial;
-    transform: initial;
   }
 }
-
 @keyframes xxx-footer {
   from {
-    opacity: var(--a);
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--a)) translate3d(0px, 0px, 0px);
+    --footer-scale: var(--a);
   }
   to {
-    opacity: var(--b);
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--b)) translate3d(0px, 0px, 0px);
+    --footer-scale: var(--b);
   }
 }
 `

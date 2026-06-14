@@ -3,7 +3,7 @@
 /* eslint-disable functional/functional-parameters */
 import { useRef, type ReactNode } from 'react'
 
-import { svgMapViewerConfig as cfg } from '../../config'
+import { useConfig } from '../../config'
 import {
   box_sizing_border_box,
   pointer_events_initial,
@@ -26,6 +26,8 @@ export function Detail(): ReactNode {
   useDetailScrollStyleRefs(ref, 'detail')
 
   const detail = useDetail()
+
+  const cfg = useConfig()
 
   return (
     <div

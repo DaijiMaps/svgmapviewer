@@ -1,13 +1,14 @@
 /* eslint-disable functional/functional-parameters */
 import { type ReactNode } from 'react'
 
-import { svgMapViewerConfig } from '../../config'
+import { useConfig } from '../../config'
 import { background_white_opaque, floor_switch_duration } from '../css'
 import { useFloors } from '../viewer/floors/floors-react'
 
 export function Floors(): ReactNode {
   const { fidx, fidxToOnClick } = useFloors()
-  const floorsConfig = svgMapViewerConfig.floorsConfig
+  const cfg = useConfig()
+  const floorsConfig = cfg.floorsConfig
   return floorsConfig === undefined || floorsConfig.floors.length < 2 ? (
     <></>
   ) : (
@@ -62,7 +63,8 @@ const floorsStyle = `
 
 export function FloorName(): ReactNode {
   const { fidx } = useFloors()
-  const floorsConfig = svgMapViewerConfig.floorsConfig
+  const cfg = useConfig()
+  const floorsConfig = cfg.floorsConfig
   return floorsConfig === undefined || floorsConfig.floors.length < 2 ? (
     <></>
   ) : (

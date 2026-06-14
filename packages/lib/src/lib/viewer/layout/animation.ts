@@ -3,7 +3,7 @@
 
 import { createAtom, type Atom } from '@xstate/store'
 
-import { svgMapViewerConfig } from '../../../config'
+import { getConfig } from '../../../config'
 import type { Dir } from '../../../types'
 import { boxCenter, boxScaleAt } from '../../box/prefixed'
 import {
@@ -142,7 +142,7 @@ export function animationDone(layout: Layout, a: null | Animation): Layout {
 }
 
 function zoomToScale(z: Dir): number {
-  return Math.pow(svgMapViewerConfig.zoomFactor, z)
+  return Math.pow(getConfig().zoomFactor, z)
 }
 
 ////

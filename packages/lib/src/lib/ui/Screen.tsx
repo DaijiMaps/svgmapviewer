@@ -48,17 +48,20 @@ const style = `
   cursor: default;
   pointer-events: none;
   z-index: ${Z_INDEX_SHADOW};
+}
+.screen {
+  opacity: var(--screen-opacity);
   &.not-animating {
     &.closed {
-      opacity: 0;
+      --screen-opacity: 0;
       display: none;
       &.zooming {
         display: initial;
       }
     }
     &.opened {
+      --screen-opacity: 0.3;
       pointer-events: initial;
-      opacity: 0.3;
     }
   }
   &.animating {
@@ -79,10 +82,10 @@ const style = `
 }
 @keyframes xxx-screen {
   from {
-    opacity: var(--a);
+    --screen-opacity: var(--a);
   }
   to {
-    opacity: var(--b);
+    --screen-opacity: var(--b);
   }
 }
 `

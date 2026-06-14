@@ -2,11 +2,12 @@
 /* eslint-disable functional/functional-parameters */
 import type { ReactNode } from 'react'
 
-import { svgMapViewerConfig } from '../../../config'
+import { useConfig } from '../../../config'
 import { notifyAction } from '../../event-action'
 
 export function Position(): ReactNode {
-  return svgMapViewerConfig.mapCoord.matrix.isIdentity ? (
+  const cfg = useConfig()
+  return cfg.mapCoord.matrix.isIdentity ? (
     <></>
   ) : (
     <div

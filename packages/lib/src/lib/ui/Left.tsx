@@ -42,11 +42,14 @@ const style = `
   ${pointer_events_none}
   top: initial;
   align-items: end;
+}
+.left {
+  opacity: var(--left-scale);
   transform-origin: 0% 50%;
-  transform: translate(0%, calc(50vh - 50%)) scale(var(--b));
-  opacity: var(--b);
+  transform: translate(0%, calc(50vh - 50%)) scale(var(--left-scale));
   --b: 1;
   &.not-animating {
+    --left-scale: var(--b);
     &.closed {
       --b: 0;
     }
@@ -70,15 +73,12 @@ const style = `
     will-change: opacity, transform;
   }
 }
-
 @keyframes xxx-left {
   from {
-    opacity: var(--a);
-    transform: translate(0%, calc(50vh - 50%)) scale(var(--a)) translate3d(0px, 0px, 0px);
+    --left-scale: var(--a);
   }
   to {
-    opacity: var(--b);
-    transform: translate(0%, calc(50vh - 50%)) scale(var(--b)) translate3d(0px, 0px, 0px);
+    --left-scale: var(--b);
   }
 }
 `
