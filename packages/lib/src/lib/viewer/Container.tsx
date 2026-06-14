@@ -12,8 +12,9 @@ import { notifyStyle } from '../event-style'
 import { useAppearingStyleRef } from '../style/appearing'
 import { useDetailStyleRef } from '../ui/style'
 import { sendContextMenu } from './input/input'
-import { useAnimationStyleRef } from './layout/style'
+import { useZoomStyleRef } from './layout/style'
 import { useLayoutStyleRef } from './layout/style'
+import { useScrollRef } from './scroll/style'
 import { useTouchMoveZoomingLock } from './touch/event'
 import {
   touchSendTouchEnd,
@@ -26,9 +27,10 @@ export function Container(props: Readonly<PropsWithChildren>): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
   useDetailStyleRef(ref, 'container')
   useTouchMoveZoomingLock(ref)
-  useAnimationStyleRef(ref, 'container')
+  useZoomStyleRef(ref, 'container')
   useLayoutStyleRef(ref, 'container')
   useAppearingStyleRef(ref, 'container')
+  useScrollRef(ref, 'container')
   return (
     <div
       ref={ref}
@@ -67,8 +69,12 @@ const style: string = `
   contain: strict;
 
   &.zooming {
+    transform-origin: var(--zoom-origin);
+    transform: translate(var(--zoom-tx), var(--zoom-ty)) scale(var(--zoom-s)) translate3d(0px, 0px, 0px);
     will-change: transform;
+    /*
     animation: container-zoom 500ms ease;
+    */
   }
   & > .content {
     ${position_absolute_left_0_top_0}
@@ -91,23 +97,35 @@ const style: string = `
     animation: xxx-appearing 2s ${timing_opening};
   }
 }
-@keyframes xxx-container {
-  from {
-    opacity: var(--a);
-  }
-  to {
-    opacity: var(--b);
-  }
+@property --zoom-tx {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
 }
-@keyframes container-zoom {
-  from {
-    transform-origin: var(--zoom-origin-p);
-    transform: var(--zoom-p);
-  }
-  to {
-    transform-origin: var(--zoom-origin-q);
-    transform: var(--zoom-q);
-  }
+@property --zoom-ty {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+@property --zoom-s {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+@property --zoom-s-inv {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+@property --zoom-z {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+@property --zoom-z-inv {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
 }
 @keyframes xxx-appearing {
   from {
