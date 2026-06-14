@@ -1,17 +1,19 @@
+/* eslint-disable functional/immutable-data */
+/* eslint-disable functional/no-conditional-statements */
+/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { Fragment, useMemo, type ReactNode } from 'react'
+import { Fragment, useMemo, useRef, type ReactNode } from 'react'
 
 import {
   position_absolute_left_0_bottom_0,
   position_absolute_left_0_top_0,
   position_absolute_right_0_bottom_0,
 } from '../css'
-import {
-  useDistanceRadius,
-  useGeoPoint,
-  useLayoutContainer,
-} from '../style/style-react'
+import { useStyleRef, type StyleRefMap } from '../style/ref'
+import { useDistanceRadius, useLayoutContainer } from '../style/style-react'
 import { trunc7 } from '../utils'
+import type { VecVec } from '../vec/prefixed'
 
 export function Measure(): ReactNode {
   return (
@@ -57,19 +59,31 @@ export function MeasureDistance(): ReactNode {
   )
 }
 
-export function MeasureCoordinate(): ReactNode {
-  const pgeo = useGeoPoint()
+const coordRefs: StyleRefMap<HTMLDivElement> = new Map()
 
+export function updateCoordRefs(pgeo: VecVec): void {
   const ew = pgeo.x > 0 ? 'E' : 'W'
   const ns = pgeo.y > 0 ? 'N' : 'S'
   const lon = `${ew} ${trunc7(Math.abs(pgeo.x))}`
   const lat = `${ns} ${trunc7(Math.abs(pgeo.y))}`
+  Array.from(coordRefs, ([name, e]) => {
+    if (name === 'lon') e.textContent = lon
+    if (name === 'lat') e.textContent = lat
+  })
+}
+
+export function MeasureCoordinate(): ReactNode {
+  const lonRef = useRef(null)
+  const latRef = useRef(null)
+
+  useStyleRef(coordRefs, lonRef, 'lon')
+  useStyleRef(coordRefs, latRef, 'lat')
 
   return (
     <div id="coordinate">
       {/* placeholder - updated by style coord */}
-      <p id="longitude">{lon}</p>
-      <p id="latitude">{lat}</p>
+      <p ref={lonRef} id="longitude"></p>
+      <p ref={latRef} id="latitude"></p>
       <style>
         <CoordinateStyle />
       </style>

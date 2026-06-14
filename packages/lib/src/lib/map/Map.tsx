@@ -6,7 +6,9 @@ import { RenderMapCommon } from '../carto'
 import { isShadowRootRendered } from '../dom'
 import { MAP_SVG_PATHS_ROOT_ID } from './map-svg-react'
 import { MapHtml } from './MapHtml'
+/*
 import { MapSvgLabels } from './MapSvgLabels'
+*/
 import { MapSvgMarkers } from './MapSvgMarkers'
 import { MapSvgObjects } from './MapSvgObjects'
 import { MapSvgPaths } from './MapSvgPaths'
@@ -25,7 +27,9 @@ export function RenderMapOsmDefault(
       <MapSvgObjects {...props} />
       <MapSvgSymbols {...props} />
       <MapSvgMarkers {...props} />
+      {/*
       <MapSvgLabels {...props} />
+      */}
       <MapHtml {...props} />
     </>
   )

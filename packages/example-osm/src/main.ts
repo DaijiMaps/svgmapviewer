@@ -7,4 +7,5 @@ svgmapviewer({
   root: 'root',
   title: 'Yugyoji',
   mapData,
+  uiConfig: { showGuides: true },
 })
