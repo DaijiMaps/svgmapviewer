@@ -142,6 +142,21 @@ const style: string = `
   inherits: true;
   initial-value: 1;
 }
+@property --balloon-translate-x {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+@property --balloon-translate-y {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+@property --balloon-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
 
 @keyframes xxx-appearing {
   from {
