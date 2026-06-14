@@ -77,8 +77,11 @@ const style = `
     font-size: large;
   }
   transform-origin: 50% 0%;
+  opacity: var(--header-scale);
+  transform: translate(calc(50vw - 50%), 0%) scale(var(--header-scale)) translate3d(0px, 0px, 0px);
   
   &.not-animating {
+    --header-scale: var(--b);
     &.closed {
       --b: 0;
     }
@@ -87,8 +90,6 @@ const style = `
     }
     will-change: initial;
     animation: none;
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
-    opacity: var(--b);
   }
   &.animating {
     &.closed {
@@ -109,12 +110,10 @@ const style = `
 
 @keyframes xxx-header {
   from {
-    opacity: var(--a);
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--a)) translate3d(0px, 0px, 0px);
+    --header-scale: var(--a);
   }
   to {
-    opacity: var(--b);
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--b)) translate3d(0px, 0px, 0px);
+    --header-scale: var(--b);
   }
 }
 `
