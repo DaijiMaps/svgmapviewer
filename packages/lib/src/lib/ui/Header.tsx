@@ -76,10 +76,11 @@ const style = `
     text-align: center;
     font-size: large;
   }
-  transform-origin: 50% 0%;
+}
+.header {
   opacity: var(--header-scale);
+  transform-origin: 50% 0%;
   transform: translate(calc(50vw - 50%), 0%) scale(var(--header-scale)) translate3d(0px, 0px, 0px);
-  
   &.not-animating {
     --header-scale: var(--b);
     &.closed {
@@ -107,7 +108,6 @@ const style = `
     animation: xxx-header var(--duration) var(--timing);
   }
 }
-
 @keyframes xxx-header {
   from {
     --header-scale: var(--a);

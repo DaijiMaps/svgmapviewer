@@ -51,7 +51,8 @@ const style = `
   ${width_100vw_height_100svh}
   ${pointer_events_none}
   z-index: ${Z_INDEX_GUIDES};
-  
+}
+.guides {
   &.not-animating {
     &.closed {
       --ob: 0;
@@ -78,11 +79,9 @@ const style = `
     will-change: opacity;
   }
 }
-
 text {
   ${user_select_none}
 }
-
 @keyframes xxx-measure {
   from {
     opacity: var(--oa);

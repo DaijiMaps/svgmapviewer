@@ -48,20 +48,17 @@ const style = `
   padding: 0.4em;
   font-size: smaller;
   ${pointer_events_none}
-
-  transform-origin: 100% 50%;
-  opacity: var(--right-scale);
-  transform: scale(var(--right-scale)) translate3d(0px, 0px, 0px);
-
   top: initial;
   bottom: 0;
   align-items: end;
-
+}
+.right {
+  opacity: var(--right-scale);
   transform-origin: 100% 50%;
   &.bottom {
     transform-origin: 100% 100%;
   }
-  
+  transform: scale(var(--right-scale)) translate3d(0px, 0px, 0px);
   &.not-animating {
     --right-scale: var(--b);
     &.closed {
@@ -87,7 +84,6 @@ const style = `
     animation: xxx-right 300ms var(--timing);
   }
 }
-
 @keyframes xxx-right {
   from {
     --right-scale: var(--a);

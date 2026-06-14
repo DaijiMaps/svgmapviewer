@@ -42,9 +42,11 @@ const style = `
   ${pointer_events_none}
   top: initial;
   align-items: end;
+}
+.left {
+  opacity: var(--left-scale);
   transform-origin: 0% 50%;
   transform: translate(0%, calc(50vh - 50%)) scale(var(--left-scale));
-  opacity: var(--left-scale);
   --b: 1;
   &.not-animating {
     --left-scale: var(--b);
@@ -71,7 +73,6 @@ const style = `
     will-change: opacity, transform;
   }
 }
-
 @keyframes xxx-left {
   from {
     --left-scale: var(--a);

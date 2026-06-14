@@ -62,10 +62,11 @@ const style = `
       }
     }
   }
-  transform-origin: 50% 100%;
+}
+.footer {
   opacity: var(--footer-scale);
+  transform-origin: 50% 100%;
   transform: translate(calc(50vw - 50%), 0%) scale(var(--footer-scale));
-  
   &.not-animating {
     --footer-scale: var(--b);
     &.closed {
@@ -93,7 +94,6 @@ const style = `
     animation: xxx-footer var(--duration) var(--timing);
   }
 }
-
 @keyframes xxx-footer {
   from {
     --footer-scale: var(--a);

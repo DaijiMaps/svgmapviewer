@@ -48,6 +48,8 @@ const style = `
   cursor: default;
   pointer-events: none;
   z-index: ${Z_INDEX_SHADOW};
+}
+.screen {
   opacity: var(--screen-opacity);
   &.not-animating {
     &.closed {
