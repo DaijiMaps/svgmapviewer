@@ -1,6 +1,7 @@
+import { createAtom, type Atom } from '@xstate/store'
+//import { useAtom } from '@xstate/store/react'
+import { useAtom } from '@xstate/store-react'
 /* eslint-disable functional/functional-parameters */
-/* eslint-disable functional/no-expression-statements */
-/* eslint-disable functional/no-let */
 /* eslint-disable functional/no-return-void */
 import { createElement, type ReactNode } from 'react'
 
@@ -21,7 +22,7 @@ function renderMapDefault(): ReactNode {
   return createElement('div')
 }
 
-export let svgMapViewerConfig: SvgMapViewerConfig = {
+const configDefault: SvgMapViewerConfig = {
   root: 'root',
   href: 'map.svg',
   width: 0,
@@ -65,11 +66,12 @@ export let svgMapViewerConfig: SvgMapViewerConfig = {
   RenderInfo: RenderInfoDefault,
 }
 
-export function updateSvgMapViewerConfig(
-  configUser: Readonly<SvgMapViewerConfigUser>
-): void {
-  svgMapViewerConfig = {
-    ...svgMapViewerConfig,
-    ...(configUser as SvgMapViewerConfig),
-  }
-}
+export const configAtom: Atom<SvgMapViewerConfig> =
+  createAtom<SvgMapViewerConfig>(configDefault)
+
+export const getConfig = (): SvgMapViewerConfig => configAtom.get()
+
+export const useConfig = (): SvgMapViewerConfig => useAtom(configAtom)
+
+export const setConfig = (user: Readonly<SvgMapViewerConfigUser>): void =>
+  configAtom.set((config) => ({ ...config, ...user }))

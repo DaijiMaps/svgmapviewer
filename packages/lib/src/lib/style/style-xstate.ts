@@ -2,7 +2,7 @@ import { useSelector } from '@xstate/react'
 import { createAtom, type Atom } from '@xstate/store'
 import { assign, createActor, raise, setup } from 'xstate'
 
-import { svgMapViewerConfig } from '../../config'
+import { getConfig } from '../../config'
 import { type CurrentScroll, type ResizeInfo, type ZoomInfo } from '../../types'
 import { findRadius } from '../distance'
 import { scrollCbs } from '../event-scroll'
@@ -36,9 +36,7 @@ const styleMachine = setup({
     }),
     updateGeoMatrix: assign({
       geoMatrix: ({ context }) =>
-        context.svgMatrix
-          .multiply(svgMapViewerConfig.mapCoord.matrix)
-          .inverse(),
+        context.svgMatrix.multiply(getConfig().mapCoord.matrix).inverse(),
     }),
     updateDistanceRadius: assign({
       distanceRadius: ({ context: { layout } }) => findRadius(layout),

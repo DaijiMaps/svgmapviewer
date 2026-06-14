@@ -2,7 +2,7 @@
 /* eslint-disable functional/functional-parameters */
 import { useRef, type ReactNode } from 'react'
 
-import { svgMapViewerConfig as config } from '../../config'
+import { useConfig } from '../../config'
 import {
   flex_column_center_center,
   position_absolute_left_0_bottom_0,
@@ -25,11 +25,13 @@ function FooterRoot(): ReactNode {
 
   useHeaderStyleRef(ref, 'footer')
 
+  const cfg = useConfig()
+
   return (
     <div ref={ref} className="ui-content footer">
       <p>
         <a href={document.location.href + `?info=1`} target="_blank">
-          {config.copyright}
+          {cfg.copyright}
         </a>
       </p>
       <style>{style}</style>

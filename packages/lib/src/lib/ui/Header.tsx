@@ -3,7 +3,7 @@
 /* eslint-disable functional/functional-parameters */
 import { useEffect, useRef, type ReactNode } from 'react'
 
-import { svgMapViewerConfig as config } from '../../config'
+import { useConfig } from '../../config'
 import {
   flex_column_center_center,
   pointer_events_initial,
@@ -40,6 +40,8 @@ function HeaderRoot(): ReactNode {
 
   useHeaderStyleRef(ref, 'header')
 
+  const cfg = useConfig()
+
   return (
     <div
       ref={ref}
@@ -47,7 +49,7 @@ function HeaderRoot(): ReactNode {
       onAnimationEnd={() => uiSend({ type: 'HEADER.ANIMATION.END' })}
     >
       <h1 className="title" onClick={() => notifyAction.reset()}>
-        {config.title}
+        {cfg.title}
       </h1>
       <FloorName />
       <style>{style}</style>

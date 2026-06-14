@@ -5,15 +5,17 @@
 /* eslint-disable functional/no-return-void */
 import { animate } from 'animejs'
 
-import { svgMapViewerConfig as config } from '../config'
+import { getConfig } from '../config'
 import { ZOOM_DURATION_DETAIL } from './css'
 import { uiCbs } from './event-ui'
 import { parseRgbString, rgbShadow, rgbToString, toRgbString } from './rgb'
 
-export const getBackgroundColor = (): string =>
-  toRgbString(
-    config.cartoConfig?.backgroundColor ?? config.backgroundColor ?? 'darkgray'
+export const getBackgroundColor = (): string => {
+  const cfg = getConfig()
+  return toRgbString(
+    cfg.cartoConfig?.backgroundColor ?? cfg.backgroundColor ?? 'darkgray'
   )
+}
 
 const metaThemeCache = new Map<string, Element>()
 const getMetaTheme = () => {

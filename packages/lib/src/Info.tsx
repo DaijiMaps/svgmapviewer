@@ -5,11 +5,12 @@ import { QRCodeSVG } from 'qrcode.react'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { svgMapViewerConfig } from './config'
+import { getConfig } from './config'
 import type { SvgMapViewerConfig } from './types'
 
 export function infoRoot(config: Readonly<SvgMapViewerConfig>): void {
-  const e = document.getElementById(svgMapViewerConfig.root)
+  const cfg = getConfig()
+  const e = document.getElementById(cfg.root)
 
   if (e === null) {
     throw new Error('#root not found!')

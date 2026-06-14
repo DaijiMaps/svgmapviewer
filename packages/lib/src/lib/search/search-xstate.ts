@@ -1,6 +1,6 @@
 import { createActor, emit, setup } from 'xstate'
 
-import { svgMapViewerConfig } from '../../config'
+import { getConfig } from '../../config'
 import {
   type SearchGeoReq,
   type SearchSvgReq,
@@ -81,7 +81,8 @@ function searchSend(ev: SearchEvent): void {
 }
 
 searchActor.on('SEARCH', ({ req: { psvg } }) => {
-  const pgeo = svgMapViewerConfig.mapCoord.matrix.inverse().transformPoint(psvg)
+  const cfg = getConfig()
+  const pgeo = cfg.mapCoord.matrix.inverse().transformPoint(psvg)
   const fidx = currentFidxAtom.get()
   const greq: SearchGeoReq = {
     pgeo,
@@ -125,23 +126,18 @@ worker.onmessageerror = (ev) => {
 }
 
 function handleSearchRes(res: Readonly<SearchAddress>): Promise<void> {
+  const cfg = getConfig()
   const info = Promise.resolve(getSearchInfoCommon(res)).then((tmp) =>
     tmp !== null
       ? tmp
-      : svgMapViewerConfig.getSearchInfo(
-          res,
-          svgMapViewerConfig.mapMap,
-          svgMapViewerConfig.osmSearchEntries
-        )
+      : cfg.getSearchInfo(res, cfg.mapMap, cfg.osmSearchEntries)
   )
   return info.then((info) => {
     if (info === null) {
       console.log('info not found!', res)
       return searchSend({ type: 'SEARCH.DONE', res: null })
     } else {
-      const psvg = svgMapViewerConfig.mapCoord.matrix.transformPoint(
-        res.floorPos.coord
-      )
+      const psvg = cfg.mapCoord.matrix.transformPoint(res.floorPos.coord)
       const fidx = res.floorPos.fidx
       return searchSend({ type: 'SEARCH.DONE', res: { psvg, fidx, info } })
     }

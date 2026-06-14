@@ -1,5 +1,5 @@
 /* eslint-disable functional/functional-parameters */
-import { svgMapViewerConfig } from 'svgmapviewer'
+import { getConfig } from 'svgmapviewer'
 import type { MapMultiPolygonPathOps } from 'svgmapviewer/carto'
 import type { MultiPolygon } from 'svgmapviewer/geo'
 
@@ -13,8 +13,6 @@ export const area: MapMultiPolygonPathOps = {
 }
 
 function getInternals() {
-  return (
-    svgMapViewerConfig.cartoConfig?.internals ??
-    svgMapViewerConfig.mapData.internals
-  )
+  const cfg = getConfig()
+  return cfg.cartoConfig?.internals ?? cfg.mapData.internals
 }

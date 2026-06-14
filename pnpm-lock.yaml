@@ -385,6 +385,9 @@ importers:
       '@xstate/store':
         specifier: ^3
         version: 3.17.5(react@19.2.7)
+      '@xstate/store-react':
+        specifier: ^2.0.0
+        version: 2.0.0(react@19.2.7)
       animejs:
         specifier: ^4.4.1
         version: 4.4.1
@@ -4159,6 +4162,14 @@ packages:
     peerDependenciesMeta:
       xstate:
         optional: true
+
+  '@xstate/store-react@2.0.0':
+    resolution:
+      {
+        integrity: sha512-i8rXkUHfZqHUijgA/IORXDESAuHwO939jHIsEtf3nitJkOy1AcZ73DMaAlLqH03nVS082PJkUZFRAu5nwb9Fxg==,
+      }
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
 
   '@xstate/store@3.17.5':
     resolution:
@@ -10799,6 +10810,13 @@ snapshots:
       xstate: 5.32.0
     transitivePeerDependencies:
       - '@types/react'
+
+  '@xstate/store-react@2.0.0(react@19.2.7)':
+    dependencies:
+      '@xstate/store': 3.17.5(react@19.2.7)
+      react: 19.2.7
+    transitivePeerDependencies:
+      - solid-js
 
   '@xstate/store@3.17.5(react@19.2.7)':
     optionalDependencies:

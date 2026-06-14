@@ -1,7 +1,7 @@
 import { createAtom, type Atom } from '@xstate/store'
 import { and, assign, createActor, emit, setup } from 'xstate'
 
-import { svgMapViewerConfig } from '../../config'
+import { getConfig } from '../../config'
 import { type ResizeInfo, type SearchRes, type Zoom } from '../../types'
 import { boxCenter, type BoxBox } from '../box/prefixed'
 import { actionCbs } from '../event-action'
@@ -65,8 +65,8 @@ const viewerMachine = setup({
     isHoming: ({ context: { animationReq } }) =>
       animationReq !== null && animationReq.type === 'home',
     isContainerRendered: () => document.querySelector('.container') !== null,
-    isMapRendered: () => svgMapViewerConfig.isMapRendered(),
-    isUiRendered: () => svgMapViewerConfig.isUiRendered(),
+    isMapRendered: () => getConfig().isMapRendered(),
+    isUiRendered: () => getConfig().isUiRendered(),
   },
   actions: {
     setRendered: assign({ rendered: true }),

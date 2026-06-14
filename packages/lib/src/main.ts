@@ -1,7 +1,7 @@
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
-import { svgMapViewerConfig, updateSvgMapViewerConfig } from './config'
+import { getConfig, setConfig } from './config'
 import { infoRoot } from './Info'
 import { type BoxBox } from './lib/box/prefixed'
 import { notifyGlobal } from './lib/event-global'
@@ -12,6 +12,11 @@ import { startAllCbs } from './main-cbs'
 import { root } from './Root'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
 
+// XXX
+// XXX
+// XXX
+// XXX
+// XXX
 function updateConfig(
   configUser: Readonly<SvgMapViewerConfigUser>
 ): SvgMapViewerConfig {
@@ -22,25 +27,26 @@ function updateConfig(
     height: typeof configUser.height === 'number' ? configUser.height : 0,
   }
 
-  updateSvgMapViewerConfig({
+  setConfig({
     origViewBox,
     isContainerRendered,
     isUiRendered,
     ...configUser,
   })
 
-  updateSvgMapViewerConfig({
-    ...svgMapViewerConfig,
-  })
-
   const config: SvgMapViewerConfig = {
-    ...svgMapViewerConfig,
+    ...getConfig(),
     origViewBox,
     ...configUser,
   }
 
   return config
 }
+// XXX
+// XXX
+// XXX
+// XXX
+// XXX
 
 // eslint-disable-next-line functional/functional-parameters
 function greet(): void {

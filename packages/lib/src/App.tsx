@@ -3,7 +3,7 @@
 /* eslint-disable functional/functional-parameters */
 import { useEffect, type ReactNode } from 'react'
 
-import { svgMapViewerConfig } from './config'
+import { useConfig } from './config'
 import {
   box_sizing_border_box,
   margin_0_padding_0,
@@ -20,23 +20,22 @@ import { Container } from './lib/viewer/Container'
 import { type OsmRenderMapProps } from './types'
 
 function App(): ReactNode {
+  const cfg = useConfig()
   const backgroundColor =
-    svgMapViewerConfig.cartoConfig?.backgroundColor ??
-    svgMapViewerConfig.backgroundColor ??
-    'darkgray'
+    cfg.cartoConfig?.backgroundColor ?? cfg.backgroundColor ?? 'darkgray'
 
   const props: Readonly<OsmRenderMapProps> = {
-    data: svgMapViewerConfig,
-    render: svgMapViewerConfig,
-    carto: svgMapViewerConfig.cartoConfig,
-    floors: svgMapViewerConfig.floorsConfig,
+    data: cfg,
+    render: cfg,
+    carto: cfg.cartoConfig,
+    floors: cfg.floorsConfig,
   }
 
   useInitialRendering()
 
   return (
     <>
-      <Container {...props}>{svgMapViewerConfig.renderMap(props)}</Container>
+      <Container {...props}>{cfg.renderMap(props)}</Container>
       <Ui />
       <style>
         {style}

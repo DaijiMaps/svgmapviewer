@@ -2,7 +2,8 @@
 /* eslint-disable functional/functional-parameters */
 import { useRef, type ReactNode } from 'react'
 
-import { svgMapViewerConfig as config } from '../../config'
+import { useConfig } from '../../config'
+import type { SvgMapViewerConfig } from '../../types'
 import {
   pointer_events_none,
   position_absolute_left_0_top_0,
@@ -23,15 +24,17 @@ export function Guides(): ReactNode {
   return <div id="guides" />
 }
 
-const showing =
-  (config.uiConfig?.showGuides ?? true) && !config.mapCoord.matrix.isIdentity
+const isShowing = (cfg: Readonly<SvgMapViewerConfig>) =>
+  (cfg.uiConfig?.showGuides ?? true) && !cfg.mapCoord.matrix.isIdentity
 
 function GuidesRoot(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
   useHeaderStyleRef(ref, 'guides')
 
-  return !showing ? (
+  const cfg = useConfig()
+
+  return !isShowing(cfg) ? (
     <></>
   ) : (
     <div ref={ref} className="ui-content guides">
