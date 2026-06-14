@@ -8,7 +8,7 @@ import { findRadius } from '../distance'
 import { scrollCbs } from '../event-scroll'
 import { styleCbs } from '../event-style'
 import { updateMapStyleRefs } from '../map/style'
-import { updateCoordRefs } from '../ui/Measure'
+import { updateCoordRefs, updateDistanceRefs } from '../ui/Measure'
 import { vecZero } from '../vec/prefixed'
 import { fromSvgToScroll } from '../viewer/layout/coord'
 import { emptyLayout, type Layout } from '../viewer/layout/layout'
@@ -64,6 +64,8 @@ const styleMachine = setup({
       },
     }),
     updateCoord: ({ context: { geoPoint } }) => updateCoordRefs(geoPoint),
+    updateDistance: ({ context: { distanceRadius } }) =>
+      updateDistanceRefs(distanceRadius),
   },
 }).createMachine({
   id: 'style1',
@@ -98,6 +100,7 @@ const styleMachine = setup({
         'updateSvgMatrix',
         'updateGeoMatrix',
         'updateDistanceRadius',
+        'updateDistance',
         raise(({ event: { rendered } }) => ({ type: 'LAYOUT.DONE', rendered })),
         ({ context }) => updateLayoutStyleRefs(context.layout),
         ({ context }) => updateMapStyleRefs(context.layout, context.zoom),

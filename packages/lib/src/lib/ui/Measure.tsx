@@ -10,10 +10,21 @@ import {
   position_absolute_left_0_top_0,
   position_absolute_right_0_bottom_0,
 } from '../css'
+import type { DistanceRadius } from '../distance-types'
 import { useStyleRef, type StyleRefMap } from '../style/ref'
 import { useDistanceRadius, useLayoutContainer } from '../style/style-react'
 import { trunc7 } from '../utils'
 import type { VecVec } from '../vec/prefixed'
+
+// XXX
+// XXX
+// XXX
+const INDEXES = [
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+]
+// XXX
+// XXX
+// XXX
 
 export function Measure(): ReactNode {
   return (
@@ -35,10 +46,13 @@ export function Measure(): ReactNode {
 }
 
 export function MeasureDistance(): ReactNode {
+  const ref = useRef(null)
   const { svg } = useDistanceRadius()
 
+  useStyleRef(distanceRefs, ref, 'distance')
+
   return (
-    <div id="distance">
+    <div ref={ref} id="distance">
       <p id={`distance-origin`} className="distance">
         0m
       </p>
@@ -155,6 +169,11 @@ export function MeasurePaths(): ReactNode {
   )
 }
 
+// XXX
+// XXX
+// XXX
+// XXX
+// XXX
 function ringPath({
   width,
   height,
@@ -169,40 +188,13 @@ function ringPath({
     '$1'
   )
 }
+// XXX
+// XXX
+// XXX
+// XXX
+// XXX
 
 export function CoordinateStyle(): ReactNode {
-  const { width, height } = useLayoutContainer()
-
-  const coordinateStyle = `
-#distance,
-#coordinate {
-  ${position_absolute_left_0_top_0}
-  width: ${width}px;
-  height: ${height}px;
-  transform: translate3d(0, 0, 0);
-}
-`
-
-  const longitudeStyle = `
-#longitude {
-  ${position_absolute_right_0_bottom_0}
-  margin: 0.1em;
-  padding: 0;
-  font-weight: lighter;
-  transform-origin: right bottom;
-  transform: translate(${-width / 2}px, ${-height / 2}px) scale(0.5);
-}
-`
-  const latitudeStyle = `
-#latitude {
-  ${position_absolute_left_0_bottom_0}
-  margin: 0.1em;
-  padding: 0;
-  font-weight: lighter;
-  transform-origin: left bottom;
-  transform: translate(${width / 2}px, ${-height / 2}px) scale(0.5);
-}
-`
   return (
     <>
       {coordinateStyle}
@@ -212,42 +204,47 @@ export function CoordinateStyle(): ReactNode {
   )
 }
 
-export function DistanceStyle(): ReactNode {
-  const { width, height } = useLayoutContainer()
-  const { client } = useDistanceRadius()
-
-  const distanceStyle = `
-.distance {
+const coordinateStyle = `
+#distance,
+#coordinate {
   ${position_absolute_left_0_top_0}
+  width: var(--layout-container-width);
+  height: var(--layout-container-height);
+  transform: translate3d(0, 0, 0);
+}
+`
+
+const longitudeStyle = `
+#longitude {
+  ${position_absolute_right_0_bottom_0}
   margin: 0.1em;
   padding: 0;
   font-weight: lighter;
-  transform-origin: left top;
+  transform-origin: right bottom;
+  transform: translate(calc(var(--layout-container-width) / -2), calc(var(--layout-container-height) / 2)) scale(0.5);
 }
 `
-  const distanceOriginStyle = `
-#distance-origin {
-  transform: translate(${width / 2}px, ${height / 2}px) scale(0.5);
+const latitudeStyle = `
+#latitude {
+  ${position_absolute_left_0_bottom_0}
+  margin: 0.1em;
+  padding: 0;
+  font-weight: lighter;
+  transform-origin: left bottom;
+  transform: translate(calc(var(--layout-container-width) / 2)), calc(var(--layout-container-height) / -2)) scale(0.5);
 }
 `
-  const distanceXStyle = INDEXES.map((i) => {
-    const r = client * (i + 1)
-    return `
-#distance-x-${i + 1} {
-  transform: translate(${width / 2 + r}px, ${height / 2}px) scale(0.5);
-}
-`
-  })
 
-  const distanceYStyle = INDEXES.map((i) => {
-    const r = client * (i + 1)
-    return `
-#distance-y-${i + 1} {
-  transform: translate(${width / 2}px, ${height / 2 + r}px) scale(0.5);
-}
-`
-  })
+const distanceRefs: StyleRefMap<HTMLDivElement> = new Map()
 
+export function updateDistanceRefs({ client }: Readonly<DistanceRadius>): void {
+  Array.from(distanceRefs, ([, e]) => {
+    const p = e.style.setProperty.bind(e.style)
+    p('--distance-radius-client', `${client}px`)
+  })
+}
+
+export function DistanceStyle(): ReactNode {
   return (
     <>
       {distanceOriginStyle}
@@ -258,12 +255,42 @@ export function DistanceStyle(): ReactNode {
   )
 }
 
-// XXX
-// XXX
-// XXX
-const INDEXES = [
-  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-]
-// XXX
-// XXX
-// XXX
+const distanceStyle = `
+.distance {
+  ${position_absolute_left_0_top_0}
+  margin: 0.1em;
+  padding: 0;
+  font-weight: lighter;
+  transform-origin: left top;
+}
+`
+const distanceOriginStyle = `
+#distance-origin {
+  transform: translate(calc(var(--layout-container-width) / 2), calc(var(--layout-container-height) / 2)) scale(0.5);
+}
+`
+const distanceXStyle = INDEXES.map((i) => {
+  const width = `var(--layout-container-width)`
+  const height = `var(--layout-container-height)`
+  const r = `var(--distance-radius-client) * (${i} + 1)`
+  const x = `calc(${width} / 2 + ${r})`
+  const y = `calc(${height} / 2)`
+  return `
+#distance-x-${i + 1} {
+  transform: translate(${x}, ${y}) scale(0.5);
+}
+`
+})
+
+const distanceYStyle = INDEXES.map((i) => {
+  const width = `var(--layout-container-width)`
+  const height = `var(--layout-container-height)`
+  const r = `var(--distance-radius-client) * (${i} + 1)`
+  const x = `calc(${width} / 2)`
+  const y = `calc(${height} / 2 + ${r})`
+  return `
+#distance-y-${i + 1} {
+  transform: translate(${x}, ${y}) scale(0.5);
+}
+`
+})
