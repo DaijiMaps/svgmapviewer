@@ -5,7 +5,7 @@ import { type ReactNode } from 'react'
 import { RenderMapAssetsDefault } from '../carto/assets'
 import { useShadowRoot } from '../dom'
 import { Balloon } from './Balloon'
-import { detailStyleString } from './balloon-common'
+import { balloonStyleString } from './balloon-common'
 import { Detail } from './Detail'
 
 export function DetailBalloon(): ReactNode {
@@ -19,7 +19,7 @@ export function DetailBalloonRoot(): ReactNode {
     <div className="ui-content detail-balloon">
       <Balloon />
       <Detail />
-      <style>{detailStyleString}</style>
+      <style>{balloonStyleString}</style>
       <Assets />
     </div>
   )
