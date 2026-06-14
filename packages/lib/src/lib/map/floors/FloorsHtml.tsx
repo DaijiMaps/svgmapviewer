@@ -39,7 +39,7 @@ const htmlStyle = `
   width: var(--layout-scroll-width);
   height: var(--layout-scroll-height);
   transform: var(--layout-svg-to-content-matrix) !important;
-  transform-origin: left top !important;
+  transform-origin: 0% 0% !important;
 }
 `
 

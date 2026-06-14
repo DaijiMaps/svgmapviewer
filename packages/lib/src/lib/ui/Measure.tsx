@@ -292,7 +292,7 @@ const distanceStyle = `
   margin: 0.1em;
   padding: 0;
   font-weight: lighter;
-  transform-origin: left top;
+  transform-origin: 0% 0%;
 }
 `
 const distanceOriginStyle = `

@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 
 import { type OsmRenderMapProps } from '../../types'
 import { boxToViewBox2 } from '../box/prefixed'
@@ -9,6 +9,7 @@ import { RenderMapAssetsDefault } from '../carto/assets'
 import { useShadowRoot } from '../dom'
 import { useLayout } from '../style/style-react'
 import { trunc2 } from '../utils'
+import { useLayoutStyleRef } from '../viewer/layout/style'
 import {
   MAP_SVG_SYMBOLS_CONTENT_ID,
   MAP_SVG_SYMBOLS_ROOT_ID,
@@ -60,8 +61,10 @@ function MapSvgSymbolsSvg(): ReactNode {
 }
 
 function MapSvgSymbolsDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
+  const ref = useRef(null)
+  useLayoutStyleRef(ref, 'map-svg-symbols')
   return (
-    <svg id="map-svg-symbols-defs">
+    <svg ref={ref} id="map-svg-symbols-defs">
       <g id="map-svg-symbols1">
         <defs>
           <RenderMapAssetsDefault />

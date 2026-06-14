@@ -36,7 +36,7 @@ const style = `
   width: var(--layout-scroll-width);
   height: var(--layout-scroll-height);
   transform: var(--layout-svg-to-content-matrix);
-  transform-origin: left top;
+  transform-origin: 0% 0%;
 }
 
 .stroke {
@@ -67,7 +67,7 @@ function MapHtmlPointNames(
               left: 0,
               top: 0,
               transform: `translate(${poi.coord.x}px, ${poi.coord.y}px) scale(0.025) translate(-50%, -50%)`,
-              transformOrigin: 'left top',
+              transformOrigin: '0% 0%',
             }}
           >
             {(typeof poi.name === 'string' ? [poi.name] : poi.name).map(

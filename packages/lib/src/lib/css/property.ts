@@ -1,30 +1,55 @@
 export const propertiesStyle = `
+@property --zoom-origin {
+  syntax: "<length-percentage>+";
+  inherits: false;
+  initial-value: 0% 0%;
+}
+@property --zoom-zoom {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
 @property --zoom-tx {
   syntax: '<length>';
-  inherits: true;
+  inherits: false;
   initial-value: 0;
 }
 @property --zoom-ty {
   syntax: '<length>';
-  inherits: true;
+  inherits: false;
   initial-value: 0;
 }
 @property --zoom-s {
   syntax: '<number>';
-  inherits: true;
+  inherits: false;
   initial-value: 1;
 }
 @property --zoom-s-inv {
   syntax: '<number>';
-  inherits: true;
+  inherits: false;
   initial-value: 1;
 }
 @property --zoom-z {
   syntax: '<number>';
-  inherits: true;
+  inherits: false;
   initial-value: 1;
 }
 @property --zoom-z-inv {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+@property --zoom-k {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+@property --zoom-k-inv {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+@property --zoom-s-inv-symbols {
   syntax: '<number>';
   inherits: true;
   initial-value: 1;

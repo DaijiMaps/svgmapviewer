@@ -80,7 +80,7 @@ const style: string = `
     ${position_absolute_left_0_top_0}
     contain: strict;
     transform: var(--layout-content-matrix) translate3d(0, 0, 0);
-    transform-origin: left top;
+    transform-origin: 0% 0%;
     pointer-events: none;
     width: var(--layout-scroll-width);
     height: var(--layout-scroll-height);
