@@ -177,6 +177,11 @@ const style: string = `
   inherits: true;
   initial-value: 1;
 }
+@property --screen-opacity {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
 
 @keyframes xxx-appearing {
   from {
