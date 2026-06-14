@@ -127,6 +127,22 @@ const style: string = `
   inherits: true;
   initial-value: 1;
 }
+@property --a {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+@property --b {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+@property --opacity {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
 @keyframes xxx-appearing {
   from {
     opacity: 0;

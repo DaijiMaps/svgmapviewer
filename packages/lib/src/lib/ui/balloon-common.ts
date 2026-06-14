@@ -217,6 +217,7 @@ export const detailStyleString: string = `
     --duration: ${ZOOM_DURATION_DETAIL}ms;
     transform-origin: 0 0;
     will-change: opacity, transform;
+    opacity: var(--opacity);
   }
   &.detail {
     animation: xxx-detail var(--duration) var(--timing);
@@ -234,22 +235,22 @@ export const detailStyleString: string = `
 
 @keyframes xxx-detail {
   from {
-    opacity: var(--a);
+    --opacity: var(--a);
     transform: translate(var(--tx-a-x), var(--tx-a-y)) scale(var(--a)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: var(--b);
+    --opacity: var(--b);
     transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
 }
 
 @keyframes xxx-balloon {
   from {
-    opacity: var(--a);
+    --opacity: var(--a);
     transform: translate(var(--tx-a-x), var(--tx-a-y)) scale(var(--a)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
   }
   to {
-    opacity: var(--b);
+    --opacity: var(--b);
     transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
   }
 }
