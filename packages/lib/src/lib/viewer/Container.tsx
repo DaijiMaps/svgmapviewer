@@ -137,7 +137,7 @@ const style: string = `
   inherits: true;
   initial-value: 1;
 }
-@property --opacity {
+@property --balloon-opacity {
   syntax: '<number>';
   inherits: true;
   initial-value: 1;
