@@ -62,34 +62,22 @@ const style = `
       }
     }
   }
-  will-change: initial;
   transform-origin: 50% 100%;
   opacity: var(--footer-scale);
   transform: translate(calc(50vw - 50%), 0%) scale(var(--footer-scale));
   
-  &.closed {
-    --closed: 1;
-  }
-  &.opened {
-    --opened: 1;
-  }
   &.not-animating {
     --footer-scale: var(--b);
-    --animating: 0;
-    --a: initial;
     &.closed {
       --b: 0;
     }
     &.opened {
       --b: 1;
     }
-    --duration: initial;
-    --timing: initial;
     will-change: initial;
     animation: initial;
   }
   &.animating {
-    --animating: 1;
     &.closed {
       --a: 1;
       --b: 0;
