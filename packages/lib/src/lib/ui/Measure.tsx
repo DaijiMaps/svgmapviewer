@@ -3,7 +3,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { Fragment, useMemo, useRef, type ReactNode } from 'react'
+import { Fragment, useRef, type ReactNode } from 'react'
 
 import {
   position_absolute_left_0_bottom_0,
@@ -12,7 +12,7 @@ import {
 } from '../css'
 import type { DistanceRadius } from '../distance-types'
 import { useStyleRef, type StyleRefMap } from '../style/ref'
-import { useDistanceRadius, useLayoutContainer } from '../style/style-react'
+import { useDistanceRadius } from '../style/style-react'
 import { trunc7 } from '../utils'
 import type { VecVec } from '../vec/prefixed'
 
@@ -115,12 +115,42 @@ export function MeasurePathUse(): ReactNode {
   )
 }
 
+const measureRefs: StyleRefMap<SVGPathElement> = new Map()
+
+export function updateMeasureRefs(
+  width: number,
+  height: number,
+  client: number
+): void {
+  const horizontal = `M0,${height / 2} h${width}`
+  const vertical = `M${width / 2},0 v${height}`
+  const h = measureRefs.get('horizontal')
+  if (h) h.setAttribute('d', horizontal)
+  const v = measureRefs.get('vertical')
+  if (v) v.setAttribute('d', vertical)
+  INDEXES.forEach((i) => {
+    const e = measureRefs.get(`ring${i}`)
+    if (!e) return
+    const r = client * (i + 1)
+    const d = ringPath({ width, height, r })
+    e.setAttribute('d', d)
+  })
+}
+
 export function MeasurePaths(): ReactNode {
+  const horizontalRef = useRef(null)
+  const vertcalRef = useRef(null)
+  /*
   const { width, height } = useLayoutContainer()
   const { client } = useDistanceRadius()
+  */
+
+  useStyleRef(measureRefs, horizontalRef, `horizontal`)
+  useStyleRef(measureRefs, vertcalRef, `vertical`)
 
   // XXX use cache
 
+  /*
   const horizontal = useMemo(
     () => `M0,${height / 2} h${width}`,
     [height, width]
@@ -134,38 +164,46 @@ export function MeasurePaths(): ReactNode {
       }),
     [client, height, width]
   )
+  */
 
   // XXX use
   return (
     <>
       <path
+        ref={horizontalRef}
         id="measure-horizontal"
         className="measure-line"
         stroke="black"
         strokeWidth="0.1px"
         fill="none"
-        d={horizontal}
       />
       <path
+        ref={vertcalRef}
         id="measure-vertical"
         className="measure-line"
         stroke="black"
         strokeWidth="0.1px"
         fill="none"
-        d={vertical}
       />
-      {rings.map((d, idx) => (
-        <path
-          key={idx}
-          id={`measure-ring-${idx + 1}`}
-          className="measure-line"
-          stroke="black"
-          strokeWidth="0.1px"
-          fill="none"
-          d={d}
-        />
+      {INDEXES.map((_, idx) => (
+        <RingPath idx={idx} />
       ))}
     </>
+  )
+}
+
+function RingPath({ idx }: Readonly<{ idx: number }>): ReactNode {
+  const ref = useRef(null)
+  useStyleRef(measureRefs, ref, `ring${idx}`)
+  return (
+    <path
+      ref={ref}
+      id={`measure-ring-${idx + 1}`}
+      className="measure-line"
+      stroke="black"
+      strokeWidth="0.1px"
+      fill="none"
+    />
   )
 }
 
