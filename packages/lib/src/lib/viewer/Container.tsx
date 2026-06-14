@@ -162,6 +162,11 @@ const style: string = `
   inherits: true;
   initial-value: 1;
 }
+@property --footer-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
 
 @keyframes xxx-appearing {
   from {

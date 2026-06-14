@@ -64,6 +64,8 @@ const style = `
   }
   will-change: initial;
   transform-origin: 50% 100%;
+  opacity: var(--footer-scale);
+  transform: translate(calc(50vw - 50%), 0%) scale(var(--footer-scale));
   
   &.closed {
     --closed: 1;
@@ -72,6 +74,7 @@ const style = `
     --opened: 1;
   }
   &.not-animating {
+    --footer-scale: var(--b);
     --animating: 0;
     --a: initial;
     &.closed {
@@ -84,8 +87,6 @@ const style = `
     --timing: initial;
     will-change: initial;
     animation: initial;
-    opacity: var(--b);
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
   }
   &.animating {
     --animating: 1;
@@ -102,19 +103,15 @@ const style = `
     --duration: ${ZOOM_DURATION_HEADER}ms;
     will-change: opacity, transform;
     animation: xxx-footer var(--duration) var(--timing);
-    opacity: initial;
-    transform: initial;
   }
 }
 
 @keyframes xxx-footer {
   from {
-    opacity: var(--a);
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--a)) translate3d(0px, 0px, 0px);
+    --footer-scale: var(--a);
   }
   to {
-    opacity: var(--b);
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--b)) translate3d(0px, 0px, 0px);
+    --footer-scale: var(--b);
   }
 }
 `
