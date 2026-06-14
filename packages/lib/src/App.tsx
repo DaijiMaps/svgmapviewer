@@ -11,6 +11,7 @@ import {
   touch_action_none,
   width_100vw_height_100svh,
 } from './lib/css'
+import { propertiesStyle } from './lib/css/property'
 import { notifyGlobal } from './lib/event-global'
 import { likeStyle } from './lib/like/Like'
 import { useRendered } from './lib/style/style-react'
@@ -79,6 +80,8 @@ a:link {
 }
 
 ${likeStyle}
+
+${propertiesStyle}
 `
 
 // XXX
