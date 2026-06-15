@@ -114,4 +114,34 @@ export const propertiesStyle = `
   inherits: true;
   initial-value: 0;
 }
+@property --layout-container-width {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --layout-container-height {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --layout-scroll-width {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --layout-scroll-height {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --layout-svgscale {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+@property --layout-fontsize {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 16;
+}
 `
