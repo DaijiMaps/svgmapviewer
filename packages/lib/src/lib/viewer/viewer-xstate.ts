@@ -196,11 +196,13 @@ const viewerMachine = setup({
           target: 'Resizing',
         },
         SEARCH: {
+          guard: () => lockScroll(),
           actions: { type: 'prepareSearch', params: ({ event }) => event },
           target: 'Searching',
         },
         SWITCH: {
           // switch only when viewer is idle!
+          guard: () => lockScroll(),
           actions: {
             type: 'emitSwitch',
             params: ({ event }) => event,
@@ -208,6 +210,7 @@ const viewerMachine = setup({
           target: 'Switching',
         },
         RECENTER: {
+          guard: () => lockScroll(),
           target: 'Recentering',
         },
         ZOOM: {
@@ -219,10 +222,12 @@ const viewerMachine = setup({
           target: 'Zooming',
         },
         HOME: {
+          guard: () => lockScroll(),
           actions: 'prepareHome',
           target: 'Zooming',
         },
         ROTATE: {
+          guard: () => lockScroll(),
           actions: 'prepareRotate',
           target: 'Zooming',
         },
