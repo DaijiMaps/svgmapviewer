@@ -97,7 +97,6 @@ const style: string = `
     animation: xxx-appearing 2s ${timing_opening};
   }
 }
-
 @keyframes xxx-appearing {
   from {
     opacity: 0;
