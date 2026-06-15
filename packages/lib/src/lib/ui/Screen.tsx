@@ -13,7 +13,6 @@ import {
 } from '../css'
 import { useShadowRoot } from '../dom'
 import { notifyUi } from '../event-ui'
-import { useZoomStyleRef } from '../viewer/layout/style'
 import { useTouchMoveZoomingLock } from '../viewer/touch/event'
 import { useOnWheel } from '../wheel'
 import { useDetailStyleRef } from './style'
@@ -26,7 +25,6 @@ export function Screen(): ReactNode {
 function ScreenRoot(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
   useDetailStyleRef(ref, 'screen')
-  useZoomStyleRef(ref, 'screen')
   useTouchMoveZoomingLock(ref)
   useOnWheel(ref)
   return (
@@ -82,10 +80,10 @@ const style = `
 }
 @keyframes xxx-screen {
   from {
-    --screen-opacity: var(--a);
+    opacity: var(--a);
   }
   to {
-    --screen-opacity: var(--b);
+    opacity: var(--b);
   }
 }
 `
