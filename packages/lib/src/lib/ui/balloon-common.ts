@@ -199,17 +199,17 @@ export function calcBalloonPaths(
   }
 }
 
-export const balloonStyleString: string = `
-.balloon,
-.detail {
+export const detailStyleString: string = `
+.detail,
+.balloon {
   opacity: var(--balloon-opacity);
   transform-origin: 0 0;
 }
-.balloon {
-  transform: translate(var(--balloon-translate-x), var(--balloon-translate-y)) scale(var(--balloon-scale)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
-}
 .detail {
   transform: translate(var(--balloon-translate-x), var(--balloon-translate-y)) scale(var(--balloon-scale)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+}
+.balloon {
+  transform: translate(var(--balloon-translate-x), var(--balloon-translate-y)) scale(var(--balloon-scale)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
 }
 .not-animating {
   --balloon-opacity: var(--b);
@@ -218,15 +218,15 @@ export const balloonStyleString: string = `
   --balloon-scale: var(--b);
 }
 .animating {
-  &.balloon,
-  &.detail {
+  &.detail,
+  &.balloon {
     --duration: ${ZOOM_DURATION_DETAIL}ms;
     will-change: opacity, transform;
   }
-  &.balloon {
+  &.detail {
     animation: xxx-balloon var(--duration) var(--timing);
   }
-  &.detail {
+  &.balloon {
     animation: xxx-balloon var(--duration) var(--timing);
   }
   &.closed {
