@@ -1,11 +1,11 @@
 /* eslint-disable functional/no-expression-statements */
-import { useRef, type ReactNode } from 'react'
+import { useRef, type CSSProperties, type ReactNode } from 'react'
 import { Fragment } from 'react/jsx-runtime'
 
 import { type OsmRenderMapProps } from '../../types'
 import { useMapStyleRef } from '../map/style'
 import { type V } from '../tuple'
-import { useLayoutStyleRef, useZoomStyleRef } from '../viewer/layout/style'
+import { useLayoutStyleRef, useZoomSStyleRef } from '../viewer/layout/style'
 import { entryToVs } from './point'
 import { type RenderMapSymbolsProps } from './types'
 
@@ -16,7 +16,7 @@ export function RenderMapSymbols(
 
   useMapStyleRef(ref, 'map-symbols')
   useLayoutStyleRef(ref, 'map-symbols')
-  useZoomStyleRef(ref, 'map-symbols')
+  useZoomSStyleRef(ref, 'map-symbols')
 
   return (
     <g ref={ref} className="map-symbols">
@@ -39,7 +39,35 @@ export function RenderMapSymbols(
 
 const style = `
 .map-symbols {
-  --zoom-s-inv-symbols: var(--zoom-s-inv);
+  & > .map-symbol {
+    translate: var(--map-symbol-x) var(--map-symbol-y);
+    scale: calc(var(--layout-fontsize) * 1.5 * var(--layout-svgscale) / 72);
+  }
+  &.zooming {
+    & > .map-symbol {
+      will-change: scale;
+      animation: xxx-map-symbol 500ms ease;
+    }
+  }
+}
+@keyframes xxx-map-symbol {
+  from {
+    scale:
+      calc(
+        var(--layout-fontsize) *
+        1.5 *
+        var(--layout-svgscale) /
+        72);
+  }
+  to {
+    scale:
+      calc(
+        1 / var(--zoom-s) *
+        var(--layout-fontsize) *
+        1.5 *
+        var(--layout-svgscale) /
+        72);
+  }
 }
 `
 
@@ -53,16 +81,14 @@ export function RenderUses(
         .map(({ x, y }, j) => (
           <use
             key={j}
-            className={`${props.name} ${props.name}-${j}`}
+            className={`map-symbol ${props.name} ${props.name}-${j}`}
             href={props.href}
-            style={{
-              transform:
-                `translate(${x}px, ${y}px)`.replaceAll(/([.]\d\d)\d*/g, '$1') +
-                `scale(var(--zoom-s-inv-symbols))` +
-                //`scale(calc(var(--layout-fontsize) * var(--layout-svgscale) * var(--map-symbol-size-k))`,
-                //`scale(calc(var(--layout-fontsize) * var(--layout-svgscale) * var(--map-symbol-size-k) / 72))`,
-                `scale(calc(var(--layout-fontsize) * 1.5 * var(--layout-svgscale) / 72))`,
-            }}
+            style={
+              {
+                '--map-symbol-x': `${x}px`.replaceAll(/([.]\d\d)\d*/g, '$1'),
+                '--map-symbol-y': `${y}px`.replaceAll(/([.]\d\d)\d*/g, '$1'),
+              } as CSSProperties
+            }
           />
         ))}
     </>

@@ -46,12 +46,19 @@ export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
 ////
 
 const zoomStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
+const zoomSStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
 
 export function useZoomStyleRef(
   ref: Readonly<RefObject<HTMLElement | SVGElement | null>>,
   name: string
 ): void {
   useStyleRef(zoomStyleRefs, ref, name)
+}
+export function useZoomSStyleRef(
+  ref: Readonly<RefObject<HTMLElement | SVGElement | null>>,
+  name: string
+): void {
+  useStyleRef(zoomSStyleRefs, ref, name)
 }
 
 export function updateZoomStyleRefs(
@@ -71,6 +78,11 @@ export function updateZoomStyleRefs(
     p(`--zoom-s-inv`, null)
     p(`--zoom-k`, null)
     p(`--zoom-k-inv`, null)
+  })
+  Array.from(zoomSStyleRefs, ([, e]) => {
+    tag(e, 'zooming', animation !== null)
+    const p = e.style.setProperty.bind(e.style)
+    p(`--zoom-s`, animation === null ? null : animation.to.a.toString())
   })
   if (animation !== null)
     startLoop('zoom', 500, {
