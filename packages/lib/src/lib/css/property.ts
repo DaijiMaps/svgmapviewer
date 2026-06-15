@@ -24,6 +24,11 @@ export const propertiesStyle = `
   inherits: false;
   initial-value: 1;
 }
+@property --zoom-s-symbols {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
 @property --zoom-s-inv {
   syntax: '<number>';
   inherits: false;

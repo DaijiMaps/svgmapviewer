@@ -37,36 +37,55 @@ export function RenderMapSymbols(
   )
 }
 
+// XXX
+// XXX
+// XXX
+// XXX
+// XXX
+// XXX NOT working on Safari
+// XXX
+// XXX
+// XXX
+// XXX
+// XXX
+
 const style = `
 .map-symbols {
   & > .map-symbol {
-    translate: var(--map-symbol-x) var(--map-symbol-y);
-    scale: calc(var(--layout-fontsize) * 1.5 * var(--layout-svgscale) / 72);
+    transform:
+      translate(var(--map-symbol-x), var(--map-symbol-y))
+      scale(calc(var(--layout-fontsize) * 1.5 * var(--layout-svgscale) / 72));
   }
   &.zooming {
     & > .map-symbol {
-      will-change: scale;
-      animation: xxx-map-symbol 500ms ease;
+      will-change: transform;
+      animation: xxx-map-symbol 500ms ease forwards;
     }
   }
 }
 @keyframes xxx-map-symbol {
   from {
-    scale:
-      calc(
-        var(--layout-fontsize) *
-        1.5 *
-        var(--layout-svgscale) /
-        72);
+    transform:
+      translate(var(--map-symbol-x), var(--map-symbol-y))
+      scale(
+        calc(
+          var(--layout-fontsize) *
+          1.5 *
+          var(--layout-svgscale) /
+          72))
+      translate3d(0,0,0);
   }
   to {
-    scale:
-      calc(
-        1 / var(--zoom-s) *
-        var(--layout-fontsize) *
-        1.5 *
-        var(--layout-svgscale) /
-        72);
+    transform:
+      translate(var(--map-symbol-x), var(--map-symbol-y))
+      scale(
+        calc(
+          1 / var(--zoom-s-symbols) *
+          var(--layout-fontsize) *
+          1.5 *
+          var(--layout-svgscale) /
+          72))
+      translate3d(0,0,0);
   }
 }
 `

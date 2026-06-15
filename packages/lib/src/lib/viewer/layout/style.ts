@@ -80,11 +80,12 @@ export function updateZoomStyleRefs(
     p(`--zoom-k-inv`, null)
   })
   Array.from(zoomSStyleRefs, ([, e]) => {
-    tag(e, 'zooming', animation !== null)
     const p = e.style.setProperty.bind(e.style)
     p(`--zoom-s`, animation === null ? null : animation.to.a.toString())
+    p(`--zoom-s-symbols`, animation === null ? null : animation.to.a.toString())
+    tag(e, 'zooming', animation !== null)
   })
-  if (animation !== null)
+  if (animation !== null) {
     startLoop('zoom', 500, {
       tickcb: tickZoomStyleRefs,
       donecb: () => {
@@ -93,6 +94,13 @@ export function updateZoomStyleRefs(
       },
       cbdata: { animation, zoom },
     })
+    /*
+    startLoop('zoomS', 500, {
+      tickcb: tickZoomSStyleRefs,
+      cbdata: { animation, zoom },
+    })
+    */
+  }
 }
 
 type ZoomData = Readonly<{
@@ -146,3 +154,15 @@ function tickZoomStyleRefs(t: number, cbdata?: ZoomData): void {
     p(`--zoom-k-inv`, `${kinv}`)
   })
 }
+
+/*
+function tickZoomSStyleRefs(t: number, cbdata?: ZoomData): void {
+  if (!cbdata) return
+  const { s } = getCurrentZoomValues(cbdata, t)
+  Array.from(zoomStyleRefs, ([, e]) => {
+    const p = e.style.setProperty.bind(e.style)
+    p(`--zoom-s`, `${s}`)
+    //p(`--zoom-s-symbols`, `${s}`)
+  })
+}
+*/
