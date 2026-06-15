@@ -136,12 +136,12 @@ export const propertiesStyle = `
 }
 @property --layout-svgscale {
   syntax: '<number>';
-  inherits: false;
+  inherits: true;
   initial-value: 1;
 }
 @property --layout-fontsize {
   syntax: '<number>';
-  inherits: false;
+  inherits: true;
   initial-value: 16;
 }
 `
