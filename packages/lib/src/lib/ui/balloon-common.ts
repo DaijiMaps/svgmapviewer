@@ -220,11 +220,9 @@ export const detailStyleString: string = `
     opacity: var(--opacity);
   }
   &.detail {
-    transform: translate(var(--balloon-translate-x), var(--balloon-translate-y)) scale(var(--balloon-scale)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
     animation: xxx-detail var(--duration) var(--timing);
   }
   &.balloon {
-    transform: translate(var(--balloon-translate-x), var(--balloon-translate-y)) scale(var(--balloon-scale)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
     animation: xxx-balloon var(--duration) var(--timing);
   }
   &.closed {
@@ -238,42 +236,22 @@ export const detailStyleString: string = `
 @keyframes xxx-detail {
   from {
     --opacity: var(--a);
-    --balloon-translate-x: var(--tx-a-x);
-    --balloon-translate-y: var(--tx-a-y);
-    --balloon-scale: var(--a);
-    /*
     transform: translate(var(--tx-a-x), var(--tx-a-y)) scale(var(--a)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
-    */
   }
   to {
     --opacity: var(--b);
-    --balloon-translate-x: var(--tx-b-x);
-    --balloon-translate-y: var(--tx-b-y);
-    --balloon-scale: var(--b);
-    /*
     transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
-    */
   }
 }
 
 @keyframes xxx-balloon {
   from {
     --opacity: var(--a);
-    --balloon-translate-x: var(--tx-a-x);
-    --balloon-translate-y: var(--tx-a-y);
-    --balloon-scale: var(--a);
-    /*
     transform: translate(var(--tx-a-x), var(--tx-a-y)) scale(var(--a)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
-    */
   }
   to {
     --opacity: var(--b);
-    --balloon-translate-x: var(--tx-b-x);
-    --balloon-translate-y: var(--tx-b-y);
-    --balloon-scale: var(--b);
-    /*
     transform: translate(var(--tx-b-x), var(--tx-b-y)) scale(var(--b)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
-    */
   }
 }
 `
