@@ -7,15 +7,33 @@ import { createAtom, type Atom } from '@xstate/store'
 
 import { type CurrentScroll } from '../../../types'
 import { boxUnit, type BoxBox } from '../../box/prefixed'
+import { tag } from '../../style/tag'
 
 export const busies: Map<string, number> = new Map()
 export const locks: Set<string> = new Set()
+
+export const scrollLockRefs: Map<string, HTMLElement | SVGElement> = new Map()
+
+export function busyScroll(): void {
+  const prevId = busies.get('S')
+  if (prevId) clearTimeout(prevId)
+  const id = setTimeout(() => {
+    busies.delete('S')
+    Array.from(scrollLockRefs, ([, e]) => tag(e, 'locked', false))
+  }, 500)
+  busies.set('S', id)
+  Array.from(scrollLockRefs, ([, e]) => tag(e, 'locked', true))
+}
+
+export function unbusyScroll(): void {}
+
 export function lockScroll(): boolean {
   if (busies.has('S')) return false
   //stopScroll()
   locks.add('S')
   return true
 }
+
 export function unlockScroll(): boolean {
   if (!locks.has('S')) return false
   locks.delete('S')
