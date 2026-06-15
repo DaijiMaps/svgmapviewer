@@ -14,6 +14,7 @@ import { touchCbs } from '../event-touch'
 import { notifyUi, uiCbs } from '../event-ui'
 import { setZooming } from './layout/animation'
 import { emptyLayout } from './layout/layout'
+import { lockScroll, unlockScroll } from './scroll/scroll'
 import {
   clearAnimation,
   emitGetScroll,
@@ -119,6 +120,7 @@ const viewerMachine = setup({
 
     enterZooming: () => setZooming(true),
     exitZooming: () => setZooming(false),
+    unlockScroll: () => unlockScroll(),
   },
 }).createMachine({
   id: 'viewer',
@@ -209,6 +211,7 @@ const viewerMachine = setup({
           target: 'Recentering',
         },
         ZOOM: {
+          guard: () => lockScroll(),
           actions: {
             type: 'prepareZoom',
             params: ({ event }) => event,
@@ -326,7 +329,7 @@ const viewerMachine = setup({
       initial: 'Stopping',
       onDone: 'Idle',
       entry: 'enterZooming',
-      exit: 'exitZooming',
+      exit: ['exitZooming', 'unlockScroll'],
       states: {
         // XXX
         // XXX stop scroll before really start zooming
