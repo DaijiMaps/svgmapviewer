@@ -11,14 +11,13 @@ import {
   touch_action_none,
   width_100vw_height_100svh,
 } from './lib/css'
+import { properties } from './lib/css/property'
 import { notifyGlobal } from './lib/event-global'
 import { likeStyle } from './lib/like/Like'
 import { useRendered } from './lib/style/style-react'
 import { Ui } from './lib/ui/Ui'
 import { Container } from './lib/viewer/Container'
 import { type OsmRenderMapProps } from './types'
-
-import './App.css'
 
 function App(): ReactNode {
   const cfg = useConfig()
@@ -53,11 +52,9 @@ const style = `
   font-weight: lighter;
   user-select: none;
 }
-
 html, body {
   overflow: hidden;
 }
-
 body {
   ${position_absolute_left_0_top_0}
   ${width_100vw_height_100svh}
@@ -66,20 +63,17 @@ body {
   ${touch_action_none}
   background-color: darkgray;
 }
-
 svg {
   display: block;
 }
-
 ul {
   list-style: none;
 }
-
 a:link {
   text-decoration: none;
 }
-
 ${likeStyle}
+${properties}
 `
 
 // XXX

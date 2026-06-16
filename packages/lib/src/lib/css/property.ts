@@ -1,3 +1,4 @@
+export const properties = `
 @property --a {
   syntax: '<number>';
   inherits: false;
@@ -183,3 +184,4 @@
   inherits: false;
   initial-value: 1;
 }
+`

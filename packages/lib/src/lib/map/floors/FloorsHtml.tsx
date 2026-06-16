@@ -8,24 +8,25 @@ import {
   type OsmRenderMapProps,
 } from '../../../types'
 import { useFloorRef } from '../../viewer/floors/style'
+import { useLayoutStyleRef } from '../../viewer/layout/style'
 import { RenderFloorLabels } from './FloorsHtmlLabels'
 
 export function RenderFloorsHtml({
   floors,
 }: Readonly<OsmRenderMapProps>): ReactNode {
+  const ref = useRef(null)
+  useLayoutStyleRef(ref, 'map-floors-html')
   return (
-    <div className="content">
-      <div className="map-floors-html">
-        {floors?.floors.map((floor, fidx) => (
-          <Fragment key={fidx}>
-            <RenderFloorHtml
-              fidx={fidx}
-              floor={floor}
-              labelsMap={floors?.labelsMap}
-            />
-          </Fragment>
-        ))}
-      </div>
+    <div ref={ref} className="content map-floors-html">
+      {floors?.floors.map((floor, fidx) => (
+        <Fragment key={fidx}>
+          <RenderFloorHtml
+            fidx={fidx}
+            floor={floor}
+            labelsMap={floors?.labelsMap}
+          />
+        </Fragment>
+      ))}
       <style>{htmlStyle}</style>
     </div>
   )

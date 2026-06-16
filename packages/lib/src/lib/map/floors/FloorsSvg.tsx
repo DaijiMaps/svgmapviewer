@@ -44,11 +44,18 @@ ${floor_appearing_animation}
 `
 
 function RenderFloorsSvgSvg(props: Readonly<PropsWithChildren>): ReactNode {
+  const ref = useRef(null)
   const { viewBox } = useLayout2()
+  useLayoutStyleRef(ref, `floors-svg`)
 
   // only this part is re-rendered after zoom (viewbox change)
   return (
-    <svg id={MAP_SVG_FLOORS} className="content-svg" viewBox={viewBox}>
+    <svg
+      ref={ref}
+      id={MAP_SVG_FLOORS}
+      className="content-svg"
+      viewBox={viewBox}
+    >
       {props.children}
     </svg>
   )
