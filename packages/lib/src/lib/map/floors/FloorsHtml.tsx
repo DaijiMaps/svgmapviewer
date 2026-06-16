@@ -17,16 +17,18 @@ export function RenderFloorsHtml({
   const ref = useRef(null)
   useLayoutStyleRef(ref, 'map-floors-html')
   return (
-    <div ref={ref} className="content map-floors-html">
-      {floors?.floors.map((floor, fidx) => (
-        <Fragment key={fidx}>
-          <RenderFloorHtml
-            fidx={fidx}
-            floor={floor}
-            labelsMap={floors?.labelsMap}
-          />
-        </Fragment>
-      ))}
+    <div className="content">
+      <div ref={ref} className="map-floors-html">
+        {floors?.floors.map((floor, fidx) => (
+          <Fragment key={fidx}>
+            <RenderFloorHtml
+              fidx={fidx}
+              floor={floor}
+              labelsMap={floors?.labelsMap}
+            />
+          </Fragment>
+        ))}
+      </div>
       <style>{htmlStyle}</style>
     </div>
   )
