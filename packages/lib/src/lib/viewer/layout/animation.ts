@@ -19,7 +19,7 @@ import {
   type AnimationRotate,
   type AnimationZoom,
 } from './animation-types'
-import { fromMatrixSvg } from './coord'
+import { fromSvgToContainer } from './coord'
 import {
   relocLayout,
   resetLayout,
@@ -63,7 +63,7 @@ function animationMoveDone(
 
 export function animationZoom(layout: Layout, z: Dir, o: Vec): Animation {
   // container -> svg
-  const osvg = fromMatrixSvg(layout).inverse().transformPoint(o)
+  const osvg = fromSvgToContainer(layout).inverse().transformPoint(o)
   const s = 1 / zoomToScale(z)
   const to = matrix().scale(1 / s, 1 / s)
   const zoom: AnimationZoom = {
@@ -77,7 +77,7 @@ export function animationZoom(layout: Layout, z: Dir, o: Vec): Animation {
 
 export function animationHome(layout: Layout, nextLayout: Layout): Animation {
   const osvg = boxCenter(nextLayout.config.inner)
-  const msvg = fromMatrixSvg(layout)
+  const msvg = fromSvgToContainer(layout)
   // svg -> container
   const o = msvg.transformPoint(osvg)
 

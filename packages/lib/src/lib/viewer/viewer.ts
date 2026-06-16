@@ -7,7 +7,7 @@ import {
   calcAnimationZoom,
 } from './layout/animation'
 import type { AnimationReq } from './layout/animation-types'
-import { fromMatrixSvg } from './layout/coord'
+import { fromSvgToContainer } from './layout/coord'
 import { expandLayoutCenter, rotateLayout, scrollLayout } from './layout/layout'
 import { getCurrentScroll } from './scroll/scroll'
 import {
@@ -211,7 +211,7 @@ export function prepareSearch(
 export function searchStart(context: Readonly<ViewerContext>): ViewerEmitted {
   const { scroll } = getCurrentScroll()
   const l = scrollLayout(context.layout, scroll)
-  const m = fromMatrixSvg(l).inverse()
+  const m = fromSvgToContainer(l).inverse()
   // container -> svg
   const psvg = m.transformPoint(context.cursor)
   const req: SearchSvgReq = { psvg }

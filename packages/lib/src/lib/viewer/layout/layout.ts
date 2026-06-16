@@ -19,7 +19,7 @@ import {
 } from '../../vec/prefixed'
 import {
   emptyLayoutCoord,
-  fromMatrixSvg,
+  fromSvgToContainer,
   fromDOMScroll,
   makeCoord,
 } from './coord'
@@ -133,7 +133,7 @@ function expandLayout(
   sy: number,
   cursor: Vec
 ): Layout {
-  const m = fromMatrixSvg(layout).inverse()
+  const m = fromSvgToContainer(layout).inverse()
   const o = m.transformPoint(cursor)
 
   const scroll = boxScaleAt(layout.scroll, [sx, sy], cursor.x, cursor.y)

@@ -14,8 +14,8 @@ import {
 
 //// LayoutCoord
 //// makeCoord
-//// fromMatrixOuter
-//// fromMatrixSvg
+//// fromScrollToContainer
+//// fromSvgToContainer
 
 export const emptyFontLayoutConfig: FontLayoutConfig = {
   fontSize: 16,
@@ -69,6 +69,13 @@ export function makeCoord({
 
 ////
 
+// scroll -> container
+export function fromScrollToContainer({
+  scroll,
+}: Readonly<ScrollLayoutCoord>): DOMMatrixReadOnly {
+  return matrix().translate(scroll.x, scroll.y)
+}
+
 export function fromContentToScroll({
   content,
 }: Readonly<ContentLayoutCoord>): DOMMatrixReadOnly {
@@ -94,16 +101,11 @@ export function fromSvgToScroll(
   return m.content.multiply(fromSvgToContent(m))
 }
 
-// scroll -> container
-export function fromMatrixOuter({
-  scroll,
-}: Readonly<ScrollLayoutCoord>): DOMMatrixReadOnly {
-  return matrix().translate(scroll.x, scroll.y)
-}
-
 // svg -> container
-export function fromMatrixSvg(m: Readonly<LayoutCoord>): DOMMatrixReadOnly {
-  return matrix().translate(m.scroll.x, m.scroll.y).multiply(fromSvgToScroll(m))
+export function fromSvgToContainer(
+  m: Readonly<LayoutCoord>
+): DOMMatrixReadOnly {
+  return fromScrollToContainer(m).multiply(fromSvgToScroll(m))
 }
 
 // inverse x/y

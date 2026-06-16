@@ -10,7 +10,7 @@ import { vecVec } from '../../src/lib/vec/prefixed'
 import {
   emptyLayoutConfig,
   emptyLayoutCoord,
-  fromMatrixSvg,
+  fromSvgToContainer,
   makeCoord,
 } from '../../src/lib/viewer/layout/coord'
 import {
@@ -52,7 +52,7 @@ test('make 1', () => {
 test('matrix 0', () => {
   const c: LayoutConfig = { ...emptyLayoutConfig, fontSize: 16 }
   const l = makeLayout(c)
-  const m = fromMatrixSvg(l)
+  const m = fromSvgToContainer(l)
   const o = matrixToObject(m)
   expect(o).toEqual(matrixObject(1, 0, 0, 1, 0, 0))
 })
@@ -67,7 +67,7 @@ test('matrix 1', () => {
   }
   const c: LayoutConfig = { ...d, fontSize: 16 }
   const l = makeLayout(c)
-  const m = fromMatrixSvg(l)
+  const m = fromSvgToContainer(l)
   const o = matrixToObject(m)
   expect(o).toEqual(matrixObject(1, 0, 0, 1, -1, -1))
 })
@@ -82,7 +82,7 @@ test('matrix 2', () => {
   }
   const c: LayoutConfig = { ...d, fontSize: 16 }
   const l = makeLayout(c)
-  const m = fromMatrixSvg(l)
+  const m = fromSvgToContainer(l)
   const o = matrixToObject(m)
   expect(o).toEqual(matrixObject(0.5, 0, 0, 0.5, 0, 0))
 })

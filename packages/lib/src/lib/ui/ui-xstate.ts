@@ -4,7 +4,7 @@ import { assign, createActor, emit, not, raise, setup } from 'xstate'
 import { type SearchData } from '../../types'
 import { searchCbs } from '../event-search'
 import { notifyUi, uiCbs } from '../event-ui'
-import { fromMatrixSvg } from '../viewer/layout/coord'
+import { fromSvgToContainer } from '../viewer/layout/coord'
 import {
   calcBalloonLayout,
   calcBalloonPaths,
@@ -85,7 +85,7 @@ const uiMachine = setup({
       detail: (_, detail: UiDetailContent) => detail,
       p: (_, { psvg, layout }: UiDetailContent) =>
         // svg -> container
-        fromMatrixSvg(layout).transformPoint(psvg),
+        fromSvgToContainer(layout).transformPoint(psvg),
     }),
     updateBalloon: assign({
       balloon: ({ context: { detail, p } }) =>
