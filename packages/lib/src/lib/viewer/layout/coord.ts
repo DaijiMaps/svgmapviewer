@@ -88,16 +88,10 @@ export function fromSvgToContent({
 }
 
 // svg -> scroll
-export function fromSvgToScroll({
-  content,
-  svgOffset,
-  svgScale,
-  svg,
-}: Readonly<ContentLayoutCoord & SvgLayoutCoord>): DOMMatrixReadOnly {
-  return content
-    .translate(-svgOffset.x, -svgOffset.y)
-    .scale(1 / svgScale, 1 / svgScale)
-    .translate(-svg.x, -svg.y)
+export function fromSvgToScroll(
+  m: Readonly<ContentLayoutCoord & SvgLayoutCoord>
+): DOMMatrixReadOnly {
+  return m.content.multiply(fromSvgToContent(m))
 }
 
 // scroll -> container
@@ -108,19 +102,8 @@ export function fromMatrixOuter({
 }
 
 // svg -> container
-export function fromMatrixSvg({
-  scroll,
-  content,
-  svgOffset,
-  svgScale,
-  svg,
-}: Readonly<LayoutCoord>): DOMMatrixReadOnly {
-  return matrix()
-    .translate(scroll.x, scroll.y)
-    .multiply(content)
-    .translate(-svgOffset.x, -svgOffset.y)
-    .scale(1 / svgScale, 1 / svgScale)
-    .translate(-svg.x, -svg.y)
+export function fromMatrixSvg(m: Readonly<LayoutCoord>): DOMMatrixReadOnly {
+  return matrix().translate(m.scroll.x, m.scroll.y).multiply(fromSvgToScroll(m))
 }
 
 // inverse x/y
