@@ -14,8 +14,10 @@ import { RenderFloorLabels } from './FloorsHtmlLabels'
 export function RenderFloorsHtml(
   props: Readonly<OsmRenderMapProps>
 ): ReactNode {
+  const ref = useRef(null)
+  useLayoutStyleRef(ref, 'map-floors-html-content')
   return (
-    <div className="content">
+    <div ref={ref} className="content map-floors-html-content">
       <RenderFloorsHtmlContent {...props} />
       <style>{htmlStyle}</style>
     </div>
