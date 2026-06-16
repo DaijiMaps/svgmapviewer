@@ -77,7 +77,7 @@ const style = `
     & > .map-symbol,
     & > .label {
       will-change: transform;
-      animation: xxx-label ${ZOOM_DURATION_CONTAINER} ease forwards;
+      animation: xxx-label ${ZOOM_DURATION_CONTAINER}ms ease forwards;
     }
   }
 }
