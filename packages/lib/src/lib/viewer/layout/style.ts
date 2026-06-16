@@ -60,6 +60,7 @@ export function updateSvgScaleStyleRefs(layout: Readonly<Layout>): void {
 
 const zoomStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
 const zoomSStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
+const zoomCondStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
 
 export function useZoomStyleRef(
   ref: Readonly<RefObject<HTMLElement | SVGElement | null>>,
@@ -72,6 +73,12 @@ export function useZoomSStyleRef(
   name: string
 ): void {
   useStyleRef(zoomSStyleRefs, ref, name)
+}
+export function useZoomCondStyleRef(
+  ref: Readonly<RefObject<HTMLElement | SVGElement | null>>,
+  name: string
+): void {
+  useStyleRef(zoomCondStyleRefs, ref, name)
 }
 
 export function updateZoomStyleRefs(
@@ -96,6 +103,9 @@ export function updateZoomStyleRefs(
     const p = e.style.setProperty.bind(e.style)
     p(`--zoom-s`, animation === null ? null : animation.to.a.toString())
     p(`--zoom-s-symbols`, animation === null ? null : animation.to.a.toString())
+    tag(e, 'zooming', animation !== null)
+  })
+  Array.from(zoomCondStyleRefs, ([, e]) => {
     tag(e, 'zooming', animation !== null)
   })
   if (animation !== null) {

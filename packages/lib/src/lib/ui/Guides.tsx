@@ -15,6 +15,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
+import { useZoomCondStyleRef } from '../viewer/layout/style'
 import { Measure, MeasureCoordinate, MeasureDistance } from './Measure'
 import { useHeaderStyleRef } from './style'
 
@@ -31,6 +32,7 @@ function GuidesRoot(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
   useHeaderStyleRef(ref, 'guides')
+  useZoomCondStyleRef(ref, 'guides')
 
   const cfg = useConfig()
 
@@ -59,28 +61,34 @@ const style = `
 .guides {
   &.not-animating {
     &.closed {
-      --ob: 0;
+      --b: 0;
     }
     &.opened {
-      --ob: 1;
+      --b: 1;
     }
-    opacity: var(--ob);
+    opacity: var(--b);
     will-change: opacity;
   }
   &.animating {
     &.closed {
-      --oa: 1;
-      --ob: 0;
+      --a: 1;
+      --b: 0;
       --timing: ${timing_closing};
     }
     &.opened {
-      --oa: 0;
-      --ob: 1;
+      --a: 0;
+      --b: 1;
       --timing: ${timing_opening};
     }
     --duration: ${ZOOM_DURATION_HEADER}ms;
     animation: xxx-measure var(--duration) var(--timing);
     will-change: opacity;
+  }
+  &.zooming {
+    display: none;
+    --b: 0;
+  }
+  &.not-zooming {
   }
 }
 text {
@@ -88,10 +96,10 @@ text {
 }
 @keyframes xxx-measure {
   from {
-    opacity: var(--oa);
+    opacity: var(--a);
   }
   to {
-    opacity: var(--ob);
+    opacity: var(--b);
   }
 }
 `
