@@ -106,6 +106,21 @@ export const properties = `
   inherits: false;
   initial-value: 0;
 }
+@property --layout-svg-x {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+@property --layout-svg-y {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+@property --layout-svg-width {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
 @property --layout-svg-height {
   syntax: '<length>';
   inherits: true;
@@ -120,21 +135,6 @@ export const properties = `
   syntax: '*';
   inherits: false;
   initial-value: matrix(1, 0, 0, 1, 0, 0);
-}
-@property --layout-svg-width {
-  syntax: '<length>';
-  inherits: true;
-  initial-value: 0;
-}
-@property --layout-svg-x {
-  syntax: '<length>';
-  inherits: true;
-  initial-value: 0;
-}
-@property --layout-svg-y {
-  syntax: '<length>';
-  inherits: true;
-  initial-value: 0;
 }
 @property --poi-scale {
   syntax: '<number>';
@@ -151,12 +151,12 @@ export const properties = `
   inherits: false;
   initial-value: 0;
 }
-@property --zoom-deg-inv {
+@property --zoom-deg {
   syntax: '<angle>';
   inherits: false;
   initial-value: 0deg;
 }
-@property --zoom-deg {
+@property --zoom-deg-inv {
   syntax: '<angle>';
   inherits: false;
   initial-value: 0deg;
