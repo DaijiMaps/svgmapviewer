@@ -45,6 +45,14 @@ function MapHtmlRoot(props: Readonly<OsmRenderMapProps>): ReactNode {
   )
 }
 
+// XXX
+// XXX
+// XXX
+// XXX fix 'contain'
+// XXX
+// XXX
+// XXX
+
 const style = `
 .content-html {
   position: absolute;
