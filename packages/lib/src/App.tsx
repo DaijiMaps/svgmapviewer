@@ -11,13 +11,14 @@ import {
   touch_action_none,
   width_100vw_height_100svh,
 } from './lib/css'
-import { propertiesStyle } from './lib/css/property'
 import { notifyGlobal } from './lib/event-global'
 import { likeStyle } from './lib/like/Like'
 import { useRendered } from './lib/style/style-react'
 import { Ui } from './lib/ui/Ui'
 import { Container } from './lib/viewer/Container'
 import { type OsmRenderMapProps } from './types'
+
+import './App.css'
 
 function App(): ReactNode {
   const cfg = useConfig()
@@ -79,8 +80,6 @@ a:link {
 }
 
 ${likeStyle}
-
-${propertiesStyle}
 `
 
 // XXX

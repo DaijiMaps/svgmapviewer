@@ -52,7 +52,7 @@ const style = `
   top: 0;
   width: var(--layout-scroll-width);
   height: var(--layout-scroll-height);
-  transform: var(--layout-svg-to-content-matrix);
+  transform: var(--layout-svg-to-content-matrix) translateZ(0);
   transform-origin: 0% 0%;
   &.zooming {
     & > .map-symbol,
@@ -66,6 +66,12 @@ const style = `
   text-stroke: 3px white;
   -webkit-text-stroke: 3px white;
 }
+.label {
+  --poi-scale: 0.05;
+}
+.map-symbol {
+  --poi-scale: 0.02;
+}
 .map-symbol,
 .label {
   color: black;
@@ -73,6 +79,7 @@ const style = `
   position: absolute;
   left: 0;
   top: 0;
+  will-change: transform;
   transform-origin: 0% 0%;
   transform:
     translate(var(--poi-x), var(--poi-y))
@@ -80,10 +87,9 @@ const style = `
       calc(
         var(--layout-fontsize) *
         var(--layout-svgscale) *
-        0.05)
+        var(--poi-scale))
       )
-    translate(-50%, -50%)
-    translateZ(0);
+    translate(-50%, -50%);
 }
 .label::before {
   content: "";
@@ -110,10 +116,9 @@ svg {
         calc(
           var(--layout-fontsize) *
           var(--layout-svgscale) *
-          0.05)
+          var(--poi-scale))
         )
-      translate(-50%, -50%)
-      translateZ(0);
+      translate(-50%, -50%);
   }
   to {
     transform:
@@ -123,10 +128,9 @@ svg {
           1 / var(--zoom-s-symbols) *
           var(--layout-fontsize) *
           var(--layout-svgscale) *
-          0.05)
+          var(--poi-scale))
         )
-      translate(-50%, -50%)
-      translateZ(0);
+      translate(-50%, -50%);
   }
 }
 `

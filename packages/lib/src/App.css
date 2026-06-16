@@ -1,6 +1,5 @@
-export const propertiesStyle = `
 @property --zoom-origin {
-  syntax: "<length-percentage>+";
+  syntax: '<length-percentage>+';
   inherits: false;
   initial-value: 0% 0%;
 }
@@ -130,12 +129,12 @@ export const propertiesStyle = `
   initial-value: 0;
 }
 @property --layout-content-matrix {
-  syntax: "*";
+  syntax: '*';
   inherits: false;
   initial-value: matrix(1, 0, 0, 1, 0, 0);
 }
 @property --layout-svg-to-content-matrix {
-  syntax: "*";
+  syntax: '*';
   inherits: false;
   initial-value: matrix(1, 0, 0, 1, 0, 0);
 }
@@ -159,4 +158,8 @@ export const propertiesStyle = `
   inherits: true;
   initial-value: 16;
 }
-`
+@property --poi-scale {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
