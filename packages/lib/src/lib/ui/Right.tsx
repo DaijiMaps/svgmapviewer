@@ -11,6 +11,7 @@ import {
   position_absolute_right_0_top_0,
   timing_closing,
   timing_opening,
+  ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
 import { useStyleRef } from '../style/ref'
@@ -82,8 +83,9 @@ const style = `
       --b: 1;
       --timing: ${timing_opening};
     }
+    --duration: ${ZOOM_DURATION_HEADER}ms;
     will-change: opacity, transform;
-    animation: xxx-right 300ms var(--timing) forwards;
+    animation: xxx-right var(--duration) var(--timing) forwards;
   }
 }
 @keyframes xxx-right {
