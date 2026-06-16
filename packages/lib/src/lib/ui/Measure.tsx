@@ -252,7 +252,9 @@ const coordinateStyle = `
   ${position_absolute_left_0_top_0}
   width: ${width};
   height: ${height};
+  /*
   transform: translate3d(0, 0, 0);
+  */
 }
 `
 const longitudeStyle = `

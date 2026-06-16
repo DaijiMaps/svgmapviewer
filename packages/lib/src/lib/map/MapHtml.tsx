@@ -52,7 +52,7 @@ const style = `
   top: 0;
   width: var(--layout-scroll-width);
   height: var(--layout-scroll-height);
-  transform: var(--layout-svg-to-content-matrix) translateZ(0);
+  transform: var(--layout-svg-to-content-matrix);
   transform-origin: 0% 0%;
   &.zooming {
     & > .map-symbol,
@@ -79,7 +79,6 @@ const style = `
   position: absolute;
   left: 0;
   top: 0;
-  will-change: transform;
   transform-origin: 0% 0%;
   transform:
     translate(var(--poi-x), var(--poi-y))
@@ -102,7 +101,6 @@ const style = `
   z-index: -1;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 50%;
-  will-change: transform, width, height; 
   transform: translate(-50%, calc(-50% + 0.75em));
 }
 svg {
