@@ -83,15 +83,31 @@ export function fromContentToScroll({
 }
 
 // svg -> content
-export function fromSvgToContent({
+export function fromSvgToContent(
+  m: Readonly<SvgLayoutCoord>
+): DOMMatrixReadOnly {
+  return matrix()
+    .multiply(fromSvgOuterToContent(m))
+    .multiply(fromSvgInnerToSvgOuter(m))
+    .multiply(fromSvgToSvgInner(m))
+}
+
+export function fromSvgOuterToContent({
   svgOffset,
+}: Readonly<SvgLayoutCoord>): DOMMatrixReadOnly {
+  return matrix().translate(-svgOffset.x, -svgOffset.y)
+}
+
+export function fromSvgInnerToSvgOuter({
   svgScale,
+}: Readonly<SvgLayoutCoord>): DOMMatrixReadOnly {
+  return matrix().scale(1 / svgScale, 1 / svgScale)
+}
+
+export function fromSvgToSvgInner({
   svg,
 }: Readonly<SvgLayoutCoord>): DOMMatrixReadOnly {
-  return matrix()
-    .translate(-svgOffset.x, -svgOffset.y)
-    .scale(1 / svgScale, 1 / svgScale)
-    .translate(-svg.x, -svg.y)
+  return matrix().translate(-svg.x, -svg.y)
 }
 
 // svg -> scroll
