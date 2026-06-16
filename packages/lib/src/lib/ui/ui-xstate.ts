@@ -84,6 +84,7 @@ const uiMachine = setup({
     updateDetail: assign({
       detail: (_, detail: UiDetailContent) => detail,
       p: (_, { psvg, layout }: UiDetailContent) =>
+        // svg -> container
         fromMatrixSvg(layout).transformPoint(psvg),
     }),
     updateBalloon: assign({

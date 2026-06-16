@@ -212,6 +212,7 @@ export function searchStart(context: Readonly<ViewerContext>): ViewerEmitted {
   const { scroll } = getCurrentScroll()
   const l = scrollLayout(context.layout, scroll)
   const m = fromMatrixSvg(l).inverse()
+  // container -> svg
   const psvg = m.transformPoint(context.cursor)
   const req: SearchSvgReq = { psvg }
   return { type: 'SEARCH.START', req }
