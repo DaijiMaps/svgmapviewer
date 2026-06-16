@@ -12,7 +12,7 @@ import {
 } from '../css'
 import type { DistanceRadius } from '../distance-types'
 import { useStyleRef, type StyleRefMap } from '../style/ref'
-import { trunc7 } from '../utils'
+import { trunc2, trunc7 } from '../utils'
 import type { VecVec } from '../vec/prefixed'
 
 // XXX
@@ -125,7 +125,7 @@ export function updateMeasureRefs(
   INDEXES.forEach((i) => {
     const e = measureRefs.get(`ring${i}`)
     if (!e) return
-    const r = client * (i + 1)
+    const r = trunc2(client * (i + 1))
     const d = ringPath({ width, height, r })
     e.setAttribute('d', d)
   })
@@ -188,6 +188,7 @@ function RingPath({ idx }: Readonly<{ idx: number }>): ReactNode {
 // XXX
 // XXX
 // XXX
+const pathCache = new Map<string, string>()
 function ringPath({
   width,
   height,
@@ -197,10 +198,15 @@ function ringPath({
   height: number
   r: number
 }>): string {
-  return `M${width / 2},${height / 2} m-${r},0 a${r},${r} 0,1,0 ${r * 2},0 a${r},${r} 0,1,0 -${r * 2},0`.replaceAll(
-    /([.]\d)\d*/g,
-    '$1'
-  )
+  const key = `${width}:${height}:${r}`
+  const prev = pathCache.get(key)
+  const d =
+    `M${width / 2},${height / 2} m-${r},0 a${r},${r} 0,1,0 ${r * 2},0 a${r},${r} 0,1,0 -${r * 2},0`.replaceAll(
+      /([.]\d)\d*/g,
+      '$1'
+    )
+  if (!prev) pathCache.set(key, d)
+  return d
 }
 // XXX
 // XXX
