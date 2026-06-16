@@ -146,6 +146,16 @@ export const properties = `
   inherits: false;
   initial-value: 0;
 }
+@property --zoom-deg {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --zoom-deg-inv {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
 @property --zoom-k-inv {
   syntax: '<number>';
   inherits: false;

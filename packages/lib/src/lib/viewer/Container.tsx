@@ -74,6 +74,9 @@ const style: string = `
     /*
     animation: container-zoom ${ZOOM_DURATION_CONTAINER}ms ease;
     */
+    &.rotating {
+      transform: rotate(var(--zoom-deg)) translate3d(0px, 0px, 0px);
+    }
   }
   & > .content {
     ${position_absolute_left_0_top_0}
