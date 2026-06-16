@@ -27,7 +27,7 @@ export function MapHtml(props: Readonly<OsmRenderMapProps>): ReactNode {
       id={MAP_HTML_ROOT_ID}
       className="content svg"
       style={{
-        contain: 'strict',
+        //contain: 'strict',
         contentVisibility: 'auto',
       }}
     />
