@@ -7,6 +7,7 @@ import { usePosition } from '../position'
 //import { useLayoutSvgScaleS } from '../style/style-react'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'
+import { useSvgScaleStyleRef } from '../viewer/layout/style'
 import { type MapMarker, type RenderMapMarkersProps } from './types'
 
 export function RenderMapMarkers(
@@ -102,10 +103,13 @@ export function RenderCircle(props: Readonly<{ sz: number }>): ReactNode {
 }
 
 export function RenderPosition(props: Readonly<{ sz: number }>): ReactNode {
+  const ref = useRef(null)
+  useSvgScaleStyleRef(ref, 'position')
   const r = props.sz / 2
   const h = r / Math.sqrt(2)
   return (
     <path
+      ref={ref}
       id="position"
       className="position"
       fill="red"

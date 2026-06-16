@@ -16,9 +16,11 @@ import {
 } from './map-svg-react'
 
 export function MapSvgSymbols(props: Readonly<OsmRenderMapProps>): ReactNode {
+  const ref = useRef<HTMLDivElement>(null)
+  useLayoutStyleRef(ref, 'map-svg-symbols-root')
   useShadowRoot(MAP_SVG_SYMBOLS_ROOT_ID, <MapSvgSymbolsRoot {...props} />)
 
-  return <div id={MAP_SVG_SYMBOLS_ROOT_ID} className="content svg" />
+  return <div ref={ref} id={MAP_SVG_SYMBOLS_ROOT_ID} className="content svg" />
 }
 
 export function MapSvgSymbolsRoot(

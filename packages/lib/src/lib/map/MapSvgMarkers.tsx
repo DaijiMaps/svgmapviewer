@@ -25,9 +25,11 @@ import {
 import { useNames } from './names'
 
 export function MapSvgMarkers(props: Readonly<OsmRenderMapProps>): ReactNode {
+  const ref = useRef(null)
+  useLayoutStyleRef(ref, 'map-svg-markers-root')
   useShadowRoot(MAP_SVG_MARKERS_ROOT_ID, <MapSvgMarkersRoot {...props} />)
 
-  return <div id={MAP_SVG_MARKERS_ROOT_ID} className="content svg" />
+  return <div ref={ref} id={MAP_SVG_MARKERS_ROOT_ID} className="content svg" />
 }
 
 export function MapSvgMarkersRoot(
