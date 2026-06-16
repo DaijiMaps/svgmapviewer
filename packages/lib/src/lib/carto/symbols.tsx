@@ -95,7 +95,7 @@ const style = `
   &.zooming {
     & > .map-symbol {
       will-change: transform;
-      animation: xxx-map-symbol ${ZOOM_DURATION_CONTAINER} ease forwards;
+      animation: xxx-map-symbol ${ZOOM_DURATION_CONTAINER}ms ease forwards;
     }
   }
 }

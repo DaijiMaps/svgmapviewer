@@ -16,6 +16,7 @@ import { fromSvgToContent } from './coord'
 import type { Layout } from './layout-types'
 
 const layoutStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
+const svgStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
 const svgScaleStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
 
 export function useLayoutStyleRef(
@@ -23,6 +24,12 @@ export function useLayoutStyleRef(
   name: string
 ): void {
   useStyleRef(layoutStyleRefs, ref, name)
+}
+export function useSvgStyleRef(
+  ref: Readonly<RefObject<HTMLElement | SVGElement | null>>,
+  name: string
+): void {
+  useStyleRef(svgStyleRefs, ref, name)
 }
 export function useSvgScaleStyleRef(
   ref: Readonly<RefObject<HTMLElement | SVGElement | null>>,
@@ -39,12 +46,19 @@ export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
   const svgToContent = fromSvgToContent(layout)
   Array.from(layoutStyleRefs, ([, e]) => {
     const p = e.style.setProperty.bind(e.style)
-    p(`--layout-container-width`, `${trunc2(layout.container.width)}px`)
-    p(`--layout-container-height`, `${trunc2(layout.container.height)}px`)
+    //p(`--layout-container-width`, `${trunc2(layout.container.width)}px`)
+    //p(`--layout-container-height`, `${trunc2(layout.container.height)}px`)
     p(`--layout-content-matrix`, layout.content.toString())
     p(`--layout-scroll-width`, `${trunc2(layout.scroll.width)}px`)
     p(`--layout-scroll-height`, `${trunc2(layout.scroll.height)}px`)
     p(`--layout-svg-to-content-matrix`, matrixTrunc2(svgToContent).toString())
+  })
+  Array.from(svgStyleRefs, ([, e]) => {
+    const p = e.style.setProperty.bind(e.style)
+    p(`--layout-svg-x`, `${trunc2(layout.svg.x).toString()}px`)
+    p(`--layout-svg-y`, `${trunc2(layout.svg.y).toString()}px`)
+    p(`--layout-svg-width`, `${trunc2(layout.svg.width).toString()}px`)
+    p(`--layout-svg-height`, `${trunc2(layout.svg.height).toString()}px`)
   })
 }
 
@@ -89,9 +103,11 @@ export function updateZoomStyleRefs(
     animation === null || animation.origin === null
       ? `0% 0%`
       : `${animation.origin.x}px ${animation?.origin.y}px`
+  const rotating = animation?.to.b !== 0
   Array.from(zoomStyleRefs, ([, e]) => {
     const p = e.style.setProperty.bind(e.style)
     tag(e, 'zooming', animation !== null)
+    if (rotating) tag(e, 'rotating', animation !== null)
     p(`--zoom-origin`, o)
     p(`--zoom-zoom`, zoom.toString())
     p(`--zoom-s`, null)
@@ -104,9 +120,11 @@ export function updateZoomStyleRefs(
     p(`--zoom-s`, animation === null ? null : animation.to.a.toString())
     p(`--zoom-s-symbols`, animation === null ? null : animation.to.a.toString())
     tag(e, 'zooming', animation !== null)
+    if (rotating) tag(e, 'rotating', animation !== null)
   })
   Array.from(zoomCondStyleRefs, ([, e]) => {
     tag(e, 'zooming', animation !== null)
+    if (rotating) tag(e, 'rotating', animation !== null)
   })
   if (animation !== null) {
     startLoop('zoom', 500, {
@@ -162,8 +180,32 @@ function getCurrentZoomValues(
   return { tx, ty, s, sinv: 1 / s, z, zinv: 1 / z, k, kinv: 1 / k }
 }
 
+type RotateValues = Readonly<{
+  readonly deg: number
+  readonly deginv: number
+}>
+
+function getCurrentRotateValues(
+  { animation }: ZoomData,
+  t: number
+): RotateValues {
+  const a = getDeg(animation.from)
+  const b = getDeg(animation.to)
+  const deg = lerp(a, b, easeCubic(t))
+  const deginv = 1 / deg
+  return { deg, deginv }
+}
+
 function tickZoomStyleRefs(t: number, cbdata?: ZoomData): void {
   if (!cbdata) return
+  if (cbdata.animation.to.b === 0) {
+    tickZoomZoomStyleRefs(t, cbdata)
+  } else {
+    tickZoomRotateStyleRefs(t, cbdata)
+  }
+}
+
+function tickZoomZoomStyleRefs(t: number, cbdata: ZoomData): void {
   const { tx, ty, s, sinv, z, zinv, k, kinv } = getCurrentZoomValues(cbdata, t)
   Array.from(zoomStyleRefs, ([, e]) => {
     const p = e.style.setProperty.bind(e.style)
@@ -178,6 +220,15 @@ function tickZoomStyleRefs(t: number, cbdata?: ZoomData): void {
   })
 }
 
+function tickZoomRotateStyleRefs(t: number, cbdata: ZoomData): void {
+  const { deg, deginv } = getCurrentRotateValues(cbdata, t)
+  Array.from(zoomStyleRefs, ([, e]) => {
+    const p = e.style.setProperty.bind(e.style)
+    p(`--zoom-deg`, `${deg}deg`)
+    p(`--zoom-deg-inv`, `${deginv}deg`)
+  })
+}
+
 /*
 function tickZoomSStyleRefs(t: number, cbdata?: ZoomData): void {
   if (!cbdata) return
@@ -189,3 +240,9 @@ function tickZoomSStyleRefs(t: number, cbdata?: ZoomData): void {
   })
 }
 */
+
+function getDeg(m: DOMMatrixReadOnly): number {
+  const rad = Math.atan2(m.b, m.a)
+  const deg = rad * (180 / Math.PI)
+  return deg >= 0 ? deg : deg + 360
+}

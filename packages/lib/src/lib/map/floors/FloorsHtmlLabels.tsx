@@ -66,7 +66,7 @@ div.label {
   &.zooming {
     & > div.label {
       /*
-      animation: xxx-label-scale ${ZOOM_DURATION_CONTAINER} ease;
+      animation: xxx-label-scale ${ZOOM_DURATION_CONTAINER}ms ease;
       */
     }
   }

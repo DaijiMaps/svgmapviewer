@@ -19,7 +19,7 @@ import {
   //animationMove,
   animationZoom,
 } from '../../src/lib/viewer/layout/animation'
-import { fromMatrixSvg } from '../../src/lib/viewer/layout/coord'
+import { fromSvgToContainer } from '../../src/lib/viewer/layout/coord'
 import {
   configLayout,
   emptyLayout,
@@ -161,8 +161,8 @@ test('boxScale', () => {
     layout.config.container.width / 2,
     layout.config.container.height / 2
   )
-  const opsvg = fromMatrixSvg(layout).inverse().transformPoint(o)
-  const o2 = fromMatrixSvg(layout).transformPoint(opsvg)
+  const opsvg = fromSvgToContainer(layout).inverse().transformPoint(o)
+  const o2 = fromSvgToContainer(layout).transformPoint(opsvg)
   const scroll = boxScaleAt(layout.scroll, s, o.x, o.y)
   const svgOffset = vecScale(layout.svgOffset, s)
   const svg = boxScaleAt(layout.svg, s, opsvg.x, opsvg.y)
@@ -182,7 +182,7 @@ test('boxScale', () => {
     svg,
   }
   //const coordMatrixOuter = toMatrixOuter(coord);
-  const coordMatrixSvg = fromMatrixSvg(coord).inverse()
+  const coordMatrixSvg = fromSvgToContainer(coord).inverse()
   const p = vec(600, 500)
   const start = coordMatrixSvg.transformPoint(p)
 
@@ -215,10 +215,10 @@ test('rotate', () => {
   const u = vec(1, 0)
   const l0 = emptyLayout
   const l1 = rotateLayout(l0, 90)
-  const m1 = fromMatrixSvg(l1)
+  const m1 = fromSvgToContainer(l1)
   const p1 = m1.transformPoint(u)
   const l2 = rotateLayout(l1, -90)
-  const m2 = fromMatrixSvg(l2)
+  const m2 = fromSvgToContainer(l2)
   const p2 = m2.transformPoint(u)
 
   expect(p1.x).toBe(1)

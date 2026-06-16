@@ -69,6 +69,7 @@ export const properties = `
   inherits: true;
   initial-value: 0;
 }
+/*
 @property --layout-container-height {
   syntax: '<length>';
   inherits: false;
@@ -79,6 +80,7 @@ export const properties = `
   inherits: false;
   initial-value: 0;
 }
+*/
 @property --layout-content-matrix {
   syntax: '*';
   inherits: false;
@@ -97,6 +99,26 @@ export const properties = `
 @property --layout-scroll-width {
   syntax: '<length>';
   inherits: false;
+  initial-value: 0;
+}
+@property --layout-svg-x {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+@property --layout-svg-y {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+@property --layout-svg-width {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+@property --layout-svg-height {
+  syntax: '<length>';
+  inherits: true;
   initial-value: 0;
 }
 @property --layout-svgscale {
@@ -123,6 +145,16 @@ export const properties = `
   syntax: '<length>';
   inherits: false;
   initial-value: 0;
+}
+@property --zoom-deg {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --zoom-deg-inv {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
 }
 @property --zoom-k-inv {
   syntax: '<number>';
