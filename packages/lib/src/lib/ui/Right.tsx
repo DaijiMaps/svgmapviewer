@@ -55,14 +55,14 @@ const style = `
   align-items: end;
 }
 .right {
-  opacity: var(--right-scale);
   transform-origin: 100% 50%;
   &.bottom {
     transform-origin: 100% 100%;
   }
-  transform: scale(var(--right-scale)) translate3d(0px, 0px, 0px);
+  transform: translate3d(0px, 0px, 0px);
   &.not-animating {
-    --right-scale: var(--b);
+    opacity: var(--b);
+    transform: scale(var(--b));
     &.closed {
       --b: 0;
     }
@@ -83,15 +83,17 @@ const style = `
       --timing: ${timing_opening};
     }
     will-change: opacity, transform;
-    animation: xxx-right 300ms var(--timing);
+    animation: xxx-right 300ms var(--timing) forwards;
   }
 }
 @keyframes xxx-right {
   from {
-    --right-scale: var(--a);
+    opacity: var(--a);
+    transform: scale(var(--a));
   }
   to {
-    --right-scale: var(--b);
+    opacity: var(--b);
+    transform: scale(var(--b));
   }
 }
 `

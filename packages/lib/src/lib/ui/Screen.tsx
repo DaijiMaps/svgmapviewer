@@ -48,17 +48,14 @@ const style = `
   z-index: ${Z_INDEX_SHADOW};
 }
 .screen {
-  opacity: var(--screen-opacity);
   &.not-animating {
     &.closed {
-      --screen-opacity: 0;
       display: none;
       &.zooming {
         display: initial;
       }
     }
     &.opened {
-      --screen-opacity: 0.3;
       pointer-events: initial;
     }
   }

@@ -218,8 +218,8 @@ export function CoordinateStyle(): ReactNode {
   )
 }
 
-const width = `var(--layout-container-width)`
-const height = `var(--layout-container-height)`
+const width = `100vw`
+const height = `100svh`
 const client = `var(--distance-radius-client)`
 
 const coordinateStyle = `

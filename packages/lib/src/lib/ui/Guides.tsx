@@ -15,7 +15,6 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
-import { useLayoutStyleRef } from '../viewer/layout/style'
 import { Measure, MeasureCoordinate, MeasureDistance } from './Measure'
 import { useHeaderStyleRef } from './style'
 
@@ -32,7 +31,6 @@ function GuidesRoot(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
 
   useHeaderStyleRef(ref, 'guides')
-  useLayoutStyleRef(ref, 'guides')
 
   const cfg = useConfig()
 
@@ -55,6 +53,7 @@ const style = `
   ${position_absolute_left_0_top_0}
   ${width_100vw_height_100svh}
   ${pointer_events_none}
+  transform: translate(0%, 0%);
   z-index: ${Z_INDEX_GUIDES};
 }
 .guides {
