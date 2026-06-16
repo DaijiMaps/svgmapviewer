@@ -16,7 +16,10 @@ import {
 import { vecZero } from '../vec/prefixed'
 import { fromSvgToScroll } from '../viewer/layout/coord'
 import { emptyLayout, type Layout } from '../viewer/layout/layout'
-import { updateZoomStyleRefs } from '../viewer/layout/style'
+import {
+  updateSvgScaleStyleRefs,
+  updateZoomStyleRefs,
+} from '../viewer/layout/style'
 import { updateLayoutStyleRefs } from '../viewer/layout/style'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { type ViewerMode } from '../viewer/viewer-types'
@@ -114,6 +117,7 @@ const styleMachine = setup({
         'updateMeasure',
         raise(({ event: { rendered } }) => ({ type: 'LAYOUT.DONE', rendered })),
         ({ context }) => updateLayoutStyleRefs(context.layout),
+        ({ context }) => updateSvgScaleStyleRefs(context.layout),
         ({ context }) => updateMapStyleRefs(context.layout, context.zoom),
       ],
     },
