@@ -16,6 +16,7 @@ import { fromSvgToContent } from './coord'
 import type { Layout } from './layout-types'
 
 const layoutStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
+const svgStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
 const svgScaleStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
 
 export function useLayoutStyleRef(
@@ -23,6 +24,12 @@ export function useLayoutStyleRef(
   name: string
 ): void {
   useStyleRef(layoutStyleRefs, ref, name)
+}
+export function useSvgStyleRef(
+  ref: Readonly<RefObject<HTMLElement | SVGElement | null>>,
+  name: string
+): void {
+  useStyleRef(svgStyleRefs, ref, name)
 }
 export function useSvgScaleStyleRef(
   ref: Readonly<RefObject<HTMLElement | SVGElement | null>>,
@@ -45,6 +52,13 @@ export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
     p(`--layout-scroll-width`, `${trunc2(layout.scroll.width)}px`)
     p(`--layout-scroll-height`, `${trunc2(layout.scroll.height)}px`)
     p(`--layout-svg-to-content-matrix`, matrixTrunc2(svgToContent).toString())
+  })
+  Array.from(svgStyleRefs, ([, e]) => {
+    const p = e.style.setProperty.bind(e.style)
+    p(`--layout-svg-x`, `${trunc2(layout.svg.x).toString()}px`)
+    p(`--layout-svg-y`, `${trunc2(layout.svg.y).toString()}px`)
+    p(`--layout-svg-width`, `${trunc2(layout.svg.width).toString()}px`)
+    p(`--layout-svg-height`, `${trunc2(layout.svg.height).toString()}px`)
   })
 }
 

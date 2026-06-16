@@ -101,6 +101,26 @@ export const properties = `
   inherits: false;
   initial-value: 0;
 }
+@property --layout-svg-x {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+@property --layout-svg-y {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+@property --layout-svg-width {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+@property --layout-svg-height {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
 @property --layout-svgscale {
   syntax: '<number>';
   inherits: true;
