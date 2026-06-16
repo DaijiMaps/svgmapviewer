@@ -61,57 +61,62 @@ export const propertiesStyle = `
 }
 @property --a {
   syntax: '<number>';
-  inherits: true;
+  inherits: false;
   initial-value: 1;
 }
 @property --b {
   syntax: '<number>';
-  inherits: true;
+  inherits: false;
   initial-value: 1;
 }
 @property --balloon-opacity {
   syntax: '<number>';
-  inherits: true;
+  inherits: false;
   initial-value: 1;
 }
 @property --balloon-translate-x {
   syntax: '<length>';
-  inherits: true;
+  inherits: false;
   initial-value: 0;
 }
 @property --balloon-translate-y {
   syntax: '<length>';
-  inherits: true;
+  inherits: false;
   initial-value: 0;
 }
 @property --balloon-scale {
   syntax: '<number>';
-  inherits: true;
+  inherits: false;
   initial-value: 1;
 }
-@property --header-scale {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
+@property --pww {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
 }
-@property --footer-scale {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
+@property --phh {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
 }
-@property --left-scale {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
+@property --tx-a-x {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
 }
-@property --right-scale {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
+@property --tx-a-y {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
 }
-@property --screen-opacity {
-  syntax: '<number>';
-  inherits: true;
+@property --tx-b-x {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --tx-b-y {
+  syntax: '<length>';
+  inherits: false;
   initial-value: 0;
 }
 @property --layout-container-width {
@@ -123,6 +128,16 @@ export const propertiesStyle = `
   syntax: '<length>';
   inherits: false;
   initial-value: 0;
+}
+@property --layout-content-matrix {
+  syntax: "*";
+  inherits: false;
+  initial-value: matrix(1, 0, 0, 1, 0, 0);
+}
+@property --layout-svg-to-content-matrix {
+  syntax: "*";
+  inherits: false;
+  initial-value: matrix(1, 0, 0, 1, 0, 0);
 }
 @property --layout-scroll-width {
   syntax: '<length>';
