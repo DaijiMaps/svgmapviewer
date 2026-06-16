@@ -9,8 +9,8 @@ import { type CurrentScroll } from '../../../types'
 import { boxUnit, type BoxBox } from '../../box/prefixed'
 import { tag } from '../../style/tag'
 
-export const busies: Map<string, number> = new Map()
-export const locks: Set<string> = new Set()
+const busies: Map<string, number> = new Map()
+const locks: Set<string> = new Set()
 
 export const scrollLockRefs: Map<string, HTMLElement | SVGElement> = new Map()
 
@@ -50,19 +50,6 @@ export function stopScroll(e: Readonly<HTMLElement>): void {
 }
 */
 
-export const busies: Map<string, number> = new Map()
-export const locks: Set<string> = new Set()
-export function lockScroll(): boolean {
-  if (busies.has('S')) return false
-  //stopScroll()
-  locks.add('S')
-  return true
-}
-export function unlockScroll(): boolean {
-  if (!locks.has('S')) return false
-  locks.delete('S')
-  return true
-}
 /*
 export function stopScroll(e: Readonly<HTMLElement>): void {
   const x = e.scrollLeft
