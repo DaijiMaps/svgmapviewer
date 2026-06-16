@@ -10,11 +10,16 @@ export function rgbToString({ r, g, b }: Readonly<Rgb>): string {
   return `rgb(${d(r)}, ${d(g)}, ${d(b)})`
 }
 
+const rgbCache = new Map<string, string>()
+
 export const toRgbString = (c: string): string => {
+  const prev = rgbCache.get(c)
+  if (prev) return prev
   tmp.style.color = c
   document.body.appendChild(tmp)
   const s = getComputedStyle(tmp).color
   document.body.removeChild(tmp)
+  rgbCache.set(c, s)
   return s
 }
 
