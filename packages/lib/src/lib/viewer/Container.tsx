@@ -13,7 +13,6 @@ import { useAppearingStyleRef } from '../style/appearing'
 import { useDetailStyleRef } from '../ui/style'
 import { sendContextMenu } from './input/input'
 import { useZoomStyleRef } from './layout/style'
-import { useLayoutStyleRef } from './layout/style'
 import { useScrollRef } from './scroll/style'
 import { useTouchMoveZoomingLock } from './touch/event'
 import {
@@ -28,7 +27,6 @@ export function Container(props: Readonly<PropsWithChildren>): ReactNode {
   useDetailStyleRef(ref, 'container')
   useTouchMoveZoomingLock(ref)
   useZoomStyleRef(ref, 'container')
-  useLayoutStyleRef(ref, 'container')
   useAppearingStyleRef(ref, 'container')
   useScrollRef(ref, 'container')
   return (
