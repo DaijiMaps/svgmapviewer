@@ -151,6 +151,41 @@ export const properties = `
   inherits: false;
   initial-value: 0;
 }
+@property --svg-matrix-svg-to-inner {
+  syntax: '*';
+  inherits: false;
+  initial-value: translate(0px, 0px);
+}
+@property --svg-matrix-inner-to-outer {
+  syntax: '*';
+  inherits: false;
+  initial-value: scale(1);
+}
+@property --svg-matrix-outer-to-content {
+  syntax: '*';
+  inherits: false;
+  initial-value: translate(0px, 0px);
+}
+@property --svg-viewbox-height {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --svg-viewbox-width {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --svg-viewbox-x {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --svg-viewbox-y {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
 @property --zoom-deg {
   syntax: '<angle>';
   inherits: false;
