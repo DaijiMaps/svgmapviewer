@@ -1,7 +1,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 export function tag(
-  e: Readonly<HTMLElement>,
+  e: Readonly<HTMLElement | SVGElement>,
   name: string,
   adding: boolean
 ): void {
@@ -10,7 +10,7 @@ export function tag(
 }
 
 export function tag2(
-  e: Readonly<HTMLElement>,
+  e: Readonly<HTMLElement | SVGElement>,
   p: string,
   q: string,
   adding: boolean

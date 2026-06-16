@@ -11,6 +11,9 @@ export function useRendered(): boolean {
 export function useLayout(): Layout {
   return useStyleContext((ctx) => ctx.layout)
 }
+export function useLayoutSvg(): BoxBox {
+  return useStyleContext((ctx) => ctx.layout.svg)
+}
 export function useLayoutContainer(): BoxBox {
   return useStyleContext((ctx) => ctx.layout.container)
 }

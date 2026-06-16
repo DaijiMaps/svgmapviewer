@@ -42,7 +42,7 @@ export interface RenderMapMarkersProps {
   readonly m: DOMMatrixReadOnly
   readonly mapMarkers: readonly OsmMapMarkers[]
   readonly fontSize: number
-  readonly s: number
+  //readonly s: number
 }
 
 export interface MapMarker {

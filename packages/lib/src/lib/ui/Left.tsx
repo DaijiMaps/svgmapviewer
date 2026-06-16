@@ -44,12 +44,10 @@ const style = `
   align-items: end;
 }
 .left {
-  opacity: var(--left-scale);
   transform-origin: 0% 50%;
-  transform: translate(0%, calc(50vh - 50%)) scale(var(--left-scale));
-  --b: 1;
+  transform: translate(0%, calc(50vh - 50%)) scale(var(--b));
   &.not-animating {
-    --left-scale: var(--b);
+    opacity: var(--b);
     &.closed {
       --b: 0;
     }
@@ -69,16 +67,18 @@ const style = `
       --timing: ${timing_opening};
     }
     --duration: ${ZOOM_DURATION_HEADER}ms;
-    animation: xxx-left var(--duration) var(--timing);
     will-change: opacity, transform;
+    animation: xxx-left var(--duration) var(--timing) forwards;
   }
 }
 @keyframes xxx-left {
   from {
-    --left-scale: var(--a);
+    opacity: var(--a);
+    transform: translate(0%, calc(50vh - 50%)) scale(var(--a));
   }
   to {
-    --left-scale: var(--b);
+    opacity: var(--b);
+    transform: translate(0%, calc(50vh - 50%)) scale(var(--b));
   }
 }
 `

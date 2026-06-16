@@ -1,5 +1,5 @@
 import { notifyScroll } from '../event-scroll'
-import { busies } from './scroll/scroll'
+import { busyScroll } from './scroll/scroll'
 import { clickeventmask, viewerSend, viewerSendEvent } from './viewer-xstate'
 
 export function sendClick(ev: React.MouseEvent<HTMLDivElement>): void {
@@ -10,10 +10,7 @@ export function sendClick(ev: React.MouseEvent<HTMLDivElement>): void {
 }
 export function sendScroll(ev: React.UIEvent<HTMLDivElement, Event>): void {
   if (ev === null) return
-  const prevId = busies.get('S')
-  if (prevId) clearTimeout(prevId)
-  const id = setTimeout(() => busies.delete('S'), 500)
-  busies.set('S', id)
+  busyScroll()
   notifyScroll.eventTick(ev)
 }
 export function sendAnimationEnd(

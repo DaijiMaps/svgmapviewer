@@ -10,6 +10,7 @@ import {
   type UseFloorsReturn,
 } from '../../viewer/floors/floors-react'
 import { useFloorRef } from '../../viewer/floors/style'
+import { useLayoutStyleRef } from '../../viewer/layout/style'
 import { MAP_SVG_FLOORS } from '../map-svg-react'
 import type { FloorProps } from './types'
 
@@ -17,9 +18,11 @@ export function RenderFloorsSvg({
   floors,
   data: { origViewBox },
 }: Readonly<OsmRenderMapProps>): ReactNode {
+  const ref = useRef<HTMLDivElement>(null)
+  useLayoutStyleRef(ref, 'map-floors-svg')
   const ctx = useFloors()
   return (
-    <div className="content map-floors-svg">
+    <div ref={ref} className="content map-floors-svg">
       <RenderFloorsSvgSvg>
         {floors?.floors.map((_, fidx) => (
           <Fragment key={fidx}>
@@ -41,11 +44,18 @@ ${floor_appearing_animation}
 `
 
 function RenderFloorsSvgSvg(props: Readonly<PropsWithChildren>): ReactNode {
+  const ref = useRef(null)
   const { viewBox } = useLayout2()
+  useLayoutStyleRef(ref, `floors-svg`)
 
   // only this part is re-rendered after zoom (viewbox change)
   return (
-    <svg id={MAP_SVG_FLOORS} className="content-svg" viewBox={viewBox}>
+    <svg
+      ref={ref}
+      id={MAP_SVG_FLOORS}
+      className="content-svg"
+      viewBox={viewBox}
+    >
       {props.children}
     </svg>
   )

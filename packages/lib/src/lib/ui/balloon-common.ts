@@ -199,34 +199,29 @@ export function calcBalloonPaths(
   }
 }
 
-export const balloonStyleString: string = `
-.balloon,
-.detail {
-  opacity: var(--balloon-opacity);
-  transform-origin: 0 0;
-}
-.balloon {
-  transform: translate(var(--balloon-translate-x), var(--balloon-translate-y)) scale(var(--balloon-scale)) translate(var(--pww), var(--phh)) translate3d(0px, 0px, 0px);
-}
-.detail {
-  transform: translate(var(--balloon-translate-x), var(--balloon-translate-y)) scale(var(--balloon-scale)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
-}
+export const detailStyleString: string = `
 .not-animating {
-  --balloon-opacity: var(--b);
-  --balloon-translate-x: var(--tx-b-x);
-  --balloon-translate-y: var(--tx-b-y);
-  --balloon-scale: var(--b);
-}
-.animating {
-  &.balloon,
+  transform-origin: 0 0;
+  opacity: var(--b);
   &.detail {
-    --duration: ${ZOOM_DURATION_DETAIL}ms;
-    will-change: opacity, transform;
+    transform: translate(var(--balloon-tx-b-x), var(--balloon-tx-b-y)) scale(var(--b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
   &.balloon {
-    animation: xxx-balloon var(--duration) var(--timing);
+    transform: translate(var(--balloon-tx-b-x), var(--balloon-tx-b-y)) scale(var(--b)) translate(var(--balloon-pww), var(--balloon-phh)) translate3d(0px, 0px, 0px);
+  }
+}
+
+.animating {
+  &.detail,
+  &.balloon {
+    --duration: ${ZOOM_DURATION_DETAIL}ms;
+    transform-origin: 0 0;
+    will-change: opacity, transform;
   }
   &.detail {
+    animation: xxx-detail var(--duration) var(--timing);
+  }
+  &.balloon {
     animation: xxx-balloon var(--duration) var(--timing);
   }
   &.closed {
@@ -236,18 +231,26 @@ export const balloonStyleString: string = `
     --timing: ${timing_opening};
   }
 }
-@keyframes xxx-balloon {
+
+@keyframes xxx-detail {
   from {
-    --balloon-opacity: var(--a);
-    --balloon-translate-x: var(--tx-a-x);
-    --balloon-translate-y: var(--tx-a-y);
-    --balloon-scale: var(--a);
+    opacity: var(--a);
+    transform: translate(var(--balloon-tx-a-x), var(--balloon-tx-a-y)) scale(var(--a)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
   }
   to {
-    --balloon-opacity: var(--b);
-    --balloon-translate-x: var(--tx-b-x);
-    --balloon-translate-y: var(--tx-b-y);
-    --balloon-scale: var(--b);
+    opacity: var(--b);
+    transform: translate(var(--balloon-tx-b-x), var(--balloon-tx-b-y)) scale(var(--b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
+  }
+}
+
+@keyframes xxx-balloon {
+  from {
+    opacity: var(--a);
+    transform: translate(var(--balloon-tx-a-x), var(--balloon-tx-a-y)) scale(var(--a)) translate(var(--balloon-pww), var(--balloon-phh)) translate3d(0px, 0px, 0px);
+  }
+  to {
+    opacity: var(--b);
+    transform: translate(var(--balloon-tx-b-x), var(--balloon-tx-b-y)) scale(var(--b)) translate(var(--balloon-pww), var(--balloon-phh)) translate3d(0px, 0px, 0px);
   }
 }
 `
@@ -346,13 +349,13 @@ export function updateBalloonStyle(
 ): void {
   const p = e.style.setProperty.bind(e.style)
   p('visibility', visibility)
-  p('--pww', pww)
-  p('--phh', phh)
+  p('--balloon-pww', pww)
+  p('--balloon-phh', phh)
   p('--a', a === null ? null : a.toString())
   p('--b', b === null ? null : b.toString())
   p('--timing', timing)
-  p('--tx-a-x', txax)
-  p('--tx-a-y', txay)
-  p('--tx-b-x', txbx)
-  p('--tx-b-y', txby)
+  p('--balloon-tx-a-x', txax)
+  p('--balloon-tx-a-y', txay)
+  p('--balloon-tx-b-x', txbx)
+  p('--balloon-tx-b-y', txby)
 }

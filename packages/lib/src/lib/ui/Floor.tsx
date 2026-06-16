@@ -1,20 +1,25 @@
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { type ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 
 import { useConfig } from '../../config'
 import { background_white_opaque, floor_switch_duration } from '../css'
+import { useStyleRef } from '../style/ref'
 import { useFloors } from '../viewer/floors/floors-react'
+import { scrollLockRefs } from '../viewer/scroll/scroll'
 
 export function Floors(): ReactNode {
+  const ref = useRef(null)
   const { fidx, fidxToOnClick } = useFloors()
   const cfg = useConfig()
-  const floorsConfig = cfg.floorsConfig
-  return floorsConfig === undefined || floorsConfig.floors.length < 2 ? (
+  useStyleRef(scrollLockRefs, ref, 'floors')
+  return cfg.floorsConfig === undefined ||
+    cfg.floorsConfig.floors.length < 2 ? (
     <></>
   ) : (
-    <div className="floors">
+    <div ref={ref} className="floors">
       <ul className="floor-list">
-        {floorsConfig.floors.map(({ name }, idx) => (
+        {cfg.floorsConfig.floors.map(({ name }, idx) => (
           <li
             key={idx}
             className={`floor-item ${s(idx === fidx)}`}
@@ -36,6 +41,12 @@ const floorsStyle = `
   scrollbar-width: none;
   pointer-events: initial;
   touch-action: pan-x;
+  &.locked {
+    & > .floor-list {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
 }
 .floor-list {
   margin: 0.25em;
@@ -44,6 +55,7 @@ const floorsStyle = `
   display: flex;
   flex-direction: column-reverse;
   ${background_white_opaque}
+  transition: opacity 100ms;
 }
 .floor-item {
   text-align: center;

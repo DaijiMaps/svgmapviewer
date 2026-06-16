@@ -13,7 +13,6 @@ import { useAppearingStyleRef } from '../style/appearing'
 import { useDetailStyleRef } from '../ui/style'
 import { sendContextMenu } from './input/input'
 import { useZoomStyleRef } from './layout/style'
-import { useLayoutStyleRef } from './layout/style'
 import { useScrollRef } from './scroll/style'
 import { useTouchMoveZoomingLock } from './touch/event'
 import {
@@ -28,7 +27,6 @@ export function Container(props: Readonly<PropsWithChildren>): ReactNode {
   useDetailStyleRef(ref, 'container')
   useTouchMoveZoomingLock(ref)
   useZoomStyleRef(ref, 'container')
-  useLayoutStyleRef(ref, 'container')
   useAppearingStyleRef(ref, 'container')
   useScrollRef(ref, 'container')
   return (
@@ -80,7 +78,7 @@ const style: string = `
     ${position_absolute_left_0_top_0}
     contain: strict;
     transform: var(--layout-content-matrix) translate3d(0, 0, 0);
-    transform-origin: left top;
+    transform-origin: 0% 0%;
     pointer-events: none;
     width: var(--layout-scroll-width);
     height: var(--layout-scroll-height);
@@ -97,7 +95,6 @@ const style: string = `
     animation: xxx-appearing 2s ${timing_opening};
   }
 }
-
 @keyframes xxx-appearing {
   from {
     opacity: 0;

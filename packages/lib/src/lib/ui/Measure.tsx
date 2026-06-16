@@ -1,17 +1,29 @@
+/* eslint-disable functional/immutable-data */
+/* eslint-disable functional/no-conditional-statements */
+/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { Fragment, useMemo, type ReactNode } from 'react'
+import { Fragment, useRef, type CSSProperties, type ReactNode } from 'react'
 
 import {
   position_absolute_left_0_bottom_0,
   position_absolute_left_0_top_0,
   position_absolute_right_0_bottom_0,
 } from '../css'
-import {
-  useDistanceRadius,
-  useGeoPoint,
-  useLayoutContainer,
-} from '../style/style-react'
-import { trunc7 } from '../utils'
+import type { DistanceRadius } from '../distance-types'
+import { useStyleRef, type StyleRefMap } from '../style/ref'
+import { trunc2, trunc7 } from '../utils'
+import type { VecVec } from '../vec/prefixed'
+
+// XXX
+// XXX
+// XXX
+const INDEXES = [
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+]
+// XXX
+// XXX
+// XXX
 
 export function Measure(): ReactNode {
   return (
@@ -33,21 +45,37 @@ export function Measure(): ReactNode {
 }
 
 export function MeasureDistance(): ReactNode {
-  const { svg } = useDistanceRadius()
+  const ref = useRef(null)
+
+  useStyleRef(distanceRefs, ref, 'distance')
 
   return (
-    <div id="distance">
+    <div ref={ref} id="distance">
       <p id={`distance-origin`} className="distance">
         0m
       </p>
       {INDEXES.map((i) => (
         <Fragment key={i}>
-          <p id={`distance-x-${i + 1}`} className="distance distance-x">
-            {svg * (i + 1)}m
-          </p>
-          <p id={`distance-y-${i + 1}`} className="distance distance-y">
-            {svg * (i + 1)}m
-          </p>
+          <p
+            id={`distance-x-${i + 1}`}
+            className="distance distance-x"
+            data-idx={i + 1}
+            style={
+              {
+                '--distance-idx': `${i + 1}`,
+              } as CSSProperties
+            }
+          ></p>
+          <p
+            id={`distance-y-${i + 1}`}
+            className="distance distance-y"
+            data-idx={i + 1}
+            style={
+              {
+                '--distance-idx': `${i + 1}`,
+              } as CSSProperties
+            }
+          ></p>
         </Fragment>
       ))}
       <style>
@@ -57,19 +85,31 @@ export function MeasureDistance(): ReactNode {
   )
 }
 
-export function MeasureCoordinate(): ReactNode {
-  const pgeo = useGeoPoint()
+const coordRefs: StyleRefMap<HTMLDivElement> = new Map()
 
+export function updateCoordRefs(pgeo: VecVec): void {
   const ew = pgeo.x > 0 ? 'E' : 'W'
   const ns = pgeo.y > 0 ? 'N' : 'S'
   const lon = `${ew} ${trunc7(Math.abs(pgeo.x))}`
   const lat = `${ns} ${trunc7(Math.abs(pgeo.y))}`
+  Array.from(coordRefs, ([name, e]) => {
+    if (name === 'lon') e.textContent = lon
+    if (name === 'lat') e.textContent = lat
+  })
+}
+
+export function MeasureCoordinate(): ReactNode {
+  const lonRef = useRef(null)
+  const latRef = useRef(null)
+
+  useStyleRef(coordRefs, lonRef, 'lon')
+  useStyleRef(coordRefs, latRef, 'lat')
 
   return (
     <div id="coordinate">
       {/* placeholder - updated by style coord */}
-      <p id="longitude">{lon}</p>
-      <p id="latitude">{lat}</p>
+      <p ref={lonRef} id="longitude"></p>
+      <p ref={latRef} id="latitude"></p>
       <style>
         <CoordinateStyle />
       </style>
@@ -87,60 +127,86 @@ export function MeasurePathUse(): ReactNode {
   )
 }
 
+const measureRefs: StyleRefMap<SVGPathElement> = new Map()
+
+export function updateMeasureRefs(
+  width: number,
+  height: number,
+  client: number
+): void {
+  const horizontal = `M0,${height / 2} h${width}`
+  const vertical = `M${width / 2},0 v${height}`
+  const h = measureRefs.get('horizontal')
+  if (h) h.setAttribute('d', horizontal)
+  const v = measureRefs.get('vertical')
+  if (v) v.setAttribute('d', vertical)
+  INDEXES.forEach((i) => {
+    const e = measureRefs.get(`ring${i}`)
+    if (!e) return
+    const r = trunc2(client * (i + 1))
+    const d = ringPath({ width, height, r })
+    e.setAttribute('d', d)
+  })
+}
+
 export function MeasurePaths(): ReactNode {
-  const { width, height } = useLayoutContainer()
-  const { client } = useDistanceRadius()
+  const horizontalRef = useRef(null)
+  const vertcalRef = useRef(null)
+
+  useStyleRef(measureRefs, horizontalRef, `horizontal`)
+  useStyleRef(measureRefs, vertcalRef, `vertical`)
 
   // XXX use cache
-
-  const horizontal = useMemo(
-    () => `M0,${height / 2} h${width}`,
-    [height, width]
-  )
-  const vertical = useMemo(() => `M${width / 2},0 v${height}`, [height, width])
-  const rings = useMemo(
-    () =>
-      INDEXES.map((i) => {
-        const r = client * (i + 1)
-        return ringPath({ width, height, r })
-      }),
-    [client, height, width]
-  )
 
   // XXX use
   return (
     <>
       <path
+        ref={horizontalRef}
         id="measure-horizontal"
         className="measure-line"
         stroke="black"
         strokeWidth="0.1px"
         fill="none"
-        d={horizontal}
       />
       <path
+        ref={vertcalRef}
         id="measure-vertical"
         className="measure-line"
         stroke="black"
         strokeWidth="0.1px"
         fill="none"
-        d={vertical}
       />
-      {rings.map((d, idx) => (
-        <path
-          key={idx}
-          id={`measure-ring-${idx + 1}`}
-          className="measure-line"
-          stroke="black"
-          strokeWidth="0.1px"
-          fill="none"
-          d={d}
-        />
+      {INDEXES.map((_, idx) => (
+        <Fragment key={idx}>
+          <RingPath idx={idx} />
+        </Fragment>
       ))}
     </>
   )
 }
 
+function RingPath({ idx }: Readonly<{ idx: number }>): ReactNode {
+  const ref = useRef(null)
+  useStyleRef(measureRefs, ref, `ring${idx}`)
+  return (
+    <path
+      ref={ref}
+      id={`measure-ring-${idx + 1}`}
+      className="measure-line"
+      stroke="black"
+      strokeWidth="0.1px"
+      fill="none"
+    />
+  )
+}
+
+// XXX
+// XXX
+// XXX
+// XXX
+// XXX
+const pathCache = new Map<string, string>()
 function ringPath({
   width,
   height,
@@ -150,44 +216,23 @@ function ringPath({
   height: number
   r: number
 }>): string {
-  return `M${width / 2},${height / 2} m-${r},0 a${r},${r} 0,1,0 ${r * 2},0 a${r},${r} 0,1,0 -${r * 2},0`.replaceAll(
-    /([.]\d)\d*/g,
-    '$1'
-  )
+  const key = `${width}:${height}:${r}`
+  const prev = pathCache.get(key)
+  const d =
+    `M${width / 2},${height / 2} m-${r},0 a${r},${r} 0,1,0 ${r * 2},0 a${r},${r} 0,1,0 -${r * 2},0`.replaceAll(
+      /([.]\d)\d*/g,
+      '$1'
+    )
+  if (!prev) pathCache.set(key, d)
+  return d
 }
+// XXX
+// XXX
+// XXX
+// XXX
+// XXX
 
 export function CoordinateStyle(): ReactNode {
-  const { width, height } = useLayoutContainer()
-
-  const coordinateStyle = `
-#distance,
-#coordinate {
-  ${position_absolute_left_0_top_0}
-  width: ${width}px;
-  height: ${height}px;
-}
-`
-
-  const longitudeStyle = `
-#longitude {
-  ${position_absolute_right_0_bottom_0}
-  margin: 0.1em;
-  padding: 0;
-  font-weight: lighter;
-  transform-origin: right bottom;
-  transform: translate(${-width / 2}px, ${-height / 2}px) scale(0.5);
-}
-`
-  const latitudeStyle = `
-#latitude {
-  ${position_absolute_left_0_bottom_0}
-  margin: 0.1em;
-  padding: 0;
-  font-weight: lighter;
-  transform-origin: left bottom;
-  transform: translate(${width / 2}px, ${-height / 2}px) scale(0.5);
-}
-`
   return (
     <>
       {coordinateStyle}
@@ -197,42 +242,64 @@ export function CoordinateStyle(): ReactNode {
   )
 }
 
-export function DistanceStyle(): ReactNode {
-  const { width, height } = useLayoutContainer()
-  const { client } = useDistanceRadius()
+const width = `100vw`
+const height = `100svh`
+const client = `var(--distance-radius-client)`
 
-  const distanceStyle = `
-.distance {
+const coordinateStyle = `
+#distance,
+#coordinate {
   ${position_absolute_left_0_top_0}
+  width: ${width};
+  height: ${height};
+  /*
+  transform: translate3d(0, 0, 0);
+  */
+}
+`
+const longitudeStyle = `
+#longitude {
+  ${position_absolute_right_0_bottom_0}
   margin: 0.1em;
   padding: 0;
   font-weight: lighter;
-  transform-origin: left top;
+  transform-origin: right bottom;
+  transform: translate(calc(${width} / -2), calc(${height} / -2)) scale(0.5);
 }
 `
-  const distanceOriginStyle = `
-#distance-origin {
-  transform: translate(${width / 2}px, ${height / 2}px) scale(0.5);
+const latitudeStyle = `
+#latitude {
+  ${position_absolute_left_0_bottom_0}
+  margin: 0.1em;
+  padding: 0;
+  font-weight: lighter;
+  transform-origin: left bottom;
+  transform: translate(calc(${width} / 2), calc(${height} / -2)) scale(0.5);
 }
 `
-  const distanceXStyle = INDEXES.map((i) => {
-    const r = client * (i + 1)
-    return `
-#distance-x-${i + 1} {
-  transform: translate(${width / 2 + r}px, ${height / 2}px) scale(0.5);
-}
-`
-  })
 
-  const distanceYStyle = INDEXES.map((i) => {
-    const r = client * (i + 1)
-    return `
-#distance-y-${i + 1} {
-  transform: translate(${width / 2}px, ${height / 2 + r}px) scale(0.5);
-}
-`
-  })
+const distanceRefs: StyleRefMap<HTMLDivElement> = new Map()
 
+export function updateDistanceRefs({
+  svg,
+  client,
+}: Readonly<DistanceRadius>): void {
+  Array.from(distanceRefs, ([, e]) => {
+    // 1. update <p></p>
+    Array.from(e.children, (child) => {
+      const ss = child.getAttribute('data-idx')
+      if (!ss) return
+      const idx = Number(ss)
+      if (typeof idx !== 'number') return
+      child.textContent = `${svg * idx}m`
+    })
+    // 2. update style property
+    const p = e.style.setProperty.bind(e.style)
+    p('--distance-radius-client', `${client}px`)
+  })
+}
+
+export function DistanceStyle(): ReactNode {
   return (
     <>
       {distanceOriginStyle}
@@ -243,12 +310,38 @@ export function DistanceStyle(): ReactNode {
   )
 }
 
-// XXX
-// XXX
-// XXX
-const INDEXES = [
-  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-]
-// XXX
-// XXX
-// XXX
+const distanceStyle = `
+.distance {
+  ${position_absolute_left_0_top_0}
+  margin: 0.1em;
+  padding: 0;
+  font-weight: lighter;
+  transform-origin: 0% 0%;
+}
+`
+const distanceOriginStyle = `
+#distance-origin {
+  transform: translate(calc(${width} / 2), calc(${height} / 2)) scale(0.5);
+}
+`
+const distanceXStyle = (() => {
+  const r = `${client} * var(--distance-idx)`
+  const x = `${width} / 2 + ${r}`
+  const y = `${height} / 2`
+  return `
+.distance-x {
+  transform: translate(calc(${x}), calc(${y})) scale(0.5);
+}
+`
+})()
+
+const distanceYStyle = (() => {
+  const r = `${client} * var(--distance-idx)`
+  const x = `${width} / 2`
+  const y = `${height} / 2 + ${r}`
+  return `
+.distance-y {
+  transform: translate(calc(${x}), calc(${y})) scale(0.5);
+}
+`
+})()

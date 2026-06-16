@@ -54,7 +54,7 @@ div.labels {
 }
 div.label {
   position: absolute;
-  transform-origin: left top;
+  transform-origin: 0% 0%;
   /*
   transform: translate(var(--x), var(--y)) rotate(var(--rotate)) scale(var(--zoom-z-inv)) scale(var(--scale2)) scale(var(--scale1)) translate(-50%, -50%);
   */

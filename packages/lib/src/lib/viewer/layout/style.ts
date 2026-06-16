@@ -15,13 +15,20 @@ import { viewerSend } from '../viewer-xstate'
 import { fromSvgToContent } from './coord'
 import type { Layout } from './layout-types'
 
-const layoutStyleRefs: Map<string, HTMLDivElement> = new Map()
+const layoutStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
+const svgScaleStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
 
 export function useLayoutStyleRef(
-  ref: Readonly<RefObject<HTMLDivElement | null>>,
+  ref: Readonly<RefObject<HTMLElement | SVGElement | null>>,
   name: string
 ): void {
   useStyleRef(layoutStyleRefs, ref, name)
+}
+export function useSvgScaleStyleRef(
+  ref: Readonly<RefObject<HTMLElement | SVGElement | null>>,
+  name: string
+): void {
+  useStyleRef(svgScaleStyleRefs, ref, name)
 }
 
 function matrixTrunc2(m: DOMMatrixReadOnly): DOMMatrixReadOnly {
@@ -32,6 +39,8 @@ export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
   const svgToContent = fromSvgToContent(layout)
   Array.from(layoutStyleRefs, ([, e]) => {
     const p = e.style.setProperty.bind(e.style)
+    p(`--layout-container-width`, `${trunc2(layout.container.width)}px`)
+    p(`--layout-container-height`, `${trunc2(layout.container.height)}px`)
     p(`--layout-content-matrix`, layout.content.toString())
     p(`--layout-scroll-width`, `${trunc2(layout.scroll.width)}px`)
     p(`--layout-scroll-height`, `${trunc2(layout.scroll.height)}px`)
@@ -39,15 +48,37 @@ export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
   })
 }
 
+export function updateSvgScaleStyleRefs(layout: Readonly<Layout>): void {
+  Array.from(svgScaleStyleRefs, ([, e]) => {
+    const p = e.style.setProperty.bind(e.style)
+    p(`--layout-svgscale`, `${trunc2(layout.svgScale)}`)
+    p(`--layout-fontsize`, `${trunc2(layout.config.fontSize)}`)
+  })
+}
+
 ////
 
-const zoomStyleRefs: Map<string, HTMLDivElement> = new Map()
+const zoomStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
+const zoomSStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
+const zoomCondStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
 
 export function useZoomStyleRef(
-  ref: Readonly<RefObject<HTMLDivElement | null>>,
+  ref: Readonly<RefObject<HTMLElement | SVGElement | null>>,
   name: string
 ): void {
   useStyleRef(zoomStyleRefs, ref, name)
+}
+export function useZoomSStyleRef(
+  ref: Readonly<RefObject<HTMLElement | SVGElement | null>>,
+  name: string
+): void {
+  useStyleRef(zoomSStyleRefs, ref, name)
+}
+export function useZoomCondStyleRef(
+  ref: Readonly<RefObject<HTMLElement | SVGElement | null>>,
+  name: string
+): void {
+  useStyleRef(zoomCondStyleRefs, ref, name)
 }
 
 export function updateZoomStyleRefs(
@@ -56,15 +87,28 @@ export function updateZoomStyleRefs(
 ): void {
   const o =
     animation === null || animation.origin === null
-      ? `left top`
+      ? `0% 0%`
       : `${animation.origin.x}px ${animation?.origin.y}px`
   Array.from(zoomStyleRefs, ([, e]) => {
     const p = e.style.setProperty.bind(e.style)
     tag(e, 'zooming', animation !== null)
     p(`--zoom-origin`, o)
     p(`--zoom-zoom`, zoom.toString())
+    p(`--zoom-s`, null)
+    p(`--zoom-s-inv`, null)
+    p(`--zoom-k`, null)
+    p(`--zoom-k-inv`, null)
   })
-  if (animation !== null)
+  Array.from(zoomSStyleRefs, ([, e]) => {
+    const p = e.style.setProperty.bind(e.style)
+    p(`--zoom-s`, animation === null ? null : animation.to.a.toString())
+    p(`--zoom-s-symbols`, animation === null ? null : animation.to.a.toString())
+    tag(e, 'zooming', animation !== null)
+  })
+  Array.from(zoomCondStyleRefs, ([, e]) => {
+    tag(e, 'zooming', animation !== null)
+  })
+  if (animation !== null) {
     startLoop('zoom', 500, {
       tickcb: tickZoomStyleRefs,
       donecb: () => {
@@ -73,6 +117,13 @@ export function updateZoomStyleRefs(
       },
       cbdata: { animation, zoom },
     })
+    /*
+    startLoop('zoomS', 500, {
+      tickcb: tickZoomSStyleRefs,
+      cbdata: { animation, zoom },
+    })
+    */
+  }
 }
 
 type ZoomData = Readonly<{
@@ -87,7 +138,11 @@ type ZoomValues = Readonly<{
   readonly sinv: number
   readonly z: number
   readonly zinv: number
+  readonly k: number
+  readonly kinv: number
 }>
+
+const getK = (zoom: number): number => 0.5 + 0.5 * Math.log2(Math.max(1, zoom))
 
 function getCurrentZoomValues(
   { animation, zoom }: ZoomData,
@@ -101,12 +156,15 @@ function getCurrentZoomValues(
   const za = zoom
   const zb = zoom * s
   const z = lerp(za, zb, easeCubic(t))
-  return { tx, ty, s, sinv: 1 / s, z, zinv: 1 / z }
+  const ka = getK(zoom)
+  const kb = getK(zoom * s)
+  const k = lerp(ka, kb, easeCubic(t))
+  return { tx, ty, s, sinv: 1 / s, z, zinv: 1 / z, k, kinv: 1 / k }
 }
 
 function tickZoomStyleRefs(t: number, cbdata?: ZoomData): void {
   if (!cbdata) return
-  const { tx, ty, s, sinv, z, zinv } = getCurrentZoomValues(cbdata, t)
+  const { tx, ty, s, sinv, z, zinv, k, kinv } = getCurrentZoomValues(cbdata, t)
   Array.from(zoomStyleRefs, ([, e]) => {
     const p = e.style.setProperty.bind(e.style)
     p(`--zoom-tx`, `${tx}px`)
@@ -115,5 +173,19 @@ function tickZoomStyleRefs(t: number, cbdata?: ZoomData): void {
     p(`--zoom-s-inv`, `${sinv}`)
     p(`--zoom-z`, `${z}`)
     p(`--zoom-z-inv`, `${zinv}`)
+    p(`--zoom-k`, `${k}`)
+    p(`--zoom-k-inv`, `${kinv}`)
   })
 }
+
+/*
+function tickZoomSStyleRefs(t: number, cbdata?: ZoomData): void {
+  if (!cbdata) return
+  const { s } = getCurrentZoomValues(cbdata, t)
+  Array.from(zoomStyleRefs, ([, e]) => {
+    const p = e.style.setProperty.bind(e.style)
+    p(`--zoom-s`, `${s}`)
+    //p(`--zoom-s-symbols`, `${s}`)
+  })
+}
+*/

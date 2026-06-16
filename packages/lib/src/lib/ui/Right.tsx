@@ -13,6 +13,8 @@ import {
   timing_opening,
 } from '../css'
 import { useShadowRoot } from '../dom'
+import { useStyleRef } from '../style/ref'
+import { scrollLockRefs } from '../viewer/scroll/scroll'
 import { Fullscreen } from './buttons/Fullscreen'
 import { Home } from './buttons/Home'
 import { Position } from './buttons/Position'
@@ -53,14 +55,14 @@ const style = `
   align-items: end;
 }
 .right {
-  opacity: var(--right-scale);
   transform-origin: 100% 50%;
   &.bottom {
     transform-origin: 100% 100%;
   }
-  transform: scale(var(--right-scale)) translate3d(0px, 0px, 0px);
+  transform: translate3d(0px, 0px, 0px);
   &.not-animating {
-    --right-scale: var(--b);
+    opacity: var(--b);
+    transform: scale(var(--b));
     &.closed {
       --b: 0;
     }
@@ -81,22 +83,26 @@ const style = `
       --timing: ${timing_opening};
     }
     will-change: opacity, transform;
-    animation: xxx-right 300ms var(--timing);
+    animation: xxx-right 300ms var(--timing) forwards;
   }
 }
 @keyframes xxx-right {
   from {
-    --right-scale: var(--a);
+    opacity: var(--a);
+    transform: scale(var(--a));
   }
   to {
-    --right-scale: var(--b);
+    opacity: var(--b);
+    transform: scale(var(--b));
   }
 }
 `
 
 function Buttons(): ReactNode {
+  const ref = useRef(null)
+  useStyleRef(scrollLockRefs, ref, 'buttons')
   return (
-    <div className="button">
+    <div ref={ref} className="buttons">
       <Position />
       <Home />
       <Fullscreen />
@@ -110,12 +116,17 @@ function Buttons(): ReactNode {
 }
 
 const buttonStyle = `
-.button {
+.buttons {
   font-size: large;
   margin: 0;
   ${flex_column_center_center}
+  &.locked {
+    & > .button-item {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
 }
-
 .button-item {
   margin: 1.25px;
   padding: 0.25em;
@@ -123,6 +134,7 @@ const buttonStyle = `
   ${pointer_events_initial}
   cursor: default;
   ${background_white_opaque}
+  transition: opacity 100ms;
   & > svg {
     display: block;
     width: 1.25em;

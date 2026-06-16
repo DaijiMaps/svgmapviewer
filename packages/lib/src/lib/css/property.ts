@@ -1,87 +1,187 @@
-export const propertiesStyle = `
-@property --zoom-tx {
+export const properties = `
+@property --a {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+@property --balloon-opacity {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+@property --balloon-phh {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --balloon-pww {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --balloon-scale {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+@property --balloon-translate-x {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --balloon-translate-y {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --balloon-tx-a-x {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --balloon-tx-a-y {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --balloon-tx-b-x {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --balloon-tx-b-y {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --b {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+@property --distance-idx {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --distance-radius-client {
   syntax: '<length>';
   inherits: true;
   initial-value: 0;
 }
-@property --zoom-ty {
+@property --layout-container-height {
   syntax: '<length>';
-  inherits: true;
+  inherits: false;
   initial-value: 0;
 }
-@property --zoom-s {
+@property --layout-container-width {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --layout-content-matrix {
+  syntax: '*';
+  inherits: false;
+  initial-value: matrix(1, 0, 0, 1, 0, 0);
+}
+@property --layout-fontsize {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 16;
+}
+@property --layout-scroll-height {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --layout-scroll-width {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --layout-svgscale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+@property --layout-svg-to-content-matrix {
+  syntax: '*';
+  inherits: false;
+  initial-value: matrix(1, 0, 0, 1, 0, 0);
+}
+@property --poi-scale {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+@property --poi-x {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --poi-y {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --zoom-k-inv {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+@property --zoom-k {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+@property --zoom-origin {
+  syntax: '<length-percentage>+';
+  inherits: false;
+  initial-value: 0% 0%;
+}
+@property --zoom-s-inv-symbols {
   syntax: '<number>';
   inherits: true;
   initial-value: 1;
 }
 @property --zoom-s-inv {
   syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+@property --zoom-s-symbols {
+  syntax: '<number>';
   inherits: true;
+  initial-value: 1;
+}
+@property --zoom-s {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+@property --zoom-tx {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --zoom-ty {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --zoom-z-inv {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+@property --zoom-zoom {
+  syntax: '<number>';
+  inherits: false;
   initial-value: 1;
 }
 @property --zoom-z {
   syntax: '<number>';
-  inherits: true;
+  inherits: false;
   initial-value: 1;
-}
-@property --zoom-z-inv {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
-}
-@property --a {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
-}
-@property --b {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
-}
-@property --balloon-opacity {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
-}
-@property --balloon-translate-x {
-  syntax: '<length>';
-  inherits: true;
-  initial-value: 0;
-}
-@property --balloon-translate-y {
-  syntax: '<length>';
-  inherits: true;
-  initial-value: 0;
-}
-@property --balloon-scale {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
-}
-@property --header-scale {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
-}
-@property --footer-scale {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
-}
-@property --left-scale {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
-}
-@property --right-scale {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
-}
-@property --screen-opacity {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 0;
 }
 `

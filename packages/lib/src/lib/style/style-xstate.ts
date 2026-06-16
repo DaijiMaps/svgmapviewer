@@ -8,10 +8,18 @@ import { findRadius } from '../distance'
 import { scrollCbs } from '../event-scroll'
 import { styleCbs } from '../event-style'
 import { updateMapStyleRefs } from '../map/style'
+import {
+  updateCoordRefs,
+  updateDistanceRefs,
+  updateMeasureRefs,
+} from '../ui/Measure'
 import { vecZero } from '../vec/prefixed'
 import { fromSvgToScroll } from '../viewer/layout/coord'
 import { emptyLayout, type Layout } from '../viewer/layout/layout'
-import { updateZoomStyleRefs } from '../viewer/layout/style'
+import {
+  updateSvgScaleStyleRefs,
+  updateZoomStyleRefs,
+} from '../viewer/layout/style'
 import { updateLayoutStyleRefs } from '../viewer/layout/style'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { type ViewerMode } from '../viewer/viewer-types'
@@ -62,6 +70,15 @@ const styleMachine = setup({
         }
       },
     }),
+    updateCoord: ({ context: { geoPoint } }) => updateCoordRefs(geoPoint),
+    updateDistance: ({ context: { distanceRadius } }) =>
+      updateDistanceRefs(distanceRadius),
+    updateMeasure: ({ context: { layout, distanceRadius } }) =>
+      updateMeasureRefs(
+        layout.container.width,
+        layout.container.height,
+        distanceRadius.client
+      ),
   },
 }).createMachine({
   id: 'style1',
@@ -96,8 +113,11 @@ const styleMachine = setup({
         'updateSvgMatrix',
         'updateGeoMatrix',
         'updateDistanceRadius',
+        'updateDistance',
+        'updateMeasure',
         raise(({ event: { rendered } }) => ({ type: 'LAYOUT.DONE', rendered })),
         ({ context }) => updateLayoutStyleRefs(context.layout),
+        ({ context }) => updateSvgScaleStyleRefs(context.layout),
         ({ context }) => updateMapStyleRefs(context.layout, context.zoom),
       ],
     },
@@ -111,10 +131,13 @@ const styleMachine = setup({
       ],
     },
     'STYLE.SCROLL': {
-      actions: {
-        type: 'updateScroll',
-        params: ({ event }) => event.currentScroll,
-      },
+      actions: [
+        {
+          type: 'updateScroll',
+          params: ({ event }) => event.currentScroll,
+        },
+        'updateCoord',
+      ],
     },
     'STYLE.MODE': {
       actions: assign({
@@ -148,6 +171,9 @@ const styleMachine = setup({
             ({ context: { zoom } }) => updateZoomStyleRefs(null, zoom),
             ({ context }) =>
               updateAppearingStyleRefs(context.shown, context.appearing),
+            // after initial rendering
+            'updateDistance',
+            'updateMeasure',
           ],
           target: 'Idle',
         },

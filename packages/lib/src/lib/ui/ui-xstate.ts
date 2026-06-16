@@ -100,10 +100,13 @@ const uiMachine = setup({
     updateBalloonStyle: ({ context }) =>
       context.balloon &&
       updateBalloonStyleRefs(context.balloon, context.m['detail']),
-    updateDetailStyle: ({ context }) =>
-      updateDetailStyleRefs(context.m['detail']),
-    updateDetailScrollStyle: ({ context }) =>
-      updateDetailScrollStyleRefs(context.m['detail']),
+    updateDetailStyle: ({ context }) => {
+      const oc = context.m['detail']
+      requestAnimationFrame(() => {
+        updateDetailStyleRefs(oc)
+        requestAnimationFrame(() => updateDetailScrollStyleRefs(oc))
+      })
+    },
   },
 }).createMachine({
   type: 'parallel',
@@ -181,7 +184,6 @@ const uiMachine = setup({
                 'updateHeaderStyle',
                 'updateBalloonStyle',
                 'updateDetailStyle',
-                'updateDetailScrollStyle',
               ],
               on: {
                 DONE: [
@@ -212,7 +214,6 @@ const uiMachine = setup({
                 'updateHeaderStyle',
                 'updateBalloonStyle',
                 'updateDetailStyle',
-                'updateDetailScrollStyle',
               ],
               exit: 'endCancel',
               on: {
@@ -252,7 +253,6 @@ const uiMachine = setup({
             { type: 'handle', params: { part: 'detail' } },
             'updateBalloonStyle',
             'updateDetailStyle',
-            'updateDetailScrollStyle',
             assign({
               animationEnded: ({ context }) => ({
                 ...context.animationEnded,

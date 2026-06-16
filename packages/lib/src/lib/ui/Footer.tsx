@@ -66,11 +66,10 @@ const style = `
   }
 }
 .footer {
-  opacity: var(--footer-scale);
   transform-origin: 50% 100%;
-  transform: translate(calc(50vw - 50%), 0%) scale(var(--footer-scale));
   &.not-animating {
-    --footer-scale: var(--b);
+    opacity: var(--b);
+    transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
     &.closed {
       --b: 0;
     }
@@ -98,10 +97,12 @@ const style = `
 }
 @keyframes xxx-footer {
   from {
-    --footer-scale: var(--a);
+    opacity: var(--a);
+    transform: translate(calc(50vw - 50%), 0%) scale(var(--a));
   }
   to {
-    --footer-scale: var(--b);
+    opacity: var(--b);
+    transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
   }
 }
 `
