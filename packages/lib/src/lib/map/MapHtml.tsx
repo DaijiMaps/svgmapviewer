@@ -21,7 +21,17 @@ export function MapHtml(props: Readonly<OsmRenderMapProps>): ReactNode {
   useLayoutStyleRef(ref, 'map-html-root')
   useShadowRoot(MAP_HTML_ROOT_ID, <MapHtmlRoot {...props} />)
 
-  return <div ref={ref} id={MAP_HTML_ROOT_ID} className="content svg" />
+  return (
+    <div
+      ref={ref}
+      id={MAP_HTML_ROOT_ID}
+      className="content svg"
+      style={{
+        contain: 'strict',
+        contentVisibility: 'auto',
+      }}
+    />
+  )
 }
 
 function MapHtmlRoot(props: Readonly<OsmRenderMapProps>): ReactNode {
