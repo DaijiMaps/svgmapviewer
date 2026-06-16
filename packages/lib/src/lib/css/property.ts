@@ -69,6 +69,7 @@ export const properties = `
   inherits: true;
   initial-value: 0;
 }
+/*
 @property --layout-container-height {
   syntax: '<length>';
   inherits: false;
@@ -79,6 +80,7 @@ export const properties = `
   inherits: false;
   initial-value: 0;
 }
+*/
 @property --layout-content-matrix {
   syntax: '*';
   inherits: false;

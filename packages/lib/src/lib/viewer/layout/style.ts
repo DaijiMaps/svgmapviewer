@@ -39,8 +39,8 @@ export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
   const svgToContent = fromSvgToContent(layout)
   Array.from(layoutStyleRefs, ([, e]) => {
     const p = e.style.setProperty.bind(e.style)
-    p(`--layout-container-width`, `${trunc2(layout.container.width)}px`)
-    p(`--layout-container-height`, `${trunc2(layout.container.height)}px`)
+    //p(`--layout-container-width`, `${trunc2(layout.container.width)}px`)
+    //p(`--layout-container-height`, `${trunc2(layout.container.height)}px`)
     p(`--layout-content-matrix`, layout.content.toString())
     p(`--layout-scroll-width`, `${trunc2(layout.scroll.width)}px`)
     p(`--layout-scroll-height`, `${trunc2(layout.scroll.height)}px`)
