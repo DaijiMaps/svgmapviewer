@@ -112,6 +112,7 @@ cubic-bezier(1, 0, 1, 1)
 
 //// animation
 
+export const ZOOM_DURATION_CONTAINER = 500
 export const ZOOM_DURATION_DETAIL = 400
 export const ZOOM_DURATION_HEADER = 400
 

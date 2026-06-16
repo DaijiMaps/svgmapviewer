@@ -1,6 +1,7 @@
 import { Fragment, type CSSProperties, type ReactNode } from 'react'
 
 import { type LabelText } from '../../../types'
+import { ZOOM_DURATION_CONTAINER } from '../../css'
 import type { FloorLabelsProps } from './types'
 
 export function RenderFloorLabels({ labels }: FloorLabelsProps): ReactNode {
@@ -65,7 +66,7 @@ div.label {
   &.zooming {
     & > div.label {
       /*
-      animation: xxx-label-scale 500ms ease;
+      animation: xxx-label-scale ${ZOOM_DURATION_CONTAINER} ease;
       */
     }
   }

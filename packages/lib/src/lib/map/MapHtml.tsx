@@ -6,6 +6,7 @@ import { useRef, type CSSProperties, type ReactNode } from 'react'
 import { type OsmRenderMapProps } from '../../types'
 import { RenderMapAssetsDefault } from '../carto/assets'
 import { RenderMapSymbols2 } from '../carto/symbols'
+import { ZOOM_DURATION_CONTAINER } from '../css'
 import { useShadowRoot } from '../dom'
 import { trunc2 } from '../utils'
 import {
@@ -76,7 +77,7 @@ const style = `
     & > .map-symbol,
     & > .label {
       will-change: transform;
-      animation: xxx-label 500ms ease forwards;
+      animation: xxx-label ${ZOOM_DURATION_CONTAINER} ease forwards;
     }
   }
 }

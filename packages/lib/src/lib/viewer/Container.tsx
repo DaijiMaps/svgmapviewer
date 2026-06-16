@@ -7,6 +7,7 @@ import {
   position_absolute_left_0_top_0,
   timing_opening,
   width_100vw_height_100svh,
+  ZOOM_DURATION_CONTAINER,
 } from '../css'
 import { notifyStyle } from '../event-style'
 import { useAppearingStyleRef } from '../style/appearing'
@@ -71,7 +72,7 @@ const style: string = `
     transform: translate(var(--zoom-tx), var(--zoom-ty)) scale(var(--zoom-s)) translate3d(0px, 0px, 0px);
     will-change: transform;
     /*
-    animation: container-zoom 500ms ease;
+    animation: container-zoom ${ZOOM_DURATION_CONTAINER} ease;
     */
   }
   & > .content {

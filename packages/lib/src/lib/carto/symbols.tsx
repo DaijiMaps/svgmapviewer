@@ -3,6 +3,7 @@ import { useRef, type CSSProperties, type ReactNode } from 'react'
 import { Fragment } from 'react/jsx-runtime'
 
 import { type OsmRenderMapProps } from '../../types'
+import { ZOOM_DURATION_CONTAINER } from '../css'
 import { useMapStyleRef } from '../map/style'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'
@@ -94,7 +95,7 @@ const style = `
   &.zooming {
     & > .map-symbol {
       will-change: transform;
-      animation: xxx-map-symbol 500ms ease forwards;
+      animation: xxx-map-symbol ${ZOOM_DURATION_CONTAINER} ease forwards;
     }
   }
 }
