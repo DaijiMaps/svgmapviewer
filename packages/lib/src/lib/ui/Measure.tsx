@@ -3,7 +3,7 @@
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
-import { Fragment, useRef, type ReactNode } from 'react'
+import { Fragment, useRef, type CSSProperties, type ReactNode } from 'react'
 
 import {
   position_absolute_left_0_bottom_0,
@@ -56,8 +56,26 @@ export function MeasureDistance(): ReactNode {
       </p>
       {INDEXES.map((i) => (
         <Fragment key={i}>
-          <p id={`distance-x-${i + 1}`} className="distance distance-x"></p>
-          <p id={`distance-y-${i + 1}`} className="distance distance-y"></p>
+          <p
+            id={`distance-x-${i + 1}`}
+            className="distance distance-x"
+            data-idx={i + 1}
+            style={
+              {
+                '--distance-idx': `${i + 1}`,
+              } as CSSProperties
+            }
+          ></p>
+          <p
+            id={`distance-y-${i + 1}`}
+            className="distance distance-y"
+            data-idx={i + 1}
+            style={
+              {
+                '--distance-idx': `${i + 1}`,
+              } as CSSProperties
+            }
+          ></p>
         </Fragment>
       ))}
       <style>
@@ -267,11 +285,9 @@ export function updateDistanceRefs({
   Array.from(distanceRefs, ([, e]) => {
     // 1. update <p></p>
     Array.from(e.children, (child) => {
-      // id must be like: 'distance-x-1'
-      const ss = child.id.split(/-/g)
-      if (ss.length !== 3 || ss[0] !== 'distance' || !ss[1].match(/^[xy]$/))
-        return
-      const idx = Number(ss[2])
+      const ss = child.getAttribute('data-idx')
+      if (!ss) return
+      const idx = Number(ss)
       if (typeof idx !== 'number') return
       child.textContent = `${svg * idx}m`
     })
@@ -306,24 +322,24 @@ const distanceOriginStyle = `
   transform: translate(calc(${width} / 2), calc(${height} / 2)) scale(0.5);
 }
 `
-const distanceXStyle = INDEXES.map((i) => {
-  const r = `${client} * (${i} + 1)`
+const distanceXStyle = (() => {
+  const r = `${client} * var(--distance-idx)`
   const x = `${width} / 2 + ${r}`
   const y = `${height} / 2`
   return `
-#distance-x-${i + 1} {
+.distance-x {
   transform: translate(calc(${x}), calc(${y})) scale(0.5);
 }
 `
-})
+})()
 
-const distanceYStyle = INDEXES.map((i) => {
-  const r = `${client} * (${i} + 1)`
+const distanceYStyle = (() => {
+  const r = `${client} * var(--distance-idx)`
   const x = `${width} / 2`
   const y = `${height} / 2 + ${r}`
   return `
-#distance-y-${i + 1} {
+.distance-y {
   transform: translate(calc(${x}), calc(${y})) scale(0.5);
 }
 `
-})
+})()

@@ -171,6 +171,9 @@ const styleMachine = setup({
             ({ context: { zoom } }) => updateZoomStyleRefs(null, zoom),
             ({ context }) =>
               updateAppearingStyleRefs(context.shown, context.appearing),
+            // after initial rendering
+            'updateDistance',
+            'updateMeasure',
           ],
           target: 'Idle',
         },
