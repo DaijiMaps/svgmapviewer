@@ -45,9 +45,9 @@ const style = `
 }
 .left {
   transform-origin: 0% 50%;
+  transform: translate(0%, calc(50vh - 50%)) scale(var(--b));
   &.not-animating {
     opacity: var(--b);
-    transform: translate(0%, calc(50vh - 50%)) scale(var(--b));
     &.closed {
       --b: 0;
     }
