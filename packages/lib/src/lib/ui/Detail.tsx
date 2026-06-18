@@ -52,6 +52,11 @@ const style = `
   ${pointer_events_initial}
   ${box_sizing_border_box}
   z-index: ${Z_INDEX_DETAIL};
+  visibility: hidden;
+  &.opened,
+  &.animating {
+    visibility: initial;
+  }
   will-change: opacity, transform;
   cursor: default;
   touch-action: pan-y;
