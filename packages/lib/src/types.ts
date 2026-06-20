@@ -228,23 +228,28 @@ export interface OsmSearchConfig {
 // LabelText
 // LabelTspan
 
+export type LabelsTexts = readonly LabelText[]
+export type LabelsTspans = readonly LabelTspan[]
+export type LabelsMap = Map<string, LabelsTexts>
+export type LabelsRecord = Record<string, LabelsTexts>
+export type LabelsArrayEntry = readonly [string, LabelsTexts]
+export type LabelsArray = readonly LabelsArrayEntry[]
+
 export interface Floor {
   readonly name: string
   readonly href: string | URL
-  readonly labels?: readonly LabelText[]
+  readonly labels?: LabelsTexts
 }
-
-export type LabelsMap = Map<string, readonly LabelText[]>
 
 export interface FloorsConfig {
   readonly initialFidx: number
   readonly floors: readonly Floor[]
-  readonly labelsMap?: LabelsMap
+  readonly labelsMap?: LabelsArray | LabelsRecord | LabelsMap
 }
 
 export interface LabelText {
   readonly attrs: Record<string, undefined | null | number | string>
-  readonly children: readonly LabelTspan[]
+  readonly children: LabelsTspans
 }
 
 export interface LabelTspan {
