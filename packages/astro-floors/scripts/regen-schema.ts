@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 import { writeFileSync } from 'node:fs'
 
-import { z } from 'zod'
+import { z } from 'astro/zod'
 
 import {
   addressesSchema,
