@@ -72,10 +72,12 @@ const style = `
   }
   & h1,
   & h2 {
-    margin: 0.25em;
+    margin: 0.25em 0;
     font-weight: 100;
     cursor: default;
     text-align: center;
+  }
+  & h1 {
     font-size: large;
   }
 }
