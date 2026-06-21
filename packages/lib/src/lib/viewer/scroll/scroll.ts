@@ -9,6 +9,8 @@ import { type CurrentScroll } from '../../../types'
 import { boxUnit, type BoxBox } from '../../box/prefixed'
 import { tag } from '../../style/tag'
 
+const SCROLL_TIMEOUT = 200
+
 const busies: Map<string, number> = new Map()
 const locks: Set<string> = new Set()
 
@@ -20,7 +22,7 @@ export function busyScroll(): void {
   const id = setTimeout(() => {
     busies.delete('S')
     Array.from(scrollLockRefs, ([, e]) => tag(e, 'locked', false))
-  }, 500)
+  }, SCROLL_TIMEOUT)
   busies.set('S', id)
   Array.from(scrollLockRefs, ([, e]) => tag(e, 'locked', true))
 }
