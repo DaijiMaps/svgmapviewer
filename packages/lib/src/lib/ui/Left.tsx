@@ -46,6 +46,7 @@ const style = `
 .left {
   transform-origin: 0% 50%;
   transform: translate(0%, calc(50vh - 50%)) scale(var(--b));
+  transform: translate(0%, calc(50svh - 50%)) scale(var(--b));
   &.not-animating {
     opacity: var(--b);
     &.closed {
@@ -75,10 +76,12 @@ const style = `
   from {
     opacity: var(--a);
     transform: translate(0%, calc(50vh - 50%)) scale(var(--a));
+    transform: translate(0%, calc(50svh - 50%)) scale(var(--a));
   }
   to {
     opacity: var(--b);
     transform: translate(0%, calc(50vh - 50%)) scale(var(--b));
+    transform: translate(0%, calc(50svh - 50%)) scale(var(--b));
   }
 }
 `
