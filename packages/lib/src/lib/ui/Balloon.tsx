@@ -1,34 +1,40 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
-import { useRef, type PropsWithChildren, type ReactNode } from 'react'
+import {
+  useRef,
+  type PropsWithChildren,
+  type ReactNode,
+  type RefObject,
+} from 'react'
 
-import { boxToViewBox2 } from '../box/prefixed'
 import {
   pointer_events_none,
   position_absolute_left_0_top_0,
   Z_INDEX_BALLOON,
 } from '../css'
-import { type BalloonPaths } from './balloon-common'
-import { useBalloonStyleRef, useDetailStyleRef } from './style'
-import { useBalloonPaths } from './ui-xstate'
+import {
+  useBalloonPathStyleRef,
+  useBalloonStyleRef,
+  useDetailStyleRef,
+} from './style'
 
 export function Balloon(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
+  const svgRef = useRef<SVGSVGElement>(null)
+  const bgRef = useRef<SVGPathElement>(null)
+  const fgRef = useRef<SVGPathElement>(null)
 
   useDetailStyleRef(ref, 'balloon')
   useBalloonStyleRef(ref, 'balloon')
-
-  const balloonPaths = useBalloonPaths()
+  useBalloonPathStyleRef(svgRef, bgRef, fgRef, 'balloon')
 
   return (
     <div ref={ref} className="balloon">
-      {balloonPaths && (
-        <BalloonSvg {...balloonPaths}>
-          <path className="bg" d={balloonPaths.bg} />
-          <path className="fg" d={balloonPaths.fg} />
-          <style>{style1}</style>
-        </BalloonSvg>
-      )}
+      <BalloonSvg ref={svgRef}>
+        <path ref={bgRef} className="bg" />
+        <path ref={fgRef} className="fg" />
+        <style>{style1}</style>
+      </BalloonSvg>
       <style>{style}</style>
     </div>
   )
@@ -45,17 +51,18 @@ const style = `
 `
 
 function BalloonSvg({
-  viewBox,
-  width,
-  height,
+  ref,
   children,
-}: Readonly<PropsWithChildren<BalloonPaths>>): ReactNode {
+}: Readonly<
+  PropsWithChildren<{ ref: RefObject<SVGSVGElement | null> }>
+>): ReactNode {
   return (
     <svg
+      ref={ref}
       className="balloon-svg"
-      viewBox={viewBox && boxToViewBox2(viewBox)}
-      width={width}
-      height={height}
+      viewBox="0 0 0 0"
+      width={0}
+      height={0}
     >
       {children}
     </svg>

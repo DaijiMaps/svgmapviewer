@@ -2,9 +2,10 @@
 /* eslint-disable functional/no-return-void */
 import { type RefObject } from 'react'
 
+import { boxToViewBox2 } from '../box/prefixed'
 import { useStyleRef } from '../style/ref'
 import { tag, tag2 } from '../style/tag'
-import type { BalloonProps } from './balloon-common'
+import type { BalloonPaths, BalloonProps } from './balloon-common'
 import { calcBalloonStyleParams, updateBalloonStyle } from './balloon-common'
 import type { OpenClose } from './openclose'
 
@@ -64,6 +65,39 @@ export function updateBalloonStyleRefs(
   Array.from(balloonStyleRefs, ([, e]) => {
     updateBalloonStyle(e, param)
   })
+}
+
+////
+
+const balloonSvgStyleRefs: Map<string, SVGSVGElement> = new Map()
+const balloonBgPathStyleRefs: Map<string, SVGPathElement> = new Map()
+const balloonFgPathStyleRefs: Map<string, SVGPathElement> = new Map()
+
+export function useBalloonPathStyleRef(
+  svg: Readonly<RefObject<SVGSVGElement | null>>,
+  bg: Readonly<RefObject<SVGPathElement | null>>,
+  fg: Readonly<RefObject<SVGPathElement | null>>,
+  name: string
+): void {
+  useStyleRef(balloonSvgStyleRefs, svg, name)
+  useStyleRef(balloonBgPathStyleRefs, bg, name)
+  useStyleRef(balloonFgPathStyleRefs, fg, name)
+}
+
+export function updateBalloonPathStyleRefs({
+  viewBox,
+  width,
+  height,
+  bg,
+  fg,
+}: Readonly<BalloonPaths>): void {
+  Array.from(balloonSvgStyleRefs, ([, e]) => {
+    e.setAttribute('viewBox', boxToViewBox2(viewBox))
+    e.setAttribute('width', `${width}`)
+    e.setAttribute('height', `${height}`)
+  })
+  Array.from(balloonBgPathStyleRefs, ([, e]) => e.setAttribute('d', bg))
+  Array.from(balloonFgPathStyleRefs, ([, e]) => e.setAttribute('d', fg))
 }
 
 ////

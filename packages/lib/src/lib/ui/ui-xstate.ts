@@ -19,7 +19,7 @@ import {
   openCloseReset,
   type OpenCloseOp,
 } from './openclose'
-import { updateBalloonStyleRefs } from './style'
+import { updateBalloonPathStyleRefs, updateBalloonStyleRefs } from './style'
 import {
   updateDetailScrollStyleRefs,
   updateDetailStyleRefs,
@@ -98,9 +98,11 @@ const uiMachine = setup({
     }),
     updateHeaderStyle: ({ context }) =>
       updateHeaderStyleRefs(context.m['header']),
-    updateBalloonStyle: ({ context }) =>
-      context.balloon &&
-      updateBalloonStyleRefs(context.balloon, context.m['detail']),
+    updateBalloonStyle: ({ context }) => {
+      if (context.balloon)
+        updateBalloonStyleRefs(context.balloon, context.m['detail'])
+      if (context.balloonPaths) updateBalloonPathStyleRefs(context.balloonPaths)
+    },
     updateDetailStyle: ({ context }) => {
       const oc = context.m['detail']
       requestAnimationFrame(() => {
