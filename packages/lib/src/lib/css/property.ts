@@ -69,6 +69,11 @@ export const properties = `
   inherits: true;
   initial-value: 0;
 }
+@property --hh {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
 /*
 @property --layout-container-height {
   syntax: '<length>';

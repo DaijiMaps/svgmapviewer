@@ -44,9 +44,10 @@ const style = `
   align-items: end;
 }
 .left {
+  --hh: 50vh;
+  --hh: 50svh;
   transform-origin: 0% 50%;
-  transform: translate(0%, calc(50vh - 50%)) scale(var(--b));
-  transform: translate(0%, calc(50svh - 50%)) scale(var(--b));
+  transform: translate(0%, calc(var(--hh) - 50%)) scale(var(--b));
   &.not-animating {
     opacity: var(--b);
     &.closed {
@@ -75,13 +76,11 @@ const style = `
 @keyframes xxx-left {
   from {
     opacity: var(--a);
-    transform: translate(0%, calc(50vh - 50%)) scale(var(--a));
-    transform: translate(0%, calc(50svh - 50%)) scale(var(--a));
+    transform: translate(0%, calc(var(--hh) - 50%)) scale(var(--a));
   }
   to {
     opacity: var(--b);
-    transform: translate(0%, calc(50vh - 50%)) scale(var(--b));
-    transform: translate(0%, calc(50svh - 50%)) scale(var(--b));
+    transform: translate(0%, calc(var(--hh) - 50%)) scale(var(--b));
   }
 }
 `
