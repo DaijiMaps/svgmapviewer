@@ -66,10 +66,11 @@ const style = `
   }
 }
 .footer {
+  --b: 1;
   transform-origin: 50% 100%;
+  transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
+  opacity: var(--b);
   &.not-animating {
-    opacity: var(--b);
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
     &.closed {
       --b: 0;
     }
