@@ -19,6 +19,9 @@ export const entryToName = (
   addresses: x.data,
 })
 
+export const entryToLabelEntry = (x: Readonly<CollectionEntry<'labels'>>) =>
+  [x.id, x.data] as const
+
 export const entryToInfo = (
   x: Readonly<CollectionEntry<'pois'>>
 ): SearchInfo => ({

@@ -43,7 +43,7 @@ function RenderShopRestaurant(props: XProps<'shop.restaurant'>): ReactNode {
   )
 }
 
-export const xinfoRenderers = {
+export const infoRenderers = {
   'shop.cafe': RenderShopCafe,
   'shop.misc': RenderShopMisc,
   'shop.restaurant': RenderShopRestaurant,
