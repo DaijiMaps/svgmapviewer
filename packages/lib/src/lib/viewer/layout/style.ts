@@ -12,12 +12,7 @@ import { tag } from '../../style/tag'
 import { easeCubic, lerp } from '../../style/timing'
 import { trunc2 } from '../../utils'
 import { viewerSend } from '../viewer-xstate'
-import {
-  fromSvgInnerToSvgOuter,
-  fromSvgOuterToContent,
-  fromSvgToContent,
-  fromSvgToSvgInner,
-} from './coord'
+import { fromSvgToContent } from './coord'
 import type { Layout } from './layout-types'
 
 const layoutStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
@@ -49,9 +44,6 @@ function matrixTrunc2(m: DOMMatrixReadOnly): DOMMatrixReadOnly {
 
 export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
   const svgToContent = fromSvgToContent(layout)
-  const svgToInner = fromSvgToSvgInner(layout)
-  const innerToOuter = fromSvgInnerToSvgOuter(layout)
-  const outerToContent = fromSvgOuterToContent(layout)
   Array.from(layoutStyleRefs, ([, e]) => {
     const p = e.style.setProperty.bind(e.style)
     //p(`--layout-container-width`, `${trunc2(layout.container.width)}px`)
@@ -67,19 +59,6 @@ export function updateLayoutStyleRefs(layout: Readonly<Layout>): void {
     p(`--layout-svg-y`, `${trunc2(layout.svg.y).toString()}px`)
     p(`--layout-svg-width`, `${trunc2(layout.svg.width).toString()}px`)
     p(`--layout-svg-height`, `${trunc2(layout.svg.height).toString()}px`)
-    p(`--svg-matrix-svg-to-inner`, matrixTrunc2(svgToInner).toString())
-    p(`--svg-matrix-inner-to-outer`, matrixTrunc2(innerToOuter).toString())
-    p(`--svg-matrix-outer-to-content`, matrixTrunc2(outerToContent).toString())
-    p(`--svg-viewbox-x`, `${trunc2(layout.config.inner.x).toString()}px`)
-    p(`--svg-viewbox-y`, `${trunc2(layout.config.inner.y).toString()}px`)
-    p(
-      `--svg-viewbox-width`,
-      `${trunc2(layout.config.inner.width).toString()}px`
-    )
-    p(
-      `--svg-viewbox-height`,
-      `${trunc2(layout.config.inner.height).toString()}px`
-    )
   })
 }
 
