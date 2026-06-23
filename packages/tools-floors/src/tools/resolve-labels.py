@@ -7,10 +7,10 @@ import sys
 import typing
 
 
-LAYER_DEFAULT = 'Main'
+LAYER_DEFAULT = "Main"
 LINE_HEIGHT = 1.25
 LONG_ARATIO_THRESHOLD = 4
-FONT_FAMILY="'Noto Sans', sans-serif"
+FONT_FAMILY = "'Noto Sans', sans-serif"
 FONT_SIZE = 16
 FONT_WEIGHT = 200
 AREA_RATIO = 0.25
@@ -29,10 +29,10 @@ class LabelParams(typing.TypedDict):
 class FloorAddress(typing.TypedDict):
     x: float
     y: float
-    area: float | None
-    rx: float | None
-    ry: float | None
-    rotate: float | None
+    area: float  #| None
+    rx: float  #| None
+    ry: float  #| None
+    rotate: float  #| None
 
 
 class LabelTspan(typing.TypedDict):
@@ -53,6 +53,7 @@ font_family = FONT_FAMILY
 font_size = FONT_SIZE
 font_weight = FONT_WEIGHT
 area_ratio = AREA_RATIO
+use_prefix = False
 
 
 params: list[LabelParams] = []
@@ -65,12 +66,18 @@ name_to_params_nowrap: dict[str, LabelParams] = {}
 texts: list[LabelText] = []
 
 
-layer = 'B1F'
+layer = "B1F"
 labels_json = f"labels-{layer}.json"
 labels_nowrap_json = f"labels-nowrap-{layer}.json"
 floors_addresses_json = f"floors-addresses-{layer}.json"
 floors_names_json = f"floors-names-{layer}.json"
 floors_labels_json = f"floors-labels-{layer}.json"
+
+
+def eprint(*args, **kwargs):
+    """Prints strings and objects directly to stderr."""
+    kwargs["file"] = sys.stderr
+    print(*args, **kwargs)
 
 
 def prepare():
@@ -82,88 +89,106 @@ def prepare():
     global params
 
     with open(labels_json, "r", encoding="utf-8") as fh:
-        #global params
+        # global params
         params = json.load(fh)
         for param in params:
-            name = param['name']
+            name = param["name"]
             name_to_params[name] = param
 
     with open(labels_nowrap_json, "r", encoding="utf-8") as fh:
-        #global params
+        # global params
         params = json.load(fh)
         for param in params:
-            name = param['name']
+            name = param["name"]
             name_to_params_nowrap[name] = param
 
     with open(floors_addresses_json, "r", encoding="utf-8") as fh:
-        #global addresses
+        # global addresses
         addresses = json.load(fh)
 
     with open(floors_names_json, "r", encoding="utf-8") as fh:
-        #global addresses
+        # global addresses
         names = json.load(fh)
         for name, astrs in names.items():
             for astr in astrs:
                 address_to_names.setdefault(astr, []).append(name)
 
 
-def make_label_text(words: list[str], x: float, y: float, rotate: float, scale2: float, scale1: float, dy: float) -> LabelText:
+def make_label_text(
+    words: list[str],
+    x: float,
+    y: float,
+    rotate: float,
+    scale2: float,
+    scale1: float,
+    dy: float,
+) -> LabelText:
     tspans: list[LabelTspan] = []
     for idx, word in enumerate(words):
         tspan: LabelTspan = {
-            'attrs': {
-                'x': '0',
-                'y': f"{line_height * idx}em",
+            "attrs": {
+                "x": "0",
+                "y": f"{line_height * idx}em",
             },
-            'text': word,
+            "text": word,
         }
         tspans.append(tspan)
     text: LabelText = {
-        'attrs': {
-            'font-family': f"{font_family}",
-            'font-weight': f"{font_weight}",
-            'font-size': f"{font_size}px",
-            'text-anchor': 'middle',
-            'x': x,
-            'y': y,
-            'rotate': rotate,
-            'scale2': scale2,
-            'scale1': scale1,
-            'dy': dy,
+        "attrs": {
+            "font-family": f"{font_family}",
+            "font-weight": f"{font_weight}",
+            "font-size": f"{font_size}px",
+            "text-anchor": "middle",
+            "x": str(x),
+            "y": str(y),
+            "rotate": str(rotate),
+            "scale2": str(scale2),
+            "scale1": str(scale1),
+            "dy": str(dy),
         },
-        'children': tspans,
+        "children": tspans,
     }
     return text
 
 
-def make_label_text_long(words: list[str], x: float, y: float, rotate: float, scale2: float, scale1: float, dy: float) -> LabelText:
-    name = ' '.join(words)
+def make_label_text_long(
+    words: list[str],
+    x: float,
+    y: float,
+    rotate: float,
+    scale2: float,
+    scale1: float,
+    dy: float,
+) -> LabelText:
+    name = " ".join(words)
     print(f"long: {name}", file=sys.stderr)
     return make_label_text([name], x, y, rotate, scale2, scale1, dy)
 
 
-def calc_transform(point: FloorAddress, name: str) -> (float, float, float, float, float, float, bool):
-    dst = point['area']
-    #print(f"{name}: params.area={src} point.area={dst} s={round(s, 2)}")
-    x = point['x']
-    y = point['y']
-    rx = point['rx']
-    ry = point['ry']
+def calc_transform(
+    point: FloorAddress, name: str
+) -> tuple[float, float, float, float, float, float, bool]:
+    dst = point["area"]
+    # print(f"{name}: params.area={src} point.area={dst} s={round(s, 2)}")
+    x = float(point["x"])
+    y = float(point["y"])
+    rx = float(point["rx"])
+    ry = float(point["ry"])
 
     aratio = rx / ry if rx > ry else ry / rx
     long = aratio > LONG_ARATIO_THRESHOLD
 
     params = name_to_params[name] if not long else name_to_params_nowrap[name]
-    src = params['area']
-    s = params['s']
-    dy = params['dy']
+    src = params["area"]
+    s = params["s"]
+    dy = params["dy"]
 
     rotate = 0 if ry / rx < 1.01 else 90
 
     scale2 = dst * area_ratio / src
     scale = round(math.sqrt(scale2), 4)
 
-    #return (f"translate({x}, {y}) rotate({rotate}) scale({scale}) scale({s}) translate(0, {-dy})", long)
+    # return (f"translate({x}, {y}) rotate({rotate}) scale({scale}) scale({s}) translate(0, {-dy})", long)
     return (x, y, rotate, scale, s, dy, long)
 
 
@@ -171,9 +196,13 @@ def proc_name(point: FloorAddress, name: str):
     global texts
 
     (x, y, rotate, scale2, scale1, dy, long) = calc_transform(point, name)
-    words = name.strip().split(' ')
+    words = name.strip().split(" ")
 
-    text = make_label_text(words, x, y, rotate, scale2, scale1, dy) if not long else make_label_text_long(words, x, y, rotate, scale2, scale1, dy)
+    text = (
+        make_label_text(words, x, y, rotate, scale2, scale1, dy)
+        if not long
+        else make_label_text_long(words, x, y, rotate, scale2, scale1, dy)
+    )
     texts.append(text)
 
 
@@ -201,14 +230,16 @@ def main() -> None:
     global font_weight
     global layer
     global line_height
+    global use_prefix
 
     p = argparse.ArgumentParser()
-    p.add_argument('layer', type=str, help='layer (e.g. "1F")')
-    p.add_argument('-a', '--area-ratio', type=float)
-    p.add_argument('-F', '--font-family', type=str)
-    p.add_argument('-f', '--font-size', type=float)
-    p.add_argument('-w', '--font-weight', type=float)
-    p.add_argument('-l', '--line-height', type=float)
+    p.add_argument("layer", type=str, help='layer (e.g. "1F")')
+    p.add_argument("-a", "--area-ratio", type=float)
+    p.add_argument("-F", "--font-family", type=str)
+    p.add_argument("-f", "--font-size", type=float)
+    p.add_argument("-w", "--font-weight", type=float)
+    p.add_argument("-l", "--line-height", type=float)
+    p.add_argument("-p", "--use-prefix", type=bool)
     args = p.parse_args()
 
     if args.area_ratio is not None:
@@ -221,14 +252,18 @@ def main() -> None:
         font_weight = args.font_weight
     if args.line_height is not None:
         line_height = args.line_height
+    if args.use_prefix is not None:
+        use_prefix = args.use_prefix
     layer = args.layer
 
     global labels_json
+    global labels_nowrap_json
     global floors_addresses_json
     global floors_names_json
     global floors_labels_json
 
     labels_json = f"labels-{layer}.json"
+    labels_nowrap_json = f"labels-nowrap-{layer}.json"
     floors_addresses_json = f"floors-addresses-{layer}.json"
     floors_names_json = f"floors-names-{layer}.json"
     floors_labels_json = f"floors-labels-{layer}.json"
@@ -239,5 +274,5 @@ def main() -> None:
         json.dump(texts, fh, ensure_ascii=False, indent=2)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

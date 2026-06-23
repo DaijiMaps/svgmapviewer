@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import json
 import os
 import subprocess
@@ -13,6 +14,8 @@ MAP_SVG = f"{DATA_DIR}/map.svg"
 FLOORS_JSON = f"{DATA_DIR}/floors.json"
 
 floors = {}
+
+use_prefix = False
 
 ####
 
@@ -103,9 +106,23 @@ def collect_names():
 
 ####
 
-floors = collect_floors()
-for idx, name in enumerate(floors):
-    floor_to_fidx[name] = idx
-split_floors()
-collect_addresses()
-collect_names()
+def main():
+    global use_prefix
+
+    p = argparse.ArgumentParser()
+    p.add_argument('-p', '--use-prefix', type=float)
+    args = p.parse_args()
+
+    if args.use_prefix is not None:
+        use_prefix = args.use_prefix
+
+    floors = collect_floors()
+    for idx, name in enumerate(floors):
+        floor_to_fidx[name] = idx
+    split_floors()
+    collect_addresses()
+    collect_names()
+
+
+if __name__ == '__main__':
+    main()
