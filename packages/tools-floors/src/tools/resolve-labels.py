@@ -195,8 +195,16 @@ def calc_transform(
 def proc_name(point: FloorAddress, name: str):
     global texts
 
+    params = name_to_params[name]
+
     (x, y, rotate, scale2, scale1, dy, long) = calc_transform(point, name)
     words = name.strip().split(" ")
+    num: list[str] = [words[0]] if use_prefix else []
+    pat = params["pat"]
+    if len(pat) > 0:
+        words = pat.strip().split("///")
+        if use_prefix:
+            words = num + words
 
     text = (
         make_label_text(words, x, y, rotate, scale2, scale1, dy)
@@ -239,7 +247,7 @@ def main() -> None:
     p.add_argument("-f", "--font-size", type=float)
     p.add_argument("-w", "--font-weight", type=float)
     p.add_argument("-l", "--line-height", type=float)
-    p.add_argument("-p", "--use-prefix", type=bool)
+    p.add_argument("-p", "--use-prefix", action="store_true")
     args = p.parse_args()
 
     if args.area_ratio is not None:

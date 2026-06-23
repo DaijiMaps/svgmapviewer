@@ -366,7 +366,7 @@ def main() -> None:
     if args.line_height is not None:
         line_height = line_height
     if args.no_wrap is not None:
-        print("no_wrap!", file=sys.stderr)
+        eprint("no_wrap!")
         no_wrap = args.no_wrap
 
     # 5em circle
