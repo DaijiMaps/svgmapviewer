@@ -1,4 +1,5 @@
 import argparse
+import html
 import io
 import json
 import math
@@ -192,7 +193,7 @@ def make_tmp_svg() -> None:
             fh.write(f"<text id='text{idx}' text-anchor='middle'>\n")
             for i, word in enumerate(spans):
                 fh.write(
-                    f"<tspan id='tspan{word_idx}' x='0' y='{LINE_HEIGHT * i}em'>{word}</tspan>\n"
+                    f"<tspan id='tspan{word_idx}' x='0' y='{LINE_HEIGHT * i}em'>{html.escape(word)}</tspan>\n"
                 )
                 word_to_idx[word] = word_idx
                 word_idx = word_idx + 1
