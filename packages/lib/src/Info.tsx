@@ -25,7 +25,7 @@ export function infoRoot(config: Readonly<SvgMapViewerConfig>): void {
           <QRCodeSVG
             className="qrcode"
             marginSize={6}
-            value={document.location.href}
+            value={getUrl()}
             width="60vmin"
             height="60vmin"
           />
@@ -37,6 +37,12 @@ export function infoRoot(config: Readonly<SvgMapViewerConfig>): void {
       </div>
     </StrictMode>
   )
+}
+
+// eslint-disable-next-line functional/functional-parameters
+function getUrl(): string {
+  // strip ?info=1
+  return document.location.origin + document.location.pathname
 }
 
 const style = `
