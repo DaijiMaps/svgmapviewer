@@ -203,35 +203,31 @@ export const detailStyleString: string = `
 .not-animating {
   transform-origin: 0 0;
   opacity: var(--b);
-  &.detail {
-    transform: translate(var(--balloon-tx-b-x), var(--balloon-tx-b-y)) scale(var(--b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
-  }
-  &.balloon {
-    transform: translate(var(--balloon-tx-b-x), var(--balloon-tx-b-y)) scale(var(--b)) translate(var(--balloon-pww), var(--balloon-phh)) translate3d(0px, 0px, 0px);
-  }
 }
-
-.animating {
-  &.detail,
-  &.balloon {
-    --duration: ${ZOOM_DURATION_DETAIL}ms;
-    transform-origin: 0 0;
-    will-change: opacity, transform;
-  }
-  &.detail {
-    animation: xxx-detail var(--duration) var(--timing);
-  }
-  &.balloon {
-    animation: xxx-balloon var(--duration) var(--timing);
-  }
-  &.closed {
-    --timing: ${timing_closing};
-  }
-  &.opened {
-    --timing: ${timing_opening};
-  }
+.not-animating.detail {
+  transform: translate(var(--balloon-tx-b-x), var(--balloon-tx-b-y)) scale(var(--b)) translate(-50%, -50%) translate3d(0px, 0px, 0px);
 }
-
+.not-animating.balloon {
+  transform: translate(var(--balloon-tx-b-x), var(--balloon-tx-b-y)) scale(var(--b)) translate(var(--balloon-pww), var(--balloon-phh)) translate3d(0px, 0px, 0px);
+}
+.animating.detail,
+.animating.balloon {
+  --duration: ${ZOOM_DURATION_DETAIL}ms;
+  transform-origin: 0 0;
+  will-change: opacity, transform;
+}
+.animating.detail {
+  animation: xxx-detail var(--duration) var(--timing);
+}
+.animating.balloon {
+  animation: xxx-balloon var(--duration) var(--timing);
+}
+.animating.closed {
+  --timing: ${timing_closing};
+}
+.animating.opened {
+  --timing: ${timing_opening};
+}
 @keyframes xxx-detail {
   from {
     opacity: var(--a);

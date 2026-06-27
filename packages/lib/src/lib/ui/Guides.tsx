@@ -58,38 +58,36 @@ const style = `
   transform: translate(0%, 0%);
   z-index: ${Z_INDEX_GUIDES};
 }
-.guides {
-  &.not-animating {
-    &.closed {
-      --b: 0;
-    }
-    &.opened {
-      --b: 1;
-    }
-    opacity: var(--b);
-    will-change: opacity;
-  }
-  &.animating {
-    &.closed {
-      --a: 1;
-      --b: 0;
-      --timing: ${timing_closing};
-    }
-    &.opened {
-      --a: 0;
-      --b: 1;
-      --timing: ${timing_opening};
-    }
-    --duration: ${ZOOM_DURATION_HEADER}ms;
-    animation: xxx-measure var(--duration) var(--timing);
-    will-change: opacity;
-  }
-  &.zooming {
-    display: none;
-    --b: 0;
-  }
-  &.not-zooming {
-  }
+.guides.not-animating.closed {
+  --b: 0;
+}
+.guides.not-animating.opened {
+  --b: 1;
+}
+.guides.not-animating {
+  opacity: var(--b);
+  will-change: opacity;
+}
+.guides.animating.closed {
+  --a: 1;
+  --b: 0;
+  --timing: ${timing_closing};
+}
+.guides.animating.opened {
+  --a: 0;
+  --b: 1;
+  --timing: ${timing_opening};
+}
+.guides.animating {
+  --duration: ${ZOOM_DURATION_HEADER}ms;
+  animation: xxx-measure var(--duration) var(--timing);
+  will-change: opacity;
+}
+.guides.zooming {
+  display: none;
+  --b: 0;
+}
+.guides.not-zooming {
 }
 text {
   ${user_select_none}

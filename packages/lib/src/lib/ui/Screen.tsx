@@ -47,33 +47,29 @@ const style = `
   pointer-events: none;
   z-index: ${Z_INDEX_SHADOW};
 }
-.screen {
-  &.not-animating {
-    &.closed {
-      display: none;
-      &.zooming {
-        display: initial;
-      }
-    }
-    &.opened {
-      pointer-events: initial;
-    }
-  }
-  &.animating {
-    &.closed {
-      --a: 0.3;
-      --b: 0;
-      --timing: ${timing_closing};
-    }
-    &.opened {
-      --a: 0;
-      --b: 0.3;
-      --timing: ${timing_opening};
-    }
-    --duration: ${ZOOM_DURATION_DETAIL}ms;
-    will-change: opacity;
-    animation: xxx-screen var(--duration) var(--timing);
-  }
+.screen.not-animating.closed {
+  display: none;
+}
+.screen.not-animating.closed.zooming {
+  display: initial;
+}
+.screen.not-animating.opened {
+  pointer-events: initial;
+}
+.screen.animating.closed {
+  --a: 0.3;
+  --b: 0;
+  --timing: ${timing_closing};
+}
+.screen.animating.opened {
+  --a: 0;
+  --b: 0.3;
+  --timing: ${timing_opening};
+}
+.screen.animating {
+  --duration: ${ZOOM_DURATION_DETAIL}ms;
+  will-change: opacity;
+  animation: xxx-screen var(--duration) var(--timing);
 }
 @keyframes xxx-screen {
   from {

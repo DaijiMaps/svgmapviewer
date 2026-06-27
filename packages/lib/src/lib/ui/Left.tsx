@@ -48,30 +48,30 @@ const style = `
   --hh: 50svh;
   transform-origin: 0% 50%;
   transform: translate(0%, calc(var(--hh) - 50%)) scale(var(--b));
-  &.not-animating {
-    opacity: var(--b);
-    &.closed {
-      --b: 0;
-    }
-    &.opened {
-      --b: 1;
-    }
-  }
-  &.animating {
-    &.closed {
-      --a: 1;
-      --b: 0;
-      --timing: ${timing_closing};
-    }
-    &.opened {
-      --a: 0;
-      --b: 1;
-      --timing: ${timing_opening};
-    }
-    --duration: ${ZOOM_DURATION_HEADER}ms;
-    will-change: opacity, transform;
-    animation: xxx-left var(--duration) var(--timing) forwards;
-  }
+}
+.left.not-animating.closed {
+    --b: 0;
+}
+.left.not-animating.opened {
+    --b: 1;
+}
+.left.not-animating {
+  opacity: var(--b);
+}
+.left.animating.closed {
+  --a: 1;
+  --b: 0;
+  --timing: ${timing_closing};
+}
+.left.animating.opened {
+  --a: 0;
+  --b: 1;
+  --timing: ${timing_opening};
+}
+.left.animating {
+  --duration: ${ZOOM_DURATION_HEADER}ms;
+  will-change: opacity, transform;
+  animation: xxx-left var(--duration) var(--timing) forwards;
 }
 @keyframes xxx-left {
   from {

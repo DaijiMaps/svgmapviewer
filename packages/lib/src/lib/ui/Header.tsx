@@ -64,52 +64,52 @@ const style = `
   padding: 0.5em;
   font-size: smaller;
   pointer-events: none;
-  & h1,
-  & h2,
-  & p {
-    ${user_select_none}
-    ${pointer_events_initial}
-  }
-  & h1,
-  & h2 {
-    margin: 0.25em 0;
-    font-weight: 100;
-    cursor: default;
-    text-align: center;
-  }
-  & h1 {
-    font-size: large;
-  }
+}
+.header h1,
+.header h2,
+.header p {
+  ${user_select_none}
+  ${pointer_events_initial}
+}
+.header h1,
+.header h2 {
+  margin: 0.25em 0;
+  font-weight: 100;
+  cursor: default;
+  text-align: center;
+}
+.header h1 {
+  font-size: large;
 }
 .header {
   transform-origin: 50% 0%;
-  &.not-animating {
-    opacity: var(--b);
-    transform: translate(calc(50vw - 50%), 0%) scale(var(--b)) translate3d(0px, 0px, 0px);
-    &.closed {
-      --b: 0;
-    }
-    &.opened {
-      --b: 1;
-    }
-    will-change: initial;
-    animation: none;
-  }
-  &.animating {
-    &.closed {
-      --a: 1;
-      --b: 0;
-      --timing: ${timing_closing};
-    }
-    &.opened {
-      --a: 0;
-      --b: 1;
-      --timing: ${timing_opening};
-    }
-    --duration: ${ZOOM_DURATION_HEADER}ms;
-    will-change: opacity, transform;
-    animation: xxx-header var(--duration) var(--timing);
-  }
+}
+.header.not-animating.closed {
+  --b: 0;
+}
+.header.not-animating.opened {
+  --b: 1;
+}
+.header.not-animating {
+  opacity: var(--b);
+  transform: translate(calc(50vw - 50%), 0%) scale(var(--b)) translate3d(0px, 0px, 0px);
+  will-change: initial;
+  animation: none;
+}
+.header.animating.closed {
+  --a: 1;
+  --b: 0;
+  --timing: ${timing_closing};
+}
+.header.animating.opened {
+  --a: 0;
+  --b: 1;
+  --timing: ${timing_opening};
+}
+.header.animating {
+  --duration: ${ZOOM_DURATION_HEADER}ms;
+  will-change: opacity, transform;
+  animation: xxx-header var(--duration) var(--timing);
 }
 @keyframes xxx-header {
   from {

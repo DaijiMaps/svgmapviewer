@@ -57,36 +57,38 @@ const style = `
 }
 .right {
   transform-origin: 100% 50%;
-  &.bottom {
-    transform-origin: 100% 100%;
-  }
+}
+.right.bottom {
+  transform-origin: 100% 100%;
+}
+.right {
   transform: translate3d(0px, 0px, 0px);
-  &.not-animating {
-    opacity: var(--b);
-    transform: scale(var(--b));
-    &.closed {
-      --b: 0;
-    }
-    &.opened {
-      --b: 1;
-    }
-    will-change: initial;
-  }
-  &.animating {
-    &.closed {
-      --a: 1;
-      --b: 0;
-      --timing: ${timing_closing};
-    }
-    &.opened {
-      --a: 0;
-      --b: 1;
-      --timing: ${timing_opening};
-    }
-    --duration: ${ZOOM_DURATION_HEADER}ms;
-    will-change: opacity, transform;
-    animation: xxx-right var(--duration) var(--timing) forwards;
-  }
+}
+.right.not-animating.closed {
+--b: 0;
+}
+.right.not-animating.opened {
+--b: 1;
+}
+.right.not-animating {
+  opacity: var(--b);
+  transform: scale(var(--b));
+  will-change: initial;
+}
+.right.animating.closed {
+  --a: 1;
+  --b: 0;
+  --timing: ${timing_closing};
+}
+.right.animating.opened {
+  --a: 0;
+  --b: 1;
+  --timing: ${timing_opening};
+}
+.right.animating {
+  --duration: ${ZOOM_DURATION_HEADER}ms;
+  will-change: opacity, transform;
+  animation: xxx-right var(--duration) var(--timing) forwards;
 }
 @keyframes xxx-right {
   from {
@@ -122,12 +124,10 @@ const buttonStyle = `
   font-size: large;
   margin: 0;
   ${flex_column_center_center}
-  &.locked {
-    & > .button-item {
-      opacity: 0.5;
-      pointer-events: none;
-    }
-  }
+}
+.button.locked > .button-item {
+  opacity: 0.5;
+  pointer-events: none;
 }
 .button-item {
   margin: 1.25px;
@@ -137,19 +137,18 @@ const buttonStyle = `
   cursor: default;
   ${background_white_opaque}
   transition: opacity 100ms;
-  & > svg {
-    display: block;
-    width: 1.25em;
-    height: 1.25em;
-    pointer-events: none;
-    & > path {
-      stroke: black;
-      stroke-width: 0.4;
-      fill: none;
-    }
-  }
 }
-
+.button-item > svg {
+  display: block;
+  width: 1.25em;
+  height: 1.25em;
+  pointer-events: none;
+}
+.button-item > svg > path {
+  stroke: black;
+  stroke-width: 0.4;
+  fill: none;
+}
 .fullscreen {
   display: none;
 }
