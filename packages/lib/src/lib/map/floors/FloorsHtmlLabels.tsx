@@ -2,9 +2,20 @@ import { Fragment, type CSSProperties, type ReactNode } from 'react'
 
 import { type LabelText } from '../../../types'
 import { ZOOM_DURATION_CONTAINER } from '../../css'
+import { useShadowRoot } from '../../dom'
 import type { FloorLabelsProps } from './types'
 
-export function RenderFloorLabels({ labels }: FloorLabelsProps): ReactNode {
+export function RenderFloorLabels(props: FloorLabelsProps): ReactNode {
+  // eslint-disable-next-line functional/no-expression-statements
+  useShadowRoot(
+    'map-floors-html-labels',
+    <RenderFloorLabelsRoot {...props} />,
+    'map-floors-html'
+  )
+  return <div id="map-floors-html-labels" />
+}
+
+function RenderFloorLabelsRoot({ labels }: FloorLabelsProps): ReactNode {
   return (
     <div className="labels">
       {labels?.map((_text, idx) => (
