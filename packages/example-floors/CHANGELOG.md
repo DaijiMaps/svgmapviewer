@@ -1,5 +1,13 @@
 # svgmapviewer-example
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies
+  - svgmapviewer@0.6.0
+  - svgmapviewer-app-floors@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes
