@@ -86,17 +86,15 @@ export function RenderMapSymbols2(
 
 const style = `
 /*
-.map-symbols {
+.map-symbols > .map-symbol {
+  transform:
+    translate(var(--map-symbol-x), var(--map-symbol-y))
+    scale(calc(var(--layout-fontsize) * 1.5 * var(--layout-svgscale) / 72));
+}
+.map-symbols.zooming {
   & > .map-symbol {
-    transform:
-      translate(var(--map-symbol-x), var(--map-symbol-y))
-      scale(calc(var(--layout-fontsize) * 1.5 * var(--layout-svgscale) / 72));
-  }
-  &.zooming {
-    & > .map-symbol {
-      will-change: transform;
-      animation: xxx-map-symbol ${ZOOM_DURATION_CONTAINER}ms ease forwards;
-    }
+    will-change: transform;
+    animation: xxx-map-symbol ${ZOOM_DURATION_CONTAINER}ms ease forwards;
   }
 }
 @keyframes xxx-map-symbol {

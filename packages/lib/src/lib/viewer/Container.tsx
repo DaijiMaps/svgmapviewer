@@ -66,35 +66,34 @@ const style: string = `
 
   will-change: scroll-position;
   contain: strict;
-
-  &.zooming {
-    will-change: transform;
-    transform-origin: var(--zoom-origin);
-    animation: container-zoom ${ZOOM_DURATION_CONTAINER}ms ease;
-    &.rotating {
-      animation: container-rotate ${ZOOM_DURATION_CONTAINER}ms ease;
-    }
-  }
-  & > .content {
-    ${position_absolute_left_0_top_0}
-    contain: strict;
-    transform: var(--layout-content-matrix) translate3d(0, 0, 0);
-    transform-origin: 0% 0%;
-    pointer-events: none;
-    width: var(--layout-scroll-width);
-    height: var(--layout-scroll-height);
-  }
-  &.not-shown {
-    opacity: 0;
-  }
-  &.shown {
-  }
-  &.not-appearing {
-  }
-  &.appearing {
-    will-change: opacity;
-    animation: xxx-appearing 2s ${timing_opening};
-  }
+}
+.container.zooming {
+  will-change: transform;
+  transform-origin: var(--zoom-origin);
+  animation: container-zoom ${ZOOM_DURATION_CONTAINER}ms ease;
+}
+.container.rotating {
+  animation: container-rotate ${ZOOM_DURATION_CONTAINER}ms ease;
+}
+.container > .content {
+  ${position_absolute_left_0_top_0}
+  contain: strict;
+  transform: var(--layout-content-matrix) translate3d(0, 0, 0);
+  transform-origin: 0% 0%;
+  pointer-events: none;
+  width: var(--layout-scroll-width);
+  height: var(--layout-scroll-height);
+}
+.container.not-shown {
+  opacity: 0;
+}
+.container.shown {
+}
+.container.not-appearing {
+}
+.container.appearing {
+  will-change: opacity;
+  animation: xxx-appearing 2s ${timing_opening};
 }
 @keyframes container-zoom {
   from {
