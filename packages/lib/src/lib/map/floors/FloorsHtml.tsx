@@ -9,6 +9,7 @@ import {
   type LabelsTexts,
   type OsmRenderMapProps,
 } from '../../../types'
+import { useShadowRoot } from '../../dom'
 import { useFloorRef } from '../../viewer/floors/style'
 import { useLayoutStyleRef } from '../../viewer/layout/style'
 import { RenderFloorLabels } from './FloorsHtmlLabels'
@@ -18,8 +19,13 @@ export function RenderFloorsHtml(
 ): ReactNode {
   const ref = useRef(null)
   useLayoutStyleRef(ref, 'map-floors-html-content')
+  useShadowRoot('map-floors-html', <RenderFloorsHtmlRoot {...props} />)
+  return <div ref={ref} id="map-floors-html" className="content" />
+}
+
+function RenderFloorsHtmlRoot(props: Readonly<OsmRenderMapProps>): ReactNode {
   return (
-    <div ref={ref} className="content map-floors-html-content">
+    <div className="map-floors-html-content">
       <RenderFloorsHtmlContent {...props} />
       <style>{htmlStyle}</style>
     </div>
