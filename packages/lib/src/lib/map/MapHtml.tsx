@@ -73,13 +73,11 @@ const style = `
   height: var(--layout-scroll-height);
   transform: var(--layout-svg-to-content-matrix);
   transform-origin: 0% 0%;
-  &.zooming {
-    & > .map-symbol,
-    & > .label {
-      will-change: transform;
-      animation: xxx-label ${ZOOM_DURATION_CONTAINER}ms ease forwards;
-    }
-  }
+}
+.conent-html.zooming > .map-symbol,
+.conent-html.zooming > .label {
+  will-change: transform;
+  animation: xxx-label ${ZOOM_DURATION_CONTAINER}ms ease forwards;
 }
 .stroke {
   text-stroke: 3px white;
