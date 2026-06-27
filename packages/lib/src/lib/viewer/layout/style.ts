@@ -1,17 +1,17 @@
-/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { type RefObject } from 'react'
 
 import type { AnimationMatrix } from '../../../types'
-import { notifyStyle } from '../../event-style'
-import { startLoop } from '../../style/frame'
+import { ZOOM_DURATION_CONTAINER } from '../../css'
+//import { notifyStyle } from '../../event-style'
+//import { startLoop } from '../../style/frame'
 import { useStyleRef } from '../../style/ref'
 import { tag } from '../../style/tag'
 import { easeCubic, lerp } from '../../style/timing'
 import { trunc2 } from '../../utils'
-import { viewerSend } from '../viewer-xstate'
+//import { viewerSend } from '../viewer-xstate'
 import { fromSvgToContent } from './coord'
 import type { Layout } from './layout-types'
 
@@ -95,6 +95,9 @@ export function useZoomCondStyleRef(
   useStyleRef(zoomCondStyleRefs, ref, name)
 }
 
+const zoomAnimation = `container-zoom ${ZOOM_DURATION_CONTAINER}ms ease`
+const rotateAnimation = `container-rotate ${ZOOM_DURATION_CONTAINER}ms ease`
+
 export function updateZoomStyleRefs(
   animation: Readonly<null | AnimationMatrix>,
   zoom: number
@@ -104,16 +107,47 @@ export function updateZoomStyleRefs(
       ? `0% 0%`
       : `${animation.origin.x}px ${animation?.origin.y}px`
   const rotating = animation?.to.b !== 0
+  const za =
+    rotating || animation === null
+      ? null
+      : getCurrentZoomValues({ animation, zoom }, 0)
+  const zb =
+    rotating || animation === null
+      ? null
+      : getCurrentZoomValues({ animation, zoom }, 1)
+  const ra =
+    !rotating || animation === null
+      ? null
+      : getCurrentRotateValues({ animation, zoom }, 0)
+  const rb =
+    !rotating || animation === null
+      ? null
+      : getCurrentRotateValues({ animation, zoom }, 1)
+  const willChangeStyle = animation !== null ? `transform` : null
+  const transformOriginStyle = animation !== null ? o : null
+  const animationStyle =
+    ra !== null ? rotateAnimation : za !== null ? zoomAnimation : null
   Array.from(zoomStyleRefs, ([, e]) => {
     const p = e.style.setProperty.bind(e.style)
-    tag(e, 'zooming', animation !== null)
-    if (rotating) tag(e, 'rotating', animation !== null)
+    //tag(e, 'zooming', animation !== null)
+    //if (rotating) tag(e, 'rotating', animation !== null)
     p(`--zoom-origin`, o)
     p(`--zoom-zoom`, zoom.toString())
     p(`--zoom-s`, null)
     p(`--zoom-s-inv`, null)
     p(`--zoom-k`, null)
     p(`--zoom-k-inv`, null)
+    p(`--zoom-tx-a`, (za && `${za.tx}px`) ?? null)
+    p(`--zoom-ty-a`, (za && `${za.ty}px`) ?? null)
+    p(`--zoom-tx-b`, (zb && `${zb.tx}px`) ?? null)
+    p(`--zoom-ty-b`, (zb && `${zb.ty}px`) ?? null)
+    p(`--zoom-s-a`, (za && `${za.s}`) ?? null)
+    p(`--zoom-s-b`, (zb && `${zb.s}`) ?? null)
+    p(`--rotate-deg-a`, (ra && `${ra.deg}deg`) ?? null)
+    p(`--rotate-deg-b`, (rb && `${rb.deg}deg`) ?? null)
+    p(`will-change`, willChangeStyle)
+    p(`transform-origin`, transformOriginStyle)
+    p(`animation`, animationStyle)
   })
   Array.from(zoomSStyleRefs, ([, e]) => {
     const p = e.style.setProperty.bind(e.style)
@@ -126,6 +160,7 @@ export function updateZoomStyleRefs(
     tag(e, 'zooming', animation !== null)
     if (rotating) tag(e, 'rotating', animation !== null)
   })
+  /*
   if (animation !== null) {
     startLoop('zoom', 500, {
       tickcb: tickZoomStyleRefs,
@@ -135,13 +170,12 @@ export function updateZoomStyleRefs(
       },
       cbdata: { animation, zoom },
     })
-    /*
     startLoop('zoomS', 500, {
       tickcb: tickZoomSStyleRefs,
       cbdata: { animation, zoom },
     })
-    */
   }
+    */
 }
 
 type ZoomData = Readonly<{
@@ -196,6 +230,7 @@ function getCurrentRotateValues(
   return { deg, deginv }
 }
 
+/*
 function tickZoomStyleRefs(t: number, cbdata?: ZoomData): void {
   if (!cbdata) return
   if (cbdata.animation.to.b === 0) {
@@ -228,6 +263,7 @@ function tickZoomRotateStyleRefs(t: number, cbdata: ZoomData): void {
     p(`--zoom-deg-inv`, `${deginv}deg`)
   })
 }
+*/
 
 /*
 function tickZoomSStyleRefs(t: number, cbdata?: ZoomData): void {

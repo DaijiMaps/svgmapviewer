@@ -68,14 +68,11 @@ const style: string = `
   contain: strict;
 
   &.zooming {
-    transform-origin: var(--zoom-origin);
-    transform: translate(var(--zoom-tx), var(--zoom-ty)) scale(var(--zoom-s)) translate3d(0px, 0px, 0px);
     will-change: transform;
-    /*
+    transform-origin: var(--zoom-origin);
     animation: container-zoom ${ZOOM_DURATION_CONTAINER}ms ease;
-    */
     &.rotating {
-      transform: rotate(var(--zoom-deg)) translate3d(0px, 0px, 0px);
+      animation: container-rotate ${ZOOM_DURATION_CONTAINER}ms ease;
     }
   }
   & > .content {
@@ -97,6 +94,22 @@ const style: string = `
   &.appearing {
     will-change: opacity;
     animation: xxx-appearing 2s ${timing_opening};
+  }
+}
+@keyframes container-zoom {
+  from {
+    transform: translate(var(--zoom-tx-a), var(--zoom-ty-a)) scale(var(--zoom-s-a)) translate3d(0px, 0px, 0px);
+  }
+  to {
+    transform: translate(var(--zoom-tx-b), var(--zoom-ty-b)) scale(var(--zoom-s-b)) translate3d(0px, 0px, 0px);
+  }
+}
+@keyframes container-rotate {
+  from {
+    transform: rotate(var(--rotate-deg-a)) translate3d(0px, 0px, 0px);
+  }
+  to {
+    transform: rotate(var(--rotate-deg-b)) translate3d(0px, 0px, 0px);
   }
 }
 @keyframes xxx-appearing {

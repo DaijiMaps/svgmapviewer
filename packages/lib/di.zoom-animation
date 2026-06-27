@@ -1,0 +1,146 @@
+diff --git a/packages/lib/.vscode/launch.json b/packages/lib/.vscode/launch.json
+index 8f30e65a..6343c5af 100644
+--- a/packages/lib/.vscode/launch.json
++++ b/packages/lib/.vscode/launch.json
+@@ -8,8 +8,9 @@
+       "type": "chrome",
+       "request": "launch",
+       "name": "Launch Chrome against localhost",
+-      "url": "http://localhost:8080",
+-      "webRoot": "${workspaceFolder}"
++      "url": "http://localhost:5173",
++      "webRoot": "${workspaceFolder}",
++      "sourceMaps": true
+     }
+   ]
+ }
+diff --git a/packages/lib/src/lib/viewer/Container.tsx b/packages/lib/src/lib/viewer/Container.tsx
+index a7aa5c81..8eec814a 100644
+--- a/packages/lib/src/lib/viewer/Container.tsx
++++ b/packages/lib/src/lib/viewer/Container.tsx
+@@ -65,22 +65,18 @@ const style: string = `
+   touch-action: pan-x pan-y;
+ 
+   will-change: scroll-position;
+-  contain: strict;
+ 
+   &.zooming {
+     transform-origin: var(--zoom-origin);
+     transform: translate(var(--zoom-tx), var(--zoom-ty)) scale(var(--zoom-s)) translate3d(0px, 0px, 0px);
+     will-change: transform;
+-    /*
+     animation: container-zoom ${ZOOM_DURATION_CONTAINER}ms ease;
+-    */
+     &.rotating {
+       transform: rotate(var(--zoom-deg)) translate3d(0px, 0px, 0px);
+     }
+   }
+   & > .content {
+     ${position_absolute_left_0_top_0}
+-    contain: strict;
+     transform: var(--layout-content-matrix) translate3d(0, 0, 0);
+     transform-origin: 0% 0%;
+     pointer-events: none;
+@@ -99,6 +95,14 @@ const style: string = `
+     animation: xxx-appearing 2s ${timing_opening};
+   }
+ }
++@keyframes container-zoom {
++  from {
++    transform: translate(var(--zoom-tx-a), var(--zoom-ty-a)) scale(var(--zoom-s-a)) translate3d(0px, 0px, 0px);
++  }
++  to {
++    transform: translate(var(--zoom-tx-b), var(--zoom-ty-b)) scale(var(--zoom-s-b)) translate3d(0px, 0px, 0px);
++  }
++}
+ @keyframes xxx-appearing {
+   from {
+     opacity: 0;
+diff --git a/packages/lib/src/lib/viewer/layout/style.ts b/packages/lib/src/lib/viewer/layout/style.ts
+index 1e2af166..93de3230 100644
+--- a/packages/lib/src/lib/viewer/layout/style.ts
++++ b/packages/lib/src/lib/viewer/layout/style.ts
+@@ -5,13 +5,13 @@
+ import { type RefObject } from 'react'
+ 
+ import type { AnimationMatrix } from '../../../types'
+-import { notifyStyle } from '../../event-style'
+-import { startLoop } from '../../style/frame'
++//import { notifyStyle } from '../../event-style'
++//import { startLoop } from '../../style/frame'
+ import { useStyleRef } from '../../style/ref'
+ import { tag } from '../../style/tag'
+ import { easeCubic, lerp } from '../../style/timing'
+ import { trunc2 } from '../../utils'
+-import { viewerSend } from '../viewer-xstate'
++//import { viewerSend } from '../viewer-xstate'
+ import { fromSvgToContent } from './coord'
+ import type { Layout } from './layout-types'
+ 
+@@ -104,6 +104,10 @@ export function updateZoomStyleRefs(
+       ? `0% 0%`
+       : `${animation.origin.x}px ${animation?.origin.y}px`
+   const rotating = animation?.to.b !== 0
++  const za =
++    animation === null ? null : getCurrentZoomValues({ animation, zoom }, 0)
++  const zb =
++    animation === null ? null : getCurrentZoomValues({ animation, zoom }, 1)
+   Array.from(zoomStyleRefs, ([, e]) => {
+     const p = e.style.setProperty.bind(e.style)
+     tag(e, 'zooming', animation !== null)
+@@ -114,6 +118,12 @@ export function updateZoomStyleRefs(
+     p(`--zoom-s-inv`, null)
+     p(`--zoom-k`, null)
+     p(`--zoom-k-inv`, null)
++    p(`--zoom-tx-a`, (za && `${za.tx}px`) ?? null)
++    p(`--zoom-ty-a`, (za && `${za.ty}px`) ?? null)
++    p(`--zoom-tx-b`, (zb && `${zb.tx}px`) ?? null)
++    p(`--zoom-ty-b`, (zb && `${zb.ty}px`) ?? null)
++    p(`--zoom-s-a`, (za && `${za.s}`) ?? null)
++    p(`--zoom-s-b`, (zb && `${zb.s}`) ?? null)
+   })
+   Array.from(zoomSStyleRefs, ([, e]) => {
+     const p = e.style.setProperty.bind(e.style)
+@@ -127,6 +137,7 @@ export function updateZoomStyleRefs(
+     if (rotating) tag(e, 'rotating', animation !== null)
+   })
+   if (animation !== null) {
++    /*
+     startLoop('zoom', 500, {
+       tickcb: tickZoomStyleRefs,
+       donecb: () => {
+@@ -135,7 +146,6 @@ export function updateZoomStyleRefs(
+       },
+       cbdata: { animation, zoom },
+     })
+-    /*
+     startLoop('zoomS', 500, {
+       tickcb: tickZoomSStyleRefs,
+       cbdata: { animation, zoom },
+@@ -180,6 +190,7 @@ function getCurrentZoomValues(
+   return { tx, ty, s, sinv: 1 / s, z, zinv: 1 / z, k, kinv: 1 / k }
+ }
+ 
++/*
+ type RotateValues = Readonly<{
+   readonly deg: number
+   readonly deginv: number
+@@ -228,6 +239,7 @@ function tickZoomRotateStyleRefs(t: number, cbdata: ZoomData): void {
+     p(`--zoom-deg-inv`, `${deginv}deg`)
+   })
+ }
++*/
+ 
+ /*
+ function tickZoomSStyleRefs(t: number, cbdata?: ZoomData): void {
+@@ -241,8 +253,10 @@ function tickZoomSStyleRefs(t: number, cbdata?: ZoomData): void {
+ }
+ */
+ 
++/*
+ function getDeg(m: DOMMatrixReadOnly): number {
+   const rad = Math.atan2(m.b, m.a)
+   const deg = rad * (180 / Math.PI)
+   return deg >= 0 ? deg : deg + 360
+ }
++*/
