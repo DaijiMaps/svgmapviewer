@@ -1,7 +1,6 @@
 import { Fragment, type CSSProperties, type ReactNode } from 'react'
 
 import { type LabelText } from '../../../types'
-import { ZOOM_DURATION_CONTAINER } from '../../css'
 import { useShadowRoot } from '../../dom'
 import type { FloorLabelsProps } from './types'
 
@@ -59,12 +58,12 @@ const labelsStyle = `
   inherits: false;
   initial-value: 1;
 }
-div.labels {
+.labels {
   /* default */
   --zoom: 1;
   --zoom-zoom: 1;
 }
-div.label {
+.label {
   position: absolute;
   transform-origin: 0% 0%;
   /*
@@ -74,16 +73,9 @@ div.label {
   text-align: center;
   font-family: 'Noto Sans JP', 'Noto Sans', 'sans-serif' !important;
   font-weight: 200 !important;
-  &.zooming {
-    & > div.label {
-      /*
-      animation: xxx-label-scale ${ZOOM_DURATION_CONTAINER}ms ease;
-      */
-    }
-  }
-  & > p {
-    margin: 0;
-  }
+}
+.label > p {
+  margin: 0;
 }
 /*
 @keyframes xxx-label-scale {
