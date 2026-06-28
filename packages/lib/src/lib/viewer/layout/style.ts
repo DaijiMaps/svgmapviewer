@@ -11,7 +11,7 @@ import { useStyleRef } from '../../style/ref'
 import { tag } from '../../style/tag'
 import { easeCubic, lerp } from '../../style/timing'
 import { trunc2 } from '../../utils'
-import { viewerSend } from '../viewer-xstate'
+//import { viewerSend } from '../viewer-xstate'
 import { fromSvgToContent } from './coord'
 import type { Layout } from './layout-types'
 
