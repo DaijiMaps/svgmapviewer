@@ -7,11 +7,11 @@ import type { FloorLabelsProps } from './types'
 export function RenderFloorLabels(props: FloorLabelsProps): ReactNode {
   // eslint-disable-next-line functional/no-expression-statements
   useShadowRoot(
-    'map-floors-html-labels',
+    `map-floors-html-labels-${props.fidx}`,
     <RenderFloorLabelsRoot {...props} />,
     'map-floors-html'
   )
-  return <div id="map-floors-html-labels" />
+  return <div id={`map-floors-html-labels-${props.fidx}`} />
 }
 
 function RenderFloorLabelsRoot({ labels }: FloorLabelsProps): ReactNode {
