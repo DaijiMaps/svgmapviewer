@@ -53,6 +53,7 @@ function switchStyle(
   e: Readonly<SVGGElement | HTMLDivElement>,
   animating: boolean,
   appearing: boolean,
+  visible: boolean,
   _name: string
 ): void {
   const p = e.style.setProperty.bind(e.style)
@@ -63,9 +64,10 @@ function switchStyle(
     p(`visibility`, visibility)
   } else {
     const animation = `${appearing ? FLOOR_APPEARING : FLOOR_DISAPPEARING} ${floor_switch_duration} linear`
+    const visibility = visible ? null : 'hidden'
     p(`will-change`, `opacity`)
     p(`animation`, animation)
-    p(`visibility`, null)
+    p(`visibility`, visibility)
   }
 }
 
@@ -83,7 +85,13 @@ export function updateFloorRefsSwitch(
   prevFidx: number | null
 ): void {
   const re = new RegExp(`^.*-${fidx}$`)
-  Array.from(floorRefs, ([name, e]) =>
-    switchStyle(e, prevFidx !== null, re.test(name), name)
+  Array.from(floorRefs, ([name, e], idx) =>
+    switchStyle(
+      e,
+      prevFidx !== null,
+      re.test(name),
+      idx === prevFidx || idx === fidx,
+      name
+    )
   )
 }
