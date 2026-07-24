@@ -13,7 +13,6 @@ export default defineConfig({
       dts: {
         bundle: false,
         distPath: './dist',
-        tsgo: false,
       },
     },
   ],

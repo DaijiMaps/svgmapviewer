@@ -9,7 +9,7 @@ packages:
   - ./packages/template-*
   - ./packages/tools-*
 catalog:
-  '@types/node': '^25.9.1'
+  '@types/node': '^25.9.5'
 overrides:
   '@types/node': '^24'
   '@xstate/store': '^3'
