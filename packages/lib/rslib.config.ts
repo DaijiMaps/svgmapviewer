@@ -15,7 +15,6 @@ export default defineConfig({
       dts: {
         bundle: false,
         distPath: './dist',
-        tsgo: true,
       },
     },
   ],

@@ -32,7 +32,7 @@
     "./vec": "./dist/lib/vec/prefixed/index.js"
   },
   "scripts": {
-    "build": "tsgo -b && rslib build",
+    "build": "tsc -b && rslib build",
     "lint": "eslint . && oxlint --type-aware --type-check",
     "publish:jsr": "pnpm dlx jsr publish",
     "test": "rstest",
