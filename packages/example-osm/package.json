@@ -19,9 +19,9 @@
     "svgmapviewer-tools-osm": "workspace:*"
   },
   "devDependencies": {
-    "@rsbuild/core": "^2.1.7",
+    "@rsbuild/core": "^2.1.10",
     "@rsbuild/plugin-react": "^2.1.0",
-    "@types/node": "catalog:",
+    "@types/node": "^26.2.0",
     "typescript": "^7.0.2"
   },
   "lint-staged": {
