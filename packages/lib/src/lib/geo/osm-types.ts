@@ -34,10 +34,7 @@ export type OsmLinePropertiesKey =
   | 'other_tags'
 
 export type OsmLineStringPropertiesKey =
-  | 'osm_id'
-  | 'name'
-  | 'type'
-  | 'other_tags'
+  'osm_id' | 'name' | 'type' | 'other_tags'
 
 export type OsmPolygonPropertiesKey =
   | 'osm_id'

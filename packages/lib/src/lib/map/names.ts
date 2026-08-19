@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { createStore } from '@xstate/store'
-import { useSelector } from '@xstate/store/react'
+import { useSelector } from '@xstate/store-react'
 import { Array, pipe, Result, Number } from 'effect'
 import { useMemo } from 'react'
 

@@ -11,10 +11,6 @@ export interface ActionCbs {
 }
 
 export type ViewerActionType =
-  | 'ZOOM.IN'
-  | 'ZOOM.OUT'
-  | 'RESET'
-  | 'RECENTER'
-  | 'ROTATE'
+  'ZOOM.IN' | 'ZOOM.OUT' | 'RESET' | 'RECENTER' | 'ROTATE'
 
 export type ViewerAction = { readonly type: ViewerActionType }

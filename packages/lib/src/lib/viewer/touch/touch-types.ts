@@ -15,8 +15,7 @@ type TouchEvent_ =
   | { type: 'ENDED' } // internal
   | { type: 'NONE' } // internal
 type TouchEmit_ =
-  | { type: 'MULTI'; touches: Touches }
-  | { type: 'ZOOM'; touches: Touches }
+  { type: 'MULTI'; touches: Touches } | { type: 'ZOOM'; touches: Touches }
 type TouchContext_ = {
   touches: Touches
   mode: 'idle' | 'pan' | 'pinch'

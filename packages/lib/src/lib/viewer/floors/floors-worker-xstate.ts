@@ -10,9 +10,8 @@ const floorsWorkerMachine = setup({
     emitted: {} as Emits,
   },
   actions: {
-    fetch: emit(
-      ({ context: { cfg, base } }): Emits =>
-        cfg === undefined ? { type: 'NOOP' } : { type: 'FETCH', cfg, base }
+    fetch: emit(({ context: { cfg, base } }): Emits =>
+      cfg === undefined ? { type: 'NOOP' } : { type: 'FETCH', cfg, base }
     ),
   },
 }).createMachine({

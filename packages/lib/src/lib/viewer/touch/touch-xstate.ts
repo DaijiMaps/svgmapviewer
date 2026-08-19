@@ -63,12 +63,10 @@ const touchMachine = setup({
     enterPinch: assign({
       mode: 'pinch',
     }),
-    emitMulti: emit(
-      ({ context: { touches } }): TouchEmit_ => ({
-        type: 'MULTI',
-        touches,
-      })
-    ),
+    emitMulti: emit(({ context: { touches } }): TouchEmit_ => ({
+      type: 'MULTI',
+      touches,
+    })),
     emitZoom: emit(({ context: { touches } }) => ({
       type: 'ZOOM',
       touches,

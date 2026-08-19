@@ -19,9 +19,7 @@ export type ViewerModePanning = 'panning'
 export type ViewerModeTouching = 'touching'
 export type ViewerModeLocked = 'locked'
 export type ViewerMode =
-  | ViewerModePanning
-  | ViewerModeTouching
-  | ViewerModeLocked
+  ViewerModePanning | ViewerModeTouching | ViewerModeLocked
 
 //// context
 

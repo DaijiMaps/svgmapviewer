@@ -15,12 +15,7 @@ export type Image = { type: 'IMAGE'; fidx: number; blob: Blob }
 export type LevelUp = { type: 'LEVEL.UP' }
 export type LevelDown = { type: 'LEVEL.DOWN' }
 export type FloorsEvents =
-  | Init
-  | Select
-  | SelectDone
-  | Image
-  | LevelUp
-  | LevelDown
+  Init | Select | SelectDone | Image | LevelUp | LevelDown
 export type Lock = { type: 'LOCK'; fidx: number }
 export type FloorsEmits = Lock
 

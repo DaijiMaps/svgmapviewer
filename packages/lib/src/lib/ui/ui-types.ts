@@ -35,8 +35,7 @@ export type UiModeEvent =
   | { type: 'RENDERED' }
 
 export type UiPartEvent =
-  | { type: 'HEADER.ANIMATION.END' }
-  | { type: 'DETAIL.ANIMATION.END' }
+  { type: 'HEADER.ANIMATION.END' } | { type: 'DETAIL.ANIMATION.END' }
 
 export type UiInternalEvent = { type: 'DONE' }
 
