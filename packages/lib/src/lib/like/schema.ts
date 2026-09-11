@@ -1,6 +1,5 @@
 import { Schema } from 'effect'
 
-import { json } from '../json'
 import type {
   Decode,
   Encode,
@@ -14,7 +13,7 @@ const XIDSchema = Schema.Union([Schema.Number, Schema.String])
 const XIDSetSchema = Schema.Array(XIDSchema)
 const XContextSchema = Schema.Struct({ ids: XIDSetSchema })
 
-const parse = json(XContextSchema)
+const parse = Schema.fromJsonString(XContextSchema)
 
 //// LikesExternalContext -> LikesContext
 

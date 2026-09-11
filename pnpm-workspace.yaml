@@ -1,13 +1,13 @@
 packages:
-  - ./packages/app-*
-  - ./packages/astro-*
-  - ./packages/create-*
-  - ./packages/example-*
-  - ./packages/lib
-  - ./packages/svgpatheditor
-  - ./packages/svgpatheditor-vscode
-  - ./packages/template-*
-  - ./packages/tools-*
+  - 'packages/app-*'
+  - 'packages/astro-*'
+  - 'packages/create-*'
+  - 'packages/example-*'
+  - 'packages/lib'
+  - 'packages/svgpatheditor'
+  - 'packages/svgpatheditor-vscode'
+  - 'packages/template-*'
+  - 'packages/tools-*'
 catalog:
   '@types/node': '^25.9.5'
 overrides:
