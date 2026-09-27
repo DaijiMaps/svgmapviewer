@@ -5,14 +5,13 @@ import { Fragment, useRef, type ReactNode } from 'react'
 import {
   type Floor,
   type FloorsConfig,
-  type LabelsMap,
-  type LabelsTexts,
   type OsmRenderMapProps,
 } from '../../../types'
 import { useShadowRoot } from '../../dom'
 import { useFloorRef } from '../../viewer/floors/style'
 import { useLayoutStyleRef } from '../../viewer/layout/style'
 import { RenderFloorLabels } from './FloorsHtmlLabels'
+import { getLabels } from './labels'
 
 export function RenderFloorsHtml(
   props: Readonly<OsmRenderMapProps>
@@ -79,30 +78,8 @@ function RenderFloorHtml({
     <div ref={ref} className={`floor fidx-${fidx}`}>
       <RenderFloorLabels
         fidx={fidx}
-        labels={
-          floor.labels ?? getLabelsMap(labelsMap, floor.name.toLowerCase())
-        }
+        labels={floor.labels ?? getLabels(labelsMap, floor.name.toLowerCase())}
       />
     </div>
   )
-}
-
-const labelsMapCache = new Set<LabelsMap>()
-
-function getLabelsMap(
-  labelsMap: Readonly<FloorsConfig['labelsMap']> | undefined,
-  k: string
-): LabelsTexts | undefined {
-  if (labelsMap === undefined) return undefined
-  const vs = Array.from(labelsMapCache.values())
-  if (vs.length === 1) return vs[0].get(k)
-  const m =
-    labelsMap instanceof Map
-      ? labelsMap
-      : new Map(
-          labelsMap instanceof Array ? labelsMap : Object.entries(labelsMap)
-        )
-  // eslint-disable-next-line functional/immutable-data
-  labelsMapCache.add(m)
-  return m.get(k)
 }

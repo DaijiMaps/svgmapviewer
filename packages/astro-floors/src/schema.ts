@@ -128,6 +128,8 @@ export const floorsConfigSchema = z.object({
   initialFidx: z.number(),
   floors: z.array(floorSchema),
   //labelsMap: z.map(z.string(), z.array(labelTextSchema)).optional(),
+  labelsCircleRadius: z.number().optional(),
+  labelsCircleStyle: z.string().optional(),
 })
 
 // labelsSchema

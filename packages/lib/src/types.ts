@@ -245,6 +245,8 @@ export interface FloorsConfig {
   readonly initialFidx: number
   readonly floors: readonly Floor[]
   readonly labelsMap?: LabelsArray | LabelsRecord | LabelsMap
+  readonly labelsCircleRadius?: number
+  readonly labelsCircleStyle?: string
 }
 
 export interface LabelText {

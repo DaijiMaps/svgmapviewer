@@ -240,6 +240,12 @@
             "required": ["name", "href"],
             "additionalProperties": false
           }
+        },
+        "labelsCircleRadius": {
+          "type": "number"
+        },
+        "labelsCircleStyle": {
+          "type": "string"
         }
       },
       "required": ["initialFidx", "floors"],
