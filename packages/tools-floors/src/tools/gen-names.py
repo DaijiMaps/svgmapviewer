@@ -38,8 +38,7 @@ def gen_names(floor: str):
 ####
 
 
-floors = ["SUN"]
-
-
-for floor in floors:
-    gen_names(floor)
+with open(f"floors.json", "r", encoding="utf-8") as fh:
+    floors = json.load(fh)
+    for floor in floors:
+        gen_names(floor)

@@ -136,7 +136,8 @@ def collect_names():
     for floor, names in floor_names.items():
         for name, addrs in names.items():
             eprint(f"name: {name}")
-            name = unprefix(name)
+            if use_prefix:
+                name = unprefix(name) # XXX
             all_names.setdefault(name, []).extend(addrs)
 
     xdump(all_names, f"{DATA_DIR}/astro-names.json")
