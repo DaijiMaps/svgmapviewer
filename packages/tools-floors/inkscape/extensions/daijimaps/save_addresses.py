@@ -106,6 +106,8 @@ class SaveAddresses(AddressTree):
             (a, rx, ry) = calc_area(node)
         if c is not None and bb is not None:
             p = tx.apply_to_point(c)
+            p.x = round(p.x)
+            p.y = round(p.y)
             hwh = (bb.width + bb.height) * 0.5
             w = min(bb.width, hwh)
             dx = (w * 0.8 - bb.width) * 0.5
