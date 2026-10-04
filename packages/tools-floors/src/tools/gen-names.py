@@ -1,6 +1,8 @@
 import argparse
 import csv
 import json
+import re
+import sys
 import sys
 import typing
 
@@ -43,12 +45,17 @@ def collect_names_by_number(floor: str) -> None:
 def collect_names_by_name(floor: str) -> None:
     global name_to_addresses
 
+    print(f"floor: ^A{floor}-.*$")
+    v = re.compile(rf"^A{floor}-.*$")
+
     # 4. make name => address mapping directly
     with open("address-to-name.csv", "r", encoding="utf-8") as fh:
         rows = csv.reader(fh, delimiter=',', quotechar='"')
         for row in rows:
             a = row[0]
             n = row[1]
+            if not v.match(a):
+                continue
             print(f"{n} => {a}")
             name_to_addresses.setdefault(n, []).append(a)
 
@@ -64,9 +71,12 @@ def write_floor_names(floor: str) -> None:
 
 
 def handle_floors() -> None:
+    global name_to_addresses
+
     with open(f"floors.json", "r", encoding="utf-8") as fh:
         floors = json.load(fh)
         for floor in floors:
+            name_to_addresses = {}
             if use_prefix:
                 collect_names_by_number(floor)
             else:
