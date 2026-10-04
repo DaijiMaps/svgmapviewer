@@ -53,6 +53,7 @@ export interface MapMarker {
 
 export interface OsmMapMarkers extends WithFilters {
   readonly name: string
+  readonly href: string
 }
 
 //// objects

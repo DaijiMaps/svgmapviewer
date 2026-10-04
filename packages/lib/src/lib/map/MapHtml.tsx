@@ -4,7 +4,8 @@
 import { useRef, type CSSProperties, type ReactNode } from 'react'
 
 import { type OsmRenderMapProps } from '../../types'
-import { RenderMapAssetsDefault } from '../carto/assets'
+import { MarkerAssets, SymbolAssets } from '../carto/assets'
+import { RenderMapMarkers2 } from '../carto/markers'
 import { RenderMapSymbols2 } from '../carto/symbols'
 import { ZOOM_DURATION_CONTAINER } from '../css'
 import { useShadowRoot } from '../dom'
@@ -50,6 +51,13 @@ function MapHtmlRoot(props: Readonly<OsmRenderMapProps>): ReactNode {
         {...props}
         m={props.data.mapCoord.matrix}
         mapSymbols={props.render.getMapSymbols()}
+      />
+      <MapSvgMarkersDefs />
+      <RenderMapMarkers2
+        {...props}
+        m={props.data.mapCoord.matrix}
+        mapMarkers={props.render.getMapMarkers()}
+        fontSize={16}
       />
       <style>{style}</style>
     </>
@@ -198,7 +206,19 @@ function MapSvgSymbolsDefs(): ReactNode {
     <svg id="map-svg-symbols-defs">
       <g id="map-svg-symbols1">
         <defs>
-          <RenderMapAssetsDefault />
+          <SymbolAssets />
+        </defs>
+      </g>
+    </svg>
+  )
+}
+
+function MapSvgMarkersDefs(): ReactNode {
+  return (
+    <svg id="map-svg-markers-defs">
+      <g id="map-svg-markers1">
+        <defs>
+          <MarkerAssets />
         </defs>
       </g>
     </svg>

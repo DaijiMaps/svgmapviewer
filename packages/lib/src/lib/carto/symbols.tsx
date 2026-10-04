@@ -177,3 +177,31 @@ export function RenderUses2(
     </>
   )
 }
+
+export function RenderUses3(
+  props: Readonly<{ name: string; href: string; vs: V[]; m: DOMMatrixReadOnly }>
+): ReactNode {
+  return (
+    <>
+      {props.vs
+        .map(([x, y]) => props.m.transformPoint({ x, y }))
+        .map(({ x, y }, j) => (
+          <div
+            key={j}
+            className={`map-symbol ${props.name} ${props.name}-${j}`}
+            style={
+              {
+                '--poi-x': `${trunc2(x)}px`,
+                '--poi-y': `${trunc2(y)}px`,
+                display: j % 5 === 0 ? null : 'none',
+              } as CSSProperties
+            }
+          >
+            <svg viewBox="-100 -100 200 200" width="200" height="200">
+              <use href={props.href} />
+            </svg>
+          </div>
+        ))}
+    </>
+  )
+}

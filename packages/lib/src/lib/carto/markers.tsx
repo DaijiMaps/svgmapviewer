@@ -1,5 +1,11 @@
 /* eslint-disable functional/no-expression-statements */
-import { useMemo, useRef, type PropsWithChildren, type ReactNode } from 'react'
+import {
+  Fragment,
+  useMemo,
+  useRef,
+  type PropsWithChildren,
+  type ReactNode,
+} from 'react'
 
 import { type OsmRenderMapProps } from '../../types'
 import { useMapStyleRef } from '../map/style'
@@ -7,7 +13,13 @@ import { usePosition } from '../position'
 //import { useLayoutSvgScaleS } from '../style/style-react'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'
-import { useSvgScaleStyleRef } from '../viewer/layout/style'
+import {
+  useLayoutStyleRef,
+  useSvgScaleStyleRef,
+  useZoomSStyleRef,
+} from '../viewer/layout/style'
+import { entryToVs } from './point'
+import { RenderUses3 } from './symbols'
 import { type MapMarker, type RenderMapMarkersProps } from './types'
 
 export function RenderMapMarkers(
@@ -149,7 +161,7 @@ z
 `
 }
 
-export function RenderPositionStyle(
+function RenderPositionStyle(
   props: Readonly<
     OsmRenderMapProps & {
       fontSize: number
@@ -181,5 +193,50 @@ export function RenderPositionStyle(
   transform: translate(${x}px, ${y}px) scale(calc(var(--layout-svgscale) * var(--layout-fontsize) * 0.9));
 }
 `}</>
+  )
+}
+
+export function RenderMapMarkers2(
+  props: Readonly<OsmRenderMapProps & RenderMapMarkersProps>
+): ReactNode {
+  const ref = useRef(null)
+
+  //useMapStyleRef(ref, 'map-symbols')
+  useZoomSStyleRef(ref, 'map-markers')
+  useLayoutStyleRef(ref, 'map-markers')
+  useSvgScaleStyleRef(ref, 'map-markers')
+
+  return (
+    <div ref={ref} className="map-markers content-html">
+      {props.mapMarkers.map((entry, i) => {
+        return (
+          <Fragment key={i}>
+            <RenderUses3
+              name={entry.name}
+              href={entry.href}
+              vs={entryToVs(props.data.mapData, entry)}
+              m={props.m}
+            />
+          </Fragment>
+        )
+      })}
+      <RenderPosition2 {...props} />
+    </div>
+  )
+}
+
+function RenderPosition2({
+  m,
+}: Readonly<OsmRenderMapProps & RenderMapMarkersProps>): ReactNode {
+  const position = usePosition()
+  return (
+    <RenderUses3
+      name={'position'}
+      href={'#position'}
+      vs={
+        !position ? [] : [[position.coords.longitude, position.coords.latitude]]
+      }
+      m={m}
+    />
   )
 }
