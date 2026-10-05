@@ -82,7 +82,11 @@ function searchSend(ev: SearchEvent): void {
 
 searchActor.on('SEARCH', ({ req: { psvg } }) => {
   const cfg = getConfig()
-  const pgeo = cfg.mapCoord.matrix.inverse().transformPoint(psvg)
+  if (cfg.mapCoord.matrix === undefined) return
+  const pgeo =
+    cfg.mapCoord.direct === true
+      ? psvg
+      : cfg.mapCoord.matrix.inverse().transformPoint(psvg)
   const fidx = currentFidxAtom.get()
   const greq: SearchGeoReq = {
     pgeo,
@@ -137,7 +141,11 @@ function handleSearchRes(res: Readonly<SearchAddress>): Promise<void> {
       console.log('info not found!', res)
       return searchSend({ type: 'SEARCH.DONE', res: null })
     } else {
-      const psvg = cfg.mapCoord.matrix.transformPoint(res.floorPos.coord)
+      if (cfg.mapCoord.matrix === undefined) return
+      const psvg =
+        cfg.mapCoord.direct === true
+          ? res.floorPos.coord
+          : cfg.mapCoord.matrix.transformPoint(res.floorPos.coord)
       const fidx = res.floorPos.fidx
       return searchSend({ type: 'SEARCH.DONE', res: { psvg, fidx, info } })
     }

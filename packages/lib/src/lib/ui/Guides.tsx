@@ -26,7 +26,7 @@ export function Guides(): ReactNode {
 }
 
 const isShowing = (cfg: Readonly<SvgMapViewerConfig>) =>
-  (cfg.uiConfig?.showGuides ?? true) && !cfg.mapCoord.matrix.isIdentity
+  (cfg.uiConfig?.showGuides ?? true) && !cfg.mapCoord.matrix?.isIdentity
 
 function GuidesRoot(): ReactNode {
   const ref = useRef<HTMLDivElement>(null)

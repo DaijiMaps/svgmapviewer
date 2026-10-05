@@ -62,7 +62,9 @@ function MapSvgObjectsSvg(): ReactNode {
 }
 
 function MapSvgObjectsDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
-  return (
+  return props.data.mapCoord.matrix === undefined ? (
+    <></>
+  ) : (
     <svg id="map-svg-objects-defs" viewBox="0 0 1 1">
       <defs>
         <g id="map-svg-objects1">

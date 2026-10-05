@@ -60,7 +60,9 @@ function MapSvgPathsSvg(): ReactNode {
 }
 
 function MapSvgPathsDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
-  return (
+  return props.data.mapCoord.matrix === undefined ? (
+    <></>
+  ) : (
     <svg id="map-svg-paths-defs" viewBox="0 0 1 1">
       <defs>
         <g id="map1" className="map">

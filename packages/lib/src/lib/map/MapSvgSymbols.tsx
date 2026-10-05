@@ -65,7 +65,9 @@ function MapSvgSymbolsSvg(): ReactNode {
 function MapSvgSymbolsDefs(props: Readonly<OsmRenderMapProps>): ReactNode {
   const ref = useRef(null)
   useLayoutStyleRef(ref, 'map-svg-symbols')
-  return (
+  return props.data.mapCoord.matrix === undefined ? (
+    <></>
+  ) : (
     <svg ref={ref} id="map-svg-symbols-defs">
       <g id="map-svg-symbols1">
         <defs>

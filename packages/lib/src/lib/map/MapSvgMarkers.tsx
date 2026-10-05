@@ -87,21 +87,27 @@ function MapSvgMarkersDefs(
   const ref = useRef(null)
   const { fontSize } = useLayoutConfig()
   const sz = useMemo(() => 25 / fontSize, [fontSize])
+  const m = useMemo(
+    () => props.data.mapCoord.matrix,
+    [props.data.mapCoord.matrix]
+  )
 
   useLayoutStyleRef(ref, 'map-svg-markers')
 
-  return (
+  return m === undefined ? (
+    <></>
+  ) : (
     <svg ref={ref} id="map-svg-markers-defs">
       <RenderMapMarkers
         {...props}
-        m={props.data.mapCoord.matrix}
+        m={m}
         mapMarkers={props.render.getMapMarkers()}
         fontSize={fontSize}
       >
         {props.render.getMapMarkers().map((entry, i) => (
           <g key={i}>
             <RenderMarkerUses
-              m={props.data.mapCoord.matrix}
+              m={m}
               sz={sz}
               name={entry.name}
               href={entry.name} // XXX XXX XXX

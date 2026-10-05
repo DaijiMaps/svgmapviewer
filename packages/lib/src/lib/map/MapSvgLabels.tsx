@@ -56,9 +56,14 @@ text, tspan {
 
 function MapSvgLabelsUses(props: Readonly<OsmRenderMapProps>): ReactNode {
   const { pointNames, areaNames } = useNames()
-  const m = props.data.mapCoord.matrix
+  const m = useMemo(
+    () => props.data.mapCoord.matrix,
+    [props.data.mapCoord.matrix]
+  )
 
-  return (
+  return m === undefined ? (
+    <></>
+  ) : (
     <g id="map-svg-labels1">
       <g>
         {pointNames

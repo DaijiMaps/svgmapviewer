@@ -1,3 +1,4 @@
+import type { VecVec } from '../vec/prefixed'
 import {
   emptyGeoJSON,
   type LineStringGeoJSON,
@@ -71,7 +72,12 @@ export interface MeasureProperties {
 }
 
 export interface MapCoord {
-  matrix: DOMMatrixReadOnly
+  matrix?: DOMMatrixReadOnly
+  svgp?: VecVec
+  svgq?: VecVec
+  geop?: VecVec
+  geoq?: VecVec
+  direct?: boolean // POIs have SVG coords (rather than GEO coords)
 }
 
 export const emptyMapCoord: MapCoord = {

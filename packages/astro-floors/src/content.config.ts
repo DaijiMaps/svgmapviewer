@@ -10,8 +10,12 @@ import {
   addrsSchema,
   floorsConfigSchema,
   labelsSchema,
+  mapCoordSchema,
+  posSchema,
   svgMapViewerConfigUserSchema,
 } from './schema'
+
+// addressesCollection
 
 const addressesEmptyLoader: Loader = {
   name: 'addresses-empty-loader',
@@ -34,6 +38,8 @@ export const addressesCollection = (suffix: string) =>
     schema: addressesLoaderSchema,
   })
 
+// namesCollection
+
 const namesEmptyLoader = {
   name: 'names-empty-loader',
   load: async ({ store }) => store.clear(),
@@ -55,6 +61,8 @@ export const namesCollection = (suffix: string) =>
     schema: namesLoaderSchema,
   })
 
+// floorsCollection
+
 export const floorsLoader = {
   name: 'floors-loader',
   schema: floorsConfigSchema,
@@ -65,6 +73,8 @@ export const floorsLoader = {
 } satisfies Loader
 
 export const floorsCollection = defineCollection({ loader: floorsLoader })
+
+// labelsCollection
 
 export const labelsLoader = {
   name: 'labels-loader',
@@ -77,6 +87,8 @@ export const labelsLoader = {
 
 export const labelsCollection = defineCollection({ loader: labelsLoader })
 
+// svgMapViewerConfigCollection
+
 export const svgMapViewerConfigLoader = {
   name: 'svgmapviewerconfig-loader',
   load: glob({
@@ -88,4 +100,34 @@ export const svgMapViewerConfigLoader = {
 
 export const svgMapViewerConfigCollection = defineCollection({
   loader: svgMapViewerConfigLoader,
+})
+
+// mapCoordCollection
+
+export const mapCoordLoader = {
+  name: 'mapcoord-loader',
+  load: glob({
+    base: './src/content/mapCoord',
+    pattern: '**/*.{json,yaml}',
+  }).load,
+  schema: mapCoordSchema,
+} satisfies Loader
+
+export const mapCoordCollection = defineCollection({
+  loader: mapCoordLoader,
+})
+
+// coordsCollection
+
+export const coordsLoader = {
+  name: 'coords-loader',
+  load: glob({
+    base: './src/content/coords',
+    pattern: '**/*.{json,yaml}',
+  }).load,
+  schema: posSchema,
+} satisfies Loader
+
+export const coordsCollection = defineCollection({
+  loader: coordsLoader,
 })

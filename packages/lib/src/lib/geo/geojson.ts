@@ -1,6 +1,6 @@
-import { boxScale, type BoxBox } from '../box/prefixed'
+import { boxScale, boxUnit, type BoxBox } from '../box/prefixed'
 import { vSub, type V } from '../tuple'
-import { vecDiv, vecFromV, vecVec } from '../vec/prefixed'
+import { vecDiv, vecFromV, vecSub, vecVec, type VecVec } from '../vec/prefixed'
 import { type MapCoord, type OsmMapData } from './data-types'
 import { type LineStringGeoJSON } from './geojson-types'
 
@@ -25,31 +25,31 @@ export function calcScale({
   mapCoord: MapCoord
   mapViewBox: BoxBox
 } {
-  const o = vecFromV(origin.features[0].geometry.coordinates as unknown as V)
+  const o: VecVec = vecFromV(
+    origin.features[0].geometry.coordinates as unknown as V
+  )
 
   const fp = measures.features[0]
   const fq = measures.features[1]
 
-  const p = vecFromV(fp.geometry.coordinates[1] as unknown as V)
-  const q = vecFromV(fq.geometry.coordinates[1] as unknown as V)
+  const p: VecVec = vecFromV(fp.geometry.coordinates[1] as unknown as V)
+  const q: VecVec = vecFromV(fq.geometry.coordinates[1] as unknown as V)
 
   // 1m == svg 1px
-  const distsvg = vecVec(
+  const diagsvg = vecVec(
     fp.properties.ellipsoidal_distance,
     fq.properties.ellipsoidal_distance
   )
-  const distgeo = vecVec(p.x - o.x, q.y - o.y)
+  const diaggeo = vecVec(p.x - o.x, q.y - o.y)
 
-  const distScale = vecDiv(distsvg, distgeo)
+  const diagScale = vecDiv(diagsvg, diaggeo)
 
   // XXX svg <-> geo coordinate
   // XXX XXX use matrix
 
-  const geoToSvgMatrix = new DOMMatrixReadOnly()
-    .scale(distScale.x, distScale.y)
-    .translate(-o.x, -o.y)
+  const geoToSvgMatrix = calcMatrix(o, diagScale)
 
-  const mapViewBox: BoxBox = boxScale(getViewBox(viewbox), distScale)
+  const mapViewBox: BoxBox = boxScale(getViewBox(viewbox), diagScale)
 
   return {
     mapCoord: {
@@ -57,4 +57,48 @@ export function calcScale({
     },
     mapViewBox,
   }
+}
+
+export function calcMatrix(o: VecVec, diagScale: VecVec): DOMMatrixReadOnly {
+  const m = new DOMMatrixReadOnly()
+    .scale(diagScale.x, diagScale.y)
+    .translate(-o.x, -o.y)
+  return m
+}
+
+// for floors
+
+export function calcScale2(
+  svgp: VecVec,
+  svgq: VecVec,
+  geop: VecVec,
+  geoq: VecVec
+): {
+  mapCoord: MapCoord
+  mapViewBox: BoxBox
+} {
+  const m = calcMatrix2(svgp, svgq, geop, geoq)
+  const mapViewBox: BoxBox = boxUnit
+  return {
+    mapCoord: {
+      matrix: m,
+    },
+    mapViewBox,
+  }
+}
+
+export function calcMatrix2(
+  svgp: VecVec,
+  svgq: VecVec,
+  geop: VecVec,
+  geoq: VecVec
+): DOMMatrixReadOnly {
+  const dsvg = vecSub(svgq, svgp)
+  const dgeo = vecSub(geoq, geop)
+  const s = vecDiv(dsvg, dgeo)
+  const m = new DOMMatrixReadOnly()
+    .translate(svgp.x, svgp.y)
+    .scale(s.x, s.y)
+    .translate(-geop.x, -geop.y)
+  return m
 }

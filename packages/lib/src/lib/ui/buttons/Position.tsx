@@ -7,7 +7,7 @@ import { notifyAction } from '../../event-action'
 
 export function Position(): ReactNode {
   const cfg = useConfig()
-  return cfg.mapCoord.matrix.isIdentity ? (
+  return cfg.mapCoord.matrix?.isIdentity ? (
     <></>
   ) : (
     <div

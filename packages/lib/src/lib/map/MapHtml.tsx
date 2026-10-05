@@ -47,18 +47,22 @@ function MapHtmlRoot(props: Readonly<OsmRenderMapProps>): ReactNode {
         <MapHtmlPointNames {...props} />
       </div>
       <MapSvgSymbolsDefs />
-      <RenderMapSymbols2
-        {...props}
-        m={props.data.mapCoord.matrix}
-        mapSymbols={props.render.getMapSymbols()}
-      />
+      {props.data.mapCoord.matrix && (
+        <RenderMapSymbols2
+          {...props}
+          m={props.data.mapCoord.matrix}
+          mapSymbols={props.render.getMapSymbols()}
+        />
+      )}
       <MapSvgMarkersDefs />
-      <RenderMapMarkers2
-        {...props}
-        m={props.data.mapCoord.matrix}
-        mapMarkers={props.render.getMapMarkers()}
-        fontSize={16}
-      />
+      {props.data.mapCoord.matrix && (
+        <RenderMapMarkers2
+          {...props}
+          m={props.data.mapCoord.matrix}
+          mapMarkers={props.render.getMapMarkers()}
+          fontSize={16}
+        />
+      )}
       <style>{style}</style>
     </>
   )
@@ -168,7 +172,9 @@ function MapHtmlPointNames(
   const { pointNames } = useNames()
   const m = props.data.mapCoord.matrix
 
-  return (
+  return m === undefined ? (
+    <></>
+  ) : (
     <>
       {pointNames
         .map((p) => ({ ...p, coord: m.transformPoint(p.coord) }))
@@ -213,7 +219,7 @@ function MapSvgSymbolsDefs(): ReactNode {
   )
 }
 
-function MapSvgMarkersDefs(): ReactNode {
+export function MapSvgMarkersDefs(): ReactNode {
   return (
     <svg id="map-svg-markers-defs">
       <g id="map-svg-markers1">

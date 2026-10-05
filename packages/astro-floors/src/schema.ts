@@ -1,5 +1,10 @@
 import { z } from 'astro/zod'
 
+export const vecSchema = z.object({
+  x: z.number(),
+  y: z.number(),
+})
+
 export const posSchema = z.object({
   x: z.number(),
   y: z.number(),
@@ -64,7 +69,13 @@ const osmMapDataSchema = z.object({})
 
 const osmMapMapSchema = z.object({})
 
-const mapCoordSchema = z.object({})
+const mapCoordSchema = z.object({
+  svgp: vecSchema.optional(),
+  svgq: vecSchema.optional(),
+  geop: vecSchema.optional(),
+  geoq: vecSchema.optional(),
+  direct: z.boolean().optional(),
+})
 
 export const uiConfigSchema = z.object({
   showGuides: z.boolean(),

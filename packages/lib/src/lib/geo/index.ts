@@ -6,7 +6,7 @@ export {
   type OsmMapData,
   type OsmMapMap,
 } from './data-types'
-export { calcScale } from './geojson'
+export { calcScale, calcScale2, calcMatrix, calcMatrix2 } from './geojson'
 export {
   type LineCoordinate,
   type LineFeature,

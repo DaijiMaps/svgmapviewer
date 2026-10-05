@@ -172,7 +172,7 @@ function RenderPositionStyle(
   //const s = useLayoutSvgScaleS()
   //const sz = s * props.fontSize * 0.9
 
-  if (position === null) {
+  if (position === null || props.data.mapCoord.matrix === undefined) {
     return (
       <>{`
 #position {
@@ -225,9 +225,7 @@ export function RenderMapMarkers2(
   )
 }
 
-function RenderPosition2({
-  m,
-}: Readonly<OsmRenderMapProps & RenderMapMarkersProps>): ReactNode {
+function RenderPosition2({ m }: Readonly<RenderMapMarkersProps>): ReactNode {
   const position = usePosition()
   return (
     <RenderUses3

@@ -7,9 +7,11 @@ import {
   type FloorsConfig,
   type OsmRenderMapProps,
 } from '../../../types'
+import { RenderMapMarkers2 } from '../../carto/markers'
 import { useShadowRoot } from '../../dom'
 import { useFloorRef } from '../../viewer/floors/style'
 import { useLayoutStyleRef } from '../../viewer/layout/style'
+import { MapSvgMarkersDefs } from '../MapHtml'
 import { RenderFloorLabels } from './FloorsHtmlLabels'
 import { getLabels } from './labels'
 
@@ -31,22 +33,31 @@ function RenderFloorsHtmlRoot(props: Readonly<OsmRenderMapProps>): ReactNode {
   )
 }
 
-function RenderFloorsHtmlContent({
-  floors,
-}: Readonly<OsmRenderMapProps>): ReactNode {
+function RenderFloorsHtmlContent(
+  props: Readonly<OsmRenderMapProps>
+): ReactNode {
   const ref = useRef(null)
   useLayoutStyleRef(ref, 'map-floors-html')
   return (
     <div ref={ref} className="map-floors-html">
-      {floors?.floors.map((floor, fidx) => (
+      {props.floors?.floors.map((floor, fidx) => (
         <Fragment key={fidx}>
           <RenderFloorHtml
             fidx={fidx}
             floor={floor}
-            labelsMap={floors?.labelsMap}
+            labelsMap={props.floors?.labelsMap}
           />
         </Fragment>
       ))}
+      <MapSvgMarkersDefs />
+      {props.data.mapCoord.matrix && (
+        <RenderMapMarkers2
+          {...props}
+          m={props.data.mapCoord.matrix}
+          mapMarkers={props.render.getMapMarkers()}
+          fontSize={16}
+        />
+      )}
     </div>
   )
 }
@@ -60,6 +71,30 @@ const htmlStyle = `
   height: var(--layout-scroll-height);
   transform: var(--layout-svg-to-content-matrix) !important;
   transform-origin: 0% 0% !important;
+}
+.label {
+  --poi-scale: 0.05;
+}
+.map-symbol {
+  --poi-scale: 0.02;
+}
+.map-symbol,
+.label {
+  color: black;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0% 0%;
+  transform:
+    translate(var(--poi-x), var(--poi-y))
+    scale(
+      calc(
+        var(--layout-fontsize) *
+        var(--layout-svgscale) *
+        var(--poi-scale))
+      )
+    translate(-50%, -50%);
 }
 `
 

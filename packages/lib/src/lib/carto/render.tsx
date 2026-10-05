@@ -7,7 +7,9 @@ import { RenderMapPaths } from './paths'
 export function RenderMapCommon(props: Readonly<OsmRenderMapProps>): ReactNode {
   const style = props.render.mapSvgStyle
 
-  return (
+  return props.data.mapCoord.matrix === undefined ? (
+    <></>
+  ) : (
     <>
       <g id="map1" className="map">
         <RenderMapPaths
