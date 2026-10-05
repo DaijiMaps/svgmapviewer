@@ -4,6 +4,7 @@ import { type OsmMapMarkers } from 'svgmapviewer/carto'
 export const getMapMarkers: () => OsmMapMarkers[] = () => [
   {
     name: 'all',
+    href: '#all',
     /*
     pointsFilter: (f) =>
       !!f.properties.name?.match(/./) &&
