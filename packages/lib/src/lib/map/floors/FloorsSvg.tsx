@@ -161,7 +161,11 @@ function RenderFloorPositionCircle({
   meter2svg,
 }: Readonly<{ m: DOMMatrixReadOnly; meter2svg: number }>): ReactNode {
   const { x, y, r } = usePositionSvg(m, meter2svg)
-  return <circle className="position-circle" cx={x} cy={y} r={r} fill="red" />
+  return (
+    <g transform={`translate(${x}, ${y})`}>
+      <circle className="position-circle" r={r} fill="red" />
+    </g>
+  )
 }
 
 function usePositionSvg(

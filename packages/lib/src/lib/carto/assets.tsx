@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 import { Fragment, type ReactNode } from 'react'
 
-import { RenderCircle, RenderPosition, RenderPositionCircle } from './markers'
+import { RenderCircle, RenderPosition } from './markers'
 import { symbolRenderMap, type Kind } from './symbols/index'
 
 export function RenderMapAssetsDefault(): ReactNode {
@@ -28,7 +28,9 @@ export function MarkerAssets(): ReactNode {
     <g className="markers">
       <RenderCircle sz={72} />
       <RenderPosition sz={72} />
+      {/*
       <RenderPositionCircle sz={72} />
+      */}
     </g>
   )
 }

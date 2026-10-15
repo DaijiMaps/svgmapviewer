@@ -37,7 +37,9 @@ export function RenderMapMarkers(
       {props.children}
       <RenderCircle sz={sz} />
       <RenderPosition sz={sz} />
+      {/*
       <RenderPositionCircle sz={sz} />
+      */}
       <style>
         <RenderPositionStyle {...props} />
       </style>
@@ -132,6 +134,7 @@ export function RenderPosition(props: Readonly<{ sz: number }>): ReactNode {
   )
 }
 
+/*
 export function RenderPositionCircle(
   // XXX accuracy
   props: Readonly<{ sz: number }>
@@ -149,6 +152,7 @@ export function RenderPositionCircle(
     />
   )
 }
+*/
 
 function circlePathD(r: number): string {
   return `
@@ -181,6 +185,7 @@ z
 `
 }
 
+/*
 function positionCirclePathD(sz: number): string {
   // XXX
   // XXX
@@ -201,6 +206,7 @@ a ${r},${r} 0,1,0 0,${r * 2}
 z
 `
 }
+*/
 
 export function RenderPositionStyle(
   props: Readonly<

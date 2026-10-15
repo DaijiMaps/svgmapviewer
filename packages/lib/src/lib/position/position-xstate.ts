@@ -27,6 +27,7 @@ export type PositionEvent =
   | { type: 'WATCH.SUCCESS'; position: GeolocationPosition }
   | { type: 'WATCH.ERROR'; error: GeolocationPositionError }
   | { type: 'STOP' }
+  | { type: 'SET'; position: GeolocationPosition }
 export type PositionEmitted = {
   type: 'POSITION'
   position: GeolocationPosition
@@ -67,6 +68,11 @@ const positionMachine = setup({
         },
         WATCH: {
           target: 'Starting',
+        },
+        SET: {
+          actions: assign({
+            position: ({ event }) => event.position,
+          }),
         },
       },
     },
@@ -188,9 +194,41 @@ export function positionSend(ev: PositionEvent): void {
 function sendSuccess(position: GeolocationPosition) {
   positionSend({ type: 'WATCH.SUCCESS', position })
 }
+
 function sendError(error: GeolocationPositionError) {
   positionSend({ type: 'WATCH.ERROR', error })
 }
+
+function makePosition(
+  latitude: number,
+  longitude: number,
+  accuracy?: number
+): GeolocationPosition {
+  return {
+    coords: {
+      latitude,
+      longitude,
+      accuracy: accuracy ?? 0,
+      altitude: null,
+      altitudeAccuracy: null,
+      heading: null,
+      speed: null,
+      toJSON: () => {},
+    },
+    timestamp: Date.now(),
+    toJSON: () => {},
+  }
+}
+
+export function setPosition(
+  latitude: number,
+  longitude: number,
+  accuracy?: number
+): void {
+  const position = makePosition(latitude, longitude, accuracy)
+  positionSend({ type: 'SET', position })
+}
+
 export function usePosition(): null | GeolocationPosition {
   return useSelector(positionActor, (state) => state.context.position)
 }

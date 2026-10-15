@@ -1,3 +1,4 @@
+/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
@@ -5,10 +6,12 @@ import { getConfig, setConfig } from './config'
 import { infoRoot } from './Info'
 import { type BoxBox } from './lib/box/prefixed'
 import { notifyGlobal } from './lib/event-global'
+import { setPosition } from './lib/position/position-xstate'
 import { isUiRendered } from './lib/ui/Ui'
 import { isContainerRendered } from './lib/viewer/Container'
 import { startAllActors } from './main-actors'
 import { startAllCbs } from './main-cbs'
+import { queryAtom, saveQuery } from './query'
 import { root } from './Root'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
 
@@ -48,7 +51,6 @@ function updateConfig(
 // XXX
 // XXX
 
-// eslint-disable-next-line functional/functional-parameters
 function greet(): void {
   console.group()
   console.log('Welcome to svgmapviewer!')
@@ -69,7 +71,13 @@ export function svgmapviewer(
 
   const url = new URL(document.location.href)
   const params = url.searchParams
+
   greet()
+  saveQuery()
+  const query = queryAtom.get()
+  if (query && query.latitude !== undefined && query.longitude !== undefined) {
+    setPosition(query.latitude, query.longitude, query.accuracy)
+  }
   if (params.get('info')) {
     infoRoot(config)
   } else {
