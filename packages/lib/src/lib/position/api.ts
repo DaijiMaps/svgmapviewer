@@ -19,3 +19,20 @@ export async function getGeolocationPosition(
     navigator.geolocation.getCurrentPosition(successCb, errorCb, options)
   })
 }
+
+export async function startWatching(
+  successCb: PositionCallback,
+  errorCb: PositionErrorCallback,
+  timeout: number
+): Promise<number> {
+  const options: PositionOptions = {
+    enableHighAccuracy: true,
+    timeout,
+    maximumAge: 0,
+  }
+  return navigator.geolocation.watchPosition(successCb, errorCb, options)
+}
+
+export async function stopWatching(watchID: number): Promise<void> {
+  return navigator.geolocation.clearWatch(watchID)
+}
