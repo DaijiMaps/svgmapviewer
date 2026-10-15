@@ -30,12 +30,14 @@ export function RenderMapMarkers(
   useMapStyleRef(ref, 'map-markers')
 
   const sz = useMemo(() => 25 / props.fontSize, [props.fontSize])
+  // XXX accuracy
 
   return (
     <defs ref={ref} className="map-markers">
       {props.children}
       <RenderCircle sz={sz} />
       <RenderPosition sz={sz} />
+      <RenderPositionCircle sz={sz} />
       <style>
         <RenderPositionStyle {...props} />
       </style>
@@ -93,7 +95,7 @@ export function RenderMarkers(
             fillOpacity="1"
             stroke="gray"
             strokeWidth={r / 20}
-            d={markerPathD(h, r).replaceAll(/([.]\d\d)\d*/g, '$1')}
+            d={trimFloatString(markerPathD(h, r))}
           />
         ))}
     </>
@@ -109,7 +111,7 @@ export function RenderCircle(props: Readonly<{ sz: number }>): ReactNode {
       fillOpacity="0.5"
       stroke="none"
       strokeWidth={r / 20}
-      d={circlePathD(r).replaceAll(/([.]\d\d)\d*/g, '$1')}
+      d={trimFloatString(circlePathD(r))}
     />
   )
 }
@@ -117,8 +119,6 @@ export function RenderCircle(props: Readonly<{ sz: number }>): ReactNode {
 export function RenderPosition(props: Readonly<{ sz: number }>): ReactNode {
   const ref = useRef(null)
   useSvgScaleStyleRef(ref, 'position')
-  const r = props.sz / 2
-  const h = r / Math.sqrt(2)
   return (
     <path
       ref={ref}
@@ -127,7 +127,25 @@ export function RenderPosition(props: Readonly<{ sz: number }>): ReactNode {
       fill="red"
       fillOpacity="1"
       stroke="none"
-      d={positionPathD(h, r).replaceAll(/([.]\d\d)\d*/g, '$1')}
+      d={trimFloatString(positionPathD(props.sz))}
+    />
+  )
+}
+
+export function RenderPositionCircle(
+  // XXX accuracy
+  props: Readonly<{ sz: number }>
+): ReactNode {
+  const ref = useRef(null)
+  useSvgScaleStyleRef(ref, 'position-circle')
+  return (
+    <path
+      ref={ref}
+      id="position-circle"
+      className="position-circle"
+      fill="red"
+      stroke="none"
+      d={trimFloatString(positionCirclePathD(props.sz))}
     />
   )
 }
@@ -151,7 +169,9 @@ z
 `
 }
 
-function positionPathD(h: number, r: number): string {
+function positionPathD(sz: number): string {
+  const r = sz / 2
+  const h = r / Math.sqrt(2)
   return `
 ${markerPathD(h, r)}
 m 0,${-h - r / 4}
@@ -161,7 +181,28 @@ z
 `
 }
 
-function RenderPositionStyle(
+function positionCirclePathD(sz: number): string {
+  // XXX
+  // XXX
+  // XXX
+  // XXX
+  // XXX
+  // XXX reflect accuracy
+  const r = sz * 5
+  // XXX
+  // XXX
+  // XXX
+  // XXX
+  // XXX
+  return `
+m 0,${r}
+a ${r},${r} 0,1,0 0,${-r * 2}
+a ${r},${r} 0,1,0 0,${r * 2}
+z
+`
+}
+
+export function RenderPositionStyle(
   props: Readonly<
     OsmRenderMapProps & {
       fontSize: number
@@ -175,7 +216,7 @@ function RenderPositionStyle(
   if (position === null || props.data.mapCoord.matrix === undefined) {
     return (
       <>{`
-#position {
+#position, #position-circle {
   display: none;
 }`}</>
     )
@@ -191,6 +232,9 @@ function RenderPositionStyle(
 #position {
   display: initial !important;
   transform: translate(${x}px, ${y}px) scale(calc(var(--layout-svgscale) * var(--layout-fontsize) * 0.9));
+}
+#position-circle {
+  fill-opacity: 0.5;
 }
 `}</>
   )
@@ -221,6 +265,7 @@ export function RenderMapMarkers2(
         )
       })}
       <RenderPosition2 {...props} />
+      <RenderPositionCircle2 {...props} />
     </div>
   )
 }
@@ -237,4 +282,24 @@ function RenderPosition2({ m }: Readonly<RenderMapMarkersProps>): ReactNode {
       m={m}
     />
   )
+}
+
+function RenderPositionCircle2({
+  m,
+}: Readonly<RenderMapMarkersProps>): ReactNode {
+  const position = usePosition()
+  return (
+    <RenderUses3
+      name={'position-circle'}
+      href={'#position-circle'}
+      vs={
+        !position ? [] : [[position.coords.longitude, position.coords.latitude]]
+      }
+      m={m}
+    />
+  )
+}
+
+function trimFloatString(s: string): string {
+  return s.replaceAll(/([.]\d\d)\d*/g, '$1')
 }

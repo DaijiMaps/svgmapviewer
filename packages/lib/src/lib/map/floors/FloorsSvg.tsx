@@ -10,6 +10,7 @@ import {
 } from '../../../types'
 import type { BoxBox } from '../../box/prefixed'
 import { floor_appearing_animation } from '../../css'
+import { usePosition } from '../../position'
 import { useLayout2 } from '../../style/style-react'
 import {
   useFloors,
@@ -23,7 +24,7 @@ import type { FloorProps } from './types'
 
 export function RenderFloorsSvg({
   floors,
-  data: { origViewBox },
+  data: { origViewBox, mapCoord },
 }: Readonly<OsmRenderMapProps>): ReactNode {
   const ref = useRef<HTMLDivElement>(null)
   useLayoutStyleRef(ref, 'map-floors-svg')
@@ -39,6 +40,8 @@ export function RenderFloorsSvg({
               labelsMap={floors?.labelsMap}
               origViewBox={origViewBox}
               ctx={ctx}
+              m={mapCoord.matrix}
+              meter2svg={mapCoord.meter2svg}
             />
           </Fragment>
         ))}
@@ -80,12 +83,16 @@ function RenderFloorSvg({
   origViewBox,
   ctx: { fidxToOnAnimationEnd, urls },
   labelsMap,
+  m,
+  meter2svg,
 }: Readonly<{
   fidx: number
   floor: Floor
   origViewBox: BoxBox
   ctx: UseFloorsReturn
   labelsMap?: FloorsConfig['labelsMap']
+  m?: DOMMatrixReadOnly
+  meter2svg?: number
 }>): ReactNode {
   const ref = useRef(null)
   useFloorRef(ref, `svg-${fidx}`)
@@ -100,13 +107,39 @@ function RenderFloorSvg({
         origViewBox={origViewBox}
         url={urls.get(fidx)}
       />
+      {m && meter2svg && (
+        <RenderFloorPositionCircle m={m} meter2svg={meter2svg} />
+      )}
       <RenderFloorLabelCircles
         fidx={fidx}
         labels={floor.labels ?? getLabels(labelsMap, floor.name.toLowerCase())}
       />
+      <style>{floorSvgStyle}</style>
     </g>
   )
 }
+
+const floorSvgStyle = `
+.position-circle {
+  fill-opacity: 0.5;
+  animation: pulsing 5s linear infinite;
+}
+
+@keyframes pulsing {
+  0% {
+    transform: scale(0);
+    fill-opacity: 0.5;
+  }
+  25% {
+    transform: scale(1);
+    fill-opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    fill-opacity: 0;
+  }
+}
+`
 
 function RenderFloorImage({ origViewBox, url }: FloorProps): ReactNode {
   // XXX better "loading" display?
@@ -121,6 +154,36 @@ function RenderFloorImage({ origViewBox, url }: FloorProps): ReactNode {
       />
     </g>
   )
+}
+
+function RenderFloorPositionCircle({
+  m,
+  meter2svg,
+}: Readonly<{ m: DOMMatrixReadOnly; meter2svg: number }>): ReactNode {
+  const { x, y, r } = usePositionSvg(m, meter2svg)
+  return <circle className="position-circle" cx={x} cy={y} r={r} fill="red" />
+}
+
+function usePositionSvg(
+  m: DOMMatrixReadOnly,
+  meter2svg: number
+): {
+  x: number
+  y: number
+  r: number
+} {
+  const position = usePosition()
+  // XXX scale accuracy (m) to svg
+  const { x, y } = m.transformPoint({
+    x: position?.coords.longitude ?? 0,
+    y: position?.coords.latitude ?? 0,
+  })
+  const r = (position?.coords.accuracy ?? 0) * meter2svg
+  return {
+    x,
+    y,
+    r,
+  }
 }
 
 function RenderFloorLabelCircles({

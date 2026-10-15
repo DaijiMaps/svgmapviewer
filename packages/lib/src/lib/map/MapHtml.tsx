@@ -226,10 +226,33 @@ export function MapSvgMarkersDefs(): ReactNode {
         <defs>
           <MarkerAssets />
         </defs>
+        <style>{markerStyle}</style>
       </g>
     </svg>
   )
 }
+
+const markerStyle = `
+#position-circle {
+  fill-opacity: 0.5;
+  animation: pulsing 5s linear infinite;
+}
+
+@keyframes pulsing {
+  0% {
+    transform: scale(0);
+    fill-opacity: 0.5;
+  }
+  25% {
+    transform: scale(1);
+    fill-opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    fill-opacity: 0;
+  }
+}
+`
 
 /*
         <RenderMapSymbols

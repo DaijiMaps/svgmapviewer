@@ -42,6 +42,7 @@ export function MapSvgMarkersRoot(
         <g id="map-svg-markers1">
           <MapSvgMarkersUses />
           <use href="#position" />
+          <use href="#position-circle" />
         </g>
       </MapSvgMarkersDefs>
       <style>{style}</style>

@@ -185,6 +185,7 @@ export function RenderUses3(
     <>
       {props.vs
         .map(([x, y]) => props.m.transformPoint({ x, y }))
+        //.map(() => props.m.transformPoint({ x: 140.148628, y: 36.244937 }))
         .map(({ x, y }, j) => (
           <div
             key={j}
@@ -197,7 +198,7 @@ export function RenderUses3(
               } as CSSProperties
             }
           >
-            <svg viewBox="-100 -100 200 200" width="200" height="200">
+            <svg viewBox="-1000 -1000 2000 2000" width="2000" height="2000">
               <use href={props.href} />
             </svg>
           </div>

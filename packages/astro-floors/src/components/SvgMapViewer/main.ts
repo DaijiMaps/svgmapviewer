@@ -15,10 +15,12 @@ export function main(props: Readonly<SvgMapViewerConfigUser>) {
     props.mapCoord?.svgp ?? vecZero,
     props.mapCoord?.svgq ?? vecZero,
     props.mapCoord?.geop ?? vecZero,
-    props.mapCoord?.geoq ?? vecZero
+    props.mapCoord?.geoq ?? vecZero,
+    props.mapCoord?.geolen ?? 1
   )
   const mapCoord: MapCoord = {
     matrix: tmp.matrix,
+    meter2svg: tmp.meter2svg,
     direct: props.mapCoord?.direct,
   }
   svgmapviewer({

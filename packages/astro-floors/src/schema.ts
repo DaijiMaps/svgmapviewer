@@ -74,6 +74,7 @@ const mapCoordSchema = z.object({
   svgq: vecSchema.optional(),
   geop: vecSchema.optional(),
   geoq: vecSchema.optional(),
+  geolen: z.number().optional(),
   direct: z.boolean().optional(),
 })
 

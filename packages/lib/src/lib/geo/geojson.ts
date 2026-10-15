@@ -72,16 +72,20 @@ export function calcScale2(
   svgp: VecVec,
   svgq: VecVec,
   geop: VecVec,
-  geoq: VecVec
+  geoq: VecVec,
+  geolen: number
 ): {
   mapCoord: MapCoord
   mapViewBox: BoxBox
 } {
   const m = calcMatrix2(svgp, svgq, geop, geoq)
   const mapViewBox: BoxBox = boxUnit
+  const svgd = vecSub(svgp, svgq)
+  const svglen = Math.sqrt(Math.pow(svgd.x, 2) + Math.pow(svgd.y, 2))
   return {
     mapCoord: {
       matrix: m,
+      meter2svg: svglen / geolen,
     },
     mapViewBox,
   }

@@ -77,7 +77,9 @@ export interface MapCoord {
   svgq?: VecVec
   geop?: VecVec
   geoq?: VecVec
+  geolen?: number // meter
   direct?: boolean // POIs have SVG coords (rather than GEO coords)
+  meter2svg?: number
 }
 
 export const emptyMapCoord: MapCoord = {
