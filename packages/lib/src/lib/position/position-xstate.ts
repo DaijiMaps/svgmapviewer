@@ -180,7 +180,7 @@ const positionMachine = setup({
 })
 
 const positionActor = createActor(positionMachine, {
-  inspect: (ev) => console.log(ev),
+  //inspect: (ev) => console.log(ev),
 })
 
 export function positionActorStart(): void {
