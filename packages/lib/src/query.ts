@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
@@ -10,6 +9,7 @@ type Val = Readonly<{
   latitude?: number
   longitude?: number
   accuracy?: number
+  info?: string
 }>
 
 export const queryAtom: Atom<undefined | Val> = createAtom(undefined)
@@ -21,14 +21,16 @@ const longitudeSchema = Schema.NumberFromString.check(
   Schema.makeFilter((n) => n >= -180 && n <= 180)
 )
 const accuracySchema = Schema.NumberFromString
+const infoSchema = Schema.String
 
 const querySchema = Schema.Struct({
   latitude: Schema.optional(latitudeSchema),
   longitude: Schema.optional(longitudeSchema),
   accuracy: Schema.optional(accuracySchema),
+  info: Schema.optional(infoSchema),
 })
 
-export function saveQuery(): void {
+export function saveQuery(): undefined | Val {
   const sparams = new URLSearchParams(window.location.search)
   const obj: Obj = Object.fromEntries(sparams.entries())
   const res = Schema.decodeUnknownExit(querySchema)(obj)
@@ -37,4 +39,5 @@ export function saveQuery(): void {
   } else {
     console.log('query', res)
   }
+  return queryAtom.get()
 }
