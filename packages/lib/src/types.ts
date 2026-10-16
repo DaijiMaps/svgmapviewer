@@ -10,6 +10,7 @@ import {
   type OsmMapPathOps,
   type OsmMapSymbols,
 } from './lib/carto/types'
+import type { GameConfig } from './lib/game/types'
 import {
   type MapCoord,
   type OsmMapData,
@@ -182,6 +183,7 @@ export interface SvgMapViewerConfig
   searchInfos?: readonly SearchInfo[]
   floorsConfig?: FloorsConfig
   uiConfig?: UiConfig
+  gameConfig?: GameConfig
   isContainerRendered: () => boolean
   isUiRendered: () => boolean
 }

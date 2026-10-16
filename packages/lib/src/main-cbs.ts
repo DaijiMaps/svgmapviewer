@@ -1,6 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
+import { gameCbStart } from './lib/game/game-xstate'
 import { namesCbsStart } from './lib/map/names'
 import { positionCbsStart } from './lib/position/position-xstate'
 import { searchCbsStart } from './lib/search/search-xstate'
@@ -15,6 +16,7 @@ import { viewerCbsStart } from './lib/viewer/viewer-xstate'
 export function startAllCbs(): void {
   floorsCbsStart()
   fullscreenCbsStart()
+  gameCbStart()
   namesCbsStart()
   positionCbsStart()
   scrollCbsStart()
