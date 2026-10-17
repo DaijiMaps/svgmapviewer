@@ -37,6 +37,7 @@ const quizMachine = setup({
     }),
     reset: assign({
       chars: [],
+      doneAt: undefined,
     }),
     skip: assign({
       chars: ({ context }) => context.answer.split(''),
@@ -77,7 +78,6 @@ const quizMachine = setup({
         },
       },
     },
-    Ready: {},
     Checking: {
       always: [
         {
@@ -88,7 +88,14 @@ const quizMachine = setup({
         'Idle',
       ],
     },
-    Done: {},
+    Done: {
+      on: {
+        Reset: {
+          actions: 'reset',
+          target: 'Idle',
+        },
+      },
+    },
   },
 })
 
@@ -111,16 +118,22 @@ export function makeQuiz(id: number, answer: string, pad: string): Quiz {
     //inspect: console.log, // XXX
     input: { answer, pad },
   })
-  actor.subscribe((s) => atom.set(s.context))
-  actor.on('Done', () => notifyGame.answer(id))
-  actor.start()
+
   const send = actor.send
+  const reset = () => send({ type: 'Reset' })
+  const skip = () => send({ type: 'Skip' })
+
+  actor.on('Done', () => notifyGame.answer(id))
+  actor.subscribe((s) => atom.set(s.context))
+
   gameCbs.start.add((game?: Readonly<GameContext>) => {
-    if (isAnswered(id, game)) {
-      send({ type: 'Skip' })
-    }
+    if (isAnswered(id, game)) skip()
   })
-  uiCbs.closeDone.add(() => send({ type: 'Reset' }))
+  gameCbs.reset.add(reset)
+  uiCbs.closeDone.add(reset)
+
+  actor.start()
+
   return {
     send,
     useQuiz: () => {
@@ -129,4 +142,27 @@ export function makeQuiz(id: number, answer: string, pad: string): Quiz {
   }
 }
 
-export function quizCbsStart(): void {}
+/*
+type M = undefined | Map<number, Quiz>
+
+export const quizzesAtom: Atom<M> = createAtom(undefined)
+*/
+
+export function quizCbsStart(): void {
+  /*
+  globalCbs.init.add((cfg) => {
+    const qcs = cfg.gameConfig?.quizzes ?? []
+    const qs = qcs.map((qc) => makeQuiz(qc.id, qc.answer, qc.pad))
+    const m = new Map(qs.map((q, idx) => [idx, q] as const))
+    quizzesAtom.set(() => m)
+  })
+  */
+}
+
+/*
+export function useQuizById(id: number): undefined | Quiz {
+  const m = useAtom(quizzesAtom)
+  const q = m?.get(id)
+  return q
+}
+*/

@@ -10,28 +10,29 @@ import {
 import type { SvgMapViewerConfig } from '../../types'
 import { gameCbs, notifyGame } from '../event-game'
 import { globalCbs } from '../event-global'
+import { makeQuiz, type Quiz } from './quiz-xstate'
 
 const d = () => new Date().toISOString()
 
 type GameEvent =
-  | { type: 'Start' }
-  | { type: 'Answer'; question: number }
-  | { type: 'Receive' }
-  | { type: 'Reset'; questions: number[] }
+  | { readonly type: 'Start' }
+  | { readonly type: 'Answer'; readonly question: number }
+  | { readonly type: 'Receive' }
+  | { readonly type: 'Reset'; readonly questions: readonly number[] }
 
 export type Question = {
-  idx: number
-  answeredAt?: string
+  readonly idx: number
+  readonly answeredAt?: string
 }
 export type GameContext = {
-  questions: Question[]
-  startedAt?: string
-  completedAt?: string
-  receivedAt?: string
+  readonly questions: readonly Question[]
+  readonly startedAt?: string
+  readonly completedAt?: string
+  readonly receivedAt?: string
 }
 
 type GameInput = {
-  questions: number[]
+  readonly questions: readonly number[]
 }
 
 const gameMachine = setup({
@@ -139,14 +140,41 @@ function saveState(key: string, actor: A): void {
   localStorage.setItem(key, JSON.stringify(persistedState))
 }
 
-// XXX having a copy only for useGameContext()
-const contextAtom = createAtom<undefined | GameContext>(undefined)
+type Game2 = {
+  game: undefined | GameContext
+  useQuizById: (id: number) => undefined | Quiz
+}
 
+type M = undefined | Map<number, Quiz>
+
+// XXX having a copy only for useGame2()
+const contextAtom = createAtom<undefined | GameContext>(undefined)
+//const gameAtom = createAtom<undefined | Game2>(undefined)
+const quizzesAtom = createAtom<undefined | M>(undefined)
+
+/*
 export function useGameContext(): undefined | GameContext {
   return useAtom(contextAtom)
 }
+*/
+export function useGame2(): Game2 {
+  const game = useAtom(contextAtom)
+  const game2: Game2 = {
+    game,
+    useQuizById: (id: number) => {
+      const qs = useAtom(quizzesAtom)
+      return qs?.get(id)
+    },
+  }
+  return game2
+}
 
 function gameInit(config: SvgMapViewerConfig): void {
+  const qcs = config.gameConfig?.quizzes ?? []
+  const qs = qcs.map((qc) => makeQuiz(qc.id, qc.answer, qc.pad))
+  const m = new Map(qs.map((q, idx) => [idx, q] as const))
+  quizzesAtom.set(() => m)
+
   // XXX prefix map name
   const key = 'svgmapviewer-game-state'
 

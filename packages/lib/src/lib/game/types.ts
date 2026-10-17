@@ -4,20 +4,27 @@
 //   - choices
 //   - answer
 
-export type GameConfig = {
-  questions: number[]
+export type QuizConfig = {
+  readonly id: number
+  readonly answer: string
+  readonly pad: string
 }
 
 ///
 
+export type GameConfig = {
+  readonly questions: readonly number[]
+  readonly quizzes: readonly QuizConfig[]
+}
+
 export type Question = {
-  idx: number
-  answeredAt: undefined | Date
+  readonly idx: number
+  readonly answeredAt: undefined | Date
 }
 
 export type Game = {
-  questions: Question[]
-  startedAt: undefined | Date
-  completedAt: undefined | Date
-  receivedAt: undefined | Date
+  readonly questions: readonly Question[]
+  readonly startedAt: undefined | Date
+  readonly completedAt: undefined | Date
+  readonly receivedAt: undefined | Date
 }

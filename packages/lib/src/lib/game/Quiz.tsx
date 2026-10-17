@@ -2,7 +2,7 @@
 /* eslint-disable functional/functional-parameters */
 import type { ReactNode } from 'react'
 
-import { useGameContext } from './game-xstate'
+import { useGame2 } from './game-xstate'
 import type { Quiz } from './quiz-xstate'
 
 function Char({
@@ -23,7 +23,7 @@ function Char({
 }
 
 export function RenderQuiz(props: Readonly<{ quiz: Quiz }>): ReactNode {
-  const game = useGameContext()
+  const { game } = useGame2()
   const q = props.quiz.useQuiz()
   return (
     <>
@@ -48,14 +48,16 @@ export function RenderQuiz(props: Readonly<{ quiz: Quiz }>): ReactNode {
             )}
           </p>
           <div className="chars">
-            {q.answer.split('').map((c, idx) => (
-              <Char
-                key={idx}
-                quiz={props.quiz}
-                char={c}
-                disabled={q.chars.indexOf(c) >= 0}
-              />
-            ))}
+            {Array.from(q.answer.split(''))
+              .sort((a, b) => a.localeCompare(b))
+              .map((c, idx) => (
+                <Char
+                  key={idx}
+                  quiz={props.quiz}
+                  char={c}
+                  disabled={q.chars.indexOf(c) >= 0}
+                />
+              ))}
           </div>
         </>
       )}
