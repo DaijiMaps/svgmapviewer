@@ -36,8 +36,8 @@ export function RenderQuiz(props: Readonly<{ quiz: Quiz }>): ReactNode {
               {q.chars}
               {q.pad.repeat(q.answer.length - q.chars.length)}
             </span>
-            {q.doneAt && ' ✅'}
-            {!q.doneAt && (
+            {q.answeredAt && ' ✅'}
+            {!q.answeredAt && (
               <span
                 className={q.chars.length === 0 ? 'disabled' : undefined}
                 onClick={() => props.quiz.send({ type: 'Delete' })}

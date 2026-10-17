@@ -153,6 +153,7 @@ export function useGame(): undefined | GameContext {
 }
 
 function gameInit(config: SvgMapViewerConfig): void {
+  // init quiz before snapshot is restored
   quizInit(config)
 
   // XXX prefix map name
@@ -175,7 +176,6 @@ function gameInit(config: SvgMapViewerConfig): void {
     gameAtom.set(s.context)
   })
 
-  globalCbs.init.add(() => notifyGame.start(snapshot?.context))
   gameCbs.answer.add((question: number) =>
     gameActor.send({ type: 'Answer', question })
   )
@@ -183,6 +183,9 @@ function gameInit(config: SvgMapViewerConfig): void {
   gameCbs.reset.add(() => gameActor.send({ type: 'Reset', questions }))
 
   gameActor.start()
+
+  // restore quizzes
+  notifyGame.start(snapshot?.context)
 }
 
 export function gameCbStart(): void {

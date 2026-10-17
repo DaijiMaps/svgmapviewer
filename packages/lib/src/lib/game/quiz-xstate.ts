@@ -8,7 +8,7 @@ import { uiCbs } from '../event-ui'
 import type { GameContext, Question } from './game-xstate'
 
 export type QuizEvent =
-  | { type: 'Skip' }
+  | { type: 'Skip'; answeredAt: string }
   | { type: 'Input'; char: string }
   | { type: 'Delete' }
   | { type: 'Reset' }
@@ -19,7 +19,7 @@ export type QuizContext = {
   answer: string
   pad: string
   chars: string[]
-  doneAt?: string
+  answeredAt?: string
 }
 export type QuizInput = {
   answer: string
@@ -34,19 +34,25 @@ const quizMachine = setup({
     emitted: {} as QuizEmit,
   },
   actions: {
+    input: assign({
+      chars: ({ context }, params: { char: string }) =>
+        context.chars.indexOf(params.char) < 0
+          ? [...context.chars, params.char]
+          : context.chars,
+    }),
     delete: assign({
       chars: ({ context }) => context.chars.slice(0, context.chars.length - 1),
     }),
     reset: assign({
       chars: [],
-      doneAt: undefined,
+      answeredAt: undefined,
     }),
     skip: assign({
       chars: ({ context }) => context.answer.split(''),
-      doneAt: new Date().toISOString(),
+      answeredAt: (_, params: { answeredAt: string }) => params.answeredAt,
     }),
     done: assign({
-      doneAt: new Date().toISOString(),
+      answeredAt: new Date().toISOString(),
     }),
   },
 }).createMachine({
@@ -60,16 +66,11 @@ const quizMachine = setup({
     Idle: {
       on: {
         Skip: {
-          actions: 'skip',
+          actions: { type: 'skip', params: ({ event }) => event },
           target: 'Done',
         },
         Input: {
-          actions: assign({
-            chars: ({ context, event }) =>
-              context.chars.indexOf(event.char) < 0
-                ? [...context.chars, event.char]
-                : context.chars,
-          }),
+          actions: { type: 'input', params: ({ event }) => event },
           target: 'Checking',
         },
         Delete: {
@@ -108,10 +109,14 @@ export type Quiz = {
   useQuiz: () => undefined | QuizContext
 }
 
-function isAnswered(id: number, game?: Readonly<GameContext>): boolean {
+function isAnswered(
+  id: number,
+  game?: Readonly<GameContext>
+): undefined | string {
   const qs = game?.questions ?? []
   const f = (q: Question) => q.idx === id && q.answeredAt
-  return qs.filter(f).length > 0
+  const xs = qs.filter(f)
+  return xs.map((x) => x.answeredAt).at(0)
 }
 
 export function makeQuiz(id: number, answer: string, pad: string): Quiz {
@@ -122,7 +127,7 @@ export function makeQuiz(id: number, answer: string, pad: string): Quiz {
   })
 
   const send = actor.send
-  const skip = () => send({ type: 'Skip' })
+  const skip = (answeredAt: string) => send({ type: 'Skip', answeredAt })
   const reset = () => send({ type: 'Reset' })
   const init = () => send({ type: 'Init' })
 
@@ -130,7 +135,8 @@ export function makeQuiz(id: number, answer: string, pad: string): Quiz {
   actor.subscribe((s) => atom.set(s.context))
 
   gameCbs.start.add((game?: Readonly<GameContext>) => {
-    if (isAnswered(id, game)) skip()
+    const a = isAnswered(id, game)
+    if (a) skip(a)
   })
   gameCbs.reset.add(init)
   uiCbs.closeDone.add(reset)
@@ -156,10 +162,10 @@ export function quizInit(config: SvgMapViewerConfig): void {
   quizzesAtom.set(() => m)
 }
 
-export function quizCbsStart(): void {}
-
 export function useQuizById(id: number): undefined | Quiz {
   const m = useAtom(quizzesAtom)
   const q = m?.get(id)
   return q
 }
+
+export function quizCbsStart(): void {}
