@@ -2,15 +2,17 @@ import { createAtom } from '@xstate/store'
 import { useAtom } from '@xstate/store-react'
 import { assign, createActor, emit, setup } from 'xstate'
 
+import type { SvgMapViewerConfig } from '../../types'
 import { gameCbs, notifyGame } from '../event-game'
 import { uiCbs } from '../event-ui'
 import type { GameContext, Question } from './game-xstate'
 
 export type QuizEvent =
+  | { type: 'Skip' }
   | { type: 'Input'; char: string }
   | { type: 'Delete' }
   | { type: 'Reset' }
-  | { type: 'Skip' }
+  | { type: 'Init' }
 export type QuizEmit = { type: 'Done' }
 
 export type QuizContext = {
@@ -57,6 +59,10 @@ const quizMachine = setup({
   states: {
     Idle: {
       on: {
+        Skip: {
+          actions: 'skip',
+          target: 'Done',
+        },
         Input: {
           actions: assign({
             chars: ({ context, event }) =>
@@ -72,10 +78,6 @@ const quizMachine = setup({
         Reset: {
           actions: 'reset',
         },
-        Skip: {
-          actions: 'skip',
-          target: 'Done',
-        },
       },
     },
     Checking: {
@@ -90,7 +92,7 @@ const quizMachine = setup({
     },
     Done: {
       on: {
-        Reset: {
+        Init: {
           actions: 'reset',
           target: 'Idle',
         },
@@ -120,8 +122,9 @@ export function makeQuiz(id: number, answer: string, pad: string): Quiz {
   })
 
   const send = actor.send
-  const reset = () => send({ type: 'Reset' })
   const skip = () => send({ type: 'Skip' })
+  const reset = () => send({ type: 'Reset' })
+  const init = () => send({ type: 'Init' })
 
   actor.on('Done', () => notifyGame.answer(id))
   actor.subscribe((s) => atom.set(s.context))
@@ -129,7 +132,7 @@ export function makeQuiz(id: number, answer: string, pad: string): Quiz {
   gameCbs.start.add((game?: Readonly<GameContext>) => {
     if (isAnswered(id, game)) skip()
   })
-  gameCbs.reset.add(reset)
+  gameCbs.reset.add(init)
   uiCbs.closeDone.add(reset)
 
   actor.start()
@@ -142,11 +145,16 @@ export function makeQuiz(id: number, answer: string, pad: string): Quiz {
   }
 }
 
-/*
 type M = undefined | Map<number, Quiz>
 
-export const quizzesAtom: Atom<M> = createAtom(undefined)
-*/
+const quizzesAtom = createAtom<M>(undefined)
+
+export function quizInit(config: SvgMapViewerConfig): void {
+  const qcs = config.gameConfig?.quizzes ?? []
+  const qs = qcs.map((qc) => makeQuiz(qc.id, qc.answer, qc.pad))
+  const m = new Map(qs.map((q, idx) => [idx, q] as const))
+  quizzesAtom.set(() => m)
+}
 
 export function quizCbsStart(): void {
   /*
@@ -159,10 +167,8 @@ export function quizCbsStart(): void {
   */
 }
 
-/*
 export function useQuizById(id: number): undefined | Quiz {
   const m = useAtom(quizzesAtom)
   const q = m?.get(id)
   return q
 }
-*/
