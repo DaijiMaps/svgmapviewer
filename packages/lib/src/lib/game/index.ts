@@ -1,7 +1,7 @@
 export { RenderGameReset } from './Game'
 
 export type { GameContext, Question } from './game-xstate'
-export { useGame2 } from './game-xstate'
+export { useGame } from './game-xstate'
 
 export { RenderQuiz } from './Quiz'
 

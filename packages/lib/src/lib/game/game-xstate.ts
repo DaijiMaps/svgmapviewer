@@ -140,21 +140,13 @@ function saveState(key: string, actor: A): void {
   localStorage.setItem(key, JSON.stringify(persistedState))
 }
 
-type Game2 = {
-  game: undefined | GameContext
-}
-
 //type M = undefined | Map<number, Quiz>
 
 // XXX having a copy only for useGame2()
 const gameAtom = createAtom<undefined | GameContext>(undefined)
 
-export function useGame2(): Game2 {
-  const game = useAtom(gameAtom)
-  const game2: Game2 = {
-    game,
-  }
-  return game2
+export function useGame(): undefined | GameContext {
+  return useAtom(gameAtom)
 }
 
 function gameInit(config: SvgMapViewerConfig): void {

@@ -156,16 +156,7 @@ export function quizInit(config: SvgMapViewerConfig): void {
   quizzesAtom.set(() => m)
 }
 
-export function quizCbsStart(): void {
-  /*
-  globalCbs.init.add((cfg) => {
-    const qcs = cfg.gameConfig?.quizzes ?? []
-    const qs = qcs.map((qc) => makeQuiz(qc.id, qc.answer, qc.pad))
-    const m = new Map(qs.map((q, idx) => [idx, q] as const))
-    quizzesAtom.set(() => m)
-  })
-  */
-}
+export function quizCbsStart(): void {}
 
 export function useQuizById(id: number): undefined | Quiz {
   const m = useAtom(quizzesAtom)
