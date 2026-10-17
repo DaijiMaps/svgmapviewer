@@ -2,6 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { gameCbStart } from './lib/game/game-xstate'
+import { quizCbsStart } from './lib/game/quiz-xstate'
 import { namesCbsStart } from './lib/map/names'
 import { positionCbsStart } from './lib/position/position-xstate'
 import { searchCbsStart } from './lib/search/search-xstate'
@@ -19,6 +20,7 @@ export function startAllCbs(): void {
   gameCbStart()
   namesCbsStart()
   positionCbsStart()
+  quizCbsStart()
   scrollCbsStart()
   searchCbsStart()
   styleCbsStart()

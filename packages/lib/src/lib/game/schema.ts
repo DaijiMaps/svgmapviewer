@@ -1,3 +1,4 @@
+/*
 import { Schema } from 'effect'
 
 const QuestionSchema = Schema.Struct({
@@ -14,11 +15,9 @@ const GameSchema = Schema.Struct({
 })
 export type Game = typeof GameSchema.Type
 
-/*
 const SnapshotSchema = Schema.Struct({
   value: Schema.String,
 })
-*/
 
 export const decodeGame = (obj: unknown): null | Game => {
   const res = Schema.decodeUnknownExit(GameSchema)(obj)
@@ -28,3 +27,4 @@ export const encodeGame = (val: Game): null | unknown => {
   const res = Schema.encodeUnknownExit(GameSchema)(val)
   return res._tag === 'Failure' ? null : res.value
 }
+*/

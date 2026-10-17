@@ -243,7 +243,7 @@ const markerStyle = `
     transform: scale(0);
     fill-opacity: 0.5;
   }
-  25% {
+  20% {
     transform: scale(1);
     fill-opacity: 0;
   }

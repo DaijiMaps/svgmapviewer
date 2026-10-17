@@ -14,16 +14,16 @@ import { globalCbs } from '../event-global'
 const d = () => new Date().toISOString()
 
 type GameEvent =
-  | { type: 'Init' }
+  | { type: 'Start' }
   | { type: 'Answer'; question: number }
   | { type: 'Receive' }
   | { type: 'Reset'; questions: number[] }
 
-type Question = {
+export type Question = {
   idx: number
   answeredAt?: string
 }
-type GameContext = {
+export type GameContext = {
   questions: Question[]
   startedAt?: string
   completedAt?: string
@@ -55,6 +55,7 @@ const gameMachine = setup({
           q.idx !== params.question ? q : { ...q, answeredAt: d() }
         ),
     }),
+    complete: assign({ completedAt: d() }),
     receive: assign({ receivedAt: d() }),
     reset: assign({
       questions: ({ context }) =>
@@ -74,11 +75,15 @@ const gameMachine = setup({
   initial: 'Idle',
   states: {
     Idle: {
+      entry: 'reset',
+      /*
       on: {
-        Init: {
+        Start: {
           target: 'Playing',
         },
       },
+      */
+      always: 'Playing',
     },
     Playing: {
       on: {
@@ -91,31 +96,32 @@ const gameMachine = setup({
           },
           {
             actions: { type: 'answer', params: ({ event }) => event },
-            target: 'Completed',
+            target: 'Checking',
           },
         ],
+        Reset: 'Idle',
       },
     },
-    'Playing.Checking': {
+    Checking: {
       always: [
-        { guard: 'isCompleted', target: 'Completed' },
-        { target: 'Playing' },
+        {
+          guard: 'isCompleted',
+          target: 'Completed',
+        },
+        'Playing',
       ],
     },
     Completed: {
+      entry: 'complete',
       on: {
-        Receive: {
-          actions: 'receive',
-          target: 'Received',
-        },
+        Receive: 'Received',
+        Reset: 'Idle',
       },
     },
     Received: {
+      entry: 'receive',
       on: {
-        Reset: {
-          actions: 'reset',
-          target: 'Idle',
-        },
+        Reset: 'Idle',
       },
     },
   },
@@ -124,7 +130,6 @@ const gameMachine = setup({
 type A = ActorRefFrom<typeof gameMachine>
 type S = SnapshotFrom<typeof gameMachine>
 
-// XXX localStorage
 function loadState(key: string): undefined | S {
   const stateString = localStorage.getItem(key)
   return stateString ? JSON.parse(stateString) : undefined
@@ -150,6 +155,7 @@ function gameInit(config: SvgMapViewerConfig): void {
 
   // input is used when snapshot is undefined
   const gameActor = createActor(gameMachine, {
+    inspect: console.log,
     snapshot,
     input: {
       questions,
@@ -162,7 +168,7 @@ function gameInit(config: SvgMapViewerConfig): void {
   })
   gameActor.start()
 
-  gameCbs.start.add(() => gameActor.send({ type: 'Init' }))
+  gameCbs.start.add(() => gameActor.send({ type: 'Start' }))
   gameCbs.answer.add((question: number) =>
     gameActor.send({ type: 'Answer', question })
   )
