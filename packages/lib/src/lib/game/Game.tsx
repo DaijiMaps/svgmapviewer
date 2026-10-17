@@ -3,7 +3,14 @@
 import type { ReactNode } from 'react'
 
 import { notifyGame } from '../event-game'
+import { useGame } from './game-xstate'
 
 export function RenderGameReset(): ReactNode {
-  return <p onClick={() => notifyGame.reset()}>（やり直す）</p>
+  const game = useGame()
+  return (
+    <>
+      {game && game.completedAt && <p>完了！</p>}
+      <p onClick={() => notifyGame.reset()}>（やりなおす）</p>
+    </>
+  )
 }

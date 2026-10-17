@@ -46,8 +46,11 @@ const gameMachine = setup({
       context.questions.filter(
         (q) => q.idx === params.question && q.answeredAt !== undefined
       ).length > 0,
-    isCompleted: ({ context }) =>
-      context.questions.filter((q) => q.answeredAt === undefined).length === 0,
+    isCompleted: ({ context }) => {
+      console.log(context)
+      const uqs = context.questions.filter((q) => q.answeredAt === undefined)
+      return uqs.length === 0
+    },
   },
   actions: {
     answer: assign({
@@ -155,7 +158,7 @@ function gameInit(config: SvgMapViewerConfig): void {
   // XXX prefix map name
   const key = 'svgmapviewer-game-state'
 
-  const questions = config.gameConfig?.questions ?? []
+  const questions = (config.gameConfig?.quizzes ?? []).map((z) => z.id)
   const snapshot = loadState(key)
 
   // input is used when snapshot is undefined

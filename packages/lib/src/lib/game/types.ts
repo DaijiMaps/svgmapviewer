@@ -13,7 +13,6 @@ export type QuizConfig = {
 ///
 
 export type GameConfig = {
-  readonly questions: readonly number[]
   readonly quizzes: readonly QuizConfig[]
 }
 

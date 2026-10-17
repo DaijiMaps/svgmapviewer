@@ -28,10 +28,10 @@ export function RenderQuiz(props: Readonly<{ quiz: Quiz }>): ReactNode {
   return (
     <>
       <p>クイズ 1</p>
-      {game && !game.completedAt && q && (
+      {game && q && (
         <>
           <p>
-            答え:{' '}
+            こたえ:{' '}
             <span className="answer">
               {q.chars}
               {q.pad.repeat(q.answer.length - q.chars.length)}
@@ -61,7 +61,6 @@ export function RenderQuiz(props: Readonly<{ quiz: Quiz }>): ReactNode {
           </div>
         </>
       )}
-      {game && game.completedAt && <p>完了！</p>}
       <style>{style}</style>
     </>
   )
@@ -73,7 +72,7 @@ const style = `
   font-family: monospace;
   font-variant-numeric: tabular-nums;
   width: 8ch;
-  letter-spacing: 0.25em;
+  letter-spacing: 0em;
 }
 .chars {
   display: flex;
