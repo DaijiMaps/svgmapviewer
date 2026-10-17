@@ -106,7 +106,7 @@ type S = (ev: Readonly<QuizEvent>) => void
 
 export type Quiz = {
   send: S
-  useQuiz: () => undefined | QuizContext
+  useQuizContext: () => undefined | QuizContext
 }
 
 function isAnswered(
@@ -145,7 +145,7 @@ export function makeQuiz(id: number, answer: string, pad: string): Quiz {
 
   return {
     send,
-    useQuiz: () => {
+    useQuizContext: () => {
       return useAtom(atom)
     },
   }
@@ -162,7 +162,7 @@ export function quizInit(config: SvgMapViewerConfig): void {
   quizzesAtom.set(() => m)
 }
 
-export function useQuizById(id: number): undefined | Quiz {
+export function useQuiz(id: number): undefined | Quiz {
   const m = useAtom(quizzesAtom)
   const q = m?.get(id)
   return q

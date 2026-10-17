@@ -6,7 +6,7 @@ export { useGame } from './game-xstate'
 export { RenderQuiz } from './Quiz'
 
 export type { QuizEvent, QuizContext, Quiz } from './quiz-xstate'
-export { makeQuiz, useQuizById } from './quiz-xstate'
+export { makeQuiz, useQuiz } from './quiz-xstate'
 
 export { notifyGame } from '../event-game'
 

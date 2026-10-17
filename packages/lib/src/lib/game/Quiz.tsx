@@ -24,7 +24,7 @@ function Char({
 
 export function RenderQuiz(props: Readonly<{ quiz: Quiz }>): ReactNode {
   const game = useGame()
-  const q = props.quiz.useQuiz()
+  const q = props.quiz.useQuizContext()
   return (
     <>
       <p>クイズ 1</p>
