@@ -47,7 +47,6 @@ const gameMachine = setup({
         (q) => q.idx === params.question && q.answeredAt !== undefined
       ).length > 0,
     isCompleted: ({ context }) => {
-      console.log(context)
       const uqs = context.questions.filter((q) => q.answeredAt === undefined)
       return uqs.length === 0
     },
@@ -62,19 +61,12 @@ const gameMachine = setup({
     complete: assign({ completedAt: d() }),
     receive: assign({ receivedAt: d() }),
     reset: assign({
-      questions: ({ context }) =>
-        context.questions.map((q) => ({ ...q, answeredAt: undefined })),
-      startedAt: undefined,
-      completedAt: undefined,
-      receivedAt: undefined,
+      questions: ({ context }) => context.questions.map((q) => ({ ...q })),
     }),
   },
 }).createMachine({
   context: ({ input }) => ({
-    questions: input.questions.map((q) => ({ idx: q, answeredAt: undefined })),
-    startedAt: undefined,
-    completedAt: undefined,
-    receivedAt: undefined,
+    questions: input.questions.map((q) => ({ idx: q })),
   }),
   initial: 'Idle',
   states: {
@@ -156,8 +148,7 @@ function gameInit(config: SvgMapViewerConfig): void {
   // init quiz before snapshot is restored
   quizInit(config)
 
-  // XXX prefix map name
-  const key = 'svgmapviewer-game-state'
+  const key = `svgmapviewer:${config.title}:game-state`
 
   const questions = (config.gameConfig?.quizzes ?? []).map((z) => z.id)
   const snapshot = loadState(key)
