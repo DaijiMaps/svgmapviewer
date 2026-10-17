@@ -8,7 +8,7 @@ import {
 } from 'xstate'
 
 import type { SvgMapViewerConfig } from '../../types'
-import { gameCbs } from '../event-game'
+import { gameCbs, notifyGame } from '../event-game'
 import { globalCbs } from '../event-global'
 
 const d = () => new Date().toISOString()
@@ -155,7 +155,7 @@ function gameInit(config: SvgMapViewerConfig): void {
 
   // input is used when snapshot is undefined
   const gameActor = createActor(gameMachine, {
-    inspect: console.log,
+    //inspect: console.log, // XXX
     snapshot,
     input: {
       questions,
@@ -166,14 +166,15 @@ function gameInit(config: SvgMapViewerConfig): void {
     saveState(key, gameActor)
     contextAtom.set(s.context)
   })
-  gameActor.start()
 
-  gameCbs.start.add(() => gameActor.send({ type: 'Start' }))
+  globalCbs.init.add(() => notifyGame.start(snapshot?.context))
   gameCbs.answer.add((question: number) =>
     gameActor.send({ type: 'Answer', question })
   )
   gameCbs.receive.add(() => gameActor.send({ type: 'Receive' }))
   gameCbs.reset.add(() => gameActor.send({ type: 'Reset', questions }))
+
+  gameActor.start()
 }
 
 export function gameCbStart(): void {

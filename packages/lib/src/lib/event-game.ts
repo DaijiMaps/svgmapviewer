@@ -2,6 +2,7 @@ import { notifyCbs, notifyCbs0 } from './cb'
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
 import type { GameCbs } from './event-game-types'
+import type { GameContext } from './game'
 
 export const gameCbs: GameCbs = {
   start: new Set(),
@@ -11,7 +12,7 @@ export const gameCbs: GameCbs = {
 }
 
 export const notifyGame = {
-  start: (): void => notifyCbs0(gameCbs.start),
+  start: (game?: Readonly<GameContext>): void => notifyCbs(gameCbs.start, game),
   answer: (question: number): void => notifyCbs(gameCbs.answer, question),
   receive: (): void => notifyCbs0(gameCbs.receive),
   reset: (): void => notifyCbs0(gameCbs.reset),

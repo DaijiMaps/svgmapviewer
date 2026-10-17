@@ -2,11 +2,15 @@ import { createAtom } from '@xstate/store'
 import { useAtom } from '@xstate/store-react'
 import { assign, createActor, emit, setup } from 'xstate'
 
-import { notifyGame } from '../event-game'
+import { gameCbs, notifyGame } from '../event-game'
 import { uiCbs } from '../event-ui'
+import type { GameContext, Question } from './game-xstate'
 
 export type QuizEvent =
-  { type: 'Input'; char: string } | { type: 'Delete' } | { type: 'Reset' }
+  | { type: 'Input'; char: string }
+  | { type: 'Delete' }
+  | { type: 'Reset' }
+  | { type: 'Skip' }
 export type QuizEmit = { type: 'Done' }
 
 export type QuizContext = {
@@ -33,6 +37,10 @@ const quizMachine = setup({
     }),
     reset: assign({
       chars: [],
+    }),
+    skip: assign({
+      chars: ({ context }) => context.answer.split(''),
+      doneAt: new Date().toISOString(),
     }),
     done: assign({
       doneAt: new Date().toISOString(),
@@ -63,6 +71,10 @@ const quizMachine = setup({
         Reset: {
           actions: 'reset',
         },
+        Skip: {
+          actions: 'skip',
+          target: 'Done',
+        },
       },
     },
     Ready: {},
@@ -70,14 +82,13 @@ const quizMachine = setup({
       always: [
         {
           guard: ({ context }) => context.chars.join('') === context.answer,
+          actions: ['done', emit({ type: 'Done' })],
           target: 'Done',
         },
         'Idle',
       ],
     },
-    Done: {
-      entry: ['done', emit({ type: 'Done' })],
-    },
+    Done: {},
   },
 })
 
@@ -88,16 +99,27 @@ export type Quiz = {
   useQuiz: () => undefined | QuizContext
 }
 
+function isAnswered(id: number, game?: Readonly<GameContext>): boolean {
+  const qs = game?.questions ?? []
+  const f = (q: Question) => q.idx === id && q.answeredAt
+  return qs.filter(f).length > 0
+}
+
 export function makeQuiz(id: number, answer: string, pad: string): Quiz {
   const atom = createAtom<undefined | QuizContext>(undefined)
   const actor = createActor(quizMachine, {
-    inspect: console.log,
+    //inspect: console.log, // XXX
     input: { answer, pad },
   })
   actor.subscribe((s) => atom.set(s.context))
   actor.on('Done', () => notifyGame.answer(id))
   actor.start()
   const send = actor.send
+  gameCbs.start.add((game?: Readonly<GameContext>) => {
+    if (isAnswered(id, game)) {
+      send({ type: 'Skip' })
+    }
+  })
   uiCbs.closeDone.add(() => send({ type: 'Reset' }))
   return {
     send,

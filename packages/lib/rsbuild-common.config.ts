@@ -13,6 +13,7 @@ export const alias = {
   'svgmapviewer/carto-symbols': dir('./src/lib/carto/symbols/index.ts'),
   'svgmapviewer/carto': dir('./src/lib/carto/index.ts'),
   'svgmapviewer/css': dir('./src/lib/css/index.ts'),
+  'svgmapviewer/game': dir('./src/lib/game/index.ts'),
   'svgmapviewer/geo': dir('./src/lib/geo/index.ts'),
   'svgmapviewer/map-floors': dir('./src/lib/map/floors/index.ts'),
   'svgmapviewer/map': dir('./src/lib/map/index.ts'),

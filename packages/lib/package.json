@@ -23,6 +23,7 @@
     "./carto": "./dist/lib/carto/index.js",
     "./carto-objects": "./dist/lib/carto/objects/index.js",
     "./carto-symbols": "./dist/lib/carto/symbols/index.js",
+    "./game": "./dist/lib/game/index.js",
     "./geo": "./dist/lib/geo/index.js",
     "./map": "./dist/lib/map/index.js",
     "./map-floors": "./dist/lib/map/floors/index.js",
