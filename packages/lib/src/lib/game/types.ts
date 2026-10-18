@@ -14,7 +14,7 @@ export type QuizConfig =
   | {
       readonly type: 'Pick'
       readonly id: number
-      readonly chars: string
+      readonly chars: string[]
     }
 
 ///
@@ -23,14 +23,17 @@ export type GameConfig = {
   readonly quizzes: readonly QuizConfig[]
 }
 
+export type Force = { readonly force?: boolean }
+
 export type Question = {
   readonly idx: number
-  readonly answeredAt: undefined | Date
+  readonly answered?: string
+  readonly answeredAt?: string
 }
 
 export type Game = {
   readonly questions: readonly Question[]
-  readonly startedAt: undefined | Date
-  readonly completedAt: undefined | Date
-  readonly receivedAt: undefined | Date
+  readonly startedAt?: string
+  readonly completedAt?: string
+  readonly receivedAt?: string
 }

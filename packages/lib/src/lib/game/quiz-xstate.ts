@@ -131,7 +131,7 @@ export function makeQuiz(id: number, answer: string, pad: string): Quiz {
   const reset = () => send({ type: 'Reset' })
   const init = () => send({ type: 'Init' })
 
-  actor.on('Done', () => notifyGame.answer(id))
+  actor.on('Done', () => notifyGame.answer({ idx: id }))
   actor.subscribe((s) => atom.set(s.context))
 
   gameCbs.start.add((game?: Readonly<GameContext>) => {
@@ -153,19 +153,19 @@ export function makeQuiz(id: number, answer: string, pad: string): Quiz {
 
 type M = undefined | Map<number, Quiz>
 
-const quizzesAtom = createAtom<M>(undefined)
+const quizMapAtom = createAtom<M>(undefined)
 
 export function quizInit(config: SvgMapViewerConfig): void {
   const qcs = config.gameConfig?.quizzes ?? []
   const qs = qcs
     .filter((qc) => qc.type === 'Sort')
-    .map((qc) => makeQuiz(qc.id, qc.answer, qc.pad))
-  const m = new Map(qs.map((q, idx) => [idx, q] as const))
-  quizzesAtom.set(() => m)
+    .map((qc) => [qc.id, makeQuiz(qc.id, qc.answer, qc.pad)] as const)
+  const m = new Map(qs.map(([id, q]) => [id, q] as const))
+  quizMapAtom.set(() => m)
 }
 
 export function useQuiz(id: number): undefined | Quiz {
-  const m = useAtom(quizzesAtom)
+  const m = useAtom(quizMapAtom)
   const q = m?.get(id)
   return q
 }

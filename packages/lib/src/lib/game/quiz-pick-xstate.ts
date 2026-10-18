@@ -17,7 +17,7 @@ export type PickEvent =
 export type PickEmit = {
   type: 'Answered'
   answered?: string
-  answeredAt: string
+  answeredAt?: string
 }
 
 export type PickContext = {
@@ -26,8 +26,7 @@ export type PickContext = {
   answeredAt?: string
 }
 export type PickInput = {
-  answer: string
-  pad: string
+  chars: string[]
 }
 
 const pickMachine = setup({
@@ -40,12 +39,16 @@ const pickMachine = setup({
   actions: {
     select: assign({
       answered: (_, params: { char: string }) => params.char,
+      answeredAt: () => new Date().toISOString(),
+    }),
+    unselect: assign({
+      answered: undefined,
+      answeredAt: undefined,
     }),
     delete: assign({
       chars: ({ context }) => context.chars.slice(0, context.chars.length - 1),
     }),
     reset: assign({
-      chars: [],
       answeredAt: undefined,
     }),
     skip: assign({
@@ -57,14 +60,15 @@ const pickMachine = setup({
     done: assign({
       answeredAt: new Date().toISOString(),
     }),
-    answered: ({ context: { answered, answeredAt } }) =>
-      emit({ type: 'Answered', answered, answeredAt }),
+    answered: emit(({ context: { answered, answeredAt } }) => ({
+      type: 'Answered',
+      answered,
+      answeredAt,
+    })),
   },
 }).createMachine({
-  context: ({ input: { answer, pad } }) => ({
-    answer,
-    pad,
-    chars: [],
+  context: ({ input: { chars } }) => ({
+    chars,
   }),
   initial: 'Idle',
   states: {
@@ -72,15 +76,20 @@ const pickMachine = setup({
       on: {
         Skip: {
           actions: { type: 'skip', params: ({ event }) => event },
-          target: 'Done',
         },
-        Select: {
-          actions: [
-            { type: 'select', params: ({ event }) => event },
-            'done',
-            { type: 'answered' },
-          ],
-        },
+        Select: [
+          {
+            guard: ({ context, event }) => context.answered !== event.char,
+            actions: [
+              { type: 'select', params: ({ event }) => event },
+              'done',
+              'answered',
+            ],
+          },
+          {
+            actions: ['unselect', 'done', 'answered'],
+          },
+        ],
         Delete: {
           actions: 'delete',
         },
@@ -112,11 +121,11 @@ function isAnswered(
     : undefined
 }
 
-export function makePick(id: number, answer: string, pad: string): Pick {
+export function makePick(id: number, chars: string[]): Pick {
   const atom = createAtom<undefined | PickContext>(undefined)
   const actor = createActor(pickMachine, {
     //inspect: console.log, // XXX
-    input: { answer, pad },
+    input: { chars },
   })
 
   const send = actor.send
@@ -124,7 +133,14 @@ export function makePick(id: number, answer: string, pad: string): Pick {
   const reset = () => send({ type: 'Reset' })
   const init = () => send({ type: 'Init' })
 
-  actor.on('Answered', () => notifyGame.answer(id))
+  actor.on('Answered', (q) =>
+    notifyGame.answer({
+      idx: id,
+      answered: q.answered,
+      answeredAt: q.answeredAt,
+      force: true,
+    })
+  )
   actor.subscribe((s) => atom.set(s.context))
 
   gameCbs.start.add((game?: Readonly<GameContext>) => {
@@ -146,19 +162,19 @@ export function makePick(id: number, answer: string, pad: string): Pick {
 
 type M = undefined | Map<number, Pick>
 
-const pickzesAtom = createAtom<M>(undefined)
+const pickMapAtom = createAtom<M>(undefined)
 
 export function pickInit(config: SvgMapViewerConfig): void {
   const qcs = config.gameConfig?.quizzes ?? []
   const qs = qcs
-    .filter((qc) => qc.type === 'Sort')
-    .map((qc) => makePick(qc.id, qc.answer, qc.pad))
-  const m = new Map(qs.map((q, idx) => [idx, q] as const))
-  pickzesAtom.set(() => m)
+    .filter((qc) => qc.type === 'Pick')
+    .map((qc) => [qc.id, makePick(qc.id, qc.chars)] as const)
+  const m = new Map(qs.map(([id, q]) => [id, q] as const))
+  pickMapAtom.set(() => m)
 }
 
 export function usePick(id: number): undefined | Pick {
-  const m = useAtom(pickzesAtom)
+  const m = useAtom(pickMapAtom)
   const q = m?.get(id)
   return q
 }

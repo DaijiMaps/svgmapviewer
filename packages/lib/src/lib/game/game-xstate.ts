@@ -10,13 +10,18 @@ import {
 import type { SvgMapViewerConfig } from '../../types'
 import { gameCbs, notifyGame } from '../event-game'
 import { globalCbs } from '../event-global'
+import { pickInit } from './quiz-pick-xstate'
 import { quizInit } from './quiz-xstate'
+import type { Force } from './types'
 
 const d = () => new Date().toISOString()
 
 type GameEvent =
   | { readonly type: 'Start' }
-  | { readonly type: 'Answer'; readonly question: number }
+  | ({
+      readonly type: 'Answer'
+      readonly question: Question
+    } & Force)
   | { readonly type: 'Receive' }
   | { readonly type: 'Reset'; readonly questions: readonly number[] }
 
@@ -43,10 +48,13 @@ const gameMachine = setup({
     input: {} as GameInput,
   },
   guards: {
-    isAnswered: ({ context }, params: { question: number }) =>
-      context.questions.filter(
-        (q) => q.idx === params.question && q.answeredAt !== undefined
-      ).length > 0,
+    isAnswered: ({ context }, params: { question: Question & Force }) => {
+      if (params.question.force) return false
+      const uqs = context.questions
+        .filter((q) => q.idx === params.question.idx)
+        .filter((q) => q.answeredAt !== undefined)
+      return uqs.length > 0
+    },
     isCompleted: ({ context }) => {
       const uqs = context.questions.filter((q) => q.answeredAt === undefined)
       return uqs.length === 0
@@ -54,9 +62,15 @@ const gameMachine = setup({
   },
   actions: {
     answer: assign({
-      questions: ({ context }, params: { question: number }) =>
+      questions: ({ context }, params: { question: Question }) =>
         context.questions.map((q) =>
-          q.idx !== params.question ? q : { ...q, answeredAt: d() }
+          q.idx !== params.question.idx
+            ? q
+            : {
+                ...q,
+                answered: params.question.answered,
+                answeredAt: params.question.answeredAt,
+              }
         ),
     }),
     complete: assign({ completedAt: d() }),
@@ -152,17 +166,16 @@ export function useGame(): undefined | GameContext {
 function gameInit(config: SvgMapViewerConfig): void {
   // init quiz before snapshot is restored
   quizInit(config)
+  pickInit(config)
 
   const key = `svgmapviewer:${config.title}:game-state`
 
-  const questions = (config.gameConfig?.quizzes ?? [])
-    .filter((z) => z.type === 'Sort')
-    .map((z) => z.id)
+  const questions = (config.gameConfig?.quizzes ?? []).map((z) => z.id)
   const snapshot = loadState(key)
 
   // input is used when snapshot is undefined
   const gameActor = createActor(gameMachine, {
-    //inspect: console.log, // XXX
+    inspect: console.log, // XXX
     snapshot,
     input: {
       questions,
@@ -174,7 +187,7 @@ function gameInit(config: SvgMapViewerConfig): void {
     gameAtom.set(s.context)
   })
 
-  gameCbs.answer.add((question: number) =>
+  gameCbs.answer.add((question: Question & Force) =>
     gameActor.send({ type: 'Answer', question })
   )
   gameCbs.receive.add(() => gameActor.send({ type: 'Receive' }))

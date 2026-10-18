@@ -65,6 +65,12 @@ const style = `
     padding: 0.5em;
     border: 1px solid black;
     margin: 0.25em;
+    &.selected {
+      color: white;
+      background-color: green;
+      font-weight: bold;
+      border: 1px solid gray;
+    }
   }
 }
 .answered,
