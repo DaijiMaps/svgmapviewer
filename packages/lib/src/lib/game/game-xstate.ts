@@ -175,7 +175,7 @@ function gameInit(config: SvgMapViewerConfig): void {
 
   // input is used when snapshot is undefined
   const gameActor = createActor(gameMachine, {
-    inspect: console.log, // XXX
+    //inspect: console.log, // XXX
     snapshot,
     input: {
       questions,

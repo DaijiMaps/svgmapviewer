@@ -82,6 +82,24 @@ export const uiConfigSchema = z.object({
   showGuides: z.boolean(),
 })
 
+export const quizConfigSchema = z.discriminatedUnion('type', [
+  z.object({
+    type: z.literal('Sort'),
+    id: z.number(),
+    answer: z.string(),
+    pad: z.string(),
+  }),
+  z.object({
+    type: z.literal('Pick'),
+    id: z.number(),
+    chars: z.array(z.string()),
+  }),
+])
+
+export const gameConfigSchema = z.object({
+  quizzes: z.array(quizConfigSchema),
+})
+
 // osmDataConfigSchema
 // osmRenderConfigSchema
 // osmSearchConfigSchema
@@ -168,6 +186,7 @@ export const svgMapViewerConfigSchema = z.object({
   searchInfos: searchInfosSchema.optional(),
   floorsConfig: floorsConfigSchema.optional(),
   uiConfig: uiConfigSchema.optional(),
+  gameConfig: gameConfigSchema.optional(),
   //isContainerRendered: () => boolean
   //isUiRendered: () => boolean
 })

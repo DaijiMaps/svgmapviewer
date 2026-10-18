@@ -260,6 +260,60 @@
       },
       "required": ["showGuides"],
       "additionalProperties": false
+    },
+    "gameConfig": {
+      "type": "object",
+      "properties": {
+        "quizzes": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "Sort"
+                  },
+                  "id": {
+                    "type": "number"
+                  },
+                  "answer": {
+                    "type": "string"
+                  },
+                  "pad": {
+                    "type": "string"
+                  }
+                },
+                "required": ["type", "id", "answer", "pad"],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "Pick"
+                  },
+                  "id": {
+                    "type": "number"
+                  },
+                  "chars": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": ["type", "id", "chars"],
+                "additionalProperties": false
+              }
+            ]
+          }
+        }
+      },
+      "required": ["quizzes"],
+      "additionalProperties": false
     }
   },
   "additionalProperties": {}
