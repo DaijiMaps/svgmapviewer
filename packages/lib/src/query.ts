@@ -9,7 +9,7 @@ type Val = Readonly<{
   latitude?: number
   longitude?: number
   accuracy?: number
-  info?: string
+  mode?: string
 }>
 
 export const queryAtom: Atom<undefined | Val> = createAtom(undefined)
@@ -21,13 +21,12 @@ const longitudeSchema = Schema.NumberFromString.check(
   Schema.makeFilter((n) => n >= -180 && n <= 180)
 )
 const accuracySchema = Schema.NumberFromString
-const infoSchema = Schema.String
 
 const querySchema = Schema.Struct({
   latitude: Schema.optional(latitudeSchema),
   longitude: Schema.optional(longitudeSchema),
   accuracy: Schema.optional(accuracySchema),
-  info: Schema.optional(infoSchema),
+  mode: Schema.optional(Schema.String),
 })
 
 export function saveQuery(): undefined | Val {

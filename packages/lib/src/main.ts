@@ -1,7 +1,9 @@
+/* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { getConfig, setConfig } from './config'
+import { gameRoot } from './Game'
 import { infoRoot } from './Info'
 import { type BoxBox } from './lib/box/prefixed'
 import { notifyGlobal } from './lib/event-global'
@@ -12,6 +14,7 @@ import { startAllActors } from './main-actors'
 import { startAllCbs } from './main-cbs'
 import { saveQuery } from './query'
 import { root } from './Root'
+import { settingsRoot } from './Settings'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
 import { version } from './version'
 
@@ -58,6 +61,8 @@ export function svgmapviewer(
 
   const query = saveQuery()
 
+  if (!window.name) window.name = 'main'
+
   startAllCbs()
   startAllActors()
 
@@ -70,8 +75,12 @@ export function svgmapviewer(
     setPosition(query.latitude, query.longitude, query.accuracy)
   }
 
-  if (query?.info) {
+  if (query?.mode === 'info') {
     infoRoot(config)
+  } else if (query?.mode === 'settings') {
+    settingsRoot(config)
+  } else if (query?.mode === 'game') {
+    gameRoot(config)
   } else {
     root(config)
   }

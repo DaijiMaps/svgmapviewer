@@ -22,6 +22,7 @@ type GameEvent =
 
 export type Question = {
   readonly idx: number
+  readonly answered?: string
   readonly answeredAt?: string
 }
 export type GameContext = {
@@ -140,6 +141,10 @@ function saveState(key: string, actor: A): void {
 // XXX having a copy only for useGame2()
 const gameAtom = createAtom<undefined | GameContext>(undefined)
 
+export function getGame(): undefined | GameContext {
+  return gameAtom.get()
+}
+
 export function useGame(): undefined | GameContext {
   return useAtom(gameAtom)
 }
@@ -150,7 +155,9 @@ function gameInit(config: SvgMapViewerConfig): void {
 
   const key = `svgmapviewer:${config.title}:game-state`
 
-  const questions = (config.gameConfig?.quizzes ?? []).map((z) => z.id)
+  const questions = (config.gameConfig?.quizzes ?? [])
+    .filter((z) => z.type === 'Sort')
+    .map((z) => z.id)
   const snapshot = loadState(key)
 
   // input is used when snapshot is undefined

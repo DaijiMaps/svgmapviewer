@@ -27,3 +27,4 @@ export {
   type SvgMapViewerConfigUser,
   type UiConfig,
 } from './types'
+export { openGame, openInfo, openSettings } from './mode'

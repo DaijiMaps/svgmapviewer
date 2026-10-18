@@ -2,7 +2,6 @@
 /* eslint-disable functional/functional-parameters */
 import type { ReactNode } from 'react'
 
-import { useGame } from './game-xstate'
 import type { Quiz } from './quiz-xstate'
 
 function Char({
@@ -23,12 +22,11 @@ function Char({
 }
 
 export function RenderQuiz(props: Readonly<{ quiz: Quiz }>): ReactNode {
-  const game = useGame()
   const q = props.quiz.useQuizContext()
   return (
     <>
       <p>クイズ 1</p>
-      {game && q && (
+      {q && (
         <>
           <p>
             こたえ:{' '}

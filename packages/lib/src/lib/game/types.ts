@@ -4,11 +4,18 @@
 //   - choices
 //   - answer
 
-export type QuizConfig = {
-  readonly id: number
-  readonly answer: string
-  readonly pad: string
-}
+export type QuizConfig =
+  | {
+      readonly type: 'Sort'
+      readonly id: number
+      readonly answer: string
+      readonly pad: string
+    }
+  | {
+      readonly type: 'Pick'
+      readonly id: number
+      readonly chars: string
+    }
 
 ///
 

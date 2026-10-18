@@ -1,8 +1,10 @@
+/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { useRef, type ReactNode } from 'react'
 
 import { useConfig } from '../../config'
+import { openInfo } from '../../mode'
 import {
   flex_column_center_center,
   position_absolute_left_0_bottom_0,
@@ -30,9 +32,7 @@ function FooterRoot(): ReactNode {
   return (
     <div ref={ref} className="ui-content footer">
       <p>
-        <a href={document.location.href + `?info=1`} target="_blank">
-          {cfg.copyright}
-        </a>
+        <a onClick={() => openInfo()}>{cfg.copyright}</a>
       </p>
       <style>{style}</style>
     </div>

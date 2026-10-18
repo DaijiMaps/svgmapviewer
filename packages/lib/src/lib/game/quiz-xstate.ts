@@ -157,7 +157,9 @@ const quizzesAtom = createAtom<M>(undefined)
 
 export function quizInit(config: SvgMapViewerConfig): void {
   const qcs = config.gameConfig?.quizzes ?? []
-  const qs = qcs.map((qc) => makeQuiz(qc.id, qc.answer, qc.pad))
+  const qs = qcs
+    .filter((qc) => qc.type === 'Sort')
+    .map((qc) => makeQuiz(qc.id, qc.answer, qc.pad))
   const m = new Map(qs.map((q, idx) => [idx, q] as const))
   quizzesAtom.set(() => m)
 }
