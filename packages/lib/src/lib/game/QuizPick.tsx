@@ -25,9 +25,9 @@ export function RenderPick(props: Readonly<{ pick: Pick }>): ReactNode {
   const q = props.pick.usePickContext()
   return (
     <>
-      <p>クイズ 1</p>
       {q && (
         <>
+          <p>クイズ {props.pick.id}</p>
           <div className="chars">
             {Array.from(q.chars)
               .sort((a, b) => a.localeCompare(b))

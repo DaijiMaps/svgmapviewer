@@ -18,10 +18,10 @@ const d = () => new Date().toISOString()
 
 type GameEvent =
   | { readonly type: 'Start' }
-  | ({
+  | {
       readonly type: 'Answer'
-      readonly question: Question
-    } & Force)
+      readonly question: Question & Force
+    }
   | { readonly type: 'Receive' }
   | { readonly type: 'Reset'; readonly questions: readonly number[] }
 
@@ -125,6 +125,10 @@ const gameMachine = setup({
     Completed: {
       entry: 'complete',
       on: {
+        Answer: {
+          guard: ({ event }) => event.question.force === true,
+          actions: { type: 'answer', params: ({ event }) => event },
+        },
         Receive: 'Received',
         Reset: 'Idle',
       },

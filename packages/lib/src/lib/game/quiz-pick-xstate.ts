@@ -104,8 +104,9 @@ const pickMachine = setup({
 type S = (ev: Readonly<PickEvent>) => void
 
 export type Pick = {
-  send: S
-  usePickContext: () => undefined | PickContext
+  readonly id: number
+  readonly send: S
+  readonly usePickContext: () => undefined | PickContext
 }
 
 function isAnswered(
@@ -121,6 +122,10 @@ function isAnswered(
     : undefined
 }
 
+// XXX
+// XXX
+// XXX
+// XXX make this makePickMap
 export function makePick(id: number, chars: string[]): Pick {
   const atom = createAtom<undefined | PickContext>(undefined)
   const actor = createActor(pickMachine, {
@@ -153,6 +158,7 @@ export function makePick(id: number, chars: string[]): Pick {
   actor.start()
 
   return {
+    id,
     send,
     usePickContext: () => {
       return useAtom(atom)
@@ -164,6 +170,12 @@ type M = undefined | Map<number, Pick>
 
 const pickMapAtom = createAtom<M>(undefined)
 
+// XXX
+// XXX
+// XXX
+// XXX pickMapInit
+// XXX have a single usePickContext
+// XXX look up by id and return the corresponding context
 export function pickInit(config: SvgMapViewerConfig): void {
   const qcs = config.gameConfig?.quizzes ?? []
   const qs = qcs
@@ -172,6 +184,9 @@ export function pickInit(config: SvgMapViewerConfig): void {
   const m = new Map(qs.map(([id, q]) => [id, q] as const))
   pickMapAtom.set(() => m)
 }
+// XXX
+// XXX
+// XXX
 
 export function usePick(id: number): undefined | Pick {
   const m = useAtom(pickMapAtom)
