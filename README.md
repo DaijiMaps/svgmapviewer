@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./logo-normal.svg" width="50%" alt="svgmapviewer logo" />
+  <img src="./yg.svg" width="50%" alt="svgmapviewer logo" />
 </div>
 
 # svgmapviewer
@@ -13,4 +13,5 @@
 
 ## Demos
 
-https://svgmapviewer2.pages.dev/
+https://svgmapviewer2.pages.dev/demos/SugoiFair-astro/
+https://svgmapviewer2.pages.dev/demos/SugoiMarche-astro/
