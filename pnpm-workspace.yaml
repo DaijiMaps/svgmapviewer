@@ -1,7 +1,7 @@
 packages:
   - 'packages/app-*'
   - 'packages/astro-*'
-  - 'packages/create-*'
+  #- 'packages/create-*'
   - 'packages/example-*'
   - 'packages/lib'
   - 'packages/svgpatheditor'
