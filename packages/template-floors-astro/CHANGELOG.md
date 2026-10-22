@@ -1,5 +1,17 @@
 # svgmapviewer-template-floors-astro
 
+## 0.1.0
+
+### Minor Changes
+
+- c377647: improve gps handling
+
+### Patch Changes
+
+- Updated dependencies [c377647]
+  - svgmapviewer-astro-floors@1.0.0
+  - svgmapviewer@0.7.0
+
 ## 0.0.2
 
 ### Patch Changes

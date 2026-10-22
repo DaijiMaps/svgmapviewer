@@ -1,5 +1,18 @@
 # svgmapviewer-example
 
+## 0.2.0
+
+### Minor Changes
+
+- c377647: improve gps handling
+
+### Patch Changes
+
+- Updated dependencies [c377647]
+  - svgmapviewer-app-floors@0.2.0
+  - svgmapviewer@0.7.0
+  - svgmapviewer-tools-floors@0.2.0
+
 ## 0.1.3
 
 ### Patch Changes

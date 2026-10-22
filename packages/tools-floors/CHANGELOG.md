@@ -1,5 +1,11 @@
 # svgmapviewer-tools-floors
 
+## 0.2.0
+
+### Minor Changes
+
+- c377647: improve gps handling
+
 ## 0.1.1
 
 ### Patch Changes

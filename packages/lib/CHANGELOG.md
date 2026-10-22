@@ -1,5 +1,11 @@
 # svgmapviewer
 
+## 0.7.0
+
+### Minor Changes
+
+- c377647: improve gps handling
+
 ## 0.6.0
 
 ### Minor Changes
