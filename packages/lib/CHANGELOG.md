@@ -1,5 +1,11 @@
 # svgmapviewer
 
+## 0.8.0
+
+### Minor Changes
+
+- 3a95c96: update deps
+
 ## 0.7.0
 
 ### Minor Changes
