@@ -6,7 +6,8 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./content.config": "./src/content.config.ts"
   },
   "scripts": {
     "dev": "astro dev",
