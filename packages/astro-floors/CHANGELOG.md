@@ -1,5 +1,11 @@
 # svgmapviewer-astro-floors
 
+## 0.2.0
+
+### Minor Changes
+
+- c753d8d: export content.config.ts & fix build
+
 ## 1.0.0
 
 ### Minor Changes
