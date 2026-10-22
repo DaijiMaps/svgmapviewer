@@ -1,5 +1,11 @@
 # svgmapviewer-astro-floors
 
+## 0.5.0
+
+### Minor Changes
+
+- bump
+
 ## 0.2.0
 
 ### Minor Changes
