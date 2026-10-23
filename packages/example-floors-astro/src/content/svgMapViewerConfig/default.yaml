@@ -12,3 +12,5 @@ origBoundingBox:
   y: 0
   width: 220
   height: 300
+uiConfig:
+  showGuides: false
