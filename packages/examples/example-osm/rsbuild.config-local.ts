@@ -1,9 +1,9 @@
 import { defineConfig, mergeRsbuildConfig } from '@rsbuild/core'
 import { pluginReact } from '@rsbuild/plugin-react'
 
-import appFloorsConfig from '../app-floors/rsbuild-common.config'
-import appOsmConfig from '../app-osm/rsbuild-common.config'
-import libConfig from '../lib/rsbuild-common.config'
+import appFloorsConfig from '../../app-floors/rsbuild-common.config'
+import appOsmConfig from '../../app-osm/rsbuild-common.config'
+import libConfig from '../../lib/rsbuild-common.config'
 
 export default mergeRsbuildConfig(
   appFloorsConfig,
