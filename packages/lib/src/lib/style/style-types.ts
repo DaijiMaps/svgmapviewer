@@ -14,7 +14,6 @@ export type LayoutEvent = {
 }
 export type ZoomEvent = { type: 'STYLE.ZOOM'; zoom: number }
 export type ScrollEvent = { type: 'STYLE.SCROLL'; currentScroll: CurrentScroll } // p == pscroll
-export type ModeEvent = { type: 'STYLE.MODE'; mode: string }
 export type AnimationEvent = {
   type: 'STYLE.ANIMATION'
   animation: null | AnimationMatrix
@@ -25,7 +24,6 @@ export type StyleEvent =
   | LayoutEvent
   | ZoomEvent
   | ScrollEvent
-  | ModeEvent
   | AnimationEvent
   | AnimationEndEvent
   | LayoutDoneEvent
@@ -41,5 +39,4 @@ export interface StyleContext {
   geoPoint: VecVec
   distanceRadius: DistanceRadius
   geoRange: Range
-  mode: string
 }

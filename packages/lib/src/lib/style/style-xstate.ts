@@ -22,7 +22,6 @@ import {
 } from '../viewer/layout/style'
 import { updateLayoutStyleRefs } from '../viewer/layout/style'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
-import { type ViewerMode } from '../viewer/viewer-types'
 import { updateAppearingStyleRefs } from './appearing'
 import { startLoop } from './frame'
 import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
@@ -99,7 +98,6 @@ const styleMachine = setup({
       start: vecZero,
       end: vecZero,
     },
-    mode: 'panning',
   },
   on: {
     'STYLE.LAYOUT': {
@@ -137,11 +135,6 @@ const styleMachine = setup({
         },
         'updateCoord',
       ],
-    },
-    'STYLE.MODE': {
-      actions: assign({
-        mode: ({ event }) => event.mode,
-      }),
     },
   },
   initial: 'WaitingForLayout',
@@ -246,9 +239,6 @@ export function styleCbsStart(): void {
   })
   styleCbs.animationEnd.add(function () {
     styleSend({ type: 'STYLE.ANIMATION.END' })
-  })
-  styleCbs.mode.add(function (mode: ViewerMode) {
-    styleSend({ type: 'STYLE.MODE', mode })
   })
 
   scrollCbs.eventExpire.add(handleExpire)
