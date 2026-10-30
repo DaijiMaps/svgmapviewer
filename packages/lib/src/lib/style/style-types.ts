@@ -34,7 +34,6 @@ export interface StyleContext {
   rendered: boolean
   appearing: boolean
   shown: boolean
-  animating: boolean
   layout: Layout
   zoom: number
   svgMatrix: DOMMatrixReadOnly

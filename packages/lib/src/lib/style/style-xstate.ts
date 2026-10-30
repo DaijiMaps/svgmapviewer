@@ -86,7 +86,6 @@ const styleMachine = setup({
     rendered: true,
     appearing: false,
     shown: false,
-    animating: false,
     layout: emptyLayout,
     zoom: 1,
     svgMatrix: new DOMMatrixReadOnly(),
@@ -185,7 +184,6 @@ const styleMachine = setup({
           actions: [
             ({ context: { zoom }, event: { animation } }) =>
               updateZoomStyleRefs(animation, zoom),
-            assign({ animating: true }),
             () => startLoop('zoom', 500),
           ],
           target: 'Animating',
@@ -200,12 +198,7 @@ const styleMachine = setup({
     Animating: {
       on: {
         'STYLE.ANIMATION.END': {
-          actions: [
-            ({ context: { zoom } }) => updateZoomStyleRefs(null, zoom),
-            assign({
-              animating: false,
-            }),
-          ],
+          actions: ({ context: { zoom } }) => updateZoomStyleRefs(null, zoom),
           target: 'Idle',
         },
       },
