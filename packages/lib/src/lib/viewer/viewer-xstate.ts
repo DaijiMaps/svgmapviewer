@@ -12,6 +12,7 @@ import { notifySearch, searchCbs } from '../event-search'
 import { notifyStyle, styleCbs } from '../event-style'
 import { touchCbs } from '../event-touch'
 import { notifyUi, uiCbs } from '../event-ui'
+import type { Vec } from '../vec'
 import { setZooming } from './layout/animation'
 import { emptyLayout } from './layout/layout'
 import { lockScroll, unlockScroll } from './scroll/scroll'
@@ -31,6 +32,7 @@ import {
   prepareRotate,
   prepareSearch,
   prepareZoom,
+  prepareZoom2,
   resetCursor,
   resetScroll,
   resizeLayout,
@@ -82,6 +84,9 @@ const viewerMachine = setup({
     //
     prepareZoom: assign(({ context }, params: ZoomRequest) =>
       prepareZoom(context, params)
+    ),
+    prepareZoom2: assign(({ context }, params: { p?: Vec }) =>
+      prepareZoom2(context, params.p)
     ),
     prepareHome: assign(({ context }) => prepareHome(context)),
     prepareRotate: assign(({ context }) => prepareRotate(context)),
@@ -135,6 +140,7 @@ const viewerMachine = setup({
     rotate: 0,
     animationReq: null,
     animation: null,
+    syncReq: null,
   },
   states: {
     WaitingForResizeRequest: {
@@ -213,6 +219,17 @@ const viewerMachine = setup({
           guard: () => lockScroll(),
           target: 'Recentering',
         },
+        TOUCH: {
+          /*
+          guard: () => lockScroll(),
+          actions: {
+            type: 'prepareZoom2',
+            params: ({ event }) => event,
+          },
+          */
+          target: 'Touching',
+        },
+        /*
         ZOOM: {
           guard: () => lockScroll(),
           actions: {
@@ -221,6 +238,7 @@ const viewerMachine = setup({
           },
           target: 'Zooming',
         },
+        */
         HOME: {
           guard: () => lockScroll(),
           actions: 'prepareHome',
@@ -325,6 +343,21 @@ const viewerMachine = setup({
         },
         Done: {
           type: 'final',
+        },
+      },
+    },
+    Touching: {
+      on: {
+        ZOOM: {
+          guard: () => lockScroll(),
+          actions: {
+            type: 'prepareZoom',
+            params: ({ event }) => event,
+          },
+          target: 'Zooming',
+        },
+        'TOUCH.END': {
+          target: 'Idle',
         },
       },
     },
@@ -549,12 +582,21 @@ export function viewerCbsStart(): void {
   actionCbs.zoomOut.add(() => viewerSend({ type: 'ZOOM', z: -1, p: null }))
   actionCbs.zoomIn.add(() => viewerSend({ type: 'ZOOM', z: 1, p: null }))
 
-  touchCbs.multiStart.add(() => notifyScroll.get())
-  touchCbs.multiStart.add(() => viewerMode.set('touching'))
-  touchCbs.multiEnd.add(() => viewerMode.set('panning'))
-  touchCbs.zoom.add(({ z, p }: Zoom) =>
-    viewerSend({ type: 'ZOOM', z: z > 0 ? 1 : -1, p })
-  )
+  touchCbs.multiStart.add(() => {
+    notifyScroll.get()
+    viewerMode.set('touching')
+    viewerSend({ type: 'TOUCH' })
+  })
+
+  touchCbs.multiEnd.add(() => {
+    viewerMode.set('panning')
+    viewerSend({ type: 'TOUCH.END' })
+  })
+  touchCbs.zoom.add(({ z, p, sync }: Zoom) => {
+    if (sync !== true) {
+      viewerSend({ type: 'ZOOM', z: z > 0 ? 1 : -1, p })
+    }
+  })
 
   globalCbs.rendered.add(() => viewerSend({ type: 'RENDERED' }))
 }

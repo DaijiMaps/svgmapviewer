@@ -105,6 +105,8 @@ export interface ZoomInfo {
 export interface Zoom {
   readonly z: Z
   readonly p: null | Vec
+  readonly s?: number
+  readonly sync?: boolean
 }
 
 export interface ResizeInfo {

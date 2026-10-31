@@ -3,10 +3,16 @@ import { createAtom, type Atom } from '@xstate/store'
 import { assign, createActor, raise, setup } from 'xstate'
 
 import { getConfig } from '../../config'
-import { type CurrentScroll, type ResizeInfo, type ZoomInfo } from '../../types'
+import {
+  type CurrentScroll,
+  type ResizeInfo,
+  type Zoom,
+  type ZoomInfo,
+} from '../../types'
 import { findRadius } from '../distance'
 import { scrollCbs } from '../event-scroll'
 import { styleCbs } from '../event-style'
+import { touchCbs } from '../event-touch'
 import { updateMapStyleRefs } from '../map/style'
 import {
   updateCoordRefs,
@@ -19,6 +25,7 @@ import { emptyLayout, type Layout } from '../viewer/layout/layout'
 import {
   updateSvgScaleStyleRefs,
   updateZoomStyleRefs,
+  updateZoomSyncStyleRefs,
 } from '../viewer/layout/style'
 import { updateLayoutStyleRefs } from '../viewer/layout/style'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
@@ -242,4 +249,10 @@ export function styleCbsStart(): void {
   })
 
   scrollCbs.eventExpire.add(handleExpire)
+
+  touchCbs.zoom.add(function (zoom: Readonly<Zoom>) {
+    if (zoom.p !== null && zoom.s !== undefined && zoom.sync === true) {
+      updateZoomSyncStyleRefs(zoom.p, zoom.s)
+    }
+  })
 }

@@ -54,14 +54,17 @@ const touchMachine = setup({
             : { type: 'NONE' }
     ),
     resetTouches: assign({
-      touches: () => resetTouches(),
       mode: 'idle',
+      touches: () => resetTouches(),
+      center: null,
     }),
     enterPan: assign({
       mode: 'pan',
+      center: null,
     }),
     enterPinch: assign({
       mode: 'pinch',
+      center: ({ context }) => context.touches.cursor,
     }),
     emitMulti: emit(({ context: { touches } }): TouchEmit_ => ({
       type: 'MULTI',
@@ -71,11 +74,17 @@ const touchMachine = setup({
       type: 'ZOOM',
       touches,
     })),
+    emitZoomSync: emit(({ context: { touches, center } }) => ({
+      type: 'ZOOM.SYNC',
+      touches,
+      center: center,
+    })),
   },
 }).createMachine({
   id: 'touch1',
   initial: 'Idle',
   context: {
+    mode: 'idle',
     touches: {
       vecs: new Map(),
       points: [],
@@ -84,7 +93,7 @@ const touchMachine = setup({
       z: null,
       horizontal: null,
     },
-    mode: 'idle',
+    center: null,
   },
   on: {
     'TOUCH.START': {
@@ -161,8 +170,16 @@ const touchMachine = setup({
           },
         ],
         MOVED: {
-          guard: and(['isModePinching', 'isZooming']),
-          actions: 'emitZoom',
+          // XXX
+          // XXX
+          // XXX
+          //guard: and(['isModePinching', 'isZooming']),
+          //actions: 'emitZoom',
+          guard: and(['isModePinching']),
+          actions: 'emitZoomSync',
+          // XXX
+          // XXX
+          // XXX
         },
         ENDED: [
           {
@@ -171,6 +188,7 @@ const touchMachine = setup({
           },
           {
             guard: 'isSingleTouching',
+            actions: 'enterPan',
             target: 'SingleTouching',
           },
         ],
@@ -266,6 +284,21 @@ touchActor.on('ZOOM', ({ touches }) => {
     notifyTouch.zoom({ z: z > 0 ? 1 : -1, p })
   }
 })
+// XXX
+// XXX
+// XXX
+touchActor.on('ZOOM.SYNC', ({ touches, center }) => {
+  //console.log('ZOOM.SYNC', touches)
+  if (touches.dists.length < 2 || center === null) return
+  const p0 = center
+  const d0 = touches.dists[touches.dists.length - 1]
+  const d = touches.dists[0]
+  const s = d / d0
+  notifyTouch.zoom({ z: 1, p: p0, s, sync: true })
+})
+// XXX
+// XXX
+// XXX
 
 ////
 

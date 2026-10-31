@@ -21,6 +21,10 @@ export type ViewerModeLocked = 'locked'
 export type ViewerMode =
   ViewerModePanning | ViewerModeTouching | ViewerModeLocked
 
+export type Sync = {
+  p?: null | Vec
+}
+
 //// context
 
 export type ViewerContext = {
@@ -33,6 +37,7 @@ export type ViewerContext = {
   readonly rotate: number
   readonly animationReq: null | AnimationReq
   readonly animation: null | Animation
+  readonly syncReq: null | Sync
 }
 
 //// external event (request)
@@ -50,6 +55,8 @@ export type ScrollSyncsyncDoneRequest = {
   type: 'SCROLL.SYNCSYNC.DONE'
   scroll: BoxBox
 }
+export type TouchRequest = { type: 'TOUCH'; p?: Vec }
+export type TouchEndRequest = { type: 'TOUCH.END' }
 export type ZoomRequest = { type: 'ZOOM' } & Zoom
 export type SearchRequest = { type: 'SEARCH'; pos: Vec }
 export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
@@ -63,6 +70,8 @@ export type ViewerRequest =
   | RenderedRequest
   | ScrollGetDoneRequest
   | ScrollSyncsyncDoneRequest
+  | TouchRequest
+  | TouchEndRequest
   | ZoomRequest
   | SearchRequest
   | SearchEnd
