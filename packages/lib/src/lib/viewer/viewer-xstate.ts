@@ -2,7 +2,12 @@ import { createAtom, type Atom } from '@xstate/store'
 import { and, assign, createActor, emit, setup } from 'xstate'
 
 import { getConfig } from '../../config'
-import { type ResizeInfo, type SearchRes, type Zoom } from '../../types'
+import {
+  type ResizeInfo,
+  type SearchRes,
+  type Zoom,
+  type ZoomInfo,
+} from '../../types'
 import { boxCenter, type BoxBox } from '../box/prefixed'
 import { actionCbs } from '../event-action'
 import { floorCbs, notifyFloor } from '../event-floor'
@@ -229,7 +234,6 @@ const viewerMachine = setup({
           */
           target: 'Touching',
         },
-        /*
         ZOOM: {
           guard: () => lockScroll(),
           actions: {
@@ -238,7 +242,6 @@ const viewerMachine = setup({
           },
           target: 'Zooming',
         },
-        */
         HOME: {
           guard: () => lockScroll(),
           actions: 'prepareHome',
@@ -492,8 +495,8 @@ viewerActor.on('SEARCH.END.DONE', ({ res }) => {
     notifyUi.open(res.psvg)
   }
 })
-viewerActor.on('ZOOM.START', (args) => notifyStyle.zoomStart(args))
-viewerActor.on('ZOOM.END', (end) => notifyStyle.zoomEnd(end))
+viewerActor.on('ZOOM.START', (args) => notifyStyle.zoom(args))
+viewerActor.on('ZOOM.END', (end) => notifyStyle.zoom(end))
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloor.select(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloor.unlock())
@@ -569,11 +572,9 @@ export function viewerCbsStart(): void {
     viewerSend({ type: 'RESIZE', layout, force })
   )
   styleCbs.mode.add(reflectMode)
-  styleCbs.zoomStart.add(() => {
-    wheeleventmask = true
-  })
-  styleCbs.zoomEnd.add(() => {
-    wheeleventmask = false
+  styleCbs.zoom.add((zoom: Readonly<ZoomInfo>) => {
+    // q !== null => zoom start
+    wheeleventmask = zoom.q !== null
   })
 
   actionCbs.reset.add(() => viewerSend({ type: 'HOME' }))

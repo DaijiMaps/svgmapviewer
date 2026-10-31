@@ -236,13 +236,9 @@ export function styleCbsStart(): void {
     // XXX update name range after scroll is updated
     requestAnimationFrame(() => handleExpire())
   })
-  styleCbs.zoomStart.add(function (zoom: Readonly<ZoomInfo>) {
-    styleSend({ type: 'STYLE.ZOOM', ...zoom })
+  styleCbs.zoom.add(function (zoom: Readonly<ZoomInfo>) {
+    styleSend({ type: 'STYLE.ZOOM', zoom: zoom.zoom })
     styleSend({ type: 'STYLE.ANIMATION', animation: zoom.q })
-  })
-  styleCbs.zoomEnd.add(function (end: Readonly<ZoomInfo>) {
-    styleSend({ type: 'STYLE.ZOOM', zoom: end.zoom })
-    styleSend({ type: 'STYLE.ANIMATION', animation: end.q })
   })
   styleCbs.animationEnd.add(function () {
     styleSend({ type: 'STYLE.ANIMATION.END' })
