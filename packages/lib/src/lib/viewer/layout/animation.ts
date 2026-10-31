@@ -43,7 +43,10 @@ export function calcAnimation(
 }
 
 export function calcAnimationZoom(req: null | AnimationReq): number {
-  return req === null || req.type !== 'zoom' ? 1 : Math.pow(2, req.z)
+  if (req === null) return 1
+  if (req.type === 'zoom') return Math.pow(2, req.z)
+  if (req.type === 'zoom.sync') return Math.pow(2, req.s)
+  return 1
 }
 
 export function calcAnimationRotate(req: null | AnimationReq): number {

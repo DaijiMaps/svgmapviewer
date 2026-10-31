@@ -79,6 +79,12 @@ const touchMachine = setup({
       touches,
       center: center,
     })),
+    emitZoomSyncDone: emit(({ context: { touches } }) => ({
+      type: 'ZOOM.SYNC',
+      touches,
+      center: null,
+      end: true,
+    })),
   },
 }).createMachine({
   id: 'touch1',
@@ -134,6 +140,7 @@ const touchMachine = setup({
     },
     SingleTouching: {
       tags: 'single',
+      entry: 'enterPan',
       on: {
         STARTED: [
           {
@@ -184,11 +191,12 @@ const touchMachine = setup({
         ENDED: [
           {
             guard: 'isAllEnding',
+            actions: 'emitZoomSyncDone',
             target: 'Idle',
           },
           {
             guard: 'isSingleTouching',
-            actions: 'enterPan',
+            actions: 'emitZoomSyncDone',
             target: 'SingleTouching',
           },
         ],
@@ -287,14 +295,17 @@ touchActor.on('ZOOM', ({ touches }) => {
 // XXX
 // XXX
 // XXX
-touchActor.on('ZOOM.SYNC', ({ touches, center }) => {
+touchActor.on('ZOOM.SYNC', ({ touches, center, end }) => {
   //console.log('ZOOM.SYNC', touches)
-  if (touches.dists.length < 2 || center === null) return
-  const p0 = center
-  const d0 = touches.dists[touches.dists.length - 1]
-  const d = touches.dists[0]
-  const s = d / d0
-  notifyTouch.zoom({ z: 1, p: p0, s, sync: true })
+  if (end === true) {
+    notifyTouch.zoom({ z: 1, p: null, s: 1, sync: true })
+  } else if (touches.dists.length > 1 && center !== null) {
+    const p0 = center
+    const d0 = touches.dists[touches.dists.length - 1]
+    const d = touches.dists[0]
+    const s = d / d0
+    notifyTouch.zoom({ z: 1, p: p0, s, sync: true })
+  }
 })
 // XXX
 // XXX

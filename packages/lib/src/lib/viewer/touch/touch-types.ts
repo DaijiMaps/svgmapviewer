@@ -18,7 +18,12 @@ type TouchEvent_ =
 type TouchEmit_ =
   | { type: 'MULTI'; touches: Touches }
   | { type: 'ZOOM'; touches: Touches }
-  | { type: 'ZOOM.SYNC'; touches: Touches; center: null | VecVec }
+  | {
+      type: 'ZOOM.SYNC'
+      touches: Touches
+      center: null | VecVec
+      end?: boolean
+    }
 type TouchContext_ = {
   mode: 'idle' | 'pan' | 'pinch'
   touches: Touches

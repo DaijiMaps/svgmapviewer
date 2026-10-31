@@ -295,13 +295,14 @@ export function useZoomSyncStyleRef(
   useStyleRef(zoomSyncStyleRefs, ref, name)
 }
 
-export function updateZoomSyncStyleRefs(o: VecVec, zoom: null | number): void {
+export function updateZoomSyncStyleRefs(
+  o: null | VecVec,
+  zoom: null | number
+): void {
   Array.from(zoomSyncStyleRefs, ([, e]) => {
     const p = e.style.setProperty.bind(e.style)
-    p(`--zoom-origin`, `${o.x}px ${o.y}px`)
-    if (zoom !== null) {
-      p(`--zoom-transform`, `scale(${zoom})`)
-    }
+    p(`--zoom-origin`, o === null ? null : `${o.x}px ${o.y}px`)
+    p(`--zoom-transform`, zoom === null ? null : `scale(${zoom})`)
     tag(e, 'syncing', zoom !== null)
   })
 }

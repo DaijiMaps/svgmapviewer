@@ -249,6 +249,8 @@ export function styleCbsStart(): void {
   touchCbs.zoom.add(function (zoom: Readonly<Zoom>) {
     if (zoom.p !== null && zoom.s !== undefined && zoom.sync === true) {
       updateZoomSyncStyleRefs(zoom.p, zoom.s)
+    } else if (zoom.p === null && zoom.s === 1 && zoom.sync === true) {
+      updateZoomSyncStyleRefs(null, null)
     }
   })
 }

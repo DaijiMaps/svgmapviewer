@@ -19,6 +19,7 @@ import { touchCbs } from '../event-touch'
 import { notifyUi, uiCbs } from '../event-ui'
 import type { Vec } from '../vec'
 import { setZooming } from './layout/animation'
+import type { AnimationReq } from './layout/animation-types'
 import { emptyLayout } from './layout/layout'
 import { lockScroll, unlockScroll } from './scroll/scroll'
 import {
@@ -51,6 +52,7 @@ import {
   type SearchEnd,
   type SearchRequest,
   type SwitchRequest,
+  type TouchEndRequest,
   type ViewerContext,
   type ViewerEmitted,
   type ViewerEvent,
@@ -98,6 +100,15 @@ const viewerMachine = setup({
     clearAnimation: assign(({ context }) => clearAnimation(context)),
     startZoom: assign(({ context }) => startZoom(context)),
     endZoom: assign(({ context }) => endZoom(context)),
+    endZoomSync: assign(({ context }, { p, s }: Readonly<TouchEndRequest>) => {
+      if (p === undefined || s === undefined) return context
+      const animationReq: AnimationReq = {
+        type: 'zoom.sync',
+        s,
+        p,
+      }
+      return endZoom({ ...context, animationReq })
+    }),
     endHome: assign(({ context }) => endHome(context)),
     emitZoomStart: emit(({ context }) => emitZoomStart(context)),
     emitZoomEnd: emit(({ context }) => emitZoomEnd(context)),
@@ -234,6 +245,7 @@ const viewerMachine = setup({
           */
           target: 'Touching',
         },
+        /*
         ZOOM: {
           guard: () => lockScroll(),
           actions: {
@@ -242,6 +254,7 @@ const viewerMachine = setup({
           },
           target: 'Zooming',
         },
+        */
         HOME: {
           guard: () => lockScroll(),
           actions: 'prepareHome',
@@ -359,8 +372,59 @@ const viewerMachine = setup({
           },
           target: 'Zooming',
         },
-        'TOUCH.END': {
-          target: 'Idle',
+        'TOUCH.END': [
+          // XXX
+          // XXX - clear --zoom-origin / --zoom-transform
+          // XXX - update animationReq
+          // XXX - reflect zoom to layout
+          // XXX
+          {
+            guard: ({ event }) =>
+              event.p !== undefined && event.s !== undefined,
+            actions: {
+              type: 'endZoomSync',
+              params: ({ event }) => event,
+            },
+            target: 'Syncing',
+          },
+          {
+            target: 'Idle',
+          },
+        ],
+      },
+    },
+    Syncing: {
+      id: 'Syncing',
+      initial: 'Ending',
+      onDone: 'Idle',
+      states: {
+        Ending: {
+          always: {
+            actions: [
+              'emitZoomEnd',
+              'emitSyncLayout',
+              // fast sync - sync scroll NOT after resize
+              'emitSyncScroll',
+            ],
+            target: 'Rendering2',
+          },
+        },
+        Rendering2: {
+          after: {
+            // XXX
+            // XXX
+            // XXX
+            50: {
+              target: 'Done',
+            },
+            // XXX
+            // XXX
+            // XXX
+          },
+        },
+        Done: {
+          entry: 'clearAnimation',
+          type: 'final',
         },
       },
     },

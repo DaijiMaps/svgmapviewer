@@ -56,7 +56,7 @@ export type ScrollSyncsyncDoneRequest = {
   scroll: BoxBox
 }
 export type TouchRequest = { type: 'TOUCH'; p?: Vec }
-export type TouchEndRequest = { type: 'TOUCH.END' }
+export type TouchEndRequest = { type: 'TOUCH.END'; p?: Vec; s?: number }
 export type ZoomRequest = { type: 'ZOOM' } & Zoom
 export type SearchRequest = { type: 'SEARCH'; pos: Vec }
 export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
