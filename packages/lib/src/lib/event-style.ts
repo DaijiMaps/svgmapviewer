@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
-import type { ResizeInfo, ZoomInfo } from '../types'
+import type { ResizeInfo, ZoomInfo, ZoomSync } from '../types'
 import { notifyCbs, notifyCbs0 } from './cb'
 import type { StyleCbs } from './event-style-types'
 import type { ViewerMode } from './viewer/viewer-types'
@@ -9,6 +9,7 @@ export const styleCbs: StyleCbs = {
   resize: new Set(),
   layout: new Set(),
   zoom: new Set(),
+  zoomSync: new Set(),
   animationEnd: new Set(),
   mode: new Set(),
 }
@@ -19,6 +20,8 @@ export const notifyStyle = {
   layout: (resize: Readonly<ResizeInfo>): void =>
     notifyCbs(styleCbs.layout, resize),
   zoom: (zoom: Readonly<ZoomInfo>): void => notifyCbs(styleCbs.zoom, zoom),
+  zoomSync: (zoom: Readonly<null | ZoomSync>): void =>
+    notifyCbs(styleCbs.zoomSync, zoom),
   animationEnd: (): void => notifyCbs0(styleCbs.animationEnd),
   mode: (mode: ViewerMode): void => notifyCbs(styleCbs.mode, mode),
 }

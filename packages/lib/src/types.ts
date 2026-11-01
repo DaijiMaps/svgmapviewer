@@ -109,6 +109,11 @@ export interface Zoom {
   readonly sync?: boolean
 }
 
+export interface ZoomSync {
+  readonly p: Vec
+  readonly s: number
+}
+
 export interface ResizeInfo {
   readonly layout: Readonly<Layout>
   readonly force: boolean

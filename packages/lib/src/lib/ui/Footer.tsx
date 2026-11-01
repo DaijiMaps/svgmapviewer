@@ -16,6 +16,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
+import { viewerMode } from '../viewer/viewer-mode'
 import { useViewerStatus } from '../viewer/viewer-xstate'
 import { useHeaderStyleRef } from './style'
 
@@ -35,6 +36,7 @@ function FooterRoot(): ReactNode {
   const debugStrings = useAtom(debugStringAtom)
 
   const v = useViewerStatus()
+  const m = useAtom(viewerMode)
 
   return (
     <div ref={ref} className="ui-content footer">
@@ -45,7 +47,9 @@ function FooterRoot(): ReactNode {
           </p>
         ))}
       </div>
-      <p>{v}</p>
+      <p>
+        {v}:{m}
+      </p>
       <p>
         <a onClick={() => openInfo()}>{cfg.copyright}</a>
       </p>

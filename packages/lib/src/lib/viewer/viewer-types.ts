@@ -5,6 +5,7 @@ import {
   type Zoom,
   type ZoomInfo,
   type AnimationMatrix,
+  type ZoomSync,
 } from '../../types'
 import { type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec } from '../vec/prefixed'
@@ -58,6 +59,7 @@ export type ScrollSyncsyncDoneRequest = {
 export type TouchRequest = { type: 'TOUCH'; p?: Vec }
 export type TouchEndRequest = { type: 'TOUCH.END'; p?: Vec; s?: number }
 export type ZoomRequest = { type: 'ZOOM' } & Zoom
+export type ZoomSyncRequest = { type: 'ZOOM.SYNC'; zoomSync: null | ZoomSync }
 export type SearchRequest = { type: 'SEARCH'; pos: Vec }
 export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
 export type ViewerRequest =
@@ -73,6 +75,7 @@ export type ViewerRequest =
   | TouchRequest
   | TouchEndRequest
   | ZoomRequest
+  | ZoomSyncRequest
   | SearchRequest
   | SearchEnd
 
@@ -113,6 +116,10 @@ export type ZoomEndEmitted = {
   layout: Layout
   zoom: number
 }
+export type ZoomSyncEmitted = {
+  type: 'ZOOM.SYNC'
+  zoomSync: null | ZoomSync
+}
 
 export type SyncLayoutEmitted = {
   type: 'SYNC.LAYOUT'
@@ -132,6 +139,7 @@ export type ViewerEmitted =
   | SearchEndDoneEmitted
   | ZoomStartEmitted
   | ZoomEndEmitted
+  | ZoomSyncEmitted
   | SwitchRequest
   | SwitchDoneRequest
   | SyncLayoutEmitted

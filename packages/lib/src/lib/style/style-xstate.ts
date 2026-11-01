@@ -3,16 +3,16 @@ import { createAtom, type Atom } from '@xstate/store'
 import { assign, createActor, raise, setup } from 'xstate'
 
 import { getConfig } from '../../config'
+import { appendDebug } from '../../debug'
 import {
   type CurrentScroll,
   type ResizeInfo,
-  type Zoom,
   type ZoomInfo,
+  type ZoomSync,
 } from '../../types'
 import { findRadius } from '../distance'
 import { scrollCbs } from '../event-scroll'
 import { styleCbs } from '../event-style'
-import { touchCbs } from '../event-touch'
 import { updateMapStyleRefs } from '../map/style'
 import {
   updateCoordRefs,
@@ -32,6 +32,7 @@ import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { updateAppearingStyleRefs } from './appearing'
 import { startLoop } from './frame'
 import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
+//import { appendDebug } from '../../debug'
 
 export const currentLayout: Atom<Layout> = createAtom<Layout>(emptyLayout)
 
@@ -240,17 +241,29 @@ export function styleCbsStart(): void {
     styleSend({ type: 'STYLE.ZOOM', zoom: zoom.zoom })
     styleSend({ type: 'STYLE.ANIMATION', animation: zoom.q })
   })
+  styleCbs.zoomSync.add(function (zoomSync: Readonly<null | ZoomSync>) {
+    if (zoomSync === null) {
+      appendDebug(`zoomSync null!`)
+      updateZoomSyncStyleRefs(null, null)
+    } else {
+      updateZoomSyncStyleRefs(zoomSync.p, zoomSync.s)
+    }
+  })
   styleCbs.animationEnd.add(function () {
     styleSend({ type: 'STYLE.ANIMATION.END' })
   })
 
   scrollCbs.eventExpire.add(handleExpire)
 
+  // XXX listen to styleCbs.zoomSync from viewer
+  /*
   touchCbs.zoom.add(function (zoom: Readonly<Zoom>) {
-    if (zoom.p !== null && zoom.s !== undefined && zoom.sync === true) {
+    if (!zoom.sync) return
+    if (zoom.p !== null && zoom.s !== undefined) {
       updateZoomSyncStyleRefs(zoom.p, zoom.s)
-    } else if (zoom.p === null && zoom.s === 1 && zoom.sync === true) {
+    } else if (zoom.p === null && zoom.s === 1) {
       updateZoomSyncStyleRefs(null, null)
     }
   })
+  */
 }

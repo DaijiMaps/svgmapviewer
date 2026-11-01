@@ -1,5 +1,4 @@
 import { useSelector } from '@xstate/react'
-import { createAtom, type Atom } from '@xstate/store'
 import { and, assign, createActor, emit, setup } from 'xstate'
 
 import { getConfig } from '../../config'
@@ -9,6 +8,7 @@ import {
   type SearchRes,
   type Zoom,
   type ZoomInfo,
+  type ZoomSync,
 } from '../../types'
 import { boxCenter, type BoxBox } from '../box/prefixed'
 import { actionCbs } from '../event-action'
@@ -35,6 +35,7 @@ import {
   emitSyncSyncScroll,
   emitZoomEnd,
   emitZoomStart,
+  emitZoomSync,
   endHome,
   endZoom,
   prepareHome,
@@ -49,6 +50,7 @@ import {
   searchStart,
   startZoom,
 } from './viewer'
+import { viewerMode } from './viewer-mode'
 import {
   type ReactUIEvent,
   type ResizeRequest,
@@ -62,9 +64,6 @@ import {
   type ViewerMode,
   type ZoomRequest,
 } from './viewer-types'
-
-export const viewerMode: Atom<ViewerMode> = createAtom<ViewerMode>('panning')
-viewerMode.subscribe((mode: ViewerMode) => notifyStyle.mode(mode))
 
 //// viewerMachine
 
@@ -104,7 +103,7 @@ const viewerMachine = setup({
     startZoom: assign(({ context }) => startZoom(context)),
     endZoom: assign(({ context }) => endZoom(context)),
     endZoomSync: assign(({ context }, { p, s }: Readonly<TouchEndRequest>) => {
-      appendDebug(`endZoomSync: p=${JSON.stringify(p)} s=${s}`)
+      //appendDebug(`endZoomSync: p=${JSON.stringify(p)} s=${s}`)
       if (p === undefined || s === undefined) return context
       const animationReq: AnimationReq = {
         type: 'zoom.sync',
@@ -118,6 +117,9 @@ const viewerMachine = setup({
     endHome: assign(({ context }) => endHome(context)),
     emitZoomStart: emit(({ context }) => emitZoomStart(context)),
     emitZoomEnd: emit(({ context }) => emitZoomEnd(context)),
+    emitZoomSync: emit((_, zoomSync: null | ZoomSync) =>
+      emitZoomSync(zoomSync)
+    ),
     //
     // layout
     //
@@ -275,6 +277,8 @@ const viewerMachine = setup({
     Searching: {
       initial: 'Starting',
       onDone: 'Idle', // XXX do `Recentering' conditionally?
+      entry: () => viewerMode.set('locked'),
+      exit: () => viewerMode.set('panning'),
       states: {
         Starting: {
           always: {
@@ -369,7 +373,11 @@ const viewerMachine = setup({
     },
     Touching: {
       entry: () => {
-        appendDebug(`=> Touching`)
+        //appendDebug(`=> Touching`)
+        viewerMode.set('touching')
+      },
+      exit: () => {
+        viewerMode.set('panning')
       },
       on: {
         ZOOM: {
@@ -379,6 +387,12 @@ const viewerMachine = setup({
             params: ({ event }) => event,
           },
           target: 'Zooming',
+        },
+        'ZOOM.SYNC': {
+          actions: {
+            type: 'emitZoomSync',
+            params: ({ event }) => event.zoomSync,
+          },
         },
         'TOUCH.END': [
           // XXX
@@ -569,6 +583,10 @@ viewerActor.on('SEARCH.END.DONE', ({ res }) => {
 })
 viewerActor.on('ZOOM.START', (args) => notifyStyle.zoom(args))
 viewerActor.on('ZOOM.END', (end) => notifyStyle.zoom(end))
+viewerActor.on('ZOOM.SYNC', (args) => {
+  //appendDebug(`emit ZOOM.SYNC`)
+  notifyStyle.zoomSync(args.zoomSync)
+})
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloor.select(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloor.unlock())
@@ -625,9 +643,9 @@ export function viewerCbsStart(): void {
     viewerActor.send({ type: 'SEARCH.END', res })
   )
 
-  uiCbs.open.add(() => viewerMode.set('locked'))
+  //uiCbs.open.add(() => viewerMode.set('locked'))
   uiCbs.closeDone.add(() => viewerSend({ type: 'SEARCH.DONE' }))
-  uiCbs.closeDone.add(() => viewerMode.set('panning'))
+  //uiCbs.closeDone.add(() => viewerMode.set('panning'))
 
   scrollCbs.getDone.add((scroll: Readonly<null | BoxBox>) => {
     if (scroll !== null) {
@@ -657,20 +675,35 @@ export function viewerCbsStart(): void {
 
   touchCbs.multiStart.add(() => {
     notifyScroll.get()
-    viewerMode.set('touching')
     viewerSend({ type: 'TOUCH' })
-    appendDebug(`multiStart => TOUCH`)
+    //appendDebug(`multiStart => TOUCH`)
   })
 
   touchCbs.multiEnd.add(({ p, s }: Readonly<{ p?: VecVec; s?: number }>) => {
-    viewerMode.set('panning')
     // XXX pass p & s
     viewerSend({ type: 'TOUCH.END', p, s })
-    appendDebug(`TOUCH.END: p.x=${p?.x} p.y=${p?.y} s=${s}`)
+    //appendDebug(`TOUCH.END: p.x=${p?.x} p.y=${p?.y} s=${s}`)
   })
-  touchCbs.zoom.add(({ z, p, sync }: Zoom) => {
+  touchCbs.zoom.add(({ z, p, s, sync }: Zoom) => {
     if (sync !== true) {
       viewerSend({ type: 'ZOOM', z: z > 0 ? 1 : -1, p })
+    }
+    if (sync === true) {
+      // XXX ZOOM.SYNC
+      /*
+      if (zoom.p !== null && zoom.s !== undefined) {
+        updateZoomSyncStyleRefs(zoom.p, zoom.s)
+      } else if (zoom.p === null && zoom.s === 1) {
+        updateZoomSyncStyleRefs(null, null)
+      }
+      */
+      const zoomSync: null | ZoomSync =
+        p !== null && s !== undefined ? { p, s } : null
+      if (zoomSync === null) appendDebug(`send ZOOM.SYNC null!`)
+      viewerSend({
+        type: 'ZOOM.SYNC',
+        zoomSync,
+      })
     }
   })
 

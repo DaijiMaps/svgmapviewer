@@ -2,6 +2,7 @@ import { useSelector } from '@xstate/react'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 
 import { appendDebug } from '../../../debug'
+//import { appendDebug } from '../../../debug'
 import { actionCbs } from '../../event-action'
 import { notifyTouch } from '../../event-touch'
 import {
@@ -112,6 +113,7 @@ const touchMachine = setup({
       z: null,
       horizontal: null,
     },
+    active: true,
     center: null,
     scale: null,
   },
@@ -183,7 +185,12 @@ const touchMachine = setup({
     DoubleTouching: {
       tags: 'double',
       entry: ['emitMulti', 'enterPinch'],
-      exit: 'emitMulti',
+      exit: [
+        () => {
+          appendDebug(`emit multi`)
+        },
+        //'emitMulti',
+      ],
       on: {
         STARTED: [
           {
@@ -206,12 +213,24 @@ const touchMachine = setup({
         ENDED: [
           {
             guard: 'isAllEnding',
-            actions: 'emitZoomSyncDone',
+            actions: [
+              () => {
+                appendDebug(`sync done => idle`)
+              },
+              'emitZoomSyncDone',
+              'emitMulti',
+            ],
             target: 'Idle',
           },
           {
             guard: 'isSingleTouching',
-            actions: 'emitZoomSyncDone',
+            actions: [
+              () => {
+                appendDebug(`sync done => single`)
+              },
+              'emitZoomSyncDone',
+              'emitMulti',
+            ],
             target: 'SingleTouching',
           },
         ],
@@ -297,7 +316,7 @@ touchActor.on('MULTI', ({ touches, center, scale }) => {
     notifyTouch.multiStart()
     appendDebug(`multiStart`)
   } else {
-    // XXX pass p & s
+    // XXX only when viewer is in Touching
     const p = center === null ? undefined : center
     const s = scale === null ? undefined : scale
     notifyTouch.multiEnd({ p, s })
@@ -317,8 +336,10 @@ touchActor.on('ZOOM', ({ touches }) => {
 // XXX
 touchActor.on('ZOOM.SYNC', ({ touches, center, end }) => {
   //console.log('ZOOM.SYNC', touches)
+  //appendDebug(`mode=${m}`)
   if (end === true) {
-    notifyTouch.zoom({ z: 1, p: null, s: 1, sync: true })
+    notifyTouch.zoom({ z: 1, p: null, sync: true })
+    appendDebug(`ZOOM.SYNC end!`)
   } else if (touches.dists.length > 1 && center !== null) {
     const p0 = center
     const d0 = touches.dists[touches.dists.length - 1]

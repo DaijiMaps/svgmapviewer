@@ -1,6 +1,5 @@
-/* eslint-disable functional/no-expression-statements */
-import { appendDebug } from '../../debug'
-import type { SearchSvgReq } from '../../types'
+//import { appendDebug } from '../../debug'
+import type { SearchSvgReq, ZoomSync } from '../../types'
 import { boxCenter } from '../box/prefixed'
 import type { Vec } from '../vec'
 import {
@@ -154,7 +153,7 @@ export function startZoom(context: Readonly<ViewerContext>): ViewerContext {
 export function endZoom(context: Readonly<ViewerContext>): ViewerContext {
   const zoom = context.zoom * calcAnimationZoom(context.animationReq)
   const rotate = context.rotate + calcAnimationRotate(context.animationReq)
-  appendDebug(`endZoom: zoom=${JSON.stringify(zoom)}`)
+  //appendDebug(`endZoom: zoom=${JSON.stringify(zoom)}`)
   return {
     ...context,
     prevLayout: null,
@@ -210,6 +209,15 @@ export function emitZoomEnd({
     layout,
     zoom,
     q: animation?.q ?? null,
+  }
+}
+
+export function emitZoomSync(
+  zoomSync: Readonly<null | ZoomSync>
+): ViewerEmitted {
+  return {
+    type: 'ZOOM.SYNC',
+    zoomSync,
   }
 }
 

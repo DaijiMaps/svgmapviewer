@@ -32,6 +32,7 @@ type TouchEmit_ =
 type TouchContext_ = {
   mode: 'idle' | 'pan' | 'pinch'
   touches: Touches
+  active: boolean
   center: null | VecVec
   scale: null | number
 }
