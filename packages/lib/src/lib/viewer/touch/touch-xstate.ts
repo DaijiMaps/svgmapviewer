@@ -1,4 +1,5 @@
 import { useSelector } from '@xstate/react'
+import { createAtom, type Atom } from '@xstate/store'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 
 import { appendDebug } from '../../../debug'
@@ -17,6 +18,8 @@ import {
   type TouchEvent_,
   type TouchTags_,
 } from './touch-types'
+
+export const touchLock: Atom<boolean> = createAtom<boolean>(false)
 
 const touchMachine = setup({
   types: {
@@ -99,6 +102,8 @@ const touchMachine = setup({
         return s
       },
     }),
+    lock: () => touchLock.set(() => true),
+    unlock: () => touchLock.set(() => false),
   },
 }).createMachine({
   id: 'touch1',
@@ -129,6 +134,14 @@ const touchMachine = setup({
     },
   },
   states: {
+    Resetting: {
+      after: {
+        100: {
+          actions: 'unlock',
+          target: 'Idle',
+        },
+      },
+    },
     Idle: {
       tags: 'none',
       entry: 'resetTouches',
@@ -174,7 +187,7 @@ const touchMachine = setup({
         ENDED: [
           {
             guard: 'isAllEnding',
-            target: 'Idle',
+            target: 'Resetting',
           },
         ],
         CANCEL: {
@@ -184,7 +197,12 @@ const touchMachine = setup({
     },
     DoubleTouching: {
       tags: 'double',
-      entry: [() => appendDebug(`emit multi`), 'emitMulti', 'enterPinch'],
+      entry: [
+        () => appendDebug(`emit multi`),
+        'emitMulti',
+        'enterPinch',
+        'lock',
+      ],
       exit: [
         () => appendDebug(`emit multi`),
         //'emitMulti',
@@ -218,7 +236,7 @@ const touchMachine = setup({
               'emitZoomSyncDone',
               'emitMulti',
             ],
-            target: 'Idle',
+            target: 'Resetting',
           },
           {
             guard: 'isSingleTouching',
@@ -245,7 +263,7 @@ const touchMachine = setup({
         ENDED: [
           {
             guard: 'isAllEnding',
-            target: 'Idle',
+            target: 'Resetting',
           },
           {
             guard: 'isSingleTouching',
@@ -269,7 +287,7 @@ const touchMachine = setup({
         ENDED: [
           {
             //guard: 'isAllEnding',
-            target: 'Idle',
+            target: 'Resetting',
           },
         ],
       },
