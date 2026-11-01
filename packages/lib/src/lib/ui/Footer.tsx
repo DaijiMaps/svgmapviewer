@@ -1,9 +1,11 @@
+import { useAtom } from '@xstate/store-react'
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { useRef, type ReactNode } from 'react'
 
 import { useConfig } from '../../config'
+import { debugStringAtom } from '../../debug'
 import { openInfo } from '../../mode'
 import {
   flex_column_center_center,
@@ -14,6 +16,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
+import { useViewerStatus } from '../viewer/viewer-xstate'
 import { useHeaderStyleRef } from './style'
 
 export function Footer(): ReactNode {
@@ -29,8 +32,20 @@ function FooterRoot(): ReactNode {
 
   const cfg = useConfig()
 
+  const debugStrings = useAtom(debugStringAtom)
+
+  const v = useViewerStatus()
+
   return (
     <div ref={ref} className="ui-content footer">
+      <div className="debug">
+        {Array.from(debugStrings).map((s, idx) => (
+          <p key={idx}>
+            {idx}:{s}
+          </p>
+        ))}
+      </div>
+      <p>{v}</p>
       <p>
         <a onClick={() => openInfo()}>{cfg.copyright}</a>
       </p>
@@ -104,6 +119,14 @@ const style = `
   to {
     opacity: var(--b);
     transform: translate(calc(50vw - 50%), 0%) scale(var(--b));
+  }
+}
+.debug {
+  display: flex;
+  flex-direction: column-reverse;
+  pointer-events: none;
+  & > p {
+    margin: 0;
   }
 }
 `

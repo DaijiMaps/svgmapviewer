@@ -16,7 +16,12 @@ type TouchEvent_ =
   | { type: 'ENDED' } // internal
   | { type: 'NONE' } // internal
 type TouchEmit_ =
-  | { type: 'MULTI'; touches: Touches }
+  | {
+      type: 'MULTI'
+      touches: Touches
+      center: null | VecVec
+      scale: null | number
+    }
   | { type: 'ZOOM'; touches: Touches }
   | {
       type: 'ZOOM.SYNC'
@@ -28,6 +33,7 @@ type TouchContext_ = {
   mode: 'idle' | 'pan' | 'pinch'
   touches: Touches
   center: null | VecVec
+  scale: null | number
 }
 
 type TouchTags_ = 'none' | 'single' | 'double' | 'many' | 'cancel'

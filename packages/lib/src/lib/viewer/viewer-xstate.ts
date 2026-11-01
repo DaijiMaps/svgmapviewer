@@ -1,7 +1,9 @@
+import { useSelector } from '@xstate/react'
 import { createAtom, type Atom } from '@xstate/store'
 import { and, assign, createActor, emit, setup } from 'xstate'
 
 import { getConfig } from '../../config'
+import { appendDebug } from '../../debug'
 import {
   type ResizeInfo,
   type SearchRes,
@@ -18,7 +20,8 @@ import { notifyStyle, styleCbs } from '../event-style'
 import { touchCbs } from '../event-touch'
 import { notifyUi, uiCbs } from '../event-ui'
 import type { Vec } from '../vec'
-import { setZooming } from './layout/animation'
+import type { VecVec } from '../vec/prefixed'
+import { animationDone, calcAnimation, setZooming } from './layout/animation'
 import type { AnimationReq } from './layout/animation-types'
 import { emptyLayout } from './layout/layout'
 import { lockScroll, unlockScroll } from './scroll/scroll'
@@ -101,13 +104,16 @@ const viewerMachine = setup({
     startZoom: assign(({ context }) => startZoom(context)),
     endZoom: assign(({ context }) => endZoom(context)),
     endZoomSync: assign(({ context }, { p, s }: Readonly<TouchEndRequest>) => {
+      appendDebug(`endZoomSync: p=${JSON.stringify(p)} s=${s}`)
       if (p === undefined || s === undefined) return context
       const animationReq: AnimationReq = {
         type: 'zoom.sync',
         s,
         p,
       }
-      return endZoom({ ...context, animationReq })
+      const animation = calcAnimation(animationReq, context.layout)
+      const layout = animationDone(context.layout, animation)
+      return endZoom({ ...context, layout, animationReq })
     }),
     endHome: assign(({ context }) => endHome(context)),
     emitZoomStart: emit(({ context }) => emitZoomStart(context)),
@@ -243,9 +249,9 @@ const viewerMachine = setup({
             params: ({ event }) => event,
           },
           */
+          actions: () => appendDebug(`TOUCH`),
           target: 'Touching',
         },
-        /*
         ZOOM: {
           guard: () => lockScroll(),
           actions: {
@@ -254,7 +260,6 @@ const viewerMachine = setup({
           },
           target: 'Zooming',
         },
-        */
         HOME: {
           guard: () => lockScroll(),
           actions: 'prepareHome',
@@ -363,6 +368,9 @@ const viewerMachine = setup({
       },
     },
     Touching: {
+      entry: () => {
+        appendDebug(`=> Touching`)
+      },
       on: {
         ZOOM: {
           guard: () => lockScroll(),
@@ -651,11 +659,14 @@ export function viewerCbsStart(): void {
     notifyScroll.get()
     viewerMode.set('touching')
     viewerSend({ type: 'TOUCH' })
+    appendDebug(`multiStart => TOUCH`)
   })
 
-  touchCbs.multiEnd.add(() => {
+  touchCbs.multiEnd.add(({ p, s }: Readonly<{ p?: VecVec; s?: number }>) => {
     viewerMode.set('panning')
-    viewerSend({ type: 'TOUCH.END' })
+    // XXX pass p & s
+    viewerSend({ type: 'TOUCH.END', p, s })
+    appendDebug(`TOUCH.END: p.x=${p?.x} p.y=${p?.y} s=${s}`)
   })
   touchCbs.zoom.add(({ z, p, sync }: Zoom) => {
     if (sync !== true) {
@@ -664,4 +675,8 @@ export function viewerCbsStart(): void {
   })
 
   globalCbs.rendered.add(() => viewerSend({ type: 'RENDERED' }))
+}
+
+export function useViewerStatus(): string {
+  return useSelector(viewerActor, (s) => JSON.stringify(s.value))
 }

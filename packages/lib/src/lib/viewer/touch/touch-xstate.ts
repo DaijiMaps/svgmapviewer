@@ -1,6 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 
+import { appendDebug } from '../../../debug'
 import { actionCbs } from '../../event-action'
 import { notifyTouch } from '../../event-touch'
 import {
@@ -57,18 +58,22 @@ const touchMachine = setup({
       mode: 'idle',
       touches: () => resetTouches(),
       center: null,
+      scale: null,
     }),
     enterPan: assign({
       mode: 'pan',
       center: null,
+      scale: null,
     }),
     enterPinch: assign({
       mode: 'pinch',
       center: ({ context }) => context.touches.cursor,
     }),
-    emitMulti: emit(({ context: { touches } }): TouchEmit_ => ({
+    emitMulti: emit(({ context: { touches, center, scale } }): TouchEmit_ => ({
       type: 'MULTI',
       touches,
+      center,
+      scale,
     })),
     emitZoom: emit(({ context: { touches } }) => ({
       type: 'ZOOM',
@@ -77,7 +82,7 @@ const touchMachine = setup({
     emitZoomSync: emit(({ context: { touches, center } }) => ({
       type: 'ZOOM.SYNC',
       touches,
-      center: center,
+      center,
     })),
     emitZoomSyncDone: emit(({ context: { touches } }) => ({
       type: 'ZOOM.SYNC',
@@ -85,6 +90,14 @@ const touchMachine = setup({
       center: null,
       end: true,
     })),
+    saveScale: assign({
+      scale: ({ context: { touches } }) => {
+        const d0 = touches.dists[touches.dists.length - 1]
+        const d = touches.dists[0]
+        const s = d / d0
+        return s
+      },
+    }),
   },
 }).createMachine({
   id: 'touch1',
@@ -100,6 +113,7 @@ const touchMachine = setup({
       horizontal: null,
     },
     center: null,
+    scale: null,
   },
   on: {
     'TOUCH.START': {
@@ -144,8 +158,7 @@ const touchMachine = setup({
       on: {
         STARTED: [
           {
-            guard: and(['isModeIdle', 'isDoubleTouching']),
-            actions: 'enterPinch',
+            guard: and(['isModePanning', 'isDoubleTouching']),
             target: 'DoubleTouching',
           },
           {
@@ -153,10 +166,12 @@ const touchMachine = setup({
             target: 'ManyTouching',
           },
         ],
+        /*
         MOVED: {
           guard: 'isModeIdle',
           actions: 'enterPan',
         },
+        */
         ENDED: [
           {
             guard: 'isAllEnding',
@@ -167,7 +182,7 @@ const touchMachine = setup({
     },
     DoubleTouching: {
       tags: 'double',
-      entry: 'emitMulti',
+      entry: ['emitMulti', 'enterPinch'],
       exit: 'emitMulti',
       on: {
         STARTED: [
@@ -183,7 +198,7 @@ const touchMachine = setup({
           //guard: and(['isModePinching', 'isZooming']),
           //actions: 'emitZoom',
           guard: and(['isModePinching']),
-          actions: 'emitZoomSync',
+          actions: ['saveScale', 'emitZoomSync'],
           // XXX
           // XXX
           // XXX
@@ -276,12 +291,17 @@ export function useTouchTags(): {
 
 export let touching: boolean = false
 
-touchActor.on('MULTI', ({ touches }) => {
+touchActor.on('MULTI', ({ touches, center, scale }) => {
   if (touches.vecs.size === 2) {
     touching = true
     notifyTouch.multiStart()
+    appendDebug(`multiStart`)
   } else {
-    notifyTouch.multiEnd()
+    // XXX pass p & s
+    const p = center === null ? undefined : center
+    const s = scale === null ? undefined : scale
+    notifyTouch.multiEnd({ p, s })
+    appendDebug(`multiEnd: p.x=${p?.x} p.y=${p?.y} s=${s}`)
     touching = false
   }
 })
