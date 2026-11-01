@@ -78,8 +78,8 @@ const style: string = `
 }
 .container.syncing {
   will-change: transform;
-  transform-origin: var(--zoom-origin);
-  transform: var(--zoom-transform);
+  transform-origin: var(--zoom-sync-origin);
+  transform: var(--zoom-sync-transform);
 }
 .container > .content {
   ${position_absolute_left_0_top_0}

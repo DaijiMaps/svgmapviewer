@@ -740,6 +740,6 @@ export function viewerCbsStart(): void {
   globalCbs.rendered.add(() => viewerSend({ type: 'RENDERED' }))
 }
 
-export function useViewerStatus(): string {
+export function useViewerValue(): string {
   return useSelector(viewerActor, (s) => JSON.stringify(s.value))
 }

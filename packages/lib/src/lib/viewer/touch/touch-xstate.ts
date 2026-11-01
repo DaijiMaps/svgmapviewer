@@ -127,9 +127,6 @@ const touchMachine = setup({
     'TOUCH.END': {
       actions: ['updateTouches', 'raiseOp'],
     },
-    CANCEL: {
-      target: '.Canceling',
-    },
   },
   states: {
     Idle: {
@@ -180,15 +177,16 @@ const touchMachine = setup({
             target: 'Idle',
           },
         ],
+        CANCEL: {
+          target: 'Canceling',
+        },
       },
     },
     DoubleTouching: {
       tags: 'double',
-      entry: ['emitMulti', 'enterPinch'],
+      entry: [() => appendDebug(`emit multi`), 'emitMulti', 'enterPinch'],
       exit: [
-        () => {
-          appendDebug(`emit multi`)
-        },
+        () => appendDebug(`emit multi`),
         //'emitMulti',
       ],
       on: {
@@ -234,6 +232,9 @@ const touchMachine = setup({
             target: 'SingleTouching',
           },
         ],
+        CANCEL: {
+          target: 'Canceling',
+        },
       },
     },
     ManyTouching: {
@@ -255,6 +256,9 @@ const touchMachine = setup({
             target: 'DoubleTouching',
           },
         ],
+        CANCEL: {
+          target: 'Canceling',
+        },
       },
     },
     Canceling: {
@@ -375,4 +379,8 @@ export function touchCbsStart(): void {
   actionCbs.recenter.add(touchSendCancel)
   actionCbs.zoomOut.add(touchSendCancel)
   actionCbs.zoomIn.add(touchSendCancel)
+}
+
+export function useTouchValue(): string {
+  return useSelector(touchActor, (s) => JSON.stringify(s.value))
 }

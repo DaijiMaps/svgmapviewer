@@ -301,8 +301,8 @@ export function updateZoomSyncStyleRefs(
 ): void {
   Array.from(zoomSyncStyleRefs, ([, e]) => {
     const p = e.style.setProperty.bind(e.style)
-    p(`--zoom-origin`, o === null ? null : `${o.x}px ${o.y}px`)
-    p(`--zoom-transform`, zoom === null ? null : `scale(${zoom})`)
+    p(`--zoom-sync-origin`, o === null ? null : `${o.x}px ${o.y}px`)
+    p(`--zoom-sync-transform`, zoom === null ? null : `scale(${zoom})`)
     tag(e, 'syncing', zoom !== null)
   })
 }
