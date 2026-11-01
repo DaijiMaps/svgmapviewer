@@ -453,7 +453,8 @@ const viewerMachine = setup({
         Ending: {
           always: {
             actions: [
-              'emitZoomEnd',
+              // XXX don't emit ZOOM.END!
+              // XXX don't start animation!
               'emitSyncLayout',
               // fast sync - sync scroll NOT after resize
               'emitSyncScroll',

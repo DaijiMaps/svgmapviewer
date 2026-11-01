@@ -3,6 +3,7 @@
 /* eslint-disable functional/no-return-void */
 import { type RefObject } from 'react'
 
+import { appendDebug } from '../../../debug'
 import type { AnimationMatrix } from '../../../types'
 import { ZOOM_DURATION_CONTAINER } from '../../css'
 //import { notifyStyle } from '../../event-style'
@@ -105,7 +106,7 @@ export function updateZoomStyleRefs(
 ): void {
   const o =
     animation === null || animation.origin === null
-      ? `0% 0%`
+      ? null
       : `${animation.origin.x}px ${animation?.origin.y}px`
   const rotating = animation?.to.b !== 0
   const za =
@@ -161,6 +162,9 @@ export function updateZoomStyleRefs(
     tag(e, 'zooming', animation !== null)
     if (rotating) tag(e, 'rotating', animation !== null)
   })
+  appendDebug(
+    `update zoom: a=${animation?.origin ?? 'null'} o=${JSON.stringify(o)} z=${zoom}`
+  )
   /*
   if (animation !== null) {
     startLoop('zoom', 500, {

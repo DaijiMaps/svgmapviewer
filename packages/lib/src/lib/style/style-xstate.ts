@@ -238,6 +238,7 @@ export function styleCbsStart(): void {
     requestAnimationFrame(() => handleExpire())
   })
   styleCbs.zoom.add(function (zoom: Readonly<ZoomInfo>) {
+    appendDebug(`style zoom: zoom=${JSON.stringify(zoom.zoom)} q=${zoom.q}`)
     styleSend({ type: 'STYLE.ZOOM', zoom: zoom.zoom })
     styleSend({ type: 'STYLE.ANIMATION', animation: zoom.q })
   })
@@ -266,4 +267,8 @@ export function styleCbsStart(): void {
     }
   })
   */
+}
+
+export function useStyleValue(): string {
+  return useSelector(styleActor, (s) => JSON.stringify(s.value))
 }

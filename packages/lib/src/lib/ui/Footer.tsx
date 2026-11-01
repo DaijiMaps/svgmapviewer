@@ -16,6 +16,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
+import { useStyleValue } from '../style/style-xstate'
 import { useTouchValue } from '../viewer/touch/touch-xstate'
 import { viewerMode } from '../viewer/viewer-mode'
 import { useViewerValue } from '../viewer/viewer-xstate'
@@ -38,6 +39,7 @@ function FooterRoot(): ReactNode {
 
   const v = useViewerValue()
   const t = useTouchValue()
+  const y = useStyleValue()
   const m = useAtom(viewerMode)
 
   return (
@@ -50,7 +52,7 @@ function FooterRoot(): ReactNode {
         ))}
       </div>
       <p>
-        {v}:{t}:{m}
+        {v}:{t}:{y}:{m}
       </p>
       <p>
         <a onClick={() => openInfo()}>{cfg.copyright}</a>
@@ -130,6 +132,7 @@ const style = `
 .debug {
   display: flex;
   flex-direction: column-reverse;
+  font-size: x-small;
   pointer-events: none;
   & > p {
     margin: 0;
