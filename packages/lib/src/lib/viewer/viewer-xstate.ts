@@ -220,6 +220,7 @@ const viewerMachine = setup({
       },
     },
     Idle: {
+      id: 'Idle',
       on: {
         RESIZE: {
           actions: [{ type: 'resizeLayout', params: ({ event }) => event }],
@@ -372,6 +373,9 @@ const viewerMachine = setup({
       },
     },
     Touching: {
+      id: 'Touching',
+      initial: 'Stopping',
+      onDone: 'Idle',
       entry: () => {
         //appendDebug(`=> Touching`)
         viewerMode.set('touching')
@@ -379,40 +383,66 @@ const viewerMachine = setup({
       exit: () => {
         viewerMode.set('panning')
       },
-      on: {
-        ZOOM: {
-          guard: () => lockScroll(),
-          actions: {
-            type: 'prepareZoom',
-            params: ({ event }) => event,
-          },
-          target: 'Zooming',
-        },
-        'ZOOM.SYNC': {
-          actions: {
-            type: 'emitZoomSync',
-            params: ({ event }) => event.zoomSync,
-          },
-        },
-        'TOUCH.END': [
-          // XXX
-          // XXX - clear --zoom-origin / --zoom-transform
-          // XXX - update animationReq
-          // XXX - reflect zoom to layout
-          // XXX
-          {
-            guard: ({ event }) =>
-              event.p !== undefined && event.s !== undefined,
-            actions: {
-              type: 'endZoomSync',
-              params: ({ event }) => event,
+      states: {
+        Stopping: {
+          entry: 'emitGetScroll',
+          on: {
+            'SCROLL.GET.DONE': {
+              target: 'Rendering',
             },
-            target: 'Syncing',
           },
-          {
-            target: 'Idle',
+        },
+        Rendering: {
+          after: {
+            // XXX
+            // XXX
+            // XXX
+            50: {
+              actions: 'resetScroll',
+              target: 'Main',
+            },
+            // XXX
+            // XXX
+            // XXX
           },
-        ],
+        },
+        Main: {
+          on: {
+            ZOOM: {
+              guard: () => lockScroll(),
+              actions: {
+                type: 'prepareZoom',
+                params: ({ event }) => event,
+              },
+              target: '#Zooming',
+            },
+            'ZOOM.SYNC': {
+              actions: {
+                type: 'emitZoomSync',
+                params: ({ event }) => event.zoomSync,
+              },
+            },
+            'TOUCH.END': [
+              // XXX
+              // XXX - clear --zoom-origin / --zoom-transform
+              // XXX - update animationReq
+              // XXX - reflect zoom to layout
+              // XXX
+              {
+                guard: ({ event }) =>
+                  event.p !== undefined && event.s !== undefined,
+                actions: {
+                  type: 'endZoomSync',
+                  params: ({ event }) => event,
+                },
+                target: '#Syncing',
+              },
+              {
+                target: '#Idle',
+              },
+            ],
+          },
+        },
       },
     },
     Syncing: {
