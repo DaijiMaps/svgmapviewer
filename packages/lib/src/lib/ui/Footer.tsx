@@ -17,7 +17,11 @@ import {
 } from '../css'
 import { useShadowRoot } from '../dom'
 import { useStyleValue } from '../style/style-xstate'
-import { useTouchValue } from '../viewer/touch/touch-xstate'
+import { useScrollValue } from '../viewer/scroll/scroll-xstate'
+import {
+  useTouchIsScrolling,
+  useTouchValue,
+} from '../viewer/touch/touch-xstate'
 import { viewerMode } from '../viewer/viewer-mode'
 import { useViewerValue } from '../viewer/viewer-xstate'
 import { useHeaderStyleRef } from './style'
@@ -38,7 +42,7 @@ function FooterRoot(): ReactNode {
   return (
     <div ref={ref} className="ui-content footer">
       {/*
-      <Debug/>
+      <Debug />
       */}
       <p>
         <a onClick={() => openInfo()}>{cfg.copyright}</a>
@@ -134,6 +138,9 @@ export function Debug(): ReactNode {
   const y = useStyleValue()
   const m = useAtom(viewerMode)
 
+  const S = useScrollValue()
+  const r = useTouchIsScrolling()
+
   return (
     <>
       <div className="debug">
@@ -143,6 +150,9 @@ export function Debug(): ReactNode {
           </p>
         ))}
       </div>
+      <p>
+        {S}:{r ? 'S' : 's'}
+      </p>
       <p>
         {v}:{t}:{y}:{m}
       </p>

@@ -15,6 +15,7 @@ export function useScrollRef(
   useStyleRef(scrollRefs, ref, name)
 }
 
+/*
 export function updateScrollRefs(b: BoxBox): Map<string, boolean> {
   const entries = Array.from(scrollRefs, ([name, e]) => {
     const res = syncScroll1(e, b)
@@ -22,6 +23,7 @@ export function updateScrollRefs(b: BoxBox): Map<string, boolean> {
   })
   return new Map(entries)
 }
+*/
 
 export function updateScrollRefs1(
   b: BoxBox,
@@ -32,6 +34,7 @@ export function updateScrollRefs1(
   return syncScroll1(e, b)
 }
 
+/*
 // eslint-disable-next-line functional/functional-parameters
 export function getScrollRefs(): Map<string, BoxBox> {
   const entries = Array.from(scrollRefs, ([name, e]) => {
@@ -43,6 +46,7 @@ export function getScrollRefs(): Map<string, BoxBox> {
   })
   return new Map(entries)
 }
+*/
 
 export function getScrollRefs1(name: string): BoxBox | undefined {
   const e = scrollRefs.get(name)

@@ -177,7 +177,13 @@ const touchMachine = setup({
       on: {
         STARTED: [
           {
+            guard: and(['isModePanning', 'isDoubleTouching', 'isScrolling']),
+            // skip emitMulti
+            target: 'DoubleTouching',
+          },
+          {
             guard: and(['isModePanning', 'isDoubleTouching']),
+            actions: 'emitMulti',
             target: 'DoubleTouching',
           },
           {
@@ -185,12 +191,10 @@ const touchMachine = setup({
             target: 'ManyTouching',
           },
         ],
-        /*
         MOVED: {
           guard: 'isModeIdle',
           actions: 'enterPan',
         },
-        */
         ENDED: [
           {
             guard: 'isAllEnding',
@@ -207,7 +211,7 @@ const touchMachine = setup({
     },
     DoubleTouching: {
       tags: 'double',
-      entry: ['emitMulti', 'enterPinch', 'lock'],
+      entry: ['enterPinch', 'lock'],
       on: {
         STARTED: [
           {
@@ -226,12 +230,12 @@ const touchMachine = setup({
         ],
         ENDED: [
           {
-            guard: and(['isScrolling', 'isAllEnding']),
+            guard: and(['isAllEnding', 'isScrolling']),
             //actions: ['emitZoomSyncDone', 'emitMulti'],
             target: 'Resetting',
           },
           {
-            guard: and(['isScrolling', 'isSingleTouching']),
+            guard: and(['isSingleTouching', 'isScrolling']),
             //actions: ['emitZoomSyncDone', 'emitMulti'],
             target: 'SingleTouching',
           },
@@ -398,4 +402,8 @@ export function touchCbsStart(): void {
 
 export function useTouchValue(): string {
   return useSelector(touchActor, (s) => JSON.stringify(s.value))
+}
+
+export function useTouchIsScrolling(): boolean {
+  return useSelector(touchActor, (s) => s.context.scrolling)
 }
