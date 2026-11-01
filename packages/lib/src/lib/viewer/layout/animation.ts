@@ -35,9 +35,9 @@ export function calcAnimation(
   return req === null
     ? null
     : req.type === 'zoom'
-      ? animationZoom(layout, req.z, req.p)
+      ? animationZoomDir(layout, req.z, req.p)
       : req.type === 'zoom.sync'
-        ? animationZoomSync(layout, req.s, req.p)
+        ? animationZoom(layout, req.s, req.p)
         : req.type === 'home'
           ? animationHome(layout, resetLayout(layout))
           : //animationReq.type === 'rotate'
@@ -66,25 +66,12 @@ function animationMoveDone(
 
 ////
 
-export function animationZoom(layout: Layout, z: Dir, o: Vec): Animation {
-  // container -> svg
-  const osvg = fromSvgToContainer(layout).inverse().transformPoint(o)
-  const s = 1 / zoomToScale(z)
-  const to = matrix().scale(1 / s, 1 / s)
-  const zoom: AnimationZoom = {
-    type: 'Zoom',
-    svg: boxScaleAt(layout.svg, s, osvg.x, osvg.y),
-    svgScale: layout.svgScale * s,
-    q: { from: matrix(), to, origin: o },
-  }
-  return zoom
+export function animationZoomDir(layout: Layout, z: Dir, o: Vec): Animation {
+  const s = zoomToScale(z)
+  return animationZoom(layout, s, o)
 }
 
-export function animationZoomSync(
-  layout: Layout,
-  s: number,
-  o: Vec
-): Animation {
+export function animationZoom(layout: Layout, s: number, o: Vec): Animation {
   // container -> svg
   const osvg = fromSvgToContainer(layout).inverse().transformPoint(o)
   const to = matrix().scale(s, s)
