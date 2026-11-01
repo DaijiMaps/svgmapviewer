@@ -106,7 +106,7 @@ export function updateZoomStyleRefs(
 ): void {
   const o =
     animation === null || animation.origin === null
-      ? null
+      ? `0% 0%`
       : `${animation.origin.x}px ${animation?.origin.y}px`
   const rotating = animation?.to.b !== 0
   const za =
