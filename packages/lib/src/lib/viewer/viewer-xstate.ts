@@ -2,7 +2,6 @@ import { useSelector } from '@xstate/react'
 import { and, assign, createActor, emit, setup } from 'xstate'
 
 import { getConfig } from '../../config'
-import { appendDebug } from '../../debug'
 import {
   type ResizeInfo,
   type SearchRes,
@@ -103,7 +102,6 @@ const viewerMachine = setup({
     startZoom: assign(({ context }) => startZoom(context)),
     endZoom: assign(({ context }) => endZoom(context)),
     endZoomSync: assign(({ context }, { p, s }: Readonly<TouchEndRequest>) => {
-      //appendDebug(`endZoomSync: p=${JSON.stringify(p)} s=${s}`)
       if (p === undefined || s === undefined) return context
       const animationReq: AnimationReq = {
         type: 'zoom.sync',
@@ -252,7 +250,6 @@ const viewerMachine = setup({
             params: ({ event }) => event,
           },
           */
-          actions: () => appendDebug(`TOUCH`),
           target: 'Touching',
         },
         ZOOM: {
@@ -377,7 +374,6 @@ const viewerMachine = setup({
       initial: 'Stopping',
       onDone: 'Idle',
       entry: () => {
-        //appendDebug(`=> Touching`)
         viewerMode.set('touching')
       },
       exit: () => {
@@ -615,7 +611,6 @@ viewerActor.on('SEARCH.END.DONE', ({ res }) => {
 viewerActor.on('ZOOM.START', (args) => notifyStyle.zoom(args))
 viewerActor.on('ZOOM.END', (end) => notifyStyle.zoom(end))
 viewerActor.on('ZOOM.SYNC', (args) => {
-  //appendDebug(`emit ZOOM.SYNC`)
   notifyStyle.zoomSync(args.zoomSync)
 })
 
@@ -707,13 +702,11 @@ export function viewerCbsStart(): void {
   touchCbs.multiStart.add(() => {
     notifyScroll.get()
     viewerSend({ type: 'TOUCH' })
-    //appendDebug(`multiStart => TOUCH`)
   })
 
   touchCbs.multiEnd.add(({ p, s }: Readonly<{ p?: VecVec; s?: number }>) => {
     // XXX pass p & s
     viewerSend({ type: 'TOUCH.END', p, s })
-    //appendDebug(`TOUCH.END: p.x=${p?.x} p.y=${p?.y} s=${s}`)
   })
   touchCbs.zoom.add(({ z, p, s, sync }: Zoom) => {
     if (sync !== true) {
@@ -730,7 +723,6 @@ export function viewerCbsStart(): void {
       */
       const zoomSync: null | ZoomSync =
         p !== null && s !== undefined ? { p, s } : null
-      if (zoomSync === null) appendDebug(`send ZOOM.SYNC null!`)
       viewerSend({
         type: 'ZOOM.SYNC',
         zoomSync,

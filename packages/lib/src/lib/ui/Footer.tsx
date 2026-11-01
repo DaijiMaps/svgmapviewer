@@ -35,25 +35,11 @@ function FooterRoot(): ReactNode {
 
   const cfg = useConfig()
 
-  const debugStrings = useAtom(debugStringAtom)
-
-  const v = useViewerValue()
-  const t = useTouchValue()
-  const y = useStyleValue()
-  const m = useAtom(viewerMode)
-
   return (
     <div ref={ref} className="ui-content footer">
-      <div className="debug">
-        {Array.from(debugStrings).map((s, idx) => (
-          <p key={idx}>
-            {idx}:{s}
-          </p>
-        ))}
-      </div>
-      <p>
-        {v}:{t}:{y}:{m}
-      </p>
+      {/*
+      <Debug/>
+      */}
       <p>
         <a onClick={() => openInfo()}>{cfg.copyright}</a>
       </p>
@@ -139,3 +125,27 @@ const style = `
   }
 }
 `
+
+export function Debug(): ReactNode {
+  const debugStrings = useAtom(debugStringAtom)
+
+  const v = useViewerValue()
+  const t = useTouchValue()
+  const y = useStyleValue()
+  const m = useAtom(viewerMode)
+
+  return (
+    <>
+      <div className="debug">
+        {Array.from(debugStrings).map((s, idx) => (
+          <p key={idx}>
+            {idx}:{s}
+          </p>
+        ))}
+      </div>
+      <p>
+        {v}:{t}:{y}:{m}
+      </p>
+    </>
+  )
+}

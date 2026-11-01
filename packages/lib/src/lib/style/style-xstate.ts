@@ -3,7 +3,6 @@ import { createAtom, type Atom } from '@xstate/store'
 import { assign, createActor, raise, setup } from 'xstate'
 
 import { getConfig } from '../../config'
-import { appendDebug } from '../../debug'
 import {
   type CurrentScroll,
   type ResizeInfo,
@@ -32,7 +31,6 @@ import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { updateAppearingStyleRefs } from './appearing'
 import { startLoop } from './frame'
 import type { StyleContext, StyleEvent, ZoomEvent } from './style-types'
-//import { appendDebug } from '../../debug'
 
 export const currentLayout: Atom<Layout> = createAtom<Layout>(emptyLayout)
 
@@ -238,13 +236,11 @@ export function styleCbsStart(): void {
     requestAnimationFrame(() => handleExpire())
   })
   styleCbs.zoom.add(function (zoom: Readonly<ZoomInfo>) {
-    appendDebug(`style zoom: zoom=${JSON.stringify(zoom.zoom)} q=${zoom.q}`)
     styleSend({ type: 'STYLE.ZOOM', zoom: zoom.zoom })
     styleSend({ type: 'STYLE.ANIMATION', animation: zoom.q })
   })
   styleCbs.zoomSync.add(function (zoomSync: Readonly<null | ZoomSync>) {
     if (zoomSync === null) {
-      appendDebug(`zoomSync null!`)
       updateZoomSyncStyleRefs(null, null)
     } else {
       updateZoomSyncStyleRefs(zoomSync.p, zoomSync.s)

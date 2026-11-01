@@ -1,4 +1,3 @@
-//import { appendDebug } from '../../debug'
 import type { SearchSvgReq, ZoomSync } from '../../types'
 import { boxCenter } from '../box/prefixed'
 import type { Vec } from '../vec'
@@ -153,7 +152,6 @@ export function startZoom(context: Readonly<ViewerContext>): ViewerContext {
 export function endZoom(context: Readonly<ViewerContext>): ViewerContext {
   const zoom = context.zoom * calcAnimationZoom(context.animationReq)
   const rotate = context.rotate + calcAnimationRotate(context.animationReq)
-  //appendDebug(`endZoom: zoom=${JSON.stringify(zoom)}`)
   return {
     ...context,
     prevLayout: null,
