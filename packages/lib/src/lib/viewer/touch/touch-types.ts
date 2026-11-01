@@ -15,6 +15,7 @@ type TouchEvent_ =
   | { type: 'MOVED' } // internal
   | { type: 'ENDED' } // internal
   | { type: 'NONE' } // internal
+  | { type: 'SCROLL' }
 type TouchEmit_ =
   | {
       type: 'MULTI'
@@ -35,6 +36,7 @@ type TouchContext_ = {
   active: boolean
   center: null | VecVec
   scale: null | number
+  scrolling: boolean
 }
 
 type TouchTags_ = 'none' | 'single' | 'double' | 'many' | 'cancel'

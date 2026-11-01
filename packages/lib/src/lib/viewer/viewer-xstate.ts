@@ -242,6 +242,10 @@ const viewerMachine = setup({
           guard: () => lockScroll(),
           target: 'Recentering',
         },
+        SCROLL: {
+          guard: ({ event }) => event.busy,
+          target: 'Scrolling',
+        },
         TOUCH: {
           /*
           guard: () => lockScroll(),
@@ -269,6 +273,14 @@ const viewerMachine = setup({
           guard: () => lockScroll(),
           actions: 'prepareRotate',
           target: 'Zooming',
+        },
+      },
+    },
+    Scrolling: {
+      on: {
+        SCROLL: {
+          guard: ({ event }) => !event.busy,
+          target: 'Idle',
         },
       },
     },
@@ -683,6 +695,8 @@ export function viewerCbsStart(): void {
       viewerSend({ type: 'SCROLL.SYNCSYNC.DONE', scroll })
     }
   })
+  scrollCbs.eventTick.add(() => viewerSend({ type: 'SCROLL', busy: true }))
+  scrollCbs.eventExpire.add(() => viewerSend({ type: 'SCROLL', busy: false }))
 
   styleCbs.resize.add(({ layout, force }: Readonly<ResizeInfo>) =>
     viewerSend({ type: 'RESIZE', layout, force })

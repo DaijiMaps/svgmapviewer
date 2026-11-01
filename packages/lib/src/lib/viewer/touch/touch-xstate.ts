@@ -3,6 +3,7 @@ import { createAtom, type Atom } from '@xstate/store'
 import { and, assign, createActor, emit, raise, setup } from 'xstate'
 
 import { actionCbs } from '../../event-action'
+import { scrollCbs } from '../../event-scroll'
 import { notifyTouch } from '../../event-touch'
 import {
   handleTouchEnd,
@@ -35,6 +36,7 @@ const touchMachine = setup({
     isModeIdle: ({ context: { mode } }) => mode === 'idle',
     isModePanning: ({ context: { mode } }) => mode === 'pan',
     isModePinching: ({ context: { mode } }) => mode === 'pinch',
+    isScrolling: ({ context: { scrolling } }) => scrolling,
   },
   actions: {
     updateTouches: assign({
@@ -100,6 +102,12 @@ const touchMachine = setup({
         return s
       },
     }),
+    setScroll: assign({
+      scrolling: true,
+    }),
+    clearScroll: assign({
+      scrolling: false,
+    }),
     lock: () => touchLock.set(() => true),
     unlock: () => touchLock.set(() => false),
   },
@@ -119,6 +127,7 @@ const touchMachine = setup({
     active: true,
     center: null,
     scale: null,
+    scrolling: false,
   },
   on: {
     'TOUCH.START': {
@@ -142,7 +151,7 @@ const touchMachine = setup({
     },
     Idle: {
       tags: 'none',
-      entry: 'resetTouches',
+      entry: ['resetTouches', 'clearScroll'],
       on: {
         STARTED: [
           {
@@ -191,6 +200,9 @@ const touchMachine = setup({
         CANCEL: {
           target: 'Canceling',
         },
+        SCROLL: {
+          actions: 'setScroll',
+        },
       },
     },
     DoubleTouching: {
@@ -203,19 +215,26 @@ const touchMachine = setup({
             target: 'ManyTouching',
           },
         ],
-        MOVED: {
-          // XXX
-          // XXX
-          // XXX
-          //guard: and(['isModePinching', 'isZooming']),
-          //actions: 'emitZoom',
-          guard: and(['isModePinching']),
-          actions: ['saveScale', 'emitZoomSync'],
-          // XXX
-          // XXX
-          // XXX
-        },
+        MOVED: [
+          {
+            guard: 'isScrolling',
+          },
+          {
+            guard: and(['isModePinching']),
+            actions: ['saveScale', 'emitZoomSync'],
+          },
+        ],
         ENDED: [
+          {
+            guard: and(['isScrolling', 'isAllEnding']),
+            //actions: ['emitZoomSyncDone', 'emitMulti'],
+            target: 'Resetting',
+          },
+          {
+            guard: and(['isScrolling', 'isSingleTouching']),
+            //actions: ['emitZoomSyncDone', 'emitMulti'],
+            target: 'SingleTouching',
+          },
           {
             guard: 'isAllEnding',
             actions: ['emitZoomSyncDone', 'emitMulti'],
@@ -363,6 +382,10 @@ function touchSendCancel(): void {
   touchActor.send({ type: 'CANCEL' })
 }
 
+function touchSendScrollTick(): void {
+  touchActor.send({ type: 'SCROLL' })
+}
+
 export function touchCbsStart(): void {
   actionCbs.reset.add(touchSendCancel)
   actionCbs.fullscreen.add(touchSendCancel)
@@ -370,6 +393,7 @@ export function touchCbsStart(): void {
   actionCbs.recenter.add(touchSendCancel)
   actionCbs.zoomOut.add(touchSendCancel)
   actionCbs.zoomIn.add(touchSendCancel)
+  scrollCbs.eventTick.add(touchSendScrollTick)
 }
 
 export function useTouchValue(): string {

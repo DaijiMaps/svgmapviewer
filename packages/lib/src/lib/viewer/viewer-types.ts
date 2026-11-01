@@ -56,6 +56,7 @@ export type ScrollSyncsyncDoneRequest = {
   type: 'SCROLL.SYNCSYNC.DONE'
   scroll: BoxBox
 }
+export type ScrollRequest_ = { type: 'SCROLL'; busy: boolean }
 export type TouchRequest = { type: 'TOUCH'; p?: Vec }
 export type TouchEndRequest = { type: 'TOUCH.END'; p?: Vec; s?: number }
 export type ZoomRequest = { type: 'ZOOM' } & Zoom
@@ -72,6 +73,7 @@ export type ViewerRequest =
   | RenderedRequest
   | ScrollGetDoneRequest
   | ScrollSyncsyncDoneRequest
+  | ScrollRequest_
   | TouchRequest
   | TouchEndRequest
   | ZoomRequest
@@ -85,13 +87,13 @@ export type ViewerMessage = { type: 'SEARCH.DONE' }
 
 //// UI event
 
-export type UIEventScroll = { type: 'SCROLL'; ev: Event | React.UIEvent }
+//export type UIEventScroll = { type: 'SCROLL'; ev: Event | React.UIEvent }
 export type UIEventAnimationEnd = {
   type: 'ANIMATION.END'
   ev?: React.AnimationEvent<HTMLDivElement>
 }
 
-export type ReactUIEvent = UIEventAnimationEnd | UIEventScroll
+export type ReactUIEvent = UIEventAnimationEnd //| UIEventScroll
 
 export type UIEvent = ReactUIEvent
 
