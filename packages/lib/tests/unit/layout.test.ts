@@ -17,7 +17,7 @@ import {
 import {
   animationDone,
   //animationMove,
-  animationZoom,
+  animationZoomDir,
 } from '../../src/lib/viewer/layout/animation'
 import { fromSvgToContainer } from '../../src/lib/viewer/layout/coord'
 import {
@@ -65,12 +65,12 @@ test('make layout', () => {
 test('zoom layout', () => {
   const l0 = pipe(
     layout,
-    (l) => animationZoom(l, 0, cursor),
+    (l) => animationZoomDir(l, 0, cursor),
     (a) => animationDone(layout, a)
   )
   const l1 = pipe(
     layout,
-    (l) => animationZoom(l, 1, cursor),
+    (l) => animationZoomDir(l, 1, cursor),
     (a) => animationDone(layout, a)
   )
 
@@ -126,9 +126,9 @@ const U = (() => {
 
 test('expand + zoom', () => {
   const l1 = expandLayoutCenter(U.layout, 3)
-  const a1 = animationZoom(l1, 1, U.cursor)
+  const a1 = animationZoomDir(l1, 1, U.cursor)
   const l2 = animationDone(l1, a1)
-  const a2 = animationZoom(l2, -1, U.cursor)
+  const a2 = animationZoomDir(l2, -1, U.cursor)
   const l3 = animationDone(l2, a2)
   const l4 = expandLayoutCenter(l3, 1 / 3)
 
@@ -142,9 +142,9 @@ test('expand + zoom', () => {
 test('expand + zoom 2', () => {
   const cursor = vec(0.25, 0.25)
   const l1 = expandLayoutCenter(U.layout, 3)
-  const a1 = animationZoom(l1, 1, cursor)
+  const a1 = animationZoomDir(l1, 1, cursor)
   const l2 = animationDone(l1, a1)
-  const a2 = animationZoom(l2, -1, cursor)
+  const a2 = animationZoomDir(l2, -1, cursor)
   const l3 = animationDone(l2, a2)
   const l4 = expandLayoutCenter(l3, 1 / 3)
 

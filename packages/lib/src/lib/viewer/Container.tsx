@@ -13,7 +13,7 @@ import { notifyStyle } from '../event-style'
 import { useAppearingStyleRef } from '../style/appearing'
 import { useDetailStyleRef } from '../ui/style'
 import { sendContextMenu } from './input/input'
-import { useZoomStyleRef } from './layout/style'
+import { useZoomStyleRef, useZoomSyncStyleRef } from './layout/style'
 import { useScrollRef } from './scroll/style'
 import { useTouchMoveZoomingLock } from './touch/event'
 import {
@@ -28,6 +28,7 @@ export function Container(props: Readonly<PropsWithChildren>): ReactNode {
   useDetailStyleRef(ref, 'container')
   useTouchMoveZoomingLock(ref)
   useZoomStyleRef(ref, 'container')
+  useZoomSyncStyleRef(ref, 'container')
   useAppearingStyleRef(ref, 'container')
   useScrollRef(ref, 'container')
   return (
@@ -74,6 +75,11 @@ const style: string = `
 }
 .container.rotating {
   animation: container-rotate ${ZOOM_DURATION_CONTAINER}ms ease;
+}
+.container.syncing {
+  will-change: transform;
+  transform-origin: var(--zoom-sync-origin);
+  transform: var(--zoom-sync-transform);
 }
 .container > .content {
   ${position_absolute_left_0_top_0}

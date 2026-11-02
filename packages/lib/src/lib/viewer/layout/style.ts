@@ -11,6 +11,7 @@ import { useStyleRef } from '../../style/ref'
 import { tag } from '../../style/tag'
 import { easeCubic, lerp } from '../../style/timing'
 import { trunc2 } from '../../utils'
+import type { VecVec } from '../../vec/prefixed'
 //import { viewerSend } from '../viewer-xstate'
 import { fromSvgToContent } from './coord'
 import type { Layout } from './layout-types'
@@ -281,4 +282,27 @@ function getDeg(m: DOMMatrixReadOnly): number {
   const rad = Math.atan2(m.b, m.a)
   const deg = rad * (180 / Math.PI)
   return deg >= 0 ? deg : deg + 360
+}
+
+////
+
+const zoomSyncStyleRefs: Map<string, HTMLElement | SVGElement> = new Map()
+
+export function useZoomSyncStyleRef(
+  ref: Readonly<RefObject<HTMLElement | SVGElement | null>>,
+  name: string
+): void {
+  useStyleRef(zoomSyncStyleRefs, ref, name)
+}
+
+export function updateZoomSyncStyleRefs(
+  o: null | VecVec,
+  zoom: null | number
+): void {
+  Array.from(zoomSyncStyleRefs, ([, e]) => {
+    const p = e.style.setProperty.bind(e.style)
+    p(`--zoom-sync-origin`, o === null ? null : `${o.x}px ${o.y}px`)
+    p(`--zoom-sync-transform`, zoom === null ? null : `scale(${zoom})`)
+    tag(e, 'syncing', zoom !== null)
+  })
 }

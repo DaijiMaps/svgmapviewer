@@ -5,6 +5,7 @@ import {
   type Zoom,
   type ZoomInfo,
   type AnimationMatrix,
+  type ZoomSync,
 } from '../../types'
 import { type BoxBox } from '../box/prefixed'
 import { type VecVec as Vec } from '../vec/prefixed'
@@ -21,6 +22,10 @@ export type ViewerModeLocked = 'locked'
 export type ViewerMode =
   ViewerModePanning | ViewerModeTouching | ViewerModeLocked
 
+export type Sync = {
+  p?: null | Vec
+}
+
 //// context
 
 export type ViewerContext = {
@@ -33,6 +38,7 @@ export type ViewerContext = {
   readonly rotate: number
   readonly animationReq: null | AnimationReq
   readonly animation: null | Animation
+  readonly syncReq: null | Sync
 }
 
 //// external event (request)
@@ -50,7 +56,11 @@ export type ScrollSyncsyncDoneRequest = {
   type: 'SCROLL.SYNCSYNC.DONE'
   scroll: BoxBox
 }
+export type ScrollRequest_ = { type: 'SCROLL'; busy: boolean }
+export type TouchRequest = { type: 'TOUCH'; p?: Vec }
+export type TouchEndRequest = { type: 'TOUCH.END'; p?: Vec; s?: number }
 export type ZoomRequest = { type: 'ZOOM' } & Zoom
+export type ZoomSyncRequest = { type: 'ZOOM.SYNC'; zoomSync: null | ZoomSync }
 export type SearchRequest = { type: 'SEARCH'; pos: Vec }
 export type SearchEnd = { type: 'SEARCH.END'; res: Readonly<null | SearchRes> }
 export type ViewerRequest =
@@ -63,7 +73,11 @@ export type ViewerRequest =
   | RenderedRequest
   | ScrollGetDoneRequest
   | ScrollSyncsyncDoneRequest
+  | ScrollRequest_
+  | TouchRequest
+  | TouchEndRequest
   | ZoomRequest
+  | ZoomSyncRequest
   | SearchRequest
   | SearchEnd
 
@@ -73,13 +87,13 @@ export type ViewerMessage = { type: 'SEARCH.DONE' }
 
 //// UI event
 
-export type UIEventScroll = { type: 'SCROLL'; ev: Event | React.UIEvent }
+//export type UIEventScroll = { type: 'SCROLL'; ev: Event | React.UIEvent }
 export type UIEventAnimationEnd = {
   type: 'ANIMATION.END'
   ev?: React.AnimationEvent<HTMLDivElement>
 }
 
-export type ReactUIEvent = UIEventAnimationEnd | UIEventScroll
+export type ReactUIEvent = UIEventAnimationEnd //| UIEventScroll
 
 export type UIEvent = ReactUIEvent
 
@@ -104,6 +118,10 @@ export type ZoomEndEmitted = {
   layout: Layout
   zoom: number
 }
+export type ZoomSyncEmitted = {
+  type: 'ZOOM.SYNC'
+  zoomSync: null | ZoomSync
+}
 
 export type SyncLayoutEmitted = {
   type: 'SYNC.LAYOUT'
@@ -123,6 +141,7 @@ export type ViewerEmitted =
   | SearchEndDoneEmitted
   | ZoomStartEmitted
   | ZoomEndEmitted
+  | ZoomSyncEmitted
   | SwitchRequest
   | SwitchDoneRequest
   | SyncLayoutEmitted

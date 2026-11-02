@@ -1,8 +1,14 @@
-import { createAtom, type Atom } from '@xstate/store'
+import { useSelector } from '@xstate/react'
 import { and, assign, createActor, emit, setup } from 'xstate'
 
 import { getConfig } from '../../config'
-import { type ResizeInfo, type SearchRes, type Zoom } from '../../types'
+import {
+  type ResizeInfo,
+  type SearchRes,
+  type Zoom,
+  type ZoomInfo,
+  type ZoomSync,
+} from '../../types'
 import { boxCenter, type BoxBox } from '../box/prefixed'
 import { actionCbs } from '../event-action'
 import { floorCbs, notifyFloor } from '../event-floor'
@@ -12,7 +18,9 @@ import { notifySearch, searchCbs } from '../event-search'
 import { notifyStyle, styleCbs } from '../event-style'
 import { touchCbs } from '../event-touch'
 import { notifyUi, uiCbs } from '../event-ui'
-import { setZooming } from './layout/animation'
+import type { VecVec } from '../vec/prefixed'
+import { animationDone, calcAnimation, setZooming } from './layout/animation'
+import type { AnimationReq } from './layout/animation-types'
 import { emptyLayout } from './layout/layout'
 import { lockScroll, unlockScroll } from './scroll/scroll'
 import {
@@ -25,6 +33,7 @@ import {
   emitSyncSyncScroll,
   emitZoomEnd,
   emitZoomStart,
+  emitZoomSync,
   endHome,
   endZoom,
   prepareHome,
@@ -38,21 +47,20 @@ import {
   searchStart,
   startZoom,
 } from './viewer'
+import { fastZoomAtom, viewerMode } from './viewer-mode'
 import {
   type ReactUIEvent,
   type ResizeRequest,
   type SearchEnd,
   type SearchRequest,
   type SwitchRequest,
+  type TouchEndRequest,
   type ViewerContext,
   type ViewerEmitted,
   type ViewerEvent,
   type ViewerMode,
   type ZoomRequest,
 } from './viewer-types'
-
-export const viewerMode: Atom<ViewerMode> = createAtom<ViewerMode>('panning')
-viewerMode.subscribe((mode: ViewerMode) => notifyStyle.mode(mode))
 
 //// viewerMachine
 
@@ -68,6 +76,7 @@ const viewerMachine = setup({
     isContainerRendered: () => document.querySelector('.container') !== null,
     isMapRendered: () => getConfig().isMapRendered(),
     isUiRendered: () => getConfig().isUiRendered(),
+    isFastZoom: () => fastZoomAtom.get(),
   },
   actions: {
     setRendered: assign({ rendered: true }),
@@ -88,9 +97,23 @@ const viewerMachine = setup({
     clearAnimation: assign(({ context }) => clearAnimation(context)),
     startZoom: assign(({ context }) => startZoom(context)),
     endZoom: assign(({ context }) => endZoom(context)),
+    endZoomSync: assign(({ context }, { p, s }: Readonly<TouchEndRequest>) => {
+      if (p === undefined || s === undefined) return context
+      const animationReq: AnimationReq = {
+        type: 'zoom.sync',
+        s,
+        p,
+      }
+      const animation = calcAnimation(animationReq, context.layout)
+      const layout = animationDone(context.layout, animation)
+      return endZoom({ ...context, layout, animationReq })
+    }),
     endHome: assign(({ context }) => endHome(context)),
     emitZoomStart: emit(({ context }) => emitZoomStart(context)),
     emitZoomEnd: emit(({ context }) => emitZoomEnd(context)),
+    emitZoomSync: emit((_, zoomSync: null | ZoomSync) =>
+      emitZoomSync(zoomSync)
+    ),
     //
     // layout
     //
@@ -135,6 +158,7 @@ const viewerMachine = setup({
     rotate: 0,
     animationReq: null,
     animation: null,
+    syncReq: null,
   },
   states: {
     WaitingForResizeRequest: {
@@ -190,6 +214,7 @@ const viewerMachine = setup({
       },
     },
     Idle: {
+      id: 'Idle',
       on: {
         RESIZE: {
           actions: [{ type: 'resizeLayout', params: ({ event }) => event }],
@@ -213,6 +238,14 @@ const viewerMachine = setup({
           guard: () => lockScroll(),
           target: 'Recentering',
         },
+        SCROLL: {
+          guard: ({ event }) => event.busy,
+          target: 'Scrolling',
+        },
+        TOUCH: {
+          guard: 'isFastZoom',
+          target: 'Touching',
+        },
         ZOOM: {
           guard: () => lockScroll(),
           actions: {
@@ -233,9 +266,19 @@ const viewerMachine = setup({
         },
       },
     },
+    Scrolling: {
+      on: {
+        SCROLL: {
+          guard: ({ event }) => !event.busy,
+          target: 'Idle',
+        },
+      },
+    },
     Searching: {
       initial: 'Starting',
       onDone: 'Idle', // XXX do `Recentering' conditionally?
+      entry: () => viewerMode.set('locked'),
+      exit: () => viewerMode.set('panning'),
       states: {
         Starting: {
           always: {
@@ -324,6 +367,105 @@ const viewerMachine = setup({
           },
         },
         Done: {
+          type: 'final',
+        },
+      },
+    },
+    Touching: {
+      id: 'Touching',
+      initial: 'Stopping',
+      onDone: 'Idle',
+      entry: () => viewerMode.set('touching'),
+      exit: () => viewerMode.set('panning'),
+      states: {
+        Stopping: {
+          entry: 'emitGetScroll',
+          on: {
+            'SCROLL.GET.DONE': {
+              target: 'Rendering',
+            },
+          },
+        },
+        Rendering: {
+          after: {
+            // XXX
+            // XXX
+            // XXX
+            50: {
+              actions: 'resetScroll',
+              target: 'Main',
+            },
+            // XXX
+            // XXX
+            // XXX
+          },
+        },
+        Main: {
+          on: {
+            ZOOM: {
+              guard: () => lockScroll(),
+              actions: {
+                type: 'prepareZoom',
+                params: ({ event }) => event,
+              },
+              target: '#Zooming',
+            },
+            'ZOOM.SYNC': {
+              actions: {
+                type: 'emitZoomSync',
+                params: ({ event }) => event.zoomSync,
+              },
+            },
+            'TOUCH.END': [
+              {
+                guard: ({ event }) =>
+                  event.p !== undefined && event.s !== undefined,
+                actions: {
+                  type: 'endZoomSync',
+                  params: ({ event }) => event,
+                },
+                target: '#Syncing',
+              },
+              {
+                target: '#Idle',
+              },
+            ],
+          },
+        },
+      },
+    },
+    Syncing: {
+      id: 'Syncing',
+      initial: 'Ending',
+      onDone: 'Idle',
+      states: {
+        Ending: {
+          always: {
+            actions: [
+              // XXX don't emit ZOOM.END!
+              // XXX don't start animation!
+              'emitSyncLayout',
+              // fast sync - sync scroll NOT after resize
+              'emitSyncScroll',
+            ],
+            target: 'Rendering2',
+          },
+        },
+        Rendering2: {
+          after: {
+            // XXX
+            // XXX
+            // XXX
+            50: {
+              target: 'Done',
+            },
+            // XXX
+            // XXX
+            // XXX
+          },
+        },
+        Done: {
+          entry: 'clearAnimation',
           type: 'final',
         },
       },
@@ -459,8 +601,9 @@ viewerActor.on('SEARCH.END.DONE', ({ res }) => {
     notifyUi.open(res.psvg)
   }
 })
-viewerActor.on('ZOOM.START', (args) => notifyStyle.zoomStart(args))
-viewerActor.on('ZOOM.END', (end) => notifyStyle.zoomEnd(end))
+viewerActor.on('ZOOM.START', (args) => notifyStyle.zoom(args))
+viewerActor.on('ZOOM.END', (end) => notifyStyle.zoom(end))
+viewerActor.on('ZOOM.SYNC', (args) => notifyStyle.zoomSync(args.zoomSync))
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloor.select(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloor.unlock())
@@ -517,9 +660,9 @@ export function viewerCbsStart(): void {
     viewerActor.send({ type: 'SEARCH.END', res })
   )
 
-  uiCbs.open.add(() => viewerMode.set('locked'))
+  //uiCbs.open.add(() => viewerMode.set('locked'))
   uiCbs.closeDone.add(() => viewerSend({ type: 'SEARCH.DONE' }))
-  uiCbs.closeDone.add(() => viewerMode.set('panning'))
+  //uiCbs.closeDone.add(() => viewerMode.set('panning'))
 
   scrollCbs.getDone.add((scroll: Readonly<null | BoxBox>) => {
     if (scroll !== null) {
@@ -531,16 +674,16 @@ export function viewerCbsStart(): void {
       viewerSend({ type: 'SCROLL.SYNCSYNC.DONE', scroll })
     }
   })
+  scrollCbs.eventTick.add(() => viewerSend({ type: 'SCROLL', busy: true }))
+  scrollCbs.eventExpire.add(() => viewerSend({ type: 'SCROLL', busy: false }))
 
   styleCbs.resize.add(({ layout, force }: Readonly<ResizeInfo>) =>
     viewerSend({ type: 'RESIZE', layout, force })
   )
   styleCbs.mode.add(reflectMode)
-  styleCbs.zoomStart.add(() => {
-    wheeleventmask = true
-  })
-  styleCbs.zoomEnd.add(() => {
-    wheeleventmask = false
+  styleCbs.zoom.add((zoom: Readonly<ZoomInfo>) => {
+    // q !== null => zoom start
+    wheeleventmask = zoom.q !== null
   })
 
   actionCbs.reset.add(() => viewerSend({ type: 'HOME' }))
@@ -549,12 +692,31 @@ export function viewerCbsStart(): void {
   actionCbs.zoomOut.add(() => viewerSend({ type: 'ZOOM', z: -1, p: null }))
   actionCbs.zoomIn.add(() => viewerSend({ type: 'ZOOM', z: 1, p: null }))
 
-  touchCbs.multiStart.add(() => notifyScroll.get())
-  touchCbs.multiStart.add(() => viewerMode.set('touching'))
-  touchCbs.multiEnd.add(() => viewerMode.set('panning'))
-  touchCbs.zoom.add(({ z, p }: Zoom) =>
-    viewerSend({ type: 'ZOOM', z: z > 0 ? 1 : -1, p })
-  )
+  touchCbs.multiStart.add(() => {
+    notifyScroll.get()
+    viewerSend({ type: 'TOUCH' })
+  })
+
+  touchCbs.multiEnd.add(({ p, s }: Readonly<{ p?: VecVec; s?: number }>) => {
+    viewerSend({ type: 'TOUCH.END', p, s })
+  })
+  touchCbs.zoom.add(({ z, p, s, sync }: Zoom) => {
+    if (sync !== true) {
+      viewerSend({ type: 'ZOOM', z: z > 0 ? 1 : -1, p })
+    }
+    if (sync === true) {
+      const zoomSync: null | ZoomSync =
+        p !== null && s !== undefined ? { p, s } : null
+      viewerSend({
+        type: 'ZOOM.SYNC',
+        zoomSync,
+      })
+    }
+  })
 
   globalCbs.rendered.add(() => viewerSend({ type: 'RENDERED' }))
+}
+
+export function useViewerValue(): string {
+  return useSelector(viewerActor, (s) => JSON.stringify(s.value))
 }

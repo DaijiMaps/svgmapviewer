@@ -1,8 +1,11 @@
 import { useSelector } from '@xstate/react'
-import { and, assign, createActor, emit, raise, setup } from 'xstate'
+import { createAtom, type Atom } from '@xstate/store'
+import { and, assign, createActor, emit, not, raise, setup } from 'xstate'
 
 import { actionCbs } from '../../event-action'
+import { scrollCbs } from '../../event-scroll'
 import { notifyTouch } from '../../event-touch'
+import { fastZoomAtom } from '../viewer-mode'
 import {
   handleTouchEnd,
   handleTouchMove,
@@ -15,6 +18,9 @@ import {
   type TouchEvent_,
   type TouchTags_,
 } from './touch-types'
+
+export const touchLock: Atom<boolean> = createAtom(false)
+export const touchingAtom: Atom<boolean> = createAtom(false)
 
 const touchMachine = setup({
   types: {
@@ -32,6 +38,8 @@ const touchMachine = setup({
     isModeIdle: ({ context: { mode } }) => mode === 'idle',
     isModePanning: ({ context: { mode } }) => mode === 'pan',
     isModePinching: ({ context: { mode } }) => mode === 'pinch',
+    isScrolling: ({ context: { scrolling } }) => scrolling,
+    isFastZoom: () => fastZoomAtom.get(),
   },
   actions: {
     updateTouches: assign({
@@ -54,28 +62,65 @@ const touchMachine = setup({
             : { type: 'NONE' }
     ),
     resetTouches: assign({
-      touches: () => resetTouches(),
       mode: 'idle',
+      touches: () => resetTouches(),
+      center: null,
+      scale: null,
     }),
     enterPan: assign({
       mode: 'pan',
+      center: null,
+      scale: null,
     }),
     enterPinch: assign({
       mode: 'pinch',
+      center: ({ context }) => context.touches.cursor,
     }),
-    emitMulti: emit(({ context: { touches } }): TouchEmit_ => ({
+    emitMulti: emit(({ context: { touches, center, scale } }): TouchEmit_ => ({
       type: 'MULTI',
       touches,
+      center,
+      scale,
     })),
     emitZoom: emit(({ context: { touches } }) => ({
       type: 'ZOOM',
       touches,
     })),
+    emitZoomSync: emit(({ context: { touches, center } }) => ({
+      type: 'ZOOM.SYNC',
+      touches,
+      center,
+    })),
+    emitZoomSyncDone: emit(({ context: { touches } }) => ({
+      type: 'ZOOM.SYNC',
+      touches,
+      center: null,
+      end: true,
+    })),
+    saveScale: assign({
+      scale: ({ context: { touches } }) => {
+        const d0 = touches.dists[touches.dists.length - 1]
+        const d = touches.dists[0]
+        const s = d / d0
+        return s
+      },
+    }),
+    setScroll: assign({
+      scrolling: true,
+    }),
+    clearScroll: assign({
+      scrolling: false,
+    }),
+    lock: () => touchLock.set(() => true),
+    unlock: () => touchLock.set(() => false),
+    startTouching: () => touchingAtom.set(true),
+    stopTouching: () => touchingAtom.set(false),
   },
 }).createMachine({
   id: 'touch1',
   initial: 'Idle',
   context: {
+    mode: 'idle',
     touches: {
       vecs: new Map(),
       points: [],
@@ -84,7 +129,10 @@ const touchMachine = setup({
       z: null,
       horizontal: null,
     },
-    mode: 'idle',
+    active: true,
+    center: null,
+    scale: null,
+    scrolling: false,
   },
   on: {
     'TOUCH.START': {
@@ -96,14 +144,19 @@ const touchMachine = setup({
     'TOUCH.END': {
       actions: ['updateTouches', 'raiseOp'],
     },
-    CANCEL: {
-      target: '.Canceling',
-    },
   },
   states: {
+    Resetting: {
+      after: {
+        100: {
+          actions: 'unlock',
+          target: 'Idle',
+        },
+      },
+    },
     Idle: {
       tags: 'none',
-      entry: 'resetTouches',
+      entry: ['resetTouches', 'clearScroll'],
       on: {
         STARTED: [
           {
@@ -125,11 +178,17 @@ const touchMachine = setup({
     },
     SingleTouching: {
       tags: 'single',
+      entry: 'enterPan',
       on: {
         STARTED: [
           {
-            guard: and(['isModeIdle', 'isDoubleTouching']),
-            actions: 'enterPinch',
+            guard: and(['isModePanning', 'isDoubleTouching', 'isScrolling']),
+            // skip emitMulti
+            target: 'DoubleTouching',
+          },
+          {
+            guard: and(['isModePanning', 'isDoubleTouching']),
+            actions: 'emitMulti',
             target: 'DoubleTouching',
           },
           {
@@ -144,15 +203,21 @@ const touchMachine = setup({
         ENDED: [
           {
             guard: 'isAllEnding',
-            target: 'Idle',
+            target: 'Resetting',
           },
         ],
+        CANCEL: {
+          target: 'Canceling',
+        },
+        SCROLL: {
+          actions: 'setScroll',
+        },
       },
     },
     DoubleTouching: {
       tags: 'double',
-      entry: 'emitMulti',
-      exit: 'emitMulti',
+      entry: ['enterPinch', 'lock', 'startTouching'],
+      exit: 'stopTouching',
       on: {
         STARTED: [
           {
@@ -160,20 +225,52 @@ const touchMachine = setup({
             target: 'ManyTouching',
           },
         ],
-        MOVED: {
-          guard: and(['isModePinching', 'isZooming']),
-          actions: 'emitZoom',
-        },
+        MOVED: [
+          {
+            guard: and([not('isFastZoom'), 'isModePinching', 'isZooming']),
+            actions: 'emitZoom',
+          },
+          {
+            guard: 'isScrolling',
+          },
+          {
+            guard: and(['isModePinching']),
+            actions: ['saveScale', 'emitZoomSync'],
+          },
+        ],
         ENDED: [
           {
+            guard: and([not('isFastZoom'), 'isAllEnding']),
+            target: 'Resetting',
+          },
+          {
+            guard: and([not('isFastZoom'), 'isSingleTouching']),
+            target: 'SingleTouching',
+          },
+          {
+            guard: and(['isAllEnding', 'isScrolling']),
+            //actions: ['emitZoomSyncDone', 'emitMulti'],
+            target: 'Resetting',
+          },
+          {
+            guard: and(['isSingleTouching', 'isScrolling']),
+            //actions: ['emitZoomSyncDone', 'emitMulti'],
+            target: 'SingleTouching',
+          },
+          {
             guard: 'isAllEnding',
-            target: 'Idle',
+            actions: ['emitZoomSyncDone', 'emitMulti'],
+            target: 'Resetting',
           },
           {
             guard: 'isSingleTouching',
+            actions: ['emitZoomSyncDone', 'emitMulti'],
             target: 'SingleTouching',
           },
         ],
+        CANCEL: {
+          target: 'Canceling',
+        },
       },
     },
     ManyTouching: {
@@ -184,7 +281,7 @@ const touchMachine = setup({
         ENDED: [
           {
             guard: 'isAllEnding',
-            target: 'Idle',
+            target: 'Resetting',
           },
           {
             guard: 'isSingleTouching',
@@ -195,6 +292,9 @@ const touchMachine = setup({
             target: 'DoubleTouching',
           },
         ],
+        CANCEL: {
+          target: 'Canceling',
+        },
       },
     },
     Canceling: {
@@ -205,7 +305,7 @@ const touchMachine = setup({
         ENDED: [
           {
             //guard: 'isAllEnding',
-            target: 'Idle',
+            target: 'Resetting',
           },
         ],
       },
@@ -248,15 +348,14 @@ export function useTouchTags(): {
 }
 */
 
-export let touching: boolean = false
-
-touchActor.on('MULTI', ({ touches }) => {
+touchActor.on('MULTI', ({ touches, center, scale }) => {
   if (touches.vecs.size === 2) {
-    touching = true
     notifyTouch.multiStart()
   } else {
-    notifyTouch.multiEnd()
-    touching = false
+    // XXX only when viewer is in Touching
+    const p = center === null ? undefined : center
+    const s = scale === null ? undefined : scale
+    notifyTouch.multiEnd({ p, s })
   }
 })
 touchActor.on('ZOOM', ({ touches }) => {
@@ -264,6 +363,17 @@ touchActor.on('ZOOM', ({ touches }) => {
   const z = touches.z
   if (p !== null && z !== null) {
     notifyTouch.zoom({ z: z > 0 ? 1 : -1, p })
+  }
+})
+touchActor.on('ZOOM.SYNC', ({ touches, center, end }) => {
+  if (end === true) {
+    notifyTouch.zoom({ z: 1, p: null, sync: true })
+  } else if (touches.dists.length > 1 && center !== null) {
+    const p0 = center
+    const d0 = touches.dists[touches.dists.length - 1]
+    const d = touches.dists[0]
+    const s = d / d0
+    notifyTouch.zoom({ z: 1, p: p0, s, sync: true })
   }
 })
 
@@ -283,6 +393,10 @@ function touchSendCancel(): void {
   touchActor.send({ type: 'CANCEL' })
 }
 
+function touchSendScrollTick(): void {
+  touchActor.send({ type: 'SCROLL' })
+}
+
 export function touchCbsStart(): void {
   actionCbs.reset.add(touchSendCancel)
   actionCbs.fullscreen.add(touchSendCancel)
@@ -290,4 +404,13 @@ export function touchCbsStart(): void {
   actionCbs.recenter.add(touchSendCancel)
   actionCbs.zoomOut.add(touchSendCancel)
   actionCbs.zoomIn.add(touchSendCancel)
+  scrollCbs.eventTick.add(touchSendScrollTick)
+}
+
+export function useTouchValue(): string {
+  return useSelector(touchActor, (s) => JSON.stringify(s.value))
+}
+
+export function useTouchIsScrolling(): boolean {
+  return useSelector(touchActor, (s) => s.context.scrolling)
 }

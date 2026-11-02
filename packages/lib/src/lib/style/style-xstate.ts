@@ -3,7 +3,12 @@ import { createAtom, type Atom } from '@xstate/store'
 import { assign, createActor, raise, setup } from 'xstate'
 
 import { getConfig } from '../../config'
-import { type CurrentScroll, type ResizeInfo, type ZoomInfo } from '../../types'
+import {
+  type CurrentScroll,
+  type ResizeInfo,
+  type ZoomInfo,
+  type ZoomSync,
+} from '../../types'
 import { findRadius } from '../distance'
 import { scrollCbs } from '../event-scroll'
 import { styleCbs } from '../event-style'
@@ -19,6 +24,7 @@ import { emptyLayout, type Layout } from '../viewer/layout/layout'
 import {
   updateSvgScaleStyleRefs,
   updateZoomStyleRefs,
+  updateZoomSyncStyleRefs,
 } from '../viewer/layout/style'
 import { updateLayoutStyleRefs } from '../viewer/layout/style'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
@@ -229,17 +235,23 @@ export function styleCbsStart(): void {
     // XXX update name range after scroll is updated
     requestAnimationFrame(() => handleExpire())
   })
-  styleCbs.zoomStart.add(function (zoom: Readonly<ZoomInfo>) {
-    styleSend({ type: 'STYLE.ZOOM', ...zoom })
+  styleCbs.zoom.add(function (zoom: Readonly<ZoomInfo>) {
+    styleSend({ type: 'STYLE.ZOOM', zoom: zoom.zoom })
     styleSend({ type: 'STYLE.ANIMATION', animation: zoom.q })
   })
-  styleCbs.zoomEnd.add(function (end: Readonly<ZoomInfo>) {
-    styleSend({ type: 'STYLE.ZOOM', zoom: end.zoom })
-    styleSend({ type: 'STYLE.ANIMATION', animation: end.q })
+  styleCbs.zoomSync.add(function (zoomSync: Readonly<null | ZoomSync>) {
+    if (zoomSync === null) {
+      updateZoomSyncStyleRefs(null, null)
+    } else {
+      updateZoomSyncStyleRefs(zoomSync.p, zoomSync.s)
+    }
   })
   styleCbs.animationEnd.add(function () {
     styleSend({ type: 'STYLE.ANIMATION.END' })
   })
-
   scrollCbs.eventExpire.add(handleExpire)
+}
+
+export function useStyleValue(): string {
+  return useSelector(styleActor, (s) => JSON.stringify(s.value))
 }

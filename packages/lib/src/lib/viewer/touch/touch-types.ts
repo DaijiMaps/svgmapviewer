@@ -1,3 +1,4 @@
+import type { VecVec } from '../../vec/prefixed'
 import { type Touches } from './touch'
 
 // XXX TouchEvent is DOM
@@ -14,11 +15,28 @@ type TouchEvent_ =
   | { type: 'MOVED' } // internal
   | { type: 'ENDED' } // internal
   | { type: 'NONE' } // internal
+  | { type: 'SCROLL' }
 type TouchEmit_ =
-  { type: 'MULTI'; touches: Touches } | { type: 'ZOOM'; touches: Touches }
+  | {
+      type: 'MULTI'
+      touches: Touches
+      center: null | VecVec
+      scale: null | number
+    }
+  | { type: 'ZOOM'; touches: Touches }
+  | {
+      type: 'ZOOM.SYNC'
+      touches: Touches
+      center: null | VecVec
+      end?: boolean
+    }
 type TouchContext_ = {
-  touches: Touches
   mode: 'idle' | 'pan' | 'pinch'
+  touches: Touches
+  active: boolean
+  center: null | VecVec
+  scale: null | number
+  scrolling: boolean
 }
 
 type TouchTags_ = 'none' | 'single' | 'double' | 'many' | 'cancel'

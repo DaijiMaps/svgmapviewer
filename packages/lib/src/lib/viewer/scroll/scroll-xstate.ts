@@ -1,3 +1,4 @@
+import { useSelector } from '@xstate/react'
 import { assign, createActor, emit, fromPromise, setup } from 'xstate'
 
 import { type BoxBox } from '../../box/prefixed'
@@ -139,4 +140,8 @@ export function scrollCbsStart(): void {
   scrollCbs.syncSync.add((pos: Readonly<BoxBox>): void =>
     scrollSend({ type: 'SYNCSYNC', pos })
   )
+}
+
+export function useScrollValue(): string {
+  return useSelector(scrollActor, (s) => JSON.stringify(s.value))
 }

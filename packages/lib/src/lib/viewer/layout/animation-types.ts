@@ -5,6 +5,11 @@ import { type VecVec as Vec } from '../../vec/prefixed'
 
 export type AnimationReq =
   | Readonly<{ readonly type: 'zoom'; readonly z: Z; readonly p: Vec }>
+  | Readonly<{
+      readonly type: 'zoom.sync'
+      readonly s: number
+      readonly p: Vec
+    }>
   | Readonly<{ readonly type: 'home' }>
   | Readonly<{ readonly type: 'rotate'; readonly deg: number; readonly p: Vec }>
 

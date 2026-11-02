@@ -1,4 +1,4 @@
-import type { SearchSvgReq } from '../../types'
+import type { SearchSvgReq, ZoomSync } from '../../types'
 import { boxCenter } from '../box/prefixed'
 import {
   animationDone,
@@ -192,6 +192,15 @@ export function emitZoomEnd({
     layout,
     zoom,
     q: animation?.q ?? null,
+  }
+}
+
+export function emitZoomSync(
+  zoomSync: Readonly<null | ZoomSync>
+): ViewerEmitted {
+  return {
+    type: 'ZOOM.SYNC',
+    zoomSync,
   }
 }
 

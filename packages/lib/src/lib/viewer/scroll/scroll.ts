@@ -29,6 +29,10 @@ export function busyScroll(): void {
 
 export function unbusyScroll(): void {}
 
+export function isBusyScroll(): boolean {
+  return busies.has('S')
+}
+
 export function lockScroll(): boolean {
   if (busies.has('S')) return false
   //stopScroll()
@@ -41,6 +45,11 @@ export function unlockScroll(): boolean {
   locks.delete('S')
   return true
 }
+
+export function isLockedScroll(): boolean {
+  return locks.has('S')
+}
+
 /*
 export function stopScroll(e: Readonly<HTMLElement>): void {
   const x = e.scrollLeft
