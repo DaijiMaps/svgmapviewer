@@ -375,12 +375,8 @@ const viewerMachine = setup({
       id: 'Touching',
       initial: 'Stopping',
       onDone: 'Idle',
-      entry: () => {
-        viewerMode.set('touching')
-      },
-      exit: () => {
-        viewerMode.set('panning')
-      },
+      entry: () => viewerMode.set('touching'),
+      exit: () => viewerMode.set('panning'),
       states: {
         Stopping: {
           entry: 'emitGetScroll',
