@@ -80,6 +80,7 @@ const mapCoordSchema = z.object({
 
 export const uiConfigSchema = z.object({
   showGuides: z.boolean(),
+  fastZoom: z.boolean().optional(),
 })
 
 export const quizConfigSchema = z.discriminatedUnion('type', [
