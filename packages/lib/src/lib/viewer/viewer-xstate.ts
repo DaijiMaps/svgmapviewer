@@ -47,7 +47,7 @@ import {
   searchStart,
   startZoom,
 } from './viewer'
-import { quickZoomAtom, viewerMode } from './viewer-mode'
+import { fastZoomAtom, viewerMode } from './viewer-mode'
 import {
   type ReactUIEvent,
   type ResizeRequest,
@@ -76,7 +76,7 @@ const viewerMachine = setup({
     isContainerRendered: () => document.querySelector('.container') !== null,
     isMapRendered: () => getConfig().isMapRendered(),
     isUiRendered: () => getConfig().isUiRendered(),
-    isQuickZoom: () => quickZoomAtom.get(),
+    isFastZoom: () => fastZoomAtom.get(),
   },
   actions: {
     setRendered: assign({ rendered: true }),
@@ -243,7 +243,7 @@ const viewerMachine = setup({
           target: 'Scrolling',
         },
         TOUCH: {
-          guard: 'isQuickZoom',
+          guard: 'isFastZoom',
           target: 'Touching',
         },
         ZOOM: {

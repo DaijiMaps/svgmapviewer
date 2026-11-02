@@ -5,7 +5,7 @@ import { and, assign, createActor, emit, not, raise, setup } from 'xstate'
 import { actionCbs } from '../../event-action'
 import { scrollCbs } from '../../event-scroll'
 import { notifyTouch } from '../../event-touch'
-import { quickZoomAtom } from '../viewer-mode'
+import { fastZoomAtom } from '../viewer-mode'
 import {
   handleTouchEnd,
   handleTouchMove,
@@ -39,7 +39,7 @@ const touchMachine = setup({
     isModePanning: ({ context: { mode } }) => mode === 'pan',
     isModePinching: ({ context: { mode } }) => mode === 'pinch',
     isScrolling: ({ context: { scrolling } }) => scrolling,
-    isQuickZoom: () => quickZoomAtom.get(),
+    isFastZoom: () => fastZoomAtom.get(),
   },
   actions: {
     updateTouches: assign({
@@ -227,7 +227,7 @@ const touchMachine = setup({
         ],
         MOVED: [
           {
-            guard: and([not('isQuickZoom'), 'isModePinching', 'isZooming']),
+            guard: and([not('isFastZoom'), 'isModePinching', 'isZooming']),
             actions: 'emitZoom',
           },
           {
@@ -240,11 +240,11 @@ const touchMachine = setup({
         ],
         ENDED: [
           {
-            guard: and([not('isQuickZoom'), 'isAllEnding']),
+            guard: and([not('isFastZoom'), 'isAllEnding']),
             target: 'Resetting',
           },
           {
-            guard: and([not('isQuickZoom'), 'isSingleTouching']),
+            guard: and([not('isFastZoom'), 'isSingleTouching']),
             target: 'SingleTouching',
           },
           {
