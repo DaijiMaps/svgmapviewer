@@ -23,9 +23,10 @@ export function main(props: Readonly<SvgMapViewerConfigUser>) {
     meter2svg: tmp.meter2svg,
     direct: props.mapCoord?.direct,
   }
+  const x = props.mapCoord === undefined ? {} : { mapCoord }
   svgmapviewer({
     ...props,
     base: import.meta.env.BASE_URL,
-    mapCoord,
+    ...{ x },
   })
 }
