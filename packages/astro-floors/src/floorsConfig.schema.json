@@ -30,17 +30,7 @@
                     "type": "string"
                   },
                   "additionalProperties": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "string"
-                      }
-                    ]
+                    "type": ["null", "number", "string"]
                   }
                 },
                 "children": {
@@ -54,28 +44,11 @@
                           "type": "string"
                         },
                         "additionalProperties": {
-                          "anyOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            },
-                            {
-                              "type": "string"
-                            }
-                          ]
+                          "type": ["null", "number", "string"]
                         }
                       },
                       "text": {
-                        "anyOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "string"
-                          }
-                        ]
+                        "type": ["null", "string"]
                       }
                     },
                     "required": ["attrs", "text"],
