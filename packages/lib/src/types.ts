@@ -199,6 +199,7 @@ export interface SvgMapViewerConfig
 
 export interface UiConfig {
   showGuides: boolean
+  fastZoom?: boolean
 }
 
 // OsmDataConfig
