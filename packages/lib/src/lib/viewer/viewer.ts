@@ -1,6 +1,5 @@
 import type { SearchSvgReq, ZoomSync } from '../../types'
 import { boxCenter } from '../box/prefixed'
-import type { Vec } from '../vec'
 import {
   animationDone,
   calcAnimation,
@@ -17,7 +16,6 @@ import {
   type SearchEnd,
   type SearchRequest,
   type SwitchRequest,
-  type Sync,
   type ViewerContext,
   type ViewerEmitted,
   type ZoomRequest,
@@ -104,19 +102,6 @@ export function prepareZoom(
   return {
     ...context,
     animationReq,
-  }
-}
-
-export function prepareZoom2(
-  context: Readonly<ViewerContext>,
-  p?: Vec
-): ViewerContext {
-  const syncReq: Sync = {
-    p: p ?? boxCenter(context.layout.container),
-  }
-  return {
-    ...context,
-    syncReq,
   }
 }
 

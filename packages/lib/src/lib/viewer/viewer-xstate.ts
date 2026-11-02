@@ -18,7 +18,6 @@ import { notifySearch, searchCbs } from '../event-search'
 import { notifyStyle, styleCbs } from '../event-style'
 import { touchCbs } from '../event-touch'
 import { notifyUi, uiCbs } from '../event-ui'
-import type { Vec } from '../vec'
 import type { VecVec } from '../vec/prefixed'
 import { animationDone, calcAnimation, setZooming } from './layout/animation'
 import type { AnimationReq } from './layout/animation-types'
@@ -41,7 +40,6 @@ import {
   prepareRotate,
   prepareSearch,
   prepareZoom,
-  prepareZoom2,
   resetCursor,
   resetScroll,
   resizeLayout,
@@ -92,9 +90,6 @@ const viewerMachine = setup({
     //
     prepareZoom: assign(({ context }, params: ZoomRequest) =>
       prepareZoom(context, params)
-    ),
-    prepareZoom2: assign(({ context }, params: { p?: Vec }) =>
-      prepareZoom2(context, params.p)
     ),
     prepareHome: assign(({ context }) => prepareHome(context)),
     prepareRotate: assign(({ context }) => prepareRotate(context)),
@@ -247,13 +242,6 @@ const viewerMachine = setup({
           target: 'Scrolling',
         },
         TOUCH: {
-          /*
-          guard: () => lockScroll(),
-          actions: {
-            type: 'prepareZoom2',
-            params: ({ event }) => event,
-          },
-          */
           target: 'Touching',
         },
         ZOOM: {
@@ -431,11 +419,6 @@ const viewerMachine = setup({
               },
             },
             'TOUCH.END': [
-              // XXX
-              // XXX - clear --zoom-origin / --zoom-transform
-              // XXX - update animationReq
-              // XXX - reflect zoom to layout
-              // XXX
               {
                 guard: ({ event }) =>
                   event.p !== undefined && event.s !== undefined,
@@ -622,9 +605,7 @@ viewerActor.on('SEARCH.END.DONE', ({ res }) => {
 })
 viewerActor.on('ZOOM.START', (args) => notifyStyle.zoom(args))
 viewerActor.on('ZOOM.END', (end) => notifyStyle.zoom(end))
-viewerActor.on('ZOOM.SYNC', (args) => {
-  notifyStyle.zoomSync(args.zoomSync)
-})
+viewerActor.on('ZOOM.SYNC', (args) => notifyStyle.zoomSync(args.zoomSync))
 
 viewerActor.on('SWITCH', ({ fidx }) => notifyFloor.select(fidx))
 viewerActor.on('SWITCH.DONE', () => notifyFloor.unlock())
@@ -719,7 +700,6 @@ export function viewerCbsStart(): void {
   })
 
   touchCbs.multiEnd.add(({ p, s }: Readonly<{ p?: VecVec; s?: number }>) => {
-    // XXX pass p & s
     viewerSend({ type: 'TOUCH.END', p, s })
   })
   touchCbs.zoom.add(({ z, p, s, sync }: Zoom) => {
@@ -727,14 +707,6 @@ export function viewerCbsStart(): void {
       viewerSend({ type: 'ZOOM', z: z > 0 ? 1 : -1, p })
     }
     if (sync === true) {
-      // XXX ZOOM.SYNC
-      /*
-      if (zoom.p !== null && zoom.s !== undefined) {
-        updateZoomSyncStyleRefs(zoom.p, zoom.s)
-      } else if (zoom.p === null && zoom.s === 1) {
-        updateZoomSyncStyleRefs(null, null)
-      }
-      */
       const zoomSync: null | ZoomSync =
         p !== null && s !== undefined ? { p, s } : null
       viewerSend({

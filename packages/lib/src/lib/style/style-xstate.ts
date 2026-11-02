@@ -249,20 +249,7 @@ export function styleCbsStart(): void {
   styleCbs.animationEnd.add(function () {
     styleSend({ type: 'STYLE.ANIMATION.END' })
   })
-
   scrollCbs.eventExpire.add(handleExpire)
-
-  // XXX listen to styleCbs.zoomSync from viewer
-  /*
-  touchCbs.zoom.add(function (zoom: Readonly<Zoom>) {
-    if (!zoom.sync) return
-    if (zoom.p !== null && zoom.s !== undefined) {
-      updateZoomSyncStyleRefs(zoom.p, zoom.s)
-    } else if (zoom.p === null && zoom.s === 1) {
-      updateZoomSyncStyleRefs(null, null)
-    }
-  })
-  */
 }
 
 export function useStyleValue(): string {

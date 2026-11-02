@@ -351,11 +351,7 @@ touchActor.on('ZOOM', ({ touches }) => {
     notifyTouch.zoom({ z: z > 0 ? 1 : -1, p })
   }
 })
-// XXX
-// XXX
-// XXX
 touchActor.on('ZOOM.SYNC', ({ touches, center, end }) => {
-  //console.log('ZOOM.SYNC', touches)
   if (end === true) {
     notifyTouch.zoom({ z: 1, p: null, sync: true })
   } else if (touches.dists.length > 1 && center !== null) {
@@ -366,9 +362,6 @@ touchActor.on('ZOOM.SYNC', ({ touches, center, end }) => {
     notifyTouch.zoom({ z: 1, p: p0, s, sync: true })
   }
 })
-// XXX
-// XXX
-// XXX
 
 ////
 
