@@ -5,6 +5,7 @@ import { getConfig } from '../../config'
 import {
   type ResizeInfo,
   type SearchRes,
+  type SvgMapViewerConfig,
   type Zoom,
   type ZoomInfo,
   type ZoomSync,
@@ -714,6 +715,10 @@ export function viewerCbsStart(): void {
     }
   })
 
+  globalCbs.init.add((cfg: SvgMapViewerConfig) => {
+    const fastZoom = cfg?.uiConfig?.fastZoom
+    if (fastZoom !== undefined) fastZoomAtom.set(fastZoom)
+  })
   globalCbs.rendered.add(() => viewerSend({ type: 'RENDERED' }))
 }
 
