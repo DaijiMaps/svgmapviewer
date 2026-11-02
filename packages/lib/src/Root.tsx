@@ -8,7 +8,7 @@ import { createRoot } from 'react-dom/client'
 
 import App from './App'
 import { keyboardSend } from './lib/viewer/input/keyboard-xstate'
-import { touching } from './lib/viewer/touch/touch-xstate'
+import { touchingAtom } from './lib/viewer/touch/touch-xstate'
 import { wheeleventmask } from './lib/viewer/viewer-xstate'
 import { type SvgMapViewerConfig } from './types'
 
@@ -51,7 +51,7 @@ export function root(config: Readonly<SvgMapViewerConfig>): void {
         return
       }
       ev.preventDefault()
-    } else if (!touching) {
+    } else if (!touchingAtom.get()) {
       return
     }
     ev.preventDefault()

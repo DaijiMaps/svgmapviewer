@@ -8,3 +8,7 @@ import type { ViewerMode } from './viewer-types'
 export const viewerMode: Atom<ViewerMode> = createAtom<ViewerMode>('panning')
 
 viewerMode.subscribe((mode: ViewerMode) => notifyStyle.mode(mode))
+
+// quick zoom
+
+export const quickZoomAtom: Atom<boolean> = createAtom(false)

@@ -1,10 +1,11 @@
 import { useSelector } from '@xstate/react'
 import { createAtom, type Atom } from '@xstate/store'
-import { and, assign, createActor, emit, raise, setup } from 'xstate'
+import { and, assign, createActor, emit, not, raise, setup } from 'xstate'
 
 import { actionCbs } from '../../event-action'
 import { scrollCbs } from '../../event-scroll'
 import { notifyTouch } from '../../event-touch'
+import { quickZoomAtom } from '../viewer-mode'
 import {
   handleTouchEnd,
   handleTouchMove,
@@ -18,7 +19,8 @@ import {
   type TouchTags_,
 } from './touch-types'
 
-export const touchLock: Atom<boolean> = createAtom<boolean>(false)
+export const touchLock: Atom<boolean> = createAtom(false)
+export const touchingAtom: Atom<boolean> = createAtom(false)
 
 const touchMachine = setup({
   types: {
@@ -37,6 +39,7 @@ const touchMachine = setup({
     isModePanning: ({ context: { mode } }) => mode === 'pan',
     isModePinching: ({ context: { mode } }) => mode === 'pinch',
     isScrolling: ({ context: { scrolling } }) => scrolling,
+    isQuickZoom: () => quickZoomAtom.get(),
   },
   actions: {
     updateTouches: assign({
@@ -110,6 +113,8 @@ const touchMachine = setup({
     }),
     lock: () => touchLock.set(() => true),
     unlock: () => touchLock.set(() => false),
+    startTouching: () => touchingAtom.set(true),
+    stopTouching: () => touchingAtom.set(false),
   },
 }).createMachine({
   id: 'touch1',
@@ -211,7 +216,8 @@ const touchMachine = setup({
     },
     DoubleTouching: {
       tags: 'double',
-      entry: ['enterPinch', 'lock'],
+      entry: ['enterPinch', 'lock', 'startTouching'],
+      exit: 'stopTouching',
       on: {
         STARTED: [
           {
@@ -221,6 +227,10 @@ const touchMachine = setup({
         ],
         MOVED: [
           {
+            guard: and([not('isQuickZoom'), 'isModePinching', 'isZooming']),
+            actions: 'emitZoom',
+          },
+          {
             guard: 'isScrolling',
           },
           {
@@ -229,6 +239,14 @@ const touchMachine = setup({
           },
         ],
         ENDED: [
+          {
+            guard: and([not('isQuickZoom'), 'isAllEnding']),
+            target: 'Resetting',
+          },
+          {
+            guard: and([not('isQuickZoom'), 'isSingleTouching']),
+            target: 'SingleTouching',
+          },
           {
             guard: and(['isAllEnding', 'isScrolling']),
             //actions: ['emitZoomSyncDone', 'emitMulti'],
@@ -330,18 +348,14 @@ export function useTouchTags(): {
 }
 */
 
-export let touching: boolean = false
-
 touchActor.on('MULTI', ({ touches, center, scale }) => {
   if (touches.vecs.size === 2) {
-    touching = true
     notifyTouch.multiStart()
   } else {
     // XXX only when viewer is in Touching
     const p = center === null ? undefined : center
     const s = scale === null ? undefined : scale
     notifyTouch.multiEnd({ p, s })
-    touching = false
   }
 })
 touchActor.on('ZOOM', ({ touches }) => {

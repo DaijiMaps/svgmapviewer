@@ -19,6 +19,7 @@ import { useShadowRoot } from '../dom'
 import { useStyleValue } from '../style/style-xstate'
 import { useScrollValue } from '../viewer/scroll/scroll-xstate'
 import {
+  touchingAtom,
   useTouchIsScrolling,
   useTouchValue,
 } from '../viewer/touch/touch-xstate'
@@ -138,6 +139,8 @@ export function Debug(): ReactNode {
   const y = useStyleValue()
   const m = useAtom(viewerMode)
 
+  const T = useAtom(touchingAtom)
+
   const S = useScrollValue()
   const r = useTouchIsScrolling()
 
@@ -151,7 +154,7 @@ export function Debug(): ReactNode {
         ))}
       </div>
       <p>
-        {S}:{r ? 'S' : 's'}
+        {S}:{r ? 'S' : 's'}:{T ? 'T' : 't'}
       </p>
       <p>
         {v}:{t}:{y}:{m}
