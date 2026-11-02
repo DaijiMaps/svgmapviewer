@@ -1,5 +1,11 @@
 # svgmapviewer
 
+## 0.9.0
+
+### Minor Changes
+
+- 3262174: support quick (fast) zoom
+
 ## 0.8.0
 
 ### Minor Changes
