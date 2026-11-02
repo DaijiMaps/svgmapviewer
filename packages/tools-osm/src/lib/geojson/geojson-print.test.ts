@@ -58,4 +58,6 @@ test('isTuple', () => {
   xs.forEach((o) => expect(isTuple(o)).toBe(false))
 })
 
-const exampleGeoJsonFiles = ['../example-osm/src/data/areas_extent.json']
+const exampleGeoJsonFiles = [
+  '../examples/example-osm/src/data/areas_extent.json',
+]

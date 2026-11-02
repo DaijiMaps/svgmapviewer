@@ -28,16 +28,16 @@ test('decodeGeoJSON', () => {
 })
 
 const exampleGeoJsonFiles = [
-  '../example-osm/src/data/areas_extent.json',
-  '../example-osm/src/data/areas.json',
-  '../example-osm/src/data/internals_extent.json',
-  '../example-osm/src/data/internals.json',
-  '../example-osm/src/data/map-lines.json',
-  '../example-osm/src/data/map-multilinestrings.json',
-  '../example-osm/src/data/map-multipolygons.json',
-  '../example-osm/src/data/map-other_relations.json',
-  '../example-osm/src/data/map-points.json',
-  '../example-osm/src/data/measures.json',
-  '../example-osm/src/data/origin.json',
-  '../example-osm/src/data/viewbox.json',
+  '../examples/example-osm/src/data/areas_extent.json',
+  '../examples/example-osm/src/data/areas.json',
+  '../examples/example-osm/src/data/internals_extent.json',
+  '../examples/example-osm/src/data/internals.json',
+  '../examples/example-osm/src/data/map-lines.json',
+  '../examples/example-osm/src/data/map-multilinestrings.json',
+  '../examples/example-osm/src/data/map-multipolygons.json',
+  '../examples/example-osm/src/data/map-other_relations.json',
+  '../examples/example-osm/src/data/map-points.json',
+  '../examples/example-osm/src/data/measures.json',
+  '../examples/example-osm/src/data/origin.json',
+  '../examples/example-osm/src/data/viewbox.json',
 ] as const
