@@ -230,6 +230,12 @@
         "showGuides": {
           "type": "boolean"
         },
+        "showRecenter": {
+          "type": "boolean"
+        },
+        "showRotate": {
+          "type": "boolean"
+        },
         "fastZoom": {
           "type": "boolean"
         }

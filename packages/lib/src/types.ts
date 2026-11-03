@@ -199,6 +199,8 @@ export interface SvgMapViewerConfig
 
 export interface UiConfig {
   showGuides: boolean
+  showRecenter?: boolean
+  showRotate?: boolean
   fastZoom?: boolean
 }
 

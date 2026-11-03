@@ -2,10 +2,18 @@
 /* eslint-disable functional/no-return-void */
 import type { ReactNode } from 'react'
 
+import { useConfig } from '../../../config'
+import type { SvgMapViewerConfig } from '../../../types'
 import { notifyAction } from '../../event-action'
 
+const shown = (cfg: Readonly<SvgMapViewerConfig>) =>
+  cfg.uiConfig?.showRotate ?? true
+
 export function Rotate(): ReactNode {
-  return (
+  const cfg = useConfig()
+  return !shown(cfg) ? (
+    <></>
+  ) : (
     <div className={'button-item rotate'} onClick={() => notifyAction.rotate()}>
       <svg viewBox="-5.25 -5.25 10.5 10.5">
         <path d={d} />

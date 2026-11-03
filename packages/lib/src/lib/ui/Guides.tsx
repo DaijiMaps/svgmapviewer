@@ -25,7 +25,7 @@ export function Guides(): ReactNode {
   return <div id="guides" />
 }
 
-const isShowing = (cfg: Readonly<SvgMapViewerConfig>) =>
+const shown = (cfg: Readonly<SvgMapViewerConfig>) =>
   (cfg.uiConfig?.showGuides ?? true) && !cfg.mapCoord.matrix?.isIdentity
 
 function GuidesRoot(): ReactNode {
@@ -36,7 +36,7 @@ function GuidesRoot(): ReactNode {
 
   const cfg = useConfig()
 
-  return !isShowing(cfg) ? (
+  return !shown(cfg) ? (
     <></>
   ) : (
     <div ref={ref} className="ui-content guides">

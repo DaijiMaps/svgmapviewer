@@ -2,10 +2,18 @@
 /* eslint-disable functional/no-return-void */
 import type { ReactNode } from 'react'
 
+import { useConfig } from '../../../config'
+import type { SvgMapViewerConfig } from '../../../types'
 import { notifyAction } from '../../event-action'
 
+const shown = (cfg: Readonly<SvgMapViewerConfig>) =>
+  cfg.uiConfig?.showRecenter ?? true
+
 export function Recenter(): ReactNode {
-  return (
+  const cfg = useConfig()
+  return !shown(cfg) ? (
+    <></>
+  ) : (
     <div
       className={'button-item recenter'}
       onClick={() => notifyAction.recenter()}

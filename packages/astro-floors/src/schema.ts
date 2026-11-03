@@ -80,6 +80,8 @@ const mapCoordSchema = z.object({
 
 export const uiConfigSchema = z.object({
   showGuides: z.boolean(),
+  showRecenter: z.boolean().optional(),
+  showRotate: z.boolean().optional(),
   fastZoom: z.boolean().optional(),
 })
 
