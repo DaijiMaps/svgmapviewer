@@ -1,5 +1,6 @@
 import { Fragment, type CSSProperties, type ReactNode } from 'react'
 
+import { getConfig } from '../../../config'
 import { type LabelText } from '../../../types'
 import { useShadowRoot } from '../../dom'
 import type { FloorLabelsProps } from './types'
@@ -15,6 +16,7 @@ export function RenderFloorLabels(props: FloorLabelsProps): ReactNode {
 }
 
 function RenderFloorLabelsRoot({ labels }: FloorLabelsProps): ReactNode {
+  const cfg = getConfig()
   return (
     <div className="labels">
       {labels?.map((_text, idx) => (
@@ -23,6 +25,7 @@ function RenderFloorLabelsRoot({ labels }: FloorLabelsProps): ReactNode {
         </Fragment>
       ))}
       <style>{labelsStyle}</style>
+      <style>{cfg?.floorsConfig?.labelsStyle}</style>
     </div>
   )
 }
