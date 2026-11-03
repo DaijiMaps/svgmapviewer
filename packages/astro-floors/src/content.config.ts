@@ -2,7 +2,6 @@ import fs from 'node:fs'
 
 import type { Loader } from 'astro/loaders'
 import { file, glob } from 'astro/loaders'
-import { z } from 'astro/zod'
 import { defineCollection } from 'astro:content'
 
 import {

@@ -219,6 +219,9 @@
         },
         "labelsCircleStyle": {
           "type": "string"
+        },
+        "labelsStyle": {
+          "type": "string"
         }
       },
       "required": ["initialFidx", "floors"],

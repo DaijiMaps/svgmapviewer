@@ -69,7 +69,7 @@ const osmMapDataSchema = z.object({})
 
 const osmMapMapSchema = z.object({})
 
-const mapCoordSchema = z.object({
+export const mapCoordSchema = z.object({
   svgp: vecSchema.optional(),
   svgq: vecSchema.optional(),
   geop: vecSchema.optional(),
@@ -163,6 +163,7 @@ export const floorsConfigSchema = z.object({
   //labelsMap: z.map(z.string(), z.array(labelTextSchema)).optional(),
   labelsCircleRadius: z.number().optional(),
   labelsCircleStyle: z.string().optional(),
+  labelsStyle: z.string().optional(),
 })
 
 // labelsSchema
