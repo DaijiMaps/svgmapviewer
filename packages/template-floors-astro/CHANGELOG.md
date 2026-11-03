@@ -1,5 +1,12 @@
 # svgmapviewer-template-floors-astro
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies
+  - svgmapviewer-astro-floors@0.7.0
+
 ## 0.2.1
 
 ### Patch Changes
