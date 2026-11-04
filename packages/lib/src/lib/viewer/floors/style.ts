@@ -30,6 +30,7 @@ function initStyle(
   p(`will-change`, null)
   p(`animation`, null)
   p(`visibility`, 'hidden')
+  p(`display`, 'none')
 }
 
 function loadStyle(
@@ -42,10 +43,12 @@ function loadStyle(
     p(`will-change`, `opacity`)
     p(`animation`, `${FLOOR_APPEARING} ${floor_switch_duration} linear`)
     p(`visibility`, null)
+    p(`display`, null)
   } else {
     p(`will-change`, null)
     p(`animation`, null)
     p(`visibility`, 'hidden')
+    p(`display`, `none`)
   }
 }
 
@@ -59,15 +62,19 @@ function switchStyle(
   const p = e.style.setProperty.bind(e.style)
   if (!animating) {
     const visibility = appearing ? null : 'hidden'
+    const display = appearing ? null : 'none'
     p(`will-change`, null)
     p(`animation`, null)
     p(`visibility`, visibility)
+    p(`display`, display)
   } else {
     const animation = `${appearing ? FLOOR_APPEARING : FLOOR_DISAPPEARING} ${floor_switch_duration} linear`
     const visibility = visible ? null : 'hidden'
+    const display = visible ? null : 'none'
     p(`will-change`, `opacity`)
     p(`animation`, animation)
     p(`visibility`, visibility)
+    p(`display`, display)
   }
 }
 
