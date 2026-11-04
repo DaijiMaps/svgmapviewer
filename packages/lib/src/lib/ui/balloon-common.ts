@@ -217,10 +217,10 @@ export const detailStyleString: string = `
   will-change: opacity, transform;
 }
 .animating.detail {
-  animation: xxx-detail var(--duration) var(--timing);
+  animation: xxx-detail var(--duration) var(--timing) forwards;
 }
 .animating.balloon {
-  animation: xxx-balloon var(--duration) var(--timing);
+  animation: xxx-balloon var(--duration) var(--timing) forwards;
 }
 .animating.closed {
   --timing: ${timing_closing};

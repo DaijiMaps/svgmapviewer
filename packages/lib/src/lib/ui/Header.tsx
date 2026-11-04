@@ -109,7 +109,7 @@ const style = `
 .header.animating {
   --duration: ${ZOOM_DURATION_HEADER}ms;
   will-change: opacity, transform;
-  animation: xxx-header var(--duration) var(--timing);
+  animation: xxx-header var(--duration) var(--timing) forwards;
 }
 @keyframes xxx-header {
   from {

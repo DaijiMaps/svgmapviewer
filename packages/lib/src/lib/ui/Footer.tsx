@@ -107,7 +107,7 @@ const style = `
     }
     --duration: ${ZOOM_DURATION_HEADER}ms;
     will-change: opacity, transform;
-    animation: xxx-footer var(--duration) var(--timing);
+    animation: xxx-footer var(--duration) var(--timing) forwards;
   }
 }
 @keyframes xxx-footer {
