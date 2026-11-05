@@ -10,11 +10,8 @@ import { RenderMapSymbols2 } from '../carto/symbols'
 import { ZOOM_DURATION_CONTAINER } from '../css'
 import { useShadowRoot } from '../dom'
 import { trunc2 } from '../utils'
-import {
-  useLayoutStyleRef,
-  useSvgScaleStyleRef,
-  useZoomSStyleRef,
-} from '../viewer/layout/style'
+import { useLayoutStyleRef, useSvgScaleStyleRef } from '../viewer/layout/style'
+import { useZoomSStyleRef } from '../viewer/layout/style-zoom'
 import { MAP_HTML_CONTENT_ID, MAP_HTML_ROOT_ID } from './map-svg-react'
 import { useNames } from './names'
 

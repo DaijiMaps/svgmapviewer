@@ -15,7 +15,7 @@ import {
   ZOOM_DURATION_HEADER,
 } from '../css'
 import { useShadowRoot } from '../dom'
-import { useZoomCondStyleRef } from '../viewer/layout/style'
+import { useZoomCondStyleRef } from '../viewer/layout/style-zoom'
 import { Measure, MeasureCoordinate, MeasureDistance } from './Measure'
 import { useHeaderStyleRef } from './style'
 

@@ -13,11 +13,8 @@ import { usePosition } from '../position'
 //import { useLayoutSvgScaleS } from '../style/style-react'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'
-import {
-  useLayoutStyleRef,
-  useSvgScaleStyleRef,
-  useZoomSStyleRef,
-} from '../viewer/layout/style'
+import { useLayoutStyleRef, useSvgScaleStyleRef } from '../viewer/layout/style'
+import { useZoomSStyleRef } from '../viewer/layout/style-zoom'
 import { entryToVs } from './point'
 import { RenderUses3 } from './symbols'
 import { type MapMarker, type RenderMapMarkersProps } from './types'
