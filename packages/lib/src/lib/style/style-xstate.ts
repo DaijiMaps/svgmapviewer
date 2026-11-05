@@ -24,9 +24,9 @@ import { emptyLayout, type Layout } from '../viewer/layout/layout'
 import {
   updateSvgScaleStyleRefs,
   updateZoomStyleRefs,
-  updateZoomSyncStyleRefs,
 } from '../viewer/layout/style'
 import { updateLayoutStyleRefs } from '../viewer/layout/style'
+import { updateZoomSyncStyleRefs } from '../viewer/layout/style-zoom-sync'
 import { getCurrentScroll } from '../viewer/scroll/scroll'
 import { updateAppearingStyleRefs } from './appearing'
 import { startLoop } from './frame'
