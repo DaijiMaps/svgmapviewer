@@ -17,7 +17,7 @@ import {
   type UseFloorsReturn,
 } from '../../viewer/floors/floors-react'
 import { useFloorRef } from '../../viewer/floors/style'
-import { useLayoutStyleRef } from '../../viewer/layout/style'
+import { useLayoutStyleRef } from '../../viewer/layout/style-layout'
 import { MAP_SVG_FLOORS } from '../map-svg-react'
 import { getLabels } from './labels'
 import type { FloorProps } from './types'

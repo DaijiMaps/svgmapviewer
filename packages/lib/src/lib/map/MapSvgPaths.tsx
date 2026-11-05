@@ -8,7 +8,7 @@ import { RenderMapPaths } from '../carto'
 import { useShadowRoot } from '../dom'
 import { useLayout } from '../style/style-react'
 import { trunc2 } from '../utils'
-import { useLayoutStyleRef } from '../viewer/layout/style'
+import { useLayoutStyleRef } from '../viewer/layout/style-layout'
 import {
   MAP_SVG_PATHS_CONTENT_ID,
   MAP_SVG_PATHS_ROOT_ID,

@@ -7,7 +7,10 @@ import { ZOOM_DURATION_CONTAINER } from '../css'
 import { useMapStyleRef } from '../map/style'
 import { type V } from '../tuple'
 import { trunc2 } from '../utils'
-import { useLayoutStyleRef, useSvgScaleStyleRef } from '../viewer/layout/style'
+import {
+  useLayoutStyleRef,
+  useSvgScaleStyleRef,
+} from '../viewer/layout/style-layout'
 import { useZoomSStyleRef } from '../viewer/layout/style-zoom'
 import { entryToVs } from './point'
 import { type RenderMapSymbolsProps } from './types'

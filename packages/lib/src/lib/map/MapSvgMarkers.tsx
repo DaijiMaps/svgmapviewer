@@ -17,7 +17,7 @@ import { useShadowRoot } from '../dom'
 import { useLayoutConfig, useLayoutSvg } from '../style/style-react'
 import { trunc2 } from '../utils'
 import { type VecVec } from '../vec/prefixed'
-import { useLayoutStyleRef } from '../viewer/layout/style'
+import { useLayoutStyleRef } from '../viewer/layout/style-layout'
 import {
   MAP_SVG_MARKERS_CONTENT_ID,
   MAP_SVG_MARKERS_ROOT_ID,

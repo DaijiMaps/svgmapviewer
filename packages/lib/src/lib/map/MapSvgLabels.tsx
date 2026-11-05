@@ -8,7 +8,7 @@ import { useShadowRoot } from '../dom'
 import { useLayout, useLayoutSvgScaleS } from '../style/style-react'
 import { voffset } from '../text'
 import { trunc2 } from '../utils'
-import { useLayoutStyleRef } from '../viewer/layout/style'
+import { useLayoutStyleRef } from '../viewer/layout/style-layout'
 import {
   MAP_SVG_LABELS_CONTENT_ID,
   MAP_SVG_LABELS_ROOT_ID,

@@ -9,7 +9,7 @@ import { RenderMapAssetsDefault } from '../carto/assets'
 import { useShadowRoot } from '../dom'
 import { useLayout } from '../style/style-react'
 import { trunc2 } from '../utils'
-import { useLayoutStyleRef } from '../viewer/layout/style'
+import { useLayoutStyleRef } from '../viewer/layout/style-layout'
 import {
   MAP_SVG_SYMBOLS_CONTENT_ID,
   MAP_SVG_SYMBOLS_ROOT_ID,
