@@ -303,55 +303,49 @@ export function calcBalloonStyleParams(
   { open, animating }: OpenClose
 ): BalloonStyleParams {
   if (Q === null || _hv === null || !openCloseIsVisible({ open, animating })) {
-    const visibility = 'hidden'
-    const pww = null
-    const phh = null
-    const a = null
-    const b = null
-    const timing = null
-    const txax = null
-    const txay = null
-    const txbx = null
-    const txby = null
-    return { visibility, a, b, timing, pww, phh, txax, txay, txbx, txby }
+    return {
+      visibility: 'hidden',
+      pww: null,
+      phh: null,
+      a: null,
+      b: null,
+      timing: null,
+      txax: null,
+      txay: null,
+      txbx: null,
+      txby: null,
+    }
   } else {
     const { width, height } = size
     const { a, b, timing, txa, txb } = calcStyle(open, animating, Q, leg.q)
-    const visibility = null
-    const pww = `${trunc3(-width / 2)}px`
-    const phh = `${trunc3(-height / 2)}px`
-    const txax = txa && `${trunc3(txa.x)}px`
-    const txay = txa && `${trunc3(txa.y)}px`
-    const txbx = txb && `${trunc3(txb.x)}px`
-    const txby = txb && `${trunc3(txb.y)}px`
-    return { visibility, a, b, timing, pww, phh, txax, txay, txbx, txby }
+    return {
+      visibility: null,
+      pww: `${trunc3(-width / 2)}px`,
+      phh: `${trunc3(-height / 2)}px`,
+      a,
+      b,
+      timing,
+      txax: txa && `${trunc3(txa.x)}px`,
+      txay: txa && `${trunc3(txa.y)}px`,
+      txbx: txb && `${trunc3(txb.x)}px`,
+      txby: txb && `${trunc3(txb.y)}px`,
+    }
   }
 }
 
 export function updateBalloonStyle(
   e: Readonly<HTMLDivElement>,
-  {
-    visibility,
-    a,
-    b,
-    timing,
-    pww,
-    phh,
-    txax,
-    txay,
-    txbx,
-    txby,
-  }: BalloonStyleParams
+  b: BalloonStyleParams
 ): void {
   const p = e.style.setProperty.bind(e.style)
-  p('visibility', visibility)
-  p('--balloon-pww', pww)
-  p('--balloon-phh', phh)
-  p('--a', a === null ? null : a.toString())
-  p('--b', b === null ? null : b.toString())
-  p('--timing', timing)
-  p('--balloon-tx-a-x', txax)
-  p('--balloon-tx-a-y', txay)
-  p('--balloon-tx-b-x', txbx)
-  p('--balloon-tx-b-y', txby)
+  p('visibility', b.visibility)
+  p('--balloon-pww', b.pww)
+  p('--balloon-phh', b.phh)
+  p('--a', b.a?.toString() ?? null)
+  p('--b', b.b?.toString() ?? null)
+  p('--timing', b.timing)
+  p('--balloon-tx-a-x', b.txax)
+  p('--balloon-tx-a-y', b.txay)
+  p('--balloon-tx-b-x', b.txbx)
+  p('--balloon-tx-b-y', b.txby)
 }
