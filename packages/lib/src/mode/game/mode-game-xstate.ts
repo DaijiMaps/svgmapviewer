@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react'
 import { assign, createActor, emit, setup } from 'xstate'
 
-import { getGame, type GameContext } from './lib/game/game-xstate'
+import { getGame, type GameContext } from '../../lib/game/game-xstate'
 
 // XXX broadcast channel
 const channel = new BroadcastChannel('svgmapviewer-game')

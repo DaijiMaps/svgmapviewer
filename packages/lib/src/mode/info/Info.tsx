@@ -1,13 +1,14 @@
+import { QRCodeSVG } from 'qrcode.react'
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-throw-statements */
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { getConfig } from './config'
-import type { SvgMapViewerConfig } from './types'
+import { getConfig } from '../../config'
+import type { SvgMapViewerConfig } from '../../types'
 
-export function settingsRoot(config: Readonly<SvgMapViewerConfig>): void {
+export function infoRoot(config: Readonly<SvgMapViewerConfig>): void {
   const cfg = getConfig()
   const e = document.getElementById(cfg.root)
 
@@ -18,7 +19,17 @@ export function settingsRoot(config: Readonly<SvgMapViewerConfig>): void {
   createRoot(e).render(
     <StrictMode>
       <div>
-        <h1>svgmapviewer - {config.title}</h1>
+        <h1>svgmapviewer</h1>
+        <h2>{config.title}</h2>
+        <div className="info">
+          <QRCodeSVG
+            className="qrcode"
+            marginSize={6}
+            value={getUrl()}
+            width="60vmin"
+            height="60vmin"
+          />
+        </div>
         <div>
           <p>Copyright &copy; Daiji Maps</p>
         </div>
@@ -26,6 +37,12 @@ export function settingsRoot(config: Readonly<SvgMapViewerConfig>): void {
       </div>
     </StrictMode>
   )
+}
+
+// eslint-disable-next-line functional/functional-parameters
+function getUrl(): string {
+  // strip ?info=1
+  return document.location.origin + document.location.pathname
 }
 
 const style = `

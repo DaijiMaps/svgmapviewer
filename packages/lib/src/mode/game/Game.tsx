@@ -6,9 +6,9 @@
 import { StrictMode, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { getConfig } from './config'
+import { getConfig } from '../../config'
+import type { SvgMapViewerConfig } from '../../types'
 import { useModeGame } from './mode-game-xstate'
-import type { SvgMapViewerConfig } from './types'
 
 export function gameRoot(config: Readonly<SvgMapViewerConfig>): void {
   const cfg = getConfig()

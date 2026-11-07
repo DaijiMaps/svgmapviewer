@@ -3,8 +3,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 import { getConfig, setConfig } from './config'
-import { gameRoot } from './Game'
-import { infoRoot } from './Info'
 import { type BoxBox } from './lib/box/prefixed'
 import { notifyGlobal } from './lib/event-global'
 import { setPosition } from './lib/position/position-xstate'
@@ -12,9 +10,11 @@ import { isUiRendered } from './lib/ui/Ui'
 import { isContainerRendered } from './lib/viewer/Container'
 import { startAllActors } from './main-actors'
 import { startAllCbs } from './main-cbs'
+import { gameRoot } from './mode/game/Game'
+import { infoRoot } from './mode/info/Info'
+import { settingsRoot } from './mode/settings/Settings'
 import { saveQuery } from './query'
 import { root } from './Root'
-import { settingsRoot } from './Settings'
 import { type SvgMapViewerConfig, type SvgMapViewerConfigUser } from './types'
 import { version } from './version'
 
