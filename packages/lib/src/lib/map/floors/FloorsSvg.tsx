@@ -13,6 +13,7 @@ import { floor_appearing_animation } from '../../css'
 import { usePosition } from '../../position'
 import { useLayout2 } from '../../style/style-react'
 import {
+  fidxToOnAnimationEnd,
   useFloors,
   type UseFloorsReturn,
 } from '../../viewer/floors/floors-react'
@@ -32,10 +33,11 @@ export function RenderFloorsSvg({
   return (
     <div ref={ref} className="content map-floors-svg">
       <RenderFloorsSvgSvg>
-        {floors?.floors.map((floor, fidx) => (
-          <Fragment key={fidx}>
+        {floors?.floors.map((floor, idx) => (
+          <Fragment key={idx}>
             <RenderFloorSvg
-              fidx={fidx}
+              fidx={ctx.fidx}
+              idx={idx}
               floor={floor}
               labelsMap={floors?.labelsMap}
               origViewBox={origViewBox}
@@ -79,14 +81,16 @@ function RenderFloorsSvgSvg(props: Readonly<PropsWithChildren>): ReactNode {
 
 function RenderFloorSvg({
   fidx,
+  idx,
   floor,
   origViewBox,
-  ctx: { fidxToOnAnimationEnd, urls },
+  ctx: { urls },
   labelsMap,
   m,
   meter2svg,
 }: Readonly<{
   fidx: number
+  idx: number
   floor: Floor
   origViewBox: BoxBox
   ctx: UseFloorsReturn
@@ -95,23 +99,23 @@ function RenderFloorSvg({
   meter2svg?: number
 }>): ReactNode {
   const ref = useRef(null)
-  useFloorRef(ref, `svg-${fidx}`)
+  useFloorRef(ref, `svg-${idx}`)
   return (
     <g
       ref={ref}
-      className={`floor fidx-${fidx}`}
-      onAnimationEnd={fidxToOnAnimationEnd(fidx)}
+      className={`floor fidx-${idx}`}
+      onAnimationEnd={fidxToOnAnimationEnd(fidx, idx)}
     >
       <RenderFloorImage
-        fidx={fidx}
+        idx={idx}
         origViewBox={origViewBox}
-        url={urls.get(fidx)}
+        url={urls.get(idx)}
       />
       {m && meter2svg && (
         <RenderFloorPositionCircle m={m} meter2svg={meter2svg} />
       )}
       <RenderFloorLabelCircles
-        fidx={fidx}
+        idx={idx}
         labels={floor.labels ?? getLabels(labelsMap, floor.name.toLowerCase())}
       />
       <style>{floorSvgStyle}</style>
@@ -193,7 +197,7 @@ function usePositionSvg(
 function RenderFloorLabelCircles({
   labels,
 }: Readonly<{
-  fidx: number
+  idx: number
   labels?: readonly LabelText[]
 }>): ReactNode {
   const cfg = useConfig()

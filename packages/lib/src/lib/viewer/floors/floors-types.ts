@@ -24,5 +24,9 @@ export type InitDone = {
 export type Lock = { type: 'LOCK'; fidx: number }
 export type FloorsEmits = InitDone | Lock
 
-export type FidxToOnAnimationEnd = (idx: number) => undefined | Cb
-export type FidxToOnClick = (idx: number) => undefined | Cb
+export type FidxToOnAnimationEnd = (fidx: number, idx: number) => undefined | Cb
+export type FidxToOnClick = (
+  fidx: number,
+  prevFidx: null | number,
+  idx: number
+) => undefined | Cb

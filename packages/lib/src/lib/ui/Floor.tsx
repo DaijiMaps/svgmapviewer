@@ -5,12 +5,12 @@ import { useRef, type ReactNode } from 'react'
 import { useConfig } from '../../config'
 import { background_white_opaque, floor_switch_duration } from '../css'
 import { useStyleRef } from '../style/ref'
-import { useFloors } from '../viewer/floors/floors-react'
+import { fidxToOnClick, useFloors } from '../viewer/floors/floors-react'
 import { scrollLockRefs } from '../viewer/scroll/scroll'
 
 export function Floors(): ReactNode {
   const ref = useRef(null)
-  const { fidx, fidxToOnClick } = useFloors()
+  const { fidx, prevFidx } = useFloors()
   const cfg = useConfig()
   useStyleRef(scrollLockRefs, ref, 'floors')
   return cfg.floorsConfig === undefined ||
@@ -23,7 +23,7 @@ export function Floors(): ReactNode {
           <li
             key={idx}
             className={`floor-item ${s(idx === fidx)}`}
-            onClick={fidxToOnClick(idx)}
+            onClick={fidxToOnClick(fidx, prevFidx, idx)}
           >
             {name}
           </li>
