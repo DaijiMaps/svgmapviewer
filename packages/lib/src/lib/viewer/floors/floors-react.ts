@@ -3,21 +3,16 @@ import { useFloorsContext } from './floors-xstate'
 export interface UseFloorsReturn {
   fidx: number
   prevFidx: null | number
-  urls: Map<number, string>
 }
 
 export function useFloors(): UseFloorsReturn {
-  const { fidx, prevFidx, urls } = useFloorsContext(
-    ({ fidx, prevFidx, urls }) => ({
-      fidx,
-      prevFidx,
-      urls,
-    })
-  )
+  const { fidx, prevFidx } = useFloorsContext(({ fidx, prevFidx }) => ({
+    fidx,
+    prevFidx,
+  }))
 
   return {
     fidx,
     prevFidx,
-    urls,
   }
 }

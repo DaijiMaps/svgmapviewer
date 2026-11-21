@@ -1,3 +1,4 @@
+import { useAtom } from '@xstate/store-react'
 /* eslint-disable functional/no-return-void */
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
@@ -18,7 +19,7 @@ import {
   useFloors,
   type UseFloorsReturn,
 } from '../../viewer/floors/floors-react'
-import { floorsSend } from '../../viewer/floors/floors-xstate'
+import { floorsSend, urlsAtom } from '../../viewer/floors/floors-xstate'
 import { useFloorRef } from '../../viewer/floors/style'
 import { useLayoutStyleRef } from '../../viewer/layout/style-layout'
 import { MAP_SVG_FLOORS } from '../map-svg-react'
@@ -85,7 +86,6 @@ function RenderFloorSvg({
   idx,
   floor,
   origViewBox,
-  ctx: { urls },
   labelsMap,
   m,
   meter2svg,
@@ -101,6 +101,7 @@ function RenderFloorSvg({
 }>): ReactNode {
   const ref = useRef(null)
   useFloorRef(ref, `svg-${idx}`)
+  const urls = useAtom(urlsAtom)
   return (
     <g
       ref={ref}

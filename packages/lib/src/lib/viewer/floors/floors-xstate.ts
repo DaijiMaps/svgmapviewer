@@ -18,7 +18,8 @@ import {
   updateFloorRefsSwitch,
 } from './style'
 
-export const currentFidxAtom: Atom<number> = createAtom<number>(0)
+export const currentFidxAtom: Atom<number> = createAtom(0)
+export const urlsAtom: Atom<Map<number, string>> = createAtom(new Map())
 
 const floorsMachine = setup({
   types: {
@@ -33,6 +34,8 @@ const floorsMachine = setup({
     updateSwitch: ({ context: { fidx, prevFidx } }) =>
       updateFloorRefsSwitch(fidx, prevFidx),
     saveFidx: ({ context: { fidx } }) => currentFidxAtom.set(fidx),
+    saveUrl: (_, { idx, url }: { idx: number; url: string }) =>
+      urlsAtom.set((prev) => new Map(prev.set(idx, url))),
     select: assign({
       fidx: (_, { idx }: { idx: number }) => idx,
       prevFidx: ({ context }) => context.fidx,
@@ -53,7 +56,7 @@ const floorsMachine = setup({
   id: 'floors1',
   context: {
     nurls: 0,
-    urls: new Map(),
+    urls: new Set(),
     fidx: 0,
     prevFidx: null,
   },
@@ -98,11 +101,16 @@ const floorsMachine = setup({
     Loading: {
       on: {
         IMAGE: {
-          actions: assign({
-            urls: ({ context, event: { fidx, url } }) =>
-              // XXX when to call URL.revokeObjectURL?
-              new Map(context.urls.set(fidx, url)),
-          }),
+          actions: [
+            assign({
+              urls: ({ context, event: { idx } }) =>
+                new Set(context.urls.add(idx)),
+            }),
+            {
+              type: 'saveUrl',
+              params: ({ event: { idx, url } }) => ({ idx, url }),
+            },
+          ],
           target: 'Loaded',
         },
       },
@@ -207,7 +215,11 @@ worker.onmessage = (e: Readonly<MessageEvent<Res>>): void => {
     }
     case 'FETCH.DONE': {
       const { fidx, blob } = ev
-      floorsActor.send({ type: 'IMAGE', fidx, url: URL.createObjectURL(blob) })
+      floorsActor.send({
+        type: 'IMAGE',
+        idx: fidx,
+        url: URL.createObjectURL(blob),
+      })
       break
     }
   }
