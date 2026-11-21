@@ -32,6 +32,14 @@ const floorsMachine = setup({
     updateLoad: ({ context: { fidx } }) => updateFloorRefsLoad(fidx),
     updateSwitch: ({ context: { fidx, prevFidx } }) =>
       updateFloorRefsSwitch(fidx, prevFidx),
+    saveFidx: ({ context: { fidx } }) => currentFidxAtom.set(fidx),
+    select: assign({
+      fidx: (_, { idx }: { idx: number }) => idx,
+      prevFidx: ({ context }) => context.fidx,
+    }),
+    selectDone: assign({
+      prevFidx: null,
+    }),
     notifyFloorLock: emit((_, { idx }: { idx: number }) => ({
       type: 'LOCK',
       idx,
@@ -112,13 +120,13 @@ const floorsMachine = setup({
     Idle: {
       on: {
         SELECT: {
-          guard: ({ context, event }) => context.fidx !== event.fidx,
+          guard: ({ context, event }) => context.fidx !== event.idx,
           actions: [
-            assign({
-              fidx: ({ event }) => event.fidx,
-              prevFidx: ({ context }) => context.fidx,
-            }),
-            ({ event }) => currentFidxAtom.set(event.fidx),
+            {
+              type: 'select',
+              params: ({ event }) => event,
+            },
+            'saveFidx',
             'updateSwitch',
           ],
           target: 'Animating',
@@ -128,10 +136,10 @@ const floorsMachine = setup({
             guard: ({ context }) => context.fidx === context.nurls - 1,
           },
           {
-            actions: emit(({ context }) => ({
-              type: 'LOCK',
-              idx: context.fidx + 1,
-            })),
+            actions: {
+              type: 'notifyFloorLock',
+              params: ({ context }) => ({ idx: context.fidx + 1 }),
+            },
           },
         ],
         'LEVEL.DOWN': [
@@ -139,10 +147,10 @@ const floorsMachine = setup({
             guard: ({ context }) => context.fidx === 0,
           },
           {
-            actions: emit(({ context }) => ({
-              type: 'LOCK',
-              idx: context.fidx - 1,
-            })),
+            actions: {
+              type: 'notifyFloorLock',
+              params: ({ context }) => ({ idx: context.fidx - 1 }),
+            },
           },
         ],
       },
@@ -152,12 +160,7 @@ const floorsMachine = setup({
         // XXX receive one DONE event
         // XXX (receiving two without race is difficult/complex)
         'SELECT.DONE': {
-          actions: [
-            assign({
-              prevFidx: null,
-            }),
-            'updateSwitch',
-          ],
+          actions: ['selectDone', 'updateSwitch'],
           target: 'Idle',
         },
       },
@@ -230,8 +233,8 @@ export function floorsCbsStart(): void {
       })
     }
   })
-  floorCbs.select.add((fidx: number) =>
-    floorsActor.send({ type: 'SELECT', fidx })
+  floorCbs.select.add((idx: number) =>
+    floorsActor.send({ type: 'SELECT', idx })
   )
   floorCbs.levelUp.add(() => floorsActor.send({ type: 'LEVEL.UP' }))
   floorCbs.levelDown.add(() => floorsActor.send({ type: 'LEVEL.DOWN' }))

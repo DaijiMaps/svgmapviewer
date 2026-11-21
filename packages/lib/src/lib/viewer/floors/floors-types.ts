@@ -9,7 +9,7 @@ export interface FloorsContext {
 }
 
 export type Init = { type: 'INIT'; base?: string; floorsConfig: FloorsConfig }
-export type Select = { type: 'SELECT'; fidx: number; force?: boolean }
+export type Select = { type: 'SELECT'; idx: number; force?: boolean }
 export type SelectDone = { type: 'SELECT.DONE'; idx: number }
 export type Image = { type: 'IMAGE'; fidx: number; url: string }
 export type LevelUp = { type: 'LEVEL.UP' }
