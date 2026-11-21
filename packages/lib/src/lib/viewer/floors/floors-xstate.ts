@@ -31,10 +31,9 @@ const floorsMachine = setup({
   id: 'floors1',
   context: {
     nfloors: 0,
-    blobs: new Map(),
     urls: new Map(),
     fidx: 0,
-    prevFidx: -1,
+    prevFidx: null,
   },
   initial: 'Uninited',
   states: {
@@ -57,8 +56,6 @@ const floorsMachine = setup({
       on: {
         IMAGE: {
           actions: assign({
-            blobs: ({ context, event: { fidx, blob } }) =>
-              new Map(context.blobs.set(fidx, blob)),
             urls: ({ context, event: { fidx, blob } }) =>
               // XXX when to call URL.revokeObjectURL?
               new Map(context.urls.set(fidx, URL.createObjectURL(blob))),
@@ -70,9 +67,9 @@ const floorsMachine = setup({
     Loaded: {
       always: [
         {
-          guard: ({ context }) => context.nfloors === context.blobs.size,
+          guard: ({ context }) => context.nfloors === context.urls.size,
           actions: 'updateLoad',
-          target: 'Animating',
+          target: 'Idle',
         },
         'Loading',
       ],
