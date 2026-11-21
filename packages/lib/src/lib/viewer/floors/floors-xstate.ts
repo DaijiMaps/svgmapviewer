@@ -27,6 +27,7 @@ const floorsMachine = setup({
     emitted: {} as FloorsEmits,
   },
   actions: {
+    // assign
     init: assign({
       nurls: (_, { floorsConfig }: Init) => floorsConfig.floors.length,
       fidx: (_, { floorsConfig }: Init) => floorsConfig.initialFidx,
@@ -35,13 +36,6 @@ const floorsMachine = setup({
       urls: ({ context }, { idx }: { idx: number }) =>
         new Set(context.urls.add(idx)),
     }),
-    updateInit: () => updateFloorRefsInit(),
-    updateLoad: ({ context: { fidx } }) => updateFloorRefsLoad(fidx),
-    updateSwitch: ({ context: { fidx, prevFidx } }) =>
-      updateFloorRefsSwitch(fidx, prevFidx),
-    saveFidx: ({ context: { fidx } }) => fidxAtom.set(fidx),
-    saveUrl: (_, { idx, url }: { idx: number; url: string }) =>
-      urlsAtom.set((prev) => new Map(prev.set(idx, url))),
     select: assign({
       fidx: (_, { idx }: { idx: number }) => idx,
       prevFidx: ({ context }) => context.fidx,
@@ -49,6 +43,7 @@ const floorsMachine = setup({
     selectDone: assign({
       prevFidx: null,
     }),
+    // emit
     notifyInitDone: emit((_, params: Init) => ({
       ...params,
       type: 'INIT.DONE',
@@ -61,6 +56,14 @@ const floorsMachine = setup({
       type: 'SELECT.DONE',
       idx,
     })),
+    // others
+    saveFidx: ({ context: { fidx } }) => fidxAtom.set(fidx),
+    saveUrl: (_, { idx, url }: { idx: number; url: string }) =>
+      urlsAtom.set((prev) => new Map(prev.set(idx, url))),
+    updateInit: () => updateFloorRefsInit(),
+    updateLoad: ({ context: { fidx } }) => updateFloorRefsLoad(fidx),
+    updateSwitch: ({ context: { fidx, prevFidx } }) =>
+      updateFloorRefsSwitch(fidx, prevFidx),
   },
 }).createMachine({
   id: 'floors1',
