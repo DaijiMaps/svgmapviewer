@@ -52,7 +52,7 @@ const floorsMachine = setup({
       type: 'LOCK',
       idx,
     })),
-    notifySelectDoneu: emit((_, { idx }: { idx: number }) => ({
+    notifySelectDone: emit((_, { idx }: { idx: number }) => ({
       type: 'SELECT.DONE',
       idx,
     })),
@@ -78,7 +78,7 @@ const floorsMachine = setup({
     'ANIMATION.END': {
       guard: ({ context, event }) => context.fidx === event.idx,
       actions: {
-        type: 'notifySelectDoneu',
+        type: 'notifySelectDone',
         params: ({ event }) => event,
       },
     },
