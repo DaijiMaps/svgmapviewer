@@ -1,3 +1,5 @@
+/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 import { Fragment, useRef, type PropsWithChildren, type ReactNode } from 'react'
 
@@ -13,10 +15,10 @@ import { floor_appearing_animation } from '../../css'
 import { usePosition } from '../../position'
 import { useLayout2 } from '../../style/style-react'
 import {
-  fidxToOnAnimationEnd,
   useFloors,
   type UseFloorsReturn,
 } from '../../viewer/floors/floors-react'
+import { floorsSend } from '../../viewer/floors/floors-xstate'
 import { useFloorRef } from '../../viewer/floors/style'
 import { useLayoutStyleRef } from '../../viewer/layout/style-layout'
 import { MAP_SVG_FLOORS } from '../map-svg-react'
@@ -80,7 +82,6 @@ function RenderFloorsSvgSvg(props: Readonly<PropsWithChildren>): ReactNode {
 }
 
 function RenderFloorSvg({
-  fidx,
   idx,
   floor,
   origViewBox,
@@ -104,7 +105,7 @@ function RenderFloorSvg({
     <g
       ref={ref}
       className={`floor fidx-${idx}`}
-      onAnimationEnd={fidxToOnAnimationEnd(fidx, idx)}
+      onAnimationEnd={() => floorsSend({ type: 'ANIMATION.END', idx })}
     >
       <RenderFloorImage
         idx={idx}

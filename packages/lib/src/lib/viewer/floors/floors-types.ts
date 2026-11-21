@@ -10,19 +10,28 @@ export interface FloorsContext {
 
 export type Init = { type: 'INIT'; base?: string; floorsConfig: FloorsConfig }
 export type Select = { type: 'SELECT'; fidx: number; force?: boolean }
-export type SelectDone = { type: 'SELECT.DONE'; fidx: number }
+export type SelectDone = { type: 'SELECT.DONE'; idx: number }
 export type Image = { type: 'IMAGE'; fidx: number; url: string }
 export type LevelUp = { type: 'LEVEL.UP' }
 export type LevelDown = { type: 'LEVEL.DOWN' }
+export type AnimationEnd = { type: 'ANIMATION.END'; idx: number }
+export type Click = { type: 'CLICK'; idx: number }
 export type FloorsEvents =
-  Init | Select | SelectDone | Image | LevelUp | LevelDown
+  | Init
+  | Select
+  | SelectDone
+  | Image
+  | LevelUp
+  | LevelDown
+  | AnimationEnd
+  | Click
 export type InitDone = {
   type: 'INIT.DONE'
   base?: string
   floorsConfig: FloorsConfig
 }
-export type Lock = { type: 'LOCK'; fidx: number }
-export type FloorsEmits = InitDone | Lock
+export type Lock = { type: 'LOCK'; idx: number }
+export type FloorsEmits = InitDone | Lock | SelectDone
 
 export type FidxToOnAnimationEnd = (fidx: number, idx: number) => undefined | Cb
 export type FidxToOnClick = (

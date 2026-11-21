@@ -32,6 +32,14 @@ const floorsMachine = setup({
     updateLoad: ({ context: { fidx } }) => updateFloorRefsLoad(fidx),
     updateSwitch: ({ context: { fidx, prevFidx } }) =>
       updateFloorRefsSwitch(fidx, prevFidx),
+    notifyFloorLock: emit((_, { idx }: { idx: number }) => ({
+      type: 'LOCK',
+      idx,
+    })),
+    notifyFloorSelectDone: emit((_, { idx }: { idx: number }) => ({
+      type: 'SELECT.DONE',
+      idx,
+    })),
   },
 }).createMachine({
   id: 'floors1',
@@ -42,6 +50,23 @@ const floorsMachine = setup({
     prevFidx: null,
   },
   initial: 'Uninited',
+  on: {
+    'ANIMATION.END': {
+      guard: ({ context, event }) => context.fidx === event.idx,
+      actions: {
+        type: 'notifyFloorSelectDone',
+        params: ({ event }) => event,
+      },
+    },
+    CLICK: {
+      guard: ({ context, event }) =>
+        !(context.prevFidx !== null || context.fidx === event.idx),
+      actions: {
+        type: 'notifyFloorLock',
+        params: ({ event }) => event,
+      },
+    },
+  },
   states: {
     Uninited: {
       on: {
@@ -105,7 +130,7 @@ const floorsMachine = setup({
           {
             actions: emit(({ context }) => ({
               type: 'LOCK',
-              fidx: context.fidx + 1,
+              idx: context.fidx + 1,
             })),
           },
         ],
@@ -116,7 +141,7 @@ const floorsMachine = setup({
           {
             actions: emit(({ context }) => ({
               type: 'LOCK',
-              fidx: context.fidx - 1,
+              idx: context.fidx - 1,
             })),
           },
         ],
@@ -149,7 +174,8 @@ floorsActor.on('INIT.DONE', ({ base, floorsConfig }) => {
     base: base,
   })
 })
-floorsActor.on('LOCK', ({ fidx }) => notifyFloor.lock(fidx))
+floorsActor.on('LOCK', ({ idx }) => notifyFloor.lock(idx))
+floorsActor.on('SELECT.DONE', ({ idx }) => notifyFloor.selectDone(idx))
 
 export function floorsActorStart(): void {
   floorsActor.start()
@@ -157,6 +183,10 @@ export function floorsActorStart(): void {
 
 export function useFloorsContext<T>(f: (ctx: Readonly<FloorsContext>) => T): T {
   return useSelector(floorsActor, (state) => f(state.context))
+}
+
+export function floorsSend(ev: FloorsEvents): void {
+  floorsActor.send(ev)
 }
 
 // worker
@@ -205,7 +235,7 @@ export function floorsCbsStart(): void {
   )
   floorCbs.levelUp.add(() => floorsActor.send({ type: 'LEVEL.UP' }))
   floorCbs.levelDown.add(() => floorsActor.send({ type: 'LEVEL.DOWN' }))
-  floorCbs.selectDone.add((fidx: number) =>
-    floorsActor.send({ type: 'SELECT.DONE', fidx })
+  floorCbs.selectDone.add((idx: number) =>
+    floorsActor.send({ type: 'SELECT.DONE', idx })
   )
 }

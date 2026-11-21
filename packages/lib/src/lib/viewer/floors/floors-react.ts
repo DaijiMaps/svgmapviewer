@@ -1,5 +1,3 @@
-import { notifyFloor } from '../../event-floor'
-import type { FidxToOnAnimationEnd, FidxToOnClick } from './floors-types'
 import { useFloorsContext } from './floors-xstate'
 
 export interface UseFloorsReturn {
@@ -23,11 +21,3 @@ export function useFloors(): UseFloorsReturn {
     urls,
   }
 }
-
-export const fidxToOnAnimationEnd: FidxToOnAnimationEnd =
-  (fidx: number, idx: number) => () =>
-    idx !== fidx ? undefined : notifyFloor.selectDone(idx)
-
-export const fidxToOnClick: FidxToOnClick =
-  (fidx: number, prevFidx: null | number, idx: number) => () =>
-    prevFidx !== null || idx === fidx ? undefined : notifyFloor.lock(idx)

@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-return-void */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/functional-parameters */
 import { useRef, type ReactNode } from 'react'
@@ -5,12 +6,13 @@ import { useRef, type ReactNode } from 'react'
 import { useConfig } from '../../config'
 import { background_white_opaque, floor_switch_duration } from '../css'
 import { useStyleRef } from '../style/ref'
-import { fidxToOnClick, useFloors } from '../viewer/floors/floors-react'
+import { useFloors } from '../viewer/floors/floors-react'
+import { floorsSend } from '../viewer/floors/floors-xstate'
 import { scrollLockRefs } from '../viewer/scroll/scroll'
 
 export function Floors(): ReactNode {
   const ref = useRef(null)
-  const { fidx, prevFidx } = useFloors()
+  const { fidx } = useFloors()
   const cfg = useConfig()
   useStyleRef(scrollLockRefs, ref, 'floors')
   return cfg.floorsConfig === undefined ||
@@ -23,7 +25,7 @@ export function Floors(): ReactNode {
           <li
             key={idx}
             className={`floor-item ${s(idx === fidx)}`}
-            onClick={fidxToOnClick(fidx, prevFidx, idx)}
+            onClick={() => floorsSend({ type: 'CLICK', idx })}
           >
             {name}
           </li>
