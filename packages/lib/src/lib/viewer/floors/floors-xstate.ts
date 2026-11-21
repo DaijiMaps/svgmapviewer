@@ -43,11 +43,11 @@ const floorsMachine = setup({
     selectDone: assign({
       prevFidx: null,
     }),
-    notifyFloorLock: emit((_, { idx }: { idx: number }) => ({
+    notifyLock: emit((_, { idx }: { idx: number }) => ({
       type: 'LOCK',
       idx,
     })),
-    notifyFloorSelectDone: emit((_, { idx }: { idx: number }) => ({
+    notifySelectDoneu: emit((_, { idx }: { idx: number }) => ({
       type: 'SELECT.DONE',
       idx,
     })),
@@ -65,7 +65,7 @@ const floorsMachine = setup({
     'ANIMATION.END': {
       guard: ({ context, event }) => context.fidx === event.idx,
       actions: {
-        type: 'notifyFloorSelectDone',
+        type: 'notifySelectDoneu',
         params: ({ event }) => event,
       },
     },
@@ -73,7 +73,7 @@ const floorsMachine = setup({
       guard: ({ context, event }) =>
         !(context.prevFidx !== null || context.fidx === event.idx),
       actions: {
-        type: 'notifyFloorLock',
+        type: 'notifyLock',
         params: ({ event }) => event,
       },
     },
@@ -145,7 +145,7 @@ const floorsMachine = setup({
           },
           {
             actions: {
-              type: 'notifyFloorLock',
+              type: 'notifyLock',
               params: ({ context }) => ({ idx: context.fidx + 1 }),
             },
           },
@@ -156,7 +156,7 @@ const floorsMachine = setup({
           },
           {
             actions: {
-              type: 'notifyFloorLock',
+              type: 'notifyLock',
               params: ({ context }) => ({ idx: context.fidx - 1 }),
             },
           },
