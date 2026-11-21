@@ -36,7 +36,6 @@ const floorsMachine = setup({
         new Set(context.urls.add(idx)),
     }),
     updateInit: () => updateFloorRefsInit(),
-    emitInitDone: emit((_, params: Init) => ({ ...params, type: 'INIT.DONE' })),
     updateLoad: ({ context: { fidx } }) => updateFloorRefsLoad(fidx),
     updateSwitch: ({ context: { fidx, prevFidx } }) =>
       updateFloorRefsSwitch(fidx, prevFidx),
@@ -50,6 +49,10 @@ const floorsMachine = setup({
     selectDone: assign({
       prevFidx: null,
     }),
+    notifyInitDone: emit((_, params: Init) => ({
+      ...params,
+      type: 'INIT.DONE',
+    })),
     notifyLock: emit((_, { idx }: { idx: number }) => ({
       type: 'LOCK',
       idx,
@@ -94,7 +97,7 @@ const floorsMachine = setup({
             'saveFidx',
             'updateInit',
             {
-              type: 'emitInitDone',
+              type: 'notifyInitDone',
               params: ({ event }) => event,
             },
           ],
