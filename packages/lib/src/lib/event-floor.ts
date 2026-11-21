@@ -1,9 +1,11 @@
+import type { FloorsConfig } from '../types'
 import { notifyCbs, notifyCbs0 } from './cb'
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-return-void */
 import type { FloorCbs } from './event-floor-types'
 
 export const floorCbs: FloorCbs = {
+  init: new Set(),
   lock: new Set(),
   select: new Set(),
   levelUp: new Set(),
@@ -13,6 +15,8 @@ export const floorCbs: FloorCbs = {
 }
 
 export const notifyFloor = {
+  init: (params: Readonly<{ cfg: FloorsConfig; base?: string }>): void =>
+    notifyCbs(floorCbs.init, params),
   lock: (fidx: number): void => notifyCbs(floorCbs.lock, fidx),
   select: (fidx: number): void => notifyCbs(floorCbs.select, fidx),
   levelUp: (): void => notifyCbs0(floorCbs.levelUp),

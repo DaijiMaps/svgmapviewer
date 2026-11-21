@@ -1,11 +1,51 @@
+/* eslint-disable functional/functional-parameters */
+/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-return-void */
+/* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-expression-statements */
-import { ctx } from './floors-worker-context'
-import type { Req } from './floors-worker-types'
-import { floorsWorkerSend, floorsWorkerStart } from './floors-worker-xstate'
+import { floorCbs } from '../../event-floor'
+import { floorsSend } from './floors-xstate'
+import type { FloorsWorker, Res } from './worker/floors-worker-types'
 
-// eslint-disable-next-line functional/immutable-data
-ctx.onmessage = (e: Readonly<MessageEvent<Req>>): void =>
-  floorsWorkerSend(e.data)
+// worker
 
-floorsWorkerStart()
+export const worker: FloorsWorker = new Worker(
+  new URL('./worker/floors-worker-main.js', import.meta.url),
+  { type: 'module' }
+) as unknown as FloorsWorker
+
+worker.onmessage = (e: Readonly<MessageEvent<Res>>): void => {
+  const ev = e.data
+  switch (ev.type) {
+    case 'INIT.DONE': {
+      break
+    }
+    case 'FETCH.DONE': {
+      const { fidx, blob } = ev
+      floorsSend({
+        type: 'IMAGE',
+        idx: fidx,
+        url: URL.createObjectURL(blob),
+      })
+      break
+    }
+  }
+}
+
+worker.onerror = (ev) => {
+  console.error('floors error', ev)
+}
+
+worker.onmessageerror = (ev) => {
+  console.error('floors messageerror', ev)
+}
+
+export function floorsWorkerCbsStart(): void {
+  floorCbs.init.add(({ cfg, base }) => {
+    worker.postMessage({
+      type: 'INIT',
+      cfg,
+      base: base,
+    })
+  })
+}

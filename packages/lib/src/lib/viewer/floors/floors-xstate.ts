@@ -11,7 +11,6 @@ import type {
   FloorsEvents,
   Init,
 } from './floors-types'
-import type { FloorsWorker, Res } from './floors-worker-types'
 import {
   updateFloorRefsInit,
   updateFloorRefsLoad,
@@ -183,13 +182,9 @@ const floorsMachine = setup({
 
 const floorsActor = createActor(floorsMachine)
 
-floorsActor.on('INIT.DONE', ({ base, floorsConfig }) => {
-  worker.postMessage({
-    type: 'INIT',
-    cfg: floorsConfig,
-    base: base,
-  })
-})
+floorsActor.on('INIT.DONE', ({ base, floorsConfig }) =>
+  notifyFloor.init({ cfg: floorsConfig, base })
+)
 floorsActor.on('LOCK', ({ idx }) => notifyFloor.lock(idx))
 floorsActor.on('SELECT.DONE', ({ idx }) => notifyFloor.selectDone(idx))
 
@@ -203,39 +198,6 @@ export function useFloorsContext<T>(f: (ctx: Readonly<FloorsContext>) => T): T {
 
 export function floorsSend(ev: FloorsEvents): void {
   floorsActor.send(ev)
-}
-
-// worker
-
-const worker: FloorsWorker = new Worker(
-  new URL('./floors-worker.js', import.meta.url),
-  { type: 'module' }
-) as unknown as FloorsWorker
-
-worker.onmessage = (e: Readonly<MessageEvent<Res>>): void => {
-  const ev = e.data
-  switch (ev.type) {
-    case 'INIT.DONE': {
-      break
-    }
-    case 'FETCH.DONE': {
-      const { fidx, blob } = ev
-      floorsActor.send({
-        type: 'IMAGE',
-        idx: fidx,
-        url: URL.createObjectURL(blob),
-      })
-      break
-    }
-  }
-}
-
-worker.onerror = (ev) => {
-  console.error('floors error', ev)
-}
-
-worker.onmessageerror = (ev) => {
-  console.error('floors messageerror', ev)
 }
 
 // handlers

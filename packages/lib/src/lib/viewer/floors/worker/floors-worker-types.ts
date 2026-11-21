@@ -1,5 +1,5 @@
 /* eslint-disable functional/no-return-void */
-import type { FloorsConfig } from '../../../types'
+import type { FloorsConfig } from '../../../../types'
 
 export type Context = { cfg?: FloorsConfig; base?: string }
 
