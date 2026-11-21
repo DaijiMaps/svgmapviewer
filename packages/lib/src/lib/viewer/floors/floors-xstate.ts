@@ -56,9 +56,9 @@ const floorsMachine = setup({
       on: {
         IMAGE: {
           actions: assign({
-            urls: ({ context, event: { fidx, blob } }) =>
+            urls: ({ context, event: { fidx, url } }) =>
               // XXX when to call URL.revokeObjectURL?
-              new Map(context.urls.set(fidx, URL.createObjectURL(blob))),
+              new Map(context.urls.set(fidx, url)),
           }),
           target: 'Loaded',
         },
@@ -157,7 +157,7 @@ worker.onmessage = (e: Readonly<MessageEvent<Res>>): void => {
     }
     case 'FETCH.DONE': {
       const { fidx, blob } = ev
-      floorsActor.send({ type: 'IMAGE', fidx, blob })
+      floorsActor.send({ type: 'IMAGE', fidx, url: URL.createObjectURL(blob) })
       break
     }
   }

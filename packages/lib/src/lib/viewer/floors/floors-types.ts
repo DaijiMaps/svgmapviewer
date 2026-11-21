@@ -10,7 +10,7 @@ export interface FloorsContext {
 export type Init = { type: 'INIT'; nfloors: number; fidx: number }
 export type Select = { type: 'SELECT'; fidx: number; force?: boolean }
 export type SelectDone = { type: 'SELECT.DONE'; fidx: number }
-export type Image = { type: 'IMAGE'; fidx: number; blob: Blob }
+export type Image = { type: 'IMAGE'; fidx: number; url: string }
 export type LevelUp = { type: 'LEVEL.UP' }
 export type LevelDown = { type: 'LEVEL.DOWN' }
 export type FloorsEvents =
