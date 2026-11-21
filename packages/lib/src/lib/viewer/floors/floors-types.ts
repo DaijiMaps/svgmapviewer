@@ -1,13 +1,13 @@
 import type { Cb } from '../../cb'
 
 export interface FloorsContext {
-  nfloors: number
+  nurls: number
   urls: Map<number, string>
   fidx: number
   prevFidx: null | number
 }
 
-export type Init = { type: 'INIT'; nfloors: number; fidx: number }
+export type Init = { type: 'INIT'; nurls: number; fidx: number }
 export type Select = { type: 'SELECT'; fidx: number; force?: boolean }
 export type SelectDone = { type: 'SELECT.DONE'; fidx: number }
 export type Image = { type: 'IMAGE'; fidx: number; url: string }

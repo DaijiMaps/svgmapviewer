@@ -30,7 +30,7 @@ const floorsMachine = setup({
 }).createMachine({
   id: 'floors1',
   context: {
-    nfloors: 0,
+    nurls: 0,
     urls: new Map(),
     fidx: 0,
     prevFidx: null,
@@ -42,7 +42,7 @@ const floorsMachine = setup({
         INIT: {
           actions: [
             assign({
-              nfloors: ({ event }) => event.nfloors,
+              nurls: ({ event }) => event.nurls,
               fidx: ({ event }) => event.fidx,
             }),
             ({ event }) => currentFidxAtom.set(event.fidx),
@@ -67,7 +67,7 @@ const floorsMachine = setup({
     Loaded: {
       always: [
         {
-          guard: ({ context }) => context.nfloors === context.urls.size,
+          guard: ({ context }) => context.nurls === context.urls.size,
           actions: 'updateLoad',
           target: 'Idle',
         },
@@ -90,7 +90,7 @@ const floorsMachine = setup({
         },
         'LEVEL.UP': [
           {
-            guard: ({ context }) => context.fidx === context.nfloors - 1,
+            guard: ({ context }) => context.fidx === context.nurls - 1,
           },
           {
             actions: emit(({ context }) => ({
@@ -176,9 +176,9 @@ worker.onmessageerror = (ev) => {
 export function floorsCbsStart(): void {
   globalCbs.init.add((cfg: Readonly<SvgMapViewerConfig>) => {
     if (cfg.floorsConfig) {
-      const nfloors = cfg.floorsConfig.floors.length
+      const nurls = cfg.floorsConfig.floors.length
       const fidx = cfg.floorsConfig.initialFidx
-      floorsActor.send({ type: 'INIT', nfloors, fidx })
+      floorsActor.send({ type: 'INIT', nurls, fidx })
       worker.postMessage({
         type: 'INIT',
         cfg: cfg.floorsConfig,
