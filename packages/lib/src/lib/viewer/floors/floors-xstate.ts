@@ -189,7 +189,7 @@ const floorsMachine = setup({
 const floorsActor = createActor(floorsMachine)
 
 floorsActor.on('INIT.DONE', ({ base, fcfg }) =>
-  notifyFloor.init({ fcfg: fcfg, base })
+  notifyFloor.init({ fcfg, base })
 )
 floorsActor.on('LOCK', ({ idx }) => notifyFloor.lock(idx))
 floorsActor.on('SELECT.DONE', ({ idx }) => notifyFloor.selectDone(idx))
