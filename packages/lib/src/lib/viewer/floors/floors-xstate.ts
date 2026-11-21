@@ -18,7 +18,7 @@ import {
   updateFloorRefsSwitch,
 } from './style'
 
-export const currentFidxAtom: Atom<number> = createAtom(0)
+export const fidxAtom: Atom<number> = createAtom(0)
 export const urlsAtom: Atom<Map<number, string>> = createAtom(new Map())
 
 const floorsMachine = setup({
@@ -41,7 +41,7 @@ const floorsMachine = setup({
     updateLoad: ({ context: { fidx } }) => updateFloorRefsLoad(fidx),
     updateSwitch: ({ context: { fidx, prevFidx } }) =>
       updateFloorRefsSwitch(fidx, prevFidx),
-    saveFidx: ({ context: { fidx } }) => currentFidxAtom.set(fidx),
+    saveFidx: ({ context: { fidx } }) => fidxAtom.set(fidx),
     saveUrl: (_, { idx, url }: { idx: number; url: string }) =>
       urlsAtom.set((prev) => new Map(prev.set(idx, url))),
     select: assign({
