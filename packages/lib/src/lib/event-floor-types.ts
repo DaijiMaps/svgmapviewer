@@ -1,7 +1,7 @@
 import type { FloorsConfig } from '../types'
 import type { Cb, Cb1 } from './cb'
 
-export type FloorInitCb = Cb1<{ cfg: FloorsConfig; base?: string }>
+export type FloorInitCb = Cb1<{ fcfg: FloorsConfig; base?: string }>
 export type FloorCb = Cb1<number>
 
 export interface FloorCbs {

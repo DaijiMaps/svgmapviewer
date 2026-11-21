@@ -41,10 +41,10 @@ worker.onmessageerror = (ev) => {
 }
 
 export function floorsWorkerCbsStart(): void {
-  floorCbs.init.add(({ cfg, base }) => {
+  floorCbs.init.add(({ fcfg, base }) => {
     worker.postMessage({
       type: 'INIT',
-      cfg,
+      fcfg,
       base: base,
     })
   })

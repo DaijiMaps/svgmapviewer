@@ -15,7 +15,7 @@ export const floorCbs: FloorCbs = {
 }
 
 export const notifyFloor = {
-  init: (params: Readonly<{ cfg: FloorsConfig; base?: string }>): void =>
+  init: (params: Readonly<{ fcfg: FloorsConfig; base?: string }>): void =>
     notifyCbs(floorCbs.init, params),
   lock: (fidx: number): void => notifyCbs(floorCbs.lock, fidx),
   select: (fidx: number): void => notifyCbs(floorCbs.select, fidx),

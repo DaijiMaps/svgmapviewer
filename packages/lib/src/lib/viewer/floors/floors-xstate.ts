@@ -29,8 +29,8 @@ const floorsMachine = setup({
   actions: {
     // assign
     init: assign({
-      nurls: (_, { floorsConfig }: Init) => floorsConfig.floors.length,
-      fidx: (_, { floorsConfig }: Init) => floorsConfig.initialFidx,
+      nurls: (_, { fcfg }: Init) => fcfg.floors.length,
+      fidx: (_, { fcfg }: Init) => fcfg.initialFidx,
     }),
     load: assign({
       urls: ({ context }, { idx }: { idx: number }) =>
@@ -188,8 +188,8 @@ const floorsMachine = setup({
 
 const floorsActor = createActor(floorsMachine)
 
-floorsActor.on('INIT.DONE', ({ base, floorsConfig }) =>
-  notifyFloor.init({ cfg: floorsConfig, base })
+floorsActor.on('INIT.DONE', ({ base, fcfg }) =>
+  notifyFloor.init({ fcfg: fcfg, base })
 )
 floorsActor.on('LOCK', ({ idx }) => notifyFloor.lock(idx))
 floorsActor.on('SELECT.DONE', ({ idx }) => notifyFloor.selectDone(idx))
@@ -211,19 +211,17 @@ export function floorsSend(ev: FloorsEvents): void {
 export function floorsCbsStart(): void {
   globalCbs.init.add((cfg: Readonly<SvgMapViewerConfig>) => {
     if (cfg.floorsConfig) {
-      floorsActor.send({
+      floorsSend({
         type: 'INIT',
+        fcfg: cfg.floorsConfig,
         base: cfg.base,
-        floorsConfig: cfg.floorsConfig,
       })
     }
   })
-  floorCbs.select.add((idx: number) =>
-    floorsActor.send({ type: 'SELECT', idx })
-  )
-  floorCbs.levelUp.add(() => floorsActor.send({ type: 'LEVEL.UP' }))
-  floorCbs.levelDown.add(() => floorsActor.send({ type: 'LEVEL.DOWN' }))
+  floorCbs.select.add((idx: number) => floorsSend({ type: 'SELECT', idx }))
+  floorCbs.levelUp.add(() => floorsSend({ type: 'LEVEL.UP' }))
+  floorCbs.levelDown.add(() => floorsSend({ type: 'LEVEL.DOWN' }))
   floorCbs.selectDone.add((idx: number) =>
-    floorsActor.send({ type: 'SELECT.DONE', idx })
+    floorsSend({ type: 'SELECT.DONE', idx })
   )
 }

@@ -8,7 +8,7 @@ export interface FloorsContext {
   prevFidx: null | number
 }
 
-export type Init = { type: 'INIT'; base?: string; floorsConfig: FloorsConfig }
+export type Init = { type: 'INIT'; fcfg: FloorsConfig; base?: string }
 export type Select = { type: 'SELECT'; idx: number; force?: boolean }
 export type SelectDone = { type: 'SELECT.DONE'; idx: number }
 export type Image = { type: 'IMAGE'; idx: number; url: string }
@@ -27,8 +27,8 @@ export type FloorsEvents =
   | Click
 export type InitDone = {
   type: 'INIT.DONE'
+  fcfg: FloorsConfig
   base?: string
-  floorsConfig: FloorsConfig
 }
 export type Lock = { type: 'LOCK'; idx: number }
 export type FloorsEmits = InitDone | Lock | SelectDone

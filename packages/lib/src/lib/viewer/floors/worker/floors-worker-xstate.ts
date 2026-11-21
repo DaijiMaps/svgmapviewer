@@ -10,14 +10,14 @@ const floorsWorkerMachine = setup({
     emitted: {} as Emits,
   },
   actions: {
-    fetch: emit(({ context: { cfg, base } }): Emits =>
-      cfg === undefined ? { type: 'NOOP' } : { type: 'FETCH', cfg, base }
+    fetch: emit(({ context: { fcfg, base } }): Emits =>
+      fcfg === undefined ? { type: 'NOOP' } : { type: 'FETCH', fcfg, base }
     ),
   },
 }).createMachine({
   id: 'floorsWorker1',
   context: {
-    cfg: undefined,
+    fcfg: undefined,
   },
   initial: 'Uninited',
   states: {
@@ -26,7 +26,7 @@ const floorsWorkerMachine = setup({
         INIT: {
           actions: [
             emit({ type: 'INIT.DONE' }),
-            assign(({ event: { cfg, base } }) => ({ cfg, base })),
+            assign(({ event: { fcfg, base } }) => ({ fcfg, base })),
           ],
           target: 'LoadingFirst',
         },
@@ -51,8 +51,8 @@ export function floorsWorkerSend(ev: Req): void {
 }
 
 floorsWorkerActor.on('INIT.DONE', (ev) => ctx.postMessage(ev))
-floorsWorkerActor.on('FETCH', ({ cfg, base }) =>
-  cfg.floors.forEach((f, fidx) => {
+floorsWorkerActor.on('FETCH', ({ fcfg, base }) =>
+  fcfg.floors.forEach((f, fidx) => {
     // XXX
     // XXX
     // XXX
