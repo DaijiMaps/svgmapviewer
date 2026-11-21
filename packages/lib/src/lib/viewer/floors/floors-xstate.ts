@@ -28,6 +28,14 @@ const floorsMachine = setup({
     emitted: {} as FloorsEmits,
   },
   actions: {
+    init: assign({
+      nurls: (_, { floorsConfig }: Init) => floorsConfig.floors.length,
+      fidx: (_, { floorsConfig }: Init) => floorsConfig.initialFidx,
+    }),
+    load: assign({
+      urls: ({ context }, { idx }: { idx: number }) =>
+        new Set(context.urls.add(idx)),
+    }),
     updateInit: () => updateFloorRefsInit(),
     emitInitDone: emit((_, params: Init) => ({ ...params, type: 'INIT.DONE' })),
     updateLoad: ({ context: { fidx } }) => updateFloorRefsLoad(fidx),
@@ -83,11 +91,8 @@ const floorsMachine = setup({
       on: {
         INIT: {
           actions: [
-            assign({
-              nurls: ({ event }) => event.floorsConfig.floors.length,
-              fidx: ({ event }) => event.floorsConfig.initialFidx,
-            }),
-            ({ event }) => currentFidxAtom.set(event.floorsConfig.initialFidx),
+            { type: 'init', params: ({ event }) => event },
+            'saveFidx',
             'updateInit',
             {
               type: 'emitInitDone',
@@ -102,10 +107,10 @@ const floorsMachine = setup({
       on: {
         IMAGE: {
           actions: [
-            assign({
-              urls: ({ context, event: { idx } }) =>
-                new Set(context.urls.add(idx)),
-            }),
+            {
+              type: 'load',
+              params: ({ event }) => event,
+            },
             {
               type: 'saveUrl',
               params: ({ event: { idx, url } }) => ({ idx, url }),
