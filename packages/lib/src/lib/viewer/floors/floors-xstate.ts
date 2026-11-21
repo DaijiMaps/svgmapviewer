@@ -5,7 +5,12 @@ import { assign, createActor, emit, setup } from 'xstate'
 import type { SvgMapViewerConfig } from '../../../types'
 import { floorCbs, notifyFloor } from '../../event-floor'
 import { globalCbs } from '../../event-global'
-import type { FloorsContext, FloorsEmits, FloorsEvents } from './floors-types'
+import type {
+  FloorsContext,
+  FloorsEmits,
+  FloorsEvents,
+  Init,
+} from './floors-types'
 import type { FloorsWorker, Res } from './floors-worker-types'
 import {
   updateFloorRefsInit,
@@ -23,6 +28,7 @@ const floorsMachine = setup({
   },
   actions: {
     updateInit: () => updateFloorRefsInit(),
+    emitInitDone: emit((_, params: Init) => ({ ...params, type: 'INIT.DONE' })),
     updateLoad: ({ context: { fidx } }) => updateFloorRefsLoad(fidx),
     updateSwitch: ({ context: { fidx, prevFidx } }) =>
       updateFloorRefsSwitch(fidx, prevFidx),
@@ -42,11 +48,15 @@ const floorsMachine = setup({
         INIT: {
           actions: [
             assign({
-              nurls: ({ event }) => event.nurls,
-              fidx: ({ event }) => event.fidx,
+              nurls: ({ event }) => event.floorsConfig.floors.length,
+              fidx: ({ event }) => event.floorsConfig.initialFidx,
             }),
-            ({ event }) => currentFidxAtom.set(event.fidx),
+            ({ event }) => currentFidxAtom.set(event.floorsConfig.initialFidx),
             'updateInit',
+            {
+              type: 'emitInitDone',
+              params: ({ event }) => event,
+            },
           ],
           target: 'Loading',
         },
@@ -132,6 +142,13 @@ const floorsMachine = setup({
 
 const floorsActor = createActor(floorsMachine)
 
+floorsActor.on('INIT.DONE', ({ base, floorsConfig }) => {
+  worker.postMessage({
+    type: 'INIT',
+    cfg: floorsConfig,
+    base: base,
+  })
+})
 floorsActor.on('LOCK', ({ fidx }) => notifyFloor.lock(fidx))
 
 export function floorsActorStart(): void {
@@ -176,13 +193,10 @@ worker.onmessageerror = (ev) => {
 export function floorsCbsStart(): void {
   globalCbs.init.add((cfg: Readonly<SvgMapViewerConfig>) => {
     if (cfg.floorsConfig) {
-      const nurls = cfg.floorsConfig.floors.length
-      const fidx = cfg.floorsConfig.initialFidx
-      floorsActor.send({ type: 'INIT', nurls, fidx })
-      worker.postMessage({
+      floorsActor.send({
         type: 'INIT',
-        cfg: cfg.floorsConfig,
         base: cfg.base,
+        floorsConfig: cfg.floorsConfig,
       })
     }
   })
