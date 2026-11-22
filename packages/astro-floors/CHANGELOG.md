@@ -14,7 +14,7 @@
   - svgmapviewer@0.9.0
   - svgmapviewer-app-floors@0.3.1
 
-## 1.0.0 (XXX)
+## 0.5.1
 
 ### Minor Changes
 
@@ -39,7 +39,7 @@
 
 - c753d8d: export content.config.ts & fix build
 
-## 1.0.0
+## 0.1.5
 
 ### Minor Changes
 
@@ -52,7 +52,7 @@
   - svgmapviewer@0.7.0
   - svgmapviewer-tools-floors@0.2.0
 
-## 1.0.0
+## 0.1.4
 
 ### Patch Changes
 
@@ -60,13 +60,13 @@
   - svgmapviewer@0.6.0
   - svgmapviewer-app-floors@0.1.3
 
-## 0.3.0
+## 0.1.3
 
 ### Minor Changes
 
 - trim deps
 
-## 0.2.1
+## 0.1.2
 
 ### Patch Changes
 
@@ -74,7 +74,7 @@
   - svgmapviewer@0.5.0
   - svgmapviewer-app-floors@0.1.2
 
-## 0.2.0
+## 0.1.1
 
 ### Minor Changes
 
@@ -87,7 +87,7 @@
   - svgmapviewer@0.4.1
   - svgmapviewer-tools-floors@0.1.1
 
-## 1.0.0
+## 0.1.0
 
 ### Minor Changes
 
