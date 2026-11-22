@@ -77,7 +77,7 @@ const floorsMachine = setup({
   on: {
     CLICK: {
       guard: ({ context, event }) =>
-        !(context.prevFidx !== null || context.fidx === event.idx),
+        context.prevFidx === null && context.fidx !== event.idx,
       actions: {
         type: 'notifyLock',
         params: ({ event }) => event,
