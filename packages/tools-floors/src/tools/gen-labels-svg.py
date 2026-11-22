@@ -31,6 +31,7 @@ class LabelText(typing.TypedDict):
 ####
 
 
+layer: None = None
 viewbox: None | Box = None
 texts: list[LabelText] = []
 output_file: str = 'output_file.svg'
@@ -89,15 +90,21 @@ def write_svg() -> None:
 
 
 def main() -> None:
+    global layer
     global viewbox
     global texts
+    global output_file
 
     p = argparse.ArgumentParser()
     p.add_argument("-o", "--output-file", type=str, help='output file (e.g. "output_file.svg")')
     p.add_argument("layer", type=str, help='layer (e.g. "1F")')
     args = p.parse_args()
 
-    floors_labels_json = f"floors-labels-{args.layer}.json"
+    if args.output_file is not None:
+        output_file = args.output_file
+    layer = args.layer
+
+    floors_labels_json = f"floors-labels-{layer}.json"
 
     with open("viewbox.json", "r", encoding="utf-8") as fh:
         viewbox = json.load(fh)
