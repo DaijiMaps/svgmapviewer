@@ -51,3 +51,12 @@ export function floorUrls(fcfg: FloorsConfig): readonly F[] {
       href === undefined ? [] : [{ name, href }]
     )
 }
+
+export function prefixUrl(href: Readonly<string | URL>, base?: string): string {
+  // XXX
+  // XXX
+  // XXX de-duplicate slashes
+  // XXX
+  // XXX
+  return ((base ?? '') + href).replace(/\/+/g, '/')
+}

@@ -1,6 +1,6 @@
 import { assign, createActor, emit, setup } from 'xstate'
 
-import { floorUrls } from '../floors-types'
+import { floorUrls, prefixUrl } from '../floors-types'
 import { ctx } from './floors-worker-context'
 import type { Context, Emits, Events, Req } from './floors-worker-types'
 
@@ -57,20 +57,10 @@ floorsWorkerActor.on('FETCH', ({ fcfg, base }) =>
 )
 
 const fetchImage = (name: string, href: string | URL, base?: string): void => {
-  // XXX
-  // XXX
-  // XXX
-  // XXX de-duplicate slashes
-  const url = ((base ?? '') + href).replace(/\/+/g, '/')
-  // XXX
-  // XXX
-  // XXX
+  const url = prefixUrl(href, base)
   fetch(url)
     .then((response) => {
-      if (!response.ok) {
-        // XXX retry?
-        throw new Error(`fetch error!`)
-      }
+      if (!response.ok) throw new Error(`fetch error!`)
       return response.blob()
     })
     .then((blob) =>
@@ -83,5 +73,6 @@ const fetchImage = (name: string, href: string | URL, base?: string): void => {
           )
         )
     )
+    // XXX retry?
     .catch((e) => console.error(e))
 }
