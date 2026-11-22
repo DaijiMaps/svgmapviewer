@@ -254,15 +254,10 @@ export interface Floor {
   readonly layers?: readonly string[]
 }
 
-export interface FloorLayer {
-  readonly name: string
-  readonly href: string | URL
-}
-
 export interface FloorsConfig {
   readonly initialFidx: number
   readonly floors: readonly Floor[]
-  readonly layers?: readonly FloorLayer[]
+  readonly layers?: readonly Pick<Floor, 'name' | 'href'>[]
   readonly labelsMap?: LabelsArray | LabelsRecord | LabelsMap
   readonly labelsCircleRadius?: number
   readonly labelsCircleStyle?: string
