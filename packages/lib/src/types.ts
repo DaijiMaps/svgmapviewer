@@ -249,13 +249,15 @@ export type LabelsArray = readonly LabelsArrayEntry[]
 
 export interface Floor {
   readonly name: string
-  readonly href: string | URL
+  readonly href?: string | URL
   readonly labels?: LabelsTexts
+  readonly layers?: readonly string[]
 }
 
 export interface FloorsConfig {
   readonly initialFidx: number
   readonly floors: readonly Floor[]
+  readonly layers?: readonly Pick<Floor, 'name' | 'href'>[]
   readonly labelsMap?: LabelsArray | LabelsRecord | LabelsMap
   readonly labelsCircleRadius?: number
   readonly labelsCircleStyle?: string

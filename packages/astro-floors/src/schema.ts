@@ -150,9 +150,10 @@ const labelTextSchema = z.object({
 
 export const floorSchema = z.object({
   name: z.string(),
-  href: z.string(),
+  href: z.string().optional(),
   file: z.string().optional(),
   labels: z.array(labelTextSchema).optional(),
+  layers: z.array(z.string()).optional(),
 })
 
 export const floorsSchema = z.array(floorSchema)
@@ -160,6 +161,7 @@ export const floorsSchema = z.array(floorSchema)
 export const floorsConfigSchema = z.object({
   initialFidx: z.number(),
   floors: z.array(floorSchema),
+  layers: z.array(floorSchema).optional(),
   //labelsMap: z.map(z.string(), z.array(labelTextSchema)).optional(),
   labelsCircleRadius: z.number().optional(),
   labelsCircleStyle: z.string().optional(),

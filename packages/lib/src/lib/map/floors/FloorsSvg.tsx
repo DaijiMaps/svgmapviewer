@@ -1,3 +1,6 @@
+import { useAtom } from '@xstate/store-react'
+/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statements */
 import { Fragment, useRef, type PropsWithChildren, type ReactNode } from 'react'
 
@@ -16,6 +19,7 @@ import {
   useFloors,
   type UseFloorsReturn,
 } from '../../viewer/floors/floors-react'
+import { floorsSend, urlsAtom } from '../../viewer/floors/floors-xstate'
 import { useFloorRef } from '../../viewer/floors/style'
 import { useLayoutStyleRef } from '../../viewer/layout/style-layout'
 import { MAP_SVG_FLOORS } from '../map-svg-react'
@@ -32,10 +36,11 @@ export function RenderFloorsSvg({
   return (
     <div ref={ref} className="content map-floors-svg">
       <RenderFloorsSvgSvg>
-        {floors?.floors.map((floor, fidx) => (
-          <Fragment key={fidx}>
+        {floors?.floors.map((floor, idx) => (
+          <Fragment key={idx}>
             <RenderFloorSvg
-              fidx={fidx}
+              fidx={ctx.fidx}
+              idx={idx}
               floor={floor}
               labelsMap={floors?.labelsMap}
               origViewBox={origViewBox}
@@ -78,15 +83,15 @@ function RenderFloorsSvgSvg(props: Readonly<PropsWithChildren>): ReactNode {
 }
 
 function RenderFloorSvg({
-  fidx,
+  idx,
   floor,
   origViewBox,
-  ctx: { fidxToOnAnimationEnd, urls },
   labelsMap,
   m,
   meter2svg,
 }: Readonly<{
   fidx: number
+  idx: number
   floor: Floor
   origViewBox: BoxBox
   ctx: UseFloorsReturn
@@ -95,23 +100,22 @@ function RenderFloorSvg({
   meter2svg?: number
 }>): ReactNode {
   const ref = useRef(null)
-  useFloorRef(ref, `svg-${fidx}`)
+  useFloorRef(ref, `svg-${idx}`)
   return (
     <g
       ref={ref}
-      className={`floor fidx-${fidx}`}
-      onAnimationEnd={fidxToOnAnimationEnd(fidx)}
+      className={`floor fidx-${idx}`}
+      onAnimationEnd={() => floorsSend({ type: 'ANIMATION.END', idx })}
     >
-      <RenderFloorImage
-        fidx={fidx}
+      <RenderFloorImages
         origViewBox={origViewBox}
-        url={urls.get(fidx)}
+        names={floor.layers ?? [floor.name]}
       />
       {m && meter2svg && (
         <RenderFloorPositionCircle m={m} meter2svg={meter2svg} />
       )}
       <RenderFloorLabelCircles
-        fidx={fidx}
+        idx={idx}
         labels={floor.labels ?? getLabels(labelsMap, floor.name.toLowerCase())}
       />
       <style>{floorSvgStyle}</style>
@@ -141,17 +145,21 @@ const floorSvgStyle = `
 }
 `
 
-function RenderFloorImage({ origViewBox, url }: FloorProps): ReactNode {
+function RenderFloorImages({ origViewBox, names }: FloorProps): ReactNode {
+  const urls = useAtom(urlsAtom)
   // XXX better "loading" display?
   return (
     <g className="images">
-      <image
-        x={origViewBox.x}
-        y={origViewBox.y}
-        width={origViewBox.width}
-        height={origViewBox.height}
-        href={url}
-      />
+      {names.map((name, idx) => (
+        <image
+          key={idx}
+          x={origViewBox.x}
+          y={origViewBox.y}
+          width={origViewBox.width}
+          height={origViewBox.height}
+          href={urls.get(name)}
+        />
+      ))}
     </g>
   )
 }
@@ -193,7 +201,7 @@ function usePositionSvg(
 function RenderFloorLabelCircles({
   labels,
 }: Readonly<{
-  fidx: number
+  idx: number
   labels?: readonly LabelText[]
 }>): ReactNode {
   const cfg = useConfig()

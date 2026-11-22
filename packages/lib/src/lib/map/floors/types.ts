@@ -4,8 +4,7 @@ import type { Cb } from '../../cb'
 
 export type FloorProps = Readonly<{
   origViewBox: BoxBox
-  fidx: number
-  url?: string
+  names: readonly string[]
   onAnimationEnd?: Cb
   labels?: readonly LabelText[]
 }>

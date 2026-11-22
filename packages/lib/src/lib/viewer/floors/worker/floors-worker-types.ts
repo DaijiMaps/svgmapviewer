@@ -1,14 +1,14 @@
 /* eslint-disable functional/no-return-void */
-import type { FloorsConfig } from '../../../types'
+import type { FloorsConfig } from '../../../../types'
 
-export type Context = { cfg?: FloorsConfig; base?: string }
+export type Context = { fcfg?: FloorsConfig; base?: string }
 
-export type Init = { type: 'INIT'; cfg: FloorsConfig; base?: string }
+export type Init = { type: 'INIT'; fcfg: FloorsConfig; base?: string }
 export type InitDone = { type: 'INIT.DONE' }
-export type Fetch = { type: 'FETCH'; cfg: FloorsConfig; base?: string }
+export type Fetch = { type: 'FETCH'; fcfg: FloorsConfig; base?: string }
 export type FetchDone = {
   type: 'FETCH.DONE'
-  fidx: number
+  name: string
   blob: Blob
   buf: ArrayBuffer
 }

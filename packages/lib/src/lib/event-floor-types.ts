@@ -1,12 +1,13 @@
+import type { FloorsConfig } from '../types'
 import type { Cb, Cb1 } from './cb'
 
+export type FloorInitCb = Cb1<{ fcfg: FloorsConfig; base?: string }>
 export type FloorCb = Cb1<number>
 
 export interface FloorCbs {
+  readonly init: Set<FloorInitCb>
   readonly lock: Set<FloorCb>
   readonly select: Set<FloorCb>
-  readonly levelUp: Set<Cb>
-  readonly levelDown: Set<Cb>
   readonly selectDone: Set<FloorCb>
   readonly unlock: Set<Cb>
 }

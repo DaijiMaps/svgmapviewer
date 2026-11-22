@@ -10,7 +10,7 @@ import {
 import type { SearchAddress } from '../address'
 import { globalCbs } from '../event-global'
 import { notifySearch, searchCbs } from '../event-search'
-import { currentFidxAtom } from '../viewer/floors/floors-xstate'
+import { fidxAtom } from '../viewer/floors/floors-xstate'
 import { getSearchInfoCommon } from './info'
 import type {
   SearchWorker,
@@ -87,7 +87,7 @@ searchActor.on('SEARCH', ({ req: { psvg } }) => {
     cfg.mapCoord.direct === true
       ? psvg
       : cfg.mapCoord.matrix.inverse().transformPoint(psvg)
-  const fidx = currentFidxAtom.get()
+  const fidx = fidxAtom.get()
   const greq: SearchGeoReq = {
     pgeo,
     fidx,

@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
+
 import argparse
 import json
 import os
 import subprocess
 import sys
 import typing
+
 
 DATA_DIR = "."
 ASSETS_DIR = "../assets"
