@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=../../../node_modules/svgmapviewer-astro-floors/src/svgMapViewerConfigUser.schema.json
+root: root
+title: Sugoi Fair 2026
+backgroundColor: gray
+zoomFactor: 2
+origViewBox:
+  x: -5
+  y: -5
+  width: 410
+  height: 410
+origBoundingBox:
+  x: 0
+  y: 0
+  width: 400
+  height: 400
+uiConfig:
+  showGuides: false
+  showRecenter: false
+  showRotate: false
+  fastZoom: true

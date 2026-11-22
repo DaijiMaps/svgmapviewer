@@ -1,0 +1,436 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox=" 0.0 0.0 400.0 400.0">
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(235.0, 360.0) rotate(0.0) scale(0.125) scale(1.38)">
+    <tspan x="0" y="0.0em">1</tspan>
+    <tspan x="0" y="1.25em">珈琲巡礼</tspan>
+    <tspan x="0" y="2.5em">roots</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(230.0, 350.0) rotate(0.0) scale(0.125) scale(1.25)">
+    <tspan x="0" y="0.0em">2</tspan>
+    <tspan x="0" y="1.25em">カフェ</tspan>
+    <tspan x="0" y="2.5em">ド</tspan>
+    <tspan x="0" y="3.75em">ノスタルジア</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(220.0, 340.0) rotate(0.0) scale(0.125) scale(1.42)">
+    <tspan x="0" y="0.0em">3</tspan>
+    <tspan x="0" y="1.25em">満月ベイク</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(210.0, 330.0) rotate(0.0) scale(0.125) scale(1.38)">
+    <tspan x="0" y="0.0em">4</tspan>
+    <tspan x="0" y="1.25em">HARVEST</tspan>
+    <tspan x="0" y="2.5em">TABLE</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(200.0, 325.0) rotate(0.0) scale(0.125) scale(1.32)">
+    <tspan x="0" y="0.0em">5</tspan>
+    <tspan x="0" y="1.25em">おやつ処</tspan>
+    <tspan x="0" y="2.5em">よすが</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(190.0, 320.0) rotate(0.0) scale(0.125) scale(1.31)">
+    <tspan x="0" y="0.0em">6</tspan>
+    <tspan x="0" y="1.25em">シトロン</tspan>
+    <tspan x="0" y="2.5em">キッチン</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(180.0, 315.0) rotate(0.0) scale(0.125) scale(1.23)">
+    <tspan x="0" y="0.0em">7</tspan>
+    <tspan x="0" y="1.25em">旅するスパイス</tspan>
+    <tspan x="0" y="2.5em">駱駝</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(170.0, 310.0) rotate(0.0) scale(0.125) scale(1.32)">
+    <tspan x="0" y="0.0em">8</tspan>
+    <tspan x="0" y="1.25em">BACKYARD</tspan>
+    <tspan x="0" y="2.5em">COFFEE</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(150.0, 305.0) rotate(0.0) scale(0.125) scale(1.31)">
+    <tspan x="0" y="0.0em">9</tspan>
+    <tspan x="0" y="1.25em">陽だまり</tspan>
+    <tspan x="0" y="2.5em">マフィン</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(140.0, 300.0) rotate(0.0) scale(0.125) scale(1.35)">
+    <tspan x="0" y="0.0em">10</tspan>
+    <tspan x="0" y="1.25em">NEST</tspan>
+    <tspan x="0" y="2.5em">ESPRESSO</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(130.0, 300.0) rotate(0.0) scale(0.125) scale(1.24)">
+    <tspan x="0" y="0.0em">11</tspan>
+    <tspan x="0" y="1.25em">スープと</tspan>
+    <tspan x="0" y="2.5em">暮らし</tspan>
+    <tspan x="0" y="3.75em">紡ぎ</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(95.0, 290.0) rotate(0.0) scale(0.125) scale(1.39)">
+    <tspan x="0" y="0.0em">12</tspan>
+    <tspan x="0" y="1.25em">琥珀堂</tspan>
+    <tspan x="0" y="2.5em">珈琲</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(85.0, 285.0) rotate(0.0) scale(0.125) scale(1.24)">
+    <tspan x="0" y="0.0em">13</tspan>
+    <tspan x="0" y="1.25em">CRAFT</tspan>
+    <tspan x="0" y="2.5em">BEER</tspan>
+    <tspan x="0" y="3.75em">BASEMENT</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(75.0, 275.0) rotate(0.0) scale(0.125) scale(1.3)">
+    <tspan x="0" y="0.0em">14</tspan>
+    <tspan x="0" y="1.25em">焼き菓子店</tspan>
+    <tspan x="0" y="2.5em">slow</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(60.0, 265.0) rotate(0.0) scale(0.125) scale(1.21)">
+    <tspan x="0" y="0.0em">15</tspan>
+    <tspan x="0" y="1.25em">ごはんとお茶</tspan>
+    <tspan x="0" y="2.5em">ひととき</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(50.0, 255.0) rotate(0.0) scale(0.125) scale(1.26)">
+    <tspan x="0" y="0.0em">16</tspan>
+    <tspan x="0" y="1.25em">GREEN</tspan>
+    <tspan x="0" y="2.5em">SPOON</tspan>
+    <tspan x="0" y="3.75em">STAND</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(35.0, 250.0) rotate(0.0) scale(0.125) scale(1.26)">
+    <tspan x="0" y="0.0em">17</tspan>
+    <tspan x="0" y="1.25em">ほしぞら</tspan>
+    <tspan x="0" y="2.5em">ベーカリー</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(260.0, 350.0) rotate(0.0) scale(0.125) scale(1.3)">
+    <tspan x="0" y="0.0em">18</tspan>
+    <tspan x="0" y="1.25em">AMANOGAWA</tspan>
+    <tspan x="0" y="2.5em">TEA</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(250.0, 340.0) rotate(0.0) scale(0.125) scale(1.36)">
+    <tspan x="0" y="0.0em">19</tspan>
+    <tspan x="0" y="1.25em">カレーノ</tspan>
+    <tspan x="0" y="2.5em">トリコ</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(235.0, 320.0) rotate(0.0) scale(0.125) scale(1.24)">
+    <tspan x="0" y="0.0em">20</tspan>
+    <tspan x="0" y="1.25em">街角ボタニカ</tspan>
+    <tspan x="0" y="2.5em">カフェ</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(225.0, 315.0) rotate(0.0) scale(0.125) scale(1.42)">
+    <tspan x="0" y="0.0em">21</tspan>
+    <tspan x="0" y="1.25em">LOCAL</tspan>
+    <tspan x="0" y="2.5em">TABLE</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(215.0, 310.0) rotate(0.0) scale(0.125) scale(1.33)">
+    <tspan x="0" y="0.0em">22</tspan>
+    <tspan x="0" y="1.25em">三日月</tspan>
+    <tspan x="0" y="2.5em">ショコラ</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(205.0, 300.0) rotate(0.0) scale(0.125) scale(1.39)">
+    <tspan x="0" y="0.0em">23</tspan>
+    <tspan x="0" y="1.25em">焙煎所</tspan>
+    <tspan x="0" y="2.5em">浮雲</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(170.0, 290.0) rotate(0.0) scale(0.125) scale(1.21)">
+    <tspan x="0" y="0.0em">24</tspan>
+    <tspan x="0" y="1.25em">Daydream</tspan>
+    <tspan x="0" y="2.5em">Espresso</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(155.0, 285.0) rotate(0.0) scale(0.125) scale(1.25)">
+    <tspan x="0" y="0.0em">25</tspan>
+    <tspan x="0" y="1.25em">あおぞら</tspan>
+    <tspan x="0" y="2.5em">キッチカー</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(145.0, 280.0) rotate(0.0) scale(0.125) scale(1.23)">
+    <tspan x="0" y="0.0em">26</tspan>
+    <tspan x="0" y="1.25em">VINTAGE</tspan>
+    <tspan x="0" y="2.5em">SHOP</tspan>
+    <tspan x="0" y="3.75em">RE:BORN</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(115.0, 275.0) rotate(0.0) scale(0.125) scale(1.27)">
+    <tspan x="0" y="0.0em">27</tspan>
+    <tspan x="0" y="1.25em">古着屋</tspan>
+    <tspan x="0" y="2.5em">朧</tspan>
+    <tspan x="0" y="3.75em">（oboro）</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(105.0, 270.0) rotate(0.0) scale(0.125) scale(1.31)">
+    <tspan x="0" y="0.0em">28</tspan>
+    <tspan x="0" y="1.25em">Parallel</tspan>
+    <tspan x="0" y="2.5em">vintage</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(95.0, 265.0) rotate(0.0) scale(0.125) scale(1.23)">
+    <tspan x="0" y="0.0em">29</tspan>
+    <tspan x="0" y="1.25em">クローゼットの</tspan>
+    <tspan x="0" y="2.5em">迷子</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(90.0, 255.0) rotate(0.0) scale(0.125) scale(1.3)">
+    <tspan x="0" y="0.0em">30</tspan>
+    <tspan x="0" y="1.25em">canaria</tspan>
+    <tspan x="0" y="2.5em">clothing</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(65.0, 240.0) rotate(0.0) scale(0.125) scale(1.41)">
+    <tspan x="0" y="0.0em">31</tspan>
+    <tspan x="0" y="1.25em">STITCH</tspan>
+    <tspan x="0" y="2.5em">&amp;</tspan>
+    <tspan x="0" y="3.75em">SEW</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(225.0, 295.0) rotate(0.0) scale(0.125) scale(1.26)">
+    <tspan x="0" y="0.0em">32</tspan>
+    <tspan x="0" y="1.25em">レトロモダン</tspan>
+    <tspan x="0" y="2.5em">琥珀</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(235.0, 290.0) rotate(0.0) scale(0.125) scale(1.3)">
+    <tspan x="0" y="0.0em">33</tspan>
+    <tspan x="0" y="1.25em">Thread</tspan>
+    <tspan x="0" y="2.5em">and</tspan>
+    <tspan x="0" y="3.75em">Needle</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(245.0, 285.0) rotate(0.0) scale(0.125) scale(1.3)">
+    <tspan x="0" y="0.0em">34</tspan>
+    <tspan x="0" y="1.25em">洋服屋</tspan>
+    <tspan x="0" y="2.5em">crossroad</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(260.0, 270.0) rotate(0.0) scale(0.125) scale(1.41)">
+    <tspan x="0" y="0.0em">35</tspan>
+    <tspan x="0" y="1.25em">NATIVE</tspan>
+    <tspan x="0" y="2.5em">WEAR</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(265.0, 260.0) rotate(0.0) scale(0.125) scale(1.22)">
+    <tspan x="0" y="0.0em">36</tspan>
+    <tspan x="0" y="1.25em">古着と雑貨</tspan>
+    <tspan x="0" y="2.5em">少年時代</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(270.0, 245.0) rotate(0.0) scale(0.125) scale(1.38)">
+    <tspan x="0" y="0.0em">37</tspan>
+    <tspan x="0" y="1.25em">Urban</tspan>
+    <tspan x="0" y="2.5em">Nomad</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(280.0, 230.0) rotate(0.0) scale(0.125) scale(1.3)">
+    <tspan x="0" y="0.0em">38</tspan>
+    <tspan x="0" y="1.25em">衣類堂</tspan>
+    <tspan x="0" y="2.5em">まほろば</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(285.0, 220.0) rotate(0.0) scale(0.125) scale(1.27)">
+    <tspan x="0" y="0.0em">39</tspan>
+    <tspan x="0" y="1.25em">BLUE</tspan>
+    <tspan x="0" y="2.5em">MOON</tspan>
+    <tspan x="0" y="3.75em">VINTAGE</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(290.0, 195.0) rotate(0.0) scale(0.125) scale(1.23)">
+    <tspan x="0" y="0.0em">40</tspan>
+    <tspan x="0" y="1.25em">旅人の</tspan>
+    <tspan x="0" y="2.5em">クローゼット</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(290.0, 180.0) rotate(0.0) scale(0.125) scale(1.43)">
+    <tspan x="0" y="0.0em">41</tspan>
+    <tspan x="0" y="1.25em">Velvet</tspan>
+    <tspan x="0" y="2.5em">Room</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(290.0, 170.0) rotate(0.0) scale(0.125) scale(1.34)">
+    <tspan x="0" y="0.0em">42</tspan>
+    <tspan x="0" y="1.25em">キモノノ</tspan>
+    <tspan x="0" y="2.5em">ミライ</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(290.0, 155.0) rotate(0.0) scale(0.125) scale(1.37)">
+    <tspan x="0" y="0.0em">43</tspan>
+    <tspan x="0" y="1.25em">ATELIER</tspan>
+    <tspan x="0" y="2.5em">DENIM</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(190.0, 285.0) rotate(0.0) scale(0.125) scale(1.29)">
+    <tspan x="0" y="0.0em">44</tspan>
+    <tspan x="0" y="1.25em">昭和</tspan>
+    <tspan x="0" y="2.5em">キネマ</tspan>
+    <tspan x="0" y="3.75em">ウエア</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(200.0, 275.0) rotate(0.0) scale(0.125) scale(1.3)">
+    <tspan x="0" y="0.0em">45</tspan>
+    <tspan x="0" y="1.25em">Finders</tspan>
+    <tspan x="0" y="2.5em">Keepers</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(210.0, 275.0) rotate(0.0) scale(0.125) scale(1.34)">
+    <tspan x="0" y="0.0em">46</tspan>
+    <tspan x="0" y="1.25em">布と糸の</tspan>
+    <tspan x="0" y="2.5em">記憶</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(220.0, 270.0) rotate(0.0) scale(0.125) scale(1.39)">
+    <tspan x="0" y="0.0em">47</tspan>
+    <tspan x="0" y="1.25em">OVERSIZE</tspan>
+    <tspan x="0" y="2.5em">LAB</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(235.0, 255.0) rotate(0.0) scale(0.125) scale(1.39)">
+    <tspan x="0" y="0.0em">48</tspan>
+    <tspan x="0" y="1.25em">古着屋</tspan>
+    <tspan x="0" y="2.5em">陽炎</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(245.0, 245.0) rotate(0.0) scale(0.125) scale(1.36)">
+    <tspan x="0" y="0.0em">49</tspan>
+    <tspan x="0" y="1.25em">Rusty</tspan>
+    <tspan x="0" y="2.5em">Buttons</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(250.0, 235.0) rotate(0.0) scale(0.125) scale(1.29)">
+    <tspan x="0" y="0.0em">50</tspan>
+    <tspan x="0" y="1.25em">CHRONO</tspan>
+    <tspan x="0" y="2.5em">vintage</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(265.0, 195.0) rotate(0.0) scale(0.125) scale(1.3)">
+    <tspan x="0" y="0.0em">51</tspan>
+    <tspan x="0" y="1.25em">古道具</tspan>
+    <tspan x="0" y="2.5em">錆と時間</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(265.0, 185.0) rotate(0.0) scale(0.125) scale(1.21)">
+    <tspan x="0" y="0.0em">52</tspan>
+    <tspan x="0" y="1.25em">WOODWORKS</tspan>
+    <tspan x="0" y="2.5em">創作の森</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(270.0, 175.0) rotate(0.0) scale(0.125) scale(1.22)">
+    <tspan x="0" y="0.0em">53</tspan>
+    <tspan x="0" y="1.25em">ANTIQUE</tspan>
+    <tspan x="0" y="2.5em">MARKET</tspan>
+    <tspan x="0" y="3.75em">OWL</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(270.0, 155.0) rotate(0.0) scale(0.125) scale(1.29)">
+    <tspan x="0" y="0.0em">54</tspan>
+    <tspan x="0" y="1.25em">暮らしの道具</tspan>
+    <tspan x="0" y="2.5em">綯</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(265.0, 140.0) rotate(0.0) scale(0.125) scale(1.42)">
+    <tspan x="0" y="0.0em">55</tspan>
+    <tspan x="0" y="1.25em">Timber</tspan>
+    <tspan x="0" y="2.5em">&amp;</tspan>
+    <tspan x="0" y="3.75em">Co.</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(260.0, 130.0) rotate(0.0) scale(0.125) scale(1.46)">
+    <tspan x="0" y="0.0em">56</tspan>
+    <tspan x="0" y="1.25em">時の足跡</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(255.0, 120.0) rotate(0.0) scale(0.125) scale(1.28)">
+    <tspan x="0" y="0.0em">57</tspan>
+    <tspan x="0" y="1.25em">アトリエ</tspan>
+    <tspan x="0" y="2.5em">木漏れ日</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(245.0, 110.0) rotate(0.0) scale(0.125) scale(1.24)">
+    <tspan x="0" y="0.0em">58</tspan>
+    <tspan x="0" y="1.25em">IRON</tspan>
+    <tspan x="0" y="2.5em">&amp;</tspan>
+    <tspan x="0" y="3.75em">WOOD</tspan>
+    <tspan x="0" y="5.0em">FACTORY</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(240.0, 100.0) rotate(0.0) scale(0.125) scale(1.55)">
+    <tspan x="0" y="0.0em">59</tspan>
+    <tspan x="0" y="1.25em">懐古堂</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(220.0, 85.0) rotate(0.0) scale(0.125) scale(1.31)">
+    <tspan x="0" y="0.0em">60</tspan>
+    <tspan x="0" y="1.25em">Rust</tspan>
+    <tspan x="0" y="2.5em">and</tspan>
+    <tspan x="0" y="3.75em">Glamour</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(205.0, 75.0) rotate(0.0) scale(0.125) scale(1.3)">
+    <tspan x="0" y="0.0em">61</tspan>
+    <tspan x="0" y="1.25em">本家</tspan>
+    <tspan x="0" y="2.5em">吉田家具店</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(200.0, 70.0) rotate(0.0) scale(0.125) scale(1.31)">
+    <tspan x="0" y="0.0em">62</tspan>
+    <tspan x="0" y="1.25em">VINTAGE</tspan>
+    <tspan x="0" y="2.5em">FINDERS</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(190.0, 65.0) rotate(0.0) scale(0.125) scale(1.35)">
+    <tspan x="0" y="0.0em">63</tspan>
+    <tspan x="0" y="1.25em">木のぼり</tspan>
+    <tspan x="0" y="2.5em">工房</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(175.0, 55.0) rotate(0.0) scale(0.125) scale(1.3)">
+    <tspan x="0" y="0.0em">64</tspan>
+    <tspan x="0" y="1.25em">記憶の</tspan>
+    <tspan x="0" y="2.5em">引き出し</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(160.0, 50.0) rotate(0.0) scale(0.125) scale(1.21)">
+    <tspan x="0" y="0.0em">65</tspan>
+    <tspan x="0" y="1.25em">Craftsmanship</tspan>
+    <tspan x="0" y="2.5em">SHIN</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(150.0, 45.0) rotate(0.0) scale(0.125) scale(1.31)">
+    <tspan x="0" y="0.0em">66</tspan>
+    <tspan x="0" y="1.25em">古道具</tspan>
+    <tspan x="0" y="2.5em">うたたね</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(285.0, 135.0) rotate(0.0) scale(0.125) scale(1.34)">
+    <tspan x="0" y="0.0em">67</tspan>
+    <tspan x="0" y="1.25em">BRASS</tspan>
+    <tspan x="0" y="2.5em">&amp;</tspan>
+    <tspan x="0" y="3.75em">COPPER</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(280.0, 125.0) rotate(0.0) scale(0.125) scale(1.27)">
+    <tspan x="0" y="0.0em">68</tspan>
+    <tspan x="0" y="1.25em">土と木の</tspan>
+    <tspan x="0" y="2.5em">まにまに</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(275.0, 110.0) rotate(0.0) scale(0.125) scale(1.23)">
+    <tspan x="0" y="0.0em">69</tspan>
+    <tspan x="0" y="1.25em">Heritage</tspan>
+    <tspan x="0" y="2.5em">Antiques</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(250.0, 75.0) rotate(0.0) scale(0.125) scale(1.42)">
+    <tspan x="0" y="0.0em">70</tspan>
+    <tspan x="0" y="1.25em">道具屋</tspan>
+    <tspan x="0" y="2.5em">ろく</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(240.0, 70.0) rotate(0.0) scale(0.125) scale(1.34)">
+    <tspan x="0" y="0.0em">71</tspan>
+    <tspan x="0" y="1.25em">硝子細工</tspan>
+    <tspan x="0" y="2.5em">氷華</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(235.0, 60.0) rotate(0.0) scale(0.125) scale(1.48)">
+    <tspan x="0" y="0.0em">72</tspan>
+    <tspan x="0" y="1.25em">atelier</tspan>
+    <tspan x="0" y="2.5em">sora</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(200.0, 45.0) rotate(0.0) scale(0.125) scale(1.36)">
+    <tspan x="0" y="0.0em">73</tspan>
+    <tspan x="0" y="1.25em">革工房</tspan>
+    <tspan x="0" y="2.5em">ROOTS</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(190.0, 40.0) rotate(0.0) scale(0.125) scale(1.39)">
+    <tspan x="0" y="0.0em">74</tspan>
+    <tspan x="0" y="1.25em">水玉レース</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(180.0, 35.0) rotate(0.0) scale(0.125) scale(1.31)">
+    <tspan x="0" y="0.0em">75</tspan>
+    <tspan x="0" y="1.25em">Palette</tspan>
+    <tspan x="0" y="2.5em">Jewelry</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(170.0, 30.0) rotate(0.0) scale(0.125) scale(1.3)">
+    <tspan x="0" y="0.0em">76</tspan>
+    <tspan x="0" y="1.25em">陶芸工房</tspan>
+    <tspan x="0" y="2.5em">泥と月</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(305.0, 155.0) rotate(0.0) scale(0.125) scale(1.47)">
+    <tspan x="0" y="0.0em">77</tspan>
+    <tspan x="0" y="1.25em">mini.craft</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(320.0, 160.0) rotate(0.0) scale(0.125) scale(1.27)">
+    <tspan x="0" y="0.0em">78</tspan>
+    <tspan x="0" y="1.25em">はんこや</tspan>
+    <tspan x="0" y="2.5em">ぽんぽん</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(340.0, 155.0) rotate(0.0) scale(0.125) scale(1.47)">
+    <tspan x="0" y="0.0em">79</tspan>
+    <tspan x="0" y="1.25em">SILVER</tspan>
+    <tspan x="0" y="2.5em">LAB</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(355.0, 150.0) rotate(0.0) scale(0.125) scale(1.26)">
+    <tspan x="0" y="0.0em">80</tspan>
+    <tspan x="0" y="1.25em">手仕事の店</tspan>
+    <tspan x="0" y="2.5em">つむぎ</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(300.0, 135.0) rotate(0.0) scale(0.125) scale(1.31)">
+    <tspan x="0" y="0.0em">81</tspan>
+    <tspan x="0" y="1.25em">Bloom</tspan>
+    <tspan x="0" y="2.5em">Handmade</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(315.0, 135.0) rotate(0.0) scale(0.125) scale(1.21)">
+    <tspan x="0" y="0.0em">82</tspan>
+    <tspan x="0" y="1.25em">刺繍ブローチ</tspan>
+    <tspan x="0" y="2.5em">糸の旅</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(335.0, 135.0) rotate(0.0) scale(0.125) scale(1.35)">
+    <tspan x="0" y="0.0em">83</tspan>
+    <tspan x="0" y="1.25em">Clay</tspan>
+    <tspan x="0" y="2.5em">and</tspan>
+    <tspan x="0" y="3.75em">Glaze</tspan>
+  </text>
+  <text font-family="'Noto Sans', sans-serif" font-weight="200" font-size="16px" text-anchor="middle" transform="translate(345.0, 125.0) rotate(0.0) scale(0.125) scale(1.22)">
+    <tspan x="0" y="0.0em">84</tspan>
+    <tspan x="0" y="1.25em">お守り</tspan>
+    <tspan x="0" y="2.5em">アクセサリー</tspan>
+    <tspan x="0" y="3.75em">雫</tspan>
+  </text>
+</svg>

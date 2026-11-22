@@ -1,0 +1,26 @@
+---
+interface Props {
+	title?: string
+}
+
+const props = Astro.props
+---
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+		<title>{props.title ?? 'svgmapviewer'}</title>
+		<style>
+		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@200&display=swap');
+		text,
+		tspan {
+			font-family: 'Noto Sans JP', 'sans-serif' !important;
+			font-weight: 200 !important;
+		}
+		</style>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
