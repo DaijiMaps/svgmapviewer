@@ -52,7 +52,7 @@ export function floorsWorkerSend(ev: Req): void {
 
 floorsWorkerActor.on('INIT.DONE', (ev) => ctx.postMessage(ev))
 floorsWorkerActor.on('FETCH', ({ fcfg, base }) =>
-  fcfg.floors.forEach((f, fidx) => {
+  fcfg.floors.forEach((f, idx) => {
     // XXX
     // XXX
     // XXX
@@ -74,7 +74,7 @@ floorsWorkerActor.on('FETCH', ({ fcfg, base }) =>
           .arrayBuffer()
           .then((buf) =>
             ctx.postMessage(
-              { type: 'FETCH.DONE', fidx, blob, buf },
+              { type: 'FETCH.DONE', idx, blob, buf },
               { transfer: [buf] }
             )
           )

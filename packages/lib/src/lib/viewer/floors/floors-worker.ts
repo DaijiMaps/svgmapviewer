@@ -21,10 +21,10 @@ worker.onmessage = (e: Readonly<MessageEvent<Res>>): void => {
       break
     }
     case 'FETCH.DONE': {
-      const { fidx, blob } = ev
+      const { idx, blob } = ev
       floorsSend({
         type: 'IMAGE',
-        idx: fidx,
+        idx,
         url: URL.createObjectURL(blob),
       })
       break
@@ -45,7 +45,7 @@ export function floorsWorkerCbsStart(): void {
     worker.postMessage({
       type: 'INIT',
       fcfg,
-      base: base,
+      base,
     })
   })
 }
