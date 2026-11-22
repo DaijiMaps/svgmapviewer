@@ -3,7 +3,7 @@ import type { Cb } from '../../cb'
 
 export interface FloorsContext {
   nurls: number
-  urls: Set<number>
+  urls: Set<string>
   fidx: number
   prevFidx: null | number
 }
@@ -11,7 +11,7 @@ export interface FloorsContext {
 export type Init = { type: 'INIT'; fcfg: FloorsConfig; base?: string }
 export type Select = { type: 'SELECT'; idx: number; force?: boolean }
 export type SelectDone = { type: 'SELECT.DONE'; idx: number }
-export type Image = { type: 'IMAGE'; idx: number; url: string }
+export type Image = { type: 'IMAGE'; name: string; url: string }
 export type Click = { type: 'CLICK'; idx: number }
 export type LevelUp = { type: 'LEVEL.UP' }
 export type LevelDown = { type: 'LEVEL.DOWN' }

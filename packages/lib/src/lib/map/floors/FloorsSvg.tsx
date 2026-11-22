@@ -111,7 +111,7 @@ function RenderFloorSvg({
       <RenderFloorImage
         idx={idx}
         origViewBox={origViewBox}
-        url={urls.get(`${idx}`)}
+        url={urls.get(floor.name)}
       />
       {m && meter2svg && (
         <RenderFloorPositionCircle m={m} meter2svg={meter2svg} />

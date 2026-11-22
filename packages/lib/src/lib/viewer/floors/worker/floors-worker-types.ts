@@ -8,7 +8,7 @@ export type InitDone = { type: 'INIT.DONE' }
 export type Fetch = { type: 'FETCH'; fcfg: FloorsConfig; base?: string }
 export type FetchDone = {
   type: 'FETCH.DONE'
-  idx: number
+  name: string
   blob: Blob
   buf: ArrayBuffer
 }

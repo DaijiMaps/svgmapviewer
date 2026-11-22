@@ -21,10 +21,10 @@ worker.onmessage = (e: Readonly<MessageEvent<Res>>): void => {
       break
     }
     case 'FETCH.DONE': {
-      const { idx, blob } = ev
+      const { name, blob } = ev
       floorsSend({
         type: 'IMAGE',
-        idx,
+        name,
         url: URL.createObjectURL(blob),
       })
       break

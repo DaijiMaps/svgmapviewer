@@ -52,33 +52,40 @@ export function floorsWorkerSend(ev: Req): void {
 
 floorsWorkerActor.on('INIT.DONE', (ev) => ctx.postMessage(ev))
 floorsWorkerActor.on('FETCH', ({ fcfg, base }) =>
-  fcfg.floors.forEach((f, idx) => {
-    // XXX
-    // XXX
-    // XXX
-    // XXX de-duplicate slashes
-    const url = ((base ?? '') + f.href).replace(/\/+/g, '/')
-    // XXX
-    // XXX
-    // XXX
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          // XXX retry?
-          throw new Error(`fetch error!`)
-        }
-        return response.blob()
-      })
-      .then((blob) =>
-        blob
-          .arrayBuffer()
-          .then((buf) =>
-            ctx.postMessage(
-              { type: 'FETCH.DONE', idx, blob, buf },
-              { transfer: [buf] }
-            )
-          )
-      )
-      .catch((e) => console.error(e))
-  })
+  fcfg.floors
+    .flatMap((f) => [{ name: f.name, href: f.href }])
+    .concat(
+      (fcfg.layers ?? []).flatMap((l) => ({ name: l.name, href: l.href }))
+    )
+    .forEach(({ name, href }) => fetchImage(name, href, base))
 )
+
+const fetchImage = (name: string, href: string | URL, base?: string): void => {
+  // XXX
+  // XXX
+  // XXX
+  // XXX de-duplicate slashes
+  const url = ((base ?? '') + href).replace(/\/+/g, '/')
+  // XXX
+  // XXX
+  // XXX
+  fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        // XXX retry?
+        throw new Error(`fetch error!`)
+      }
+      return response.blob()
+    })
+    .then((blob) =>
+      blob
+        .arrayBuffer()
+        .then((buf) =>
+          ctx.postMessage(
+            { type: 'FETCH.DONE', name, blob, buf },
+            { transfer: [buf] }
+          )
+        )
+    )
+    .catch((e) => console.error(e))
+}

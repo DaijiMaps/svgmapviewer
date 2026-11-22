@@ -33,8 +33,8 @@ const floorsMachine = setup({
       fidx: (_, { fcfg }: Init) => fcfg.initialFidx,
     }),
     load: assign({
-      urls: ({ context }, { idx }: { idx: number }) =>
-        new Set(context.urls.add(idx)),
+      urls: ({ context }, { name }: { name: string }) =>
+        new Set(context.urls.add(name)),
     }),
     select: assign({
       fidx: (_, { idx }: { idx: number }) => idx,
@@ -58,8 +58,8 @@ const floorsMachine = setup({
     })),
     // others
     saveFidx: ({ context: { fidx } }) => fidxAtom.set(fidx),
-    saveUrl: (_, { idx, url }: { idx: number; url: string }) =>
-      urlsAtom.set((prev) => new Map(prev.set(`${idx}`, url))),
+    saveUrl: (_, { name, url }: { name: string; url: string }) =>
+      urlsAtom.set((prev) => new Map(prev.set(name, url))),
     updateInit: () => updateFloorRefsInit(),
     updateLoad: ({ context: { fidx } }) => updateFloorRefsLoad(fidx),
     updateSwitch: ({ context: { fidx, prevFidx } }) =>
@@ -132,7 +132,7 @@ const floorsMachine = setup({
             },
             {
               type: 'saveUrl',
-              params: ({ event: { idx, url } }) => ({ idx, url }),
+              params: ({ event: { name, url } }) => ({ name, url }),
             },
           ],
           target: 'Loaded',
