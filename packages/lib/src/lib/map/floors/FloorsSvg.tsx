@@ -101,17 +101,15 @@ function RenderFloorSvg({
 }>): ReactNode {
   const ref = useRef(null)
   useFloorRef(ref, `svg-${idx}`)
-  const urls = useAtom(urlsAtom)
   return (
     <g
       ref={ref}
       className={`floor fidx-${idx}`}
       onAnimationEnd={() => floorsSend({ type: 'ANIMATION.END', idx })}
     >
-      <RenderFloorImage
-        idx={idx}
+      <RenderFloorImages
         origViewBox={origViewBox}
-        url={urls.get(floor.name)}
+        names={floor.layers ?? [floor.name]}
       />
       {m && meter2svg && (
         <RenderFloorPositionCircle m={m} meter2svg={meter2svg} />
@@ -147,17 +145,21 @@ const floorSvgStyle = `
 }
 `
 
-function RenderFloorImage({ origViewBox, url }: FloorProps): ReactNode {
+function RenderFloorImages({ origViewBox, names }: FloorProps): ReactNode {
+  const urls = useAtom(urlsAtom)
   // XXX better "loading" display?
   return (
     <g className="images">
-      <image
-        x={origViewBox.x}
-        y={origViewBox.y}
-        width={origViewBox.width}
-        height={origViewBox.height}
-        href={url}
-      />
+      {names.map((name, idx) => (
+        <image
+          key={idx}
+          x={origViewBox.x}
+          y={origViewBox.y}
+          width={origViewBox.width}
+          height={origViewBox.height}
+          href={urls.get(name)}
+        />
+      ))}
     </g>
   )
 }

@@ -251,6 +251,7 @@ export interface Floor {
   readonly name: string
   readonly href: string | URL
   readonly labels?: LabelsTexts
+  readonly layers?: readonly string[]
 }
 
 export interface FloorLayer {
