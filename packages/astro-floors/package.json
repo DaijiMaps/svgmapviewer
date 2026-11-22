@@ -32,10 +32,6 @@
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   },
-  "peerDependencies": {
-    "astro": "^6",
-    "svgmapviewer": "workspace:*"
-  },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
     "*": "oxfmt --write"
