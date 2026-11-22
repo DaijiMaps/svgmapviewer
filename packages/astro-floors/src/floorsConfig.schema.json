@@ -59,9 +59,81 @@
               "required": ["attrs", "children"],
               "additionalProperties": false
             }
+          },
+          "layers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         },
-        "required": ["name", "href"],
+        "required": ["name"],
+        "additionalProperties": false
+      }
+    },
+    "layers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string"
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "attrs": {
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string"
+                  },
+                  "additionalProperties": {
+                    "type": ["null", "number", "string"]
+                  }
+                },
+                "children": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "attrs": {
+                        "type": "object",
+                        "propertyNames": {
+                          "type": "string"
+                        },
+                        "additionalProperties": {
+                          "type": ["null", "number", "string"]
+                        }
+                      },
+                      "text": {
+                        "type": ["null", "string"]
+                      }
+                    },
+                    "required": ["attrs", "text"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["attrs", "children"],
+              "additionalProperties": false
+            }
+          },
+          "layers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["name"],
         "additionalProperties": false
       }
     },

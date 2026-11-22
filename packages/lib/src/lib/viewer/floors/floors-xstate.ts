@@ -5,11 +5,12 @@ import { assign, createActor, emit, setup } from 'xstate'
 import type { SvgMapViewerConfig } from '../../../types'
 import { floorCbs, notifyFloor } from '../../event-floor'
 import { globalCbs } from '../../event-global'
-import type {
-  FloorsContext,
-  FloorsEmits,
-  FloorsEvents,
-  Init,
+import {
+  floorUrls,
+  type FloorsContext,
+  type FloorsEmits,
+  type FloorsEvents,
+  type Init,
 } from './floors-types'
 import {
   updateFloorRefsInit,
@@ -29,7 +30,7 @@ const floorsMachine = setup({
   actions: {
     // assign
     init: assign({
-      nurls: (_, { fcfg }: Init) => fcfg.floors.length,
+      nurls: (_, { fcfg }: Init) => floorUrls(fcfg).length,
       fidx: (_, { fcfg }: Init) => fcfg.initialFidx,
     }),
     load: assign({

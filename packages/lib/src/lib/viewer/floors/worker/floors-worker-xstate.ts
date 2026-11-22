@@ -1,5 +1,6 @@
 import { assign, createActor, emit, setup } from 'xstate'
 
+import { floorUrls } from '../floors-types'
 import { ctx } from './floors-worker-context'
 import type { Context, Emits, Events, Req } from './floors-worker-types'
 
@@ -52,9 +53,7 @@ export function floorsWorkerSend(ev: Req): void {
 
 floorsWorkerActor.on('INIT.DONE', (ev) => ctx.postMessage(ev))
 floorsWorkerActor.on('FETCH', ({ fcfg, base }) =>
-  fcfg.floors
-    .concat(fcfg.layers ?? [])
-    .forEach(({ name, href }) => fetchImage(name, href, base))
+  floorUrls(fcfg).forEach(({ name, href }) => fetchImage(name, href, base))
 )
 
 const fetchImage = (name: string, href: string | URL, base?: string): void => {

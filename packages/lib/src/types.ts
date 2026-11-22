@@ -249,7 +249,7 @@ export type LabelsArray = readonly LabelsArrayEntry[]
 
 export interface Floor {
   readonly name: string
-  readonly href: string | URL
+  readonly href?: string | URL
   readonly labels?: LabelsTexts
   readonly layers?: readonly string[]
 }

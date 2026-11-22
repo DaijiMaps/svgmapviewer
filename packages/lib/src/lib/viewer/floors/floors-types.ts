@@ -1,4 +1,4 @@
-import type { FloorsConfig } from '../../../types'
+import type { Floor, FloorsConfig } from '../../../types'
 import type { Cb } from '../../cb'
 
 export interface FloorsContext {
@@ -39,3 +39,15 @@ export type FidxToOnClick = (
   prevFidx: null | number,
   idx: number
 ) => undefined | Cb
+
+//// XXX
+
+type F = Required<Pick<Floor, 'name' | 'href'>>
+
+export function floorUrls(fcfg: FloorsConfig): readonly F[] {
+  return fcfg.floors
+    .concat(fcfg.layers ?? [])
+    .flatMap(({ name, href }): readonly F[] =>
+      href === undefined ? [] : [{ name, href }]
+    )
+}
