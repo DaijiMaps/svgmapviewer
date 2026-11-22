@@ -18,7 +18,7 @@ import {
 } from './style'
 
 export const fidxAtom: Atom<number> = createAtom(0)
-export const urlsAtom: Atom<Map<number, string>> = createAtom(new Map())
+export const urlsAtom: Atom<Map<string, string>> = createAtom(new Map())
 
 const floorsMachine = setup({
   types: {
@@ -59,7 +59,7 @@ const floorsMachine = setup({
     // others
     saveFidx: ({ context: { fidx } }) => fidxAtom.set(fidx),
     saveUrl: (_, { idx, url }: { idx: number; url: string }) =>
-      urlsAtom.set((prev) => new Map(prev.set(idx, url))),
+      urlsAtom.set((prev) => new Map(prev.set(`${idx}`, url))),
     updateInit: () => updateFloorRefsInit(),
     updateLoad: ({ context: { fidx } }) => updateFloorRefsLoad(fidx),
     updateSwitch: ({ context: { fidx, prevFidx } }) =>
