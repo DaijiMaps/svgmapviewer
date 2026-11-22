@@ -1,5 +1,13 @@
 # svgmapviewer-example-floors-astro
 
+## 0.5.3
+
+### Patch Changes
+
+- Updated dependencies [9e8b09d]
+  - svgmapviewer@0.10.0
+  - svgmapviewer-astro-floors@0.7.1
+
 ## 0.5.2
 
 ### Patch Changes

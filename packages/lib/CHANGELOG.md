@@ -1,5 +1,11 @@
 # svgmapviewer
 
+## 0.10.0
+
+### Minor Changes
+
+- 9e8b09d: support layers
+
 ## 0.9.0
 
 ### Minor Changes

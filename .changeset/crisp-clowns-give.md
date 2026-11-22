@@ -1,5 +1,0 @@
----
-'svgmapviewer': minor
----
-
-support layers
