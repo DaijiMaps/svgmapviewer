@@ -84,14 +84,14 @@ const floorsMachine = setup({
       },
     },
     'LEVEL.UP': {
-      guard: ({ context }) => !(context.fidx === context.nurls - 1),
+      guard: ({ context }) => context.fidx + 1 <= context.nurls - 1,
       actions: {
         type: 'notifyLock',
         params: ({ context }) => ({ idx: context.fidx + 1 }),
       },
     },
     'LEVEL.DOWN': {
-      guard: ({ context }) => !(context.fidx === 0),
+      guard: ({ context }) => context.fidx - 1 >= 0,
       actions: {
         type: 'notifyLock',
         params: ({ context }) => ({ idx: context.fidx - 1 }),
