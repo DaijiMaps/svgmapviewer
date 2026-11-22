@@ -1,0 +1,201 @@
+# yaml-language-server: $schema=../pois.schema.json
+珈琲巡礼 roots:
+  tag: shop.misc
+カフェ・ド・ノスタルジア:
+  tag: shop.misc
+満月ベイク:
+  tag: shop.misc
+HARVEST TABLE:
+  tag: shop.misc
+おやつ処 よすが:
+  tag: shop.misc
+シトロン・キッチン:
+  tag: shop.misc
+旅するスパイス 駱駝:
+  tag: shop.misc
+BACKYARD COFFEE:
+  tag: shop.misc
+陽だまりマフィン:
+  tag: shop.misc
+NEST ESPRESSO:
+  tag: shop.misc
+スープと暮らし 紡ぎ:
+  tag: shop.misc
+琥珀堂珈琲:
+  tag: shop.misc
+CRAFT BEER BASEMENT:
+  tag: shop.misc
+焼き菓子店 slow:
+  tag: shop.misc
+ごはんとお茶 ひととき:
+  tag: shop.misc
+GREEN SPOON STAND:
+  tag: shop.misc
+ほしぞらベーカリー:
+  tag: shop.misc
+AMANOGAWA TEA:
+  tag: shop.misc
+カレーノトリコ:
+  tag: shop.misc
+街角ボタニカ カフェ:
+  tag: shop.misc
+LOCAL TABLE:
+  tag: shop.misc
+三日月ショコラ:
+  tag: shop.misc
+焙煎所 浮雲:
+  tag: shop.misc
+Daydream Espresso:
+  tag: shop.misc
+あおぞらキッチカー:
+  tag: shop.misc
+'VINTAGE SHOP RE:BORN':
+  tag: shop.misc
+古着屋 朧（oboro）:
+  tag: shop.misc
+Parallel vintage:
+  tag: shop.misc
+クローゼットの迷子:
+  tag: shop.misc
+canaria clothing:
+  tag: shop.misc
+STITCH & SEW:
+  tag: shop.misc
+レトロモダン 琥珀:
+  tag: shop.misc
+Thread and Needle:
+  tag: shop.misc
+洋服屋 crossroad:
+  tag: shop.misc
+NATIVE WEAR:
+  tag: shop.misc
+古着と雑貨 少年時代:
+  tag: shop.misc
+Urban Nomad:
+  tag: shop.misc
+衣類堂 まほろば:
+  tag: shop.misc
+BLUE MOON VINTAGE:
+  tag: shop.misc
+旅人のクローゼット:
+  tag: shop.misc
+Velvet Room:
+  tag: shop.misc
+キモノノミライ:
+  tag: shop.misc
+ATELIER DENIM:
+  tag: shop.misc
+昭和キネマ・ウエア:
+  tag: shop.misc
+Finders Keepers:
+  tag: shop.misc
+布と糸の記憶:
+  tag: shop.misc
+OVERSIZE LAB:
+  tag: shop.misc
+古着屋 陽炎:
+  tag: shop.misc
+Rusty Buttons:
+  tag: shop.misc
+CHRONO vintage:
+  tag: shop.misc
+古道具 錆と時間:
+  tag: shop.misc
+WOODWORKS 創作の森:
+  tag: shop.misc
+ANTIQUE MARKET OWL:
+  tag: shop.misc
+暮らしの道具 綯:
+  tag: shop.misc
+Timber & Co.:
+  tag: shop.misc
+時の足跡:
+  tag: shop.misc
+アトリエ 木漏れ日:
+  tag: shop.misc
+IRON & WOOD FACTORY:
+  tag: shop.misc
+懐古堂:
+  tag: shop.misc
+Rust and Glamour:
+  tag: shop.misc
+本家 吉田家具店:
+  tag: shop.misc
+VINTAGE FINDERS:
+  tag: shop.misc
+木のぼり工房:
+  tag: shop.misc
+記憶の引き出し:
+  tag: shop.misc
+Craftsmanship SHIN:
+  tag: shop.misc
+古道具 うたたね:
+  tag: shop.misc
+BRASS & COPPER:
+  tag: shop.misc
+土と木のまにまに:
+  tag: shop.misc
+Heritage Antiques:
+  tag: shop.misc
+道具屋 ろく:
+  tag: shop.misc
+硝子細工 氷華:
+  tag: shop.misc
+atelier sora:
+  tag: shop.misc
+革工房 ROOTS:
+  tag: shop.misc
+水玉レース:
+  tag: shop.misc
+Palette Jewelry:
+  tag: shop.misc
+陶芸工房 泥と月:
+  tag: shop.misc
+mini.craft:
+  tag: shop.misc
+はんこや ぽんぽん:
+  tag: shop.misc
+SILVER LAB:
+  tag: shop.misc
+手仕事の店 つむぎ:
+  tag: shop.misc
+Bloom Handmade:
+  tag: shop.misc
+刺繍ブローチ 糸の旅:
+  tag: shop.misc
+Clay and Glaze:
+  tag: shop.misc
+お守りアクセサリー 雫:
+  tag: shop.misc
+NATURAL LEATHER WORKS:
+  tag: shop.misc
+ひだまりクラフト:
+  tag: shop.misc
+Stella Craft:
+  tag: shop.misc
+織物工房 ゆらぎ:
+  tag: shop.misc
+Beaded Story:
+  tag: shop.misc
+伝統細工 楓:
+  tag: shop.misc
+ボタニカルライフ 緑の指:
+  tag: shop.misc
+ドライフラワー 記憶の花束:
+  tag: shop.misc
+GREEN & CACTUS:
+  tag: shop.misc
+苔むす庭園:
+  tag: shop.misc
+FLOWER SHOP SUNNY:
+  tag: shop.misc
+多肉植物の家:
+  tag: shop.misc
+アトリエ 葉音:
+  tag: shop.misc
+WILD FLOWER:
+  tag: shop.misc
+庭師のきまぐれ:
+  tag: shop.misc
+陽だまりガーデン:
+  tag: shop.misc

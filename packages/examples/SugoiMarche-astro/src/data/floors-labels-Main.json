@@ -1,0 +1,3201 @@
+[
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "235.0",
+      "y": "360.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.38",
+      "dy": "14.37"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "1"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "珈琲巡礼"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "roots"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "230.0",
+      "y": "350.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.25",
+      "dy": "24.56"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "2"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "カフェ"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "ド"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "ノスタルジア"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "220.0",
+      "y": "340.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.42",
+      "dy": "4.86"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "3"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "満月ベイク"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "210.0",
+      "y": "330.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.38",
+      "dy": "14.26"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "4"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "HARVEST"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "TABLE"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "200.0",
+      "y": "325.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.32",
+      "dy": "14.72"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "5"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "おやつ処"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "よすが"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "190.0",
+      "y": "320.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.31",
+      "dy": "14.81"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "6"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "シトロン"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "キッチン"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "180.0",
+      "y": "315.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.23",
+      "dy": "14.94"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "7"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "旅するスパイス"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "駱駝"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "170.0",
+      "y": "310.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.32",
+      "dy": "14.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "8"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "BACKYARD"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "COFFEE"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "150.0",
+      "y": "305.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.31",
+      "dy": "14.83"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "9"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "陽だまり"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "マフィン"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "140.0",
+      "y": "300.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.35",
+      "dy": "14.28"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "10"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "NEST"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "ESPRESSO"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "130.0",
+      "y": "300.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.24",
+      "dy": "24.96"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "11"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "スープと"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "暮らし"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "紡ぎ"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "95.0",
+      "y": "290.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.39",
+      "dy": "14.88"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "12"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "琥珀堂"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "珈琲"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "85.0",
+      "y": "285.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.24",
+      "dy": "24.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "13"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "CRAFT"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "BEER"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "BASEMENT"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "75.0",
+      "y": "275.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.3",
+      "dy": "14.34"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "14"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "焼き菓子店"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "slow"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "60.0",
+      "y": "265.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.21",
+      "dy": "14.69"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "15"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "ごはんとお茶"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "ひととき"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "50.0",
+      "y": "255.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.26",
+      "dy": "24.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "16"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "GREEN"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "SPOON"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "STAND"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "35.0",
+      "y": "250.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.26",
+      "dy": "14.62"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "17"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "ほしぞら"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "ベーカリー"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "260.0",
+      "y": "350.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.3",
+      "dy": "14.21"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "18"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "AMANOGAWA"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "TEA"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "250.0",
+      "y": "340.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.36",
+      "dy": "14.54"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "19"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "カレーノ"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "トリコ"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "235.0",
+      "y": "320.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.24",
+      "dy": "14.42"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "20"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "街角ボタニカ"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "カフェ"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "225.0",
+      "y": "315.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.42",
+      "dy": "14.21"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "21"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "LOCAL"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "TABLE"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "215.0",
+      "y": "310.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.33",
+      "dy": "14.66"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "22"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "三日月"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "ショコラ"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "205.0",
+      "y": "300.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.39",
+      "dy": "14.91"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "23"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "焙煎所"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "浮雲"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "170.0",
+      "y": "290.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.21",
+      "dy": "16.13"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "24"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "Daydream"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "Espresso"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "155.0",
+      "y": "285.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.25",
+      "dy": "14.81"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "25"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "あおぞら"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "キッチカー"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "145.0",
+      "y": "280.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.23",
+      "dy": "24.32"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "26"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "VINTAGE"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "SHOP"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "RE:BORN"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "115.0",
+      "y": "275.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.27",
+      "dy": "24.98"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "27"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "古着屋"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "朧"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "（oboro）"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "105.0",
+      "y": "270.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.31",
+      "dy": "16.13"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "28"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "Parallel"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "vintage"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "95.0",
+      "y": "265.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.23",
+      "dy": "14.87"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "29"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "クローゼットの"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "迷子"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "90.0",
+      "y": "255.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.3",
+      "dy": "16.12"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "30"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "canaria"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "clothing"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "65.0",
+      "y": "240.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.41",
+      "dy": "24.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "31"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "STITCH"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "&"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "SEW"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "225.0",
+      "y": "295.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.26",
+      "dy": "14.87"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "32"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "レトロモダン"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "琥珀"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "235.0",
+      "y": "290.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.3",
+      "dy": "24.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "33"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "Thread"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "and"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "Needle"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "245.0",
+      "y": "285.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.3",
+      "dy": "14.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "34"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "洋服屋"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "crossroad"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "260.0",
+      "y": "270.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.41",
+      "dy": "14.21"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "35"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "NATIVE"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "WEAR"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "265.0",
+      "y": "260.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.22",
+      "dy": "14.86"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "36"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "古着と雑貨"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "少年時代"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "270.0",
+      "y": "245.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.38",
+      "dy": "14.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "37"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "Urban"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "Nomad"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "280.0",
+      "y": "230.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.3",
+      "dy": "14.74"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "38"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "衣類堂"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "まほろば"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "285.0",
+      "y": "220.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.27",
+      "dy": "24.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "39"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "BLUE"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "MOON"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "VINTAGE"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "290.0",
+      "y": "195.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.23",
+      "dy": "14.8"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "40"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "旅人の"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "クローゼット"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "290.0",
+      "y": "180.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.43",
+      "dy": "14.34"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "41"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "Velvet"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "Room"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "290.0",
+      "y": "170.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.34",
+      "dy": "14.54"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "42"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "キモノノ"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "ミライ"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "290.0",
+      "y": "155.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.37",
+      "dy": "14.21"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "43"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "ATELIER"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "DENIM"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "190.0",
+      "y": "285.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.29",
+      "dy": "24.55"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "44"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "昭和"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "キネマ"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "ウエア"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "200.0",
+      "y": "275.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.3",
+      "dy": "16.18"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "45"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "Finders"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "Keepers"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "210.0",
+      "y": "275.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.34",
+      "dy": "14.84"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "46"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "布と糸の"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "記憶"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "220.0",
+      "y": "270.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.39",
+      "dy": "14.26"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "47"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "OVERSIZE"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "LAB"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "235.0",
+      "y": "255.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.39",
+      "dy": "14.86"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "48"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "古着屋"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "陽炎"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "245.0",
+      "y": "245.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.36",
+      "dy": "14.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "49"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "Rusty"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "Buttons"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "250.0",
+      "y": "235.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.29",
+      "dy": "16.12"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "50"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "CHRONO"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "vintage"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "265.0",
+      "y": "195.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.3",
+      "dy": "14.94"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "51"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "古道具"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "錆と時間"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "265.0",
+      "y": "185.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.21",
+      "dy": "14.86"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "52"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "WOODWORKS"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "創作の森"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "270.0",
+      "y": "175.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.22",
+      "dy": "24.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "53"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "ANTIQUE"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "MARKET"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "OWL"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "270.0",
+      "y": "155.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.29",
+      "dy": "14.9"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "54"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "暮らしの道具"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "綯"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "265.0",
+      "y": "140.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.42",
+      "dy": "24.4"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "55"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "Timber"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "&"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "Co."
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "260.0",
+      "y": "130.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.46",
+      "dy": "4.86"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "56"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "時の足跡"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "255.0",
+      "y": "120.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.28",
+      "dy": "14.93"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "57"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "アトリエ"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "木漏れ日"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "245.0",
+      "y": "110.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.24",
+      "dy": "34.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "58"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "IRON"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "&"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "WOOD"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "5.0em"
+        },
+        "text": "FACTORY"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "240.0",
+      "y": "100.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.55",
+      "dy": "4.86"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "59"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "懐古堂"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "220.0",
+      "y": "85.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.31",
+      "dy": "24.28"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "60"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "Rust"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "and"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "Glamour"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "205.0",
+      "y": "75.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.3",
+      "dy": "14.92"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "61"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "本家"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "吉田家具店"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "200.0",
+      "y": "70.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.31",
+      "dy": "14.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "62"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "VINTAGE"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "FINDERS"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "190.0",
+      "y": "65.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.35",
+      "dy": "14.9"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "63"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "木のぼり"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "工房"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "175.0",
+      "y": "55.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.3",
+      "dy": "14.85"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "64"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "記憶の"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "引き出し"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "160.0",
+      "y": "50.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.21",
+      "dy": "14.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "65"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "Craftsmanship"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "SHIN"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "150.0",
+      "y": "45.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.31",
+      "dy": "14.59"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "66"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "古道具"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "うたたね"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "285.0",
+      "y": "135.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.34",
+      "dy": "24.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "67"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "BRASS"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "&"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "COPPER"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "280.0",
+      "y": "125.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.27",
+      "dy": "14.58"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "68"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "土と木の"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "まにまに"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "275.0",
+      "y": "110.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.23",
+      "dy": "16.13"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "69"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "Heritage"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "Antiques"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "250.0",
+      "y": "75.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.42",
+      "dy": "14.74"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "70"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "道具屋"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "ろく"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "240.0",
+      "y": "70.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.34",
+      "dy": "14.94"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "71"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "硝子細工"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "氷華"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "235.0",
+      "y": "60.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.48",
+      "dy": "14.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "72"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "atelier"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "sora"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "200.0",
+      "y": "45.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.36",
+      "dy": "14.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "73"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "革工房"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "ROOTS"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "190.0",
+      "y": "40.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.39",
+      "dy": "4.9"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "74"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "水玉レース"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "180.0",
+      "y": "35.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.31",
+      "dy": "16.21"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "75"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "Palette"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "Jewelry"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "170.0",
+      "y": "30.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.3",
+      "dy": "14.86"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "76"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "陶芸工房"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "泥と月"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "305.0",
+      "y": "155.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.47",
+      "dy": "4.4"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "77"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "mini.craft"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "320.0",
+      "y": "160.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.27",
+      "dy": "14.62"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "78"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "はんこや"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "ぽんぽん"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "340.0",
+      "y": "155.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.47",
+      "dy": "14.21"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "79"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "SILVER"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "LAB"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "355.0",
+      "y": "150.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.26",
+      "dy": "14.62"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "80"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "手仕事の店"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "つむぎ"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "300.0",
+      "y": "135.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.31",
+      "dy": "14.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "81"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "Bloom"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "Handmade"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "315.0",
+      "y": "135.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.21",
+      "dy": "14.87"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "82"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "刺繍ブローチ"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "糸の旅"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "335.0",
+      "y": "135.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.35",
+      "dy": "24.29"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "83"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "Clay"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "and"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "Glaze"
+      }
+    ]
+  },
+  {
+    "attrs": {
+      "font-family": "'Noto Sans', sans-serif",
+      "font-weight": "200",
+      "font-size": "16px",
+      "text-anchor": "middle",
+      "x": "345.0",
+      "y": "125.0",
+      "rotate": "0",
+      "scale2": "0.125",
+      "scale1": "1.22",
+      "dy": "24.85"
+    },
+    "children": [
+      {
+        "attrs": {
+          "x": "0",
+          "y": "0.0em"
+        },
+        "text": "84"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "1.25em"
+        },
+        "text": "お守り"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "2.5em"
+        },
+        "text": "アクセサリー"
+      },
+      {
+        "attrs": {
+          "x": "0",
+          "y": "3.75em"
+        },
+        "text": "雫"
+      }
+    ]
+  }
+]

@@ -1,0 +1,1 @@
+../../../../tools-floors/src/tools/gen-labels-svg.py

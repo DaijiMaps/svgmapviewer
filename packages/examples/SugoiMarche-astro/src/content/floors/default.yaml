@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=../../../node_modules/svgmapviewer-astro-floors/src/floorsConfig.schema.json
+initialFidx: 0
+layers:
+  - name: Main
+    href: /images/floor-Main.svg
+  - name: Main-labels
+    href: /images/floor-labels-Main.svg
+floors:
+  - name: Main
+    layers:
+      - Main
+      - Main-labels
+labelsCircleRadius: 8
+labelsCircleStyle: '.label-circle { fill: white; opacity: 0.5; }'
