@@ -53,10 +53,7 @@ export function floorsWorkerSend(ev: Req): void {
 floorsWorkerActor.on('INIT.DONE', (ev) => ctx.postMessage(ev))
 floorsWorkerActor.on('FETCH', ({ fcfg, base }) =>
   fcfg.floors
-    .flatMap((f) => [{ name: f.name, href: f.href }])
-    .concat(
-      (fcfg.layers ?? []).flatMap((l) => ({ name: l.name, href: l.href }))
-    )
+    .concat(fcfg.layers ?? [])
     .forEach(({ name, href }) => fetchImage(name, href, base))
 )
 
