@@ -34,6 +34,7 @@ class LabelText(typing.TypedDict):
 layer: None = None
 viewbox: None | Box = None
 texts: list[LabelText] = []
+do_expand_texts: bool = False
 output_file: str = 'output_file.svg'
 
 
@@ -80,10 +81,16 @@ def write_svg() -> None:
             })
             tspan_.text = tspan["text"]
 
+    tmp_file = output_file
+    if do_expand_texts:
+        tmp_file = output_file + '.tmp'
+
     tree = ET.ElementTree(svg)
     ET.indent(tree, space="  ")
-    tree.write(output_file + '.tmp', encoding="utf-8", xml_declaration=True)
-    expand_texts(output_file + '.tmp', output_file)
+    tree.write(tmp_file, encoding="utf-8", xml_declaration=True)
+
+    if do_expand_texts:
+        expand_texts(tmp_file, output_file)
 
 
 ####
@@ -94,14 +101,18 @@ def main() -> None:
     global viewbox
     global texts
     global output_file
+    global do_expand_texts
 
     p = argparse.ArgumentParser()
     p.add_argument("-o", "--output-file", type=str, help='output file (e.g. "output_file.svg")')
+    p.add_argument("-T", "--expand-texts", type=str, help='expand texts to paths')
     p.add_argument("layer", type=str, help='layer (e.g. "1F")')
     args = p.parse_args()
 
     if args.output_file is not None:
         output_file = args.output_file
+    if args.expand_texts is not None:
+        do_expand_texts = args.expand_texts
     layer = args.layer
 
     floors_labels_json = f"floors-labels-{layer}.json"
