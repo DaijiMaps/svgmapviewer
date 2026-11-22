@@ -75,18 +75,18 @@ const floorsMachine = setup({
   },
   initial: 'Uninited',
   on: {
-    'ANIMATION.END': {
-      guard: ({ context, event }) => context.fidx === event.idx,
-      actions: {
-        type: 'notifySelectDone',
-        params: ({ event }) => event,
-      },
-    },
     CLICK: {
       guard: ({ context, event }) =>
         !(context.prevFidx !== null || context.fidx === event.idx),
       actions: {
         type: 'notifyLock',
+        params: ({ event }) => event,
+      },
+    },
+    'ANIMATION.END': {
+      guard: ({ context, event }) => context.fidx === event.idx,
+      actions: {
+        type: 'notifySelectDone',
         params: ({ event }) => event,
       },
     },
@@ -191,8 +191,12 @@ const floorsActor = createActor(floorsMachine)
 floorsActor.on('INIT.DONE', ({ base, fcfg }) =>
   notifyFloor.init({ fcfg, base })
 )
-floorsActor.on('LOCK', ({ idx }) => notifyFloor.lock(idx))
-floorsActor.on('SELECT.DONE', ({ idx }) => notifyFloor.selectDone(idx))
+floorsActor.on('LOCK', ({ idx }) => {
+  notifyFloor.lock(idx)
+})
+floorsActor.on('SELECT.DONE', ({ idx }) => {
+  notifyFloor.selectDone(idx)
+})
 
 export function floorsActorStart(): void {
   floorsActor.start()

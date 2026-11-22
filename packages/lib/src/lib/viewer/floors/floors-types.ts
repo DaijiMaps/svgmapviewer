@@ -14,8 +14,8 @@ export type SelectDone = { type: 'SELECT.DONE'; idx: number }
 export type Image = { type: 'IMAGE'; idx: number; url: string }
 export type LevelUp = { type: 'LEVEL.UP' }
 export type LevelDown = { type: 'LEVEL.DOWN' }
-export type AnimationEnd = { type: 'ANIMATION.END'; idx: number }
 export type Click = { type: 'CLICK'; idx: number }
+export type AnimationEnd = { type: 'ANIMATION.END'; idx: number }
 export type FloorsEvents =
   | Init
   | Select
@@ -23,8 +23,8 @@ export type FloorsEvents =
   | Image
   | LevelUp
   | LevelDown
-  | AnimationEnd
   | Click
+  | AnimationEnd
 export type InitDone = {
   type: 'INIT.DONE'
   fcfg: FloorsConfig
