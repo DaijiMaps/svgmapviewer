@@ -83,6 +83,20 @@ const floorsMachine = setup({
         params: ({ event }) => event,
       },
     },
+    'LEVEL.UP': {
+      guard: ({ context }) => !(context.fidx === context.nurls - 1),
+      actions: {
+        type: 'notifyLock',
+        params: ({ context }) => ({ idx: context.fidx + 1 }),
+      },
+    },
+    'LEVEL.DOWN': {
+      guard: ({ context }) => !(context.fidx === 0),
+      actions: {
+        type: 'notifyLock',
+        params: ({ context }) => ({ idx: context.fidx - 1 }),
+      },
+    },
     'ANIMATION.END': {
       guard: ({ context, event }) => context.fidx === event.idx,
       actions: {
@@ -149,28 +163,6 @@ const floorsMachine = setup({
           ],
           target: 'Animating',
         },
-        'LEVEL.UP': [
-          {
-            guard: ({ context }) => context.fidx === context.nurls - 1,
-          },
-          {
-            actions: {
-              type: 'notifyLock',
-              params: ({ context }) => ({ idx: context.fidx + 1 }),
-            },
-          },
-        ],
-        'LEVEL.DOWN': [
-          {
-            guard: ({ context }) => context.fidx === 0,
-          },
-          {
-            actions: {
-              type: 'notifyLock',
-              params: ({ context }) => ({ idx: context.fidx - 1 }),
-            },
-          },
-        ],
       },
     },
     Animating: {
