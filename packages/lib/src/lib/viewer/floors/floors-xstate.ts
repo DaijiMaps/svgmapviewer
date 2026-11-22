@@ -215,8 +215,6 @@ export function floorsCbsStart(): void {
     }
   })
   floorCbs.select.add((idx: number) => floorsSend({ type: 'SELECT', idx }))
-  floorCbs.levelUp.add(() => floorsSend({ type: 'LEVEL.UP' }))
-  floorCbs.levelDown.add(() => floorsSend({ type: 'LEVEL.DOWN' }))
   floorCbs.selectDone.add((idx: number) =>
     floorsSend({ type: 'SELECT.DONE', idx })
   )

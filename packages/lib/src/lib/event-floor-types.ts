@@ -8,8 +8,6 @@ export interface FloorCbs {
   readonly init: Set<FloorInitCb>
   readonly lock: Set<FloorCb>
   readonly select: Set<FloorCb>
-  readonly levelUp: Set<Cb>
-  readonly levelDown: Set<Cb>
   readonly selectDone: Set<FloorCb>
   readonly unlock: Set<Cb>
 }

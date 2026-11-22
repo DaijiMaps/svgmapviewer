@@ -8,8 +8,6 @@ export const floorCbs: FloorCbs = {
   init: new Set(),
   lock: new Set(),
   select: new Set(),
-  levelUp: new Set(),
-  levelDown: new Set(),
   selectDone: new Set(),
   unlock: new Set(),
 }
@@ -19,8 +17,6 @@ export const notifyFloor = {
     notifyCbs(floorCbs.init, params),
   lock: (fidx: number): void => notifyCbs(floorCbs.lock, fidx),
   select: (fidx: number): void => notifyCbs(floorCbs.select, fidx),
-  levelUp: (): void => notifyCbs0(floorCbs.levelUp),
-  levelDown: (): void => notifyCbs0(floorCbs.levelDown),
   selectDone: (fidx: number): void => notifyCbs(floorCbs.selectDone, fidx),
   unlock: (): void => notifyCbs0(floorCbs.unlock),
 }

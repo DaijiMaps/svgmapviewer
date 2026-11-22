@@ -2,7 +2,7 @@ import { assign, createActor, emit, setup } from 'xstate'
 
 import type { Dir } from '../../../types'
 import { notifyAction } from '../../event-action'
-import { notifyFloor } from '../../event-floor'
+import { floorsSend } from '../floors/floors-xstate'
 import { keyToZoom } from './key'
 import {
   type KeyboardEmits as Emits,
@@ -111,5 +111,5 @@ keyboardActor.on('RECENTER', notifyAction.recenter)
 keyboardActor.on('ROTATE', notifyAction.rotate)
 keyboardActor.on('ZOOM.IN', notifyAction.zoomIn)
 keyboardActor.on('ZOOM.OUT', notifyAction.zoomOut)
-keyboardActor.on('FLOOR.LEVEL.UP', notifyFloor.levelUp)
-keyboardActor.on('FLOOR.LEVEL.DOWN', notifyFloor.levelDown)
+keyboardActor.on('FLOOR.LEVEL.UP', () => floorsSend({ type: 'LEVEL.UP' }))
+keyboardActor.on('FLOOR.LEVEL.DOWN', () => floorsSend({ type: 'LEVEL.DOWN' }))
