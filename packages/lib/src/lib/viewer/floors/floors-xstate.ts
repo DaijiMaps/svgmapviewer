@@ -74,37 +74,6 @@ const floorsMachine = setup({
     prevFidx: null,
   },
   initial: 'Uninited',
-  on: {
-    CLICK: {
-      guard: ({ context, event }) =>
-        context.prevFidx === null && context.fidx !== event.idx,
-      actions: {
-        type: 'notifyLock',
-        params: ({ event }) => event,
-      },
-    },
-    'LEVEL.UP': {
-      guard: ({ context }) => context.fidx + 1 <= context.nurls - 1,
-      actions: {
-        type: 'notifyLock',
-        params: ({ context }) => ({ idx: context.fidx + 1 }),
-      },
-    },
-    'LEVEL.DOWN': {
-      guard: ({ context }) => context.fidx - 1 >= 0,
-      actions: {
-        type: 'notifyLock',
-        params: ({ context }) => ({ idx: context.fidx - 1 }),
-      },
-    },
-    'ANIMATION.END': {
-      guard: ({ context, event }) => context.fidx === event.idx,
-      actions: {
-        type: 'notifySelectDone',
-        params: ({ event }) => event,
-      },
-    },
-  },
   states: {
     Uninited: {
       on: {
@@ -151,6 +120,28 @@ const floorsMachine = setup({
     },
     Idle: {
       on: {
+        CLICK: {
+          guard: ({ context, event }) =>
+            context.prevFidx === null && context.fidx !== event.idx,
+          actions: {
+            type: 'notifyLock',
+            params: ({ event }) => event,
+          },
+        },
+        'LEVEL.UP': {
+          guard: ({ context }) => context.fidx + 1 <= context.nurls - 1,
+          actions: {
+            type: 'notifyLock',
+            params: ({ context }) => ({ idx: context.fidx + 1 }),
+          },
+        },
+        'LEVEL.DOWN': {
+          guard: ({ context }) => context.fidx - 1 >= 0,
+          actions: {
+            type: 'notifyLock',
+            params: ({ context }) => ({ idx: context.fidx - 1 }),
+          },
+        },
         SELECT: {
           guard: ({ context, event }) => context.fidx !== event.idx,
           actions: [
@@ -167,6 +158,13 @@ const floorsMachine = setup({
     },
     Animating: {
       on: {
+        'ANIMATION.END': {
+          guard: ({ context, event }) => context.fidx === event.idx,
+          actions: {
+            type: 'notifySelectDone',
+            params: ({ event }) => event,
+          },
+        },
         // XXX receive one DONE event
         // XXX (receiving two without race is difficult/complex)
         'SELECT.DONE': {
