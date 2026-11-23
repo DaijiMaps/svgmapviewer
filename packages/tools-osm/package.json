@@ -19,12 +19,12 @@
   "devDependencies": {
     "@effect/cli": "^0.77.2",
     "@effect/platform": "^0.97.2",
-    "@effect/platform-node": "^0.108.3",
+    "@effect/platform-node": "^0.108.4",
     "@effect/printer": "^0.51.0",
-    "@rslib/core": "^0.23.2",
-    "@rstest/core": "^0.11.12",
-    "@types/node": "^26.2.0",
-    "effect": "^3.22.3",
+    "@rslib/core": "^1.0.7",
+    "@rstest/core": "^0.12.6",
+    "@types/node": "^26.6.6",
+    "effect": "^3.22.5",
     "geojson-schema": "^1.0.5",
     "typescript": "^7.0.2"
   },
@@ -32,5 +32,5 @@
     "*.{ts,tsx}": "eslint --fix",
     "*": "oxfmt --write"
   },
-  "packageManager": "pnpm@10.26.0"
+  "packageManager": "pnpm@12.21.0"
 }

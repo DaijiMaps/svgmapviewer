@@ -1,14 +1,14 @@
 import cloudflare from '@astrojs/cloudflare'
 import react from '@astrojs/react'
 // @ts-check
-import AstroPWA from '@vite-pwa/astro'
+import { AstroPWAIntegration } from '@vite-pwa/astro'
 import { defineConfig } from 'astro/config'
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [
     react(),
-    AstroPWA({
+    AstroPWAIntegration({
       manifest: false,
       registerType: 'autoUpdate',
       workbox: {

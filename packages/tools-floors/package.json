@@ -10,11 +10,11 @@
   "type": "module",
   "scripts": {},
   "devDependencies": {
-    "html-react-parser": "^6.1.9"
+    "html-react-parser": "^6.1.10"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
     "*": "oxfmt --write"
   },
-  "packageManager": "pnpm@10.26.0"
+  "packageManager": "pnpm@12.21.0"
 }
