@@ -48,7 +48,7 @@ const gameMachine = setup({
 const actor = createActor(gameMachine)
 actor.on('Sync', (ev) => channel.postMessage(ev))
 actor.start()
-const send = actor.send
+const send = actor.send.bind(actor)
 
 export type ModeGame = {
   game?: GameContext

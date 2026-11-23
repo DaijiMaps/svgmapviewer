@@ -126,7 +126,7 @@ export function makeQuiz(id: number, answer: string, pad: string): Quiz {
     input: { answer, pad },
   })
 
-  const send = actor.send
+  const send = actor.send.bind(actor)
   const skip = (answeredAt: string) => send({ type: 'Skip', answeredAt })
   const reset = () => send({ type: 'Reset' })
   const init = () => send({ type: 'Init' })
