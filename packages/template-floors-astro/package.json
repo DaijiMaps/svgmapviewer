@@ -11,14 +11,14 @@
     "generate-types": "wrangler types"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.4.1",
-    "@astrojs/react": "^6.0.6",
-    "astro": "^7.4.1",
+    "@astrojs/cloudflare": "^14.4.9",
+    "@astrojs/react": "^7.1.9",
+    "astro": "^7.4.13",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "svgmapviewer": "workspace:*",
     "svgmapviewer-astro-floors": "workspace:*",
-    "wrangler": "^4.151.3",
+    "wrangler": "^4.166.0",
     "zod": "^4.6.7"
   },
   "devDependencies": {

@@ -10,20 +10,20 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^5.0.6",
-    "@xstate/store": "^3.17.5",
-    "astro": "^6.4.2",
-    "effect": "4.0.0-beta.74",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
+    "@astrojs/react": "^7.1.9",
+    "@xstate/store": "^4.3.0",
+    "astro": "^7.4.13",
+    "effect": "4.1.5",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "svgmapviewer": "workspace:*",
     "svgmapviewer-astro-floors": "workspace:*",
-    "zod": "^4.4.3"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@types/react": "^19.2.15",
-    "@types/react-dom": "^19.2.3",
-    "tsx": "^4.22.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   },
   "lint-staged": {
