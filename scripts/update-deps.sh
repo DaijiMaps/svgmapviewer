@@ -10,4 +10,5 @@ fi
 
 pnpm -r up --latest
 pnpx prettier -w pnpm-lock.yaml
+pnpm install --frozen-lockfile
 git add pnpm-lock.yaml
