@@ -42,9 +42,9 @@ export type FidxToOnClick = (
 
 //// XXX
 
-type F = Required<Pick<Floor, 'name' | 'href'>>
+type F = Readonly<Required<Pick<Floor, 'name' | 'href'>>>
 
-export function floorUrls(fcfg: FloorsConfig): readonly F[] {
+export function floorUrls(fcfg: Readonly<FloorsConfig>): readonly F[] {
   return fcfg.floors
     .concat(fcfg.layers ?? [])
     .flatMap(({ name, href }): readonly F[] =>

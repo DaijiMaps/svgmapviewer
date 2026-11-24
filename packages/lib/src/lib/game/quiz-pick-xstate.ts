@@ -133,7 +133,7 @@ export function makePick(id: number, chars: string[]): Pick {
     input: { chars },
   })
 
-  const send = actor.send
+  const send = actor.send.bind(actor)
   const skip = (answered: Answered) => send({ type: 'Skip', ...answered })
   const reset = () => send({ type: 'Reset' })
   const init = () => send({ type: 'Init' })

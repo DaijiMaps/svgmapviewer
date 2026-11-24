@@ -35,6 +35,7 @@
   "scripts": {
     "build": "tsc -b && rslib build",
     "lint": "eslint . && oxlint --type-aware --type-check",
+    "lint:oxlint": "oxlint --type-aware --type-check",
     "publish:jsr": "pnpm dlx jsr publish",
     "test": "rstest",
     "test:dev": "rstest --watch"
