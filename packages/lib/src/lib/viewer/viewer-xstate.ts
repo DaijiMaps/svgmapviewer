@@ -1,4 +1,5 @@
 import { useSelector } from '@xstate/react'
+import { createAtom, type Atom } from '@xstate/store'
 import { and, assign, createActor, emit, setup } from 'xstate'
 
 import { getConfig } from '../../config'
@@ -619,15 +620,15 @@ viewerActor.on('SCROLL.GET', () => notifyScroll.get())
 
 //let pointereventmask: boolean = false
 //let toucheventmask: boolean = false
-export let clickeventmask: boolean = false
-export let scrolleventmask: boolean = false
-export let wheeleventmask: boolean = false
+export const clickeventmaskAtom: Atom<boolean> = createAtom(false)
+export const scrolleventmaskAtom: Atom<boolean> = createAtom(false)
+export const wheeleventmaskAtom: Atom<boolean> = createAtom(false)
 
 // 'panning' | 'touching' | 'locked'
 function reflectMode(mode: ViewerMode): void {
-  clickeventmask = mode === 'locked'
-  scrolleventmask = mode !== 'panning'
-  wheeleventmask = mode === 'locked'
+  clickeventmaskAtom.set(mode === 'locked')
+  scrolleventmaskAtom.set(mode !== 'panning')
+  wheeleventmaskAtom.set(mode === 'locked')
 }
 
 export function viewerSendEvent(
@@ -684,7 +685,7 @@ export function viewerCbsStart(): void {
   styleCbs.mode.add(reflectMode)
   styleCbs.zoom.add((zoom: Readonly<ZoomInfo>) => {
     // q !== null => zoom start
-    wheeleventmask = zoom.q !== null
+    wheeleventmaskAtom.set(zoom.q !== null)
   })
 
   actionCbs.reset.add(() => viewerSend({ type: 'HOME' }))

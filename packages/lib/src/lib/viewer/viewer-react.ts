@@ -2,10 +2,18 @@ import { notifyScroll } from '../event-scroll'
 import { busyScroll } from './scroll/scroll'
 import { touchLock } from './touch/touch-xstate'
 import { viewerMode } from './viewer-mode'
-import { clickeventmask, viewerSend, viewerSendEvent } from './viewer-xstate'
+import {
+  clickeventmaskAtom,
+  viewerSend,
+  viewerSendEvent,
+} from './viewer-xstate'
 
 export function sendClick(ev: React.MouseEvent<HTMLDivElement>): void {
-  if (clickeventmask || viewerMode.get() !== 'panning' || touchLock.get()) {
+  if (
+    clickeventmaskAtom.get() ||
+    viewerMode.get() !== 'panning' ||
+    touchLock.get()
+  ) {
     return
   }
   viewerSend({ type: 'SEARCH', pos: { x: ev.pageX, y: ev.pageY } })

@@ -9,7 +9,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App'
 import { keyboardSend } from './lib/viewer/input/keyboard-xstate'
 import { touchingAtom } from './lib/viewer/touch/touch-xstate'
-import { wheeleventmask } from './lib/viewer/viewer-xstate'
+import { wheeleventmaskAtom } from './lib/viewer/viewer-xstate'
 import { type SvgMapViewerConfig } from './types'
 
 export function root(config: Readonly<SvgMapViewerConfig>): void {
@@ -28,7 +28,7 @@ export function root(config: Readonly<SvgMapViewerConfig>): void {
     if (ev.target instanceof HTMLDivElement && ev.target?.id === 'ui') {
       return
     }
-    if ((c !== null && c.clientWidth === c.scrollWidth) || wheeleventmask) {
+    if ((c !== null && c.clientWidth === c.scrollWidth) || wheeleventmaskAtom) {
       ev.preventDefault()
     }
   }
@@ -46,7 +46,7 @@ export function root(config: Readonly<SvgMapViewerConfig>): void {
   */
   // XXX prevent touch move during multi-touch
   e.ontouchmove = function (ev) {
-    if (wheeleventmask) {
+    if (wheeleventmaskAtom.get()) {
       if (ev.target instanceof HTMLDivElement && ev.target?.id === 'ui') {
         return
       }

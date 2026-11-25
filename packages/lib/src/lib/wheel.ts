@@ -13,7 +13,7 @@
 
 import { useEffect, type RefObject } from 'react'
 
-import { wheeleventmask } from './viewer/viewer-xstate'
+import { wheeleventmaskAtom } from './viewer/viewer-xstate'
 
 export function useOnWheel(
   ref: Readonly<RefObject<HTMLDivElement | null>>
@@ -33,7 +33,7 @@ export function useOnWheel(
 function onwheel(ev: Readonly<WheelEvent | React.WheelEvent>): void {
   const e = ev.currentTarget
   if (
-    wheeleventmask &&
+    wheeleventmaskAtom &&
     e instanceof HTMLDivElement &&
     e.scrollWidth === e.clientWidth &&
     e.scrollHeight === e.clientHeight
